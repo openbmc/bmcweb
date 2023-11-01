@@ -16,6 +16,24 @@
       "message": "Did this because of clang-tidy? \ni still see this in the clang-tidy run. What am I missing?\n\n/data0/jenkins/workspace/ci-repository/openbmc/bmcweb/redfish-core/lib/metric_report_definition.hpp:1043:17: note: Calling constructor for \u0027function\u003cvoid (boost::beast::http::status, const std::map\u003cstd::basic_string\u003cchar\u003e, std::basic_string\u003cchar\u003e\u003e \u0026)\u003e\u0027\n 1043 |                 [asyncResp, updateMetricsReq](\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n 1044 |                     const boost::beast::http::status status,\n      |                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n 1045 |                     const std::map\u003cstd::string, std::string\u003e\u0026 uriToDbus) {\n      |                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n 1046 |                 if (status !\u003d boost::beast::http::status::ok)\n      |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n 1047 |                 {\n      |                 ~\n 1048 |                     BMCWEB_LOG_ERROR(\n      |                     ~~~~~~~~~~~~~~~~~\n 1049 |                         \"Failed to retrieve URI to dbus sensors map with err {}\",\n      |                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n 1050 |                         static_cast\u003cunsigned\u003e(status));\n      |                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n 1051 |                     return;\n      |                     ~~~~~~~\n 1052 |                 }\n      |                 ~\n 1053 |                 updateMetricsReq-\u003einsert(uriToDbus);\n      |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n 1054 |             });\n      |             ~",
       "revId": "8d9df1f73b9ad38fcdd5b6975078787cb4c036bb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62f18fc1_96e79114",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-01T21:10:45Z",
+      "side": 1,
+      "message": "It\u0027s further down.  This call stack was for sure in the tidy error prior to this.  Not clear this is what fixed it, but I was cleaning up as I\u0027m going to try to find the memory leak.",
+      "parentUuid": "ed9e3255_fe0c1ad0",
+      "revId": "8d9df1f73b9ad38fcdd5b6975078787cb4c036bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
