@@ -195,6 +195,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcf8258a_647b50f3",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-01T18:46:23Z",
+      "side": 1,
+      "message": "it would help significantly if you could post your example to gerrit as a patch on top on this one, and not to godbolt.  That way we can make sure it compiles, and CI will run, and we\u0027re not missing some static analysis reason why the code wouldn\u0027t work.  posting to godbolt means that that it\u0027s more effort to go review.",
+      "parentUuid": "86164740_b044d0f9",
+      "revId": "b17f7a1256db439b9c7a69de55499c8b4390c335",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6174628d_56b2c724",
