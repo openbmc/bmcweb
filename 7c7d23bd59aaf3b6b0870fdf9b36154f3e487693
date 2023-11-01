@@ -46,6 +46,30 @@
       },
       "revId": "7c7d23bd59aaf3b6b0870fdf9b36154f3e487693",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04fc1caa_f3a570ff",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-11-01T19:04:04Z",
+      "side": 1,
+      "message": "We do both checks\n\nValidate Power Supply:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/42221/31/redfish-core/lib/power_supply.hpp#159\n\nCheck LED Group path via the association at:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/42221/33/redfish-core/lib/led.hpp#332",
+      "parentUuid": "acadcd6a_cee5d8cb",
+      "range": {
+        "startLine": 607,
+        "startChar": 32,
+        "endLine": 607,
+        "endChar": 51
+      },
+      "revId": "7c7d23bd59aaf3b6b0870fdf9b36154f3e487693",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
