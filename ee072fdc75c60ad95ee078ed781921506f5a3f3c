@@ -212,6 +212,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "202efd6d_0bee43b7",
+        "filename": "http/mutual_tls.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1001910
+      },
+      "writtenOn": "2023-11-01T13:52:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb4ed4cd_9465261b",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 165,
+        "endChar": 59
+      },
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c7e10a52_49b82f32",
@@ -432,6 +456,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ef6a7a7d_1e11a133",
+        "filename": "http/mutual_tls_meta.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001910
+      },
+      "writtenOn": "2023-11-01T13:52:53Z",
+      "side": 1,
+      "message": "\u003e In this code, they\u0027re treated essentially the same.\n\nThat\u0027s the intention, the idea is to leverage a BMC user as a natural way to map an external identity (a person, a service, or a host) to a set of permissions.\n\nI agree the term \"service\" is a bit confusing here. At Meta, that\u0027s generally understood as a containerised cloud service (that has a `svc:\u003cservice_name\u003e` identity/cert that\u0027s used to interact with other services), and unlike e.g. a linux \"service user\" to set permissions to daemon processes (though with the same intent of restricting permissions to a \"service\").",
+      "parentUuid": "8b5d0f54_a1a9da0b",
+      "range": {
+        "startLine": 40,
+        "startChar": 42,
+        "endLine": 40,
+        "endChar": 57
+      },
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "37928848_a29b747b",
         "filename": "http/mutual_tls_meta.hpp",
         "patchSetId": 3
@@ -443,6 +491,30 @@
       "writtenOn": "2023-10-31T21:58:38Z",
       "side": 1,
       "message": "nit, probably want warning here or error here.  If the intermediate is signing bad requests, something has gone very... very wrong.",
+      "range": {
+        "startLine": 51,
+        "startChar": 8,
+        "endLine": 51,
+        "endChar": 24
+      },
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36fea8b6_965a3bed",
+        "filename": "http/mutual_tls_meta.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1001910
+      },
+      "writtenOn": "2023-11-01T13:52:53Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "37928848_a29b747b",
       "range": {
         "startLine": 51,
         "startChar": 8,
@@ -466,6 +538,30 @@
       "writtenOn": "2023-10-31T21:58:38Z",
       "side": 1,
       "message": "Can we avoid using an in-out parameter here?  The input and the output represent different things.  Putting them in one variable is confusing.",
+      "range": {
+        "startLine": 55,
+        "startChar": 4,
+        "endLine": 55,
+        "endChar": 11
+      },
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a1e4b6d_155b544a",
+        "filename": "http/mutual_tls_meta.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001910
+      },
+      "writtenOn": "2023-11-01T13:52:53Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9240d565_b902283b",
       "range": {
         "startLine": 55,
         "startChar": 4,
@@ -560,6 +656,30 @@
       "writtenOn": "2023-10-31T21:16:38Z",
       "side": 1,
       "message": "We intentionally run all unit tests with all options enabled.   Unit tests by definition shouldn\u0027t care what the config options are, unless they effect the actual output, in which case they should only be switching between the two behaviors in tests.",
+      "range": {
+        "startLine": 448,
+        "startChar": 0,
+        "endLine": 450,
+        "endChar": 5
+      },
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d17fd7fb_a3683488",
+        "filename": "meson.build",
+        "patchSetId": 3
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1001910
+      },
+      "writtenOn": "2023-11-01T13:52:53Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1c08b030_eb5f3ca6",
       "range": {
         "startLine": 448,
         "startChar": 0,
