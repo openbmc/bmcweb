@@ -22,6 +22,30 @@
       },
       "revId": "d8d557ea7f883f5dc4b5b4b9bacc209d7cb2df47",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbeab7cd_f2321594",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 52
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-11-02T07:11:00Z",
+      "side": 1,
+      "message": "changed the commit message for the current scope of this patch set",
+      "parentUuid": "a071082f_8cf478dd",
+      "range": {
+        "startLine": 7,
+        "startChar": 41,
+        "endLine": 7,
+        "endChar": 48
+      },
+      "revId": "d8d557ea7f883f5dc4b5b4b9bacc209d7cb2df47",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
