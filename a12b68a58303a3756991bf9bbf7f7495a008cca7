@@ -63,6 +63,30 @@
       },
       "revId": "a12b68a58303a3756991bf9bbf7f7495a008cca7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dee0e4c1_2b548b76",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2763,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-03T17:10:05Z",
+      "side": 1,
+      "message": "Actually, thinking about it more, the lambda callback is constructed each loop, so moving it shouldn\u0027t matter.  So long as we\u0027re not moving any captures into it, I think we\u0027re ok?",
+      "parentUuid": "6351045c_6317f0f7",
+      "range": {
+        "startLine": 2763,
+        "startChar": 0,
+        "endLine": 2763,
+        "endChar": 73
+      },
+      "revId": "a12b68a58303a3756991bf9bbf7f7495a008cca7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
