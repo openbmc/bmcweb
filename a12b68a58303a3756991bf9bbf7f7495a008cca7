@@ -16,6 +16,29 @@
       "message": "It seems good",
       "revId": "a12b68a58303a3756991bf9bbf7f7495a008cca7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4b2c579_cb9c6ce3",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2763,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-11-03T16:54:13Z",
+      "side": 1,
+      "message": "On second thought, instead of using `std::move()` on callback, or making/using template and `std::forward\u003cCallback\u003e()`, can it be done using the simple lambda capture as value like this?\n\n```\n    auto callback \u003d [asyncResp, mapCompleteCb{std::move(mapComplete)}](\n--\u003e\n    auto callback \u003d [asyncResp, mapCompleteCb{mapComplete}](\n```\n\n----\n\nThe caller `setReportMetrics()` is calling `retrieveUriToDbusMap()` in a loop. As the result, lambda-callback may be moved on the first loop and it may be invalidated on the second loop?\n\n```\nsetReportMetrics()\n{\n...\n        for (const auto\u0026 [chassis, sensorType] : chassisSensors)\n        {\n            retrieveUriToDbusMap(\n                chassis, sensorType,\n                \u003clambda-func\u003e);\n                \n```",
+      "range": {
+        "startLine": 2763,
+        "startChar": 0,
+        "endLine": 2763,
+        "endChar": 73
+      },
+      "revId": "a12b68a58303a3756991bf9bbf7f7495a008cca7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
