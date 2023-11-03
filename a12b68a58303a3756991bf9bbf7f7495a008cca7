@@ -87,6 +87,30 @@
       },
       "revId": "a12b68a58303a3756991bf9bbf7f7495a008cca7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e93c685a_a0955306",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2763,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-11-03T18:39:47Z",
+      "side": 1,
+      "message": "I think so in general.\nHowever, I\u0027m not sure how the compiler generates the code and how async_call (deep inside `retrieveUriToDbusMap()`) may be being played-out?\n\nWhat if it is captured by reference like this?\n```\n--- a/redfish-core/lib/sensors.hpp\n+++ b/redfish-core/lib/sensors.hpp\n@@ -2757,10 +2757,10 @@ inline void retrieveUriToDbusMap(const std::string\u0026 chassis,\n     }\n     \n     auto asyncResp \u003d std::make_shared\u003cbmcweb::AsyncResp\u003e();\n-    auto callback \u003d [asyncResp, mapCompleteCb{std::move(mapComplete)}](\n+    auto callback \u003d [asyncResp, \u0026mapComplete](\n                         const boost::beast::http::status status,\n                         const std::map\u003cstd::string, std::string\u003e\u0026 uriToDbus) {\n-        mapCompleteCb(status, uriToDbus);\n+        mapComplete(status, uriToDbus);\n     };\n\n```",
+      "parentUuid": "dee0e4c1_2b548b76",
+      "range": {
+        "startLine": 2763,
+        "startChar": 0,
+        "endLine": 2763,
+        "endChar": 73
+      },
+      "revId": "a12b68a58303a3756991bf9bbf7f7495a008cca7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
