@@ -51,6 +51,59 @@ inline void getPortLocation(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     });
 }
 
+inline void getPortState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const std::string& serviceName,
+                         const std::string& portPath)
+{
+    sdbusplus::asio::getProperty<bool>(
+        *crow::connections::systemBus, serviceName, portPath,
+        "xyz.openbmc_project.Inventory.Item", "Present",
+        [asyncResp](const boost::system::error_code& ec, const bool present) {
+        if (ec)
+        {
+            if (ec.value() != EBADR)
+            {
+                BMCWEB_LOG_ERROR("DBUS response error for State, ec {}",
+                                 ec.value());
+                messages::internalError(asyncResp->res);
+            }
+            return;
+        }
+
+        if (!present)
+        {
+            asyncResp->res.jsonValue["Status"]["State"] = "Absent";
+        }
+    });
+}
+
+inline void getPortHealth(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const std::string& serviceName,
+                          const std::string& portPath)
+{
+    sdbusplus::asio::getProperty<bool>(
+        *crow::connections::systemBus, serviceName, portPath,
+        "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
+        [asyncResp](const boost::system::error_code& ec,
+                    const bool functional) {
+        if (ec)
+        {
+            if (ec.value() != EBADR)
+            {
+                BMCWEB_LOG_ERROR("DBUS response error for Health, ec {}",
+                                 ec.value());
+                messages::internalError(asyncResp->res);
+            }
+            return;
+        }
+
+        if (!functional)
+        {
+            asyncResp->res.jsonValue["Status"]["Health"] = "Critical";
+        }
+    });
+}
+
 inline void
     getPortProperties(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       const std::string& systemName,
@@ -68,7 +121,12 @@ inline void
                             systemName, adapterId, portId);
     asyncResp->res.jsonValue["Id"] = portId;
     asyncResp->res.jsonValue["Name"] = portId;
+
+    asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
+    asyncResp->res.jsonValue["Status"]["Health"] = "OK";
     getPortLocation(asyncResp, serviceName, portPath);
+    getPortState(asyncResp, serviceName, portPath);
+    getPortHealth(asyncResp, serviceName, portPath);
 }
 
 inline void getValidPortPath(
