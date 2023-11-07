@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9d2636b_2f3a7220",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-11-07T17:39:35Z",
+      "side": 1,
+      "message": "These are the defaults, which we do in other inventory items. Ack.",
+      "revId": "948910eaf238b3bbf06fad9ae25a678082218435",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
