@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a488eb45_246b4b3e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 57
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-11-07T17:41:40Z",
+      "side": 1,
+      "message": "I added the backend commits\n\n----\n The backend port examples are also committed via\n    - https://gerrit.openbmc.org/c/openbmc/openpower-vpd-parser/+/66540\n    - https://gerrit.openbmc.org/c/openbmc/openbmc/+/66541",
+      "revId": "bf226315b522ad67eaa3ba369f1156bf91ed85a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
