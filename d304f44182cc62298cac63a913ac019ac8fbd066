@@ -16,6 +16,24 @@
       "message": "pass ec by reference.",
       "revId": "d304f44182cc62298cac63a913ac019ac8fbd066",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49e9d020_ceec4a2c",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-11-07T17:29:38Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "aad8da41_6a803df7",
+      "revId": "d304f44182cc62298cac63a913ac019ac8fbd066",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
