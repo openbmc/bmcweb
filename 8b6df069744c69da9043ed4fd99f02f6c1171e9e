@@ -16,6 +16,24 @@
       "message": "ERROR here",
       "revId": "8b6df069744c69da9043ed4fd99f02f6c1171e9e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bb1add5_e4be8736",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-11-07T17:46:04Z",
+      "side": 1,
+      "message": "Corrected.",
+      "parentUuid": "c41c16ff_8be811e5",
+      "revId": "8b6df069744c69da9043ed4fd99f02f6c1171e9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
