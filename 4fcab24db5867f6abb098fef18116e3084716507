@@ -46,6 +46,30 @@
       },
       "revId": "4fcab24db5867f6abb098fef18116e3084716507",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "defa6120_38bdc49d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 64
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-11-07T05:58:51Z",
+      "side": 1,
+      "message": "Do we have any open items stopping this commit from merging",
+      "parentUuid": "4f6a6dbc_be368a27",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 10
+      },
+      "revId": "4fcab24db5867f6abb098fef18116e3084716507",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
