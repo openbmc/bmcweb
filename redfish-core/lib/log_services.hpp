@@ -3063,7 +3063,7 @@ inline void requestRoutesBMCDumpEntryDownload(App& app)
 {
     BMCWEB_ROUTE(
         app,
-        "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/<str>/attachment")
+        "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/<str>/attachment/")
         .privileges(redfish::privileges::getLogEntry)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleLogServicesDumpEntryDownloadGet, std::ref(app), "BMC"));
@@ -3094,7 +3094,7 @@ inline void requestRoutesDBusEventLogEntryDownload(App& app)
 {
     BMCWEB_ROUTE(
         app,
-        "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/<str>/attachment")
+        "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/<str>/attachment/")
         .privileges(redfish::privileges::getLogEntry)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleDBusEventLogEntryDownloadGet, std::ref(app), "System"));
