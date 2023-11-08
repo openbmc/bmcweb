@@ -33,6 +33,41 @@
       "message": "Tested? Please add a Tested: section https://github.com/openbmc/docs/blob/5ae481581052b996966ef4c3df18afb12b1fbda8/CONTRIBUTING.md?plain\u003d1#L258",
       "revId": "1f89ce1f3aa4939b3926b4092020bbc71ae80281",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81854d91_5d1d8505",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 66
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-11-08T17:59:09Z",
+      "side": 1,
+      "message": "You added some unit tests, which is great, that can be included here but a sanity test would also be helpful",
+      "parentUuid": "3a6a0e21_1e7dcfe7",
+      "revId": "1f89ce1f3aa4939b3926b4092020bbc71ae80281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4b95755_06afee0f",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 66
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-11-08T17:59:09Z",
+      "side": 1,
+      "message": "#include \u003cutility\u003e for std::move",
+      "revId": "1f89ce1f3aa4939b3926b4092020bbc71ae80281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
