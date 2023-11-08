@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bba0f10f_a50c4dc9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 66
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-11-08T17:47:34Z",
+      "side": 1,
+      "message": "Please follow https://cbea.ms/git-commit/ and wrap the body at 72 chars \n\n    Separate subject from body with a blank line\n    Limit the subject line to 50 characters\n    Capitalize the subject line\n    Do not end the subject line with a period\n    Use the imperative mood in the subject line\n    Wrap the body at 72 characters\n    Use the body to explain what and why vs. how",
+      "revId": "1f89ce1f3aa4939b3926b4092020bbc71ae80281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a6a0e21_1e7dcfe7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 66
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-11-08T17:47:34Z",
+      "side": 1,
+      "message": "Tested? Please add a Tested: section https://github.com/openbmc/docs/blob/5ae481581052b996966ef4c3df18afb12b1fbda8/CONTRIBUTING.md?plain\u003d1#L258",
+      "revId": "1f89ce1f3aa4939b3926b4092020bbc71ae80281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
