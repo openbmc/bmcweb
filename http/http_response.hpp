@@ -1,8 +1,8 @@
 #pragma once
+#include "http_file_body.hpp"
 #include "logging.hpp"
 #include "utils/hex_utils.hpp"
 
-#include <boost/beast/http/file_body.hpp>
 #include <boost/beast/http/message.hpp>
 #include <boost/beast/http/message_generator.hpp>
 #include <boost/beast/http/string_body.hpp>
@@ -27,7 +27,7 @@ struct Response
     friend class crow::Connection;
 
     using string_response = http::response<http::string_body>;
-    using file_response = http::response<http::file_body>;
+    using file_response = http::response<bmcweb::FileBody>;
 
     // Use boost variant2 because it doesn't have valueless by exception
     boost::variant2::variant<string_response, file_response> response;
@@ -356,25 +356,45 @@ struct Response
             response);
     }
 
-    bool openFile(const std::filesystem::path& path)
+    bool openFile(const std::filesystem::path& path,
+                  bmcweb::EncodingType enc = bmcweb::EncodingType::Raw)
     {
-        http::file_body::value_type file;
+        file_response::body_type::value_type body(enc);
         boost::beast::error_code ec;
-        file.open(path.c_str(), boost::beast::file_mode::read, ec);
+        body.open(path.c_str(), boost::beast::file_mode::read, ec);
         if (ec)
         {
             return false;
         }
+        updateFileBody(std::move(body));
+        return true;
+    }
+
+    bool openFd(int fd, bmcweb::EncodingType enc = bmcweb::EncodingType::Raw)
+    {
+        file_response::body_type::value_type body(enc);
+        boost::beast::error_code ec;
+        body.setFd(fd, ec);
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR("Failed to set fd");
+            return false;
+        }
+        updateFileBody(std::move(body));
+        return true;
+    }
+
+  private:
+    void updateFileBody(file_response::body_type::value_type file)
+    {
         // store the headers on stack temporarily so we can reconstruct the new
         // base with the old headers copied in.
         http::header<false> headTemp = std::move(fields());
         file_response& fileResponse =
             response.emplace<file_response>(std::move(headTemp));
         fileResponse.body() = std::move(file);
-        return true;
     }
 
-  private:
     std::optional<std::string> expectedHash;
     bool completed = false;
     std::function<void(Response&)> completeRequestHandler;
