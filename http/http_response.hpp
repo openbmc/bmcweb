@@ -1,4 +1,5 @@
 #pragma once
+#include "http_base64_file_body.hpp"
 #include "logging.hpp"
 #include "utils/hex_utils.hpp"
 
@@ -28,9 +29,12 @@ struct Response
 
     using string_response = http::response<http::string_body>;
     using file_response = http::response<http::file_body>;
+    using base64file_response = http::response<bmcweb::Base64FileBody>;
 
     // Use boost variant2 because it doesn't have valueless by exception
-    boost::variant2::variant<string_response, file_response> response;
+    boost::variant2::variant<string_response, file_response,
+                             base64file_response>
+        response;
 
     nlohmann::json jsonValue;
     using fields_type = http::header<false, http::fields>;
@@ -355,23 +359,53 @@ struct Response
 
     bool openFile(const std::filesystem::path& path)
     {
-        http::file_body::value_type file;
+        return openFileImpl<file_response>(path);
+    }
+    bool openBase64File(const std::filesystem::path& path)
+    {
+        return openFileImpl<base64file_response>(path);
+    }
+    bool openFile(int fd)
+    {
+        return openFileImpl<file_response>(fd);
+    }
+    bool openBase64File(int fd)
+    {
+        return openFileImpl<base64file_response>(fd);
+    }
+
+  private:
+    template <typename resptype>
+    void updateFileBody(typename resptype::body_type::value_type file)
+    {
+        // store the headers on stack temporarily so we can reconstruct the new
+        // base with the old headers copied in.
+        http::header<false> headTemp = std::move(fields());
+        resptype& fileResponse =
+            response.emplace<resptype>(std::move(headTemp));
+        fileResponse.body() = std::move(file);
+    }
+    template <typename resptype>
+    bool openFileImpl(const std::filesystem::path& path)
+    {
+        typename resptype::body_type::value_type file;
         boost::beast::error_code ec;
         file.open(path.c_str(), boost::beast::file_mode::read, ec);
         if (ec)
         {
             return false;
         }
-        // store the headers on stack temporarily so we can reconstruct the new
-        // base with the old headers copied in.
-        http::header<false> headTemp = std::move(fields());
-        file_response& fileResponse =
-            response.emplace<file_response>(std::move(headTemp));
-        fileResponse.body() = std::move(file);
+        updateFileBody<resptype>(std::move(file));
         return true;
     }
-
-  private:
+    template <typename resptype>
+    bool openFileImpl(int fd)
+    {
+        typename resptype::body_type::value_type body;
+        body.file().native_handle(fd);
+        updateFileBody<resptype>(std::move(body));
+        return true;
+    }
     std::optional<std::string> expectedHash;
     bool completed = false;
     std::function<void(Response&)> completeRequestHandler;
