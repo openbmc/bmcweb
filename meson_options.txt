@@ -94,7 +94,7 @@ option(
 option(
     'redfish-dump-log',
     type: 'feature',
-    value: 'disabled',
+    value: 'enabled',
     description: '''Enable Dump log service transactions through Redfish. Paths
                    are under /redfish/v1/Systems/system/LogServices/Dump
                    and /redfish/v1/Managers/bmc/LogServices/Dump'''
@@ -140,7 +140,7 @@ option(
     'bmcweb-logging',
     type: 'combo',
     choices : [ 'disabled', 'enabled', 'debug', 'info', 'warning', 'error', 'critical' ],
-    value: 'disabled',
+    value: 'enabled',
     description: '''Enable output the extended logging level.
                     - disabled: disable bmcweb log traces.
                     - enabled: treated as 'debug'
