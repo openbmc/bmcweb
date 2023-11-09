@@ -1591,10 +1591,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                 {
                     for (const auto& property : output)
                     {
-                        sdbusplus::asio::setProperty(
-                            *crow::connections::systemBus,
-                            "xyz.openbmc_project.EntityManager", path, iface,
-                            property.first, property.second,
+                        crow::connections::systemBus->async_method_call(
                             [response,
                              propertyName{std::string(property.first)}](
                                 const boost::system::error_code& ec) {
@@ -1606,7 +1603,10 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                                 return;
                             }
                             messages::success(response->res);
-                        });
+                            },
+                            "xyz.openbmc_project.EntityManager", path,
+                            "org.freedesktop.DBus.Properties", "Set", iface,
+                            property.first, property.second);
                     }
                 }
                 else
