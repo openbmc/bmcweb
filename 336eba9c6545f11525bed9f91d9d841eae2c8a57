@@ -68,6 +68,24 @@
       "parentUuid": "6ce03bed_9c33d9c4",
       "revId": "336eba9c6545f11525bed9f91d9d841eae2c8a57",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96c7e063_bd8b3b92",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-11-09T19:00:38Z",
+      "side": 1,
+      "message": "Thanks for finding this.\nFixed.",
+      "parentUuid": "a0880e24_e6d41e6e",
+      "revId": "336eba9c6545f11525bed9f91d9d841eae2c8a57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
