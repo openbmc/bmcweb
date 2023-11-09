@@ -736,59 +736,24 @@ inline void
         messages::internalError(asyncResp->res);
         return;
     }
-
-    long long int size = lseek(fd, 0, SEEK_END);
-    if (size <= 0)
-    {
-        BMCWEB_LOG_ERROR("Failed to get size of file, lseek() returned {}",
-                         size);
-        messages::internalError(asyncResp->res);
-        close(fd);
-        return;
-    }
-
-    // Arbitrary max size of 20MB to accommodate BMC dumps
-    constexpr int maxFileSize = 20 * 1024 * 1024;
-    if (size > maxFileSize)
-    {
-        BMCWEB_LOG_ERROR("File size {} exceeds maximum allowed size of {}",
-                         size, maxFileSize);
-        messages::internalError(asyncResp->res);
-        close(fd);
-        return;
-    }
-    long long int rc = lseek(fd, 0, SEEK_SET);
-    if (rc < 0)
-    {
-        BMCWEB_LOG_ERROR("Failed to reset file offset to 0");
-        messages::internalError(asyncResp->res);
-        close(fd);
-        return;
-    }
-
-    std::string body;
-    body.resize(static_cast<size_t>(size), '\0');
-    rc = read(fd, body.data(), body.size());
-    if ((rc == -1) || (rc != size))
-    {
-        BMCWEB_LOG_ERROR("Failed to read in file");
-        messages::internalError(asyncResp->res);
-        close(fd);
-        return;
-    }
-    close(fd);
     if (downloadEntryType == "System")
     {
-        // Base64 encode response.
-        asyncResp->res.write(crow::utility::base64encode(body));
+        if (!asyncResp->res.openFile<crow::Response::base64file_response>(fd))
+        {
+            messages::internalError(asyncResp->res);
+            close(fd);
+            return;
+        }
         asyncResp->res.addHeader(
             boost::beast::http::field::content_transfer_encoding, "Base64");
+        return;
     }
-    else
+    if (!asyncResp->res.openFile(fd))
     {
-        asyncResp->res.write(std::move(body));
+        messages::internalError(asyncResp->res);
+        close(fd);
+        return;
     }
-
     asyncResp->res.addHeader(boost::beast::http::field::content_type,
                              "application/octet-stream");
 }
