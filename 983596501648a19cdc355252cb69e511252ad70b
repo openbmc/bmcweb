@@ -50,6 +50,24 @@
       "message": "Should this be using the current version of the schema since this is the first time we are supporting this one?\n\n(#Port.v1_10_0.Port is what we have in Port.json)",
       "revId": "983596501648a19cdc355252cb69e511252ad70b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a97700d6_199a3a4b",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 58
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-11-09T18:59:35Z",
+      "side": 1,
+      "message": "As this commit does not implement the new attributes for v1_8_0 or higher, it is not necessary to set the currently highest Port schema version (e.g. v1_10_0).\n\nWhen we need to implement the features in the higher schema versions, the version would need to be increased.",
+      "parentUuid": "06681fff_66c4ef17",
+      "revId": "983596501648a19cdc355252cb69e511252ad70b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
