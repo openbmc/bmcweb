@@ -231,6 +231,12 @@ class Base64Encoder
         // With a possibility of 2 trailing = characters
         return (inputSize + 2) / 3 * 4;
     }
+    static unsigned int constexpr encodedSize(unsigned int inputSize)
+    {
+        // Base64 encodes 3 character blocks as 4 character blocks
+        // With a possibility of 2 trailing = characters
+        return (inputSize + 2) / 3 * 4;
+    }
 };
 
 inline std::string base64encode(std::string_view data)
