@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b653cab_02da6633",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-11-10T16:32:11Z",
+      "side": 1,
+      "message": "This is removing support for enclosure_identify_blink, which we (IBM) don\u0027t need. \n\nIt was added by James at Intel, so if you or no one else needs it, I am okay removing but please call that out.\n\nhttps://github.com/openbmc/bmcweb/commit/1c8fba97b1feb4164e9b54cd66aad530bbfc1826",
+      "revId": "44ce74f454ee23e6de4ef07e48130937c9556e2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc6a2d1a_f6af9b22",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-11-10T16:32:11Z",
+      "side": 1,
+      "message": "I am good with this but the commit msg could use some work",
+      "revId": "44ce74f454ee23e6de4ef07e48130937c9556e2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
