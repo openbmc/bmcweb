@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf947154_48a62c09",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 68
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-11-10T04:19:03Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e2159712_dd1806d5",
+      "range": {
+        "startLine": 21,
+        "startChar": 14,
+        "endLine": 21,
+        "endChar": 22
+      },
+      "revId": "dde31971fbd9f62246c0af2d9310080520c59057",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b7545e6a_749c8e40",
@@ -37,6 +61,24 @@
       "writtenOn": "2023-11-09T20:12:57Z",
       "side": 1,
       "message": "Why is this commented out? Either remove it or uncomment it?",
+      "revId": "dde31971fbd9f62246c0af2d9310080520c59057",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "551e8e94_a62b5c11",
+        "filename": "test/http/http_response_test.cpp",
+        "patchSetId": 68
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-11-10T04:19:03Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b7545e6a_749c8e40",
       "revId": "dde31971fbd9f62246c0af2d9310080520c59057",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
