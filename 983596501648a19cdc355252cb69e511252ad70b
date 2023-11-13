@@ -68,6 +68,24 @@
       "parentUuid": "06681fff_66c4ef17",
       "revId": "983596501648a19cdc355252cb69e511252ad70b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "556082f2_796ecfe8",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 58
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-11-13T20:33:35Z",
+      "side": 1,
+      "message": "Redfish told use the latest version you need, not necessary the latest version. This gives the client some clues of what you support (chassis and powersubsystem/thermalsubsystem was their example). \n\nI think this 1_7_0 fits best with our existing versions. Our versions are a mess and \nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/54030 moves to generating them. One side effect of 54030 is, it will move us to the latest versions of each resource.",
+      "parentUuid": "06681fff_66c4ef17",
+      "revId": "983596501648a19cdc355252cb69e511252ad70b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
