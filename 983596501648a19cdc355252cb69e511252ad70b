@@ -52,6 +52,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b4132e8_2281a31a",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 58
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-11-13T20:51:47Z",
+      "side": 1,
+      "message": "I guess it should have been there anyway because of if constexpr (bmcwebEnableMultiHost)",
+      "parentUuid": "36f18e73_ee9d392b",
+      "revId": "983596501648a19cdc355252cb69e511252ad70b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "06681fff_66c4ef17",
