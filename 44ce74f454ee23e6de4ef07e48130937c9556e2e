@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3041b24c_7ff34f82",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2023-11-13T14:55:46Z",
+      "side": 1,
+      "message": "\u003e Ack\nThanks for pointing this. Reverted this change.",
+      "parentUuid": "ac2a44c0_778ad06b",
+      "revId": "44ce74f454ee23e6de4ef07e48130937c9556e2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cc6a2d1a_f6af9b22",
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "cc6a2d1a_f6af9b22",
+      "revId": "44ce74f454ee23e6de4ef07e48130937c9556e2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bafcf3df_ed435fd9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2023-11-13T14:55:46Z",
+      "side": 1,
+      "message": "Thanks Gunnar. Yes I think this required for other purpose. So reverted. Thanks.",
+      "parentUuid": "57c7030d_e91d54a7",
       "revId": "44ce74f454ee23e6de4ef07e48130937c9556e2e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
