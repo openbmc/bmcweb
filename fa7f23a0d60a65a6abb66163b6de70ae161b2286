@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef498cb4_1c84db09",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-11-14T16:50:08Z",
+      "side": 1,
+      "message": "Can you call out the associations you are using to make this work?",
+      "revId": "fa7f23a0d60a65a6abb66163b6de70ae161b2286",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df4d8e2f_da1582eb",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-11-14T16:50:08Z",
+      "side": 1,
+      "message": "Why do you need the ret? \nDo just: \n\"return true;\"",
+      "revId": "fa7f23a0d60a65a6abb66163b6de70ae161b2286",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b24b65f_b6f7d40e",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-11-14T16:50:08Z",
+      "side": 1,
+      "message": "Can you \"return false\" ?",
+      "revId": "fa7f23a0d60a65a6abb66163b6de70ae161b2286",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

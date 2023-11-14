@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c569043e_6b9eba1f",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-11-14T16:50:08Z",
+      "side": 1,
+      "message": "Hi, rule 12 \nhttps://github.com/openbmc/bmcweb/blob/master/COMMON_ERRORS.md#12-imprecise-matching\n\nUse sdbusplus::message::object_path instead",
+      "parentUuid": "46aed46d_02253e63",
+      "range": {
+        "startLine": 23,
+        "startChar": 23,
+        "endLine": 23,
+        "endChar": 34
+      },
+      "revId": "111275a047053fcf66e9a9689fd57c188f6ae7c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "88a7da1f_eda53b70",
         "filename": "redfish-core/lib/thermal_metrics.hpp",
         "patchSetId": 2
@@ -231,6 +255,30 @@
       "side": 1,
       "message": "\u003e This should only be looking under the appropriate type in the object path.\n\nyou mean: /xyz/openbmc_project/sensors/fan_tach \u0026 /xyz/openbmc_project/sensors/temperature \u0026 /xyz/openbmc_project/sensors/fan_pwm ？",
       "parentUuid": "0371a87c_62901c7d",
+      "range": {
+        "startLine": 91,
+        "startChar": 41,
+        "endLine": 91,
+        "endChar": 69
+      },
+      "revId": "111275a047053fcf66e9a9689fd57c188f6ae7c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d08e4ea3_a3b2e2fb",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-11-14T16:50:08Z",
+      "side": 1,
+      "message": "Yes, defined in https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Sensor/Value.interface.yaml#L13",
+      "parentUuid": "6adfefbd_2142376c",
       "range": {
         "startLine": 91,
         "startChar": 41,
