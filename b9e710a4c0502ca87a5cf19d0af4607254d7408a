@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94c0b32f_9460f039",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-11-14T03:17:03Z",
+      "side": 1,
+      "message": "Looks like https://github.com/openbmc/bmcweb/commit/168d1b1ac9dac748ea57f7038d0abebfef7462a2 had these wrong, can you mention that commit ?",
+      "revId": "b9e710a4c0502ca87a5cf19d0af4607254d7408a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
