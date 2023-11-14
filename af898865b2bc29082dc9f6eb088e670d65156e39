@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c09c301_422e27a7",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-11-14T20:54:45Z",
+      "side": 1,
+      "message": "I have never heard this called KeyName before. Oh well. \nI think a name like getCollectionItems, fillCollectionItems makes more sense \n\nLooking at https://redfish.dmtf.org/schemas/v1/PCIeSlots.v1_6_0.json (Deprecated; just an example)\n\n                \"Slots\": {\n                    \"description\": \"An array of PCI Slot information.\",\n                    \"items\": {\n                        \"$ref\": \"#/definitions/PCIeSlot\"\n                    },\n                    \"longDescription\": \"This array shall contain an entry for each PCIe slot, including empty slots (with no device or card installed).\",\n                    \"type\": \"array\"\n                }",
+      "range": {
+        "startLine": 83,
+        "startChar": 32,
+        "endLine": 83,
+        "endChar": 35
+      },
+      "revId": "af898865b2bc29082dc9f6eb088e670d65156e39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "159b5918_c543b16a",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-11-14T20:54:45Z",
+      "side": 1,
+      "message": "I think calling this something like collectionName makes more sense.",
+      "revId": "af898865b2bc29082dc9f6eb088e670d65156e39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
