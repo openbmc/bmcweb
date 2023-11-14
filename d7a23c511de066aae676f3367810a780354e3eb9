@@ -16,6 +16,24 @@
       "message": "Looks like phoshor-networkd has this correct \nhttps://github.com/openbmc/phosphor-networkd/blob/6f256bc591bec72dd1448522d941874b21145a81/src/ethernet_interface.hpp#L146 \n\nAny other implementations of this that would need fixed ?",
       "revId": "d7a23c511de066aae676f3367810a780354e3eb9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "176a80ab_17dbffe0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-11-14T16:53:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "82d14b54_ddecf09f",
+      "revId": "d7a23c511de066aae676f3367810a780354e3eb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
