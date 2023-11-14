@@ -191,6 +191,24 @@
       "parentUuid": "06681fff_66c4ef17",
       "revId": "983596501648a19cdc355252cb69e511252ad70b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f5eed74_1c850884",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 58
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-11-14T01:40:05Z",
+      "side": 1,
+      "message": "ACK.\nSo, at this time until 54030 is in place, let\u0027s leave as is.",
+      "parentUuid": "556082f2_796ecfe8",
+      "revId": "983596501648a19cdc355252cb69e511252ad70b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
