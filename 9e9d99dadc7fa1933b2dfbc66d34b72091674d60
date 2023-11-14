@@ -16,6 +16,23 @@
       "message": "It looks good to me",
       "revId": "9e9d99dadc7fa1933b2dfbc66d34b72091674d60",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9357afe4_cfe9a550",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2023-11-14T16:59:42Z",
+      "side": 1,
+      "message": "I didn\u0027t realize trailing \"/\" was required in all instances of BMCWEB_ROUTE",
+      "revId": "9e9d99dadc7fa1933b2dfbc66d34b72091674d60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
