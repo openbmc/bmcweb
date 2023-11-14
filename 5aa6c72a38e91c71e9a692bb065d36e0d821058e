@@ -177,6 +177,24 @@
       "parentUuid": "629db9d3_4b280840",
       "revId": "5aa6c72a38e91c71e9a692bb065d36e0d821058e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e08ebd6_46de0e92",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 27
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-11-14T16:18:21Z",
+      "side": 1,
+      "message": "@Lakshmi-y,\nI think - Gunnar suggests to add https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/58299 \ninto the commit message.",
+      "parentUuid": "30d0af4f_d36286fb",
+      "revId": "5aa6c72a38e91c71e9a692bb065d36e0d821058e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
