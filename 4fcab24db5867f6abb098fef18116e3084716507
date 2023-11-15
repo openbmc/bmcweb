@@ -142,6 +142,178 @@
       },
       "revId": "4fcab24db5867f6abb098fef18116e3084716507",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df7264fb_7d456e65",
+        "filename": "test/http/http_response_test.cpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-15T17:11:39Z",
+      "side": 1,
+      "message": "Doesn\u0027t look used?",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 35
+      },
+      "revId": "4fcab24db5867f6abb098fef18116e3084716507",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f9f8862_e3b1653e",
+        "filename": "test/http/http_response_test.cpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-15T17:11:39Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 17,
+        "startChar": 12,
+        "endLine": 17,
+        "endChar": 25
+      },
+      "revId": "4fcab24db5867f6abb098fef18116e3084716507",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b1f47e4_70543b09",
+        "filename": "test/http/http_response_test.cpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-15T17:11:39Z",
+      "side": 1,
+      "message": "We have lambda support, as well as bind_front. Why are we inventing our own lambda class?  This was generally done for pre c++11 code, which I\u0027m assuming this was copied from?",
+      "range": {
+        "startLine": 25,
+        "startChar": 7,
+        "endLine": 25,
+        "endChar": 13
+      },
+      "revId": "4fcab24db5867f6abb098fef18116e3084716507",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f89153c6_937ac4e6",
+        "filename": "test/http/http_response_test.cpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-15T17:11:39Z",
+      "side": 1,
+      "message": "why mutable?",
+      "range": {
+        "startLine": 28,
+        "startChar": 4,
+        "endLine": 28,
+        "endChar": 11
+      },
+      "revId": "4fcab24db5867f6abb098fef18116e3084716507",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a1cd74e_10fee4c3",
+        "filename": "test/http/http_response_test.cpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-15T17:11:39Z",
+      "side": 1,
+      "message": "This function looks duplicated out of the http connection class?",
+      "revId": "4fcab24db5867f6abb098fef18116e3084716507",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a1f64f2_f4032ec8",
+        "filename": "test/http/http_response_test.cpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-15T17:11:39Z",
+      "side": 1,
+      "message": "Please use explicit, bounded temporary files for this to avoid conflicts if two tests are run at the same time, and to ensure the files are cleaned up afterward.",
+      "range": {
+        "startLine": 122,
+        "startChar": 0,
+        "endLine": 122,
+        "endChar": 44
+      },
+      "revId": "4fcab24db5867f6abb098fef18116e3084716507",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea832d95_928496f9",
+        "filename": "test/http/http_response_test.cpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-15T17:11:39Z",
+      "side": 1,
+      "message": "Common error.",
+      "range": {
+        "startLine": 123,
+        "startChar": 14,
+        "endLine": 123,
+        "endChar": 25
+      },
+      "revId": "4fcab24db5867f6abb098fef18116e3084716507",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23dc3067_89558322",
+        "filename": "test/http/http_response_test.cpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-15T17:11:39Z",
+      "side": 1,
+      "message": "the majority of what this is testing is boost things, which really should be going into the boost test harness, not bmcweb.  We shouldn\u0027t be inventing a serialization step just to test it.  If we want to test the serialization, we can do it with HttpConnection.  The only bmcweb class I see tested here is Response, in which case, we should just be testing the response interfaces themselves.   I think the whole writeMessage path can be removed.",
+      "revId": "4fcab24db5867f6abb098fef18116e3084716507",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
