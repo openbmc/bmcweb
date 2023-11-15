@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ceaef4b8_211f3480",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-15T17:10:23Z",
+      "side": 1,
+      "message": "Please actually look at what these variables represent.  There is no such property as \"Set\" in redfish.  Also, this field doesn\u0027t represent a property.",
+      "range": {
+        "startLine": 404,
+        "startChar": 55,
+        "endLine": 404,
+        "endChar": 73
+      },
+      "revId": "670c8fe33a5d4808c36dead098fbada1fb33fd8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16b618a3_113c6cab",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-15T17:10:23Z",
+      "side": 1,
+      "message": "The patch code does a completely different lookup than the get code in the way you\u0027ve now stacked your patches.  please take a look at whether that\u0027s what you intended.",
+      "range": {
+        "startLine": 629,
+        "startChar": 0,
+        "endLine": 633,
+        "endChar": 68
+      },
+      "revId": "670c8fe33a5d4808c36dead098fbada1fb33fd8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
