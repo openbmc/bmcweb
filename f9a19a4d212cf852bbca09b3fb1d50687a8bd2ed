@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "680adc70_5dfa1219",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-15T16:56:50Z",
+      "side": 1,
+      "message": "Why is this using the service name from the other call?  This should be using the result of a getSubTree call to determine the service name.  Doing this prevents breakages when interfaces are split across daemons.",
+      "range": {
+        "startLine": 36,
+        "startChar": 39,
+        "endLine": 36,
+        "endChar": 50
+      },
+      "revId": "f9a19a4d212cf852bbca09b3fb1d50687a8bd2ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8e1a013_c8da5382",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-15T16:56:50Z",
+      "side": 1,
+      "message": "Please make this its own function.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 5
+      },
+      "revId": "f9a19a4d212cf852bbca09b3fb1d50687a8bd2ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47b7d159_af100faf",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-15T16:56:50Z",
+      "side": 1,
+      "message": "re: the above, this is returning the service name of the ITEM interface, not the location interface.",
+      "revId": "f9a19a4d212cf852bbca09b3fb1d50687a8bd2ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
