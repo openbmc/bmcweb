@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44ef2e73_dc097d06",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-15T17:00:20Z",
+      "side": 1,
+      "message": ".........  Any more details here?  You implemented two properties, but you don\u0027t specify why a user would care, or use these two properties.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 10
+      },
+      "revId": "63e4c96caa24bcffa17cbf18bdbb0b8d453af7a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d839a03a_8c9ca9be",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-15T17:00:20Z",
+      "side": 1,
+      "message": "This property is being set on both lines 102 and here.  As written, these two functions are a race if present \u003d\u003d false and functional \u003d\u003d false.  it\u0027s inconsistent which will be written.",
+      "range": {
+        "startLine": 75,
+        "startChar": 59,
+        "endLine": 75,
+        "endChar": 65
+      },
+      "revId": "63e4c96caa24bcffa17cbf18bdbb0b8d453af7a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49161914_f8522dd4",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-15T17:00:20Z",
+      "side": 1,
+      "message": "Non trivial lambda.  This is a documented anti-pattern.",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 9
+      },
+      "revId": "63e4c96caa24bcffa17cbf18bdbb0b8d453af7a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ac2229e_649973ea",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-15T17:00:20Z",
+      "side": 1,
+      "message": "Why const bool?",
+      "range": {
+        "startLine": 88,
+        "startChar": 20,
+        "endLine": 88,
+        "endChar": 25
+      },
+      "revId": "63e4c96caa24bcffa17cbf18bdbb0b8d453af7a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2470b7fe_da8450cf",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-15T17:00:20Z",
+      "side": 1,
+      "message": "Same here.  non trivial lambda",
+      "revId": "63e4c96caa24bcffa17cbf18bdbb0b8d453af7a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
