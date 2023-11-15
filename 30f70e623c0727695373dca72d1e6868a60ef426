@@ -16,6 +16,23 @@
       "message": "Looks good to me",
       "revId": "30f70e623c0727695373dca72d1e6868a60ef426",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7845fceb_ab68a4ca",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-11-15T15:05:23Z",
+      "side": 1,
+      "message": "Ideally this would use sdbusplus::unpackPropertiesNoThrow like newer code. This is just fixing an existing bug.",
+      "revId": "30f70e623c0727695373dca72d1e6868a60ef426",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
