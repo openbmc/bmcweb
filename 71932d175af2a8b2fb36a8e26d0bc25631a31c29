@@ -1,0 +1,193 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "acc4cc55_f86d72df",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 60
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-15T16:53:26Z",
+      "side": 1,
+      "message": "Documented rules haven\u0027t been followed, and no discussion of good engineering reasons why they were ignored.",
+      "revId": "71932d175af2a8b2fb36a8e26d0bc25631a31c29",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c4d9c1f_aa3cbd34",
+        "filename": "redfish-core/include/utils/port_utils.hpp",
+        "patchSetId": 60
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-15T16:53:26Z",
+      "side": 1,
+      "message": "Pass functions by \u0026\u0026 please.",
+      "range": {
+        "startLine": 20,
+        "startChar": 4,
+        "endLine": 20,
+        "endChar": 78
+      },
+      "revId": "71932d175af2a8b2fb36a8e26d0bc25631a31c29",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1c30152_55153ff4",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 60
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-15T16:53:26Z",
+      "side": 1,
+      "message": "Generally I think we would just produce an empty collection here, rather than call getPortList twice?",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 210,
+        "endChar": 5
+      },
+      "revId": "71932d175af2a8b2fb36a8e26d0bc25631a31c29",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "801efb51_fbc0df39",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 60
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-15T16:53:26Z",
+      "side": 1,
+      "message": "This is a 2 line function used in only one place.  Please just put it inline in code, and make the lamba on line 58 a real function.  This appears to have rolled out to make that lambda short enough, but doens\u0027t seem to be enough.",
+      "revId": "71932d175af2a8b2fb36a8e26d0bc25631a31c29",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a739a23_b74787a7",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 60
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-15T16:53:26Z",
+      "side": 1,
+      "message": "Checking for empty is redundant here.  Please remove.",
+      "range": {
+        "startLine": 28,
+        "startChar": 13,
+        "endLine": 28,
+        "endChar": 30
+      },
+      "revId": "71932d175af2a8b2fb36a8e26d0bc25631a31c29",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b87376a8_7306526f",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 60
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-15T16:53:26Z",
+      "side": 1,
+      "message": "Generally callbacks are not called in a loop (although there are some unforunate exceptions).  Please model this as a single callback.",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 35
+      },
+      "revId": "71932d175af2a8b2fb36a8e26d0bc25631a31c29",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b65ed061_07d474b3",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 60
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-15T16:53:26Z",
+      "side": 1,
+      "message": "Non trivial lambda.",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 67
+      },
+      "revId": "71932d175af2a8b2fb36a8e26d0bc25631a31c29",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f085a5b_38738661",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 60
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-15T16:53:26Z",
+      "side": 1,
+      "message": "Why are we looking for a valid fabric adapter path first? Generally we would want to look for a port with a matching name, then verify that it has a system association.\n\nDoing it the way it\u0027s done here results in significantly more dbus calls.",
+      "range": {
+        "startLine": 96,
+        "startChar": 4,
+        "endLine": 96,
+        "endChar": 29
+      },
+      "revId": "71932d175af2a8b2fb36a8e26d0bc25631a31c29",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b67ac399_e834a3f5",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 60
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-15T16:53:26Z",
+      "side": 1,
+      "message": "This is a 3 scope deep lambda.  This is a common documented error.",
+      "revId": "71932d175af2a8b2fb36a8e26d0bc25631a31c29",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
