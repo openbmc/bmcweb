@@ -22,6 +22,214 @@
       },
       "revId": "294fcaebd7f09630a9f2faab51a077e9bdf4dda1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8e68613_9527e763",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-16T15:13:14Z",
+      "side": 1,
+      "message": "Base64 was chosen to avoid the case where injected binary code is downloaded in a browser.\n\nbmc dump I suspect has the same issue.",
+      "parentUuid": "bd42b90a_414e66b7",
+      "range": {
+        "startLine": 14,
+        "startChar": 9,
+        "endLine": 14,
+        "endChar": 44
+      },
+      "revId": "294fcaebd7f09630a9f2faab51a077e9bdf4dda1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39ba13b2_3a371aa4",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-16T15:13:14Z",
+      "side": 1,
+      "message": "Please don\u0027t use features from the details namespace.  It is not part of the public api.  Either use the existing base64 functions we already have, or work with the boost maintainers to make this part of the supported API.  I\u0027m happy to have a discussion around this, because the base64 code seems to be well supported, but we need to start with a discussion with the boost maintainers (Vinnie).",
+      "range": {
+        "startLine": 3,
+        "startChar": 27,
+        "endLine": 3,
+        "endChar": 33
+      },
+      "revId": "294fcaebd7f09630a9f2faab51a077e9bdf4dda1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de551e07_b8f87f5a",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-16T15:13:14Z",
+      "side": 1,
+      "message": "We don\u0027t use this pattern of renaming namespaces.  You likely copied this from a boost example.  Please just inline the namespaces for searchability.",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 28
+      },
+      "revId": "294fcaebd7f09630a9f2faab51a077e9bdf4dda1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1cb34b3_25a4ec99",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-16T15:13:14Z",
+      "side": 1,
+      "message": "magic numbers.  Boost has functions for doing this calculation.  Please use them.",
+      "range": {
+        "startLine": 30,
+        "startChar": 47,
+        "endLine": 30,
+        "endChar": 59
+      },
+      "revId": "294fcaebd7f09630a9f2faab51a077e9bdf4dda1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bc210c3_ab19021e",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-16T15:13:14Z",
+      "side": 1,
+      "message": "Please prefer composition over inheritance in this case.  That makes it explicit which methods are supported, and ensures that they are all correct, not just the overridden ones.",
+      "range": {
+        "startLine": 34,
+        "startChar": 31,
+        "endLine": 34,
+        "endChar": 61
+      },
+      "revId": "294fcaebd7f09630a9f2faab51a077e9bdf4dda1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab20375b_dbf4bd3a",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-16T15:13:14Z",
+      "side": 1,
+      "message": "Why * 2?",
+      "range": {
+        "startLine": 36,
+        "startChar": 21,
+        "endLine": 36,
+        "endChar": 49
+      },
+      "revId": "294fcaebd7f09630a9f2faab51a077e9bdf4dda1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6b83e08_bde81a67",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-16T15:13:14Z",
+      "side": 1,
+      "message": "no need for either of these to be templates.  The writer will always be used with responses, and we don\u0027t ever customize the Fields at this time.  Please opt for simpler code.",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 43,
+        "endChar": 43
+      },
+      "revId": "294fcaebd7f09630a9f2faab51a077e9bdf4dda1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a080e94b_7591935d",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-16T15:13:14Z",
+      "side": 1,
+      "message": "Boost types should not show up in the public API for this class.  I suspect you just want to make this set the body type directly.",
+      "range": {
+        "startLine": 382,
+        "startChar": 0,
+        "endLine": 382,
+        "endChar": 48
+      },
+      "revId": "294fcaebd7f09630a9f2faab51a077e9bdf4dda1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17e0c001_98ad1bb8",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-16T15:13:14Z",
+      "side": 1,
+      "message": "Why are we seeking to 0?",
+      "range": {
+        "startLine": 388,
+        "startChar": 0,
+        "endLine": 388,
+        "endChar": 25
+      },
+      "revId": "294fcaebd7f09630a9f2faab51a077e9bdf4dda1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
