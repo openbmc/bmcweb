@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15d54cad_f472701c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-16T15:27:31Z",
+      "side": 1,
+      "message": "The core issue here is that we really shouldn\u0027t be using an array of dbus variants to build that structure.  We should just be setting things when we know the type\n\nUnfortunately, that refactor is non trivial, so going back to the previously working code is the best alternative at this point.",
+      "revId": "f13fffddce4a4533c44a04dea44355982298697b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
