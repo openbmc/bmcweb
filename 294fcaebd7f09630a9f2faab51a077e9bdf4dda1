@@ -73,6 +73,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "073b8890_28d98f0f",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-16T15:19:24Z",
+      "side": 1,
+      "message": "please call this bmcweb.",
+      "range": {
+        "startLine": 6,
+        "startChar": 10,
+        "endLine": 6,
+        "endChar": 14
+      },
+      "revId": "294fcaebd7f09630a9f2faab51a077e9bdf4dda1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "de551e07_b8f87f5a",
         "filename": "http/http_base64_file_body.hpp",
         "patchSetId": 6
@@ -188,6 +211,69 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "58a752c3_cf0decd9",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-16T15:19:24Z",
+      "side": 1,
+      "message": "Please don\u0027t use auto in this way.  Looking at this code (and as an expert) I have no idea what this type is, so it\u0027s unlikely others will either.",
+      "range": {
+        "startLine": 55,
+        "startChar": 8,
+        "endLine": 55,
+        "endChar": 12
+      },
+      "revId": "294fcaebd7f09630a9f2faab51a077e9bdf4dda1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9310c8ba_243757d5",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-16T15:19:24Z",
+      "side": 1,
+      "message": "Same here.",
+      "range": {
+        "startLine": 60,
+        "startChar": 8,
+        "endLine": 60,
+        "endChar": 12
+      },
+      "revId": "294fcaebd7f09630a9f2faab51a077e9bdf4dda1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07ab1201_c42ab877",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-16T15:19:24Z",
+      "side": 1,
+      "message": "This does doesn\u0027t look like it works for more than one chunk.  Base64 has trailing characters for mod N sizes.  I suspect you need to use a base64 implementation that can track state.  This is chunking each base64 as its own chunk.",
+      "revId": "294fcaebd7f09630a9f2faab51a077e9bdf4dda1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a080e94b_7591935d",
         "filename": "http/http_response.hpp",
         "patchSetId": 6
@@ -199,6 +285,30 @@
       "writtenOn": "2023-11-16T15:13:14Z",
       "side": 1,
       "message": "Boost types should not show up in the public API for this class.  I suspect you just want to make this set the body type directly.",
+      "range": {
+        "startLine": 382,
+        "startChar": 0,
+        "endLine": 382,
+        "endChar": 48
+      },
+      "revId": "294fcaebd7f09630a9f2faab51a077e9bdf4dda1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbaef617_b9c157a7",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-16T15:19:24Z",
+      "side": 1,
+      "message": "The reasons for this are documented in HEADERS.md",
+      "parentUuid": "a080e94b_7591935d",
       "range": {
         "startLine": 382,
         "startChar": 0,
