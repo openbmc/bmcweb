@@ -91,6 +91,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c58d0f30_4defe466",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-16T15:21:56Z",
+      "side": 1,
+      "message": "It\u0027s not just rule 12 here.  The core issue here is that we have code that does this lookup performantly, using the existing associations, and correctly to dbus interfaces that was ignored and rewritten from scratch.  If new code is truly required (which I\u0027m not convinced it is) that\u0027s fine, but it needs to be doing essentially the same operation.",
+      "parentUuid": "c569043e_6b9eba1f",
+      "range": {
+        "startLine": 23,
+        "startChar": 23,
+        "endLine": 23,
+        "endChar": 34
+      },
+      "revId": "111275a047053fcf66e9a9689fd57c188f6ae7c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "88a7da1f_eda53b70",
         "filename": "redfish-core/lib/thermal_metrics.hpp",
         "patchSetId": 2
