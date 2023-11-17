@@ -184,6 +184,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0e48dbd3_5702201d",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2023-11-17T08:35:28Z",
+      "side": 1,
+      "message": "Thinking again, the intrusion sensor does not have a sensor interface to be legit into associations like /all_sensors \u003c-\u003e /chassis or /sensors \u003c-\u003e /inventory, but I don\u0027t know if the sensor is worth creating a new association between it and a chassis, and can\u0027t think of the name for it. Can you please help leave some comment on this? (its interface is in PDI at https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Chassis/Intrusion.interface.yaml)",
+      "parentUuid": "52c308ac_3e8690e5",
+      "range": {
+        "startLine": 860,
+        "startChar": 8,
+        "endLine": 860,
+        "endChar": 24
+      },
+      "revId": "45e3afc0cecd60706f7d38fd633e3d0fc03d3038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a8449c24_faec8200",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 24
