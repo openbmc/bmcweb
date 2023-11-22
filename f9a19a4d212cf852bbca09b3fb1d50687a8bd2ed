@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "86d5cc97_a2405cdf",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-11-22T19:02:19Z",
+      "side": 1,
+      "message": "Thanks for finding this.\nIt was a fabric adapter\u0027s serviceName (which is incorrect).\nI fixed it to port\u0027s service (which is found during `getValidFabricPortPath()` in new code).",
+      "parentUuid": "680adc70_5dfa1219",
+      "range": {
+        "startLine": 36,
+        "startChar": 39,
+        "endLine": 36,
+        "endChar": 50
+      },
+      "revId": "f9a19a4d212cf852bbca09b3fb1d50687a8bd2ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b8e1a013_c8da5382",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2485693_fe101cfc",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-11-22T19:02:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b8e1a013_c8da5382",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 5
+      },
+      "revId": "f9a19a4d212cf852bbca09b3fb1d50687a8bd2ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "47b7d159_af100faf",
@@ -60,6 +108,24 @@
       "writtenOn": "2023-11-15T16:56:50Z",
       "side": 1,
       "message": "re: the above, this is returning the service name of the ITEM interface, not the location interface.",
+      "revId": "f9a19a4d212cf852bbca09b3fb1d50687a8bd2ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d384c42_d5c81189",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-11-22T19:02:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "47b7d159_af100faf",
       "revId": "f9a19a4d212cf852bbca09b3fb1d50687a8bd2ed",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
