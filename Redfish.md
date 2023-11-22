@@ -785,6 +785,7 @@ other.
 #### Port
 
 - Location
+- Status
 
 ### /redfish/v1/Systems/system/LogServices/
 
