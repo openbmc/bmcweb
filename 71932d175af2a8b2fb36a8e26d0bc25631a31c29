@@ -18,6 +18,41 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "990b7359_8c3c1a10",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 60
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-11-22T18:42:00Z",
+      "side": 1,
+      "message": "I\u0027ve refactored the codes to meet the documented rules.",
+      "parentUuid": "acc4cc55_f86d72df",
+      "revId": "71932d175af2a8b2fb36a8e26d0bc25631a31c29",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90c0fa08_c7a49fec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 60
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-11-22T18:42:00Z",
+      "side": 1,
+      "message": "Ed, Thanks for reviews.\nIn addition to responding your points, I\u0027ve changed a few additionals like\n\n- Rename `port.hpp` to `fabric_ports.hpp` for clarity\n- Have the constant link from fabric adapter GET to Port collection instead of finding the existence of Port for the given adapter.  This will help to reduce the unnecessary dbus-calls for fabric adapter GET (if Ports content is not needed).\n- Remove `port_utils.hpp` as the result.\n- Rename several port related function names to include `Fabric` for clarity. e.g. `getValidFabricPortPath()` instead of `getValidPortPath()`",
+      "revId": "71932d175af2a8b2fb36a8e26d0bc25631a31c29",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5c4d9c1f_aa3cbd34",
@@ -31,6 +66,30 @@
       "writtenOn": "2023-11-15T16:53:26Z",
       "side": 1,
       "message": "Pass functions by \u0026\u0026 please.",
+      "range": {
+        "startLine": 20,
+        "startChar": 4,
+        "endLine": 20,
+        "endChar": 78
+      },
+      "revId": "71932d175af2a8b2fb36a8e26d0bc25631a31c29",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f70f90ca_8d0daa38",
+        "filename": "redfish-core/include/utils/port_utils.hpp",
+        "patchSetId": 60
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-11-22T18:42:00Z",
+      "side": 1,
+      "message": "The use of `std::function\u003cvoid(const dbus::utility::MapperEndPoints\u0026)\u003e\u0026\u0026 callback` causes the compiler error because it is called via `std::bind_front(afterGetPortList, asyncResp, callback)`.\n\n```\n|                  from ../../../../../../../../../bmcweb/src/webserver_main.cpp:16:\n| ../../../../../../../../../bmcweb/redfish-core/include/utils/port_utils.hpp: In function \u0027void redfish::port_utils::getPortList(const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026, const std::string\u0026, std::function\u003cvoid(const std::vector\u003cstd::__cxx11::basic_string\u003cchar\u003e, std::allocator\u003cstd::__cxx11::basic_string\u003cchar\u003e \u003e \u003e\u0026)\u003e\u0026\u0026)\u0027:\n| ../../../../../../../../../bmcweb/redfish-core/include/utils/port_utils.hpp:57:39: error: invalid initialization of reference of type \u0027std::function\u003cvoid(const boost::system::error_code\u0026, const std::vector\u003cstd::__cxx11::basic_string\u003cchar\u003e, std::allocator\u003cstd::__cxx11::basic_string\u003cchar\u003e \u003e \u003e\u0026)\u003e\u0026\u0026\u0027 from expression of type \u0027std::_Bind_front_t\u003cvoid (\u0026)(const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026, std::function\u003cvoid(const std::vector\u003cstd::__cxx11::basic_string\u003cchar\u003e, std::allocator\u003cstd::__cxx11::basic_string\u003cchar\u003e \u003e \u003e\u0026)\u003e\u0026\u0026, const boost::system::error_code\u0026, const std::vector\u003cstd::__cxx11::basic_string\u003cchar\u003e, std::allocator\u003cstd::__cxx11::basic_string\u003cchar\u003e \u003e \u003e\u0026), const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026, std::function\u003cvoid(const std::vector\u003cstd::__cxx11::basic_string\u003cchar, std::char_traits\u003cchar\u003e, std::allocator\u003cchar\u003e \u003e, std::allocator\u003cstd::__cxx11::basic_string\u003cchar, std::char_traits\u003cchar\u003e, std::allocator\u003cchar\u003e \u003e \u003e \u003e\u0026)\u003e\u0026\u003e\u0027\n|    57 |         portInterface, std::bind_front(afterGetPortList, asyncResp, callback));\n|       |                        ~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n| In file included from ../../../../../../../../../bmcweb/include/dbus_privileges.hpp:3,\n|                  from ../../../../../../../../../bmcweb/http/routing.hpp:5,\n|                  from ../../../../../../../../../bmcweb/http/app.hpp:8,\n|                  from ../../../../../../../../../bmcweb/src/webserver_main.cpp:3:\n| ../../../../../../../../../bmcweb/include/dbus_utility.hpp:217:65: note: in passing argument 5 of \u0027void dbus::utility::getAssociatedSubTreePaths(const sdbusplus::message::object_path\u0026, const sdbusplus::message::object_path\u0026, int32_t, std::span\u003cconst std::basic_string_view\u003cchar\u003e \u003e, std::function\u003cvoid(const boost::system::error_code\u0026, const std::vector\u003cstd::__cxx11::basic_string\u003cchar\u003e, std::allocator\u003cstd::__cxx11::basic_string\u003cchar\u003e \u003e \u003e\u0026)\u003e\u0026\u0026)\u0027\n|   216 |     std::function\u003cvoid(const boost::system::error_code\u0026,\n|       |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n|   217 |                        const MapperGetSubTreePathsResponse\u0026)\u003e\u0026\u0026 callback)\n|       |                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~\n| ninja: build stopped: subcommand failed.\n```\n\nSame type of the compiler issue happened for `pcie.hpp` and it used `\u0026 callback)`  instead of `\u0026\u0026`.\n\nhttps://github.com/openbmc/bmcweb/blob/3e7a8da60d70f4c42ae8ce0a3ecb0709194eb831/redfish-core/lib/pcie.hpp#L41C1-L46C69\n\n```\nstatic inline void handlePCIeDevicePath(\n    const std::string\u0026 pcieDeviceId,\n    const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp,\n    const dbus::utility::MapperGetSubTreePathsResponse\u0026 pcieDevicePaths,\n    const std::function\u003cvoid(const std::string\u0026 pcieDevicePath,\n                             const std::string\u0026 service)\u003e\u0026 callback)\n```\n\n\nThis can be avoided if we use the standard lambda-at caller instead of `std::bind_front()`, or using `std::forward\u003cT\u003e(callback)`.\n\nI\u0027ve refactored the code like\n\n```\ninline void doGetValidFabricPortSubTree(\n    const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp,\n    const std::function\u003cvoid(const dbus::utility::MapperGetSubTreeResponse\u0026)\u003e\u0026\u0026\n        callback,\n    const boost::system::error_code\u0026 ec,\n    const dbus::utility::MapperGetSubTreeResponse\u0026 subtree)\n{\n....\n    callback(subtree);\n}\n\ntemplate \u003ctypename Callback\u003e\ninline void getValidFabricPortSubTree(\n    const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp,\n    const std::string\u0026 systemName, const std::string\u0026 adapterId,\n    Callback\u0026\u0026 callback)\n{\n    getFabricPortSubTree(asyncResp, systemName, adapterId,\n                         std::bind_front(doGetValidFabricPortSubTree, asyncResp,\n                                         std::forward\u003cCallback\u003e(callback)));\n}\n\n```\n\n\nAlso, I\u0027ve moved this function to `redfish/lib/fabric_ports.hpp`.",
+      "parentUuid": "5c4d9c1f_aa3cbd34",
       "range": {
         "startLine": 20,
         "startChar": 4,
@@ -64,6 +123,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecc6370b_8d99da12",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 60
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-11-22T18:42:00Z",
+      "side": 1,
+      "message": "This is not actually generation Port collection, but a link from FabricAdapters/\u003cadapter\u003e to Ports if there are ports associated with the given adapter.\n\n\n```\ncurl -k -X GET https://${bmc}/redfish/v1/Systems/{}/FabricAdapters/\u003cadapter\u003e\n{\n...\n      \"Ports\": {\n        \"@odata.id\": \"/redfish/v1/Systems/system/FabricAdapters/\u003cadapter\u003e/Ports\"\n      }, \n ...\n }\n ```\n\n\nOriginally, I added the a constant link to Ports even if there are no ports for the adapter, but I made the change to check the existence of the ports after your comment - https://gerrit.openbmc.org/c/openbmc/bmcweb/+/61097/comment/8740b2e5_d8a49a52/\n\n\nSo, as you suggested, I think we can have the empty collection (i.e. making a constant link to Ports from FabricAdapter GET).  This approach would avoid the unnecessary dbus calls from the fabric adapter GET.",
+      "parentUuid": "e1c30152_55153ff4",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 210,
+        "endChar": 5
+      },
+      "revId": "71932d175af2a8b2fb36a8e26d0bc25631a31c29",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "801efb51_fbc0df39",
@@ -81,6 +164,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "702c50ef_b13a9fd4",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 60
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-11-22T18:42:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "801efb51_fbc0df39",
+      "revId": "71932d175af2a8b2fb36a8e26d0bc25631a31c29",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5a739a23_b74787a7",
@@ -94,6 +195,30 @@
       "writtenOn": "2023-11-15T16:53:26Z",
       "side": 1,
       "message": "Checking for empty is redundant here.  Please remove.",
+      "range": {
+        "startLine": 28,
+        "startChar": 13,
+        "endLine": 28,
+        "endChar": 30
+      },
+      "revId": "71932d175af2a8b2fb36a8e26d0bc25631a31c29",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfe2fb6c_752ac893",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 60
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-11-22T18:42:00Z",
+      "side": 1,
+      "message": "Similar type of the implementation is done for the other areas.\nOne example is https://github.com/openbmc/bmcweb/blob/3e7a8da60d70f4c42ae8ce0a3ecb0709194eb831/redfish-core/lib/power_supply.hpp#L148\n\nI removed the redundant emptiness check and I remove the function `checkPortId()`.",
+      "parentUuid": "5a739a23_b74787a7",
       "range": {
         "startLine": 28,
         "startChar": 13,
@@ -127,6 +252,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffd43f2f_3eeb4de7",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 60
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-11-22T18:42:00Z",
+      "side": 1,
+      "message": "The loop is to find a matching one and then do a single callback() before return.\n```\n   callback(portPath);\n   return;\n```\n\nThe similar style was done in the other places like \nhttps://github.com/openbmc/bmcweb/blob/3e7a8da60d70f4c42ae8ce0a3ecb0709194eb831/redfish-core/lib/fabric_adapters.hpp#L235C1-L242C10",
+      "parentUuid": "b87376a8_7306526f",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 35
+      },
+      "revId": "71932d175af2a8b2fb36a8e26d0bc25631a31c29",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b65ed061_07d474b3",
@@ -140,6 +289,30 @@
       "writtenOn": "2023-11-15T16:53:26Z",
       "side": 1,
       "message": "Non trivial lambda.",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 67
+      },
+      "revId": "71932d175af2a8b2fb36a8e26d0bc25631a31c29",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "196eaed7_878a01e2",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 60
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-11-22T18:42:00Z",
+      "side": 1,
+      "message": "Similar code patterns exist in the other places - e.g. fabric_adapters.hpp, or pcie.hpp\n\nAnyway, I refactored the function body and rename the function name  \n to `getValidFabricPortPath()` for better clarity.",
+      "parentUuid": "b65ed061_07d474b3",
       "range": {
         "startLine": 59,
         "startChar": 0,
@@ -173,6 +346,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3822e654_9aac3699",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 60
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-11-22T18:42:00Z",
+      "side": 1,
+      "message": "This is for `/redfish/v1/Systems/\u003cstr\u003e/FabricAdapters/\u003cstr\u003e/Ports/\u003cstr\u003e/` among many other types of Ports.\n\nFabric adapter ports are specific to each fabric adapter, and the association is also related to each fabric adapter.\nSo, to get the port, the fabric adapter path name needs to be obtained.\n\nThis commit is doing the followings to find the associated port and it would do 2 dbus calls.\n\n - GetSubTree() get/validate the fabric adapter path\n - GetAssociatedTreePaths() to get ports using the found fabricAdapterPath.\n \nHowever, if we change to too for ports first, it may end up causing more d-bus calls.\n\nFor example, assuming ports exist for other entities, GetSubTree() for a port (e.g. port1) may find this first\n- .../network1/port1\n- .../storge1/port1\n- .../fabric1/port1\n- etc\n\nThen, to choose/select the fabric adapter (e.g. fabric1), we may need to call the assoication d-bus calls for each port (as the port-list may be associated with the different types).  \nAs the result, the total number of dbus could become larger than finding the fabric adapter first.\n\nIn addition, for better clarity, I\u0027ve renamed `port.hpp` to `fabric_ports.hpp`, and rename function names to include `Fabric` e.g. `getValidFabricPortPath()`",
+      "parentUuid": "0f085a5b_38738661",
+      "range": {
+        "startLine": 96,
+        "startChar": 4,
+        "endLine": 96,
+        "endChar": 29
+      },
+      "revId": "71932d175af2a8b2fb36a8e26d0bc25631a31c29",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b67ac399_e834a3f5",
@@ -186,6 +383,24 @@
       "writtenOn": "2023-11-15T16:53:26Z",
       "side": 1,
       "message": "This is a 3 scope deep lambda.  This is a common documented error.",
+      "revId": "71932d175af2a8b2fb36a8e26d0bc25631a31c29",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb62e5f9_d786e6a0",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 60
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-11-22T18:42:00Z",
+      "side": 1,
+      "message": "Ack.\nI\u0027ve refactored the function `getValidFabricPortPath()` to get the port in 1-level.",
+      "parentUuid": "b67ac399_e834a3f5",
       "revId": "71932d175af2a8b2fb36a8e26d0bc25631a31c29",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
