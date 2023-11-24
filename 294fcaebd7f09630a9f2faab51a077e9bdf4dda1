@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8435c3d9_0d0e4683",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-11-24T07:05:37Z",
+      "side": 1,
+      "message": "yes, but this patch set not going to use base64 encoding for bmc-dump. That will be a backward compatibility issue. Clients using the bmc-dump may not be expecting base64 encoding.",
+      "parentUuid": "f8e68613_9527e763",
+      "range": {
+        "startLine": 14,
+        "startChar": 9,
+        "endLine": 14,
+        "endChar": 44
+      },
+      "revId": "294fcaebd7f09630a9f2faab51a077e9bdf4dda1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "39ba13b2_3a371aa4",
         "filename": "http/http_base64_file_body.hpp",
         "patchSetId": 6
@@ -61,6 +85,30 @@
       "writtenOn": "2023-11-16T15:13:14Z",
       "side": 1,
       "message": "Please don\u0027t use features from the details namespace.  It is not part of the public api.  Either use the existing base64 functions we already have, or work with the boost maintainers to make this part of the supported API.  I\u0027m happy to have a discussion around this, because the base64 code seems to be well supported, but we need to start with a discussion with the boost maintainers (Vinnie).",
+      "range": {
+        "startLine": 3,
+        "startChar": 27,
+        "endLine": 3,
+        "endChar": 33
+      },
+      "revId": "294fcaebd7f09630a9f2faab51a077e9bdf4dda1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e2713ae_9d1feb6e",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-11-24T07:05:37Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "39ba13b2_3a371aa4",
       "range": {
         "startLine": 3,
         "startChar": 27,
@@ -117,6 +165,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5d02661_4e584a61",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-11-24T07:05:37Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "de551e07_b8f87f5a",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 28
+      },
+      "revId": "294fcaebd7f09630a9f2faab51a077e9bdf4dda1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d1cb34b3_25a4ec99",
@@ -130,6 +202,30 @@
       "writtenOn": "2023-11-16T15:13:14Z",
       "side": 1,
       "message": "magic numbers.  Boost has functions for doing this calculation.  Please use them.",
+      "range": {
+        "startLine": 30,
+        "startChar": 47,
+        "endLine": 30,
+        "endChar": 59
+      },
+      "revId": "294fcaebd7f09630a9f2faab51a077e9bdf4dda1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad1bd547_8efef4fc",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-11-24T07:05:37Z",
+      "side": 1,
+      "message": "I could see same majic number usage in utility.hpp. What is the boost public function for this?",
+      "parentUuid": "d1cb34b3_25a4ec99",
       "range": {
         "startLine": 30,
         "startChar": 47,
