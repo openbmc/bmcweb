@@ -16,6 +16,24 @@
       "message": "I think afterGetFabricPortState would fit better with the rest of the code but fine as is.",
       "revId": "29834a2c2431051dc70a7d305c0e85dd3f335c5d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33a049b4_ee5d68ab",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-11-29T17:18:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1565904a_56df1ce0",
+      "revId": "29834a2c2431051dc70a7d305c0e85dd3f335c5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
