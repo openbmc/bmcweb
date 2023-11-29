@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41b340ac_e1292fc7",
+        "filename": "redfish-core/include/redfish.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-11-29T03:57:59Z",
+      "side": 1,
+      "message": "So this is a prototype to get the service root working without d-bus? The service root doesn\u0027t have any D-Bus calls. \nBut to get something like https://github.com/openbmc/bmcweb/blob/7a696974d7a987e3eb135a6cbad0a4ace8d109d2/redfish-core/lib/account_service.hpp#L2267 isn\u0027t that going to require a bunch of ifdefs ?",
+      "revId": "158e6696c3ccae9d17f9621ab567afcc1496c7bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

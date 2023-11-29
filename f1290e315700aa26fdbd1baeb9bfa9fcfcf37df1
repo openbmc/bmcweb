@@ -110,6 +110,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5ab914f3_f1dc009b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-11-29T03:57:59Z",
+      "side": 1,
+      "message": "Okay, so this is trying to make this work with service root. How does other redfish resources work?\n\nIn each route that is supported by both is there a\n#ifdef BMCWEB_ENABLE_REDFISH_DBUS \n\n\u003ccall dbus\u003e\n\n#else \n\n\u003ccall sysfs\u003e\n\n#endif",
+      "parentUuid": "aefbb34e_10d98a81",
+      "revId": "f1290e315700aa26fdbd1baeb9bfa9fcfcf37df1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d6b85eb7_800e65f9",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
