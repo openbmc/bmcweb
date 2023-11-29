@@ -335,6 +335,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4a9dc27a_2f2e84dd",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-11-29T20:25:58Z",
+      "side": 1,
+      "message": "After second thought, I think \u0027const bool\u0027 seems appropriate as the variable from dbus-callback is not supposed to be modifiable inside lambda body?\n\nThis way will prevent any mistake that the user changes the variable inside the function.\n\nFor example, this mistake will cause the compiler error.\n\n```\n        [asyncResp](const boost::system::error_code\u0026 ec,\n                    const bool functional) {\n                    \n                    ...\n                    functional \u003d true; // \u003c-- compiler will check this error\n````\n\nHowever, if we use \u0027bool\u0027, the variable may be reused inside the body.\n\n\n```\n        [asyncResp](const boost::system::error_code\u0026 ec,\n                    bool functional) {\n                    \n                    ...\n                    functional \u003d true; // \u003c-- compiler will allow this.\n````",
+      "parentUuid": "2d77469b_82021e4b",
+      "range": {
+        "startLine": 88,
+        "startChar": 20,
+        "endLine": 88,
+        "endChar": 25
+      },
+      "revId": "63e4c96caa24bcffa17cbf18bdbb0b8d453af7a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2470b7fe_da8450cf",
         "filename": "redfish-core/lib/port.hpp",
         "patchSetId": 7
