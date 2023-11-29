@@ -237,6 +237,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d77469b_82021e4b",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-11-29T04:07:51Z",
+      "side": 1,
+      "message": "Feel free to fix any place that uses const bool for these kinds of the functions",
+      "parentUuid": "e79b01bf_dd027b2c",
+      "range": {
+        "startLine": 88,
+        "startChar": 20,
+        "endLine": 88,
+        "endChar": 25
+      },
+      "revId": "63e4c96caa24bcffa17cbf18bdbb0b8d453af7a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2470b7fe_da8450cf",
