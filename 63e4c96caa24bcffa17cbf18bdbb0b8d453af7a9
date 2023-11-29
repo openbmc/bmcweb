@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c0fc515e_0c5da2bd",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-11-29T04:05:13Z",
+      "side": 1,
+      "message": "We do this in several other places in the code e.g. \nhttps://github.com/openbmc/bmcweb/blob/7a696974d7a987e3eb135a6cbad0a4ace8d109d2/redfish-core/lib/fan.hpp#L276\nhttps://github.com/openbmc/bmcweb/blob/7a696974d7a987e3eb135a6cbad0a4ace8d109d2/redfish-core/lib/fan.hpp#L251",
+      "parentUuid": "07b15535_305cb76d",
+      "range": {
+        "startLine": 75,
+        "startChar": 59,
+        "endLine": 75,
+        "endChar": 65
+      },
+      "revId": "63e4c96caa24bcffa17cbf18bdbb0b8d453af7a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "49161914_f8522dd4",
         "filename": "redfish-core/lib/port.hpp",
         "patchSetId": 7
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "Refactored.",
       "parentUuid": "49161914_f8522dd4",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 9
+      },
+      "revId": "63e4c96caa24bcffa17cbf18bdbb0b8d453af7a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f10f600e_7c3bd0e8",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-11-29T04:05:13Z",
+      "side": 1,
+      "message": "I am good with this being refactored but at https://github.com/openbmc/bmcweb/blob/7a696974d7a987e3eb135a6cbad0a4ace8d109d2/COMMON_ERRORS.md#14-very-long-lambda-callbacks \n\"keep the lambda length less than 10 lines\"\nThese seem right on the edge",
+      "parentUuid": "1ff5c14d_a17bb7e0",
       "range": {
         "startLine": 61,
         "startChar": 0,
