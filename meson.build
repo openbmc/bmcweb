@@ -101,7 +101,7 @@ feature_map = {
 # being enabled during the configuration time.
 
 foreach option_key,option_value : feature_map
-  if(get_option(option_key).enabled())
+  if(get_option(option_key).allowed())
     if(option_key == 'mutual-tls-auth' or option_key == 'insecure-disable-ssl')
       if(get_option('insecure-disable-ssl').disabled() or get_option('mutual-tls-auth').disabled())
         add_project_arguments(option_value,language:'cpp')
@@ -124,7 +124,7 @@ foreach option_key,option_value : feature_map
   endif
 endforeach
 
-if(get_option('tests').enabled())
+if(get_option('tests').allowed())
   summary('unittest','NA', section : 'Enabled Features')
 endif
 
@@ -346,10 +346,10 @@ else
   ]
 endif
 
-if get_option('tests').enabled()
+if get_option('tests').allowed()
   gtest = dependency('gtest', main: true, disabler: true, required : false)
   gmock = dependency('gmock', required : false)
-  if not gtest.found() and get_option('tests').enabled()
+  if not gtest.found() and get_option('tests').allowed()
     gtest_proj = subproject('gtest', required: true)
     gtest = gtest_proj.get_variable('gtest_main_dep')
     gmock = gtest_proj.get_variable('gmock_dep')
@@ -445,7 +445,7 @@ srcfiles_unittest = files(
   'test/redfish-core/lib/power_subsystem_test.cpp',
 )
 
-if(get_option('tests').enabled())
+if(get_option('tests').allowed())
     # generate the test executable
     foreach test_src : srcfiles_unittest
       test_bin = executable(
