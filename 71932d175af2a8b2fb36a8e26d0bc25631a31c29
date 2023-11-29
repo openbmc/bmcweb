@@ -206,6 +206,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b351c038_53418996",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 60
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-11-29T17:17:48Z",
+      "side": 1,
+      "message": "Done.\n`checkPortId()` is removed and put it inline in `afterGetValidFabricPortSubTree()`",
+      "parentUuid": "702c50ef_b13a9fd4",
+      "revId": "71932d175af2a8b2fb36a8e26d0bc25631a31c29",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5a739a23_b74787a7",
