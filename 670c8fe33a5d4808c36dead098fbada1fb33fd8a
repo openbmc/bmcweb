@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "36d7a349_b32b1970",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-11-29T04:18:39Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/bmcweb/blob/7a696974d7a987e3eb135a6cbad0a4ace8d109d2/redfish-core/lib/bios.hpp#L31 is an example",
+      "parentUuid": "ceaef4b8_211f3480",
+      "range": {
+        "startLine": 404,
+        "startChar": 55,
+        "endLine": 404,
+        "endChar": 73
+      },
+      "revId": "670c8fe33a5d4808c36dead098fbada1fb33fd8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "16b618a3_113c6cab",
         "filename": "redfish-core/lib/power_supply.hpp",
         "patchSetId": 32
