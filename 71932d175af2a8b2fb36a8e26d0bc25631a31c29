@@ -149,6 +149,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6b97900c_84c66bff",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 60
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-11-29T04:13:12Z",
+      "side": 1,
+      "message": "I think the empty collection is more in line with what we do elsewhere. I vote empty collection",
+      "parentUuid": "ecc6370b_8d99da12",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 210,
+        "endChar": 5
+      },
+      "revId": "71932d175af2a8b2fb36a8e26d0bc25631a31c29",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "801efb51_fbc0df39",
         "filename": "redfish-core/lib/port.hpp",
         "patchSetId": 60
