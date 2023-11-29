@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6b86bce2_51afe614",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-11-29T04:11:26Z",
+      "side": 1,
+      "message": "This is a pretty standard State / Health like we do elsewhere..\n \nBut not sure you have really answered Ed\u0027s comment.. Can you add a line like \"Like other Redfish resources implement State/Health and map them to Present/Functional respectfully. State / Health of the Port is useful information for inventory on a GUI/Debug/etc.\"",
+      "parentUuid": "59b1bc2f_7882d11c",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 10
+      },
+      "revId": "63e4c96caa24bcffa17cbf18bdbb0b8d453af7a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d839a03a_8c9ca9be",
         "filename": "redfish-core/lib/port.hpp",
         "patchSetId": 7
