@@ -114,6 +114,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "36075a11_96240285",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-29T19:29:03Z",
+      "side": 1,
+      "message": "Right..... which is why @AllowedValues would be specified, to inform the user that Normal is allowed.",
+      "parentUuid": "6c8cd73d_07bf3500",
+      "range": {
+        "startLine": 814,
+        "startChar": 12,
+        "endLine": 814,
+        "endChar": 95
+      },
+      "revId": "45e3afc0cecd60706f7d38fd633e3d0fc03d3038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0d56a25b_8f9b4fd2",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 24
@@ -196,6 +220,30 @@
       "side": 1,
       "message": "Thinking again, the intrusion sensor does not have a sensor interface to be legit into associations like /all_sensors \u003c-\u003e /chassis or /sensors \u003c-\u003e /inventory, but I don\u0027t know if the sensor is worth creating a new association between it and a chassis, and can\u0027t think of the name for it. Can you please help leave some comment on this? (its interface is in PDI at https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Chassis/Intrusion.interface.yaml)",
       "parentUuid": "52c308ac_3e8690e5",
+      "range": {
+        "startLine": 860,
+        "startChar": 8,
+        "endLine": 860,
+        "endChar": 24
+      },
+      "revId": "45e3afc0cecd60706f7d38fd633e3d0fc03d3038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56079128_453d586b",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-29T19:29:03Z",
+      "side": 1,
+      "message": "\u003e In dbus-sensors, for now, it expects to only have one chassis intrusion sensor for one given system\n\nThat\u0027s fine, but it needs to be attached to the chassis that it\u0027s defined in, not all chassis.\n\n\u003e I don\u0027t know if the sensor is worth creating a new association between it and a chassis\n\nI suspect it probably is worth an association.",
+      "parentUuid": "0e48dbd3_5702201d",
       "range": {
         "startLine": 860,
         "startChar": 8,
