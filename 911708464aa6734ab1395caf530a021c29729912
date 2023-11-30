@@ -41,6 +41,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fb91c3f_04d8f07e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-30T18:26:02Z",
+      "side": 1,
+      "message": "I was looking into issues like this a while back.  I don\u0027t remember where I left them, but you might take a look at the two patches at https://gerrit.openbmc.org/c/openbmc/bmcweb/+/56711",
+      "revId": "911708464aa6734ab1395caf530a021c29729912",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ac4f99e0_0d499518",
