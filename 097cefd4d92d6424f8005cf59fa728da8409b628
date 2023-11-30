@@ -16,6 +16,29 @@
       "message": "Hi Ed, apologies for the delay. Think I\u0027ve got everything based on your feedback, but let me know what you think",
       "revId": "097cefd4d92d6424f8005cf59fa728da8409b628",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3333b69_4c30b796",
+        "filename": "http/mutual_tls_meta.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-11-30T14:51:33Z",
+      "side": 1,
+      "message": "nit: it might be better to use static constexpr\u0027s and lengths instead of hard-coded number.  Not sure which will actually be less cluttered.",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 9
+      },
+      "revId": "097cefd4d92d6424f8005cf59fa728da8409b628",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
