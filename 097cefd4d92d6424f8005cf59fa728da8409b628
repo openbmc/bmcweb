@@ -104,6 +104,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "034fd936_b8f7204f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-30T20:32:18Z",
+      "side": 1,
+      "message": "Just posted a bunch of fixes.  Missing includes, some of the refactorings I asked for with iostreams, and changing the prototype of your function to output a std::optional instead of using an in-out param which simplifies some code.\n\nFYI, Changing around the parser in the way I did results in an almost 1KB reduction in the final binary size when your option is enabled (which is about half a percent of the total).  While it doesn\u0027t sound like a lot, these kinds of fixes when made consistently keep bmcweb able to be applied to a number of systems, and given that its binary size is already big, keeping making every attempt to not make it worse keeps the binary usable for everyone.\n\nPlease take a look at the fixes I made and see if they make sense to you.  Feel free to remove anything you disagree with or you\u0027d like to discuss.",
+      "revId": "097cefd4d92d6424f8005cf59fa728da8409b628",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "00d4ea46_0e15c8d8",
@@ -117,6 +134,30 @@
       "writtenOn": "2023-11-30T18:06:51Z",
       "side": 1,
       "message": "Lets break this into its own branch.  This is code that will need to get security reviewed a lot.  The simpler it is, the better.",
+      "range": {
+        "startLine": 92,
+        "startChar": 9,
+        "endLine": 92,
+        "endChar": 68
+      },
+      "revId": "097cefd4d92d6424f8005cf59fa728da8409b628",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24b8a71a_df79d287",
+        "filename": "http/mutual_tls.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-30T20:32:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00d4ea46_0e15c8d8",
       "range": {
         "startLine": 92,
         "startChar": 9,
@@ -186,6 +227,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "38563e3b_ace0dae0",
+        "filename": "http/mutual_tls_meta.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-30T20:32:18Z",
+      "side": 1,
+      "message": "nvm.  Figured it out.  done",
+      "parentUuid": "d0a4c757_2bf6d15e",
+      "revId": "097cefd4d92d6424f8005cf59fa728da8409b628",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "b3333b69_4c30b796",
         "filename": "http/mutual_tls_meta.hpp",
         "patchSetId": 5
@@ -231,6 +290,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a23b888_057e1075",
+        "filename": "http/mutual_tls_meta.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-30T20:32:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "855ebe98_d40b6e71",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 9
+      },
+      "revId": "097cefd4d92d6424f8005cf59fa728da8409b628",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eaaaec26_041eb7d4",
@@ -244,6 +327,30 @@
       "writtenOn": "2023-11-30T18:06:51Z",
       "side": 1,
       "message": "Is this possible?  You put the remaining username into userHost on line 52.  unless there was an error, this should always be eof, right?  I suspect we need to be checking for stream errors here?",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 18
+      },
+      "revId": "097cefd4d92d6424f8005cf59fa728da8409b628",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9dcbeb63_fb97b5ec",
+        "filename": "http/mutual_tls_meta.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-30T20:32:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eaaaec26_041eb7d4",
       "range": {
         "startLine": 87,
         "startChar": 0,
@@ -290,6 +397,30 @@
       "writtenOn": "2023-11-30T18:06:51Z",
       "side": 1,
       "message": "nit, \"as a user name\" not \"as-is\"",
+      "range": {
+        "startLine": 201,
+        "startChar": 54,
+        "endLine": 201,
+        "endChar": 59
+      },
+      "revId": "097cefd4d92d6424f8005cf59fa728da8409b628",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74f5615d_04420e0f",
+        "filename": "meson_options.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-30T20:32:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8e29c60_f80ffc4c",
       "range": {
         "startLine": 201,
         "startChar": 54,
