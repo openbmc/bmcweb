@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e342476f_76106180",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-11-30T22:19:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "15860c54_2b66b3c2",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 57
+      },
+      "revId": "9ea479324549a7ea6acf41a3657b4ecbd623497c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2caf46be_819cee67",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-11-30T21:51:40Z",
       "side": 1,
       "message": "This is the first I\u0027ve heard of this bug.  Can you elaborate, ideally in another forum like the mailing list?",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 22
+      },
+      "revId": "9ea479324549a7ea6acf41a3657b4ecbd623497c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c367ca53_645180f7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-11-30T22:19:59Z",
+      "side": 1,
+      "message": "I think it is about how journal search function (`sd_journal_seek_realtime_usec()`) is implemented and its assumption to use.\n\nIt looks like - it assumes that journals would need to be monotonically increasing in time to use `sd_journal_seek_realtime_usec()` - which happens to be used by bmcweb for quick search.\n\nI think bmcweb can cover the cases of journal-time-go-backward situation by using the linear search (from the beginning of the entries) but it would be slow.\n\nAnother approach (which I propose) is to disable it by default, and the downstream can enable if redfish journal is needed with the understanding of potential disparity between the actual journal entries vs redfish journal entries (if times going backward).\n\nOr leave it as is, and downstream decides to disable the feature?\n\nAnyway, I\u0027ll try to ask system journal community about the issues of `sd_journal_seek_realtime_usec()` related to system clock going backward situation or the limitation of the function.",
+      "parentUuid": "2caf46be_819cee67",
       "range": {
         "startLine": 12,
         "startChar": 0,
