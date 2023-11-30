@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0f0bb566_41303470",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-11-30T17:31:50Z",
+      "side": 1,
+      "message": "Changed to LedGroup.",
+      "parentUuid": "36d7a349_b32b1970",
+      "range": {
+        "startLine": 404,
+        "startChar": 55,
+        "endLine": 404,
+        "endChar": 73
+      },
+      "revId": "670c8fe33a5d4808c36dead098fbada1fb33fd8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "16b618a3_113c6cab",
         "filename": "redfish-core/lib/power_supply.hpp",
         "patchSetId": 32
@@ -61,6 +85,30 @@
       "writtenOn": "2023-11-15T17:10:23Z",
       "side": 1,
       "message": "The patch code does a completely different lookup than the get code in the way you\u0027ve now stacked your patches.  please take a look at whether that\u0027s what you intended.",
+      "range": {
+        "startLine": 629,
+        "startChar": 0,
+        "endLine": 633,
+        "endChar": 68
+      },
+      "revId": "670c8fe33a5d4808c36dead098fbada1fb33fd8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a61fd831_10771ee3",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-11-30T17:31:50Z",
+      "side": 1,
+      "message": "The purpose of the patch is to modify the LocationIndicatorActive property for power supplies. When querying power supply information, various properties are retrieved, including LocationIndicatorActive. The \u0027set\u0027 operation is specifically designed to alter the LocationIndicatorActive property.",
+      "parentUuid": "16b618a3_113c6cab",
       "range": {
         "startLine": 629,
         "startChar": 0,

@@ -94,6 +94,30 @@
       },
       "revId": "7c7d23bd59aaf3b6b0870fdf9b36154f3e487693",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1a575c5_ca181101",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-11-30T17:31:50Z",
+      "side": 1,
+      "message": "This check is necessary because we must validate the chassis and power supply path before verifying whether the LED is attached to the power supply.",
+      "parentUuid": "12a57459_98963915",
+      "range": {
+        "startLine": 607,
+        "startChar": 32,
+        "endLine": 607,
+        "endChar": 51
+      },
+      "revId": "7c7d23bd59aaf3b6b0870fdf9b36154f3e487693",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
