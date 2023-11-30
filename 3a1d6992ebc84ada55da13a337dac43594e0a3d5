@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc0f90ca_2f547410",
+        "filename": "test/http/mutual_tls_meta.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-30T20:55:37Z",
+      "side": 1,
+      "message": "FYI, this was making a string copy which clang-tidy caught.  It\u0027s been fixed.",
+      "range": {
+        "startLine": 66,
+        "startChar": 8,
+        "endLine": 66,
+        "endChar": 21
+      },
+      "revId": "3a1d6992ebc84ada55da13a337dac43594e0a3d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
