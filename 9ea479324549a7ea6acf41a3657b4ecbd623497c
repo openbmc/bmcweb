@@ -95,6 +95,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "de8ec33b_4d7ae6e7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-30T22:25:06Z",
+      "side": 1,
+      "message": "A gerrit review disabling this is not the appropriate place to discuss a bug that has existed for a very long time.  Also, time going backwards is a pretty rare occurrence.  When you discuss the bug, you might also want to discuss why having time go backwards is advantageous to your use case.",
+      "parentUuid": "c367ca53_645180f7",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 22
+      },
+      "revId": "9ea479324549a7ea6acf41a3657b4ecbd623497c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "341ee06f_d8103a20",
