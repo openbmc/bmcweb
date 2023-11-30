@@ -148,6 +148,8 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     // Ascync callables
     std::function<void(bool, uint32_t, Response&)> callback;
 
+    boost::asio::io_context& ioc;
+
 #ifdef BMCWEB_DBUS_DNS_RESOLVER
     using Resolver = async_resolve::Resolver;
 #else
@@ -379,6 +381,16 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         unsigned int respCode = parser->get().result_int();
         BMCWEB_LOG_DEBUG("recvMessage() Header Response Code: {}", respCode);
 
+        // Handle the case of stream_truncated.  Some servers close the ssl
+        // connection uncleanly, so check to see if we got a full response
+        // before we handle this as an error.
+        if (!parser->is_done())
+        {
+            state = ConnState::recvFailed;
+            waitAndRetry();
+            return;
+        }
+
         // Make sure the received response code is valid as defined by
         // the associated retry policy
         if (connPolicy->invalidResp(respCode))
@@ -487,7 +499,15 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         }
 
         // Let's close the connection and restart from resolve.
-        doClose(true);
+        shutdownConn(true);
+    }
+
+    void restartConnection()
+    {
+        BMCWEB_LOG_DEBUG("{}, id: {}  restartConnection", host,
+                         std::to_string(connId));
+        initializeConnection(host.scheme() == "https");
+        doResolve();
     }
 
     void shutdownConn(bool retry)
@@ -511,7 +531,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         {
             // Now let's try to resend the data
             state = ConnState::retry;
-            doResolve();
+            restartConnection();
         }
         else
         {
@@ -586,16 +606,10 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         }
     }
 
-  public:
-    explicit ConnectionInfo(
-        boost::asio::io_context& iocIn, const std::string& idIn,
-        const std::shared_ptr<ConnectionPolicy>& connPolicyIn,
-        boost::urls::url_view hostIn, unsigned int connIdIn) :
-        subId(idIn),
-        connPolicy(connPolicyIn), host(hostIn), connId(connIdIn),
-        resolver(iocIn), conn(iocIn), timer(iocIn)
+    void initializeConnection(bool ssl)
     {
-        if (host.scheme() == "https")
+        conn = boost::asio::ip::tcp::socket(ioc);
+        if (ssl)
         {
             std::optional<boost::asio::ssl::context> sslCtx =
                 ensuressl::getSSLClientContext();
@@ -617,6 +631,18 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
             sslConn.emplace(conn, *sslCtx);
             setCipherSuiteTLSext();
         }
+    }
+
+  public:
+    explicit ConnectionInfo(
+        boost::asio::io_context& iocIn, const std::string& idIn,
+        const std::shared_ptr<ConnectionPolicy>& connPolicyIn,
+        boost::urls::url_view hostIn, unsigned int connIdIn) :
+        subId(idIn),
+        connPolicy(connPolicyIn), host(hostIn), connId(connIdIn), ioc(iocIn),
+        resolver(iocIn), conn(iocIn), timer(iocIn)
+    {
+        initializeConnection(host.scheme() == "https");
     }
 };
 
