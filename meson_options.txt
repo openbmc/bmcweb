@@ -78,7 +78,7 @@ option(
 option(
     'redfish-bmc-journal',
     type: 'feature',
-    value: 'enabled',
+    value: 'disabled',
     description: '''Enable BMC journal access through Redfish. Paths are under
                     /redfish/v1/Managers/bmc/LogServices/Journal.'''
 )
