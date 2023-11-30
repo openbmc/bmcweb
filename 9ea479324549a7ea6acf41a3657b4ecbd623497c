@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15860c54_2b66b3c2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-30T21:51:40Z",
+      "side": 1,
+      "message": "50/72 wrapping please.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 57
+      },
+      "revId": "9ea479324549a7ea6acf41a3657b4ecbd623497c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2caf46be_819cee67",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-30T21:51:40Z",
+      "side": 1,
+      "message": "This is the first I\u0027ve heard of this bug.  Can you elaborate, ideally in another forum like the mailing list?",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 22
+      },
+      "revId": "9ea479324549a7ea6acf41a3657b4ecbd623497c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "341ee06f_d8103a20",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-30T21:51:40Z",
+      "side": 1,
+      "message": "I see a report of a bug that I\u0027ve never heard about before.  What I don\u0027t see in the commit message is why the answer to this isn\u0027t to just fix the bug, rather than completely disable the feature.  Was there attempts to fix it?  Was this discussed anywhere?\n\n\"There\u0027s a minor bug therefore completely disable a feature that\u0027s been in use in bmcweb for 5 years\" seems like a heavy handed approach with no discussion.",
+      "revId": "9ea479324549a7ea6acf41a3657b4ecbd623497c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
