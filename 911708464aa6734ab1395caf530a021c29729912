@@ -89,6 +89,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6097381d_608bb5bc",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-30T18:24:47Z",
+      "side": 1,
+      "message": "I\u0027m not following why this has an impact.  If the server broke the connection, won\u0027t the response code on line 383 fail?\n\nI wonder if on line 381 we need to be checking parser.is_done().  That way if we get a truly truncated response (rather than just the server closing the connection uncleanly, which some servers do)\n\nwe can still hit the error path.\n\nhttps://www.boost.org/doc/libs/1_82_0/libs/beast/doc/html/beast/ref/boost__beast__http__parser/is_done.html\n\nSeem reasonable?",
+      "revId": "911708464aa6734ab1395caf530a021c29729912",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c5c3d0d8_ece362da",
         "filename": "http/http_client.hpp",
         "patchSetId": 1
