@@ -427,6 +427,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2ca7d2f5_bce83c0d",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-30T17:42:23Z",
+      "side": 1,
+      "message": "ACK.  Just take out the isRequest template param.  It\u0027s not clear to me why what you tried isn\u0027t working, but we can follow that up later.\n\nHaving every compile unit compile a template makes our compile times worse than they already are, but I guess we just have to deal with it and fix it later.",
+      "parentUuid": "bce1ed80_41257446",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 43,
+        "endChar": 43
+      },
+      "revId": "294fcaebd7f09630a9f2faab51a077e9bdf4dda1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "58a752c3_cf0decd9",
         "filename": "http/http_base64_file_body.hpp",
         "patchSetId": 6
