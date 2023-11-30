@@ -31,6 +31,7 @@
 #include "utils/dbus_utils.hpp"
 #include "utils/time_utils.hpp"
 
+#include <systemd/sd-id128.h>
 #include <systemd/sd-journal.h>
 #include <tinyxml2.h>
 #include <unistd.h>
@@ -171,6 +172,7 @@ inline static bool getUniqueEntryID(sd_journal* journal, std::string& entryID,
                                     const bool firstEntry = true)
 {
     int ret = 0;
+    static sd_id128_t prevBootID{};
     static uint64_t prevTs = 0;
     static int index = 0;
     if (firstEntry)
@@ -180,14 +182,16 @@ inline static bool getUniqueEntryID(sd_journal* journal, std::string& entryID,
 
     // Get the entry timestamp
     uint64_t curTs = 0;
-    ret = sd_journal_get_realtime_usec(journal, &curTs);
+    sd_id128_t curBootID{};
+    ret = sd_journal_get_monotonic_usec(journal, &curTs, &curBootID);
     if (ret < 0)
     {
         BMCWEB_LOG_ERROR("Failed to read entry timestamp: {}", strerror(-ret));
         return false;
     }
-    // If the timestamp isn't unique, increment the index
-    if (curTs == prevTs)
+    // If the timestamp isn't unique on the same boot, increment the index
+    bool sameBootIDs = sd_id128_equal(curBootID, prevBootID);
+    if (sameBootIDs && (curTs == prevTs))
     {
         index++;
     }
@@ -196,10 +200,19 @@ inline static bool getUniqueEntryID(sd_journal* journal, std::string& entryID,
         // Otherwise, reset it
         index = 0;
     }
+
+    if (!sameBootIDs)
+    {
+        // Save the bootID
+        prevBootID = curBootID;
+    }
     // Save the timestamp
     prevTs = curTs;
 
-    entryID = std::to_string(curTs);
+    // make entryID as <bootID>_<timestamp>[_<index>]
+    char bootIDStr[SD_ID128_STRING_MAX];
+    sd_id128_to_string(curBootID, bootIDStr);
+    entryID = bootIDStr + std::string("_") + std::to_string(curTs);
     if (index > 0)
     {
         entryID += "_" + std::to_string(index);
@@ -246,25 +259,52 @@ static bool getUniqueEntryID(const std::string& logEntry, std::string& entryID,
     return true;
 }
 
+// Entry is formed like "BootID_timestamp" or "BootID_timestamp_index"
 inline static bool
     getTimestampFromID(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                       const std::string& entryID, uint64_t& timestamp,
-                       uint64_t& index)
+                       const std::string& entryID, sd_id128_t& bootID,
+                       uint64_t& timestamp, uint64_t& index)
 {
     if (entryID.empty())
     {
         return false;
     }
-    // Convert the unique ID back to a timestamp to find the entry
-    std::string_view tsStr(entryID);
 
-    auto underscorePos = tsStr.find('_');
-    if (underscorePos != std::string_view::npos)
+    // Convert the unique ID back to a bootID + timestamp to find the entry
+    std::string_view entryIDStrView(entryID);
+    auto underscore1Pos = entryIDStrView.find('_');
+    if (underscore1Pos == std::string_view::npos)
+    {
+        // EntryID has no bootID or timestamp
+        messages::resourceNotFound(asyncResp->res, "LogEntry", entryID);
+        return false;
+    }
+
+    // EntryID has bootID + timestamp
+
+    // Convert entryIDViewString to BootID
+    // NOTE: bootID string which needs to be null-terminated for
+    // sd_id128_from_string()
+    std::string bootIDStr(entryID, 0, underscore1Pos);
+    if (sd_id128_from_string(bootIDStr.c_str(), &bootID) < 0)
+    {
+        messages::resourceNotFound(asyncResp->res, "LogEntry", entryID);
+        return false;
+    }
+
+    // Get the timestamp from entryID
+    std::string_view timestampStrView = entryIDStrView;
+    timestampStrView.remove_prefix(underscore1Pos + 1);
+
+    // Check the index in timestamp
+    auto underscore2Pos = timestampStrView.find('_');
+    if (underscore2Pos != std::string_view::npos)
     {
         // Timestamp has an index
-        tsStr.remove_suffix(tsStr.size() - underscorePos);
-        std::string_view indexStr(entryID);
-        indexStr.remove_prefix(underscorePos + 1);
+        timestampStrView.remove_suffix(timestampStrView.size() -
+                                       underscore2Pos);
+        std::string_view indexStr(timestampStrView);
+        indexStr.remove_prefix(underscore2Pos + 1);
         auto [ptr, ec] = std::from_chars(indexStr.begin(), indexStr.end(),
                                          index);
         if (ec != std::errc())
@@ -273,8 +313,10 @@ inline static bool
             return false;
         }
     }
-    // Timestamp has no index
-    auto [ptr, ec] = std::from_chars(tsStr.begin(), tsStr.end(), timestamp);
+
+    // Now timestamp has no index
+    auto [ptr, ec] = std::from_chars(timestampStrView.begin(),
+                                     timestampStrView.end(), timestamp);
     if (ec != std::errc())
     {
         messages::resourceNotFound(asyncResp->res, "LogEntry", entryID);
@@ -2665,9 +2707,10 @@ inline void requestRoutesBMCJournalLogEntry(App& app)
             return;
         }
         // Convert the unique ID back to a timestamp to find the entry
+        sd_id128_t bootID{};
         uint64_t ts = 0;
         uint64_t index = 0;
-        if (!getTimestampFromID(asyncResp, entryID, ts, index))
+        if (!getTimestampFromID(asyncResp, entryID, bootID, ts, index))
         {
             return;
         }
@@ -2687,7 +2730,7 @@ inline void requestRoutesBMCJournalLogEntry(App& app)
         // index tracking the unique ID
         std::string idStr;
         bool firstEntry = true;
-        ret = sd_journal_seek_realtime_usec(journal.get(), ts);
+        ret = sd_journal_seek_monotonic_usec(journal.get(), bootID, ts);
         if (ret < 0)
         {
             BMCWEB_LOG_ERROR("failed to seek to an entry in journal{}",
