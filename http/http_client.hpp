@@ -155,7 +155,8 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
 #endif
     Resolver resolver;
 
-    boost::asio::ip::tcp::socket conn;
+    boost::asio::io_context& ioc;
+    std::unique_ptr<boost::asio::ip::tcp::socket> conn;
     std::optional<boost::beast::ssl_stream<boost::asio::ip::tcp::socket&>>
         sslConn;
 
@@ -193,7 +194,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         timer.async_wait(std::bind_front(onTimeout, weak_from_this()));
 
         boost::asio::async_connect(
-            conn, endpointList,
+            *conn, endpointList,
             std::bind_front(&ConnectionInfo::afterConnect, this,
                             shared_from_this()));
     }
@@ -289,7 +290,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         else
         {
             boost::beast::http::async_write(
-                conn, req,
+                *conn, req,
                 std::bind_front(&ConnectionInfo::afterWrite, this,
                                 shared_from_this()));
         }
@@ -342,7 +343,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         else
         {
             boost::beast::http::async_read(
-                conn, buffer, thisParser,
+                *conn, buffer, thisParser,
                 std::bind_front(&ConnectionInfo::afterRead, this,
                                 shared_from_this()));
         }
@@ -360,7 +361,10 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         }
 
         timer.cancel();
-        if (ec && ec != boost::asio::ssl::error::stream_truncated)
+        // retry on error inluding boost::asio::ssl::error::stream_truncated
+        // boost::asio::ssl::error::stream_truncated can happen due to
+        // keep-alive time outs
+        if (ec)
         {
             BMCWEB_LOG_ERROR("recvMessage() failed: {} from {}", ec.message(),
                              host);
@@ -487,14 +491,20 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         }
 
         // Let's close the connection and restart from resolve.
-        doClose(true);
+        shutdownConn(true);
     }
-
+    void restartConnection()
+    {
+        BMCWEB_LOG_DEBUG("{}, id: {}  restartConnection", host,
+                         std::to_string(connId));
+        ensureConnectionObject(host.scheme() == "https");
+        doResolve();
+    }
     void shutdownConn(bool retry)
     {
         boost::beast::error_code ec;
-        conn.shutdown(boost::asio::ip::tcp::socket::shutdown_both, ec);
-        conn.close();
+        conn->shutdown(boost::asio::ip::tcp::socket::shutdown_both, ec);
+        conn->close();
 
         // not_connected happens sometimes so don't bother reporting it.
         if (ec && ec != boost::beast::errc::not_connected)
@@ -511,7 +521,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         {
             // Now let's try to resend the data
             state = ConnState::retry;
-            doResolve();
+            restartConnection();
         }
         else
         {
@@ -585,6 +595,51 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
             return;
         }
     }
+    std::optional<boost::asio::ssl::context> ensureContext()
+    {
+        std::optional<boost::asio::ssl::context> sslCtx =
+            ensuressl::getSSLClientContext();
+
+        if (!sslCtx)
+        {
+            BMCWEB_LOG_ERROR("prepareSSLContext failed - {}, id: {}", host,
+                             connId);
+            // Don't retry if failure occurs while preparing SSL context
+            // such as certificate is invalid or set cipher failure or
+            // set host name failure etc... Setting conn state to
+            // sslInitFailed and connection state will be transitioned
+            // to next state depending on retry policy set by
+            // subscription.
+            state = ConnState::sslInitFailed;
+            waitAndRetry();
+        }
+        return sslCtx;
+    }
+    std::unique_ptr<boost::asio::ip::tcp::socket>
+        makeConnectionObject(boost::asio::io_context& iocIn,
+                             std::optional<boost::asio::ssl::context>&& sslCtx)
+    {
+        auto newconn = std::make_unique<boost::asio::ip::tcp::socket>(iocIn);
+        if (sslCtx)
+        {
+            sslConn.emplace(*newconn.get(), *sslCtx);
+            setCipherSuiteTLSext();
+        }
+        return newconn;
+    }
+    void ensureConnectionObject(bool ssl)
+    {
+        if (ssl)
+        {
+            auto sslContext = ensureContext();
+            if (sslContext)
+            {
+                conn = makeConnectionObject(ioc, std::move(sslContext));
+            }
+            return;
+        }
+        conn = makeConnectionObject(ioc, std::nullopt);
+    }
 
   public:
     explicit ConnectionInfo(
@@ -593,30 +648,9 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         boost::urls::url_view hostIn, unsigned int connIdIn) :
         subId(idIn),
         connPolicy(connPolicyIn), host(hostIn), connId(connIdIn),
-        resolver(iocIn), conn(iocIn), timer(iocIn)
+        resolver(iocIn), ioc(iocIn), timer(iocIn)
     {
-        if (host.scheme() == "https")
-        {
-            std::optional<boost::asio::ssl::context> sslCtx =
-                ensuressl::getSSLClientContext();
-
-            if (!sslCtx)
-            {
-                BMCWEB_LOG_ERROR("prepareSSLContext failed - {}, id: {}", host,
-                                 connId);
-                // Don't retry if failure occurs while preparing SSL context
-                // such as certificate is invalid or set cipher failure or
-                // set host name failure etc... Setting conn state to
-                // sslInitFailed and connection state will be transitioned
-                // to next state depending on retry policy set by
-                // subscription.
-                state = ConnState::sslInitFailed;
-                waitAndRetry();
-                return;
-            }
-            sslConn.emplace(conn, *sslCtx);
-            setCipherSuiteTLSext();
-        }
+        ensureConnectionObject(host.scheme() == "https");
     }
 };
 
