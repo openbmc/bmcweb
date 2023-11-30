@@ -70,6 +70,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccebc4e1_86f81549",
+        "filename": "http/mutual_tls.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001910
+      },
+      "writtenOn": "2023-11-30T03:25:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e96e791d_b3925866",
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1e56c967_ac826fd5",
@@ -131,6 +149,30 @@
       "side": 1,
       "message": "Also, lets check to see if the Redfish spec specifies this explicitly.",
       "parentUuid": "38b16cf9_dbad52b7",
+      "range": {
+        "startLine": 96,
+        "startChar": 4,
+        "endLine": 96,
+        "endChar": 26
+      },
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50b3d603_204b0429",
+        "filename": "http/mutual_tls.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1001910
+      },
+      "writtenOn": "2023-11-30T03:25:49Z",
+      "side": 1,
+      "message": "Implemented as a -Dmutual-tls-enforce-key-agreement-bit option (default enabled)",
+      "parentUuid": "f45f372c_f310e2a2",
       "range": {
         "startLine": 96,
         "startChar": 4,
@@ -259,6 +301,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "20d2b9ed_2a04971c",
+        "filename": "http/mutual_tls_meta.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001910
+      },
+      "writtenOn": "2023-11-30T03:25:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7e10a52_49b82f32",
+      "range": {
+        "startLine": 9,
+        "startChar": 18,
+        "endLine": 9,
+        "endChar": 33
+      },
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "434baae4_9fcd2004",
@@ -320,6 +386,30 @@
       "side": 1,
       "message": "they\u0027re both complex, one is code we can read and compiles at compile time, one has a runtime overhead 😊\n\nfor non-bmc use cases, regex is generally a perfectly acceptable choice, so i don\u0027t fault you for going that route.",
       "parentUuid": "2f408b6f_ff69f4a6",
+      "range": {
+        "startLine": 11,
+        "startChar": 20,
+        "endLine": 11,
+        "endChar": 21
+      },
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "134ffbe8_acf0d316",
+        "filename": "http/mutual_tls_meta.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001910
+      },
+      "writtenOn": "2023-11-30T03:25:49Z",
+      "side": 1,
+      "message": "Implemented logic using string operations, let me know what you think",
+      "parentUuid": "1a7b1857_1d7f6d03",
       "range": {
         "startLine": 11,
         "startChar": 20,
@@ -633,6 +723,30 @@
       "side": 1,
       "message": "s/anem/enum/g",
       "parentUuid": "e787a389_f6b91114",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 104
+      },
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6d37b97_6d434f64",
+        "filename": "meson.build",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001910
+      },
+      "writtenOn": "2023-11-30T03:25:49Z",
+      "side": 1,
+      "message": "Done, added as `-Dmutual-tls-common-name-parsing\u003d\u0027meta\u0027` option",
+      "parentUuid": "f77c76f3_7ef03475",
       "range": {
         "startLine": 80,
         "startChar": 0,
