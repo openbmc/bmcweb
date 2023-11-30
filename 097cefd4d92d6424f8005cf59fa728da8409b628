@@ -24,6 +24,69 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "b864ef9d_6fb6b458",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-30T18:10:54Z",
+      "side": 1,
+      "message": "Could you please just update the existing mtls script to support your new type of encoding?\nhttps://github.com/openbmc/bmcweb/blob/master/scripts/generate_auth_certificates.py\n\nI appreciate a lot that you tested it very well, but checking in a test script into a user-driven repo when one already exists to do this kind of thing duplicates some effort.",
+      "revId": "097cefd4d92d6424f8005cf59fa728da8409b628",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e88019a_76e3dc47",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-30T18:10:54Z",
+      "side": 1,
+      "message": "Remove.  Just say you enabled this meson option on romulus.  No need to go into this level of details on how.",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 3
+      },
+      "revId": "097cefd4d92d6424f8005cf59fa728da8409b628",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e4cb86c_fc10b5d5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-30T18:10:54Z",
+      "side": 1,
+      "message": "Just say \"unit tests pass\", which even itself is a given, because CI also runs the unit tests.",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 3
+      },
+      "revId": "097cefd4d92d6424f8005cf59fa728da8409b628",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "558128d6_a4023657",
