@@ -403,6 +403,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bce1ed80_41257446",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-11-30T10:56:07Z",
+      "side": 1,
+      "message": "See the issue below \nhttps://godbolt.org/z/E7rdEcjaq\n\nThe usage of boost::beast::http::message_generator is the problem.",
+      "parentUuid": "46382ff0_e3c21f25",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 43,
+        "endChar": 43
+      },
+      "revId": "294fcaebd7f09630a9f2faab51a077e9bdf4dda1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "58a752c3_cf0decd9",
         "filename": "http/http_base64_file_body.hpp",
         "patchSetId": 6
