@@ -3,6 +3,29 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "d96b7df2_4c342b70",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-30T18:06:51Z",
+      "side": 1,
+      "message": "In the future, it would\u0027ve been a lot better if this were a separate commit.  it\u0027s an independent feature flag, and would\u0027ve made this commit smaller and more self container.\n\nAll good.",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 8
+      },
+      "revId": "097cefd4d92d6424f8005cf59fa728da8409b628",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "558128d6_a4023657",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 5
@@ -14,6 +37,86 @@
       "writtenOn": "2023-11-30T03:25:49Z",
       "side": 1,
       "message": "Hi Ed, apologies for the delay. Think I\u0027ve got everything based on your feedback, but let me know what you think",
+      "revId": "097cefd4d92d6424f8005cf59fa728da8409b628",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00d4ea46_0e15c8d8",
+        "filename": "http/mutual_tls.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-30T18:06:51Z",
+      "side": 1,
+      "message": "Lets break this into its own branch.  This is code that will need to get security reviewed a lot.  The simpler it is, the better.",
+      "range": {
+        "startLine": 92,
+        "startChar": 9,
+        "endLine": 92,
+        "endChar": 68
+      },
+      "revId": "097cefd4d92d6424f8005cf59fa728da8409b628",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee077df2_76ae876b",
+        "filename": "http/mutual_tls_meta.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-30T18:06:51Z",
+      "side": 1,
+      "message": "Generally we try to avoid using stringstreams for parsing.  They compile pretty heavy, are difficult to check for errors without exceptions, and aren\u0027t terribly performant.\n\nNot sure if that matters in this case, but one example of such a parser is here:  https://github.com/openbmc/bmcweb/blob/7164bc62dd26ec92b01985aaae97ecc48276dea5/redfish-core/include/utils/time_utils.hpp#L47\n\nUp to you if you want to change.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 34
+      },
+      "revId": "097cefd4d92d6424f8005cf59fa728da8409b628",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af1a6c25_007d57ed",
+        "filename": "http/mutual_tls_meta.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-30T18:06:51Z",
+      "side": 1,
+      "message": "We would generally do\n\nstd::find(\u0027:\u0027)",
+      "revId": "097cefd4d92d6424f8005cf59fa728da8409b628",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0a4c757_2bf6d15e",
+        "filename": "http/mutual_tls_meta.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-30T18:06:51Z",
+      "side": 1,
+      "message": "in what conditions is the user host empty?  I suspect this should\u0027ve been a hard error?",
       "revId": "097cefd4d92d6424f8005cf59fa728da8409b628",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -36,6 +139,99 @@
         "startChar": 0,
         "endLine": 68,
         "endChar": 9
+      },
+      "revId": "097cefd4d92d6424f8005cf59fa728da8409b628",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "855ebe98_d40b6e71",
+        "filename": "http/mutual_tls_meta.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-30T18:06:51Z",
+      "side": 1,
+      "message": "+1.  Anything that avoids magic numbers like these is preffered.  Something like\n\n\nconstexpr std::string_view facebook \u003d \".facebook.com\";\nif (userHost.ends_with(facebook)){\n    userHost.resize(userHost.size() - facebook.size();\n}",
+      "parentUuid": "b3333b69_4c30b796",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 9
+      },
+      "revId": "097cefd4d92d6424f8005cf59fa728da8409b628",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eaaaec26_041eb7d4",
+        "filename": "http/mutual_tls_meta.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-30T18:06:51Z",
+      "side": 1,
+      "message": "Is this possible?  You put the remaining username into userHost on line 52.  unless there was an error, this should always be eof, right?  I suspect we need to be checking for stream errors here?",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 18
+      },
+      "revId": "097cefd4d92d6424f8005cf59fa728da8409b628",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b21b82d7_585f88aa",
+        "filename": "http/mutual_tls_meta.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-30T18:06:51Z",
+      "side": 1,
+      "message": "wouldn\u0027t users be mapped to just userName, not userType_userName?",
+      "range": {
+        "startLine": 106,
+        "startChar": 17,
+        "endLine": 106,
+        "endChar": 43
+      },
+      "revId": "097cefd4d92d6424f8005cf59fa728da8409b628",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8e29c60_f80ffc4c",
+        "filename": "meson_options.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-30T18:06:51Z",
+      "side": 1,
+      "message": "nit, \"as a user name\" not \"as-is\"",
+      "range": {
+        "startLine": 201,
+        "startChar": 54,
+        "endLine": 201,
+        "endChar": 59
       },
       "revId": "097cefd4d92d6424f8005cf59fa728da8409b628",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"

@@ -185,6 +185,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "88dcf8f4_5b339064",
+        "filename": "http/mutual_tls.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-30T18:06:51Z",
+      "side": 1,
+      "message": "Did we discuss with redfish about what the correct check for this is?  I suspect it doesn\u0027t need to be an option, and we just were overly pessimistic before.",
+      "parentUuid": "50b3d603_204b0429",
+      "range": {
+        "startLine": 96,
+        "startChar": 4,
+        "endLine": 96,
+        "endChar": 26
+      },
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "acc2bc0c_552a2db8",
         "filename": "http/mutual_tls.hpp",
         "patchSetId": 3
@@ -558,6 +582,30 @@
       "side": 1,
       "message": "\u003e In this code, they\u0027re treated essentially the same.\n\nThat\u0027s the intention, the idea is to leverage a BMC user as a natural way to map an external identity (a person, a service, or a host) to a set of permissions.\n\nI agree the term \"service\" is a bit confusing here. At Meta, that\u0027s generally understood as a containerised cloud service (that has a `svc:\u003cservice_name\u003e` identity/cert that\u0027s used to interact with other services), and unlike e.g. a linux \"service user\" to set permissions to daemon processes (though with the same intent of restricting permissions to a \"service\").",
       "parentUuid": "8b5d0f54_a1a9da0b",
+      "range": {
+        "startLine": 40,
+        "startChar": 42,
+        "endLine": 40,
+        "endChar": 57
+      },
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc6f7eb6_9db22389",
+        "filename": "http/mutual_tls_meta.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-30T18:06:51Z",
+      "side": 1,
+      "message": "\u003e \u003e In this code, they\u0027re treated essentially the same.\n\u003e \n\u003e That\u0027s the intention, the idea is to leverage a BMC user as a natural way to map an external identity (a person, a service, or a host) to a set of permissions.\n\nRight.... but in this case you\u0027re not mapping it to a set of permissions, you\u0027re mapping it to an /etc/shadow user.  \n\n\u003e \n\u003e I agree the term \"service\" is a bit confusing here. At Meta, that\u0027s generally understood as a containerised cloud service (that has a `svc:\u003cservice_name\u003e` identity/cert that\u0027s used to interact with other services), and unlike e.g. a linux \"service user\" to set permissions to daemon processes (though with the same intent of restricting permissions to a \"service\").\n\nyep, I understood what a service was, I was mostly remarking that on the BMC there is no concept of a service.  As a concrete example, should we be naming service users service_foo instead of svc_foo?  I don\u0027t think there\u0027s anything that would say one way or another.\n\nMy worry is that if we set this precedent from within bmcweb without a discussion with phosphor-user-manager maintainers, we\u0027ll have inadvertently started storing user meta data in the username itself, which we should understand the consequences of before we do it.",
+      "parentUuid": "ef6a7a7d_1e11a133",
       "range": {
         "startLine": 40,
         "startChar": 42,
