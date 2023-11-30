@@ -298,6 +298,29 @@
       },
       "revId": "097cefd4d92d6424f8005cf59fa728da8409b628",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ecdcf41_8dbb8483",
+        "filename": "test/http/mutual_tls_meta.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-11-30T19:27:44Z",
+      "side": 1,
+      "message": "I can\u0027t explain why this unit test is passing, but reading through the code, it looks like the code expects the hostnames to show up as one of 3 suffixes (.facebook.com etc), for which I would expect this check to fail.  Can you clarify if this is intentional?",
+      "range": {
+        "startLine": 22,
+        "startChar": 31,
+        "endLine": 22,
+        "endChar": 50
+      },
+      "revId": "097cefd4d92d6424f8005cf59fa728da8409b628",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
