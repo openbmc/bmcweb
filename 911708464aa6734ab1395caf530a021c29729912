@@ -141,6 +141,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "079c4afa_989001e1",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-01T18:31:15Z",
+      "side": 1,
+      "message": "Right, the response code is set by the application, but if a lower layer fails, the response code won\u0027t get transfered, right?\n\n\u003e Since http_client is not waiting by reading the socket.\n\nAh, so maybe that\u0027s the issue.  I wonder if we set up a wait type of wait_error, if this would fix the issue?\n\nhttps://live.boost.org/doc/libs/1_83_0/doc/html/boost_asio/reference/basic_stream_socket/async_wait.html\n\nOr should we rearrange the code so that we\u0027re always reading, and if we read bytes when we don\u0027t expect them, we should just abort?\n\nI do still think we should check that the parser finished in this code, but maybe that doesn\u0027t matter.",
+      "parentUuid": "176ae9e1_d9c6bd9b",
+      "revId": "911708464aa6734ab1395caf530a021c29729912",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c5c3d0d8_ece362da",
         "filename": "http/http_client.hpp",
         "patchSetId": 1
@@ -176,6 +194,30 @@
       "side": 1,
       "message": "my mistake. Copy-paste error from downstream.  Ssl is still used, but the context may not have all details. That is why the error is not shown up in my test",
       "parentUuid": "c5c3d0d8_ece362da",
+      "range": {
+        "startLine": 604,
+        "startChar": 0,
+        "endLine": 619,
+        "endChar": 16
+      },
+      "revId": "911708464aa6734ab1395caf530a021c29729912",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a7a592f_e5228246",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-01T18:31:15Z",
+      "side": 1,
+      "message": "All good.  Let me know when you\u0027ve fixed your patchset.",
+      "parentUuid": "bc10ae81_a2c2c078",
       "range": {
         "startLine": 604,
         "startChar": 0,
