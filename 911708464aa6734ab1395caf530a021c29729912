@@ -123,6 +123,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "176ae9e1_d9c6bd9b",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-12-01T09:19:56Z",
+      "side": 1,
+      "message": "No. The response code is usually set by the application. But the connection is broken due to TCP keep_alive timeout. \nThis is happening at TCP layer and is done by any intermediate proxies. \nThe server will not set any HTTP response code in this case. It is kind of an abrupt connection termination. \nSince http_client is not waiting by reading the socket, it is not aware of the connection termination. \nThe http_client get to know about the connection failure when it tries to send next event. \nWhich can happen very long time after the connection termination. So the way to know about the broken coonection  is from error code.\nSslstream truncation is the error we usually get in this case.",
+      "parentUuid": "6097381d_608bb5bc",
+      "revId": "911708464aa6734ab1395caf530a021c29729912",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c5c3d0d8_ece362da",
         "filename": "http/http_client.hpp",
         "patchSetId": 1
@@ -134,6 +152,30 @@
       "writtenOn": "2023-11-30T18:17:57Z",
       "side": 1,
       "message": "You\u0027ve completely disabled SSL?  This looks like it\u0027s still WIP?",
+      "range": {
+        "startLine": 604,
+        "startChar": 0,
+        "endLine": 619,
+        "endChar": 16
+      },
+      "revId": "911708464aa6734ab1395caf530a021c29729912",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc10ae81_a2c2c078",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-12-01T09:19:56Z",
+      "side": 1,
+      "message": "my mistake. Copy-paste error from downstream.  Ssl is still used, but the context may not have all details. That is why the error is not shown up in my test",
+      "parentUuid": "c5c3d0d8_ece362da",
       "range": {
         "startLine": 604,
         "startChar": 0,
