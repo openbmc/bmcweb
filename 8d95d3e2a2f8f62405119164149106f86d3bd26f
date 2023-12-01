@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88cab8b1_6ddb4cff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 25
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-12-01T21:58:41Z",
+      "side": 1,
+      "message": "Thanks for the review. I was on vacation, took a while to resolve the issues.",
+      "revId": "8d95d3e2a2f8f62405119164149106f86d3bd26f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

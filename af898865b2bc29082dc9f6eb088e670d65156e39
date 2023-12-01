@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "194d9c0c_23e055b3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 23
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-12-01T21:58:41Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "a7017310_784b31dd",
+      "range": {
+        "startLine": 11,
+        "startChar": 29,
+        "endLine": 11,
+        "endChar": 56
+      },
+      "revId": "af898865b2bc29082dc9f6eb088e670d65156e39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4bc42a45_9638423d",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-11-15T17:05:34Z",
       "side": 1,
       "message": "nit, lets call this jsonKeyName just to be clear what it is.\n\nAlso, consider using the json_pointer class to make it type safe.",
+      "range": {
+        "startLine": 25,
+        "startChar": 63,
+        "endLine": 25,
+        "endChar": 70
+      },
+      "revId": "af898865b2bc29082dc9f6eb088e670d65156e39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff50fbf2_51aeb35d",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-12-01T21:58:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4bc42a45_9638423d",
       "range": {
         "startLine": 25,
         "startChar": 63,
@@ -93,6 +141,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d567405_bb7fc42f",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-12-01T21:58:41Z",
+      "side": 1,
+      "message": "Changed the name to getCollectionToKey, hope it makes more sense.",
+      "parentUuid": "3c09c301_422e27a7",
+      "range": {
+        "startLine": 83,
+        "startChar": 32,
+        "endLine": 83,
+        "endChar": 35
+      },
+      "revId": "af898865b2bc29082dc9f6eb088e670d65156e39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58cfa101_7e4bfbc3",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-12-01T21:58:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb9dcc65_abdb31a3",
+      "range": {
+        "startLine": 83,
+        "startChar": 12,
+        "endLine": 83,
+        "endChar": 39
+      },
+      "revId": "af898865b2bc29082dc9f6eb088e670d65156e39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "159b5918_c543b16a",
@@ -110,6 +206,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1056a9b5_dfc21830",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-12-01T21:58:41Z",
+      "side": 1,
+      "message": "Changed to jsonKeyName",
+      "parentUuid": "159b5918_c543b16a",
+      "revId": "af898865b2bc29082dc9f6eb088e670d65156e39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aa939e72_47a71a9a",
@@ -123,6 +237,30 @@
       "writtenOn": "2023-11-15T17:05:34Z",
       "side": 1,
       "message": "Please construct this on its own line and put into a variable name.",
+      "range": {
+        "startLine": 43,
+        "startChar": 19,
+        "endLine": 43,
+        "endChar": 77
+      },
+      "revId": "af898865b2bc29082dc9f6eb088e670d65156e39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65113704_374c7de3",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-12-01T21:58:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa939e72_47a71a9a",
       "range": {
         "startLine": 43,
         "startChar": 19,
