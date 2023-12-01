@@ -52,6 +52,24 @@
       "parentUuid": "ef2e28a9_59d62336",
       "revId": "0226cfd5e2773adcd8b738c328c067bbfc9e66d4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a8230e7_acb280e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 85
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2023-12-01T19:05:51Z",
+      "side": 1,
+      "message": "I think we unofficially got the OK to upstream the code (didn\u0027t see it written down in email though), let me ping again to see if it is final so that we can upstream the backend",
+      "parentUuid": "4068cac5_42436c6f",
+      "revId": "0226cfd5e2773adcd8b738c328c067bbfc9e66d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
