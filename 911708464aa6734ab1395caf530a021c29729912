@@ -106,6 +106,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9bb4a20d_57086f8a",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-12-02T07:09:38Z",
+      "side": 1,
+      "message": "It is an Optional stream. We are supposed to emplace a new SSL stream once the TCP object is available. Earlier code tried to reuse both TCP object and SSL stream, which is invalid once the connection is broken. We are supposed to recreate atleast the SSL stream. This patch set recreates both TCP object and SSL stream. That is why the TCP object is a unique_ptr now. So as per the current code the declaration order is correct.",
+      "parentUuid": "9663d414_706d2f72",
+      "range": {
+        "startLine": 161,
+        "startChar": 50,
+        "endLine": 161,
+        "endChar": 54
+      },
+      "revId": "911708464aa6734ab1395caf530a021c29729912",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6097381d_608bb5bc",
         "filename": "http/http_client.hpp",
         "patchSetId": 1
@@ -153,6 +177,24 @@
       "side": 1,
       "message": "Right, the response code is set by the application, but if a lower layer fails, the response code won\u0027t get transfered, right?\n\n\u003e Since http_client is not waiting by reading the socket.\n\nAh, so maybe that\u0027s the issue.  I wonder if we set up a wait type of wait_error, if this would fix the issue?\n\nhttps://live.boost.org/doc/libs/1_83_0/doc/html/boost_asio/reference/basic_stream_socket/async_wait.html\n\nOr should we rearrange the code so that we\u0027re always reading, and if we read bytes when we don\u0027t expect them, we should just abort?\n\nI do still think we should check that the parser finished in this code, but maybe that doesn\u0027t matter.",
       "parentUuid": "176ae9e1_d9c6bd9b",
+      "revId": "911708464aa6734ab1395caf530a021c29729912",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8dccf0f8_6a9cacf4",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-12-02T07:09:38Z",
+      "side": 1,
+      "message": "Yes, we can use async wait. But it makes code a bit complicated I guess. The eventing semantics do not expect to wait for anything from the server before sending an event. \nIn my opinion, we can handle the error reactively as we do now. It is just that we are reusing the SSL stream improperly and escaping some error conditions. Fixing those will give completeness to the current solution I guess.",
+      "parentUuid": "079c4afa_989001e1",
       "revId": "911708464aa6734ab1395caf530a021c29729912",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -218,6 +260,30 @@
       "side": 1,
       "message": "All good.  Let me know when you\u0027ve fixed your patchset.",
       "parentUuid": "bc10ae81_a2c2c078",
+      "range": {
+        "startLine": 604,
+        "startChar": 0,
+        "endLine": 619,
+        "endChar": 16
+      },
+      "revId": "911708464aa6734ab1395caf530a021c29729912",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "198644fb_3937dfbc",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-12-02T07:09:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0a7a592f_e5228246",
       "range": {
         "startLine": 604,
         "startChar": 0,
