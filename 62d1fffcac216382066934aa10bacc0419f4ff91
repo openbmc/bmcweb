@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cc64061_c9b5c7fd",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-12-04T22:30:24Z",
+      "side": 1,
+      "message": "Sorry, I intended this as a separate commit, and I undid Patchset 3.\nI\u0027ll incorporate your comment on the separate commmit.\nThis prevBootID is a static variable like `prevTs`.",
+      "parentUuid": "a6a54272_ad454e3c",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 175,
+        "endChar": 49
+      },
+      "revId": "62d1fffcac216382066934aa10bacc0419f4ff91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "108ca185_dcc2ec5f",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3af4efc0_abd0bdc0",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-12-04T22:30:24Z",
+      "side": 1,
+      "message": "Sorry, I intended this as a separate commit, and I undid Patchset 3.\nThanks I\u0027ll consider this in the separate commit",
+      "parentUuid": "108ca185_dcc2ec5f",
+      "range": {
+        "startLine": 213,
+        "startChar": 4,
+        "endLine": 213,
+        "endChar": 8
+      },
+      "revId": "62d1fffcac216382066934aa10bacc0419f4ff91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "50f30869_efcc0c30",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-12-04T22:13:00Z",
       "side": 1,
       "message": "std::format(\"{}_{}\", bootIdStr, curTs);",
+      "range": {
+        "startLine": 215,
+        "startChar": 14,
+        "endLine": 215,
+        "endChar": 67
+      },
+      "revId": "62d1fffcac216382066934aa10bacc0419f4ff91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7d4671e_a3e6b5c6",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-12-04T22:30:24Z",
+      "side": 1,
+      "message": "Sorry, I intended this as a separate commit, and I undid Patchset 3.\nThanks I\u0027ll consider this in the separate commit",
+      "parentUuid": "50f30869_efcc0c30",
       "range": {
         "startLine": 215,
         "startChar": 14,
