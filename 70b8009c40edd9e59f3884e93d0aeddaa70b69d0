@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6bac431_7b61912f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 72
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-04T18:46:21Z",
+      "side": 1,
+      "message": "This is already looking much better.  A couple minor things to fix, then I suspect this can merge.\n\nThank you for making the changes!",
+      "revId": "70b8009c40edd9e59f3884e93d0aeddaa70b69d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2222993b_c4230ff9",
+        "filename": "test/http/http_response_test.cpp",
+        "patchSetId": 72
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-04T18:46:21Z",
+      "side": 1,
+      "message": "Please put in an anonymous namespace\n\nnamespace {",
+      "revId": "70b8009c40edd9e59f3884e93d0aeddaa70b69d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "951ef255_56c1f614",
+        "filename": "test/http/http_response_test.cpp",
+        "patchSetId": 72
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-04T18:46:21Z",
+      "side": 1,
+      "message": "Please follow the UpperCamel naming convention here.",
+      "range": {
+        "startLine": 37,
+        "startChar": 5,
+        "endLine": 37,
+        "endChar": 18
+      },
+      "revId": "70b8009c40edd9e59f3884e93d0aeddaa70b69d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e07d14d1_86f32bc7",
+        "filename": "test/http/http_response_test.cpp",
+        "patchSetId": 72
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-04T18:46:21Z",
+      "side": 1,
+      "message": "StringBody.",
+      "range": {
+        "startLine": 51,
+        "startChar": 20,
+        "endLine": 51,
+        "endChar": 30
+      },
+      "revId": "70b8009c40edd9e59f3884e93d0aeddaa70b69d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b33e573d_c81ddf3a",
+        "filename": "test/http/http_response_test.cpp",
+        "patchSetId": 72
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-04T18:46:21Z",
+      "side": 1,
+      "message": "FileBody",
+      "range": {
+        "startLine": 60,
+        "startChar": 20,
+        "endLine": 60,
+        "endChar": 28
+      },
+      "revId": "70b8009c40edd9e59f3884e93d0aeddaa70b69d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee3ad4ae_8971128e",
+        "filename": "test/http/http_response_test.cpp",
+        "patchSetId": 72
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-04T18:46:21Z",
+      "side": 1,
+      "message": "You can\u0027t use this thread id to get a file path.  Please use something like std::filesystem::temp_directory_path, std::tmpfile, or similar.\n\nAs written this is going to put the temporary files in the current working directory, which might not be writable when tests are run.",
+      "range": {
+        "startLine": 64,
+        "startChar": 32,
+        "endLine": 64,
+        "endChar": 58
+      },
+      "revId": "70b8009c40edd9e59f3884e93d0aeddaa70b69d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f7f0d0c_1dbeba7a",
+        "filename": "test/http/http_response_test.cpp",
+        "patchSetId": 72
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-04T18:46:21Z",
+      "side": 1,
+      "message": "BodyTransitions.",
+      "range": {
+        "startLine": 71,
+        "startChar": 20,
+        "endLine": 71,
+        "endChar": 36
+      },
+      "revId": "70b8009c40edd9e59f3884e93d0aeddaa70b69d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
