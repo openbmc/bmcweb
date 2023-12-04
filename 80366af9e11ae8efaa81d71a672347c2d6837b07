@@ -305,6 +305,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e5d47d8_a4fb6a72",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-12-04T20:49:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f62a4f6_77d13752",
+      "range": {
+        "startLine": 381,
+        "startChar": 0,
+        "endLine": 381,
+        "endChar": 58
+      },
+      "revId": "80366af9e11ae8efaa81d71a672347c2d6837b07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f5879b53_b185bcdb",
@@ -509,6 +533,30 @@
       "side": 1,
       "message": "\u003e The sensor code relies on an all_sensors association, which I don\u0027t see that you\u0027ve talked about changing, or even documenting the new association.\n\nall_sensors is for the chassis to sensors. \nsensors is for a low level inventory item (like fan) to a sensor \nhttps://github.com/openbmc/docs/blob/717d273cf8bceac3868a278aeb34d19e8d74c1b3/architecture/sensor-architecture.md?plain\u003d1#L66\n\n\u003e and how will you determine the first fan tach from the second for dual rotor fans? Or do you intend to not support dual rotor fans (in which case, the code needs to explicitly handle that case).\n\nDo you need new associations here? \nFor a single rotor, I could see where you only put it out if you have 1 assocation but for dual rotor, how do you know which is primary and which is secondary?\n\nDo you need a primaryRPMsensor and secondaryRPMsenosr?\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Inventory/Item/Fan.interface.yaml#L4",
       "parentUuid": "bdd8ef40_bcf91e6a",
+      "range": {
+        "startLine": 461,
+        "startChar": 41,
+        "endLine": 461,
+        "endChar": 48
+      },
+      "revId": "80366af9e11ae8efaa81d71a672347c2d6837b07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "923c730e_d1ea84b0",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-12-04T20:49:07Z",
+      "side": 1,
+      "message": "New PDI \u0027xyz.openbmc_project.Common.Priority\u0027 interface is implemented  to specify the priority of the sensosors in the following commits:\n    \nhttps://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/66779\nhttps://gerrit.openbmc.org/c/openbmc/phosphor-hwmon/+/67170",
+      "parentUuid": "e44ab57c_fe7efbd6",
       "range": {
         "startLine": 461,
         "startChar": 41,

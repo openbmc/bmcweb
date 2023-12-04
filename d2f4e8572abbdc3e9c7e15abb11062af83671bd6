@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d0363e7_a02ce39b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 39
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-12-04T20:49:07Z",
+      "side": 1,
+      "message": "Tried to address the issues, and several changes have been made since the last review. This update includes a new Redfish schema version to incorporate SecondarySpeedPercent and a new interface for adding sensor priority. Please review. Thank you.",
+      "revId": "d2f4e8572abbdc3e9c7e15abb11062af83671bd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

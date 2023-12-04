@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "86bc55ed_c47fc893",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-12-04T20:49:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc54e5e8_83582e1b",
+      "range": {
+        "startLine": 370,
+        "startChar": 0,
+        "endLine": 391,
+        "endChar": 9
+      },
+      "revId": "f2867495a7dacf2d5448144dc8109548d51848dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c2e8adfc_a9c5c5ed",
@@ -95,6 +119,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7eb88a5e_10e791e8",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-12-04T20:49:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "836c1bb9_bc7e3a47",
+      "range": {
+        "startLine": 436,
+        "startChar": 19,
+        "endLine": 436,
+        "endChar": 22
+      },
+      "revId": "f2867495a7dacf2d5448144dc8109548d51848dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c6ed18de_a55f989b",
@@ -108,6 +156,30 @@
       "writtenOn": "2023-09-19T16:59:32Z",
       "side": 1,
       "message": "Still has a non trivial lambda.  Please read the coding standards.",
+      "range": {
+        "startLine": 449,
+        "startChar": 0,
+        "endLine": 465,
+        "endChar": 73
+      },
+      "revId": "f2867495a7dacf2d5448144dc8109548d51848dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f02e772_8ad86a8c",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-12-04T20:49:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6ed18de_a55f989b",
       "range": {
         "startLine": 449,
         "startChar": 0,

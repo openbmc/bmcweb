@@ -16,6 +16,24 @@
       "message": "Can you add a comment here?",
       "revId": "bb63bff0d9112ed08ddfadaf95fc4020d3fc5809",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebf32e6f_6493ba3f",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-12-04T20:49:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4754ff6_8a28e1f1",
+      "revId": "bb63bff0d9112ed08ddfadaf95fc4020d3fc5809",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

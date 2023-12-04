@@ -149,6 +149,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "96e83860_ec90b430",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-12-04T20:49:07Z",
+      "side": 1,
+      "message": "New PDI \u0027xyz.openbmc_project.Common.Priority\u0027 interface is implemented to specify the priority of the sensosors in the following commits:\n\nhttps://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/66779\nhttps://gerrit.openbmc.org/c/openbmc/phosphor-hwmon/+/67170",
+      "parentUuid": "1702916f_9c34d8ae",
+      "range": {
+        "startLine": 428,
+        "startChar": 0,
+        "endLine": 428,
+        "endChar": 39
+      },
+      "revId": "b2a5a3aa08ce9000fbc7d70e6860b0bf5f6f2d8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "65488c66_2f7cb30f",
