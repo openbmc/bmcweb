@@ -191,6 +191,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fba3455e_bc38d82e",
+        "filename": "test/http/http_response_test.cpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-04T19:42:56Z",
+      "side": 1,
+      "message": "Just an FYI, ACK means \"I will look into this\".",
+      "parentUuid": "d4e6b0e3_0114bc04",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 35
+      },
+      "revId": "4fcab24db5867f6abb098fef18116e3084716507",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f9f8862_e3b1653e",
