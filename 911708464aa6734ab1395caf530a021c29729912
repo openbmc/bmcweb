@@ -176,6 +176,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "84ee5f1c_cf743792",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-04T18:39:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb2c826a_832ac798",
+      "range": {
+        "startLine": 161,
+        "startChar": 50,
+        "endLine": 161,
+        "endChar": 54
+      },
+      "revId": "911708464aa6734ab1395caf530a021c29729912",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6097381d_608bb5bc",
@@ -279,6 +303,24 @@
       "side": 1,
       "message": "I have no idea what this means. Can you rephrase?\n\nIn the case of event publishing, the client will send data and then wait for the response. After the response has arrived client need not wait for anything from the server. \nThe steps will repeat when the next event is ready to be sent.\n\n Sure, but it makes it correct I think?\n\nThe server socket will wait for the next data arrival. So it gets notified about the abrupt connection termination. The server socket can do the clean-up actions and close the socket. Is there any DOS threat here?\n\nThe client also gets to know about the closed connection when it tries to send a new event. But we were ignoring the stream truncation error before. Don\u0027t know why.\nIn the current code, once the client detects error it will restart the connection. That is only one line change. \nOther parts of the code are still needed irrespective of how we detect the connection termination.",
       "parentUuid": "8a23b3ed_db551674",
+      "revId": "911708464aa6734ab1395caf530a021c29729912",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31073474_141d4ae6",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-04T18:39:46Z",
+      "side": 1,
+      "message": "\u003e I have no idea what this means. Can you rephrase?\n\u003e \n\u003e In the case of event publishing, the client will send data and then wait for the response. After the response has arrived client need not wait for anything from the server. \n\u003e The steps will repeat when the next event is ready to be sent.\n\u003e \n\u003e  Sure, but it makes it correct I think?\n\u003e \n\u003e The server socket will wait for the next data arrival. So it gets notified about the abrupt connection termination. The server socket can do the clean-up actions and close the socket. Is there any DOS threat here?\n\u003e \n\u003e The client also gets to know about the closed connection when it tries to send a new event. But we were ignoring the stream truncation error before. Don\u0027t know why.\n\u003e In the current code, once the client detects error it will restart the connection. That is only one line change. \n\u003e Other parts of the code are still needed irrespective of how we detect the connection termination.",
+      "parentUuid": "55258af3_ec8a8415",
       "revId": "911708464aa6734ab1395caf530a021c29729912",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
