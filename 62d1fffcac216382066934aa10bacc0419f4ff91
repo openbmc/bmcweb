@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6a54272_ad454e3c",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-04T22:13:00Z",
+      "side": 1,
+      "message": "Doesn\u0027t this need cleared on firstEntry?",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 175,
+        "endChar": 49
+      },
+      "revId": "62d1fffcac216382066934aa10bacc0419f4ff91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "108ca185_dcc2ec5f",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-04T22:13:00Z",
+      "side": 1,
+      "message": "std::array\u003cchar, SD_ID128_STRING_MAX\u003e",
+      "range": {
+        "startLine": 213,
+        "startChar": 4,
+        "endLine": 213,
+        "endChar": 8
+      },
+      "revId": "62d1fffcac216382066934aa10bacc0419f4ff91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50f30869_efcc0c30",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-04T22:13:00Z",
+      "side": 1,
+      "message": "std::format(\"{}_{}\", bootIdStr, curTs);",
+      "range": {
+        "startLine": 215,
+        "startChar": 14,
+        "endLine": 215,
+        "endChar": 67
+      },
+      "revId": "62d1fffcac216382066934aa10bacc0419f4ff91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
