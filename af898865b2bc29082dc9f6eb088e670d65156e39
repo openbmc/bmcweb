@@ -95,6 +95,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "064463b1_45b9f9f5",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-12-04T16:21:38Z",
+      "side": 1,
+      "message": "It looks like keyName or jsonKeyName seems chosen from the json code point of view.\nBut isn\u0027t this semantically used as the name of collection - e.g. /Members or /PCIeDevices from subTreePaths?\nIf so, perhaps, \u0027collectionName\u0027 may be better?",
+      "parentUuid": "ff50fbf2_51aeb35d",
+      "range": {
+        "startLine": 25,
+        "startChar": 63,
+        "endLine": 25,
+        "endChar": 70
+      },
+      "revId": "af898865b2bc29082dc9f6eb088e670d65156e39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3c09c301_422e27a7",

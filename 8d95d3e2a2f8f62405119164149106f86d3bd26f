@@ -16,6 +16,29 @@
       "message": "Thanks for the review. I was on vacation, took a while to resolve the issues.",
       "revId": "8d95d3e2a2f8f62405119164149106f86d3bd26f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83dfe4df_61cbb987",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-12-04T16:21:38Z",
+      "side": 1,
+      "message": "This seems excessive operations - i.e. json_pointer -\u003e std::string -\u003e substr \u0026 string + concat.\nIsn\u0027t it caused because jsonKeyName starts with \"/\" (e.g. json_pointer(\"/Members\"))? \nIt also requires jsonKeyName must start with \"/\" at the caller.  It seems potentially error-prone.\n\nI think It may be simpler to use  jsonKeyName (or collectionName etc) without \"/\" - perhaps a simple string or string_view, and then construct json_pointer inside handleCollectionMembers()?",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 1
+      },
+      "revId": "8d95d3e2a2f8f62405119164149106f86d3bd26f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
