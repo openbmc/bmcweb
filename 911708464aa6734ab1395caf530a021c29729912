@@ -154,6 +154,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "eb2c826a_832ac798",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-12-04T12:19:04Z",
+      "side": 1,
+      "message": "I had to change the order to call the makeConnection from the constructor initializer list.  Moved the code to the constructor body now.Hope this is correct now",
+      "parentUuid": "ecfcdd64_547cac5f",
+      "range": {
+        "startLine": 161,
+        "startChar": 50,
+        "endLine": 161,
+        "endChar": 54
+      },
+      "revId": "911708464aa6734ab1395caf530a021c29729912",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6097381d_608bb5bc",
         "filename": "http/http_client.hpp",
         "patchSetId": 1
@@ -237,6 +261,24 @@
       "side": 1,
       "message": "\u003e Yes, we can use async wait. But it makes code a bit complicated I guess.\n\nSure, but it makes it correct I think?  I\u0027d rather have complicated correct code than simple incorrect code.  Ideally it\u0027s simple correct code, but given that we need to monitor the connection at all times, I don\u0027t know if we can avoid the complexity here.\n\n\u003e The eventing semantics do not expect to wait for anything from the server before sending an event. \n\nI have no idea what this means.  Can you rephrase?\n\n\u003e In my opinion, we can handle the error reactively as we do now. It is just that we are reusing the SSL stream improperly and escaping some error conditions. Fixing those will give completeness to the current solution I guess.\n\nThe problem I see is that opens us up to possible DOS problems if we maintain connection objects that are \"open\" but at the same time not open.",
       "parentUuid": "8dccf0f8_6a9cacf4",
+      "revId": "911708464aa6734ab1395caf530a021c29729912",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55258af3_ec8a8415",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-12-04T12:19:04Z",
+      "side": 1,
+      "message": "I have no idea what this means. Can you rephrase?\n\nIn the case of event publishing, the client will send data and then wait for the response. After the response has arrived client need not wait for anything from the server. \nThe steps will repeat when the next event is ready to be sent.\n\n Sure, but it makes it correct I think?\n\nThe server socket will wait for the next data arrival. So it gets notified about the abrupt connection termination. The server socket can do the clean-up actions and close the socket. Is there any DOS threat here?\n\nThe client also gets to know about the closed connection when it tries to send a new event. But we were ignoring the stream truncation error before. Don\u0027t know why.\nIn the current code, once the client detects error it will restart the connection. That is only one line change. \nOther parts of the code are still needed irrespective of how we detect the connection termination.",
+      "parentUuid": "8a23b3ed_db551674",
       "revId": "911708464aa6734ab1395caf530a021c29729912",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
