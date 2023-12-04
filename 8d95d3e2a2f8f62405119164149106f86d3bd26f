@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ffd7ff4b_f5671a9e",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-04T18:35:25Z",
+      "side": 1,
+      "message": "I suspect the code you want here is:\n\nhttps://json.nlohmann.me/api/json_pointer/back/\n\nstd::string back \u003d jsonKeyName.back();\njsonKeyName.pop_back();\njsonKeyName /\u003d back + \"@doata.count\";",
+      "range": {
+        "startLine": 34,
+        "startChar": 23,
+        "endLine": 34,
+        "endChar": 73
+      },
+      "revId": "8d95d3e2a2f8f62405119164149106f86d3bd26f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "83dfe4df_61cbb987",
         "filename": "redfish-core/include/utils/collection.hpp",
         "patchSetId": 25
@@ -31,6 +54,30 @@
       "writtenOn": "2023-12-04T16:21:38Z",
       "side": 1,
       "message": "This seems excessive operations - i.e. json_pointer -\u003e std::string -\u003e substr \u0026 string + concat.\nIsn\u0027t it caused because jsonKeyName starts with \"/\" (e.g. json_pointer(\"/Members\"))? \nIt also requires jsonKeyName must start with \"/\" at the caller.  It seems potentially error-prone.\n\nI think It may be simpler to use  jsonKeyName (or collectionName etc) without \"/\" - perhaps a simple string or string_view, and then construct json_pointer inside handleCollectionMembers()?",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 1
+      },
+      "revId": "8d95d3e2a2f8f62405119164149106f86d3bd26f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acb9955c_a9e3de06",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-04T18:35:25Z",
+      "side": 1,
+      "message": "I\u0027m not really sure why we need to strip the beginning / here?",
+      "parentUuid": "83dfe4df_61cbb987",
       "range": {
         "startLine": 68,
         "startChar": 0,
