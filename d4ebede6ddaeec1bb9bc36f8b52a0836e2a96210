@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83da3c38_3b8192fd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-12-05T02:29:24Z",
+      "side": 1,
+      "message": "We could just disable this in meta-ibm. I don\u0027t have a strong opinion on what the default is. Since it is already defaulted true, I vote we leave as in bmcweb and just push a change to https://github.com/openbmc/openbmc/blob/master/meta-ibm/recipes-phosphor/interfaces/bmcweb_%25.bbappend",
+      "revId": "d4ebede6ddaeec1bb9bc36f8b52a0836e2a96210",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
