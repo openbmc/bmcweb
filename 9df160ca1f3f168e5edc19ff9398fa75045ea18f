@@ -39,6 +39,30 @@
       },
       "revId": "9df160ca1f3f168e5edc19ff9398fa75045ea18f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f7db5ce_41fbcb01",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-12-05T17:09:25Z",
+      "side": 1,
+      "message": "can we reuse the same socket object for establishing a new connection? Even if it works is it the right thing to do? I did not see any boost documentation recommending such a reuse.",
+      "parentUuid": "379a907d_72154477",
+      "range": {
+        "startLine": 159,
+        "startChar": 4,
+        "endLine": 159,
+        "endChar": 19
+      },
+      "revId": "9df160ca1f3f168e5edc19ff9398fa75045ea18f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
