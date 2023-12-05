@@ -786,6 +786,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "07f1022e_b1f8058d",
+        "filename": "http/mutual_tls_meta.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001910
+      },
+      "writtenOn": "2023-12-05T21:23:47Z",
+      "side": 1,
+      "message": "\u003e Seem like an ok path?\n\nSounds good to me, I\u0027ll isolate the svc/host logic into a separate change and we can discuss this with more detail later",
+      "parentUuid": "fcc76efc_37613036",
+      "range": {
+        "startLine": 40,
+        "startChar": 42,
+        "endLine": 40,
+        "endChar": 57
+      },
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "37928848_a29b747b",
         "filename": "http/mutual_tls_meta.hpp",
         "patchSetId": 3
