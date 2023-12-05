@@ -714,6 +714,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a31fb254_94a72bb5",
+        "filename": "http/mutual_tls_meta.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-12-05T18:54:03Z",
+      "side": 1,
+      "message": "Does this matter if we\u0027re not planning to use phosphor-user-manager to manage these users?  I don\u0027t think we can possibly add all of our services and users into phosphor-user-manager directly.",
+      "parentUuid": "c3e68ca7_a4b60375",
+      "range": {
+        "startLine": 40,
+        "startChar": 42,
+        "endLine": 40,
+        "endChar": 57
+      },
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "37928848_a29b747b",
         "filename": "http/mutual_tls_meta.hpp",
         "patchSetId": 3
