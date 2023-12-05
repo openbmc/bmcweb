@@ -143,6 +143,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b41bd48_2a2fe2b3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-12-05T16:20:13Z",
+      "side": 1,
+      "message": "I\u0027ll post an issue against https://github.com/systemd/systemd.",
+      "parentUuid": "53a553e7_fef018d7",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 22
+      },
+      "revId": "9ea479324549a7ea6acf41a3657b4ecbd623497c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a00bbb18_8fcec4ba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-12-05T16:20:13Z",
+      "side": 1,
+      "message": "Although the time going backwards may occur at boot time (e.g. by NTP - e.g. the system may have been powered off for a while etc), I agree that this feature may need to be turned-on by default as it has been around so long.\n\nInstead of turning off this feature, I\u0027m proposing a new approach in constructing bmc-journal-id as \u003cbootid\u003e+\u003cmonotonic timestamp\u003e via https://gerrit.openbmc.org/c/openbmc/bmcweb/+/68070\n\nSo, this commit can be abandoned.",
+      "parentUuid": "de8ec33b_4d7ae6e7",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 22
+      },
+      "revId": "9ea479324549a7ea6acf41a3657b4ecbd623497c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "341ee06f_d8103a20",

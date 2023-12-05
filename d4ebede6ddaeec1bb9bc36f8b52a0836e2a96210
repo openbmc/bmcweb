@@ -16,6 +16,24 @@
       "message": "We could just disable this in meta-ibm. I don\u0027t have a strong opinion on what the default is. Since it is already defaulted true, I vote we leave as in bmcweb and just push a change to https://github.com/openbmc/openbmc/blob/master/meta-ibm/recipes-phosphor/interfaces/bmcweb_%25.bbappend",
       "revId": "d4ebede6ddaeec1bb9bc36f8b52a0836e2a96210",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "22d202f0_0e85a7e6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-12-05T16:20:13Z",
+      "side": 1,
+      "message": "I disabled it only on meta-ibm via https://gerrit.openbmc.org/c/openbmc/openbmc/+/68088.\n\nIn parallel, I\u0027m pursuing another approach (using bootid + monotonic-timestamp) via https://gerrit.openbmc.org/c/openbmc/bmcweb/+/68070.\n\nWe may enable this again  when the new approach may be accepted and  merged.",
+      "parentUuid": "83da3c38_3b8192fd",
+      "revId": "d4ebede6ddaeec1bb9bc36f8b52a0836e2a96210",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
