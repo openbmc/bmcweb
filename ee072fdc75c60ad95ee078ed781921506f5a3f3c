@@ -257,6 +257,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a97d11e9_c76aafe7",
+        "filename": "http/mutual_tls.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-05T20:02:57Z",
+      "side": 1,
+      "message": "I\u0027m reading through the TLS1.2 RFC, and all of this stuff has to do with what type of key exchange you do.\n\nSection 7.4.2 of RFC5246 says\n```\n      DHE_RSA            RSA public key; the certificate MUST allow the\n      ECDHE_RSA          key to be used for signing (the\n                         digitalSignature bit MUST be set if the key\n                         usage extension is present) with the signature\n                         scheme and hash algorithm that will be employed\n                         in the server key exchange message.\n.....\n      DH_DSS             Diffie-Hellman public key; the keyAgreement bit\n      DH_RSA             MUST be set if the key usage extension is\n                         present.\n```\n\nhttps://www.rfc-editor.org/rfc/rfc5246#section-7.4.6\n\nSo what I suspect is that meta doesn\u0027t support DH_DSS or DH_RSA key exchange, so the intermediate unsets that bit because it doesn\u0027t want it to be used.  I suspect most certificate authorities aren\u0027t that advanced that they\u0027ve gotten rid of all uses of the old algorithms.\n\nIf I look at the openssl code for this, it\u0027s checking KU_DIGITAL_SIGNATURE OR KU_KEY_AGREEMENT, not AND:\n\nhttps://github.com/openssl/openssl/blob/de8e0851a1c0d22533801f081781a9f0be56c2c2/crypto/x509/v3_purp.c#L720\n\nI suspect that\u0027s what we need to do here.  Just change the check to an or, remove the option value, and this can merge.\n\n\nIdeally we\u0027d just be calling check_purpose_ssl_client and not inventing our own code, but that\u0027s a refactor for another time.",
+      "parentUuid": "dab92731_d21bd0e3",
+      "range": {
+        "startLine": 96,
+        "startChar": 4,
+        "endLine": 96,
+        "endChar": 26
+      },
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "acc2bc0c_552a2db8",
         "filename": "http/mutual_tls.hpp",
         "patchSetId": 3
