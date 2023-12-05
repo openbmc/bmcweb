@@ -13,6 +13,7 @@
 #include <span>
 #include <string>
 #include <string_view>
+#include <utility>
 #include <vector>
 
 namespace redfish
@@ -40,16 +41,53 @@ inline void handleCollectionMembers(
     }
 
     std::vector<std::string> pathNames;
-    for (const auto& object : objects)
+
+    // add case for SystemsCollection since we want to store Systems members
+    // as "system0" to "systemN" instead of "chassis0" to "chassisN" or "host0"
+    // to "hostN" depending on which dbus interface we are using (currently
+    // using xyz.openbmc_project.State.Host, meaning "host0" to "hostN")
+    if (collectionPath == boost::urls::url("/redfish/v1/Systems"))
     {
-        sdbusplus::message::object_path path(object);
-        std::string leaf = path.filename();
-        if (leaf.empty())
+        for (const auto& object : objects)
         {
-            continue;
+            sdbusplus::message::object_path path(object);
+            /*BMCLOG*/ BMCWEB_LOG_DEBUG(
+                "handleComputerCollectionMembers path {}", std::string(path));
+            std::string leaf = path.filename();
+            if (leaf.empty())
+            {
+                continue;
+            }
+
+            if (leaf.find(/*"chassis"*/ "host") != std::string::npos)
+            {
+                leaf.erase(remove(leaf.begin(), leaf.end(), '\"'), leaf.end());
+                std::string computerSystemIndex = leaf.substr(
+                    leaf.find(/*"chassis"*/ "host") + (leaf.length() - 1));
+
+                if (!computerSystemIndex.empty())
+                {
+                    sdbusplus::message::object_path systemPath(
+                        "/redfish/v1/Systems/system" + computerSystemIndex);
+                    pathNames.push_back(systemPath.filename());
+                }
+            }
         }
-        pathNames.push_back(leaf);
     }
+    else
+    {
+        for (const auto& object : objects)
+        {
+            sdbusplus::message::object_path path(object);
+            std::string leaf = path.filename();
+            if (leaf.empty())
+            {
+                continue;
+            }
+            pathNames.push_back(leaf);
+        }
+    }
+
     std::ranges::sort(pathNames, AlphanumLess<std::string>());
 
     nlohmann::json& members = asyncResp->res.jsonValue["Members"];
