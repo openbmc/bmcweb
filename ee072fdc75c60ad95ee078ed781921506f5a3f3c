@@ -209,6 +209,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "29f589bf_52d140c0",
+        "filename": "http/mutual_tls.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1001910
+      },
+      "writtenOn": "2023-12-05T18:28:21Z",
+      "side": 1,
+      "message": "We did not, what\u0027d be the best channel to reach out to them?\n\nFor what is worth, I did not find anything supporting the usage of the key agreement bit in redfish docs, but it seems we\u0027re enforcing this bit since the original [design proposal](https://github.com/openbmc/docs/commit/38b2c1a2f44f1e5625657de9a16fd940a0af0e9e#diff-c6088da881d672cf38ae970eed8e476f00ad1a10bc5520d059680b56cde5447aR211) and [code](https://gerrit.openbmc.org/c/openbmc/bmcweb/+/23588), I can try reaching out to the original author as well to get more details.\n\nGiven the flag preserves the original behaviour by default, I can create a new change removing the enforcement and shift this discussion there, what do you think?",
+      "parentUuid": "88dcf8f4_5b339064",
+      "range": {
+        "startLine": 96,
+        "startChar": 4,
+        "endLine": 96,
+        "endChar": 26
+      },
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "acc2bc0c_552a2db8",
         "filename": "http/mutual_tls.hpp",
         "patchSetId": 3
@@ -606,6 +630,30 @@
       "side": 1,
       "message": "\u003e \u003e In this code, they\u0027re treated essentially the same.\n\u003e \n\u003e That\u0027s the intention, the idea is to leverage a BMC user as a natural way to map an external identity (a person, a service, or a host) to a set of permissions.\n\nRight.... but in this case you\u0027re not mapping it to a set of permissions, you\u0027re mapping it to an /etc/shadow user.  \n\n\u003e \n\u003e I agree the term \"service\" is a bit confusing here. At Meta, that\u0027s generally understood as a containerised cloud service (that has a `svc:\u003cservice_name\u003e` identity/cert that\u0027s used to interact with other services), and unlike e.g. a linux \"service user\" to set permissions to daemon processes (though with the same intent of restricting permissions to a \"service\").\n\nyep, I understood what a service was, I was mostly remarking that on the BMC there is no concept of a service.  As a concrete example, should we be naming service users service_foo instead of svc_foo?  I don\u0027t think there\u0027s anything that would say one way or another.\n\nMy worry is that if we set this precedent from within bmcweb without a discussion with phosphor-user-manager maintainers, we\u0027ll have inadvertently started storing user meta data in the username itself, which we should understand the consequences of before we do it.",
       "parentUuid": "ef6a7a7d_1e11a133",
+      "range": {
+        "startLine": 40,
+        "startChar": 42,
+        "endLine": 40,
+        "endChar": 57
+      },
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e80d8bfa_dbd1f85b",
+        "filename": "http/mutual_tls_meta.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001910
+      },
+      "writtenOn": "2023-12-05T18:28:21Z",
+      "side": 1,
+      "message": "\u003e My worry is that if we set this precedent from within bmcweb without a discussion with phosphor-user-manager maintainers\n\nWhat\u0027d be a good way to reach out to them?\n\nIn principle, my reasoning was that if an org decides on using BMC users as an abstraction, potential conflicts with BMC\u0027s user naming rules would come with the territory and the risk would be on us (Meta) to adapt/resolve any issues that arise from this (I can add comments to make it clearer if it helps)\n\nFor example, without this change, I imagine there\u0027d be a similar risk if we were able to produce client subject CNs using the same convention (eg. client certs with `Subject CN \u003d \"svc_service_name\"`).",
+      "parentUuid": "fc6f7eb6_9db22389",
       "range": {
         "startLine": 40,
         "startChar": 42,
