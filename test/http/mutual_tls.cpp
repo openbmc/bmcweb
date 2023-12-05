@@ -20,6 +20,31 @@ class OSSLX509
     OSSLX509(OSSLX509&&) = delete;
 
     OSSLX509() = default;
+
+    void setSubjectName()
+    {
+        X509_NAME* name = X509_get_subject_name(ptr);
+        std::array<unsigned char, 5> user = {'u', 's', 'e', 'r', '\0'};
+        X509_NAME_add_entry_by_txt(name, "CN", MBSTRING_ASC, user.data(), -1,
+                                   -1, 0);
+    }
+    void sign()
+    {
+        // Generate test key
+        EVP_PKEY* pkey = NULL;
+        EVP_PKEY_CTX* pctx = EVP_PKEY_CTX_new_id(EVP_PKEY_EC, NULL);
+        ASSERT_EQ(EVP_PKEY_keygen_init(pctx), 1);
+        ASSERT_EQ(
+            EVP_PKEY_CTX_set_ec_paramgen_curve_nid(pctx, NID_X9_62_prime256v1),
+            1);
+        ASSERT_EQ(EVP_PKEY_keygen(pctx, &pkey), 1);
+        EVP_PKEY_CTX_free(pctx);
+
+        // Sign cert with key
+        ASSERT_EQ(X509_set_pubkey(ptr, pkey), 1);
+        ASSERT_GT(X509_sign(ptr, pkey, EVP_sha256()), 0);
+    }
+
     X509* get()
     {
         return ptr;
@@ -56,11 +81,7 @@ TEST(MutualTLS, GoodCert)
 {
     OSSLX509 x509;
 
-    X509_NAME* name = X509_get_subject_name(x509.get());
-    std::array<unsigned char, 5> user = {'u', 's', 'e', 'r', '\0'};
-    X509_NAME_add_entry_by_txt(name, "CN", MBSTRING_ASC, user.data(), -1, -1,
-                               0);
-
+    x509.setSubjectName();
     X509_EXTENSION* ex = X509V3_EXT_conf_nid(nullptr, nullptr, NID_key_usage,
                                              "digitalSignature, keyAgreement");
     ASSERT_THAT(ex, NotNull());
@@ -70,6 +91,8 @@ TEST(MutualTLS, GoodCert)
     ASSERT_THAT(ex, NotNull());
     ASSERT_EQ(X509_add_ext(x509.get(), ex, -1), 1);
     X509_EXTENSION_free(ex);
+
+    x509.sign();
 
     OSSLX509StoreCTX x509Store;
     X509_STORE_CTX_set_current_cert(x509Store.get(), x509.get());
@@ -82,35 +105,13 @@ TEST(MutualTLS, GoodCert)
     EXPECT_THAT(session->username, "user");
 }
 
-TEST(MutualTLS, MissingSubject)
-{
-    OSSLX509 x509;
-
-    X509_EXTENSION* ex = X509V3_EXT_conf_nid(nullptr, nullptr, NID_key_usage,
-                                             "digitalSignature, keyAgreement");
-    ASSERT_THAT(ex, NotNull());
-    ASSERT_EQ(X509_add_ext(x509.get(), ex, -1), 1);
-    X509_EXTENSION_free(ex);
-    ex = X509V3_EXT_conf_nid(nullptr, nullptr, NID_ext_key_usage, "clientAuth");
-    ASSERT_THAT(ex, NotNull());
-    ASSERT_EQ(X509_add_ext(x509.get(), ex, -1), 1);
-    X509_EXTENSION_free(ex);
-
-    OSSLX509StoreCTX x509Store;
-    X509_STORE_CTX_set_current_cert(x509Store.get(), x509.get());
-
-    boost::asio::ip::address ip;
-    boost::asio::ssl::verify_context ctx(x509Store.get());
-    std::shared_ptr<persistent_data::UserSession> session = verifyMtlsUser(ip,
-                                                                           ctx);
-    ASSERT_THAT(session, IsNull());
-}
-
 TEST(MutualTLS, MissingKeyUsage)
 {
-    for (const char* usageString : {"digitalSignature", "keyAgreement"})
+    for (const char* usageString :
+         {"digitalSignature", "keyAgreement", "digitalSignature, keyAgreement"})
     {
         OSSLX509 x509;
+        x509.setSubjectName();
 
         X509_EXTENSION* ex = X509V3_EXT_conf_nid(nullptr, nullptr,
                                                  NID_key_usage, usageString);
@@ -123,6 +124,7 @@ TEST(MutualTLS, MissingKeyUsage)
         ASSERT_THAT(ex, NotNull());
         ASSERT_EQ(X509_add_ext(x509.get(), ex, -1), 1);
         X509_EXTENSION_free(ex);
+        x509.sign();
 
         OSSLX509StoreCTX x509Store;
         X509_STORE_CTX_set_current_cert(x509Store.get(), x509.get());
@@ -131,29 +133,8 @@ TEST(MutualTLS, MissingKeyUsage)
         boost::asio::ssl::verify_context ctx(x509Store.get());
         std::shared_ptr<persistent_data::UserSession> session =
             verifyMtlsUser(ip, ctx);
-        ASSERT_THAT(session, IsNull());
+        ASSERT_THAT(session, NotNull());
     }
-}
-
-TEST(MutualTLS, MissingExtKeyUsage)
-{
-    OSSLX509 x509;
-
-    X509_EXTENSION* ex = X509V3_EXT_conf_nid(nullptr, nullptr, NID_key_usage,
-                                             "digitalSignature, keyAgreement");
-
-    ASSERT_THAT(ex, NotNull());
-    ASSERT_EQ(X509_add_ext(x509.get(), ex, -1), 1);
-    X509_EXTENSION_free(ex);
-
-    OSSLX509StoreCTX x509Store;
-    X509_STORE_CTX_set_current_cert(x509Store.get(), x509.get());
-
-    boost::asio::ip::address ip;
-    boost::asio::ssl::verify_context ctx(x509Store.get());
-    std::shared_ptr<persistent_data::UserSession> session = verifyMtlsUser(ip,
-                                                                           ctx);
-    ASSERT_THAT(session, IsNull());
 }
 
 TEST(MutualTLS, MissingCert)

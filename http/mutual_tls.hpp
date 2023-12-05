@@ -47,10 +47,10 @@ inline std::shared_ptr<persistent_data::UserSession>
         BMCWEB_LOG_INFO("Last TLS error is: {}", ctxError);
         return nullptr;
     }
+
     // Check that we have reached final certificate in chain
     int32_t depth = X509_STORE_CTX_get_error_depth(cts);
     if (depth != 0)
-
     {
         BMCWEB_LOG_DEBUG(
             "Certificate verification in progress (depth {}), waiting to reach final depth",
@@ -60,73 +60,13 @@ inline std::shared_ptr<persistent_data::UserSession>
 
     BMCWEB_LOG_DEBUG("Certificate verification of final depth");
 
-    // Verify KeyUsage
-    bool isKeyUsageDigitalSignature = false;
-    bool isKeyUsageKeyAgreement = false;
-
-    ASN1_BIT_STRING* usage = static_cast<ASN1_BIT_STRING*>(
-        X509_get_ext_d2i(peerCert, NID_key_usage, nullptr, nullptr));
-
-    if ((usage == nullptr) || (usage->data == nullptr))
+    if (X509_check_purpose(peerCert, X509_PURPOSE_SSL_CLIENT, 0) != 1)
     {
-        BMCWEB_LOG_DEBUG("TLS usage is null");
+        BMCWEB_LOG_DEBUG(
+            "Chain does not allow certificate to be used for SSL client authentication");
         return nullptr;
     }
 
-    for (auto usageChar :
-         std::span(usage->data, static_cast<size_t>(usage->length)))
-    {
-        if (KU_DIGITAL_SIGNATURE & usageChar)
-        {
-            isKeyUsageDigitalSignature = true;
-        }
-        if (KU_KEY_AGREEMENT & usageChar)
-        {
-            isKeyUsageKeyAgreement = true;
-        }
-    }
-    ASN1_BIT_STRING_free(usage);
-
-    if (!isKeyUsageDigitalSignature || !isKeyUsageKeyAgreement)
-    {
-        BMCWEB_LOG_DEBUG("Certificate ExtendedKeyUsage does "
-                         "not allow provided certificate to "
-                         "be used for user authentication");
-        return nullptr;
-    }
-
-    // Determine that ExtendedKeyUsage includes Client Auth
-
-    stack_st_ASN1_OBJECT* extUsage = static_cast<stack_st_ASN1_OBJECT*>(
-        X509_get_ext_d2i(peerCert, NID_ext_key_usage, nullptr, nullptr));
-
-    if (extUsage == nullptr)
-    {
-        BMCWEB_LOG_DEBUG("TLS extUsage is null");
-        return nullptr;
-    }
-
-    bool isExKeyUsageClientAuth = false;
-    for (int i = 0; i < sk_ASN1_OBJECT_num(extUsage); i++)
-    {
-        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-cstyle-cast)
-        int nid = OBJ_obj2nid(sk_ASN1_OBJECT_value(extUsage, i));
-        if (NID_client_auth == nid)
-        {
-            isExKeyUsageClientAuth = true;
-            break;
-        }
-    }
-    sk_ASN1_OBJECT_free(extUsage);
-
-    // Certificate has to have proper key usages set
-    if (!isExKeyUsageClientAuth)
-    {
-        BMCWEB_LOG_DEBUG("Certificate ExtendedKeyUsage does "
-                         "not allow provided certificate to "
-                         "be used for user authentication");
-        return nullptr;
-    }
     std::string sslUser;
     // Extract username contained in CommonName
     sslUser.resize(256, '\0');
