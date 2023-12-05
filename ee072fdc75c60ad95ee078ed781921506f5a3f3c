@@ -738,6 +738,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fcc76efc_37613036",
+        "filename": "http/mutual_tls_meta.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-05T19:05:53Z",
+      "side": 1,
+      "message": "Currently the existing mTLS+Redfish code is implemented against pam and phosphor-user-manager, if you guys plan on making phosphor-user-manager optional, that\u0027s a much bigger discussion that again, I don\u0027t really think should happen in a bmcweb code review, and ideally would have at least a rough sketch of how it\u0027s intended to work before we start merging patches that break interface boundaries.  (I dislike the design process, so I don\u0027t want to make you go through that level of scrutiny).\n\nI would ask questions like how you intend to make AccountService (which isn\u0027t optional in the redfish spec) work without a Phosphor-user-manager backend, and other things that seem important.\n\nWith that said, if that\u0027s the case that you intend to follow this up with more implementation and discussion, but you don\u0027t want to do it now, what I would say is to refactor the code to only parse out user type, and post them the existing PUM way without the namespace (which should get a majority of the code merged), and we can follow up with service/host once you guys have sketched out how to make bmcweb work without a user backend.  Seem like an ok path?",
+      "parentUuid": "a31fb254_94a72bb5",
+      "range": {
+        "startLine": 40,
+        "startChar": 42,
+        "endLine": 40,
+        "endChar": 57
+      },
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "37928848_a29b747b",
         "filename": "http/mutual_tls_meta.hpp",
         "patchSetId": 3
