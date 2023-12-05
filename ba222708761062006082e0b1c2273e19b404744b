@@ -16,6 +16,29 @@
       "message": "Code itself looks like it implements what the commit message intends.  The remaining things are:\n\n1. Have a discussion with phosphor-user-manager maintainers, to figure out if namespacing service/host/user with the acronyms you put will work with other non-redfish services.\n\n2. Split out the key usage bit enforcement into its own patch, and discuss with DMTF, or pull up the TLS RFC and determine if we need to enforce this bit at all.\n\nAfter those things are done, this can merge.",
       "revId": "ba222708761062006082e0b1c2273e19b404744b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78888321_58b3d376",
+        "filename": "meson_options.txt",
+        "patchSetId": 10
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-05T20:09:23Z",
+      "side": 1,
+      "message": "The rest of the descriptions in this file are wrapped at 80 characters.  Please do the same.",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 204,
+        "endChar": 23
+      },
+      "revId": "ba222708761062006082e0b1c2273e19b404744b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
