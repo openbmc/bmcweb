@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9244fa39_4c3f67cc",
+        "filename": "test/http/http_response_test.cpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-05T16:53:19Z",
+      "side": 1,
+      "message": "Any reason you didn\u0027t go with this implementation?",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 1
+      },
+      "revId": "38313cb76165108a5a0bbdf575161bd649708d86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
