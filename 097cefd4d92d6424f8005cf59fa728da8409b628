@@ -59,6 +59,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b96dc419_235b6d4b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-05T18:46:40Z",
+      "side": 1,
+      "message": "yep, feel free to split it up.",
+      "parentUuid": "7cf19cfd_bc27d548",
+      "revId": "097cefd4d92d6424f8005cf59fa728da8409b628",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6e88019a_76e3dc47",
@@ -464,6 +482,30 @@
       "side": 1,
       "message": "The problem is, in this example, these represent three separate entities in our case:\n\n```\nuser:zeus/hostname      # an employee with username\u003dzeus\nsvc:zeus                # a service called zeus\nhost:/zeus.facebook.com # a host called zeus\n```\n\nIf we don\u0027t include the `userType` field, they\u0027d all map to `sslUser \u003d \"zeus\"`, which would not be correct. I\u0027ve refactored the variable name as `entity` instead, let me know if it makes it clearer",
       "parentUuid": "b21b82d7_585f88aa",
+      "range": {
+        "startLine": 106,
+        "startChar": 17,
+        "endLine": 106,
+        "endChar": 43
+      },
+      "revId": "097cefd4d92d6424f8005cf59fa728da8409b628",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddfe669c_6e0ada5d",
+        "filename": "http/mutual_tls_meta.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-05T18:46:40Z",
+      "side": 1,
+      "message": "I\u0027m closing this comment out, we can follow up on the other thread that\u0027s basically asking the same question.",
+      "parentUuid": "b340b635_6b6c2014",
       "range": {
         "startLine": 106,
         "startChar": 17,
