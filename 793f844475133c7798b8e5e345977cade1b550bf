@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "68353396_78db6190",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-12-06T16:50:36Z",
+      "side": 1,
+      "message": "I don\u0027t think this is meant to be resolved",
+      "parentUuid": "9b3bb815_289fec23",
+      "revId": "793f844475133c7798b8e5e345977cade1b550bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d3a1f3e2_9737ba2c",
         "filename": "http/mutual_tls.hpp",
         "patchSetId": 1
