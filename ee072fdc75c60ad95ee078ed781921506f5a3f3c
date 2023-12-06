@@ -281,6 +281,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4bddd8a4_29a338d3",
+        "filename": "http/mutual_tls.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-06T00:06:34Z",
+      "side": 1,
+      "message": "Actually, the openssl routines were pretty simple (the hardest part was writing a unit test).\n\nCould you check out:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/68102\n\nAnd see if it solves your problem?",
+      "parentUuid": "a97d11e9_c76aafe7",
+      "range": {
+        "startLine": 96,
+        "startChar": 4,
+        "endLine": 96,
+        "endChar": 26
+      },
+      "revId": "ee072fdc75c60ad95ee078ed781921506f5a3f3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "acc2bc0c_552a2db8",
         "filename": "http/mutual_tls.hpp",
         "patchSetId": 3
