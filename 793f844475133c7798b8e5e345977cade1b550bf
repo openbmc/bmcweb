@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64cbf2af_c30e8df1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-06T00:13:57Z",
+      "side": 1,
+      "message": "To those reviewing, this is the code that openssl is running:\n\nhttps://github.com/openssl/openssl/blob/de8e0851a1c0d22533801f081781a9f0be56c2c2/crypto/x509/v3_purp.c#L712\n\nThe only differences in flow are that it checked extended key usage first, takes the OR of KU_DIGITAL_SIGNATURE/KU_KEY_AGREEMENT instead of the AND (Which is the bug we actually hit)\n\nand checks that the NS_SSL_CLIENT is set, which I think we should\u0027ve been doing anyway.",
+      "revId": "793f844475133c7798b8e5e345977cade1b550bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
