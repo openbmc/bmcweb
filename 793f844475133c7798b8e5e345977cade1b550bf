@@ -50,6 +50,24 @@
       "message": "I think the check here needs to be `X509_check_purpose(...) !\u003d 1` instead:\n\nhttps://github.com/openssl/openssl/blob/master/crypto/x509/v3_purp.c#L84",
       "revId": "793f844475133c7798b8e5e345977cade1b550bf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56f31773_77e5deaf",
+        "filename": "http/mutual_tls.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001910
+      },
+      "writtenOn": "2023-12-06T16:02:42Z",
+      "side": 1,
+      "message": "`scripts/generate_auth_certificates.py` works with the `!\u003d 1` check, let me try with a prod Meta certificate",
+      "parentUuid": "d3a1f3e2_9737ba2c",
+      "revId": "793f844475133c7798b8e5e345977cade1b550bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
