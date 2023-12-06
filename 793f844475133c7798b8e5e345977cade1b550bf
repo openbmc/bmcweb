@@ -104,6 +104,24 @@
       "parentUuid": "56f31773_77e5deaf",
       "revId": "793f844475133c7798b8e5e345977cade1b550bf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a30863ca_fe091c76",
+        "filename": "http/mutual_tls.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001910
+      },
+      "writtenOn": "2023-12-06T17:30:32Z",
+      "side": 1,
+      "message": "I was stepping through the unit test failure with `gdb`, seems `X509_check_purpose()` is returning -1 due to `x-\u003eex_flags \u0026 EXFLAG_NO_FINGERPRINT` in this line, not sure if it helps:\n\nhttps://github.com/openssl/openssl/blob/openssl-3.0.10/crypto/x509/v3_purp.c#L630\n\n```\n(gdb) p x-\u003eex_flags \u0026 0x100000\n$3 \u003d 1048576\n\n(gdb) bt\n#0  ossl_x509v3_cache_extensions (x\u003dx@entry\u003d0x55fba9b4d2b0) at ../crypto/x509/v3_purp.c:630\n#1  0x00007f8560783db5 in X509_check_purpose (x\u003d0x55fba9b4d2b0, id\u003d1, require_ca\u003d0) at ../crypto/x509/v3_purp.c:86\n#2  0x000055fba9b26f42 in verifyMtlsUser (clientIp\u003d..., ctx\u003d...) at ../http/mutual_tls.hpp:63\n...\n```",
+      "parentUuid": "71f01a8f_f89c7cab",
+      "revId": "793f844475133c7798b8e5e345977cade1b550bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
