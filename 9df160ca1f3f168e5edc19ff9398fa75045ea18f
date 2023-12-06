@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "584c84e2_a285a589",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-12-06T05:55:56Z",
+      "side": 1,
+      "message": "I have gone through the https://gerrit.openbmc.org/c/openbmc/bmcweb/+/56711.\nIt is an old commit and a WIP. The main difference is the usage of channels to enable async reading of event requests and monitoring connection termination in idle time. However, the change set does not address the SSL stream reuse issue. Which is one of the reasons for reconnecting did not work well.",
+      "parentUuid": "91588ee1_61530500",
+      "revId": "9df160ca1f3f168e5edc19ff9398fa75045ea18f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "379a907d_72154477",
         "filename": "http/http_client.hpp",
         "patchSetId": 2
