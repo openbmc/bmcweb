@@ -176,6 +176,24 @@
       "parentUuid": "55590ebe_a4ec6bbc",
       "revId": "793f844475133c7798b8e5e345977cade1b550bf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91142bfd_f9b365d2",
+        "filename": "http/mutual_tls.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001910
+      },
+      "writtenOn": "2023-12-06T23:22:01Z",
+      "side": 1,
+      "message": "OK, was able to make the test error go away by signing the cert (this might be relevant to the other tests, not sure if worth integrating with the `OSSLX509` class):\n\n```\ndiff --git a/test/http/mutual_tls.cpp b/test/http/mutual_tls.cpp\nindex a08c81d2..a9bf4c6d 100644\n--- a/test/http/mutual_tls.cpp\n+++ b/test/http/mutual_tls.cpp\n@@ -56,6 +56,18 @@ TEST(MutualTLS, GoodCert)\n {\n     OSSLX509 x509;\n \n+    // Generate test key\n+    EVP_PKEY *pkey \u003d NULL;\n+    EVP_PKEY_CTX *pctx \u003d EVP_PKEY_CTX_new_id(EVP_PKEY_EC, NULL);\n+    ASSERT_EQ(EVP_PKEY_keygen_init(pctx), 1);\n+    ASSERT_EQ(EVP_PKEY_CTX_set_ec_paramgen_curve_nid(pctx, NID_X9_62_prime256v1), 1);\n+    ASSERT_EQ(EVP_PKEY_keygen(pctx, \u0026pkey), 1);\n+    EVP_PKEY_CTX_free(pctx);\n+\n+    // Sign cert with key\n+    ASSERT_EQ(X509_set_pubkey(x509.get(), pkey), 1);\n+    ASSERT_GT(X509_sign(x509.get(), pkey, EVP_sha256()), 0);\n+\n     X509_NAME* name \u003d X509_get_subject_name(x509.get());\n     std::array\u003cunsigned char, 5\u003e user \u003d {\u0027u\u0027, \u0027s\u0027, \u0027e\u0027, \u0027r\u0027, \u0027\\0\u0027};\n     X509_NAME_add_entry_by_txt(name, \"CN\", MBSTRING_ASC, user.data(), -1, -1,\n```",
+      "parentUuid": "97264f39_9fd786dc",
+      "revId": "793f844475133c7798b8e5e345977cade1b550bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
