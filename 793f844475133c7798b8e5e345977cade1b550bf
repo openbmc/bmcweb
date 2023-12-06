@@ -33,6 +33,23 @@
       "message": "I\u0027m getting a 401 while testing this change with `scripts/generate_auth_certificates.py` as compared to the parent revision (ec5198af219b97eb4272fea28ee8ae7c72cedcd6):\n\n```\npython3 scripts/generate_auth_certificates.py --host localhost:8443 \n...\nEnsuring TLS authentication is enabled.\nSuccessfully enabled TLS authentication.\nTesting redfish TLS authentication with generated certs.\nTraceback (most recent call last):\n  File \"/repos/bmcweb/scripts/generate_auth_certificates.py\", line 289, in \u003cmodule\u003e\n    main()\n  File \"/repos/bmcweb/scripts/generate_auth_certificates.py\", line 261, in main\n    response.raise_for_status()\n  File \"/usr/local/lib/python3.11/dist-packages/requests/models.py\", line 1021, in raise_for_status\n    raise HTTPError(http_error_msg, response\u003dself)\nrequests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://localhost:8443/redfish/v1/SessionService/Sessions\n```\n\nComparing `journalctl -f` output, there\u0027s an `Authentication failed` message when running a romulus qemu image with the change:\n```\nromulus bmcweb[209]: [INFO http_connection.hpp:249] Request:  0x1072740 HTTP/1.1 GET /redfish/v1/SessionService/Sessions ::1\nromulus bmcweb[209]: [WARNING http_connection.hpp:272] Authentication failed\n```\n\nReference ec5198af219b97eb4272fea28ee8ae7c72cedcd6 (OK):\n```\nromulus bmcweb[209]: [INFO http_connection.hpp:249] Request:  0x1fcb740 HTTP/1.1 GET /redfish/v1/SessionService/Sessions ::1\nromulus bmcweb[209]: [INFO complete_response_fields.hpp:23] Response:  /redfish/v1/SessionService/Sessions 200\n```",
       "revId": "793f844475133c7798b8e5e345977cade1b550bf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3a1f3e2_9737ba2c",
+        "filename": "http/mutual_tls.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001910
+      },
+      "writtenOn": "2023-12-06T09:15:40Z",
+      "side": 1,
+      "message": "I think the check here needs to be `X509_check_purpose(...) !\u003d 1` instead:\n\nhttps://github.com/openssl/openssl/blob/master/crypto/x509/v3_purp.c#L84",
+      "revId": "793f844475133c7798b8e5e345977cade1b550bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
