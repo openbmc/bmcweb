@@ -628,6 +628,29 @@ Fields common to all schemas
 - VLAN/VLANId
 - VLAN/Tagged
 
+### /redfish/v1/Managers/bmc/HostInterfaces/
+
+#### HostInterfaceCollection
+
+- Description
+- Name
+- Members
+- `Members@odata.count`
+
+### /redfish/v1/Managers/bmc/HostInterfaces/host0/
+
+#### Host0
+
+- CredentialBootstrapping
+  - EnableAfterReset, Enabled, RoleId
+- Description
+- ExternallyAccessible
+- InterfaceEnabled
+- Id
+- Links
+- Status
+  - Health, State
+
 ### /redfish/v1/Managers/bmc/LogServices/
 
 The [LogService][4] resource provides properties for monitoring and configuring
