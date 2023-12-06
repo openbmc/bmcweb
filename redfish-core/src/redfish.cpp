@@ -17,6 +17,7 @@
 #include "eventservice_sse.hpp"
 #include "fabric_adapters.hpp"
 #include "fan.hpp"
+#include "host_interface.hpp"
 #include "hypervisor_system.hpp"
 #include "log_services.hpp"
 #include "manager_diagnostic_data.hpp"
@@ -74,6 +75,7 @@ RedfishService::RedfishService(App& app)
     requestRoutesNetworkProtocol(app);
     requestRoutesSession(app);
     requestEthernetInterfacesRoutes(app);
+    requestRoutesHostInterface(app);
     if constexpr (BMCWEB_REDFISH_ALLOW_DEPRECATED_POWER_THERMAL)
     {
         requestRoutesThermal(app);
