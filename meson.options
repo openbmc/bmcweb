@@ -449,6 +449,14 @@ option(
     description: 'Allows this BMC to aggregate resources from satellite BMCs',
 )
 
+# BMCWEB_REDFISH_HOST_INTERFACE
+option(
+    'redfish-host-interface',
+    type: 'feature',
+    value: 'disabled',
+    description: 'Enable the Redfish interface API for the platform support that.',
+)
+
 # BMCWEB_HYPERVISOR_COMPUTER_SYSTEM
 option(
     'hypervisor-computer-system',

@@ -721,6 +721,9 @@ inline void handleManagerGet(
     asyncResp->res.jsonValue["EthernetInterfaces"]["@odata.id"] =
         boost::urls::format("/redfish/v1/Managers/{}/EthernetInterfaces",
                             managerId);
+    asyncResp->res.jsonValue["HostInterfaces"]["@odata.id"] =
+        boost::urls::format("/redfish/v1/Managers/{}/HostInterfaces",
+                            managerId);
 
     manager_utils::getServiceIdentification(asyncResp, false);
 
