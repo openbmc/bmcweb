@@ -719,6 +719,28 @@ inline void getManagedChassis(
         std::move(managerForChassis);
 }
 
+inline void getHostInterfacesLink(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& managerId)
+{
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.HostInterface.CredentialBootstrapping"};
+    dbus::utility::getDbusObject(
+        "/xyz/openbmc_project/user", interfaces,
+        [asyncResp, managerId](const boost::system::error_code& ec,
+                               const dbus::utility::MapperGetObject& objInfo) {
+            if (ec || objInfo.empty())
+            {
+                BMCWEB_LOG_DEBUG("Host interface not supported: {}",
+                                 ec.message());
+                return;
+            }
+            asyncResp->res.jsonValue["HostInterfaces"]["@odata.id"] =
+                boost::urls::format("/redfish/v1/Managers/{}/HostInterfaces",
+                                    managerId);
+        });
+}
+
 inline void handleManagerGet(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -758,6 +780,7 @@ inline void handleManagerGet(
     asyncResp->res.jsonValue["EthernetInterfaces"]["@odata.id"] =
         boost::urls::format("/redfish/v1/Managers/{}/EthernetInterfaces",
                             managerId);
+    getHostInterfacesLink(asyncResp, managerId);
 
     manager_utils::getServiceIdentification(asyncResp, false);
 
