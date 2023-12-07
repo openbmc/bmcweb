@@ -16,6 +16,24 @@
       "message": "Super nitpick, but now that we only have one variable, I suspect this can all just be one line.   I\u0027m not that worried about it, but something to consider for the future.",
       "revId": "dfd5547b98d0a7360ca6cfe8b48b9d7ce2cf95d2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6efa74ee_62671f60",
+        "filename": "meson.build",
+        "patchSetId": 2
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-12-07T18:32:14Z",
+      "side": 1,
+      "message": "I\u0027d like to leave them following that pattern.  Once I get most repositories aligned to doing the right thing for some of these meson dependencies, I\u0027m going to add a linter that ensures we\u0027re doing them consistently.  Having a special variable for bmcweb (`bmcweb_dependencies +\u003d dependency....`) means the linter has to have a special case for your repository and I\u0027d like to avoid that as much as possible.",
+      "parentUuid": "2c3bc307_ab2bfd84",
+      "revId": "dfd5547b98d0a7360ca6cfe8b48b9d7ce2cf95d2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
