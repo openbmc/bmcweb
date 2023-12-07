@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4e821606_8586bbc8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-07T17:19:53Z",
+      "side": 1,
+      "message": "\u003e I have gone through the https://gerrit.openbmc.org/c/openbmc/bmcweb/+/56711.\n\u003e It is an old commit and a WIP. The main difference is the usage of channels to enable async reading of event requests and monitoring connection termination in idle time. However, the change set does not address the SSL stream reuse issue. \n\nHow so?  Connections are now tied to the ConnectionInfo object, and not recreated.\n\n\u003e Which is one of the reasons for reconnecting did not work well.",
+      "parentUuid": "584c84e2_a285a589",
+      "revId": "9df160ca1f3f168e5edc19ff9398fa75045ea18f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "379a907d_72154477",
         "filename": "http/http_client.hpp",
         "patchSetId": 2
@@ -145,6 +163,30 @@
       "side": 1,
       "message": "Considering the changes required, what is your take on this patch set?\nShould we write a brand new http_client addressing all issues? \nAlso, there is the requirement to store all events that are successfully sent for later retrieval. This will help in analyzing field issues. What is your take on this feature?",
       "parentUuid": "4a93846c_d733094d",
+      "range": {
+        "startLine": 159,
+        "startChar": 4,
+        "endLine": 159,
+        "endChar": 19
+      },
+      "revId": "9df160ca1f3f168e5edc19ff9398fa75045ea18f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c60eb420_9f5428df",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-07T17:19:53Z",
+      "side": 1,
+      "message": "\u003e This required a complete rewriting of http_client. \n\nI suspect it\u0027s not a complete rewrite, just some minor changes to how connections are constructed and selected.\n\n\u003e To recreate connection info we should let the connection pool know about the terminated connections.\n\nRight, which seems doable.  We can just register the weak_ptr, and if they get destroyed, the connections are gone.\n\n\u003e as there is no point in starting from the resolve state.\n\nyes, there is.  Fault tolerant and load balanced systems will need to be re-resolved if there is a failure.\n\n\n\u003e Also, there is the requirement to store all events that are successfully sent for later retrieval. \n\nWhy?  I\u0027ve never heard this requirement.  Lets take that up in its own design document, outside of trying to fix this bug.",
+      "parentUuid": "39db5872_a5153587",
       "range": {
         "startLine": 159,
         "startChar": 4,
