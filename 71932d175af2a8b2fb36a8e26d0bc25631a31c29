@@ -344,6 +344,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "09f4d010_eb8606f8",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 60
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-07T21:00:16Z",
+      "side": 1,
+      "message": "Yes, there are exceptions, but in general, we try to follow the boost style, which is a single callback for a given async action.  That makes control flow and object lifetimes easier to track.  The example you gave follows an anti-pattern of ignoring the callback in error cases.",
+      "parentUuid": "ffd43f2f_3eeb4de7",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 35
+      },
+      "revId": "71932d175af2a8b2fb36a8e26d0bc25631a31c29",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b65ed061_07d474b3",
         "filename": "redfish-core/lib/port.hpp",
         "patchSetId": 60
