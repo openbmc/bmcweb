@@ -52,6 +52,24 @@
       "parentUuid": "6a1d4aaf_2eaffdb2",
       "revId": "516e25fd4f013592e590cdc5f8e847f785c8c4e6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b38c1e6_246ada3a",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-12-07T03:29:10Z",
+      "side": 1,
+      "message": "Done.\nUnitTest `log_services_test.cpp` for `getTimestampFromID()` is added.",
+      "parentUuid": "7d6d6216_0e36beb8",
+      "revId": "516e25fd4f013592e590cdc5f8e847f785c8c4e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
