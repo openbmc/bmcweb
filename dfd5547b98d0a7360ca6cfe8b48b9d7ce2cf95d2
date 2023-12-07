@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c3bc307_ab2bfd84",
+        "filename": "meson.build",
+        "patchSetId": 2
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-07T18:19:33Z",
+      "side": 1,
+      "message": "Super nitpick, but now that we only have one variable, I suspect this can all just be one line.   I\u0027m not that worried about it, but something to consider for the future.",
+      "revId": "dfd5547b98d0a7360ca6cfe8b48b9d7ce2cf95d2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
