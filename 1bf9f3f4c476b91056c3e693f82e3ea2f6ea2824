@@ -16,6 +16,52 @@
       "message": "Looks good to me.",
       "revId": "1bf9f3f4c476b91056c3e693f82e3ea2f6ea2824",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b863bbd9_1ca061d0",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-07T20:54:25Z",
+      "side": 1,
+      "message": "One the below is done, to use the subtree result properly, this can be a hard error.",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 5
+      },
+      "revId": "1bf9f3f4c476b91056c3e693f82e3ea2f6ea2824",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45bf0bbc_9493a4ad",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-07T20:54:25Z",
+      "side": 1,
+      "message": "This looks incorrect.  This is the serviceName of the service hosting the fabric adapter path, not the decorator path.  You need to put your call to this where you do the subtree call, and find the service hosting the Location interface, not the service hosting the fabric interface.  In your case, they\u0027re likely the same which is why you don\u0027t see that bug.",
+      "range": {
+        "startLine": 57,
+        "startChar": 23,
+        "endLine": 57,
+        "endChar": 34
+      },
+      "revId": "1bf9f3f4c476b91056c3e693f82e3ea2f6ea2824",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
