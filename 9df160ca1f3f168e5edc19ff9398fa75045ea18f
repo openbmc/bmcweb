@@ -195,6 +195,144 @@
       },
       "revId": "9df160ca1f3f168e5edc19ff9398fa75045ea18f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78820e79_de3c2008",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-07T17:31:56Z",
+      "side": 1,
+      "message": "If you want this to be able to be destroyed and recreated, you want std::optional, not std::unique_ptr.",
+      "range": {
+        "startLine": 159,
+        "startChar": 9,
+        "endLine": 159,
+        "endChar": 19
+      },
+      "revId": "9df160ca1f3f168e5edc19ff9398fa75045ea18f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c62ec91_fab1c233",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-07T17:31:56Z",
+      "side": 1,
+      "message": "I suspect this doesn\u0027t need to return the socket itself, it can just set it directly, right?",
+      "range": {
+        "startLine": 618,
+        "startChar": 4,
+        "endLine": 618,
+        "endChar": 49
+      },
+      "revId": "9df160ca1f3f168e5edc19ff9398fa75045ea18f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "630a2d17_174fef8c",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 625,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-07T17:31:56Z",
+      "side": 1,
+      "message": "You\u0027ve passed sslCtx by rvalue reference, but then you simply dereference it, instead of doing any sort of move.  Please pick one or the other and be consistent (either use move semantics or copy semantics).",
+      "range": {
+        "startLine": 625,
+        "startChar": 44,
+        "endLine": 625,
+        "endChar": 51
+      },
+      "revId": "9df160ca1f3f168e5edc19ff9398fa75045ea18f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8602f63f_45870f9c",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-07T17:31:56Z",
+      "side": 1,
+      "message": "please don\u0027t use auto in this way.  It\u0027s non obvious what the type is.",
+      "range": {
+        "startLine": 634,
+        "startChar": 12,
+        "endLine": 634,
+        "endChar": 16
+      },
+      "revId": "9df160ca1f3f168e5edc19ff9398fa75045ea18f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2c9c09d_44915c59",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-07T17:31:56Z",
+      "side": 1,
+      "message": "Can we deduplicate this with line 637?  Just declare sslContext on line 631, and there\u0027s no need to change this.",
+      "range": {
+        "startLine": 641,
+        "startChar": 15,
+        "endLine": 641,
+        "endChar": 35
+      },
+      "revId": "9df160ca1f3f168e5edc19ff9398fa75045ea18f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2433d7a_5b578427",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-07T17:31:56Z",
+      "side": 1,
+      "message": "It would\u0027ve helped a lot if this refactoring (breaking out the constructor logic into its own method) was done in its own commit.  As-is, it\u0027s difficult to see what logic changes there were.  Not sure it\u0027s worth doing now, but oh well.",
+      "range": {
+        "startLine": 653,
+        "startChar": 8,
+        "endLine": 653,
+        "endChar": 30
+      },
+      "revId": "9df160ca1f3f168e5edc19ff9398fa75045ea18f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
