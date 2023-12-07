@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b6e59ccb_24d88670",
+        "filename": "test/http/mutual_tls.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-07T20:45:41Z",
+      "side": 1,
+      "message": "Not for the testing namespace in gtest.  We do this already.\n\nusing isn\u0027t actually that much of a problem so long as it\u0027s what\u0027s intended.  using namespace is usually what we try to avoid heavily.\n\n\nASSERT_THAT(session, NotNull());\n\nReads easier than\n\nASSERT_THAT(session, testing::NotNull());\n\nGiven that the former is meant to read like a sentence.",
+      "parentUuid": "09d4b82d_a0eb1eb5",
+      "revId": "ec5198af219b97eb4272fea28ee8ae7c72cedcd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f1dccc59_a71532c4",
         "filename": "test/http/mutual_tls.cpp",
         "patchSetId": 7
@@ -31,6 +49,24 @@
       "writtenOn": "2023-12-07T20:41:42Z",
       "side": 1,
       "message": "#include \u003cboost/asio/ip/address.hpp\u003e",
+      "revId": "ec5198af219b97eb4272fea28ee8ae7c72cedcd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7432b0fa_ed85dd85",
+        "filename": "test/http/mutual_tls.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-07T20:45:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1dccc59_a71532c4",
       "revId": "ec5198af219b97eb4272fea28ee8ae7c72cedcd6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2020bab7_b85874e0",
+        "filename": "test/http/mutual_tls.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-07T20:45:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4393cff6_bd12782c",
+      "revId": "ec5198af219b97eb4272fea28ee8ae7c72cedcd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a010dfd8_ce40552e",
@@ -65,6 +119,24 @@
       "writtenOn": "2023-12-07T20:41:42Z",
       "side": 1,
       "message": "#include \u003cmemory\u003e",
+      "revId": "ec5198af219b97eb4272fea28ee8ae7c72cedcd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cb2c3b2_375f9f06",
+        "filename": "test/http/mutual_tls.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-07T20:45:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a010dfd8_ce40552e",
       "revId": "ec5198af219b97eb4272fea28ee8ae7c72cedcd6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
