@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6b848e18_7755da02",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-12-08T14:23:36Z",
+      "side": 1,
+      "message": "Do you mean that ec.value() \u003d\u003d EBADR is also a hard error?\n\nThe same style of the logic is already done for `getFabricAdapterLocation()` - https://github.com/openbmc/bmcweb/blob/dfd5547b98d0a7360ca6cfe8b48b9d7ce2cf95d2/redfish-core/lib/fabric_adapters.hpp#L40C1-L62C2\n\nIf so, `getFabricAdapterLocation()` may also have the same issue?",
+      "parentUuid": "b863bbd9_1ca061d0",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 5
+      },
+      "revId": "1bf9f3f4c476b91056c3e693f82e3ea2f6ea2824",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "45bf0bbc_9493a4ad",
         "filename": "redfish-core/lib/fabric_ports.hpp",
         "patchSetId": 10
@@ -54,6 +78,30 @@
       "writtenOn": "2023-12-07T20:54:25Z",
       "side": 1,
       "message": "This looks incorrect.  This is the serviceName of the service hosting the fabric adapter path, not the decorator path.  You need to put your call to this where you do the subtree call, and find the service hosting the Location interface, not the service hosting the fabric interface.  In your case, they\u0027re likely the same which is why you don\u0027t see that bug.",
+      "range": {
+        "startLine": 57,
+        "startChar": 23,
+        "endLine": 57,
+        "endChar": 34
+      },
+      "revId": "1bf9f3f4c476b91056c3e693f82e3ea2f6ea2824",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03ffdac3_7f374356",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-12-08T14:23:36Z",
+      "side": 1,
+      "message": "This serviceName is obtained from `dbus::utility::getAssociatedSubTree()` which finds the associated Port subtree for the given FabricAdapter.\n\nSo, here, it is port\u0027s service name.\n\nIt is implemented in the function `getValidFabricPortPath()` which is done like this.\n\n```\n    getValidFabricPortPath(const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp,\n...)\n{\n    getValidFabricPortSubTree(      \u003c\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n        asyncResp, systemName, adapterId,\n        std::bind_front(afterGetValidFabricPortPath, asyncResp, portId,\n                        std::forward\u003cCallback\u003e(callback)));\n}\n```\n\n`getValidFabricPortSubTree()` is getting the associated subtree (i.e. port subtree), not the fabric subtree.\n\n```\ninline void getFabricAssociatedPortSubTree(\n....\n    const std::string\u0026 /*fabricServiceName*/\n)\n{\n    static constexpr std::array\u003cstd::string_view, 1\u003e portInterfaces{\n        \"xyz.openbmc_project.Inventory.Connector.Port\"};\n    dbus::utility::getAssociatedSubTree(     \u003c\u003d\u003d\u003d This finds associated subtree (i.e. port)\n        fabricAdapterPath + \"/connecting\",\n        sdbusplus::message::object_path(\"/xyz/openbmc_project/inventory\"), 0,\n        portInterfaces,\n        [asyncResp,\n         callback](const boost::system::error_code\u0026 ec,\n                   const dbus::utility::MapperGetSubTreeResponse\u0026 subtree) {\n        callback(ec, subtree);\n    });\n}\n\ntemplate \u003ctypename Callback\u003e\ninline void\n    getFabricPortSubTree(const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp,\n                         const std::string\u0026 systemName,\n                         const std::string\u0026 adapterId, Callback\u0026\u0026 callback)\n{\n    getValidFabricAdapterPath(\n        adapterId, systemName, asyncResp,\n        std::bind_front(getFabricAssociatedPortSubTree, asyncResp,\n                        std::forward\u003cCallback\u003e(callback)));\n}\n```",
+      "parentUuid": "45bf0bbc_9493a4ad",
       "range": {
         "startLine": 57,
         "startChar": 23,
