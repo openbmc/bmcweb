@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "580ca5d9_d7da94af",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 64
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-12-08T14:51:06Z",
+      "side": 1,
+      "message": "IBM uses PLDM (using openpower-vpd-parser) to implement this instead of usign EM.\nThe related commits are:\n- https://gerrit.openbmc.org/c/openbmc/openpower-vpd-parser/+/66540\n- https://gerrit.openbmc.org/c/openbmc/openbmc/+/66541",
+      "parentUuid": "63ccb233_4a69b0ff",
+      "revId": "e271d931482453af77d8abe5e4639533f09e4269",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "80052248_60696b37",
