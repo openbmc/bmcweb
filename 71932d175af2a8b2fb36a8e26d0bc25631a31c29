@@ -366,6 +366,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cf27e58_c24d4e8e",
+        "filename": "redfish-core/lib/port.hpp",
+        "patchSetId": 60
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-12-08T14:22:18Z",
+      "side": 1,
+      "message": "Done.\n\nIn the previous patchsets, `port.hpp` has been renamed to `fabric_ports.hpp\u0027, and the comment has been addressed there using `std::ranges::find_if()` like\n\n```\ninline void afterGetValidFabricPortPath(\n    const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp,\n    const std::string\u0026 portId,\n    const std::function\u003cvoid(const std::string\u0026 portPath,\n                             const std::string\u0026 portServiceName)\u003e\u0026\u0026 callback,\n    const dbus::utility::MapperGetSubTreeResponse\u0026 portSubTree)\n{\n    auto portIter \u003d std::ranges::find_if(\n        portSubTree,\n        [\u0026portId](const std::pair\u003cstd::string, dbus::utility::MapperServiceMap\u003e\u0026\n                      object) {\n        return sdbusplus::message::object_path(object.first).filename() \u003d\u003d\n               portId;\n    });\n    if (portIter \u003d\u003d portSubTree.end())\n    {\n        BMCWEB_LOG_WARNING(\"Port {} not found\", portId);\n        messages::resourceNotFound(asyncResp-\u003eres, \"Port\", portId);\n        return;\n    }\n    callback(portIter-\u003efirst, portIter-\u003esecond.begin()-\u003efirst);\n}\n\ntemplate \u003ctypename Callback\u003e\ninline void\n    getValidFabricPortPath(const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp,\n                           const std::string\u0026 systemName,\n                           const std::string\u0026 adapterId,\n                           const std::string\u0026 portId, Callback\u0026\u0026 callback)\n{\n    getValidFabricPortSubTree(\n        asyncResp, systemName, adapterId,\n        std::bind_front(afterGetValidFabricPortPath, asyncResp, portId,\n                        std::forward\u003cCallback\u003e(callback)));\n}\n```",
+      "parentUuid": "09f4d010_eb8606f8",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 35
+      },
+      "revId": "71932d175af2a8b2fb36a8e26d0bc25631a31c29",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b65ed061_07d474b3",
