@@ -24,10 +24,15 @@
 #include "utils/dbus_utils.hpp"
 #include "utils/pcie_util.hpp"
 
+#include <boost/system/error_code.hpp>
 #include <boost/system/linux_error.hpp>
 #include <boost/url/format.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
+
+#include <functional>
+#include <memory>
+#include <string>
 
 namespace redfish
 {
@@ -147,15 +152,74 @@ inline void requestRoutesSystemPCIeDeviceCollection(App& app)
             std::bind_front(handlePCIeDeviceCollectionGet, std::ref(app)));
 }
 
+inline void afterGetAssociatedSubTreePaths(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreePathsResponse& processorPaths)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR)
+        {
+            BMCWEB_LOG_DEBUG("No processor association found");
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBUS response error {}", ec.value());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    if (processorPaths.empty())
+    {
+        BMCWEB_LOG_DEBUG("No association found for processor");
+        return;
+    }
+
+    nlohmann::json& processorList =
+        asyncResp->res.jsonValue["Links"]["Processors"];
+    for (const std::string& processorPath : processorPaths)
+    {
+        std::string processorName =
+            sdbusplus::message::object_path(processorPath).filename();
+        if (processorName.empty())
+        {
+            continue;
+        }
+
+        nlohmann::json item = nlohmann::json::object();
+        item["@odata.id"] = boost::urls::format(
+            "/redfish/v1/Systems/system/Processors/{}", processorName);
+        processorList.emplace_back(std::move(item));
+    }
+
+    asyncResp->res.jsonValue["Links"]["Processors@odata.count"] =
+        processorList.size();
+}
+
+inline void
+    linkAssociatedProcessor(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& pcieSlotPath)
+{
+    static constexpr std::array<std::string_view, 1> processorInterfaces{
+        "xyz.openbmc_project.Inventory.Item.Cpu"};
+
+    dbus::utility::getAssociatedSubTreePaths(
+        pcieSlotPath + "/connected_to",
+        sdbusplus::message::object_path("/xyz/openbmc_project/inventory"), 0,
+        processorInterfaces,
+        std::bind_front(afterGetAssociatedSubTreePaths, asyncResp));
+}
+
 inline void addPCIeSlotProperties(
-    crow::Response& res, const boost::system::error_code& ec,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& pcieSlotPath, const boost::system::error_code& ec,
     const dbus::utility::DBusPropertiesMap& pcieSlotProperties)
 {
     if (ec)
     {
         BMCWEB_LOG_ERROR("DBUS response error for getAllProperties{}",
                          ec.value());
-        messages::internalError(res);
+        messages::internalError(asyncResp->res);
         return;
     }
     std::string generation;
@@ -168,7 +232,7 @@ inline void addPCIeSlotProperties(
 
     if (!success)
     {
-        messages::internalError(res);
+        messages::internalError(asyncResp->res);
         return;
     }
 
@@ -183,15 +247,15 @@ inline void addPCIeSlotProperties(
         if (*pcieType == pcie_device::PCIeTypes::Invalid)
         {
             BMCWEB_LOG_ERROR("Invalid PCIeType: {}", generation);
-            messages::internalError(res);
+            messages::internalError(asyncResp->res);
             return;
         }
-        res.jsonValue["Slot"]["PCIeType"] = *pcieType;
+        asyncResp->res.jsonValue["Slot"]["PCIeType"] = *pcieType;
     }
 
     if (lanes != 0)
     {
-        res.jsonValue["Slot"]["Lanes"] = lanes;
+        asyncResp->res.jsonValue["Slot"]["Lanes"] = lanes;
     }
 
     std::optional<pcie_slots::SlotTypes> redfishSlotType =
@@ -205,11 +269,14 @@ inline void addPCIeSlotProperties(
         if (*redfishSlotType == pcie_slots::SlotTypes::Invalid)
         {
             BMCWEB_LOG_ERROR("Invalid PCIeSlot type: {}", slotType);
-            messages::internalError(res);
+            messages::internalError(asyncResp->res);
             return;
         }
-        res.jsonValue["Slot"]["SlotType"] = *redfishSlotType;
+        asyncResp->res.jsonValue["Slot"]["SlotType"] = *redfishSlotType;
     }
+
+    // Get processor link
+    linkAssociatedProcessor(asyncResp, pcieSlotPath);
 }
 
 inline void getPCIeDeviceSlotPath(
@@ -272,10 +339,11 @@ inline void
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, object.begin()->first, pcieDeviceSlot,
         "xyz.openbmc_project.Inventory.Item.PCIeSlot",
-        [asyncResp](
+        [asyncResp, pcieDeviceSlot](
             const boost::system::error_code& ec2,
             const dbus::utility::DBusPropertiesMap& pcieSlotProperties) {
-        addPCIeSlotProperties(asyncResp->res, ec2, pcieSlotProperties);
+        addPCIeSlotProperties(asyncResp, pcieDeviceSlot, ec2,
+                              pcieSlotProperties);
     });
 }
 
@@ -530,7 +598,7 @@ inline void addPCIeDeviceCommonProperties(
     asyncResp->res.addHeader(
         boost::beast::http::field::link,
         "</redfish/v1/JsonSchemas/PCIeDevice/PCIeDevice.json>; rel=describedby");
-    asyncResp->res.jsonValue["@odata.type"] = "#PCIeDevice.v1_9_0.PCIeDevice";
+    asyncResp->res.jsonValue["@odata.type"] = "#PCIeDevice.v1_12_0.PCIeDevice";
     asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
         "/redfish/v1/Systems/system/PCIeDevices/{}", pcieDeviceId);
     asyncResp->res.jsonValue["Name"] = "PCIe Device";

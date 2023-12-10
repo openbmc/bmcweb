@@ -883,6 +883,8 @@ other.
 
 ### /redfish/v1/Systems/system/PCIeDevices/{PCIeDevice}/
 
+- Links/Processors
+- Links/Processors@odata.count
 - Manufacturer
 - Model
 - PartNumber
