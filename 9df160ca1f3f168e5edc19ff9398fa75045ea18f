@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6bc8ae11_6b5becf8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-12-11T05:18:15Z",
+      "side": 1,
+      "message": "Yes, the connection is tied to connection info which is the problem. The SSL stream is created in the constructor of connection info. Which will never be called again once the connection is broken. It simply tries to reattempt from the resolve state. But the SSL stream is still old truncated stream only.",
+      "parentUuid": "4e821606_8586bbc8",
+      "revId": "9df160ca1f3f168e5edc19ff9398fa75045ea18f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "379a907d_72154477",
         "filename": "http/http_client.hpp",
         "patchSetId": 2
@@ -213,6 +231,30 @@
       "range": {
         "startLine": 159,
         "startChar": 9,
+        "endLine": 159,
+        "endChar": 19
+      },
+      "revId": "9df160ca1f3f168e5edc19ff9398fa75045ea18f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "662cf4ca_301bfe91",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-12-11T05:18:15Z",
+      "side": 1,
+      "message": "Why? I\u0027ve never heard of this requirement. Lets take that up in its own design document, outside of trying to fix this bug.\n\nThis is one requirement that popped up during some recent field issues. We did not have enough data to troubleshoot the issue. Having history of past successfully sent event would be of much help here. I was just giving a heads up for it.Just wanted to know if it is ok to implement such a feature in http_client",
+      "parentUuid": "c60eb420_9f5428df",
+      "range": {
+        "startLine": 159,
+        "startChar": 4,
         "endLine": 159,
         "endChar": 19
       },
