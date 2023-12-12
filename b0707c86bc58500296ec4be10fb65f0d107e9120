@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "33bbfa93_e688030e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-12T22:09:22Z",
+      "side": 1,
+      "message": "The key thing I think we need to determine is when you hit this scenario, I\u0027d like to understand how long it takes for us to see an error here:\n\nhttps://github.com/openbmc/bmcweb/blob/75e8e218cbf9539144ee8f6aea01e158d0a9e190/http/http_connection.hpp#L535\n\nAre those 160 connections doing \"work\" are they in keepalive?\n\nCan you also test setting the timeout limits back to the defaults and see if you still have the problems?  The behavior you\u0027re seeing is expected if you set the timeouts to something very large, so I suspect this is something self-imposed on only IBM machines, but lets test that.",
+      "parentUuid": "a3c8c051_2c6b2e0b",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 25
+      },
+      "revId": "b0707c86bc58500296ec4be10fb65f0d107e9120",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "da58d932_4139aad2",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
