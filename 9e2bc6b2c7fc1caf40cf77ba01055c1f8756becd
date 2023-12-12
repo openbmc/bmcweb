@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0df64beb_601ce5d8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-12T22:35:08Z",
+      "side": 1,
+      "message": "The automated tooling checks for this header on logout:\n\nhttps://owasp.org/www-project-secure-headers/ci/headers_add.json\n\nI don\u0027t see where that\u0027s documented though.",
+      "revId": "9e2bc6b2c7fc1caf40cf77ba01055c1f8756becd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eec5c235_d109d60c",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
