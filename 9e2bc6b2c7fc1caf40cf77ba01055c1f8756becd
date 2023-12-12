@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eec5c235_d109d60c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-12T22:30:38Z",
+      "side": 1,
+      "message": "This is kinda terrifying as a design (as is kinda proven by this bug being possible).  Is there any examples of doing this kind of design anywhere else?",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 63
+      },
+      "revId": "9e2bc6b2c7fc1caf40cf77ba01055c1f8756becd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97614912_d8814c61",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-12T22:30:38Z",
+      "side": 1,
+      "message": "Wouldn\u0027t it be easier to just strip out that header in the proxy?  That means that BMC can stay at the highest level of security, and the proxy can decide on its own user security policy?\n\nPresumably you guys already had to strip out or rewrite the XSS headers to make this work at all?",
+      "revId": "9e2bc6b2c7fc1caf40cf77ba01055c1f8756becd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
