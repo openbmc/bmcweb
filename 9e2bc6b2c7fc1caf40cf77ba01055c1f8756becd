@@ -56,6 +56,23 @@
       "message": "Wouldn\u0027t it be easier to just strip out that header in the proxy?  That means that BMC can stay at the highest level of security, and the proxy can decide on its own user security policy?\n\nPresumably you guys already had to strip out or rewrite the XSS headers to make this work at all?",
       "revId": "9e2bc6b2c7fc1caf40cf77ba01055c1f8756becd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "625c7054_cecf500b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-12T22:36:08Z",
+      "side": 1,
+      "message": "Lets get the OWASP Venom test suite re-run (which this will likely fail).",
+      "revId": "9e2bc6b2c7fc1caf40cf77ba01055c1f8756becd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
