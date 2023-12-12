@@ -91,6 +91,30 @@
       },
       "revId": "b0707c86bc58500296ec4be10fb65f0d107e9120",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f97de64_30fc5f01",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-12-12T22:02:06Z",
+      "side": 1,
+      "message": "I just used this \nfor i in {1..180}\ndo\n   curl -k https://$bmc/redfish/v1/Systems/system \u0026\ndone",
+      "parentUuid": "e7572757_9ea978ad",
+      "range": {
+        "startLine": 19,
+        "startChar": 8,
+        "endLine": 19,
+        "endChar": 58
+      },
+      "revId": "b0707c86bc58500296ec4be10fb65f0d107e9120",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
