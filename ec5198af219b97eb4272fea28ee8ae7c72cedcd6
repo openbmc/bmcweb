@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "91b8884e_973cfcd9",
+        "filename": "test/http/mutual_tls.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-12-12T13:40:28Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b6e59ccb_24d88670",
+      "revId": "ec5198af219b97eb4272fea28ee8ae7c72cedcd6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f1dccc59_a71532c4",
