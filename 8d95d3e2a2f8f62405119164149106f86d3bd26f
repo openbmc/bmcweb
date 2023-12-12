@@ -158,6 +158,30 @@
       },
       "revId": "8d95d3e2a2f8f62405119164149106f86d3bd26f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f1a37d4_7b064c3c",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2023-12-12T16:08:12Z",
+      "side": 1,
+      "message": "Adding \"/\" in handleCollectionMembers is not working; it still causes core dumps. I attempted to address it by using jsonCountKeyName.pop_back, as recommended by Ed.",
+      "parentUuid": "843077a9_3a75d2b6",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 1
+      },
+      "revId": "8d95d3e2a2f8f62405119164149106f86d3bd26f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
