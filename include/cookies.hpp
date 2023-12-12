@@ -27,7 +27,6 @@ inline void clearSessionCookies(crow::Response& res)
                   "BMCWEB-SESSION="
                   "; Path=/; SameSite=Strict; Secure; HttpOnly; "
                   "expires=Thu, 01 Jan 1970 00:00:00 GMT");
-    res.addHeader("Clear-Site-Data", R"("cache","cookies","storage")");
 }
 
 } // namespace bmcweb
