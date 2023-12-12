@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3c8c051_2c6b2e0b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-12T21:54:33Z",
+      "side": 1,
+      "message": "How many is \"multiple\"?  Unless you\u0027re running 20+ managers, and each one is opening 10+ connections, it sounds like there\u0027s some other bug.  Either the connection objects aren\u0027t getting culled as fast as we expect on our side, or the server managers aren\u0027t using keepalive like they should be for anything intensive, and are opening a connection per request, which it\u0027s hard to distinguish from an attack.  Either way, just doubling the value isn\u0027t the answer.  Lets get more details on what\u0027s actually going on in your setup, and I suspect the fix will be simpler.",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 25
+      },
+      "revId": "b0707c86bc58500296ec4be10fb65f0d107e9120",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da58d932_4139aad2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-12T21:54:33Z",
+      "side": 1,
+      "message": "This needs more documentation on how you measured this.  This article says says chrome has max of 6 per browser.  If you\u0027re seeing 30 in the logs, that leads me to believe that we\u0027re not closing our connections fast enough, and we\u0027re waiting on a tcp timeout.\n\nhttps://www.geeksforgeeks.org/what-are-max-parallel-http-connections-in-a-browser/",
+      "range": {
+        "startLine": 11,
+        "startChar": 27,
+        "endLine": 11,
+        "endChar": 69
+      },
+      "revId": "b0707c86bc58500296ec4be10fb65f0d107e9120",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50086f85_c3ee0159",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-12T21:54:33Z",
+      "side": 1,
+      "message": "It was selected because browsers open 4-6 parallel connections, and  16 parallel multi-connection clients seemed like considerably more than any use case we\u0027d ever heard of (usually in the 3-4 range).  If in your use case you\u0027re truly opening 100+ parallel keepalive connections to the bmc, something else is clearly broken needs fixed.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 41
+      },
+      "revId": "b0707c86bc58500296ec4be10fb65f0d107e9120",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7572757_9ea978ad",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-12T21:54:33Z",
+      "side": 1,
+      "message": "How?  This is important, because depending on what client you used, it might be running keepalive, close immediately, clean TLS shutdown, etc, and all of those things matter to making sure the objects get culled.",
+      "range": {
+        "startLine": 19,
+        "startChar": 8,
+        "endLine": 19,
+        "endChar": 58
+      },
+      "revId": "b0707c86bc58500296ec4be10fb65f0d107e9120",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
