@@ -71,6 +71,27 @@ TEST(Utility, Base64EncodeString)
     EXPECT_EQ(encoded, "ZjAAIEJhcg==");
 }
 
+TEST(Utility, Base64Encoder)
+{
+    using namespace std::string_literals;
+    std::string data = "f0\0 Bar"s;
+    for (size_t chunkSize = 1; chunkSize < 6; chunkSize++)
+    {
+        std::string_view testString(data);
+        std::string out;
+        Base64Encoder encoder;
+        while (!testString.empty())
+        {
+            size_t thisChunk = std::min(testString.size(), chunkSize);
+            encoder.encode(testString.substr(0, thisChunk), out);
+            testString.remove_prefix(thisChunk);
+        }
+
+        encoder.finalize(out);
+        EXPECT_EQ(out, "ZjAAIEJhcg==");
+    }
+}
+
 TEST(Utility, Base64EncodeDecodeString)
 {
     using namespace std::string_literals;
