@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "553e8ed4_0dbe0a3a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-13T19:00:49Z",
+      "side": 1,
+      "message": "I\u0027d like to see us break up the file body state handling from the base64 handling.  Could you please take a look at this, and see if it works for you?  If so, just pull the code into your PR please, and get some unit tests written.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/68267",
+      "revId": "e954fb97f9ffecfeeeeed75a3ff2d9bb9c2bf6b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

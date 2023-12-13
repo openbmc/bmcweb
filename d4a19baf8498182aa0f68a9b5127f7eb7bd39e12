@@ -1,0 +1,222 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f683c8a4_b67cfbda",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-13T19:00:49Z",
+      "side": 1,
+      "message": "Do we need to declare this if we don\u0027t use it?",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 17
+      },
+      "revId": "d4a19baf8498182aa0f68a9b5127f7eb7bd39e12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c6888d5_911b31e0",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-13T19:00:49Z",
+      "side": 1,
+      "message": "common error (need to use the return code version).",
+      "range": {
+        "startLine": 27,
+        "startChar": 48,
+        "endLine": 27,
+        "endChar": 52
+      },
+      "revId": "d4a19baf8498182aa0f68a9b5127f7eb7bd39e12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56bc5065_90242c4d",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-13T19:00:49Z",
+      "side": 1,
+      "message": "this is not the naming convention the project uses.",
+      "range": {
+        "startLine": 38,
+        "startChar": 16,
+        "endLine": 38,
+        "endChar": 20
+      },
+      "revId": "d4a19baf8498182aa0f68a9b5127f7eb7bd39e12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f04097c4_f9cc3fde",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-13T19:00:49Z",
+      "side": 1,
+      "message": "lets call this \"file body\".  It\u0027s not really a base anymore.",
+      "range": {
+        "startLine": 40,
+        "startChar": 9,
+        "endLine": 40,
+        "endChar": 13
+      },
+      "revId": "d4a19baf8498182aa0f68a9b5127f7eb7bd39e12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9ba7b06_9eb86b02",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-13T19:00:49Z",
+      "side": 1,
+      "message": "Ignored error code.",
+      "revId": "d4a19baf8498182aa0f68a9b5127f7eb7bd39e12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7717089_d2354ece",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-13T19:00:49Z",
+      "side": 1,
+      "message": "This is going to force a full copy of every byte of data.  Is there any way to avoid this?",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 35
+      },
+      "revId": "d4a19baf8498182aa0f68a9b5127f7eb7bd39e12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "829cce67_e08fc67a",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-13T19:00:49Z",
+      "side": 1,
+      "message": "Typo",
+      "revId": "d4a19baf8498182aa0f68a9b5127f7eb7bd39e12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f225517_7a6e1edd",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-13T19:00:49Z",
+      "side": 1,
+      "message": "now that we\u0027re using our own encoding function, can we just update base64encode to support an incremental version, so we can avoid all the data copying and storage requirements?",
+      "range": {
+        "startLine": 74,
+        "startChar": 15,
+        "endLine": 74,
+        "endChar": 42
+      },
+      "revId": "d4a19baf8498182aa0f68a9b5127f7eb7bd39e12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7122b19a_6aadf5b9",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-13T19:00:49Z",
+      "side": 1,
+      "message": "lets get the naming better here.  We\u0027re not opening a base64 file, we\u0027re encoding the file after with base64.\n\nThis function doesn\u0027t look used.  Do we intend to use it somewhere?",
+      "range": {
+        "startLine": 364,
+        "startChar": 9,
+        "endLine": 364,
+        "endChar": 23
+      },
+      "revId": "d4a19baf8498182aa0f68a9b5127f7eb7bd39e12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a35e71d_edd0862b",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-13T19:00:49Z",
+      "side": 1,
+      "message": "I suspect we can just construct this in place, instead of having a variable on stack that we move?",
+      "range": {
+        "startLine": 406,
+        "startChar": 33,
+        "endLine": 406,
+        "endChar": 47
+      },
+      "revId": "d4a19baf8498182aa0f68a9b5127f7eb7bd39e12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
