@@ -70,6 +70,24 @@
       "parentUuid": "9cd6be5b_e3c4c71b",
       "revId": "0e373b53f81fc1720050571755ecfcdc6dd9ba9b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f195c2d_24677ffc",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 750,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-12-13T15:05:38Z",
+      "side": 0,
+      "message": "agreed, in case of slow network even 5MB dump may not able to offload.\nwhat\u0027s the error returned while aborting dump offloads when timeout hit?",
+      "parentUuid": "5f985515_a5d8bdf1",
+      "revId": "0e373b53f81fc1720050571755ecfcdc6dd9ba9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
