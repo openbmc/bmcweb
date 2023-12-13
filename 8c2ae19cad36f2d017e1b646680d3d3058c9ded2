@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0880b31f_9540ca41",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-13T19:56:19Z",
+      "side": 1,
+      "message": "FWIW, Nginx by default sets 512 connections, so 100 for an embedded target doesn\u0027t seem that unreasonable:\nhttps://nginx.org/en/docs/ngx_core_module.html#worker_connections\n\nApache sets 256 by default:\nhttps://httpd.apache.org/docs/2.4/mod/mpm_common.html#maxrequestworkers\n\nlighttpd sets 1024:\nhttps://redmine.lighttpd.net/projects/1/wiki/Server_max-connectionsDetails",
+      "revId": "8c2ae19cad36f2d017e1b646680d3d3058c9ded2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
