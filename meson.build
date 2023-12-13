@@ -421,6 +421,7 @@ executable(
 )
 
 srcfiles_unittest = files(
+  'test/http/base64_encoder_test.cpp',
   'test/http/crow_getroutes_test.cpp',
   'test/http/http_connection_test.cpp',
   'test/http/mutual_tls.cpp',
