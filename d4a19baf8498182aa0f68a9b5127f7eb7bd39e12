@@ -135,6 +135,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "37cc2eb2_23e19931",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-13T22:11:37Z",
+      "side": 1,
+      "message": "Answered above.  In theory the incremental base64 encoder will avoid the copy for most things;  At most it copies 2 bytes per chunk.",
+      "parentUuid": "f7717089_d2354ece",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 35
+      },
+      "revId": "d4a19baf8498182aa0f68a9b5127f7eb7bd39e12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "829cce67_e08fc67a",
         "filename": "http/http_base64_file_body.hpp",
         "patchSetId": 9
@@ -163,6 +187,30 @@
       "writtenOn": "2023-12-13T19:00:49Z",
       "side": 1,
       "message": "now that we\u0027re using our own encoding function, can we just update base64encode to support an incremental version, so we can avoid all the data copying and storage requirements?",
+      "range": {
+        "startLine": 74,
+        "startChar": 15,
+        "endLine": 74,
+        "endChar": 42
+      },
+      "revId": "d4a19baf8498182aa0f68a9b5127f7eb7bd39e12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26d96573_5c31e447",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-13T22:11:37Z",
+      "side": 1,
+      "message": "Posted above.",
+      "parentUuid": "7f225517_7a6e1edd",
       "range": {
         "startLine": 74,
         "startChar": 15,
