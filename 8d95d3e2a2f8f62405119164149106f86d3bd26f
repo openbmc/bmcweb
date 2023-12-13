@@ -182,6 +182,30 @@
       },
       "revId": "8d95d3e2a2f8f62405119164149106f86d3bd26f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f934f69_6f9b0090",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-12-13T14:12:08Z",
+      "side": 1,
+      "message": "I think it seems much simpler if we use \u0027string\u0027 at the place of \u0027keyname\u0027 (or collection name) instead of json_pointer. (I also think this keyname is not the json entry itself but specifier of json elements).\n\nSo, I would vote to use `string` for this keyname.",
+      "parentUuid": "1f1a37d4_7b064c3c",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 1
+      },
+      "revId": "8d95d3e2a2f8f62405119164149106f86d3bd26f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
