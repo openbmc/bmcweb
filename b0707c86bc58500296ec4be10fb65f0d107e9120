@@ -139,6 +139,30 @@
       },
       "revId": "b0707c86bc58500296ec4be10fb65f0d107e9120",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9946584d_10f4adef",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-13T00:06:36Z",
+      "side": 1,
+      "message": "gotcha.  I thought curl used keepalive by default, but maybe not?",
+      "parentUuid": "1f97de64_30fc5f01",
+      "range": {
+        "startLine": 19,
+        "startChar": 8,
+        "endLine": 19,
+        "endChar": 58
+      },
+      "revId": "b0707c86bc58500296ec4be10fb65f0d107e9120",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
