@@ -34,6 +34,24 @@
       "parentUuid": "367fb162_4a1808d1",
       "revId": "0e373b53f81fc1720050571755ecfcdc6dd9ba9b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9cd6be5b_e3c4c71b",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 750,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-12-13T13:51:16Z",
+      "side": 0,
+      "message": "what\u0027s the error returned while aborting large dump offloads?\nwhat\u0027s the max dump size offloaded in your testing?\nI was thinking if we can avoid hitting this timeout by keeping nominal max dump size that can be offloaded with in this timeout.",
+      "parentUuid": "1983130a_64880fb0",
+      "revId": "0e373b53f81fc1720050571755ecfcdc6dd9ba9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
