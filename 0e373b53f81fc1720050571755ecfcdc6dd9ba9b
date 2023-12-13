@@ -16,6 +16,24 @@
       "message": "need similar max size check?",
       "revId": "0e373b53f81fc1720050571755ecfcdc6dd9ba9b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1983130a_64880fb0",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 750,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-12-13T13:35:25Z",
+      "side": 0,
+      "message": "nope. In the file body case, the max chunk is defined to be 4k. So there is no chance of using higher memory. And we have a timeout in place for aborting large file offloads.",
+      "parentUuid": "367fb162_4a1808d1",
+      "revId": "0e373b53f81fc1720050571755ecfcdc6dd9ba9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

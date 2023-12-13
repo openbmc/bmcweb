@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bc141ee3_41560fe0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-12-13T13:35:25Z",
+      "side": 1,
+      "message": "Nope. Only the system dump uses base64 encoding. BMC dump will use plain text for backward compatibility.",
+      "parentUuid": "a29647ae_76137bf5",
+      "revId": "6695525365eb9e98349106e25f1c13dfb2858954",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "43ec20bd_05b1a803",
         "filename": "http/http_base64_file_body.hpp",
         "patchSetId": 14
@@ -65,6 +83,24 @@
       "writtenOn": "2023-12-13T02:51:51Z",
       "side": 1,
       "message": "does this mean seek() here tries to set file size?",
+      "revId": "6695525365eb9e98349106e25f1c13dfb2858954",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d3a6517_d388deda",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-12-13T13:35:25Z",
+      "side": 1,
+      "message": "unfortunately yes. That is how we can support file reading using a descriptor.",
+      "parentUuid": "62df386e_670d7ff6",
       "revId": "6695525365eb9e98349106e25f1c13dfb2858954",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },

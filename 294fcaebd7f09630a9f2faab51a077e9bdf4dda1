@@ -166,6 +166,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c11e7cc_c90b250d",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-12-13T13:35:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "073b8890_28d98f0f",
+      "range": {
+        "startLine": 6,
+        "startChar": 10,
+        "endLine": 6,
+        "endChar": 14
+      },
+      "revId": "294fcaebd7f09630a9f2faab51a077e9bdf4dda1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de551e07_b8f87f5a",
@@ -274,6 +298,30 @@
       "side": 1,
       "message": "There isn\u0027t a boost public function for this (it\u0027s in details), but it\u0027s called encoded_size()",
       "parentUuid": "ad1bd547_8efef4fc",
+      "range": {
+        "startLine": 30,
+        "startChar": 47,
+        "endLine": 30,
+        "endChar": 59
+      },
+      "revId": "294fcaebd7f09630a9f2faab51a077e9bdf4dda1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b70fc6a_5d4ba1a7",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-12-13T13:35:25Z",
+      "side": 1,
+      "message": "that means we should keep the magic number right?",
+      "parentUuid": "49e133ba_dfd75928",
       "range": {
         "startLine": 30,
         "startChar": 47,
@@ -520,6 +568,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0112165_318b4161",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-12-13T13:35:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "58a752c3_cf0decd9",
+      "range": {
+        "startLine": 55,
+        "startChar": 8,
+        "endLine": 55,
+        "endChar": 12
+      },
+      "revId": "294fcaebd7f09630a9f2faab51a077e9bdf4dda1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9310c8ba_243757d5",
@@ -639,6 +711,30 @@
       "side": 1,
       "message": "The reasons for this are documented in HEADERS.md",
       "parentUuid": "a080e94b_7591935d",
+      "range": {
+        "startLine": 382,
+        "startChar": 0,
+        "endLine": 382,
+        "endChar": 48
+      },
+      "revId": "294fcaebd7f09630a9f2faab51a077e9bdf4dda1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdbbfec2_eddbabbe",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-12-13T13:35:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "dbaef617_b9c157a7",
       "range": {
         "startLine": 382,
         "startChar": 0,
