@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "62ef43a8_8cc18a35",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-12-14T12:05:17Z",
+      "side": 1,
+      "message": "yes, it is a forward declaration for the custom definition below.",
+      "parentUuid": "f683c8a4_b67cfbda",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 17
+      },
+      "revId": "d4a19baf8498182aa0f68a9b5127f7eb7bd39e12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7c6888d5_911b31e0",
         "filename": "http/http_base64_file_body.hpp",
         "patchSetId": 9
@@ -70,6 +94,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f1c10e7_fa9805a5",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-12-14T12:05:17Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "56bc5065_90242c4d",
+      "range": {
+        "startLine": 38,
+        "startChar": 16,
+        "endLine": 38,
+        "endChar": 20
+      },
+      "revId": "d4a19baf8498182aa0f68a9b5127f7eb7bd39e12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f04097c4_f9cc3fde",
@@ -93,6 +141,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8990f1a_34d58753",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-12-14T12:05:17Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f04097c4_f9cc3fde",
+      "range": {
+        "startLine": 40,
+        "startChar": 9,
+        "endLine": 40,
+        "endChar": 13
+      },
+      "revId": "d4a19baf8498182aa0f68a9b5127f7eb7bd39e12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d9ba7b06_9eb86b02",
@@ -106,6 +178,24 @@
       "writtenOn": "2023-12-13T19:00:49Z",
       "side": 1,
       "message": "Ignored error code.",
+      "revId": "d4a19baf8498182aa0f68a9b5127f7eb7bd39e12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9a52135_214d0f85",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-12-14T12:05:17Z",
+      "side": 1,
+      "message": "Do you mean we should handle the error here? The caller will handle it anyway, right?",
+      "parentUuid": "d9ba7b06_9eb86b02",
       "revId": "d4a19baf8498182aa0f68a9b5127f7eb7bd39e12",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -157,6 +247,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e39b305_c8b9ff16",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-12-14T12:05:17Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "37cc2eb2_23e19931",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 35
+      },
+      "revId": "d4a19baf8498182aa0f68a9b5127f7eb7bd39e12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "829cce67_e08fc67a",
@@ -170,6 +284,24 @@
       "writtenOn": "2023-12-13T19:00:49Z",
       "side": 1,
       "message": "Typo",
+      "revId": "d4a19baf8498182aa0f68a9b5127f7eb7bd39e12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f76526d1_87cb98f0",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-12-14T12:05:17Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "829cce67_e08fc67a",
       "revId": "d4a19baf8498182aa0f68a9b5127f7eb7bd39e12",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -221,6 +353,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5af45223_07aecb8e",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-12-14T12:05:17Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "26d96573_5c31e447",
+      "range": {
+        "startLine": 74,
+        "startChar": 15,
+        "endLine": 74,
+        "endChar": 42
+      },
+      "revId": "d4a19baf8498182aa0f68a9b5127f7eb7bd39e12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7122b19a_6aadf5b9",
@@ -246,6 +402,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d980f2e8_b07d39df",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-12-14T12:05:17Z",
+      "side": 1,
+      "message": "this is API for completeness. In case future someone wants to open with path and wants to encode then they can use it.",
+      "parentUuid": "7122b19a_6aadf5b9",
+      "range": {
+        "startLine": 364,
+        "startChar": 9,
+        "endLine": 364,
+        "endChar": 23
+      },
+      "revId": "d4a19baf8498182aa0f68a9b5127f7eb7bd39e12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7a35e71d_edd0862b",
         "filename": "http/http_response.hpp",
         "patchSetId": 9
@@ -257,6 +437,30 @@
       "writtenOn": "2023-12-13T19:00:49Z",
       "side": 1,
       "message": "I suspect we can just construct this in place, instead of having a variable on stack that we move?",
+      "range": {
+        "startLine": 406,
+        "startChar": 33,
+        "endLine": 406,
+        "endChar": 47
+      },
+      "revId": "d4a19baf8498182aa0f68a9b5127f7eb7bd39e12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e07526f_ec6d6113",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-12-14T12:05:17Z",
+      "side": 1,
+      "message": "I believe I tried it before. We should set the native handle and no constructor helps.",
+      "parentUuid": "7a35e71d_edd0862b",
       "range": {
         "startLine": 406,
         "startChar": 33,
