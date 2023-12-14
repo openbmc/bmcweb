@@ -72,6 +72,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1223182_9cbeacdb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2023-12-14T04:18:27Z",
+      "side": 1,
+      "message": "Code looks good to me - needs rework on the outstanding comments. This solves the broken connection problem when there are network glitch on the listener \u0026 bmc. This commit re-established the connection and the next events are flowing fine.",
+      "revId": "9df160ca1f3f168e5edc19ff9398fa75045ea18f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "379a907d_72154477",
@@ -279,6 +296,30 @@
       "range": {
         "startLine": 159,
         "startChar": 9,
+        "endLine": 159,
+        "endChar": 19
+      },
+      "revId": "9df160ca1f3f168e5edc19ff9398fa75045ea18f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a395cc30_a8857340",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2023-12-14T04:18:27Z",
+      "side": 1,
+      "message": "Yes.\nLogging the events sent from BMC would be a good debug data, to investigate issues when they are lost in the network (or a listener issue). We will know what is the last event sent to which destination, its data \u0026 timestamps etc.",
+      "parentUuid": "662cf4ca_301bfe91",
+      "range": {
+        "startLine": 159,
+        "startChar": 4,
         "endLine": 159,
         "endChar": 19
       },
