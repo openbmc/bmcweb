@@ -405,6 +405,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8bde3633_4e0e5864",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-12-14T02:42:52Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "8602f63f_45870f9c",
+      "range": {
+        "startLine": 634,
+        "startChar": 12,
+        "endLine": 634,
+        "endChar": 16
+      },
+      "revId": "9df160ca1f3f168e5edc19ff9398fa75045ea18f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d2c9c09d_44915c59",
         "filename": "http/http_client.hpp",
         "patchSetId": 2
@@ -416,6 +440,30 @@
       "writtenOn": "2023-12-07T17:31:56Z",
       "side": 1,
       "message": "Can we deduplicate this with line 637?  Just declare sslContext on line 631, and there\u0027s no need to change this.",
+      "range": {
+        "startLine": 641,
+        "startChar": 15,
+        "endLine": 641,
+        "endChar": 35
+      },
+      "revId": "9df160ca1f3f168e5edc19ff9398fa75045ea18f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d89abaf_cbab4a5c",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2023-12-14T02:42:52Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "d2c9c09d_44915c59",
       "range": {
         "startLine": 641,
         "startChar": 15,
