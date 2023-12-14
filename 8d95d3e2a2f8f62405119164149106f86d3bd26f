@@ -206,6 +206,30 @@
       },
       "revId": "8d95d3e2a2f8f62405119164149106f86d3bd26f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ac02fd2_a430f381",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-14T20:07:02Z",
+      "side": 1,
+      "message": "\u003e So, I would vote to use string for this keyname.\n\nString doesn\u0027t enforce any type safety.  I\u0027d rather we have code that\u0027s more complex, with enforced type safety.  We\u0027d done similar themes with things like dbus paths in the past.\n\nThe biggest thing is that nlohmann::json operator[](std::string) throws.  The json_pointer version doesn\u0027t.",
+      "parentUuid": "7f934f69_6f9b0090",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 1
+      },
+      "revId": "8d95d3e2a2f8f62405119164149106f86d3bd26f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
