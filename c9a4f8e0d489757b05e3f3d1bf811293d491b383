@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55dac032_5cd34402",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 28
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-14T20:08:57Z",
+      "side": 1,
+      "message": "Patchset 26 looks like its\u0027 something that can merge.  If we get that to the top of the stack, we should be good to go.",
+      "revId": "c9a4f8e0d489757b05e3f3d1bf811293d491b383",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
