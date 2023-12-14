@@ -91,6 +91,24 @@
       "message": "Lets get the OWASP Venom test suite re-run (which this will likely fail).",
       "revId": "9e2bc6b2c7fc1caf40cf77ba01055c1f8756becd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a3c5b9d_5391c2f3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-14T20:11:05Z",
+      "side": 1,
+      "message": "To be clear, I might be ok with us not passing the Venom suite (we didn\u0027t before that patch), but lets make that decision explicitly and consciously.",
+      "parentUuid": "625c7054_cecf500b",
+      "revId": "9e2bc6b2c7fc1caf40cf77ba01055c1f8756becd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
