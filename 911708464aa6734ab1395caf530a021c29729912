@@ -327,6 +327,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4ccec3f8_c2b1f5be",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-14T18:04:12Z",
+      "side": 1,
+      "message": "To be clear about what needs to happen here:\n\n1. the stream_truncated check needs to be put back.  There are webservers that do not close the TLS connection cleanly, hence why it\u0027s not directly treated as an error.\n\n2. Add a check for parser-\u003eis_done() on line 381.  This will be able to determine if a connection dropped before we received a response.",
+      "parentUuid": "31073474_141d4ae6",
+      "revId": "911708464aa6734ab1395caf530a021c29729912",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c5c3d0d8_ece362da",
         "filename": "http/http_client.hpp",
         "patchSetId": 1

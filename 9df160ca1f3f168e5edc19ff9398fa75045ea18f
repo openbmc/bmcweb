@@ -329,6 +329,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1940a4de_c544525a",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-14T18:04:12Z",
+      "side": 1,
+      "message": "\u003e But optional is never intended for lifetime management right?\n\nThat\u0027s not quite right.  std::optional just puts the object within the lifetime of the parent, rather than creating a malloced thing.  Given we never need to transfer ownership of the struct, optional is the right thing here.\n\n\u003e Here we need to recreate the connection by destroying the old one. Whereas optional is designed for the detection of the presence or absence of data.\n\nfunctionally a unique_ptr can also have an absence of data.  unique_ptr can be nullptr.",
+      "parentUuid": "6afd0005_ab9c974d",
+      "range": {
+        "startLine": 159,
+        "startChar": 9,
+        "endLine": 159,
+        "endChar": 19
+      },
+      "revId": "9df160ca1f3f168e5edc19ff9398fa75045ea18f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3c62ec91_fab1c233",
         "filename": "http/http_client.hpp",
         "patchSetId": 2
@@ -552,6 +576,30 @@
       "side": 1,
       "message": "I would like to refactor the entire http_client code. Ideally, we should take out the SSL context creation call itself from the constructor and take it as a constructing argument instead. We need not mix context creation failure with the wait-retry path.",
       "parentUuid": "b2433d7a_5b578427",
+      "range": {
+        "startLine": 653,
+        "startChar": 8,
+        "endLine": 653,
+        "endChar": 30
+      },
+      "revId": "9df160ca1f3f168e5edc19ff9398fa75045ea18f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "456ef3ad_52985261",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-14T18:04:12Z",
+      "side": 1,
+      "message": "\u003e We need not mix context creation failure with the wait-retry path.\n\nI\u0027m not sure what this means, but probably better to look at code for what you mean.",
+      "parentUuid": "e42b7629_44a69c1c",
       "range": {
         "startLine": 653,
         "startChar": 8,
