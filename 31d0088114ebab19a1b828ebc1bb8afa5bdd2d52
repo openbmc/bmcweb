@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac34ca0c_f7d4cf70",
+        "filename": "http/utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-12-15T04:40:49Z",
+      "side": 1,
+      "message": "change the return type to std::uint64_t. This is what the serializer expects.",
+      "revId": "31d0088114ebab19a1b828ebc1bb8afa5bdd2d52",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
