@@ -530,6 +530,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d36b561_6eb1ee14",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-18T23:10:34Z",
+      "side": 1,
+      "message": "std::optional was not required in the end.",
+      "parentUuid": "309ec55c_3da50e42",
+      "range": {
+        "startLine": 159,
+        "startChar": 9,
+        "endLine": 159,
+        "endChar": 19
+      },
+      "revId": "9df160ca1f3f168e5edc19ff9398fa75045ea18f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68ca426c_aceb1f2c",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-18T23:10:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "617a06a7_119dcf4a",
+      "range": {
+        "startLine": 159,
+        "startChar": 4,
+        "endLine": 159,
+        "endChar": 19
+      },
+      "revId": "9df160ca1f3f168e5edc19ff9398fa75045ea18f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3c62ec91_fab1c233",
@@ -567,6 +615,30 @@
       "side": 1,
       "message": "Since unique_ptr is a move-only type it does not make much difference for performance. It is just that I tend to write no side effect functions which is more readable to me. I am ok to change as you suggest. I agree that I am making a side effect here by storing the SSL stream object which is against my taste.",
       "parentUuid": "3c62ec91_fab1c233",
+      "range": {
+        "startLine": 618,
+        "startChar": 4,
+        "endLine": 618,
+        "endChar": 49
+      },
+      "revId": "9df160ca1f3f168e5edc19ff9398fa75045ea18f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc6c9b54_4423c9f8",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-18T23:10:34Z",
+      "side": 1,
+      "message": "I\u0027ve resolved this.  Please take a look.",
+      "parentUuid": "7dda71a0_8e11e08d",
       "range": {
         "startLine": 618,
         "startChar": 4,
@@ -624,6 +696,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "84ff4597_4ed3f1b4",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 625,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-18T23:10:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d1626f60_589180c1",
+      "range": {
+        "startLine": 625,
+        "startChar": 44,
+        "endLine": 625,
+        "endChar": 51
+      },
+      "revId": "9df160ca1f3f168e5edc19ff9398fa75045ea18f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8602f63f_45870f9c",
@@ -661,6 +757,30 @@
       "side": 1,
       "message": "+1",
       "parentUuid": "8602f63f_45870f9c",
+      "range": {
+        "startLine": 634,
+        "startChar": 12,
+        "endLine": 634,
+        "endChar": 16
+      },
+      "revId": "9df160ca1f3f168e5edc19ff9398fa75045ea18f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f20c6f1c_5579e7c0",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-18T23:10:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bde3633_4e0e5864",
       "range": {
         "startLine": 634,
         "startChar": 12,
@@ -827,6 +947,30 @@
       "side": 1,
       "message": "you can refer [here](https://github.com/abhilashraju/reactor/blob/main/tests/http_subscriber_test/http_subscriber_test.cpp) for my view on the subscriber API \n\nSSL context has nothing to do with connection establishment. It is better to take it out from the http_client code. \nI believe we can rector the http_client code. I have already done an implementation. \nSee [http_client](https://github.com/abhilashraju/reactor/blob/main/include/http/http_client.hpp)\n[http_clientpool](https://github.com/abhilashraju/reactor/blob/main/include/http/http_client_pool.hpp) and [http_subscriber](https://github.com/abhilashraju/reactor/blob/main/include/http/http_subscriber.hpp) for datails.",
       "parentUuid": "456ef3ad_52985261",
+      "range": {
+        "startLine": 653,
+        "startChar": 8,
+        "endLine": 653,
+        "endChar": 30
+      },
+      "revId": "9df160ca1f3f168e5edc19ff9398fa75045ea18f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4d26845_6879e13c",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-18T23:10:34Z",
+      "side": 1,
+      "message": "\u003e you can refer [here](https://github.com/abhilashraju/reactor/blob/main/tests/http_subscriber_test/http_subscriber_test.cpp) for my view on the subscriber API \n\u003e \n\u003e SSL context has nothing to do with connection establishment. It is better to take it out from the http_client code. \n\nI don\u0027t understand the statement above.  SSL context definitely is part of connection establishment.  The flow goes roughly\n\nresolve -\u003e tcp connect -\u003e SSL negotiate -\u003e Start connection loop.\n\n\u003e I believe we can rector the http_client code. I have already done an implementation. \n\u003e See [http_client](https://github.com/abhilashraju/reactor/blob/main/include/http/http_client.hpp)\n\nIf it\u0027s something you want to push forward, please push it into a gerrit review as a WIP\n\n\n\u003e [http_clientpool](https://github.com/abhilashraju/reactor/blob/main/include/http/http_client_pool.hpp) and [http_subscriber](https://github.com/abhilashraju/reactor/blob/main/include/http/http_subscriber.hpp) for datails.",
+      "parentUuid": "844763be_66f17ba1",
       "range": {
         "startLine": 653,
         "startChar": 8,
