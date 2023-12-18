@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a57d3af0_a620c0d4",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 794,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-18T20:34:37Z",
+      "side": 0,
+      "message": "Lets retain this check for the moment.  If we want to remove it, lets have that discussion in a different patchset, after this optimization has landed and we know it works.\n\nGenerally splitting up patchsets that intend to change behavior is a good idea.",
+      "range": {
+        "startLine": 794,
+        "startChar": 0,
+        "endLine": 794,
+        "endChar": 49
+      },
+      "revId": "7e62d85ee3054ad281af2b7000bd199592745509",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

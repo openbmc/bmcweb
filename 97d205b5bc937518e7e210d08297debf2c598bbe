@@ -22,6 +22,75 @@
       },
       "revId": "97d205b5bc937518e7e210d08297debf2c598bbe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b222503e_0b2a52e9",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-18T20:34:37Z",
+      "side": 1,
+      "message": "please use using here.",
+      "range": {
+        "startLine": 407,
+        "startChar": 0,
+        "endLine": 407,
+        "endChar": 54
+      },
+      "revId": "97d205b5bc937518e7e210d08297debf2c598bbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0358585_abdfd185",
+        "filename": "test/http/http_response_test.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-18T20:34:37Z",
+      "side": 1,
+      "message": "Why do we need a generator callback here?  I suspect this api can just accept a std::string_view for the content?\n\nI see one place where we use this callback with non static data, and that just generates a std::string.  Is suspect we cam make this simpler.",
+      "range": {
+        "startLine": 25,
+        "startChar": 21,
+        "endLine": 25,
+        "endChar": 67
+      },
+      "revId": "97d205b5bc937518e7e210d08297debf2c598bbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5c6383f_066da466",
+        "filename": "test/http/http_response_test.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-18T20:34:37Z",
+      "side": 1,
+      "message": "several coding standard violations here.  Please take a pass at simplifying this code block, and once you\u0027ve gone through that, we can start address individual issues.",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 1
+      },
+      "revId": "97d205b5bc937518e7e210d08297debf2c598bbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

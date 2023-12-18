@@ -107,6 +107,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c4d55e5b_f8dab149",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-18T20:34:37Z",
+      "side": 1,
+      "message": "Can\u0027t we just assume that the descriptor sent here has started at 0?  Not all descriptors support seeking, so this might be a dangerous operation.\n\nIf a seek is truly required, I\u0027d much rather it be put in the code calling this API, so it can document in comments why it\u0027s required.  I wouldn\u0027t expect it to be required for any dbus calls.",
+      "parentUuid": "0d3a6517_d388deda",
+      "revId": "6695525365eb9e98349106e25f1c13dfb2858954",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "44f9828f_6c3ca74d",
         "filename": "test/http/http_response_test.cpp",
         "patchSetId": 14
