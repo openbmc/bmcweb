@@ -52,6 +52,24 @@
       "parentUuid": "b226e521_a7dce57d",
       "revId": "235cfa1092a62f970ae1e5e3337284d211576784",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1817477_bd51acfd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-18T20:40:34Z",
+      "side": 1,
+      "message": "By that argument we shouldn\u0027t accept any ifdefs, and by extension of the compatibility guarantees, whomever checks in code first should allow their behavior to be in bmcweb forever without ever being replaced.  I realize that\u0027s taking your statement to an extreme, but it\u0027s what I think about often, that if we had a no ifdef policy 4 years ago, things like the thermal subsystem option, the dbus log server option, and others would likely have not been allowed.\n\nI\u0027m open to options other than ifdefs/contexpr configs if there\u0027s a better way to manage this, but the argument that we can\u0027t use ifdefs to control behavior because it\u0027ll slow down development I question heavily.  Ifdefs IMO speed up development, because we can accept features that maybe aren\u0027t use-case-complete, aren\u0027t secure for production usages, or aren\u0027t useful to a majority of users, which helps folks to fork less.\n\nFWIW, this patchset got revived because someone is about to fork bmcweb to do exactly what this patchset is doing.  I think ifdefs can keep the development more localized and get more reviewers on the core components, that might not care about the dbus aspects.  At a fundamental level I think ifdefs are better than forking.",
+      "parentUuid": "bada662e_ac2ff1d5",
+      "revId": "235cfa1092a62f970ae1e5e3337284d211576784",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

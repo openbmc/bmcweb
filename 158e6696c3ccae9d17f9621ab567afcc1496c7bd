@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f8825f1d_1fcd65fa",
+        "filename": "meson_options.txt",
+        "patchSetId": 21
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-18T20:40:34Z",
+      "side": 1,
+      "message": "if disabled it would use nothing for redfish resources (except for sockets).  The application would be standalone.  The theory being that you could add whatever logic you needed.",
+      "parentUuid": "37210cfb_fbe2757c",
+      "revId": "158e6696c3ccae9d17f9621ab567afcc1496c7bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "41b340ac_e1292fc7",
         "filename": "redfish-core/include/redfish.hpp",
         "patchSetId": 21
@@ -31,6 +49,24 @@
       "writtenOn": "2023-11-29T03:57:59Z",
       "side": 1,
       "message": "So this is a prototype to get the service root working without d-bus? The service root doesn\u0027t have any D-Bus calls. \nBut to get something like https://github.com/openbmc/bmcweb/blob/7a696974d7a987e3eb135a6cbad0a4ace8d109d2/redfish-core/lib/account_service.hpp#L2267 isn\u0027t that going to require a bunch of ifdefs ?",
+      "revId": "158e6696c3ccae9d17f9621ab567afcc1496c7bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b260250_d8cebcae",
+        "filename": "redfish-core/include/redfish.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-18T20:40:34Z",
+      "side": 1,
+      "message": "\u003e So this is a prototype to get the service root working without d-bus? The service root doesn\u0027t have any D-Bus calls. \n\nYep.\n\n\u003e But to get something like https://github.com/openbmc/bmcweb/blob/7a696974d7a987e3eb135a6cbad0a4ace8d109d2/redfish-core/lib/account_service.hpp#L2267 isn\u0027t that going to require a bunch of ifdefs ?\n\nMy thinking is you\u0027d set up another BMCWEB_ROUTE() for whatever your backend does.  AccountService is a little weird because it\u0027s partially in bmcweb and partially in dbus.  That needs more thought.",
+      "parentUuid": "41b340ac_e1292fc7",
       "revId": "158e6696c3ccae9d17f9621ab567afcc1496c7bd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
