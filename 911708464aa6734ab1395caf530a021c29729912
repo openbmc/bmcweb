@@ -363,6 +363,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "83d26228_6b6a99c1",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-18T19:59:08Z",
+      "side": 1,
+      "message": "\u003e If the server is closed the connection(whether it is clean or unclean), why are we not retrying?\n\nBecause a number of webservers do not close the connection uncleanly.  Also, if the server closes the connection cleanly, that is allowed.\n\n\u003e An intentional disconnect happens through an unsubscribe call, right?\n\nWhat \"unsubscribe\" call are you referring to?  The Redfish one?  No, I don\u0027t believe there\u0027s any connection between an EventDestination being deleted and the connections being dropped.\n\n\u003e In all other cases, we should retry according to the retry policy. Am I reading the requirement correctly here?\n\u003e \n\u003e Why don\u0027t we add the is_done check after 363?\n\nSure, I suspect adding it on line 363 (before checking for connection errors) would have the same result, I was just thinking that the logging included on connection errors would be good to retain.",
+      "parentUuid": "aadb19a2_17934471",
+      "revId": "911708464aa6734ab1395caf530a021c29729912",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c5c3d0d8_ece362da",
         "filename": "http/http_client.hpp",
         "patchSetId": 1
