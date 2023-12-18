@@ -96,6 +96,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "33c804e3_a8a33c23",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-18T21:47:31Z",
+      "side": 1,
+      "message": "Right, and in the tomcat connector, they MUST be rewriting things like the Location header, otherwise cross site scripting (which is essentially what the proxy is doing) checks would kick in.... or I\u0027m missing something.",
+      "parentUuid": "2f00eb5e_7ddc9357",
+      "revId": "9e2bc6b2c7fc1caf40cf77ba01055c1f8756becd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "625c7054_cecf500b",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
