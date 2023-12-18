@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d7c0a4f_5945a26c",
+        "filename": "redfish-core/include/utils/pcie_util.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-18T20:07:04Z",
+      "side": 1,
+      "message": "This should not have been static.  Its been fixed.",
+      "revId": "70c4d545817d83819f7f0cd571e0160bacb51d11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
