@@ -78,6 +78,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2f00eb5e_7ddc9357",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2023-12-18T21:43:50Z",
+      "side": 1,
+      "message": "\u003e Presumably you guys already had to strip out or rewrite the XSS headers to make this work at all?\n\nI asked our team this and they said:\n\".. we do not touch any headers for OpenBMC Systems. We are using tomcat connectr which will do the redirection as a Proxy.\"",
+      "parentUuid": "97614912_d8814c61",
+      "revId": "9e2bc6b2c7fc1caf40cf77ba01055c1f8756becd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "625c7054_cecf500b",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
