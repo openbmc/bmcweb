@@ -345,6 +345,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aadb19a2_17934471",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-12-18T05:03:55Z",
+      "side": 1,
+      "message": "If the server is closed the connection(whether it is clean or unclean), why are we not retrying? An intentional disconnect happens through an unsubscribe call, right? In all other cases, we should retry according to the retry policy. Am I reading the requirement correctly here?\n\nWhy don\u0027t we add the is_done check after 363?",
+      "parentUuid": "4ccec3f8_c2b1f5be",
+      "revId": "911708464aa6734ab1395caf530a021c29729912",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c5c3d0d8_ece362da",
         "filename": "http/http_client.hpp",
         "patchSetId": 1

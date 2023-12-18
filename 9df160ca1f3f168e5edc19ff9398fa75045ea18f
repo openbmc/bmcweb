@@ -145,6 +145,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7bcb0cd1_a4342d34",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-12-18T05:03:55Z",
+      "side": 1,
+      "message": "This is manual functional testing. To test, we need a server that subscribes to the redfish event. The server should have keep_alive enabled. Then you should let the serve to have keep_alive time out happen. It usually takes 3 hr. \nYou can also try some testing by killing the server process abruptly.",
+      "parentUuid": "c8db749e_9cd32840",
+      "revId": "9df160ca1f3f168e5edc19ff9398fa75045ea18f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "379a907d_72154477",
         "filename": "http/http_client.hpp",
         "patchSetId": 2
@@ -455,6 +473,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "309ec55c_3da50e42",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-12-18T05:03:55Z",
+      "side": 1,
+      "message": "Are you saying that use Optional, create a stack object, and move it to the member optional variable? Don\u0027t know how it benefits, but I can try.",
+      "parentUuid": "1940a4de_c544525a",
+      "range": {
+        "startLine": 159,
+        "startChar": 9,
+        "endLine": 159,
+        "endChar": 19
+      },
+      "revId": "9df160ca1f3f168e5edc19ff9398fa75045ea18f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3c62ec91_fab1c233",
         "filename": "http/http_client.hpp",
         "patchSetId": 2
@@ -643,6 +685,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e23a4ffa_05494f55",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-12-18T05:03:55Z",
+      "side": 1,
+      "message": "we should not create a connection object if SSL context creation fails.",
+      "parentUuid": "4d89abaf_cbab4a5c",
+      "range": {
+        "startLine": 641,
+        "startChar": 15,
+        "endLine": 641,
+        "endChar": 35
+      },
+      "revId": "9df160ca1f3f168e5edc19ff9398fa75045ea18f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b2433d7a_5b578427",
         "filename": "http/http_client.hpp",
         "patchSetId": 2
@@ -702,6 +768,30 @@
       "side": 1,
       "message": "\u003e We need not mix context creation failure with the wait-retry path.\n\nI\u0027m not sure what this means, but probably better to look at code for what you mean.",
       "parentUuid": "e42b7629_44a69c1c",
+      "range": {
+        "startLine": 653,
+        "startChar": 8,
+        "endLine": 653,
+        "endChar": 30
+      },
+      "revId": "9df160ca1f3f168e5edc19ff9398fa75045ea18f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "844763be_66f17ba1",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-12-18T05:03:55Z",
+      "side": 1,
+      "message": "you can refer [here](https://github.com/abhilashraju/reactor/blob/main/tests/http_subscriber_test/http_subscriber_test.cpp) for my view on the subscriber API \n\nSSL context has nothing to do with connection establishment. It is better to take it out from the http_client code. \nI believe we can rector the http_client code. I have already done an implementation. \nSee [http_client](https://github.com/abhilashraju/reactor/blob/main/include/http/http_client.hpp)\n[http_clientpool](https://github.com/abhilashraju/reactor/blob/main/include/http/http_client_pool.hpp) and [http_subscriber](https://github.com/abhilashraju/reactor/blob/main/include/http/http_subscriber.hpp) for datails.",
+      "parentUuid": "456ef3ad_52985261",
       "range": {
         "startLine": 653,
         "startChar": 8,
