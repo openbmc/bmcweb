@@ -30,7 +30,7 @@ inline void handleCollectionMembers(
     nlohmann::json::json_pointer jsonCountKeyName = jsonKeyName;
     std::string back = jsonCountKeyName.back();
     jsonCountKeyName.pop_back();
-    jsonCountKeyName /= back + "@data.count";
+    jsonCountKeyName /= back + "@odata.count";
 
     if (ec == boost::system::errc::io_error)
     {
