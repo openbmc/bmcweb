@@ -1021,6 +1021,30 @@
       },
       "revId": "9df160ca1f3f168e5edc19ff9398fa75045ea18f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c37441fa_0eb388e2",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-19T18:55:05Z",
+      "side": 1,
+      "message": "\u003e I don\u0027t understand the statement above. SSL context definitely is part of connection establishment. The flow goes roughly\n\u003e \n\u003e I mean context creation. in this \"seqence resolve -\u003e tcp connect -\u003e SSL negotiate -\u003e Start connection loop\" there is no context creation. \n\u003e So http_client can accept context created from out side as constructor argument. \n\nI don\u0027t think we can make it a constructor argument, because we need a new context every time a new connection restarts, right?\n\n\n\u003e We need not worry about the context creation failure from with in the http_client code.\n\nIf we changed the model so that connection objects can\u0027t be reused, then yes, I think your model would work.",
+      "parentUuid": "b46f6cee_976bd1a3",
+      "range": {
+        "startLine": 653,
+        "startChar": 8,
+        "endLine": 653,
+        "endChar": 30
+      },
+      "revId": "9df160ca1f3f168e5edc19ff9398fa75045ea18f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
