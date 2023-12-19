@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a067ad96_7ac2c448",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2023-12-19T18:57:06Z",
+      "side": 1,
+      "message": "@marco, are you going to put together another WIP patchset for enabling the service/user distinction?  I suspect you can just check out the files from one of your older patchsets and push it into a new review.",
+      "revId": "0e373b53f81fc1720050571755ecfcdc6dd9ba9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
