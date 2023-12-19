@@ -91,6 +91,30 @@
       },
       "revId": "97d205b5bc937518e7e210d08297debf2c598bbe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8cf65da_586c5e70",
+        "filename": "test/http/http_response_test.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-12-19T07:22:51Z",
+      "side": 1,
+      "message": "wanted to collect data from the buffer sequence. Since it is accumulating data from a buffer sequence, I used std::accumulate. Are you suggesting replacing it with a for loop?",
+      "parentUuid": "c5c6383f_066da466",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 1
+      },
+      "revId": "97d205b5bc937518e7e210d08297debf2c598bbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
