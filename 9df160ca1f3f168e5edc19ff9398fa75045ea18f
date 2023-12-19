@@ -196,6 +196,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fbd3241_6053c480",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-12-19T06:25:03Z",
+      "side": 1,
+      "message": "changes look fine to me. I agree, I could have tried the move assignment of the TCP socket before going for unique_ptr. \nTested the parser status error path. That seems to be working fine for initial testing. Did not try the long waiting keep_alive test. It should work I guess.",
+      "parentUuid": "6eef5cc7_c457b03b",
+      "revId": "9df160ca1f3f168e5edc19ff9398fa75045ea18f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "379a907d_72154477",
@@ -971,6 +989,30 @@
       "side": 1,
       "message": "\u003e you can refer [here](https://github.com/abhilashraju/reactor/blob/main/tests/http_subscriber_test/http_subscriber_test.cpp) for my view on the subscriber API \n\u003e \n\u003e SSL context has nothing to do with connection establishment. It is better to take it out from the http_client code. \n\nI don\u0027t understand the statement above.  SSL context definitely is part of connection establishment.  The flow goes roughly\n\nresolve -\u003e tcp connect -\u003e SSL negotiate -\u003e Start connection loop.\n\n\u003e I believe we can rector the http_client code. I have already done an implementation. \n\u003e See [http_client](https://github.com/abhilashraju/reactor/blob/main/include/http/http_client.hpp)\n\nIf it\u0027s something you want to push forward, please push it into a gerrit review as a WIP\n\n\n\u003e [http_clientpool](https://github.com/abhilashraju/reactor/blob/main/include/http/http_client_pool.hpp) and [http_subscriber](https://github.com/abhilashraju/reactor/blob/main/include/http/http_subscriber.hpp) for datails.",
       "parentUuid": "844763be_66f17ba1",
+      "range": {
+        "startLine": 653,
+        "startChar": 8,
+        "endLine": 653,
+        "endChar": 30
+      },
+      "revId": "9df160ca1f3f168e5edc19ff9398fa75045ea18f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b46f6cee_976bd1a3",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2023-12-19T06:25:03Z",
+      "side": 1,
+      "message": "I don\u0027t understand the statement above. SSL context definitely is part of connection establishment. The flow goes roughly\n\nI mean context creation. in this \"seqence resolve -\u003e tcp connect -\u003e SSL negotiate -\u003e Start connection loop\" there is no context creation. \nSo http_client can accept context created from out side as constructor argument. \nWe need not worry about the context creation failure from with in the http_client code.",
+      "parentUuid": "b4d26845_6879e13c",
       "range": {
         "startLine": 653,
         "startChar": 8,
