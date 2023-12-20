@@ -606,6 +606,14 @@ other.
 #### ManagerDiagnosticData
 
 - ServiceRootUptimeSeconds
+- FreeStorageSpaceKiB
+- MemoryStatistics/AvailableBytes
+- MemoryStatistics/BuffersAndCacheBytes
+- MemoryStatistics/FreeBytes
+- MemoryStatistics/SharedBytes
+- MemoryStatistics/TotalBytes
+- ProcessorStatistics/KernelPercent
+- ProcessorStatistics/UserPercent
 
 ### /redfish/v1/Managers/bmc/NetworkProtocol/
 
