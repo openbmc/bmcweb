@@ -8,13 +8,172 @@
 #include "registries/privilege_registry.hpp"
 #include "routing.hpp"
 
+#include <boost/system/error_code.hpp>
+#include <boost/system/linux_error.hpp>
 #include <nlohmann/json.hpp>
 #include <sdbusplus/asio/property.hpp>
 
+#include <functional>
+#include <limits>
+#include <memory>
 #include <string>
 
 namespace redfish
 {
+
+static constexpr auto healthMonitorServiceName =
+    "xyz.openbmc_project.HealthMon";
+static constexpr auto valueInterface = "xyz.openbmc_project.Metric.Value";
+static constexpr auto valueProperty = "Value";
+
+inline bool checkErrors(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const std::source_location src = std::source_location::current())
+{
+    if (ec.value() == boost::asio::error::basic_errors::host_unreachable)
+    {
+        BMCWEB_LOG_WARNING("Failed to find server, Dbus error {}", ec);
+    }
+    else if (ec.value() == boost::system::linux_error::bad_request_descriptor)
+    {
+        BMCWEB_LOG_WARNING("Invalid Path, Dbus error {}", ec);
+    }
+    else if (ec)
+    {
+        BMCWEB_LOG_ERROR("{} failed, error {}", src.function_name(), ec);
+        messages::internalError(asyncResp->res);
+    } else {
+        return false;
+    }
+    return true;
+}
+
+inline void
+    setBytesProperty(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                     const nlohmann::json::json_pointer& jPtr,
+                     const boost::system::error_code& ec, double bytes)
+{
+    if (checkErrors(asyncResp, ec))
+    {
+        return;
+    }
+    if (!std::isfinite(bytes))
+    {
+        BMCWEB_LOG_WARNING("Property read for {} was not finite",
+                           jPtr.to_string());
+        asyncResp->res.jsonValue[jPtr] = nullptr;
+        return;
+    }
+    // If the param is in Kib, make it Kib.  Redfish uses this as a naming
+    // DBus represents as bytes
+    if (std::string_view(jPtr.back()).ends_with("KiB"))
+    {
+        bytes /= 1024.0;
+    }
+
+    asyncResp->res.jsonValue[jPtr] = static_cast<int64_t>(bytes);
+}
+
+inline void managerGetStorageStatistics(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    constexpr auto freeStorageObjPath =
+        "/xyz/openbmc_project/metric/bmc/storage/rw";
+
+    sdbusplus::asio::getProperty<double>(
+        *crow::connections::systemBus, healthMonitorServiceName,
+        freeStorageObjPath, valueInterface, valueProperty,
+        std::bind_front(setBytesProperty, asyncResp,
+                        nlohmann::json::json_pointer("/FreeStorageSpaceKiB")));
+}
+
+inline void
+    setPercentProperty(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                       const nlohmann::json::json_pointer& jPtr,
+                       const boost::system::error_code& ec, double userCPU)
+{
+    if (checkErrors(asyncResp, ec))
+    {
+        return;
+    }
+    if (!std::isfinite(userCPU))
+    {
+        asyncResp->res.jsonValue[jPtr] = nullptr;
+        return;
+    }
+
+    static constexpr double roundFactor = 10000; // 4 decimal places
+    asyncResp->res.jsonValue[jPtr] = std::round(userCPU * roundFactor) /
+                                     roundFactor;
+}
+
+inline void managerGetProcessorStatistics(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    constexpr auto kernelCPUObjPath =
+        "/xyz/openbmc_project/metric/bmc/cpu/kernel";
+    constexpr auto userCPUObjPath = "/xyz/openbmc_project/metric/bmc/cpu/user";
+
+    using json_pointer = nlohmann::json::json_pointer;
+    sdbusplus::asio::getProperty<double>(
+        *crow::connections::systemBus, healthMonitorServiceName,
+        kernelCPUObjPath, valueInterface, valueProperty,
+        std::bind_front(setPercentProperty, asyncResp,
+                        json_pointer("/ProcessorStatistics/KernelPercent")));
+
+    sdbusplus::asio::getProperty<double>(
+        *crow::connections::systemBus, healthMonitorServiceName, userCPUObjPath,
+        valueInterface, valueProperty,
+        std::bind_front(setPercentProperty, asyncResp,
+                        json_pointer("/ProcessorStatistics/UserPercent")));
+}
+
+inline void managerGetMemoryStatistics(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    using json_pointer = nlohmann::json::json_pointer;
+    constexpr auto availableMemoryObjPath =
+        "/xyz/openbmc_project/metric/bmc/memory/available";
+    sdbusplus::asio::getProperty<double>(
+        *crow::connections::systemBus, healthMonitorServiceName,
+        availableMemoryObjPath, valueInterface, valueProperty,
+        std::bind_front(setBytesProperty, asyncResp,
+                        json_pointer("/MemoryStatistics/AvailableBytes")));
+
+    constexpr auto bufferedAndCachedMemoryObjPath =
+        "/xyz/openbmc_project/metric/bmc/memory/buffered_and_cached";
+    sdbusplus::asio::getProperty<double>(
+        *crow::connections::systemBus, healthMonitorServiceName,
+        bufferedAndCachedMemoryObjPath, valueInterface, valueProperty,
+        std::bind_front(
+            setBytesProperty, asyncResp,
+            json_pointer("/MemoryStatistics/BuffersAndCacheBytes")));
+
+    constexpr auto freeMemoryObjPath =
+        "/xyz/openbmc_project/metric/bmc/memory/free";
+    sdbusplus::asio::getProperty<double>(
+        *crow::connections::systemBus, healthMonitorServiceName,
+        freeMemoryObjPath, valueInterface, valueProperty,
+        std::bind_front(setBytesProperty, asyncResp,
+                        json_pointer("/MemoryStatistics/FreeBytes")));
+
+    constexpr auto sharedMemoryObjPath =
+        "/xyz/openbmc_project/metric/bmc/memory/shared";
+    sdbusplus::asio::getProperty<double>(
+        *crow::connections::systemBus, healthMonitorServiceName,
+        sharedMemoryObjPath, valueInterface, valueProperty,
+        std::bind_front(setBytesProperty, asyncResp,
+                        json_pointer("/MemoryStatistics/SharedBytes")));
+
+    constexpr auto totalMemoryObjPath =
+        "/xyz/openbmc_project/metric/bmc/memory/total";
+    sdbusplus::asio::getProperty<double>(
+        *crow::connections::systemBus, healthMonitorServiceName,
+        totalMemoryObjPath, valueInterface, valueProperty,
+        std::bind_front(setBytesProperty, asyncResp,
+                        json_pointer("/MemoryStatistics/TotalBytes")));
+}
 
 inline void afterGetManagerStartTime(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -82,6 +241,9 @@ inline void handleManagerDiagnosticDataGet(
     asyncResp->res.jsonValue["Name"] = "Manager Diagnostic Data";
 
     managerGetServiceRootUptime(asyncResp);
+    managerGetProcessorStatistics(asyncResp);
+    managerGetMemoryStatistics(asyncResp);
+    managerGetStorageStatistics(asyncResp);
 }
 
 inline void requestRoutesManagerDiagnosticData(App& app)
