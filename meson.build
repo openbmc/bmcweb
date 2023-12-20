@@ -480,6 +480,7 @@ srcfiles_unittest = files(
   'test/redfish-core/lib/thermal_subsystem_test.cpp',
   'test/redfish-core/lib/metadata_test.cpp',
   'test/redfish-core/lib/power_subsystem_test.cpp',
+  'test/redfish-core/lib/manager_diagnostic_data_test.cpp',
 )
 
 if (get_option('audit-events').allowed())
