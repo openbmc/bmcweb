@@ -389,6 +389,18 @@ Fields common to all schemas
 - MinNumNeeded
 - MaxNumSupported
 
+#### /redfish/v1/Chassis/{ChassisId}/PowerSubsystem
+
+##### PowerSubsystem
+
+- Allocation
+  - AllocatedWatts
+  - RequestedWatts
+- Id
+- Name
+- PowerSupplies
+- Status
+
 #### /redfish/v1/Chassis/{ChassisId}/PowerSubsystem/PowerSupplies
 
 ##### PowerSupplies
