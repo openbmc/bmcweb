@@ -16,6 +16,29 @@
       "message": "Thanks Lakshmi, Looks good to me.",
       "revId": "1933be576f50928f4978e91ae0f399e6dab5107b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd798a4b_d3f17c27",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-12-21T14:50:19Z",
+      "side": 1,
+      "message": "Can `priority` be more than `1`? \nShould we have a `else` clause (to handle `priority \u003e 1`)?",
+      "range": {
+        "startLine": 440,
+        "startChar": 0,
+        "endLine": 450,
+        "endChar": 5
+      },
+      "revId": "1933be576f50928f4978e91ae0f399e6dab5107b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
