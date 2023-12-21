@@ -1,31 +1,114 @@
 #pragma once
 
 #include "app.hpp"
+#include "async_resp.hpp"
+#include "dbus_singleton.hpp"
+#include "dbus_utility.hpp"
+#include "error_messages.hpp"
 #include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utils/chassis_utils.hpp"
+#include "utils/dbus_utils.hpp"
 
-#include <boost/url/format.hpp>
+#include <sdbusplus/asio/property.hpp>
+#include <sdbusplus/unpack_properties.hpp>
 
+#include <array>
 #include <memory>
 #include <optional>
 #include <string>
+#include <string_view>
 
 namespace redfish
 {
+static constexpr auto powerCapInterface =
+    "xyz.openbmc_project.Control.Power.Cap";
 
-inline void doPowerSubsystemCollection(
+inline void getPowerSubsystemAllocationProperties(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& chassisId,
-    const std::optional<std::string>& validChassisPath)
+    const std::string& service, const std::string& objectPath)
 {
-    if (!validChassisPath)
-    {
-        messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
-        return;
-    }
+    // Get all properties of Power.Cap D-Bus interface
+    sdbusplus::asio::getAllProperties(
+        *crow::connections::systemBus, service, objectPath, powerCapInterface,
+        [asyncResp](const boost::system::error_code& ec,
+                    const dbus::utility::DBusPropertiesMap& propertiesList) {
+        if (ec)
+        {
+            if (ec.value() != EBADR)
+            {
+                messages::internalError(asyncResp->res);
+            }
+            return;
+        }
 
+        const uint32_t* powerCap = nullptr;
+        const bool* powerCapEnable = nullptr;
+        const uint32_t* maxPowerCapValue = nullptr;
+        const bool success = sdbusplus::unpackPropertiesNoThrow(
+            dbus_utils::UnpackErrorPrinter(), propertiesList, "PowerCap",
+            powerCap, "PowerCapEnable", powerCapEnable, "MaxPowerCapValue",
+            maxPowerCapValue);
+
+        if (!success)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        // If MaxPowerCapValue valid, store Allocation properties in JSON
+        if (maxPowerCapValue != nullptr && *maxPowerCapValue != 0)
+        {
+            if (powerCapEnable != nullptr && powerCap != nullptr)
+            {
+                asyncResp->res.jsonValue["Allocation"]["AllocatedWatts"] =
+                    *powerCap;
+            }
+            else
+            {
+                asyncResp->res.jsonValue["Allocation"]["AllocatedWatts"] =
+                    *maxPowerCapValue;
+            }
+            asyncResp->res.jsonValue["Allocation"]["RequestedWatts"] =
+                *maxPowerCapValue;
+        }
+    });
+}
+
+inline void getPowerSubsystemAllocation(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisPath)
+{
+    constexpr std::array<std::string_view, 1> interfaces = {powerCapInterface};
+    // Find service and object path that implement PowerCap interface (if any)
+    sdbusplus::message::object_path endpointPath{chassisPath};
+    endpointPath /= "throttled_by";
+
+    dbus::utility::getAssociatedSubTree(
+        endpointPath, sdbusplus::message::object_path("/"), 0, interfaces,
+        [asyncResp](const boost::system::error_code& ec,
+                    const dbus::utility::MapperGetSubTreeResponse& subTree) {
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG("D-Bus response error on GetSubTree: {}", ec);
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        for (const auto& [objectPath, serviceMap] : subTree)
+        {
+            // Get properties from PowerCap interface and store in JSON
+            getPowerSubsystemAllocationProperties(
+                asyncResp, serviceMap.begin()->first, objectPath);
+        }
+    });
+}
+
+inline void
+    getPowerSubsystemData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const std::string& chassisId)
+{
     asyncResp->res.addHeader(
         boost::beast::http::field::link,
         "</redfish/v1/JsonSchemas/PowerSubsystem/PowerSubsystem.json>; rel=describedby");
@@ -40,6 +123,21 @@ inline void doPowerSubsystemCollection(
     asyncResp->res.jsonValue["PowerSupplies"]["@odata.id"] =
         boost::urls::format(
             "/redfish/v1/Chassis/{}/PowerSubsystem/PowerSupplies", chassisId);
+}
+
+inline void doPowerSubsystemCollection(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId,
+    const std::optional<std::string>& validChassisPath)
+{
+    if (!validChassisPath)
+    {
+        messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
+        return;
+    }
+
+    getPowerSubsystemData(asyncResp, chassisId);
+    getPowerSubsystemAllocation(asyncResp, *validChassisPath);
 }
 
 inline void handlePowerSubsystemCollectionHead(
