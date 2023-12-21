@@ -14,7 +14,6 @@ namespace
 {
 
 constexpr const char* chassisId = "ChassisId";
-constexpr const char* validChassisPath = "ChassisPath";
 
 void assertPowerSubsystemCollectionGet(crow::Response& res)
 {
@@ -34,9 +33,7 @@ TEST(PowerSubsystemCollectionTest,
     auto shareAsyncResp = std::make_shared<bmcweb::AsyncResp>();
     shareAsyncResp->res.setCompleteRequestHandler(
         assertPowerSubsystemCollectionGet);
-    doPowerSubsystemCollection(
-        shareAsyncResp, chassisId,
-        std::make_optional<std::string>(validChassisPath));
+    getPowerSubsystemData(shareAsyncResp, chassisId);
 }
 
 } // namespace
