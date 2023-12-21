@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b1841b7_b3e5c5b8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 41
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-12-21T08:53:36Z",
+      "side": 1,
+      "message": "Thanks Lakshmi, Looks good to me.",
+      "revId": "1933be576f50928f4978e91ae0f399e6dab5107b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
