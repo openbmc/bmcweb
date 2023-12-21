@@ -113,6 +113,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "676b1569_17a026b9",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-12-21T07:54:19Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c58d0f30_4defe466",
+      "range": {
+        "startLine": 23,
+        "startChar": 23,
+        "endLine": 23,
+        "endChar": 34
+      },
+      "revId": "111275a047053fcf66e9a9689fd57c188f6ae7c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "88a7da1f_eda53b70",
@@ -303,6 +327,30 @@
       "side": 1,
       "message": "Yes, defined in https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Sensor/Value.interface.yaml#L13",
       "parentUuid": "6adfefbd_2142376c",
+      "range": {
+        "startLine": 91,
+        "startChar": 41,
+        "endLine": 91,
+        "endChar": 69
+      },
+      "revId": "111275a047053fcf66e9a9689fd57c188f6ae7c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd4e2091_13ff4ecf",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-12-21T07:54:19Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d08e4ea3_a3b2e2fb",
       "range": {
         "startLine": 91,
         "startChar": 41,

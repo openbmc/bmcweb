@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9609013_d014d3f6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-12-21T07:54:19Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ef498cb4_1c84db09",
+      "revId": "fa7f23a0d60a65a6abb66163b6de70ae161b2286",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df4d8e2f_da1582eb",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-11-14T16:50:08Z",
       "side": 1,
       "message": "Why do you need the ret? \nDo just: \n\"return true;\"",
+      "revId": "fa7f23a0d60a65a6abb66163b6de70ae161b2286",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3e4c59e_187a5989",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-12-21T07:54:19Z",
+      "side": 1,
+      "message": "Removed this function.",
+      "parentUuid": "df4d8e2f_da1582eb",
       "revId": "fa7f23a0d60a65a6abb66163b6de70ae161b2286",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "71bc9df8_e526ad64",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-12-21T07:54:19Z",
+      "side": 1,
+      "message": "Removed this function.",
+      "parentUuid": "4b24b65f_b6f7d40e",
+      "revId": "fa7f23a0d60a65a6abb66163b6de70ae161b2286",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f6ab7803_46b55e36",
@@ -65,6 +119,30 @@
       "writtenOn": "2023-11-16T15:22:52Z",
       "side": 1,
       "message": "non trivial lambda.",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 6
+      },
+      "revId": "fa7f23a0d60a65a6abb66163b6de70ae161b2286",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "401a4654_2478f928",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-12-21T07:54:19Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f6ab7803_46b55e36",
       "range": {
         "startLine": 96,
         "startChar": 0,
