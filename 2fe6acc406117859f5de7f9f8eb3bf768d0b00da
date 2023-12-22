@@ -16,6 +16,24 @@
       "message": "This looks same as what we did in \nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/57657\nShouldn\u0027t we move the functions to common utility file and use it?",
       "revId": "2fe6acc406117859f5de7f9f8eb3bf768d0b00da",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa7713d7_3267b8bf",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2023-12-22T05:58:50Z",
+      "side": 1,
+      "message": "Thanks\nAdded fan_utils.hpp",
+      "parentUuid": "34fb95d1_390ec36a",
+      "revId": "2fe6acc406117859f5de7f9f8eb3bf768d0b00da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
