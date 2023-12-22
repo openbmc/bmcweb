@@ -162,6 +162,11 @@ class ConnectionImpl : public Connection
                        [weak(weak_from_this()), onDone{std::move(onDone)}](
                            const boost::beast::error_code& ec, size_t) {
             std::shared_ptr<Connection> self = weak.lock();
+            if (!self)
+            {
+                BMCWEB_LOG_ERROR("Connection went away");
+                return;
+            }
 
             // Call the done handler regardless of whether we
             // errored, but before we close things out
