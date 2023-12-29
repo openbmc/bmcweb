@@ -70,6 +70,30 @@
       },
       "revId": "c9964129c53963f7f3cb3e309f77077eeecc20da",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "348b8add_f8f3729c",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 1000411
+      },
+      "writtenOn": "2023-12-29T08:34:21Z",
+      "side": 1,
+      "message": "Thanks for update.",
+      "parentUuid": "4315df9d_132f1597",
+      "range": {
+        "startLine": 562,
+        "startChar": 0,
+        "endLine": 562,
+        "endChar": 32
+      },
+      "revId": "c9964129c53963f7f3cb3e309f77077eeecc20da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

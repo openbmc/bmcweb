@@ -16,6 +16,23 @@
       "message": "Thanks for the review. I was on vacation, so it took me a while to address the issues.",
       "revId": "b3abebc6600f1dbf127db5d7afdbbea8640bd254",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "110b7f45_2da7c404",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 38
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000411
+      },
+      "writtenOn": "2023-12-29T08:34:21Z",
+      "side": 1,
+      "message": "Changes look good to me.",
+      "revId": "b3abebc6600f1dbf127db5d7afdbbea8640bd254",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
