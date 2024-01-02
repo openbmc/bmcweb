@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce4923d8_76ed57b0",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-02T12:54:56Z",
+      "side": 1,
+      "message": "KiB is 1024.  KB is 1000.",
+      "range": {
+        "startLine": 33,
+        "startChar": 68,
+        "endLine": 33,
+        "endChar": 72
+      },
+      "revId": "c3dd7c20c7ff03e515cb7890dfe45ce17b8fa1f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
