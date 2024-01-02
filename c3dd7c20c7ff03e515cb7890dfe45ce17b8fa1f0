@@ -170,6 +170,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0f976150_c91b8392",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-02T17:52:45Z",
+      "side": 1,
+      "message": "FWIW, these paths (and path segments) are now able to be documented in the YAML directly.\n\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/cc4ce70daa8ffed4848c15c5ddc50c51b31dda4a/yaml/xyz/openbmc_project/Metric/Value.interface.yaml#L99\n\n(Not suggesting that your feedback isn\u0027t valid.)",
+      "parentUuid": "712299af_99560999",
+      "range": {
+        "startLine": 40,
+        "startChar": 9,
+        "endLine": 40,
+        "endChar": 51
+      },
+      "revId": "c3dd7c20c7ff03e515cb7890dfe45ce17b8fa1f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5763965e_30c005c4",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
         "patchSetId": 4
