@@ -554,7 +554,7 @@ void operationFailed(crow::Response& res);
 
 /**
  * @brief Formats OperationTimeout message into JSON
- * Message body: "A timeout internal to the service occured as part of the
+ * Message body: "A timeout internal to the service occurred as part of the
  * request.  Partial results may have been returned."
  *
  *
@@ -1058,7 +1058,7 @@ void invalidUpload(crow::Response& res, std::string_view arg1,
 
 /**
  * @brief Formats InsufficientStorage message into JSON
- * Message body: "Insufficent storage or memory available to complete the
+ * Message body: "Insufficient storage or memory available to complete the
  *  request."
  * @returns Message InsufficientStorage formatted to JSON */
 nlohmann::json insufficientStorage();

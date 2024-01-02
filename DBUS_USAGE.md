@@ -8,7 +8,7 @@ schemas:
   verified that _all_ OpenBMC implementers of the interface support that
   property.
 - If an implementation presents a property that doesn't match the type specified
-  by the interface at any version, it shall be repored as a 500 error.
+  by the interface at any version, it shall be reported as a 500 error.
 - If the DBus interface definition has an "unknown" or "unspecified" value,
   detecting these will omit the property from the Redfish tree, in line with the
   Redfish specification.

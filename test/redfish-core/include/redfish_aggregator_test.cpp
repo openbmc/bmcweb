@@ -137,7 +137,7 @@ TEST(addPrefixToItem, TopLevelCollections)
     {
         std::string initial("/redfish/v1/" + std::string(root));
         jsonRequest["@odata.id"] = initial;
-        addPrefixToItem(jsonRequest["@odata.id"], "perfix");
+        addPrefixToItem(jsonRequest["@odata.id"], "prefix");
         EXPECT_EQ(jsonRequest["@odata.id"], initial);
     }
 }

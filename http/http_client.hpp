@@ -696,7 +696,7 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
         if (!requestQueue.empty())
         {
             BMCWEB_LOG_DEBUG(
-                "{} requests remaining in queue for {}, reusing connnection {}",
+                "{} requests remaining in queue for {}, reusing connection {}",
                 requestQueue.size(), destIP, connId);
 
             setConnProps(*conn);
