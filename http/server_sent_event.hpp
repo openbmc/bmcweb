@@ -97,11 +97,11 @@ class ConnectionImpl : public Connection
             boost::beast::http::status::ok, 11, BodyType{});
         res.set(boost::beast::http::field::content_type, "text/event-stream");
         res.body().more = true;
-        boost::beast::http::response_serializer<BodyType>& ser =
+        boost::beast::http::response_serializer<BodyType>& serial =
             serializer.emplace(std::move(res));
 
         boost::beast::http::async_write_header(
-            adaptor, ser,
+            adaptor, serial,
             std::bind_front(&ConnectionImpl::sendSSEHeaderCallback, this,
                             shared_from_this()));
     }
@@ -257,7 +257,7 @@ class ConnectionImpl : public Connection
         if (ec == boost::asio::error::operation_aborted)
         {
             BMCWEB_LOG_DEBUG("operation aborted");
-            // Canceled wait means the path succeeeded.
+            // Canceled wait means the path succeeded.
             return;
         }
         if (ec)

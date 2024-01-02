@@ -583,7 +583,7 @@ static std::unique_ptr<sdbusplus::bus::match_t> csrMatcher;
  * @brief Read data from CSR D-bus object and set to response
  *
  * @param[in] asyncResp Shared pointer to the response message
- * @param[in] certURI Link to certifiate collection URI
+ * @param[in] certURI Link to certificate collection URI
  * @param[in] service D-Bus service name
  * @param[in] certObjPath certificate D-Bus object path
  * @param[in] csrObjPath CSR D-Bus object path

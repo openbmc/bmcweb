@@ -199,7 +199,7 @@ def parse_navigation_property(
     if new_path == "/redfish/v1/Tasks":
         new_path2 = "/redfish/v1/TaskService"
 
-    # If we had to apply special handling then we need to remove the inital
+    # If we had to apply special handling then we need to remove the initial
     # version of the URI if it was previously added
     if new_path2 != "":
         if new_path in seen_paths:

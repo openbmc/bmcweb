@@ -162,9 +162,9 @@ TEST(AppendUrlFromPieces, PiecesAreAppendedViaDelimiters)
     appendUrlPieces(url, "bar");
     EXPECT_EQ(std::string_view(url.data(), url.size()), "/redfish/v1/foo/bar");
 
-    appendUrlPieces(url, "/", "bad&tring");
+    appendUrlPieces(url, "/", "bad&string");
     EXPECT_EQ(std::string_view(url.data(), url.size()),
-              "/redfish/v1/foo/bar/%2F/bad&tring");
+              "/redfish/v1/foo/bar/%2F/bad&string");
 }
 
 } // namespace

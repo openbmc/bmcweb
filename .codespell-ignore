@@ -1,0 +1,14 @@
+# Upstream redfish uses the British version of Cancelled, instead of Caneled
+redfish-core/include/registries/task_event_message_registry.hpp
+redfish-core/include/generated/enums/task.hpp
+redfish-core/include/generated/enums/job.hpp
+redfish-core/lib/task.hpp
+redfish-core/lib/log_services.hpp
+
+# Drive Redfish has "UnEncrypted" typoed as "UnEcrypted"
+redfish-core/include/generated/enums/drive.hpp
+
+# Base registry has some typos in descriptions
+redfish-core/include/registries/base_message_registry.hpp
+
+subprojects/*

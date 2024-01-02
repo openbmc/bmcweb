@@ -196,7 +196,7 @@ static void
                                 // allow them time to complete the
                                 // update (probably cycle the
                                 // system) if this expires then
-                                // task will be cancelled
+                                // task will be canceled
                                 taskData->extendTimer(std::chrono::hours(5));
                                 return !task::completed;
                             }
