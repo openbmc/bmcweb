@@ -96,9 +96,9 @@ struct TaskData : std::enable_shared_from_this<TaskData>
     TaskData(
         std::function<bool(boost::system::error_code, sdbusplus::message_t&,
                            const std::shared_ptr<TaskData>&)>&& handler,
-        const std::string& matchIn, size_t idx) :
+        const std::string& matching, size_t idx) :
         callback(std::move(handler)),
-        matchStr(matchIn), index(idx),
+        matchStr(matching), index(idx),
         startTime(std::chrono::system_clock::to_time_t(
             std::chrono::system_clock::now())),
         status("OK"), state("Running"), messages(nlohmann::json::array()),

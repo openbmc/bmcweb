@@ -343,7 +343,7 @@ static inline void addPrefixes(nlohmann::json& json, std::string_view prefix)
                 continue;
             }
 
-            // Recusively parse the rest of the json
+            // Recursively parse the rest of the json
             addPrefixes(item.second, prefix);
         }
         return;

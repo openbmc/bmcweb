@@ -2423,7 +2423,7 @@ inline void requestRoutes(App& app)
         nlohmann::json::array_t buses;
         nlohmann::json& bus = buses.emplace_back();
         bus["name"] = "system";
-        asyncResp->res.jsonValue["busses"] = std::move(buses);
+        asyncResp->res.jsonValue["buses"] = std::move(buses);
         asyncResp->res.jsonValue["status"] = "ok";
     });
 

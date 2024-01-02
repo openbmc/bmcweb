@@ -152,7 +152,7 @@ inline bool translateUserGroup(const std::vector<std::string>& userGroups,
         }
         else
         {
-            // Invalid user group name. Caller throws an excption.
+            // Invalid user group name. Caller throws an exception.
             return false;
         }
     }

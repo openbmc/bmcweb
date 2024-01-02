@@ -632,7 +632,7 @@ class Connection :
 
             if (ec == boost::asio::error::operation_aborted)
             {
-                // Canceled wait means the path succeeeded.
+                // Canceled wait means the path succeeded.
                 return;
             }
             if (ec)
