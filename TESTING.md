@@ -59,7 +59,7 @@ are the steps for using the SDK and QEMU.
   commands would need to use 18080 to communicate.
 
 - If running within a system that has read-only /usr/ filesystem, issue the
-  following commands one time per QEMU boot to make the filesystem writeable
+  following commands one time per QEMU boot to make the filesystem writable
 
   ```sh
   mkdir -p /var/persist/usr
@@ -123,7 +123,7 @@ $ python scripts/websocket_test.py  --host 1.2.3.4:443 --ssl
 
 ### Redfish Validator
 
-Commiters are required to run the
+Committers are required to run the
 [Redfish Validator](https://github.com/DMTF/Redfish-Service-Validator.git)
 anytime they make a change to the GET behavior of the redfish tree. The test
 must run on real hardware since the resource tree will be more complete.

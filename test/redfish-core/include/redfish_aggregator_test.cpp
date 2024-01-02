@@ -137,7 +137,7 @@ TEST(addPrefixToItem, TopLevelCollections)
     {
         std::string initial("/redfish/v1/" + std::string(root));
         jsonRequest["@odata.id"] = initial;
-        addPrefixToItem(jsonRequest["@odata.id"], "perfix");
+        addPrefixToItem(jsonRequest["@odata.id"], "prefix");
         EXPECT_EQ(jsonRequest["@odata.id"], initial);
     }
 }
@@ -642,8 +642,10 @@ TEST(searchCollectionsArray, collectionOrContainsURIs)
     EXPECT_FALSE(isCollOrCon("/redfish/v1/Chassis/Test"));
     EXPECT_FALSE(isCollOrCon("/redfish/v1/Managers/Test/"));
     EXPECT_FALSE(isCollOrCon("/redfish/v1/TaskService/Tasks/0"));
-    EXPECT_FALSE(isCollOrCon("/redfish/v1/UpdateService/FirmwareInventory/Te"));
-    EXPECT_FALSE(isCollOrCon("/redfish/v1/UpdateService/SoftwareInventory/Te"));
+    EXPECT_FALSE(
+        isCollOrCon("/redfish/v1/UpdateService/FirmwareInventory/Te"));
+    EXPECT_FALSE(
+        isCollOrCon("/redfish/v1/UpdateService/SoftwareInventory/Test"));
     EXPECT_FALSE(isCollOrCon("/redfish/v1/UpdateService/SoftwareInventory2"));
 }
 

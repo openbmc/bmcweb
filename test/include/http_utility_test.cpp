@@ -51,36 +51,36 @@ TEST(isContentTypeAllowed, ContainsQFactorWeightingReturnsTrue)
                                      ContentType::OctetStream, true));
 }
 
-TEST(getPreferedContentType, PositiveTest)
+TEST(getPreferredContentType, PositiveTest)
 {
     std::array<ContentType, 1> contentType{ContentType::HTML};
     EXPECT_EQ(
-        getPreferedContentType("text/html, application/json", contentType),
+        getPreferredContentType("text/html, application/json", contentType),
         ContentType::HTML);
 
     std::array<ContentType, 2> htmlJson{ContentType::HTML, ContentType::JSON};
-    EXPECT_EQ(getPreferedContentType("text/html, application/json", htmlJson),
+    EXPECT_EQ(getPreferredContentType("text/html, application/json", htmlJson),
               ContentType::HTML);
 
     std::array<ContentType, 2> jsonHtml{ContentType::JSON, ContentType::HTML};
-    EXPECT_EQ(getPreferedContentType("text/html, application/json", jsonHtml),
+    EXPECT_EQ(getPreferredContentType("text/html, application/json", jsonHtml),
               ContentType::HTML);
 
     std::array<ContentType, 2> cborJson{ContentType::CBOR, ContentType::JSON};
-    EXPECT_EQ(
-        getPreferedContentType("application/cbor, application::json", cborJson),
-        ContentType::CBOR);
+    EXPECT_EQ(getPreferredContentType("application/cbor, application::json",
+                                      cborJson),
+              ContentType::CBOR);
 
-    EXPECT_EQ(getPreferedContentType("application/json", cborJson),
+    EXPECT_EQ(getPreferredContentType("application/json", cborJson),
               ContentType::JSON);
-    EXPECT_EQ(getPreferedContentType("*/*", cborJson), ContentType::ANY);
+    EXPECT_EQ(getPreferredContentType("*/*", cborJson), ContentType::ANY);
 }
 
-TEST(getPreferedContentType, NegativeTest)
+TEST(getPreferredContentType, NegativeTest)
 {
     std::array<ContentType, 1> contentType{ContentType::CBOR};
     EXPECT_EQ(
-        getPreferedContentType("text/html, application/json", contentType),
+        getPreferredContentType("text/html, application/json", contentType),
         ContentType::NoMatch);
 }
 } // namespace

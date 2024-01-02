@@ -193,7 +193,7 @@ Security: There may be cases where maintainers make explicit breaking changes in
 the best interest of security; In these rare cases, the maintainers and
 contributors will endeavor to avoid breaking clients as much as is technically
 possible, but as with all security, impact will need to be weighed against the
-security impact of not making changes, and judgement calls will be made, with
+security impact of not making changes, and judgment calls will be made, with
 options to allow providing the old behavior.
 
 ### clang-tidy

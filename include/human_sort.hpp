@@ -98,7 +98,7 @@ inline int alphanumComp(std::string_view left, std::string_view right)
 }
 
 // A generic template type compatible with std::less that can be used on generic
-// containers (set, map, ect)
+// containers (set, map, etc)
 template <class Type>
 struct AlphanumLess
 {
