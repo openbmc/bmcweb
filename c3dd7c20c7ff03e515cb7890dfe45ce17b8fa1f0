@@ -3,6 +3,103 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "43366d4e_f16aeb56",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-02T17:38:49Z",
+      "side": 1,
+      "message": "Please wrap 50/72 as the developing guide asks.",
+      "revId": "c3dd7c20c7ff03e515cb7890dfe45ce17b8fa1f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4788b400_eaecca05",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-02T17:38:49Z",
+      "side": 1,
+      "message": "one sentence of description for a new feature is rarely enough.\n\nWhat does this feature do?\nHow is a user expected to use it?\nIs the feature optional?\nWhat portions of Redfish does this implement?\nWhy is it useful?\n\nThe above questions are not a complete list, nor do I expect all answered, but we need some description of what\u0027s going on here.",
+      "range": {
+        "startLine": 9,
+        "startChar": 1,
+        "endLine": 10,
+        "endChar": 22
+      },
+      "revId": "c3dd7c20c7ff03e515cb7890dfe45ce17b8fa1f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f96d9a6f_df65a9c7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-02T17:38:49Z",
+      "side": 1,
+      "message": "Do we have this much precision here in practice?  I kinda doubt it, as this looks like a floating point rounding issue.  We should probably look into getting that corrected to round to the appropriate value as Edm.Decimal (The redfish type for theses) does care about significant digits, even if in floating point they\u0027re essentially moot.",
+      "range": {
+        "startLine": 23,
+        "startChar": 21,
+        "endLine": 23,
+        "endChar": 39
+      },
+      "revId": "c3dd7c20c7ff03e515cb7890dfe45ce17b8fa1f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d49ced11_78182506",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-02T17:38:49Z",
+      "side": 1,
+      "message": "Missing redfish conformance tests.",
+      "revId": "c3dd7c20c7ff03e515cb7890dfe45ce17b8fa1f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd71aed0_d68f499b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-02T17:38:49Z",
+      "side": 1,
+      "message": "Missing Redfish documentation updates.",
+      "revId": "c3dd7c20c7ff03e515cb7890dfe45ce17b8fa1f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ce4923d8_76ed57b0",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
         "patchSetId": 4
@@ -19,6 +116,116 @@
         "startChar": 68,
         "endLine": 33,
         "endChar": 72
+      },
+      "revId": "c3dd7c20c7ff03e515cb7890dfe45ce17b8fa1f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18320704_b3a3eff6",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-02T17:38:49Z",
+      "side": 1,
+      "message": "+1.  What tests can we execute that would\u0027ve caught this?  Do we need to manually compare to an existing tool?",
+      "parentUuid": "ce4923d8_76ed57b0",
+      "range": {
+        "startLine": 33,
+        "startChar": 68,
+        "endLine": 33,
+        "endChar": 72
+      },
+      "revId": "c3dd7c20c7ff03e515cb7890dfe45ce17b8fa1f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "712299af_99560999",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-02T17:38:49Z",
+      "side": 1,
+      "message": "This path doesn\u0027t look right.  A bmc very likely has multiple RW storages (SPI flash and/or eMMC).  Do we need to disambiguate the two before we hardcode it here?",
+      "range": {
+        "startLine": 40,
+        "startChar": 9,
+        "endLine": 40,
+        "endChar": 51
+      },
+      "revId": "c3dd7c20c7ff03e515cb7890dfe45ce17b8fa1f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5763965e_30c005c4",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-02T17:38:49Z",
+      "side": 1,
+      "message": "Double is not directly convertible to Edm.Decimal, because of non finite values like Nan, infinity, etc.  \n\nPlease do handling similar to how we deal with double sensor values:\n\nhttps://github.com/openbmc/bmcweb/blob/a88942019fdd3d8fc366999f7c178f3e1c18b2fe/redfish-core/lib/sensors.hpp#L934\n\nI suspect in this case for non finite we would just set to null.",
+      "range": {
+        "startLine": 72,
+        "startChar": 69,
+        "endLine": 72,
+        "endChar": 76
+      },
+      "revId": "c3dd7c20c7ff03e515cb7890dfe45ce17b8fa1f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb8da5ac_a581fece",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-02T17:38:49Z",
+      "side": 1,
+      "message": "Set an asyncResp internal error like we do most other places?  I suspect that needs done on all of these.",
+      "revId": "c3dd7c20c7ff03e515cb7890dfe45ce17b8fa1f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06bc9a7c_72e66aa9",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-02T17:38:49Z",
+      "side": 1,
+      "message": "Please just inline these on each call.",
+      "range": {
+        "startLine": 164,
+        "startChar": 0,
+        "endLine": 173,
+        "endChar": 55
       },
       "revId": "c3dd7c20c7ff03e515cb7890dfe45ce17b8fa1f0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
