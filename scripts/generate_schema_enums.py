@@ -91,7 +91,7 @@ def write_enum_list(redfish_defs_file, enum_list, snake_case_namespace):
         values = element.values
         if "Invalid" not in values:
             values.insert(0, "Invalid")
-        # nlohmann::json aparently uses c style arrays in their enum
+        # nlohmann::json apparently uses c style arrays in their enum
         # implementation, and clang-tidy isn't smart enough to figure out that
         # the C arrays are in their code not bmcwebs, so we have to explicitly
         # ignore the error.

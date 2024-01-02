@@ -224,7 +224,7 @@ inline void getChassisContainedBy(
     }
     if (upstreamChassisPaths.size() > 1)
     {
-        BMCWEB_LOG_ERROR("{} is contained by mutliple chassis", chassisId);
+        BMCWEB_LOG_ERROR("{} is contained by multiple chassis", chassisId);
         messages::internalError(asyncResp->res);
         return;
     }

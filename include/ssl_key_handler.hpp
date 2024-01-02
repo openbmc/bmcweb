@@ -204,7 +204,7 @@ inline X509* loadCert(const std::string& filePath)
     BIO* certFileBio = BIO_new_file(filePath.c_str(), "rb");
     if (certFileBio == nullptr)
     {
-        BMCWEB_LOG_ERROR("Error occured during BIO_new_file call, FILE= {}",
+        BMCWEB_LOG_ERROR("Error occurred during BIO_new_file call, FILE= {}",
                          filePath);
         return nullptr;
     }
@@ -212,7 +212,7 @@ inline X509* loadCert(const std::string& filePath)
     X509* cert = X509_new();
     if (cert == nullptr)
     {
-        BMCWEB_LOG_ERROR("Error occured during X509_new call, {}",
+        BMCWEB_LOG_ERROR("Error occurred during X509_new call, {}",
                          ERR_get_error());
         BIO_free(certFileBio);
         return nullptr;
@@ -221,7 +221,7 @@ inline X509* loadCert(const std::string& filePath)
     if (PEM_read_bio_X509(certFileBio, &cert, nullptr, nullptr) == nullptr)
     {
         BMCWEB_LOG_ERROR(
-            "Error occured during PEM_read_bio_X509 call, FILE= {}", filePath);
+            "Error occurred during PEM_read_bio_X509 call, FILE= {}", filePath);
 
         BIO_free(certFileBio);
         X509_free(cert);
@@ -266,7 +266,7 @@ inline void generateSslCertificate(const std::string& filepath,
         if (x509 != nullptr)
         {
             // get a random number from the RNG for the certificate serial
-            // number If this is not random, regenerating certs throws broswer
+            // number If this is not random, regenerating certs throws browser
             // errors
             bmcweb::OpenSSLGenerator gen;
             std::uniform_int_distribution<int> dis(
