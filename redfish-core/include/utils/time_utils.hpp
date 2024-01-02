@@ -391,7 +391,7 @@ inline std::string getDateTimeStdtime(std::time_t secondsSinceEpoch)
 
 /**
  * Returns the current Date, Time & the local Time Offset
- * infromation in a pair
+ * information in a pair
  *
  * @param[in] None
  *
@@ -404,7 +404,7 @@ inline std::pair<std::string, std::string> getDateTimeOffsetNow()
     std::string dateTime = getDateTimeStdtime(time);
 
     /* extract the local Time Offset value from the
-     * recevied dateTime string.
+     * received dateTime string.
      */
     std::string timeOffset("Z00:00");
     std::size_t lastPos = dateTime.size();

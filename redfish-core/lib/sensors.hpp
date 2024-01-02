@@ -718,7 +718,7 @@ inline void setLedState(nlohmann::json& sensorJson,
  * @param sensorName  The name of the sensor to be built
  * @param sensorType  The type (temperature, fan_tach, etc) of the sensor to
  * build
- * @param chassisSubNode The subnode (thermal, sensor, ect) of the sensor
+ * @param chassisSubNode The subnode (thermal, sensor, etc) of the sensor
  * @param propertiesDict A dictionary of the properties to build the sensor
  * from.
  * @param sensorJson  The json object to fill
@@ -961,7 +961,7 @@ inline void objectPropertiesToJson(
  * @param sensorName  The name of the sensor to be built
  * @param sensorType  The type (temperature, fan_tach, etc) of the sensor to
  * build
- * @param chassisSubNode The subnode (thermal, sensor, ect) of the sensor
+ * @param chassisSubNode The subnode (thermal, sensor, etc) of the sensor
  * @param interfacesDict  A dictionary of the interfaces and properties of said
  * interfaces to be built from
  * @param sensorJson  The json object to fill

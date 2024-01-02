@@ -221,7 +221,7 @@ Fields common to all schemas
 
 - Drives
 - Drives@odata.count
-- Status (this is dependant on a entity manager association from Chassis to
+- Status (this is dependent on a entity manager association from Chassis to
   Drives)
 
 ### /redfish/v1/Chassis/{ChassisId}/EnvironmentMetrics/

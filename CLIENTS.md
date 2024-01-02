@@ -37,7 +37,7 @@ properly. <https://github.com/gkbrk/slowloris>
 
 Status: Passing, no automated enforcement.
 
-testssl.sh: A tool for verifying the corectness of the bmcweb cipher suites
+testssl.sh: A tool for verifying the correctness of the bmcweb cipher suites
 against current recommended security standards
 <https://github.com/drwetter/testssl.sh>
 

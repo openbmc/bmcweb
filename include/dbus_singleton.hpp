@@ -6,8 +6,8 @@ namespace crow
 namespace connections
 {
 
-// Initialze before using!
-// Please see webserver_main for the example how this variable is initialzed,
+// Initialize before using!
+// Please see webserver_main for the example how this variable is initialized,
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 extern sdbusplus::asio::connection* systemBus;
 
