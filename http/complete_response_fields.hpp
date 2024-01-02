@@ -32,14 +32,14 @@ inline void completeResponseFields(const Request& req, Response& res)
         using http_helpers::ContentType;
         std::array<ContentType, 3> allowed{ContentType::CBOR, ContentType::JSON,
                                            ContentType::HTML};
-        ContentType prefered =
-            getPreferedContentType(req.getHeaderValue("Accept"), allowed);
+        ContentType preferred =
+            getPreferredContentType(req.getHeaderValue("Accept"), allowed);
 
-        if (prefered == ContentType::HTML)
+        if (preferred == ContentType::HTML)
         {
             json_html_util::prettyPrintJson(res);
         }
-        else if (prefered == ContentType::CBOR)
+        else if (preferred == ContentType::CBOR)
         {
             res.addHeader(boost::beast::http::field::content_type,
                           "application/cbor");
@@ -49,7 +49,7 @@ inline void completeResponseFields(const Request& req, Response& res)
         }
         else
         {
-            // Technically prefered could also be NoMatch here, but we'd
+            // Technically preferred could also be NoMatch here, but we'd
             // like to default to something rather than return 400 for
             // backward compatibility.
             res.addHeader(boost::beast::http::field::content_type,

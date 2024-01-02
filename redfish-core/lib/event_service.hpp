@@ -452,7 +452,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
 
         if (context)
         {
-            // This value is selected aribitrarily.
+            // This value is selected arbitrarily.
             constexpr const size_t maxContextSize = 256;
             if (context->size() > maxContextSize)
             {

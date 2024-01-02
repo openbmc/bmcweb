@@ -45,8 +45,8 @@ constexpr std::array<ContentTypePair, 5> contentTypes{{
 }};
 
 inline ContentType
-    getPreferedContentType(std::string_view header,
-                           std::span<const ContentType> preferedOrder)
+    getPreferredContentType(std::string_view header,
+                            std::span<const ContentType> preferedOrder)
 {
     size_t lastIndex = 0;
     while (lastIndex < header.size() + 1)
@@ -103,7 +103,7 @@ inline bool isContentTypeAllowed(std::string_view header, ContentType type,
                                  bool allowWildcard)
 {
     auto types = std::to_array({type});
-    ContentType allowed = getPreferedContentType(header, types);
+    ContentType allowed = getPreferredContentType(header, types);
     if (allowed == ContentType::ANY)
     {
         return allowWildcard;
