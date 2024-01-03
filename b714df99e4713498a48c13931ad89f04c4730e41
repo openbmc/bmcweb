@@ -36,6 +36,41 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1085cdb_86d77de7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-01-03T05:28:49Z",
+      "side": 1,
+      "message": "Since the move assignment worked in the testing, I am okay with the unique_ptr removal.",
+      "parentUuid": "10342d57_94a2b9eb",
+      "revId": "b714df99e4713498a48c13931ad89f04c4730e41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "015e2c79_123d9cfd",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-01-03T05:28:49Z",
+      "side": 1,
+      "message": "I am still not convinced about the stream_truncated case. Is there any possibility for both stream_truncated error and parser-\u003eis_done() to be true? If not the simplest fix would be changing line 365 by removing the \"ec !\u003d stream_tucated check\".",
+      "revId": "b714df99e4713498a48c13931ad89f04c4730e41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3d3f9ec0_8c2991bd",
@@ -67,6 +102,24 @@
       "side": 1,
       "message": "Given that connections can\u0027t be destroyed, we don\u0027t really have a way to mark a connection as in an error state and reset.\n\nwe would need something like this to have connections \"fail\" and destroy themselves automatically.\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/56711",
       "parentUuid": "3d3f9ec0_8c2991bd",
+      "revId": "b714df99e4713498a48c13931ad89f04c4730e41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf2d62ca_14a5dba6",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-01-03T05:28:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7ac0a266_26b7f8eb",
       "revId": "b714df99e4713498a48c13931ad89f04c4730e41",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

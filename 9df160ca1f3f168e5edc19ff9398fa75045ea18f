@@ -214,6 +214,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa2f16f1_b109b926",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-01-03T05:28:49Z",
+      "side": 1,
+      "message": "I was commenting on her behalf.",
+      "parentUuid": "06314910_41bf354f",
+      "revId": "9df160ca1f3f168e5edc19ff9398fa75045ea18f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "379a907d_72154477",
@@ -667,6 +685,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5245d1c2_63b969d9",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-01-03T05:28:49Z",
+      "side": 1,
+      "message": "Initially, I was a bit skeptical about the move assignment. Since it worked in the test I agree to not use unique_ptr.",
+      "parentUuid": "fc6c9b54_4423c9f8",
+      "range": {
+        "startLine": 618,
+        "startChar": 4,
+        "endLine": 618,
+        "endChar": 49
+      },
+      "revId": "9df160ca1f3f168e5edc19ff9398fa75045ea18f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "630a2d17_174fef8c",
@@ -880,6 +922,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9da06a43_c29b3149",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-01-03T05:28:49Z",
+      "side": 1,
+      "message": "Refactored the code. So no need for this line now",
+      "parentUuid": "e23a4ffa_05494f55",
+      "range": {
+        "startLine": 641,
+        "startChar": 15,
+        "endLine": 641,
+        "endChar": 35
+      },
+      "revId": "9df160ca1f3f168e5edc19ff9398fa75045ea18f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b2433d7a_5b578427",
@@ -1037,6 +1103,30 @@
       "side": 1,
       "message": "\u003e I don\u0027t understand the statement above. SSL context definitely is part of connection establishment. The flow goes roughly\n\u003e \n\u003e I mean context creation. in this \"seqence resolve -\u003e tcp connect -\u003e SSL negotiate -\u003e Start connection loop\" there is no context creation. \n\u003e So http_client can accept context created from out side as constructor argument. \n\nI don\u0027t think we can make it a constructor argument, because we need a new context every time a new connection restarts, right?\n\n\n\u003e We need not worry about the context creation failure from with in the http_client code.\n\nIf we changed the model so that connection objects can\u0027t be reused, then yes, I think your model would work.",
       "parentUuid": "b46f6cee_976bd1a3",
+      "range": {
+        "startLine": 653,
+        "startChar": 8,
+        "endLine": 653,
+        "endChar": 30
+      },
+      "revId": "9df160ca1f3f168e5edc19ff9398fa75045ea18f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af8268ca_58c79807",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-01-03T05:28:49Z",
+      "side": 1,
+      "message": "Yes, I agree with the current implementation. My suggestion was for the future refactoring.",
+      "parentUuid": "c37441fa_0eb388e2",
       "range": {
         "startLine": 653,
         "startChar": 8,
