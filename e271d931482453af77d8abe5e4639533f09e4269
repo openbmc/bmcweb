@@ -128,6 +128,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1f495067_9f503973",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 64
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-03T23:39:04Z",
+      "side": 1,
+      "message": "\u003e Even if the fabric adapters/ports are created by the hypervisor, wouldn\u0027t the fabric adapters still be classified as FabricAdapters and their ports?\n\nIf they\u0027re created by the hypervisor, they would go in the hypervisor system, not the physical system, as you\u0027ve put them here.\n\n\u003e \n\u003e (I also think the physical Fabric Adapters may provide the ways to create virtual ports for the VMs?)\n\nRight, that\u0027s the difference.  Physical fabric adapters go in the physical system, virtual fabric adapters go in the hypervisor system.  Because these are created by the hypervisor, they would go in the hypervisor system.",
+      "parentUuid": "41cbfaf4_5b50681a",
+      "revId": "e271d931482453af77d8abe5e4639533f09e4269",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "80052248_60696b37",
         "filename": "redfish-core/lib/fabric_adapters.hpp",
         "patchSetId": 64
