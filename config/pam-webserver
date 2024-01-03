@@ -2,7 +2,7 @@
 
 auth     include  common-auth
 # skip redfish group check for non-local user (ldap)
-auth     [success=ok perm_denied=1 default=ignore] pam_localuser.so
-auth     required pam_succeed_if.so user ingroup redfish
+account  [success=ok perm_denied=1 default=ignore] pam_localuser.so
+account  required pam_succeed_if.so user ingroup redfish
 account  include  common-account
 password include  common-password
