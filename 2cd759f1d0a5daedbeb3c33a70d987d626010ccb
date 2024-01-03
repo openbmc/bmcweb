@@ -16,6 +16,24 @@
       "message": "I\u0027m pretty sure there\u0027s other commits in review deprecating this property.  Please take a look at them.",
       "revId": "2cd759f1d0a5daedbeb3c33a70d987d626010ccb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18376cdd_730308dc",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2024-01-03T04:33:16Z",
+      "side": 0,
+      "message": "I can\u0027t find that one, if you happen to see it again, can you please help leave the link?",
+      "parentUuid": "11679922_0b8ffa6f",
+      "revId": "2cd759f1d0a5daedbeb3c33a70d987d626010ccb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

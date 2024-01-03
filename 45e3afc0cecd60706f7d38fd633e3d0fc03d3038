@@ -136,6 +136,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "234dea91_626ef6e7",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2024-01-03T04:33:16Z",
+      "side": 1,
+      "message": "DMTF says they will consider adding AllowableValues to schema (https://redfishforum.com/thread/993/intrusionsensor-allowablevalues). I added [\"PhysicalSecurity\"][\"IntrusionSensor@Redfish.AllowableValues\"] \u003d nlohmann::json::array_t({\"Normal\"});",
+      "parentUuid": "36075a11_96240285",
+      "range": {
+        "startLine": 814,
+        "startChar": 12,
+        "endLine": 814,
+        "endChar": 95
+      },
+      "revId": "45e3afc0cecd60706f7d38fd633e3d0fc03d3038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d56a25b_8f9b4fd2",
@@ -149,6 +173,30 @@
       "writtenOn": "2023-10-25T01:12:10Z",
       "side": 1,
       "message": "This is going to get ALL intrusion sensors, not just the one we\u0027re looking for.",
+      "range": {
+        "startLine": 824,
+        "startChar": 0,
+        "endLine": 827,
+        "endChar": 77
+      },
+      "revId": "45e3afc0cecd60706f7d38fd633e3d0fc03d3038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f5001db_042d6fe1",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 827,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2024-01-03T04:33:16Z",
+      "side": 1,
+      "message": "Updated to match the result from getSubTree with the association endpoint to find the desired sensor.",
+      "parentUuid": "0d56a25b_8f9b4fd2",
       "range": {
         "startLine": 824,
         "startChar": 0,
@@ -256,6 +304,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "50c88ff3_a8412ad5",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2024-01-03T04:33:16Z",
+      "side": 1,
+      "message": "The association monitored_by/monitoring between a chassis and an intrusion sensor has been merged to PDI (https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/67957) and the patch to register the association on DBus is under review at https://gerrit.openbmc.org/c/openbmc/dbus-sensors/+/68060/3.\n\nNow this will use the association to look for the sensor associated with the chassis in request.",
+      "parentUuid": "56079128_453d586b",
+      "range": {
+        "startLine": 860,
+        "startChar": 8,
+        "endLine": 860,
+        "endChar": 24
+      },
+      "revId": "45e3afc0cecd60706f7d38fd633e3d0fc03d3038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a8449c24_faec8200",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 24
@@ -267,6 +339,30 @@
       "writtenOn": "2023-10-25T01:12:10Z",
       "side": 1,
       "message": "this is not how to do this lookup.  A chassis makes an intrusion interface available via dbus.  This code shouldn\u0027t care what the \"primary\" chassis is.",
+      "range": {
+        "startLine": 868,
+        "startChar": 21,
+        "endLine": 868,
+        "endChar": 75
+      },
+      "revId": "45e3afc0cecd60706f7d38fd633e3d0fc03d3038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df47e6a0_89a0952f",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 868,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2024-01-03T04:33:16Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "a8449c24_faec8200",
       "range": {
         "startLine": 868,
         "startChar": 21,
