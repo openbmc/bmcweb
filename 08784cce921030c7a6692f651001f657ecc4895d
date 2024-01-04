@@ -69,6 +69,24 @@
       "parentUuid": "e41c192b_551a1422",
       "revId": "08784cce921030c7a6692f651001f657ecc4895d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da64aded_720c4a4e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-01-04T15:33:06Z",
+      "side": 1,
+      "message": "\u003e\u003e  Have you considered the possibility this might cause a breaking change to some people?\n\n\u003e It\u0027s a valid concern.\n\u003e It\u0027s more like release process, e.g. in such case we could put messages in the \u003e release notes indicating that this upgrade should do a factory reset.\n\nCan we get something out to the mailing list here?",
+      "parentUuid": "5f994b98_fd2eaad0",
+      "revId": "08784cce921030c7a6692f651001f657ecc4895d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
