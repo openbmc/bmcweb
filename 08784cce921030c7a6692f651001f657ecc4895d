@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5daf966_2511b85b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000044
+      },
+      "writtenOn": "2024-01-04T03:18:56Z",
+      "side": 1,
+      "message": "The config above the user check\n```\naccount  [success\u003dok perm_denied\u003d1 default\u003dignore] pam_localuser.so\n```",
+      "parentUuid": "ba91424a_3b9857d5",
+      "revId": "08784cce921030c7a6692f651001f657ecc4895d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e41c192b_551a1422",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-01-03T03:25:51Z",
       "side": 1,
       "message": "It looks like this got checked in a few years ago, and clearly has never worked as intended.  (Looks like it was when James was the maintainer).\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/32883\n\nWe need to be careful here about backward compatibility, given that there are VERY likely:\n\n1. Folks using bmcweb for non-redfish usages (and should be relying on the web group)\n2. Folks that don\u0027t have either group assigned to their users they created long ago.\n\nIf we suddenly start enforcing this requirement, without any migrations, it\u0027s likely we will lock some people out of their systems.\n\nHave you considered the possibility this might cause a breaking change to some people?\n\nHave you considered that we might need two pam files, one for checking the web user group and one for checking the redfish user group (or checking for both)?",
+      "revId": "08784cce921030c7a6692f651001f657ecc4895d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f994b98_fd2eaad0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000044
+      },
+      "writtenOn": "2024-01-04T03:18:56Z",
+      "side": 1,
+      "message": "I am not sure if the above cases really exist:\n\n\u003e Folks using bmcweb for non-redfish usages (and should be relying on the web group)\n\nI think we use both redfish and web groups long time ago, in most cases users create a user with both groups.\n\n\u003e Folks that don\u0027t have either group assigned to their users they created long ago.\n\nI would guess such BMC systems won\u0027t upgrade to latest OpenBMC anyway.\n\n\n\u003e Have you considered the possibility this might cause a breaking change to some people?\n\nIt\u0027s a valid concern.\nIt\u0027s more like release process, e.g. in such case we could put messages in the release notes indicating that this upgrade should do a factory reset.\n\n\n\u003e Have you considered that we might need two pam files, one for checking the web user group and one for checking the redfish user group (or checking for both)?\n\nI am not sure. In practice we do not create a user with a single web or redfish group, instead, we create users with both groups, or no web nor redfish groups.\nNot sure how other users manage the BMC users.",
+      "parentUuid": "e41c192b_551a1422",
       "revId": "08784cce921030c7a6692f651001f657ecc4895d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
