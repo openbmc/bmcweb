@@ -145,6 +145,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0afbd7fb_15e0b6a5",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-05T17:05:30Z",
+      "side": 1,
+      "message": "\u003e The Current pending event may or may not reach the server.\n\nIf the parser is done, that means that the server sent a response, which means that the server for SURE received the request, and just chose to drop the connection rather than cleanly closing ssl.\n\n\u003e As long as there is no positive ack we should keep trying right?\n\nGetting a positive return code from the server is a positive ACK.\n\n\u003e Moreover, there may be other events pending in the queue that require to be sent. So we should keep retrying anyway. To me, a stream truncation error should be considered a broken connection scenario and the retry should happen according to the retry policy.  \n\n\nKeep in mind, at one point in time we did not special case stream_truncated, and it caused issues for folks, so unless we have something backing up that what they found is no longer an issue, I\u0027d prefer we keep it.\n\nFWIW, at one point bmcweb itself didn\u0027t cleanly close ssl connections (and still doesn\u0027t in some cases).\n\n\u003e In the current implementation, if both parser-\u003eis_done() and stream truncation error are true, there is the possibility of not sending all pending events including(possibly) the current event.\n\nI\u0027m not following.  if is_done() is set, it means the server got the request, parsed it, did the action, and sent back a 2XX reply.  That certainly means that the server processed the event if it was able to formulate a reply.",
+      "parentUuid": "775600d9_02f328e4",
+      "revId": "b714df99e4713498a48c13931ad89f04c4730e41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3d3f9ec0_8c2991bd",
         "filename": "http/http_client.hpp",
         "patchSetId": 6
