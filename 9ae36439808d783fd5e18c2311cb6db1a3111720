@@ -16,6 +16,115 @@
       "message": "Thanks George!",
       "revId": "9ae36439808d783fd5e18c2311cb6db1a3111720",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a12bb505_2a6cb3fe",
+        "filename": "redfish-core/lib/power_subsystem.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-05T17:14:29Z",
+      "side": 1,
+      "message": "Is \u003c 0 declared as an invalid power cap value?  Why are we checking both \u003c 0 and \u003d\u003d UINT32_MAX.\n\n\nnit, please use std::numeric_limits\u003cuint32_t\u003e::max() just for consistency with other range checks.",
+      "range": {
+        "startLine": 68,
+        "startChar": 13,
+        "endLine": 68,
+        "endChar": 29
+      },
+      "revId": "9ae36439808d783fd5e18c2311cb6db1a3111720",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92a7cee9_b40182ed",
+        "filename": "redfish-core/lib/power_subsystem.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-05T17:14:29Z",
+      "side": 1,
+      "message": "Please rework.  There are lots of apparent readability issues with this code block.",
+      "revId": "9ae36439808d783fd5e18c2311cb6db1a3111720",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44b2604c_2189f6be",
+        "filename": "redfish-core/lib/power_subsystem.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-05T17:14:29Z",
+      "side": 1,
+      "message": "Is there a namespace that power capping is supposed to exist in?",
+      "range": {
+        "startLine": 92,
+        "startChar": 8,
+        "endLine": 92,
+        "endChar": 11
+      },
+      "revId": "9ae36439808d783fd5e18c2311cb6db1a3111720",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3108a72c_8ebf3fcb",
+        "filename": "redfish-core/lib/power_subsystem.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-05T17:14:29Z",
+      "side": 1,
+      "message": "Same here.",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 5
+      },
+      "revId": "9ae36439808d783fd5e18c2311cb6db1a3111720",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5eea6ad6_f5159b43",
+        "filename": "redfish-core/lib/power_subsystem.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-05T17:14:29Z",
+      "side": 1,
+      "message": "Why doesn\u0027t this call accept chassisId?  As written, this looks like it dumps ALL power caps for ALL chassis, and doesn\u0027t try to look up whether the power cap is for THIS chassis.",
+      "range": {
+        "startLine": 149,
+        "startChar": 4,
+        "endLine": 149,
+        "endChar": 31
+      },
+      "revId": "9ae36439808d783fd5e18c2311cb6db1a3111720",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
