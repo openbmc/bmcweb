@@ -127,6 +127,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "775600d9_02f328e4",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-01-05T05:19:02Z",
+      "side": 1,
+      "message": "The Current pending event may or may not reach the server. As long as there is no positive ack we should keep trying right? Moreover, there may be other events pending in the queue that require to be sent. So we should keep retrying anyway. To me, a stream truncation error should be considered a broken connection scenario and the retry should happen according to the retry policy.  \nIn the current implementation, if both parser-\u003eis_done() and stream truncation error are true, there is the possibility of not sending all pending events including(possibly) the current event.",
+      "parentUuid": "af53de9e_2ed2385e",
+      "revId": "b714df99e4713498a48c13931ad89f04c4730e41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3d3f9ec0_8c2991bd",
         "filename": "http/http_client.hpp",
         "patchSetId": 6
