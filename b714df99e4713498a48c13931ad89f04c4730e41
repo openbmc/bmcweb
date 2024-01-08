@@ -161,6 +161,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b2313b6_3068742c",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-01-08T07:22:31Z",
+      "side": 1,
+      "message": "understood. It was my mistake to assume that the pending request queue was held by the connection info class. It was part of the connection pool. So connection pool will take care of sending all requests in the queue eventually.",
+      "parentUuid": "0afbd7fb_15e0b6a5",
+      "revId": "b714df99e4713498a48c13931ad89f04c4730e41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3d3f9ec0_8c2991bd",
