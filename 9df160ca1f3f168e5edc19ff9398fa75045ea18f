@@ -268,6 +268,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f22421ef_225c98c6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2024-01-08T15:42:16Z",
+      "side": 1,
+      "message": "I tested it with the Redfish event listener (server) and the BMC (client) sitting across the labs, and kept the connection idle for more than 2.5 hours (to cross the default keep alive timeout \u0026 associated probes). \nWithout this change, the next event from the BMC was not read at the server - I saw the server socket was gone away and all retries to send the event from the BMC times out.\nWith this change, the server was able to get the events successfully. New sockets were seen to confirm the channel between the client and server was setup a fresh.",
+      "parentUuid": "c3725181_fdbdaa7c",
+      "revId": "9df160ca1f3f168e5edc19ff9398fa75045ea18f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "379a907d_72154477",
