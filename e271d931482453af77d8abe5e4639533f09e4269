@@ -146,6 +146,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d1175a0f_0983348b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 64
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-01-08T13:15:55Z",
+      "side": 1,
+      "message": "Isn\u0027t the elements under `/System/hypervisor/` to describe the `hypervisor` itself, not necessarily the elements that are created by the hypervisor?\n\nHere, I think hypervisor (like a PLDM) would be the actor that manages the elements (e.g. FabricAdapters) for the LPARs (VM), not for hypervisor.\n\nUnless they are under System/system, how can System/system find the related FabricAdapters?",
+      "parentUuid": "1f495067_9f503973",
+      "revId": "e271d931482453af77d8abe5e4639533f09e4269",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "80052248_60696b37",
         "filename": "redfish-core/lib/fabric_adapters.hpp",
         "patchSetId": 64
