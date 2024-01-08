@@ -16,6 +16,24 @@
       "message": "This is the same test now as 2 above..",
       "revId": "19f002b8eb54afab509dff60482c6b3c24b05f8a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d71e12fd_9e2d87b0",
+        "filename": "test/redfish-core/include/redfish_aggregator_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-01-08T14:53:18Z",
+      "side": 1,
+      "message": "2 above is FirmwareInventory, this seems fine",
+      "parentUuid": "8c00fcaa_cbec29d6",
+      "revId": "19f002b8eb54afab509dff60482c6b3c24b05f8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
