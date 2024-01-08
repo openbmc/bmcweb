@@ -16,6 +16,24 @@
       "message": "muon fmt - a meson.build code formatter ?\nhttps://github.com/annacrombie/muon \n\nCould you propose this for the whole project ?",
       "revId": "535ce497931a627833749c69ed488051c0711974",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb4839bb_2176de38",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-08T20:08:02Z",
+      "side": 1,
+      "message": "Working on it.  Needs some more thought before I can make a proposal for the whole project.\n\nhttps://github.com/edtanous/openbmc-build-scripts/commit/9e78d523b6714c2988f8c483443d1ebf3bd6a600",
+      "parentUuid": "073f16f1_16e0df82",
+      "revId": "535ce497931a627833749c69ed488051c0711974",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
