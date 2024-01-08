@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aeb4e59a_cff6bf3b",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-01-08T08:44:47Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "03473d1a_9d9f3a98",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 57
+      },
+      "revId": "97d205b5bc937518e7e210d08297debf2c598bbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b222503e_0b2a52e9",

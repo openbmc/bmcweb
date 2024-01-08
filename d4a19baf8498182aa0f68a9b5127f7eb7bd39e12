@@ -290,6 +290,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f8d20e7_28138f89",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-01-08T08:44:47Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "9408deb1_cb8b4d48",
+      "revId": "d4a19baf8498182aa0f68a9b5127f7eb7bd39e12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f7717089_d2354ece",
@@ -570,6 +588,30 @@
       "side": 1,
       "message": "Lets remove it then.  When someone has a use case for it, we can add it back, but at the moment it\u0027s dead code.",
       "parentUuid": "d980f2e8_b07d39df",
+      "range": {
+        "startLine": 364,
+        "startChar": 9,
+        "endLine": 364,
+        "endChar": 23
+      },
+      "revId": "d4a19baf8498182aa0f68a9b5127f7eb7bd39e12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65af6b44_c5f00a9f",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-01-08T08:44:47Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "dc47ee86_ae79a86b",
       "range": {
         "startLine": 364,
         "startChar": 9,
