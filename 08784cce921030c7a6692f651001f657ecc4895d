@@ -87,6 +87,24 @@
       "parentUuid": "5f994b98_fd2eaad0",
       "revId": "08784cce921030c7a6692f651001f657ecc4895d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ec232de_e0563ba7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-09T17:54:28Z",
+      "side": 1,
+      "message": "\u003e I think we use both redfish and web groups long time ago, in most cases users create a user with both groups.\n\nGiven that there\u0027s a possibility we brick peoples BMCs here, we need some amount of research into the history of user management done to back this statement up.  If you\u0027ve already done that work, lets just get it documented with commit sha1s and expected behaviors.  Just to be clear, bricking someones bmc by locking them out of it is unacceptable in all cases.\n\n\u003e It\u0027s more like release process, e.g. in such case we could put messages in the release notes indicating that this upgrade should do a factory reset.\n\nA factory reset has never been required in any other bmc release.  I\u0027m not sure why we would start requiring one now.  If you would like to change that, we need to start a mailing list discussion.\n\n\u003e I am not sure. In practice we do not create a user with a single web or redfish group, instead, we create users with both groups, or no web nor redfish groups.\n\nWe didn\u0027t always create users in both groups.",
+      "parentUuid": "da64aded_720c4a4e",
+      "revId": "08784cce921030c7a6692f651001f657ecc4895d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
