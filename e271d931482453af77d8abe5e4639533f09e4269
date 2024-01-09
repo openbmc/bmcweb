@@ -236,6 +236,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5b0861d5_98baedf8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 64
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-01-09T19:42:01Z",
+      "side": 1,
+      "message": "They aren\u0027t virtual. \n\n\u003e If we adopt the operating system model, they would go under OperatingSystem, right? Accepting this patch would go backward toward that intent, right?\n\nI don\u0027t think they should go under OperatingSystem. We think of these Fabric adapters as other System resources like Processors or Dimms. \n\nAccepting this patch, adds another resource under system (like processors and dimms). This must be solved one day when multiple host support is added. This patch doesn\u0027t touch virtual fabric adapters or a fabric adapter owned by the OS/hypervisor, but I find that fair.",
+      "parentUuid": "6fe722d1_b56c3746",
+      "revId": "e271d931482453af77d8abe5e4639533f09e4269",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "80052248_60696b37",
         "filename": "redfish-core/lib/fabric_adapters.hpp",
         "patchSetId": 64
