@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e49868b9_2eb8c50c",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2024-01-09T17:26:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f0bb566_41303470",
+      "range": {
+        "startLine": 404,
+        "startChar": 55,
+        "endLine": 404,
+        "endChar": 73
+      },
+      "revId": "670c8fe33a5d4808c36dead098fbada1fb33fd8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "16b618a3_113c6cab",
@@ -109,6 +133,30 @@
       "side": 1,
       "message": "The purpose of the patch is to modify the LocationIndicatorActive property for power supplies. When querying power supply information, various properties are retrieved, including LocationIndicatorActive. The \u0027set\u0027 operation is specifically designed to alter the LocationIndicatorActive property.",
       "parentUuid": "16b618a3_113c6cab",
+      "range": {
+        "startLine": 629,
+        "startChar": 0,
+        "endLine": 633,
+        "endChar": 68
+      },
+      "revId": "670c8fe33a5d4808c36dead098fbada1fb33fd8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "713ae077_50f7373b",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2024-01-09T17:26:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a61fd831_10771ee3",
       "range": {
         "startLine": 629,
         "startChar": 0,
