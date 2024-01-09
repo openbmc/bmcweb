@@ -218,6 +218,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6fe722d1_b56c3746",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 64
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-09T16:36:00Z",
+      "side": 1,
+      "message": "not if they\u0027re virtual.  If they\u0027re virtual Fabric adapters, they belong to the OS/hypervisor.",
+      "parentUuid": "cf6e98a7_ff07a8e7",
+      "revId": "e271d931482453af77d8abe5e4639533f09e4269",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "80052248_60696b37",
         "filename": "redfish-core/lib/fabric_adapters.hpp",
         "patchSetId": 64
