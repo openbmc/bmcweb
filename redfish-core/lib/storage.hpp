@@ -585,12 +585,12 @@ inline void
 
         if (encryptionStatus == nullptr || isLocked == nullptr ||
             *encryptionStatus ==
-                "xyz.openbmc_project.Drive.DriveEncryptionState.Unknown")
+                "xyz.openbmc_project.Inventory.Item.Drive.DriveEncryptionState.Unknown")
         {
             return;
         }
         if (*encryptionStatus !=
-            "xyz.openbmc_project.Drive.DriveEncryptionState.Encrypted")
+            "xyz.openbmc_project.Inventory.Item.Drive.DriveEncryptionState.Encrypted")
         {
             //"The drive is not currently encrypted."
             asyncResp->res.jsonValue["EncryptionStatus"] =
