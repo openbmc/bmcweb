@@ -53,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9a52f69_020042e4",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-01-09T07:22:36Z",
+      "side": 1,
+      "message": "This is the size adjustment code for base64 encoding. Now the code has been modified to use base64 encoder api",
+      "parentUuid": "43ec20bd_05b1a803",
+      "revId": "6695525365eb9e98349106e25f1c13dfb2858954",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eee0574c_00766027",
@@ -66,6 +84,24 @@
       "writtenOn": "2023-12-13T02:40:34Z",
       "side": 1,
       "message": "what\u0027s the significance of %3 here?\nplease add a comment here",
+      "revId": "6695525365eb9e98349106e25f1c13dfb2858954",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "800841c9_c146caae",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-01-09T07:22:36Z",
+      "side": 1,
+      "message": "base64 encoder works in multiple of 3. This code has been modified to use base64 encoder abstraction",
+      "parentUuid": "eee0574c_00766027",
       "revId": "6695525365eb9e98349106e25f1c13dfb2858954",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -190,6 +226,24 @@
       "writtenOn": "2023-12-13T02:40:34Z",
       "side": 1,
       "message": "const reference?",
+      "revId": "6695525365eb9e98349106e25f1c13dfb2858954",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f36bd08_d7617d2d",
+        "filename": "test/http/http_response_test.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-01-09T07:22:36Z",
+      "side": 1,
+      "message": "Used string view param",
+      "parentUuid": "44f9828f_6c3ca74d",
       "revId": "6695525365eb9e98349106e25f1c13dfb2858954",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

@@ -73,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b3644fe4_93d3da1c",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-01-09T07:22:36Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "b222503e_0b2a52e9",
+      "range": {
+        "startLine": 407,
+        "startChar": 0,
+        "endLine": 407,
+        "endChar": 54
+      },
+      "revId": "97d205b5bc937518e7e210d08297debf2c598bbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d0358585_abdfd185",
         "filename": "test/http/http_response_test.cpp",
         "patchSetId": 21
@@ -84,6 +108,30 @@
       "writtenOn": "2023-12-18T20:34:37Z",
       "side": 1,
       "message": "Why do we need a generator callback here?  I suspect this api can just accept a std::string_view for the content?\n\nI see one place where we use this callback with non static data, and that just generates a std::string.  Is suspect we cam make this simpler.",
+      "range": {
+        "startLine": 25,
+        "startChar": 21,
+        "endLine": 25,
+        "endChar": 67
+      },
+      "revId": "97d205b5bc937518e7e210d08297debf2c598bbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bb85bf6_58e37026",
+        "filename": "test/http/http_response_test.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-01-09T07:22:36Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "d0358585_abdfd185",
       "range": {
         "startLine": 25,
         "startChar": 21,
@@ -165,6 +213,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a397ab0_22b051bc",
+        "filename": "test/http/http_response_test.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-01-09T07:22:36Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "790dd68c_f7a2df8e",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 1
+      },
+      "revId": "97d205b5bc937518e7e210d08297debf2c598bbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "01237e9a_dd905c8f",
@@ -178,6 +250,24 @@
       "writtenOn": "2024-01-03T20:06:52Z",
       "side": 1,
       "message": "Can we use something like https://www.boost.org/doc/libs/1_83_0/libs/beast/doc/html/beast/ref/boost__beast__file_posix.html\n\nso that we get RAII cleanup, instead of having to call fclose?",
+      "revId": "97d205b5bc937518e7e210d08297debf2c598bbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38cde5da_81c1688d",
+        "filename": "test/http/http_response_test.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-01-09T07:22:36Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "01237e9a_dd905c8f",
       "revId": "97d205b5bc937518e7e210d08297debf2c598bbe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },

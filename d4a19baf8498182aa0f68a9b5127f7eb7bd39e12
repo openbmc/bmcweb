@@ -95,6 +95,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ff5137e_658fb357",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-01-09T07:22:36Z",
+      "side": 1,
+      "message": "used base64 encoder apis",
+      "parentUuid": "7c6888d5_911b31e0",
+      "range": {
+        "startLine": 27,
+        "startChar": 48,
+        "endLine": 27,
+        "endChar": 52
+      },
+      "revId": "d4a19baf8498182aa0f68a9b5127f7eb7bd39e12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "56bc5065_90242c4d",

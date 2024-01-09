@@ -88,6 +88,24 @@
       "parentUuid": "5f985515_a5d8bdf1",
       "revId": "0e373b53f81fc1720050571755ecfcdc6dd9ba9b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3bc5fa72_817465bb",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 750,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-01-09T07:22:36Z",
+      "side": 0,
+      "message": "Done, put back size check",
+      "parentUuid": "7f195c2d_24677ffc",
+      "revId": "0e373b53f81fc1720050571755ecfcdc6dd9ba9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
