@@ -34,6 +34,24 @@
       "parentUuid": "073f16f1_16e0df82",
       "revId": "535ce497931a627833749c69ed488051c0711974",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "badd3b01_f5f58023",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-09T16:48:23Z",
+      "side": 1,
+      "message": "If you\u0027d prefer, I can remove the muon naming from the commit, and make this just about fixing the style.  I think all the changes here are useful, but there\u0027s enough variation in the project that there\u0027s some settings that need tweaked before it goes everywhere.",
+      "parentUuid": "cb4839bb_2176de38",
+      "revId": "535ce497931a627833749c69ed488051c0711974",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
