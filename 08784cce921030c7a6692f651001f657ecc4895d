@@ -105,6 +105,24 @@
       "parentUuid": "da64aded_720c4a4e",
       "revId": "08784cce921030c7a6692f651001f657ecc4895d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7902c21_6b7b6d1a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000044
+      },
+      "writtenOn": "2024-01-10T02:56:45Z",
+      "side": 1,
+      "message": "Sent https://lore.kernel.org/openbmc/CAGm54UHeY-gg_otQ_UOTLCqO52cqsooTkvW6VBHpmOWyCPSuxQ@mail.gmail.com/T/#u to discuss the potential impact.",
+      "parentUuid": "2ec232de_e0563ba7",
+      "revId": "08784cce921030c7a6692f651001f657ecc4895d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
