@@ -344,6 +344,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4147e610_b4b445fe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 64
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-11T18:49:28Z",
+      "side": 1,
+      "message": "I see no mention of PIM on this thread, only PLDM?  Which is it?  Also, I see VPD parser is ALSO producing inventory for the PortCollection, which I\u0027m really not following.  That\u0027s kind of why I asked for some kind of design here.  It doesn\u0027t seem to follow what already exists.\n\n\nMy concern is that there\u0027s no way for anyone to use this code, given so many hardcoded interfaces, and custom ibm-specific and possibly downstream things.  We already went through that for months where the interfaces weren\u0027t even documented.\n\nWith that in mind, lets go about this another way: Lets say I wanted to support a mellanox connectx5 card (which has an IPMI compatible FRU) and have it produce a FabricAdapterCollection and PortCollection.\nhttps://www.nvidia.com/en-us/networking/ethernet/connectx-5/\n\nIt is plugged into a PCIe riser on an S7106 motherboard (already supported by openbmc):\nhttps://gerrit.openbmc.org/plugins/gitiles/openbmc/openbmc/+/08e263a38923a9696fee9e7887cd771624f7f074/meta-tyan/meta-s7106/\n\nHow would I do that and utilize this code?  If all the backends are present and working, it should just be a matter of adding that card FRU definition somewhere, right?  Where would I add that?  I only mention those specific devices because they are what I have access to, and they\u0027re representative of the simplest fabric adapter I can think of.",
+      "parentUuid": "57ebde8c_649fa124",
+      "revId": "e271d931482453af77d8abe5e4639533f09e4269",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "80052248_60696b37",
         "filename": "redfish-core/lib/fabric_adapters.hpp",
         "patchSetId": 64
