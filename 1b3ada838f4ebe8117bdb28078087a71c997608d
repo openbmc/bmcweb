@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae5b9705_a0efe7bf",
+        "filename": "test/http/base64_encoder_test.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-11T17:36:07Z",
+      "side": 1,
+      "message": "These are great, but we already have essentially the same coverage here:\n\nhttps://github.com/openbmc/bmcweb/blob/8ece0e457ee994e54c23ee7393fbce831d81a954/test/http/utility_test.cpp#L44C5-L44C5\n\nIn the future, please name your file test file with the same naming convention as the code it\u0027s testing.\n\nWhat we need are tests that test the incremental encoding portion, including:\n\nCall encode multiple times with various amounts of data.\nCall finalize with various MOD 3 amounts of data.\n\nWe should check the coverage data in the build to determine that we\u0027ve written enough tests.",
+      "revId": "1b3ada838f4ebe8117bdb28078087a71c997608d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
