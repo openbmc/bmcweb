@@ -16,6 +16,24 @@
       "message": "To anyone watching, this change makes Service Config Manager a hard requirement on all systems, but that service is not the default.  That is why this patch series is stuck.  I only see Service Config Manager explicitly added to meta-ibm and meta-amd, so this would break all other platforms, and cause them to return Port: null, ServiceEnabled: false for all protocols.\n\nThe result is obviously unacceptable, so we either need to make srvcfg-manager enabled on all platforms, or have some fallback, to where we check systemd first, and if systemd reports not running THEN we check srvcfg-manager to see if it\u0027s in the process of being started.",
       "revId": "e547e29adc31d56ef13ab88ea3b8c23c7c4ac4f7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c8a000e_4a5dac96",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-01-11T19:06:16Z",
+      "side": 1,
+      "message": "Ack. Thank you for the summary.",
+      "parentUuid": "7c04669d_9a9e1cbd",
+      "revId": "e547e29adc31d56ef13ab88ea3b8c23c7c4ac4f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
