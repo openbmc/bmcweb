@@ -70,6 +70,24 @@
       "parentUuid": "0582732c_31ba40d6",
       "revId": "e547e29adc31d56ef13ab88ea3b8c23c7c4ac4f7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71271254_ab50bfb5",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-11T21:32:38Z",
+      "side": 1,
+      "message": "\u003e We are okay with bmcweb waiting on service config manager to come up.\n\nit\u0027s more than that, service config manager doesn\u0027t come up until the system has passed the \"Started\" phase, but bmcweb is part of the started phase, so there\u0027s a design problem that needs solved somewhere, otherwise services that are up report that they\u0027re not which is a race that users might not see in practice on a functional system.",
+      "parentUuid": "2f330d22_aed4c4e9",
+      "revId": "e547e29adc31d56ef13ab88ea3b8c23c7c4ac4f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
