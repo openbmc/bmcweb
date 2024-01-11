@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3da41338_b72030b8",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-11T19:28:55Z",
+      "side": 1,
+      "message": "This can be removed, right?  or change the right side to something that indicates that it\u0027s not implemented yet.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 60
+      },
+      "revId": "4d2ca5b7f944e4f306394117aa5b5621e390961f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b26c0574_94b4a648",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-11T19:28:55Z",
+      "side": 1,
+      "message": "Please call this FileBodyWriter.  FileBody would be boost::beast::http::file_body",
+      "range": {
+        "startLine": 35,
+        "startChar": 10,
+        "endLine": 35,
+        "endChar": 18
+      },
+      "revId": "4d2ca5b7f944e4f306394117aa5b5621e390961f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "371d212a_e25f2e2e",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-11T19:28:55Z",
+      "side": 1,
+      "message": "please just declare this std::string_view for consistency.",
+      "range": {
+        "startLine": 64,
+        "startChar": 8,
+        "endLine": 64,
+        "endChar": 12
+      },
+      "revId": "4d2ca5b7f944e4f306394117aa5b5621e390961f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a693cea_77c6cd45",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-11T19:28:55Z",
+      "side": 1,
+      "message": "This function doesn\u0027t calculate the correct value for a given chunk that\u0027s not finalized yet.  The math inside this function calculates for a given chunk, + finalize.  Please look at this again and reassess if that\u0027s what you intended.  We may need a second version of this function that removes the +2 from the math?  Maybe call it \"incrementalEncodedSize()\"?",
+      "range": {
+        "startLine": 69,
+        "startChar": 42,
+        "endLine": 69,
+        "endChar": 53
+      },
+      "revId": "4d2ca5b7f944e4f306394117aa5b5621e390961f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "698261f0_2b08296c",
+        "filename": "http/http_base64_file_body.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-11T19:28:55Z",
+      "side": 1,
+      "message": "Please declare as a variable on its own line for readability please.",
+      "range": {
+        "startLine": 76,
+        "startChar": 12,
+        "endLine": 76,
+        "endChar": 57
+      },
+      "revId": "4d2ca5b7f944e4f306394117aa5b5621e390961f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78261dbb_988fb546",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-11T19:28:55Z",
+      "side": 1,
+      "message": "Do we really need both of these response types?\n\nI normally wouldn\u0027t be too worried about it, but given they\u0027re template specializations, they\u0027re going to duplicate a lot of code.  Have you looked at the binary size increases here at all?  Would it make sense to refactor the method for this to be something like.\n\nenum class OutputEncodingType{\n  Raw,\n  Base64,\n};\n\nopenFile(int fd, OutputEncodingType encode)\n\nPass that into the Base64FileBody class, and use that to branch line  64 of http_base64_file_body.hpp\n\nThat way, we have one \"file\" implementation in multiple modes?\n\nSomething to consider.",
+      "range": {
+        "startLine": 35,
+        "startChar": 46,
+        "endLine": 36,
+        "endChar": 48
+      },
+      "revId": "4d2ca5b7f944e4f306394117aa5b5621e390961f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cafc8fc8_dbf9cf99",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-11T19:28:55Z",
+      "side": 1,
+      "message": "Please follow the naming conventions.",
+      "range": {
+        "startLine": 377,
+        "startChar": 23,
+        "endLine": 377,
+        "endChar": 31
+      },
+      "revId": "4d2ca5b7f944e4f306394117aa5b5621e390961f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a2da392_5f38e7c5",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-11T19:28:55Z",
+      "side": 1,
+      "message": "We shouldn\u0027t be passing by value here.  Pass by move.",
+      "range": {
+        "startLine": 378,
+        "startChar": 33,
+        "endLine": 378,
+        "endChar": 64
+      },
+      "revId": "4d2ca5b7f944e4f306394117aa5b5621e390961f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "611b635c_f42bbae0",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-11T19:28:55Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 408,
+        "startChar": 19,
+        "endLine": 408,
+        "endChar": 28
+      },
+      "revId": "4d2ca5b7f944e4f306394117aa5b5621e390961f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75a7ec20_b4eb02f5",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-11T19:28:55Z",
+      "side": 1,
+      "message": "Please pass by something like posix_file\u0026, to avoid manual close() calls.",
+      "range": {
+        "startLine": 746,
+        "startChar": 26,
+        "endLine": 746,
+        "endChar": 33
+      },
+      "revId": "4d2ca5b7f944e4f306394117aa5b5621e390961f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb875772_caef13bb",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-11T19:28:55Z",
+      "side": 1,
+      "message": "This function should not be closing an fd it doesn\u0027t own.",
+      "range": {
+        "startLine": 755,
+        "startChar": 0,
+        "endLine": 755,
+        "endChar": 18
+      },
+      "revId": "4d2ca5b7f944e4f306394117aa5b5621e390961f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98d6f5de_85d03ac6",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 769,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-11T19:28:55Z",
+      "side": 1,
+      "message": "lseek returns an off_t, why was long long int used?",
+      "range": {
+        "startLine": 769,
+        "startChar": 23,
+        "endLine": 769,
+        "endChar": 28
+      },
+      "revId": "4d2ca5b7f944e4f306394117aa5b5621e390961f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

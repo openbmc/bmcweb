@@ -215,6 +215,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "891635ed_1b92d8bb",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-11T19:28:55Z",
+      "side": 1,
+      "message": "Why is that different than the boost examples?\n\nI see no call to seek(0...)?\n\n\nI do see them setting the content-length to size()",
+      "parentUuid": "0d736332_70abc3e9",
+      "revId": "6695525365eb9e98349106e25f1c13dfb2858954",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "44f9828f_6c3ca74d",
         "filename": "test/http/http_response_test.cpp",
         "patchSetId": 14
