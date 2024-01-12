@@ -29,11 +29,13 @@
 #include "utils/json_utils.hpp"
 
 #include <boost/url/format.hpp>
+#include <boost/system/error_code.hpp>
 
 #include <array>
 #include <optional>
 #include <ranges>
 #include <regex>
+#include <memory>
 #include <string_view>
 #include <vector>
 
@@ -890,26 +892,40 @@ void getEthernetIfaceList(CallbackFunc&& callback)
     });
 }
 
+inline void handleHostnamePatchCallback(
+    const std::string_view hostname,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec, const sdbusplus::message_t& msg)
+{
+    if (ec)
+    {
+        const sd_bus_error* dbusError = msg.get_error();
+        if ((dbusError != nullptr) &&
+            (dbusError->name ==
+             std::string_view(
+                 "xyz.openbmc_project.Common.Error.InvalidArgument")))
+        {
+            BMCWEB_LOG_WARNING("DBUS response error: {}", ec);
+            messages::propertyValueIncorrect(asyncResp->res, "Hostname",
+                                             hostname);
+            return;
+        }
+        messages::internalError(asyncResp->res);
+    }
+    asyncResp->res.result(boost::beast::http::status::no_content);
+}
+
 inline void
-    handleHostnamePatch(const std::string& hostname,
+    handleHostnamePatch(const std::string_view hostname,
                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    // SHOULD handle host names of up to 255 characters(RFC 1123)
-    if (hostname.length() > 255)
-    {
-        messages::propertyValueFormatError(asyncResp->res, hostname,
-                                           "HostName");
-        return;
-    }
     sdbusplus::asio::setProperty(
         *crow::connections::systemBus, "xyz.openbmc_project.Network",
         "/xyz/openbmc_project/network/config",
         "xyz.openbmc_project.Network.SystemConfiguration", "HostName", hostname,
-        [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            messages::internalError(asyncResp->res);
-        }
+        [asyncResp, hostname](const boost::system::error_code& ec,
+                              const sdbusplus::message_t& msg) {
+        handleHostnamePatchCallback(hostname, asyncResp, ec, msg);
     });
 }
 
