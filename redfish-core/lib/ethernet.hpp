@@ -907,9 +907,22 @@ inline void
         *crow::connections::systemBus, "xyz.openbmc_project.Network",
         "/xyz/openbmc_project/network/config",
         "xyz.openbmc_project.Network.SystemConfiguration", "HostName", hostname,
-        [asyncResp](const boost::system::error_code& ec) {
+        [asyncResp, hostname](const boost::system::error_code& ec,
+                              const sdbusplus::message_t& msg) {
         if (ec)
         {
+            const sd_bus_error* dbusError = msg.get_error();
+            if ((dbusError != nullptr) &&
+                (dbusError->name ==
+                 std::string_view(
+                     "xyz.openbmc_project.Common.Error.InvalidArgument")))
+            {
+                BMCWEB_LOG_WARNING("DBUS response error: {}",ec);
+                messages::propertyValueIncorrect(asyncResp->res,
+                                                 "Hostname",
+                                                 hostname);
+                return;
+            }
             messages::internalError(asyncResp->res);
         }
     });
