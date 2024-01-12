@@ -891,6 +891,29 @@ void getEthernetIfaceList(CallbackFunc&& callback)
 }
 
 inline void
+    handleHostnameCallback(const std::string& hostname,
+                           const std::shared_ptr<bmcweb::AsyncResp>& asyncRes,
+                           const boost::system::error_code& ec,
+                           const sdbusplus::message_t& msg)
+{
+    if (ec)
+    {
+        const sd_bus_error* dbusError = msg.get_error();
+        if ((dbusError != nullptr) &&
+            (dbusError->name ==
+             std::string_view(
+                 "xyz.openbmc_project.Common.Error.InvalidArgument")))
+        {
+            BMCWEB_LOG_WARNING("DBUS response error: {}", ec);
+                messages::propertyValueIncorrect(asyncResp->res, "Hostname",
+                                                 hostname);
+                return;
+        }
+        messages::internalError(asyncResp->res);
+    }
+}
+
+inline void
     handleHostnamePatch(const std::string& hostname,
                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
@@ -901,15 +924,14 @@ inline void
                                            "HostName");
         return;
     }
+
     sdbusplus::asio::setProperty(
         *crow::connections::systemBus, "xyz.openbmc_project.Network",
         "/xyz/openbmc_project/network/config",
         "xyz.openbmc_project.Network.SystemConfiguration", "HostName", hostname,
-        [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            messages::internalError(asyncResp->res);
-        }
+	 [asyncResp, hostname](const boost::system::error_code& ec,
+		               const sdbusplus::message_t& msg) {
+         std::bind_front(handleHostnameCallback, hostname, asyncResp, ec, msg);
     });
 }
 
