@@ -491,11 +491,11 @@ void propertyValueExternalConflict(crow::Response& res, std::string_view arg1,
  * @param[in] arg2 Parameter of message that will replace %2 in its body.
  *
  * @returns Message PropertyValueIncorrect formatted to JSON */
-nlohmann::json propertyValueIncorrect(const nlohmann::json& arg1,
-                                      std::string_view arg2);
+nlohmann::json propertyValueIncorrect(std::string_view arg1,
+                                      const nlohmann::json& arg2);
 
-void propertyValueIncorrect(crow::Response& res, const nlohmann::json& arg1,
-                            std::string_view arg2);
+void propertyValueIncorrect(crow::Response& res, std::string_view arg1,
+                            const nlohmann::json& arg2);
 
 /**
  * @brief Formats ResourceCreationConflict message into JSON
