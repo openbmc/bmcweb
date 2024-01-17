@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "418954f5_3d164bb6",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2261,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-17T18:14:07Z",
+      "side": 1,
+      "message": "This is the wrong place to put a success message.  It needs to go somewhere in updateUserProperties (or possibly deeper).  As this is written, the branch on line 2243 wouldn\u0027t get a success message.\n\n\nAlso, shouldn\u0027t this be an AccountModified message?  \n\n\"This message shall be used to indicate that the account was successfully modified.\"",
+      "range": {
+        "startLine": 2261,
+        "startChar": 0,
+        "endLine": 2261,
+        "endChar": 42
+      },
+      "revId": "6d561d3e8312c9fed21ea1e18bae3906aa5bcc03",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
