@@ -362,6 +362,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "35bba57e_1573a192",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 64
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-01-17T22:32:39Z",
+      "side": 1,
+      "message": "BTW, the related VPD parser for FabricAdapter can be found in https://github.com/openbmc/openpower-vpd-parser/blob/0eb8cacc07375beb3c0b6008dc5d5b6c7090ae37/config/ibm/50001001.json#L2254C1-L2267C15\n```\n      \"/sys/bus/i2c/drivers/at24/13-0050/eeprom\": [\n            {\n                \"inventoryPath\": \"/system/chassis/motherboard/disk_backplane0\",\n                \"extraInterfaces\": {\n                    \"xyz.openbmc_project.Inventory.Item.DiskBackplane\": null,\n                    \"xyz.openbmc_project.Inventory.Item.FabricAdapter\": null,\n                    \"com.ibm.ipzvpd.Location\": {\n                        \"LocationCode\": \"Ufcs-P1\"\n                    },\n                    \"xyz.openbmc_project.Inventory.Item\": {\n                        \"PrettyName\": \"NVMe Backplane\"\n                    }\n                }\n            },\n```\n\nOne of its ports is defined in https://github.com/openbmc/openpower-vpd-parser/blob/0eb8cacc07375beb3c0b6008dc5d5b6c7090ae37/config/ibm/50001001.json#L2434C1-L2434C1\n\nWouldn\u0027t it be good enough for FabricAdapter and Port backends for PLDM (which is currently used by IBM)?",
+      "parentUuid": "4147e610_b4b445fe",
+      "revId": "e271d931482453af77d8abe5e4639533f09e4269",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "80052248_60696b37",
         "filename": "redfish-core/lib/fabric_adapters.hpp",
         "patchSetId": 64
