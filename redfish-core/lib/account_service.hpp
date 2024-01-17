@@ -2258,6 +2258,7 @@ inline void
 
         updateUserProperties(asyncResp, newUser, password, enabled, roleId,
                              locked, accountTypes, userSelf);
+        messages::success(asyncResp->res);
     },
         "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
         "xyz.openbmc_project.User.Manager", "RenameUser", username,
