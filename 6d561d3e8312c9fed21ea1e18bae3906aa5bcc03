@@ -22,6 +22,30 @@
       },
       "revId": "6d561d3e8312c9fed21ea1e18bae3906aa5bcc03",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49ddd0d8_467ff603",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2261,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-17T22:05:24Z",
+      "side": 1,
+      "message": "nvm.  I see, this is only for the rename path.  The other paths look covered.",
+      "parentUuid": "418954f5_3d164bb6",
+      "range": {
+        "startLine": 2261,
+        "startChar": 0,
+        "endLine": 2261,
+        "endChar": 42
+      },
+      "revId": "6d561d3e8312c9fed21ea1e18bae3906aa5bcc03",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
