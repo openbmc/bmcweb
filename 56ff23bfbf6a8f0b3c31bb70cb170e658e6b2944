@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "829bd118_125d2cf6",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-18T17:43:53Z",
+      "side": 1,
+      "message": "URI is already handled.\n\nThe rest are badly formed naming conventions in Redfish, so they\u0027re not supported.   I did check, there are no property names in the schema that use capitalization like you have.",
+      "parentUuid": "026ccddd_3726feaa",
+      "range": {
+        "startLine": 156,
+        "startChar": 0,
+        "endLine": 157,
+        "endChar": 38
+      },
+      "revId": "56ff23bfbf6a8f0b3c31bb70cb170e658e6b2944",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "229a6247_bf7c85e4",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 13
@@ -37,6 +61,30 @@
       "writtenOn": "2024-01-18T17:40:08Z",
       "side": 1,
       "message": "Simiat to L852, can it be like\n```\nstd::format(\"{}/entry/{}\", getDumpPath(dumpType), entryID)\n```",
+      "range": {
+        "startLine": 745,
+        "startChar": 0,
+        "endLine": 745,
+        "endChar": 52
+      },
+      "revId": "56ff23bfbf6a8f0b3c31bb70cb170e658e6b2944",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b5ff9b3_6698d26c",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 745,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-18T17:43:53Z",
+      "side": 1,
+      "message": "Yes it could.",
+      "parentUuid": "229a6247_bf7c85e4",
       "range": {
         "startLine": 745,
         "startChar": 0,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ab38c8cc_7b4fa25e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 2836,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-18T17:43:53Z",
+      "side": 1,
+      "message": "Agreed.",
+      "parentUuid": "f20ae3c1_bfee85ac",
+      "range": {
+        "startLine": 2834,
+        "startChar": 0,
+        "endLine": 2836,
+        "endChar": 46
+      },
+      "revId": "56ff23bfbf6a8f0b3c31bb70cb170e658e6b2944",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "35d825bd_5112380a",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 13
@@ -83,6 +155,30 @@
       "writtenOn": "2024-01-18T17:40:08Z",
       "side": 1,
       "message": "Perhaps, Replaced inventoryName prior to loop may be better.\n\n```\n    std::string nameS;\n    std::ranges::replace_copy(inventoryItem.name, nameS.begin(), \u0027_\u0027, \u0027 \u0027);\n    \n    for (nlohmann::json\u0026 powerSupply : powerSupplyArray)\n    {\n        nlohmann::json::iterator nameIt \u003d powerSupply.find(\"Name\");\n        ....\n        if (nameS \u003d\u003d *name)\n```",
+      "range": {
+        "startLine": 2189,
+        "startChar": 0,
+        "endLine": 2203,
+        "endChar": 27
+      },
+      "revId": "56ff23bfbf6a8f0b3c31bb70cb170e658e6b2944",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d578baf_c037167d",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 2203,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-18T17:43:53Z",
+      "side": 1,
+      "message": "ACK",
+      "parentUuid": "35d825bd_5112380a",
       "range": {
         "startLine": 2189,
         "startChar": 0,
