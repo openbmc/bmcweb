@@ -139,6 +139,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b75b2405_275f30f4",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-18T17:47:03Z",
+      "side": 1,
+      "message": "Implemented the above.",
+      "parentUuid": "78261dbb_988fb546",
+      "range": {
+        "startLine": 35,
+        "startChar": 46,
+        "endLine": 36,
+        "endChar": 48
+      },
+      "revId": "4d2ca5b7f944e4f306394117aa5b5621e390961f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cafc8fc8_dbf9cf99",
@@ -152,6 +176,30 @@
       "writtenOn": "2024-01-11T19:28:55Z",
       "side": 1,
       "message": "Please follow the naming conventions.",
+      "range": {
+        "startLine": 377,
+        "startChar": 23,
+        "endLine": 377,
+        "endChar": 31
+      },
+      "revId": "4d2ca5b7f944e4f306394117aa5b5621e390961f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fa52599_d7700c32",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-18T17:47:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cafc8fc8_dbf9cf99",
       "range": {
         "startLine": 377,
         "startChar": 23,
@@ -185,6 +233,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa84969a_9f170681",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-18T17:47:03Z",
+      "side": 1,
+      "message": "Code removed.",
+      "parentUuid": "6a2da392_5f38e7c5",
+      "range": {
+        "startLine": 378,
+        "startChar": 33,
+        "endLine": 378,
+        "endChar": 64
+      },
+      "revId": "4d2ca5b7f944e4f306394117aa5b5621e390961f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "611b635c_f42bbae0",
@@ -208,6 +280,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fcc467a_6c238394",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-18T17:47:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "611b635c_f42bbae0",
+      "range": {
+        "startLine": 408,
+        "startChar": 19,
+        "endLine": 408,
+        "endChar": 28
+      },
+      "revId": "4d2ca5b7f944e4f306394117aa5b5621e390961f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "75a7ec20_b4eb02f5",
@@ -221,6 +317,30 @@
       "writtenOn": "2024-01-11T19:28:55Z",
       "side": 1,
       "message": "Please pass by something like posix_file\u0026, to avoid manual close() calls.",
+      "range": {
+        "startLine": 746,
+        "startChar": 26,
+        "endLine": 746,
+        "endChar": 33
+      },
+      "revId": "4d2ca5b7f944e4f306394117aa5b5621e390961f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b416cc3c_fe256fb6",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-18T17:47:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75a7ec20_b4eb02f5",
       "range": {
         "startLine": 746,
         "startChar": 26,
@@ -300,6 +420,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "faf0d656_6def4697",
+        "filename": "test/http/http_response_test.cpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-18T17:47:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8cfc9bb9_b074b607",
+      "range": {
+        "startLine": 194,
+        "startChar": 0,
+        "endLine": 194,
+        "endChar": 6
+      },
+      "revId": "4d2ca5b7f944e4f306394117aa5b5621e390961f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "86483cca_49edc4eb",
@@ -313,6 +457,30 @@
       "writtenOn": "2024-01-11T19:41:02Z",
       "side": 1,
       "message": "Can\u0027t this be simplified to\n\nwhile(result.size() \u003c 10000){\n    result +\u003d \"sample text\";\n}\n\n?\n\n\nUp to you, either is fine.",
+      "range": {
+        "startLine": 198,
+        "startChar": 11,
+        "endLine": 198,
+        "endChar": 20
+      },
+      "revId": "4d2ca5b7f944e4f306394117aa5b5621e390961f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e76eb66a_794197c5",
+        "filename": "test/http/http_response_test.cpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-18T17:47:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86483cca_49edc4eb",
       "range": {
         "startLine": 198,
         "startChar": 11,

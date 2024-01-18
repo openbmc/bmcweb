@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cef9fd93_91bf460c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 33
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-18T17:47:03Z",
+      "side": 1,
+      "message": "Abhilash, your patchset actually broke behavior on http2, because of the new file type.\n\nhttps://github.com/openbmc/bmcweb/blob/367b3dce0567c223f53ce1a4cc10d34241111774/http/http2_connection.hpp#L111\n\nI\u0027ve moved over to using a single custom file type with an \"encoding type\" enum, which fixed the issue, and as a result, we no longer take a dependency on beast file_body.  Please take a look and see if this works for you, and rerun whatever tests you like.  I think it\u0027s ready.",
+      "revId": "71bb3a52a456946de0671da70c6bad51940ffeb0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
