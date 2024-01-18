@@ -34,6 +34,24 @@
       "parentUuid": "ae5b9705_a0efe7bf",
       "revId": "1b3ada838f4ebe8117bdb28078087a71c997608d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0ef31a0_711eb964",
+        "filename": "test/http/base64_encoder_test.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-18T17:44:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f053177_9ccc4a7d",
+      "revId": "1b3ada838f4ebe8117bdb28078087a71c997608d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
