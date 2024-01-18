@@ -81,6 +81,30 @@
       },
       "revId": "fcd883ddd12dbea792cb7c18b5a9ccb92db25dff",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b0694fc_aed0f082",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-01-18T16:48:25Z",
+      "side": 1,
+      "message": "I meant - can it be POST without specifying \u0027tftp:\u0027 like this?\n\n```\ncurl -X POST https://${bmc}//redfish/v1/UpdateService/Actions/UpdateService.SimpleUpdate/ -d \u0027{ \"ImageURI\": \"1.1.1.1/myfile.bin\"}\u0027\n```\n \nWill it be checked by `boost::urls::parse_absolute_uri(imageURI)`?",
+      "parentUuid": "c28e6c18_a9a275a8",
+      "range": {
+        "startLine": 502,
+        "startChar": 0,
+        "endLine": 502,
+        "endChar": 36
+      },
+      "revId": "fcd883ddd12dbea792cb7c18b5a9ccb92db25dff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
