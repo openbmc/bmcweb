@@ -16,6 +16,24 @@
       "message": "It is behind a flag, I am okay with this merging even though it does such little. \n\nI do see 3 companies now using the flag but I think as part of using this flag is that new schemas are going to show \n\n\"Enable/disable the new PowerSubsystem, ThermalSubsystem, and all children schemas\"\n\nhttps://github.com/search?q\u003drepo%3Aopenbmc%2Fopenbmc%20thermalsubsystem\u0026type\u003dcode",
       "revId": "58c38a3a270efc44e0c4f19cc723509ac4e756fa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cccc38c3_b753f0e1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 36
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-18T21:41:06Z",
+      "side": 1,
+      "message": "Why?  Until it actually does something, it\u0027s effectively technical debt.  In addition, we\u0027ll have to answer the question \"why is my ThermalSubsystem schema empty?\".\n\nI do see that someone has picked up https://gerrit.openbmc.org/c/openbmc/bmcweb/+/65286 again, so my preference would be to wait for that to get cleaned up and corrected before this merges.\n\nIf we want to check this in in such a way that it\u0027s not enabled until it does something, and has a date to be deleted, under an\n```\nif constexpr (false)\n```\n\nI\u0027m happy to talk about that, but I really don\u0027t think this function should be enabled until it does something useful.",
+      "parentUuid": "bad8573f_12bc34d0",
+      "revId": "58c38a3a270efc44e0c4f19cc723509ac4e756fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
