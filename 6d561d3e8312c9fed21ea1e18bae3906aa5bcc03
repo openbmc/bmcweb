@@ -18,6 +18,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a31e1f0_e028cc68",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001989
+      },
+      "writtenOn": "2024-01-18T16:14:37Z",
+      "side": 1,
+      "message": "Existing Response is 200 OK with no Response body.\n\nAs per the Redfish Specification, The HTTP 200 OK Status Code Should contain a Response body.",
+      "revId": "6d561d3e8312c9fed21ea1e18bae3906aa5bcc03",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "418954f5_3d164bb6",
