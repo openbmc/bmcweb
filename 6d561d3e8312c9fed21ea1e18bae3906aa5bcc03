@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "82cd4c03_7aacb5c3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-01-18T14:57:52Z",
+      "side": 1,
+      "message": "What is wrong with the existing response? It was a 204 which Redfish said is acceptable. From https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.20.0.pdf page 54  \n\nFor PATCH (update), PUT (replace), and DELETE (delete) operations, the response from the service,\nafter successful modification, should be one of the following responses:\n• The HTTP 200 OK status code with a body that contains the JSON representation of the targeted\nresource after the modification has been applied, or, for the delete operation, a representation of\nthe deleted resource.\n• The HTTP 202 Accepted status code with a Location header set to the URI of a task monitor when\nthe processing of the modification requires additional time.\n◦ After processing of the task is complete, the modified resource may be returned in response to\na request to the task monitor URI with the HTTP 200 OK status code.\n• The HTTP 204 No Content status code with no response body.",
+      "revId": "6d561d3e8312c9fed21ea1e18bae3906aa5bcc03",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "418954f5_3d164bb6",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 1
