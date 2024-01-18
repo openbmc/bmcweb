@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2107cd10_bc6d7b49",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-18T21:35:03Z",
+      "side": 1,
+      "message": "I see nothing in this patchset that\u0027s creating this as an array or calling emplace_back/push_back, which makes me believe that this test result is from another system, and not a result of this patchset.  Is it possible that this patchset wasn\u0027t actually tested?",
+      "revId": "a9ddd7504290b1653c09a1b46298885bc7ecde9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0f765b4_07592c81",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-18T21:35:03Z",
+      "side": 1,
+      "message": "just wrap your json in triple backticks.  No need to add line breaks in a json statement.",
+      "range": {
+        "startLine": 38,
+        "startChar": 60,
+        "endLine": 38,
+        "endChar": 62
+      },
+      "revId": "a9ddd7504290b1653c09a1b46298885bc7ecde9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ba392eb_30ef122a",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-18T21:35:03Z",
+      "side": 1,
+      "message": "You call this tempArray, but it isn\u0027t an array?  Maybe you meant tempObject?  I would expect this to be an array.",
+      "range": {
+        "startLine": 34,
+        "startChar": 20,
+        "endLine": 34,
+        "endChar": 29
+      },
+      "revId": "a9ddd7504290b1653c09a1b46298885bc7ecde9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "550da352_b552fba5",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-18T21:35:03Z",
+      "side": 1,
+      "message": "Isn\u0027t this incorrect.  Sensor Ids include the name and type.  Did this link work in your testing?",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 68
+      },
+      "revId": "a9ddd7504290b1653c09a1b46298885bc7ecde9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d61da51a_4363da5c",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-18T21:35:03Z",
+      "side": 1,
+      "message": "\"This property shall contain the name of the device associated with this sensor.\"\n\nThis doesn\u0027t look correct to that description, as you\u0027re putting in the sensor odata.id, not the device name.  Please remove.",
+      "range": {
+        "startLine": 40,
+        "startChar": 15,
+        "endLine": 40,
+        "endChar": 25
+      },
+      "revId": "a9ddd7504290b1653c09a1b46298885bc7ecde9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "124c6042_066e39d5",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-18T21:35:03Z",
+      "side": 1,
+      "message": "Lots of this method looks incorrect.  Can we just use the same method that we use in sensors.hpp?\n\nsensors::handleSensorGet\n\nThat seems like a good idea to share code to avoid problems like the above.",
+      "revId": "a9ddd7504290b1653c09a1b46298885bc7ecde9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f38c48b6_6d33168b",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-18T21:35:03Z",
+      "side": 1,
+      "message": "depth 1.",
+      "range": {
+        "startLine": 98,
+        "startChar": 8,
+        "endLine": 98,
+        "endChar": 9
+      },
+      "revId": "a9ddd7504290b1653c09a1b46298885bc7ecde9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
