@@ -105,6 +105,30 @@
       },
       "revId": "fcd883ddd12dbea792cb7c18b5a9ccb92db25dff",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8e2e7d3_e79daae2",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-18T20:21:50Z",
+      "side": 1,
+      "message": "Added unit tests so we dont\u0027 have to question what\u0027s allowed and what isn\u0027t.  If you think I didn\u0027t cover all the cases, please let me know on the newest patchset.",
+      "parentUuid": "8b0694fc_aed0f082",
+      "range": {
+        "startLine": 502,
+        "startChar": 0,
+        "endLine": 502,
+        "endChar": 36
+      },
+      "revId": "fcd883ddd12dbea792cb7c18b5a9ccb92db25dff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
