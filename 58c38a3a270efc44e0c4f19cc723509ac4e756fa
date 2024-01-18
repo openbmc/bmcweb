@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bad8573f_12bc34d0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 36
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-01-18T21:25:57Z",
+      "side": 1,
+      "message": "It is behind a flag, I am okay with this merging even though it does such little. \n\nI do see 3 companies now using the flag but I think as part of using this flag is that new schemas are going to show \n\n\"Enable/disable the new PowerSubsystem, ThermalSubsystem, and all children schemas\"\n\nhttps://github.com/search?q\u003drepo%3Aopenbmc%2Fopenbmc%20thermalsubsystem\u0026type\u003dcode",
+      "revId": "58c38a3a270efc44e0c4f19cc723509ac4e756fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
