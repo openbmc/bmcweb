@@ -95,6 +95,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3e4615e_201412b5",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 745,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-18T20:05:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b5ff9b3_6698d26c",
+      "range": {
+        "startLine": 745,
+        "startChar": 0,
+        "endLine": 745,
+        "endChar": 52
+      },
+      "revId": "56ff23bfbf6a8f0b3c31bb70cb170e658e6b2944",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f20ae3c1_bfee85ac",
@@ -142,6 +166,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d04babe_9e9c4f13",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 2836,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-18T20:05:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab38c8cc_7b4fa25e",
+      "range": {
+        "startLine": 2834,
+        "startChar": 0,
+        "endLine": 2836,
+        "endChar": 46
+      },
+      "revId": "56ff23bfbf6a8f0b3c31bb70cb170e658e6b2944",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "35d825bd_5112380a",
@@ -179,6 +227,30 @@
       "side": 1,
       "message": "ACK",
       "parentUuid": "35d825bd_5112380a",
+      "range": {
+        "startLine": 2189,
+        "startChar": 0,
+        "endLine": 2203,
+        "endChar": 27
+      },
+      "revId": "56ff23bfbf6a8f0b3c31bb70cb170e658e6b2944",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f11d438d_b2df516c",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 2203,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-18T20:05:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d578baf_c037167d",
       "range": {
         "startLine": 2189,
         "startChar": 0,
