@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5af475a5_10f1be55",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-18T16:25:33Z",
+      "side": 1,
+      "message": "I don\u0027t know if I ever did.  There was a discussion a while back where someone on the mailing list used this and I want to say they said it worked for them.",
+      "parentUuid": "96678d13_2eac9249",
+      "revId": "fcd883ddd12dbea792cb7c18b5a9ccb92db25dff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "59b1facf_fb6b1cb5",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 5
@@ -31,6 +49,30 @@
       "writtenOn": "2024-01-18T15:25:02Z",
       "side": 1,
       "message": "What if `req` is like `ImageURI:tftp://1.1.1.1/myfile.bin`?\nIf so, wouldn\u0027t it become  `transferProtocol \u003d\u003d null`  and `url-\u003ehas_scheme()\u003d\u003dfalse`  \u0026 `url-\u003escheme()\u003d\u003dnull`?\n\nIf it is possible, would this line be like \n```\n if (!url-\u003ehas_scheme() || url-\u003escheme() !\u003d \"tftp\")\n```",
+      "range": {
+        "startLine": 502,
+        "startChar": 0,
+        "endLine": 502,
+        "endChar": 36
+      },
+      "revId": "fcd883ddd12dbea792cb7c18b5a9ccb92db25dff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c28e6c18_a9a275a8",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-18T16:25:33Z",
+      "side": 1,
+      "message": "why would url-\u003ehas_scheme() be false in that case?  \n\n\"tftp://\" is the scheme, right?",
+      "parentUuid": "59b1facf_fb6b1cb5",
       "range": {
         "startLine": 502,
         "startChar": 0,
