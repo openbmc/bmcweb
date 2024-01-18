@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cf3d32e5_598651ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 36
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001663
+      },
+      "writtenOn": "2024-01-18T05:07:04Z",
+      "side": 1,
+      "message": "We\u0027ve faced obstacles in the process of setting up a system and are currently in the midst of exploring alternatives.",
+      "parentUuid": "7e1b6249_1d89d573",
+      "revId": "b61bb5be48d7389283c028c77fda0c247e58f5b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "85d7037a_dad78e0b",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 36
