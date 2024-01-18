@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb0c6987_9573bf15",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-01-18T17:33:33Z",
+      "side": 1,
+      "message": "returning \n\nI wish commit_spelling said what it was mad about but I suspect it is this \n\n.github/ISSUE_TEMPLATE/bug_report.yml.github/ISSUE_TEMPLATE/bug_report.yml 11ms (unchanged)\n    Running shellcheck\ncommit_spelling: FAILED\nTraceback (most recent call last):\n  File \"/data0/jenkins/workspace/ci-repository/openbmc/openbmc-build-scripts/scripts/unit-test.py\", line 1362, in \u003cmodule\u003e\n    check_call_cmd(\n  File \"/data0/jenkins/workspace/ci-repository/openbmc/openbmc-build-scripts/scripts/unit-test.py\", line 237, in check_call_cmd\n    check_call(cmd, **kwargs)\n  File \"/usr/lib/python3.11/subprocess.py\", line 413, in check_call\n    raise CalledProcessError(retcode, cmd)\nsubprocess.CalledProcessError: Command \u0027(\u0027/data0/jenkins/workspace/ci-repository/openbmc/openbmc-build-scripts/scripts/format-code.sh\u0027, \u0027/data0/jenkins/workspace/ci-repository/openbmc/bmcweb\u0027)\u0027 returned non-zero exit status 1.\nTraceback (most recent call last):\n  File \"/data0/jenkins/workspace/ci-repository/openbmc/openbmc-build-scripts/scripts/dbus-unit-test.py\", line 109, in \u003cmodule\u003e\n    check_call(UNIT_TEST.split(\",\"), env\u003dos.environ)\n  File \"/usr/lib/python3.11/subprocess.py\", line 413, in check_call\n    raise CalledProcessError(retcode, cmd)\nsubprocess.CalledProcessError: Command \u0027[\u0027/data0/jenkins/workspace/ci-repository/openbmc/openbmc-build-scripts/scripts/unit-test.py\u0027, \u0027-w\u0027, \u0027/data0/jenkins/workspace/ci-repository/openbmc\u0027, \u0027-p\u0027, \u0027bmcweb\u0027, \u0027-b\u0027, \u0027master\u0027, \u0027-v\u0027]\u0027 returned non-zero exit status 1.\nBuild step \u0027Execute shell\u0027 marked build as failure",
+      "range": {
+        "startLine": 10,
+        "startChar": 11,
+        "endLine": 10,
+        "endChar": 20
+      },
+      "revId": "61c437390a939846fa1fb2e97d1d4c8e609fdba7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97df5964_27765b94",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-01-18T17:33:33Z",
+      "side": 1,
+      "message": "If you want to write.. I think something like sounds a little better. \n\nHandle hostname D-bus errors\n\nCurrently, hostname D-bus errors are not mapped to Redfish\nerrors, so a hostname patch returns an internal error irrespective of the D-bus error.\n\nThis commit handles the InvalidArgument D-bus error for the hostname.\n\nTested By:\nConfigure hostname with various invalid arguments",
+      "revId": "61c437390a939846fa1fb2e97d1d4c8e609fdba7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
