@@ -16,6 +16,24 @@
       "message": "clang-format ;)",
       "revId": "8e0e14703a95df1719a1d3f58b33678b489a76fb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "820fc0a6_1831faa8",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 932,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-01-18T17:23:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb3950c0_a413069a",
+      "revId": "8e0e14703a95df1719a1d3f58b33678b489a76fb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
