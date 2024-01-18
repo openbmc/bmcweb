@@ -34,6 +34,29 @@
       "parentUuid": "bad8573f_12bc34d0",
       "revId": "58c38a3a270efc44e0c4f19cc723509ac4e756fa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5495c6e7_6ce3b65e",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-18T21:46:00Z",
+      "side": 1,
+      "message": "Is this the naming convention we\u0027ve followed elsewhere?  I would assume this should just be \"Thermal Metrics\".",
+      "range": {
+        "startLine": 34,
+        "startChar": 40,
+        "endLine": 34,
+        "endChar": 63
+      },
+      "revId": "58c38a3a270efc44e0c4f19cc723509ac4e756fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
