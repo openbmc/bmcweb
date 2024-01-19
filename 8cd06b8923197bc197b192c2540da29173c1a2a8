@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ae28b5c_e5c51bac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001023
+      },
+      "writtenOn": "2024-01-19T03:36:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29765f57_f8f63618",
+      "range": {
+        "startLine": 13,
+        "startChar": 11,
+        "endLine": 13,
+        "endChar": 34
+      },
+      "revId": "8cd06b8923197bc197b192c2540da29173c1a2a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "40fa2854_6bb4e0eb",
@@ -77,6 +101,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfa1d478_d0fa1378",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001023
+      },
+      "writtenOn": "2024-01-19T03:36:53Z",
+      "side": 1,
+      "message": "I posted this question on the redfishforum (https://redfishforum.com/thread/991/sensor-state-value-when-reading), and it would make sense to have the State be more tied to the sensor reading values.",
+      "parentUuid": "6ad23dbc_cf168da6",
+      "revId": "8cd06b8923197bc197b192c2540da29173c1a2a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6856717d_0be37919",
@@ -100,6 +142,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f82486f7_62d430b8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001023
+      },
+      "writtenOn": "2024-01-19T03:36:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6856717d_0be37919",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 44
+      },
+      "revId": "8cd06b8923197bc197b192c2540da29173c1a2a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3afc9fa7_0318ecdb",
@@ -113,6 +179,24 @@
       "writtenOn": "2023-10-09T18:13:34Z",
       "side": 1,
       "message": "Redfish tests?",
+      "revId": "8cd06b8923197bc197b192c2540da29173c1a2a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce7e48df_fa8a31df",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001023
+      },
+      "writtenOn": "2024-01-19T03:36:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3afc9fa7_0318ecdb",
       "revId": "8cd06b8923197bc197b192c2540da29173c1a2a8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -192,6 +276,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8305f803_fa1981bb",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 1001023
+      },
+      "writtenOn": "2024-01-19T03:36:53Z",
+      "side": 1,
+      "message": "I had this so it would work with the getState used for power supplies that don\u0027t have any DBusPropertiesMap in its scope.  I\u0027ve changed it now.",
+      "parentUuid": "41200000_03724d8c",
+      "range": {
+        "startLine": 603,
+        "startChar": 12,
+        "endLine": 603,
+        "endChar": 73
+      },
+      "revId": "8cd06b8923197bc197b192c2540da29173c1a2a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5be8f0a3_88c739b3",
@@ -205,6 +313,30 @@
       "writtenOn": "2023-10-09T18:13:34Z",
       "side": 1,
       "message": "Unpacking needs to be done in the scope above, and avoid passing the direct raw dbus dicts through too many layers.",
+      "range": {
+        "startLine": 614,
+        "startChar": 40,
+        "endLine": 614,
+        "endChar": 63
+      },
+      "revId": "8cd06b8923197bc197b192c2540da29173c1a2a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5eb307d_a59a4826",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 1001023
+      },
+      "writtenOn": "2024-01-19T03:36:53Z",
+      "side": 1,
+      "message": "Do you mean in the objectPropertiesToJson function?  The getHealth does something similar.",
+      "parentUuid": "5be8f0a3_88c739b3",
       "range": {
         "startLine": 614,
         "startChar": 40,
