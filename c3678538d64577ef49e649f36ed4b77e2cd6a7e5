@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8f1b3240_cd345a11",
+        "filename": "http/http_file_body.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-19T18:05:43Z",
+      "side": 1,
+      "message": "thank you.",
+      "parentUuid": "325fb75f_818e4e64",
+      "revId": "c3678538d64577ef49e649f36ed4b77e2cd6a7e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3e787b4b_97162238",
         "filename": "http/http_file_body.hpp",
         "patchSetId": 39
@@ -31,6 +49,24 @@
       "writtenOn": "2024-01-19T17:28:42Z",
       "side": 1,
       "message": "should we add +2 here? I guess it will work with out that too but there is a possibility of realloc due to capacity overflow.",
+      "revId": "c3678538d64577ef49e649f36ed4b77e2cd6a7e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed848344_4f15f259",
+        "filename": "http/http_file_body.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-19T18:05:43Z",
+      "side": 1,
+      "message": "At most we would do -2, right?  The encoded size from a chunk is going to be:\n\nsize % 3 \u003d 0;  EncodedSize is correct;\nsize % 3 \u003d 1; EncodedSize is 2 larger, because of missing trailing \u003d\u003d;\nsize % 3 \u003d 2; EncodedSize is 1 larger, because of missing trailing \u003d;\n\n\nWhile it\u0027s not technically correct (we might alloc 2 more characters than needed), I\u0027m ok with it for the moment, especially given that this is reused between buffers, it seems very unlikely that we\u0027d see a problem in practice.\n\n\nI realize that I commented this on a previous patchset, but decided it wasn\u0027t worth the effort to make technically correct.",
+      "parentUuid": "3e787b4b_97162238",
       "revId": "c3678538d64577ef49e649f36ed4b77e2cd6a7e5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
