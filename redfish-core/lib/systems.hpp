@@ -1192,7 +1192,7 @@ inline void
     BMCWEB_LOG_DEBUG("Getting System Last Reset Time");
 
     sdbusplus::asio::getProperty<uint64_t>(
-        *crow::connections::systemBus, "xyz.openbmc_project.State.Chassis",
+        *crow::connections::systemBus, "xyz.openbmc_project.State.Chassis0",
         "/xyz/openbmc_project/state/chassis0",
         "xyz.openbmc_project.State.Chassis", "LastStateChangeTime",
         [asyncResp](const boost::system::error_code& ec,
@@ -3166,7 +3166,7 @@ inline void handleComputerSystemResetActionPost(
     else
     {
         sdbusplus::asio::setProperty(
-            *crow::connections::systemBus, "xyz.openbmc_project.State.Chassis",
+            *crow::connections::systemBus, "xyz.openbmc_project.State.Chassis0",
             "/xyz/openbmc_project/state/chassis0",
             "xyz.openbmc_project.State.Chassis", "RequestedPowerTransition",
             command,

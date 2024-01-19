@@ -100,7 +100,7 @@ inline void getChassisState(std::shared_ptr<bmcweb::AsyncResp> asyncResp)
 {
     // crow::connections::systemBus->async_method_call(
     sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, "xyz.openbmc_project.State.Chassis",
+        *crow::connections::systemBus, "xyz.openbmc_project.State.Chassis0",
         "/xyz/openbmc_project/state/chassis0",
         "xyz.openbmc_project.State.Chassis", "CurrentPowerState",
         [asyncResp{std::move(asyncResp)}](const boost::system::error_code& ec,
@@ -829,7 +829,7 @@ inline void
             return;
         }
 
-        const char* processName = "xyz.openbmc_project.State.Chassis";
+        const char* processName = "xyz.openbmc_project.State.Chassis0";
         const char* interfaceName = "xyz.openbmc_project.State.Chassis";
         const char* destProperty = "RequestedPowerTransition";
         const std::string propertyValue =
