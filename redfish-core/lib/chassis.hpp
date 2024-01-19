@@ -155,7 +155,7 @@ inline void getStorageLink(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 inline void getChassisState(std::shared_ptr<bmcweb::AsyncResp> asyncResp)
 {
     dbus::utility::getProperty<std::string>(
-        "xyz.openbmc_project.State.Chassis",
+        "xyz.openbmc_project.State.Chassis0",
         "/xyz/openbmc_project/state/chassis0",
         "xyz.openbmc_project.State.Chassis", "CurrentPowerState",
         [asyncResp{std::move(asyncResp)}](const boost::system::error_code& ec,
@@ -875,7 +875,7 @@ inline void doChassisPowerCycle(
                 return;
             }
 
-            const char* processName = "xyz.openbmc_project.State.Chassis";
+            const char* processName = "xyz.openbmc_project.State.Chassis0";
             const char* interfaceName = "xyz.openbmc_project.State.Chassis";
             const char* destProperty = "RequestedPowerTransition";
             const std::string propertyValue =
