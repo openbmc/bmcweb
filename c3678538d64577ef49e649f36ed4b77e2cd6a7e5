@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c73f8d2d_28a54117",
+        "filename": "http/http_file_body.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-20T19:13:25Z",
+      "side": 1,
+      "message": "\u003e how about adding code as below. Some times we get handle that already moved certain amount. \n\nWhy would that happen in a way that\u0027s not a bug?  I would expect any FDs we open in process to be at the right place.  Any FDs sent over dbus should be the same.\n\n\u003e off_t currentPos \u003d lseek(fd, 0, SEEK_CUR);\n\u003e fileSize \u003d fileHandle.size(ec)-currentPos;",
+      "parentUuid": "cea35a4f_579e88d0",
+      "revId": "c3678538d64577ef49e649f36ed4b77e2cd6a7e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3e787b4b_97162238",
         "filename": "http/http_file_body.hpp",
         "patchSetId": 39
