@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8c573b3f_f761f726",
+        "filename": "http/http_file_body.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-20T19:45:46Z",
+      "side": 1,
+      "message": "My worry about calling lseek on an fd is that it can error (which the code above doesn\u0027t handle), and I can see a case where someone would want to send an fd that is an anonymous pipe.\n\nhttps://man7.org/linux/man-pages/man2/pipe.2.html\n\nwhich isn\u0027t going to support lseek, and would prevent using the pipe.",
+      "parentUuid": "c73f8d2d_28a54117",
+      "revId": "c3678538d64577ef49e649f36ed4b77e2cd6a7e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3e787b4b_97162238",
         "filename": "http/http_file_body.hpp",
         "patchSetId": 39
