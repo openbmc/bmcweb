@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8f4cb91_3c215430",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-21T20:52:55Z",
+      "side": 1,
+      "message": "Tested?",
+      "revId": "562ae89ef05c1ba3f0a54ed40cd3859800ff0eee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0a4de2d_75afc78b",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-21T20:52:55Z",
+      "side": 1,
+      "message": "I would expect more places than just these two.  I would assume the Power state action on POST needs to be changed as well to match?",
+      "revId": "562ae89ef05c1ba3f0a54ed40cd3859800ff0eee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
