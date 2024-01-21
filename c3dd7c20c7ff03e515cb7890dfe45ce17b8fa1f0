@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8f17bfb_917e65ad",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-21T03:24:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43366d4e_f16aeb56",
+      "revId": "c3dd7c20c7ff03e515cb7890dfe45ce17b8fa1f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4788b400_eaecca05",
@@ -41,6 +59,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "25b42dd9_473f90d6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-21T03:24:24Z",
+      "side": 1,
+      "message": "Done. Added more details to description.",
+      "parentUuid": "4788b400_eaecca05",
+      "range": {
+        "startLine": 9,
+        "startChar": 1,
+        "endLine": 10,
+        "endChar": 22
+      },
+      "revId": "c3dd7c20c7ff03e515cb7890dfe45ce17b8fa1f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f96d9a6f_df65a9c7",
@@ -54,6 +96,30 @@
       "writtenOn": "2024-01-02T17:38:49Z",
       "side": 1,
       "message": "Do we have this much precision here in practice?  I kinda doubt it, as this looks like a floating point rounding issue.  We should probably look into getting that corrected to round to the appropriate value as Edm.Decimal (The redfish type for theses) does care about significant digits, even if in floating point they\u0027re essentially moot.",
+      "range": {
+        "startLine": 23,
+        "startChar": 21,
+        "endLine": 23,
+        "endChar": 39
+      },
+      "revId": "c3dd7c20c7ff03e515cb7890dfe45ce17b8fa1f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a7584ab_82ff132d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-21T03:24:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f96d9a6f_df65a9c7",
       "range": {
         "startLine": 23,
         "startChar": 21,
@@ -145,6 +211,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "85a7193a_ddc6658d",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-21T03:24:24Z",
+      "side": 1,
+      "message": "Done.\n\nThese are instantaneous values. I am not sure we can have a test to verify that values are matching or validate them.",
+      "parentUuid": "18320704_b3a3eff6",
+      "range": {
+        "startLine": 33,
+        "startChar": 68,
+        "endLine": 33,
+        "endChar": 72
+      },
+      "revId": "c3dd7c20c7ff03e515cb7890dfe45ce17b8fa1f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "712299af_99560999",
@@ -218,6 +308,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7ef82160_f05b749f",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-21T03:24:24Z",
+      "side": 1,
+      "message": "@Ed\nOn Redfish side, there is no specification for different RW storage types (but just one) -\n\nhttps://redfish.dmtf.org/schemas/v1/ManagerDiagnosticData.v1_2_1.json\n                \"FreeStorageSpaceKiB\": {\n                    \"description\": \"The available storage space on this manager in kibibytes (KiB).\",\n                    \"longDescription\": \"This property shall contain the available storage space on this manager in kibibytes (KiB).\",\n                    \"readonly\": true,\n                    \"type\": [\n                        \"integer\",\n                        \"null\"\n                    ],\n                    \"units\": \"KiBy\"\n                },\n                \nAlso, this further raises question that do we have any existing hardware in the OPEN community that supports 2 different types of RW storage? My understanding is that as per existing implementation that use-case doesn\u0027t exist in the OPEN community. Moreover, if we do need to support it then its better to have that as a completely new feature request and hence be handled separately as a different PR and implementation change.",
+      "parentUuid": "8a2ca23a_fb587370",
+      "range": {
+        "startLine": 40,
+        "startChar": 9,
+        "endLine": 40,
+        "endChar": 51
+      },
+      "revId": "c3dd7c20c7ff03e515cb7890dfe45ce17b8fa1f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5763965e_30c005c4",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
         "patchSetId": 4
@@ -229,6 +343,30 @@
       "writtenOn": "2024-01-02T17:38:49Z",
       "side": 1,
       "message": "Double is not directly convertible to Edm.Decimal, because of non finite values like Nan, infinity, etc.  \n\nPlease do handling similar to how we deal with double sensor values:\n\nhttps://github.com/openbmc/bmcweb/blob/a88942019fdd3d8fc366999f7c178f3e1c18b2fe/redfish-core/lib/sensors.hpp#L934\n\nI suspect in this case for non finite we would just set to null.",
+      "range": {
+        "startLine": 72,
+        "startChar": 69,
+        "endLine": 72,
+        "endChar": 76
+      },
+      "revId": "c3dd7c20c7ff03e515cb7890dfe45ce17b8fa1f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0cc39d6_ff0933d0",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-21T03:24:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5763965e_30c005c4",
       "range": {
         "startLine": 72,
         "startChar": 69,
@@ -256,6 +394,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "83a41e78_85aec1f5",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-21T03:24:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb8da5ac_a581fece",
+      "revId": "c3dd7c20c7ff03e515cb7890dfe45ce17b8fa1f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "06bc9a7c_72e66aa9",
@@ -269,6 +425,30 @@
       "writtenOn": "2024-01-02T17:38:49Z",
       "side": 1,
       "message": "Please just inline these on each call.",
+      "range": {
+        "startLine": 164,
+        "startChar": 0,
+        "endLine": 173,
+        "endChar": 55
+      },
+      "revId": "c3dd7c20c7ff03e515cb7890dfe45ce17b8fa1f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e574063_0d690d03",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-21T03:24:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06bc9a7c_72e66aa9",
       "range": {
         "startLine": 164,
         "startChar": 0,
