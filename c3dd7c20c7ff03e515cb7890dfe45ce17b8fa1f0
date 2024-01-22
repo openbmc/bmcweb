@@ -554,6 +554,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8e3813a6_5eb5b31b",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-22T22:19:55Z",
+      "side": 1,
+      "message": "We do call directly to the well known name in cases where we reasonably expect only one OpenBMC implementation to exist (systemd, mapper, etc).  Considering that this implementation is only for THIS manager, and THIS BMCs health metrics, it seems reasonable that only one implementation exists (sidenote, I actually prefer that, because it keeps people from inventing their own.) so I\u0027m not going to enforce the mapper here, just that we handle the non-existence of the dbus name or path as a non-critical failure.",
+      "parentUuid": "fa61f60b_d9fd45e9",
+      "range": {
+        "startLine": 40,
+        "startChar": 9,
+        "endLine": 40,
+        "endChar": 51
+      },
+      "revId": "c3dd7c20c7ff03e515cb7890dfe45ce17b8fa1f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5763965e_30c005c4",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
         "patchSetId": 4
