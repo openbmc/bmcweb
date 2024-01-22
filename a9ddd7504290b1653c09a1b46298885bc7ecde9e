@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "72ff1d65_18a85544",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-01-22T01:59:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c0f765b4_07592c81",
+      "range": {
+        "startLine": 38,
+        "startChar": 60,
+        "endLine": 38,
+        "endChar": 62
+      },
+      "revId": "a9ddd7504290b1653c09a1b46298885bc7ecde9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "af8ff4b8_ac3f5c34",
@@ -58,6 +82,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "29155d55_d6202af6",
+        "filename": "Redfish.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-01-22T01:59:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af8ff4b8_ac3f5c34",
+      "revId": "a9ddd7504290b1653c09a1b46298885bc7ecde9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5ba392eb_30ef122a",
@@ -71,6 +113,30 @@
       "writtenOn": "2024-01-18T21:35:03Z",
       "side": 1,
       "message": "You call this tempArray, but it isn\u0027t an array?  Maybe you meant tempObject?  I would expect this to be an array.",
+      "range": {
+        "startLine": 34,
+        "startChar": 20,
+        "endLine": 34,
+        "endChar": 29
+      },
+      "revId": "a9ddd7504290b1653c09a1b46298885bc7ecde9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b86c203_ce70aa5f",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-01-22T01:59:26Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "5ba392eb_30ef122a",
       "range": {
         "startLine": 34,
         "startChar": 20,
@@ -106,6 +172,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "048c46e1_414e8f15",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-01-22T01:59:26Z",
+      "side": 1,
+      "message": "Sorry, I am not following 😞\n\nhttps://www.dmtf.org/sites/default/files/standards/documents/DSP0268_2023.3.pdf\n\n6.137.6 Example response\n```\n\"TemperatureReadingsCelsius\": [\n{\n\"Reading\": 40,\n\"DeviceName\": \"SystemBoard\",\n\"DataSourceUri\": \"/redfish/v1/Chassis/1U/Sensors/SysBrdTemp\"\n},\n{\n\"Reading\": 24.8,\n\"DeviceName\": \"Intake\",\n\"DataSourceUri\": \"/redfish/v1/Chassis/1U/Sensors/IntakeTemp\"\n},\n{\n\"Reading\": 39,\n\"DeviceName\": \"CPUSubsystem\",\n\"DataSourceUri\": \"/redfish/v1/Chassis/1U/Sensors/CPUTemps\"\n},\n{\n\"Reading\": 42,\n\"DeviceName\": \"MemorySubsystem\",\n\"DataSourceUri\": \"/redfish/v1/Chassis/1U/Sensors/MemoryTemp\"\n},\n{\n\"Reading\": 33,\n\"DeviceName\": \"PowerSupply\",\n\"DataSourceUri\": \"/redfish/v1/Chassis/1U/Sensors/PSTemp\"\n},\n{\n\"Reading\": 40.5,\n\"DeviceName\": \"Exhaust\",\n\"DataSourceUri\": \"/redfish/v1/Chassis/1U/Sensors/ExhaustTemp\"\n}\n```\nIs this incorrect?",
+      "parentUuid": "550da352_b552fba5",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 68
+      },
+      "revId": "a9ddd7504290b1653c09a1b46298885bc7ecde9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d61da51a_4363da5c",
         "filename": "redfish-core/lib/thermal_metrics.hpp",
         "patchSetId": 7
@@ -117,6 +207,30 @@
       "writtenOn": "2024-01-18T21:35:03Z",
       "side": 1,
       "message": "\"This property shall contain the name of the device associated with this sensor.\"\n\nThis doesn\u0027t look correct to that description, as you\u0027re putting in the sensor odata.id, not the device name.  Please remove.",
+      "range": {
+        "startLine": 40,
+        "startChar": 15,
+        "endLine": 40,
+        "endChar": 25
+      },
+      "revId": "a9ddd7504290b1653c09a1b46298885bc7ecde9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd9fc09d_50b4f419",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-01-22T01:59:26Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d61da51a_4363da5c",
       "range": {
         "startLine": 40,
         "startChar": 15,
@@ -146,6 +260,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "07ac6949_a8b2a28e",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-01-22T01:59:26Z",
+      "side": 1,
+      "message": "\u003e Lots of this method looks incorrect.\n\nCould you please point out what exactly is incorrect?\n\n\u003e sensors::handleSensorGet\n\nI checked this method, but I do not know how to implement `DeviceName` and `Reading`. I do not think we can use this method instead.",
+      "parentUuid": "124c6042_066e39d5",
+      "revId": "a9ddd7504290b1653c09a1b46298885bc7ecde9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f38c48b6_6d33168b",
         "filename": "redfish-core/lib/thermal_metrics.hpp",
         "patchSetId": 7
@@ -157,6 +289,30 @@
       "writtenOn": "2024-01-18T21:35:03Z",
       "side": 1,
       "message": "depth 1.",
+      "range": {
+        "startLine": 98,
+        "startChar": 8,
+        "endLine": 98,
+        "endChar": 9
+      },
+      "revId": "a9ddd7504290b1653c09a1b46298885bc7ecde9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fca43a2f_473a1d71",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-01-22T01:59:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f38c48b6_6d33168b",
       "range": {
         "startLine": 98,
         "startChar": 8,
