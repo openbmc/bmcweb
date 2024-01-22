@@ -57,6 +57,30 @@
       },
       "revId": "58c38a3a270efc44e0c4f19cc723509ac4e756fa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a81fbd7a_03c005d9",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-01-22T01:59:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5495c6e7_6ce3b65e",
+      "range": {
+        "startLine": 34,
+        "startChar": 40,
+        "endLine": 34,
+        "endChar": 63
+      },
+      "revId": "58c38a3a270efc44e0c4f19cc723509ac4e756fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
