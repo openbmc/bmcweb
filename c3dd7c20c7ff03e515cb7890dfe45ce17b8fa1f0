@@ -147,6 +147,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc2af71a_6d37a945",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-22T19:40:41Z",
+      "side": 1,
+      "message": "Still missing.",
+      "parentUuid": "d49ced11_78182506",
+      "revId": "c3dd7c20c7ff03e515cb7890dfe45ce17b8fa1f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "fd71aed0_d68f499b",
@@ -160,6 +178,24 @@
       "writtenOn": "2024-01-02T17:38:49Z",
       "side": 1,
       "message": "Missing Redfish documentation updates.",
+      "revId": "c3dd7c20c7ff03e515cb7890dfe45ce17b8fa1f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53d51323_d81a2ec2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-22T19:40:41Z",
+      "side": 1,
+      "message": "Still missing.",
+      "parentUuid": "fd71aed0_d68f499b",
       "revId": "c3dd7c20c7ff03e515cb7890dfe45ce17b8fa1f0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -225,6 +261,30 @@
       "side": 1,
       "message": "Done.\n\nThese are instantaneous values. I am not sure we can have a test to verify that values are matching or validate them.",
       "parentUuid": "18320704_b3a3eff6",
+      "range": {
+        "startLine": 33,
+        "startChar": 68,
+        "endLine": 33,
+        "endChar": 72
+      },
+      "revId": "c3dd7c20c7ff03e515cb7890dfe45ce17b8fa1f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6bd81705_071ac710",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-22T19:40:41Z",
+      "side": 1,
+      "message": "They\u0027re instantaneous values of read-write storage.  Unless something is actively writing, I would expect them to match exactly.  This doesn\u0027t have to be an automated test, but some kind of manual test to know this number matches a known tool would be good.",
+      "parentUuid": "85a7193a_ddc6658d",
       "range": {
         "startLine": 33,
         "startChar": 68,
@@ -320,6 +380,30 @@
       "side": 1,
       "message": "@Ed\nOn Redfish side, there is no specification for different RW storage types (but just one) -\n\nhttps://redfish.dmtf.org/schemas/v1/ManagerDiagnosticData.v1_2_1.json\n                \"FreeStorageSpaceKiB\": {\n                    \"description\": \"The available storage space on this manager in kibibytes (KiB).\",\n                    \"longDescription\": \"This property shall contain the available storage space on this manager in kibibytes (KiB).\",\n                    \"readonly\": true,\n                    \"type\": [\n                        \"integer\",\n                        \"null\"\n                    ],\n                    \"units\": \"KiBy\"\n                },\n                \nAlso, this further raises question that do we have any existing hardware in the OPEN community that supports 2 different types of RW storage? My understanding is that as per existing implementation that use-case doesn\u0027t exist in the OPEN community. Moreover, if we do need to support it then its better to have that as a completely new feature request and hence be handled separately as a different PR and implementation change.",
       "parentUuid": "8a2ca23a_fb587370",
+      "range": {
+        "startLine": 40,
+        "startChar": 9,
+        "endLine": 40,
+        "endChar": 51
+      },
+      "revId": "c3dd7c20c7ff03e515cb7890dfe45ce17b8fa1f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "785c7a4e_35ab3c56",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-22T19:40:41Z",
+      "side": 1,
+      "message": "My understanding was that ibm plaforms are currently using emmc?  As is gsj which uses estoraged.  I don\u0027t think gsj will care.\n\nLets ping those ibm platform maintainers and see if they care that this is only reporting spi flash on those platforms.\n\nThe only reason I bring this up is that as written, this is enabling this on all platforms unconditional.  So if the number is \"wrong\" on any platform, there\u0027s no out except to revert the patch.",
+      "parentUuid": "7ef82160_f05b749f",
       "range": {
         "startLine": 40,
         "startChar": 9,
