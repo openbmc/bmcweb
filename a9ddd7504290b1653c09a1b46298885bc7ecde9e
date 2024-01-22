@@ -149,6 +149,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "940c5908_40f7a1e5",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-22T22:08:33Z",
+      "side": 1,
+      "message": "Please don\u0027t resolve comments that aren\u0027t done.  Go through and reopen the ones that aren\u0027t complete.",
+      "parentUuid": "2b86c203_ce70aa5f",
+      "range": {
+        "startLine": 34,
+        "startChar": 20,
+        "endLine": 34,
+        "endChar": 29
+      },
+      "revId": "a9ddd7504290b1653c09a1b46298885bc7ecde9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "550da352_b552fba5",
         "filename": "redfish-core/lib/thermal_metrics.hpp",
         "patchSetId": 7
@@ -184,6 +208,30 @@
       "side": 1,
       "message": "Sorry, I am not following 😞\n\nhttps://www.dmtf.org/sites/default/files/standards/documents/DSP0268_2023.3.pdf\n\n6.137.6 Example response\n```\n\"TemperatureReadingsCelsius\": [\n{\n\"Reading\": 40,\n\"DeviceName\": \"SystemBoard\",\n\"DataSourceUri\": \"/redfish/v1/Chassis/1U/Sensors/SysBrdTemp\"\n},\n{\n\"Reading\": 24.8,\n\"DeviceName\": \"Intake\",\n\"DataSourceUri\": \"/redfish/v1/Chassis/1U/Sensors/IntakeTemp\"\n},\n{\n\"Reading\": 39,\n\"DeviceName\": \"CPUSubsystem\",\n\"DataSourceUri\": \"/redfish/v1/Chassis/1U/Sensors/CPUTemps\"\n},\n{\n\"Reading\": 42,\n\"DeviceName\": \"MemorySubsystem\",\n\"DataSourceUri\": \"/redfish/v1/Chassis/1U/Sensors/MemoryTemp\"\n},\n{\n\"Reading\": 33,\n\"DeviceName\": \"PowerSupply\",\n\"DataSourceUri\": \"/redfish/v1/Chassis/1U/Sensors/PSTemp\"\n},\n{\n\"Reading\": 40.5,\n\"DeviceName\": \"Exhaust\",\n\"DataSourceUri\": \"/redfish/v1/Chassis/1U/Sensors/ExhaustTemp\"\n}\n```\nIs this incorrect?",
       "parentUuid": "550da352_b552fba5",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 68
+      },
+      "revId": "a9ddd7504290b1653c09a1b46298885bc7ecde9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd35cf64_392edd04",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-22T22:08:33Z",
+      "side": 1,
+      "message": "Please answer my question.  Did you test that the links your code produced were correct?\n\nYou\u0027re quoting a DTMF example (which is not the specification) that was not taken on an openbmc system.  \"SysBrdTemp\" in the example is a uri segment that the server has control over, and on openbmc, doesn\u0027t match the example you\u0027ve given.\n\nI would expect that your tests would fail, which is why I\u0027m asking if they were run recently.  If they\u0027re not failing, then I\u0027m misunderstanding something.",
+      "parentUuid": "048c46e1_414e8f15",
       "range": {
         "startLine": 38,
         "startChar": 0,
@@ -243,6 +291,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "556b694b_aaea7076",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-22T22:08:33Z",
+      "side": 1,
+      "message": "not resolved.",
+      "parentUuid": "bd9fc09d_50b4f419",
+      "range": {
+        "startLine": 40,
+        "startChar": 15,
+        "endLine": 40,
+        "endChar": 25
+      },
+      "revId": "a9ddd7504290b1653c09a1b46298885bc7ecde9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "124c6042_066e39d5",
         "filename": "redfish-core/lib/thermal_metrics.hpp",
         "patchSetId": 7
@@ -272,6 +344,24 @@
       "side": 1,
       "message": "\u003e Lots of this method looks incorrect.\n\nCould you please point out what exactly is incorrect?\n\n\u003e sensors::handleSensorGet\n\nI checked this method, but I do not know how to implement `DeviceName` and `Reading`. I do not think we can use this method instead.",
       "parentUuid": "124c6042_066e39d5",
+      "revId": "a9ddd7504290b1653c09a1b46298885bc7ecde9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5dc15fcb_71283936",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-22T22:08:33Z",
+      "side": 1,
+      "message": "\u003e \u003e Lots of this method looks incorrect.\n\u003e \n\nCompare your code to handleSensorGet, and you will see some very obvious differences in how the properties are generated.\n\n\u003e \n\u003e \u003e sensors::handleSensorGet\n\u003e \n\u003e I checked this method, but I do not know how to implement `DeviceName` and `Reading`. I do not think we can use this method instead.\n\nhandleSensorGet doesn\u0027t currently implement DeviceName, so I\u0027m not sure why that relates.  I would assume that DeviceName would need to be implemented in handleSensorGet, FIRST, before we could use it in ThermalSubsystem.",
+      "parentUuid": "07ac6949_a8b2a28e",
       "revId": "a9ddd7504290b1653c09a1b46298885bc7ecde9e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
