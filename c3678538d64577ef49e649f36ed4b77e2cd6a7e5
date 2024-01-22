@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c36e92d8_97f12b5e",
+        "filename": "http/http_file_body.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-01-22T08:30:06Z",
+      "side": 1,
+      "message": "I have tested. New file body seems to be working",
+      "parentUuid": "8f1b3240_cd345a11",
+      "revId": "c3678538d64577ef49e649f36ed4b77e2cd6a7e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cea35a4f_579e88d0",
         "filename": "http/http_file_body.hpp",
         "patchSetId": 39
@@ -138,6 +156,24 @@
       "side": 1,
       "message": "At most we would do -2, right?  The encoded size from a chunk is going to be:\n\nsize % 3 \u003d 0;  EncodedSize is correct;\nsize % 3 \u003d 1; EncodedSize is 2 larger, because of missing trailing \u003d\u003d;\nsize % 3 \u003d 2; EncodedSize is 1 larger, because of missing trailing \u003d;\n\n\nWhile it\u0027s not technically correct (we might alloc 2 more characters than needed), I\u0027m ok with it for the moment, especially given that this is reused between buffers, it seems very unlikely that we\u0027d see a problem in practice.\n\n\nI realize that I commented this on a previous patchset, but decided it wasn\u0027t worth the effort to make technically correct.",
       "parentUuid": "3e787b4b_97162238",
+      "revId": "c3678538d64577ef49e649f36ed4b77e2cd6a7e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "069f0679_50e02801",
+        "filename": "http/http_file_body.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-01-22T08:30:06Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ed848344_4f15f259",
       "revId": "c3678538d64577ef49e649f36ed4b77e2cd6a7e5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
