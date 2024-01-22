@@ -26,6 +26,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "968184bc_a6fd12e3",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-22T21:52:02Z",
+      "side": 1,
+      "message": "Oh.  We shouldn\u0027t directly code this service, right?  We should be using mapper to look up the Metric.Value\u0027s that we\u0027re interested in.",
+      "revId": "37becd56a931c2d9f5502a0d1fe936a66b542f4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f531e427_91a0f848",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
         "patchSetId": 6
