@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "92601a7d_c314accc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 36
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-01-22T19:33:01Z",
+      "side": 1,
+      "message": "\u003e Why? \n\n1.This is the correct direction \n\n1a. Thermal Metrics is something that is wanted ( a child of the new  PowerSubsystem/ThermalSubsystem schemas and has the TemperatureReadings, it is something we had in the old Power/Thermal) \n\n1b. I see OpenBMC / all companies on OpenBMC moving to the new PowerSubsystem/ThermalSubsystem in the future\n\n2.So get this small building block merged and off the reviews, maybe more focus will come to 65286\n\n\u003e  \"why is my ThermalSubsystem schema empty?\"\n\nSure, I guess we might get this question.\n\nThat is fine, we can wait on 65286, that would be the normal protocol here.\n\nAlso, fair that if we merge this no guarantee someone gets in 65286",
+      "parentUuid": "cccc38c3_b753f0e1",
+      "revId": "58c38a3a270efc44e0c4f19cc723509ac4e756fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5495c6e7_6ce3b65e",
         "filename": "redfish-core/lib/thermal_metrics.hpp",
         "patchSetId": 36
