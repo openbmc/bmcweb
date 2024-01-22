@@ -506,6 +506,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "326b95eb_8c457a03",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-22T21:31:30Z",
+      "side": 1,
+      "message": "\u003e C: The code leaves the unsupported statistic as nullptr in the JSON response. \n\nThat\u0027s generally not how we\u0027ve handled unsupported properties.  For unsupported, we omit them entirely.  null is used for \"supported by this system, but not available right this moment\".\n\n\u003e (Perhaps this is a form of \"A\", as in missing dbus objects result in nullptr).  We do this all over bmcweb, don\u0027t we?  Missing objects result in no attribute being filled in.\n\nYep, we do it all over, but generally we use the mapper to do it, where we look up a subtree of paths, and if they don\u0027t exist, we omit the properties entirely.  This patch took the approach of calling the daemon directly, which I think is fine in this case, but needs to handle \"path isn\u0027t there\" errors in a similar fashion to how we handle it in the mapper.  DBUS_USAGE.md documents all this intent.\n\n\u003e \n\u003e @Jagpal, I think you need to exame all of the `if (ec)` paths in your `after*` calls.  I don\u0027t think any of them should be returning internalError, but instead should be setting `jsonValue[...] \u003d nullptr`.\n\nYep, we need to check for a specific kind of ec, similar to this:\nhttps://github.com/openbmc/bmcweb/blob/b5f288d294e17719f30e32acc40e07681baf04b9/redfish-core/include/utils/collection.hpp#L35\n\nAnd just return without populating anything.  Should be pretty doable to add and test.",
+      "parentUuid": "10220839_2516a08b",
+      "range": {
+        "startLine": 40,
+        "startChar": 9,
+        "endLine": 40,
+        "endChar": 51
+      },
+      "revId": "c3dd7c20c7ff03e515cb7890dfe45ce17b8fa1f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5763965e_30c005c4",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
         "patchSetId": 4
