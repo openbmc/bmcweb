@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3db6abf_788eac14",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-01-22T18:34:12Z",
+      "side": 1,
+      "message": "Why this over UnavailableOffline which I feel matches better with the D-Bus property?",
+      "revId": "dae2858c00e41b120288d8174fd6a645617490ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
