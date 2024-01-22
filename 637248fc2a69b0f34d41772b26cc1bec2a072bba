@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1da17bd_2ae9b7c7",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 767,
+      "author": {
+        "id": 1001023
+      },
+      "writtenOn": "2024-01-22T16:56:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff9446e5_267b073e",
+      "range": {
+        "startLine": 767,
+        "startChar": 16,
+        "endLine": 767,
+        "endChar": 30
+      },
+      "revId": "637248fc2a69b0f34d41772b26cc1bec2a072bba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bc0c5782_28ed55ed",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-01-19T19:50:52Z",
       "side": 1,
       "message": "On dbus unpack failure, we shouldn\u0027t do anything other than return an internal error.  I suspect what you meant to do was:\n\nbool available \u003d true;\nif (checkAvailable \u003d\u003d nullptr){\n   available \u003d *checkAvailable;\n}\ngetState(...., available);",
+      "range": {
+        "startLine": 776,
+        "startChar": 0,
+        "endLine": 779,
+        "endChar": 5
+      },
+      "revId": "637248fc2a69b0f34d41772b26cc1bec2a072bba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20cf05f1_a92f5604",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 779,
+      "author": {
+        "id": 1001023
+      },
+      "writtenOn": "2024-01-22T16:56:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc0c5782_28ed55ed",
       "range": {
         "startLine": 776,
         "startChar": 0,
