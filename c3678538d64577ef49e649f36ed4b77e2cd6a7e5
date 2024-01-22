@@ -91,6 +91,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5d811d2e_22c17edb",
+        "filename": "http/http_file_body.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-01-22T05:11:27Z",
+      "side": 1,
+      "message": "Yes, the code doesn\u0027t handle the error case. I wrote it just to state the intent.\n\nWhat I was expecting is an API that will help us to start read from an offset and specified size of data. This will help us to offload a part of a file. Once the API is available then a large file offload request can be broken into multiple requests requesting smaller parts of the file. A redfish client can stitch back the content from multiple requests into to single large file. This is not a standard redfish protocol. But downstream can make use of it to customize the large file offloading.\n\nThis can be part of another patch.",
+      "parentUuid": "8c573b3f_f761f726",
+      "revId": "c3678538d64577ef49e649f36ed4b77e2cd6a7e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3e787b4b_97162238",
         "filename": "http/http_file_body.hpp",
         "patchSetId": 39
