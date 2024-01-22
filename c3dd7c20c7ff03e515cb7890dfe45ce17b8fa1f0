@@ -165,6 +165,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "90423427_3efbffce",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-22T20:05:19Z",
+      "side": 1,
+      "message": "I see schema violations in this patch that will become apparent when you run the validator.  I haven\u0027t called them out explicitly because the tool can give a better explanation than I can.  If you need help on how to fix it, let me know.",
+      "parentUuid": "bc2af71a_6d37a945",
+      "revId": "c3dd7c20c7ff03e515cb7890dfe45ce17b8fa1f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "fd71aed0_d68f499b",
