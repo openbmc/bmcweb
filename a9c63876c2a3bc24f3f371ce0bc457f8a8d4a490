@@ -60,6 +60,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0d1d4ede_107cc558",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 907,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-23T00:02:39Z",
+      "side": 1,
+      "message": "It helps maintainers significantly if you don\u0027t Code Review +1 patches that you\u0027re asking for changes on.  As is, I don\u0027t know if you think this change is needed or isn\u0027t.",
+      "parentUuid": "8e87b9ca_fdbaa6c8",
+      "range": {
+        "startLine": 907,
+        "startChar": 9,
+        "endLine": 907,
+        "endChar": 31
+      },
+      "revId": "a9c63876c2a3bc24f3f371ce0bc457f8a8d4a490",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7a55b4fa_d44f4e3d",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 11
@@ -71,6 +95,30 @@
       "writtenOn": "2024-01-19T19:55:07Z",
       "side": 1,
       "message": "This is a non trivial lambda, which is noted in the developing guide as disallowed.  Please make this a normal function, and pass the parameters with std::bind_front",
+      "range": {
+        "startLine": 907,
+        "startChar": 0,
+        "endLine": 925,
+        "endChar": 6
+      },
+      "revId": "a9c63876c2a3bc24f3f371ce0bc457f8a8d4a490",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc82d2f3_49435a8b",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 925,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-23T00:02:39Z",
+      "side": 1,
+      "message": "in addition, can this function be unit tested?",
+      "parentUuid": "7a55b4fa_d44f4e3d",
       "range": {
         "startLine": 907,
         "startChar": 0,
