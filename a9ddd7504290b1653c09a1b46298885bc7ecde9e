@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4ff7cfb0_f8033fa2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-01-23T06:20:51Z",
+      "side": 1,
+      "message": "NO, we tested it and Validator passed.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/65286/7/redfish-core/lib/thermal_metrics.hpp#34\nThis is an array, but the writing method is different. I have updated it in the new patch as per your comment.",
+      "parentUuid": "2107cd10_bc6d7b49",
+      "revId": "a9ddd7504290b1653c09a1b46298885bc7ecde9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c0f765b4_07592c81",
         "filename": "/COMMIT_MSG",
         "patchSetId": 7
@@ -171,6 +189,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4aeec343_62fca01a",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-01-23T06:20:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "940c5908_40f7a1e5",
+      "range": {
+        "startLine": 34,
+        "startChar": 20,
+        "endLine": 34,
+        "endChar": 29
+      },
+      "revId": "a9ddd7504290b1653c09a1b46298885bc7ecde9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "550da352_b552fba5",
@@ -232,6 +274,30 @@
       "side": 1,
       "message": "Please answer my question.  Did you test that the links your code produced were correct?\n\nYou\u0027re quoting a DTMF example (which is not the specification) that was not taken on an openbmc system.  \"SysBrdTemp\" in the example is a uri segment that the server has control over, and on openbmc, doesn\u0027t match the example you\u0027ve given.\n\nI would expect that your tests would fail, which is why I\u0027m asking if they were run recently.  If they\u0027re not failing, then I\u0027m misunderstanding something.",
       "parentUuid": "048c46e1_414e8f15",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 68
+      },
+      "revId": "a9ddd7504290b1653c09a1b46298885bc7ecde9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "145af015_03f4854a",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-01-23T06:20:51Z",
+      "side": 1,
+      "message": "\u003e Please answer my question.  Did you test that the links your code produced were correct?\n\nYes, validator passed, and ran for a while on fp5280g3 and rainier.",
+      "parentUuid": "dd35cf64_392edd04",
       "range": {
         "startLine": 38,
         "startChar": 0,
@@ -315,6 +381,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0a2d1fd0_d3c4fbea",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-01-23T06:20:51Z",
+      "side": 1,
+      "message": "Removed `DeviceName` on patch-9.",
+      "parentUuid": "556b694b_aaea7076",
+      "range": {
+        "startLine": 40,
+        "startChar": 15,
+        "endLine": 40,
+        "endChar": 25
+      },
+      "revId": "a9ddd7504290b1653c09a1b46298885bc7ecde9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "124c6042_066e39d5",
         "filename": "redfish-core/lib/thermal_metrics.hpp",
         "patchSetId": 7
@@ -362,6 +452,24 @@
       "side": 1,
       "message": "\u003e \u003e Lots of this method looks incorrect.\n\u003e \n\nCompare your code to handleSensorGet, and you will see some very obvious differences in how the properties are generated.\n\n\u003e \n\u003e \u003e sensors::handleSensorGet\n\u003e \n\u003e I checked this method, but I do not know how to implement `DeviceName` and `Reading`. I do not think we can use this method instead.\n\nhandleSensorGet doesn\u0027t currently implement DeviceName, so I\u0027m not sure why that relates.  I would assume that DeviceName would need to be implemented in handleSensorGet, FIRST, before we could use it in ThermalSubsystem.",
       "parentUuid": "07ac6949_a8b2a28e",
+      "revId": "a9ddd7504290b1653c09a1b46298885bc7ecde9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f68b3a4e_ddffb5ce",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-01-23T06:20:51Z",
+      "side": 1,
+      "message": "How to implement `TemperatureReadingsCelsius` in `handleSensorGet` method?\n\nYes, they do have similarities, but the properties they expose are completely different. Why use this method instead?\n\nIf there is a problem with the current logic, please point it out. At least for now, handleSensorGet is not a universal method.",
+      "parentUuid": "5dc15fcb_71283936",
       "revId": "a9ddd7504290b1653c09a1b46298885bc7ecde9e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
