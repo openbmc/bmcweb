@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a32cae98_19fc2a15",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000331
+      },
+      "writtenOn": "2024-01-23T14:15:06Z",
+      "side": 1,
+      "message": "Hi.  I was assigned the work item to implement these Redfish properties very late in a release cycle.  As a result I needed to do a downstream implementation that was not general purpose.\n\nI appreciate your efforts in upstreaming this.  I agree with Ed that this code needs to be more general and handle chassis-specific properties to be acceptable upstream.\n\nI don\u0027t have time to work on that right now.  If you have time that would be great.  Otherwise I will re-visit this when I am freed up.",
+      "parentUuid": "17577684_6c7feb9f",
+      "revId": "9ae36439808d783fd5e18c2311cb6db1a3111720",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a12bb505_2a6cb3fe",
