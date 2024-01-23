@@ -344,6 +344,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "f310e822_cfa30bbb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001663
+      },
+      "writtenOn": "2024-01-23T13:33:37Z",
+      "side": 1,
+      "message": "Tested use case with a static NTP server.\n\nroot@rain136bmc:~# busctl get-property xyz.openbmc_project.Settings /xyz/openbmc_project/time/sync_method xyz.openbmc_project.Time.Synchronization TimeSyncMethod\ns \"xyz.openbmc_project.Time.Synchronization.Method.NTP\"\n\nroot@rain136bmc:~# timedatectl show-timesync --all\nLinkNTPServers\u003d9.3.40.129\nSystemNTPServers\u003d\nRuntimeNTPServers\u003d\nFallbackNTPServers\u003dtime1.google.com time2.google.com time3.google.com time4.google.com\nServerName\u003d9.3.40.129\nServerAddress\u003d9.3.40.129\nRootDistanceMaxUSec\u003d5s\nPollIntervalMinUSec\u003d32s\nPollIntervalMaxUSec\u003d34min 8s\nPollIntervalUSec\u003d32s\nNTPMessage\u003d{ Leap\u003d0, Version\u003d4, Mode\u003d4, Stratum\u003d3, Precision\u003d-24, RootDelay\u003d47.821ms, RootDispersion\u003d51.696ms, Reference\u003d5A1D519, OriginateTimestamp\u003dTue 2024-01-23 08:49:14 UTC, ReceiveTimestamp\u003dTue 2024-01-23 08:49:05 UTC, TransmitTimestamp\u003dTue 2024-01-23 08:49:05 UTC, DestinationTimestamp\u003dTue 2024-01-23 08:49:14 UTC, Ignored\u003dno, PacketCount\u003d1, Jitter\u003d0 }\nFrequency\u003d0\n\n\nroot@rain136bmc:~# timedatectl status\n               Local time: Tue 2024-01-23 08:49:46 UTC\n           Universal time: Tue 2024-01-23 08:49:46 UTC\n                 RTC time: Tue 2024-01-23 08:49:46\n                Time zone: UTC (UTC, +0000)\nSystem clock synchronized: yes\n              NTP service: active\n          RTC in local TZ: no\nroot@rain136bmc:~# \nroot@rain136bmc:~# \nroot@rain136bmc:~# systemctl status systemd-timesyncd\n* systemd-timesyncd.service - Network Time Synchronization\n     Loaded: loaded (/usr/lib/systemd/system/systemd-timesyncd.service; enabled; preset: enabled)\n     Active: active (running) since Tue 2024-01-23 08:47:41 UTC; 2min 28s ago\n       Docs: man:systemd-timesyncd.service(8)\n   Main PID: 271 (systemd-timesyn)\n     Status: \"Contacted time server 9.3.40.129:123 (9.3.40.129).\"\n        CPU: 320ms\n     CGroup: /system.slice/systemd-timesyncd.service\n             `-271 /usr/lib/systemd/systemd-timesyncd\n\nJan 23 08:47:43 rain136bmc systemd-timesyncd[271]: Network configuration changed, trying to establish connection.\nJan 23 08:47:43 rain136bmc systemd-timesyncd[271]: Network configuration changed, trying to establish connection.\nJan 23 08:47:47 rain136bmc systemd-timesyncd[271]: Network configuration changed, trying to establish connection.\nJan 23 08:47:47 rain136bmc systemd-timesyncd[271]: Network configuration changed, trying to establish connection.\nJan 23 08:49:13 rain136bmc systemd-timesyncd[271]: Network configuration changed, trying to establish connection.\nJan 23 08:49:14 rain136bmc systemd-timesyncd[271]: Network configuration changed, trying to establish connection.\nJan 23 08:49:14 rain136bmc systemd-timesyncd[271]: Network configuration changed, trying to establish connection.\nJan 23 08:49:14 rain136bmc systemd-timesyncd[271]: Network configuration changed, trying to establish connection.\nJan 23 08:49:05 rain136bmc systemd-timesyncd[271]: Contacted time server 9.3.40.129:123 (9.3.40.129).\nJan 23 08:49:05 rain136bmc systemd-timesyncd[271]: Initial clock synchronization to Tue 2024-01-23 08:49:05.129605 UTC.\n\n\nAlso confirmed the same with collecting the tcp dump.",
+      "parentUuid": "0b7c3244_e9389b7b",
+      "revId": "1222d7c4c2ba6b0deeb7355bc6019a97bcd45836",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "1b801c60_6703bdc6",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 13
