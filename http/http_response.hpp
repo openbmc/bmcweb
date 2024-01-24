@@ -4,9 +4,6 @@
 #include "utils/hex_utils.hpp"
 
 #include <boost/beast/http/message.hpp>
-#include <boost/beast/http/message_generator.hpp>
-#include <boost/beast/http/string_body.hpp>
-#include <boost/variant2/variant.hpp>
 #include <nlohmann/json.hpp>
 
 #include <optional>
@@ -26,24 +23,18 @@ struct Response
     template <typename Adaptor, typename Handler>
     friend class crow::Connection;
 
-    using string_response = http::response<http::string_body>;
-    using file_response = http::response<bmcweb::FileBody>;
-
-    // Use boost variant2 because it doesn't have valueless by exception
-    boost::variant2::variant<string_response, file_response> response;
+    http::response<bmcweb::FileBody> response;
 
     nlohmann::json jsonValue;
     using fields_type = http::header<false, http::fields>;
     fields_type& fields()
     {
-        return boost::variant2::visit(
-            [](auto&& r) -> fields_type& { return r.base(); }, response);
+        return response.base();
     }
 
     const fields_type& fields() const
     {
-        return boost::variant2::visit(
-            [](auto&& r) -> const fields_type& { return r.base(); }, response);
+        return response.base();
     }
 
     void addHeader(std::string_view key, std::string_view value)
@@ -61,7 +52,7 @@ struct Response
         fields().erase(key);
     }
 
-    Response() : response(string_response()) {}
+    Response() = default;
     Response(Response&& res) noexcept :
         response(std::move(res.response)), jsonValue(std::move(res.jsonValue)),
         completed(res.completed)
@@ -72,8 +63,6 @@ struct Response
             completeRequestHandler = std::move(res.completeRequestHandler);
             res.completeRequestHandler = nullptr;
         }
-        isAliveHelper = res.isAliveHelper;
-        res.isAliveHelper = nullptr;
     }
 
     ~Response() = default;
@@ -107,8 +96,6 @@ struct Response
             completeRequestHandler = nullptr;
         }
         completed = r.completed;
-        isAliveHelper = std::move(r.isAliveHelper);
-        r.isAliveHelper = nullptr;
         return *this;
     }
 
@@ -124,20 +111,9 @@ struct Response
 
     void copyBody(const Response& res)
     {
-        const string_response* s =
-            boost::variant2::get_if<string_response>(&(res.response));
-        if (s == nullptr)
-        {
-            BMCWEB_LOG_ERROR("Unable to copy a file");
-            return;
-        }
-        string_response* myString =
-            boost::variant2::get_if<string_response>(&response);
-        if (myString == nullptr)
-        {
-            myString = &response.emplace<string_response>();
-        }
-        myString->body() = s->body();
+        // Note, this does NOT copy file handles
+        response.body().clear();
+        response.body().str() = res.response.body().str();
     }
 
     http::status result() const
@@ -162,13 +138,7 @@ struct Response
 
     const std::string* body()
     {
-        string_response* body =
-            boost::variant2::get_if<string_response>(&response);
-        if (body == nullptr)
-        {
-            return nullptr;
-        }
-        return &body->body();
+        return &response.body().str();
     }
 
     std::string_view getHeaderValue(std::string_view key) const
@@ -178,27 +148,31 @@ struct Response
 
     void keepAlive(bool k)
     {
-        return boost::variant2::visit([k](auto&& r) { r.keep_alive(k); },
-                                      response);
+        response.keep_alive(k);
     }
 
     bool keepAlive() const
     {
-        return boost::variant2::visit([](auto&& r) { return r.keep_alive(); },
-                                      response);
+        return response.keep_alive();
     }
 
-    uint64_t getContentLength(boost::optional<uint64_t> pSize)
+    std::optional<uint64_t> size()
+    {
+        return response.body().payloadSize();
+    }
+
+    void preparePayload()
     {
         // This code is a throw-free equivalent to
         // beast::http::message::prepare_payload
+        std::optional<uint64_t> pSize = response.body().payloadSize();
+        if (!pSize)
+        {
+            return;
+        }
         using http::status;
         using http::status_class;
         using http::to_status_class;
-        if (!pSize)
-        {
-            return 0;
-        }
         bool is1XXReturn = to_status_class(result()) ==
                            status_class::informational;
         if (*pSize > 0 && (is1XXReturn || result() == status::no_content ||
@@ -208,30 +182,17 @@ struct Response
                                 "no-content or not_modified, which aren't "
                                 "allowed to have a body",
                                 logPtr(this));
-            return 0;
+            response.content_length(0);
+            return;
         }
-        return *pSize;
-    }
-
-    uint64_t size()
-    {
-        return boost::variant2::visit(
-            [](auto&& res) -> uint64_t { return res.body().size(); }, response);
-    }
-
-    void preparePayload()
-    {
-        boost::variant2::visit(
-            [this](auto&& r) {
-            r.content_length(getContentLength(r.payload_size()));
-        },
-            response);
+        response.content_length(*pSize);
     }
 
     void clear()
     {
         BMCWEB_LOG_DEBUG("{} Clearing response containers", logPtr(this));
-        response.emplace<string_response>();
+        response.clear();
+
         jsonValue = nullptr;
         completed = false;
         expectedHash = std::nullopt;
@@ -255,17 +216,7 @@ struct Response
 
     void write(std::string&& bodyPart)
     {
-        string_response* str =
-            boost::variant2::get_if<string_response>(&response);
-        if (str != nullptr)
-        {
-            str->body() += bodyPart;
-            return;
-        }
-        http::header<false> headTemp = std::move(fields());
-        string_response& stringResponse =
-            response.emplace<string_response>(std::move(headTemp));
-        stringResponse.body() = std::move(bodyPart);
+        response.body().str() = std::move(bodyPart);
     }
 
     void end()
@@ -289,11 +240,6 @@ struct Response
         }
     }
 
-    bool isAlive() const
-    {
-        return isAliveHelper && isAliveHelper();
-    }
-
     void setCompleteRequestHandler(std::function<void(Response&)>&& handler)
     {
         BMCWEB_LOG_DEBUG("{} setting completion handler", logPtr(this));
@@ -311,18 +257,6 @@ struct Response
         std::function<void(Response&)> ret = completeRequestHandler;
         completeRequestHandler = nullptr;
         completed = true;
-        return ret;
-    }
-
-    void setIsAliveHelper(std::function<bool()>&& handler)
-    {
-        isAliveHelper = std::move(handler);
-    }
-
-    std::function<bool()> releaseIsAliveHelper()
-    {
-        std::function<bool()> ret = std::move(isAliveHelper);
-        isAliveHelper = nullptr;
         return ret;
     }
 
@@ -348,56 +282,36 @@ struct Response
         expectedHash = hash;
     }
 
-    using message_generator = http::message_generator;
-    message_generator generator()
-    {
-        return boost::variant2::visit(
-            [](auto& r) -> message_generator { return std::move(r); },
-            response);
-    }
-
     bool openFile(const std::filesystem::path& path,
                   bmcweb::EncodingType enc = bmcweb::EncodingType::Raw)
     {
-        file_response::body_type::value_type body(enc);
         boost::beast::error_code ec;
-        body.open(path.c_str(), boost::beast::file_mode::read, ec);
+        response.body().open(path.c_str(), boost::beast::file_mode::read, ec);
+        response.body().encodingType = enc;
         if (ec)
         {
+            BMCWEB_LOG_ERROR("Failed to open file {}", path.c_str());
             return false;
         }
-        updateFileBody(std::move(body));
         return true;
     }
 
     bool openFd(int fd, bmcweb::EncodingType enc = bmcweb::EncodingType::Raw)
     {
-        file_response::body_type::value_type body(enc);
         boost::beast::error_code ec;
-        body.setFd(fd, ec);
+        response.body().encodingType = enc;
+        response.body().setFd(fd, ec);
         if (ec)
         {
             BMCWEB_LOG_ERROR("Failed to set fd");
             return false;
         }
-        updateFileBody(std::move(body));
         return true;
     }
 
   private:
-    void updateFileBody(file_response::body_type::value_type file)
-    {
-        // store the headers on stack temporarily so we can reconstruct the new
-        // base with the old headers copied in.
-        http::header<false> headTemp = std::move(fields());
-        file_response& fileResponse =
-            response.emplace<file_response>(std::move(headTemp));
-        fileResponse.body() = std::move(file);
-    }
-
     std::optional<std::string> expectedHash;
     bool completed = false;
     std::function<void(Response&)> completeRequestHandler;
-    std::function<bool()> isAliveHelper;
 };
 } // namespace crow

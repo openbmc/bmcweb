@@ -84,21 +84,13 @@ std::string
 
     return ret;
 }
-std::string getData(crow::Response::file_response& m)
+std::string getData(boost::beast::http::response<bmcweb::FileBody>& m)
 {
     boost::beast::http::serializer<false, bmcweb::FileBody> sr{m};
     std::stringstream ret;
     sr.split(true);
     readHeader(sr);
     return readBody(sr);
-}
-TEST(HttpResponse, Defaults)
-{
-    crow::Response res;
-    EXPECT_EQ(
-        boost::variant2::holds_alternative<crow::Response::string_response>(
-            res.response),
-        true);
 }
 TEST(HttpResponse, Headers)
 {
@@ -156,17 +148,8 @@ TEST(HttpResponse, BodyTransitions)
     std::string path = makeFile("sample text");
     res.openFile(path);
 
-    EXPECT_EQ(boost::variant2::holds_alternative<crow::Response::file_response>(
-                  res.response),
-              true);
-
     verifyHeaders(res);
     res.write("body text");
-
-    EXPECT_EQ(
-        boost::variant2::holds_alternative<crow::Response::string_response>(
-            res.response),
-        true);
 
     verifyHeaders(res);
     std::filesystem::remove(path);
@@ -174,8 +157,7 @@ TEST(HttpResponse, BodyTransitions)
 
 void testFileData(crow::Response& res, const std::string& data)
 {
-    auto& fb =
-        boost::variant2::get<crow::Response::file_response>(res.response);
+    auto& fb = res.response;
     EXPECT_EQ(getData(fb), data);
 }
 
