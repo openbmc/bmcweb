@@ -6,9 +6,9 @@
 #include <boost/asio/io_context.hpp>
 #include <boost/asio/ip/address.hpp>
 #include <boost/beast/http/message.hpp>
-#include <boost/beast/http/string_body.hpp>
 #include <boost/beast/websocket.hpp>
 #include <boost/url/url.hpp>
+#include <http_file_body.hpp>
 
 #include <string>
 #include <string_view>
@@ -19,7 +19,7 @@ namespace crow
 
 struct Request
 {
-    boost::beast::http::request<boost::beast::http::string_body> req;
+    boost::beast::http::request<bmcweb::FileBody> req;
 
   private:
     boost::urls::url urlBase{};
@@ -33,7 +33,7 @@ struct Request
     std::shared_ptr<persistent_data::UserSession> session;
 
     std::string userRole{};
-    Request(boost::beast::http::request<boost::beast::http::string_body> reqIn,
+    Request(boost::beast::http::request<bmcweb::FileBody> reqIn,
             std::error_code& ec) :
         req(std::move(reqIn))
     {
@@ -63,6 +63,17 @@ struct Request
     void addHeader(boost::beast::http::field key, std::string_view value)
     {
         req.insert(key, value);
+    }
+
+    void clear()
+    {
+        req.clear();
+        urlBase.clear();
+        isSecure = false;
+        ioService = nullptr;
+        ipAddress = boost::asio::ip::address();
+        session = nullptr;
+        userRole = "";
     }
 
     boost::beast::http::verb method() const
@@ -102,7 +113,7 @@ struct Request
 
     const std::string& body() const
     {
-        return req.body();
+        return req.body().str();
     }
 
     bool target(std::string_view target)

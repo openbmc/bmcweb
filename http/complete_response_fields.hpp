@@ -10,7 +10,6 @@
 #include "utils/hex_utils.hpp"
 
 #include <boost/beast/http/message.hpp>
-#include <boost/beast/http/string_body.hpp>
 #include <nlohmann/json.hpp>
 
 #include <array>

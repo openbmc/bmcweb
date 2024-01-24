@@ -33,7 +33,6 @@
 #include <boost/beast/http/message.hpp>
 #include <boost/beast/http/parser.hpp>
 #include <boost/beast/http/read.hpp>
-#include <boost/beast/http/string_body.hpp>
 #include <boost/beast/http/write.hpp>
 #include <boost/beast/ssl/ssl_stream.hpp>
 #include <boost/beast/version.hpp>
@@ -117,10 +116,10 @@ struct ConnectionPolicy
 
 struct PendingRequest
 {
-    boost::beast::http::request<boost::beast::http::string_body> req;
+    boost::beast::http::request<bmcweb::FileBody> req;
     std::function<void(bool, uint32_t, Response&)> callback;
     PendingRequest(
-        boost::beast::http::request<boost::beast::http::string_body>&& reqIn,
+        boost::beast::http::request<bmcweb::FileBody>&& reqIn,
         const std::function<void(bool, uint32_t, Response&)>& callbackIn) :
         req(std::move(reqIn)),
         callback(callbackIn)
@@ -139,8 +138,8 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     uint32_t connId;
 
     // Data buffers
-    http::request<http::string_body> req;
-    using parser_type = http::response_parser<http::string_body>;
+    http::request<bmcweb::FileBody> req;
+    using parser_type = http::response_parser<bmcweb::FileBody>;
     std::optional<parser_type> parser;
     boost::beast::flat_static_buffer<httpReadBufferSize> buffer;
     Response res;
@@ -376,7 +375,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         {
             return;
         }
-        BMCWEB_LOG_DEBUG("recvMessage() data: {}", parser->get().body());
+        BMCWEB_LOG_DEBUG("recvMessage() data: {}", parser->get().body().str());
 
         unsigned int respCode = parser->get().result_int();
         BMCWEB_LOG_DEBUG("recvMessage() Header Response Code: {}", respCode);
@@ -669,7 +668,7 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
             return;
         }
 
-        auto nextReq = requestQueue.front();
+        PendingRequest& nextReq = requestQueue.front();
         conn.req = std::move(nextReq.req);
         conn.callback = std::move(nextReq.callback);
 
@@ -734,12 +733,12 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
                   const std::function<void(Response&)>& resHandler)
     {
         // Construct the request to be sent
-        boost::beast::http::request<boost::beast::http::string_body> thisReq(
+        boost::beast::http::request<bmcweb::FileBody> thisReq(
             verb, destUri.encoded_target(), 11, "", httpHeader);
         thisReq.set(boost::beast::http::field::host,
                     destUri.encoded_host_address());
         thisReq.keep_alive(true);
-        thisReq.body() = std::move(data);
+        thisReq.body().str() = std::move(data);
         thisReq.prepare_payload();
         auto cb = std::bind_front(&ConnectionPool::afterSendData,
                                   weak_from_this(), resHandler);
