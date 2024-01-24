@@ -21,7 +21,6 @@
 #include <boost/beast/http/parser.hpp>
 #include <boost/beast/http/read.hpp>
 #include <boost/beast/http/serializer.hpp>
-#include <boost/beast/http/string_body.hpp>
 #include <boost/beast/http/write.hpp>
 #include <boost/beast/ssl/ssl_stream.hpp>
 #include <boost/beast/websocket.hpp>
@@ -35,9 +34,9 @@ namespace crow
 
 struct Http2StreamData
 {
-    crow::Request req{};
-    crow::Response res{};
-    size_t sentSofar = 0;
+    Request req{};
+    Response res{};
+    std::optional<bmcweb::FileBody::writer> writer;
 };
 
 template <typename Adaptor, typename Handler>
@@ -48,14 +47,10 @@ class HTTP2Connection :
 
   public:
     HTTP2Connection(Adaptor&& adaptorIn, Handler* handlerIn,
-                    std::function<std::string()>& getCachedDateStrF
-
-                    ) :
+                    std::function<std::string()>& getCachedDateStrF) :
         adaptor(std::move(adaptorIn)),
-
-        ngSession(initializeNghttp2Session()),
-
-        handler(handlerIn), getCachedDateStr(getCachedDateStrF)
+        ngSession(initializeNghttp2Session()), handler(handlerIn),
+        getCachedDateStr(getCachedDateStrF)
     {}
 
     void start()
@@ -103,59 +98,46 @@ class HTTP2Connection :
         }
         Http2StreamData& stream = streamIt->second;
         BMCWEB_LOG_DEBUG("File read callback length: {}", length);
-        crow::Response& res = stream.res;
 
-        Response::string_response* body =
-            boost::variant2::get_if<Response::string_response>(&res.response);
-        Response::file_response* fbody =
-            boost::variant2::get_if<Response::file_response>(&res.response);
-
-        size_t size = res.size();
-        BMCWEB_LOG_DEBUG("total: {} send_sofar: {}", size, stream.sentSofar);
-
-        size_t toSend = std::min(size - stream.sentSofar, length);
-        BMCWEB_LOG_DEBUG("Copying {} bytes to buf", toSend);
-
-        if (body != nullptr)
-        {
-            std::string::const_iterator bodyBegin = body->body().begin();
-            std::advance(bodyBegin, stream.sentSofar);
-
-            memcpy(buf, &*bodyBegin, toSend);
-        }
-        else if (fbody != nullptr)
-        {
-            boost::system::error_code ec;
-
-            size_t nread = fbody->body().file().read(buf, toSend, ec);
-            if (ec || nread != toSend)
-            {
-                return NGHTTP2_ERR_TEMPORAL_CALLBACK_FAILURE;
-            }
-        }
-        else
+        boost::beast::error_code ec;
+        boost::optional<std::pair<boost::asio::const_buffer, bool>> out =
+            stream.writer->getWithMaxSize(ec, length);
+        if (ec)
         {
             return NGHTTP2_ERR_TEMPORAL_CALLBACK_FAILURE;
         }
 
-        stream.sentSofar += toSend;
-
-        if (stream.sentSofar >= size)
+        if (!out)
         {
-            BMCWEB_LOG_DEBUG("Setting OEF flag");
+            *dataFlags |= NGHTTP2_DATA_FLAG_EOF;
+            return 0;
+        }
+
+        BMCWEB_LOG_DEBUG("Send chunk of size: {}", out->first.size());
+        if (length < out->first.size())
+        {
+            // Should never happen because of length limit on get() above
+            return NGHTTP2_ERR_TEMPORAL_CALLBACK_FAILURE;
+        }
+
+        BMCWEB_LOG_DEBUG("Copying {} bytes to buf", out->first.size());
+        memcpy(buf, out->first.data(), out->first.size());
+
+        if (!out->second)
+        {
+            BMCWEB_LOG_DEBUG("Setting OEF and nocopy flag");
             *dataFlags |= NGHTTP2_DATA_FLAG_EOF;
             //*dataFlags |= NGHTTP2_DATA_FLAG_NO_COPY;
         }
-        return static_cast<ssize_t>(toSend);
+        return static_cast<ssize_t>(out->first.size());
     }
 
     nghttp2_nv headerFromStringViews(std::string_view name,
-                                     std::string_view value)
+                                     std::string_view value, uint8_t flags)
     {
         uint8_t* nameData = std::bit_cast<uint8_t*>(name.data());
         uint8_t* valueData = std::bit_cast<uint8_t*>(value.data());
-        return {nameData, valueData, name.size(), value.size(),
-                NGHTTP2_NV_FLAG_NONE};
+        return {nameData, valueData, name.size(), value.size(), flags};
     }
 
     int sendResponse(Response& completedRes, int32_t streamId)
@@ -178,14 +160,18 @@ class HTTP2Connection :
 
         boost::beast::http::fields& fields = thisRes.fields();
         std::string code = std::to_string(thisRes.resultInt());
-        hdr.emplace_back(headerFromStringViews(":status", code));
+        hdr.emplace_back(
+            headerFromStringViews(":status", code, NGHTTP2_NV_FLAG_NONE));
         for (const boost::beast::http::fields::value_type& header : fields)
         {
-            hdr.emplace_back(
-                headerFromStringViews(header.name_string(), header.value()));
+            hdr.emplace_back(headerFromStringViews(
+                header.name_string(), header.value(),
+                NGHTTP2_NV_FLAG_NO_COPY_VALUE | NGHTTP2_NV_FLAG_NO_COPY_NAME));
         }
         Http2StreamData& stream = it->second;
-        stream.sentSofar = 0;
+        crow::Response& res = stream.res;
+        http::response<bmcweb::FileBody>& fbody = res.response;
+        stream.writer.emplace(fbody.base(), fbody.body());
 
         nghttp2_data_provider dataPrd{
             .source = {.fd = 0},
@@ -480,7 +466,7 @@ class HTTP2Connection :
 
     static ssize_t onSendCallbackStatic(nghttp2_session* session,
                                         const uint8_t* data, size_t length,
-                                        int flags /* flags */, void* userData)
+                                        int flags, void* userData)
     {
         return userPtrToSelf(userData).onSendCallback(session, data, length,
                                                       flags);
@@ -520,35 +506,36 @@ class HTTP2Connection :
             }
             inBuffer.commit(bytesTransferred);
 
-            size_t consumed = 0;
-            for (const auto bufferIt : inBuffer.data())
+            for (auto it = boost::asio::buffer_sequence_begin(inBuffer.data());
+                 it != boost::asio::buffer_sequence_end(inBuffer.data()); it++)
             {
-                std::span<const uint8_t> bufferSpan{
-                    std::bit_cast<const uint8_t*>(bufferIt.data()),
-                    bufferIt.size()};
-                BMCWEB_LOG_DEBUG("http2 is getting {} bytes",
-                                 bufferSpan.size());
-                ssize_t readLen = ngSession.memRecv(bufferSpan);
-                if (readLen <= 0)
+                while (inBuffer.size() > 0)
                 {
-                    BMCWEB_LOG_ERROR("nghttp2_session_mem_recv returned {}",
-                                     readLen);
-                    close();
-                    return;
+                    std::span<const uint8_t> bufferSpan{
+                        std::bit_cast<const uint8_t*>(it->data()), it->size()};
+                    BMCWEB_LOG_DEBUG("http2 is getting {} bytes",
+                                     bufferSpan.size());
+                    ssize_t readLen = ngSession.memRecv(bufferSpan);
+                    if (readLen <= 0)
+                    {
+                        BMCWEB_LOG_ERROR("nghttp2_session_mem_recv returned {}",
+                                         readLen);
+                        close();
+                        return;
+                    }
+                    inBuffer.consume(static_cast<size_t>(readLen));
                 }
-                consumed += static_cast<size_t>(readLen);
             }
-            inBuffer.consume(consumed);
 
             doRead();
         });
     }
 
     // A mapping from http2 stream ID to Stream Data
-    boost::container::flat_map<int32_t, Http2StreamData> streams;
+    std::unordered_map<int32_t, Http2StreamData> streams;
 
     boost::beast::multi_buffer sendBuffer;
-    boost::beast::multi_buffer inBuffer;
+    boost::beast::flat_static_buffer<8192> inBuffer;
 
     Adaptor adaptor;
     bool isWriting = false;
