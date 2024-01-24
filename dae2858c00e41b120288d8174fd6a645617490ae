@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5856dd0_f04889b2",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 1001023
+      },
+      "writtenOn": "2024-01-24T00:51:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9948125_38833c38",
+      "range": {
+        "startLine": 607,
+        "startChar": 22,
+        "endLine": 607,
+        "endChar": 23
+      },
+      "revId": "dae2858c00e41b120288d8174fd6a645617490ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f3db6abf_788eac14",
@@ -37,6 +61,24 @@
       "writtenOn": "2024-01-22T18:34:12Z",
       "side": 1,
       "message": "Why this over UnavailableOffline which I feel matches better with the D-Bus property?",
+      "revId": "dae2858c00e41b120288d8174fd6a645617490ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36f37157_dc7a7a97",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 1001023
+      },
+      "writtenOn": "2024-01-24T00:51:07Z",
+      "side": 1,
+      "message": "I was debating between \"StandbyOffline\" and \"UnavailableOffline\", so I have no issue changing it.",
+      "parentUuid": "f3db6abf_788eac14",
       "revId": "dae2858c00e41b120288d8174fd6a645617490ae",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
