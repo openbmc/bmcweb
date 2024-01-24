@@ -16,6 +16,24 @@
       "message": "should be\n```\nif (!success){\n   internalError();\n   return;\n}\n\nif (checkAvailable !\u003d nullptr){\n    available \u003d *checkAvailable;\n}\n```\n\nAs written, you\u0027re possibly dereferencing a null pointer.",
       "revId": "6e7e3eef9d2141dd4c30a5bfa3e8183510529660",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61d42b8a_2a040d78",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 772,
+      "author": {
+        "id": 1001023
+      },
+      "writtenOn": "2024-01-24T01:46:21Z",
+      "side": 1,
+      "message": "I added an extra check to the checkAvailable pointer, but I don\u0027t think we\u0027d want to return because there\u0027s stuff below like getHealth() that we\u0027d want to do still.",
+      "parentUuid": "47479256_e08b03a1",
+      "revId": "6e7e3eef9d2141dd4c30a5bfa3e8183510529660",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
