@@ -34,6 +34,24 @@
       "parentUuid": "47479256_e08b03a1",
       "revId": "6e7e3eef9d2141dd4c30a5bfa3e8183510529660",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07152de9_85f016b3",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 772,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-24T01:52:38Z",
+      "side": 1,
+      "message": "If you want to rearrange it so that the code after this block still runs on a parse failure, feel free, but internal error needs to be set on dbus interfaces that don\u0027t match what we expect.",
+      "parentUuid": "61d42b8a_2a040d78",
+      "revId": "6e7e3eef9d2141dd4c30a5bfa3e8183510529660",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
