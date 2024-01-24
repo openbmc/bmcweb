@@ -18,7 +18,6 @@
 #include <boost/asio/ssl/stream.hpp>
 #include <boost/asio/steady_timer.hpp>
 #include <boost/beast/_experimental/test/stream.hpp>
-#include <boost/beast/core/buffers_generator.hpp>
 #include <boost/beast/core/flat_static_buffer.hpp>
 #include <boost/beast/http/error.hpp>
 #include <boost/beast/http/parser.hpp>
@@ -222,7 +221,7 @@ class Connection :
         {
             return;
         }
-        crow::Request& thisReq = req.emplace(parser->release(), reqEc);
+        req = crow::Request(parser->release(), reqEc);
         if (reqEc)
         {
             BMCWEB_LOG_DEBUG("Request failed to construct{}", reqEc.message());
@@ -230,15 +229,15 @@ class Connection :
             completeRequest(res);
             return;
         }
-        thisReq.session = userSession;
+        req.session = userSession;
 
         // Fetch the client IP address
         readClientIp();
 
         // Check for HTTP version 1.1.
-        if (thisReq.version() == 11)
+        if (req.version() == 11)
         {
-            if (thisReq.getHeaderValue(boost::beast::http::field::host).empty())
+            if (req.getHeaderValue(boost::beast::http::field::host).empty())
             {
                 res.result(boost::beast::http::status::bad_request);
                 completeRequest(res);
@@ -247,13 +246,11 @@ class Connection :
         }
 
         BMCWEB_LOG_INFO("Request:  {} HTTP/{}.{} {} {} {}", logPtr(this),
-                        thisReq.version() / 10, thisReq.version() % 10,
-                        thisReq.methodString(), thisReq.target(),
-                        thisReq.ipAddress.to_string());
+                        req.version() / 10, req.version() % 10,
+                        req.methodString(), req.target(),
+                        req.ipAddress.to_string());
 
-        res.isAliveHelper = [this]() -> bool { return isAlive(); };
-
-        thisReq.ioService = static_cast<decltype(thisReq.ioService)>(
+        req.ioService = static_cast<decltype(req.ioService)>(
             &adaptor.get_executor().context());
 
         if (res.completed)
@@ -261,19 +258,19 @@ class Connection :
             completeRequest(res);
             return;
         }
-        keepAlive = thisReq.keepAlive();
+        keepAlive = req.keepAlive();
         if constexpr (!std::is_same_v<Adaptor, boost::beast::test::stream>)
         {
 #ifndef BMCWEB_INSECURE_DISABLE_AUTHX
-            if (!crow::authentication::isOnAllowlist(req->url().path(),
-                                                     req->method()) &&
-                thisReq.session == nullptr)
+            if (!crow::authentication::isOnAllowlist(req.url().path(),
+                                                     req.method()) &&
+                req.session == nullptr)
             {
                 BMCWEB_LOG_WARNING("Authentication failed");
                 forward_unauthorized::sendUnauthorized(
-                    req->url().encoded_path(),
-                    req->getHeaderValue("X-Requested-With"),
-                    req->getHeaderValue("Accept"), res);
+                    req.url().encoded_path(),
+                    req.getHeaderValue("X-Requested-With"),
+                    req.getHeaderValue("Accept"), res);
                 completeRequest(res);
                 return;
             }
@@ -286,11 +283,11 @@ class Connection :
             self->completeRequest(thisRes);
         });
         bool isSse =
-            isContentTypeAllowed(req->getHeaderValue("Accept"),
+            isContentTypeAllowed(req.getHeaderValue("Accept"),
                                  http_helpers::ContentType::EventStream, false);
         std::string_view upgradeType(
-            thisReq.getHeaderValue(boost::beast::http::field::upgrade));
-        if ((thisReq.isUpgrade() &&
+            req.getHeaderValue(boost::beast::http::field::upgrade));
+        if ((req.isUpgrade() &&
              bmcweb::asciiIEquals(upgradeType, "websocket")) ||
             isSse)
         {
@@ -308,33 +305,18 @@ class Connection :
                     return;
                 }
             });
-            handler->handleUpgrade(thisReq, asyncResp, std::move(adaptor));
+            handler->handleUpgrade(req, asyncResp, std::move(adaptor));
             return;
         }
         std::string_view expected =
-            req->getHeaderValue(boost::beast::http::field::if_none_match);
+            req.getHeaderValue(boost::beast::http::field::if_none_match);
         if (!expected.empty())
         {
             res.setExpectedHash(expected);
         }
-        handler->handle(thisReq, asyncResp);
+        handler->handle(req, asyncResp);
     }
 
-    bool isAlive()
-    {
-        if constexpr (IsTls<Adaptor>::value)
-        {
-            return adaptor.next_layer().is_open();
-        }
-        else if constexpr (std::is_same_v<Adaptor, boost::beast::test::stream>)
-        {
-            return true;
-        }
-        else
-        {
-            return adaptor.is_open();
-        }
-    }
     void close()
     {
         if constexpr (IsTls<Adaptor>::value)
@@ -356,22 +338,13 @@ class Connection :
 
     void completeRequest(crow::Response& thisRes)
     {
-        if (!req)
-        {
-            return;
-        }
         res = std::move(thisRes);
         res.keepAlive(keepAlive);
 
-        completeResponseFields(*req, res);
+        completeResponseFields(req, res);
         res.addHeader(boost::beast::http::field::date, getCachedDateStr());
-        if (!isAlive())
-        {
-            res.setCompleteRequestHandler(nullptr);
-            return;
-        }
 
-        doWrite(res);
+        doWrite();
 
         // delete lambda with self shared_ptr
         // to enable connection destruction
@@ -386,11 +359,7 @@ class Connection :
         {
             return;
         }
-        if (!req)
-        {
-            return;
-        }
-        req->ipAddress = ip;
+        req.ipAddress = ip;
     }
 
     boost::system::error_code getClientIp(boost::asio::ip::address& ip)
@@ -432,10 +401,11 @@ class Connection :
                                        std::size_t bytesTransferred) {
             BMCWEB_LOG_DEBUG("{} async_read_header {} Bytes", logPtr(this),
                              bytesTransferred);
-            bool errorWhileReading = false;
+
             if (ec)
             {
-                errorWhileReading = true;
+                cancelDeadlineTimer();
+
                 if (ec == boost::beast::http::error::end_of_stream)
                 {
                     BMCWEB_LOG_WARNING("{} Error while reading: {}",
@@ -446,22 +416,6 @@ class Connection :
                     BMCWEB_LOG_ERROR("{} Error while reading: {}", logPtr(this),
                                      ec.message());
                 }
-            }
-            else
-            {
-                // if the adaptor isn't open anymore, and wasn't handed to a
-                // websocket, treat as an error
-                if (!isAlive() &&
-                    !boost::beast::websocket::is_upgrade(parser->get()))
-                {
-                    errorWhileReading = true;
-                }
-            }
-
-            cancelDeadlineTimer();
-
-            if (errorWhileReading)
-            {
                 close();
                 BMCWEB_LOG_DEBUG("{} from read(1)", logPtr(this));
                 return;
@@ -584,19 +538,21 @@ class Connection :
         userSession = nullptr;
 
         // Destroy the Request via the std::optional
-        req.reset();
+        req.clear();
         doReadHeaders();
     }
 
-    void doWrite(crow::Response& thisRes)
+    void doWrite()
     {
         BMCWEB_LOG_DEBUG("{} doWrite", logPtr(this));
-        thisRes.preparePayload();
+        res.preparePayload();
 
         startDeadline();
-        boost::beast::async_write(adaptor, thisRes.generator(),
-                                  std::bind_front(&self_type::afterDoWrite,
-                                                  this, shared_from_this()));
+        serializer.emplace(res.response);
+        boost::beast::http::async_write(
+            adaptor, *serializer,
+            std::bind_front(&self_type::afterDoWrite, this,
+                            shared_from_this()));
     }
 
     void cancelDeadlineTimer()
@@ -655,13 +611,13 @@ class Connection :
     Handler* handler;
     // Making this a std::optional allows it to be efficiently destroyed and
     // re-created on Connection reset
-    std::optional<
-        boost::beast::http::request_parser<boost::beast::http::string_body>>
-        parser;
+    std::optional<boost::beast::http::request_parser<bmcweb::FileBody>> parser;
+    std::optional<boost::beast::http::response_serializer<bmcweb::FileBody>>
+        serializer;
 
     boost::beast::flat_static_buffer<8192> buffer;
 
-    std::optional<crow::Request> req;
+    crow::Request req;
     crow::Response res;
 
     std::shared_ptr<persistent_data::UserSession> userSession;
