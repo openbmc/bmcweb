@@ -1,3 +1,4 @@
+#include "boost/beast/core/buffers_to_string.hpp"
 #include "boost/beast/core/flat_buffer.hpp"
 #include "boost/beast/http/serializer.hpp"
 #include "http/http_response.hpp"
@@ -35,71 +36,40 @@ std::string makeFile(std::string_view sampleData)
     return stringPath;
 }
 
-void readHeader(boost::beast::http::serializer<false, bmcweb::FileBody>& sr)
+std::string getData(boost::beast::http::response<bmcweb::FileBody>& m)
 {
+    std::string ret;
+
+    boost::beast::http::response_serializer<bmcweb::FileBody> sr{m};
+    sr.split(true);
+
+    auto reader = [&sr, &ret](const boost::system::error_code& ec2,
+                              const auto& buffer) {
+        EXPECT_FALSE(ec2);
+        std::string ret2 = boost::beast::buffers_to_string(buffer);
+        sr.consume(ret2.size());
+        ret += ret2;
+    };
+    boost::system::error_code ec;
+
+    // Read headers
     while (!sr.is_header_done())
     {
-        boost::system::error_code ec;
-        sr.next(ec, [&sr](const boost::system::error_code& ec2,
-                          const auto& buffer) {
-            ASSERT_FALSE(ec2);
-            sr.consume(boost::beast::buffer_bytes(buffer));
-        });
-        ASSERT_FALSE(ec);
+        sr.next(ec, reader);
+        EXPECT_FALSE(ec);
     }
-}
+    ret.clear();
 
-std::string collectFromBuffers(
-    const auto& buffer,
-    boost::beast::http::serializer<false, bmcweb::FileBody>& sr)
-{
-    std::string ret;
-
-    for (auto iter = boost::asio::buffer_sequence_begin(buffer);
-         iter != boost::asio::buffer_sequence_end(buffer); ++iter)
-    {
-        const auto& innerBuf = *iter;
-        auto view = std::string_view(static_cast<const char*>(innerBuf.data()),
-                                     innerBuf.size());
-        ret += view;
-        sr.consume(innerBuf.size());
-    }
-    return ret;
-}
-
-std::string
-    readBody(boost::beast::http::serializer<false, bmcweb::FileBody>& sr)
-{
-    std::string ret;
+    // Read body
     while (!sr.is_done())
     {
-        boost::system::error_code ec;
-        sr.next(ec, [&sr, &ret](const boost::system::error_code& ec2,
-                                const auto& buffer) {
-            ASSERT_FALSE(ec2);
-            ret += collectFromBuffers(buffer, sr);
-        });
+        sr.next(ec, reader);
         EXPECT_FALSE(ec);
     }
 
     return ret;
 }
-std::string getData(crow::Response::file_response& m)
-{
-    boost::beast::http::serializer<false, bmcweb::FileBody> sr{m};
-    std::stringstream ret;
-    sr.split(true);
-    readHeader(sr);
-    return readBody(sr);
-}
-TEST(HttpResponse, Defaults)
-{
-    crow::Response res;
-    EXPECT_EQ(
-        boost::variant2::holds_alternative<crow::Response::string_response>(
-            res.response),
-        true);
-}
+
 TEST(HttpResponse, Headers)
 {
     crow::Response res;
@@ -156,17 +126,8 @@ TEST(HttpResponse, BodyTransitions)
     std::string path = makeFile("sample text");
     res.openFile(path);
 
-    EXPECT_EQ(boost::variant2::holds_alternative<crow::Response::file_response>(
-                  res.response),
-              true);
-
     verifyHeaders(res);
     res.write("body text");
-
-    EXPECT_EQ(
-        boost::variant2::holds_alternative<crow::Response::string_response>(
-            res.response),
-        true);
 
     verifyHeaders(res);
     std::filesystem::remove(path);
@@ -174,8 +135,7 @@ TEST(HttpResponse, BodyTransitions)
 
 void testFileData(crow::Response& res, const std::string& data)
 {
-    auto& fb =
-        boost::variant2::get<crow::Response::file_response>(res.response);
+    auto& fb = res.response;
     EXPECT_EQ(getData(fb), data);
 }
 

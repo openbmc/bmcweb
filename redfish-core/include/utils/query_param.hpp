@@ -511,7 +511,6 @@ inline bool processOnly(crow::App& app, crow::Response& res,
     BMCWEB_LOG_DEBUG("setting completion handler on {}",
                      logPtr(&asyncResp->res));
     asyncResp->res.setCompleteRequestHandler(std::move(completionHandler));
-    asyncResp->res.setIsAliveHelper(res.releaseIsAliveHelper());
     app.handle(newReq, asyncResp);
     return true;
 }
