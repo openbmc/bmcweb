@@ -52,6 +52,24 @@
       "parentUuid": "61d42b8a_2a040d78",
       "revId": "6e7e3eef9d2141dd4c30a5bfa3e8183510529660",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3bf30c4_35159532",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 772,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-25T16:03:47Z",
+      "side": 1,
+      "message": "What you did wasn\u0027t quite what I was thinking (state is still getting populated with a potentially wrong value on error) but at least an error is getting set.\n\nLooks good enough for me.",
+      "parentUuid": "07152de9_85f016b3",
+      "revId": "6e7e3eef9d2141dd4c30a5bfa3e8183510529660",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
