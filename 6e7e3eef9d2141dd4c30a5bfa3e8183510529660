@@ -70,6 +70,24 @@
       "parentUuid": "07152de9_85f016b3",
       "revId": "6e7e3eef9d2141dd4c30a5bfa3e8183510529660",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7bf4a919_e62ce0ed",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 772,
+      "author": {
+        "id": 1001023
+      },
+      "writtenOn": "2024-01-25T16:51:33Z",
+      "side": 1,
+      "message": "Would \"else if (checkAvailable !\u003d nullptr)\" be better because success would have to be true?",
+      "parentUuid": "a3bf30c4_35159532",
+      "revId": "6e7e3eef9d2141dd4c30a5bfa3e8183510529660",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
