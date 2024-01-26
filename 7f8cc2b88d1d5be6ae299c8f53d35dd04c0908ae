@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff9f032d_5d5d656d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-01-26T14:21:42Z",
+      "side": 1,
+      "message": "Do you mean to use the 3 single quotation marks instead of double quotation marks?   (\\`\\`\\`)",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 3
+      },
+      "revId": "7f8cc2b88d1d5be6ae299c8f53d35dd04c0908ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e52903cb_b44d6547",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-01-26T14:21:42Z",
+      "side": 1,
+      "message": "Most of the other places, use `subtree\u0027 here.\nIsn\u0027t it better to use it as common?\n```\nconst dbus::utility::MapperGetSubTreeResponse\u0026 subtree\n```",
+      "range": {
+        "startLine": 49,
+        "startChar": 4,
+        "endLine": 49,
+        "endChar": 58
+      },
+      "revId": "7f8cc2b88d1d5be6ae299c8f53d35dd04c0908ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1477a1b8_2b2d12d5",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-01-26T14:21:42Z",
+      "side": 1,
+      "message": "Wouldn\u0027t this be better with `BMCWEB_LOG_ERROR`?",
+      "range": {
+        "startLine": 79,
+        "startChar": 8,
+        "endLine": 79,
+        "endChar": 25
+      },
+      "revId": "7f8cc2b88d1d5be6ae299c8f53d35dd04c0908ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
