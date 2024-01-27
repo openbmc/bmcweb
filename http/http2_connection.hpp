@@ -80,6 +80,7 @@ class HTTP2Connection :
             BMCWEB_LOG_ERROR("Fatal error: {}", nghttp2_strerror(rv));
             return -1;
         }
+        writeBuffer();
         return 0;
     }
 
@@ -186,6 +187,7 @@ class HTTP2Connection :
             return -1;
         }
         ngSession.send();
+        writeBuffer();
 
         return 0;
     }
@@ -197,7 +199,6 @@ class HTTP2Connection :
         callbacks.setOnStreamCloseCallback(onStreamCloseCallbackStatic);
         callbacks.setOnHeaderCallback(onHeaderCallbackStatic);
         callbacks.setOnBeginHeadersCallback(onBeginHeadersCallbackStatic);
-        callbacks.setSendCallback(onSendCallbackStatic);
 
         nghttp2_session session(callbacks);
         session.setUserData(this);
@@ -433,7 +434,6 @@ class HTTP2Connection :
             self->close();
             return;
         }
-        self->sendBuffer.consume(sendLength);
         self->writeBuffer();
     }
 
@@ -443,33 +443,15 @@ class HTTP2Connection :
         {
             return;
         }
-        if (sendBuffer.size() <= 0)
+        std::span<const uint8_t> data = ngSession.memSend();
+        if (data.empty())
         {
             return;
         }
         isWriting = true;
         adaptor.async_write_some(
-            sendBuffer.data(),
+            boost::asio::buffer(data.data(), data.size()),
             std::bind_front(afterWriteBuffer, shared_from_this()));
-    }
-
-    ssize_t onSendCallback(nghttp2_session* /*session */, const uint8_t* data,
-                           size_t length, int /* flags */)
-    {
-        BMCWEB_LOG_DEBUG("On send callback size={}", length);
-        size_t copied = boost::asio::buffer_copy(
-            sendBuffer.prepare(length), boost::asio::buffer(data, length));
-        sendBuffer.commit(copied);
-        writeBuffer();
-        return static_cast<ssize_t>(length);
-    }
-
-    static ssize_t onSendCallbackStatic(nghttp2_session* session,
-                                        const uint8_t* data, size_t length,
-                                        int flags, void* userData)
-    {
-        return userPtrToSelf(userData).onSendCallback(session, data, length,
-                                                      flags);
     }
 
     void close()
@@ -486,58 +468,48 @@ class HTTP2Connection :
         }
     }
 
+    void afterDoRead(const std::shared_ptr<self_type>& /*self*/,
+                     const boost::system::error_code& ec,
+                     size_t bytesTransferred)
+    {
+        BMCWEB_LOG_DEBUG("{} async_read_some {} Bytes", logPtr(this),
+                         bytesTransferred);
+
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR("{} Error while reading: {}", logPtr(this),
+                             ec.message());
+            close();
+            BMCWEB_LOG_DEBUG("{} from read(1)", logPtr(this));
+            return;
+        }
+        std::span<const uint8_t> bufferSpan{
+            std::bit_cast<const uint8_t*>(inBuffer.data()), bytesTransferred};
+        BMCWEB_LOG_DEBUG("http2 is getting {} bytes", bufferSpan.size());
+        ssize_t readLen = ngSession.memRecv(bufferSpan);
+        if (readLen < 0)
+        {
+            BMCWEB_LOG_ERROR("nghttp2_session_mem_recv returned {}", readLen);
+            close();
+            return;
+        }
+        writeBuffer();
+
+        doRead();
+    }
+
     void doRead()
     {
         BMCWEB_LOG_DEBUG("{} doRead", logPtr(this));
         adaptor.async_read_some(
-            inBuffer.prepare(8192),
-            [this, self(shared_from_this())](
-                const boost::system::error_code& ec, size_t bytesTransferred) {
-            BMCWEB_LOG_DEBUG("{} async_read_some {} Bytes", logPtr(this),
-                             bytesTransferred);
-
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR("{} Error while reading: {}", logPtr(this),
-                                 ec.message());
-                close();
-                BMCWEB_LOG_DEBUG("{} from read(1)", logPtr(this));
-                return;
-            }
-            inBuffer.commit(bytesTransferred);
-            // NOLINTBEGIN(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-            for (const auto* it =
-                     boost::asio::buffer_sequence_begin(inBuffer.data());
-                 it != boost::asio::buffer_sequence_end(inBuffer.data()); it++)
-            {
-                // NOLINTEND(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-                while (inBuffer.size() > 0)
-                {
-                    std::span<const uint8_t> bufferSpan{
-                        std::bit_cast<const uint8_t*>(it->data()), it->size()};
-                    BMCWEB_LOG_DEBUG("http2 is getting {} bytes",
-                                     bufferSpan.size());
-                    ssize_t readLen = ngSession.memRecv(bufferSpan);
-                    if (readLen <= 0)
-                    {
-                        BMCWEB_LOG_ERROR("nghttp2_session_mem_recv returned {}",
-                                         readLen);
-                        close();
-                        return;
-                    }
-                    inBuffer.consume(static_cast<size_t>(readLen));
-                }
-            }
-
-            doRead();
-        });
+            boost::asio::buffer(inBuffer),
+            std::bind_front(&self_type::afterDoRead, this, shared_from_this()));
     }
 
     // A mapping from http2 stream ID to Stream Data
     std::unordered_map<int32_t, Http2StreamData> streams;
 
-    boost::beast::multi_buffer sendBuffer;
-    boost::beast::flat_static_buffer<8192> inBuffer;
+    std::array<uint8_t, 8192> inBuffer{};
 
     Adaptor adaptor;
     bool isWriting = false;
