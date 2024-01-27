@@ -135,6 +135,13 @@ struct nghttp2_session
         return nghttp2_session_mem_recv(ptr, buffer.data(), buffer.size());
     }
 
+    std::span<const uint8_t> memSend()
+    {
+        const uint8_t* bytes = nullptr;
+        ssize_t size = nghttp2_session_mem_send(ptr, &bytes);
+        return {bytes, static_cast<size_t>(size)};
+    }
+
     ssize_t send()
     {
         return nghttp2_session_send(ptr);
