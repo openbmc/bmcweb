@@ -1,6 +1,7 @@
 #include "boost/beast/core/buffers_to_string.hpp"
 #include "boost/beast/core/flat_buffer.hpp"
 #include "boost/beast/http/serializer.hpp"
+#include "file_test_utilities.hpp"
 #include "http/http_response.hpp"
 
 #include <filesystem>
@@ -23,20 +24,7 @@ void verifyHeaders(crow::Response& res)
     EXPECT_EQ(res.result(), boost::beast::http::status::ok);
 }
 
-std::string makeFile(std::string_view sampleData)
-{
-    std::filesystem::path path = std::filesystem::temp_directory_path();
-    path /= "bmcweb_http_response_test_XXXXXXXXXXX";
-    std::string stringPath = path.string();
-    int fd = mkstemp(stringPath.data());
-    EXPECT_GT(fd, 0);
-    EXPECT_EQ(write(fd, sampleData.data(), sampleData.size()),
-              sampleData.size());
-    close(fd);
-    return stringPath;
-}
-
-std::string getData(boost::beast::http::response<bmcweb::FileBody>& m)
+void readHeader(boost::beast::http::serializer<false, bmcweb::FileBody>& sr)
 {
     std::string ret;
 
@@ -139,6 +127,24 @@ void testFileData(crow::Response& res, const std::string& data)
     EXPECT_EQ(getData(fb), data);
 }
 
+std::string generateBigdata()
+{
+    std::string result;
+    while (result.size() < 10000)
+    {
+        result += "sample text";
+    }
+    return result;
+}
+
+TEST(HttpResponse, StringBodyWriterLarge)
+{
+    crow::Response res;
+    std::string data = generateBigdata();
+    res.write(std::string(data));
+    testFileData(res, data);
+}
+
 TEST(HttpResponse, Base64FileBodyWriter)
 {
     crow::Response res;
@@ -149,16 +155,6 @@ TEST(HttpResponse, Base64FileBodyWriter)
     testFileData(res, crow::utility::base64encode(data));
     fclose(f);
     std::filesystem::remove(path);
-}
-
-std::string generateBigdata()
-{
-    std::string result;
-    while (result.size() < 10000)
-    {
-        result += "sample text";
-    }
-    return result;
 }
 
 TEST(HttpResponse, Base64FileBodyWriterLarge)
