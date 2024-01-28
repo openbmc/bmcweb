@@ -357,7 +357,7 @@ else
 endif
 
 if get_option('tests').allowed()
-  gtest = dependency('gtest', main: true, disabler: true, required : false)
+  gtest = dependency('gtest', main: true, version: '1.14.0', disabler: true, required : false)
   gmock = dependency('gmock', required : false)
   if not gtest.found() and get_option('tests').allowed()
     gtest_proj = subproject('gtest', required: true)
@@ -429,6 +429,7 @@ srcfiles_unittest = files(
   'test/http/utility_test.cpp',
   'test/http/verb_test.cpp',
   'test/http/mutual_tls_meta.cpp',
+  'test/http/http_file_body_test.cpp',
   'test/include/dbus_utility_test.cpp',
   'test/include/google/google_service_root_test.cpp',
   'test/include/json_html_serializer.cpp',
