@@ -200,7 +200,7 @@ class FileBody::writer
             size_t remain = body.str().size() - sent;
             size_t toReturn = std::min(maxSize, remain);
             ret.first = const_buffers_type(
-                body.str().data() + toReturn - body.str().size(), toReturn);
+                &body.str()[toReturn - body.str().size()], toReturn);
 
             sent += toReturn;
             ret.second = sent < body.str().size();
