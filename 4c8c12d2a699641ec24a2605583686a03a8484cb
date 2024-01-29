@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ffd4cc1_4ca396c0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2024-01-29T15:46:45Z",
+      "side": 1,
+      "message": "nit: since it\u0027s just one script, could put it in the commit msg title\n\nAlso, any idea why this popped up? I saw it in our downstream code too and couldn\u0027t figure it out. Our Jenkins CI would fail on this but when I ran locally with the same docker container it would pass with the old way. Very weird.",
+      "revId": "4c8c12d2a699641ec24a2605583686a03a8484cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
