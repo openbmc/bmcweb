@@ -152,3 +152,39 @@ struct nghttp2_session
   private:
     nghttp2_session* ptr = nullptr;
 };
+
+class nghttp2_hd_inflater
+{
+    nghttp2_hd_inflater* ptr = nullptr;
+
+  public:
+    nghttp2_hd_inflater()
+    {
+        if (nghttp2_hd_inflate_new(&ptr) != 0)
+        {
+            BMCWEB_LOG_ERROR("nghttp2_hd_inflater_new failed");
+        }
+    }
+
+    ssize_t hd2(nghttp2_nv* nvOut, int* inflateFlags, const uint8_t* in,
+                size_t inlen, int inFinal)
+    {
+        return nghttp2_hd_inflate_hd2(ptr, nvOut, inflateFlags, in, inlen,
+                                      inFinal);
+    }
+
+    int endHeaders()
+    {
+        return nghttp2_hd_inflate_end_headers(ptr);
+    }
+
+    nghttp2_hd_inflater(const nghttp2_hd_inflater&) = delete;
+    nghttp2_hd_inflater& operator=(const nghttp2_hd_inflater&) = delete;
+    nghttp2_hd_inflater& operator=(nghttp2_hd_inflater&&) = delete;
+    nghttp2_hd_inflater(nghttp2_hd_inflater&& other) = delete;
+
+    ~nghttp2_hd_inflater()
+    {
+        nghttp2_hd_inflate_del(ptr);
+    }
+};
