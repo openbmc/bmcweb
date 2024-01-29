@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c5e5250c_06596a05",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-01-29T08:17:50Z",
+      "side": 1,
+      "message": "I will update all comments after this patch is merged:\nhttps://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/69008",
+      "parentUuid": "e52903cb_b44d6547",
+      "range": {
+        "startLine": 49,
+        "startChar": 4,
+        "endLine": 49,
+        "endChar": 58
+      },
+      "revId": "7f8cc2b88d1d5be6ae299c8f53d35dd04c0908ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1477a1b8_2b2d12d5",
         "filename": "redfish-core/lib/thermal_metrics.hpp",
         "patchSetId": 13
