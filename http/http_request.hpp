@@ -55,6 +55,16 @@ struct Request
     Request& operator=(Request&&) = default;
     ~Request() = default;
 
+    void addHeader(std::string_view key, std::string_view value)
+    {
+        req.insert(key, value);
+    }
+
+    void addHeader(boost::beast::http::field key, std::string_view value)
+    {
+        req.insert(key, value);
+    }
+
     boost::beast::http::verb method() const
     {
         return req.method();
