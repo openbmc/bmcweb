@@ -231,9 +231,9 @@ def main():
         serverKeyDump.decode() + serverCertDump.decode()
     )
     serverCertificateUri = {}
-    serverCertificateUri[
-        "@odata.id"
-    ] = "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/1"
+    serverCertificateUri["@odata.id"] = (
+        "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/1"
+    )
     serverCertJSON["CertificateUri"] = serverCertificateUri
     serverCertJSON["CertificateType"] = "PEM"
     print("Replacing server certificate...")
