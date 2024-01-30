@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b16cdf6b_3d00b9b8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-01-30T05:52:39Z",
+      "side": 1,
+      "message": "I think both double quotes and single quotes are OK. Is there any explicit provision that we must use single quotes?",
+      "parentUuid": "ff9f032d_5d5d656d",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 3
+      },
+      "revId": "7f8cc2b88d1d5be6ae299c8f53d35dd04c0908ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e52903cb_b44d6547",
         "filename": "redfish-core/lib/thermal_metrics.hpp",
         "patchSetId": 13
@@ -71,6 +95,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8aa3d45_efa71809",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-01-30T05:52:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5e5250c_06596a05",
+      "range": {
+        "startLine": 49,
+        "startChar": 4,
+        "endLine": 49,
+        "endChar": 58
+      },
+      "revId": "7f8cc2b88d1d5be6ae299c8f53d35dd04c0908ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1477a1b8_2b2d12d5",
@@ -84,6 +132,30 @@
       "writtenOn": "2024-01-26T14:21:42Z",
       "side": 1,
       "message": "Wouldn\u0027t this be better with `BMCWEB_LOG_ERROR`?",
+      "range": {
+        "startLine": 79,
+        "startChar": 8,
+        "endLine": 79,
+        "endChar": 25
+      },
+      "revId": "7f8cc2b88d1d5be6ae299c8f53d35dd04c0908ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f47ac9d_e0441516",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-01-30T05:52:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1477a1b8_2b2d12d5",
       "range": {
         "startLine": 79,
         "startChar": 8,
