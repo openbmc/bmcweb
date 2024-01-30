@@ -67,9 +67,10 @@ TEST(HttpHttpBodyValueType, CopyOperatorString)
 TEST(HttpHttpBodyValueType, MoveFile)
 {
     HttpBody::value_type value(EncodingType::Base64);
-    std::string filepath = makeFile("teststring");
+    TemporaryFileHandle temporaryFile("teststring");
     boost::system::error_code ec;
-    value.open(filepath.c_str(), boost::beast::file_mode::read, ec);
+    value.open(temporaryFile.stringPath.c_str(), boost::beast::file_mode::read,
+               ec);
     ASSERT_FALSE(ec);
     // Move constructor
     HttpBody::value_type value2(std::move(value));
@@ -90,9 +91,10 @@ TEST(HttpHttpBodyValueType, MoveFile)
 TEST(HttpHttpBodyValueType, MoveOperatorFile)
 {
     HttpBody::value_type value(EncodingType::Base64);
-    std::string filepath = makeFile("teststring");
+    TemporaryFileHandle temporaryFile("teststring");
     boost::system::error_code ec;
-    value.open(filepath.c_str(), boost::beast::file_mode::read, ec);
+    value.open(temporaryFile.stringPath.c_str(), boost::beast::file_mode::read,
+               ec);
     ASSERT_FALSE(ec);
     // Move constructor
     HttpBody::value_type value2 = std::move(value);
@@ -109,13 +111,12 @@ TEST(HttpHttpBodyValueType, MoveOperatorFile)
     EXPECT_EQ(value2.payloadSize(), 16);
 }
 
-TEST(HttpBodyValueType, SetFd)
+TEST(HttpFileBodyValueType, SetFd)
 {
     HttpBody::value_type value(EncodingType::Base64);
-    std::string filepath = makeFile("teststring");
-
+    TemporaryFileHandle temporaryFile("teststring");
     boost::system::error_code ec;
-    value.setFd(fileno(fopen(filepath.c_str(), "r")), ec);
+    value.setFd(fileno(fopen(temporaryFile.stringPath.c_str(), "r")), ec);
     ASSERT_FALSE(ec);
 
     std::array<char, 4096> buffer{};
