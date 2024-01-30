@@ -429,6 +429,7 @@ srcfiles_unittest = files(
   'test/http/http_response_test.cpp',
   'test/http/utility_test.cpp',
   'test/http/verb_test.cpp',
+  'test/http/server_sent_event_test.cpp',
   'test/http/mutual_tls_meta.cpp',
   'test/http/http_file_body_test.cpp',
   'test/include/dbus_utility_test.cpp',
