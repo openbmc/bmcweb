@@ -59,9 +59,10 @@ TEST(HttpFileBodyValueType, CopyOperatorString)
 TEST(HttpFileBodyValueType, MoveFile)
 {
     FileBody::value_type value(EncodingType::Base64);
-    std::string filepath = makeFile("teststring");
+    TemporaryFileHandle temporaryFile("teststring");
     boost::system::error_code ec;
-    value.open(filepath.c_str(), boost::beast::file_mode::read, ec);
+    value.open(temporaryFile.stringPath.c_str(), boost::beast::file_mode::read,
+               ec);
     ASSERT_FALSE(ec);
     // Move constructor
     FileBody::value_type value2(std::move(value));
@@ -78,9 +79,10 @@ TEST(HttpFileBodyValueType, MoveFile)
 TEST(HttpFileBodyValueType, MoveOperatorFile)
 {
     FileBody::value_type value(EncodingType::Base64);
-    std::string filepath = makeFile("teststring");
+    TemporaryFileHandle temporaryFile("teststring");
     boost::system::error_code ec;
-    value.open(filepath.c_str(), boost::beast::file_mode::read, ec);
+    value.open(temporaryFile.stringPath.c_str(), boost::beast::file_mode::read,
+               ec);
     ASSERT_FALSE(ec);
     // Move constructor
     FileBody::value_type value2 = std::move(value);
@@ -116,7 +118,6 @@ std::array<int, 2> startPipe()
 TEST(HttpFileBodyValueType, SetFd)
 {
     FileBody::value_type value(EncodingType::Base64);
-    std::string filepath = makeFile("teststring");
     boost::system::error_code ec;
     std::array<int, 2> pipefd = startPipe();
     value.setFd(pipefd[0], ec);
