@@ -30,7 +30,7 @@ std::string getData(boost::beast::http::response<bmcweb::HttpBody>& m)
 
     boost::beast::http::response_serializer<bmcweb::HttpBody> sr{m};
     sr.split(true);
-
+    // Reads buffers into ret
     auto reader = [&sr, &ret](const boost::system::error_code& ec2,
                               const auto& buffer) {
         EXPECT_FALSE(ec2);
@@ -68,63 +68,54 @@ TEST(HttpResponse, StringBody)
 {
     crow::Response res;
     addHeaders(res);
-    std::string_view bodyvalue = "this is my new body";
-    res.write({bodyvalue.data(), bodyvalue.length()});
-    EXPECT_EQ(*res.body(), bodyvalue);
+    std::string_view bodyValue = "this is my new body";
+    res.write({bodyValue.data(), bodyValue.length()});
+    EXPECT_EQ(*res.body(), bodyValue);
     verifyHeaders(res);
 }
 TEST(HttpResponse, HttpBody)
 {
     crow::Response res;
     addHeaders(res);
-    std::string path = makeFile("sample text");
-    res.openFile(path);
+    TemporaryFileHandle temporaryFile("sample text");
+    res.openFile(temporaryFile.stringPath);
 
     verifyHeaders(res);
-    std::filesystem::remove(path);
 }
 TEST(HttpResponse, HttpBodyWithFd)
 {
     crow::Response res;
     addHeaders(res);
-    std::string path = makeFile("sample text");
-    FILE* fd = fopen(path.c_str(), "r+");
+    TemporaryFileHandle temporaryFile("sample text");
+    FILE* fd = fopen(temporaryFile.stringPath.c_str(), "r+");
     res.openFd(fileno(fd));
     verifyHeaders(res);
     fclose(fd);
-    std::filesystem::remove(path);
 }
 
 TEST(HttpResponse, Base64HttpBodyWithFd)
 {
     crow::Response res;
     addHeaders(res);
-    std::string path = makeFile("sample text");
-    FILE* fd = fopen(path.c_str(), "r+");
+    TemporaryFileHandle temporaryFile("sample text");
+    FILE* fd = fopen(temporaryFile.stringPath.c_str(), "r");
+    ASSERT_NE(fd, nullptr);
     res.openFd(fileno(fd), bmcweb::EncodingType::Base64);
     verifyHeaders(res);
     fclose(fd);
-    std::filesystem::remove(path);
 }
 
 TEST(HttpResponse, BodyTransitions)
 {
     crow::Response res;
     addHeaders(res);
-    std::string path = makeFile("sample text");
-    res.openFile(path);
+    TemporaryFileHandle temporaryFile("sample text");
+    res.openFile(temporaryFile.stringPath);
 
     verifyHeaders(res);
     res.write("body text");
 
     verifyHeaders(res);
-    std::filesystem::remove(path);
-}
-
-void testFileData(crow::Response& res, const std::string& data)
-{
-    auto& fb = res.response;
-    EXPECT_EQ(getData(fb), data);
 }
 
 std::string generateBigdata()
@@ -142,52 +133,47 @@ TEST(HttpResponse, StringBodyWriterLarge)
     crow::Response res;
     std::string data = generateBigdata();
     res.write(std::string(data));
-    testFileData(res, data);
+    EXPECT_EQ(getData(res.response), data);
 }
 
 TEST(HttpResponse, Base64HttpBodyWriter)
 {
     crow::Response res;
     std::string data = "sample text";
-    std::string path = makeFile(data);
-    FILE* f = fopen(path.c_str(), "r+");
+    TemporaryFileHandle temporaryFile(data);
+    FILE* f = fopen(temporaryFile.stringPath.c_str(), "r+");
     res.openFd(fileno(f), bmcweb::EncodingType::Base64);
-    testFileData(res, crow::utility::base64encode(data));
-    fclose(f);
-    std::filesystem::remove(path);
+    EXPECT_EQ(getData(res.response), "c2FtcGxlIHRleHQ=");
 }
 
 TEST(HttpResponse, Base64HttpBodyWriterLarge)
 {
     crow::Response res;
     std::string data = generateBigdata();
-    std::string path = makeFile(data);
-    {
-        boost::beast::file_posix file;
-        boost::system::error_code ec;
-        file.open(path.c_str(), boost::beast::file_mode::read, ec);
-        EXPECT_EQ(ec.value(), 0);
-        res.openFd(file.native_handle(), bmcweb::EncodingType::Base64);
-        testFileData(res, crow::utility::base64encode(data));
-    }
+    TemporaryFileHandle temporaryFile(data);
 
-    std::filesystem::remove(path);
+    boost::beast::file_posix file;
+    boost::system::error_code ec;
+    file.open(temporaryFile.stringPath.c_str(), boost::beast::file_mode::read,
+              ec);
+    EXPECT_EQ(ec.value(), 0);
+    res.openFd(file.native_handle(), bmcweb::EncodingType::Base64);
+    EXPECT_EQ(getData(res.response), crow::utility::base64encode(data));
 }
 
 TEST(HttpResponse, HttpBodyWriterLarge)
 {
     crow::Response res;
     std::string data = generateBigdata();
-    std::string path = makeFile(data);
-    {
-        boost::beast::file_posix file;
-        boost::system::error_code ec;
-        file.open(path.c_str(), boost::beast::file_mode::read, ec);
-        EXPECT_EQ(ec.value(), 0);
-        res.openFd(file.native_handle());
-        testFileData(res, data);
-    }
-    std::filesystem::remove(path);
+    TemporaryFileHandle temporaryFile(data);
+
+    boost::beast::file_posix file;
+    boost::system::error_code ec;
+    file.open(temporaryFile.stringPath.c_str(), boost::beast::file_mode::read,
+              ec);
+    EXPECT_EQ(ec.value(), 0);
+    res.openFd(file.native_handle());
+    EXPECT_EQ(getData(res.response), data);
 }
 
 } // namespace
