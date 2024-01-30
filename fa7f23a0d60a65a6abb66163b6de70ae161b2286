@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "89a5dd19_7d7870eb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-30T17:48:42Z",
+      "side": 1,
+      "message": "Please go through and unresolve comments that you\u0027ve only ACKed",
+      "parentUuid": "f9609013_d014d3f6",
+      "revId": "fa7f23a0d60a65a6abb66163b6de70ae161b2286",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "df4d8e2f_da1582eb",
         "filename": "redfish-core/lib/thermal_metrics.hpp",
         "patchSetId": 5

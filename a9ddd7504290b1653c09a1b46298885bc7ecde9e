@@ -310,6 +310,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d6a8a747_19cbd739",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-30T17:48:42Z",
+      "side": 1,
+      "message": "\u003e Did you test that the links your code produced were correct?\n\nI didn\u0027t ask if the validator passed.  I asked if you tested the links.  The validator doesn\u0027t test DataSourceUri links.",
+      "parentUuid": "145af015_03f4854a",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 68
+      },
+      "revId": "a9ddd7504290b1653c09a1b46298885bc7ecde9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d61da51a_4363da5c",
         "filename": "redfish-core/lib/thermal_metrics.hpp",
         "patchSetId": 7
