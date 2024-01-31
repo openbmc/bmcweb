@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/FabricAdapter.v1_5_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/FabricAdapter.v1_5_2.json",
     "$ref": "#/definitions/FabricAdapter",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -148,7 +148,7 @@
                 "Location": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location",
                     "description": "The location of the fabric adapter.",
-                    "longDescription": "This property shall contain location information for the fabric adapter.",
+                    "longDescription": "This property shall contain the location information of the fabric adapter.",
                     "versionAdded": "v1_1_0"
                 },
                 "LocationIndicatorActive": {
@@ -250,7 +250,7 @@
                         }
                     ],
                     "description": "The UUID for this fabric adapter.",
-                    "longDescription": "This property shall contain a universal unique identifier number for the fabric adapter.",
+                    "longDescription": "This property shall contain a universally unique identifier number for the fabric adapter.",
                     "readonly": true
                 }
             },
@@ -358,7 +358,7 @@
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/Endpoint.json#/definitions/Endpoint"
                     },
-                    "longDescription": "This property shall contain an array of links to resources of type Endpoint that represent the logical fabric connection associated with this fabric adapter.",
+                    "longDescription": "This property shall contain an array of links to resources of type Endpoint that represent the logical fabric connections associated with this fabric adapter.",
                     "readonly": true,
                     "type": "array"
                 },
@@ -436,5 +436,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2022.3",
-    "title": "#FabricAdapter.v1_5_1.FabricAdapter"
+    "title": "#FabricAdapter.v1_5_2.FabricAdapter"
 }

@@ -34,6 +34,8 @@ enum class SNMPEncryptionProtocols{
     None,
     CBC_DES,
     CFB128_AES128,
+    CFB128_AES192,
+    CFB128_AES256,
 };
 
 NLOHMANN_JSON_SERIALIZE_ENUM(AccountTypes, {
@@ -65,6 +67,8 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SNMPEncryptionProtocols, {
     {SNMPEncryptionProtocols::None, "None"},
     {SNMPEncryptionProtocols::CBC_DES, "CBC_DES"},
     {SNMPEncryptionProtocols::CFB128_AES128, "CFB128_AES128"},
+    {SNMPEncryptionProtocols::CFB128_AES192, "CFB128_AES192"},
+    {SNMPEncryptionProtocols::CFB128_AES256, "CFB128_AES256"},
 });
 
 }

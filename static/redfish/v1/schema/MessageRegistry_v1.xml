@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  MessageRegistry v1.6.1                                              -->
+<!--# Redfish Schema:  MessageRegistry v1.6.2                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -342,7 +342,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistry.v1_2_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to add a missing term on ClearingLogic to not allow it to be null."/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to add a missing term on ClearingLogic to not allow it to be `null`."/>
       <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_2_0.MessageRegistry"/>
     </Schema>
 
@@ -472,12 +472,12 @@
         <Property Name="Deprecated" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The reason the message has been deprecated."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate that a message is deprecated.  The value of the string should explain the deprecation, including reference to new message or messages to be used.  The message can be supported in new and existing implementations, but usage in new implementations is discouraged.  Deprecated messages are likely to be removed in a future major version of the message registry.  The ReplacedBy property may be used to provide a reference to a replacement message definition."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate that a message is deprecated.  The value of the string should explain the deprecation, including reference to a new message or messages to be used.  The message can be supported in new and existing implementations, but usage in new implementations is discouraged.  Deprecated messages are likely to be removed in a future major version of the message registry.  The ReplacedBy property may be used to provide a reference to a replacement message definition."/>
         </Property>
         <Property Name="VersionDeprecated" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="Validation.Pattern" String="^\d+\.\d+\.\d+$"/>
-          <Annotation Term="OData.Description" String="The registry version when the the message was deprecated."/>
+          <Annotation Term="OData.Description" String="The registry version when the message was deprecated."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the version of the registry when the message was deprecated.  This property shall not appear if the message has not been deprecated."/>
         </Property>
       </ComplexType>
@@ -487,6 +487,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to improve the description of message argument-related properties by explaining that number-type arguments are converted to strings prior to their consumption in a message.  It was also created to remove normative language from non-normative descriptions."/>
       <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_5_0.MessageRegistry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistry.v1_5_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_5_1.MessageRegistry"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistry.v1_6_0">
@@ -515,6 +521,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to improve the description of message argument-related properties by explaining that number-type arguments are converted to strings prior to their consumption in a message.  It was also created to remove normative language from non-normative descriptions."/>
       <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_6_0.MessageRegistry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistry.v1_6_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_6_1.MessageRegistry"/>
     </Schema>
 
   </edmx:DataServices>

@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Resource.v1_17_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Resource.v1_18_0.json",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
@@ -84,12 +84,12 @@
                 "iQN": "The iSCSI Qualified Name (iQN)."
             },
             "enumLongDescriptions": {
-                "EUI": "This durable name shall contain the hexadecimal representation of the IEEE-defined 64-bit Extended Unique Identifier (EUI), as defined in the IEEE's Guidelines for 64-bit Global Identifier (EUI-64) Specification.  The DurableName property shall follow the regular expression pattern '^([0-9A-Fa-f]{2}[:-]){7}([0-9A-Fa-f]{2})$', where the most significant octet is first.",
-                "FC_WWN": "This durable name shall contain a hexadecimal representation of the World-Wide Name (WWN) format, as defined in the T11 Fibre Channel Physical and Signaling Interface Specification.  The DurableName property shall follow the regular expression pattern '^([0-9A-Fa-f]{2}[:-]){7}([0-9A-Fa-f]{2})$', where the most significant octet is first.",
-                "GCXLID": "This durable name shall be in the globally unique CXL logical device identifier (GCXLID).  The DurableName property shall follow the regular expression pattern '^([0-9A-Fa-f]{2}-){7}[0-9A-Fa-f]{2}:([0-9A-Fa-f]{4})$', where the first eight hyphen-delimited octets contain the PCIe serial number, where the most significant octet is first, and the remaining 16-bit field contains the CXL Logical Device Identifier, where the most significant byte first.",
-                "MACAddress": "This durable name shall be a media access control address (MAC address), which is a unique identifier assigned to a network interface controller (NIC) for use as a network address.  This value should not be used if a more specific type of identifier is available.  The DurableName property shall follow the regular expression pattern '^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$', where the most significant octet is first.",
-                "NAA": "This durable name shall contain a hexadecimal representation of the Name Address Authority structure, as defined in the T11 Fibre Channel - Framing and Signaling - 3 (FC-FS-3) specification.  The DurableName property shall follow the regular expression pattern '^(([0-9A-Fa-f]{2}){8}){1,2}$', where the most significant octet is first.",
-                "NGUID": "This durable name shall be in the Namespace Globally Unique Identifier (NGUID), as defined in the NVN Express Specification.  The DurableName property shall follow the regular expression pattern '^([0-9A-Fa-f]{2}){16}$', where the most significant octet is first.",
+                "EUI": "This durable name shall contain the hexadecimal representation of the IEEE-defined 64-bit Extended Unique Identifier (EUI), as defined in the IEEE's Guidelines for 64-bit Global Identifier (EUI-64) Specification.  The DurableName property shall follow the regular expression pattern `^([0-9A-Fa-f]{2}[:-]){7}([0-9A-Fa-f]{2})$`, where the most significant octet is first.",
+                "FC_WWN": "This durable name shall contain a hexadecimal representation of the World-Wide Name (WWN) format, as defined in the T11 Fibre Channel Physical and Signaling Interface Specification.  The DurableName property shall follow the regular expression pattern `^([0-9A-Fa-f]{2}[:-]){7}([0-9A-Fa-f]{2})$`, where the most significant octet is first.",
+                "GCXLID": "This durable name shall be in the globally unique CXL logical device identifier (GCXLID).  The DurableName property shall follow the regular expression pattern `^([0-9A-Fa-f]{2}-){7}[0-9A-Fa-f]{2}:([0-9A-Fa-f]{4})$`, where the first eight hyphen-delimited octets contain the PCIe serial number, where the most significant octet is first, and the remaining 16-bit field contains the CXL Logical Device Identifier, with the most significant byte first.",
+                "MACAddress": "This durable name shall be a media access control address (MAC address), which is a unique identifier assigned to a network interface controller (NIC) for use as a network address.  This value should not be used if a more specific type of identifier is available.  The DurableName property shall follow the regular expression pattern `^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$`, where the most significant octet is first.",
+                "NAA": "This durable name shall contain a hexadecimal representation of the Name Address Authority structure, as defined in the T11 Fibre Channel - Framing and Signaling - 3 (FC-FS-3) specification.  The DurableName property shall follow the regular expression pattern `^(([0-9A-Fa-f]{2}){8}){1,2}$`, where the most significant octet is first.",
+                "NGUID": "This durable name shall be in the Namespace Globally Unique Identifier (NGUID), as defined in the NVN Express Specification.  The DurableName property shall follow the regular expression pattern `^([0-9A-Fa-f]{2}){16}$`, where the most significant octet is first.",
                 "NQN": "This durable name shall be in the NVMe Qualified Name (NQN) format, as defined in the NVN Express over Fabric Specification.",
                 "NSID": "This durable name shall be in the NVM Namespace Identifier (NSID) format, as defined in the NVN Express Specification.",
                 "UUID": "This durable name shall contain the hexadecimal representation of the UUID, as defined by RFC4122.  The DurableName property shall follow the regular expression pattern '([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})'.",
@@ -174,7 +174,7 @@
             "properties": {
                 "AltitudeMeters": {
                     "description": "The altitude of the resource in meters.",
-                    "longDescription": "This property shall contain the altitude of the resource, in meters units, defined as the elevation above sea level.",
+                    "longDescription": "This property shall contain the altitude of the resource, in meter units, defined as the elevation above sea level.",
                     "readonly": false,
                     "type": [
                         "number",
@@ -225,7 +225,7 @@
                 },
                 "Latitude": {
                     "description": "The latitude of the resource.",
-                    "longDescription": "This property shall contain the latitude of the resource specified in degrees using a decimal format and not minutes or seconds.",
+                    "longDescription": "This property shall contain the latitude of the resource specified in degree units using a decimal format and not minutes or seconds.",
                     "readonly": false,
                     "type": [
                         "number",
@@ -235,8 +235,8 @@
                     "versionAdded": "v1_6_0"
                 },
                 "Longitude": {
-                    "description": "The longitude of the resource in degrees.",
-                    "longDescription": "This property shall contain the longitude of the resource specified in degrees using a decimal format and not minutes or seconds.",
+                    "description": "The longitude of the resource in degree units.",
+                    "longDescription": "This property shall contain the longitude of the resource specified in degree units using a decimal format and not minutes or seconds.",
                     "readonly": false,
                     "type": [
                         "number",
@@ -258,8 +258,8 @@
                     "versionAdded": "v1_5_0"
                 },
                 "PartLocationContext": {
-                    "description": "Human readable string to enable differentiation between PartLocation value for parts in the same enclosure, which might include hierarchical information of containing PartLocation values for the part.",
-                    "longDescription": "This property shall contain a human readable string to enable differentiation between PartLocation value for parts in the same enclosure, which may include hierarchical information of containing PartLocation values for the part.  The value of this property shall not include values of the PartLocation properties for the part itself.  The purpose of this value, in conjunction with the PartLocation of the part itself, is to allow clients to determine the physical location of the part without tracing through the PartLocation of multiple resources.",
+                    "description": "Human-readable string to enable differentiation between PartLocation values for parts in the same enclosure, which might include hierarchical information of containing PartLocation values for the part.",
+                    "longDescription": "This property shall contain a human-readable string to enable differentiation between PartLocation values for parts in the same enclosure, which may include hierarchical information of containing PartLocation values for the part.  The value of this property shall not include values of the PartLocation properties for the part itself.  The purpose of this value, in conjunction with the PartLocation of the part itself, is to allow clients to determine the physical location of the part without tracing through the PartLocation of multiple resources.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -270,7 +270,7 @@
                 "PhysicalAddress": {
                     "$ref": "#/definitions/PhysicalAddress",
                     "description": "The physical address for a resource.",
-                    "longDescription": "This property shall contain a physical address for a resource.  This property should be present for resources that represent physical objects that can operate without requiring physical containment by another resource.  For example, a server chassis might be contained by a rack, but it might also be deployed individually, while a drive is always contained by a chassis, and therefore is described by the containing resource.",
+                    "longDescription": "This property shall contain a physical address for a resource.  This property should be present for resources that represent physical objects that can operate without requiring physical containment by another resource.  For example, a server chassis might be contained by a rack, but it might also be deployed individually, while a drive is always contained by a chassis and therefore is described by the containing resource.",
                     "versionAdded": "v1_17_0"
                 },
                 "Placement": {
@@ -485,7 +485,7 @@
                     "versionAdded": "v1_17_0"
                 },
                 "ISOSubdivisionCode": {
-                    "description": "ISO 3166-2 subdivision code .",
+                    "description": "ISO 3166-2 subdivision code.",
                     "longDescription": "This property shall contain the ISO 3166-2-defined state, province, or territory subdivision code for this resource.",
                     "pattern": "^[A-Z0-9]{1,3}$",
                     "readonly": false,
@@ -717,7 +717,7 @@
                 "GPSCoords": {
                     "deprecated": "This property has been deprecated in favor of the Longitude and Latitude properties.",
                     "description": "The GPS coordinates of the part.",
-                    "longDescription": "The value shall conform to the RFC5139-defined requirements of the ADDCODE field.  Shall contain the GPS coordinates of the location.  If furnished, expressed in the '[-][nn]n.nnnnnn, [-][nn]n.nnnnn' format.  For example, two comma-separated positive or negative numbers with six decimal places of precision.",
+                    "longDescription": "The value shall conform to the RFC5139-defined requirements of the ADDCODE field.  Shall contain the GPS coordinates of the location.  If furnished, expressed in the `[-][nn]n.nnnnnn, [-][nn]n.nnnnn` format.  For example, two comma-separated positive or negative numbers with six decimal places of precision.",
                     "readonly": false,
                     "type": [
                         "string",
@@ -993,7 +993,7 @@
             "enumDescriptions": {
                 "Bottom": "The part is in the bottom of the unit.",
                 "Front": "The part is in the front of the unit.",
-                "Left": "The part is on the left side of of the unit.",
+                "Left": "The part is on the left side of the unit.",
                 "Middle": "The part is in the middle of the unit.",
                 "Rear": "The part is in the rear of the unit.",
                 "Right": "The part is on the right side of the unit.",
@@ -1002,7 +1002,7 @@
             "enumLongDescriptions": {
                 "Bottom": "This value shall indicate the part is in the bottom of the unit.",
                 "Front": "This value shall indicate the part is in the front of the unit.",
-                "Left": "This value shall indicate the part is on the left side of of the unit.",
+                "Left": "This value shall indicate the part is on the left side of the unit.",
                 "Middle": "This value shall indicate the part is in the middle of the unit.",
                 "Rear": "This value shall indicate the part is in the rear of the unit.",
                 "Right": "This value shall indicate the part is on the right side of the unit.",
@@ -1173,6 +1173,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2023.2",
-    "title": "#Resource.v1_17_0"
+    "release": "2023.3",
+    "title": "#Resource.v1_18_0"
 }

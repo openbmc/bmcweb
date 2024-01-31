@@ -28,6 +28,16 @@ enum class ApplyTime{
     OnStartUpdateRequest,
 };
 
+enum class SupportedUpdateImageFormatType{
+    Invalid,
+    PLDMv1_0,
+    PLDMv1_1,
+    PLDMv1_2,
+    PLDMv1_3,
+    UEFICapsule,
+    VendorDefined,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(TransferProtocolType, {
     {TransferProtocolType::Invalid, "Invalid"},
     {TransferProtocolType::CIFS, "CIFS"},
@@ -49,6 +59,16 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ApplyTime, {
     {ApplyTime::AtMaintenanceWindowStart, "AtMaintenanceWindowStart"},
     {ApplyTime::InMaintenanceWindowOnReset, "InMaintenanceWindowOnReset"},
     {ApplyTime::OnStartUpdateRequest, "OnStartUpdateRequest"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(SupportedUpdateImageFormatType, {
+    {SupportedUpdateImageFormatType::Invalid, "Invalid"},
+    {SupportedUpdateImageFormatType::PLDMv1_0, "PLDMv1_0"},
+    {SupportedUpdateImageFormatType::PLDMv1_1, "PLDMv1_1"},
+    {SupportedUpdateImageFormatType::PLDMv1_2, "PLDMv1_2"},
+    {SupportedUpdateImageFormatType::PLDMv1_3, "PLDMv1_3"},
+    {SupportedUpdateImageFormatType::UEFICapsule, "UEFICapsule"},
+    {SupportedUpdateImageFormatType::VendorDefined, "VendorDefined"},
 });
 
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ComputerSystem v1.21.0                                              -->
+<!--# Redfish Schema:  ComputerSystem v1.22.0                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -247,7 +247,7 @@
         </Parameter>
         <Parameter Name="RequireSecureErase" Type="Edm.Boolean">
           <Annotation Term="OData.Description" String="Ensure secure erasure of all devices and fail the request if not possible."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall indicate if a secure erase is required.  If the parameter contains `true` and a secure erase to the level of NIST 800-88 Clear or Purge for all specified components can not be performed the service shall return the HTTP 501 (Not Implemented) status code.  This failure may occur after the process has already started.  If not provided by the client, the value shall be assumed to be `false`."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall indicate if a secure erase is required.  If the parameter contains `true` and a secure erase to the level of NIST 800-88 Clear or Purge for all specified components cannot be performed the service shall return the HTTP 501 (Not Implemented) status code.  This failure may occur after the process has already started.  If not provided by the client, the value shall be assumed to be `false`."/>
         </Parameter>
         <Annotation Term="Redfish.Revisions">
           <Collection>
@@ -264,7 +264,7 @@
           <Annotation Term="OData.Description" String="Boot from the normal boot device."/>
         </Member>
         <Member Name="Pxe">
-          <Annotation Term="OData.Description" String="Boot from the Pre-Boot EXecution (PXE) environment."/>
+          <Annotation Term="OData.Description" String="Boot from the Pre-boot eXecution Environment (PXE)."/>
         </Member>
         <Member Name="Floppy">
           <Annotation Term="OData.Description" String="Boot from the floppy disk drive."/>
@@ -398,7 +398,7 @@
         <Property Name="UUID" Type="Resource.UUID">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The UUID for this system."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the universal unique identifier number for this system.  RFC4122 describes methods to create this value.  The value should be considered to be opaque.  Client software should only treat the overall value as a UUID and should not interpret any sub-fields within the UUID.  If the system supports SMBIOS, the property value should follow the SMBIOS 2.6 and later recommendation for converting the SMBIOS 16-byte UUID structure into the Redfish canonical `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx` string format, so that the property value matches the byte order presented by current OS APIs, such as WMI and dmidecode."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the universally unique identifier number for this system.  RFC4122 describes methods to create this value.  The value should be considered to be opaque.  Client software should only treat the overall value as a UUID and should not interpret any subfields within the UUID.  If the system supports SMBIOS, the property value should follow the SMBIOS 2.6 and later recommendation for converting the SMBIOS 16-byte UUID structure into the Redfish canonical `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx` string format, so that the property value matches the byte order presented by current OS APIs, such as WMI and dmidecode."/>
         </Property>
         <Property Name="HostName" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -487,7 +487,7 @@
         <NavigationProperty Name="ManagedBy" Type="Collection(Manager.Manager)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the managers responsible for this system."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of link to resources of type Manager that represent the resources with management responsibility for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Manager that represent the resources with management responsibility for this resource."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="PoweredBy" Type="Collection(Resource.Item)">
@@ -498,7 +498,7 @@
         </NavigationProperty>
         <NavigationProperty Name="CooledBy" Type="Collection(Resource.Item)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An array of links to resources or objects that that cool this computer system.  Normally, the link is for either a chassis or a specific set of fans."/>
+          <Annotation Term="OData.Description" String="An array of links to resources or objects that cool this computer system.  Normally, the link is for either a chassis or a specific set of fans."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources or objects that cool this computer system."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
@@ -585,7 +585,7 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_1_0"/>
-                <PropertyValue Property="Description" String="This value has been deprecated in favor of returning null if the state is unknown."/>
+                <PropertyValue Property="Description" String="This value has been deprecated in favor of returning `null` if the state is unknown."/>
               </Record>
             </Collection>
           </Annotation>
@@ -780,7 +780,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_0_15">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to remove to the restriction of `Continuous` with UefiTargetBootSourceOverride.  It was also created to clarify that ProcessorSummary only contains processors that execute system code.  It was also created to add annotation recommendations for ResetType."/>
+      <Annotation Term="OData.Description" String="This version was created to remove the restriction of `Continuous` with UefiTargetBootSourceOverride.  It was also created to clarify that ProcessorSummary only contains processors that execute system code.  It was also created to add annotation recommendations for ResetType."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_0_14.ComputerSystem"/>
     </Schema>
 
@@ -792,7 +792,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_0_17">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created correct various description to use proper normative terminology.  It was also created to clarify the behavior of the BootSourceOverrideTarget property."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology.  It was also created to clarify the behavior of the BootSourceOverrideTarget property."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_0_16.ComputerSystem"/>
     </Schema>
 
@@ -812,6 +812,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag to show there might be a tie to the AssetTag of the containing Chassis resource.  It was also created to update the description for HostName to show there might be a tie to the HostName of EthernetInterface resources contained by the system."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_0_19.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_0_21">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_0_20.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_1_0">
@@ -1009,7 +1015,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_1_13">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to remove to the restriction of `Continuous` with UefiTargetBootSourceOverride.  It was also created to clarify that ProcessorSummary only contains processors that execute system code.  It was also created to add annotation recommendations for ResetType."/>
+      <Annotation Term="OData.Description" String="This version was created to remove the restriction of `Continuous` with UefiTargetBootSourceOverride.  It was also created to clarify that ProcessorSummary only contains processors that execute system code.  It was also created to add annotation recommendations for ResetType."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_1_12.ComputerSystem"/>
     </Schema>
 
@@ -1021,7 +1027,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_1_15">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created correct various description to use proper normative terminology and clarify the behavior of the BootSourceOverrideTarget property."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology and clarify the behavior of the BootSourceOverrideTarget property."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_1_14.ComputerSystem"/>
     </Schema>
 
@@ -1041,6 +1047,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag to show there might be a tie to the AssetTag of the containing Chassis resource.  It was also created to update the description for HostName to show there might be a tie to the HostName of EthernetInterface resources contained by the system."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_1_17.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_1_19">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_1_18.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_2_0">
@@ -1116,7 +1128,7 @@
           </Annotation>
         </Member>
         <Member Name="BareMetalServer">
-          <Annotation Term="OData.Description" String="The system hosts functionality that supports the system acting as a bare metal server."/>
+          <Annotation Term="OData.Description" String="The system hosts functionality that supports the system acting as a bare-metal server."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -1198,7 +1210,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_2_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to add a missing term on MemoryDomains to not allow it to be null."/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to add a missing term on MemoryDomains to not allow it to be `null`."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_2_6.ComputerSystem"/>
     </Schema>
 
@@ -1228,7 +1240,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_2_12">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to remove to the restriction of `Continuous` with UefiTargetBootSourceOverride.  It was also created to clarify that ProcessorSummary only contains processors that execute system code.  It was also created to add annotation recommendations for ResetType."/>
+      <Annotation Term="OData.Description" String="This version was created to remove the restriction of `Continuous` with UefiTargetBootSourceOverride.  It was also created to clarify that ProcessorSummary only contains processors that execute system code.  It was also created to add annotation recommendations for ResetType."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_2_11.ComputerSystem"/>
     </Schema>
 
@@ -1240,7 +1252,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_2_14">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created correct various description to use proper normative terminology.  It was also created to clarify the behavior of the BootSourceOverrideTarget property."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology.  It was also created to clarify the behavior of the BootSourceOverrideTarget property."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_2_13.ComputerSystem"/>
     </Schema>
 
@@ -1260,6 +1272,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag to show there might be a tie to the AssetTag of the containing Chassis resource.  It was also created to update the description for HostName to show there might be a tie to the HostName of EthernetInterface resources contained by the system."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_2_16.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_2_18">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_2_17.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_3_0">
@@ -1338,7 +1356,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_3_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to add a missing term on MemoryDomains to not allow it to be null."/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to add a missing term on MemoryDomains to not allow it to be `null`."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_3_5.ComputerSystem"/>
     </Schema>
 
@@ -1368,7 +1386,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_3_11">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to remove to the restriction of `Continuous` with UefiTargetBootSourceOverride.  It was also created to clarify that ProcessorSummary only contains processors that execute system code.  It was also created to add annotation recommendations for ResetType."/>
+      <Annotation Term="OData.Description" String="This version was created to remove the restriction of `Continuous` with UefiTargetBootSourceOverride.  It was also created to clarify that ProcessorSummary only contains processors that execute system code.  It was also created to add annotation recommendations for ResetType."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_3_10.ComputerSystem"/>
     </Schema>
 
@@ -1380,7 +1398,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_3_13">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created correct various description to use proper normative terminology.  It was also created to clarify the behavior of the BootSourceOverrideTarget property."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology.  It was also created to clarify the behavior of the BootSourceOverrideTarget property."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_3_12.ComputerSystem"/>
     </Schema>
 
@@ -1400,6 +1418,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag to show there might be a tie to the AssetTag of the containing Chassis resource.  It was also created to update the description for HostName to show there might be a tie to the HostName of EthernetInterface resources contained by the system."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_3_15.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_3_17">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_3_16.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_4_0">
@@ -1454,7 +1478,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_4_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to add a missing term on MemoryDomains to not allow it to be null."/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to add a missing term on MemoryDomains to not allow it to be `null`."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_4_4.ComputerSystem"/>
     </Schema>
 
@@ -1484,7 +1508,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_4_10">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to remove to the restriction of `Continuous` with UefiTargetBootSourceOverride.  It was also created to clarify that ProcessorSummary only contains processors that execute system code.  It was also created to add annotation recommendations for ResetType."/>
+      <Annotation Term="OData.Description" String="This version was created to remove the restriction of `Continuous` with UefiTargetBootSourceOverride.  It was also created to clarify that ProcessorSummary only contains processors that execute system code.  It was also created to add annotation recommendations for ResetType."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_4_9.ComputerSystem"/>
     </Schema>
 
@@ -1496,7 +1520,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_4_12">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created correct various description to use proper normative terminology.  It was also created to clarify the behavior of the BootSourceOverrideTarget property."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology.  It was also created to clarify the behavior of the BootSourceOverrideTarget property."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_4_11.ComputerSystem"/>
     </Schema>
 
@@ -1516,6 +1540,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag to show there might be a tie to the AssetTag of the containing Chassis resource.  It was also created to update the description for HostName to show there might be a tie to the HostName of EthernetInterface resources contained by the system."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_4_14.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_4_16">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_4_15.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_5_0">
@@ -1670,7 +1700,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_5_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to add a missing term on MemoryDomains to not allow it to be null."/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to add a missing term on MemoryDomains to not allow it to be `null`."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_5_2.ComputerSystem"/>
     </Schema>
 
@@ -1700,7 +1730,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_5_8">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to remove to the restriction of `Continuous` with UefiTargetBootSourceOverride.  It was also created to clarify that ProcessorSummary only contains processors that execute system code.  It was also created to add annotation recommendations for ResetType."/>
+      <Annotation Term="OData.Description" String="This version was created to remove the restriction of `Continuous` with UefiTargetBootSourceOverride.  It was also created to clarify that ProcessorSummary only contains processors that execute system code.  It was also created to add annotation recommendations for ResetType."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_5_7.ComputerSystem"/>
     </Schema>
 
@@ -1712,7 +1742,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_5_10">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created correct various description to use proper normative terminology.  It was also created to clarify the behavior of the BootSourceOverrideTarget property."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology.  It was also created to clarify the behavior of the BootSourceOverrideTarget property."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_5_9.ComputerSystem"/>
     </Schema>
 
@@ -1738,6 +1768,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag to show there might be a tie to the AssetTag of the containing Chassis resource.  It was also created to update the description for HostName to show there might be a tie to the HostName of EthernetInterface resources contained by the system."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_5_13.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_5_15">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_5_14.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_6_0">
@@ -1791,7 +1827,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_6_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to add a missing term on MemoryDomains to not allow it to be null."/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to add a missing term on MemoryDomains to not allow it to be `null`."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_6_0.ComputerSystem"/>
     </Schema>
 
@@ -1821,7 +1857,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_6_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to remove to the restriction of `Continuous` with UefiTargetBootSourceOverride.  It was also created to clarify that ProcessorSummary only contains processors that execute system code.  It was also created to add annotation recommendations for ResetType."/>
+      <Annotation Term="OData.Description" String="This version was created to remove the restriction of `Continuous` with UefiTargetBootSourceOverride.  It was also created to clarify that ProcessorSummary only contains processors that execute system code.  It was also created to add annotation recommendations for ResetType."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_6_5.ComputerSystem"/>
     </Schema>
 
@@ -1833,7 +1869,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_6_8">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of the AliasBootOrder and BootSourceOverrideTarget properties.  It was also created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of the AliasBootOrder and BootSourceOverrideTarget properties.  It was also created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_6_7.ComputerSystem"/>
     </Schema>
 
@@ -1859,6 +1895,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag to show there might be a tie to the AssetTag of the containing Chassis resource.  It was also created to update the description for HostName to show there might be a tie to the HostName of EthernetInterface resources contained by the system."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_6_11.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_6_13">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_6_12.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_7_0">
@@ -1911,7 +1953,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_7_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to remove to the restriction of `Continuous` with UefiTargetBootSourceOverride.  It was also created to clarify that ProcessorSummary only contains processors that execute system code.  It was also created to add annotation recommendations for ResetType."/>
+      <Annotation Term="OData.Description" String="This version was created to remove the restriction of `Continuous` with UefiTargetBootSourceOverride.  It was also created to clarify that ProcessorSummary only contains processors that execute system code.  It was also created to add annotation recommendations for ResetType."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_7_4.ComputerSystem"/>
     </Schema>
 
@@ -1923,7 +1965,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_7_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of the AliasBootOrder and BootSourceOverrideTarget properties.  It was also created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of the AliasBootOrder and BootSourceOverrideTarget properties.  It was also created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_7_6.ComputerSystem"/>
     </Schema>
 
@@ -1949,6 +1991,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag to show there might be a tie to the AssetTag of the containing Chassis resource.  It was also created to update the description for HostName to show there might be a tie to the HostName of EthernetInterface resources contained by the system."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_7_10.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_7_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_7_11.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_8_0">
@@ -1986,7 +2034,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_8_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to remove to the restriction of `Continuous` with UefiTargetBootSourceOverride.  It was also created to clarify that ProcessorSummary only contains processors that execute system code.  It was also created to add annotation recommendations for ResetType."/>
+      <Annotation Term="OData.Description" String="This version was created to remove the restriction of `Continuous` with UefiTargetBootSourceOverride.  It was also created to clarify that ProcessorSummary only contains processors that execute system code.  It was also created to add annotation recommendations for ResetType."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_8_3.ComputerSystem"/>
     </Schema>
 
@@ -1998,7 +2046,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_8_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of the AliasBootOrder and BootSourceOverrideTarget properties.  It was also created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of the AliasBootOrder and BootSourceOverrideTarget properties.  It was also created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_8_5.ComputerSystem"/>
     </Schema>
 
@@ -2024,6 +2072,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag to show there might be a tie to the AssetTag of the containing Chassis resource.  It was also created to update the description for HostName to show there might be a tie to the HostName of EthernetInterface resources contained by the system."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_8_9.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_8_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_8_10.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_9_0">
@@ -2062,7 +2116,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_9_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to remove to the restriction of `Continuous` with UefiTargetBootSourceOverride.  It was also created to clarify that ProcessorSummary only contains processors that execute system code.  It was also created to add annotation recommendations for ResetType."/>
+      <Annotation Term="OData.Description" String="This version was created to remove the restriction of `Continuous` with UefiTargetBootSourceOverride.  It was also created to clarify that ProcessorSummary only contains processors that execute system code.  It was also created to add annotation recommendations for ResetType."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_9_3.ComputerSystem"/>
     </Schema>
 
@@ -2074,7 +2128,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_9_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of the AliasBootOrder and BootSourceOverrideTarget properties.  It was also created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of the AliasBootOrder and BootSourceOverrideTarget properties.  It was also created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_9_5.ComputerSystem"/>
     </Schema>
 
@@ -2100,6 +2154,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag to show there might be a tie to the AssetTag of the containing Chassis resource.  It was also created to update the description for HostName to show there might be a tie to the HostName of EthernetInterface resources contained by the system."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_9_9.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_9_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_9_10.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_10_0">
@@ -2131,7 +2191,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_10_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to remove to the restriction of `Continuous` with UefiTargetBootSourceOverride.  It was also created to clarify that ProcessorSummary only contains processors that execute system code.  It was also created to add annotation recommendations for ResetType."/>
+      <Annotation Term="OData.Description" String="This version was created to remove the restriction of `Continuous` with UefiTargetBootSourceOverride.  It was also created to clarify that ProcessorSummary only contains processors that execute system code.  It was also created to add annotation recommendations for ResetType."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_10_2.ComputerSystem"/>
     </Schema>
 
@@ -2143,7 +2203,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_10_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of the AliasBootOrder and BootSourceOverrideTarget properties.  It was also created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of the AliasBootOrder and BootSourceOverrideTarget properties.  It was also created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_10_4.ComputerSystem"/>
     </Schema>
 
@@ -2171,6 +2231,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_10_8.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_10_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_10_9.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_11_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
@@ -2182,7 +2248,7 @@
         <Property Name="AutomaticRetryConfig" Type="ComputerSystem.v1_11_0.AutomaticRetryConfig">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The configuration of how the system retries booting automatically."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the configuration of how the system retry booting automatically."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the configuration of how the system retries booting automatically."/>
         </Property>
         <Property Name="AutomaticRetryAttempts" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -2222,7 +2288,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_11_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to remove to the restriction of `Continuous` with UefiTargetBootSourceOverride.  It was also created to clarify that ProcessorSummary only contains processors that execute system code.  It was also created to add annotation recommendations for ResetType."/>
+      <Annotation Term="OData.Description" String="This version was created to remove the restriction of `Continuous` with UefiTargetBootSourceOverride.  It was also created to clarify that ProcessorSummary only contains processors that execute system code.  It was also created to add annotation recommendations for ResetType."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_11_1.ComputerSystem"/>
     </Schema>
 
@@ -2234,7 +2300,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_11_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of the AliasBootOrder and BootSourceOverrideTarget properties.  It was also created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of the AliasBootOrder and BootSourceOverrideTarget properties.  It was also created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_11_3.ComputerSystem"/>
     </Schema>
 
@@ -2262,6 +2328,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_11_7.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_11_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_11_8.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_12_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.2"/>
@@ -2278,7 +2350,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_12_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to remove to the restriction of `Continuous` with UefiTargetBootSourceOverride.  It was also created to clarify that ProcessorSummary only contains processors that execute system code.  It was also created to add annotation recommendations for ResetType."/>
+      <Annotation Term="OData.Description" String="This version was created to remove the restriction of `Continuous` with UefiTargetBootSourceOverride.  It was also created to clarify that ProcessorSummary only contains processors that execute system code.  It was also created to add annotation recommendations for ResetType."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_12_0.ComputerSystem"/>
     </Schema>
 
@@ -2290,7 +2362,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_12_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of the AliasBootOrder and BootSourceOverrideTarget properties.  It was also created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of the AliasBootOrder and BootSourceOverrideTarget properties.  It was also created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_12_2.ComputerSystem"/>
     </Schema>
 
@@ -2316,6 +2388,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag to show there might be a tie to the AssetTag of the containing Chassis resource.  It was also created to update the description for HostName to show there might be a tie to the HostName of EthernetInterface resources contained by the system."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_12_6.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_12_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_12_7.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_13_0">
@@ -2408,7 +2486,7 @@
         </Member>
         <Member Name="MemoryInitializationStarted">
           <Annotation Term="OData.Description" String="The system has started initializing the memory."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate that the system has started to initialize memory."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the system has started to initialize the memory."/>
         </Member>
         <Member Name="SecondaryProcessorInitializationStarted">
           <Annotation Term="OData.Description" String="The system has started initializing the remaining processors."/>
@@ -2416,7 +2494,7 @@
         </Member>
         <Member Name="PCIResourceConfigStarted">
           <Annotation Term="OData.Description" String="The system has started initializing the PCI resources."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate that the system has started to initialize PCI resources."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the system has started to initialize the PCI resources."/>
         </Member>
         <Member Name="SystemHardwareInitializationComplete">
           <Annotation Term="OData.Description" String="The system has completed initializing all hardware."/>
@@ -2522,7 +2600,7 @@
         <Property Name="ConnectTypesSupported" Type="Collection(ComputerSystem.v1_13_0.GraphicalConnectTypesSupported)" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="This property enumerates the graphical console connection types that the implementation allows."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of the enumerations.  KVMIP shall be included if a vendor-define KVM-IP protocol is supported."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of the enumerations.  KVMIP shall be included if a vendor-defined KVM-IP protocol is supported."/>
         </Property>
         <Property Name="MaxConcurrentSessions" Type="Edm.Int64" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -2544,7 +2622,7 @@
       <ComplexType Name="VirtualMediaConfig">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="The information about virtual media service for this system."/>
-        <Annotation Term="OData.LongDescription" String="This type shall describe a virtual media service service for a computer system."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe a virtual media service for a computer system."/>
         <Property Name="ServiceEnabled" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An indication of whether the service is enabled for this system."/>
@@ -2567,7 +2645,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_13_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of the AliasBootOrder and BootSourceOverrideTarget properties.  It was also created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of the AliasBootOrder and BootSourceOverrideTarget properties.  It was also created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_13_1.ComputerSystem"/>
     </Schema>
 
@@ -2593,6 +2671,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag and LocationIndicatorActive to show there might be a tie to the AssetTag and LocationIndicatorActive of the containing Chassis resource.  It was also created to update the description for HostName to show there might be a tie to the HostName of EthernetInterface resources contained by the system."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_13_5.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_13_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_13_6.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_14_0">
@@ -2634,7 +2718,7 @@
         <Property Name="CoreCount" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The number of processor cores in the system."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of central processor cores in in the system."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of central processor cores in the system."/>
           <Annotation Term="Validation.Minimum" Int="0"/>
         </Property>
       </ComplexType>
@@ -2653,7 +2737,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_14_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of the AliasBootOrder and BootSourceOverrideTarget properties.  It was also created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of the AliasBootOrder and BootSourceOverrideTarget properties.  It was also created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_14_0.ComputerSystem"/>
     </Schema>
 
@@ -2679,6 +2763,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag and LocationIndicatorActive to show there might be a tie to the AssetTag and LocationIndicatorActive of the containing Chassis resource.  It was also created to update the description for HostName to show there might be a tie to the HostName of EthernetInterface resources contained by the system."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_14_4.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_14_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_14_5.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_15_0">
@@ -2744,11 +2834,35 @@
         </Member>
         <Member Name="OSControlled">
           <Annotation Term="OData.Description" String="The system power mode is controlled by the operating system."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the system performs at a operating system controlled power mode."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the system performs at an operating system-controlled power mode."/>
         </Member>
         <Member Name="OEM">
           <Annotation Term="OData.Description" String="The system power mode is OEM-defined."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate the system performs at an OEM-defined power mode."/>
+        </Member>
+        <Member Name="EfficiencyFavorPower">
+          <Annotation Term="OData.Description" String="The system performs at reduced speeds at all utilizations to save power at the cost of performance.  This mode differs from `PowerSaving` in that more performance is retained and less power is saved.  This mode differs from `EfficiencyFavorPerformance` in that less performance is retained but more power is saved."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the system performs at reduced speeds at all utilizations to save power at the cost of performance.  This mode differs from `PowerSaving` in that more performance is retained and less power is saved.  This mode differs from `EfficiencyFavorPerformance` in that less performance is retained but more power is saved. This mode differs from 'BalancedPerformance' in that power saving occurs at all utilizations."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_22_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="EfficiencyFavorPerformance">
+          <Annotation Term="OData.Description" String="The system performs at reduced speeds at all utilizations to save power while attempting to maintain performance.  This mode differs from `EfficiencyFavorPower` in that more performance is retained but less power is saved."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the system performs at reduced speeds at all utilizations to save power while attempting to maintain performance.  This mode differs from `EfficiencyFavorPower` in that more performance is retained but less power is saved. This mode differs from 'MaximumPerformance' in that power is saved at the cost of some performance.  This mode differs from 'BalancedPerformance' in that power saving occurs at all utilizations."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_22_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
       </EnumType>
 
@@ -2783,6 +2897,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag and LocationIndicatorActive to show there might be a tie to the AssetTag and LocationIndicatorActive of the containing Chassis resource.  It was also created to update the description for HostName to show there might be a tie to the HostName of EthernetInterface resources contained by the system."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_15_3.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_15_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_15_4.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_16_0">
@@ -2913,6 +3033,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_16_4.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_16_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_16_5.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_17_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
@@ -2952,6 +3078,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions.  It was also created to clarify the range of possible values for properties with percent units."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_17_3.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_17_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_17_4.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_18_0">
@@ -3018,6 +3150,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_18_2.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_18_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_18_3.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_19_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.2"/>
@@ -3029,7 +3167,7 @@
         <NavigationProperty Name="TrustedComponents" Type="Collection(TrustedComponent.TrustedComponent)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the trusted components for this system."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of link to resources of type TrustedComponent."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type TrustedComponent."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -3051,6 +3189,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions.  It was also created to clarify the range of possible values for properties with percent units."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_19_2.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_19_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_19_3.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_20_0">
@@ -3094,6 +3238,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_20_1.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_20_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_20_2.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_21_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.2"/>
@@ -3118,7 +3268,7 @@
         <NavigationProperty Name="VirtualMachines" Type="Collection(ComputerSystem.ComputerSystem)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the virtual machines this system is hosting."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of link to resources of type ComputerSystem that represent the virtual machines this system is hosting."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type ComputerSystem that represent the virtual machines this system is hosting."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -3153,6 +3303,20 @@
           <Annotation Term="OData.LongDescription" String="This value shall indicate the service clears all logs.  This shall be equivalent to performing the ClearLog action on each LogService resource."/>
         </Member>
       </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_21_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_21_0.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_22_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.3"/>
+      <Annotation Term="OData.Description" String="This version was created to add the values `EfficiencyFavorPower` and `EfficiencyFavorPerformance` to PowerMode."/>
+
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_21_1.ComputerSystem"/>
     </Schema>
 
   </edmx:DataServices>

@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/PCIeDevice.v1_12_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/PCIeDevice.v1_13_0.json",
     "$ref": "#/definitions/PCIeDevice",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -93,7 +93,7 @@
                     "longDescription": "This property shall contain the maximum number of logical devices supported by this CXL device.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ],
                     "versionAdded": "v1_11_0"
@@ -280,7 +280,7 @@
         "CXLRegionBlockSizes": {
             "additionalProperties": false,
             "description": "Set of memory block sizes supported by memory region in the CXL device.",
-            "longDescription": "This type shall contain set of memory block sizes supported by memory region in the dynamic capacity device.",
+            "longDescription": "This type shall contain the set of memory block sizes supported by memory region in the dynamic capacity device.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -304,7 +304,7 @@
                             "null"
                         ]
                     },
-                    "longDescription": "This property shall contain set of memory block sizes supported by this memory region, with units in MiB.",
+                    "longDescription": "This property shall contain the set of memory block sizes supported by this memory region, with units in MiB.",
                     "readonly": true,
                     "type": "array",
                     "units": "MiBy",
@@ -531,7 +531,7 @@
                 "Actions": {
                     "$ref": "#/definitions/Actions",
                     "description": "The available actions for this resource.",
-                    "longDescription": "The actions property shall contain the available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource.",
                     "versionAdded": "v1_1_0"
                 },
                 "Assembly": {
@@ -723,8 +723,8 @@
                     "versionAdded": "v1_6_0"
                 },
                 "StagedVersion": {
-                    "description": "The staged firmware version for this PCIe device, but is not yet active.",
-                    "longDescription": "This property shall contain the staged firmware version for this PCIe device, but is not yet active.",
+                    "description": "The staged firmware version for this PCIe device; this firmware is not yet active.",
+                    "longDescription": "This property shall contain the staged firmware version for this PCIe device; this firmware is not yet active.",
                     "readonly": true,
                     "type": "string",
                     "versionAdded": "v1_11_0"
@@ -744,7 +744,7 @@
                         }
                     ],
                     "description": "The UUID for this PCIe device.",
-                    "longDescription": "This property shall contain the universal unique identifier number for this PCIe device.",
+                    "longDescription": "This property shall contain the universally unique identifier number for this PCIe device.",
                     "readonly": true,
                     "versionAdded": "v1_5_0"
                 }
@@ -777,8 +777,8 @@
             },
             "properties": {
                 "CorrectableErrorCount": {
-                    "description": "The total number of the PCIe correctable errors for this device.",
-                    "longDescription": "This property shall contain the total number of the PCIe correctable errors for this device.",
+                    "description": "The total number of PCIe correctable errors for this device.",
+                    "longDescription": "This property shall contain the total number of PCIe correctable errors for this device.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -787,8 +787,8 @@
                     "versionAdded": "v1_8_0"
                 },
                 "FatalErrorCount": {
-                    "description": "The total number of the PCIe fatal errors for this device.",
-                    "longDescription": "This property shall contain the total number of the PCIe fatal errors for this device.",
+                    "description": "The total number of PCIe fatal errors for this device.",
+                    "longDescription": "This property shall contain the total number of PCIe fatal errors for this device.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -827,8 +827,8 @@
                     "versionAdded": "v1_8_0"
                 },
                 "NonFatalErrorCount": {
-                    "description": "The total number of the PCIe non-fatal errors for this device.",
-                    "longDescription": "This property shall contain the total number of the PCIe non-fatal errors for this device.",
+                    "description": "The total number of PCIe non-fatal errors for this device.",
+                    "longDescription": "This property shall contain the total number of PCIe non-fatal errors for this device.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -837,8 +837,8 @@
                     "versionAdded": "v1_8_0"
                 },
                 "ReplayCount": {
-                    "description": "The total number of the PCIe replays issued by this device.",
-                    "longDescription": "This property shall contain the total number of the replays issued on the PCIe link by this device.  A replay is a retransmission of a TLP and occurs because the ACK timer is expired, which means that the receiver did not send the ACK or this device did not properly decode the ACK.",
+                    "description": "The total number of PCIe replays issued by this device.",
+                    "longDescription": "This property shall contain the total number of replays issued on the PCIe link by this device.  A replay is a retransmission of a TLP and occurs because the ACK timer is expired, which means that the receiver did not send the ACK or this device did not properly decode the ACK.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -847,14 +847,24 @@
                     "versionAdded": "v1_8_0"
                 },
                 "ReplayRolloverCount": {
-                    "description": "The total number of the PCIe replay rollovers issued by this device.",
-                    "longDescription": "This property shall contain the total number of the replay rollovers issued on the PCIe link by this device.  A replay rollover occurs when consecutive replays failed to resolve the errors on the link, which means that this device forced the link into the recovery state.",
+                    "description": "The total number of PCIe replay rollovers issued by this device.",
+                    "longDescription": "This property shall contain the total number of replay rollovers issued on the PCIe link by this device.  A replay rollover occurs when consecutive replays failed to resolve the errors on the link, which means that this device forced the link into the recovery state.",
                     "readonly": true,
                     "type": [
                         "integer",
                         "null"
                     ],
                     "versionAdded": "v1_8_0"
+                },
+                "UnsupportedRequestCount": {
+                    "description": "The total number of PCIe unsupported requests received by this device.",
+                    "longDescription": "This property shall contain the total number of PCIe unsupported requests received by this device.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_13_0"
                 }
             },
             "type": "object"
@@ -958,7 +968,7 @@
             "properties": {
                 "HotPluggable": {
                     "description": "An indication of whether this PCIe slot supports hotplug.",
-                    "longDescription": "This property shall contain indicating whether this PCIe slot supports hotplug.",
+                    "longDescription": "This property shall indicate whether this PCIe slot supports hotplug.",
                     "readonly": true,
                     "type": [
                         "boolean",
@@ -1055,6 +1065,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2023.2",
-    "title": "#PCIeDevice.v1_12_0.PCIeDevice"
+    "release": "2023.3",
+    "title": "#PCIeDevice.v1_13_0.PCIeDevice"
 }

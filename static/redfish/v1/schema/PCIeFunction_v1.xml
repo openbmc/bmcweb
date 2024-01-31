@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PCIeFunction v1.5.0                                                 -->
+<!--# Redfish Schema:  PCIeFunction v1.5.1                                                 -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -157,19 +157,19 @@
         <NavigationProperty Name="EthernetInterfaces" Type="Collection(EthernetInterface.EthernetInterface)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the Ethernet interfaces that this PCIe function produces."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an arrays of links to resources of type EthernetInterface that represent the network interfaces associated with this PCIe function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type EthernetInterface that represent the network interfaces associated with this PCIe function."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Drives" Type="Collection(Drive.Drive)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the drives that this PCIe function produces."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an arrays of links to resources of type Drive that represent the drives associated with this PCIe function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Drive that represent the drives associated with this PCIe function."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="StorageControllers" Type="Collection(Storage.StorageController)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the storage controllers that this PCIe function produces."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an arrays of links to referenceable members of type StorageController that represent the storage controllers associated with this PCIe function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to referenceable members of type StorageController that represent the storage controllers associated with this PCIe function."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="PCIeDevice" Type="PCIeDevice.PCIeDevice" Nullable="false">
@@ -288,7 +288,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeFunction.v1_0_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to add a missing term on PCIeDevice to not allow it to be null."/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to add a missing term on PCIeDevice to not allow it to be `null`."/>
       <EntityType Name="PCIeFunction" BaseType="PCIeFunction.v1_0_4.PCIeFunction"/>
     </Schema>
 
@@ -302,6 +302,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the byte order for properties encoded as hex strings."/>
       <EntityType Name="PCIeFunction" BaseType="PCIeFunction.v1_0_6.PCIeFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeFunction.v1_0_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="PCIeFunction" BaseType="PCIeFunction.v1_0_7.PCIeFunction"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeFunction.v1_1_0">
@@ -346,7 +352,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeFunction.v1_1_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to add a missing term on PCIeDevice to not allow it to be null."/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to add a missing term on PCIeDevice to not allow it to be `null`."/>
       <EntityType Name="PCIeFunction" BaseType="PCIeFunction.v1_1_2.PCIeFunction"/>
     </Schema>
 
@@ -362,6 +368,12 @@
       <EntityType Name="PCIeFunction" BaseType="PCIeFunction.v1_1_4.PCIeFunction"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeFunction.v1_1_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="PCIeFunction" BaseType="PCIeFunction.v1_1_5.PCIeFunction"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeFunction.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.1"/>
@@ -372,7 +384,7 @@
         <NavigationProperty Name="NetworkDeviceFunctions" Type="Collection(NetworkDeviceFunction.NetworkDeviceFunction)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the network device functions that the PCIe function produces."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type NetworkDeviceFunction that represents the network device functions associated with this PCIe function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type NetworkDeviceFunction that represent the network device functions associated with this PCIe function."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -386,7 +398,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeFunction.v1_2_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to add a missing term on PCIeDevice to not allow it to be null."/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to add a missing term on PCIeDevice to not allow it to be `null`."/>
       <EntityType Name="PCIeFunction" BaseType="PCIeFunction.v1_2_1.PCIeFunction"/>
     </Schema>
 
@@ -400,6 +412,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the byte order for properties encoded as hex strings."/>
       <EntityType Name="PCIeFunction" BaseType="PCIeFunction.v1_2_3.PCIeFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeFunction.v1_2_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="PCIeFunction" BaseType="PCIeFunction.v1_2_4.PCIeFunction"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeFunction.v1_3_0">
@@ -419,6 +437,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the byte order for properties encoded as hex strings."/>
       <EntityType Name="PCIeFunction" BaseType="PCIeFunction.v1_3_0.PCIeFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeFunction.v1_3_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="PCIeFunction" BaseType="PCIeFunction.v1_3_1.PCIeFunction"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeFunction.v1_4_0">
@@ -443,6 +467,12 @@
       <EntityType Name="PCIeFunction" BaseType="PCIeFunction.v1_4_0.PCIeFunction"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeFunction.v1_4_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="PCIeFunction" BaseType="PCIeFunction.v1_4_1.PCIeFunction"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeFunction.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.3"/>
@@ -459,7 +489,7 @@
         <NavigationProperty Name="MemoryDomains" Type="Collection(MemoryDomain.MemoryDomain)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the memory domains that the PCIe function produces."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type MemoryDomain that represents the memory domains associated with this PCIe function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type MemoryDomain that represent the memory domains associated with this PCIe function."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="CXLLogicalDevice" Type="CXLLogicalDevice.CXLLogicalDevice">
@@ -478,6 +508,12 @@
           <Annotation Term="OData.Description" String="A PCIe function supporting CXL extensions."/>
         </Member>
       </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeFunction.v1_5_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="PCIeFunction" BaseType="PCIeFunction.v1_5_0.PCIeFunction"/>
     </Schema>
 
   </edmx:DataServices>

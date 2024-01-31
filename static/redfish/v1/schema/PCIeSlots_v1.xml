@@ -210,7 +210,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeSlots.v1_0_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format, and to add a missing term to Links and Slots to disallow them from being null."/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format, and to add a missing term to Links and Slots to disallow them from being `null`."/>
       <EntityType Name="PCIeSlots" BaseType="PCIeSlots.v1_0_0.PCIeSlots"/>
     </Schema>
 

@@ -29,6 +29,7 @@ enum class ChassisType{
     StorageEnclosure,
     ImmersionTank,
     HeatExchanger,
+    PowerStrip,
     Other,
 };
 
@@ -101,6 +102,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ChassisType, {
     {ChassisType::StorageEnclosure, "StorageEnclosure"},
     {ChassisType::ImmersionTank, "ImmersionTank"},
     {ChassisType::HeatExchanger, "HeatExchanger"},
+    {ChassisType::PowerStrip, "PowerStrip"},
     {ChassisType::Other, "Other"},
 });
 

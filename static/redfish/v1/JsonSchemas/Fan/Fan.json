@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Fan.v1_5_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Fan.v1_5_1.json",
     "$ref": "#/definitions/Fan",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -85,8 +85,8 @@
                     "readonly": true
                 },
                 "FanDiameterMm": {
-                    "description": "The diameter of the fan assembly in millimeters.",
-                    "longDescription": "This property shall contain the diameter of the fan assembly in millimeters.",
+                    "description": "The diameter of the fan assembly in millimeter units.",
+                    "longDescription": "This property shall contain the diameter of the fan assembly in millimeter units.",
                     "minimum": 0,
                     "readonly": true,
                     "type": [
@@ -98,7 +98,7 @@
                 },
                 "HotPluggable": {
                     "description": "An indication of whether this device can be inserted or removed while the equipment is in operation.",
-                    "longDescription": "This property shall indicate whether the device can be inserted or removed while the underlying equipment otherwise remains in its current operational state.  Hot-pluggable devices can become operable without altering the operational state of the underlying equipment.  Devices that cannot be inserted or removed from equipment in operation, or devices that cannot become operable without affecting the operational state of that equipment, shall be not hot-pluggable.",
+                    "longDescription": "This property shall indicate whether the device can be inserted or removed while the underlying equipment otherwise remains in its current operational state.  Hot-pluggable devices can become operable without altering the operational state of the underlying equipment.  Devices that cannot be inserted or removed from equipment in operation, or devices that cannot become operable without affecting the operational state of that equipment, shall not be hot-pluggable.",
                     "readonly": true,
                     "type": [
                         "boolean",
@@ -118,7 +118,7 @@
                 "Location": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location",
                     "description": "The location of the fan.",
-                    "longDescription": "This property shall contain location information of this fan."
+                    "longDescription": "This property shall contain the location information of this fan."
                 },
                 "LocationIndicatorActive": {
                     "description": "An indicator allowing an operator to physically locate this resource.",
@@ -187,7 +187,7 @@
                 },
                 "Replaceable": {
                     "description": "An indication of whether this component can be independently replaced as allowed by the vendor's replacement policy.",
-                    "longDescription": "This property shall indicate whether this component can be independently replaced as allowed by the vendor's replacement policy.  A value of `false` indicates the component needs to be replaced by policy, as part of another component.  If the `LocationType` property of this component contains `Embedded`, this property shall contain `false`.",
+                    "longDescription": "This property shall indicate whether this component can be independently replaced as allowed by the vendor's replacement policy.  A value of `false` indicates the component needs to be replaced by policy as part of another component.  If the `LocationType` property of this component contains `Embedded`, this property shall contain `false`.",
                     "readonly": true,
                     "type": [
                         "boolean",
@@ -318,5 +318,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2023.2",
-    "title": "#Fan.v1_5_0.Fan"
+    "title": "#Fan.v1_5_1.Fan"
 }

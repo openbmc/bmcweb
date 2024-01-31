@@ -57,7 +57,7 @@
         <Annotation Term="Capabilities.UpdateRestrictions">
           <Record>
             <PropertyValue Property="Updatable" Bool="true"/>
-            <Annotation Term="OData.Description" String="The aggregation service can be updated to change some properties"/>
+            <Annotation Term="OData.Description" String="The aggregation service can be updated to change some properties."/>
           </Record>
         </Annotation>
         <Annotation Term="Capabilities.DeleteRestrictions">
@@ -75,7 +75,7 @@
       <Action Name="Reset" IsBound="true">
         <Annotation Term="OData.Description" String="This action is used to reset a set of resources.  For example this could be a list of computer systems."/>
         <Annotation Term="OData.LongDescription" String="This action shall perform a reset of a set of resources."/>
-        <Parameter Name="Aggregate" Type="AggregationService.v1_0_0.Actions"/>
+        <Parameter Name="AggregationService" Type="AggregationService.v1_0_0.Actions"/>
         <Parameter Name="DelayBetweenBatchesInSeconds" Type="Edm.Int64">
           <Annotation Term="OData.Description" String="The delay of the batches of elements being reset in seconds."/>
           <Annotation Term="OData.LongDescription" String="This parameter shall contain the delay of the batches of elements being reset in seconds."/>
@@ -165,7 +165,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AggregationService.v1_0_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <Annotation Term="OData.Description" String="This version was created to specify 64-bit integers in OpenAPI."/>
       <EntityType Name="AggregationService" BaseType="AggregationService.v1_0_0.AggregationService"/>
     </Schema>
 

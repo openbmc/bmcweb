@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Sensor v1.7.0                                                       -->
+<!--# Redfish Schema:  Sensor v1.8.1                                                       -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -163,7 +163,7 @@
         </Member>
          <Member Name="Line1ToNeutralAndL1L2">
           <Annotation Term="OData.Description" String="The circuit formed by L1, L2, and neutral current-carrying conductors."/>
-          <Annotation Term="OData.LongDescription" String="This value shall represent circuit formed by L1, L2, and neutral current-carrying conductors, such as circuits with phase wiring types of Two-phase/ 4-Wire or Three-phase / 5-Wire."/>
+          <Annotation Term="OData.LongDescription" String="This value shall represent a circuit formed by L1, L2, and neutral current-carrying conductors, such as circuits with phase wiring types of Two-phase/ 4-Wire or Three-phase / 5-Wire."/>
         </Member>
         <Member Name="Line2ToNeutralAndL1L2">
           <Annotation Term="OData.Description" String="The circuit formed by L1, L2, and Neutral current-carrying conductors."/>
@@ -233,7 +233,7 @@
         <Property Name="PeakReading" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The peak sensor value."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the peak sensor value since the last ResetMetrics action was performed or the service last reset the time-based property values."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the peak sensor value since the last ResetMetrics action was performed or since the service last reset the time-based property values."/>
         </Property>
 
         <Property Name="MaxAllowableOperatingValue" Type="Edm.Decimal">
@@ -362,12 +362,12 @@
         <Property Name="PeakReadingTime" Type="Edm.DateTimeOffset">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The time when the peak sensor value occurred."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the date and time when the peak sensor value was observed."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date and time when the peak sensor value was observed, as reported as the value of PeakReading."/>
         </Property>
         <Property Name="SensorResetTime" Type="Edm.DateTimeOffset">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The date and time when the time-based properties were last reset."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the date and time when the ResetMetrics action was last performed or the service last reset the time-based property values."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date and time when the ResetMetrics action was last performed or when the service last reset the time-based property values."/>
           <Annotation Term="Redfish.Excerpt" String="EnergykWh"/>
         </Property>
 
@@ -474,7 +474,7 @@
       <EnumType Name="ReadingType">
         <Member Name="Temperature">
           <Annotation Term="OData.Description" String="Temperature (C)."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a temperature measurement, in degrees Celsius units.  The ReadingUnits property shall contain `Cel`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a temperature measurement, in degree Celsius units.  The ReadingUnits property shall contain `Cel`."/>
         </Member>
         <Member Name="Humidity">
           <Annotation Term="OData.Description" String="Relative humidity (percent)."/>
@@ -506,7 +506,7 @@
         </Member>
         <Member Name="ChargeAh">
           <Annotation Term="OData.Description" String="Charge (Ah)."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the amount of charge of the monitored item.  If representing metered power consumption,  integral of real power over time, the value shall reflect the power consumption since the sensor metrics were last reset.  The value of the Reading property shall be in ampere-hour units and the ReadingUnits property shall contain `A.h`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the amount of charge, integral of current over time, of the monitored item.  If representing metered charge consumption the value shall reflect the charge consumption since the sensor metrics were last reset.  The value of the Reading property shall be in ampere-hour units and the ReadingUnits property shall contain `A.h`."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -571,7 +571,7 @@
         </Member>
         <Member Name="Rotational">
           <Annotation Term="OData.Description" String="Rotational (RPM)."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of rotational frequency, in revolutions per minute unit.  The ReadingUnits property shall contain either `{rev}/min`, which is preferred, or `RPM`, which is a deprecated value."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of rotational frequency, in revolutions per minute units.  The ReadingUnits property shall contain either `{rev}/min`, which is preferred, or `RPM`, which is a deprecated value."/>
         </Member>
         <Member Name="AirFlow">
           <Annotation Term="OData.Description" String="Air flow (cu ft/min)."/>
@@ -644,7 +644,7 @@
           </Annotation>
         </Member>
         <Member Name="AbsoluteHumidity">
-          <Annotation Term="OData.Description" String="Absolute humidity (g/cu m)."/>
+          <Annotation Term="OData.Description" String="Absolute humidity (g/m^3)."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate an absolute (volumetric) humidity measurement, in grams per cubic meter units.  The ReadingUnits property shall contain `g/m3`."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
@@ -672,7 +672,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_0_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the ReadingUnits definition for the EnergykWh ReadingType and the EnergykWh and EnergyJoules descriptions.  It also forces the regeneration of JSON Schema so that URI properties use the uri-reference format, and to add a missing term on several properties to not allow them to be null."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the ReadingUnits definition for the EnergykWh ReadingType and the EnergykWh and EnergyJoules descriptions.  It also forces the regeneration of JSON Schema so that URI properties use the uri-reference format, and to add a missing term on several properties to not allow them to be `null`."/>
       <EntityType Name="Sensor" BaseType="Sensor.v1_0_0.Sensor"/>
     </Schema>
 
@@ -724,6 +724,12 @@
       <EntityType Name="Sensor" BaseType="Sensor.v1_0_8.Sensor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_0_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the ties between time-based properties, their respective timestamps, and the ResetMetrics action.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_0_9.Sensor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.4"/>
@@ -747,7 +753,7 @@
         <Property Name="LifetimeReading" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The total accumulation value for this sensor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the total accumulation of the Reading property over the sensor's life time.  This value shall not be reset by the ResetMetrics action."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total accumulation of the Reading property over the sensor's lifetime.  This value shall not be reset by the ResetMetrics action."/>
           <Annotation Term="Redfish.Excerpt" String="EnergykWh"/>
         </Property>
         <Property Name="SensingInterval" Type="Edm.Duration">
@@ -758,7 +764,7 @@
         <Property Name="ReadingTime" Type="Edm.DateTimeOffset">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The date and time that the reading was acquired from the sensor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the date and time that the reading data was acquired from the sensor.  This value is used to synchronize readings from multiple sensors, and does not represent the time at which the resource was accessed."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date and time that the reading data was acquired from the sensor.  This value is used to synchronize readings from multiple sensors and does not represent the time at which the resource was accessed."/>
         </Property>
         <Property Name="Implementation" Type="Sensor.v1_1_0.ImplementationType">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -808,6 +814,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct the regular expression pattern for duration properties in JSON Schema and OpenAPI to not allow for negative values."/>
       <EntityType Name="Sensor" BaseType="Sensor.v1_1_4.Sensor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_1_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the ties between time-based properties, their respective timestamps, and the ResetMetrics action.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_1_5.Sensor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_2_0">
@@ -876,6 +888,12 @@
       <EntityType Name="Sensor" BaseType="Sensor.v1_2_2.Sensor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_2_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the ties between time-based properties, their respective timestamps, and the ResetMetrics action.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_2_3.Sensor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.1"/>
@@ -911,6 +929,12 @@
       <EntityType Name="Sensor" BaseType="Sensor.v1_2_2.Sensor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_3_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the ties between time-based properties, their respective timestamps, and the ResetMetrics action.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_3_3.Sensor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
@@ -923,17 +947,17 @@
         <Property Name="LowestReading" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The lowest sensor value."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the lowest sensor value since the last ResetMetrics action was performed or the service last reset the time-based property values."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the lowest sensor value since the last ResetMetrics action was performed or since the service last reset the time-based property values."/>
         </Property>
         <Property Name="LowestReadingTime" Type="Edm.DateTimeOffset">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The time when the lowest sensor value occurred."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the date and time when the lowest sensor value was observed."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date and time when the lowest sensor value was observed, as reported as the value of LowestReading."/>
         </Property>
         <Property Name="AverageReading" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The average sensor value."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the average sensor value over the time specified by the value of the AveragingInterval property.  The value shall be reset by the ResetMetrics action."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the average sensor value over the time specified by the value of the AveragingInterval property.  The value shall be reset by the ResetMetrics action or by a service reset of time-based property values."/>
         </Property>
         <Property Name="AveragingInterval" Type="Edm.Duration">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -979,6 +1003,12 @@
       <EntityType Name="Sensor" BaseType="Sensor.v1_4_1.Sensor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_4_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the ties between time-based properties, their respective timestamps, and the ResetMetrics action.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_4_2.Sensor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
@@ -1016,6 +1046,12 @@
       <EntityType Name="Sensor" BaseType="Sensor.v1_5_0.Sensor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_5_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the ties between time-based properties, their respective timestamps, and the ResetMetrics action.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_5_1.Sensor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.2"/>
@@ -1028,6 +1064,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to improve the descriptions of Threshold properties and their usage.  It was also created to correct the regular expression pattern for duration properties in JSON Schema and OpenAPI to not allow for negative values."/>
       <EntityType Name="Sensor" BaseType="Sensor.v1_6_0.Sensor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_6_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the ties between time-based properties, their respective timestamps, and the ResetMetrics action.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_6_1.Sensor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_7_0">
@@ -1054,7 +1096,7 @@
         </Member>
         <Member Name="Headroom">
           <Annotation Term="OData.Description" String="A reading that decreases as it approaches a defined reference point."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a reading that decreases in value as it approaches the reference point.  If the value crosses the reference point, the value may be reported as a negative number, or may report a value of zero."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a reading that decreases in value as it approaches the reference point.  If the value crosses the reference point, the value may be reported as a negative number or may report a value of zero."/>
         </Member>
       </EnumType>
 
@@ -1072,6 +1114,12 @@
       </ComplexType>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_7_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the ties between time-based properties, their respective timestamps, and the ResetMetrics action.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_7_0.Sensor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.2"/>
@@ -1084,6 +1132,12 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the accuracy of the value of the Reading for this sensor.  The value shall be the absolute value of the maximum deviation of the Reading from its actual value.  The value shall be in units that follow the ReadingUnits for this sensor."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_8_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the ties between time-based properties, their respective timestamps, and the ResetMetrics action.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_8_0.Sensor"/>
     </Schema>
 
   </edmx:DataServices>

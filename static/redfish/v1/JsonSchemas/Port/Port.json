@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Port.v1_10_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Port.v1_11_0.json",
     "$ref": "#/definitions/Port",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -133,6 +133,23 @@
                     "description": "The quality of service telemetry capabilities for this CXL port.",
                     "longDescription": "This property shall contain the quality of service telemetry capabilities for this CXL port.",
                     "versionAdded": "v1_8_0"
+                },
+                "SupportedCXLModes": {
+                    "description": "The supported device modes.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ConnectedDeviceMode"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain the CXL Specification-defined 'Supported CXL Modes'.  This property shall not contain the value `Disconnected`.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_11_0"
                 },
                 "TemporaryThroughputReductionEnabled": {
                     "description": "Indicates whether temporary throughput reduction is enabled.",
@@ -339,12 +356,17 @@
                 "UnbindInProgress",
                 "DSP",
                 "USP",
-                "Reserved"
+                "Reserved",
+                "FabricLink"
             ],
+            "enumDeprecated": {
+                "Reserved": "This value has been deprecated in favor of `FabricLink`."
+            },
             "enumDescriptions": {
                 "BindInProgress": "Bind in progress.",
                 "DSP": "Downstream port (DSP).",
                 "Disabled": "Disabled.",
+                "FabricLink": "Fabric link.",
                 "Reserved": "Reserved.",
                 "USP": "Upstream port (USP).",
                 "UnbindInProgress": "Unbind in progress."
@@ -353,9 +375,16 @@
                 "BindInProgress": "This value shall indicate a bind is in progress for the port.",
                 "DSP": "This value shall indicate the port is enabled as a downstream port (DSP).",
                 "Disabled": "This value shall indicate the port is disabled.",
+                "FabricLink": "This value shall indicate the port is enabled as a fabric link to another switch.",
                 "Reserved": "This value shall indicate the port is in a reserved state.",
                 "USP": "This value shall indicate the port is enabled as an upstream port (USP).",
                 "UnbindInProgress": "This value shall indicate an unbind is in progress for the port."
+            },
+            "enumVersionAdded": {
+                "FabricLink": "v1_11_0"
+            },
+            "enumVersionDeprecated": {
+                "Reserved": "v1_11_0"
             },
             "type": "string"
         },
@@ -379,14 +408,14 @@
             },
             "properties": {
                 "AssociatedMACAddresses": {
-                    "description": "An array of configured MAC addresses that are associated with this network port, including the programmed address of the lowest numbered network device function, the configured but not active address, if applicable, the address for hardware port teaming, or other network addresses.",
+                    "description": "An array of configured MAC addresses that are associated with this network port, including the programmed address of the lowest-numbered network device function, the configured but not active address, if applicable, the address for hardware port teaming, or other network addresses.",
                     "items": {
                         "type": [
                             "string",
                             "null"
                         ]
                     },
-                    "longDescription": "This property shall contain an array of configured MAC addresses that are associated with this network port, including the programmed address of the lowest numbered network device function, the configured but not active address if applicable, the address for hardware port teaming, or other network addresses.",
+                    "longDescription": "This property shall contain an array of configured MAC addresses that are associated with this network port, including the programmed address of the lowest-numbered network device function, the configured but not active address if applicable, the address for hardware port teaming, or other network addresses.",
                     "pattern": "^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$",
                     "readonly": true,
                     "type": "array",
@@ -526,14 +555,14 @@
             },
             "properties": {
                 "AssociatedWorldWideNames": {
-                    "description": "An array of configured World Wide Names (WWN) that are associated with this network port, including the programmed address of the lowest numbered network device function, the configured but not active address, if applicable, the address for hardware port teaming, or other network addresses.",
+                    "description": "An array of configured World Wide Names (WWN) that are associated with this network port, including the programmed address of the lowest-numbered network device function, the configured but not active address, if applicable, the address for hardware port teaming, or other network addresses.",
                     "items": {
                         "type": [
                             "string",
                             "null"
                         ]
                     },
-                    "longDescription": "This property shall contain an array of configured World Wide Names (WWN) that are associated with this network port, including the programmed address of the lowest numbered network device function, the configured but not active address if applicable, the address for hardware port teaming, or other network addresses.",
+                    "longDescription": "This property shall contain an array of configured World Wide Names (WWN) that are associated with this network port, including the programmed address of the lowest-numbered network device function, the configured but not active address if applicable, the address for hardware port teaming, or other network addresses.",
                     "pattern": "^([0-9A-Fa-f]{2}[:-]){7}([0-9A-Fa-f]{2})$",
                     "readonly": true,
                     "type": "array",
@@ -593,7 +622,7 @@
         },
         "FunctionMaxBandwidth": {
             "additionalProperties": false,
-            "description": "A maximum bandwidth allocation percentage for a network device functions associated a port.",
+            "description": "A maximum bandwidth allocation percentage for a network device functions associated with a port.",
             "longDescription": "This type shall describe a maximum bandwidth percentage allocation for a network device function associated with a port.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
@@ -635,7 +664,7 @@
         },
         "FunctionMinBandwidth": {
             "additionalProperties": false,
-            "description": "A minimum bandwidth allocation percentage for a network device functions associated a port.",
+            "description": "A minimum bandwidth allocation percentage for a network device functions associated with a port.",
             "longDescription": "This type shall describe a minimum bandwidth percentage allocation for a network device function associated with a port.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
@@ -703,14 +732,14 @@
                 },
                 "MPRT": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/RouteEntryCollection.json#/definitions/RouteEntryCollection",
-                    "description": "the Multi-subnet Packet Relay Table for the port.",
+                    "description": "The Multi-subnet Packet Relay Table for the port.",
                     "longDescription": "This property shall contain a link to a resource collection of type RouteEntryCollection, and shall represent the Gen-Z Core Specification-defined Multi-subnet Packet Relay Table for this port.",
                     "readonly": true,
                     "versionAdded": "v1_2_0"
                 },
                 "VCAT": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/VCATEntryCollection.json#/definitions/VCATEntryCollection",
-                    "description": "the Virtual Channel Action Table for the port.",
+                    "description": "The Virtual Channel Action Table for the port.",
                     "longDescription": "This property shall contain a link to a resource collection of type VCATEntryCollection.",
                     "readonly": true,
                     "versionAdded": "v1_2_0"
@@ -732,14 +761,14 @@
             ],
             "enumDescriptions": {
                 "AgentId": "Agent circuit ID, based on the agent-local identifier of the circuit as defined in RFC3046.",
-                "ChassisComp": "Chassis component, based in the value of entPhysicalAlias in RFC4133.",
+                "ChassisComp": "Chassis component, based on the value of entPhysicalAlias in RFC4133.",
                 "IfAlias": "Interface alias, based on the ifAlias MIB object.",
                 "IfName": "Interface name, based on the ifName MIB object.",
-                "LocalAssign": "Locally assigned, based on a alpha-numeric value locally assigned.",
-                "MacAddr": "MAC address, based on an agent detected unicast source address as defined in IEEE standard 802.",
-                "NetworkAddr": "Network address, based on an agent detected network address.",
+                "LocalAssign": "Locally assigned, based on an alphanumeric value locally assigned.",
+                "MacAddr": "MAC address, based on an agent-detected unicast source address as defined in IEEE standard 802.",
+                "NetworkAddr": "Network address, based on an agent-detected network address.",
                 "NotTransmitted": "No data to be sent to/received from remote partner.",
-                "PortComp": "Port component, based in the value of entPhysicalAlias in RFC4133."
+                "PortComp": "Port component, based on the value of entPhysicalAlias in RFC4133."
             },
             "type": "string"
         },
@@ -763,42 +792,42 @@
             },
             "properties": {
                 "AssociatedNodeGUIDs": {
-                    "description": "An array of configured node GUIDs that are associated with this network port, including the programmed address of the lowest numbered network device function, the configured but not active address, if applicable, the address for hardware port teaming, or other network addresses.",
+                    "description": "An array of configured node GUIDs that are associated with this network port, including the programmed address of the lowest-numbered network device function, the configured but not active address, if applicable, the address for hardware port teaming, or other network addresses.",
                     "items": {
                         "type": [
                             "string",
                             "null"
                         ]
                     },
-                    "longDescription": "This property shall contain an array of configured node GUIDs that are associated with this network port, including the programmed address of the lowest numbered network device function, the configured but not active address if applicable, the address for hardware port teaming, or other network addresses.",
+                    "longDescription": "This property shall contain an array of configured node GUIDs that are associated with this network port, including the programmed address of the lowest-numbered network device function, the configured but not active address if applicable, the address for hardware port teaming, or other network addresses.",
                     "pattern": "^([0-9A-Fa-f]{4}[:-]){3}([0-9A-Fa-f]{4})$",
                     "readonly": true,
                     "type": "array",
                     "versionAdded": "v1_6_0"
                 },
                 "AssociatedPortGUIDs": {
-                    "description": "An array of configured port GUIDs that are associated with this network port, including the programmed address of the lowest numbered network device function, the configured but not active address, if applicable, the address for hardware port teaming, or other network addresses.",
+                    "description": "An array of configured port GUIDs that are associated with this network port, including the programmed address of the lowest-numbered network device function, the configured but not active address, if applicable, the address for hardware port teaming, or other network addresses.",
                     "items": {
                         "type": [
                             "string",
                             "null"
                         ]
                     },
-                    "longDescription": "This property shall contain an array of configured port GUIDs that are associated with this network port, including the programmed address of the lowest numbered network device function, the configured but not active address if applicable, the address for hardware port teaming, or other network addresses.",
+                    "longDescription": "This property shall contain an array of configured port GUIDs that are associated with this network port, including the programmed address of the lowest-numbered network device function, the configured but not active address if applicable, the address for hardware port teaming, or other network addresses.",
                     "pattern": "^([0-9A-Fa-f]{4}[:-]){3}([0-9A-Fa-f]{4})$",
                     "readonly": true,
                     "type": "array",
                     "versionAdded": "v1_6_0"
                 },
                 "AssociatedSystemGUIDs": {
-                    "description": "An array of configured system GUIDs that are associated with this network port, including the programmed address of the lowest numbered network device function, the configured but not active address, if applicable, the address for hardware port teaming, or other network addresses.",
+                    "description": "An array of configured system GUIDs that are associated with this network port, including the programmed address of the lowest-numbered network device function, the configured but not active address, if applicable, the address for hardware port teaming, or other network addresses.",
                     "items": {
                         "type": [
                             "string",
                             "null"
                         ]
                     },
-                    "longDescription": "This property shall contain an array of configured system GUIDs that are associated with this network port, including the programmed address of the lowest numbered network device function, the configured but not active address if applicable, the address for hardware port teaming, or other network addresses.",
+                    "longDescription": "This property shall contain an array of configured system GUIDs that are associated with this network port, including the programmed address of the lowest-numbered network device function, the configured but not active address if applicable, the address for hardware port teaming, or other network addresses.",
                     "pattern": "^([0-9A-Fa-f]{4}[:-]){3}([0-9A-Fa-f]{4})$",
                     "readonly": true,
                     "type": "array",
@@ -895,8 +924,8 @@
                     "versionAdded": "v1_4_0"
                 },
                 "PortId": {
-                    "description": "A colon delimited string of hexadecimal octets identifying a port.",
-                    "longDescription": "This property shall contain a colon delimited string of hexadecimal octets identifying the port received from the remote partner across this link.  If no such port ID has been received, this property should not be present.",
+                    "description": "A colon-delimited string of hexadecimal octets identifying a port.",
+                    "longDescription": "This property shall contain a colon-delimited string of hexadecimal octets identifying the port received from the remote partner across this link.  If no such port ID has been received, this property should not be present.",
                     "pattern": "^([0-9A-F]{2})([:]([0-9A-F]){2}){0,63}$",
                     "readonly": true,
                     "type": [
@@ -1083,8 +1112,8 @@
                     "versionAdded": "v1_4_0"
                 },
                 "PortId": {
-                    "description": "A colon delimited string of hexadecimal octets identifying a port to be transmitted from this endpoint.",
-                    "longDescription": "This property shall contain a colon delimited string of hexadecimal octets identifying the port for an LLDP endpoint.  If no such port ID is to be transmitted, this value shall be an empty string.",
+                    "description": "A colon-delimited string of hexadecimal octets identifying a port to be transmitted from this endpoint.",
+                    "longDescription": "This property shall contain a colon-delimited string of hexadecimal octets identifying the port for an LLDP endpoint.  If no such port ID is to be transmitted, this value shall be an empty string.",
                     "pattern": "(^([0-9A-F]{2})([:]([0-9A-F]){2}){0,63}$)|(^$)",
                     "readonly": false,
                     "type": [
@@ -1150,7 +1179,7 @@
         "LinkConfiguration": {
             "additionalProperties": false,
             "description": "Properties of the link for which this port is configured.",
-            "longDescription": "This type shall contain properties of the link for which port has been configured.",
+            "longDescription": "This type shall contain properties of the link for which this port has been configured.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -1486,7 +1515,7 @@
                 },
                 "CurrentSpeedGbps": {
                     "description": "The current speed of this port.",
-                    "longDescription": "This property shall contain the speed of this port currently negotiated and running.  This value includes overhead associated with the protocol.",
+                    "longDescription": "This property shall contain the unidirectional speed of this port currently negotiated and running.  This value includes overhead associated with the protocol.",
                     "readonly": true,
                     "type": [
                         "number",
@@ -1650,7 +1679,7 @@
                 "Location": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location",
                     "description": "The location of the port.",
-                    "longDescription": "This property shall contain location information of the associated port.",
+                    "longDescription": "This property shall contain the location information of the associated port.",
                     "versionAdded": "v1_1_0"
                 },
                 "LocationIndicatorActive": {
@@ -1676,7 +1705,7 @@
                 },
                 "MaxSpeedGbps": {
                     "description": "The maximum speed of this port as currently configured.",
-                    "longDescription": "This property shall contain the maximum speed of which this port is capable of being configured.  If capable of autonegotiation, the system shall attempt to negotiate at the maximum speed set.  This value includes overhead associated with the protocol.",
+                    "longDescription": "This property shall contain the maximum unidirectional speed of which this port is capable of being configured.  If capable of autonegotiation, the system shall attempt to negotiate at the maximum speed set.  This value includes overhead associated with the protocol.",
                     "readonly": true,
                     "type": [
                         "number",
@@ -1842,13 +1871,13 @@
                 "GPort": "This port connection type is a generic fabric port.",
                 "Generic": "This port connection type is a generic fabric port.",
                 "NLPort": "This port connects in a node loop configuration.",
-                "NPPort": "This port connection type is a proxy N port for N-Port virtualization.",
-                "NPort": "This port connects through an N-Port to a switch.",
+                "NPPort": "This port connection type is a proxy N-port for N-port virtualization.",
+                "NPort": "This port connects through an N-port to a switch.",
                 "NotConnected": "This port is not connected.",
-                "PointToPoint": "This port connects in a Point-to-point configuration.",
+                "PointToPoint": "This port connects in a point-to-point configuration.",
                 "PrivateLoop": "This port connects in a private loop configuration.",
                 "PublicLoop": "This port connects in a public configuration.",
-                "TEPort": "This port connection type is an trunking extender fabric port.",
+                "TEPort": "This port connection type is a trunking extender fabric port.",
                 "UPort": "This port connection type is unassigned."
             },
             "enumVersionAdded": {
@@ -1945,7 +1974,7 @@
                 "ResetType": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/ResetType",
                     "description": "The type of reset.",
-                    "longDescription": "This parameter shall contain the type of reset.  The service can accept a request without the parameter and perform an implementation specific default reset."
+                    "longDescription": "This parameter shall contain the type of reset.  The service can accept a request without the parameter and perform an implementation-specific default reset."
                 }
             },
             "patternProperties": {
@@ -2175,6 +2204,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2023.2",
-    "title": "#Port.v1_10_0.Port"
+    "release": "2023.3",
+    "title": "#Port.v1_11_0.Port"
 }

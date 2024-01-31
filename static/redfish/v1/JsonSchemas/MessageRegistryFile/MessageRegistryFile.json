@@ -1,13 +1,13 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/MessageRegistryFile.v1_1_3.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/MessageRegistryFile.v1_1_4.json",
     "$ref": "#/definitions/MessageRegistryFile",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
-            "description": "The available actions for this Resource.",
-            "longDescription": "This type shall contain the available actions for this Resource.",
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -25,8 +25,8 @@
             "properties": {
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
-                    "description": "The available OEM-specific actions for this Resource.",
-                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource.",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource.",
                     "versionAdded": "v1_1_0"
                 }
             },
@@ -34,8 +34,8 @@
         },
         "Location": {
             "additionalProperties": false,
-            "description": "The location information for a Message Registry file.",
-            "longDescription": "This type shall contain the location information for a Message Registry file.",
+            "description": "The location information for a registry file.",
+            "longDescription": "This type shall contain the location information for a registry file.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -52,35 +52,35 @@
             },
             "properties": {
                 "ArchiveFile": {
-                    "description": "If the service hosts the Message Registry in an archive file, the name of the file within the archive.",
-                    "longDescription": "This property shall contain the file name of the individual Message Registry file within the archive file specified by the ArchiveUri property.  The file name shall conform to the Redfish Specification-specified syntax.",
+                    "description": "If the service hosts the registry in an archive file, the name of the file within the archive.",
+                    "longDescription": "This property shall contain the file name of the individual registry file within the archive file specified by the ArchiveUri property.  The file name shall conform to the Redfish Specification-specified syntax.",
                     "readonly": true,
                     "type": "string"
                 },
                 "ArchiveUri": {
-                    "description": "If the Message Registry is hosted on the service in an archive file, the link to the archive file.",
+                    "description": "If the registry is hosted on the service in an archive file, the link to the archive file.",
                     "format": "uri-reference",
-                    "longDescription": "This property shall contain a URI that is colocated with the Redfish Service that specifies the location of the Message Registry file, which can be retrieved using the Redfish protocol and authentication methods.  This property shall be used for only ZIP or other archive files.  The ArchiveFile property shall contain the file name of the individual Message Registry file within the archive file.",
+                    "longDescription": "This property shall contain a URI that is colocated with the Redfish service that specifies the location of the registry file, which can be retrieved using the Redfish protocol and authentication methods.  This property shall be used for only ZIP or other archive files.  The ArchiveFile property shall contain the file name of the individual registry file within the archive file.",
                     "readonly": true,
                     "type": "string"
                 },
                 "Language": {
-                    "description": "The language code for the Message Registry file.",
+                    "description": "The language code for the registry file.",
                     "longDescription": "This property shall contain an RFC5646-conformant language code or `default`.",
                     "readonly": true,
                     "type": "string"
                 },
                 "PublicationUri": {
-                    "description": "The link to publicly available (canonical) URI for the Message Registry.",
+                    "description": "The link to publicly available (canonical) URI for the registry.",
                     "format": "uri-reference",
-                    "longDescription": "This property shall contain a URI not colocated with the Redfish Service that specifies the canonical location of the Message Registry file.  This property shall be used for only individual Message Registry files.",
+                    "longDescription": "This property shall contain a URI not colocated with the Redfish service that specifies the canonical location of the registry file.  This property shall be used for only individual registry files.",
                     "readonly": true,
                     "type": "string"
                 },
                 "Uri": {
-                    "description": "The link to locally available URI for the Message Registry.",
+                    "description": "The link to locally available URI for the registry.",
                     "format": "uri-reference",
-                    "longDescription": "This property shall contain a URI colocated with the Redfish Service that specifies the location of the Message Registry file, which can be retrieved using the Redfish protocol and authentication methods.  This property shall be used for only individual Message Registry files.  The file name portion of the URI shall conform to Redfish Specification-specified syntax.",
+                    "longDescription": "This property shall contain a URI colocated with the Redfish service that specifies the location of the registry file, which can be retrieved using the Redfish protocol and authentication methods.  This property shall be used for only individual registry files.  The file name portion of the URI shall conform to Redfish Specification-specified syntax.",
                     "readonly": true,
                     "type": "string"
                 }
@@ -89,8 +89,8 @@
         },
         "MessageRegistryFile": {
             "additionalProperties": false,
-            "description": "The MessageRegistryFile schema describes the Message Registry file locator Resource.",
-            "longDescription": "This Resource shall represent the Message Registry file locator for a Redfish implementation.",
+            "description": "The MessageRegistryFile schema describes the registry file locator resource.  This referenced registry file can be any type of registry, such as a message registry, privilege registry, or attribute registry.",
+            "longDescription": "This resource shall represent the registry file locator for a Redfish implementation.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -120,8 +120,8 @@
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
-                    "description": "The available actions for this Resource.",
-                    "longDescription": "The actions property shall contain the available actions for this Resource.",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource.",
                     "versionAdded": "v1_1_0"
                 },
                 "Description": {
@@ -140,7 +140,7 @@
                     "readonly": true
                 },
                 "Languages": {
-                    "description": "The RFC5646-conformant language codes for the available Message Registries.",
+                    "description": "The RFC5646-conformant language codes for the available registries.",
                     "items": {
                         "type": "string"
                     },
@@ -149,11 +149,11 @@
                     "type": "array"
                 },
                 "Location": {
-                    "description": "The location information for this Message Registry file.",
+                    "description": "The location information for this registry file.",
                     "items": {
                         "$ref": "#/definitions/Location"
                     },
-                    "longDescription": "This property shall contain the location information for this Message Registry file.",
+                    "longDescription": "This property shall contain the location information for this registry file.",
                     "type": "array"
                 },
                 "Name": {
@@ -166,8 +166,8 @@
                     "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
                 },
                 "Registry": {
-                    "description": "The registry name and its major and minor versions.  This registry can be any type of registry, such as a Message Registry, Privilege Registry, or Attribute Registry.",
-                    "longDescription": "This property shall contain the Message Registry name and it major and minor versions, as defined by the Redfish Specification.  This registry can be any type of registry, such as Message Registry, Privilege Registry, or Attribute Registry.",
+                    "description": "The registry name and its major and minor versions.  This registry can be any type of registry, such as a message registry, privilege registry, or attribute rgistry.",
+                    "longDescription": "This property shall contain the registry name and it major and minor versions, as defined by the Redfish Specification.  This registry can be any type of registry, such as message registry, privilege registry, or attribute registry.",
                     "readonly": true,
                     "type": "string"
                 }
@@ -185,8 +185,8 @@
         },
         "OemActions": {
             "additionalProperties": true,
-            "description": "The available OEM-specific actions for this Resource.",
-            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -207,5 +207,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2017.1",
-    "title": "#MessageRegistryFile.v1_1_3.MessageRegistryFile"
+    "title": "#MessageRegistryFile.v1_1_4.MessageRegistryFile"
 }

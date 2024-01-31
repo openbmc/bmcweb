@@ -36,6 +36,8 @@ enum class SNMPEncryptionProtocols{
     Account,
     CBC_DES,
     CFB128_AES128,
+    CFB128_AES192,
+    CFB128_AES256,
 };
 
 NLOHMANN_JSON_SERIALIZE_ENUM(NotifyIPv6Scope, {
@@ -69,6 +71,8 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SNMPEncryptionProtocols, {
     {SNMPEncryptionProtocols::Account, "Account"},
     {SNMPEncryptionProtocols::CBC_DES, "CBC_DES"},
     {SNMPEncryptionProtocols::CFB128_AES128, "CFB128_AES128"},
+    {SNMPEncryptionProtocols::CFB128_AES192, "CFB128_AES192"},
+    {SNMPEncryptionProtocols::CFB128_AES256, "CFB128_AES256"},
 });
 
 }

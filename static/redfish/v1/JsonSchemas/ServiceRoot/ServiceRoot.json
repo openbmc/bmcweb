@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ServiceRoot.v1_16_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ServiceRoot.v1_16_1.json",
     "$ref": "#/definitions/ServiceRoot",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -50,8 +50,8 @@
         },
         "Expand": {
             "additionalProperties": false,
-            "description": "The information about the use of $expand in the service.",
-            "longDescription": "This type shall contain information about the support of the $expand query parameter by the service.",
+            "description": "The information about the use of `$expand` in the service.",
+            "longDescription": "This type shall contain information about the support of the `$expand` query parameter by the service.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -68,37 +68,37 @@
             },
             "properties": {
                 "ExpandAll": {
-                    "description": "An indication of whether the service supports the asterisk (`*`) option of the $expand query parameter.",
-                    "longDescription": "This property shall indicate whether this service supports the asterisk (`*`) option of the $expand query parameter.",
+                    "description": "An indication of whether the service supports the asterisk (`*`) option of the `$expand` query parameter.",
+                    "longDescription": "This property shall indicate whether this service supports the asterisk (`*`) option of the `$expand` query parameter.",
                     "readonly": true,
                     "type": "boolean",
                     "versionAdded": "v1_3_0"
                 },
                 "Levels": {
-                    "description": "An indication of whether the service supports the $levels option of the $expand query parameter.",
-                    "longDescription": "This property shall indicate whether the service supports the $levels option of the $expand query parameter.",
+                    "description": "An indication of whether the service supports the `$levels` option of the `$expand` query parameter.",
+                    "longDescription": "This property shall indicate whether the service supports the `$levels` option of the `$expand` query parameter.",
                     "readonly": true,
                     "type": "boolean",
                     "versionAdded": "v1_3_0"
                 },
                 "Links": {
-                    "description": "An indication of whether this service supports the tilde (`~`) option of the $expand query parameter.",
-                    "longDescription": "This property shall indicate whether this service supports the supports the tilde (~) option of the $expand query parameter.",
+                    "description": "An indication of whether this service supports the tilde (`~`) option of the `$expand` query parameter.",
+                    "longDescription": "This property shall indicate whether this service supports the supports the tilde (~) option of the `$expand` query parameter.",
                     "readonly": true,
                     "type": "boolean",
                     "versionAdded": "v1_3_0"
                 },
                 "MaxLevels": {
-                    "description": "The maximum $levels option value in the $expand query parameter.",
-                    "longDescription": "This property shall contain the maximum $levels option value in the $expand query parameter.  This property shall be present if the Levels property contains `true`.",
+                    "description": "The maximum `$levels` option value in the `$expand` query parameter.",
+                    "longDescription": "This property shall contain the maximum `$levels` option value in the `$expand` query parameter.  This property shall be present if the Levels property contains `true`.",
                     "minimum": 1,
                     "readonly": true,
                     "type": "integer",
                     "versionAdded": "v1_3_0"
                 },
                 "NoLinks": {
-                    "description": "An indication of whether the service supports the period (`.`) option of the $expand query parameter.",
-                    "longDescription": "This property shall indicate whether the service supports the period (`.`) option of the $expand query parameter.",
+                    "description": "An indication of whether the service supports the period (`.`) option of the `$expand` query parameter.",
+                    "longDescription": "This property shall indicate whether the service supports the period (`.`) option of the `$expand` query parameter.",
                     "readonly": true,
                     "type": "boolean",
                     "versionAdded": "v1_3_0"
@@ -175,21 +175,21 @@
                     "versionAdded": "v1_7_0"
                 },
                 "ExcerptQuery": {
-                    "description": "An indication of whether the service supports the excerpt query parameter.",
-                    "longDescription": "This property shall indicate whether this service supports the excerpt query parameter.",
+                    "description": "An indication of whether the service supports the `excerpt` query parameter.",
+                    "longDescription": "This property shall indicate whether this service supports the `excerpt` query parameter.",
                     "readonly": true,
                     "type": "boolean",
                     "versionAdded": "v1_4_0"
                 },
                 "ExpandQuery": {
                     "$ref": "#/definitions/Expand",
-                    "description": "The information about the use of $expand in the service.",
-                    "longDescription": "This property shall contain information about the support of the $expand query parameter by the service.",
+                    "description": "The information about the use of `$expand` in the service.",
+                    "longDescription": "This property shall contain information about the support of the `$expand` query parameter by the service.",
                     "versionAdded": "v1_3_0"
                 },
                 "FilterQuery": {
-                    "description": "An indication of whether the service supports the $filter query parameter.",
-                    "longDescription": "This property shall indicate whether this service supports the $filter query parameter.",
+                    "description": "An indication of whether the service supports the `$filter` query parameter.",
+                    "longDescription": "This property shall indicate whether this service supports the `$filter` query parameter.",
                     "readonly": true,
                     "type": "boolean",
                     "versionAdded": "v1_3_0"
@@ -202,15 +202,15 @@
                     "versionAdded": "v1_14_0"
                 },
                 "OnlyMemberQuery": {
-                    "description": "An indication of whether the service supports the only query parameter.",
-                    "longDescription": "This property shall indicate whether this service supports the only query parameter.",
+                    "description": "An indication of whether the service supports the `only` query parameter.",
+                    "longDescription": "This property shall indicate whether this service supports the `only` query parameter.",
                     "readonly": true,
                     "type": "boolean",
                     "versionAdded": "v1_4_0"
                 },
                 "SelectQuery": {
-                    "description": "An indication of whether the service supports the $select query parameter.",
-                    "longDescription": "This property shall indicate whether this service supports the $select query parameter.",
+                    "description": "An indication of whether the service supports the `$select` query parameter.",
+                    "longDescription": "This property shall indicate whether this service supports the `$select` query parameter.",
                     "readonly": true,
                     "type": "boolean",
                     "versionAdded": "v1_3_0"
@@ -444,7 +444,7 @@
                 },
                 "ServiceIdentification": {
                     "description": "The vendor or user-provided product and service identifier.",
-                    "longDescription": "This property shall contain a vendor or user-provided value that identifies and associates a discovered Redfish service with a particular product instance.  The value of the property shall contain the value of the `ServiceIdentification` property in the Manager resource providing the Redfish service root resource.  The value of this property can be used during deployment processes to match user credentials or other a priori product instance information to the appropriate Redfish service.",
+                    "longDescription": "This property shall contain a vendor-provided or user-provided value that identifies and associates a discovered Redfish service with a particular product instance.  The value of the property shall contain the value of the ServiceIdentification property in the Manager resource providing the Redfish service root resource.  The value of this property is used in conjunction with the Product and Vendor properties to match user credentials or other a priori product instance information necessary for initial deployment to the correct, matching Redfish service.  This property shall not be present if its value is an empty string or `null`.",
                     "readonly": true,
                     "type": "string",
                     "versionAdded": "v1_14_0"
@@ -505,7 +505,7 @@
                 },
                 "UUID": {
                     "description": "Unique identifier for a service instance.  When SSDP is used, this value contains the same UUID returned in an HTTP `200 OK` response from an SSDP `M-SEARCH` request during discovery.",
-                    "longDescription": "This property shall contain the identifier of the Redfish service instance.  If SSDP is used, this value shall contain the same UUID returned in an HTTP `200 OK` response from an SSDP `M-SEARCH` request during discovery.  RFC4122 describes methods to use to create a UUID value.  The value should be considered to be opaque.  Client software should only treat the overall value as a universally unique identifier and should not interpret any sub-fields within the UUID.",
+                    "longDescription": "This property shall contain the identifier of the Redfish service instance.  If SSDP is used, this value shall contain the same UUID returned in an HTTP `200 OK` response from an SSDP `M-SEARCH` request during discovery.  RFC4122 describes methods to use to create a UUID value.  The value should be considered to be opaque.  Client software should only treat the overall value as a universally unique identifier and should not interpret any subfields within the UUID.",
                     "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
                     "readonly": true,
                     "type": [
@@ -543,5 +543,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2023.1",
-    "title": "#ServiceRoot.v1_16_0.ServiceRoot"
+    "title": "#ServiceRoot.v1_16_1.ServiceRoot"
 }

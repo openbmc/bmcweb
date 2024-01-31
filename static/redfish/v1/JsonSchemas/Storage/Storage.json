@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Storage.v1_15_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Storage.v1_15_1.json",
     "$ref": "#/definitions/Storage",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -177,7 +177,7 @@
                 "HostingStorageSystems@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
-                "NVMeoFDiscoverySubysystems": {
+                "NVMeoFDiscoverySubsystems": {
                     "description": "An array of links to the discovery subsystems that discovered this subsystem in an NVMe-oF environment.",
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/Storage.json#/definitions/Storage"
@@ -187,7 +187,7 @@
                     "type": "array",
                     "versionAdded": "v1_15_0"
                 },
-                "NVMeoFDiscoverySubysystems@odata.count": {
+                "NVMeoFDiscoverySubsystems@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "Oem": {
@@ -444,7 +444,7 @@
                             "type": "null"
                         }
                     ],
-                    "description": "Indicates if this storage subsystem automatically create new volumes for unassigned drives.",
+                    "description": "Indicates if this storage subsystem automatically creates new volumes for unassigned drives.",
                     "longDescription": "This property shall indicate if volumes are created automatically for each unassigned drive attached to this storage subsystem.",
                     "readonly": false,
                     "versionAdded": "v1_15_0"
@@ -510,7 +510,7 @@
                 "EndpointGroups": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/EndpointGroupCollection.json#/definitions/EndpointGroupCollection",
                     "description": "All of the endpoint groups, each of which contains a set of endpoints that are used for a common purpose such as an ACL or logical identification, that belong to this storage subsystem.",
-                    "longDescription": "This property shall contain a link to a resource collection of type EndpointGroupCollection.  This property shall be implemented when atomic control is needed to perform mapping, masking and zoning operations.",
+                    "longDescription": "This property shall contain a link to a resource collection of type EndpointGroupCollection.  This property shall be implemented when atomic control is needed to perform mapping, masking, and zoning operations.",
                     "readonly": true,
                     "versionAdded": "v1_8_0"
                 },
@@ -638,7 +638,7 @@
         "StorageController": {
             "additionalProperties": false,
             "description": "The StorageController schema describes a storage controller and its properties.  A storage controller represents a physical or virtual storage device that produces volumes.",
-            "longDescription": "This resource shall represent a resource that represents a storage controller in the Redfish Specification.",
+            "longDescription": "This resource shall represent a storage controller in the Redfish Specification.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -724,7 +724,7 @@
                 "Location": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location",
                     "description": "The location of the storage controller.",
-                    "longDescription": "This property shall contain location information of the associated storage controller.",
+                    "longDescription": "This property shall contain the location information of the associated storage controller.",
                     "versionAdded": "v1_4_0"
                 },
                 "Manufacturer": {
@@ -801,7 +801,7 @@
                 },
                 "SKU": {
                     "description": "The SKU for this storage controller.",
-                    "longDescription": "This property shall contain the stock-keeping unit number for this storage storage controller.",
+                    "longDescription": "This property shall contain the stock-keeping unit number for this storage controller.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -834,11 +834,11 @@
                     "longDescription": "This property shall contain any status or health properties of the resource."
                 },
                 "SupportedControllerProtocols": {
-                    "description": "The supported set of protocols for communicating to this storage controller.",
+                    "description": "The supported set of protocols for communicating with this storage controller.",
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/Protocol.json#/definitions/Protocol"
                     },
-                    "longDescription": "This property shall contain the supported set of protocols for communicating to this storage controller.",
+                    "longDescription": "This property shall contain the supported set of protocols for communicating with this storage controller.",
                     "readonly": true,
                     "type": "array"
                 },
@@ -944,7 +944,7 @@
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/PCIeFunction.json#/definitions/PCIeFunction"
                     },
-                    "longDescription": "This property shall contain an array of links to resources of type PCIeFunction that represents the PCIe functions associated with this resource.",
+                    "longDescription": "This property shall contain an array of links to resources of type PCIeFunction that represent the PCIe functions associated with this resource.",
                     "type": "array",
                     "versionAdded": "v1_7_0"
                 },
@@ -992,5 +992,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2023.1",
-    "title": "#Storage.v1_15_0.Storage"
+    "title": "#Storage.v1_15_1.Storage"
 }

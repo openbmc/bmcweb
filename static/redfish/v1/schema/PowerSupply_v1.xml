@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PowerSupply v1.5.2                                                  -->
+<!--# Redfish Schema:  PowerSupply v1.5.3                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -110,13 +110,13 @@
         </Property>
         <Property Name="InputNominalVoltageType" Type="Circuit.NominalVoltageType">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The nominal voltage type of the line input to this power supply."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the nominal voltage type of the input line voltage in use by this power supply.  This value shall be one of the values shown in the NominalVoltageType property in the InputRanges array, if present."/>
+          <Annotation Term="OData.Description" String="The nominal voltage type that is detected on the line input to this power supply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the nominal voltage type that is detected on the line input to this power supply.  This value shall be one of the values shown in the NominalVoltageType property in the InputRanges array, if present.  If the line input voltage is unknown, out of range, or there is no input provided to the power supply, the value shall be `null`."/>
         </Property>
         <Property Name="PowerCapacityWatts" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The maximum capacity of this power supply."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum amount of power, in watts, that this power supply is rated to deliver."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum amount of power, in watt units, that this power supply is rated to deliver."/>
           <Annotation Term="Measures.Unit" String="W"/>
           <Annotation Term="Validation.Minimum" Int="0"/>
         </Property>
@@ -156,7 +156,7 @@
         </Property>
         <Property Name="Location" Type="Resource.Location" Nullable="false">
           <Annotation Term="OData.Description" String="The location of the power supply."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain location information for this power supply.  For a resource in the `Absent` state, this property   describes the empty location, such as a slot, socket, or bay, to represent the available  capacity."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the location information of the power supply.  For a resource in the `Absent` state, this property describes the empty location, such as a slot, socket, or bay, to represent the available capacity."/>
         </Property>
         <Property Name="LocationIndicatorActive" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -179,7 +179,7 @@
         <Property Name="PlugType" Type="Circuit.PlugType">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The type of plug according to NEMA, IEC, or regional standards."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the type of physical plug used for the input to this power supply, as defined by IEC, NEMA, or regional standard."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of physical plug used for the input to this power supply, as defined by IEC, NEMA, or regional standards."/>
         </Property>
         <Property Name="EfficiencyRatings" Type="Collection(PowerSupply.v1_0_0.EfficiencyRating)">
           <Annotation Term="OData.Description" String="The efficiency ratings of this power supply."/>
@@ -244,7 +244,7 @@
         <Property Name="CapacityWatts" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The maximum capacity of this power supply when operating in this input range."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum amount of power, in watts, that the associated power supply is rated to deliver while operating in this input range."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum amount of power, in watt units, that the associated power supply is rated to deliver while operating in this input range."/>
           <Annotation Term="Measures.Unit" String="W"/>
           <Annotation Term="Validation.Minimum" Int="0"/>
         </Property>
@@ -252,8 +252,8 @@
 
       <ComplexType Name="OutputRail">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="This type describes an output power rail for a power supply."/>
-        <Annotation Term="OData.LongDescription" String="This type shall describe an output power rail provided by power supply."/>
+        <Annotation Term="OData.Description" String="This type describes an output power rail of a power supply."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe an output power rail provided by a power supply."/>
         <Property Name="NominalVoltage" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The nominal voltage of this output power rail."/>
@@ -296,7 +296,7 @@
           <Annotation Term="OData.Description" String="Direct Current (DC) power supply."/>
         </Member>
         <Member Name="ACorDC">
-          <Annotation Term="OData.Description" String="The power supply supports both DC or AC."/>
+          <Annotation Term="OData.Description" String="The power supply supports both DC and AC."/>
         </Member>
         <Member Name="DCRegulator">
           <Annotation Term="OData.Description" String="Direct Current (DC) voltage regulator."/>
@@ -331,7 +331,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerSupply.v1_0_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="PowerSupply" BaseType="PowerSupply.v1_0_0.PowerSupply"/>
     </Schema>
 
@@ -345,6 +345,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the range of possible values for properties with percent units."/>
       <EntityType Name="PowerSupply" BaseType="PowerSupply.v1_0_2.PowerSupply"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerSupply.v1_0_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of InputNominalVoltageType.  It was also created to correct various typographical errors."/>
+      <EntityType Name="PowerSupply" BaseType="PowerSupply.v1_0_3.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerSupply.v1_1_0">
@@ -377,6 +383,12 @@
       <EntityType Name="PowerSupply" BaseType="PowerSupply.v1_1_1.PowerSupply"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerSupply.v1_1_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of InputNominalVoltageType.  It was also created to correct various typographical errors."/>
+      <EntityType Name="PowerSupply" BaseType="PowerSupply.v1_1_2.PowerSupply"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerSupply.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.3"/>
@@ -391,7 +403,7 @@
         <Property Name="ElectricalSourceNames" Type="Collection(Edm.String)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The names of the upstream electrical sources, such as circuits or outlets, connected to this power supply."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an arrays of strings that identify the upstream electrical sources, such as the names of circuits or outlets, that provide power to this power supply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of strings that identify the upstream electrical sources, such as the names of circuits or outlets, that provide power to this power supply."/>
         </Property>
       </EntityType>
 
@@ -415,6 +427,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the range of possible values for properties with percent units."/>
       <EntityType Name="PowerSupply" BaseType="PowerSupply.v1_2_1.PowerSupply"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerSupply.v1_2_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of InputNominalVoltageType.  It was also created to correct various typographical errors."/>
+      <EntityType Name="PowerSupply" BaseType="PowerSupply.v1_2_2.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerSupply.v1_3_0">
@@ -454,6 +472,12 @@
       <EntityType Name="PowerSupply" BaseType="PowerSupply.v1_3_1.PowerSupply"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerSupply.v1_3_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of InputNominalVoltageType.  It was also created to correct various typographical errors."/>
+      <EntityType Name="PowerSupply" BaseType="PowerSupply.v1_3_2.PowerSupply"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerSupply.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.1"/>
@@ -483,6 +507,12 @@
       <EntityType Name="PowerSupply" BaseType="PowerSupply.v1_4_1.PowerSupply"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerSupply.v1_4_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of InputNominalVoltageType.  It was also created to correct various typographical errors."/>
+      <EntityType Name="PowerSupply" BaseType="PowerSupply.v1_4_2.PowerSupply"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerSupply.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.2"/>
@@ -492,7 +522,7 @@
         <Property Name="Replaceable" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An indication of whether this component can be independently replaced as allowed by the vendor's replacement policy."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this component can be independently replaced as allowed by the vendor's replacement policy.  A value of `false` indicates the component needs to be replaced by policy, as part of another component.  If the `LocationType` property of this component contains `Embedded`, this property shall contain `false`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this component can be independently replaced as allowed by the vendor's replacement policy.  A value of `false` indicates the component needs to be replaced by policy as part of another component.  If the `LocationType` property of this component contains `Embedded`, this property shall contain `false`."/>
         </Property>
         <Property Name="OutputNominalVoltageType" Type="Circuit.NominalVoltageType">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -512,6 +542,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the range of possible values for properties with percent units."/>
       <EntityType Name="PowerSupply" BaseType="PowerSupply.v1_5_1.PowerSupply"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerSupply.v1_5_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of InputNominalVoltageType.  It was also created to correct various typographical errors."/>
+      <EntityType Name="PowerSupply" BaseType="PowerSupply.v1_5_2.PowerSupply"/>
     </Schema>
 
   </edmx:DataServices>

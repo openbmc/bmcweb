@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  AccountService v1.14.0                                              -->
+<!--# Redfish Schema:  AccountService v1.15.0                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -256,19 +256,19 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_0_10">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for MinPasswordLength and MaxPasswordLength to state they do not apply to accounts from external account providers.  It was also updated to make MinPasswordLength and MaxPasswordLength writable.  The description for AuthFailureLoggingThreshold was also updated to clarify that the threshold applies to authentication failures per account."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for MinPasswordLength and MaxPasswordLength to state they do not apply to accounts from external account providers.  It was also created to make MinPasswordLength and MaxPasswordLength writable.  The description for AuthFailureLoggingThreshold was also updated to clarify that the threshold applies to authentication failures per account."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_0_9.AccountService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_0_11">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <Annotation Term="OData.Description" String="This version was created to specify 64-bit integers in OpenAPI."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_0_10.AccountService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_0_12">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_0_11.AccountService"/>
     </Schema>
 
@@ -336,19 +336,19 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_1_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for MinPasswordLength and MaxPasswordLength to state they do not apply to accounts from external account providers.  It was also updated to make MinPasswordLength and MaxPasswordLength writable.  The description for AuthFailureLoggingThreshold was also updated to clarify that the threshold applies to authentication failures per account."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for MinPasswordLength and MaxPasswordLength to state they do not apply to accounts from external account providers.  It was also created to make MinPasswordLength and MaxPasswordLength writable.  The description for AuthFailureLoggingThreshold was also updated to clarify that the threshold applies to authentication failures per account."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_1_6.AccountService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_1_8">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <Annotation Term="OData.Description" String="This version was created to specify 64-bit integers in OpenAPI."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_1_7.AccountService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_1_9">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_1_8.AccountService"/>
     </Schema>
 
@@ -430,19 +430,19 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_2_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for MinPasswordLength and MaxPasswordLength to state they do not apply to accounts from external account providers.  It was also updated to make MinPasswordLength and MaxPasswordLength writable.  The description for AuthFailureLoggingThreshold was also updated to clarify that the threshold applies to authentication failures per account."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for MinPasswordLength and MaxPasswordLength to state they do not apply to accounts from external account providers.  It was also created to make MinPasswordLength and MaxPasswordLength writable.  The description for AuthFailureLoggingThreshold was also updated to clarify that the threshold applies to authentication failures per account."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_2_6.AccountService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_2_8">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <Annotation Term="OData.Description" String="This version was created to specify 64-bit integers in OpenAPI."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_2_7.AccountService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_2_9">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_2_8.AccountService"/>
     </Schema>
 
@@ -732,7 +732,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_3_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for MinPasswordLength and MaxPasswordLength to state they do not apply to accounts from external account providers.  It was also updated to make MinPasswordLength and MaxPasswordLength writable.  The description for AuthFailureLoggingThreshold was also updated to clarify that the threshold applies to authentication failures per account."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for MinPasswordLength and MaxPasswordLength to state they do not apply to accounts from external account providers.  It was also created to make MinPasswordLength and MaxPasswordLength writable.  The description for AuthFailureLoggingThreshold was also updated to clarify that the threshold applies to authentication failures per account."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_3_4.AccountService"/>
     </Schema>
 
@@ -744,13 +744,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_3_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <Annotation Term="OData.Description" String="This version was created to specify 64-bit integers in OpenAPI."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_3_6.AccountService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_3_8">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_3_7.AccountService"/>
     </Schema>
 
@@ -820,7 +820,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_4_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for MinPasswordLength and MaxPasswordLength to state they do not apply to accounts from external account providers.  It was also updated to make MinPasswordLength and MaxPasswordLength writable.  The description for AuthFailureLoggingThreshold was also updated to clarify that the threshold applies to authentication failures per account."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for MinPasswordLength and MaxPasswordLength to state they do not apply to accounts from external account providers.  It was also created to make MinPasswordLength and MaxPasswordLength writable.  The description for AuthFailureLoggingThreshold was also updated to clarify that the threshold applies to authentication failures per account."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_4_3.AccountService"/>
     </Schema>
 
@@ -832,7 +832,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_4_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_4_5.AccountService"/>
     </Schema>
 
@@ -894,7 +894,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_5_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for MinPasswordLength and MaxPasswordLength to state they do not apply to accounts from external account providers.  It was also updated to make MinPasswordLength and MaxPasswordLength writable.  The description for AuthFailureLoggingThreshold was also updated to clarify that the threshold applies to authentication failures per account."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for MinPasswordLength and MaxPasswordLength to state they do not apply to accounts from external account providers.  It was also created to make MinPasswordLength and MaxPasswordLength writable.  The description for AuthFailureLoggingThreshold was also updated to clarify that the threshold applies to authentication failures per account."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_5_2.AccountService"/>
     </Schema>
 
@@ -906,7 +906,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_5_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_5_4.AccountService"/>
     </Schema>
 
@@ -956,7 +956,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_6_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for MinPasswordLength and MaxPasswordLength to state they do not apply to accounts from external account providers.  It was also updated to make MinPasswordLength and MaxPasswordLength writable.  The description for AuthFailureLoggingThreshold was also updated to clarify that the threshold applies to authentication failures per account."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for MinPasswordLength and MaxPasswordLength to state they do not apply to accounts from external account providers.  It was also created to make MinPasswordLength and MaxPasswordLength writable.  The description for AuthFailureLoggingThreshold was also updated to clarify that the threshold applies to authentication failures per account."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_6_1.AccountService"/>
     </Schema>
 
@@ -968,7 +968,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_6_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_6_3.AccountService"/>
     </Schema>
 
@@ -1025,7 +1025,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_7_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for MinPasswordLength and MaxPasswordLength to state they do not apply to accounts from external account providers.  It was also updated to make MinPasswordLength and MaxPasswordLength writable.  The description for AuthFailureLoggingThreshold was also updated to clarify that the threshold applies to authentication failures per account."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for MinPasswordLength and MaxPasswordLength to state they do not apply to accounts from external account providers.  It was also created to make MinPasswordLength and MaxPasswordLength writable.  The description for AuthFailureLoggingThreshold was also updated to clarify that the threshold applies to authentication failures per account."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_7_1.AccountService"/>
     </Schema>
 
@@ -1037,7 +1037,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_7_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_7_3.AccountService"/>
     </Schema>
 
@@ -1111,7 +1111,7 @@
         <Property Name="Priority" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The authentication priority for the external account provider."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the assigned priority for the specified external account provider.  The value `0` value shall indicate the highest priority.  Increasing values shall represent decreasing priority.  If an external provider does not have a priority assignment or two or more external providers have the same priority, the behavior shall be determined by the Redfish service.  The priority is used to determine the order of authentication and authorization for each external account provider."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the assigned priority for the specified external account provider.  The value `0` shall indicate the highest priority.  Increasing values shall represent decreasing priority.  If an external provider does not have a priority assignment or two or more external providers have the same priority, the behavior shall be determined by the Redfish service.  The priority is used to determine the order of authentication and authorization for each external account provider."/>
           <Annotation Term="Validation.Minimum" Int="0"/>
         </Property>
       </ComplexType>
@@ -1172,7 +1172,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_8_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_8_0.AccountService"/>
     </Schema>
 
@@ -1204,6 +1204,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_8_5.AccountService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_8_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_8_6.AccountService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_9_0">
@@ -1248,6 +1254,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_9_4.AccountService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_9_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_9_5.AccountService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_10_0">
@@ -1342,6 +1354,12 @@
       <EntityType Name="AccountService" BaseType="AccountService.v1_10_5.AccountService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_10_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_10_6.AccountService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_11_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.1"/>
@@ -1391,6 +1409,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_11_5.AccountService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_11_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_11_6.AccountService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_12_0">
@@ -1444,12 +1468,12 @@
         <Property Name="ClientId" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The client ID to use when communicating with the RSA SecurID server."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the client ID to use when communication with the RSA SecurID server."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the client ID to use when communicating with the RSA SecurID server."/>
         </Property>
         <Property Name="ClientSecret" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The client secret to use when communicating with the RSA SecurID server.  This property is `null` in responses."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the client secret to use when communication with the RSA SecurID server.  The value shall be `null` in responses."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the client secret to use when communicating with the RSA SecurID server.  The value shall be `null` in responses."/>
         </Property>
         <Property Name="ClientSecretSet" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -1476,7 +1500,7 @@
         <Property Name="SecretKey" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The secret key to use when communicating with the Google Authenticator server.  This property is `null` in responses."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the client key to use when communication with the Google Authenticator Server.  The value shall be `null` in responses."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the client key to use when communicating with the Google Authenticator Server.  The value shall be `null` in responses."/>
         </Property>
         <Property Name="SecretKeySet" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -1497,7 +1521,7 @@
         <Property Name="SecretKey" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The secret key to use when communicating with the Microsoft Authenticator server.  This property is `null` in responses."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the client key to use when communication with the Microsoft Authenticator server.  The value shall be `null` in responses."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the client key to use when communicating with the Microsoft Authenticator server.  The value shall be `null` in responses."/>
         </Property>
         <Property Name="SecretKeySet" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -1582,6 +1606,12 @@
       <EntityType Name="AccountService" BaseType="AccountService.v1_12_2.AccountService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_12_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_12_3.AccountService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_13_0">
       <Annotation Term="Redfish.Release" String="2023.1"/>
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
@@ -1633,6 +1663,12 @@
       <EntityType Name="AccountService" BaseType="AccountService.v1_13_1.AccountService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_13_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_13_2.AccountService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_14_0">
       <Annotation Term="Redfish.Release" String="2023.2"/>
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
@@ -1674,6 +1710,40 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the attribute name that contains the LDAP user's email address.  If this value is not set by the user, or the property is not present, the value shall be `mail`."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_14_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_14_0.AccountService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_15_0">
+      <Annotation Term="Redfish.Release" String="2023.3"/>
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="AccountService" BaseType="AccountService.v1_14_1.AccountService">
+        <Property Name="HTTPBasicAuth" Type="AccountService.v1_15_0.BasicAuthState">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates if HTTP Basic authentication is enabled for this service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether clients are able to authenticate to the Redfish service with HTTP Basic authentication.  This property should default to `Enabled` for client compatibility.  If this property is not present in responses, the value shall be assumed to be `Enabled`."/>
+        </Property>
+      </EntityType>
+
+      <EnumType Name="BasicAuthState">
+        <Member Name="Enabled">
+          <Annotation Term="OData.Description" String="HTTP Basic authentication is enabled."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that HTTP Basic authentication is enabled for the service.  The service shall include the `WWW-Authenticate` HTTP response header with the value including `Basic` when returning the HTTP 401 (Unauthorized) status code."/>
+        </Member>
+        <Member Name="Unadvertised">
+          <Annotation Term="OData.Description" String="HTTP Basic authentication is enabled, but is not advertised with the `WWW-Authenticate` response header."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that HTTP Basic authentication is enabled for the service.  The service shall not include `Basic` in the value of the `WWW-Authenticate` HTTP response header and may omit the header entirely from responses.  The lack of advertisement prevents some clients from accessing the service with HTTP Basic authentication, such as web browsers."/>
+        </Member>
+        <Member Name="Disabled">
+          <Annotation Term="OData.Description" String="HTTP Basic authentication is disabled."/>
+           <Annotation Term="OData.LongDescription" String="This value shall indicate that HTTP Basic authentication is disabled for the service."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

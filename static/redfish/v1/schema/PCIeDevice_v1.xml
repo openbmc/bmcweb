@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PCIeDevice v1.12.0                                                  -->
+<!--# Redfish Schema:  PCIeDevice v1.13.0                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -267,7 +267,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_0_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_0_5.PCIeDevice"/>
     </Schema>
 
@@ -284,7 +284,7 @@
       <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_0_2.PCIeDevice">
         <Property Name="Actions" Type="PCIeDevice.v1_1_0.Actions" Nullable="false">
           <Annotation Term="OData.Description" String="The available actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="The actions property shall contain the available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
         </Property>
       </EntityType>
 
@@ -319,7 +319,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_1_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_1_2.PCIeDevice"/>
     </Schema>
 
@@ -333,6 +333,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
       <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_1_4.PCIeDevice"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_1_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_1_5.PCIeDevice"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_2_0">
@@ -369,7 +375,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_2_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_2_3.PCIeDevice"/>
     </Schema>
 
@@ -377,6 +383,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
       <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_2_4.PCIeDevice"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_2_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_2_5.PCIeDevice"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_3_0">
@@ -424,7 +436,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_3_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format, and to add a missing term to PCIeInterface to disallow it from being null."/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format, and to add a missing term to PCIeInterface to disallow it from being `null`."/>
       <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_3_0.PCIeDevice"/>
     </Schema>
 
@@ -436,7 +448,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_3_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_3_2.PCIeDevice"/>
     </Schema>
 
@@ -444,6 +456,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
       <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_3_3.PCIeDevice"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_3_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_3_4.PCIeDevice"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_4_0">
@@ -463,7 +481,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_4_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_4_0.PCIeDevice"/>
     </Schema>
 
@@ -471,6 +489,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
       <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_4_1.PCIeDevice"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_4_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_4_2.PCIeDevice"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_5_0">
@@ -481,14 +505,14 @@
         <Property Name="UUID" Type="Resource.UUID">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The UUID for this PCIe device."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the universal unique identifier number for this PCIe device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the universally unique identifier number for this PCIe device."/>
         </Property>
       </EntityType>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_5_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_5_0.PCIeDevice"/>
     </Schema>
 
@@ -496,6 +520,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
       <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_5_1.PCIeDevice"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_5_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_5_2.PCIeDevice"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_6_0">
@@ -513,7 +543,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_6_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_6_0.PCIeDevice"/>
     </Schema>
 
@@ -521,6 +551,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
       <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_6_1.PCIeDevice"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_6_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_6_2.PCIeDevice"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_7_0">
@@ -548,6 +584,12 @@
       <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_7_0.PCIeDevice"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_7_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_7_1.PCIeDevice"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.3"/>
@@ -557,18 +599,18 @@
       <ComplexType Name="PCIeErrors" BaseType="PCIeDevice.PCIeErrors">
         <Property Name="CorrectableErrorCount" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The total number of the PCIe correctable errors for this device."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of the PCIe correctable errors for this device."/>
+          <Annotation Term="OData.Description" String="The total number of PCIe correctable errors for this device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of PCIe correctable errors for this device."/>
         </Property>
         <Property Name="NonFatalErrorCount" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The total number of the PCIe non-fatal errors for this device."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of the PCIe non-fatal errors for this device."/>
+          <Annotation Term="OData.Description" String="The total number of PCIe non-fatal errors for this device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of PCIe non-fatal errors for this device."/>
         </Property>
         <Property Name="FatalErrorCount" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The total number of the PCIe fatal errors for this device."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of the PCIe fatal errors for this device."/>
+          <Annotation Term="OData.Description" String="The total number of PCIe fatal errors for this device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of PCIe fatal errors for this device."/>
         </Property>
         <Property Name="L0ToRecoveryCount" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -577,13 +619,13 @@
         </Property>
         <Property Name="ReplayCount" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The total number of the PCIe replays issued by this device."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of the replays issued on the PCIe link by this device.  A replay is a retransmission of a TLP and occurs because the ACK timer is expired, which means that the receiver did not send the ACK or this device did not properly decode the ACK."/>
+          <Annotation Term="OData.Description" String="The total number of PCIe replays issued by this device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of replays issued on the PCIe link by this device.  A replay is a retransmission of a TLP and occurs because the ACK timer is expired, which means that the receiver did not send the ACK or this device did not properly decode the ACK."/>
         </Property>
         <Property Name="ReplayRolloverCount" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The total number of the PCIe replay rollovers issued by this device."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of the replay rollovers issued on the PCIe link by this device.  A replay rollover occurs when consecutive replays failed to resolve the errors on the link, which means that this device forced the link into the recovery state."/>
+          <Annotation Term="OData.Description" String="The total number of PCIe replay rollovers issued by this device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of replay rollovers issued on the PCIe link by this device.  A replay rollover occurs when consecutive replays failed to resolve the errors on the link, which means that this device forced the link into the recovery state."/>
         </Property>
         <Property Name="NAKSentCount" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -602,6 +644,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
       <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_8_0.PCIeDevice"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_8_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_8_1.PCIeDevice"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_9_0">
@@ -695,6 +743,12 @@
       <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_9_0.PCIeDevice"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_9_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_9_1.PCIeDevice"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.2"/>
@@ -717,6 +771,12 @@
       <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_10_0.PCIeDevice"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_10_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_10_1.PCIeDevice"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_11_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.3"/>
@@ -728,8 +788,8 @@
         </Property>
         <Property Name="StagedVersion" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The staged firmware version for this PCIe device, but is not yet active."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the staged firmware version for this PCIe device, but is not yet active."/>
+          <Annotation Term="OData.Description" String="The staged firmware version for this PCIe device; this firmware is not yet active."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the staged firmware version for this PCIe device; this firmware is not yet active."/>
         </Property>
         <NavigationProperty Name="CXLLogicalDevices" Type="CXLLogicalDeviceCollection.CXLLogicalDeviceCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -743,7 +803,7 @@
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="The CXL-specific properties of a PCIe device."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain CXL-specific properties of a PCIe device."/>
-        <Property Name="MaxNumberLogicalDevices" Type="Edm.Decimal">
+        <Property Name="MaxNumberLogicalDevices" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The maximum number of logical devices supported by this CXL device."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the maximum number of logical devices supported by this CXL device."/>
@@ -792,6 +852,12 @@
       <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_11_0.PCIeDevice"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_11_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors.  It was also created to correct the data type of the MaxNumberLogicalDevices property to only allow for integers."/>
+      <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_11_1.PCIeDevice"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_12_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.2"/>
@@ -817,7 +883,7 @@
         <Property Name="HotPluggable" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An indication of whether this PCIe slot supports hotplug."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain indicating whether this PCIe slot supports hotplug."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this PCIe slot supports hotplug."/>
         </Property>
       </ComplexType>
 
@@ -871,7 +937,7 @@
       <ComplexType Name="CXLRegionBlockSizes">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="Set of memory block sizes supported by memory region in the CXL device."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain set of memory block sizes supported by memory region in the dynamic capacity device."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the set of memory block sizes supported by memory region in the dynamic capacity device."/>
         <Property Name="RegionNumber" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The memory region number."/>
@@ -880,7 +946,7 @@
         <Property Name="BlockSizeMiB" Type="Collection(Edm.Int64)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Set of memory block sizes supported by this memory region defined in mebibytes (MiB)."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain set of memory block sizes supported by this memory region, with units in MiB."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the set of memory block sizes supported by this memory region, with units in MiB."/>
           <Annotation Term="Measures.Unit" String="MiBy"/>
         </Property>
       </ComplexType>
@@ -919,6 +985,27 @@
           <Annotation Term="OData.LongDescription" String="This value shall indicate the CXL Specification-defined tag-based release policy."/>
         </Member>
       </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_12_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors.  It was also created to correct the data type of the MaxNumberLogicalDevices property to only allow for integers."/>
+      <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_12_0.PCIeDevice"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_13_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.3"/>
+
+      <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_12_1.PCIeDevice"/>
+
+      <ComplexType Name="PCIeErrors" BaseType="PCIeDevice.v1_8_0.PCIeErrors">
+        <Property Name="UnsupportedRequestCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of PCIe unsupported requests received by this device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of PCIe unsupported requests received by this device."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Session.v1_7_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Session.v1_7_1.json",
     "$ref": "#/definitions/Session",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -204,7 +204,7 @@
                 },
                 "Password": {
                     "description": "The password for this session.  The value is `null` in responses.",
-                    "longDescription": "This property shall contain the password for this session.  The value shall be `null` in responses.",
+                    "longDescription": "This property shall contain the password for this session.  The value shall be `null` in responses.  When creating a session through a Redfish host interface using an `AuthNone` role, the property shall contain an empty string in the request body.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -252,7 +252,7 @@
                 },
                 "UserName": {
                     "description": "The username for the account for this session.",
-                    "longDescription": "This property shall contain the username that matches an account recognized by the account service.",
+                    "longDescription": "This property shall contain the username that matches an account recognized by the account service.  When a creating a session through a Redfish host interface using an `AuthNone` role, the property shall contain an empty string in the request body.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -285,10 +285,10 @@
                 "OutboundConnection"
             ],
             "enumDescriptions": {
-                "HostConsole": "The host's console, which could be connected through Telnet, SSH, or other protocol.",
+                "HostConsole": "The host's console, which could be connected through Telnet, SSH, or another protocol.",
                 "IPMI": "Intelligent Platform Management Interface.",
                 "KVMIP": "A Keyboard-Video-Mouse over IP session.",
-                "ManagerConsole": "The manager's console, which could be connected through Telnet, SSH, SM CLP, or other protocol.",
+                "ManagerConsole": "The manager's console, which could be connected through Telnet, SSH, SM CLP, or another protocol.",
                 "OEM": "OEM type.  For OEM session types, see the OemSessionType property.",
                 "OutboundConnection": "A Redfish Specification-defined outbound connection.  See the 'Outbound connections' clause of the Redfish Specification.",
                 "Redfish": "A Redfish session.",
@@ -296,14 +296,14 @@
                 "WebUI": "A non-Redfish web user interface session, such as a graphical interface or another web-based protocol."
             },
             "enumLongDescriptions": {
-                "HostConsole": "This value shall indicate the session is the host's console, which could be connected through Telnet, SSH, or other protocol.  If this session is terminated or deleted, the service shall close the connection for the respective host console session.",
+                "HostConsole": "This value shall indicate the session is the host's console, which could be connected through Telnet, SSH, or another protocol.  If this session is terminated or deleted, the service shall close the connection for the respective host console session.",
                 "IPMI": "This value shall indicate the session is an Intelligent Platform Management Interface session.  If this session is terminated or deleted, the service shall close the connection for the respective IPMI session.",
-                "KVMIP": "This value shall indicate the session is a Keyboard-Video-Mouse over IP session.  If this session is terminated or deleted, the service shall close the connection for the respective KVMIP session.",
-                "ManagerConsole": "This value shall indicate the session is the manager's console, which could be connected through Telnet, SSH, SM CLP, or other protocol.  If this session is terminated or deleted, the service shall close the connection for the respective manager console session.",
+                "KVMIP": "This value shall indicate the session is a Keyboard-Video-Mouse over IP session.  If this session is terminated or deleted, the service shall close the connection for the respective KVM-IP session.",
+                "ManagerConsole": "This value shall indicate the session is the manager's console, which could be connected through Telnet, SSH, SM CLP, or another protocol.  If this session is terminated or deleted, the service shall close the connection for the respective manager console session.",
                 "OEM": "This value shall indicate the session is an OEM-specific session and is further described by the OemSessionType property.",
                 "OutboundConnection": "This value shall indicate the session is an outbound connection defined by the 'Outbound connections' clause of the Redfish Specification.  The `OutboundConnection` property inside the `Links` property shall contain the link to the outbound connection configuration.  If this session is terminated or deleted, the service shall disable the associated `OutboundConnection` resource.",
                 "Redfish": "This value shall indicate the session is a Redfish session defined by the 'Redfish session login authentication' clause of the Redfish Specification.  If this session is terminated or deleted, the service shall invalidate the respective session token.",
-                "VirtualMedia": "This value shall indicate the session is virtual media session.  If this session is terminated or deleted, the service shall close the connection for the respective virtual media session and make the media inaccessible to the host.",
+                "VirtualMedia": "This value shall indicate the session is a virtual media session.  If this session is terminated or deleted, the service shall close the connection for the respective virtual media session and make the media inaccessible to the host.",
                 "WebUI": "This value shall indicate the session is a non-Redfish web user interface session.  If this session is terminated or deleted, the service shall invalidate the respective session token."
             },
             "enumVersionAdded": {
@@ -314,5 +314,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2023.2",
-    "title": "#Session.v1_7_0.Session"
+    "title": "#Session.v1_7_1.Session"
 }

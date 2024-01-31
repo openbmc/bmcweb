@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  AggregationSource v1.3.1                                            -->
+<!--# Redfish Schema:  AggregationSource v1.4.0                                            -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -66,20 +66,20 @@
       </EntityType>
 
       <Action Name="GenerateSSHIdentityKeyPair" IsBound="true">
-        <Annotation Term="OData.Description" String="This action generates a new SSH identity key-pair to be used with this aggregation source.  The generated public key is stored in the Key resource referenced by the PublicIdentityKey property in SSHSettings.  Any existing key-pair is deleted and replace by the new key-pair."/>
+        <Annotation Term="OData.Description" String="This action generates a new SSH identity key-pair to be used with this aggregation source.  The generated public key is stored in the Key resource referenced by the PublicIdentityKey property in SSHSettings.  Any existing key-pair is deleted and replaced by the new key-pair."/>
         <Annotation Term="OData.LongDescription" String="This action shall generate a new SSH identity key-pair to be used with this aggregation source.  The service shall store the generated public key in the Key resource referenced by the PublicIdentityKey property in SSHSettings.  If the aggregation source already has an associated SSH identity key-pair, the service shall delete the key-pair and replace it with the new key-pair."/>
         <Parameter Name="AggregationSource" Type="AggregationSource.v1_0_0.Actions"/>
-        <Parameter Name="KeyType" Type="AggregationSource.v1_3_0.SSHKeyType" Nullable="false">
+        <Parameter Name="KeyType" Type="Key.SSHKeyType" Nullable="false">
           <Annotation Term="OData.Description" String="The type of SSH key."/>
           <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of SSH key."/>
         </Parameter>
         <Parameter Name="KeyLength" Type="Edm.Int64">
           <Annotation Term="OData.Description" String="The length of the SSH key, in bits, if the KeyType parameter contains `RSA`."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the length of the SSH key, in bits.  This parameter shall be required if the KeyType parameter contains `RSA` and rejected for other values."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the length of the SSH key, in bits.  This parameter shall be required if the KeyType parameter contains `RSA` and shall be rejected for other values."/>
         </Parameter>
-        <Parameter Name="Curve" Type="AggregationSource.v1_3_0.ECDSACurveType">
+        <Parameter Name="Curve" Type="Key.ECDSACurveType">
           <Annotation Term="OData.Description" String="The curve to use with the SSH key if the KeyType parameter contains `ECDSA`."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the curve to use with the SSH key.  This parameter shall be required if the KeyType parameter contains `ECDSA` and rejected for other values."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the curve to use with the SSH key.  This parameter shall be required if the KeyType parameter contains `ECDSA` and shall be rejected for other values."/>
         </Parameter>
         <Annotation Term="Redfish.Revisions">
           <Collection>
@@ -149,7 +149,7 @@
         <NavigationProperty Name="ResourcesAccessed" Type="Collection(Resource.Resource)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array links to the resources added to the service through this aggregation source.  It is recommended that this be the minimal number of properties needed to find the resources that would be lost when the aggregation source is deleted."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to the resources added to the service through the aggregation source.  It is recommended that this be the minimal number of properties needed to find the resources that would be lost when the aggregation source is deleted.  For example, this could be the pointers to the members of the root level collections or the manager of a BMC."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to the resources added to the service through the aggregation source.  It is recommended that this be the minimal number of properties needed to find the resources that would be lost when the aggregation source is deleted.  For example, this could be the pointers to the members of the root-level collections or the manager of a BMC."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -175,6 +175,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to mark properties with values containing sensitive data as write-only."/>
       <EntityType Name="AggregationSource" BaseType="AggregationSource.v1_0_0.AggregationSource"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AggregationSource.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="AggregationSource" BaseType="AggregationSource.v1_0_1.AggregationSource"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AggregationSource.v1_1_0">
@@ -273,7 +279,31 @@
         </Member>
         <Member Name="CFB128_AES128">
           <Annotation Term="OData.Description" String="CFB128-AES-128 encryption."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate encryption conforms to the RFC3414-defined CFB128-AES-128 encryption protocol."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate encryption conforms to the RFC3826-defined CFB128-AES-128 encryption protocol."/>
+        </Member>
+        <Member Name="CFB128_AES192">
+          <Annotation Term="OData.Description" String="CFB128-AES-192 encryption."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate encryption conforms to the CFB128-AES-192 encryption protocol, extended from RFC3826."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_4_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="CFB128_AES256">
+          <Annotation Term="OData.Description" String="CFB128-AES-256 encryption."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate encryption conforms to the CFB128-AES-256 encryption protocol, extended from RFC3826."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_4_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
       </EnumType>
     </Schema>
@@ -282,6 +312,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to mark properties with values containing sensitive data as write-only."/>
       <EntityType Name="AggregationSource" BaseType="AggregationSource.v1_1_0.AggregationSource"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AggregationSource.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="AggregationSource" BaseType="AggregationSource.v1_1_1.AggregationSource"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AggregationSource.v1_2_0">
@@ -320,6 +356,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to mark properties with values containing sensitive data as write-only."/>
       <EntityType Name="AggregationSource" BaseType="AggregationSource.v1_2_0.AggregationSource"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AggregationSource.v1_2_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="AggregationSource" BaseType="AggregationSource.v1_2_1.AggregationSource"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AggregationSource.v1_3_0">
@@ -378,82 +420,26 @@
           <Annotation Term="OData.LongDescription" String="This value shall indicate SSH user authentication with a password specified by the Password property."/>
         </Member>
       </EnumType>
-
-      <EnumType Name="SSHKeyType">
-        <Member Name="RSA">
-          <Annotation Term="OData.Description" String="RSA."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate an RFC4253-defined 'ssh-rsa' key type."/>
-        </Member>
-        <Member Name="DSA">
-          <Annotation Term="OData.Description" String="DSA."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate an RFC4253-defined 'ssh-dss' key type."/>
-        </Member>
-        <Member Name="ECDSA">
-          <Annotation Term="OData.Description" String="ECDSA."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate an RFC5656-defined ECDSA key type."/>
-        </Member>
-        <Member Name="Ed25519">
-          <Annotation Term="OData.Description" String="Ed25519."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate an RFC8709-defined 'ssh-ed25519' key type."/>
-        </Member>
-      </EnumType>
-
-      <EnumType Name="ECDSACurveType">
-        <Member Name="NISTP256">
-          <Annotation Term="OData.Description" String="NIST P-256."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the 'nistp256' curve in RFC5656."/>
-        </Member>
-        <Member Name="NISTP384">
-          <Annotation Term="OData.Description" String="NIST P-384."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the 'nistp384' curve in RFC5656."/>
-        </Member>
-        <Member Name="NISTP521">
-          <Annotation Term="OData.Description" String="NIST P-521."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the 'nistp521' curve in RFC5656."/>
-        </Member>
-        <Member Name="NISTK163">
-          <Annotation Term="OData.Description" String="NIST K-163."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the 'nistk163' curve in RFC5656."/>
-        </Member>
-        <Member Name="NISTP192">
-          <Annotation Term="OData.Description" String="NIST P-192."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the 'nistp192' curve in RFC5656."/>
-        </Member>
-        <Member Name="NISTP224">
-          <Annotation Term="OData.Description" String="NIST P-224."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the 'nistp224' curve in RFC5656."/>
-        </Member>
-        <Member Name="NISTK233">
-          <Annotation Term="OData.Description" String="NIST K-233."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the 'nistk233' curve in RFC5656."/>
-        </Member>
-        <Member Name="NISTB233">
-          <Annotation Term="OData.Description" String="NIST B-233."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the 'nistb233' curve in RFC5656."/>
-        </Member>
-        <Member Name="NISTK283">
-          <Annotation Term="OData.Description" String="NIST K-283."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the 'nistk283' curve in RFC5656."/>
-        </Member>
-        <Member Name="NISTK409">
-          <Annotation Term="OData.Description" String="NIST K-409."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the 'nistk409' curve in RFC5656."/>
-        </Member>
-        <Member Name="NISTB409">
-          <Annotation Term="OData.Description" String="NIST B-409."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the 'nistb409' curve in RFC5656."/>
-        </Member>
-        <Member Name="NISTT571">
-          <Annotation Term="OData.Description" String="NIST T-571."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the 'nistt571' curve in RFC5656."/>
-        </Member>
-      </EnumType>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AggregationSource.v1_3_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to mark properties with values containing sensitive data as write-only."/>
       <EntityType Name="AggregationSource" BaseType="AggregationSource.v1_3_0.AggregationSource"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AggregationSource.v1_3_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="AggregationSource" BaseType="AggregationSource.v1_3_1.AggregationSource"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AggregationSource.v1_4_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.3"/>
+      <Annotation Term="OData.Description" String="This version was created to add `CFB128_AES192` and `CFB128_AES256` to SNMPEncryptionProtocols."/>
+
+      <EntityType Name="AggregationSource" BaseType="AggregationSource.v1_3_2.AggregationSource"/>
     </Schema>
 
   </edmx:DataServices>

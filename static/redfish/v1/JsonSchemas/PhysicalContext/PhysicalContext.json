@@ -13,12 +13,12 @@
                 "Storage"
             ],
             "enumDescriptions": {
-                "Capacity": "Capacity related logical context.",
-                "Environment": "Environment related logical context.",
-                "Network": "Network related logical context.",
-                "Performance": "Performance related logical context.",
-                "Security": "Security related logical context.",
-                "Storage": "Storage related logical context."
+                "Capacity": "Capacity-related logical context.",
+                "Environment": "Environment-related logical context.",
+                "Network": "Network-related logical context.",
+                "Performance": "Performance-related logical context.",
+                "Security": "Security-related logical context.",
+                "Storage": "Storage-related logical context."
             },
             "type": "string",
             "versionAdded": "2022.1"

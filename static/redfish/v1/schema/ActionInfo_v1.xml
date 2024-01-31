@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ActionInfo v1.4.0                                                   -->
+<!--# Redfish Schema:  ActionInfo v1.4.1                                                   -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -48,6 +48,12 @@
           </Record>
         </Annotation>
       </EntityType>
+
+      <ComplexType Name="Parameters" Abstract="true">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The information about a parameter included in a Redfish action for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This property shall contain information about a parameter included in a Redfish action for this resource."/>
+      </ComplexType>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ActionInfo.v1_0_0">
@@ -61,10 +67,7 @@
         </Property>
       </EntityType>
 
-      <ComplexType Name="Parameters">
-        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The information about a parameter included in a Redfish action for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This property shall contain information about a parameter included in a Redfish action for this resource."/>
+      <ComplexType Name="Parameters" BaseType="ActionInfo.Parameters">
         <Property Name="Name" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description"  String="The name of the parameter for this action."/>
@@ -229,7 +232,7 @@
         <Property Name="AllowableNumbers" Type="Collection(Edm.String)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The allowable numeric values or duration values, inclusive ranges of values, and incremental step values for this parameter as applied to this action target."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate the allowable numeric values, inclusive ranges of values, and incremental step values values for this parameter as applied to this action target, as defined in the 'Allowable values for numbers and durations' clause of the Redfish Specification.  For arrays, this property shall represent the allowable values for each array member.  This property shall only be present for numeric parameters or string parameters that specify a duration."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the allowable numeric values, inclusive ranges of values, and incremental step values for this parameter as applied to this action target, as defined in the 'Allowable values for numbers and durations' clause of the Redfish Specification.  For arrays, this property shall represent the allowable values for each array member.  This property shall only be present for numeric parameters or string parameters that specify a duration."/>
         </Property>
         <Property Name="AllowablePattern" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -237,6 +240,12 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain a regular expression that describes the allowable values for this parameter as applied to this action target.  For arrays, this property shall represent the allowable values for each array member.  This property shall only be present for string parameters."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ActionInfo.v1_3_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ActionInfo" BaseType="ActionInfo.v1_3_0.ActionInfo"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ActionInfo.v1_4_0">
@@ -252,6 +261,12 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the descriptions of allowable values for this parameter.  The descriptions shall appear in the same array order as the AllowableValues property.  For arrays, this property shall represent the descriptions of allowable values for each array member."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ActionInfo.v1_4_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ActionInfo" BaseType="ActionInfo.v1_4_0.ActionInfo"/>
     </Schema>
 
   </edmx:DataServices>

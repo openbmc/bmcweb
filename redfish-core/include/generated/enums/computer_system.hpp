@@ -171,6 +171,8 @@ enum class PowerMode{
     Static,
     OSControlled,
     OEM,
+    EfficiencyFavorPower,
+    EfficiencyFavorPerformance,
 };
 
 enum class CompositionUseCase{
@@ -362,6 +364,8 @@ NLOHMANN_JSON_SERIALIZE_ENUM(PowerMode, {
     {PowerMode::Static, "Static"},
     {PowerMode::OSControlled, "OSControlled"},
     {PowerMode::OEM, "OEM"},
+    {PowerMode::EfficiencyFavorPower, "EfficiencyFavorPower"},
+    {PowerMode::EfficiencyFavorPerformance, "EfficiencyFavorPerformance"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(CompositionUseCase, {

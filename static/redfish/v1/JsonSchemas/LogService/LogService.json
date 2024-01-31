@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/LogService.v1_5_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/LogService.v1_6_0.json",
     "$ref": "#/definitions/LogService",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -28,6 +28,9 @@
                 },
                 "#LogService.CollectDiagnosticData": {
                     "$ref": "#/definitions/CollectDiagnosticData"
+                },
+                "#LogService.PushDiagnosticData": {
+                    "$ref": "#/definitions/PushDiagnosticData"
                 },
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
@@ -91,6 +94,31 @@
                     "description": "The OEM-defined type of diagnostic data to collect.",
                     "longDescription": "This parameter shall contain the OEM-defined type of diagnostic data to collect.  This parameter shall be required if DiagnosticDataType is `OEM`.",
                     "type": "string"
+                },
+                "Password": {
+                    "description": "The password to access the URI specified by the TargetURI parameter.",
+                    "longDescription": "This parameter shall contain the password to access the URI specified by the TargetURI parameter.",
+                    "type": "string",
+                    "versionAdded": "v1_6_0"
+                },
+                "TargetURI": {
+                    "description": "The URI to access when sending the diagnostic data.",
+                    "format": "uri-reference",
+                    "longDescription": "This parameter shall contain the URI to access when sending the diagnostic data.  If this parameter is not provided by the client, the service shall not send the diagnostic data.",
+                    "type": "string",
+                    "versionAdded": "v1_6_0"
+                },
+                "TransferProtocol": {
+                    "$ref": "#/definitions/TransferProtocolType",
+                    "description": "The network protocol that the service uses to send the diagnostic data.",
+                    "longDescription": "This parameter shall contain the network protocol that the service uses to send the diagnostic data.",
+                    "versionAdded": "v1_6_0"
+                },
+                "UserName": {
+                    "description": "The user name to access the URI specified by the TargetURI parameter.",
+                    "longDescription": "This parameter shall contain the username to access the URI specified by the TargetURI parameter.",
+                    "type": "string",
+                    "versionAdded": "v1_6_0"
                 }
             },
             "patternProperties": {
@@ -409,6 +437,69 @@
             },
             "type": "string"
         },
+        "PushDiagnosticData": {
+            "additionalProperties": false,
+            "description": "The action to push an existing diagnostic data to a target URI.",
+            "longDescription": "This action shall send an existing diagnostic data to a target URI.",
+            "parameters": {
+                "AdditionalDataURI": {
+                    "description": "The URI of the diagnostic data to transfer to the URI specified by the TargetURI parameter.",
+                    "format": "uri-reference",
+                    "longDescription": "This parameter shall contain the URI of the diagnostic data to transfer to the URI specified by the TargetURI parameter.",
+                    "requiredParameter": true,
+                    "type": "string"
+                },
+                "Password": {
+                    "description": "The password to access the URI specified by the TargetURI parameter.",
+                    "longDescription": "This parameter shall contain the password to access the URI specified by the TargetURI parameter.",
+                    "type": "string"
+                },
+                "TargetURI": {
+                    "description": "The URI to access when sending the diagnostic data.",
+                    "format": "uri-reference",
+                    "longDescription": "This parameter shall contain the URI to access when sending the diagnostic data.",
+                    "requiredParameter": true,
+                    "type": "string"
+                },
+                "TransferProtocol": {
+                    "$ref": "#/definitions/TransferProtocolType",
+                    "description": "The network protocol that the service uses to send the diagnostic data.",
+                    "longDescription": "This parameter shall contain the network protocol that the service uses to send the diagnostic data."
+                },
+                "UserName": {
+                    "description": "The user name to access the URI specified by the TargetURI parameter.",
+                    "longDescription": "This parameter shall contain the username to access the URI specified by the TargetURI parameter.",
+                    "type": "string"
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_6_0"
+        },
         "SyslogFacility": {
             "description": "The syslog facility code is an enumeration of program types.",
             "enum": [
@@ -545,9 +636,34 @@
             },
             "longDescription": "This type shall specify the syslog severity levels as an application-specific rating used to describe the urgency of the message.  `Emergency` should be reserved for messages indicating the system is unusable and `Debug` should only be used when debugging a program.  Severity values are described in RFC5424.",
             "type": "string"
+        },
+        "TransferProtocolType": {
+            "enum": [
+                "CIFS",
+                "FTP",
+                "SFTP",
+                "HTTP",
+                "HTTPS",
+                "NFS",
+                "SCP",
+                "TFTP",
+                "OEM"
+            ],
+            "enumDescriptions": {
+                "CIFS": "Common Internet File System (CIFS).",
+                "FTP": "File Transfer Protocol (FTP).",
+                "HTTP": "Hypertext Transfer Protocol (HTTP).",
+                "HTTPS": "Hypertext Transfer Protocol Secure (HTTPS).",
+                "NFS": "Network File System (NFS).",
+                "OEM": "A manufacturer-defined protocol.",
+                "SCP": "Secure Copy Protocol (SCP).",
+                "SFTP": "Secure File Transfer Protocol (SFTP).",
+                "TFTP": "Trivial File Transfer Protocol (TFTP)."
+            },
+            "type": "string"
         }
     },
     "owningEntity": "DMTF",
-    "release": "2023.2",
-    "title": "#LogService.v1_5_1.LogService"
+    "release": "2023.3",
+    "title": "#LogService.v1_6_0.LogService"
 }

@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ComponentIntegrity.v1_2_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ComponentIntegrity.v1_2_2.json",
     "$ref": "#/definitions/ComponentIntegrity",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -58,8 +58,8 @@
             "properties": {
                 "ComponentCertificate": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Certificate.json#/definitions/Certificate",
-                    "description": "A link to the certificate that represents the identify of the component.",
-                    "longDescription": "This property shall contain a link to a resource of type Certificate that represents the identify of the component referenced by the TargetComponentURI property.",
+                    "description": "A link to the certificate that represents the identity of the component.",
+                    "longDescription": "This property shall contain a link to a resource of type Certificate that represents the identity of the component referenced by the TargetComponentURI property.",
                     "readonly": true
                 },
                 "VerificationStatus": {
@@ -72,7 +72,7 @@
                         }
                     ],
                     "description": "The status of the verification of the identity of the component.",
-                    "longDescription": "This property shall contain the status of the verification of the identity of the component referenced by the TargetComponentURI property..",
+                    "longDescription": "This property shall contain the status of the verification of the identity of the component referenced by the TargetComponentURI property.",
                     "readonly": true
                 }
             },
@@ -109,7 +109,7 @@
                             }
                         ]
                     },
-                    "longDescription": "This property shall contain an array of the active sessions or communication channels between two components  The active sessions or communication channels do not reflect how future sessions or communication channels are established.",
+                    "longDescription": "This property shall contain an array of the active sessions or communication channels between two components.  The active sessions or communication channels do not reflect how future sessions or communication channels are established.",
                     "type": "array"
                 }
             },
@@ -165,7 +165,7 @@
                 },
                 "ComponentIntegrityTypeVersion": {
                     "description": "The version of the security technology.",
-                    "longDescription": "This value of this property shall contain the version of the security technology indicated by the ComponentIntegrityType property.  If the service has not established secure communication with the device or security protocols are disabled, this property shall contain an empty string.  If ComponentIntegrityType contains `SPDM`, this property shall contain the negotiated or selected SPDM protocol and shall follow the regular expression pattern '^\\d+\\.\\d+\\.\\d+$'.  If ComponentIntegrityType contains `TPM`, this property shall contain the version of the TPM.",
+                    "longDescription": "This value of this property shall contain the version of the security technology indicated by the ComponentIntegrityType property.  If the service has not established secure communication with the device or if security protocols are disabled, this property shall contain an empty string.  If ComponentIntegrityType contains `SPDM`, this property shall contain the negotiated or selected SPDM protocol and shall follow the regular expression pattern `^\\d+\\.\\d+\\.\\d+$`.  If ComponentIntegrityType contains `TPM`, this property shall contain the version of the TPM.",
                     "readonly": true,
                     "type": "string"
                 },
@@ -211,7 +211,7 @@
                 "SPDM": {
                     "$ref": "#/definitions/SPDMinfo",
                     "description": "Integrity information about the SPDM Responder as reported by an SPDM Requester.",
-                    "longDescription": "This property shall contain integrity information about the SPDM Responder identified by the TargetComponentURI property as reported by an SPDM Requester.  This property shall be present if ComponentIntegrityType contains `SPDM` and `ComponentIntegrityEnabled` contains `true`.  For other cases, this property shall be absent."
+                    "longDescription": "This property shall contain integrity information about the SPDM Responder identified by the TargetComponentURI property as reported by an SPDM Requester.  This property shall be present if ComponentIntegrityType contains `SPDM` and if `ComponentIntegrityEnabled` contains `true`.  For other cases, this property shall be absent."
                 },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
@@ -221,10 +221,11 @@
                 "TPM": {
                     "$ref": "#/definitions/TPMinfo",
                     "description": "Integrity information about the Trusted Platform Module (TPM).",
-                    "longDescription": "This property shall contain integrity information about the Trusted Platform Module (TPM) identified by the TargetComponentURI property,  This property shall be present if ComponentIntegrityType contains `TPM` and `ComponentIntegrityEnabled` contains `true`.  For other cases, this property shall be absent."
+                    "longDescription": "This property shall contain integrity information about the Trusted Platform Module (TPM) identified by the TargetComponentURI property.  This property shall be present if ComponentIntegrityType contains `TPM` and if `ComponentIntegrityEnabled` contains `true`.  For other cases, this property shall be absent."
                 },
                 "TargetComponentURI": {
-                    "description": "The link to the the component whose integrity that this resource reports.",
+                    "description": "The link to the component whose integrity that this resource reports.",
+                    "format": "uri-reference",
                     "longDescription": "This value of this property shall contain a link to the resource whose integrity information is reported in this resource.  If ComponentIntegrityType contains `SPDM`, this property shall contain a URI to the resource that represents the SPDM Responder.  If ComponentIntegrityType contains `TPM`, this property shall contain a URI with RFC6901-defined JSON fragment notation to a member of the TrustedModules array in a ComputerSystem resource that represents the TPM or a resource of type TrustedComponent that represents the TPM.",
                     "readonly": true,
                     "type": "string"
@@ -450,7 +451,7 @@
                     "type": "string"
                 },
                 "SignedMeasurements": {
-                    "description": "Base64 encoded cryptographic signed statement generated by the signer.",
+                    "description": "Base64-encoded cryptographic signed statement generated by the signer.",
                     "longDescription": "This property shall contain the cryptographic signed statement over the given nonce and measurement blocks corresponding to the requested measurement indices.  If the SPDM version is 1.2, this value shall be a concatenation of SPDM 'VCA' and 'GET_MEASUREMENTS' requests and responses exchanged between the SPDM Requester and the SPDM Responder.  If SPDM version is 1.0 or 1.1, this value shall be a concatenation of SPDM 'GET_MEASUREMENTS' requests and responses exchanged between the SPDM Requester and the SPDM Responder.  The last 'MEASUREMENTS' response shall contain a signature generated over the 'L2' string by the SPDM Responder.",
                     "readonly": true,
                     "type": "string"
@@ -507,7 +508,7 @@
                             }
                         ]
                     },
-                    "longDescription": "This property shall contain an array of the active sessions or communication channels between two components  The active sessions or communication channels do not reflect how future sessions or communication channels are established.",
+                    "longDescription": "This property shall contain an array of the active sessions or communication channels between two components.  The active sessions or communication channels do not reflect how future sessions or communication channels are established.",
                     "type": "array"
                 }
             },
@@ -616,7 +617,7 @@
                 },
                 "Requester": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef",
-                    "description": "The link to the the component that is reporting the integrity information of the target component.",
+                    "description": "The link to the component that is reporting the integrity information of the target component.",
                     "longDescription": "This property shall contain a link to the resource representing the SPDM Responder that is reporting the integrity of the SPDM Responder identified by the TargetComponentURI property.",
                     "readonly": true
                 }
@@ -745,8 +746,8 @@
             "properties": {
                 "ProvidedCertificate": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Certificate.json#/definitions/Certificate",
-                    "description": "A link to the certificate that represents the identify of the SPDM Requester provided in mutual authentication.",
-                    "longDescription": "This property shall contain a link to a resource of type Certificate that represents the identify of the SPDM Requester provided in mutual authentication.",
+                    "description": "A link to the certificate that represents the identity of the SPDM Requester provided in mutual authentication.",
+                    "longDescription": "This property shall contain a link to a resource of type Certificate that represents the identity of the SPDM Requester provided in mutual authentication.",
                     "readonly": true
                 }
             },
@@ -773,8 +774,8 @@
             "properties": {
                 "ComponentCertificate": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Certificate.json#/definitions/Certificate",
-                    "description": "A link to the certificate that represents the identify of the component.",
-                    "longDescription": "This property shall contain a link to a resource of type Certificate that represents the identify of the component referenced by the TargetComponentURI property.",
+                    "description": "A link to the certificate that represents the identity of the component.",
+                    "longDescription": "This property shall contain a link to a resource of type Certificate that represents the identity of the component referenced by the TargetComponentURI property.",
                     "readonly": true
                 },
                 "VerificationStatus": {
@@ -787,7 +788,7 @@
                         }
                     ],
                     "description": "The status of the verification of the identity of the component.",
-                    "longDescription": "This property shall contain the status of the verification of the identity of the component referenced by the TargetComponentURI property..",
+                    "longDescription": "This property shall contain the status of the verification of the identity of the component referenced by the TargetComponentURI property.",
                     "readonly": true
                 }
             },
@@ -969,7 +970,7 @@
                     "type": "string"
                 },
                 "PCRSelection": {
-                    "description": "An object that identify the PCRs to sign.",
+                    "description": "An object that identifies the PCRs to sign.",
                     "longDescription": "This parameter shall contain the Base64-encoded representation of the 'TPML_PCR_SELECTION' object, as defined by the Trusted Platform Module Library Specification, that identifies the PCRs to sign.  The service shall send this value to the TPM in the 'PCRselect' parameter of the 'TPM2_Quote' command defined in the Trusted Platform Module Library Specification.",
                     "requiredParameter": true,
                     "type": "string"
@@ -1012,7 +1013,7 @@
         "TPMGetSignedMeasurementsResponse": {
             "additionalProperties": false,
             "description": "The TPM signed measurement from a TPM.",
-            "longDescription": "This object shall contain the TPM signed PCR measurements from an TPM.",
+            "longDescription": "This object shall contain the TPM signed PCR measurements from a TPM.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -1068,8 +1069,8 @@
             "properties": {
                 "ComponentCertificate": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Certificate.json#/definitions/Certificate",
-                    "description": "A link to the certificate that represents the identify of the component.",
-                    "longDescription": "This property shall contain a link to a resource of type Certificate that represents the identify of the component referenced by the TargetComponentURI property.",
+                    "description": "A link to the certificate that represents the identity of the component.",
+                    "longDescription": "This property shall contain a link to a resource of type Certificate that represents the identity of the component referenced by the TargetComponentURI property.",
                     "readonly": true
                 },
                 "VerificationStatus": {
@@ -1082,7 +1083,7 @@
                         }
                     ],
                     "description": "The status of the verification of the identity of the component.",
-                    "longDescription": "This property shall contain the status of the verification of the identity of the component referenced by the TargetComponentURI property..",
+                    "longDescription": "This property shall contain the status of the verification of the identity of the component referenced by the TargetComponentURI property.",
                     "readonly": true
                 }
             },
@@ -1119,7 +1120,7 @@
                             }
                         ]
                     },
-                    "longDescription": "This property shall contain an array of the active sessions or communication channels between two components  The active sessions or communication channels do not reflect how future sessions or communication channels are established.",
+                    "longDescription": "This property shall contain an array of the active sessions or communication channels between two components.  The active sessions or communication channels do not reflect how future sessions or communication channels are established.",
                     "type": "array"
                 }
             },
@@ -1305,5 +1306,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2022.2",
-    "title": "#ComponentIntegrity.v1_2_1.ComponentIntegrity"
+    "title": "#ComponentIntegrity.v1_2_2.ComponentIntegrity"
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Thermal v1.7.1                                                      -->
+<!--# Redfish Schema:  Thermal v1.7.2                                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -127,8 +127,8 @@
         </Property>
         <Property Name="ReadingCelsius" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The temperature in degrees Celsius."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the temperature in Celsius degrees."/>
+          <Annotation Term="OData.Description" String="The temperature (C)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the temperature in degree Celsius units."/>
           <Annotation Term="Measures.Unit" String="Cel"/>
         </Property>
         <Property Name="UpperThresholdNonCritical" Type="Edm.Decimal">
@@ -382,10 +382,18 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Thermal.v1_0_12">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology.  It was also created to correct various typographical errors."/>
       <EntityType Name="Thermal" BaseType="Thermal.v1_0_11.Thermal"/>
       <EntityType Name="Temperature" BaseType="Thermal.v1_0_11.Temperature"/>
       <EntityType Name="Fan" BaseType="Thermal.v1_0_11.Fan"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Thermal.v1_0_13">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Thermal" BaseType="Thermal.v1_0_12.Thermal"/>
+      <EntityType Name="Temperature" BaseType="Thermal.v1_0_12.Temperature"/>
+      <EntityType Name="Fan" BaseType="Thermal.v1_0_12.Fan"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Thermal.v1_1_0">
@@ -479,10 +487,18 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Thermal.v1_1_10">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology.  It was also created to correct various typographical errors."/>
       <EntityType Name="Thermal" BaseType="Thermal.v1_1_9.Thermal"/>
       <EntityType Name="Temperature" BaseType="Thermal.v1_1_9.Temperature"/>
       <EntityType Name="Fan" BaseType="Thermal.v1_1_9.Fan"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Thermal.v1_1_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Thermal" BaseType="Thermal.v1_1_10.Thermal"/>
+      <EntityType Name="Temperature" BaseType="Thermal.v1_1_10.Temperature"/>
+      <EntityType Name="Fan" BaseType="Thermal.v1_1_10.Fan"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Thermal.v1_2_0">
@@ -593,10 +609,18 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Thermal.v1_2_9">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology.  It was also created to correct various typographical errors."/>
       <EntityType Name="Thermal" BaseType="Thermal.v1_2_8.Thermal"/>
       <EntityType Name="Temperature" BaseType="Thermal.v1_2_8.Temperature"/>
       <EntityType Name="Fan" BaseType="Thermal.v1_2_8.Fan"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Thermal.v1_2_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Thermal" BaseType="Thermal.v1_2_9.Thermal"/>
+      <EntityType Name="Temperature" BaseType="Thermal.v1_2_9.Temperature"/>
+      <EntityType Name="Fan" BaseType="Thermal.v1_2_9.Fan"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Thermal.v1_3_0">
@@ -732,10 +756,18 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Thermal.v1_3_8">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology.  It was also created to correct various typographical errors."/>
       <EntityType Name="Thermal" BaseType="Thermal.v1_3_7.Thermal"/>
       <EntityType Name="Temperature" BaseType="Thermal.v1_3_7.Temperature"/>
       <EntityType Name="Fan" BaseType="Thermal.v1_3_7.Fan"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Thermal.v1_3_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Thermal" BaseType="Thermal.v1_3_8.Thermal"/>
+      <EntityType Name="Temperature" BaseType="Thermal.v1_3_8.Temperature"/>
+      <EntityType Name="Fan" BaseType="Thermal.v1_3_8.Fan"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Thermal.v1_4_0">
@@ -786,11 +818,11 @@
         <Property Name="HotPluggable" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An indication of whether this device can be inserted or removed while the equipment is in operation."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the device can be inserted or removed while the underlying equipment otherwise remains in its current operational state.  Hot-pluggable devices can become operable without altering the operational state of the underlying equipment.  Devices that cannot be inserted or removed from equipment in operation, or devices that cannot become operable without affecting the operational state of that equipment, shall be not hot-pluggable."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the device can be inserted or removed while the underlying equipment otherwise remains in its current operational state.  Hot-pluggable devices can become operable without altering the operational state of the underlying equipment.  Devices that cannot be inserted or removed from equipment in operation, or devices that cannot become operable without affecting the operational state of that equipment, shall not be hot-pluggable."/>
         </Property>
         <Property Name="Location" Type="Resource.Location" Nullable="false">
           <Annotation Term="OData.Description" String="The location of the fan."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain location information of the associated fan."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the location information of the associated fan."/>
         </Property>
         <NavigationProperty Name="Assembly" Type="Assembly.Assembly" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -851,10 +883,18 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Thermal.v1_4_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology.  It was also created to correct various typographical errors."/>
       <EntityType Name="Thermal" BaseType="Thermal.v1_4_6.Thermal"/>
       <EntityType Name="Temperature" BaseType="Thermal.v1_4_6.Temperature"/>
       <EntityType Name="Fan" BaseType="Thermal.v1_4_6.Fan"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Thermal.v1_4_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Thermal" BaseType="Thermal.v1_4_7.Thermal"/>
+      <EntityType Name="Temperature" BaseType="Thermal.v1_4_7.Temperature"/>
+      <EntityType Name="Fan" BaseType="Thermal.v1_4_7.Fan"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Thermal.v1_5_0">
@@ -916,11 +956,19 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Thermal.v1_5_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology.  It was also created to correct various typographical errors."/>
 
       <EntityType Name="Thermal" BaseType="Thermal.v1_5_5.Thermal"/>
       <EntityType Name="Temperature" BaseType="Thermal.v1_5_5.Temperature"/>
       <EntityType Name="Fan" BaseType="Thermal.v1_5_5.Fan"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Thermal.v1_5_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Thermal" BaseType="Thermal.v1_5_6.Thermal"/>
+      <EntityType Name="Temperature" BaseType="Thermal.v1_5_6.Temperature"/>
+      <EntityType Name="Fan" BaseType="Thermal.v1_5_6.Fan"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Thermal.v1_6_0">
@@ -965,10 +1013,18 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Thermal.v1_6_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology.  It was also created to correct various typographical errors."/>
       <EntityType Name="Thermal" BaseType="Thermal.v1_6_2.Thermal"/>
       <EntityType Name="Temperature" BaseType="Thermal.v1_6_2.Temperature"/>
       <EntityType Name="Fan" BaseType="Thermal.v1_6_2.Fan"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Thermal.v1_6_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Thermal" BaseType="Thermal.v1_6_3.Thermal"/>
+      <EntityType Name="Temperature" BaseType="Thermal.v1_6_3.Temperature"/>
+      <EntityType Name="Fan" BaseType="Thermal.v1_6_3.Fan"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Thermal.v1_7_0">
@@ -985,10 +1041,18 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Thermal.v1_7_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology.  It was also created to correct various typographical errors."/>
       <EntityType Name="Thermal" BaseType="Thermal.v1_7_0.Thermal"/>
       <EntityType Name="Temperature" BaseType="Thermal.v1_7_0.Temperature"/>
       <EntityType Name="Fan" BaseType="Thermal.v1_7_0.Fan"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Thermal.v1_7_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Thermal" BaseType="Thermal.v1_7_1.Thermal"/>
+      <EntityType Name="Temperature" BaseType="Thermal.v1_7_1.Temperature"/>
+      <EntityType Name="Fan" BaseType="Thermal.v1_7_1.Fan"/>
     </Schema>
 
   </edmx:DataServices>

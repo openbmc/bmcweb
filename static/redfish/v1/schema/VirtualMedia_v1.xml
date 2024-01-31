@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  VirtualMedia v1.6.2                                                 -->
+<!--# Redfish Schema:  VirtualMedia v1.6.3                                                 -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -169,7 +169,7 @@
         <Property Name="Image" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The URI of the location of the selected image."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the URI of the media attached to the virtual media.  This value may specify an absolute URI to remote media or a relative URI to media local to the implementation.  A service may allow a relative URI to reference a SoftwareInventory resource.  The value `null` shall indicates no image connection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the URI of the media attached to the virtual media.  This value may specify an absolute URI to remote media or a relative URI to media local to the implementation.  A service may allow a relative URI to reference a SoftwareInventory resource.  The value `null` shall indicate no image connection."/>
           <Annotation Term="OData.IsURL"/>
         </Property>
         <Property Name="MediaTypes" Type="Collection(VirtualMedia.v1_0_0.MediaType)" Nullable="false">
@@ -267,6 +267,12 @@
       <EntityType Name="VirtualMedia" BaseType="VirtualMedia.v1_0_7.VirtualMedia"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VirtualMedia.v1_0_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="VirtualMedia" BaseType="VirtualMedia.v1_0_8.VirtualMedia"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VirtualMedia.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
@@ -331,6 +337,12 @@
       <EntityType Name="VirtualMedia" BaseType="VirtualMedia.v1_1_5.VirtualMedia"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VirtualMedia.v1_1_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="VirtualMedia" BaseType="VirtualMedia.v1_1_6.VirtualMedia"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VirtualMedia.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.3"/>
@@ -369,6 +381,12 @@
       <EntityType Name="VirtualMedia" BaseType="VirtualMedia.v1_2_4.VirtualMedia"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VirtualMedia.v1_2_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="VirtualMedia" BaseType="VirtualMedia.v1_2_5.VirtualMedia"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VirtualMedia.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.3"/>
@@ -382,8 +400,8 @@
         </Property>
         <Property Name="Password" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The password to access the Image parameter-specified URI.  This property is null in responses."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall represent the password to access the Image parameter-specified URI.  The value shall be null in responses."/>
+          <Annotation Term="OData.Description" String="The password to access the Image parameter-specified URI.  This property is`null` in responses."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall represent the password to access the Image parameter-specified URI.  The value shall be `null` in responses."/>
         </Property>
         <Property Name="TransferProtocolType" Type="VirtualMedia.v1_3_0.TransferProtocolType">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -455,6 +473,12 @@
       <EntityType Name="VirtualMedia" BaseType="VirtualMedia.v1_3_2.VirtualMedia"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VirtualMedia.v1_3_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="VirtualMedia" BaseType="VirtualMedia.v1_3_3.VirtualMedia"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VirtualMedia.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.1"/>
@@ -468,7 +492,7 @@
         <NavigationProperty Name="Certificates" Type="CertificateCollection.CertificateCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to a collection of server certificates for the server referenced by the Image property."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CertificateCollection that represents the server certificates for the server referenced by the Image property.  If VerifyCertificate is `true`, services shall compare the certificates in this collection with the certificate obtained during handshaking with the image server in order to verify the identify of the image server prior to completing the remote media connection.  If the server cannot be verified, the service shall not complete the remote media connection.  If VerifyCertificate is `false`, the service shall not perform certificate verification with certificates in this collection.  Regardless of the contents of this collection, services may perform additional verification based on other factors, such as the configuration of the SecurityPolicy resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CertificateCollection that represents the server certificates for the server referenced by the Image property.  If VerifyCertificate is `true`, services shall compare the certificates in this collection with the certificate obtained during handshaking with the image server in order to verify the identity of the image server prior to completing the remote media connection.  If the server cannot be verified, the service shall not complete the remote media connection.  If VerifyCertificate is `false`, the service shall not perform certificate verification with certificates in this collection.  Regardless of the contents of this collection, services may perform additional verification based on other factors, such as the configuration of the SecurityPolicy resource."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="VerifyCertificate" Type="Edm.Boolean">
@@ -497,6 +521,12 @@
       <EntityType Name="VirtualMedia" BaseType="VirtualMedia.v1_4_2.VirtualMedia"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VirtualMedia.v1_4_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="VirtualMedia" BaseType="VirtualMedia.v1_4_3.VirtualMedia"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VirtualMedia.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
@@ -521,6 +551,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify that other certificate verification might be performed by the service due to other policies in the service."/>
       <EntityType Name="VirtualMedia" BaseType="VirtualMedia.v1_5_1.VirtualMedia"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VirtualMedia.v1_5_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="VirtualMedia" BaseType="VirtualMedia.v1_5_2.VirtualMedia"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VirtualMedia.v1_6_0">
@@ -569,6 +605,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions."/>
       <EntityType Name="VirtualMedia" BaseType="VirtualMedia.v1_6_1.VirtualMedia"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VirtualMedia.v1_6_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="VirtualMedia" BaseType="VirtualMedia.v1_6_2.VirtualMedia"/>
     </Schema>
 
   </edmx:DataServices>
