@@ -1,7 +1,8 @@
 #include "credential_pipe.hpp"
 
 #include <boost/asio/io_context.hpp>
-#include <boost/beast/core/file_posix.hpp>
+#include <boost/asio/read.hpp>
+#include <boost/asio/readable_pipe.hpp>
 
 #include <string>
 
@@ -19,21 +20,20 @@ static void handler(boost::asio::io_context& io,
 
 TEST(CredentialsPipe, BasicSend)
 {
-    boost::beast::file_posix file;
+    boost::asio::io_context io;
+    boost::asio::readable_pipe testPipe(io);
     {
-        boost::asio::io_context io;
         CredentialsPipe pipe(io);
-        file.native_handle(dup(pipe.fd()));
-        ASSERT_GT(file.native_handle(), 0);
+        testPipe = boost::asio::readable_pipe(io, pipe.release_fd());
+        ASSERT_GT(testPipe.native_handle(), 0);
         pipe.asyncWrite("username", "password",
                         std::bind_front(handler, std::ref(io)));
-        io.run();
     }
+    io.run();
     std::array<char, 18> buff{};
     boost::system::error_code ec;
-    size_t r = file.read(buff.data(), buff.size(), ec);
+    boost::asio::read(testPipe, boost::asio::buffer(buff), ec);
     ASSERT_FALSE(ec);
-    ASSERT_EQ(r, 18);
 
     EXPECT_THAT(buff,
                 ElementsAre('u', 's', 'e', 'r', 'n', 'a', 'm', 'e', '\0', 'p',

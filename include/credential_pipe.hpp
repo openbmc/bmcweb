@@ -1,9 +1,13 @@
 #pragma once
 
+#include "logging.hpp"
+
 #include <boost/asio/buffer.hpp>
+#include <boost/asio/connect_pipe.hpp>
 #include <boost/asio/io_context.hpp>
+#include <boost/asio/readable_pipe.hpp>
+#include <boost/asio/writable_pipe.hpp>
 #include <boost/asio/write.hpp>
-#include <boost/process/async_pipe.hpp>
 
 #include <array>
 #include <string>
@@ -12,7 +16,15 @@
 class CredentialsPipe
 {
   public:
-    explicit CredentialsPipe(boost::asio::io_context& io) : impl(io) {}
+    explicit CredentialsPipe(boost::asio::io_context& io) : impl(io), read(io)
+    {
+        boost::system::error_code ec;
+        boost::asio::connect_pipe(read, impl, ec);
+        if (ec)
+        {
+            BMCWEB_LOG_CRITICAL("Failed to connect pipe {}", ec.what());
+        }
+    }
 
     CredentialsPipe(const CredentialsPipe&) = delete;
     CredentialsPipe(CredentialsPipe&&) = delete;
@@ -25,9 +37,9 @@ class CredentialsPipe
         explicit_bzero(pass.data(), pass.capacity());
     }
 
-    int fd() const
+    int release_fd()
     {
-        return impl.native_source();
+        return read.release();
     }
 
     template <typename WriteHandler>
@@ -44,7 +56,8 @@ class CredentialsPipe
                                  std::forward<WriteHandler>(handler));
     }
 
-    boost::process::async_pipe impl;
+    boost::asio::writable_pipe impl;
+    boost::asio::readable_pipe read;
 
   private:
     std::string user;
