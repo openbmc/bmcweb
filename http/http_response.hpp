@@ -1,5 +1,5 @@
 #pragma once
-#include "http_file_body.hpp"
+#include "http_body.hpp"
 #include "logging.hpp"
 #include "utils/hex_utils.hpp"
 
@@ -23,7 +23,7 @@ struct Response
     template <typename Adaptor, typename Handler>
     friend class crow::Connection;
 
-    http::response<bmcweb::FileBody> response;
+    http::response<bmcweb::HttpBody> response;
 
     nlohmann::json jsonValue;
     using fields_type = http::header<false, http::fields>;

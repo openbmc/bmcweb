@@ -611,8 +611,8 @@ class Connection :
     Handler* handler;
     // Making this a std::optional allows it to be efficiently destroyed and
     // re-created on Connection reset
-    std::optional<boost::beast::http::request_parser<bmcweb::FileBody>> parser;
-    std::optional<boost::beast::http::response_serializer<bmcweb::FileBody>>
+    std::optional<boost::beast::http::request_parser<bmcweb::HttpBody>> parser;
+    std::optional<boost::beast::http::response_serializer<bmcweb::HttpBody>>
         serializer;
 
     boost::beast::flat_static_buffer<8192> buffer;
