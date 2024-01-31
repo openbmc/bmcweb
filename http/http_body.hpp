@@ -14,7 +14,7 @@
 
 namespace bmcweb
 {
-struct FileBody
+struct HttpBody
 {
     class writer;
     class reader;
@@ -27,7 +27,7 @@ enum class EncodingType
     Base64,
 };
 
-class FileBody::value_type
+class HttpBody::value_type
 {
     boost::beast::file_posix fileHandle;
     size_t fileSize = 0;
@@ -160,7 +160,7 @@ class FileBody::value_type
     }
 };
 
-class FileBody::writer
+class HttpBody::writer
 {
   public:
     using const_buffers_type = boost::asio::const_buffer;
@@ -241,7 +241,7 @@ class FileBody::writer
     }
 };
 
-class FileBody::reader
+class HttpBody::reader
 {
     value_type& value;
 
