@@ -1,5 +1,5 @@
 #include "file_test_utilities.hpp"
-#include "http_file_body.hpp"
+#include "http_body.hpp"
 
 #include <boost/system/error_code.hpp>
 
@@ -17,58 +17,58 @@ namespace bmcweb
 namespace
 {
 
-TEST(HttpFileBodyValueType, MoveString)
+TEST(HttpHttpBodyValueType, MoveString)
 {
-    FileBody::value_type value("teststring");
+    HttpBody::value_type value("teststring");
     // Move constructor
-    FileBody::value_type value2(std::move(value));
+    HttpBody::value_type value2(std::move(value));
     EXPECT_EQ(value2.encodingType, EncodingType::Raw);
     EXPECT_EQ(value2.str(), "teststring");
     EXPECT_EQ(value2.payloadSize(), 10);
 }
 
-TEST(HttpFileBodyValueType, MoveOperatorString)
+TEST(HttpHttpBodyValueType, MoveOperatorString)
 {
-    FileBody::value_type value;
+    HttpBody::value_type value;
     value.str() = "teststring";
     // Move constructor
-    FileBody::value_type value2 = std::move(value);
+    HttpBody::value_type value2 = std::move(value);
     EXPECT_EQ(value2.encodingType, EncodingType::Raw);
     EXPECT_EQ(value2.str(), "teststring");
     EXPECT_EQ(value2.payloadSize(), 10);
 }
 
-TEST(HttpFileBodyValueType, copysignl)
+TEST(HttpHttpBodyValueType, copysignl)
 {
-    FileBody::value_type value;
+    HttpBody::value_type value;
     value.str() = "teststring";
     // Move constructor
-    FileBody::value_type value2(value);
+    HttpBody::value_type value2(value);
     EXPECT_EQ(value2.encodingType, EncodingType::Raw);
     EXPECT_EQ(value2.str(), "teststring");
     EXPECT_EQ(value2.payloadSize(), 10);
 }
 
-TEST(HttpFileBodyValueType, CopyOperatorString)
+TEST(HttpHttpBodyValueType, CopyOperatorString)
 {
-    FileBody::value_type value;
+    HttpBody::value_type value;
     value.str() = "teststring";
     // Move constructor
-    FileBody::value_type value2 = value;
+    HttpBody::value_type value2 = value;
     EXPECT_EQ(value2.encodingType, EncodingType::Raw);
     EXPECT_EQ(value2.str(), "teststring");
     EXPECT_EQ(value2.payloadSize(), 10);
 }
 
-TEST(HttpFileBodyValueType, MoveFile)
+TEST(HttpHttpBodyValueType, MoveFile)
 {
-    FileBody::value_type value(EncodingType::Base64);
+    HttpBody::value_type value(EncodingType::Base64);
     std::string filepath = makeFile("teststring");
     boost::system::error_code ec;
     value.open(filepath.c_str(), boost::beast::file_mode::read, ec);
     ASSERT_FALSE(ec);
     // Move constructor
-    FileBody::value_type value2(std::move(value));
+    HttpBody::value_type value2(std::move(value));
     std::array<char, 11> buffer{};
     size_t out = value2.file().read(buffer.data(), buffer.size(), ec);
     ASSERT_FALSE(ec);
@@ -83,15 +83,15 @@ TEST(HttpFileBodyValueType, MoveFile)
     EXPECT_EQ(value2.payloadSize(), 16);
 }
 
-TEST(HttpFileBodyValueType, MoveOperatorFile)
+TEST(HttpHttpBodyValueType, MoveOperatorFile)
 {
-    FileBody::value_type value(EncodingType::Base64);
+    HttpBody::value_type value(EncodingType::Base64);
     std::string filepath = makeFile("teststring");
     boost::system::error_code ec;
     value.open(filepath.c_str(), boost::beast::file_mode::read, ec);
     ASSERT_FALSE(ec);
     // Move constructor
-    FileBody::value_type value2 = std::move(value);
+    HttpBody::value_type value2 = std::move(value);
     std::array<char, 11> buffer{};
     size_t out = value2.file().read(buffer.data(), buffer.size(), ec);
     ASSERT_FALSE(ec);
@@ -107,7 +107,7 @@ TEST(HttpFileBodyValueType, MoveOperatorFile)
 
 TEST(HttpFileBodyValueType, SetFd)
 {
-    FileBody::value_type value(EncodingType::Base64);
+    HttpBody::value_type value(EncodingType::Base64);
     std::string filepath = makeFile("teststring");
 
     boost::system::error_code ec;
