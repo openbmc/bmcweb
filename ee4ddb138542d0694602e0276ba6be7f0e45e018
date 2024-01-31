@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c536fb2_0e73f9dc",
+        "filename": "http/http_file_body.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-01-31T15:39:53Z",
+      "side": 1,
+      "message": "Should we change the name of the body given that it is handling general case now.",
+      "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42871133_505f28dc",
+        "filename": "http/http_file_body.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-01-31T15:39:53Z",
+      "side": 1,
+      "message": "looks like if file open fails body defaults to string body. Is this correct? The intent of the user may be to send file data. If there is an error aren\u0027t we supposed to send an error response in this case? If the assumption is that stringbody will have coresponding error string, then it is a readability issue. The error case is not explicit here while just reading this file alone.",
+      "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ee5eb69_019d20f3",
+        "filename": "http/http_file_body.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-01-31T15:39:53Z",
+      "side": 1,
+      "message": "shouldn\u0027t we report back the size query error?",
+      "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
