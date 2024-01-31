@@ -39,7 +39,7 @@ struct Http2StreamData
 {
     Request req{};
     Response res{};
-    std::optional<bmcweb::FileBody::writer> writer;
+    std::optional<bmcweb::HttpBody::writer> writer;
 };
 
 template <typename Adaptor, typename Handler>
@@ -173,7 +173,7 @@ class HTTP2Connection :
         }
         Http2StreamData& stream = it->second;
         crow::Response& res = stream.res;
-        http::response<bmcweb::FileBody>& fbody = res.response;
+        http::response<bmcweb::HttpBody>& fbody = res.response;
         stream.writer.emplace(fbody.base(), fbody.body());
 
         nghttp2_data_provider dataPrd{
