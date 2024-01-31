@@ -913,9 +913,9 @@ inline void handleHTTPSCertificateCollectionPost(
     asyncResp->res.jsonValue["Name"] = "HTTPS Certificate";
     asyncResp->res.jsonValue["Description"] = "HTTPS Certificate";
 
-    std::string certFileBody = getCertificateFromReqBody(asyncResp, req);
+    std::string certHttpBody = getCertificateFromReqBody(asyncResp, req);
 
-    if (certFileBody.empty())
+    if (certHttpBody.empty())
     {
         BMCWEB_LOG_ERROR("Cannot get certificate from request body.");
         messages::unrecognizedRequestBody(asyncResp->res);
@@ -923,7 +923,7 @@ inline void handleHTTPSCertificateCollectionPost(
     }
 
     std::shared_ptr<CertificateFile> certFile =
-        std::make_shared<CertificateFile>(certFileBody);
+        std::make_shared<CertificateFile>(certHttpBody);
 
     crow::connections::systemBus->async_method_call(
         [asyncResp, certFile](const boost::system::error_code& ec,
@@ -1019,9 +1019,9 @@ inline void handleLDAPCertificateCollectionPost(
     {
         return;
     }
-    std::string certFileBody = getCertificateFromReqBody(asyncResp, req);
+    std::string certHttpBody = getCertificateFromReqBody(asyncResp, req);
 
-    if (certFileBody.empty())
+    if (certHttpBody.empty())
     {
         BMCWEB_LOG_ERROR("Cannot get certificate from request body.");
         messages::unrecognizedRequestBody(asyncResp->res);
@@ -1029,7 +1029,7 @@ inline void handleLDAPCertificateCollectionPost(
     }
 
     std::shared_ptr<CertificateFile> certFile =
-        std::make_shared<CertificateFile>(certFileBody);
+        std::make_shared<CertificateFile>(certHttpBody);
 
     crow::connections::systemBus->async_method_call(
         [asyncResp, certFile](const boost::system::error_code& ec,
@@ -1141,9 +1141,9 @@ inline void handleTrustStoreCertificateCollectionPost(
     {
         return;
     }
-    std::string certFileBody = getCertificateFromReqBody(asyncResp, req);
+    std::string certHttpBody = getCertificateFromReqBody(asyncResp, req);
 
-    if (certFileBody.empty())
+    if (certHttpBody.empty())
     {
         BMCWEB_LOG_ERROR("Cannot get certificate from request body.");
         messages::unrecognizedRequestBody(asyncResp->res);
@@ -1151,7 +1151,7 @@ inline void handleTrustStoreCertificateCollectionPost(
     }
 
     std::shared_ptr<CertificateFile> certFile =
-        std::make_shared<CertificateFile>(certFileBody);
+        std::make_shared<CertificateFile>(certHttpBody);
     crow::connections::systemBus->async_method_call(
         [asyncResp, certFile](const boost::system::error_code& ec,
                               const std::string& objectPath) {
