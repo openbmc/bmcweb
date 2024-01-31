@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ManagerNetworkProtocol v1.9.1                                       -->
+<!--# Redfish Schema:  ManagerNetworkProtocol v1.10.0                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -28,6 +28,9 @@
     <edmx:Include Namespace="Resource"/>
     <edmx:Include Namespace="Resource.v1_0_0"/>
   </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/IPAddresses_v1.xml">
+    <edmx:Include Namespace="IPAddresses"/>
+  </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/CertificateCollection_v1.xml">
     <edmx:Include Namespace="CertificateCollection"/>
   </edmx:Reference>
@@ -39,7 +42,7 @@
 
       <EntityType Name="ManagerNetworkProtocol" BaseType="Resource.v1_0_0.Resource" Abstract="true">
         <Annotation Term="OData.Description" String="The network service settings for the manager."/>
-        <Annotation Term="OData.LongDescription" String="This Resource shall represent the network service settings for the manager."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent the network service settings for the manager."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -62,7 +65,6 @@
           </Collection>
         </Annotation>
       </EntityType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_0_0">
@@ -114,11 +116,11 @@
         </Property>
         <Property Name="KVMIP" Type="ManagerNetworkProtocol.v1_0_0.Protocol" Nullable="false">
           <Annotation Term="OData.Description" String="The settings for this manager's KVM-IP protocol support that apply to all system instances controlled by this manager."/>
-          <Annotation Term="OData.LongDescription" String="This object shall contain the KVM-IP (Keyboard, Video, Mouse over IP) protocol settings for the manager.  If multiple systems are supported by this manager, these properties, if present, apply to all instances of KVMIP controlled by this manager."/>
+          <Annotation Term="OData.LongDescription" String="This object shall contain the KVM-IP (Keyboard, Video, Mouse over IP) protocol settings for the manager.  If multiple systems are supported by this manager, these properties, if present, apply to all instances of KVM-IP controlled by this manager."/>
         </Property>
         <Property Name="Status" Type="Resource.Status" Nullable="false">
-          <Annotation Term="OData.Description" String="The status and health of the Resource and its subordinate or dependent Resources."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the Resource."/>
+          <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
         </Property>
       </EntityType>
 
@@ -226,6 +228,12 @@
       <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_0_8.ManagerNetworkProtocol"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_0_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_0_9.ManagerNetworkProtocol"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.3"/>
@@ -273,6 +281,12 @@
       <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_1_5.ManagerNetworkProtocol"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_1_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_1_6.ManagerNetworkProtocol"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
@@ -282,8 +296,8 @@
           <Annotation Term="OData.LongDescription" String="This object shall contain the NTP protocol settings for the manager."/>
         </Property>
         <Property Name="Actions" Type="ManagerNetworkProtocol.v1_2_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="The actions property shall contain the available actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
         </Property>
       </EntityType>
 
@@ -298,18 +312,18 @@
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
         <Property Name="Oem" Type="ManagerNetworkProtocol.v1_2_0.OemActions" Nullable="false">
           <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
       </ComplexType>
     </Schema>
 
@@ -341,6 +355,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to fix typos in descriptions and long descriptions."/>
       <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_2_4.ManagerNetworkProtocol"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_2_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_2_5.ManagerNetworkProtocol"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_3_0">
@@ -386,6 +406,12 @@
       <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_3_3.ManagerNetworkProtocol"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_3_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_3_4.ManagerNetworkProtocol"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.3"/>
@@ -425,6 +451,12 @@
       <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_4_3.ManagerNetworkProtocol"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_4_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_4_4.ManagerNetworkProtocol"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.3"/>
@@ -456,6 +488,15 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The access level of the SNMP community."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the access/privilege level of the SNMP community used to access an SNMP manager."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_10_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of AccessMode inside CommunityStrings."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Property>
         <Property Name="EngineId" Type="ManagerNetworkProtocol.v1_5_0.EngineId">
           <Annotation Term="OData.Description" String="The engine ID."/>
@@ -511,8 +552,8 @@
         </Property>
         <Property Name="EnterpriseSpecificMethod" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The enterprise specific method."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the enterprise specific method as described in item 2 of the snmpEngineID syntax of RFC3411.  The full RFC3411-defined snmpEngineID is form from the concatenation of the value in the PrivateEnterpriseId property and the value in this property.  If the most significant bit in PrivateEnterpriseId is set to one, this property shall not be present."/>
+          <Annotation Term="OData.Description" String="The enterprise-specific method."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the enterprise-specific method as described in item 2 of the snmpEngineID syntax of RFC3411.  The full RFC3411-defined snmpEngineID is formed from the concatenation of the value in the PrivateEnterpriseId property and the value in this property.  If the most significant bit in PrivateEnterpriseId is set to one, this property shall not be present."/>
           <Annotation Term="Validation.Pattern" String="^([A-Fa-f0-9]{2} ){7}[A-Fa-f0-9]{2}$"/>
         </Property>
       </ComplexType>
@@ -610,7 +651,31 @@
         </Member>
         <Member Name="CFB128_AES128">
           <Annotation Term="OData.Description" String="CFB128-AES-128 encryption."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate encryption conforms to the RFC3414-defined CFB128-AES-128 encryption protocol."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate encryption conforms to the RFC3826-defined CFB128-AES-128 encryption protocol."/>
+        </Member>
+        <Member Name="CFB128_AES192">
+          <Annotation Term="OData.Description" String="CFB128-AES-192 encryption."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate encryption conforms to the CFB128-AES-192 encryption protocol, extended from RFC3826."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_10_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="CFB128_AES256">
+          <Annotation Term="OData.Description" String="CFB128-AES-256 encryption."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate encryption conforms to the CFB128-AES-256 encryption protocol, extended from RFC3826."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_10_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
       </EnumType>
     </Schema>
@@ -639,6 +704,12 @@
       <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_5_3.ManagerNetworkProtocol"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_5_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_5_4.ManagerNetworkProtocol"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
@@ -649,7 +720,7 @@
         <Property Name="ArchitectureId" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The architecture identifier."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the architecture identifier as described in item 3 of the snmpEngineID syntax of RFC3411.  The full RFC3411-defined snmpEngineID is form from the concatenation of the value in the PrivateEnterpriseId property and the value in this property.  If the most significant bit in PrivateEnterpriseId is set to zero, this property shall not be present."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the architecture identifier as described in item 3 of the snmpEngineID syntax of RFC3411.  The full RFC3411-defined snmpEngineID is formed from the concatenation of the value in the PrivateEnterpriseId property and the value in this property.  If the most significant bit in PrivateEnterpriseId is set to zero, this property shall not be present."/>
           <Annotation Term="Validation.Pattern" String="^([A-Fa-f0-9]{2} ){0,27}[A-Fa-f0-9]{2}$"/>
         </Property>
       </ComplexType>
@@ -673,6 +744,12 @@
       <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_6_2.ManagerNetworkProtocol"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_6_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_6_3.ManagerNetworkProtocol"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
@@ -685,6 +762,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to make EnterpriseSpecificMethod and ArchitectureId writable."/>
       <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_7_0.ManagerNetworkProtocol"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_7_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_7_1.ManagerNetworkProtocol"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_8_0">
@@ -755,6 +838,12 @@
       <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_8_1.ManagerNetworkProtocol"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_8_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_8_2.ManagerNetworkProtocol"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_9_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.2"/>
@@ -774,6 +863,62 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to mark properties with values containing sensitive data as write-only."/>
       <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_9_0.ManagerNetworkProtocol"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_9_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_9_1.ManagerNetworkProtocol"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_10_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.3"/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate CommunityAccessMode in SNMP in favor of AccessMode in CommunityStrings."/>
+
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_9_2.ManagerNetworkProtocol">
+        <Property Name="FTP" Type="ManagerNetworkProtocol.v1_0_0.Protocol" Nullable="false">
+          <Annotation Term="OData.Description" String="The settings for this manager's FTP protocol support."/>
+          <Annotation Term="OData.LongDescription" String="This object shall contain the File Transfer Protocol (FTP) settings for the manager.  The default Port property value should be `21` for compatibility with established client implementations."/>
+        </Property>
+        <Property Name="SFTP" Type="ManagerNetworkProtocol.v1_0_0.Protocol" Nullable="false">
+          <Annotation Term="OData.Description" String="The settings for this manager's Secure Shell File Transfer Protocol (SFTP) support."/>
+          <Annotation Term="OData.LongDescription" String="This object shall contain the Secure Shell File Transfer Protocol (SFTP) protocol settings for the manager.  The default value should be `22` for compatibility with established client implementations."/>
+        </Property>
+        <Property Name="FTPS" Type="ManagerNetworkProtocol.v1_0_0.Protocol" Nullable="false">
+          <Annotation Term="OData.Description" String="The settings for this manager's FTP over SSL (FTPS) protocol support that apply to all system instances controlled by this manager."/>
+          <Annotation Term="OData.LongDescription" String="This object shall contain the File Transfer Protocol over SSL (FTPS) settings for the manager.  The default value should be `21` for compatibility with established client implementations."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="SNMPProtocol" BaseType="ManagerNetworkProtocol.v1_5_0.SNMPProtocol">
+        <Property Name="TrapPort" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The SNMP trap port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the port assigned to SNMP traps."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="SNMPCommunity" BaseType="ManagerNetworkProtocol.v1_5_0.SNMPCommunity">
+        <Property Name="RestrictCommunityToIPv4AddressRange" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates if this community is restricted to accessing the service from a range of IPv4 addresses."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate if this community is restricted to accessing the service from a range of IPv4 addresses.  If `true`, SNMP access using this community string is restricted to the range of IPv4 addresses defined by the IPv4AddressRangeLower and IPv4AddressRangeUpper properties."/>
+        </Property>
+        <Property Name="IPv4AddressRangeLower" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The lowest IPv4 address in the range allowed to access the service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the lowest IPv4 address in the range allowed to access the SNMP service using this community string.  If RestrictCommunityToIPv4AddressRange contains `true`, the service shall enforce this range.  If RestrictCommunityToIPv4AddressRange contains `false`, the service shall not enforce this range."/>
+          <Annotation Term="Validation.Pattern" String="^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$"/>
+        </Property>
+        <Property Name="IPv4AddressRangeUpper" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The highest IPv4 address in the range allowed to access the service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the upper or highest IPv4 address in the range allowed to access the SNMP service using this community string.  If RestrictCommunityToIPv4AddressRange contains `true`, the service shall enforce this range.  If RestrictCommunityToIPv4AddressRange contains `false`, the service shall not enforce this range."/>
+          <Annotation Term="Validation.Pattern" String="^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$"/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

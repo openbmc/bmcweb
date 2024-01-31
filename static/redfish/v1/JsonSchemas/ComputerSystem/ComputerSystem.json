@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_21_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_22_0.json",
     "$ref": "#/definitions/ComputerSystem",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -171,7 +171,7 @@
                         }
                     ],
                     "description": "The configuration of how the system retries booting automatically.",
-                    "longDescription": "This property shall contain the configuration of how the system retry booting automatically.",
+                    "longDescription": "This property shall contain the configuration of how the system retries booting automatically.",
                     "readonly": false,
                     "versionAdded": "v1_11_0"
                 },
@@ -442,12 +442,12 @@
             },
             "enumLongDescriptions": {
                 "BusInitializationStarted": "This value shall indicate that the system has started to initialize the buses.",
-                "MemoryInitializationStarted": "This value shall indicate that the system has started to initialize memory.",
+                "MemoryInitializationStarted": "This value shall indicate that the system has started to initialize the memory.",
                 "None": "This value shall indicate that the system is not booting or running, such as the system is powered off.",
                 "OEM": "This value shall indicate an OEM-defined boot progress state.",
                 "OSBootStarted": "This value shall indicate that the operating system has started to boot.",
                 "OSRunning": "This value shall indicate that the operating system is running and shall indicate the final boot progress state.",
-                "PCIResourceConfigStarted": "This value shall indicate that the system has started to initialize PCI resources.",
+                "PCIResourceConfigStarted": "This value shall indicate that the system has started to initialize the PCI resources.",
                 "PrimaryProcessorInitializationStarted": "This value shall indicate that the system has started to initialize the primary processor.",
                 "SecondaryProcessorInitializationStarted": "This value shall indicate that the system has started to initialize the secondary processors.",
                 "SetupEntered": "This value shall indicate that the system has entered the setup utility.",
@@ -1075,7 +1075,7 @@
                         }
                     ],
                     "description": "The UUID for this system.",
-                    "longDescription": "This property shall contain the universal unique identifier number for this system.  RFC4122 describes methods to create this value.  The value should be considered to be opaque.  Client software should only treat the overall value as a UUID and should not interpret any sub-fields within the UUID.  If the system supports SMBIOS, the property value should follow the SMBIOS 2.6 and later recommendation for converting the SMBIOS 16-byte UUID structure into the Redfish canonical `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx` string format, so that the property value matches the byte order presented by current OS APIs, such as WMI and dmidecode.",
+                    "longDescription": "This property shall contain the universally unique identifier number for this system.  RFC4122 describes methods to create this value.  The value should be considered to be opaque.  Client software should only treat the overall value as a UUID and should not interpret any subfields within the UUID.  If the system supports SMBIOS, the property value should follow the SMBIOS 2.6 and later recommendation for converting the SMBIOS 16-byte UUID structure into the Redfish canonical `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx` string format, so that the property value matches the byte order presented by current OS APIs, such as WMI and dmidecode.",
                     "readonly": true
                 },
                 "VirtualMedia": {
@@ -1129,7 +1129,7 @@
                 },
                 "RequireSecureErase": {
                     "description": "Ensure secure erasure of all devices and fail the request if not possible.",
-                    "longDescription": "This parameter shall indicate if a secure erase is required.  If the parameter contains `true` and a secure erase to the level of NIST 800-88 Clear or Purge for all specified components can not be performed the service shall return the HTTP 501 (Not Implemented) status code.  This failure may occur after the process has already started.  If not provided by the client, the value shall be assumed to be `false`.",
+                    "longDescription": "This parameter shall indicate if a secure erase is required.  If the parameter contains `true` and a secure erase to the level of NIST 800-88 Clear or Purge for all specified components cannot be performed the service shall return the HTTP 501 (Not Implemented) status code.  This failure may occur after the process has already started.  If not provided by the client, the value shall be assumed to be `false`.",
                     "type": "boolean"
                 }
             },
@@ -1226,7 +1226,7 @@
                     "items": {
                         "$ref": "#/definitions/GraphicalConnectTypesSupported"
                     },
-                    "longDescription": "This property shall contain an array of the enumerations.  KVMIP shall be included if a vendor-define KVM-IP protocol is supported.",
+                    "longDescription": "This property shall contain an array of the enumerations.  KVMIP shall be included if a vendor-defined KVM-IP protocol is supported.",
                     "readonly": true,
                     "type": "array",
                     "versionAdded": "v1_13_0"
@@ -1357,7 +1357,7 @@
             "enumDescriptions": {
                 "Appliance": "The system hosts functionality that supports the system acting as an appliance.",
                 "ApplicationServer": "The system hosts functionality that supports general purpose applications.",
-                "BareMetalServer": "The system hosts functionality that supports the system acting as a bare metal server.",
+                "BareMetalServer": "The system hosts functionality that supports the system acting as a bare-metal server.",
                 "ContainerServer": "The system hosts functionality that supports the system acting as a container server.",
                 "StorageServer": "The system hosts functionality that supports the system acting as a storage server.",
                 "Switch": "The system hosts functionality that supports the system acting as a switch.",
@@ -1456,7 +1456,7 @@
                 "Off"
             ],
             "enumDeprecated": {
-                "Unknown": "This value has been deprecated in favor of returning null if the state is unknown."
+                "Unknown": "This value has been deprecated in favor of returning `null` if the state is unknown."
             },
             "enumDescriptions": {
                 "Blinking": "The indicator LED is blinking.",
@@ -1693,7 +1693,7 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "CooledBy": {
-                    "description": "An array of links to resources or objects that that cool this computer system.  Normally, the link is for either a chassis or a specific set of fans.",
+                    "description": "An array of links to resources or objects that cool this computer system.  Normally, the link is for either a chassis or a specific set of fans.",
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
                     },
@@ -1736,7 +1736,7 @@
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/Manager.json#/definitions/Manager"
                     },
-                    "longDescription": "This property shall contain an array of link to resources of type Manager that represent the resources with management responsibility for this resource.",
+                    "longDescription": "This property shall contain an array of links to resources of type Manager that represent the resources with management responsibility for this resource.",
                     "readonly": true,
                     "type": "array"
                 },
@@ -1804,7 +1804,7 @@
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/TrustedComponent.json#/definitions/TrustedComponent"
                     },
-                    "longDescription": "This property shall contain an array of link to resources of type TrustedComponent.",
+                    "longDescription": "This property shall contain an array of links to resources of type TrustedComponent.",
                     "readonly": true,
                     "type": "array",
                     "versionAdded": "v1_19_0"
@@ -1817,7 +1817,7 @@
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.json#/definitions/ComputerSystem"
                     },
-                    "longDescription": "This property shall contain an array of link to resources of type ComputerSystem that represent the virtual machines this system is hosting.",
+                    "longDescription": "This property shall contain an array of links to resources of type ComputerSystem that represent the virtual machines this system is hosting.",
                     "readonly": true,
                     "type": "array",
                     "versionAdded": "v1_21_0"
@@ -1944,10 +1944,14 @@
                 "PowerSaving",
                 "Static",
                 "OSControlled",
-                "OEM"
+                "OEM",
+                "EfficiencyFavorPower",
+                "EfficiencyFavorPerformance"
             ],
             "enumDescriptions": {
                 "BalancedPerformance": "The system performs at the highest speeds while utilization is high and performs at reduced speeds when the utilization is low.",
+                "EfficiencyFavorPerformance": "The system performs at reduced speeds at all utilizations to save power while attempting to maintain performance.  This mode differs from `EfficiencyFavorPower` in that more performance is retained but less power is saved.",
+                "EfficiencyFavorPower": "The system performs at reduced speeds at all utilizations to save power at the cost of performance.  This mode differs from `PowerSaving` in that more performance is retained and less power is saved.  This mode differs from `EfficiencyFavorPerformance` in that less performance is retained but more power is saved.",
                 "MaximumPerformance": "The system performs at the highest speeds possible.",
                 "OEM": "The system power mode is OEM-defined.",
                 "OSControlled": "The system power mode is controlled by the operating system.",
@@ -1956,11 +1960,17 @@
             },
             "enumLongDescriptions": {
                 "BalancedPerformance": "This value shall indicate the system performs at the highest speeds possible when the utilization is high and performs at reduced speeds when the utilization is low to save power.  This mode is a compromise between `MaximumPerformance` and `PowerSaving`.",
+                "EfficiencyFavorPerformance": "This value shall indicate the system performs at reduced speeds at all utilizations to save power while attempting to maintain performance.  This mode differs from `EfficiencyFavorPower` in that more performance is retained but less power is saved. This mode differs from 'MaximumPerformance' in that power is saved at the cost of some performance.  This mode differs from 'BalancedPerformance' in that power saving occurs at all utilizations.",
+                "EfficiencyFavorPower": "This value shall indicate the system performs at reduced speeds at all utilizations to save power at the cost of performance.  This mode differs from `PowerSaving` in that more performance is retained and less power is saved.  This mode differs from `EfficiencyFavorPerformance` in that less performance is retained but more power is saved. This mode differs from 'BalancedPerformance' in that power saving occurs at all utilizations.",
                 "MaximumPerformance": "This value shall indicate the system performs at the highest speeds possible.  This mode should be used when performance is the top priority.",
                 "OEM": "This value shall indicate the system performs at an OEM-defined power mode.",
-                "OSControlled": "This value shall indicate the system performs at a operating system controlled power mode.",
+                "OSControlled": "This value shall indicate the system performs at an operating system-controlled power mode.",
                 "PowerSaving": "This value shall indicate the system performs at reduced speeds to save power.  This mode should be used when power saving is the top priority.",
                 "Static": "This value shall indicate the system performs at a static base speed."
+            },
+            "enumVersionAdded": {
+                "EfficiencyFavorPerformance": "v1_22_0",
+                "EfficiencyFavorPower": "v1_22_0"
             },
             "type": "string"
         },
@@ -1999,7 +2009,7 @@
             "properties": {
                 "CoreCount": {
                     "description": "The number of processor cores in the system.",
-                    "longDescription": "This property shall contain the total number of central processor cores in in the system.",
+                    "longDescription": "This property shall contain the total number of central processor cores in the system.",
                     "minimum": 0,
                     "readonly": true,
                     "type": [
@@ -2405,7 +2415,7 @@
         "VirtualMediaConfig": {
             "additionalProperties": false,
             "description": "The information about virtual media service for this system.",
-            "longDescription": "This type shall describe a virtual media service service for a computer system.",
+            "longDescription": "This type shall describe a virtual media service for a computer system.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -2558,6 +2568,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2023.2",
-    "title": "#ComputerSystem.v1_21_0.ComputerSystem"
+    "release": "2023.3",
+    "title": "#ComputerSystem.v1_22_0.ComputerSystem"
 }

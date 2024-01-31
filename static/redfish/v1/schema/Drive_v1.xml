@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################               -->
-<!--# Redfish Schema:  Drive v1.17.1                                                               -->
+<!--# Redfish Schema:  Drive v1.18.0                                                               -->
 <!--#                                                                                              -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,              -->
 <!--# available at http://www.dmtf.org/standards/redfish                                           -->
@@ -115,7 +115,7 @@
         <Parameter Name="Drive" Type="Drive.v1_0_0.Actions"/>
         <Parameter Name="SanitizationType" Type="Drive.v1_15_0.DataSanitizationType">
           <Annotation Term="OData.Description" String="The type of data sanitization to perform."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of data sanitization to perform for the secure erase request.  The service can accept a request without the parameter and perform an implementation specific default secure erase."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of data sanitization to perform for the secure erase request.  The service can accept a request without the parameter and perform an implementation-specific default secure erase."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -127,7 +127,7 @@
         </Parameter>
         <Parameter Name="OverwritePasses" Type="Edm.Int64">
           <Annotation Term="OData.Description" String="The number of times to overwrite the drive if performing an overwrite type of sanitization."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the number of times to overwrite the drive if the SanitizationType parameter contains the value `Overwrite`.  This parameter shall be ignored if the SanitizationType parameter does not contain the value `Overwrite`.  If the client does not provide this parameter, the service shall perform an implementation specific number of passes."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the number of times to overwrite the drive if the SanitizationType parameter contains the value `Overwrite`.  This parameter shall be ignored if the SanitizationType parameter does not contain the value `Overwrite`.  If the client does not provide this parameter, the service shall perform an implementation-specific number of passes."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -145,13 +145,31 @@
         <Parameter Name="Drive" Type="Drive.v1_0_0.Actions"/>
         <Parameter Name="ResetType" Type="Resource.ResetType">
           <Annotation Term="OData.Description" String="The type of reset."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of reset.  The service can accept a request without the parameter and perform an implementation specific default reset."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of reset.  The service can accept a request without the parameter and perform an implementation-specific default reset."/>
         </Parameter>
         <Annotation Term="Redfish.Revisions">
           <Collection>
             <Record>
               <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
               <PropertyValue Property="Version" String="v1_7_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <Action Name="RevertToOriginalFactoryState" IsBound="true">
+        <Annotation Term="OData.Description" String="This action reverts a self-encrypting drive (SED) to the original factory state."/>
+        <Annotation Term="OData.LongDescription" String="This action shall revert a self-encrypting drive (SED) to the original factory state.  Upon successful completion of this action, the drive data shall be securely erased and the EncryptionStatus property shall contain `Unencrypted`."/>
+        <Parameter Name="Drive" Type="Drive.v1_0_0.Actions"/>
+        <Parameter Name="PhysicalSecureID" Type="Edm.String">
+          <Annotation Term="OData.Description" String="The physical secure ID (PSID).  The PSID is generally printed on the drive label and used to revert an encrypted SED."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the physical secure ID (PSID).  The PSID is generally printed on the drive label and used to revert an encrypted SED."/>
+        </Parameter>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_18_0"/>
             </Record>
           </Collection>
         </Annotation>
@@ -248,7 +266,7 @@
         </Property>
         <Property Name="Location" Type="Collection(Resource.Location)" Nullable="false">
           <Annotation Term="OData.Description" String="The location of the drive."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain location information of the associated drive."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the location information of the associated drive."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -276,26 +294,26 @@
         </Property>
         <Property Name="RotationSpeedRPM" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The rotation speed of this drive, in revolutions per minute (RPM)."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the rotation speed, in revolutions per minute (RPM), of the associated drive."/>
+          <Annotation Term="OData.Description" String="The rotation speed of this drive, in revolutions per minute (RPM) units."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the rotation speed, in revolutions per minute (RPM) units, of the associated drive."/>
           <Annotation Term="Measures.Unit" String="{rev}/min"/>
         </Property>
         <Property Name="BlockSizeBytes" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The size, in bytes, of the smallest addressable unit, or block."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain size of the smallest addressable unit of the associated drive."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the size of the smallest addressable unit of the associated drive."/>
           <Annotation Term="Measures.Unit" String="By"/>
         </Property>
         <Property Name="CapableSpeedGbs" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The speed, in gigabit per second (Gbit/s), at which this drive can communicate to a storage controller in ideal conditions."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain fastest capable bus speed, in gigabit per second (Gbit/s), of the associated drive."/>
+          <Annotation Term="OData.Description" String="The speed, in gigabits per second (Gbit/s) units, at which this drive can communicate to a storage controller in ideal conditions."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain fastest capable bus speed, in gigabits per second (Gbit/s) units, of the associated drive."/>
           <Annotation Term="Measures.Unit" String="Gbit/s"/>
         </Property>
         <Property Name="NegotiatedSpeedGbs" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The speed, in gigabit per second (Gbit/s), at which this drive currently communicates to the storage controller."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain current bus speed, in gigabit per second (Gbit/s), of the associated drive."/>
+          <Annotation Term="OData.Description" String="The speed, in gigabits per second (Gbit/s) units, at which this drive currently communicates to the storage controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain current bus speed, in gigabits per second (Gbit/s) units, of the associated drive."/>
           <Annotation Term="Measures.Unit" String="Gbit/s"/>
         </Property>
         <Property Name="PredictedMediaLifeLeftPercent" Type="Edm.Decimal">
@@ -503,13 +521,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_0_11">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <Annotation Term="OData.Description" String="This version was created to specify 64-bit integers in OpenAPI."/>
       <EntityType Name="Drive" BaseType="Drive.v1_0_10.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_0_12">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="Drive" BaseType="Drive.v1_0_11.Drive"/>
     </Schema>
 
@@ -535,6 +553,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the range of possible values for properties with percent units."/>
       <EntityType Name="Drive" BaseType="Drive.v1_0_15.Drive"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_0_17">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_0_16.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_1_0">
@@ -647,13 +671,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_1_10">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <Annotation Term="OData.Description" String="This version was created to specify 64-bit integers in OpenAPI."/>
       <EntityType Name="Drive" BaseType="Drive.v1_1_9.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_1_11">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="Drive" BaseType="Drive.v1_1_10.Drive"/>
     </Schema>
 
@@ -679,6 +703,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the range of possible values for properties with percent units."/>
       <EntityType Name="Drive" BaseType="Drive.v1_1_14.Drive"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_1_16">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_1_15.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_2_0">
@@ -741,13 +771,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_2_8">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <Annotation Term="OData.Description" String="This version was created to specify 64-bit integers in OpenAPI."/>
       <EntityType Name="Drive" BaseType="Drive.v1_2_7.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_2_9">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="Drive" BaseType="Drive.v1_2_8.Drive"/>
     </Schema>
 
@@ -773,6 +803,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the range of possible values for properties with percent units."/>
       <EntityType Name="Drive" BaseType="Drive.v1_2_12.Drive"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_2_14">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_2_13.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_3_0">
@@ -827,13 +863,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_3_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <Annotation Term="OData.Description" String="This version was created to specify 64-bit integers in OpenAPI."/>
       <EntityType Name="Drive" BaseType="Drive.v1_3_6.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_3_8">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="Drive" BaseType="Drive.v1_3_7.Drive"/>
     </Schema>
 
@@ -861,6 +897,12 @@
       <EntityType Name="Drive" BaseType="Drive.v1_3_11.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_3_13">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_3_12.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.1"/>
@@ -868,7 +910,7 @@
       <EntityType Name="Drive" BaseType="Drive.v1_3_0.Drive">
         <Property Name="PhysicalLocation" Type="Resource.Location" Nullable="false">
           <Annotation Term="OData.Description" String="The location of the drive."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain location information of the associated drive."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the location information of the associated drive."/>
         </Property>
       </EntityType>
     </Schema>
@@ -911,13 +953,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_4_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <Annotation Term="OData.Description" String="This version was created to specify 64-bit integers in OpenAPI."/>
       <EntityType Name="Drive" BaseType="Drive.v1_4_6.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_4_8">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="Drive" BaseType="Drive.v1_4_7.Drive"/>
     </Schema>
 
@@ -943,6 +985,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the range of possible values for properties with percent units."/>
       <EntityType Name="Drive" BaseType="Drive.v1_4_11.Drive"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_4_13">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_4_12.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_5_0">
@@ -999,13 +1047,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_5_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <Annotation Term="OData.Description" String="This version was created to specify 64-bit integers in OpenAPI."/>
       <EntityType Name="Drive" BaseType="Drive.v1_5_5.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_5_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="Drive" BaseType="Drive.v1_5_6.Drive"/>
     </Schema>
 
@@ -1031,6 +1079,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the range of possible values for properties with percent units."/>
       <EntityType Name="Drive" BaseType="Drive.v1_5_10.Drive"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_5_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_5_11.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_6_0">
@@ -1068,13 +1122,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_6_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <Annotation Term="OData.Description" String="This version was created to specify 64-bit integers in OpenAPI."/>
       <EntityType Name="Drive" BaseType="Drive.v1_6_3.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_6_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="Drive" BaseType="Drive.v1_6_4.Drive"/>
     </Schema>
 
@@ -1100,6 +1154,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the range of possible values for properties with percent units."/>
       <EntityType Name="Drive" BaseType="Drive.v1_6_8.Drive"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_6_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_6_9.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_7_0">
@@ -1130,13 +1190,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_7_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <Annotation Term="OData.Description" String="This version was created to specify 64-bit integers in OpenAPI."/>
       <EntityType Name="Drive" BaseType="Drive.v1_7_2.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_7_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="Drive" BaseType="Drive.v1_7_3.Drive"/>
     </Schema>
 
@@ -1162,6 +1222,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the range of possible values for properties with percent units."/>
       <EntityType Name="Drive" BaseType="Drive.v1_7_7.Drive"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_7_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_7_8.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_8_0">
@@ -1194,13 +1260,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_8_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <Annotation Term="OData.Description" String="This version was created to specify 64-bit integers in OpenAPI."/>
       <EntityType Name="Drive" BaseType="Drive.v1_8_2.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_8_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="Drive" BaseType="Drive.v1_8_3.Drive"/>
     </Schema>
 
@@ -1226,6 +1292,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the range of possible values for properties with percent units."/>
       <EntityType Name="Drive" BaseType="Drive.v1_8_7.Drive"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_8_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_8_8.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_9_0">
@@ -1256,13 +1328,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_9_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <Annotation Term="OData.Description" String="This version was created to specify 64-bit integers in OpenAPI."/>
       <EntityType Name="Drive" BaseType="Drive.v1_9_2.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_9_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="Drive" BaseType="Drive.v1_9_3.Drive"/>
     </Schema>
 
@@ -1290,6 +1362,12 @@
       <EntityType Name="Drive" BaseType="Drive.v1_9_7.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_9_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_9_8.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.2"/>
@@ -1306,13 +1384,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_10_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <Annotation Term="OData.Description" String="This version was created to specify 64-bit integers in OpenAPI."/>
       <EntityType Name="Drive" BaseType="Drive.v1_10_0.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_10_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="Drive" BaseType="Drive.v1_10_1.Drive"/>
     </Schema>
 
@@ -1340,6 +1418,12 @@
       <EntityType Name="Drive" BaseType="Drive.v1_10_5.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_10_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_10_6.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_11_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.3"/>
@@ -1356,13 +1440,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_11_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <Annotation Term="OData.Description" String="This version was created to specify 64-bit integers in OpenAPI."/>
       <EntityType Name="Drive" BaseType="Drive.v1_11_0.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_11_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="Drive" BaseType="Drive.v1_11_1.Drive"/>
     </Schema>
 
@@ -1388,6 +1472,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the range of possible values for properties with percent units."/>
       <EntityType Name="Drive" BaseType="Drive.v1_11_5.Drive"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_11_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_11_6.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_12_0">
@@ -1426,7 +1516,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_12_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="Drive" BaseType="Drive.v1_12_0.Drive"/>
     </Schema>
 
@@ -1452,6 +1542,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the range of possible values for properties with percent units."/>
       <EntityType Name="Drive" BaseType="Drive.v1_12_4.Drive"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_12_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_12_5.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_13_0">
@@ -1488,6 +1584,12 @@
       <EntityType Name="Drive" BaseType="Drive.v1_13_2.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_13_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_13_3.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_14_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
@@ -1517,6 +1619,12 @@
       <EntityType Name="Drive" BaseType="Drive.v1_14_1.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_14_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_14_2.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_15_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.1"/>
@@ -1534,8 +1642,8 @@
           <Annotation Term="OData.LongDescription" String="This value shall indicate sanitization is performed by erasing the target data's encryption key leaving only the ciphertext on the drive.  For more information, see NIST800-88 and ISO/IEC 27040."/>
         </Member>
         <Member Name="Overwrite">
-          <Annotation Term="OData.Description" String="Overwrite data by writing an implementation specific pattern onto all sectors of the drive."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate sanitization is performed by overwriting data by writing an implementation specific pattern onto all sectors of the drive."/>
+          <Annotation Term="OData.Description" String="Overwrite data by writing an implementation-specific pattern onto all sectors of the drive."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate sanitization is performed by overwriting data by writing an implementation-specific pattern onto all sectors of the drive."/>
         </Member>
       </EnumType>
     </Schema>
@@ -1550,6 +1658,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the range of possible values for properties with percent units."/>
       <EntityType Name="Drive" BaseType="Drive.v1_15_1.Drive"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_15_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_15_2.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_16_0">
@@ -1583,6 +1697,18 @@
           <Annotation Term="OData.Description" String="A 2.5 inch drive."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate the drive is approximately 2.5 inches in width and no more than 0.8 inches in height and is not a U.2 drive."/>
         </Member>
+        <Member Name="EDSFF">
+          <Annotation Term="OData.Description" String="An EDSFF drive."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the drive corresponds to one of SNIA's SFF specifications with an unspecified form factor.  The SlotFormFactor property should not contain this value."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_18_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
         <Member Name="EDSFF_1U_Long">
           <Annotation Term="OData.Description" String="An EDSFF 1U Long (E1.L) drive."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate the drive corresponds to the SFF-TA-1007 Specification."/>
@@ -1593,47 +1719,59 @@
         </Member>
         <Member Name="EDSFF_E3_Short">
           <Annotation Term="OData.Description" String="An EDSFF E3 Short (E3.S) drive."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the drive corresponds to the SFF-TA-1008 Specification and is approximately 112.75mm in length."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the drive corresponds to the SFF-TA-1008 Specification and is approximately 112.75 mm in length."/>
         </Member>
         <Member Name="EDSFF_E3_Long">
           <Annotation Term="OData.Description" String="An EDSFF E3 Long (E3.L) drive."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the drive corresponds to the SFF-TA-1008 Specification and is approximately 142.2mm in length."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the drive corresponds to the SFF-TA-1008 Specification and is approximately 142.2 mm in length."/>
+        </Member>
+        <Member Name="M2">
+          <Annotation Term="OData.Description" String="An M.2 drive."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the drive corresponds to the PCI Express M.2 Specification with an unspecified form factor.  The SlotFormFactor property should not contain this value."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_18_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="M2_2230">
           <Annotation Term="OData.Description" String="An M.2 2230 drive."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the drive corresponds to the PCI Express M.2 Specification and is approximately 22mm in width and 30mm in length."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the drive corresponds to the PCI Express M.2 Specification and is approximately 22 mm in width and 30 mm in length."/>
         </Member>
         <Member Name="M2_2242">
           <Annotation Term="OData.Description" String="An M.2 2242 drive."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the drive corresponds to the PCI Express M.2 Specification and is approximately 22mm in width and 42mm in length."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the drive corresponds to the PCI Express M.2 Specification and is approximately 22 mm in width and 42 mm in length."/>
         </Member>
         <Member Name="M2_2260">
           <Annotation Term="OData.Description" String="An M.2 2260 drive."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the drive corresponds to the PCI Express M.2 Specification and is approximately 22mm in width and 60mm in length."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the drive corresponds to the PCI Express M.2 Specification and is approximately 22 mm in width and 60 mm in length."/>
         </Member>
         <Member Name="M2_2280">
           <Annotation Term="OData.Description" String="An M.2 2280 drive."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the drive corresponds to the PCI Express M.2 Specification and is approximately 22mm in width and 80mm in length."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the drive corresponds to the PCI Express M.2 Specification and is approximately 22 mm in width and 80 mm in length."/>
         </Member>
         <Member Name="M2_22110">
           <Annotation Term="OData.Description" String="An M.2 22110 drive."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the drive corresponds to the PCI Express M.2 Specification and is approximately 22mm in width and 110mm in length."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the drive corresponds to the PCI Express M.2 Specification and is approximately 22 mm in width and 110 mm in length."/>
         </Member>
         <Member Name="U2">
           <Annotation Term="OData.Description" String="A U.2 drive."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate the drive corresponds to the PCI Express SFF-8639 Module Specification."/>
         </Member>
         <Member Name="PCIeSlotFullLength">
-          <Annotation Term="OData.Description" String="A full length PCIe add in card."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the drive is an add in card greater than 7 inches in length."/>
+          <Annotation Term="OData.Description" String="A full-length PCIe add-in card."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the drive is an add-in card greater than 7 inches in length."/>
         </Member>
         <Member Name="PCIeSlotLowProfile">
-          <Annotation Term="OData.Description" String="A low profile PCIe add in card."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the drive is an add in card less than 2.5 inches in height."/>
+          <Annotation Term="OData.Description" String="A low-profile PCIe add-in card."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the drive is an add-in card less than 2.5 inches in height."/>
         </Member>
         <Member Name="PCIeHalfLength">
-          <Annotation Term="OData.Description" String="A half length PCIe add in card."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the drive is an add in card less than 7 inches in length."/>
+          <Annotation Term="OData.Description" String="A half-length PCIe add-in card."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the drive is an add-in card less than 7 inches in length."/>
         </Member>
         <Member Name="OEM">
           <Annotation Term="OData.Description" String="An OEM-defined form factor."/>
@@ -1669,6 +1807,12 @@
       <EntityType Name="Drive" BaseType="Drive.v1_16_1.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_16_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_16_2.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_17_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.1"/>
@@ -1700,6 +1844,20 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the range of possible values for properties with percent units."/>
       <EntityType Name="Drive" BaseType="Drive.v1_17_0.Drive"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_17_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_17_1.Drive"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_18_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add `M2` and `EDSFF` to FormFactor.  It was also created to add the RevertToOriginalFactoryState action."/>
+      <Annotation Term="Redfish.Release" String="2023.3"/>
+
+      <EntityType Name="Drive" BaseType="Drive.v1_17_2.Drive"/>
     </Schema>
 
   </edmx:DataServices>

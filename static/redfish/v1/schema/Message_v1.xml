@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Message v1.1.3                                                      -->
+<!--# Redfish Schema:  Message v1.2.0                                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -19,6 +19,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
     <edmx:Include Namespace="Resource"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/ResolutionStep_v1.xml">
+    <edmx:Include Namespace="ResolutionStep"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -179,6 +182,19 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to improve the description of message argument-related properties by explaining that number-type arguments are converted to strings prior to their consumption in a message."/>
       <ComplexType Name="Message" BaseType="Message.v1_1_2.Message"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Message.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.3"/>
+      <Annotation Term="OData.Description" String="This version was created to add ResolutionSteps property."/>
+
+      <ComplexType Name="Message" BaseType="Message.v1_1_3.Message">
+        <Property Name="ResolutionSteps" Type="Collection(ResolutionStep.ResolutionStep)" Nullable="false">
+          <Annotation Term="OData.Description" String="The list of recommended steps to resolve the situation that caused the message."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of recommended steps to resolve the situation that caused the message.  This property shall not be present if the MessageSeverity or Severity properties contain `OK`."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

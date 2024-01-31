@@ -80,6 +80,19 @@ enum class LogPurpose{
     OEM,
 };
 
+enum class TransferProtocolType{
+    Invalid,
+    CIFS,
+    FTP,
+    SFTP,
+    HTTP,
+    HTTPS,
+    NFS,
+    SCP,
+    TFTP,
+    OEM,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(OverWritePolicy, {
     {OverWritePolicy::Invalid, "Invalid"},
     {OverWritePolicy::Unknown, "Unknown"},
@@ -153,6 +166,19 @@ NLOHMANN_JSON_SERIALIZE_ENUM(LogPurpose, {
     {LogPurpose::Telemetry, "Telemetry"},
     {LogPurpose::ExternalEntity, "ExternalEntity"},
     {LogPurpose::OEM, "OEM"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(TransferProtocolType, {
+    {TransferProtocolType::Invalid, "Invalid"},
+    {TransferProtocolType::CIFS, "CIFS"},
+    {TransferProtocolType::FTP, "FTP"},
+    {TransferProtocolType::SFTP, "SFTP"},
+    {TransferProtocolType::HTTP, "HTTP"},
+    {TransferProtocolType::HTTPS, "HTTPS"},
+    {TransferProtocolType::NFS, "NFS"},
+    {TransferProtocolType::SCP, "SCP"},
+    {TransferProtocolType::TFTP, "TFTP"},
+    {TransferProtocolType::OEM, "OEM"},
 });
 
 }

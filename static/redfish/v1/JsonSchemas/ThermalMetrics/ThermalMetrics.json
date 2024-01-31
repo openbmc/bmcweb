@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ThermalMetrics.v1_3_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ThermalMetrics.v1_3_1.json",
     "$ref": "#/definitions/ThermalMetrics",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -157,9 +157,9 @@
                             "type": "null"
                         }
                     ],
-                    "description": "The ambient temperature (Celsius) of this subsystem.",
+                    "description": "The ambient temperature (in degree Celsius units) of this subsystem.",
                     "excerptCopy": "SensorExcerpt",
-                    "longDescription": "This property shall contain the temperature, in degrees Celsius units, for the ambient temperature of this subsystem.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Temperature`."
+                    "longDescription": "This property shall contain the temperature, in degree Celsius units, for the ambient temperature of this subsystem.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Temperature`."
                 },
                 "Exhaust": {
                     "anyOf": [
@@ -170,9 +170,9 @@
                             "type": "null"
                         }
                     ],
-                    "description": "The exhaust temperature (Celsius) of this subsystem.",
+                    "description": "The exhaust temperature (in degree Celsius units) of this subsystem.",
                     "excerptCopy": "SensorExcerpt",
-                    "longDescription": "This property shall contain the temperature, in degrees Celsius units, for the exhaust temperature of this subsystem.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Temperature`."
+                    "longDescription": "This property shall contain the temperature, in degree Celsius units, for the exhaust temperature of this subsystem.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Temperature`."
                 },
                 "Intake": {
                     "anyOf": [
@@ -183,9 +183,9 @@
                             "type": "null"
                         }
                     ],
-                    "description": "The intake temperature (Celsius) of this subsystem.",
+                    "description": "The intake temperature (in degree Celsius units) of this subsystem.",
                     "excerptCopy": "SensorExcerpt",
-                    "longDescription": "This property shall contain the temperature, in degrees Celsius units, for the intake temperature of this subsystem.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Temperature`."
+                    "longDescription": "This property shall contain the temperature, in degree Celsius units, for the intake temperature of this subsystem.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Temperature`."
                 },
                 "Internal": {
                     "anyOf": [
@@ -196,9 +196,9 @@
                             "type": "null"
                         }
                     ],
-                    "description": "The internal temperature (Celsius) of this subsystem.",
+                    "description": "The internal temperature (in degree Celsius units) of this subsystem.",
                     "excerptCopy": "SensorExcerpt",
-                    "longDescription": "This property shall contain the temperature, in degrees Celsius units, for the internal temperature of this subsystem.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Temperature`."
+                    "longDescription": "This property shall contain the temperature, in degree Celsius units, for the internal temperature of this subsystem.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Temperature`."
                 }
             },
             "type": "object"
@@ -250,7 +250,7 @@
                     ],
                     "description": "The air flow through the chassis (m^3/min).",
                     "excerptCopy": "SensorExcerpt",
-                    "longDescription": "This property shall contain the rate of air flow, in cubic meters per minute units, between the air intake and air exhaust of this chassis.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `AirFlowCMM`.",
+                    "longDescription": "This property shall contain the rate of air flow, in cubic meters per minute units, between the air intake and the air exhaust of this chassis.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `AirFlowCMM`.",
                     "readonly": true,
                     "versionAdded": "v1_2_0"
                 },
@@ -265,7 +265,7 @@
                     ],
                     "description": "The differential pressure (kPa).",
                     "excerptCopy": "SensorExcerpt",
-                    "longDescription": "This property shall contain the pressure, in kilopascal units, for the difference in pressure between the air intake and air exhaust of this chassis.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `PressurekPa`.",
+                    "longDescription": "This property shall contain the pressure, in kilopascal units, for the difference in pressure between the air intake and the air exhaust of this chassis.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `PressurekPa`.",
                     "readonly": true,
                     "versionAdded": "v1_2_0"
                 },
@@ -291,7 +291,7 @@
                     ],
                     "description": "Energy consumption (kWh) of the thermal management subsystem.",
                     "excerptCopy": "SensorEnergykWhExcerpt",
-                    "longDescription": "This property shall contain the total energy, in kilowatt-hours, for the thermal subsystem.  The value shall include the total energy consumption of devices involved in thermal management of the chassis, such as fans, pumps, and heaters.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `EnergykWh`.",
+                    "longDescription": "This property shall contain the total energy, in kilowatt-hour units, for the thermal subsystem.  The value shall include the total energy consumption of devices involved in thermal management of the chassis, such as fans, pumps, and heaters.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `EnergykWh`.",
                     "versionAdded": "v1_3_0"
                 },
                 "HeaterSummary": {
@@ -335,12 +335,12 @@
                     "versionAdded": "v1_3_0"
                 },
                 "TemperatureReadingsCelsius": {
-                    "description": "The temperatures (Celsius) from all related sensors for this device.",
+                    "description": "The temperatures (in degree Celsius units) from all related sensors for this device.",
                     "excerptCopy": "SensorArrayExcerpt",
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorArrayExcerpt"
                     },
-                    "longDescription": "This property shall contain the temperatures, in degrees Celsius units, for this subsystem.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Temperature`.",
+                    "longDescription": "This property shall contain the temperatures, in degree Celsius units, for this subsystem.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Temperature`.",
                     "type": "array"
                 },
                 "TemperatureReadingsCelsius@odata.count": {
@@ -370,5 +370,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2023.2",
-    "title": "#ThermalMetrics.v1_3_0.ThermalMetrics"
+    "title": "#ThermalMetrics.v1_3_1.ThermalMetrics"
 }

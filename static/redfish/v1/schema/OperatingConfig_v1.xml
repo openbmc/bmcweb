@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  OperatingConfig v1.0.2                                              -->
+<!--# Redfish Schema:  OperatingConfig v1.0.3                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -74,8 +74,8 @@
         </Property>
         <Property Name="TDPWatts" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The thermal design point of the processor in watts."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the thermal design point of the processor in watts."/>
+          <Annotation Term="OData.Description" String="The thermal design point of the processor in watt units."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the thermal design point of the processor in watt units."/>
           <Annotation Term="Validation.Minimum" Int="0"/>
           <Annotation Term="Measures.Unit" String="W"/>
         </Property>
@@ -95,8 +95,8 @@
         </Property>
         <Property Name="MaxJunctionTemperatureCelsius" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The maximum temperature of the junction in degrees Celsius."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum temperature of the junction in degrees Celsius."/>
+          <Annotation Term="OData.Description" String="The maximum temperature of the junction in degree Celsius units."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum temperature of the junction in degree Celsius units."/>
           <Annotation Term="Measures.Unit" String="Cel"/>
         </Property>
         <Property Name="BaseSpeedPrioritySettings" Type="Collection(OperatingConfig.v1_0_0.BaseSpeedPrioritySettings)">
@@ -120,7 +120,7 @@
         <Property Name="ActiveCoreCount" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The number of active cores to be configured with the specified maximum clock speed."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the number of cores to be configured with the maximum turbo clock speed.  The value shall be less than or equal the TotalAvailableCoreCount property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of cores to be configured with the maximum turbo clock speed.  The value shall be less than or equal to the TotalAvailableCoreCount property."/>
           <Annotation Term="Validation.Minimum" Int="0"/>
         </Property>
         <Property Name="MaxSpeedMHz" Type="Edm.Int64">
@@ -181,8 +181,14 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OperatingConfig.v1_0_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <Annotation Term="OData.Description" String="This version was created to specify 64-bit integers in OpenAPI."/>
       <EntityType Name="OperatingConfig" BaseType="OperatingConfig.v1_0_1.OperatingConfig"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OperatingConfig.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="OperatingConfig" BaseType="OperatingConfig.v1_0_2.OperatingConfig"/>
     </Schema>
 
   </edmx:DataServices>

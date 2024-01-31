@@ -22,6 +22,8 @@ enum class SNMPEncryptionProtocols{
     None,
     CBC_DES,
     CFB128_AES128,
+    CFB128_AES192,
+    CFB128_AES256,
 };
 
 enum class AggregationType{
@@ -34,30 +36,6 @@ enum class UserAuthenticationMethod{
     Invalid,
     PublicKey,
     Password,
-};
-
-enum class SSHKeyType{
-    Invalid,
-    RSA,
-    DSA,
-    ECDSA,
-    Ed25519,
-};
-
-enum class ECDSACurveType{
-    Invalid,
-    NISTP256,
-    NISTP384,
-    NISTP521,
-    NISTK163,
-    NISTP192,
-    NISTP224,
-    NISTK233,
-    NISTB233,
-    NISTK283,
-    NISTK409,
-    NISTB409,
-    NISTT571,
 };
 
 NLOHMANN_JSON_SERIALIZE_ENUM(SNMPAuthenticationProtocols, {
@@ -77,6 +55,8 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SNMPEncryptionProtocols, {
     {SNMPEncryptionProtocols::None, "None"},
     {SNMPEncryptionProtocols::CBC_DES, "CBC_DES"},
     {SNMPEncryptionProtocols::CFB128_AES128, "CFB128_AES128"},
+    {SNMPEncryptionProtocols::CFB128_AES192, "CFB128_AES192"},
+    {SNMPEncryptionProtocols::CFB128_AES256, "CFB128_AES256"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(AggregationType, {
@@ -89,30 +69,6 @@ NLOHMANN_JSON_SERIALIZE_ENUM(UserAuthenticationMethod, {
     {UserAuthenticationMethod::Invalid, "Invalid"},
     {UserAuthenticationMethod::PublicKey, "PublicKey"},
     {UserAuthenticationMethod::Password, "Password"},
-});
-
-NLOHMANN_JSON_SERIALIZE_ENUM(SSHKeyType, {
-    {SSHKeyType::Invalid, "Invalid"},
-    {SSHKeyType::RSA, "RSA"},
-    {SSHKeyType::DSA, "DSA"},
-    {SSHKeyType::ECDSA, "ECDSA"},
-    {SSHKeyType::Ed25519, "Ed25519"},
-});
-
-NLOHMANN_JSON_SERIALIZE_ENUM(ECDSACurveType, {
-    {ECDSACurveType::Invalid, "Invalid"},
-    {ECDSACurveType::NISTP256, "NISTP256"},
-    {ECDSACurveType::NISTP384, "NISTP384"},
-    {ECDSACurveType::NISTP521, "NISTP521"},
-    {ECDSACurveType::NISTK163, "NISTK163"},
-    {ECDSACurveType::NISTP192, "NISTP192"},
-    {ECDSACurveType::NISTP224, "NISTP224"},
-    {ECDSACurveType::NISTK233, "NISTK233"},
-    {ECDSACurveType::NISTB233, "NISTB233"},
-    {ECDSACurveType::NISTK283, "NISTK283"},
-    {ECDSACurveType::NISTK409, "NISTK409"},
-    {ECDSACurveType::NISTB409, "NISTB409"},
-    {ECDSACurveType::NISTT571, "NISTT571"},
 });
 
 }

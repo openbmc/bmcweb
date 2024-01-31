@@ -1,13 +1,13 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ManagerNetworkProtocol.v1_9_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ManagerNetworkProtocol.v1_10_0.json",
     "$ref": "#/definitions/ManagerNetworkProtocol",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
-            "description": "The available actions for this Resource.",
-            "longDescription": "This type shall contain the available actions for this Resource.",
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -26,7 +26,7 @@
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
                     "description": "The available OEM-specific actions for this Resource.",
-                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource.",
                     "versionAdded": "v1_2_0"
                 }
             },
@@ -53,7 +53,7 @@
             "properties": {
                 "ArchitectureId": {
                     "description": "The architecture identifier.",
-                    "longDescription": "This property shall contain the architecture identifier as described in item 3 of the snmpEngineID syntax of RFC3411.  The full RFC3411-defined snmpEngineID is form from the concatenation of the value in the PrivateEnterpriseId property and the value in this property.  If the most significant bit in PrivateEnterpriseId is set to zero, this property shall not be present.",
+                    "longDescription": "This property shall contain the architecture identifier as described in item 3 of the snmpEngineID syntax of RFC3411.  The full RFC3411-defined snmpEngineID is formed from the concatenation of the value in the PrivateEnterpriseId property and the value in this property.  If the most significant bit in PrivateEnterpriseId is set to zero, this property shall not be present.",
                     "pattern": "^([A-Fa-f0-9]{2} ){0,27}[A-Fa-f0-9]{2}$",
                     "readonly": false,
                     "type": [
@@ -63,8 +63,8 @@
                     "versionAdded": "v1_6_0"
                 },
                 "EnterpriseSpecificMethod": {
-                    "description": "The enterprise specific method.",
-                    "longDescription": "This property shall contain the enterprise specific method as described in item 2 of the snmpEngineID syntax of RFC3411.  The full RFC3411-defined snmpEngineID is form from the concatenation of the value in the PrivateEnterpriseId property and the value in this property.  If the most significant bit in PrivateEnterpriseId is set to one, this property shall not be present.",
+                    "description": "The enterprise-specific method.",
+                    "longDescription": "This property shall contain the enterprise-specific method as described in item 2 of the snmpEngineID syntax of RFC3411.  The full RFC3411-defined snmpEngineID is formed from the concatenation of the value in the PrivateEnterpriseId property and the value in this property.  If the most significant bit in PrivateEnterpriseId is set to one, this property shall not be present.",
                     "pattern": "^([A-Fa-f0-9]{2} ){7}[A-Fa-f0-9]{2}$",
                     "readonly": false,
                     "type": [
@@ -138,7 +138,7 @@
         "ManagerNetworkProtocol": {
             "additionalProperties": false,
             "description": "The network service settings for the manager.",
-            "longDescription": "This Resource shall represent the network service settings for the manager.",
+            "longDescription": "This resource shall represent the network service settings for the manager.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -168,8 +168,8 @@
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
-                    "description": "The available actions for this Resource.",
-                    "longDescription": "The actions property shall contain the available actions for this Resource.",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource.",
                     "versionAdded": "v1_2_0"
                 },
                 "DHCP": {
@@ -204,6 +204,18 @@
                         "null"
                     ]
                 },
+                "FTP": {
+                    "$ref": "#/definitions/Protocol",
+                    "description": "The settings for this manager's FTP protocol support.",
+                    "longDescription": "This object shall contain the File Transfer Protocol (FTP) settings for the manager.  The default Port property value should be `21` for compatibility with established client implementations.",
+                    "versionAdded": "v1_10_0"
+                },
+                "FTPS": {
+                    "$ref": "#/definitions/Protocol",
+                    "description": "The settings for this manager's FTP over SSL (FTPS) protocol support that apply to all system instances controlled by this manager.",
+                    "longDescription": "This object shall contain the File Transfer Protocol over SSL (FTPS) settings for the manager.  The default value should be `21` for compatibility with established client implementations.",
+                    "versionAdded": "v1_10_0"
+                },
                 "HTTP": {
                     "$ref": "#/definitions/Protocol",
                     "description": "The settings for this manager's HTTP protocol support.",
@@ -235,7 +247,7 @@
                 "KVMIP": {
                     "$ref": "#/definitions/Protocol",
                     "description": "The settings for this manager's KVM-IP protocol support that apply to all system instances controlled by this manager.",
-                    "longDescription": "This object shall contain the KVM-IP (Keyboard, Video, Mouse over IP) protocol settings for the manager.  If multiple systems are supported by this manager, these properties, if present, apply to all instances of KVMIP controlled by this manager."
+                    "longDescription": "This object shall contain the KVM-IP (Keyboard, Video, Mouse over IP) protocol settings for the manager.  If multiple systems are supported by this manager, these properties, if present, apply to all instances of KVM-IP controlled by this manager."
                 },
                 "NTP": {
                     "$ref": "#/definitions/NTPProtocol",
@@ -277,6 +289,12 @@
                     "longDescription": "This object shall contain the Remote Frame Buffer protocol settings for the manager.",
                     "versionAdded": "v1_3_0"
                 },
+                "SFTP": {
+                    "$ref": "#/definitions/Protocol",
+                    "description": "The settings for this manager's Secure Shell File Transfer Protocol (SFTP) support.",
+                    "longDescription": "This object shall contain the Secure Shell File Transfer Protocol (SFTP) protocol settings for the manager.  The default value should be `22` for compatibility with established client implementations.",
+                    "versionAdded": "v1_10_0"
+                },
                 "SNMP": {
                     "$ref": "#/definitions/SNMPProtocol",
                     "description": "The settings for this manager's SNMP support.",
@@ -294,8 +312,8 @@
                 },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
-                    "description": "The status and health of the Resource and its subordinate or dependent Resources.",
-                    "longDescription": "This property shall contain any status or health properties of the Resource."
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
                 },
                 "Telnet": {
                     "$ref": "#/definitions/Protocol",
@@ -398,8 +416,8 @@
         },
         "OemActions": {
             "additionalProperties": true,
-            "description": "The available OEM-specific actions for this Resource.",
-            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -626,6 +644,28 @@
                     ],
                     "versionAdded": "v1_5_0"
                 },
+                "IPv4AddressRangeLower": {
+                    "description": "The lowest IPv4 address in the range allowed to access the service.",
+                    "longDescription": "This property shall contain the lowest IPv4 address in the range allowed to access the SNMP service using this community string.  If RestrictCommunityToIPv4AddressRange contains `true`, the service shall enforce this range.  If RestrictCommunityToIPv4AddressRange contains `false`, the service shall not enforce this range.",
+                    "pattern": "^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}$",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_10_0"
+                },
+                "IPv4AddressRangeUpper": {
+                    "description": "The highest IPv4 address in the range allowed to access the service.",
+                    "longDescription": "This property shall contain the upper or highest IPv4 address in the range allowed to access the SNMP service using this community string.  If RestrictCommunityToIPv4AddressRange contains `true`, the service shall enforce this range.  If RestrictCommunityToIPv4AddressRange contains `false`, the service shall not enforce this range.",
+                    "pattern": "^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}$",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_10_0"
+                },
                 "Name": {
                     "description": "The name of the SNMP community.",
                     "longDescription": "This property shall contain a display name describing the SNMP community.",
@@ -635,6 +675,13 @@
                         "null"
                     ],
                     "versionAdded": "v1_5_0"
+                },
+                "RestrictCommunityToIPv4AddressRange": {
+                    "description": "Indicates if this community is restricted to accessing the service from a range of IPv4 addresses.",
+                    "longDescription": "This property shall indicate if this community is restricted to accessing the service from a range of IPv4 addresses.  If `true`, SNMP access using this community string is restricted to the range of IPv4 addresses defined by the IPv4AddressRangeLower and IPv4AddressRangeUpper properties.",
+                    "readonly": true,
+                    "type": "boolean",
+                    "versionAdded": "v1_10_0"
                 }
             },
             "type": "object"
@@ -659,19 +706,29 @@
                 "None",
                 "Account",
                 "CBC_DES",
-                "CFB128_AES128"
+                "CFB128_AES128",
+                "CFB128_AES192",
+                "CFB128_AES256"
             ],
             "enumDescriptions": {
                 "Account": "Encryption is determined by account settings.",
                 "CBC_DES": "CBC-DES encryption.",
                 "CFB128_AES128": "CFB128-AES-128 encryption.",
+                "CFB128_AES192": "CFB128-AES-192 encryption.",
+                "CFB128_AES256": "CFB128-AES-256 encryption.",
                 "None": "No encryption."
             },
             "enumLongDescriptions": {
                 "Account": "This value shall indicate encryption is determined based on the corresponding account settings.",
                 "CBC_DES": "This value shall indicate encryption conforms to the RFC3414-defined CBC-DES encryption protocol.",
-                "CFB128_AES128": "This value shall indicate encryption conforms to the RFC3414-defined CFB128-AES-128 encryption protocol.",
+                "CFB128_AES128": "This value shall indicate encryption conforms to the RFC3826-defined CFB128-AES-128 encryption protocol.",
+                "CFB128_AES192": "This value shall indicate encryption conforms to the CFB128-AES-192 encryption protocol, extended from RFC3826.",
+                "CFB128_AES256": "This value shall indicate encryption conforms to the CFB128-AES-256 encryption protocol, extended from RFC3826.",
                 "None": "This value shall indicate there is no encryption."
+            },
+            "enumVersionAdded": {
+                "CFB128_AES192": "v1_10_0",
+                "CFB128_AES256": "v1_10_0"
             },
             "type": "string"
         },
@@ -717,10 +774,12 @@
                             "type": "null"
                         }
                     ],
+                    "deprecated": "This property has been deprecated in favor of AccessMode inside CommunityStrings.",
                     "description": "The access level of the SNMP community.",
                     "longDescription": "This property shall contain the access/privilege level of the SNMP community used to access an SNMP manager.",
                     "readonly": false,
-                    "versionAdded": "v1_5_0"
+                    "versionAdded": "v1_5_0",
+                    "versionDeprecated": "v1_10_0"
                 },
                 "CommunityStrings": {
                     "description": "The SNMP community strings.",
@@ -823,6 +882,17 @@
                         "boolean",
                         "null"
                     ]
+                },
+                "TrapPort": {
+                    "description": "The SNMP trap port.",
+                    "longDescription": "This property shall contain the port assigned to SNMP traps.",
+                    "minimum": 0,
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_10_0"
                 }
             },
             "type": "object"
@@ -904,6 +974,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2022.2",
-    "title": "#ManagerNetworkProtocol.v1_9_1.ManagerNetworkProtocol"
+    "release": "2023.3",
+    "title": "#ManagerNetworkProtocol.v1_10_0.ManagerNetworkProtocol"
 }

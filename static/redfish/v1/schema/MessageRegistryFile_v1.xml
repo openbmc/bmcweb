@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  MessageRegistryFile v1.1.3                                          -->
+<!--# Redfish Schema:  MessageRegistryFile v1.1.4                                          -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -30,8 +30,8 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="MessageRegistryFile" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The MessageRegistryFile schema describes the Message Registry file locator Resource."/>
-        <Annotation Term="OData.LongDescription" String="This Resource shall represent the Message Registry file locator for a Redfish implementation."/>
+        <Annotation Term="OData.Description" String="The MessageRegistryFile schema describes the registry file locator resource.  This referenced registry file can be any type of registry, such as a message registry, privilege registry, or attribute registry."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent the registry file locator for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -53,7 +53,6 @@
           </Collection>
         </Annotation>
       </EntityType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistryFile.v1_0_0">
@@ -63,57 +62,56 @@
       <EntityType Name="MessageRegistryFile" BaseType="MessageRegistryFile.MessageRegistryFile">
         <Property Name="Languages" Type="Collection(Edm.String)" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The RFC5646-conformant language codes for the available Message Registries."/>
+          <Annotation Term="OData.Description" String="The RFC5646-conformant language codes for the available registries."/>
           <Annotation Term="OData.LongDescription" String="This property contains a set of RFC5646-conformant language codes."/>
           <Annotation Term="Redfish.Required"/>
         </Property>
         <Property Name="Registry" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The registry name and its major and minor versions.  This registry can be any type of registry, such as a Message Registry, Privilege Registry, or Attribute Registry."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the Message Registry name and it major and minor versions, as defined by the Redfish Specification.  This registry can be any type of registry, such as Message Registry, Privilege Registry, or Attribute Registry."/>
+          <Annotation Term="OData.Description" String="The registry name and its major and minor versions.  This registry can be any type of registry, such as a message registry, privilege registry, or attribute rgistry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the registry name and it major and minor versions, as defined by the Redfish Specification.  This registry can be any type of registry, such as message registry, privilege registry, or attribute registry."/>
           <Annotation Term="Redfish.Required"/>
         </Property>
         <Property Name="Location" Type="Collection(MessageRegistryFile.v1_0_0.Location)" Nullable="false">
-          <Annotation Term="OData.Description" String="The location information for this Message Registry file."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the location information for this Message Registry file."/>
+          <Annotation Term="OData.Description" String="The location information for this registry file."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the location information for this registry file."/>
           <Annotation Term="Redfish.Required"/>
         </Property>
       </EntityType>
 
       <ComplexType Name="Location">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The location information for a Message Registry file."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the location information for a Message Registry file."/>
+        <Annotation Term="OData.Description" String="The location information for a registry file."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the location information for a registry file."/>
         <Property Name="Language" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The language code for the Message Registry file."/>
+          <Annotation Term="OData.Description" String="The language code for the registry file."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain an RFC5646-conformant language code or `default`."/>
         </Property>
         <Property Name="Uri" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The link to locally available URI for the Message Registry."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a URI colocated with the Redfish Service that specifies the location of the Message Registry file, which can be retrieved using the Redfish protocol and authentication methods.  This property shall be used for only individual Message Registry files.  The file name portion of the URI shall conform to Redfish Specification-specified syntax."/>
+          <Annotation Term="OData.Description" String="The link to locally available URI for the registry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a URI colocated with the Redfish service that specifies the location of the registry file, which can be retrieved using the Redfish protocol and authentication methods.  This property shall be used for only individual registry files.  The file name portion of the URI shall conform to Redfish Specification-specified syntax."/>
           <Annotation Term="OData.IsURL"/>
         </Property>
         <Property Name="ArchiveUri" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="If the Message Registry is hosted on the service in an archive file, the link to the archive file."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a URI that is colocated with the Redfish Service that specifies the location of the Message Registry file, which can be retrieved using the Redfish protocol and authentication methods.  This property shall be used for only ZIP or other archive files.  The ArchiveFile property shall contain the file name of the individual Message Registry file within the archive file."/>
+          <Annotation Term="OData.Description" String="If the registry is hosted on the service in an archive file, the link to the archive file."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a URI that is colocated with the Redfish service that specifies the location of the registry file, which can be retrieved using the Redfish protocol and authentication methods.  This property shall be used for only ZIP or other archive files.  The ArchiveFile property shall contain the file name of the individual registry file within the archive file."/>
           <Annotation Term="OData.IsURL"/>
         </Property>
         <Property Name="PublicationUri" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The link to publicly available (canonical) URI for the Message Registry."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a URI not colocated with the Redfish Service that specifies the canonical location of the Message Registry file.  This property shall be used for only individual Message Registry files."/>
+          <Annotation Term="OData.Description" String="The link to publicly available (canonical) URI for the registry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a URI not colocated with the Redfish service that specifies the canonical location of the registry file.  This property shall be used for only individual registry files."/>
           <Annotation Term="OData.IsURL"/>
         </Property>
         <Property Name="ArchiveFile" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="If the service hosts the Message Registry in an archive file, the name of the file within the archive."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the file name of the individual Message Registry file within the archive file specified by the ArchiveUri property.  The file name shall conform to the Redfish Specification-specified syntax."/>
+          <Annotation Term="OData.Description" String="If the service hosts the registry in an archive file, the name of the file within the archive."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the file name of the individual registry file within the archive file specified by the ArchiveUri property.  The file name shall conform to the Redfish Specification-specified syntax."/>
         </Property>
       </ComplexType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistryFile.v1_0_2">
@@ -136,7 +134,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistryFile.v1_0_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number.  It was also updated to clarify the description for Registry."/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number.  It was also created to clarify the description for Registry."/>
       <EntityType Name="MessageRegistryFile" BaseType="MessageRegistryFile.v1_0_4.MessageRegistryFile"/>
     </Schema>
 
@@ -152,36 +150,43 @@
       <EntityType Name="MessageRegistryFile" BaseType="MessageRegistryFile.v1_0_6.MessageRegistryFile"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistryFile.v1_0_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="MessageRegistryFile" BaseType="MessageRegistryFile.v1_0_7.MessageRegistryFile"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistryFile.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
+
       <EntityType Name="MessageRegistryFile" BaseType="MessageRegistryFile.v1_0_4.MessageRegistryFile">
         <Property Name="Actions" Type="MessageRegistryFile.v1_1_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="The actions property shall contain the available actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
         <Property Name="Oem" Type="MessageRegistryFile.v1_1_0.OemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
       </ComplexType>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistryFile.v1_1_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number.  It was also updated to clarify the description for Registry."/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number.  It was also created to clarify the description for Registry."/>
       <EntityType Name="MessageRegistryFile" BaseType="MessageRegistryFile.v1_1_0.MessageRegistryFile"/>
     </Schema>
 
@@ -195,6 +200,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct descriptions that called out 'schema' instead of 'registry'.  It was also created to update descriptions that this schema defines.  It was also created to update the description of ArchiveUri and Uri."/>
       <EntityType Name="MessageRegistryFile" BaseType="MessageRegistryFile.v1_1_2.MessageRegistryFile"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistryFile.v1_1_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="MessageRegistryFile" BaseType="MessageRegistryFile.v1_1_3.MessageRegistryFile"/>
     </Schema>
 
   </edmx:DataServices>

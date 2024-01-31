@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Session v1.7.0                                                      -->
+<!--# Redfish Schema:  Session v1.7.1                                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -69,13 +69,13 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="Redfish.RequiredOnCreate"/>
           <Annotation Term="OData.Description" String="The username for the account for this session."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the username that matches an account recognized by the account service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the username that matches an account recognized by the account service.  When a creating a session through a Redfish host interface using an `AuthNone` role, the property shall contain an empty string in the request body."/>
         </Property>
         <Property Name="Password" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/None"/>
           <Annotation Term="Redfish.RequiredOnCreate"/>
           <Annotation Term="OData.Description" String="The password for this session.  The value is `null` in responses."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the password for this session.  The value shall be `null` in responses."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the password for this session.  The value shall be `null` in responses.  When creating a session through a Redfish host interface using an `AuthNone` role, the property shall contain an empty string in the request body."/>
         </Property>
       </EntityType>
     </Schema>
@@ -120,6 +120,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to mark properties with values containing sensitive data as write-only."/>
       <EntityType Name="Session" BaseType="Session.v1_0_7.Session"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_0_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to specify how to create a session over a Redfish host interface using an `AuthNone` role."/>
+      <EntityType Name="Session" BaseType="Session.v1_0_8.Session"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_1_0">
@@ -180,6 +186,12 @@
       <EntityType Name="Session" BaseType="Session.v1_1_4.Session"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_1_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to specify how to create a session over a Redfish host interface using an `AuthNone` role."/>
+      <EntityType Name="Session" BaseType="Session.v1_1_5.Session"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -199,12 +211,12 @@
 
       <EnumType Name="SessionTypes">
         <Member Name="HostConsole">
-          <Annotation Term="OData.Description" String="The host's console, which could be connected through Telnet, SSH, or other protocol."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the session is the host's console, which could be connected through Telnet, SSH, or other protocol.  If this session is terminated or deleted, the service shall close the connection for the respective host console session."/>
+          <Annotation Term="OData.Description" String="The host's console, which could be connected through Telnet, SSH, or another protocol."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the session is the host's console, which could be connected through Telnet, SSH, or another protocol.  If this session is terminated or deleted, the service shall close the connection for the respective host console session."/>
         </Member>
         <Member Name="ManagerConsole">
-          <Annotation Term="OData.Description" String="The manager's console, which could be connected through Telnet, SSH, SM CLP, or other protocol."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the session is the manager's console, which could be connected through Telnet, SSH, SM CLP, or other protocol.  If this session is terminated or deleted, the service shall close the connection for the respective manager console session."/>
+          <Annotation Term="OData.Description" String="The manager's console, which could be connected through Telnet, SSH, SM CLP, or another protocol."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the session is the manager's console, which could be connected through Telnet, SSH, SM CLP, or another protocol.  If this session is terminated or deleted, the service shall close the connection for the respective manager console session."/>
         </Member>
         <Member Name="IPMI">
           <Annotation Term="OData.Description" String="Intelligent Platform Management Interface."/>
@@ -212,7 +224,7 @@
         </Member>
         <Member Name="KVMIP">
           <Annotation Term="OData.Description" String="A Keyboard-Video-Mouse over IP session."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the session is a Keyboard-Video-Mouse over IP session.  If this session is terminated or deleted, the service shall close the connection for the respective KVMIP session."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the session is a Keyboard-Video-Mouse over IP session.  If this session is terminated or deleted, the service shall close the connection for the respective KVM-IP session."/>
         </Member>
         <Member Name="OEM">
           <Annotation Term="OData.Description" String="OEM type.  For OEM session types, see the OemSessionType property."/>
@@ -224,7 +236,7 @@
         </Member>
         <Member Name="VirtualMedia">
           <Annotation Term="OData.Description" String="Virtual media."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the session is virtual media session.  If this session is terminated or deleted, the service shall close the connection for the respective virtual media session and make the media inaccessible to the host."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the session is a virtual media session.  If this session is terminated or deleted, the service shall close the connection for the respective virtual media session and make the media inaccessible to the host."/>
         </Member>
         <Member Name="WebUI">
           <Annotation Term="OData.Description" String="A non-Redfish web user interface session, such as a graphical interface or another web-based protocol."/>
@@ -269,6 +281,12 @@
       <EntityType Name="Session" BaseType="Session.v1_2_3.Session"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_2_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors.  It was also created to specify how to create a session over a Redfish host interface using an `AuthNone` role."/>
+      <EntityType Name="Session" BaseType="Session.v1_2_4.Session"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.3"/>
@@ -300,6 +318,12 @@
       <EntityType Name="Session" BaseType="Session.v1_3_2.Session"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_3_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors.  It was also created to specify how to create a session over a Redfish host interface using an `AuthNone` role."/>
+      <EntityType Name="Session" BaseType="Session.v1_3_3.Session"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.1"/>
@@ -323,6 +347,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add long descriptions to the values for SessionType."/>
       <EntityType Name="Session" BaseType="Session.v1_4_1.Session"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_4_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors.  It was also created to specify how to create a session over a Redfish host interface using an `AuthNone` role."/>
+      <EntityType Name="Session" BaseType="Session.v1_4_2.Session"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_5_0">
@@ -350,6 +380,12 @@
       <EntityType Name="Session" BaseType="Session.v1_5_1.Session"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_5_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors.  It was also created to specify how to create a session over a Redfish host interface using an `AuthNone` role."/>
+      <EntityType Name="Session" BaseType="Session.v1_5_2.Session"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.3"/>
@@ -367,6 +403,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add long descriptions to the values for SessionType."/>
       <EntityType Name="Session" BaseType="Session.v1_6_0.Session"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_6_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors.  It was also created to specify how to create a session over a Redfish host interface using an `AuthNone` role."/>
+      <EntityType Name="Session" BaseType="Session.v1_6_1.Session"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_7_0">
@@ -396,6 +438,12 @@
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_7_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors.  It was also created to specify how to create a session over a Redfish host interface using an `AuthNone` role."/>
+      <EntityType Name="Session" BaseType="Session.v1_7_0.Session"/>
     </Schema>
 
   </edmx:DataServices>

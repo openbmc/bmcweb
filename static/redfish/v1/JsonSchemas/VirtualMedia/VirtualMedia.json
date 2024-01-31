@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/VirtualMedia.v1_6_2.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/VirtualMedia.v1_6_3.json",
     "$ref": "#/definitions/VirtualMedia",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -289,7 +289,7 @@
                 "Certificates": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
                     "description": "The link to a collection of server certificates for the server referenced by the Image property.",
-                    "longDescription": "This property shall contain a link to a resource collection of type CertificateCollection that represents the server certificates for the server referenced by the Image property.  If VerifyCertificate is `true`, services shall compare the certificates in this collection with the certificate obtained during handshaking with the image server in order to verify the identify of the image server prior to completing the remote media connection.  If the server cannot be verified, the service shall not complete the remote media connection.  If VerifyCertificate is `false`, the service shall not perform certificate verification with certificates in this collection.  Regardless of the contents of this collection, services may perform additional verification based on other factors, such as the configuration of the SecurityPolicy resource.",
+                    "longDescription": "This property shall contain a link to a resource collection of type CertificateCollection that represents the server certificates for the server referenced by the Image property.  If VerifyCertificate is `true`, services shall compare the certificates in this collection with the certificate obtained during handshaking with the image server in order to verify the identity of the image server prior to completing the remote media connection.  If the server cannot be verified, the service shall not complete the remote media connection.  If VerifyCertificate is `false`, the service shall not perform certificate verification with certificates in this collection.  Regardless of the contents of this collection, services may perform additional verification based on other factors, such as the configuration of the SecurityPolicy resource.",
                     "readonly": true,
                     "versionAdded": "v1_4_0"
                 },
@@ -356,7 +356,7 @@
                 "Image": {
                     "description": "The URI of the location of the selected image.",
                     "format": "uri-reference",
-                    "longDescription": "This property shall contain the URI of the media attached to the virtual media.  This value may specify an absolute URI to remote media or a relative URI to media local to the implementation.  A service may allow a relative URI to reference a SoftwareInventory resource.  The value `null` shall indicates no image connection.",
+                    "longDescription": "This property shall contain the URI of the media attached to the virtual media.  This value may specify an absolute URI to remote media or a relative URI to media local to the implementation.  A service may allow a relative URI to reference a SoftwareInventory resource.  The value `null` shall indicate no image connection.",
                     "readonly": false,
                     "type": [
                         "string",
@@ -400,8 +400,8 @@
                     "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
                 },
                 "Password": {
-                    "description": "The password to access the Image parameter-specified URI.  This property is null in responses.",
-                    "longDescription": "This parameter shall represent the password to access the Image parameter-specified URI.  The value shall be null in responses.",
+                    "description": "The password to access the Image parameter-specified URI.  This property is`null` in responses.",
+                    "longDescription": "This parameter shall represent the password to access the Image parameter-specified URI.  The value shall be `null` in responses.",
                     "readonly": false,
                     "type": [
                         "string",
@@ -484,5 +484,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2022.3",
-    "title": "#VirtualMedia.v1_6_2.VirtualMedia"
+    "title": "#VirtualMedia.v1_6_3.VirtualMedia"
 }

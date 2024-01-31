@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/PCIeFunction.v1_5_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/PCIeFunction.v1_5_1.json",
     "$ref": "#/definitions/PCIeFunction",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -145,7 +145,7 @@
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/Drive.json#/definitions/Drive"
                     },
-                    "longDescription": "This property shall contain an arrays of links to resources of type Drive that represent the drives associated with this PCIe function.",
+                    "longDescription": "This property shall contain an array of links to resources of type Drive that represent the drives associated with this PCIe function.",
                     "readonly": true,
                     "type": "array"
                 },
@@ -157,7 +157,7 @@
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.json#/definitions/EthernetInterface"
                     },
-                    "longDescription": "This property shall contain an arrays of links to resources of type EthernetInterface that represent the network interfaces associated with this PCIe function.",
+                    "longDescription": "This property shall contain an array of links to resources of type EthernetInterface that represent the network interfaces associated with this PCIe function.",
                     "readonly": true,
                     "type": "array"
                 },
@@ -169,7 +169,7 @@
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/MemoryDomain.json#/definitions/MemoryDomain"
                     },
-                    "longDescription": "This property shall contain an array of links to resources of type MemoryDomain that represents the memory domains associated with this PCIe function.",
+                    "longDescription": "This property shall contain an array of links to resources of type MemoryDomain that represent the memory domains associated with this PCIe function.",
                     "readonly": true,
                     "type": "array",
                     "versionAdded": "v1_5_0"
@@ -182,7 +182,7 @@
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkDeviceFunction.json#/definitions/NetworkDeviceFunction"
                     },
-                    "longDescription": "This property shall contain an array of links to resources of type NetworkDeviceFunction that represents the network device functions associated with this PCIe function.",
+                    "longDescription": "This property shall contain an array of links to resources of type NetworkDeviceFunction that represent the network device functions associated with this PCIe function.",
                     "readonly": true,
                     "type": "array",
                     "versionAdded": "v1_2_0"
@@ -220,7 +220,7 @@
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/Storage.json#/definitions/StorageController"
                     },
-                    "longDescription": "This property shall contain an arrays of links to referenceable members of type StorageController that represent the storage controllers associated with this PCIe function.",
+                    "longDescription": "This property shall contain an array of links to referenceable members of type StorageController that represent the storage controllers associated with this PCIe function.",
                     "readonly": true,
                     "type": "array"
                 },
@@ -436,5 +436,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2022.3",
-    "title": "#PCIeFunction.v1_5_0.PCIeFunction"
+    "title": "#PCIeFunction.v1_5_1.PCIeFunction"
 }

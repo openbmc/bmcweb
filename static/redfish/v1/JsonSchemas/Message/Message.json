@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Message.v1_1_3.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Message.v1_2_0.json",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
@@ -70,6 +70,15 @@
                     "readonly": true,
                     "type": "string"
                 },
+                "ResolutionSteps": {
+                    "description": "The list of recommended steps to resolve the situation that caused the message.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/ResolutionStep.json#/definitions/ResolutionStep"
+                    },
+                    "longDescription": "This property shall contain an array of recommended steps to resolve the situation that caused the message.  This property shall not be present if the MessageSeverity or Severity properties contain `OK`.",
+                    "type": "array",
+                    "versionAdded": "v1_2_0"
+                },
                 "Severity": {
                     "deprecated": "This property has been deprecated in favor of MessageSeverity, which ties the values to the enumerations defined for the Health property within Status.",
                     "description": "The severity of the message.",
@@ -86,6 +95,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.1",
-    "title": "#Message.v1_1_3"
+    "release": "2023.3",
+    "title": "#Message.v1_2_0"
 }

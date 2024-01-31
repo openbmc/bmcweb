@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/PowerSupply.v1_5_2.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/PowerSupply.v1_5_3.json",
     "$ref": "#/definitions/PowerSupply",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -101,7 +101,7 @@
             "properties": {
                 "CapacityWatts": {
                     "description": "The maximum capacity of this power supply when operating in this input range.",
-                    "longDescription": "This property shall contain the maximum amount of power, in watts, that the associated power supply is rated to deliver while operating in this input range.",
+                    "longDescription": "This property shall contain the maximum amount of power, in watt units, that the associated power supply is rated to deliver while operating in this input range.",
                     "minimum": 0,
                     "readonly": true,
                     "type": [
@@ -223,8 +223,8 @@
         },
         "OutputRail": {
             "additionalProperties": false,
-            "description": "This type describes an output power rail for a power supply.",
-            "longDescription": "This type shall describe an output power rail provided by power supply.",
+            "description": "This type describes an output power rail of a power supply.",
+            "longDescription": "This type shall describe an output power rail provided by a power supply.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -348,7 +348,7 @@
                             "null"
                         ]
                     },
-                    "longDescription": "This property shall contain an arrays of strings that identify the upstream electrical sources, such as the names of circuits or outlets, that provide power to this power supply.",
+                    "longDescription": "This property shall contain an array of strings that identify the upstream electrical sources, such as the names of circuits or outlets, that provide power to this power supply.",
                     "readonly": false,
                     "type": "array",
                     "versionAdded": "v1_2_0"
@@ -384,8 +384,8 @@
                             "type": "null"
                         }
                     ],
-                    "description": "The nominal voltage type of the line input to this power supply.",
-                    "longDescription": "This property shall contain the nominal voltage type of the input line voltage in use by this power supply.  This value shall be one of the values shown in the NominalVoltageType property in the InputRanges array, if present.",
+                    "description": "The nominal voltage type that is detected on the line input to this power supply.",
+                    "longDescription": "This property shall contain the nominal voltage type that is detected on the line input to this power supply.  This value shall be one of the values shown in the NominalVoltageType property in the InputRanges array, if present.  If the line input voltage is unknown, out of range, or there is no input provided to the power supply, the value shall be `null`.",
                     "readonly": true
                 },
                 "InputRanges": {
@@ -418,7 +418,7 @@
                 "Location": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location",
                     "description": "The location of the power supply.",
-                    "longDescription": "This property shall contain location information for this power supply.  For a resource in the `Absent` state, this property   describes the empty location, such as a slot, socket, or bay, to represent the available  capacity."
+                    "longDescription": "This property shall contain the location information of the power supply.  For a resource in the `Absent` state, this property describes the empty location, such as a slot, socket, or bay, to represent the available capacity."
                 },
                 "LocationIndicatorActive": {
                     "description": "An indicator allowing an operator to physically locate this resource.",
@@ -516,12 +516,12 @@
                         }
                     ],
                     "description": "The type of plug according to NEMA, IEC, or regional standards.",
-                    "longDescription": "This property shall contain the type of physical plug used for the input to this power supply, as defined by IEC, NEMA, or regional standard.",
+                    "longDescription": "This property shall contain the type of physical plug used for the input to this power supply, as defined by IEC, NEMA, or regional standards.",
                     "readonly": true
                 },
                 "PowerCapacityWatts": {
                     "description": "The maximum capacity of this power supply.",
-                    "longDescription": "This property shall contain the maximum amount of power, in watts, that this power supply is rated to deliver.",
+                    "longDescription": "This property shall contain the maximum amount of power, in watt units, that this power supply is rated to deliver.",
                     "minimum": 0,
                     "readonly": true,
                     "type": [
@@ -556,7 +556,7 @@
                 },
                 "Replaceable": {
                     "description": "An indication of whether this component can be independently replaced as allowed by the vendor's replacement policy.",
-                    "longDescription": "This property shall indicate whether this component can be independently replaced as allowed by the vendor's replacement policy.  A value of `false` indicates the component needs to be replaced by policy, as part of another component.  If the `LocationType` property of this component contains `Embedded`, this property shall contain `false`.",
+                    "longDescription": "This property shall indicate whether this component can be independently replaced as allowed by the vendor's replacement policy.  A value of `false` indicates the component needs to be replaced by policy as part of another component.  If the `LocationType` property of this component contains `Embedded`, this property shall contain `false`.",
                     "readonly": true,
                     "type": [
                         "boolean",
@@ -615,7 +615,7 @@
             ],
             "enumDescriptions": {
                 "AC": "Alternating Current (AC) power supply.",
-                "ACorDC": "The power supply supports both DC or AC.",
+                "ACorDC": "The power supply supports both DC and AC.",
                 "DC": "Direct Current (DC) power supply.",
                 "DCRegulator": "Direct Current (DC) voltage regulator."
             },
@@ -665,5 +665,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2022.2",
-    "title": "#PowerSupply.v1_5_2.PowerSupply"
+    "title": "#PowerSupply.v1_5_3.PowerSupply"
 }

@@ -413,22 +413,22 @@
           </Collection>
         </Annotation>
         <Member Name="Capacity">
-          <Annotation Term="OData.Description" String="Capacity related logical context."/>
+          <Annotation Term="OData.Description" String="Capacity-related logical context."/>
         </Member>
         <Member Name="Environment">
-          <Annotation Term="OData.Description" String="Environment related logical context."/>
+          <Annotation Term="OData.Description" String="Environment-related logical context."/>
         </Member>
         <Member Name="Network">
-          <Annotation Term="OData.Description" String="Network related logical context."/>
+          <Annotation Term="OData.Description" String="Network-related logical context."/>
         </Member>
         <Member Name="Performance">
-          <Annotation Term="OData.Description" String="Performance related logical context."/>
+          <Annotation Term="OData.Description" String="Performance-related logical context."/>
         </Member>
         <Member Name="Security">
-          <Annotation Term="OData.Description" String="Security related logical context."/>
+          <Annotation Term="OData.Description" String="Security-related logical context."/>
         </Member>
         <Member Name="Storage">
-          <Annotation Term="OData.Description" String="Storage related logical context."/>
+          <Annotation Term="OData.Description" String="Storage-related logical context."/>
         </Member>
       </EnumType>
     </Schema>

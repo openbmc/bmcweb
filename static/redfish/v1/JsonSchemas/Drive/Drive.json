@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Drive.v1_17_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Drive.v1_18_0.json",
     "$ref": "#/definitions/Drive",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -26,6 +26,9 @@
                 "#Drive.Reset": {
                     "$ref": "#/definitions/Reset"
                 },
+                "#Drive.RevertToOriginalFactoryState": {
+                    "$ref": "#/definitions/RevertToOriginalFactoryState"
+                },
                 "#Drive.SecureErase": {
                     "$ref": "#/definitions/SecureErase"
                 },
@@ -46,12 +49,12 @@
             "enumDescriptions": {
                 "BlockErase": "Delete all logical block addresses, including those that are not currently mapping to active addresses, but leaving the data on the drive.",
                 "CryptographicErase": "Erase the target data's encryption key leaving only the ciphertext on the drive.  For more information, see NIST800-88 and ISO/IEC 27040.",
-                "Overwrite": "Overwrite data by writing an implementation specific pattern onto all sectors of the drive."
+                "Overwrite": "Overwrite data by writing an implementation-specific pattern onto all sectors of the drive."
             },
             "enumLongDescriptions": {
                 "BlockErase": "This value shall indicate sanitization is performed by deleting all logical block addresses, including those that are not currently mapping to active addresses, but leaving the data on the drive.",
                 "CryptographicErase": "This value shall indicate sanitization is performed by erasing the target data's encryption key leaving only the ciphertext on the drive.  For more information, see NIST800-88 and ISO/IEC 27040.",
-                "Overwrite": "This value shall indicate sanitization is performed by overwriting data by writing an implementation specific pattern onto all sectors of the drive."
+                "Overwrite": "This value shall indicate sanitization is performed by overwriting data by writing an implementation-specific pattern onto all sectors of the drive."
             },
             "type": "string"
         },
@@ -109,7 +112,7 @@
                 },
                 "BlockSizeBytes": {
                     "description": "The size, in bytes, of the smallest addressable unit, or block.",
-                    "longDescription": "This property shall contain size of the smallest addressable unit of the associated drive.",
+                    "longDescription": "This property shall contain the size of the smallest addressable unit of the associated drive.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -118,8 +121,8 @@
                     "units": "By"
                 },
                 "CapableSpeedGbs": {
-                    "description": "The speed, in gigabit per second (Gbit/s), at which this drive can communicate to a storage controller in ideal conditions.",
-                    "longDescription": "This property shall contain fastest capable bus speed, in gigabit per second (Gbit/s), of the associated drive.",
+                    "description": "The speed, in gigabits per second (Gbit/s) units, at which this drive can communicate to a storage controller in ideal conditions.",
+                    "longDescription": "This property shall contain fastest capable bus speed, in gigabits per second (Gbit/s) units, of the associated drive.",
                     "readonly": true,
                     "type": [
                         "number",
@@ -286,7 +289,7 @@
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location"
                     },
-                    "longDescription": "This property shall contain location information of the associated drive.",
+                    "longDescription": "This property shall contain the location information of the associated drive.",
                     "type": "array",
                     "versionDeprecated": "v1_4_0"
                 },
@@ -371,8 +374,8 @@
                     "readonly": true
                 },
                 "NegotiatedSpeedGbs": {
-                    "description": "The speed, in gigabit per second (Gbit/s), at which this drive currently communicates to the storage controller.",
-                    "longDescription": "This property shall contain current bus speed, in gigabit per second (Gbit/s), of the associated drive.",
+                    "description": "The speed, in gigabits per second (Gbit/s) units, at which this drive currently communicates to the storage controller.",
+                    "longDescription": "This property shall contain current bus speed, in gigabits per second (Gbit/s) units, of the associated drive.",
                     "readonly": true,
                     "type": [
                         "number",
@@ -406,7 +409,7 @@
                 "PhysicalLocation": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location",
                     "description": "The location of the drive.",
-                    "longDescription": "This property shall contain location information of the associated drive.",
+                    "longDescription": "This property shall contain the location information of the associated drive.",
                     "versionAdded": "v1_4_0"
                 },
                 "PredictedMediaLifeLeftPercent": {
@@ -453,8 +456,8 @@
                     ]
                 },
                 "RotationSpeedRPM": {
-                    "description": "The rotation speed of this drive, in revolutions per minute (RPM).",
-                    "longDescription": "This property shall contain the rotation speed, in revolutions per minute (RPM), of the associated drive.",
+                    "description": "The rotation speed of this drive, in revolutions per minute (RPM) units.",
+                    "longDescription": "This property shall contain the rotation speed, in revolutions per minute (RPM) units, of the associated drive.",
                     "readonly": true,
                     "type": [
                         "number",
@@ -591,10 +594,12 @@
             "enum": [
                 "Drive3_5",
                 "Drive2_5",
+                "EDSFF",
                 "EDSFF_1U_Long",
                 "EDSFF_1U_Short",
                 "EDSFF_E3_Short",
                 "EDSFF_E3_Long",
+                "M2",
                 "M2_2230",
                 "M2_2242",
                 "M2_2260",
@@ -609,38 +614,46 @@
             "enumDescriptions": {
                 "Drive2_5": "A 2.5 inch drive.",
                 "Drive3_5": "A 3.5 inch drive.",
+                "EDSFF": "An EDSFF drive.",
                 "EDSFF_1U_Long": "An EDSFF 1U Long (E1.L) drive.",
                 "EDSFF_1U_Short": "An EDSFF 1U Short (E1.S) drive.",
                 "EDSFF_E3_Long": "An EDSFF E3 Long (E3.L) drive.",
                 "EDSFF_E3_Short": "An EDSFF E3 Short (E3.S) drive.",
+                "M2": "An M.2 drive.",
                 "M2_22110": "An M.2 22110 drive.",
                 "M2_2230": "An M.2 2230 drive.",
                 "M2_2242": "An M.2 2242 drive.",
                 "M2_2260": "An M.2 2260 drive.",
                 "M2_2280": "An M.2 2280 drive.",
                 "OEM": "An OEM-defined form factor.",
-                "PCIeHalfLength": "A half length PCIe add in card.",
-                "PCIeSlotFullLength": "A full length PCIe add in card.",
-                "PCIeSlotLowProfile": "A low profile PCIe add in card.",
+                "PCIeHalfLength": "A half-length PCIe add-in card.",
+                "PCIeSlotFullLength": "A full-length PCIe add-in card.",
+                "PCIeSlotLowProfile": "A low-profile PCIe add-in card.",
                 "U2": "A U.2 drive."
             },
             "enumLongDescriptions": {
                 "Drive2_5": "This value shall indicate the drive is approximately 2.5 inches in width and no more than 0.8 inches in height and is not a U.2 drive.",
                 "Drive3_5": "This value shall indicate the drive is approximately 3.5 inches in width and no more than 1.1 inches in height.",
+                "EDSFF": "This value shall indicate the drive corresponds to one of SNIA's SFF specifications with an unspecified form factor.  The SlotFormFactor property should not contain this value.",
                 "EDSFF_1U_Long": "This value shall indicate the drive corresponds to the SFF-TA-1007 Specification.",
                 "EDSFF_1U_Short": "This value shall indicate the drive corresponds to the SFF-TA-1006 Specification.",
-                "EDSFF_E3_Long": "This value shall indicate the drive corresponds to the SFF-TA-1008 Specification and is approximately 142.2mm in length.",
-                "EDSFF_E3_Short": "This value shall indicate the drive corresponds to the SFF-TA-1008 Specification and is approximately 112.75mm in length.",
-                "M2_22110": "This value shall indicate the drive corresponds to the PCI Express M.2 Specification and is approximately 22mm in width and 110mm in length.",
-                "M2_2230": "This value shall indicate the drive corresponds to the PCI Express M.2 Specification and is approximately 22mm in width and 30mm in length.",
-                "M2_2242": "This value shall indicate the drive corresponds to the PCI Express M.2 Specification and is approximately 22mm in width and 42mm in length.",
-                "M2_2260": "This value shall indicate the drive corresponds to the PCI Express M.2 Specification and is approximately 22mm in width and 60mm in length.",
-                "M2_2280": "This value shall indicate the drive corresponds to the PCI Express M.2 Specification and is approximately 22mm in width and 80mm in length.",
+                "EDSFF_E3_Long": "This value shall indicate the drive corresponds to the SFF-TA-1008 Specification and is approximately 142.2 mm in length.",
+                "EDSFF_E3_Short": "This value shall indicate the drive corresponds to the SFF-TA-1008 Specification and is approximately 112.75 mm in length.",
+                "M2": "This value shall indicate the drive corresponds to the PCI Express M.2 Specification with an unspecified form factor.  The SlotFormFactor property should not contain this value.",
+                "M2_22110": "This value shall indicate the drive corresponds to the PCI Express M.2 Specification and is approximately 22 mm in width and 110 mm in length.",
+                "M2_2230": "This value shall indicate the drive corresponds to the PCI Express M.2 Specification and is approximately 22 mm in width and 30 mm in length.",
+                "M2_2242": "This value shall indicate the drive corresponds to the PCI Express M.2 Specification and is approximately 22 mm in width and 42 mm in length.",
+                "M2_2260": "This value shall indicate the drive corresponds to the PCI Express M.2 Specification and is approximately 22 mm in width and 60 mm in length.",
+                "M2_2280": "This value shall indicate the drive corresponds to the PCI Express M.2 Specification and is approximately 22 mm in width and 80 mm in length.",
                 "OEM": "This value shall indicate the drive is an OEM-defined form factor.",
-                "PCIeHalfLength": "This value shall indicate the drive is an add in card less than 7 inches in length.",
-                "PCIeSlotFullLength": "This value shall indicate the drive is an add in card greater than 7 inches in length.",
-                "PCIeSlotLowProfile": "This value shall indicate the drive is an add in card less than 2.5 inches in height.",
+                "PCIeHalfLength": "This value shall indicate the drive is an add-in card less than 7 inches in length.",
+                "PCIeSlotFullLength": "This value shall indicate the drive is an add-in card greater than 7 inches in length.",
+                "PCIeSlotLowProfile": "This value shall indicate the drive is an add-in card less than 2.5 inches in height.",
                 "U2": "This value shall indicate the drive corresponds to the PCI Express SFF-8639 Module Specification."
+            },
+            "enumVersionAdded": {
+                "EDSFF": "v1_18_0",
+                "M2": "v1_18_0"
             },
             "type": "string"
         },
@@ -904,7 +917,7 @@
                 "ResetType": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/ResetType",
                     "description": "The type of reset.",
-                    "longDescription": "This parameter shall contain the type of reset.  The service can accept a request without the parameter and perform an implementation specific default reset."
+                    "longDescription": "This parameter shall contain the type of reset.  The service can accept a request without the parameter and perform an implementation-specific default reset."
                 }
             },
             "patternProperties": {
@@ -935,6 +948,45 @@
             "type": "object",
             "versionAdded": "v1_7_0"
         },
+        "RevertToOriginalFactoryState": {
+            "additionalProperties": false,
+            "description": "This action reverts a self-encrypting drive (SED) to the original factory state.",
+            "longDescription": "This action shall revert a self-encrypting drive (SED) to the original factory state.  Upon successful completion of this action, the drive data shall be securely erased and the EncryptionStatus property shall contain `Unencrypted`.",
+            "parameters": {
+                "PhysicalSecureID": {
+                    "description": "The physical secure ID (PSID).  The PSID is generally printed on the drive label and used to revert an encrypted SED.",
+                    "longDescription": "This parameter shall contain the physical secure ID (PSID).  The PSID is generally printed on the drive label and used to revert an encrypted SED.",
+                    "type": "string"
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_18_0"
+        },
         "SecureErase": {
             "additionalProperties": false,
             "description": "This action securely erases the contents of the drive.",
@@ -942,14 +994,14 @@
             "parameters": {
                 "OverwritePasses": {
                     "description": "The number of times to overwrite the drive if performing an overwrite type of sanitization.",
-                    "longDescription": "This parameter shall contain the number of times to overwrite the drive if the SanitizationType parameter contains the value `Overwrite`.  This parameter shall be ignored if the SanitizationType parameter does not contain the value `Overwrite`.  If the client does not provide this parameter, the service shall perform an implementation specific number of passes.",
+                    "longDescription": "This parameter shall contain the number of times to overwrite the drive if the SanitizationType parameter contains the value `Overwrite`.  This parameter shall be ignored if the SanitizationType parameter does not contain the value `Overwrite`.  If the client does not provide this parameter, the service shall perform an implementation-specific number of passes.",
                     "type": "integer",
                     "versionAdded": "v1_15_0"
                 },
                 "SanitizationType": {
                     "$ref": "#/definitions/DataSanitizationType",
                     "description": "The type of data sanitization to perform.",
-                    "longDescription": "This parameter shall contain the type of data sanitization to perform for the secure erase request.  The service can accept a request without the parameter and perform an implementation specific default secure erase.",
+                    "longDescription": "This parameter shall contain the type of data sanitization to perform for the secure erase request.  The service can accept a request without the parameter and perform an implementation-specific default secure erase.",
                     "versionAdded": "v1_15_0"
                 }
             },
@@ -1003,6 +1055,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2023.1",
-    "title": "#Drive.v1_17_1.Drive"
+    "release": "2023.3",
+    "title": "#Drive.v1_18_0.Drive"
 }

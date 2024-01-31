@@ -49,6 +49,7 @@ enum class MemoryDeviceType{
     GDDR6,
     DDR5,
     OEM,
+    LPDDR5_SDRAM,
 };
 
 enum class BaseModuleType{
@@ -150,6 +151,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(MemoryDeviceType, {
     {MemoryDeviceType::GDDR6, "GDDR6"},
     {MemoryDeviceType::DDR5, "DDR5"},
     {MemoryDeviceType::OEM, "OEM"},
+    {MemoryDeviceType::LPDDR5_SDRAM, "LPDDR5_SDRAM"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(BaseModuleType, {

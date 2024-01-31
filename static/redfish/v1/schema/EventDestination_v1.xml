@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  EventDestination v1.13.2                                            -->
+<!--# Redfish Schema:  EventDestination v1.14.0                                            -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -57,7 +57,7 @@
         <Annotation Term="Capabilities.DeleteRestrictions">
           <Record>
             <PropertyValue Property="Deletable" Bool="true"/>
-            <Annotation Term="OData.Description" String="When client no longer needs to received event notifications, it can delete an event destination."/>
+            <Annotation Term="OData.Description" String="When client no longer needs to receive event notifications, it can delete an event destination."/>
           </Record>
         </Annotation>
         <Annotation Term="Redfish.Uris">
@@ -87,7 +87,7 @@
         <Parameter Name="EventDestination" Type="EventDestination.v1_2_0.Actions"/>
         <Parameter Name="DeliverBufferedEventDuration" Type="Edm.Duration">
           <Annotation Term="OData.Description" String="The maximum age of buffered events that should be delivered when resuming the subscription."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall indicate the event age of any buffered or otherwise undelivered events that shall be delivered to this event destination when the subscription is resumed.  The service shall deliver any available, previously undelivered event that was created within the duration specified.  A value that equates to zero time, such as `PT0S`, shall indicate that no previously undelivered events shall be sent.  If undelivered events within the duration may been discarded due to a lack of buffer space, the service should send the EventBufferExceeded message from the Base Message Registry.  If the client does not provide this parameter, the service shall apply an implementation specific duration."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall indicate the event age of any buffered or otherwise undelivered events that shall be delivered to this event destination when the subscription is resumed.  The service shall deliver any available, previously undelivered event that was created within the duration specified.  A value that equates to zero time, such as `PT0S`, shall indicate that no previously undelivered events shall be sent.  If undelivered events within the duration may have been discarded due to a lack of buffer space, the service should send the EventBufferExceeded message from the Base Message Registry.  If the client does not provide this parameter, the service shall apply an implementation-specific duration."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -158,8 +158,8 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the protocol type that the event uses to send the event to the destination.  A `Redfish` value shall indicate that the event type shall adhere to the type defined in the Redfish Specification."/>
         </Property>
         <Property Name="HttpHeaders" Type="Collection(EventDestination.v1_0_0.HttpHeaderProperty)" Nullable="false">
-          <Annotation Term="OData.Description" String="An array of settings for HTTP headers, such as authorization information.  This array is null or an empty array in responses.  An empty array is the preferred return value on read operations."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an object consisting of the names and values of of HTTP header to be included with every event POST to the event destination.  This object shall be null or an empty array in responses.  An empty array is the preferred return value in responses."/>
+          <Annotation Term="OData.Description" String="An array of settings for HTTP headers, such as authorization information.  This array is `null` or an empty array in responses.  An empty array is the preferred return value on read operations."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of objects consisting of the names and values of the HTTP headers to include with every event POST to the event destination.  This object shall be `null` or an empty array in responses.  An empty array is the preferred return value in responses."/>
         </Property>
       </EntityType>
 
@@ -229,7 +229,7 @@
           </Annotation>
         </Member>
         <Member Name="SyslogTLS">
-          <Annotation Term="OData.Description" String="The destination follows syslog TLS-based for event notifications."/>
+          <Annotation Term="OData.Description" String="The destination follows syslog TLS-based transport for event notifications."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate the destination follows the TLS-based transport for syslog as defined in RFC5424."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
@@ -241,7 +241,7 @@
           </Annotation>
         </Member>
         <Member Name="SyslogTCP">
-          <Annotation Term="OData.Description" String="The destination follows syslog TCP-based for event notifications."/>
+          <Annotation Term="OData.Description" String="The destination follows syslog TCP-based transport for event notifications."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate the destination follows the TCP-based transport for syslog as defined in RFC6587."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
@@ -253,7 +253,7 @@
           </Annotation>
         </Member>
         <Member Name="SyslogUDP">
-          <Annotation Term="OData.Description" String="The destination follows syslog UDP-based for event notifications."/>
+          <Annotation Term="OData.Description" String="The destination follows syslog UDP-based transport for event notifications."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate the destination follows the UDP-based transport for syslog as defined in RFC5424."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
@@ -278,7 +278,7 @@
         </Member>
         <Member Name="OEM">
           <Annotation Term="OData.Description" String="The destination follows an OEM protocol for event notifications."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate an OEM specific protocol.  The OEMProtocol property shall contain the specific OEM event destination protocol."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate an OEM-specific protocol.  The OEMProtocol property shall contain the specific OEM event destination protocol."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -343,7 +343,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_0_8">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the descriptions for HttpHeaders.  It was also was created to update descriptions that this schema defines."/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions for HttpHeaders.  It was also created to update descriptions that this schema defines."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_0_7.EventDestination"/>
     </Schema>
 
@@ -363,6 +363,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_0_10.EventDestination"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_0_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_0_11.EventDestination"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_1_0">
@@ -421,7 +427,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_1_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the descriptions for HttpHeaders.  It was also was created to update descriptions that this schema defines."/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions for HttpHeaders.  It was also created to update descriptions that this schema defines."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_1_6.EventDestination"/>
     </Schema>
 
@@ -445,8 +451,14 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_1_11">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created make the format terminology of MessageId values consistent with the Redfish Specification and other schemas."/>
+      <Annotation Term="OData.Description" String="This version was created to make the format terminology of MessageId values consistent with the Redfish Specification and other schemas."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_1_10.EventDestination"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_1_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_1_11.EventDestination"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_2_0">
@@ -503,7 +515,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_2_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the descriptions for HttpHeaders.  It was also was created to update descriptions that this schema defines."/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions for HttpHeaders.  It was also created to update descriptions that this schema defines."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_2_4.EventDestination"/>
     </Schema>
 
@@ -527,8 +539,14 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_2_9">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created make the format terminology of MessageId values consistent with the Redfish Specification and other schemas."/>
+      <Annotation Term="OData.Description" String="This version was created to make the format terminology of MessageId values consistent with the Redfish Specification and other schemas."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_2_8.EventDestination"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_2_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_2_9.EventDestination"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_3_0">
@@ -576,7 +594,7 @@
           </Annotation>
         </Member>
         <Member Name="Syslog">
-          <Annotation Term="OData.Description" String="The subscription sends Syslog messages for event notifications."/>
+          <Annotation Term="OData.Description" String="The subscription sends syslog messages for event notifications."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate the subscription forwards syslog messages to the event destination.  Protocol shall specify the appropriate syslog protocol."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
@@ -616,7 +634,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_3_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the descriptions for HttpHeaders.  It was also was created to update descriptions that this schema defines."/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions for HttpHeaders.  It was also created to update descriptions that this schema defines."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_3_2.EventDestination"/>
     </Schema>
 
@@ -640,8 +658,14 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_3_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created make the format terminology of MessageId values consistent with the Redfish Specification and other schemas."/>
+      <Annotation Term="OData.Description" String="This version was created to make the format terminology of MessageId values consistent with the Redfish Specification and other schemas."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_3_6.EventDestination"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_3_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_3_7.EventDestination"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_4_0">
@@ -681,7 +705,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_4_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the descriptions for HttpHeaders.  It was also was created to update descriptions that this schema defines."/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions for HttpHeaders.  It was also created to update descriptions that this schema defines."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_4_1.EventDestination"/>
     </Schema>
 
@@ -705,7 +729,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_4_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created make the format terminology of MessageId values consistent with the Redfish Specification and other schemas."/>
+      <Annotation Term="OData.Description" String="This version was created to make the format terminology of MessageId values consistent with the Redfish Specification and other schemas."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_4_5.EventDestination"/>
     </Schema>
 
@@ -713,6 +737,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_4_6.EventDestination"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_4_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_4_7.EventDestination"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_5_0">
@@ -725,7 +755,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_5_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the descriptions for HttpHeaders.  It was also was created to update descriptions that this schema defines."/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions for HttpHeaders.  It was also created to update descriptions that this schema defines."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_5_0.EventDestination"/>
     </Schema>
 
@@ -749,7 +779,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_5_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created make the format terminology of MessageId values consistent with the Redfish Specification and other schemas."/>
+      <Annotation Term="OData.Description" String="This version was created to make the format terminology of MessageId values consistent with the Redfish Specification and other schemas."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_5_4.EventDestination"/>
     </Schema>
 
@@ -757,6 +787,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_5_5.EventDestination"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_5_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_5_6.EventDestination"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_6_0">
@@ -817,13 +853,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_6_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to improve the descriptions for EventFormatType and EventDestinationProtocol.  It was also updated to allow for a service to select its own DeliveryRetryPolicy if not specified by the client."/>
+      <Annotation Term="OData.Description" String="This version was created to improve the descriptions for EventFormatType and EventDestinationProtocol.  It was also created to allow for a service to select its own DeliveryRetryPolicy if not specified by the client."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_6_1.EventDestination"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_6_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_6_2.EventDestination"/>
     </Schema>
 
@@ -841,7 +877,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_6_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created make the format terminology of MessageId values consistent with the Redfish Specification and other schemas."/>
+      <Annotation Term="OData.Description" String="This version was created to make the format terminology of MessageId values consistent with the Redfish Specification and other schemas."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_6_5.EventDestination"/>
     </Schema>
 
@@ -849,6 +885,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_6_6.EventDestination"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_6_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_6_7.EventDestination"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_7_0">
@@ -974,7 +1016,31 @@
         </Member>
         <Member Name="CFB128_AES128">
           <Annotation Term="OData.Description" String="CFB128-AES-128 encryption."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate encryption conforms to the RFC3414-defined CFB128-AES-128 encryption protocol."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate encryption conforms to the RFC3826-defined CFB128-AES-128 encryption protocol."/>
+        </Member>
+        <Member Name="CFB128_AES192">
+          <Annotation Term="OData.Description" String="CFB128-AES-192 encryption."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate encryption conforms to the CFB128-AES-192 encryption protocol, extended from RFC3826."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_14_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="CFB128_AES256">
+          <Annotation Term="OData.Description" String="CFB128-AES-256 encryption."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate encryption conforms to the CFB128-AES-256 encryption protocol, extended from RFC3826."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_14_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
       </EnumType>
     </Schema>
@@ -987,13 +1053,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_7_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to improve the descriptions for EventFormatType and EventDestinationProtocol.  It was also created to correct descriptions and terms for SNMP properties.  It was also updated to allow for a service to select its own DeliveryRetryPolicy if not specified by the client."/>
+      <Annotation Term="OData.Description" String="This version was created to improve the descriptions for EventFormatType and EventDestinationProtocol.  It was also created to correct descriptions and terms for SNMP properties.  It was also created to allow for a service to select its own DeliveryRetryPolicy if not specified by the client."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_7_1.EventDestination"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_7_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_7_2.EventDestination"/>
     </Schema>
 
@@ -1011,7 +1077,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_7_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created make the format terminology of MessageId values consistent with the Redfish Specification and other schemas.  It was also created to mark properties with values containing sensitive data as write-only."/>
+      <Annotation Term="OData.Description" String="This version was created to make the format terminology of MessageId values consistent with the Redfish Specification and other schemas.  It was also created to mark properties with values containing sensitive data as write-only."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_7_5.EventDestination"/>
     </Schema>
 
@@ -1019,6 +1085,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_7_6.EventDestination"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_7_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_7_7.EventDestination"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_8_0">
@@ -1029,7 +1101,7 @@
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_7_0.EventDestination">
         <Property Name="IncludeOriginOfCondition" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An indication of whether the events subscribed to will also include the entire resource or object referenced the OriginOfCondition property in the event payload."/>
+          <Annotation Term="OData.Description" String="An indication of whether the events subscribed to will also include the entire resource or object referenced by the OriginOfCondition property in the event payload."/>
           <Annotation Term="OData.LongDescription" String="This property shall indicate whether the event payload sent to the subscription destination will expand the OriginOfCondition property to include the resource or object referenced by the OriginOfCondition property."/>
         </Property>
       </EntityType>
@@ -1043,13 +1115,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_8_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to improve the descriptions for EventFormatType and EventDestinationProtocol.  It was also created to correct descriptions and terms for SNMP properties.  It was also updated to allow for a service to select its own DeliveryRetryPolicy if not specified by the client."/>
+      <Annotation Term="OData.Description" String="This version was created to improve the descriptions for EventFormatType and EventDestinationProtocol.  It was also created to correct descriptions and terms for SNMP properties.  It was also created to allow for a service to select its own DeliveryRetryPolicy if not specified by the client."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_8_1.EventDestination"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_8_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_8_2.EventDestination"/>
     </Schema>
 
@@ -1067,7 +1139,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_8_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created make the format terminology of MessageId values consistent with the Redfish Specification and other schemas.  It was also created to mark properties with values containing sensitive data as write-only."/>
+      <Annotation Term="OData.Description" String="This version was created to make the format terminology of MessageId values consistent with the Redfish Specification and other schemas.  It was also created to mark properties with values containing sensitive data as write-only."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_8_5.EventDestination"/>
     </Schema>
 
@@ -1075,6 +1147,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_8_6.EventDestination"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_8_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_8_7.EventDestination"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_9_0">
@@ -1085,7 +1163,7 @@
         <NavigationProperty Name="Certificates" Type="CertificateCollection.CertificateCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to a collection of server certificates for the server referenced by the Destination property."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CertificateCollection that represent the server certificates for the server referenced by the Destination property.  If VerifyCertificate is `true`, services shall compare the certificates in this collection with the certificate obtained during handshaking with the event destination in order to verify the identify of the event destination prior to sending an event.  If the server cannot be verified, the service shall not send the event.  If VerifyCertificate is `false`, the service shall not perform certificate verification with certificates in this collection.  Regardless of the contents of this collection, services may perform additional verification based on other factors, such as the configuration of the SecurityPolicy resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CertificateCollection that represent the server certificates for the server referenced by the Destination property.  If VerifyCertificate is `true`, services shall compare the certificates in this collection with the certificate obtained during handshaking with the event destination in order to verify the identity of the event destination prior to sending an event.  If the server cannot be verified, the service shall not send the event.  If VerifyCertificate is `false`, the service shall not perform certificate verification with certificates in this collection.  Regardless of the contents of this collection, services may perform additional verification based on other factors, such as the configuration of the SecurityPolicy resource."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="VerifyCertificate" Type="Edm.Boolean">
@@ -1237,13 +1315,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_9_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to improve the descriptions for EventFormatType and EventDestinationProtocol.  It was also created to correct descriptions and terms for SNMP properties.  It was also updated to allow for a service to select its own DeliveryRetryPolicy if not specified by the client."/>
+      <Annotation Term="OData.Description" String="This version was created to improve the descriptions for EventFormatType and EventDestinationProtocol.  It was also created to correct descriptions and terms for SNMP properties.  It was also created to allow for a service to select its own DeliveryRetryPolicy if not specified by the client."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_9_0.EventDestination"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_9_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_9_1.EventDestination"/>
     </Schema>
 
@@ -1273,7 +1351,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_9_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify that other certificate verification might be performed by the service due to other policies in the service.  It was also created make the format terminology of MessageId values consistent with the Redfish Specification and other schemas.  It was also created to mark properties with values containing sensitive data as write-only."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that other certificate verification might be performed by the service due to other policies in the service.  It was also created to make the format terminology of MessageId values consistent with the Redfish Specification and other schemas.  It was also created to mark properties with values containing sensitive data as write-only."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_9_6.EventDestination"/>
     </Schema>
 
@@ -1281,6 +1359,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_9_7.EventDestination"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_9_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_9_8.EventDestination"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_10_0">
@@ -1306,7 +1390,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_10_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_10_0.EventDestination"/>
     </Schema>
 
@@ -1336,7 +1420,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_10_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify that other certificate verification might be performed by the service due to other policies in the service.  It was also created make the format terminology of MessageId values consistent with the Redfish Specification and other schemas.  It was also created to mark properties with values containing sensitive data as write-only."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that other certificate verification might be performed by the service due to other policies in the service.  It was also created to make the format terminology of MessageId values consistent with the Redfish Specification and other schemas.  It was also created to mark properties with values containing sensitive data as write-only."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_10_5.EventDestination"/>
     </Schema>
 
@@ -1344,6 +1428,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_10_6.EventDestination"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_10_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_10_7.EventDestination"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_11_0">
@@ -1392,7 +1482,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_11_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify that other certificate verification might be performed by the service due to other policies in the service.  It was also created make the format terminology of MessageId values consistent with the Redfish Specification and other schemas.  It was also created to mark properties with values containing sensitive data as write-only."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that other certificate verification might be performed by the service due to other policies in the service.  It was also created to make the format terminology of MessageId values consistent with the Redfish Specification and other schemas.  It was also created to mark properties with values containing sensitive data as write-only."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_11_3.EventDestination"/>
     </Schema>
 
@@ -1400,6 +1490,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_11_4.EventDestination"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_11_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_11_5.EventDestination"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_12_0">
@@ -1423,7 +1519,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_12_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify that other certificate verification might be performed by the service due to other policies in the service.  It was also created make the format terminology of MessageId values consistent with the Redfish Specification and other schemas.  It was also created to mark properties with values containing sensitive data as write-only."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that other certificate verification might be performed by the service due to other policies in the service.  It was also created to make the format terminology of MessageId values consistent with the Redfish Specification and other schemas.  It was also created to mark properties with values containing sensitive data as write-only."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_12_0.EventDestination"/>
     </Schema>
 
@@ -1437,6 +1533,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_12_2.EventDestination"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_12_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_12_3.EventDestination"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_13_0">
@@ -1463,6 +1565,20 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions."/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_13_1.EventDestination"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_13_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_13_2.EventDestination"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_14_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.3"/>
+      <Annotation Term="OData.Description" String="This version was created to add `CFB128_AES192` and `CFB128_AES256` to SNMPEncryptionProtocols."/>
+
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_13_3.EventDestination"/>
     </Schema>
 
   </edmx:DataServices>

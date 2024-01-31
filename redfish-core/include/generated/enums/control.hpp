@@ -14,6 +14,8 @@ enum class ControlType{
     Pressure,
     PressurekPa,
     Valve,
+    Percent,
+    DutyCycle,
 };
 
 enum class SetPointType{
@@ -46,6 +48,8 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ControlType, {
     {ControlType::Pressure, "Pressure"},
     {ControlType::PressurekPa, "PressurekPa"},
     {ControlType::Valve, "Valve"},
+    {ControlType::Percent, "Percent"},
+    {ControlType::DutyCycle, "DutyCycle"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(SetPointType, {

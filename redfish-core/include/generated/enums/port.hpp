@@ -143,6 +143,7 @@ enum class CurrentPortConfigurationState{
     DSP,
     USP,
     Reserved,
+    FabricLink,
 };
 
 enum class ConnectedDeviceMode{
@@ -303,6 +304,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CurrentPortConfigurationState, {
     {CurrentPortConfigurationState::DSP, "DSP"},
     {CurrentPortConfigurationState::USP, "USP"},
     {CurrentPortConfigurationState::Reserved, "Reserved"},
+    {CurrentPortConfigurationState::FabricLink, "FabricLink"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(ConnectedDeviceMode, {
