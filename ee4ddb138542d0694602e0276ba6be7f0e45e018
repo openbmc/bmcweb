@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "50273058_6eddcd60",
+        "filename": "http/http_file_body.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-31T15:56:58Z",
+      "side": 1,
+      "message": "that’s a good idea.  I can put that in a separate commit.",
+      "parentUuid": "4c536fb2_0e73f9dc",
+      "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "42871133_505f28dc",
         "filename": "http/http_file_body.hpp",
         "patchSetId": 14
@@ -71,6 +89,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7daa2050_64c852c4",
+        "filename": "http/http_file_body.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-31T15:56:58Z",
+      "side": 1,
+      "message": "the body starts as string (which is empty string). any error response would be in a string body, like it already is today.  why would there be a separate string body for error strings returned to the user?\n\nif the file fails to open, it goes back to a string.  what changes are you looking for here in code?",
+      "parentUuid": "42871133_505f28dc",
+      "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3ee5eb69_019d20f3",
         "filename": "http/http_file_body.hpp",
         "patchSetId": 14
@@ -82,6 +118,24 @@
       "writtenOn": "2024-01-31T15:39:53Z",
       "side": 1,
       "message": "shouldn\u0027t we report back the size query error?",
+      "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70d150ba_3c318e4e",
+        "filename": "http/http_file_body.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-31T15:56:58Z",
+      "side": 1,
+      "message": "intentionally not.  the fd might be a pipe, with no actual size.",
+      "parentUuid": "3ee5eb69_019d20f3",
       "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
