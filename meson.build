@@ -431,7 +431,7 @@ srcfiles_unittest = files(
   'test/http/verb_test.cpp',
   'test/http/server_sent_event_test.cpp',
   'test/http/mutual_tls_meta.cpp',
-  'test/http/http_file_body_test.cpp',
+  'test/http/http_body_test.cpp',
   'test/include/dbus_utility_test.cpp',
   'test/include/google/google_service_root_test.cpp',
   'test/include/json_html_serializer.cpp',
