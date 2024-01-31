@@ -116,10 +116,10 @@ struct ConnectionPolicy
 
 struct PendingRequest
 {
-    boost::beast::http::request<bmcweb::FileBody> req;
+    boost::beast::http::request<bmcweb::HttpBody> req;
     std::function<void(bool, uint32_t, Response&)> callback;
     PendingRequest(
-        boost::beast::http::request<bmcweb::FileBody>&& reqIn,
+        boost::beast::http::request<bmcweb::HttpBody>&& reqIn,
         const std::function<void(bool, uint32_t, Response&)>& callbackIn) :
         req(std::move(reqIn)),
         callback(callbackIn)
@@ -138,8 +138,8 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     uint32_t connId;
 
     // Data buffers
-    http::request<bmcweb::FileBody> req;
-    using parser_type = http::response_parser<bmcweb::FileBody>;
+    http::request<bmcweb::HttpBody> req;
+    using parser_type = http::response_parser<bmcweb::HttpBody>;
     std::optional<parser_type> parser;
     boost::beast::flat_static_buffer<httpReadBufferSize> buffer;
     Response res;
@@ -733,7 +733,7 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
                   const std::function<void(Response&)>& resHandler)
     {
         // Construct the request to be sent
-        boost::beast::http::request<bmcweb::FileBody> thisReq(
+        boost::beast::http::request<bmcweb::HttpBody> thisReq(
             verb, destUri.encoded_target(), 11, "", httpHeader);
         thisReq.set(boost::beast::http::field::host,
                     destUri.encoded_host_address());
