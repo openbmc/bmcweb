@@ -34,7 +34,7 @@
       <Annotation Term="RedfishExtensions.v1_0_0.OwningEntity" String="DMTF"/>
 
       <Term Name="AllowableValues" Type="Collection(Edm.String)" Nullable="false">
-        <Annotation Term="OData.Description" String="The set of allowable values for an action parameter or property."/>
+        <Annotation Term="OData.Description" String="The set of allowable values for an action parameter or read-write property."/>
       </Term>
       <Term Name="AllowableNumbers" Type="Collection(Edm.String)" Nullable="false">
         <Annotation Term="OData.Description" String="The term specifies the numeric values or duration values, inclusive ranges of values, and incremental step values for a read-write property that are supported by the service, as defined in the 'Allowable values for numbers and durations' clause of the Redfish Specification."/>
@@ -137,7 +137,7 @@
         <Annotation Term="OData.LongDescription" String="The term shall specify a filter to apply to a set of objects used as the data source for an array.  The term value shall follow the Redfish Specification-specified filter query parameter format.  Items that match the filter shall appear in the resulting array, while items that do not match the filter shall be excluded from the results."/>
       </Term>
       <Term Name="Excerpt" Type="Edm.String">
-        <Annotation Term="OData.Description" String="The term specifies that the property is a excerpt data element that appears in objects marked as a excerpt copy when the term value matches the excerpt copy term type.  The value contains a property name to use as a key, and the key property value, and only one key property can be defined for each resource.  If the term value is unspecified, the property appears in all excerpt copy instances."/>
+        <Annotation Term="OData.Description" String="The term specifies that the property is an excerpt data element that appears in objects marked as an excerpt copy when the term value matches the excerpt copy term type.  The value contains a property name to use as a key, and the key property value, and only one key property can be defined for each resource.  If the term value is unspecified, the property appears in all excerpt copy instances."/>
       </Term>
       <Term Name="ExcerptCopy" Type="Edm.String">
         <Annotation Term="OData.Description" String="The term specifies that the object or property definition is a copy of data from a source elsewhere in the data model, and that only properties marked as excerpt in that linked definition are included.  The term value contains the name of the specific excerpt from the linked definition.  If the term value is not defined, all excerpt properties are copied from the linked definition."/>

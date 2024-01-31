@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ThermalMetrics v1.3.0                                               -->
+<!--# Redfish Schema:  ThermalMetrics v1.3.1                                               -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -76,8 +76,8 @@
         </Property>
         <NavigationProperty Name="TemperatureReadingsCelsius" Type="Collection(Sensor.Sensor)">
           <Annotation Term="Redfish.ExcerptCopy" String="Array"/>
-          <Annotation Term="OData.Description" String="The temperatures (Celsius) from all related sensors for this device."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the temperatures, in degrees Celsius units, for this subsystem.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Temperature`."/>
+          <Annotation Term="OData.Description" String="The temperatures (in degree Celsius units) from all related sensors for this device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the temperatures, in degree Celsius units, for this subsystem.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Temperature`."/>
         </NavigationProperty>
         <Property Name="Actions" Type="ThermalMetrics.v1_0_0.Actions" Nullable="false">
           <Annotation Term="OData.Description" String="The available actions for this resource."/>
@@ -91,23 +91,23 @@
         <Annotation Term="OData.LongDescription" String="This type shall contain properties that describe temperature sensor for a subsystem."/>
         <NavigationProperty Name="Internal" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy"/>
-          <Annotation Term="OData.Description" String="The internal temperature (Celsius) of this subsystem."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the temperature, in degrees Celsius units, for the internal temperature of this subsystem.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Temperature`."/>
+          <Annotation Term="OData.Description" String="The internal temperature (in degree Celsius units) of this subsystem."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the temperature, in degree Celsius units, for the internal temperature of this subsystem.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Temperature`."/>
         </NavigationProperty>
         <NavigationProperty Name="Intake" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy"/>
-          <Annotation Term="OData.Description" String="The intake temperature (Celsius) of this subsystem."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the temperature, in degrees Celsius units, for the intake temperature of this subsystem.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Temperature`."/>
+          <Annotation Term="OData.Description" String="The intake temperature (in degree Celsius units) of this subsystem."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the temperature, in degree Celsius units, for the intake temperature of this subsystem.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Temperature`."/>
         </NavigationProperty>
         <NavigationProperty Name="Exhaust" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy"/>
-          <Annotation Term="OData.Description" String="The exhaust temperature (Celsius) of this subsystem."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the temperature, in degrees Celsius units, for the exhaust temperature of this subsystem.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Temperature`."/>
+          <Annotation Term="OData.Description" String="The exhaust temperature (in degree Celsius units) of this subsystem."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the temperature, in degree Celsius units, for the exhaust temperature of this subsystem.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Temperature`."/>
         </NavigationProperty>
         <NavigationProperty Name="Ambient" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy"/>
-          <Annotation Term="OData.Description" String="The ambient temperature (Celsius) of this subsystem."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the temperature, in degrees Celsius units, for the ambient temperature of this subsystem.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Temperature`."/>
+          <Annotation Term="OData.Description" String="The ambient temperature (in degree Celsius units) of this subsystem."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the temperature, in degree Celsius units, for the ambient temperature of this subsystem.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Temperature`."/>
         </NavigationProperty>
       </ComplexType>
 
@@ -132,6 +132,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions to tie excerpt property definitions to a specific type of Sensor or Control.  It was also created to correct various typographical errors."/>
       <EntityType Name="ThermalMetrics" BaseType="ThermalMetrics.v1_0_0.ThermalMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ThermalMetrics.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ThermalMetrics" BaseType="ThermalMetrics.v1_0_1.ThermalMetrics"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ThermalMetrics.v1_1_0">
@@ -162,6 +168,12 @@
       </ComplexType>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ThermalMetrics.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ThermalMetrics" BaseType="ThermalMetrics.v1_1_0.ThermalMetrics"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ThermalMetrics.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.1"/>
@@ -171,15 +183,21 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="Redfish.ExcerptCopy"/>
           <Annotation Term="OData.Description" String="The differential pressure (kPa)."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the pressure, in kilopascal units, for the difference in pressure between the air intake and air exhaust of this chassis.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `PressurekPa`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the pressure, in kilopascal units, for the difference in pressure between the air intake and the air exhaust of this chassis.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `PressurekPa`."/>
         </NavigationProperty>
         <NavigationProperty Name="AirFlowCubicMetersPerMinute" Type="Sensor.Sensor">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="Redfish.ExcerptCopy"/>
           <Annotation Term="OData.Description" String="The air flow through the chassis (m^3/min)."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the rate of air flow, in cubic meters per minute units, between the air intake and air exhaust of this chassis.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `AirFlowCMM`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the rate of air flow, in cubic meters per minute units, between the air intake and the air exhaust of this chassis.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `AirFlowCMM`."/>
         </NavigationProperty>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ThermalMetrics.v1_2_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ThermalMetrics" BaseType="ThermalMetrics.v1_2_0.ThermalMetrics"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ThermalMetrics.v1_3_0">
@@ -195,9 +213,15 @@
         <NavigationProperty Name="EnergykWh" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy" String="EnergykWh"/>
           <Annotation Term="OData.Description" String="Energy consumption (kWh) of the thermal management subsystem."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the total energy, in kilowatt-hours, for the thermal subsystem.  The value shall include the total energy consumption of devices involved in thermal management of the chassis, such as fans, pumps, and heaters.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `EnergykWh`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total energy, in kilowatt-hour units, for the thermal subsystem.  The value shall include the total energy consumption of devices involved in thermal management of the chassis, such as fans, pumps, and heaters.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `EnergykWh`."/>
         </NavigationProperty>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ThermalMetrics.v1_3_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ThermalMetrics" BaseType="ThermalMetrics.v1_3_0.ThermalMetrics"/>
     </Schema>
 
   </edmx:DataServices>

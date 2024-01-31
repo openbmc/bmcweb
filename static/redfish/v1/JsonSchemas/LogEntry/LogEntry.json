@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/LogEntry.v1_15_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/LogEntry.v1_16_0.json",
     "$ref": "#/definitions/LogEntry",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -290,7 +290,7 @@
                 },
                 "DiagnosticData": {
                     "description": "A Base64-encoded set of diagnostic data associated with this log entry.",
-                    "longDescription": "This property shall contain a Base64-encoded string that represents diagnostic data associated with this log entry.  The contents shall depend on the value of the DiagnosticDataType property.  The length of the value should not exceed 4KB.  Larger diagnostic data payloads should omit this property and use the AdditionalDataURI property to reference the data.  If both DiagnosticData and AdditionalDataURI are present, DiagnosticData shall contain the Base64-encoding of the data retrieved from the URI specified by the AdditionalDataURI property.",
+                    "longDescription": "This property shall contain a Base64-encoded string that represents diagnostic data associated with this log entry.  The contents shall depend on the value of the DiagnosticDataType property.  The length of the value should not exceed 4 KB.  Larger diagnostic data payloads should omit this property and use the AdditionalDataURI property to reference the data.  If both DiagnosticData and AdditionalDataURI are present, DiagnosticData shall contain the Base64-encoding of the data retrieved from the URI specified by the AdditionalDataURI property.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -403,7 +403,7 @@
                 },
                 "Message": {
                     "description": "The message of the log entry.  This property decodes from the entry type.  If the entry type is `Event`, this property contains a message.  If the entry type is `SEL`, this property contains an SEL-specific message.  If the entry type is `CXL`, this property contains a CXL event record.  Otherwise, this property contains an OEM-specific log entry.  In most cases, this property contains the actual log entry.",
-                    "longDescription": "This property shall contain the message of the log entry.  This property decodes from the entry type.  If the entry type is `Event`, this property contains a message.  If the entry type is `SEL`, this property contains an SEL-specific message, following the format specified in Table 32-1, SEL Event Records, in the IPMI Specification v2.0 revision 1.1.  If the entry type is `CXL`, this property contains the CXL event record as a string of hex bytes in the pattern '^([a-fA-F0-9]{2})+$'.  Otherwise, this property contains an OEM-specific log entry.  In most cases, this property contains the actual log entry.",
+                    "longDescription": "This property shall contain the message of the log entry.  This property decodes from the entry type.  If the entry type is `Event`, this property contains a message.  If the entry type is `SEL`, this property contains an SEL-specific message, following the format specified in Table 32-1, SEL Event Records, in the IPMI Specification v2.0 revision 1.1.  If the entry type is `CXL`, this property contains the CXL event record as a string of hex bytes in the pattern `^([a-fA-F0-9]{2})+$`.  Otherwise, this property contains an OEM-specific log entry.  In most cases, this property contains the actual log entry.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -421,7 +421,7 @@
                 },
                 "MessageId": {
                     "description": "The MessageId, event data, or OEM-specific information.  This property decodes from the entry type.  If the entry type is `Event`, this property contains a Redfish Specification-defined MessageId.  If the entry type is `SEL`, this property contains the Event Data.  Otherwise, this property contains OEM-specific information.",
-                    "longDescription": "This property shall contain the MessageId, event data, or OEM-specific information.  This property decodes from the entry type.  If the entry type is `Event`, this property contains a Redfish Specification-defined MessageId property of the event.  If the entry type is `SEL`, the format should follow the pattern '^0[xX](([a-fA-F]|[0-9]){2}){4}$', which results in a string in the form '0xNNaabbcc', where 'NN' is the EventDir/EventType byte, 'aa' is the Event Data 1 byte, 'bb' is Event Data 2 byte, 'cc' is Event Data 3 byte, corresponding with bytes 13-16 in the IPMI SEL Event Record.  If the entry type is `CXL`, this property shall not be present.  Otherwise, this property contains OEM-specific information.",
+                    "longDescription": "This property shall contain the MessageId, event data, or OEM-specific information.  This property decodes from the entry type.  If the entry type is `Event`, this property contains a Redfish Specification-defined MessageId property of the event.  If the entry type is `SEL`, the format should follow the pattern `^0[xX](([a-fA-F]|[0-9]){2}){4}$`, which results in a string in the form '0xNNaabbcc', where 'NN' is the EventDir/EventType byte, 'aa' is the Event Data 1 byte, 'bb' is Event Data 2 byte, 'cc' is Event Data 3 byte, corresponding with bytes 13-16 in the IPMI SEL Event Record.  If the entry type is `CXL`, this property shall not be present.  Otherwise, this property contains OEM-specific information.",
                     "readonly": true,
                     "type": "string"
                 },
@@ -504,7 +504,7 @@
                 },
                 "Persistency": {
                     "description": "Indicates whether the log entry is persistent across a cold reset of the device.",
-                    "longDescription": "This property shall indicate whether log entry is persistent across a cold reset of the device.",
+                    "longDescription": "This property shall indicate whether the log entry is persistent across a cold reset of the device.",
                     "readonly": true,
                     "type": "boolean",
                     "versionAdded": "v1_14_0"
@@ -515,6 +515,15 @@
                     "readonly": true,
                     "type": "string",
                     "versionAdded": "v1_9_0"
+                },
+                "ResolutionSteps": {
+                    "description": "The list of recommended steps to resolve the cause of the log entry.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/ResolutionStep.json#/definitions/ResolutionStep"
+                    },
+                    "longDescription": "This property shall contain an array of recommended steps to resolve the cause of the log entry.  This property shall not be present if the Severity property contains `OK`.  A client can stop executing the resolution steps once the Resolved property resource contains `true` or the Health property in the associated resource referenced by the OriginOfCondition property contains `OK`.",
+                    "type": "array",
+                    "versionAdded": "v1_16_0"
                 },
                 "Resolved": {
                     "description": "Indicates if the cause of the log entry has been resolved or repaired.",
@@ -844,7 +853,7 @@
                 "Module/Board": "A sensor for a module or board.",
                 "Monitor ASIC/IC": "A sensor for a monitor ASIC or IC.",
                 "OEM": "An OEM-defined sensor.",
-                "OS Stop/Shutdown": "A sensor for an OS stop or shutdown event",
+                "OS Stop/Shutdown": "A sensor for an OS stop or shutdown event.",
                 "Other FRU": "A sensor for another type of FRU.",
                 "Other Units-based Sensor": "A sensor for a miscellaneous analog sensor.",
                 "POST Memory Resize": "A sensor for a POST memory resize event.",
@@ -873,6 +882,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2023.1",
-    "title": "#LogEntry.v1_15_1.LogEntry"
+    "release": "2023.3",
+    "title": "#LogEntry.v1_16_0.LogEntry"
 }

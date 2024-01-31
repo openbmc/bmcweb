@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Processor.v1_18_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Processor.v1_19_0.json",
     "$ref": "#/definitions/Processor",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -178,7 +178,7 @@
                     "versionAdded": "v1_4_0"
                 },
                 "PCIeVirtualFunctions": {
-                    "description": "The number of the PCIe Virtual Functions.",
+                    "description": "The number of PCIe Virtual Functions.",
                     "longDescription": "This property shall contain an integer that describes the number of PCIe Virtual Functions configured within the FPGA.",
                     "readonly": false,
                     "type": "integer",
@@ -262,7 +262,7 @@
                         }
                     ],
                     "description": "The UUID for this reconfiguration slot.",
-                    "longDescription": "This property shall contain a universal unique identifier number for the reconfiguration slot.",
+                    "longDescription": "This property shall contain a universally unique identifier number for the reconfiguration slot.",
                     "readonly": true,
                     "versionAdded": "v1_4_0"
                 }
@@ -290,6 +290,8 @@
                 "MIPS32",
                 "MIPS64",
                 "PowerISA",
+                "RV32",
+                "RV64",
                 "OEM"
             ],
             "enumDescriptions": {
@@ -300,11 +302,15 @@
                 "MIPS64": "MIPS 64-bit.",
                 "OEM": "OEM-defined.",
                 "PowerISA": "PowerISA-64 or PowerISA-32.",
+                "RV32": "RISC-V 32-bit.",
+                "RV64": "RISC-V 64-bit.",
                 "x86": "x86 32-bit.",
                 "x86-64": "x86 64-bit."
             },
             "enumVersionAdded": {
-                "PowerISA": "v1_4_0"
+                "PowerISA": "v1_4_0",
+                "RV32": "v1_19_0",
+                "RV64": "v1_19_0"
             },
             "type": "string"
         },
@@ -383,7 +389,7 @@
                         }
                     ],
                     "description": "A link to the graphics controller associated with this processor.",
-                    "longDescription": "This property shall contain a link to resource of type GraphicsController that is associated with this processor.",
+                    "longDescription": "This property shall contain a link to a resource of type GraphicsController that is associated with this processor.",
                     "readonly": true,
                     "versionAdded": "v1_12_0"
                 },
@@ -444,7 +450,7 @@
         "MemorySummary": {
             "additionalProperties": false,
             "description": "The summary of all memory associated with a processor.",
-            "longDescription": "This type shall contain properties that describe the summary of all memory that are associated with a processor.",
+            "longDescription": "This type shall contain properties that describe the summary of all memory that is associated with a processor.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -490,8 +496,8 @@
                     "versionAdded": "v1_11_0"
                 },
                 "TotalMemorySizeMiB": {
-                    "description": "Total size of non-cache, volatile or non-volatile memory attached to this processor.  Examples include DRAMs and NV-DIMMs that are not configured as block storage.",
-                    "longDescription": "This property shall contain the total size of non-cache, volatile or non-volatile memory attached to this processor.  Examples include DRAMs and NV-DIMMs that are not configured as block storage.  This value indicates the size of memory directly attached or with strong affinity to this processor, not the total memory accessible by the processor.  This property shall not be present for implementations where all processors have equal memory performance or access characteristics, such as hop count, for all system memory.",
+                    "description": "Total size of non-cache volatile or non-volatile memory attached to this processor.  Examples include DRAMs and NV-DIMMs that are not configured as block storage.",
+                    "longDescription": "This property shall contain the total size of non-cache volatile or non-volatile memory attached to this processor.  Examples include DRAMs and NV-DIMMs that are not configured as block storage.  This value indicates the size of memory directly attached or with strong affinity to this processor, not the total memory accessible by the processor.  This property shall not be present for implementations where all processors have equal memory performance or access characteristics, such as hop count, for all system memory.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -708,7 +714,7 @@
                 "Location": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location",
                     "description": "The location of the processor.",
-                    "longDescription": "This property shall contain location information of the associated processor.",
+                    "longDescription": "This property shall contain the location information of the associated processor.",
                     "versionAdded": "v1_2_0"
                 },
                 "LocationIndicatorActive": {
@@ -741,8 +747,8 @@
                     "units": "MHz"
                 },
                 "MaxTDPWatts": {
-                    "description": "The maximum Thermal Design Power (TDP) in watts.",
-                    "longDescription": "This property shall contain the maximum Thermal Design Power (TDP) in watts.",
+                    "description": "The maximum Thermal Design Power (TDP) in watt units.",
+                    "longDescription": "This property shall contain the maximum Thermal Design Power (TDP) in watt units.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -765,7 +771,7 @@
                 "MemorySummary": {
                     "$ref": "#/definitions/MemorySummary",
                     "description": "The summary of all memory associated with this processor.",
-                    "longDescription": "This property shall contain properties that describe the summary of all memory that are associated with this processor.",
+                    "longDescription": "This property shall contain properties that describe the summary of all memory that is associated with this processor.",
                     "versionAdded": "v1_11_0"
                 },
                 "Metrics": {
@@ -807,7 +813,7 @@
                 },
                 "OperatingConfigs": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/OperatingConfigCollection.json#/definitions/OperatingConfigCollection",
-                    "description": "The link to the collection operating configurations that can be applied to this processor.",
+                    "description": "The link to the collection of operating configurations that can be applied to this processor.",
                     "longDescription": "This property shall contain a link to a resource collection of type OperatingConfigCollection.",
                     "readonly": true,
                     "versionAdded": "v1_9_0"
@@ -921,7 +927,7 @@
                 },
                 "Replaceable": {
                     "description": "An indication of whether this component can be independently replaced as allowed by the vendor's replacement policy.",
-                    "longDescription": "This property shall indicate whether this component can be independently replaced as allowed by the vendor's replacement policy.  A value of `false` indicates the component needs to be replaced by policy, as part of another component.  If the `LocationType` property of this component contains `Embedded`, this property shall contain `false`.",
+                    "longDescription": "This property shall indicate whether this component can be independently replaced as allowed by the vendor's replacement policy.  A value of `false` indicates the component needs to be replaced by policy as part of another component.  If the `LocationType` property of this component contains `Embedded`, this property shall contain `false`.",
                     "readonly": true,
                     "type": [
                         "boolean",
@@ -999,8 +1005,8 @@
                     "versionAdded": "v1_8_0"
                 },
                 "TDPWatts": {
-                    "description": "The nominal Thermal Design Power (TDP) in watts.",
-                    "longDescription": "This property shall contain the nominal Thermal Design Power (TDP) in watts.",
+                    "description": "The nominal Thermal Design Power (TDP) in watt units.",
+                    "longDescription": "This property shall contain the nominal Thermal Design Power (TDP) in watt units.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -1073,7 +1079,7 @@
                             "type": "null"
                         }
                     ],
-                    "description": "The state of the turbo for this processor.",
+                    "description": "The state of turbo for this processor.",
                     "longDescription": "This property shall contain the state of turbo for this processor.",
                     "readonly": true,
                     "versionAdded": "v1_9_0"
@@ -1088,7 +1094,7 @@
                         }
                     ],
                     "description": "The UUID for this processor.",
-                    "longDescription": "This property shall contain a universal unique identifier number for the processor.  RFC4122 describes methods to use to create the value.  The value should be considered to be opaque.  Client software should only treat the overall value as a universally unique identifier and should not interpret any sub-fields within the UUID.",
+                    "longDescription": "This property shall contain a universally unique identifier number for the processor.  RFC4122 describes methods to use to create the value.  The value should be considered to be opaque.  Client software should only treat the overall value as a universally unique identifier and should not interpret any subfields within the UUID.",
                     "readonly": true,
                     "versionAdded": "v1_4_0"
                 },
@@ -1118,6 +1124,7 @@
                 "ARM",
                 "MIPS",
                 "Power",
+                "RISC-V",
                 "OEM"
             ],
             "enumDescriptions": {
@@ -1126,10 +1133,12 @@
                 "MIPS": "MIPS.",
                 "OEM": "OEM-defined.",
                 "Power": "Power.",
+                "RISC-V": "RISC-V.",
                 "x86": "x86 or x86-64."
             },
             "enumVersionAdded": {
-                "Power": "v1_4_0"
+                "Power": "v1_4_0",
+                "RISC-V": "v1_19_0"
             },
             "type": "string"
         },
@@ -1154,7 +1163,7 @@
             "properties": {
                 "EffectiveFamily": {
                     "description": "The effective family for this processor.",
-                    "longDescription": "This property shall contain the effective family information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the ProcessorArchitecture property, the service shall encode the value as a hex-encoded string following the regular expression pattern '^0x[0-9A-Fa-f]+$' or a decimal-encoded string following the regular expression pattern '^\\d+$'.",
+                    "longDescription": "This property shall contain the effective family information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the ProcessorArchitecture property, the service shall encode the value as a hex-encoded string following the regular expression pattern `^0x[0-9A-Fa-f]+$` or a decimal-encoded string following the regular expression pattern `^\\d+$`.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -1163,7 +1172,7 @@
                 },
                 "EffectiveModel": {
                     "description": "The effective model for this processor.",
-                    "longDescription": "This property shall contain the effective model information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the ProcessorArchitecture property, the service shall encode the value as a hex-encoded string following the regular expression pattern '^0x[0-9A-Fa-f]+$' or a decimal-encoded string following the regular expression pattern '^\\d+$'.",
+                    "longDescription": "This property shall contain the effective model information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the ProcessorArchitecture property, the service shall encode the value as a hex-encoded string following the regular expression pattern `^0x[0-9A-Fa-f]+$` or a decimal-encoded string following the regular expression pattern `^\\d+$`.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -1182,7 +1191,7 @@
                 },
                 "MicrocodeInfo": {
                     "description": "The microcode information for this processor.",
-                    "longDescription": "This property shall contain the microcode information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the ProcessorArchitecture property, the service shall encode the value as a hex-encoded string following the regular expression pattern '^0x[0-9A-Fa-f]+$' or a decimal-encoded string following the regular expression pattern '^\\d+$'.",
+                    "longDescription": "This property shall contain the microcode information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the ProcessorArchitecture property, the service shall encode the value as a hex-encoded string following the regular expression pattern `^0x[0-9A-Fa-f]+$` or a decimal-encoded string following the regular expression pattern `^\\d+$`.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -1201,7 +1210,7 @@
                 },
                 "Step": {
                     "description": "The step value for this processor.",
-                    "longDescription": "This property shall contain the step or revision information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the ProcessorArchitecture property, the service shall encode the value as a hex-encoded string following the regular expression pattern '^0x[0-9A-Fa-f]+$' or a decimal-encoded string following the regular expression pattern '^\\d+$'.",
+                    "longDescription": "This property shall contain the step or revision information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the ProcessorArchitecture property, the service shall encode the value as a hex-encoded string following the regular expression pattern `^0x[0-9A-Fa-f]+$` or a decimal-encoded string following the regular expression pattern `^\\d+$`.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -1210,7 +1219,7 @@
                 },
                 "VendorId": {
                     "description": "The vendor identification for this processor.",
-                    "longDescription": "This property shall contain the vendor identification information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the ProcessorArchitecture property, the service shall encode the value as a hex-encoded string following the regular expression pattern '^0x[0-9A-Fa-f]+$' or a decimal-encoded string following the regular expression pattern '^\\d+$'.",
+                    "longDescription": "This property shall contain the vendor identification information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the ProcessorArchitecture property, the service shall encode the value as a hex-encoded string following the regular expression pattern `^0x[0-9A-Fa-f]+$` or a decimal-encoded string following the regular expression pattern `^\\d+$`.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -1413,6 +1422,7 @@
                 "Accelerator",
                 "Core",
                 "Thread",
+                "Partition",
                 "OEM"
             ],
             "enumDescriptions": {
@@ -1423,10 +1433,15 @@
                 "FPGA": "An FPGA.",
                 "GPU": "A GPU.",
                 "OEM": "An OEM-defined processing unit.",
+                "Partition": "A partition in a single processor.",
                 "Thread": "A thread in a processor."
+            },
+            "enumLongDescriptions": {
+                "Partition": "This value shall indicate a partition in a processor that is instantiated from a user configuration to carve out resources in a single processor.  An example of this is assigning memory to a set of cores in a GPU."
             },
             "enumVersionAdded": {
                 "Core": "v1_3_0",
+                "Partition": "v1_19_0",
                 "Thread": "v1_3_0"
             },
             "type": "string"
@@ -1439,7 +1454,7 @@
                 "ResetType": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/ResetType",
                     "description": "The type of reset.",
-                    "longDescription": "This parameter shall contain the type of reset.  The service can accept a request without the parameter and perform an implementation specific default reset."
+                    "longDescription": "This parameter shall contain the type of reset.  The service can accept a request without the parameter and perform an implementation-specific default reset."
                 }
             },
             "patternProperties": {
@@ -1566,6 +1581,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2023.1",
-    "title": "#Processor.v1_18_0.Processor"
+    "release": "2023.3",
+    "title": "#Processor.v1_19_0.Processor"
 }

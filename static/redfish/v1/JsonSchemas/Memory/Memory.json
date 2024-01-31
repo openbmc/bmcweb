@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Memory.v1_18_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Memory.v1_19_0.json",
     "$ref": "#/definitions/Memory",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -127,8 +127,8 @@
                     "versionAdded": "v1_17_0"
                 },
                 "StagedNonVolatileSizeMiB": {
-                    "description": "Total device non-volatile memory capacity in MiB staged for next activation.  The value is in multiples of 256MiB.",
-                    "longDescription": "The value of this property shall indicate the total device non-volatile memory capacity in Mebibytes.  The value shall be in multiples of 256 Mebibytes.",
+                    "description": "Total device non-volatile memory capacity in MiB staged for next activation.  The value is in multiples of 256 MiB.",
+                    "longDescription": "The value of this property shall indicate the total device non-volatile memory capacity in mebibytes.  The value shall be in multiples of 256 mebibytes.",
                     "readonly": false,
                     "type": "integer",
                     "units": "MiBy",
@@ -136,7 +136,7 @@
                 },
                 "StagedVolatileSizeMiB": {
                     "description": "Total device volatile memory capacity in MiB staged for next activation.  This value is in multiples of 256 MiB.",
-                    "longDescription": "The value of this property shall indicate the total device volatile memory capacity in Mebibytes staged for next activation.  This value shall be in multiples of 256 Mebibytes.",
+                    "longDescription": "The value of this property shall indicate the total device volatile memory capacity in mebibytes staged for next activation.  This value shall be in multiples of 256 mebibytes.",
                     "readonly": false,
                     "type": "integer",
                     "units": "MiBy",
@@ -147,7 +147,7 @@
         },
         "DisableMasterPassphrase": {
             "additionalProperties": false,
-            "description": "Disables the master passphrase for given region.",
+            "description": "Disables the master passphrase for the given region.",
             "longDescription": "This action shall disable the master passphrase on the supplied region provided the supplied master passphrase matches that of the region.",
             "parameters": {
                 "Passphrase": {
@@ -193,7 +193,7 @@
         },
         "DisablePassphrase": {
             "additionalProperties": false,
-            "description": "Disable passphrase for given regions.",
+            "description": "Disable passphrase for the given region.",
             "longDescription": "This action shall disable the need for passphrases on the supplied region provided the supplied passphrase matches that of the region.",
             "parameters": {
                 "Passphrase": {
@@ -304,6 +304,7 @@
             },
             "properties": {
                 "PredictedMediaLifeLeftPercent": {
+                    "deprecated": "This property has been deprecated in favor of PredictedMediaLifeLeftPercent in the MemoryMetrics resource.",
                     "description": "The current health of the memory device as a percentage.",
                     "longDescription": "This property shall contain the current health of the memory device as a percentage, `0` to `100`.",
                     "maximum": 100,
@@ -314,7 +315,8 @@
                         "null"
                     ],
                     "units": "%",
-                    "versionAdded": "v1_17_0"
+                    "versionAdded": "v1_17_0",
+                    "versionDeprecated": "v1_19_0"
                 }
             },
             "type": "object"
@@ -380,11 +382,11 @@
             },
             "properties": {
                 "Batteries": {
-                    "description": "The batteries that provide power to this memory device during a power loss event.",
+                    "description": "The batteries that provide power to this memory device during a power-loss event.",
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/Battery.json#/definitions/Battery"
                     },
-                    "longDescription": "This property shall contain an array of links to resources of type Battery that represent the batteries that provide power to this memory device during a power loss event, such as with battery-backed NVDIMMs.  This property shall not be present if the batteries power the containing chassis as a whole rather than the individual memory device.",
+                    "longDescription": "This property shall contain an array of links to resources of type Battery that represent the batteries that provide power to this memory device during a power-loss event, such as with battery-backed NVDIMMs.  This property shall not be present if the batteries power the containing chassis as a whole rather than the individual memory device.",
                     "readonly": true,
                     "type": "array",
                     "versionAdded": "v1_15_0"
@@ -522,7 +524,7 @@
                     "items": {
                         "type": "integer"
                     },
-                    "longDescription": "This property shall contain the speed supported by this memory device.",
+                    "longDescription": "This property shall contain the speeds supported by this memory device.",
                     "readonly": true,
                     "type": "array",
                     "units": "MHz"
@@ -634,7 +636,7 @@
                 "DeviceLocator": {
                     "deprecated": "This property has been deprecated in favor of the ServiceLabel property within Location.",
                     "description": "Location of the memory device in the platform.",
-                    "longDescription": "This property shall contain location of the memory device in the platform, typically marked in the silk screen.",
+                    "longDescription": "This property shall contain the location of the memory device in the platform, typically marked in the silk screen.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -735,7 +737,7 @@
                 "Location": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location",
                     "description": "The location of the memory device.",
-                    "longDescription": "This property shall contain location information of the associated memory device.",
+                    "longDescription": "This property shall contain the location information of the associated memory device.",
                     "versionAdded": "v1_4_0"
                 },
                 "LocationIndicatorActive": {
@@ -777,11 +779,11 @@
                     ]
                 },
                 "MaxTDPMilliWatts": {
-                    "description": "Set of maximum power budgets supported by the memory device in milliwatts.",
+                    "description": "Set of maximum power budgets supported by the memory device in milliwatt units.",
                     "items": {
                         "type": "integer"
                     },
-                    "longDescription": "This property shall contain an array of maximum power budgets supported by the memory device in milliwatts.",
+                    "longDescription": "This property shall contain an array of maximum power budgets supported by the memory device in milliwatt units.",
                     "readonly": true,
                     "type": "array",
                     "units": "mW"
@@ -1065,7 +1067,7 @@
                 },
                 "SpareDeviceCount": {
                     "description": "Number of unused spare devices available in the memory device.",
-                    "longDescription": "This property shall contain the number of unused spare devices available in the memory device.  If memory devices fails, the spare device could be used.",
+                    "longDescription": "This property shall contain the number of unused spare devices available in the memory device.  If the memory device fails, the spare devices could be used.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -1227,7 +1229,8 @@
                 "GDDR5X",
                 "GDDR6",
                 "DDR5",
-                "OEM"
+                "OEM",
+                "LPDDR5_SDRAM"
             ],
             "enumDescriptions": {
                 "DDR": "DDR.",
@@ -1258,6 +1261,7 @@
                 "HBM3": "The third generation of High Bandwidth Memory.",
                 "LPDDR3_SDRAM": "LPDDR3 SDRAM.",
                 "LPDDR4_SDRAM": "LPDDR4 SDRAM.",
+                "LPDDR5_SDRAM": "LPDDR5 SDRAM.",
                 "Logical": "Logical device, such as when the memory is fabric-attached.",
                 "OEM": "OEM-defined.",
                 "PipelinedNibble": "Pipelined Nibble.",
@@ -1277,6 +1281,7 @@
                 "HBM2": "v1_7_0",
                 "HBM2E": "v1_17_0",
                 "HBM3": "v1_11_0",
+                "LPDDR5_SDRAM": "v1_19_0",
                 "Logical": "v1_4_0",
                 "OEM": "v1_11_0"
             },
@@ -1367,11 +1372,11 @@
                 "IntelOptane"
             ],
             "enumDescriptions": {
-                "DRAM": "The memory device is comprised of volatile memory.",
+                "DRAM": "The memory device is composed of volatile memory.",
                 "IntelOptane": "The memory device is an Intel Optane Persistent Memory Module.",
-                "NVDIMM_F": "The memory device is comprised of non-volatile memory.",
-                "NVDIMM_N": "The memory device is comprised of volatile memory backed by non-volatile memory.",
-                "NVDIMM_P": "The memory device is comprised of a combination of non-volatile and volatile memory."
+                "NVDIMM_F": "The memory device is composed of non-volatile memory.",
+                "NVDIMM_N": "The memory device is composed of volatile memory backed by non-volatile memory.",
+                "NVDIMM_P": "The memory device is composed of a combination of non-volatile and volatile memory."
             },
             "enumLongDescriptions": {
                 "DRAM": "This value shall represent a volatile DRAM memory device.",
@@ -1485,8 +1490,8 @@
             },
             "properties": {
                 "AveragePowerBudgetMilliWatts": {
-                    "description": "Average power budget, in milliwatts.",
-                    "longDescription": "This property shall contain the average power budget, in milliwatts.",
+                    "description": "Average power budget, in milliwatt units.",
+                    "longDescription": "This property shall contain the average power budget, in milliwatt units.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -1495,8 +1500,8 @@
                     "units": "mW"
                 },
                 "MaxTDPMilliWatts": {
-                    "description": "Maximum TDP in milliwatts.",
-                    "longDescription": "This property shall contain the maximum TDP in milliwatts.",
+                    "description": "Maximum TDP in milliwatt units.",
+                    "longDescription": "This property shall contain the maximum TDP in milliwatt units.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -1505,8 +1510,8 @@
                     "units": "mW"
                 },
                 "PeakPowerBudgetMilliWatts": {
-                    "description": "Peak power budget, in milliwatts.",
-                    "longDescription": "This property shall contain the peak power budget, in milliwatts.",
+                    "description": "Peak power budget, in milliwatt units.",
+                    "longDescription": "This property shall contain the peak power budget, in milliwatt units.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -1629,7 +1634,7 @@
                 "ResetType": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/ResetType",
                     "description": "The type of reset.",
-                    "longDescription": "This parameter shall contain the type of reset.  The service can accept a request without the parameter and perform an implementation specific default reset."
+                    "longDescription": "This parameter shall contain the type of reset.  The service can accept a request without the parameter and perform an implementation-specific default reset."
                 }
             },
             "patternProperties": {
@@ -2078,6 +2083,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2023.2",
-    "title": "#Memory.v1_18_0.Memory"
+    "release": "2023.3",
+    "title": "#Memory.v1_19_0.Memory"
 }

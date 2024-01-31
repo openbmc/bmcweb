@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  MetricDefinition v1.3.2                                             -->
+<!--# Redfish Schema:  MetricDefinition v1.3.3                                             -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -162,7 +162,7 @@
         <Property Name="Units" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The units of measure for this metric."/>
-          <Annotation Term="OData.LongDescription" String="This property shall specify the units of the metric.  This property shall be consistent with the case-sensitive ('C/s' column) Unified Code for Units of Measure.  Note: Not all units of measured are covered by UCUM."/>
+          <Annotation Term="OData.LongDescription" String="This property shall specify the units of the metric.  This property shall be consistent with the case-sensitive ('C/s' column) Unified Code for Units of Measure.  Note: Not all units of measure are covered by UCUM."/>
         </Property>
         <Property Name="Implementation" Type="MetricDefinition.v1_0_0.ImplementationType">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -338,7 +338,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricDefinition.v1_0_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format, and to add a missing term to several properties to disallow them from being null."/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format, and to add a missing term to several properties to disallow them from being `null`."/>
       <EntityType Name="MetricDefinition" BaseType="MetricDefinition.v1_0_1.MetricDefinition"/>
     </Schema>
 
@@ -390,10 +390,16 @@
       <EntityType Name="MetricDefinition" BaseType="MetricDefinition.v1_0_9.MetricDefinition"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricDefinition.v1_0_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="MetricDefinition" BaseType="MetricDefinition.v1_0_10.MetricDefinition"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricDefinition.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.3"/>
-      <Annotation Term="OData.Description" String="This version was created to remove to add `OEM` to CalculationAlgorithm."/>
+      <Annotation Term="OData.Description" String="This version was created to add `OEM` to CalculationAlgorithm."/>
 
       <EntityType Name="MetricDefinition" BaseType="MetricDefinition.v1_0_5.MetricDefinition">
         <Property Name="OEMCalculationAlgorithm" Type="Edm.String">
@@ -434,6 +440,12 @@
       <EntityType Name="MetricDefinition" BaseType="MetricDefinition.v1_1_4.MetricDefinition"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricDefinition.v1_1_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="MetricDefinition" BaseType="MetricDefinition.v1_1_5.MetricDefinition"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricDefinition.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.1"/>
@@ -460,6 +472,12 @@
       <EntityType Name="MetricDefinition" BaseType="MetricDefinition.v1_2_2.MetricDefinition"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricDefinition.v1_2_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="MetricDefinition" BaseType="MetricDefinition.v1_2_3.MetricDefinition"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricDefinition.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.1"/>
@@ -483,6 +501,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct the regular expression pattern for duration properties in JSON Schema and OpenAPI to not allow for negative values."/>
       <EntityType Name="MetricDefinition" BaseType="MetricDefinition.v1_3_1.MetricDefinition"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricDefinition.v1_3_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="MetricDefinition" BaseType="MetricDefinition.v1_3_2.MetricDefinition"/>
     </Schema>
 
   </edmx:DataServices>

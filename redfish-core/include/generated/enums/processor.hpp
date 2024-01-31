@@ -14,6 +14,7 @@ enum class ProcessorType{
     Accelerator,
     Core,
     Thread,
+    Partition,
     OEM,
 };
 
@@ -99,6 +100,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ProcessorType, {
     {ProcessorType::Accelerator, "Accelerator"},
     {ProcessorType::Core, "Core"},
     {ProcessorType::Thread, "Thread"},
+    {ProcessorType::Partition, "Partition"},
     {ProcessorType::OEM, "OEM"},
 });
 

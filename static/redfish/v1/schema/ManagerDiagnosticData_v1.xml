@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ManagerDiagnosticData v1.2.1                                        -->
+<!--# Redfish Schema:  ManagerDiagnosticData v1.2.2                                        -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -83,8 +83,8 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the processor statistics of the manager."/>
         </Property>
         <Property Name="BootTimeStatistics" Type="ManagerDiagnosticData.v1_0_0.BootTimeStatistics" Nullable="false">
-          <Annotation Term="OData.Description" String="The boot time statistics of the manager."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the boot time statistics of the manager."/>
+          <Annotation Term="OData.Description" String="The boot-time statistics of the manager."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the boot-time statistics of the manager."/>
         </Property>
         <Property Name="FreeStorageSpaceKiB" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -102,7 +102,7 @@
         </Property>
         <Property Name="Actions" Type="ManagerDiagnosticData.v1_0_0.Actions" Nullable="false">
           <Annotation Term="OData.Description" String="The available actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="The actions property shall contain the available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
         </Property>
       </EntityType>
 
@@ -225,8 +225,8 @@
 
       <ComplexType Name="BootTimeStatistics">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The boot time statistics of a manager."/>
-        <Annotation Term="OData.LongDescription" String="This object shall contain the boot time statistics of a manager."/>
+        <Annotation Term="OData.Description" String="The boot-time statistics of a manager."/>
+        <Annotation Term="OData.LongDescription" String="This object shall contain the boot-time statistics of a manager."/>
         <Property Name="FirmwareTimeSeconds" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The number of seconds the manager spent in the firmware stage."/>
@@ -260,12 +260,12 @@
         <Annotation Term="OData.LongDescription" String="This object shall contain the memory ECC statistics of a manager."/>
         <Property Name="CorrectableECCErrorCount" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The number of the correctable errors since reset."/>
+          <Annotation Term="OData.Description" String="The number of correctable errors since reset."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the number of correctable errors since reset."/>
         </Property>
         <Property Name="UncorrectableECCErrorCount" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The number of the uncorrectable errors since reset."/>
+          <Annotation Term="OData.Description" String="The number of uncorrectable errors since reset."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the number of uncorrectable errors since reset."/>
         </Property>
       </ComplexType>
@@ -291,6 +291,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the range of possible values for properties with percent units."/>
       <EntityType Name="ManagerDiagnosticData" BaseType="ManagerDiagnosticData.v1_0_0.ManagerDiagnosticData"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerDiagnosticData.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ManagerDiagnosticData" BaseType="ManagerDiagnosticData.v1_0_1.ManagerDiagnosticData"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerDiagnosticData.v1_1_0">
@@ -324,6 +330,12 @@
       <EntityType Name="ManagerDiagnosticData" BaseType="ManagerDiagnosticData.v1_1_0.ManagerDiagnosticData"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerDiagnosticData.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ManagerDiagnosticData" BaseType="ManagerDiagnosticData.v1_1_1.ManagerDiagnosticData"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerDiagnosticData.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.3"/>
@@ -341,6 +353,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the range of possible values for properties with percent units."/>
       <EntityType Name="ManagerDiagnosticData" BaseType="ManagerDiagnosticData.v1_2_0.ManagerDiagnosticData"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerDiagnosticData.v1_2_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ManagerDiagnosticData" BaseType="ManagerDiagnosticData.v1_2_1.ManagerDiagnosticData"/>
     </Schema>
 
   </edmx:DataServices>

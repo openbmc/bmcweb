@@ -1,7 +1,7 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/IPAddresses.v1_1_3.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/IPAddresses.v1_1_4.json",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "AddressState": {
             "enum": [
@@ -62,7 +62,7 @@
                 },
                 "Gateway": {
                     "description": "The IPv4 gateway for this address.",
-                    "longDescription": "This property shall contain the IPv4 default gateway address for this interface.  If DHCPv4 is enabled on the interface and is configured to set the IPv4 default gateway address, this property becomes read-only.  If multiple IPv4 addresses are present on the same interface only a single default gateway is allowed.  Any additional IPv4 addresses shall not have a default gateway specified.",
+                    "longDescription": "This property shall contain the IPv4 default gateway address for this interface.  If DHCPv4 is enabled on the interface and is configured to set the IPv4 default gateway address, this property becomes read-only.  If multiple IPv4 addresses are present on the same interface, only a single default gateway is allowed.  Any additional IPv4 addresses shall not have a default gateway specified.",
                     "pattern": "^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}$",
                     "readonly": false,
                     "type": [
@@ -316,5 +316,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2018.2",
-    "title": "#IPAddresses.v1_1_3"
+    "title": "#IPAddresses.v1_1_4"
 }

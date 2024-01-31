@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Assembly v1.4.0                                                     -->
+<!--# Redfish Schema:  Assembly v1.5.0                                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -18,6 +18,7 @@
     <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
     <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
@@ -207,7 +208,7 @@
         <Property Name="BinaryDataURI" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The URI at which to access an image of the assembly information."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the URI at which to access an image of the assembly information, using the Redfish protocol and authentication methods.  The Service provides this URI for the download of the OEM-specific binary image of the assembly data.  An HTTP GET from this URI shall return a response payload of MIME time `application/octet-stream`.  If the service supports it, an HTTP PUT to this URI shall replace the binary image of the assembly."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the URI at which to access an image of the assembly information, using the Redfish protocol and authentication methods.  The Service provides this URI for the download of the OEM-specific binary image of the assembly data.  An HTTP GET from this URI shall return a response payload of MIME type `application/octet-stream`.  If the service supports it, an HTTP PUT to this URI shall replace the binary image of the assembly."/>
           <Annotation Term="OData.IsURL"/>
         </Property>
         <Property Name="Actions" Type="Assembly.v1_0_0.AssemblyDataActions" Nullable="false">
@@ -278,6 +279,12 @@
       <EntityType Name="AssemblyData" BaseType="Assembly.v1_0_3.AssemblyData"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_0_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Assembly" BaseType="Assembly.v1_0_4.Assembly"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.1"/>
@@ -318,6 +325,12 @@
       <Annotation Term="OData.Description" String="This version was created to clarify the description for Version."/>
       <EntityType Name="Assembly" BaseType="Assembly.v1_1_3.Assembly"/>
       <EntityType Name="AssemblyData" BaseType="Assembly.v1_1_3.AssemblyData"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_1_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Assembly" BaseType="Assembly.v1_1_4.Assembly"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_2_0">
@@ -362,6 +375,12 @@
       <EntityType Name="AssemblyData" BaseType="Assembly.v1_2_2.AssemblyData"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_2_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Assembly" BaseType="Assembly.v1_2_3.Assembly"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.3"/>
@@ -376,9 +395,15 @@
         </Property>
         <Property Name="Location" Type="Resource.Location" Nullable="false">
           <Annotation Term="OData.Description" String="The location of the assembly."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain location information of the associated assembly."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the location information of the associated assembly."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_3_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Assembly" BaseType="Assembly.v1_3_0.Assembly"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_4_0">
@@ -391,7 +416,29 @@
         <Property Name="Replaceable" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An indication of whether the component associated this assembly can be independently replaced as allowed by the vendor's replacement policy."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the component associated this assembly can be independently replaced as allowed by the vendor's replacement policy.  A value of `false` indicates the component needs to be replaced by policy, as part of another component.  If the `LocationType` property of this assembly contains `Embedded`, this property shall contain `false`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the component associated this assembly can be independently replaced as allowed by the vendor's replacement policy.  A value of `false` indicates the component needs to be replaced by policy as part of another component.  If the `LocationType` property of this assembly contains `Embedded`, this property shall contain `false`."/>
+        </Property>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_4_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Assembly" BaseType="Assembly.v1_4_0.Assembly"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_5_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.3"/>
+
+      <EntityType Name="Assembly" BaseType="Assembly.v1_4_1.Assembly"/>
+
+      <EntityType Name="AssemblyData" BaseType="Assembly.v1_4_0.AssemblyData">
+        <Property Name="ISOCountryCodeOfOrigin" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The manufacturing country of origin, using the ISO 3166-1 country code."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the ISO 3166-1-defined alpha-2 or alpha-3 country code that reflects the manufacturing country of origin."/>
+          <Annotation Term="Validation.Pattern" String="^([A-Z]{2}|[A-Z]{3})$"/>
         </Property>
       </EntityType>
     </Schema>

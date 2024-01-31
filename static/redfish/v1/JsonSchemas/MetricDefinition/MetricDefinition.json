@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/MetricDefinition.v1_3_2.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/MetricDefinition.v1_3_3.json",
     "$ref": "#/definitions/MetricDefinition",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -430,7 +430,7 @@
                 },
                 "Units": {
                     "description": "The units of measure for this metric.",
-                    "longDescription": "This property shall specify the units of the metric.  This property shall be consistent with the case-sensitive ('C/s' column) Unified Code for Units of Measure.  Note: Not all units of measured are covered by UCUM.",
+                    "longDescription": "This property shall specify the units of the metric.  This property shall be consistent with the case-sensitive ('C/s' column) Unified Code for Units of Measure.  Note: Not all units of measure are covered by UCUM.",
                     "readonly": false,
                     "type": [
                         "string",
@@ -548,5 +548,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2022.1",
-    "title": "#MetricDefinition.v1_3_2.MetricDefinition"
+    "title": "#MetricDefinition.v1_3_3.MetricDefinition"
 }

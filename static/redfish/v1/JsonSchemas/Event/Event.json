@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Event.v1_9_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Event.v1_10_0.json",
     "$ref": "#/definitions/Event",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -249,7 +249,7 @@
                 },
                 "DiagnosticData": {
                     "description": "A Base64-encoded set of diagnostic data associated with this event.",
-                    "longDescription": "This property shall contain a Base64-encoded string that represents diagnostic data associated with this event.  The contents shall depend on the value of the DiagnosticDataType property.  The length of the value should not exceed 4KB.  Larger diagnostic data payloads should omit this property and use the AdditionalDataURI property to reference the data.  If both DiagnosticData and AdditionalDataURI are present, DiagnosticData shall contain the Base64-encoding of the data retrieved from the URI specified by the AdditionalDataURI property.",
+                    "longDescription": "This property shall contain a Base64-encoded string that represents diagnostic data associated with this event.  The contents shall depend on the value of the DiagnosticDataType property.  The length of the value should not exceed 4 KB.  Larger diagnostic data payloads should omit this property and use the AdditionalDataURI property to reference the data.  If both DiagnosticData and AdditionalDataURI are present, DiagnosticData shall contain the Base64-encoding of the data retrieved from the URI specified by the AdditionalDataURI property.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -369,6 +369,15 @@
                     "type": "string",
                     "versionAdded": "v1_9_0"
                 },
+                "ResolutionSteps": {
+                    "description": "The list of recommended steps to resolve the cause of the event.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/ResolutionStep.json#/definitions/ResolutionStep"
+                    },
+                    "longDescription": "This property shall contain an array of recommended steps to resolve the cause of the event.  This property shall not be present if the MessageSeverity or Severity properties contain `OK`.  A client can stop executing the resolution steps once the Resolved property in the associated LogEntry resource contains `true` or the Health property in the associated resource referenced by the OriginOfCondition property contains `OK`.",
+                    "type": "array",
+                    "versionAdded": "v1_10_0"
+                },
                 "Severity": {
                     "deprecated": "This property has been deprecated in favor of MessageSeverity, which ties the values to the enumerations defined for the Health property within Status.",
                     "description": "The severity of the event.",
@@ -464,6 +473,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2023.2",
-    "title": "#Event.v1_9_0.Event"
+    "release": "2023.3",
+    "title": "#Event.v1_10_0.Event"
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  StorageController v1.7.1                                            -->
+<!--# Redfish Schema:  StorageController v1.7.2                                            -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -238,7 +238,7 @@
         <Property Name="SKU" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The SKU for this storage controller."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the stock-keeping unit number for this storage storage controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the stock-keeping unit number for this storage controller."/>
         </Property>
         <Property Name="SerialNumber" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -257,8 +257,8 @@
         </Property>
         <Property Name="SupportedControllerProtocols" Type="Collection(Protocol.Protocol)" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The supported set of protocols for communicating to this storage controller."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the supported set of protocols for communicating to this storage controller."/>
+          <Annotation Term="OData.Description" String="The supported set of protocols for communicating with this storage controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the supported set of protocols for communicating with this storage controller."/>
         </Property>
         <Property Name="SupportedDeviceProtocols" Type="Collection(Protocol.Protocol)" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -271,7 +271,7 @@
         </Property>
         <Property Name="Location" Type="Resource.Location" Nullable="false">
           <Annotation Term="OData.Description" String="The location of the storage controller."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain location information of the associated storage controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the location information of the associated storage controller."/>
         </Property>
         <NavigationProperty Name="Assembly" Type="Assembly.Assembly" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -302,8 +302,8 @@
           <Annotation Term="OData.LongDescription" String="This object shall contain all the rate settings available on the controller."/>
         </Property>
         <Property Name="NVMeControllerProperties" Type="StorageController.v1_0_0.NVMeControllerProperties" Nullable="false">
-          <Annotation Term="OData.Description" String="The NVMe related properties for this storage controller."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain NVMe related properties for this storage controller."/>
+          <Annotation Term="OData.Description" String="The NVMe-related properties for this storage controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain NVMe-related properties for this storage controller."/>
         </Property>
         <Property Name="Links" Type="StorageController.v1_0_0.Links" Nullable="false">
           <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
@@ -327,7 +327,7 @@
         <NavigationProperty Name="PCIeFunctions" Type="Collection(PCIeFunction.PCIeFunction)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the PCIe functions that the storage controller produces."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type PCIeFunction that represents the PCIe functions associated with this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type PCIeFunction that represent the PCIe functions associated with this resource."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="AttachedVolumes" Type="Collection(Volume.Volume)">
@@ -411,8 +411,8 @@
 
       <ComplexType Name="NVMeControllerProperties">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="NVMe related properties for a storage controller."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain NVMe related properties for a storage controller."/>
+        <Annotation Term="OData.Description" String="NVMe-related properties for a storage controller."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain NVMe-related properties for a storage controller."/>
         <Property Name="ControllerType" Type="StorageController.v1_0_0.NVMeControllerType">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The type of NVMe controller."/>
@@ -429,8 +429,8 @@
         </Property>
         <Property Name="MaxQueueSize" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The maximum individual queue size that an NVMe IO controller supports."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum individual queue entry size supported per queue.  This is a zero-based value, where the minimum value is one, indicating two entries.  For PCIe, this applies to both submission and completion queues.  For NVMe-oF, this applies to only submission queues."/>
+          <Annotation Term="OData.Description" String="The maximum individual queue size that an NVMe I/O controller supports."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum individual queue entry size supported per queue.  This is a zero-based value, where the minimum value is one, indicating two entries.  For PCIe, this applies to both submission and completion queues.  For NVMe-oF, this applies only to submission queues."/>
         </Property>
         <Property Name="ANACharacteristics" Type="Collection(StorageController.v1_0_0.ANACharacteristics)">
           <Annotation Term="OData.Description" String="The ANA characteristics and volume information."/>
@@ -461,7 +461,7 @@
       <ComplexType Name="NVMeControllerAttributes">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="The NVMe controller attributes for a storage controller."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain NVMe controller attributes  for a storage controller."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain NVMe controller attributes for a storage controller."/>
         <Property Name="ReportsUUIDList" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Indicates whether or not the controller supports reporting of a UUID list."/>
@@ -479,8 +479,8 @@
         </Property>
         <Property Name="SupportsTrafficBasedKeepAlive" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Indicates whether or not the controller supports restarting Keep Alive Timer if traffic is processed from an admin command or IO during a Keep Alive Timeout interval."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether or not the controller supports restarting Keep Alive Timer if traffic is processed from an admin command or IO during a Keep Alive Timeout interval."/>
+          <Annotation Term="OData.Description" String="Indicates whether or not the controller supports restarting the Keep Alive Timer if traffic is processed from an admin command or I/O during a Keep Alive Timeout interval."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether or not the controller supports restarting the Keep Alive Timer if traffic is processed from an admin command or I/O during a Keep Alive Timeout interval."/>
         </Property>
         <Property Name="SupportsPredictableLatencyMode" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -504,8 +504,8 @@
         </Property>
         <Property Name="SupportsExceedingPowerOfNonOperationalState" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Indicates whether or not the controller supports exceeding Power of Non-Operational State in order to execute controller initiated background operations in a non-operational power state."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether or not the controller supports exceeding Power of Non-Operational State in order to execute controller initiated background operations in a non-operational power state."/>
+          <Annotation Term="OData.Description" String="Indicates whether or not the controller supports exceeding Power of Non-Operational State in order to execute controller-initiated background operations in a non-operational power state."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether or not the controller supports exceeding Power of Non-Operational State in order to execute controller-initiated background operations in a non-operational power state."/>
         </Property>
         <Property Name="Supports128BitHostId" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -527,8 +527,8 @@
         </Property>
         <Property Name="MediaInReadOnly" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Indicates the media has been placed in read only mode."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate the media has been placed in read only mode.  This is not set when the read-only condition on the media is a result of a change in the write protection state of a namespace."/>
+          <Annotation Term="OData.Description" String="Indicates the media has been placed in read-only mode."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the media has been placed in read-only mode.  This is not set when the read-only condition of the media is a result of a change in the write protection state of a namespace."/>
         </Property>
         <Property Name="OverallSubsystemDegraded" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -550,7 +550,7 @@
           <Annotation Term="OData.Description" String="The NVMe controller is a discovery controller."/>
         </Member>
         <Member Name="IO">
-          <Annotation Term="OData.Description" String="The NVMe controller is an IO controller."/>
+          <Annotation Term="OData.Description" String="The NVMe controller is an I/O controller."/>
         </Member>
       </EnumType>
 
@@ -559,13 +559,13 @@
           <Annotation Term="OData.Description" String="Commands processed by a controller provide optimized access to any namespace in the ANA group."/>
         </Member>
         <Member Name="NonOptimized">
-          <Annotation Term="OData.Description" String="Commands processed by a controller that reports this state for an ANA Group provide non-optimized access characteristics, such as lower performance or non-optimal use of subsystem resources, to any namespace in the ANA Group."/>
+          <Annotation Term="OData.Description" String="Commands processed by a controller that reports this state for an ANA group provide non-optimized access characteristics, such as lower performance or non-optimal use of subsystem resources, to any namespace in the ANA group."/>
         </Member>
         <Member Name="Inaccessible">
-          <Annotation Term="OData.Description" String="Namespaces in this group are inaccessible.  Commands are not able to access user data of namespaces in the ANA Group."/>
+          <Annotation Term="OData.Description" String="Namespaces in this group are inaccessible.  Commands are not able to access user data of namespaces in the ANA group."/>
         </Member>
         <Member Name="PersistentLoss">
-          <Annotation Term="OData.Description" String="The group is persistently inaccessible.  Commands are persistently not able to access user data of namespaces in the ANA Group."/>
+          <Annotation Term="OData.Description" String="The group is persistently inaccessible.  Commands are persistently not able to access user data of namespaces in the ANA group."/>
         </Member>
       </EnumType>
     </Schema>
@@ -578,7 +578,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_0_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="StorageController" BaseType="StorageController.v1_0_1.StorageController"/>
     </Schema>
 
@@ -586,6 +586,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the range of possible values for properties with percent units."/>
       <EntityType Name="StorageController" BaseType="StorageController.v1_0_2.StorageController"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_0_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="StorageController" BaseType="StorageController.v1_0_3.StorageController"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_1_0">
@@ -618,7 +624,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_1_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="StorageController" BaseType="StorageController.v1_1_0.StorageController"/>
     </Schema>
 
@@ -626,6 +632,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the range of possible values for properties with percent units."/>
       <EntityType Name="StorageController" BaseType="StorageController.v1_1_1.StorageController"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_1_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="StorageController" BaseType="StorageController.v1_1_2.StorageController"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_2_0">
@@ -657,6 +669,12 @@
       <EntityType Name="StorageController" BaseType="StorageController.v1_2_0.StorageController"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_2_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="StorageController" BaseType="StorageController.v1_2_1.StorageController"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
@@ -678,6 +696,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the range of possible values for properties with percent units."/>
       <EntityType Name="StorageController" BaseType="StorageController.v1_3_0.StorageController"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_3_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="StorageController" BaseType="StorageController.v1_3_1.StorageController"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_4_0">
@@ -706,6 +730,12 @@
       <EntityType Name="StorageController" BaseType="StorageController.v1_4_0.StorageController"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_4_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="StorageController" BaseType="StorageController.v1_4_1.StorageController"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
@@ -720,6 +750,12 @@
       <EntityType Name="StorageController" BaseType="StorageController.v1_5_0.StorageController"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_5_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="StorageController" BaseType="StorageController.v1_5_1.StorageController"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.1"/>
@@ -729,8 +765,8 @@
       <ComplexType Name="Links" BaseType="StorageController.v1_3_0.Links">
         <NavigationProperty Name="Batteries" Type="Collection(Battery.Battery)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The batteries that provide power to this storage controller during a power loss event."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Battery that represent the batteries that provide power to this storage controller during a power loss event, such as with battery-backed RAID controllers.  This property shall not be present if the batteries power the containing chassis as a whole rather than the individual storage controller."/>
+          <Annotation Term="OData.Description" String="The batteries that provide power to this storage controller during a power-loss event."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Battery that represent the batteries that provide power to this storage controller during a power-loss event, such as with battery-backed RAID controllers.  This property shall not be present if the batteries power the containing chassis as a whole rather than the individual storage controller."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -740,6 +776,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the range of possible values for properties with percent units."/>
       <EntityType Name="StorageController" BaseType="StorageController.v1_6_0.StorageController"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_6_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="StorageController" BaseType="StorageController.v1_6_1.StorageController"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_7_0">
@@ -793,6 +835,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the range of possible values for properties with percent units."/>
       <EntityType Name="StorageController" BaseType="StorageController.v1_7_0.StorageController"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_7_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="StorageController" BaseType="StorageController.v1_7_1.StorageController"/>
     </Schema>
 
   </edmx:DataServices>

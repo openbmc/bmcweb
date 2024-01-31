@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/EventDestination.v1_13_2.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/EventDestination.v1_14_0.json",
     "$ref": "#/definitions/EventDestination",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -102,7 +102,7 @@
                 "Certificates": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
                     "description": "The link to a collection of server certificates for the server referenced by the Destination property.",
-                    "longDescription": "This property shall contain a link to a resource collection of type CertificateCollection that represent the server certificates for the server referenced by the Destination property.  If VerifyCertificate is `true`, services shall compare the certificates in this collection with the certificate obtained during handshaking with the event destination in order to verify the identify of the event destination prior to sending an event.  If the server cannot be verified, the service shall not send the event.  If VerifyCertificate is `false`, the service shall not perform certificate verification with certificates in this collection.  Regardless of the contents of this collection, services may perform additional verification based on other factors, such as the configuration of the SecurityPolicy resource.",
+                    "longDescription": "This property shall contain a link to a resource collection of type CertificateCollection that represent the server certificates for the server referenced by the Destination property.  If VerifyCertificate is `true`, services shall compare the certificates in this collection with the certificate obtained during handshaking with the event destination in order to verify the identity of the event destination prior to sending an event.  If the server cannot be verified, the service shall not send the event.  If VerifyCertificate is `false`, the service shall not perform certificate verification with certificates in this collection.  Regardless of the contents of this collection, services may perform additional verification based on other factors, such as the configuration of the SecurityPolicy resource.",
                     "readonly": true,
                     "versionAdded": "v1_9_0"
                 },
@@ -218,11 +218,11 @@
                     "versionAdded": "v1_11_0"
                 },
                 "HttpHeaders": {
-                    "description": "An array of settings for HTTP headers, such as authorization information.  This array is null or an empty array in responses.  An empty array is the preferred return value on read operations.",
+                    "description": "An array of settings for HTTP headers, such as authorization information.  This array is `null` or an empty array in responses.  An empty array is the preferred return value on read operations.",
                     "items": {
                         "$ref": "#/definitions/HttpHeaderProperty"
                     },
-                    "longDescription": "This property shall contain an object consisting of the names and values of of HTTP header to be included with every event POST to the event destination.  This object shall be null or an empty array in responses.  An empty array is the preferred return value in responses.",
+                    "longDescription": "This property shall contain an array of objects consisting of the names and values of the HTTP headers to include with every event POST to the event destination.  This object shall be `null` or an empty array in responses.  An empty array is the preferred return value in responses.",
                     "type": "array"
                 },
                 "Id": {
@@ -230,7 +230,7 @@
                     "readonly": true
                 },
                 "IncludeOriginOfCondition": {
-                    "description": "An indication of whether the events subscribed to will also include the entire resource or object referenced the OriginOfCondition property in the event payload.",
+                    "description": "An indication of whether the events subscribed to will also include the entire resource or object referenced by the OriginOfCondition property in the event payload.",
                     "longDescription": "This property shall indicate whether the event payload sent to the subscription destination will expand the OriginOfCondition property to include the resource or object referenced by the OriginOfCondition property.",
                     "readonly": true,
                     "type": [
@@ -460,13 +460,13 @@
                 "SNMPv2c": "The destination follows the SNMPv2c protocol for event notifications.",
                 "SNMPv3": "The destination follows the SNMPv3 protocol for event notifications.",
                 "SyslogRELP": "The destination follows syslog RELP for event notifications.",
-                "SyslogTCP": "The destination follows syslog TCP-based for event notifications.",
-                "SyslogTLS": "The destination follows syslog TLS-based for event notifications.",
-                "SyslogUDP": "The destination follows syslog UDP-based for event notifications."
+                "SyslogTCP": "The destination follows syslog TCP-based transport for event notifications.",
+                "SyslogTLS": "The destination follows syslog TLS-based transport for event notifications.",
+                "SyslogUDP": "The destination follows syslog UDP-based transport for event notifications."
             },
             "enumLongDescriptions": {
                 "Kafka": "This value shall indicate the destination follows the Apache-defined Kafka protocol as defined by the Kafka Protocol Guide.  The Context property shall contain the Kafka topic of the destination broker.",
-                "OEM": "This value shall indicate an OEM specific protocol.  The OEMProtocol property shall contain the specific OEM event destination protocol.",
+                "OEM": "This value shall indicate an OEM-specific protocol.  The OEMProtocol property shall contain the specific OEM event destination protocol.",
                 "Redfish": "This value shall indicate the destination follows the Redfish Specification for event notifications.  Destinations requesting EventFormatType of `Event` shall receive a Redfish resource of type Event.  Destinations requesting EventFormatType of `MetricReport` shall receive a Redfish resource of type MetricReport.",
                 "SMTP": "This value shall indicate the destination follows the RFC5321-defined SMTP specification.",
                 "SNMPv1": "This value shall indicate the destination follows the RFC1157-defined SNMPv1 protocol.",
@@ -543,7 +543,7 @@
             "parameters": {
                 "DeliverBufferedEventDuration": {
                     "description": "The maximum age of buffered events that should be delivered when resuming the subscription.",
-                    "longDescription": "This parameter shall indicate the event age of any buffered or otherwise undelivered events that shall be delivered to this event destination when the subscription is resumed.  The service shall deliver any available, previously undelivered event that was created within the duration specified.  A value that equates to zero time, such as `PT0S`, shall indicate that no previously undelivered events shall be sent.  If undelivered events within the duration may been discarded due to a lack of buffer space, the service should send the EventBufferExceeded message from the Base Message Registry.  If the client does not provide this parameter, the service shall apply an implementation specific duration.",
+                    "longDescription": "This parameter shall indicate the event age of any buffered or otherwise undelivered events that shall be delivered to this event destination when the subscription is resumed.  The service shall deliver any available, previously undelivered event that was created within the duration specified.  A value that equates to zero time, such as `PT0S`, shall indicate that no previously undelivered events shall be sent.  If undelivered events within the duration may have been discarded due to a lack of buffer space, the service should send the EventBufferExceeded message from the Base Message Registry.  If the client does not provide this parameter, the service shall apply an implementation-specific duration.",
                     "pattern": "^P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?$",
                     "type": "string",
                     "versionAdded": "v1_12_0"
@@ -619,17 +619,27 @@
             "enum": [
                 "None",
                 "CBC_DES",
-                "CFB128_AES128"
+                "CFB128_AES128",
+                "CFB128_AES192",
+                "CFB128_AES256"
             ],
             "enumDescriptions": {
                 "CBC_DES": "CBC-DES encryption.",
                 "CFB128_AES128": "CFB128-AES-128 encryption.",
+                "CFB128_AES192": "CFB128-AES-192 encryption.",
+                "CFB128_AES256": "CFB128-AES-256 encryption.",
                 "None": "No encryption."
             },
             "enumLongDescriptions": {
                 "CBC_DES": "This value shall indicate encryption conforms to the RFC3414-defined CBC-DES encryption protocol.",
-                "CFB128_AES128": "This value shall indicate encryption conforms to the RFC3414-defined CFB128-AES-128 encryption protocol.",
+                "CFB128_AES128": "This value shall indicate encryption conforms to the RFC3826-defined CFB128-AES-128 encryption protocol.",
+                "CFB128_AES192": "This value shall indicate encryption conforms to the CFB128-AES-192 encryption protocol, extended from RFC3826.",
+                "CFB128_AES256": "This value shall indicate encryption conforms to the CFB128-AES-256 encryption protocol, extended from RFC3826.",
                 "None": "This value shall indicate there is no encryption."
+            },
+            "enumVersionAdded": {
+                "CFB128_AES192": "v1_14_0",
+                "CFB128_AES256": "v1_14_0"
             },
             "type": "string"
         },
@@ -747,7 +757,7 @@
                 "SNMPInform": "The subscription follows versions 2 and 3 of SNMP Inform for event notifications.",
                 "SNMPTrap": "The subscription follows the various versions of SNMP Traps for event notifications.",
                 "SSE": "The subscription follows the HTML5 server-sent event definition for event notifications.",
-                "Syslog": "The subscription sends Syslog messages for event notifications."
+                "Syslog": "The subscription sends syslog messages for event notifications."
             },
             "enumLongDescriptions": {
                 "OEM": "This value shall indicate an OEM subscription type.  The OEMSubscriptionType property shall contain the specific OEM subscription type.",
@@ -935,6 +945,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2022.3",
-    "title": "#EventDestination.v1_13_2.EventDestination"
+    "release": "2023.3",
+    "title": "#EventDestination.v1_14_0.EventDestination"
 }

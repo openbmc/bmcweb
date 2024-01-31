@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Assembly.v1_4_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Assembly.v1_5_0.json",
     "$ref": "#/definitions/Assembly",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -141,7 +141,7 @@
                 "BinaryDataURI": {
                     "description": "The URI at which to access an image of the assembly information.",
                     "format": "uri-reference",
-                    "longDescription": "This property shall contain the URI at which to access an image of the assembly information, using the Redfish protocol and authentication methods.  The Service provides this URI for the download of the OEM-specific binary image of the assembly data.  An HTTP GET from this URI shall return a response payload of MIME time `application/octet-stream`.  If the service supports it, an HTTP PUT to this URI shall replace the binary image of the assembly.",
+                    "longDescription": "This property shall contain the URI at which to access an image of the assembly information, using the Redfish protocol and authentication methods.  The Service provides this URI for the download of the OEM-specific binary image of the assembly data.  An HTTP GET from this URI shall return a response payload of MIME type `application/octet-stream`.  If the service supports it, an HTTP PUT to this URI shall replace the binary image of the assembly.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -166,10 +166,21 @@
                         "null"
                     ]
                 },
+                "ISOCountryCodeOfOrigin": {
+                    "description": "The manufacturing country of origin, using the ISO 3166-1 country code.",
+                    "longDescription": "This property shall contain the ISO 3166-1-defined alpha-2 or alpha-3 country code that reflects the manufacturing country of origin.",
+                    "pattern": "^([A-Z]{2}|[A-Z]{3})$",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_0"
+                },
                 "Location": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location",
                     "description": "The location of the assembly.",
-                    "longDescription": "This property shall contain location information of the associated assembly.",
+                    "longDescription": "This property shall contain the location information of the associated assembly.",
                     "versionAdded": "v1_3_0"
                 },
                 "LocationIndicatorActive": {
@@ -248,7 +259,7 @@
                 },
                 "Replaceable": {
                     "description": "An indication of whether the component associated this assembly can be independently replaced as allowed by the vendor's replacement policy.",
-                    "longDescription": "This property shall indicate whether the component associated this assembly can be independently replaced as allowed by the vendor's replacement policy.  A value of `false` indicates the component needs to be replaced by policy, as part of another component.  If the `LocationType` property of this assembly contains `Embedded`, this property shall contain `false`.",
+                    "longDescription": "This property shall indicate whether the component associated this assembly can be independently replaced as allowed by the vendor's replacement policy.  A value of `false` indicates the component needs to be replaced by policy as part of another component.  If the `LocationType` property of this assembly contains `Embedded`, this property shall contain `false`.",
                     "readonly": true,
                     "type": [
                         "boolean",
@@ -386,6 +397,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2022.2",
-    "title": "#Assembly.v1_4_0.Assembly"
+    "release": "2022.3",
+    "title": "#Assembly.v1_5_0.Assembly"
 }

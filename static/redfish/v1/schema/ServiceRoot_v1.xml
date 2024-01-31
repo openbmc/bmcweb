@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ServiceRoot v1.16.0                                                 -->
+<!--# Redfish Schema:  ServiceRoot v1.16.1                                                 -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -183,7 +183,7 @@
         <Property Name="UUID" Type="Edm.Guid">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Unique identifier for a service instance.  When SSDP is used, this value contains the same UUID returned in an HTTP `200 OK` response from an SSDP `M-SEARCH` request during discovery."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the identifier of the Redfish service instance.  If SSDP is used, this value shall contain the same UUID returned in an HTTP `200 OK` response from an SSDP `M-SEARCH` request during discovery.  RFC4122 describes methods to use to create a UUID value.  The value should be considered to be opaque.  Client software should only treat the overall value as a universally unique identifier and should not interpret any sub-fields within the UUID."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the identifier of the Redfish service instance.  If SSDP is used, this value shall contain the same UUID returned in an HTTP `200 OK` response from an SSDP `M-SEARCH` request during discovery.  RFC4122 describes methods to use to create a UUID value.  The value should be considered to be opaque.  Client software should only treat the overall value as a universally unique identifier and should not interpret any subfields within the UUID."/>
         </Property>
         <NavigationProperty Name="Systems" Type="ComputerSystemCollection.ComputerSystemCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -320,6 +320,12 @@
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_0_10.ServiceRoot"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_0_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_0_11.ServiceRoot"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.2"/>
@@ -404,6 +410,12 @@
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_1_7.ServiceRoot"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_1_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_1_8.ServiceRoot"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
@@ -458,6 +470,12 @@
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_2_5.ServiceRoot"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_2_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_2_6.ServiceRoot"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.3"/>
@@ -478,48 +496,48 @@
         <Annotation Term="OData.Description" String="The information about protocol features that the service supports."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain information about protocol features that the service supports."/>
         <Property Name="ExpandQuery" Type="ServiceRoot.v1_3_0.Expand" Nullable="false">
-          <Annotation Term="OData.Description" String="The information about the use of $expand in the service."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain information about the support of the $expand query parameter by the service."/>
+          <Annotation Term="OData.Description" String="The information about the use of `$expand` in the service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain information about the support of the `$expand` query parameter by the service."/>
         </Property>
         <Property Name="FilterQuery" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An indication of whether the service supports the $filter query parameter."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports the $filter query parameter."/>
+          <Annotation Term="OData.Description" String="An indication of whether the service supports the `$filter` query parameter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports the `$filter` query parameter."/>
         </Property>
         <Property Name="SelectQuery" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An indication of whether the service supports the $select query parameter."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports the $select query parameter."/>
+          <Annotation Term="OData.Description" String="An indication of whether the service supports the `$select` query parameter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports the `$select` query parameter."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="Expand">
-        <Annotation Term="OData.Description" String="The information about the use of $expand in the service."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain information about the support of the $expand query parameter by the service."/>
+        <Annotation Term="OData.Description" String="The information about the use of `$expand` in the service."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain information about the support of the `$expand` query parameter by the service."/>
         <Property Name="Links" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An indication of whether this service supports the tilde (`~`) option of the $expand query parameter."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports the supports the tilde (~) option of the $expand query parameter."/>
+          <Annotation Term="OData.Description" String="An indication of whether this service supports the tilde (`~`) option of the `$expand` query parameter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports the supports the tilde (~) option of the `$expand` query parameter."/>
         </Property>
         <Property Name="NoLinks" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An indication of whether the service supports the period (`.`) option of the $expand query parameter."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the service supports the period (`.`) option of the $expand query parameter."/>
+          <Annotation Term="OData.Description" String="An indication of whether the service supports the period (`.`) option of the `$expand` query parameter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the service supports the period (`.`) option of the `$expand` query parameter."/>
         </Property>
         <Property Name="ExpandAll" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An indication of whether the service supports the asterisk (`*`) option of the $expand query parameter."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports the asterisk (`*`) option of the $expand query parameter."/>
+          <Annotation Term="OData.Description" String="An indication of whether the service supports the asterisk (`*`) option of the `$expand` query parameter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports the asterisk (`*`) option of the `$expand` query parameter."/>
         </Property>
         <Property Name="Levels" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An indication of whether the service supports the $levels option of the $expand query parameter."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the service supports the $levels option of the $expand query parameter."/>
+          <Annotation Term="OData.Description" String="An indication of whether the service supports the `$levels` option of the `$expand` query parameter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the service supports the `$levels` option of the `$expand` query parameter."/>
         </Property>
         <Property Name="MaxLevels" Type="Edm.Int64" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The maximum $levels option value in the $expand query parameter."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum $levels option value in the $expand query parameter.  This property shall be present if the Levels property contains `true`."/>
+          <Annotation Term="OData.Description" String="The maximum `$levels` option value in the `$expand` query parameter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum `$levels` option value in the `$expand` query parameter.  This property shall be present if the Levels property contains `true`."/>
           <Annotation Term="Validation.Minimum" Int="1"/>
         </Property>
       </ComplexType>
@@ -539,7 +557,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_3_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that the Product property can be marked as a nullable property."/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema to disallow the Product property from being `null`."/>
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_3_2.ServiceRoot"/>
     </Schema>
 
@@ -567,10 +585,16 @@
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_3_6.ServiceRoot"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_3_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_3_7.ServiceRoot"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
-      <Annotation Term="OData.Description" String="This version was created to add support of the 'excerpt' and 'only' query parameters to ProtocolFeaturesSupported.  It was also created to add the JobService and Telemetry properties."/>
+      <Annotation Term="OData.Description" String="This version was created to add support of the `excerpt` and `only` query parameters to ProtocolFeaturesSupported.  It was also created to add the JobService and Telemetry properties."/>
 
       <EntityContainer Name="ServiceContainer" Extends="ServiceRoot.v1_2_0.ServiceContainer">
         <Singleton Name="JobService" Type="JobService.JobService"/>
@@ -595,20 +619,20 @@
       <ComplexType Name="ProtocolFeaturesSupported" BaseType="ServiceRoot.v1_3_0.ProtocolFeaturesSupported">
         <Property Name="ExcerptQuery" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An indication of whether the service supports the excerpt query parameter."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports the excerpt query parameter."/>
+          <Annotation Term="OData.Description" String="An indication of whether the service supports the `excerpt` query parameter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports the `excerpt` query parameter."/>
         </Property>
         <Property Name="OnlyMemberQuery" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An indication of whether the service supports the only query parameter."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports the only query parameter."/>
+          <Annotation Term="OData.Description" String="An indication of whether the service supports the `only` query parameter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports the `only` query parameter."/>
         </Property>
       </ComplexType>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_4_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that the Product property can be marked as a nullable property."/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema to disallow the Product property from being `null`."/>
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_4_0.ServiceRoot"/>
     </Schema>
 
@@ -622,6 +646,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_4_2.ServiceRoot"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_4_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_4_3.ServiceRoot"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_4_6">
@@ -690,6 +720,12 @@
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_5_3.ServiceRoot"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_5_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_5_4.ServiceRoot"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.4"/>
@@ -724,6 +760,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add the URI segment annotation to Tasks."/>
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_6_1.ServiceRoot"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_6_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_6_2.ServiceRoot"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_7_0">
@@ -774,6 +816,12 @@
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_7_1.ServiceRoot"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_7_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_7_2.ServiceRoot"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.2"/>
@@ -802,6 +850,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add the URI segment annotation to Tasks."/>
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_8_1.ServiceRoot"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_8_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_8_2.ServiceRoot"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_9_0">
@@ -834,6 +888,12 @@
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_9_1.ServiceRoot"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_9_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_9_2.ServiceRoot"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.1"/>
@@ -862,6 +922,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add the URI segment annotation to Tasks."/>
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_10_1.ServiceRoot"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_10_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_10_2.ServiceRoot"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_11_0">
@@ -900,6 +966,12 @@
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_11_1.ServiceRoot"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_11_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_11_2.ServiceRoot"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_12_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.3"/>
@@ -928,6 +1000,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add the URI segment annotation to Tasks."/>
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_12_1.ServiceRoot"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_12_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_12_2.ServiceRoot"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_13_0">
@@ -971,6 +1049,12 @@
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_13_1.ServiceRoot"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_13_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_13_2.ServiceRoot"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_14_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.1"/>
@@ -979,7 +1063,7 @@
         <Property Name="ServiceIdentification" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The vendor or user-provided product and service identifier."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a vendor or user-provided value that identifies and associates a discovered Redfish service with a particular product instance.  The value of the property shall contain the value of the `ServiceIdentification` property in the Manager resource providing the Redfish service root resource.  The value of this property can be used during deployment processes to match user credentials or other a priori product instance information to the appropriate Redfish service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a vendor-provided or user-provided value that identifies and associates a discovered Redfish service with a particular product instance.  The value of the property shall contain the value of the ServiceIdentification property in the Manager resource providing the Redfish service root resource.  The value of this property is used in conjunction with the Product and Vendor properties to match user credentials or other a priori product instance information necessary for initial deployment to the correct, matching Redfish service.  This property shall not be present if its value is an empty string or `null`."/>
         </Property>
       </EntityType>
 
@@ -1004,6 +1088,12 @@
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_14_1.ServiceRoot"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_14_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the ServiceIdentifcation property.  It was also created to correct various typographical errors."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_14_2.ServiceRoot"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_15_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.3"/>
@@ -1025,6 +1115,12 @@
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_15_0.ServiceRoot"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_15_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the ServiceIdentifcation property.  It was also created to correct various typographical errors."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_15_1.ServiceRoot"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_16_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.1"/>
@@ -1041,6 +1137,12 @@
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_16_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the ServiceIdentifcation property.  It was also created to correct various typographical errors."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_16_0.ServiceRoot"/>
     </Schema>
 
   </edmx:DataServices>

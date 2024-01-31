@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Cable v1.2.0                                                        -->
+<!--# Redfish Schema:  Cable v1.2.2                                                        -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -164,7 +164,7 @@
         </Property>
         <Property Name="Location" Type="Resource.Location" Nullable="false">
           <Annotation Term="OData.Description" String="The location of the assembly."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain location information of the associated assembly."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the location information of the associated assembly."/>
         </Property>
         <NavigationProperty Name="Assembly" Type="Assembly.Assembly" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -209,7 +209,7 @@
 
       <EnumType Name="ConnectorType">
         <Member Name="ACPower">
-          <Annotation Term="OData.Description" String="This cable connects to a AC power connector."/>
+          <Annotation Term="OData.Description" String="This cable connects to an AC power connector."/>
         </Member>
         <Member Name="DB9">
           <Annotation Term="OData.Description" String="This cable connects to a DB9 connector."/>
@@ -248,10 +248,10 @@
           <Annotation Term="OData.Description" String="This cable connects to a SlimSAS connector."/>
         </Member>
         <Member Name="SFP">
-          <Annotation Term="OData.Description" String="This cable connects to a SFP connector."/>
+          <Annotation Term="OData.Description" String="This cable connects to an SFP connector."/>
         </Member>
         <Member Name="SFPPlus">
-          <Annotation Term="OData.Description" String="This cable connects to a SFPPlus connector."/>
+          <Annotation Term="OData.Description" String="This cable connects to an SFPPlus connector."/>
         </Member>
         <Member Name="USBA">
           <Annotation Term="OData.Description" String="This cable connects to a USB-A connector."/>
@@ -274,7 +274,7 @@
           </Annotation>
         </Member>
         <Member Name="OSFP">
-          <Annotation Term="OData.Description" String="This cable connects to a OSFP connector."/>
+          <Annotation Term="OData.Description" String="This cable connects to an OSFP connector."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -289,15 +289,15 @@
       <EnumType Name="CableStatus">
         <Member Name="Normal">
           <Annotation Term="OData.Description" String="The cable is operating normally."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the cable is operating normally.  The State property in Status shall contain the value `Enabled` and The Health property in Status shall contain the value `OK`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the cable is operating normally.  The State property in Status shall contain the value `Enabled` and the Health property in Status shall contain the value `OK`."/>
         </Member>
         <Member Name="Degraded">
           <Annotation Term="OData.Description" String="The cable is degraded."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the cable is degraded.  The State property in Status shall contain the value `Enabled` and The Health property in Status shall contain the value `Warning`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the cable is degraded.  The State property in Status shall contain the value `Enabled` and the Health property in Status shall contain the value `Warning`."/>
         </Member>
         <Member Name="Failed">
           <Annotation Term="OData.Description" String="The cable has failed."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the cable has failed.  The State property in Status shall contain the value `Enabled` and The Health property in Status shall contain the value `Critical`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the cable has failed.  The State property in Status shall contain the value `Enabled` and the Health property in Status shall contain the value `Critical`."/>
         </Member>
         <Member Name="Testing">
           <Annotation Term="OData.Description" String="The cable is under test."/>
@@ -377,6 +377,12 @@
       <EntityType Name="Cable" BaseType="Cable.v1_0_0.Cable"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Cable.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Cable" BaseType="Cable.v1_0_1.Cable"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Cable.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.3"/>
@@ -396,6 +402,12 @@
       <EntityType Name="Cable" BaseType="Cable.v1_1_0.Cable"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Cable.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Cable" BaseType="Cable.v1_1_1.Cable"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Cable.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
@@ -408,6 +420,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to remove the additional properties term in the root of the resource, which was incorrectly set to `true`."/>
       <EntityType Name="Cable" BaseType="Cable.v1_2_0.Cable"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Cable.v1_2_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Cable" BaseType="Cable.v1_2_1.Cable"/>
     </Schema>
 
   </edmx:DataServices>

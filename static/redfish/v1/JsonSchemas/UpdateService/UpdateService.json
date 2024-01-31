@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/UpdateService.v1_12_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/UpdateService.v1_13_0.json",
     "$ref": "#/definitions/UpdateService",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -23,6 +23,12 @@
                 }
             },
             "properties": {
+                "#UpdateService.GenerateSSHIdentityKeyPair": {
+                    "$ref": "#/definitions/GenerateSSHIdentityKeyPair"
+                },
+                "#UpdateService.RemoveSSHIdentityKeyPair": {
+                    "$ref": "#/definitions/RemoveSSHIdentityKeyPair"
+                },
                 "#UpdateService.SimpleUpdate": {
                     "$ref": "#/definitions/SimpleUpdate"
                 },
@@ -63,6 +69,56 @@
                 "OnStartUpdateRequest": "v1_11_0"
             },
             "type": "string"
+        },
+        "GenerateSSHIdentityKeyPair": {
+            "additionalProperties": false,
+            "description": "This action generates a new SSH identity key-pair to be used with the UpdateService resource.  The generated public key is stored in the Key resource referenced by the PublicIdentitySSHKey property.  Any existing key-pair is deleted and replaced by the new key-pair.",
+            "longDescription": "This action shall generate a new SSH identity key-pair to be used with the UpdateService resource.  The service shall store the generated public key in the Key resource referenced by the PublicIdentitySSHKey property.  If the UpdateService already has an associated SSH identity key-pair, the service shall delete the key-pair and replace it with the new key-pair.",
+            "parameters": {
+                "Curve": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Key.json#/definitions/ECDSACurveType",
+                    "description": "The curve to use with the SSH key if the KeyType parameter contains `ECDSA`.",
+                    "longDescription": "This parameter shall contain the curve to use with the SSH key.  This parameter shall be required if the KeyType parameter contains `ECDSA` and shall be rejected for other values."
+                },
+                "KeyLength": {
+                    "description": "The length of the SSH key, in bits, if the KeyType parameter contains `RSA`.",
+                    "longDescription": "This parameter shall contain the length of the SSH key, in bits.  This parameter shall be required if the KeyType parameter contains `RSA` and shall be rejected for other values.",
+                    "type": "integer"
+                },
+                "KeyType": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Key.json#/definitions/SSHKeyType",
+                    "description": "The type of SSH key.",
+                    "longDescription": "This parameter shall contain the type of SSH key.",
+                    "requiredParameter": true
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_13_0"
         },
         "HttpPushUriApplyTime": {
             "additionalProperties": false,
@@ -166,6 +222,39 @@
             "properties": {},
             "type": "object"
         },
+        "RemoveSSHIdentityKeyPair": {
+            "additionalProperties": false,
+            "description": "This action removes the SSH identity key-pair used with the UpdateService resource.",
+            "longDescription": "This action shall remove the private SSH identity key-pair used with the UpdateService resource.",
+            "parameters": {},
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_13_0"
+        },
         "SimpleUpdate": {
             "additionalProperties": false,
             "description": "This action updates software components.",
@@ -179,6 +268,7 @@
                 },
                 "ImageURI": {
                     "description": "The URI of the software image to install.",
+                    "format": "uri-reference",
                     "longDescription": "This parameter shall contain an RFC3986-defined URI that links to a software image that the update service retrieves to install software in that image.  This URI should contain a scheme that describes the transfer protocol.  If the TransferProtocol parameter is absent or not supported, and a transfer protocol is not specified by a scheme contained within this URI, the service shall use HTTP to get the image.",
                     "requiredParameter": true,
                     "type": "string"
@@ -270,6 +360,33 @@
             },
             "type": "object",
             "versionAdded": "v1_7_0"
+        },
+        "SupportedUpdateImageFormatType": {
+            "enum": [
+                "PLDMv1_0",
+                "PLDMv1_1",
+                "PLDMv1_2",
+                "PLDMv1_3",
+                "UEFICapsule",
+                "VendorDefined"
+            ],
+            "enumDescriptions": {
+                "PLDMv1_0": "A PLDM for Firmware Update Specification v1.0 image.",
+                "PLDMv1_1": "A PLDM for Firmware Update Specification v1.1 image.",
+                "PLDMv1_2": "A PLDM for Firmware Update Specification v1.2 image.",
+                "PLDMv1_3": "A PLDM for Firmware Update Specification v1.3 image.",
+                "UEFICapsule": "The image conforms to the capsule format described in the UEFI Specification.",
+                "VendorDefined": "A vendor-defined image."
+            },
+            "enumLongDescriptions": {
+                "PLDMv1_0": "This value shall indicate an image that conforms to the v1.0 image format as defined in DMTF DSP0267.",
+                "PLDMv1_1": "This value shall indicate an image that conforms to the v1.1 image format as defined in DMTF DSP0267.",
+                "PLDMv1_2": "This value shall indicate an image that conforms to the v1.2 image format as defined in DMTF DSP0267.",
+                "PLDMv1_3": "This value shall indicate an image that conforms to the v1.3 image format as defined in DMTF DSP0267.",
+                "UEFICapsule": "This value shall indicate an image that conforms to the UEFI capsule format as defined in the UEFI Specification.",
+                "VendorDefined": "This value shall indicate a vendor-defined format."
+            },
+            "type": "string"
         },
         "TransferProtocolType": {
             "enum": [
@@ -457,7 +574,7 @@
                 },
                 "HttpPushUriTargetsBusy": {
                     "description": "An indication of whether any client has reserved the HttpPushUriTargets property.",
-                    "longDescription": "This property shall indicate whether any client has reserved the HttpPushUriTargets property for firmware updates.  A client should set this property to `true` when it uses HttpPushUriTargets for firmware updates.  A client should set it to `false` when it is no longer uses HttpPushUriTargets for updates.  The property can provide multiple clients a way to negotiate ownership of HttpPushUriTargets and helps clients determine whether another client is using HttpPushUriTargets to make firmware updates.  This property has no functional requirements for the service.",
+                    "longDescription": "This property shall indicate whether any client has reserved the HttpPushUriTargets property for firmware updates.  A client should set this property to `true` when it uses HttpPushUriTargets for firmware updates.  A client should set it to `false` when it no longer uses HttpPushUriTargets for updates.  The property can provide multiple clients a way to negotiate ownership of HttpPushUriTargets and helps clients determine whether another client is using HttpPushUriTargets to make firmware updates.  This property has no functional requirements for the service.",
                     "readonly": false,
                     "type": [
                         "boolean",
@@ -497,17 +614,24 @@
                     "description": "The OEM extension property.",
                     "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
                 },
+                "PublicIdentitySSHKey": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Key.json#/definitions/Key",
+                    "description": "A link to the public key that is used with the SimpleUpdate action for the key-based authentication.  The GenerateSSHIdentityKeyPair and RemoveSSHIdentityKeyPair are used to update the key for the SimpleUpdate action.",
+                    "longDescription": "This property shall contain a link to a resource of type Key that represents the public key that is used with the SimpleUpdate action for the key-based authentication.  This property shall not be present if a key-pair is not available.",
+                    "readonly": true,
+                    "versionAdded": "v1_13_0"
+                },
                 "RemoteServerCertificates": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
                     "description": "The link to a collection of server certificates for the server referenced by the ImageURI property in SimpleUpdate.",
-                    "longDescription": "This property shall contain a link to a resource collection of type CertificateCollection that represents the server certificates for the server referenced by the ImageURI property in SimpleUpdate.  If VerifyRemoteServerCertificate is `true`, services shall compare the certificates in this collection with the certificate obtained during handshaking with the image server in order to verify the identify of the image server prior to transferring the image.  If the server cannot be verified, the service shall not send the transfer request.  If VerifyRemoteServerCertificate is `false`, the service shall not perform certificate verification with certificates in this collection.  Regardless of the contents of this collection, services may perform additional verification based on other factors, such as the configuration of the SecurityPolicy resource.",
+                    "longDescription": "This property shall contain a link to a resource collection of type CertificateCollection that represents the server certificates for the server referenced by the ImageURI property in SimpleUpdate.  If VerifyRemoteServerCertificate is `true`, services shall compare the certificates in this collection with the certificate obtained during handshaking with the image server in order to verify the identity of the image server prior to transferring the image.  If the server cannot be verified, the service shall not send the transfer request.  If VerifyRemoteServerCertificate is `false`, the service shall not perform certificate verification with certificates in this collection.  Regardless of the contents of this collection, services may perform additional verification based on other factors, such as the configuration of the SecurityPolicy resource.",
                     "readonly": true,
                     "versionAdded": "v1_9_0"
                 },
                 "RemoteServerSSHKeys": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/KeyCollection.json#/definitions/KeyCollection",
                     "description": "The link to a collection of keys that can be used to authenticate the server referenced by the ImageURI property in SimpleUpdate.",
-                    "longDescription": "This property shall contain a link to a resource collection of type KeyCollection that represents the server SSH keys for the server referenced by the ImageURI property in SimpleUpdate.  If VerifyRemoteServerSSHKey is `true`, services shall compare the keys in this collection with the key obtained during handshaking with the image server in order to verify the identify of the image server prior to transferring the image.  If the server cannot be verified, the service shall not send the transfer request.  If VerifyRemoteServerSSHKey is `false`, the service shall not perform key verification with keys in this collection.",
+                    "longDescription": "This property shall contain a link to a resource collection of type KeyCollection that represents the server SSH keys for the server referenced by the ImageURI property in SimpleUpdate.  If VerifyRemoteServerSSHKey is `true`, services shall compare the keys in this collection with the key obtained during handshaking with the image server in order to verify the identity of the image server prior to transferring the image.  If the server cannot be verified, the service shall not send the transfer request.  If VerifyRemoteServerSSHKey is `false`, the service shall not perform key verification with keys in this collection.",
                     "readonly": true,
                     "versionAdded": "v1_12_0"
                 },
@@ -530,6 +654,23 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
                     "description": "The status and health of the resource and its subordinate or dependent resources.",
                     "longDescription": "This property shall contain any status or health properties of the resource."
+                },
+                "SupportedUpdateImageFormats": {
+                    "description": "The image format types supported by the service.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/SupportedUpdateImageFormatType"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain the image format types supported by the service.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_13_0"
                 },
                 "VerifyRemoteServerCertificate": {
                     "description": "An indication of whether the service will verify the certificate of the server referenced by the ImageURI property in SimpleUpdate prior to sending the transfer request.",
@@ -562,6 +703,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2023.2",
-    "title": "#UpdateService.v1_12_0.UpdateService"
+    "release": "2023.3",
+    "title": "#UpdateService.v1_13_0.UpdateService"
 }

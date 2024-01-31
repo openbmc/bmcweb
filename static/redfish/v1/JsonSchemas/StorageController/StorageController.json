@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/StorageController.v1_7_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/StorageController.v1_7_2.json",
     "$ref": "#/definitions/StorageController",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -12,10 +12,10 @@
                 "PersistentLoss"
             ],
             "enumDescriptions": {
-                "Inaccessible": "Namespaces in this group are inaccessible.  Commands are not able to access user data of namespaces in the ANA Group.",
-                "NonOptimized": "Commands processed by a controller that reports this state for an ANA Group provide non-optimized access characteristics, such as lower performance or non-optimal use of subsystem resources, to any namespace in the ANA Group.",
+                "Inaccessible": "Namespaces in this group are inaccessible.  Commands are not able to access user data of namespaces in the ANA group.",
+                "NonOptimized": "Commands processed by a controller that reports this state for an ANA group provide non-optimized access characteristics, such as lower performance or non-optimal use of subsystem resources, to any namespace in the ANA group.",
                 "Optimized": "Commands processed by a controller provide optimized access to any namespace in the ANA group.",
-                "PersistentLoss": "The group is persistently inaccessible.  Commands are persistently not able to access user data of namespaces in the ANA Group."
+                "PersistentLoss": "The group is persistently inaccessible.  Commands are persistently not able to access user data of namespaces in the ANA group."
             },
             "type": "string"
         },
@@ -313,11 +313,11 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "Batteries": {
-                    "description": "The batteries that provide power to this storage controller during a power loss event.",
+                    "description": "The batteries that provide power to this storage controller during a power-loss event.",
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/Battery.json#/definitions/Battery"
                     },
-                    "longDescription": "This property shall contain an array of links to resources of type Battery that represent the batteries that provide power to this storage controller during a power loss event, such as with battery-backed RAID controllers.  This property shall not be present if the batteries power the containing chassis as a whole rather than the individual storage controller.",
+                    "longDescription": "This property shall contain an array of links to resources of type Battery that represent the batteries that provide power to this storage controller during a power-loss event, such as with battery-backed RAID controllers.  This property shall not be present if the batteries power the containing chassis as a whole rather than the individual storage controller.",
                     "readonly": true,
                     "type": "array",
                     "versionAdded": "v1_6_0"
@@ -373,7 +373,7 @@
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/PCIeFunction.json#/definitions/PCIeFunction"
                     },
-                    "longDescription": "This property shall contain an array of links to resources of type PCIeFunction that represents the PCIe functions associated with this resource.",
+                    "longDescription": "This property shall contain an array of links to resources of type PCIeFunction that represent the PCIe functions associated with this resource.",
                     "readonly": true,
                     "type": "array"
                 },
@@ -386,7 +386,7 @@
         "NVMeControllerAttributes": {
             "additionalProperties": false,
             "description": "The NVMe controller attributes for a storage controller.",
-            "longDescription": "This type shall contain NVMe controller attributes  for a storage controller.",
+            "longDescription": "This type shall contain NVMe controller attributes for a storage controller.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -439,8 +439,8 @@
                     ]
                 },
                 "SupportsExceedingPowerOfNonOperationalState": {
-                    "description": "Indicates whether or not the controller supports exceeding Power of Non-Operational State in order to execute controller initiated background operations in a non-operational power state.",
-                    "longDescription": "This property shall indicate whether or not the controller supports exceeding Power of Non-Operational State in order to execute controller initiated background operations in a non-operational power state.",
+                    "description": "Indicates whether or not the controller supports exceeding Power of Non-Operational State in order to execute controller-initiated background operations in a non-operational power state.",
+                    "longDescription": "This property shall indicate whether or not the controller supports exceeding Power of Non-Operational State in order to execute controller-initiated background operations in a non-operational power state.",
                     "readonly": true,
                     "type": [
                         "boolean",
@@ -494,8 +494,8 @@
                     ]
                 },
                 "SupportsTrafficBasedKeepAlive": {
-                    "description": "Indicates whether or not the controller supports restarting Keep Alive Timer if traffic is processed from an admin command or IO during a Keep Alive Timeout interval.",
-                    "longDescription": "This property shall indicate whether or not the controller supports restarting Keep Alive Timer if traffic is processed from an admin command or IO during a Keep Alive Timeout interval.",
+                    "description": "Indicates whether or not the controller supports restarting the Keep Alive Timer if traffic is processed from an admin command or I/O during a Keep Alive Timeout interval.",
+                    "longDescription": "This property shall indicate whether or not the controller supports restarting the Keep Alive Timer if traffic is processed from an admin command or I/O during a Keep Alive Timeout interval.",
                     "readonly": true,
                     "type": [
                         "boolean",
@@ -507,8 +507,8 @@
         },
         "NVMeControllerProperties": {
             "additionalProperties": false,
-            "description": "NVMe related properties for a storage controller.",
-            "longDescription": "This type shall contain NVMe related properties for a storage controller.",
+            "description": "NVMe-related properties for a storage controller.",
+            "longDescription": "This type shall contain NVMe-related properties for a storage controller.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -573,8 +573,8 @@
                     "readonly": true
                 },
                 "MaxQueueSize": {
-                    "description": "The maximum individual queue size that an NVMe IO controller supports.",
-                    "longDescription": "This property shall contain the maximum individual queue entry size supported per queue.  This is a zero-based value, where the minimum value is one, indicating two entries.  For PCIe, this applies to both submission and completion queues.  For NVMe-oF, this applies to only submission queues.",
+                    "description": "The maximum individual queue size that an NVMe I/O controller supports.",
+                    "longDescription": "This property shall contain the maximum individual queue entry size supported per queue.  This is a zero-based value, where the minimum value is one, indicating two entries.  For PCIe, this applies to both submission and completion queues.  For NVMe-oF, this applies only to submission queues.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -626,7 +626,7 @@
             "enumDescriptions": {
                 "Admin": "The NVMe controller is an admin controller.",
                 "Discovery": "The NVMe controller is a discovery controller.",
-                "IO": "The NVMe controller is an IO controller."
+                "IO": "The NVMe controller is an I/O controller."
             },
             "type": "string"
         },
@@ -650,8 +650,8 @@
             },
             "properties": {
                 "MediaInReadOnly": {
-                    "description": "Indicates the media has been placed in read only mode.",
-                    "longDescription": "This property shall indicate the media has been placed in read only mode.  This is not set when the read-only condition on the media is a result of a change in the write protection state of a namespace.",
+                    "description": "Indicates the media has been placed in read-only mode.",
+                    "longDescription": "This property shall indicate the media has been placed in read-only mode.  This is not set when the read-only condition of the media is a result of a change in the write protection state of a namespace.",
                     "readonly": true,
                     "type": [
                         "boolean",
@@ -1027,7 +1027,7 @@
                 "Location": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location",
                     "description": "The location of the storage controller.",
-                    "longDescription": "This property shall contain location information of the associated storage controller."
+                    "longDescription": "This property shall contain the location information of the associated storage controller."
                 },
                 "Manufacturer": {
                     "description": "The manufacturer of this storage controller.",
@@ -1074,8 +1074,8 @@
                 },
                 "NVMeControllerProperties": {
                     "$ref": "#/definitions/NVMeControllerProperties",
-                    "description": "The NVMe related properties for this storage controller.",
-                    "longDescription": "This property shall contain NVMe related properties for this storage controller."
+                    "description": "The NVMe-related properties for this storage controller.",
+                    "longDescription": "This property shall contain NVMe-related properties for this storage controller."
                 },
                 "Name": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
@@ -1108,7 +1108,7 @@
                 },
                 "SKU": {
                     "description": "The SKU for this storage controller.",
-                    "longDescription": "This property shall contain the stock-keeping unit number for this storage storage controller.",
+                    "longDescription": "This property shall contain the stock-keeping unit number for this storage controller.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -1141,11 +1141,11 @@
                     "longDescription": "This property shall contain any status or health properties of the resource."
                 },
                 "SupportedControllerProtocols": {
-                    "description": "The supported set of protocols for communicating to this storage controller.",
+                    "description": "The supported set of protocols for communicating with this storage controller.",
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/Protocol.json#/definitions/Protocol"
                     },
-                    "longDescription": "This property shall contain the supported set of protocols for communicating to this storage controller.",
+                    "longDescription": "This property shall contain the supported set of protocols for communicating with this storage controller.",
                     "readonly": true,
                     "type": "array"
                 },
@@ -1186,5 +1186,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2023.1",
-    "title": "#StorageController.v1_7_1.StorageController"
+    "title": "#StorageController.v1_7_2.StorageController"
 }

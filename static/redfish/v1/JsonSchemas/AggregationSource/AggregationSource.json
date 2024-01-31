@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/AggregationSource.v1_3_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/AggregationSource.v1_4_0.json",
     "$ref": "#/definitions/AggregationSource",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -194,68 +194,23 @@
             },
             "type": "string"
         },
-        "ECDSACurveType": {
-            "enum": [
-                "NISTP256",
-                "NISTP384",
-                "NISTP521",
-                "NISTK163",
-                "NISTP192",
-                "NISTP224",
-                "NISTK233",
-                "NISTB233",
-                "NISTK283",
-                "NISTK409",
-                "NISTB409",
-                "NISTT571"
-            ],
-            "enumDescriptions": {
-                "NISTB233": "NIST B-233.",
-                "NISTB409": "NIST B-409.",
-                "NISTK163": "NIST K-163.",
-                "NISTK233": "NIST K-233.",
-                "NISTK283": "NIST K-283.",
-                "NISTK409": "NIST K-409.",
-                "NISTP192": "NIST P-192.",
-                "NISTP224": "NIST P-224.",
-                "NISTP256": "NIST P-256.",
-                "NISTP384": "NIST P-384.",
-                "NISTP521": "NIST P-521.",
-                "NISTT571": "NIST T-571."
-            },
-            "enumLongDescriptions": {
-                "NISTB233": "This value shall indicate the 'nistb233' curve in RFC5656.",
-                "NISTB409": "This value shall indicate the 'nistb409' curve in RFC5656.",
-                "NISTK163": "This value shall indicate the 'nistk163' curve in RFC5656.",
-                "NISTK233": "This value shall indicate the 'nistk233' curve in RFC5656.",
-                "NISTK283": "This value shall indicate the 'nistk283' curve in RFC5656.",
-                "NISTK409": "This value shall indicate the 'nistk409' curve in RFC5656.",
-                "NISTP192": "This value shall indicate the 'nistp192' curve in RFC5656.",
-                "NISTP224": "This value shall indicate the 'nistp224' curve in RFC5656.",
-                "NISTP256": "This value shall indicate the 'nistp256' curve in RFC5656.",
-                "NISTP384": "This value shall indicate the 'nistp384' curve in RFC5656.",
-                "NISTP521": "This value shall indicate the 'nistp521' curve in RFC5656.",
-                "NISTT571": "This value shall indicate the 'nistt571' curve in RFC5656."
-            },
-            "type": "string"
-        },
         "GenerateSSHIdentityKeyPair": {
             "additionalProperties": false,
-            "description": "This action generates a new SSH identity key-pair to be used with this aggregation source.  The generated public key is stored in the Key resource referenced by the PublicIdentityKey property in SSHSettings.  Any existing key-pair is deleted and replace by the new key-pair.",
+            "description": "This action generates a new SSH identity key-pair to be used with this aggregation source.  The generated public key is stored in the Key resource referenced by the PublicIdentityKey property in SSHSettings.  Any existing key-pair is deleted and replaced by the new key-pair.",
             "longDescription": "This action shall generate a new SSH identity key-pair to be used with this aggregation source.  The service shall store the generated public key in the Key resource referenced by the PublicIdentityKey property in SSHSettings.  If the aggregation source already has an associated SSH identity key-pair, the service shall delete the key-pair and replace it with the new key-pair.",
             "parameters": {
                 "Curve": {
-                    "$ref": "#/definitions/ECDSACurveType",
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Key.json#/definitions/ECDSACurveType",
                     "description": "The curve to use with the SSH key if the KeyType parameter contains `ECDSA`.",
-                    "longDescription": "This parameter shall contain the curve to use with the SSH key.  This parameter shall be required if the KeyType parameter contains `ECDSA` and rejected for other values."
+                    "longDescription": "This parameter shall contain the curve to use with the SSH key.  This parameter shall be required if the KeyType parameter contains `ECDSA` and shall be rejected for other values."
                 },
                 "KeyLength": {
                     "description": "The length of the SSH key, in bits, if the KeyType parameter contains `RSA`.",
-                    "longDescription": "This parameter shall contain the length of the SSH key, in bits.  This parameter shall be required if the KeyType parameter contains `RSA` and rejected for other values.",
+                    "longDescription": "This parameter shall contain the length of the SSH key, in bits.  This parameter shall be required if the KeyType parameter contains `RSA` and shall be rejected for other values.",
                     "type": "integer"
                 },
                 "KeyType": {
-                    "$ref": "#/definitions/SSHKeyType",
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Key.json#/definitions/SSHKeyType",
                     "description": "The type of SSH key.",
                     "longDescription": "This parameter shall contain the type of SSH key.",
                     "requiredParameter": true
@@ -331,7 +286,7 @@
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Resource"
                     },
-                    "longDescription": "This property shall contain an array of links to the resources added to the service through the aggregation source.  It is recommended that this be the minimal number of properties needed to find the resources that would be lost when the aggregation source is deleted.  For example, this could be the pointers to the members of the root level collections or the manager of a BMC.",
+                    "longDescription": "This property shall contain an array of links to the resources added to the service through the aggregation source.  It is recommended that this be the minimal number of properties needed to find the resources that would be lost when the aggregation source is deleted.  For example, this could be the pointers to the members of the root-level collections or the manager of a BMC.",
                     "readonly": true,
                     "type": "array"
                 },
@@ -432,17 +387,27 @@
             "enum": [
                 "None",
                 "CBC_DES",
-                "CFB128_AES128"
+                "CFB128_AES128",
+                "CFB128_AES192",
+                "CFB128_AES256"
             ],
             "enumDescriptions": {
                 "CBC_DES": "CBC-DES encryption.",
                 "CFB128_AES128": "CFB128-AES-128 encryption.",
+                "CFB128_AES192": "CFB128-AES-192 encryption.",
+                "CFB128_AES256": "CFB128-AES-256 encryption.",
                 "None": "No encryption."
             },
             "enumLongDescriptions": {
                 "CBC_DES": "This value shall indicate encryption conforms to the RFC3414-defined CBC-DES encryption protocol.",
-                "CFB128_AES128": "This value shall indicate encryption conforms to the RFC3414-defined CFB128-AES-128 encryption protocol.",
+                "CFB128_AES128": "This value shall indicate encryption conforms to the RFC3826-defined CFB128-AES-128 encryption protocol.",
+                "CFB128_AES192": "This value shall indicate encryption conforms to the CFB128-AES-192 encryption protocol, extended from RFC3826.",
+                "CFB128_AES256": "This value shall indicate encryption conforms to the CFB128-AES-256 encryption protocol, extended from RFC3826.",
                 "None": "This value shall indicate there is no encryption."
+            },
+            "enumVersionAdded": {
+                "CFB128_AES192": "v1_4_0",
+                "CFB128_AES256": "v1_4_0"
             },
             "type": "string"
         },
@@ -545,27 +510,6 @@
             },
             "type": "object"
         },
-        "SSHKeyType": {
-            "enum": [
-                "RSA",
-                "DSA",
-                "ECDSA",
-                "Ed25519"
-            ],
-            "enumDescriptions": {
-                "DSA": "DSA.",
-                "ECDSA": "ECDSA.",
-                "Ed25519": "Ed25519.",
-                "RSA": "RSA."
-            },
-            "enumLongDescriptions": {
-                "DSA": "This value shall indicate an RFC4253-defined 'ssh-dss' key type.",
-                "ECDSA": "This value shall indicate an RFC5656-defined ECDSA key type.",
-                "Ed25519": "This value shall indicate an RFC8709-defined 'ssh-ed25519' key type.",
-                "RSA": "This value shall indicate an RFC4253-defined 'ssh-rsa' key type."
-            },
-            "type": "string"
-        },
         "SSHSettingsType": {
             "additionalProperties": false,
             "description": "Settings for an aggregation source using SSH as part of the associated connection method.",
@@ -651,6 +595,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2022.3",
-    "title": "#AggregationSource.v1_3_1.AggregationSource"
+    "release": "2023.3",
+    "title": "#AggregationSource.v1_4_0.AggregationSource"
 }

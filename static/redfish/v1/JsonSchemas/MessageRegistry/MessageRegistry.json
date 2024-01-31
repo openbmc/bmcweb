@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/MessageRegistry.v1_6_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/MessageRegistry.v1_6_2.json",
     "$ref": "#/definitions/MessageRegistry",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -154,7 +154,7 @@
                 },
                 "Deprecated": {
                     "description": "The reason the message has been deprecated.",
-                    "longDescription": "This property shall indicate that a message is deprecated.  The value of the string should explain the deprecation, including reference to new message or messages to be used.  The message can be supported in new and existing implementations, but usage in new implementations is discouraged.  Deprecated messages are likely to be removed in a future major version of the message registry.  The ReplacedBy property may be used to provide a reference to a replacement message definition.",
+                    "longDescription": "This property shall indicate that a message is deprecated.  The value of the string should explain the deprecation, including reference to a new message or messages to be used.  The message can be supported in new and existing implementations, but usage in new implementations is discouraged.  Deprecated messages are likely to be removed in a future major version of the message registry.  The ReplacedBy property may be used to provide a reference to a replacement message definition.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -270,7 +270,7 @@
                     "versionAdded": "v1_5_0"
                 },
                 "VersionDeprecated": {
-                    "description": "The registry version when the the message was deprecated.",
+                    "description": "The registry version when the message was deprecated.",
                     "longDescription": "This property shall contain the version of the registry when the message was deprecated.  This property shall not appear if the message has not been deprecated.",
                     "pattern": "^\\d+\\.\\d+\\.\\d+$",
                     "readonly": true,
@@ -445,5 +445,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2022.3",
-    "title": "#MessageRegistry.v1_6_1.MessageRegistry"
+    "title": "#MessageRegistry.v1_6_2.MessageRegistry"
 }
