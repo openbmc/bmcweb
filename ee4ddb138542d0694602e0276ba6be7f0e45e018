@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a96122f4_1c4abd2f",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-31T16:01:01Z",
+      "side": 1,
+      "message": "I’m not sure what that would entail.  why would that be neccesary when we can just pull the string?",
+      "parentUuid": "c615c11b_517a697f",
+      "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ef5f0fdf_414d7fe1",
         "filename": "http/http_client.hpp",
         "patchSetId": 14
@@ -31,6 +49,24 @@
       "writtenOn": "2024-01-31T15:54:44Z",
       "side": 1,
       "message": "Is it better to have assignment operator overload with string /stirng_view param in FileBody?",
+      "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f193411_d1baa462",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 741,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-01-31T16:01:01Z",
+      "side": 1,
+      "message": "why would overloading operator\u003d be better?  str() is more explicit.",
+      "parentUuid": "ef5f0fdf_414d7fe1",
       "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
