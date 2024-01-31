@@ -2,6 +2,7 @@
 #include "boost/beast/core/flat_buffer.hpp"
 #include "boost/beast/http/serializer.hpp"
 #include "file_test_utilities.hpp"
+#include "http/http_body.hpp"
 #include "http/http_response.hpp"
 
 #include <filesystem>
@@ -24,11 +25,11 @@ void verifyHeaders(crow::Response& res)
     EXPECT_EQ(res.result(), boost::beast::http::status::ok);
 }
 
-std::string getData(boost::beast::http::response<bmcweb::FileBody>& m)
+std::string getData(boost::beast::http::response<bmcweb::HttpBody>& m)
 {
     std::string ret;
 
-    boost::beast::http::response_serializer<bmcweb::FileBody> sr{m};
+    boost::beast::http::response_serializer<bmcweb::HttpBody> sr{m};
     sr.split(true);
 
     auto reader = [&sr, &ret](const boost::system::error_code& ec2,
@@ -73,7 +74,7 @@ TEST(HttpResponse, StringBody)
     EXPECT_EQ(*res.body(), bodyvalue);
     verifyHeaders(res);
 }
-TEST(HttpResponse, FileBody)
+TEST(HttpResponse, HttpBody)
 {
     crow::Response res;
     addHeaders(res);
@@ -83,7 +84,7 @@ TEST(HttpResponse, FileBody)
     verifyHeaders(res);
     std::filesystem::remove(path);
 }
-TEST(HttpResponse, FileBodyWithFd)
+TEST(HttpResponse, HttpBodyWithFd)
 {
     crow::Response res;
     addHeaders(res);
@@ -95,7 +96,7 @@ TEST(HttpResponse, FileBodyWithFd)
     std::filesystem::remove(path);
 }
 
-TEST(HttpResponse, Base64FileBodyWithFd)
+TEST(HttpResponse, Base64HttpBodyWithFd)
 {
     crow::Response res;
     addHeaders(res);
@@ -145,7 +146,7 @@ TEST(HttpResponse, StringBodyWriterLarge)
     testFileData(res, data);
 }
 
-TEST(HttpResponse, Base64FileBodyWriter)
+TEST(HttpResponse, Base64HttpBodyWriter)
 {
     crow::Response res;
     std::string data = "sample text";
@@ -157,7 +158,7 @@ TEST(HttpResponse, Base64FileBodyWriter)
     std::filesystem::remove(path);
 }
 
-TEST(HttpResponse, Base64FileBodyWriterLarge)
+TEST(HttpResponse, Base64HttpBodyWriterLarge)
 {
     crow::Response res;
     std::string data = generateBigdata();
@@ -174,7 +175,7 @@ TEST(HttpResponse, Base64FileBodyWriterLarge)
     std::filesystem::remove(path);
 }
 
-TEST(HttpResponse, FileBodyWriterLarge)
+TEST(HttpResponse, HttpBodyWriterLarge)
 {
     crow::Response res;
     std::string data = generateBigdata();

@@ -2,13 +2,14 @@
 #include "bmcweb_config.h"
 
 #include "async_resp.hpp"
-#include "authentication.hpp"
-#include "complete_response_fields.hpp"
-#include "http2_connection.hpp"
 #ifdef BMCWEB_ENABLE_LINUX_AUDIT_EVENTS
 #include "audit_events.hpp"
 #endif
+#include "authentication.hpp"
+#include "complete_response_fields.hpp"
 #include "dump_utils.hpp"
+#include "http2_connection.hpp"
+#include "http_body.hpp"
 #include "http_response.hpp"
 #include "http_utility.hpp"
 #include "logging.hpp"
@@ -679,8 +680,8 @@ class Connection :
     Handler* handler;
     // Making this a std::optional allows it to be efficiently destroyed and
     // re-created on Connection reset
-    std::optional<boost::beast::http::request_parser<bmcweb::FileBody>> parser;
-    std::optional<boost::beast::http::response_serializer<bmcweb::FileBody>>
+    std::optional<boost::beast::http::request_parser<bmcweb::HttpBody>> parser;
+    std::optional<boost::beast::http::response_serializer<bmcweb::HttpBody>>
         serializer;
 
     boost::beast::flat_static_buffer<8192> buffer;
