@@ -3,10 +3,11 @@
 #include "app.hpp"
 #include "websocket.hpp"
 
+#include <boost/asio/readable_pipe.hpp>
+#include <boost/asio/writable_pipe.hpp>
 #include <boost/beast/core/flat_static_buffer.hpp>
-#include <boost/process/async_pipe.hpp>
-#include <boost/process/child.hpp>
-#include <boost/process/io.hpp>
+#include <boost/process/v2/process.hpp>
+#include <boost/process/v2/stdio.hpp>
 
 #include <csignal>
 
@@ -26,8 +27,11 @@ static constexpr auto nbdBufferSize = (128 * 1024 + 16) * 4;
 class Handler : public std::enable_shared_from_this<Handler>
 {
   public:
-    Handler(const std::string& mediaIn, boost::asio::io_context& ios) :
-        pipeOut(ios), pipeIn(ios), media(mediaIn),
+    Handler(const std::string& media, boost::asio::io_context& ios) :
+        pipeOut(ios), pipeIn(ios),
+        proxy(ios, "/usr/bin/nbd-proxy", {media},
+              boost::process::v2::process_stdio{
+                  .in = pipeIn, .out = pipeOut, .err = nullptr}),
         outputBuffer(new boost::beast::flat_static_buffer<nbdBufferSize>),
         inputBuffer(new boost::beast::flat_static_buffer<nbdBufferSize>)
     {}
@@ -56,9 +60,6 @@ class Handler : public std::enable_shared_from_this<Handler>
     void connect()
     {
         std::error_code ec;
-        proxy = boost::process::child("/usr/bin/nbd-proxy", media,
-                                      boost::process::std_out > pipeOut,
-                                      boost::process::std_in < pipeIn, ec);
         if (ec)
         {
             BMCWEB_LOG_ERROR("Couldn't connect to nbd-proxy: {}", ec.message());
@@ -148,10 +149,9 @@ class Handler : public std::enable_shared_from_this<Handler>
         });
     }
 
-    boost::process::async_pipe pipeOut;
-    boost::process::async_pipe pipeIn;
-    boost::process::child proxy;
-    std::string media;
+    boost::asio::readable_pipe pipeOut;
+    boost::asio::writable_pipe pipeIn;
+    boost::process::v2::process proxy;
     bool doingWrite{false};
 
     std::unique_ptr<boost::beast::flat_static_buffer<nbdBufferSize>>
