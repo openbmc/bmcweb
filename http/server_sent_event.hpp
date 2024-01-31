@@ -1,4 +1,5 @@
 #pragma once
+#include "http_body.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
 
@@ -272,7 +273,7 @@ class ConnectionImpl : public Connection
 
     Adaptor adaptor;
 
-    using BodyType = bmcweb::FileBody;
+    using BodyType = bmcweb::HttpBody;
     boost::beast::http::response<BodyType> res;
     std::optional<boost::beast::http::response_serializer<BodyType>> serializer;
     boost::asio::io_context& ioc;
