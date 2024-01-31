@@ -21,10 +21,9 @@ struct Request
 {
     boost::beast::http::request<bmcweb::FileBody> req;
 
-  private:
+  public:
     boost::urls::url urlBase{};
 
-  public:
     bool isSecure{false};
 
     boost::asio::io_context* ioService{};
@@ -111,7 +110,16 @@ struct Request
         return req.base();
     }
 
+    boost::beast::http::fields& fields()
+    {
+        return req.base();
+    }
+
     const std::string& body() const
+    {
+        return req.body().str();
+    }
+    std::string& body()
     {
         return req.body().str();
     }

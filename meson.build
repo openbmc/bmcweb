@@ -134,10 +134,10 @@ endif
 add_project_arguments(
   cxx.get_supported_arguments([
   '-Wcast-align',
-  '-Wconversion',
+  '-Wno-conversion',
   '-Wformat=2',
   '-Woverloaded-virtual',
-  '-Wsign-conversion',
+  '-Wno-sign-conversion',
   '-Wunused',
   '-Wno-attributes',
   ]),
@@ -250,6 +250,7 @@ cxx.get_supported_arguments([
   '-DJSON_NOEXCEPTION',
   '-DOPENSSL_NO_FILENAMES',
   '-DSDBUSPLUS_DISABLE_BOOST_COROUTINES',
+  '-DOPENTELEMETRY_STL_VERSION=2020',
 ]),
 language : 'cpp')
 
@@ -290,6 +291,34 @@ if not nghttp2.found()
   nghttp2 = nghttp2_ex.dependency('nghttp2')
 endif
 bmcweb_dependencies += nghttp2
+
+
+cmake = import('cmake')
+opt = cmake.subproject_options()
+opt.add_cmake_defines({
+  'WITH_API_ONLY': 'ON',
+  'OPENTELEMETRY_INSTALL': 'OFF',
+  'WITH_OTLP_HTTP': 'OFF',
+  'WITH_OTLP_GRPC': 'OFF',
+  'WITH_ZIPKIN': 'OFF',
+  'WITH_PROMETHEUS': 'OFF',
+  'WITH_ELASTICSEARCH': 'OFF',
+  'WITH_NO_GETENV': 'ON',
+  'WITH_BENCHMARK': 'OFF',
+  'WITH_OPENTRACING': 'OFF',
+})
+otel = cmake.subproject('opentelemetry-cpp', required: true, options: opt)
+#message('CMake targets:\n - ' + '\n - '.join(otel.target_list()))
+
+otel_dep = otel.dependency('opentelemetry_api')
+otel_incdir = include_directories(
+  'subprojects/opentelemetry-cpp/sdk/include',
+  'subprojects/opentelemetry-cpp/ext/include',
+  'subprojects/opentelemetry-cpp/exporters/ostream/include',
+  is_system: true,
+)
+
+bmcweb_dependencies += [otel_dep]
 
 sdbusplus = dependency('sdbusplus', required : false, include_type: 'system')
 if not sdbusplus.found()
@@ -389,6 +418,7 @@ bmcweb_dependencies += conf_h_dep
 fs = import('fs')
 
 srcfiles_bmcweb = files(
+  'http/otel.cpp',
   'redfish-core/src/error_messages.cpp',
   'redfish-core/src/registries.cpp',
   'redfish-core/src/utils/time_utils.cpp',
@@ -404,7 +434,7 @@ srcfiles_bmcweb = files(
 bmcweblib = static_library(
   'bmcweblib',
   srcfiles_bmcweb,
-  include_directories : incdir,
+  include_directories : [incdir, otel_incdir],
   dependencies: bmcweb_dependencies,
 )
 
@@ -412,7 +442,7 @@ bmcweblib = static_library(
 executable(
   'bmcweb',
   'src/webserver_main.cpp',
-  include_directories : incdir,
+  include_directories : [incdir, otel_incdir],
   dependencies: bmcweb_dependencies,
   link_with: bmcweblib,
   link_args: '-Wl,--gc-sections',

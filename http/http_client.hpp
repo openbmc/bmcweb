@@ -18,6 +18,7 @@
 #include "async_resolve.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
+#include "otel.hpp"
 #include "ssl_key_handler.hpp"
 
 #include <boost/asio/connect.hpp>
@@ -894,6 +895,15 @@ class HttpClient
                               const boost::beast::http::verb verb,
                               const std::function<void(Response&)>& resHandler)
     {
+        // TODO, need to move sendData over to crow::Request internally
+        // And clean up a bunch of this construction
+        Request req;
+        req.req.method(verb);
+        // req.req.base() = httpHeader;
+        req.urlBase = destUrl;
+        req.body() = data;
+        sendOtel(req);
+
         std::string clientKey = std::format("{}://{}", destUrl.scheme(),
                                             destUrl.encoded_host_and_port());
         auto pool = connectionPools.try_emplace(clientKey);
