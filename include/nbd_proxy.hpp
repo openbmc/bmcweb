@@ -186,13 +186,8 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
     const std::string endpointId;
     const std::string path;
 
-    bool uxWriteInProgress = false;
-
     // UNIX => WebSocket buffer
     std::array<char, nbdBufferSize> ux2wsBuf{};
-
-    // WebSocket => UNIX buffer
-    std::array<char, nbdBufferSize> ws2uxBuf{};
 
     // The socket used to communicate with the client.
     stream_protocol::socket peerSocket;

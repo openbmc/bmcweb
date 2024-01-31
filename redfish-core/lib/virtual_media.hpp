@@ -25,7 +25,6 @@
 #include "registries/privilege_registry.hpp"
 #include "utils/json_utils.hpp"
 
-#include <boost/process/async_pipe.hpp>
 #include <boost/url/format.hpp>
 #include <boost/url/url_view.hpp>
 
@@ -469,7 +468,7 @@ inline void doMountVmLegacy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         // Open pipe
         secretPipe = std::make_shared<CredentialsPipe>(
             crow::connections::systemBus->get_io_context());
-        fd = secretPipe->fd();
+        fd = secretPipe->release_fd();
 
         // Pass secret over pipe
         secretPipe->asyncWrite(
