@@ -2,13 +2,13 @@
 
 #include "common.hpp"
 #include "sessions.hpp"
+#include "http_body.hpp"
 
 #include <boost/asio/io_context.hpp>
 #include <boost/asio/ip/address.hpp>
 #include <boost/beast/http/message.hpp>
 #include <boost/beast/websocket.hpp>
 #include <boost/url/url.hpp>
-#include <http_file_body.hpp>
 
 #include <string>
 #include <string_view>
@@ -19,7 +19,7 @@ namespace crow
 
 struct Request
 {
-    boost::beast::http::request<bmcweb::FileBody> req;
+    boost::beast::http::request<bmcweb::HttpBody> req;
 
   private:
     boost::urls::url urlBase{};
@@ -33,7 +33,7 @@ struct Request
     std::shared_ptr<persistent_data::UserSession> session;
 
     std::string userRole{};
-    Request(boost::beast::http::request<bmcweb::FileBody> reqIn,
+    Request(boost::beast::http::request<bmcweb::HttpBody> reqIn,
             std::error_code& ec) :
         req(std::move(reqIn))
     {
