@@ -2191,6 +2191,24 @@ inline void
     {
         asyncResp->res.jsonValue["PowerMode"] = "PowerSaving";
     }
+    else if (
+        modeValue ==
+        "xyz.openbmc_project.Control.Power.Mode.PowerMode.BalancedPerformance")
+    {
+        asyncResp->res.jsonValue["PowerMode"] = "BalancedPerformance";
+    }
+    else if (
+        modeValue ==
+        "xyz.openbmc_project.Control.Power.Mode.PowerMode.EfficiencyFavorPerformance")
+    {
+        asyncResp->res.jsonValue["PowerMode"] = "EfficiencyFavorPerformance";
+    }
+    else if (
+        modeValue ==
+        "xyz.openbmc_project.Control.Power.Mode.PowerMode.EfficiencyFavorPower")
+    {
+        asyncResp->res.jsonValue["PowerMode"] = "EfficiencyFavorPower";
+    }
     else if (modeValue ==
              "xyz.openbmc_project.Control.Power.Mode.PowerMode.OEM")
     {
@@ -2275,7 +2293,9 @@ inline void getPowerMode(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
             }
 
             asyncResp->res.jsonValue["PowerMode@Redfish.AllowableValues"] = {
-                "Static", "MaximumPerformance", "PowerSaving"};
+                "BalancedPerformance",  "EfficiencyFavorPerformance",
+                "EfficiencyFavorPower", "MaximumPerformance",
+                "PowerSaving",          "Static"};
 
             BMCWEB_LOG_DEBUG("Current power mode: {}", pmode);
             translatePowerMode(asyncResp, pmode);
@@ -2310,6 +2330,21 @@ inline std::string
     else if (modeString == "PowerSaving")
     {
         mode = "xyz.openbmc_project.Control.Power.Mode.PowerMode.PowerSaving";
+    }
+    else if (modeString == "BalancedPerformance")
+    {
+        mode =
+            "xyz.openbmc_project.Control.Power.Mode.PowerMode.BalancedPerformance";
+    }
+    else if (modeString == "EfficiencyFavorPerformance")
+    {
+        mode =
+            "xyz.openbmc_project.Control.Power.Mode.PowerMode.EfficiencyFavorPerformance";
+    }
+    else if (modeString == "EfficiencyFavorPower")
+    {
+        mode =
+            "xyz.openbmc_project.Control.Power.Mode.PowerMode.EfficiencyFavorPower";
     }
     else
     {
@@ -3233,7 +3268,7 @@ inline void
         boost::beast::http::field::link,
         "</redfish/v1/JsonSchemas/ComputerSystem/ComputerSystem.json>; rel=describedby");
     asyncResp->res.jsonValue["@odata.type"] =
-        "#ComputerSystem.v1_16_0.ComputerSystem";
+        "#ComputerSystem.v1_22_0.ComputerSystem";
     asyncResp->res.jsonValue["Name"] = "system";
     asyncResp->res.jsonValue["Id"] = "system";
     asyncResp->res.jsonValue["SystemType"] = "Physical";
