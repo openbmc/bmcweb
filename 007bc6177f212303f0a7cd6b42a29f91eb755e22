@@ -252,6 +252,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f0165cbf_3a0a19cd",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 908,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2024-02-01T06:06:29Z",
+      "side": 1,
+      "message": "Ravi is reworking on the backend to get the relavant name and properties in the bus. So this commit will go through more changes after that.",
+      "parentUuid": "1864d413_5eabaea1",
+      "range": {
+        "startLine": 908,
+        "startChar": 12,
+        "endLine": 908,
+        "endChar": 29
+      },
+      "revId": "007bc6177f212303f0a7cd6b42a29f91eb755e22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9e20c385_d8ce8ab4",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 5
