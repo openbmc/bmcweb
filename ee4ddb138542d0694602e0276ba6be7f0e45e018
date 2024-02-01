@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ffd4e060_94ea42c0",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-02-01T16:45:38Z",
+      "side": 1,
+      "message": "IMO it is a better encapsulation. Since the body knows what it is internally holding, it is better to let the body serialize its internal data.",
+      "parentUuid": "a96122f4_1c4abd2f",
+      "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ef5f0fdf_414d7fe1",
         "filename": "http/http_client.hpp",
         "patchSetId": 14
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "why would overloading operator\u003d be better?  str() is more explicit.",
       "parentUuid": "ef5f0fdf_414d7fe1",
+      "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33ee000f_f88cc378",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 741,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-02-01T16:45:38Z",
+      "side": 1,
+      "message": "The body is a polymorphic container. It can accept multiple value types. So overloading the assignment operator will be scalable. We need not add new explicit APIs for each type. The assignment operator will do the job. For the incompatible types, it will show an error.",
+      "parentUuid": "2f193411_d1baa462",
       "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -155,6 +191,24 @@
       "side": 1,
       "message": "the body starts as string (which is empty string). any error response would be in a string body, like it already is today.  why would there be a separate string body for error strings returned to the user?\n\nif the file fails to open, it goes back to a string.  what changes are you looking for here in code?",
       "parentUuid": "42871133_505f28dc",
+      "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7f1a0a7_cec23d6c",
+        "filename": "http/http_file_body.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-02-01T16:45:38Z",
+      "side": 1,
+      "message": "There is no way to determine what the current body type is. We are depending on the order of condition check to determine it. This will not scale as soon as we add another type. IMO the code lacks locality of reasoning. Just by reading this file, we will never know what the current type is. Variant is good in that respect. An experienced bmcweb developer may know that the string body may hold an error string, but that is not evident in the code.",
+      "parentUuid": "7daa2050_64c852c4",
       "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
