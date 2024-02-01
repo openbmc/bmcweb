@@ -50,6 +50,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0e87e1da_330b1852",
+        "filename": "test/http/file_test_utilities.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-02-01T20:29:56Z",
+      "side": 1,
+      "message": "Open Group documentation for mkstemp() says portable applications should use exactly 6 \u0027X\u0027 characters. I\u0027m not sure if it matters in our environment.",
+      "revId": "ef4432bec2753a2b27b3c03c350cd780b92c9a16",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cb822920_b7c75266",
         "filename": "test/http/http_file_body_test.cpp",
         "patchSetId": 21
@@ -155,6 +172,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "22e2ecb9_2673db6f",
+        "filename": "test/http/http_file_body_test.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-02-01T20:29:56Z",
+      "side": 1,
+      "message": "Should the additional 6 bytes of the payload be verified to make sure they aren\u0027t garbage? Or at least verify buffer[10] \u003d \u0027\\0\u0027?",
+      "range": {
+        "startLine": 73,
+        "startChar": 4,
+        "endLine": 74,
+        "endChar": 79
+      },
+      "revId": "ef4432bec2753a2b27b3c03c350cd780b92c9a16",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7907d684_924953a6",
+        "filename": "test/http/http_file_body_test.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-02-01T20:29:56Z",
+      "side": 1,
+      "message": "Same question here, should the additional 6 bytes of the payload be verified to make sure they aren\u0027t garbage? (Expect \u0027\\0\u0027?)",
+      "range": {
+        "startLine": 92,
+        "startChar": 4,
+        "endLine": 93,
+        "endChar": 79
+      },
+      "revId": "ef4432bec2753a2b27b3c03c350cd780b92c9a16",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3d618343_3bdfd2e3",
         "filename": "test/http/http_file_body_test.cpp",
         "patchSetId": 21
@@ -184,6 +247,29 @@
       "side": 1,
       "message": "Because the intent of this test is to test that pipes work.\n\nofstream would test that files work, which is fine (we already have tests that cover those cases) files support getting the size, so it wouldn\u0027t be a representative test of something that is being built on the fly.",
       "parentUuid": "3d618343_3bdfd2e3",
+      "revId": "ef4432bec2753a2b27b3c03c350cd780b92c9a16",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "747b1b9a_45ec8825",
+        "filename": "test/http/http_file_body_test.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-02-01T20:29:56Z",
+      "side": 1,
+      "message": "Should we confirm this is null terminated?",
+      "range": {
+        "startLine": 134,
+        "startChar": 4,
+        "endLine": 135,
+        "endChar": 79
+      },
       "revId": "ef4432bec2753a2b27b3c03c350cd780b92c9a16",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
