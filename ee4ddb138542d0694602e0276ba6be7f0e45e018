@@ -246,6 +246,40 @@
       "parentUuid": "3ee5eb69_019d20f3",
       "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27b11ddc_b1aa8418",
+        "filename": "http/http_file_body.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-02-01T17:18:35Z",
+      "side": 1,
+      "message": "read\u003d\u003dreadReq and EOF can happen right? can\u0027t we use remain\u003d\u003d0 instead?",
+      "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48012936_2cc0f584",
+        "filename": "http/http_file_body.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-02-01T17:18:35Z",
+      "side": 1,
+      "message": "can we enhance it to handle writing to a file if the body is opened with a file fd?",
+      "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
