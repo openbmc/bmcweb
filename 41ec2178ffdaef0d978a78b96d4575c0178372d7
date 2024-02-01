@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fefccc7f_f21423b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 27
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-01T21:30:51Z",
+      "side": 1,
+      "message": "what is a partial write situation?  When there are multiple socket reads for a single http request?  If so, this test already tests that.  http2 requests are read/written in chunks, so there\u0027s no such thing as a request that takes a single write.\n\nIn addition, the patchset prior to this has lots of tests for partial writes of varying sizes.  PTAL",
+      "parentUuid": "67b82091_2244cfe0",
+      "revId": "41ec2178ffdaef0d978a78b96d4575c0178372d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b7e03a58_75008075",
@@ -49,6 +67,24 @@
       "side": 1,
       "message": "👍\n\nsidenote, we really need to get reliable automation for include checking.  It\u0027s annoying as hell to review this manually on every patchset.",
       "parentUuid": "b7e03a58_75008075",
+      "revId": "41ec2178ffdaef0d978a78b96d4575c0178372d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d81a9e0b_86f04463",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-01T21:30:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b137fd3_ae9400f4",
       "revId": "41ec2178ffdaef0d978a78b96d4575c0178372d7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -88,6 +124,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9bc1215_7ffb4939",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-01T21:30:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1cdca1bc_29785e31",
+      "revId": "41ec2178ffdaef0d978a78b96d4575c0178372d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d942d17a_5da93cab",
@@ -123,6 +177,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "57cee974_b2f46435",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-01T21:30:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a2de695_18cb349d",
+      "revId": "41ec2178ffdaef0d978a78b96d4575c0178372d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df30ce4b_f943f71c",
@@ -154,6 +226,24 @@
       "side": 1,
       "message": "👍",
       "parentUuid": "df30ce4b_f943f71c",
+      "revId": "41ec2178ffdaef0d978a78b96d4575c0178372d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb70805e_491d3a79",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-01T21:30:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "495b0d62_363e9959",
       "revId": "41ec2178ffdaef0d978a78b96d4575c0178372d7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
