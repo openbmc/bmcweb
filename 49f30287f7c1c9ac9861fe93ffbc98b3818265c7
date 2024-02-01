@@ -157,6 +157,30 @@
       },
       "revId": "49f30287f7c1c9ac9861fe93ffbc98b3818265c7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48ddc536_adbc39a8",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2298,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-01T22:39:17Z",
+      "side": 1,
+      "message": "\u003e If a backend does not support one of the new modes it should be rejecting the change. \n\nIn the case of an Action, I agree with you, but we\u0027re not talking about an Action on this line, we\u0027re talking about AllowableValues, which is returned on GET.\n\n\u003e How else would you specify that some backends only support 3 of the 6 modes?\n\nI can list examples of what we\u0027ve done in the past, but this is really a question for those that wrote the dbus interfaces change.  I don\u0027t know what their intent was.  If they didn\u0027t think about it, I\u0027m guessing they interfaces change needs added to before this patch can go forward.\n\n\u003e \n\u003e By CSDL do you mean schema? I can keep them in the original order (vs alphabetical)\n\nCSDL is the specification that Redfish uses to store its schema, yes.  I call it out specifically because there are 4 \"redfish schema\" sources, but only CSDL is enforced, the others are generated from CSDL.",
+      "parentUuid": "34c24acf_69a94970",
+      "range": {
+        "startLine": 2296,
+        "startChar": 1,
+        "endLine": 2298,
+        "endChar": 49
+      },
+      "revId": "49f30287f7c1c9ac9861fe93ffbc98b3818265c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
