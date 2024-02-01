@@ -106,6 +106,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "110265e4_90cb882c",
+        "filename": "http/http_file_body.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-01T01:33:43Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/bmcweb/+/69126",
+      "parentUuid": "50273058_6eddcd60",
+      "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "42871133_505f28dc",
