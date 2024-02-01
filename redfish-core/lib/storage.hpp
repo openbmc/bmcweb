@@ -953,8 +953,10 @@ inline void handleChassisDriveGet(
                         matchAndFillDrive(asyncResp, chassisId, driveName,
                                           resp);
                     });
-                break;
+                return;
             }
+            // Couldn't find an object with that name.  return an error
+            messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
         });
 }
 
