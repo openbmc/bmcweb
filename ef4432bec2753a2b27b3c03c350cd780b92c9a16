@@ -118,6 +118,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b87f2b24_d43d5346",
+        "filename": "test/http/http_file_body_test.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-01T21:27:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b16f7e55_d33eafce",
+      "revId": "ef4432bec2753a2b27b3c03c350cd780b92c9a16",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a11bd4a5_498f3a42",
@@ -153,6 +171,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d556e7b0_a5c7b11e",
+        "filename": "test/http/http_file_body_test.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-01T21:27:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b69ea9c0_ad24dab4",
+      "revId": "ef4432bec2753a2b27b3c03c350cd780b92c9a16",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bd2e5053_2a1421d4",
@@ -184,6 +220,24 @@
       "side": 1,
       "message": "👍",
       "parentUuid": "bd2e5053_2a1421d4",
+      "revId": "ef4432bec2753a2b27b3c03c350cd780b92c9a16",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0edb9e8c_ce076f7d",
+        "filename": "test/http/http_file_body_test.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-01T21:27:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "202650cb_44add044",
       "revId": "ef4432bec2753a2b27b3c03c350cd780b92c9a16",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -249,6 +303,30 @@
       "side": 1,
       "message": "From reading the EXPECT_THAT() documentation it is not clear to me that it does verify the count is exactly the same between the two items.\n\nSo, if (out \u003d\u003d 11), and (buffer.data \u003d\u003d \"teststringX\"), would EXPECT_THAT still report an error here?\n\nOn a read here I wouldn\u0027t expect any more to be read than the file actually contains. I wouldn\u0027t want garbage to be returned on the read even if the buffer had room for it.",
       "parentUuid": "ab7913e2_c265b923",
+      "range": {
+        "startLine": 73,
+        "startChar": 4,
+        "endLine": 74,
+        "endChar": 79
+      },
+      "revId": "ef4432bec2753a2b27b3c03c350cd780b92c9a16",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31287c95_e096aed7",
+        "filename": "test/http/http_file_body_test.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-01T21:27:04Z",
+      "side": 1,
+      "message": "\u003e From reading the EXPECT_THAT() documentation it is not clear to me that it does verify the count is exactly the same between the two items.\n\u003e \n\u003e So, if (out \u003d\u003d 11), and (buffer.data \u003d\u003d \"teststringX\"), would EXPECT_THAT still report an error here?\n\u003e \n\u003e On a read here I wouldn\u0027t expect any more to be read than the file actually contains. I wouldn\u0027t want garbage to be returned on the read even if the buffer had room for it.\n\nWhile I don\u0027t necessarily agree, i\u0027m not going to argue over something that\u0027s trivially fixed.  I\u0027ve added a check to ensure that the array ends with a null terminator to both this and line 93.",
+      "parentUuid": "30ae0103_e85851e5",
       "range": {
         "startLine": 73,
         "startChar": 4,
@@ -426,6 +504,30 @@
       "side": 1,
       "message": "Since this was being read into a std::array I was expecting it would be null terminated.",
       "parentUuid": "a29ca5af_96b1ec04",
+      "range": {
+        "startLine": 134,
+        "startChar": 4,
+        "endLine": 135,
+        "endChar": 79
+      },
+      "revId": "ef4432bec2753a2b27b3c03c350cd780b92c9a16",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f07acc3c_d7ad2cd7",
+        "filename": "test/http/http_file_body_test.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-01T21:27:04Z",
+      "side": 1,
+      "message": "..... I\u0027m missing something.  Why are std::arrays guaranteed to be null terminated?  To my knowledge, there\u0027s no implied or explicit requirement that a std::array be null terminated.  If there was, it would likely lead to problems with buffers that contained null terminators.",
+      "parentUuid": "273435bd_eff27adc",
       "range": {
         "startLine": 134,
         "startChar": 4,
