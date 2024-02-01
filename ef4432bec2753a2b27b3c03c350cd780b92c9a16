@@ -237,6 +237,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "30ae0103_e85851e5",
+        "filename": "test/http/http_file_body_test.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-02-01T21:07:18Z",
+      "side": 1,
+      "message": "From reading the EXPECT_THAT() documentation it is not clear to me that it does verify the count is exactly the same between the two items.\n\nSo, if (out \u003d\u003d 11), and (buffer.data \u003d\u003d \"teststringX\"), would EXPECT_THAT still report an error here?\n\nOn a read here I wouldn\u0027t expect any more to be read than the file actually contains. I wouldn\u0027t want garbage to be returned on the read even if the buffer had room for it.",
+      "parentUuid": "ab7913e2_c265b923",
+      "range": {
+        "startLine": 73,
+        "startChar": 4,
+        "endLine": 74,
+        "endChar": 79
+      },
+      "revId": "ef4432bec2753a2b27b3c03c350cd780b92c9a16",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7907d684_924953a6",
         "filename": "test/http/http_file_body_test.cpp",
         "patchSetId": 21
@@ -272,6 +296,30 @@
       "side": 1,
       "message": "Lets discuss above.  This will have the same conclusion.",
       "parentUuid": "7907d684_924953a6",
+      "range": {
+        "startLine": 92,
+        "startChar": 4,
+        "endLine": 93,
+        "endChar": 79
+      },
+      "revId": "ef4432bec2753a2b27b3c03c350cd780b92c9a16",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d3a2899_15957140",
+        "filename": "test/http/http_file_body_test.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-02-01T21:07:18Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "6dca686f_b52303ac",
       "range": {
         "startLine": 92,
         "startChar": 4,
@@ -354,6 +402,30 @@
       "side": 1,
       "message": "Why?  There\u0027s no expectation that this is null terminated.  string_views are not null terminated.",
       "parentUuid": "747b1b9a_45ec8825",
+      "range": {
+        "startLine": 134,
+        "startChar": 4,
+        "endLine": 135,
+        "endChar": 79
+      },
+      "revId": "ef4432bec2753a2b27b3c03c350cd780b92c9a16",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "273435bd_eff27adc",
+        "filename": "test/http/http_file_body_test.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-02-01T21:07:18Z",
+      "side": 1,
+      "message": "Since this was being read into a std::array I was expecting it would be null terminated.",
+      "parentUuid": "a29ca5af_96b1ec04",
       "range": {
         "startLine": 134,
         "startChar": 4,
