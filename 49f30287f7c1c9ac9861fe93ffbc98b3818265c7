@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05c15852_82d2d3fb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-01T22:01:57Z",
+      "side": 1,
+      "message": "You changed more than just GET handlers in this commit.  Only testing the service validator isn\u0027t running all the code you changed.",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 18
+      },
+      "revId": "49f30287f7c1c9ac9861fe93ffbc98b3818265c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "328a0674_4fbabe94",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-01T22:01:57Z",
+      "side": 1,
+      "message": "tabs in commit message.",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 2
+      },
+      "revId": "49f30287f7c1c9ac9861fe93ffbc98b3818265c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77a346b2_da531c31",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2176,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-01T22:01:57Z",
+      "side": 1,
+      "message": "Please move this method over to the generated enumerations before adding more.  It ensures that there are no typos, as has been a problem in the past.\n\nhttps://github.com/openbmc/bmcweb/blob/2ae81db99a155febe45d27e3834cfa5471b3ecdf/redfish-core/include/generated/enums/computer_system.hpp#L169",
+      "revId": "49f30287f7c1c9ac9861fe93ffbc98b3818265c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc94a118_93f6b137",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2298,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-01T22:01:57Z",
+      "side": 1,
+      "message": "This is changing the behavior for every system.  Has EVERY backend that supports this dbus interface been changed to add support for these enums?  I suspect not.\n\n\n\nnit: Can we keep these in the order they\u0027re declared in the CSDL?",
+      "range": {
+        "startLine": 2296,
+        "startChar": 1,
+        "endLine": 2298,
+        "endChar": 49
+      },
+      "revId": "49f30287f7c1c9ac9861fe93ffbc98b3818265c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
