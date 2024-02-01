@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b148cbea_3f5b6748",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000238
+      },
+      "writtenOn": "2024-02-01T22:22:50Z",
+      "side": 1,
+      "message": "I did test setting modes as well.  I can add those details to commit message as well.",
+      "parentUuid": "05c15852_82d2d3fb",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 18
+      },
+      "revId": "49f30287f7c1c9ac9861fe93ffbc98b3818265c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "328a0674_4fbabe94",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -37,6 +61,30 @@
       "writtenOn": "2024-02-01T22:01:57Z",
       "side": 1,
       "message": "tabs in commit message.",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 2
+      },
+      "revId": "49f30287f7c1c9ac9861fe93ffbc98b3818265c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27cded61_ef9a3ab4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000238
+      },
+      "writtenOn": "2024-02-01T22:22:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "328a0674_4fbabe94",
       "range": {
         "startLine": 32,
         "startChar": 0,
@@ -77,6 +125,30 @@
       "writtenOn": "2024-02-01T22:01:57Z",
       "side": 1,
       "message": "This is changing the behavior for every system.  Has EVERY backend that supports this dbus interface been changed to add support for these enums?  I suspect not.\n\n\n\nnit: Can we keep these in the order they\u0027re declared in the CSDL?",
+      "range": {
+        "startLine": 2296,
+        "startChar": 1,
+        "endLine": 2298,
+        "endChar": 49
+      },
+      "revId": "49f30287f7c1c9ac9861fe93ffbc98b3818265c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34c24acf_69a94970",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2298,
+      "author": {
+        "id": 1000238
+      },
+      "writtenOn": "2024-02-01T22:22:50Z",
+      "side": 1,
+      "message": "If a backend does not support one of the new modes it should be rejecting the change. How else would you specify that some backends only support 3 of the 6 modes?\n\nBy CSDL do you mean schema? I can keep them in the original order (vs alphabetical)",
+      "parentUuid": "bc94a118_93f6b137",
       "range": {
         "startLine": 2296,
         "startChar": 1,
