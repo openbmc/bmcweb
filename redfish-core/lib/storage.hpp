@@ -918,7 +918,10 @@ inline void
                 const dbus::utility::MapperGetSubTreeResponse& subtree) {
             buildDrive(asyncResp, chassisId, driveName, ec, subtree);
         });
+        return;
     }
+    // Couldn't find an object with that name.  return an error
+    messages::resourceNotFound(asyncResp->res, "Drives", driveName);
 }
 
 inline void
@@ -973,8 +976,10 @@ inline void
                 }
                 matchAndFillDrive(asyncResp, chassisId, driveName, resp);
             });
-            break;
+            return;
         }
+        // Couldn't find an object with that name.  return an error
+        messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
     });
 }
 
