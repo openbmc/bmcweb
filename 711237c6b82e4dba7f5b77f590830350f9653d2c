@@ -58,6 +58,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6acfb45_a7e0a5f1",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-01T21:27:27Z",
+      "side": 1,
+      "message": "Thanks for finding these missing includes. \nAdded those missing ones.",
+      "parentUuid": "087c2872_baced7cc",
+      "revId": "711237c6b82e4dba7f5b77f590830350f9653d2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f3ab3a0_6e04bfbb",
@@ -71,6 +89,24 @@
       "writtenOn": "2024-02-01T19:50:51Z",
       "side": 1,
       "message": "```#include \u003cboost/system/error_code.hpp\u003e```",
+      "revId": "711237c6b82e4dba7f5b77f590830350f9653d2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc21a97b_9bf76d18",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-01T21:27:27Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "4f3ab3a0_6e04bfbb",
       "revId": "711237c6b82e4dba7f5b77f590830350f9653d2c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -92,6 +128,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed932f01_1bcea805",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-01T21:27:27Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "3db5534f_5b7026bd",
+      "revId": "711237c6b82e4dba7f5b77f590830350f9653d2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "94cf3b35_42e8f45e",
@@ -105,6 +159,30 @@
       "writtenOn": "2024-02-01T19:50:51Z",
       "side": 1,
       "message": "```#include \u003cstring\u003e```",
+      "range": {
+        "startLine": 210,
+        "startChar": 10,
+        "endLine": 210,
+        "endChar": 21
+      },
+      "revId": "711237c6b82e4dba7f5b77f590830350f9653d2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ac93cae_1624fb8a",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-01T21:27:27Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "94cf3b35_42e8f45e",
       "range": {
         "startLine": 210,
         "startChar": 10,
