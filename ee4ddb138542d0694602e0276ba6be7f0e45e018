@@ -321,6 +321,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bd3c0989_3dab1894",
+        "filename": "http/http_file_body.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-01T17:52:27Z",
+      "side": 1,
+      "message": "\u003e read\u003d\u003dreadReq and EOF can happen right?\n\nYes, it can, and in that case, this code loops one more time, and gets a read of zero, and handles the condition correctly.\n\n\u003e can\u0027t we use remain\u003d\u003d0 instead?\n\nThe file might be generated programmatically, and we might not know the size, as is the case in this unit test that uses a pipe:\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/69063/21/test/http/http_file_body_test.cpp#116",
+      "parentUuid": "27b11ddc_b1aa8418",
+      "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "48012936_2cc0f584",
         "filename": "http/http_file_body.hpp",
         "patchSetId": 14
@@ -332,6 +350,24 @@
       "writtenOn": "2024-02-01T17:18:35Z",
       "side": 1,
       "message": "can we enhance it to handle writing to a file if the body is opened with a file fd?",
+      "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6dad4d66_044bf3cd",
+        "filename": "http/http_file_body.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-01T17:52:27Z",
+      "side": 1,
+      "message": "That\u0027s a good idea, and actually why I started this patchset, but would certainly be a different patch to add that functionality.  (if you\u0027re interested in adding it, feel free).  We don\u0027t have any code that writes a request directly to a file today, and we\u0027d have to handle multi-part to do redfish uploads, which would involve the file body becoming multi-part aware.\n\nit\u0027s certainly something we can talk about in the future.",
+      "parentUuid": "48012936_2cc0f584",
       "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
