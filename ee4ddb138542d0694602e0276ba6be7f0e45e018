@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3cfb61d2_9025093a",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-01T17:47:14Z",
+      "side": 1,
+      "message": "But that would require serializing the internal data, which might be the file.\n\nI\u0027m open to this at some point, but I\u0027m not sure it would make sense to put the same thing in this patchset, and I\u0027m not sure what it would entail to make this work properly, but would certainly be a ton of code to add the std::formatter template stuff and do the printing.  Considering the existing FileBody doesn\u0027t support std::format at the moment, I think we can treat this as something additional added later?",
+      "parentUuid": "ffd4e060_94ea42c0",
+      "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ef5f0fdf_414d7fe1",
         "filename": "http/http_client.hpp",
         "patchSetId": 14
@@ -103,6 +121,24 @@
       "side": 1,
       "message": "The body is a polymorphic container. It can accept multiple value types. So overloading the assignment operator will be scalable. We need not add new explicit APIs for each type. The assignment operator will do the job. For the incompatible types, it will show an error.",
       "parentUuid": "2f193411_d1baa462",
+      "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06481e7d_713c1a23",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 741,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-01T17:47:14Z",
+      "side": 1,
+      "message": "\u003e The body is a polymorphic container. It can accept multiple value types. So overloading the assignment operator will be scalable.\n\nWhat does \"scalable\" mean in this context?  I don\u0027t believe we have a scaling problem, there are only two types represented for the moment.\n\n\u003e We need not add new explicit APIs for each type. The assignment operator will do the job. For the incompatible types, it will show an error.\n\nThe two citations below are from the coding standard that says the opposite.  operator overloading doesn\u0027t properly convey what\u0027s going on (we\u0027re loading a file, or loading a string).\n\n\nhttps://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#c163-overload-only-for-operations-that-are-roughly-equivalent\n\nIn addition:\nhttps://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#c164-avoid-implicit-conversion-operators",
+      "parentUuid": "33ee000f_f88cc378",
       "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -209,6 +245,24 @@
       "side": 1,
       "message": "There is no way to determine what the current body type is. We are depending on the order of condition check to determine it. This will not scale as soon as we add another type. IMO the code lacks locality of reasoning. Just by reading this file, we will never know what the current type is. Variant is good in that respect. An experienced bmcweb developer may know that the string body may hold an error string, but that is not evident in the code.",
       "parentUuid": "7daa2050_64c852c4",
+      "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5173bf44_765ac82c",
+        "filename": "http/http_file_body.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-01T17:47:14Z",
+      "side": 1,
+      "message": "\u003e There is no way to determine what the current body type is.\n\nWhy would that be required to a user outside the class?  only the body writer needs to know what type is currently contained, right?\n\n\u003e We are depending on the order of condition check to determine it. This will not scale as soon as we add another type.\n\nIf this is a hypothetical problem, lets defer that discussion until we want to add another type to this class.  Lets keep this discussion about THIS patchset.  I\u0027m happy to have discussions about what happens when we add a third or Nth type to this, but only when we are actually ready to add that type.\n\n\u003e IMO the code lacks locality of reasoning. Just by reading this file, we will never know what the current type is.\n\nWould adding a comment above the str declaration help?\n\n\u003e Variant is good in that respect. An experienced bmcweb developer may know that the string body may hold an error string, but that is not evident in the code.\n\n\n\nTo be honest, I\u0027m not really sure what code changes you\u0027re asking for here.  Are you asking for this to change to ?\n```\nstd::variant\u003cstd::string, file_posix\u003e\n```\n\nI had a version of this patchset that did that, but the code got fairly complicated with doing all the std::visit stuff for the writer, we had to open the file, then std::move it into place instead of just opening it in place, and there was a condition around what happens when we encounter a variant with a file object that isn\u0027t open.  The \"is_open\" check was actually from the variant version of that patchset.\n\nWe\u0027ve always put a 500 error string in the string body, because it might be mixed with value values in the response to the user (only part of your query might have failed).  I\u0027m happy to discuss doing something different, but that really feels like a separate discussion from this patchset, which is handling errors how we currently handle them, in the string body.",
+      "parentUuid": "f7f1a0a7_cec23d6c",
       "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
