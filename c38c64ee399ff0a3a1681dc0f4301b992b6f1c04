@@ -16,6 +16,24 @@
       "message": "Should this needs to check `ptr` as `nghttp2_hd_inflate_del()` does not check nullptr?\n\nhttps://github.com/nghttp2/nghttp2/blob/a65b0acd9e75697ffa22253bec887f6f58c77cab/lib/nghttp2_hd.c#L2276\n\n\n```\nif(ptr !\u003d nullptr) {\n  nghttp2_hd_inflate_del(ptr);\n}\n```",
       "revId": "c38c64ee399ff0a3a1681dc0f4301b992b6f1c04",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec69891a_cd2a0c8e",
+        "filename": "http/nghttp2_adapters.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-02T17:59:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ebbdb80d_efa87098",
+      "revId": "c38c64ee399ff0a3a1681dc0f4301b992b6f1c04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
