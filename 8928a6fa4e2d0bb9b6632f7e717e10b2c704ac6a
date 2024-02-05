@@ -87,6 +87,24 @@
       "message": "The set will be a separate commit?",
       "revId": "8928a6fa4e2d0bb9b6632f7e717e10b2c704ac6a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f3a2f90_07082383",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-05T17:17:14Z",
+      "side": 1,
+      "message": "Looks like we never broke out PATCH into its own commit?",
+      "parentUuid": "5183ecbe_f4efd84c",
+      "revId": "8928a6fa4e2d0bb9b6632f7e717e10b2c704ac6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

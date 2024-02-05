@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef848f61_2974b1e0",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-05T17:17:14Z",
+      "side": 1,
+      "message": "Same here.  Why is this path hardcoded?  Also, why is a power cap under a specific host.  It\u0027s a chassis property, right?  Something like a GPU likely has a power cap.",
+      "range": {
+        "startLine": 265,
+        "startChar": 8,
+        "endLine": 265,
+        "endChar": 54
+      },
+      "revId": "9b38c0ce401842d651b723b07d22b9dc112bfbb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99540d63_1abc8a24",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-05T17:17:14Z",
+      "side": 1,
+      "message": "? Why is this path hardcoded?   This will make ALL chassis set the power cap for this one path?",
+      "range": {
+        "startLine": 286,
+        "startChar": 9,
+        "endLine": 286,
+        "endChar": 53
+      },
+      "revId": "9b38c0ce401842d651b723b07d22b9dc112bfbb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c26af4a8_2d77e004",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-05T17:17:14Z",
+      "side": 1,
+      "message": "Please set both of these in one place.  Don\u0027t set it, then later on in the function (like 326) override it.\n\nAlso, behavior wise, if PowerCapEnable doesn\u0027t exist, we just assume it\u0027s enabled?  It looks like PowerCapEnable has been in the schema for 7 years now.  We can just assume it exists (change powerCapEnable  to not be a pointer).",
+      "range": {
+        "startLine": 298,
+        "startChar": 0,
+        "endLine": 301,
+        "endChar": 24
+      },
+      "revId": "9b38c0ce401842d651b723b07d22b9dc112bfbb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6ed055e_3637c7af",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-05T17:17:14Z",
+      "side": 1,
+      "message": "Why are these coming from the Cap interface, and not the CapLimits interface?  Do we need to deprecate one or the other?",
+      "range": {
+        "startLine": 310,
+        "startChar": 56,
+        "endLine": 311,
+        "endChar": 45
+      },
+      "revId": "9b38c0ce401842d651b723b07d22b9dc112bfbb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6b231f1_7c44f5b6",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-05T17:17:14Z",
+      "side": 1,
+      "message": "Lets just return 204, like we do elsewhere on PATCH.  keeping these aligned seems difficult.",
+      "range": {
+        "startLine": 319,
+        "startChar": 0,
+        "endLine": 340,
+        "endChar": 9
+      },
+      "revId": "9b38c0ce401842d651b723b07d22b9dc112bfbb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
