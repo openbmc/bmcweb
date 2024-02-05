@@ -1,0 +1,176 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10c66c2a_58290f12",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-05T17:08:22Z",
+      "side": 1,
+      "message": "Do we need any unit tests for this?",
+      "revId": "30bfda7cbbd393548926d9f73cca943c0d2273b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19c4d25e_64e02c9b",
+        "filename": "Redfish.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-05T17:08:22Z",
+      "side": 1,
+      "message": "you implemented more than one property here.  Please document appropriately.  I see at the very least DataSourceUri and Reading",
+      "range": {
+        "startLine": 230,
+        "startChar": 2,
+        "endLine": 230,
+        "endChar": 12
+      },
+      "revId": "30bfda7cbbd393548926d9f73cca943c0d2273b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee047923_e58fd841",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-05T17:08:22Z",
+      "side": 1,
+      "message": "why do we call getSubTree, THEN getObject?  I suspect the subtree call can be removed entirely?",
+      "range": {
+        "startLine": 142,
+        "startChar": 19,
+        "endLine": 142,
+        "endChar": 34
+      },
+      "revId": "30bfda7cbbd393548926d9f73cca943c0d2273b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41531600_17456d48",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-05T17:08:22Z",
+      "side": 1,
+      "message": "This is getting all sensors for the whole system, not just for this chassis.  As written, this will respond with a PowerWatts object on every chassis.  Do we need a test to verify that behavior doesn\u0027t exist in the future?",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 143,
+        "endChar": 54
+      },
+      "revId": "30bfda7cbbd393548926d9f73cca943c0d2273b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c9cba3a_c6ab8ff8",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-05T17:08:22Z",
+      "side": 1,
+      "message": "We call subtree, then we hardcode an object path?",
+      "range": {
+        "startLine": 175,
+        "startChar": 12,
+        "endLine": 175,
+        "endChar": 60
+      },
+      "revId": "30bfda7cbbd393548926d9f73cca943c0d2273b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "230d8fa1_2bd96900",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-05T17:08:22Z",
+      "side": 1,
+      "message": "It\u0027s a little odd we have @odata.id and DataSourceURI here.  are you sure that\u0027s correct?",
+      "range": {
+        "startLine": 202,
+        "startChar": 0,
+        "endLine": 206,
+        "endChar": 73
+      },
+      "revId": "30bfda7cbbd393548926d9f73cca943c0d2273b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fea40efe_77c4417b",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-05T17:08:22Z",
+      "side": 1,
+      "message": "This looks incorrect.  Can you verify that you tested this link produced was correct?",
+      "range": {
+        "startLine": 208,
+        "startChar": 24,
+        "endLine": 208,
+        "endChar": 69
+      },
+      "revId": "30bfda7cbbd393548926d9f73cca943c0d2273b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12f91ca7_e9f89b7b",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-05T17:08:22Z",
+      "side": 1,
+      "message": "This lambda is 3 tiers deep.  as has been pointed out in the past, please don\u0027t write non trivial lambdas.",
+      "revId": "30bfda7cbbd393548926d9f73cca943c0d2273b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
