@@ -72,6 +72,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "044bcedd_3e3222ec",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-02-05T04:50:07Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "3cfb61d2_9025093a",
+      "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ef5f0fdf_414d7fe1",
@@ -175,6 +193,24 @@
       "side": 1,
       "message": "When we add more body types in the future, I would expect that being able to differentiate \"set string\" from \"set file\" to be useful.\n\nWould you prefer methods that were explicitly called set, instead of returning the string or file reference?\n\nIMO, operator overloading doesn\u0027t fit with the coding standard, as I provided the details above.",
       "parentUuid": "34a5c8d6_84599ddf",
+      "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fac32300_fc2e6418",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 741,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-02-05T04:50:07Z",
+      "side": 1,
+      "message": "Sure I am okay with that",
+      "parentUuid": "224ebfa8_91c284b8",
       "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -374,6 +410,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "73405c61_06f5e795",
+        "filename": "http/http_file_body.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-02-05T04:50:07Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "7c94ad8d_8dcbdcfd",
+      "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "46576853_20282f2c",
@@ -405,6 +459,24 @@
       "side": 1,
       "message": "I added a comment about checking the error code.  We can\u0027t set an error string in the body here, because in this context, we don\u0027t know if this is redfish, dbus rest, or some other protocol.",
       "parentUuid": "46576853_20282f2c",
+      "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e6b1ebe_29faa0d7",
+        "filename": "http/http_file_body.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-02-05T04:50:07Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b9ca6e84_9ae66b38",
       "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -528,6 +600,24 @@
       "side": 1,
       "message": "\u003e read\u003d\u003dreadReq and EOF can happen right?\n\nYes, it can, and in that case, this code loops one more time, and gets a read of zero, and handles the condition correctly.\n\n\u003e can\u0027t we use remain\u003d\u003d0 instead?\n\nThe file might be generated programmatically, and we might not know the size, as is the case in this unit test that uses a pipe:\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/69063/21/test/http/http_file_body_test.cpp#116",
       "parentUuid": "27b11ddc_b1aa8418",
+      "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c3534d0_0233dc1e",
+        "filename": "http/http_file_body.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-02-05T04:50:07Z",
+      "side": 1,
+      "message": "I am not sure how payload size will work in the case of pipe. If payload size is zero then http clients may not parse the body right?",
+      "parentUuid": "bd3c0989_3dab1894",
       "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
