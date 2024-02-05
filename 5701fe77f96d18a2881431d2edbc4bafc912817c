@@ -1,0 +1,239 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bb761e6_863f407b",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-05T16:52:50Z",
+      "side": 1,
+      "message": "non trivial lambda.",
+      "range": {
+        "startLine": 19,
+        "startChar": 23,
+        "endLine": 32,
+        "endChar": 6
+      },
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a18bdf9_f737ce8d",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-05T16:52:50Z",
+      "side": 1,
+      "message": "Please build a list, and return to the callback as a list.  \"One callback per async action\" is an asio convention that helps code stay stable, because it makes it very clear when there could be multiple of an object.",
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad6f4fe9_c2dfea03",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-05T16:52:50Z",
+      "side": 1,
+      "message": "non trivial lambda.",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 6
+      },
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4608d6b_c158fc9e",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-05T16:52:50Z",
+      "side": 1,
+      "message": "internal error?",
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "659989de_790a1780",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-05T16:52:50Z",
+      "side": 1,
+      "message": "nlohmann::json::object_t",
+      "range": {
+        "startLine": 33,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 17
+      },
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2bb9c67_a017e4c9",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-05T16:52:50Z",
+      "side": 1,
+      "message": "SensorCollection doesn\u0027t implement DeviceName, so this patchset can\u0027t just add without adding support in sensor.hpp.  This is supposed to be an \"excerpt\" which in Redfish terms is a less populated version of the same schema.  If Sensor doesn\u0027t implement DeviceName, we can\u0027t just add it in the excerpt version.\n\nPlease just implement this as an \"excerpt\" mode on the existing sensor get code.\n\nIn addition, this is not a device name, per the redfish spec.",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 57
+      },
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52b3ed37_a6bde908",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-05T16:52:50Z",
+      "side": 1,
+      "message": "this is adding items to the list with no regard as to ordering.  The order from the mapper isn\u0027t defined, and certainly the order daemons reply to GetProperty requests is undefined, so you need to order there appropriately (probably with insert).\n\nAs written, i suspect that systems with multiple fan daemons will reorder this list every refresh, which doesn\u0027t meet the Redfish specification.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 48
+      },
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bcafc96_d634c92e",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-05T16:52:50Z",
+      "side": 1,
+      "message": "internalError?  If the mapper returns a fan that then doesn\u0027t exist, that\u0027s an error, right?",
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "796e589e_9bfc06aa",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-05T16:52:50Z",
+      "side": 1,
+      "message": "nit, capture error codes by const reference, as you\u0027ve done elsewhere in this file.",
+      "range": {
+        "startLine": 61,
+        "startChar": 18,
+        "endLine": 61,
+        "endChar": 43
+      },
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdaf4cac_fc332f68",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-05T16:52:50Z",
+      "side": 1,
+      "message": "I see no check to ensure that the opposite end of the \"cooled_by\" association is a fan inventory item.",
+      "range": {
+        "startLine": 79,
+        "startChar": 1,
+        "endLine": 82,
+        "endChar": 79
+      },
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "756d60c9_552b4c9a",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-05T16:52:50Z",
+      "side": 1,
+      "message": "As written, this looks like it implements\n\nChassis -\u003e cooled_by -\u003e sensor.  Which is incorrect.  I\u0027m not sure how that would work, and is likely relying on hardcoded associations for a specific system?\n\nChassis -\u003e cooled_by -\u003e Fan -\u003e all_sensors -\u003e Sensor\n\nIs the appropriate association.",
+      "range": {
+        "startLine": 99,
+        "startChar": 32,
+        "endLine": 99,
+        "endChar": 49
+      },
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
