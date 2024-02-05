@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e393c063_dc67040b",
+        "filename": "Redfish.md",
+        "patchSetId": 18
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-05T16:54:00Z",
+      "side": 1,
+      "message": "Please document this appropriately.  this is an array of objects, that have sub properties that you\u0027ve implemented at least a few of (DeviceName for example), and they should be documented.",
+      "range": {
+        "startLine": 231,
+        "startChar": 2,
+        "endLine": 231,
+        "endChar": 18
+      },
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0bb761e6_863f407b",
         "filename": "redfish-core/include/utils/fan_utils.hpp",
         "patchSetId": 18
