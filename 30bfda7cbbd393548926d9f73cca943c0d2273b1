@@ -89,6 +89,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e72ec612_15e794f9",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-05T17:09:24Z",
+      "side": 1,
+      "message": "Why are we looking for a specific name of a power sensor?  I realize there is code that does this already in the existing power schemas, but we know from experience that hardcoding specific sensor names is a bad idea, so I don\u0027t really want to accept new patches that make that behavior worse.",
+      "range": {
+        "startLine": 162,
+        "startChar": 25,
+        "endLine": 162,
+        "endChar": 36
+      },
+      "revId": "30bfda7cbbd393548926d9f73cca943c0d2273b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6c9cba3a_c6ab8ff8",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 8
