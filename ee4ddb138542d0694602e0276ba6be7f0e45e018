@@ -712,6 +712,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe87735f_b5e4a6e2",
+        "filename": "http/http_file_body.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-06T18:20:45Z",
+      "side": 1,
+      "message": "Actually, I\u0027ve removed all ability to do pipes in this patchset, and files are required to have a size.  While I think in the future it would be useful, we don\u0027t have a use case, and when we do, we can add it, along with the relevant tests.\n\nThank you for keeping my honest.",
+      "parentUuid": "156a8ced_2b54f4af",
+      "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "48012936_2cc0f584",
