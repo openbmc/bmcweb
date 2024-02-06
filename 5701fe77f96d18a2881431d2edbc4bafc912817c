@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e3ecd2b_88ccd505",
+        "filename": "Redfish.md",
+        "patchSetId": 18
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-02-06T03:42:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e393c063_dc67040b",
+      "range": {
+        "startLine": 231,
+        "startChar": 2,
+        "endLine": 231,
+        "endChar": 18
+      },
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0bb761e6_863f407b",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-02-05T16:52:50Z",
       "side": 1,
       "message": "non trivial lambda.",
+      "range": {
+        "startLine": 19,
+        "startChar": 23,
+        "endLine": 32,
+        "endChar": 6
+      },
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1317f884_c6f918f1",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-02-06T03:42:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0bb761e6_863f407b",
       "range": {
         "startLine": 19,
         "startChar": 23,
@@ -66,6 +114,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "06bfb056_9559433c",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-02-06T03:42:33Z",
+      "side": 1,
+      "message": "\u003e Please build a list, and return to the callback as a list.\n\nSorry, I am not following what this means.\n\n\u003e  \"One callback per async action\" \n\nI have updated as per this suggestion",
+      "parentUuid": "8a18bdf9_f737ce8d",
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ad6f4fe9_c2dfea03",
         "filename": "redfish-core/include/utils/fan_utils.hpp",
         "patchSetId": 18
@@ -77,6 +143,30 @@
       "writtenOn": "2024-02-05T16:52:50Z",
       "side": 1,
       "message": "non trivial lambda.",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 6
+      },
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d89fe1e4_4245cf3e",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-02-06T03:42:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad6f4fe9_c2dfea03",
       "range": {
         "startLine": 44,
         "startChar": 0,
@@ -104,6 +194,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b22c0df1_40a7d5c0",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-02-06T03:42:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4608d6b_c158fc9e",
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "659989de_790a1780",
@@ -117,6 +225,30 @@
       "writtenOn": "2024-02-05T16:52:50Z",
       "side": 1,
       "message": "nlohmann::json::object_t",
+      "range": {
+        "startLine": 33,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 17
+      },
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2619562_ede19032",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-02-06T03:42:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "659989de_790a1780",
       "range": {
         "startLine": 33,
         "startChar": 4,
@@ -152,6 +284,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d5414093_e4127793",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-02-06T03:42:33Z",
+      "side": 1,
+      "message": "Updated",
+      "parentUuid": "c2bb9c67_a017e4c9",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 57
+      },
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "52b3ed37_a6bde908",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 18
@@ -163,6 +319,30 @@
       "writtenOn": "2024-02-05T16:52:50Z",
       "side": 1,
       "message": "this is adding items to the list with no regard as to ordering.  The order from the mapper isn\u0027t defined, and certainly the order daemons reply to GetProperty requests is undefined, so you need to order there appropriately (probably with insert).\n\nAs written, i suspect that systems with multiple fan daemons will reorder this list every refresh, which doesn\u0027t meet the Redfish specification.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 48
+      },
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00b95fc9_f8cd19c3",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-02-06T03:42:33Z",
+      "side": 1,
+      "message": "Updated",
+      "parentUuid": "52b3ed37_a6bde908",
       "range": {
         "startLine": 41,
         "startChar": 0,
@@ -190,6 +370,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ff4991b_d55c610c",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-02-06T03:42:33Z",
+      "side": 1,
+      "message": "Correct，Done",
+      "parentUuid": "5bcafc96_d634c92e",
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "796e589e_9bfc06aa",
@@ -203,6 +401,30 @@
       "writtenOn": "2024-02-05T16:52:50Z",
       "side": 1,
       "message": "nit, capture error codes by const reference, as you\u0027ve done elsewhere in this file.",
+      "range": {
+        "startLine": 61,
+        "startChar": 18,
+        "endLine": 61,
+        "endChar": 43
+      },
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9bfb5da4_6d58a1b5",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-02-06T03:42:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "796e589e_9bfc06aa",
       "range": {
         "startLine": 61,
         "startChar": 18,
@@ -238,6 +460,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "18351557_bead245f",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-02-06T03:42:33Z",
+      "side": 1,
+      "message": "rainier has been configured in associations.json.\nhttps://github.com/openbmc/openbmc/blob/master/meta-ibm/recipes-phosphor/inventory/phosphor-inventory-manager/p10bmc/ibm%2Crainier-2u_associations.json#L53-L56\n\nFP5280g3 is also associated downstream, But I found that this function has not been implemented in EM.",
+      "parentUuid": "cdaf4cac_fc332f68",
+      "range": {
+        "startLine": 79,
+        "startChar": 1,
+        "endLine": 82,
+        "endChar": 79
+      },
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "756d60c9_552b4c9a",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 18
@@ -249,6 +495,30 @@
       "writtenOn": "2024-02-05T16:52:50Z",
       "side": 1,
       "message": "As written, this looks like it implements\n\nChassis -\u003e cooled_by -\u003e sensor.  Which is incorrect.  I\u0027m not sure how that would work, and is likely relying on hardcoded associations for a specific system?\n\nChassis -\u003e cooled_by -\u003e Fan -\u003e all_sensors -\u003e Sensor\n\nIs the appropriate association.",
+      "range": {
+        "startLine": 99,
+        "startChar": 32,
+        "endLine": 99,
+        "endChar": 49
+      },
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54649981_afa97454",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-02-06T03:42:33Z",
+      "side": 1,
+      "message": "Now, Chassis-\u003ecooled_by-\u003eFan-\u003esensors(all_sensors \u003d\u003d sensor for Fan)\nI think this is correct, https://github.com/openbmc/openbmc/blob/master/meta-ibm/recipes-phosphor/inventory/phosphor-inventory-manager/p10bmc/ibm%2Crainier-2u_associations.json#L15-L27\n\nBecause for fan0, it may be a dual rotor or a single rotor.",
+      "parentUuid": "756d60c9_552b4c9a",
       "range": {
         "startLine": 99,
         "startChar": 32,
