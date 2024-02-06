@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4f763915_4d4ebb28",
+        "filename": "Redfish.md",
+        "patchSetId": 41
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-06T17:20:26Z",
+      "side": 1,
+      "message": "Please look at other examples of how we document sub-resource properties",
+      "range": {
+        "startLine": 333,
+        "startChar": 0,
+        "endLine": 334,
+        "endChar": 12
+      },
+      "revId": "1933be576f50928f4978e91ae0f399e6dab5107b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dd798a4b_d3f17c27",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 41
@@ -36,6 +59,98 @@
         "startChar": 0,
         "endLine": 450,
         "endChar": 5
+      },
+      "revId": "1933be576f50928f4978e91ae0f399e6dab5107b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "effe272a_635fce3d",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-06T17:20:26Z",
+      "side": 1,
+      "message": "nullptr dereference.",
+      "range": {
+        "startLine": 497,
+        "startChar": 19,
+        "endLine": 497,
+        "endChar": 22
+      },
+      "revId": "1933be576f50928f4978e91ae0f399e6dab5107b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "072457dd_b8899acb",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-06T17:20:26Z",
+      "side": 1,
+      "message": "Why is interface list empty?  Shouldn\u0027t we be explicitly looking for interfaces, per DBUS_USAGE.md",
+      "range": {
+        "startLine": 502,
+        "startChar": 48,
+        "endLine": 502,
+        "endChar": 51
+      },
+      "revId": "1933be576f50928f4978e91ae0f399e6dab5107b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b5c705d_c6340fd2",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-06T17:20:26Z",
+      "side": 1,
+      "message": "nullptr dereference.",
+      "range": {
+        "startLine": 502,
+        "startChar": 44,
+        "endLine": 502,
+        "endChar": 47
+      },
+      "revId": "1933be576f50928f4978e91ae0f399e6dab5107b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e07df96_1c831371",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-06T17:20:26Z",
+      "side": 1,
+      "message": "all_sensors.",
+      "range": {
+        "startLine": 535,
+        "startChar": 61,
+        "endLine": 535,
+        "endChar": 68
       },
       "revId": "1933be576f50928f4978e91ae0f399e6dab5107b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
