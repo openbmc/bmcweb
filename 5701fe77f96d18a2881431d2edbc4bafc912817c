@@ -132,6 +132,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "62ea6a73_0d3a8515",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-06T05:27:24Z",
+      "side": 1,
+      "message": "\u003e \u003e Please build a list, and return to the callback as a list.\n\u003e \n\u003e Sorry, I am not following what this means.\n\nit means don\u0027t call the callback in a loop.\n\n\u003e \n\u003e \u003e  \"One callback per async action\" \n\u003e \n\u003e I have updated as per this suggestion",
+      "parentUuid": "06bfb056_9559433c",
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ad6f4fe9_c2dfea03",
         "filename": "redfish-core/include/utils/fan_utils.hpp",
         "patchSetId": 18

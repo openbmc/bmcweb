@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8781512_d77c1fa4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-06T05:27:24Z",
+      "side": 1,
+      "message": "this\nA. Doesn\u0027t match what you documented\nB. Doesn\u0027t match the spec. \n\nYet you say the Service validator passed, can you provide the passing test result?  I suspect there\u0027s a bug in the service validator if this passed.",
+      "range": {
+        "startLine": 25,
+        "startChar": 5,
+        "endLine": 25,
+        "endChar": 26
+      },
+      "revId": "739ee03e8fbe73bd09f6b544cd2387d7d8f3b7f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d25f0595_2e997a2a",
+        "filename": "Redfish.md",
+        "patchSetId": 19
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-06T05:27:24Z",
+      "side": 1,
+      "message": "Please document with slashes.  Look at the examples that start with Links/ for how these are documented.",
+      "range": {
+        "startLine": 231,
+        "startChar": 0,
+        "endLine": 234,
+        "endChar": 12
+      },
+      "revId": "739ee03e8fbe73bd09f6b544cd2387d7d8f3b7f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e178b2b2_45c583cf",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-06T05:27:24Z",
+      "side": 1,
+      "message": "Please don\u0027t make multiple tiers of mapper calls.\n\nGetSubTreePaths -\u003e GetObject per paths is the same operation as GetSubtree.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 37
+      },
+      "revId": "739ee03e8fbe73bd09f6b544cd2387d7d8f3b7f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f09c22a8_40a434f1",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-06T05:27:24Z",
+      "side": 1,
+      "message": "all_sensors",
+      "range": {
+        "startLine": 54,
+        "startChar": 20,
+        "endLine": 54,
+        "endChar": 27
+      },
+      "revId": "739ee03e8fbe73bd09f6b544cd2387d7d8f3b7f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df2619c4_b3a4c4b3",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-06T05:27:24Z",
+      "side": 1,
+      "message": "Why are we parsing the name to get the index here?  what if the fan names are \n\n\nfoo\nbar\nbaz\n\n?\n\nNames are user facing.  There\u0027s no requirement for them to have an index of any kind in them.",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 45
+      },
+      "revId": "739ee03e8fbe73bd09f6b544cd2387d7d8f3b7f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
