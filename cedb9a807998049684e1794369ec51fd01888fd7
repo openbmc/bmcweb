@@ -147,6 +147,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d456c4bb_02925b90",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-06T17:22:18Z",
+      "side": 1,
+      "message": "ACK.  Fine as is.",
+      "parentUuid": "4cf76fc4_67b87878",
+      "range": {
+        "startLine": 103,
+        "startChar": 10,
+        "endLine": 103,
+        "endChar": 27
+      },
+      "revId": "cedb9a807998049684e1794369ec51fd01888fd7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fdcfba5e_89dc184b",

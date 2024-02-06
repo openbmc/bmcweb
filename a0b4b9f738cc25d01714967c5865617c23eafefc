@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10074658_88be8d51",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-06T17:22:18Z",
+      "side": 1,
+      "message": "This is a dbus path, why it\u0027s it using the typesafe dbus path object?\n\n\nOnce that is answered, it\u0027s really odd to me that this API takes BOTH an object path, and the full path to the association.  Isn\u0027t the association just\n\n```\npath / association_name\n```\n\nWhy would this api need to provide two paths?",
+      "range": {
+        "startLine": 121,
+        "startChar": 10,
+        "endLine": 121,
+        "endChar": 22
+      },
+      "revId": "a0b4b9f738cc25d01714967c5865617c23eafefc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
