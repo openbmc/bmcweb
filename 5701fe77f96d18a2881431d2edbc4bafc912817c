@@ -150,6 +150,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "abc5656a_6763fcb2",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-02-06T06:22:35Z",
+      "side": 1,
+      "message": "```\n        for (const auto\u0026 [sensorPath, serviceMap] : subtree)\n        {\n            for (const auto\u0026 [service, interfaces] : serviceMap)\n            {\n                callback(service, sensorPath);\n            }\n        }\n```\nIs this wrong?",
+      "parentUuid": "62ea6a73_0d3a8515",
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ad6f4fe9_c2dfea03",
         "filename": "redfish-core/include/utils/fan_utils.hpp",
         "patchSetId": 18
@@ -524,6 +542,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d599caa_11627e56",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-02-06T06:22:35Z",
+      "side": 1,
+      "message": "Got it.\nUpdated",
+      "parentUuid": "e304a54b_31f88896",
+      "range": {
+        "startLine": 79,
+        "startChar": 1,
+        "endLine": 82,
+        "endChar": 79
+      },
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "756d60c9_552b4c9a",
@@ -585,6 +627,30 @@
       "side": 1,
       "message": "\u003e Now, Chassis-\u003ecooled_by-\u003eFan-\u003esensors(all_sensors \u003d\u003d sensor for Fan)\n\u003e I think this is correct, \n\nthat’s not what was in code though.  there is no mention of all_sensors in this patchset.\n\n\u003e https://github.com/openbmc/openbmc/blob/master/meta-ibm/recipes-phosphor/inventory/phosphor-inventory-manager/p10bmc/ibm%2Crainier-2u_associations.json#L15-L27\n\u003e \n\u003e Because for fan0, it may be a dual rotor or a single rotor.",
       "parentUuid": "54649981_afa97454",
+      "range": {
+        "startLine": 99,
+        "startChar": 32,
+        "endLine": 99,
+        "endChar": 49
+      },
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e2b610f_8c855dc4",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-02-06T06:22:35Z",
+      "side": 1,
+      "message": "Updated",
+      "parentUuid": "39dab4b0_4284627c",
       "range": {
         "startLine": 99,
         "startChar": 32,

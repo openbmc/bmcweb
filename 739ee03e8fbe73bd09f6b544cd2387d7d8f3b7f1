@@ -47,6 +47,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4721199f_34a2ccf9",
+        "filename": "Redfish.md",
+        "patchSetId": 19
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-02-06T06:22:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d25f0595_2e997a2a",
+      "range": {
+        "startLine": 231,
+        "startChar": 0,
+        "endLine": 234,
+        "endChar": 12
+      },
+      "revId": "739ee03e8fbe73bd09f6b544cd2387d7d8f3b7f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e178b2b2_45c583cf",
@@ -60,6 +84,30 @@
       "writtenOn": "2024-02-06T05:27:24Z",
       "side": 1,
       "message": "Please don\u0027t make multiple tiers of mapper calls.\n\nGetSubTreePaths -\u003e GetObject per paths is the same operation as GetSubtree.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 37
+      },
+      "revId": "739ee03e8fbe73bd09f6b544cd2387d7d8f3b7f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b7f5682_c355914c",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-02-06T06:22:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e178b2b2_45c583cf",
       "range": {
         "startLine": 30,
         "startChar": 0,
@@ -93,6 +141,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "265dabb1_20491cff",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-02-06T06:22:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f09c22a8_40a434f1",
+      "range": {
+        "startLine": 54,
+        "startChar": 20,
+        "endLine": 54,
+        "endChar": 27
+      },
+      "revId": "739ee03e8fbe73bd09f6b544cd2387d7d8f3b7f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df2619c4_b3a4c4b3",
@@ -106,6 +178,30 @@
       "writtenOn": "2024-02-06T05:27:24Z",
       "side": 1,
       "message": "Why are we parsing the name to get the index here?  what if the fan names are \n\n\nfoo\nbar\nbaz\n\n?\n\nNames are user facing.  There\u0027s no requirement for them to have an index of any kind in them.",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 45
+      },
+      "revId": "739ee03e8fbe73bd09f6b544cd2387d7d8f3b7f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d74006c1_0770909a",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-02-06T06:22:35Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "df2619c4_b3a4c4b3",
       "range": {
         "startLine": 25,
         "startChar": 0,
