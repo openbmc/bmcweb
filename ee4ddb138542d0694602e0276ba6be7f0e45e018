@@ -678,6 +678,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7daa5e0b_7e29a319",
+        "filename": "http/http_file_body.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-02-06T05:09:43Z",
+      "side": 1,
+      "message": "But it depends on the client, right? Some clients will avoid parsing the body if the content length is not present. So if we want to mandate clients to look for the body, we should pass a valid length, right? So it looks like a server problem to me",
+      "parentUuid": "f72de703_282ded38",
+      "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "48012936_2cc0f584",
         "filename": "http/http_file_body.hpp",
         "patchSetId": 14
