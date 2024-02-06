@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9e709fcf_ed74be7d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-02-06T06:27:51Z",
+      "side": 1,
+      "message": "To be honest, I haven\u0027t run the validator since I joined `SensorFanArrayExcerpt`.\n\nyou mentioned：\n```\nSensorCollection doesn\u0027t implement DeviceName, so this patchset can\u0027t just add without adding support in sensor.hpp. This is supposed to be an \"excerpt\" which in Redfish terms is a less populated version of the same schema. If Sensor doesn\u0027t implement DeviceName, we can\u0027t just add it in the excerpt version.\n\nPlease just implement this as an \"excerpt\" mode on the existing sensor get code.\n\nIn addition, this is not a device name, per the redfish spec.\n```\n\nSo I think it should be added `SensorFanArrayExcerpt` right?",
+      "parentUuid": "e8781512_d77c1fa4",
+      "range": {
+        "startLine": 25,
+        "startChar": 5,
+        "endLine": 25,
+        "endChar": 26
+      },
+      "revId": "739ee03e8fbe73bd09f6b544cd2387d7d8f3b7f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d25f0595_2e997a2a",
         "filename": "Redfish.md",
         "patchSetId": 19
