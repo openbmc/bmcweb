@@ -484,6 +484,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e304a54b_31f88896",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-06T05:06:50Z",
+      "side": 1,
+      "message": "I made no mention of EM in my comment.  I’m not sure why you bring it up.  If the rainier associations are wrong then that’s a discussion to have with that maintainer, I’m talking about the code in this patchset, which makes no mention of Fan.  If a \"cooled_by\" association does not point to a fan object (which is allowed in PDI), then this will return a URL that 404s.\n\nNote that this is different than the all_sensors association, or chassis association, that by convention, we KNOW associates to a Sensor object.",
+      "parentUuid": "18351557_bead245f",
+      "range": {
+        "startLine": 79,
+        "startChar": 1,
+        "endLine": 82,
+        "endChar": 79
+      },
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "756d60c9_552b4c9a",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 18
@@ -519,6 +543,30 @@
       "side": 1,
       "message": "Now, Chassis-\u003ecooled_by-\u003eFan-\u003esensors(all_sensors \u003d\u003d sensor for Fan)\nI think this is correct, https://github.com/openbmc/openbmc/blob/master/meta-ibm/recipes-phosphor/inventory/phosphor-inventory-manager/p10bmc/ibm%2Crainier-2u_associations.json#L15-L27\n\nBecause for fan0, it may be a dual rotor or a single rotor.",
       "parentUuid": "756d60c9_552b4c9a",
+      "range": {
+        "startLine": 99,
+        "startChar": 32,
+        "endLine": 99,
+        "endChar": 49
+      },
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39dab4b0_4284627c",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-06T05:06:50Z",
+      "side": 1,
+      "message": "\u003e Now, Chassis-\u003ecooled_by-\u003eFan-\u003esensors(all_sensors \u003d\u003d sensor for Fan)\n\u003e I think this is correct, \n\nthat’s not what was in code though.  there is no mention of all_sensors in this patchset.\n\n\u003e https://github.com/openbmc/openbmc/blob/master/meta-ibm/recipes-phosphor/inventory/phosphor-inventory-manager/p10bmc/ibm%2Crainier-2u_associations.json#L15-L27\n\u003e \n\u003e Because for fan0, it may be a dual rotor or a single rotor.",
+      "parentUuid": "54649981_afa97454",
       "range": {
         "startLine": 99,
         "startChar": 32,
