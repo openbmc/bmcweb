@@ -226,11 +226,10 @@ option(
 option(
     'redfish-new-powersubsystem-thermalsubsystem',
     type: 'feature',
-    value: 'disabled',
+    value: 'enabled',
     description: '''Enable/disable the new PowerSubsystem, ThermalSubsystem,
                     and all children schemas. This includes displaying all
-                    sensors in the SensorCollection. At a later date, this
-                    feature will be defaulted to enabled.'''
+                    sensors in the SensorCollection.'''
 )
 
 option(
@@ -238,7 +237,8 @@ option(
     type: 'feature',
     value: 'enabled',
     description: '''Enable/disable the old Power / Thermal. The default
-                    condition is allowing the old Power / Thermal.'''
+                    condition is allowing the old Power / Thermal. This
+                    will be disabled by default June 2024. '''
 )
 
 option(
