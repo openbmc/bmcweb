@@ -339,6 +339,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6413825_ce6f6bd6",
+        "filename": "http/http_file_body.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-06T19:00:01Z",
+      "side": 1,
+      "message": "Changed fileSize to be a value, not optional.",
+      "parentUuid": "b0f99e27_eb31b8be",
+      "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "42871133_505f28dc",
@@ -819,6 +837,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4c848a0a_32526f79",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-06T19:00:01Z",
+      "side": 1,
+      "message": "Sure, but lets do that in another patch.",
+      "parentUuid": "b5482654_7d308019",
+      "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "592d41fd_acdf9c06",
         "filename": "http/http_response.hpp",
         "patchSetId": 14
@@ -830,6 +866,24 @@
       "writtenOn": "2024-02-02T16:08:24Z",
       "side": 1,
       "message": "removing optional return from body.payloadSize() can simplify this code",
+      "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5eabf232_50244820",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-06T19:00:01Z",
+      "side": 1,
+      "message": "I\u0027ve removed optional support.",
+      "parentUuid": "592d41fd_acdf9c06",
       "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
