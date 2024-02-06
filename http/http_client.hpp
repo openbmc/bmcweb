@@ -28,9 +28,9 @@
 #include <boost/asio/ssl/context.hpp>
 #include <boost/asio/ssl/error.hpp>
 #include <boost/asio/steady_timer.hpp>
-#include <boost/beast/core/flat_buffer.hpp>
 #include <boost/beast/core/flat_static_buffer.hpp>
 #include <boost/beast/http/message.hpp>
+#include <boost/beast/http/message_generator.hpp>
 #include <boost/beast/http/parser.hpp>
 #include <boost/beast/http/read.hpp>
 #include <boost/beast/http/write.hpp>
@@ -278,19 +278,19 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         // Set a timeout on the operation
         timer.expires_after(std::chrono::seconds(30));
         timer.async_wait(std::bind_front(onTimeout, weak_from_this()));
-
+        boost::beast::http::message_generator gen(std::move(req));
         // Send the HTTP request to the remote host
         if (sslConn)
         {
-            boost::beast::http::async_write(
-                *sslConn, req,
+            boost::beast::async_write(
+                *sslConn, std::move(gen),
                 std::bind_front(&ConnectionInfo::afterWrite, this,
                                 shared_from_this()));
         }
         else
         {
-            boost::beast::http::async_write(
-                conn, req,
+            boost::beast::async_write(
+                conn, std::move(gen),
                 std::bind_front(&ConnectionInfo::afterWrite, this,
                                 shared_from_this()));
         }
