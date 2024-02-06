@@ -46,6 +46,30 @@
       },
       "revId": "defeb95288ba569c34c7ba3cdfe1d11ea2d77e3c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1afa248e_bc77f7af",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2302,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-02-06T20:43:28Z",
+      "side": 1,
+      "message": "What is the plan here?\nDo we need a AllowedPowerModes like\n\nhttps://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/68933/7/yaml/xyz/openbmc_project/State/Host.interface.yaml ?",
+      "parentUuid": "ded21c44_04331ff4",
+      "range": {
+        "startLine": 2300,
+        "startChar": 0,
+        "endLine": 2302,
+        "endChar": 67
+      },
+      "revId": "defeb95288ba569c34c7ba3cdfe1d11ea2d77e3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
