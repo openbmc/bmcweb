@@ -16,6 +16,24 @@
       "message": "Why are you returning on the first one?  Aren\u0027t there potentially many Item.Cpu interfaces underneath inventory?",
       "revId": "a748c00748465b44a75ed68041c810b4d0185edf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a4dee66_c85ca037",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 89
+      },
+      "lineNbr": 944,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-02-06T01:23:09Z",
+      "side": 1,
+      "message": "Oops. Its my mistake, forgot filtering processId\nUpdated.",
+      "parentUuid": "ca427b36_e28aef4a",
+      "revId": "a748c00748465b44a75ed68041c810b4d0185edf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
