@@ -18,8 +18,10 @@
 #include <boost/asio/ssl/stream.hpp>
 #include <boost/asio/steady_timer.hpp>
 #include <boost/beast/_experimental/test/stream.hpp>
+#include <boost/beast/core/buffers_generator.hpp>
 #include <boost/beast/core/flat_static_buffer.hpp>
 #include <boost/beast/http/error.hpp>
+#include <boost/beast/http/message_generator.hpp>
 #include <boost/beast/http/parser.hpp>
 #include <boost/beast/http/read.hpp>
 #include <boost/beast/http/write.hpp>
@@ -548,9 +550,9 @@ class Connection :
         res.preparePayload();
 
         startDeadline();
-        serializer.emplace(res.response);
-        boost::beast::http::async_write(
-            adaptor, *serializer,
+        boost::beast::async_write(
+            adaptor,
+            boost::beast::http::message_generator(std::move(res.response)),
             std::bind_front(&self_type::afterDoWrite, this,
                             shared_from_this()));
     }
@@ -612,8 +614,6 @@ class Connection :
     // Making this a std::optional allows it to be efficiently destroyed and
     // re-created on Connection reset
     std::optional<boost::beast::http::request_parser<bmcweb::HttpBody>> parser;
-    std::optional<boost::beast::http::response_serializer<bmcweb::HttpBody>>
-        serializer;
 
     boost::beast::flat_static_buffer<8192> buffer;
 
