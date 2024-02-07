@@ -590,6 +590,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "35516a87_c02fcade",
+        "filename": "http/http_file_body.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-02-07T06:11:10Z",
+      "side": 1,
+      "message": "since pipe support is removed, shouldn\u0027t we report back the error?",
+      "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9935d0b5_b9b17d81",
         "filename": "http/http_file_body.hpp",
         "patchSetId": 14
@@ -619,6 +636,24 @@
       "side": 1,
       "message": "Because nghttp2 gives fixed size buffers to fill results into.  If body returns \u003e nghttp2 buffer size, we now need complex buffering in nghttp2 that largely doesn\u0027t get used, because most of the time the buffers are the same size.\n\nAdding this parameter lets nghttp2 communicate its max buffer size, so the code is simpler.",
       "parentUuid": "9935d0b5_b9b17d81",
+      "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af3f3f46_7920f1bd",
+        "filename": "http/http_file_body.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-02-07T06:11:10Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "15a21d9f_9996a027",
       "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -849,6 +884,24 @@
       "side": 1,
       "message": "Sure, but lets do that in another patch.",
       "parentUuid": "b5482654_7d308019",
+      "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "849e901b_b079117c",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-02-07T06:11:10Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "4c848a0a_32526f79",
       "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
