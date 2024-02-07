@@ -328,6 +328,30 @@
       },
       "revId": "3d73c5862a0a64e87ff1f07b468ab7ce91d6af67",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2ab19e2_cbdeb38d",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 65
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-07T22:14:08Z",
+      "side": 1,
+      "message": "\u003e I think this has been discussed in the previous comments/responses.\n\u003e \n\u003e Port can also be associated for the other types - e.g. Network etc.\n\u003e \n\u003e So, assuming bmcweb implements port for the other types in addition to FabricAdapter, if we find the matching Ports first, the associated endpoints potentially may be the mix of the different inventory types (besides FabricAdapter) if port name happens to be same.\n\nRight, but that can happen regardless, you need to verify that the thing attached to the other end of the association matches the type you expect.  I suspect that given the change a year ago to non-type specific associations we need another mapper call added that can answer:\n\n\"Find me the entries with type X associated with type Y on association connected_by\"\n\nPutting all this logic in bmcweb and doing a triple tiered mapper call is complexity that we can\u0027t really handle in bmcweb, as we start getting into business logic.\n\n\u003e   This could result in the multiple dbus calls to verify the endpoints (additional calls per each matching port).\n\u003e \n\u003e However, if we search fabric adapter first (using the given input `adapterId`), all associated ports to the fabric adapters will be returned using `getAssociatedSubtree()` without needing any more dbus calls.\n\nWe still have multiple dbus calls though?",
+      "parentUuid": "fb86fed5_60273973",
+      "range": {
+        "startLine": 296,
+        "startChar": 4,
+        "endLine": 296,
+        "endChar": 29
+      },
+      "revId": "3d73c5862a0a64e87ff1f07b468ab7ce91d6af67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

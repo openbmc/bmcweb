@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2597e38_752de20d",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 67
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-07T22:14:08Z",
+      "side": 1,
+      "message": "Looks unrelated?",
+      "range": {
+        "startLine": 3,
+        "startChar": 10,
+        "endLine": 3,
+        "endChar": 23
+      },
+      "revId": "abccac79f7834941c43684d06e36d1a8d76f3815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b373d78_34d27667",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 67
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-07T22:14:08Z",
+      "side": 1,
+      "message": "Remove \"if there are\".  There\u0027s nothing in this that checks for a ports existence.",
+      "range": {
+        "startLine": 197,
+        "startChar": 25,
+        "endLine": 197,
+        "endChar": 38
+      },
+      "revId": "abccac79f7834941c43684d06e36d1a8d76f3815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "465146dd_9bf907fc",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 67
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-07T22:14:08Z",
+      "side": 1,
+      "message": "if these properties are unused, why are we adding them?",
+      "range": {
+        "startLine": 28,
+        "startChar": 29,
+        "endLine": 29,
+        "endChar": 38
+      },
+      "revId": "abccac79f7834941c43684d06e36d1a8d76f3815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74b59484_a57cf938",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 67
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-07T22:14:08Z",
+      "side": 1,
+      "message": "please propagate the error to the callback.",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 55
+      },
+      "revId": "abccac79f7834941c43684d06e36d1a8d76f3815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea04b6f3_c8e079e6",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 67
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-07T22:14:08Z",
+      "side": 1,
+      "message": "invert this.\n\njust declare the array:\n\nnlohmann::json::array_t members;\nfill it\n\nthen do\n\n\nasyncResp-\u003eres.jsonValue[\"Members\"] \u003d std::move(members);",
+      "range": {
+        "startLine": 228,
+        "startChar": 4,
+        "endLine": 228,
+        "endChar": 66
+      },
+      "revId": "abccac79f7834941c43684d06e36d1a8d76f3815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61d7d5bf_d696d97a",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 67
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-07T22:14:08Z",
+      "side": 1,
+      "message": "Needs to set internal error if we hit an error.",
+      "range": {
+        "startLine": 235,
+        "startChar": 0,
+        "endLine": 235,
+        "endChar": 28
+      },
+      "revId": "abccac79f7834941c43684d06e36d1a8d76f3815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecef8578_27ead018",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 67
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-07T22:14:08Z",
+      "side": 1,
+      "message": "This is a well known antipattern, and for things that have no ports, will result in the members array being null.\n\nPlease follow the same pattern pointed out on line 228",
+      "range": {
+        "startLine": 244,
+        "startChar": 0,
+        "endLine": 244,
+        "endChar": 66
+      },
+      "revId": "abccac79f7834941c43684d06e36d1a8d76f3815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f3d7faa_bfdd3587",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 67
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-07T22:14:08Z",
+      "side": 1,
+      "message": "nlohmann::json::object_t",
+      "range": {
+        "startLine": 247,
+        "startChar": 8,
+        "endLine": 247,
+        "endChar": 22
+      },
+      "revId": "abccac79f7834941c43684d06e36d1a8d76f3815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7b48a78_120749d2",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 67
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-07T22:14:08Z",
+      "side": 1,
+      "message": "Why do we do a full subtree command and then ignore the result?",
+      "range": {
+        "startLine": 282,
+        "startChar": 59,
+        "endLine": 282,
+        "endChar": 74
+      },
+      "revId": "abccac79f7834941c43684d06e36d1a8d76f3815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ddb59a09_86072aa4",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 67
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-07T22:14:08Z",
+      "side": 1,
+      "message": "Please just combined these two into one.  There\u0027s no need to have multiple requestRoutes.  i realize we separate this in other places, but that was because of refactoring.",
+      "range": {
+        "startLine": 331,
+        "startChar": 0,
+        "endLine": 334,
+        "endChar": 1
+      },
+      "revId": "abccac79f7834941c43684d06e36d1a8d76f3815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
