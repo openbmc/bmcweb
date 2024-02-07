@@ -116,6 +116,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0dc47d73_6cdeaac4",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 65
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-07T13:13:51Z",
+      "side": 1,
+      "message": "This `getFabricAssociatedPortSubTree()` is called by `getFabricPortSubTree()` which checks the validity of the fabric adapter using `getValidFabricAdapterPath()` in L69-L76.\n\n```\ninline void\n    getFabricPortSubTree(const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp,\n                         const std::string\u0026 systemName,\n                         const std::string\u0026 adapterId, Callback\u0026\u0026 callback)\n{\n    getValidFabricAdapterPath(\n        adapterId, systemName, asyncResp,\n        std::bind_front(getFabricAssociatedPortSubTree, asyncResp,\n                        std::forward\u003cCallback\u003e(callback)));\n}\n```",
+      "parentUuid": "8ecd952a_7198a980",
+      "range": {
+        "startLine": 57,
+        "startChar": 30,
+        "endLine": 57,
+        "endChar": 40
+      },
+      "revId": "3d73c5862a0a64e87ff1f07b468ab7ce91d6af67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f5e8c1a3_857c37cb",
@@ -141,6 +165,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4c0f0eba_efe1a553",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 65
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-07T13:13:51Z",
+      "side": 1,
+      "message": "This `portIter-\u003esecond` is the service names for Port.\nIs it possible to have an empty service for the obtained subtree element? \n\nIn bmcweb, many other places are doing like this.\nhttps://github.com/openbmc/bmcweb/blob/aaf08ac7cd355341499453fc8677c2976a4e5464/redfish-core/lib/systems.hpp#L2805",
+      "parentUuid": "f5e8c1a3_857c37cb",
+      "range": {
+        "startLine": 131,
+        "startChar": 54,
+        "endLine": 131,
+        "endChar": 56
+      },
+      "revId": "3d73c5862a0a64e87ff1f07b468ab7ce91d6af67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "02c08afb_8b7dc1e1",
         "filename": "redfish-core/lib/fabric_ports.hpp",
         "patchSetId": 65
@@ -152,6 +200,30 @@
       "writtenOn": "2024-02-07T04:58:55Z",
       "side": 1,
       "message": "The flow here needs to be:\n\nFind the port that matches the name of this entry.\nVerify that the port is connected to the expected FabricAdapter.",
+      "range": {
+        "startLine": 296,
+        "startChar": 4,
+        "endLine": 296,
+        "endChar": 29
+      },
+      "revId": "3d73c5862a0a64e87ff1f07b468ab7ce91d6af67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb86fed5_60273973",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 65
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-07T13:13:51Z",
+      "side": 1,
+      "message": "I think this has been discussed in the previous comments/responses.\n\nPort can also be associated for the other types - e.g. Network etc.\n\nSo, assuming bmcweb implements port for the other types in addition to FabricAdapter, if we find the matching Ports first, the associated endpoints potentially may be the mix of the different inventory types (besides FabricAdapter) if port name happens to be same.   This could result in the multiple dbus calls to verify the endpoints (additional calls per each matching port).\n\nHowever, if we search fabric adapter first (using the given input `adapterId`), all associated ports to the fabric adapters will be returned using `getAssociatedSubtree()` without needing any more dbus calls.",
+      "parentUuid": "02c08afb_8b7dc1e1",
       "range": {
         "startLine": 296,
         "startChar": 4,
