@@ -33,6 +33,98 @@
       "message": "Can this go?",
       "revId": "3d73c5862a0a64e87ff1f07b468ab7ce91d6af67",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87dc7f79_05c9e040",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 65
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-07T04:58:55Z",
+      "side": 1,
+      "message": "Name is rarely the same as the ID.",
+      "range": {
+        "startLine": 41,
+        "startChar": 39,
+        "endLine": 41,
+        "endChar": 45
+      },
+      "revId": "3d73c5862a0a64e87ff1f07b468ab7ce91d6af67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ecd952a_7198a980",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 65
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-07T04:58:55Z",
+      "side": 1,
+      "message": "\u003e     This defines a Port of a switch, controller, chassis, or any other device\n\n\nWhere is the code that checks that the connected device is a FabricAdapter?",
+      "range": {
+        "startLine": 57,
+        "startChar": 30,
+        "endLine": 57,
+        "endChar": 40
+      },
+      "revId": "3d73c5862a0a64e87ff1f07b468ab7ce91d6af67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5e8c1a3_857c37cb",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 65
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-07T04:58:55Z",
+      "side": 1,
+      "message": "nullptr dereference.  if portIter-\u003esecond.empty()",
+      "range": {
+        "startLine": 131,
+        "startChar": 54,
+        "endLine": 131,
+        "endChar": 56
+      },
+      "revId": "3d73c5862a0a64e87ff1f07b468ab7ce91d6af67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02c08afb_8b7dc1e1",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 65
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-07T04:58:55Z",
+      "side": 1,
+      "message": "The flow here needs to be:\n\nFind the port that matches the name of this entry.\nVerify that the port is connected to the expected FabricAdapter.",
+      "range": {
+        "startLine": 296,
+        "startChar": 4,
+        "endLine": 296,
+        "endChar": 29
+      },
+      "revId": "3d73c5862a0a64e87ff1f07b468ab7ce91d6af67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
