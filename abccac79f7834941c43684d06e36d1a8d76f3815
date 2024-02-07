@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c1ad544d_5ad213d9",
+        "filename": "Redfish.md",
+        "patchSetId": 67
+      },
+      "lineNbr": 791,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-07T22:18:00Z",
+      "side": 1,
+      "message": "Please put at least some content here, otherwise the documentation renders an empty path",
+      "revId": "abccac79f7834941c43684d06e36d1a8d76f3815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c2597e38_752de20d",
         "filename": "redfish-core/lib/fabric_adapters.hpp",
         "patchSetId": 67

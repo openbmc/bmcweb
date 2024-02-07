@@ -197,6 +197,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fb13cbd8_4473328c",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 60
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-07T22:18:00Z",
+      "side": 1,
+      "message": "it doesn\u0027t appear to.  See my other comment about another place where we potentially release a null value to json.",
+      "parentUuid": "4b81b2c7_5f86dd17",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 210,
+        "endChar": 5
+      },
+      "revId": "71932d175af2a8b2fb36a8e26d0bc25631a31c29",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "801efb51_fbc0df39",
         "filename": "redfish-core/lib/port.hpp",
         "patchSetId": 60
