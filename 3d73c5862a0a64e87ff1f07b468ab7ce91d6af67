@@ -117,6 +117,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ce563f8_94d8058d",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 65
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-07T16:26:32Z",
+      "side": 1,
+      "message": "Done.\nI\u0027ve updated it as \"Fabric Port\", and also \"Fabric Port Collection\" for collection.",
+      "parentUuid": "3aaa0ee9_099a26d6",
+      "range": {
+        "startLine": 41,
+        "startChar": 39,
+        "endLine": 41,
+        "endChar": 45
+      },
+      "revId": "3d73c5862a0a64e87ff1f07b468ab7ce91d6af67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8ecd952a_7198a980",
@@ -201,6 +225,30 @@
       "side": 1,
       "message": "This `portIter-\u003esecond` is the service names for Port.\nIs it possible to have an empty service for the obtained subtree element? \n\nIn bmcweb, many other places are doing like this.\nhttps://github.com/openbmc/bmcweb/blob/aaf08ac7cd355341499453fc8677c2976a4e5464/redfish-core/lib/systems.hpp#L2805",
       "parentUuid": "f5e8c1a3_857c37cb",
+      "range": {
+        "startLine": 131,
+        "startChar": 54,
+        "endLine": 131,
+        "endChar": 56
+      },
+      "revId": "3d73c5862a0a64e87ff1f07b468ab7ce91d6af67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f48d505_c44db5df",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 65
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-07T16:26:32Z",
+      "side": 1,
+      "message": "Done.\nI\u0027ve added the checks for both `first.empty()` and `second.empty()`.",
+      "parentUuid": "4c0f0eba_efe1a553",
       "range": {
         "startLine": 131,
         "startChar": 54,
