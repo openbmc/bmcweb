@@ -16,6 +16,109 @@
       "message": "My +1 should be taken with a grain of salt.  Seems reasonable but I\u0027ve got very little development time on bmcweb.",
       "revId": "d7c4149a80d1ae83ece9df779c7dfe00edd246a5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fbf64bd_32035f87",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 90
+      },
+      "lineNbr": 1223,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-02-07T04:48:21Z",
+      "side": 1,
+      "message": "Don\u0027t you still need to do \n```\n        if constexpr (bmcwebEnableMultiHost)\n        {\n            // Option currently returns no systems.  TBD\n            messages::resourceNotFound(asyncResp-\u003eres, \"ComputerSystem\",\n                                       systemName);\n            return;\n        }\n        if (systemName !\u003d \"system\")\n        {\n            messages::resourceNotFound(asyncResp-\u003eres, \"ComputerSystem\",\n                                       systemName);\n            return;\n        }\n```",
+      "revId": "d7c4149a80d1ae83ece9df779c7dfe00edd246a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c96fe5bc_9a4ce27f",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 90
+      },
+      "lineNbr": 1556,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-02-07T04:48:21Z",
+      "side": 1,
+      "message": "```#include \u003cmemory\u003e```",
+      "range": {
+        "startLine": 1556,
+        "startChar": 33,
+        "endLine": 1556,
+        "endChar": 48
+      },
+      "revId": "d7c4149a80d1ae83ece9df779c7dfe00edd246a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3602b4cc_15b9edbf",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 90
+      },
+      "lineNbr": 1557,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-02-07T04:48:21Z",
+      "side": 1,
+      "message": "```#include \u003cstring\u003e```",
+      "range": {
+        "startLine": 1557,
+        "startChar": 33,
+        "endLine": 1557,
+        "endChar": 44
+      },
+      "revId": "d7c4149a80d1ae83ece9df779c7dfe00edd246a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecfc72c2_882207f4",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 90
+      },
+      "lineNbr": 1564,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-02-07T04:48:21Z",
+      "side": 1,
+      "message": "Can we do like the other paths \n```\n        if constexpr (bmcwebEnableMultiHost)\n        {\n            // Option currently returns no systems.  TBD\n            messages::resourceNotFound(asyncResp-\u003eres, \"ComputerSystem\",\n                                       systemName);\n            return;\n        }\n        if (systemName !\u003d \"system\")\n        {\n            messages::resourceNotFound(asyncResp-\u003eres, \"ComputerSystem\",\n                                       systemName);\n            return;\n        }\n```",
+      "revId": "d7c4149a80d1ae83ece9df779c7dfe00edd246a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56978286_3c9e4fac",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 90
+      },
+      "lineNbr": 1584,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-02-07T04:48:21Z",
+      "side": 1,
+      "message": "```#include \u003cfunctional\u003e```",
+      "range": {
+        "startLine": 1584,
+        "startChar": 12,
+        "endLine": 1584,
+        "endChar": 27
+      },
+      "revId": "d7c4149a80d1ae83ece9df779c7dfe00edd246a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
