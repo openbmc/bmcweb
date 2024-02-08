@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "348e53b0_d0a11a72",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-08T18:06:55Z",
+      "side": 1,
+      "message": "\u003e  each property may throw different set of d-bus errors\n\nRealistically they shouldn\u0027t be.  I realize in practice they might, but it\u0027s going to be a superset of dbus errors, and we could have one method that could handle the vast majority, right?",
+      "parentUuid": "77a8014b_bd475c1f",
+      "revId": "a9c63876c2a3bc24f3f371ce0bc457f8a8d4a490",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8e87b9ca_fdbaa6c8",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 11
