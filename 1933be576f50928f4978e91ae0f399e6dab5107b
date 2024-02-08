@@ -66,6 +66,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7ad86ef7_ce1f068c",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-08T17:11:40Z",
+      "side": 1,
+      "message": "while in theory we could have triple redundant fans, there\u0027s nothing in the redfish schema, so I\u0027m not sure what we would do in that branch.  What were you thinking that branch would do?",
+      "parentUuid": "dd798a4b_d3f17c27",
+      "range": {
+        "startLine": 440,
+        "startChar": 0,
+        "endLine": 450,
+        "endChar": 5
+      },
+      "revId": "1933be576f50928f4978e91ae0f399e6dab5107b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "effe272a_635fce3d",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 41
@@ -129,6 +153,23 @@
         "endLine": 502,
         "endChar": 47
       },
+      "revId": "1933be576f50928f4978e91ae0f399e6dab5107b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db0d65b1_8cfce6c7",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-08T17:11:40Z",
+      "side": 1,
+      "message": "This is a 4 line function only used in one place, in a function that\u0027s already pretty short.  Just put it inline on line 528, and it will avoid your nullptr dereference.",
       "revId": "1933be576f50928f4978e91ae0f399e6dab5107b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
