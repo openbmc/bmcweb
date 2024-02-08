@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "77a8014b_bd475c1f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-02-08T18:03:57Z",
+      "side": 1,
+      "message": "yeah I think we can abstract but each property may throw different set of d-bus errors, may be can try writing a standard/util method which can be used in setProperty",
+      "parentUuid": "225ab2f3_c39985ac",
+      "revId": "a9c63876c2a3bc24f3f371ce0bc457f8a8d4a490",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8e87b9ca_fdbaa6c8",
@@ -72,6 +90,30 @@
       "side": 1,
       "message": "It helps maintainers significantly if you don\u0027t Code Review +1 patches that you\u0027re asking for changes on.  As is, I don\u0027t know if you think this change is needed or isn\u0027t.",
       "parentUuid": "8e87b9ca_fdbaa6c8",
+      "range": {
+        "startLine": 907,
+        "startChar": 9,
+        "endLine": 907,
+        "endChar": 31
+      },
+      "revId": "a9c63876c2a3bc24f3f371ce0bc457f8a8d4a490",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "561ae9f7_bc358544",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 907,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-02-08T18:03:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d1d4ede_107cc558",
       "range": {
         "startLine": 907,
         "startChar": 9,
