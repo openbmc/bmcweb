@@ -219,6 +219,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b5e86ef_86ab655a",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 60
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-08T15:41:49Z",
+      "side": 1,
+      "message": "For the valid fabric adapter (even if it has no ports), its Ports will always be provided like\n\n```\ncurl -k -X GET https://${bmc}:18080/redfish/v1/Systems/system/FabricAdapters/pcie_card4\n{\n  \"@odata.id\": \"/redfish/v1/Systems/system/FabricAdapters/pcie_card4\",\n....\n  \"Ports\": {\n    \"@odata.id\": \"/redfish/v1/Systems/system/FabricAdapters/pcie_card4/Ports\"\n  },\n...\n}%\n```\n\nAnd then, Ports query will return empty content like\n\n```\n% curl -k -X GET https://${bmc}:18080/redfish/v1/Systems/system/FabricAdapters/pcie_card4/Ports\n{\n  \"@odata.id\": \"/redfish/v1/Systems/system/FabricAdapters/pcie_card4/Ports\",\n  \"@odata.type\": \"#PortCollection.PortCollection\",\n  \"Members\": [],\n  \"Members@odata.count\": 0,\n  \"Name\": \"Fabric Port Collection\"\n}%\n```",
+      "parentUuid": "fb13cbd8_4473328c",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 210,
+        "endChar": 5
+      },
+      "revId": "71932d175af2a8b2fb36a8e26d0bc25631a31c29",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "801efb51_fbc0df39",

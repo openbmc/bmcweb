@@ -352,6 +352,30 @@
       },
       "revId": "3d73c5862a0a64e87ff1f07b468ab7ce91d6af67",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1bcd091_c3459636",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 65
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-08T15:41:49Z",
+      "side": 1,
+      "message": "Here, the query is to get ports of the given/specific adapter (e.g. `disk_backplane0`), not all ports in the system.\n\n```\ncurl -k -X GET https://${bmc}:18080/redfish/v1/Systems/system/FabricAdapters/disk_backplane0/Ports\n```\n\n\nApproach A)\n\nSo, the logic flow (by `getValidFabricPortSubTree()`) here is\n1) validate the give adapter (`disk_backplane0`) where is it a valid fabric adapter using `getValidFabricAdapterPath()`.  \n\n2) With the validate fabric adapter, the find ports (with the type of `Connector.Port`) that are associated by \u0027connecting\u0027 with the fabric adapter (`disk_backplane0`) in `getFabricAssociatedPortSubTree()`\n\n```\ngetFabricAssociatedPortSubTree()\n{\n\n    dbus::utility::getAssociatedSubTree(\n        fabricAdapterPath + \"/connecting\", \n        ...\n}\n```\nThis will return all valid ports of type `Connector.Port` that are associated by `connecting` for the given fabric adapter.  We don\u0027t need to validate each port\u0027s type again as they are already valid.\n\n---\n\nApproach B)\n\nHowever, if we do the other way arounds like\n1) find all ports with the types of \u0027Connector.Port\u0027.  This may return the the mix of the ports that may be associated with the other types (e.g. Network).\n\n2) Then, for each port, we need to call \u0027getAssociatedSubTreePaths()` using `connected_to` for FabricAdapter.\n\n- For example, if (1) returns N items, the step (2) will invoke `getAssociatedSubTreePaths()\u0027  N times.\n\n```\n     for(port : subtreepaths)\n     {\n         getAssociatedSubTreePaths( .. port + \"/connected_to\", )\n     }\n```\n\n---\n\nI think Approach (A) is correct and more efficient than (B).\nIt is because the query is for the already-scoped input (e.g. given adapter).",
+      "parentUuid": "c2ab19e2_cbdeb38d",
+      "range": {
+        "startLine": 296,
+        "startChar": 4,
+        "endLine": 296,
+        "endChar": 29
+      },
+      "revId": "3d73c5862a0a64e87ff1f07b468ab7ce91d6af67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

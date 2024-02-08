@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c541a37_3fb04e47",
+        "filename": "Redfish.md",
+        "patchSetId": 67
+      },
+      "lineNbr": 791,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-08T15:41:49Z",
+      "side": 1,
+      "message": "In this commit, it will contain only \"Id\" and \"Name\".\nI\u0027ll add them even if they are mentioned as common.\nI\u0027ll remove those by the coming commits.",
+      "parentUuid": "c1ad544d_5ad213d9",
+      "revId": "abccac79f7834941c43684d06e36d1a8d76f3815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c2597e38_752de20d",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-02-07T22:14:08Z",
       "side": 1,
       "message": "Looks unrelated?",
+      "range": {
+        "startLine": 3,
+        "startChar": 10,
+        "endLine": 3,
+        "endChar": 23
+      },
+      "revId": "abccac79f7834941c43684d06e36d1a8d76f3815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1bc6507_06394fd1",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 67
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-08T15:41:49Z",
+      "side": 1,
+      "message": "A few places check `bmcwebEnableMultiHost` (which is defined in bmcweb_config.h).",
+      "parentUuid": "c2597e38_752de20d",
       "range": {
         "startLine": 3,
         "startChar": 10,
@@ -64,6 +106,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6d65ecd_fd0ebc97",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 67
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-08T15:41:49Z",
+      "side": 1,
+      "message": "Done. The comment is removed.",
+      "parentUuid": "2b373d78_34d27667",
+      "range": {
+        "startLine": 197,
+        "startChar": 25,
+        "endLine": 197,
+        "endChar": 38
+      },
+      "revId": "abccac79f7834941c43684d06e36d1a8d76f3815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "465146dd_9bf907fc",
@@ -77,6 +143,30 @@
       "writtenOn": "2024-02-07T22:14:08Z",
       "side": 1,
       "message": "if these properties are unused, why are we adding them?",
+      "range": {
+        "startLine": 28,
+        "startChar": 29,
+        "endLine": 29,
+        "endChar": 38
+      },
+      "revId": "abccac79f7834941c43684d06e36d1a8d76f3815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ca9cb47_720271f3",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 67
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-08T15:41:49Z",
+      "side": 1,
+      "message": "These fields will be used by the consecutive commits - Location, Status .\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/62849\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/62850",
+      "parentUuid": "465146dd_9bf907fc",
       "range": {
         "startLine": 28,
         "startChar": 29,
@@ -112,6 +202,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7f841c6f_a1c2cc99",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 67
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-08T15:41:49Z",
+      "side": 1,
+      "message": "This function `doGetValidFabricPortSubTree()` is to handle the error of the parent function `getValidFabricPortSubTree()`.\n\n\nThe parameter `callback` is passed to  `getValidFabricPortSubTree()` which will handle the successful subtree.\n\nThey may be passed from \n- getValidFabricPortPath()\n- handleFarbicPortCollectionHead\n- handleFabricPortCollectionGet\n\n\nIt usage is similar to `getValidChassisPath()`,  `getValidFabricAdapterPath()`, etc.",
+      "parentUuid": "74b59484_a57cf938",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 55
+      },
+      "revId": "abccac79f7834941c43684d06e36d1a8d76f3815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ea04b6f3_c8e079e6",
         "filename": "redfish-core/lib/fabric_ports.hpp",
         "patchSetId": 67
@@ -123,6 +237,30 @@
       "writtenOn": "2024-02-07T22:14:08Z",
       "side": 1,
       "message": "invert this.\n\njust declare the array:\n\nnlohmann::json::array_t members;\nfill it\n\nthen do\n\n\nasyncResp-\u003eres.jsonValue[\"Members\"] \u003d std::move(members);",
+      "range": {
+        "startLine": 228,
+        "startChar": 4,
+        "endLine": 228,
+        "endChar": 66
+      },
+      "revId": "abccac79f7834941c43684d06e36d1a8d76f3815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7aa34b6d_55c22395",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 67
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-08T15:41:49Z",
+      "side": 1,
+      "message": "Done.\nThanks for the suggestion.",
+      "parentUuid": "ea04b6f3_c8e079e6",
       "range": {
         "startLine": 228,
         "startChar": 4,
@@ -156,6 +294,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "130e7437_27e65c18",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 67
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-08T15:41:49Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "61d7d5bf_d696d97a",
+      "range": {
+        "startLine": 235,
+        "startChar": 0,
+        "endLine": 235,
+        "endChar": 28
+      },
+      "revId": "abccac79f7834941c43684d06e36d1a8d76f3815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ecef8578_27ead018",
@@ -179,6 +341,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d6df3e9_91ea418f",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 67
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-08T15:41:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ecef8578_27ead018",
+      "range": {
+        "startLine": 244,
+        "startChar": 0,
+        "endLine": 244,
+        "endChar": 66
+      },
+      "revId": "abccac79f7834941c43684d06e36d1a8d76f3815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2f3d7faa_bfdd3587",
@@ -192,6 +378,30 @@
       "writtenOn": "2024-02-07T22:14:08Z",
       "side": 1,
       "message": "nlohmann::json::object_t",
+      "range": {
+        "startLine": 247,
+        "startChar": 8,
+        "endLine": 247,
+        "endChar": 22
+      },
+      "revId": "abccac79f7834941c43684d06e36d1a8d76f3815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d67289e2_80b2f364",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 67
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-08T15:41:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f3d7faa_bfdd3587",
       "range": {
         "startLine": 247,
         "startChar": 8,
@@ -238,6 +448,30 @@
       "writtenOn": "2024-02-07T22:14:08Z",
       "side": 1,
       "message": "Please just combined these two into one.  There\u0027s no need to have multiple requestRoutes.  i realize we separate this in other places, but that was because of refactoring.",
+      "range": {
+        "startLine": 331,
+        "startChar": 0,
+        "endLine": 334,
+        "endChar": 1
+      },
+      "revId": "abccac79f7834941c43684d06e36d1a8d76f3815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b87c0b14_476fec6b",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 67
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-08T15:41:49Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "ddb59a09_86072aa4",
       "range": {
         "startLine": 331,
         "startChar": 0,
