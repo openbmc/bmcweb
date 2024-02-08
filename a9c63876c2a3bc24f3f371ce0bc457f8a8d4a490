@@ -91,6 +91,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5a77c65d_bfc58275",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-02-08T18:17:24Z",
+      "side": 1,
+      "message": "can we keep this method in utils which can be used across bmcweb?",
+      "parentUuid": "63df77d7_45ef9ce3",
+      "revId": "a9c63876c2a3bc24f3f371ce0bc457f8a8d4a490",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8e87b9ca_fdbaa6c8",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 11
