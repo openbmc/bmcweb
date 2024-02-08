@@ -589,6 +589,30 @@
       },
       "revId": "80366af9e11ae8efaa81d71a672347c2d6837b07",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef649c25_628ad4f7",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-02-08T14:35:46Z",
+      "side": 1,
+      "message": "\"all_sensors\" is going from chassis to sensor.\n\"sensors\" is going from inventory item to sensor\nhttps://github.com/openbmc/docs/blob/80f55a589d474e40cef0f9b6ee728098b8da159d/architecture/sensor-architecture.md?plain\u003d1#L108\n\nhttps://github.com/openbmc/docs/blob/80f55a589d474e40cef0f9b6ee728098b8da159d/architecture/sensor-architecture.md?plain\u003d1#L66\n\nThis appears to go from the fan to the sensor so \"sensors\" is correct.",
+      "parentUuid": "7800582f_8cb8e2d0",
+      "range": {
+        "startLine": 461,
+        "startChar": 41,
+        "endLine": 461,
+        "endChar": 48
+      },
+      "revId": "80366af9e11ae8efaa81d71a672347c2d6837b07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
