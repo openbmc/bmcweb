@@ -470,6 +470,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2fa13c56_827bdd3f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 64
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-02-08T22:28:38Z",
+      "side": 1,
+      "message": "\u003e So far as I\u0027m aware, PIM isn\u0027t capable of detecting a FRU, and entity-manager isn\u0027t capable of adding port associations. How would you recommend I go about adding support for this trivial example?\n\nIf you aren\u0027t using openpower-vpu-parser, and instead using something like entity-manager, port associations will have to be added to entity-manager like other associations.\nJust like the contained_by / containing associations, would need to add the connected_to, connecting associations \nhttps://github.com/search?q\u003drepo%3Aopenbmc%2Fentity-manager%20contained_by\u0026type\u003dcode\n\n\n\u003e If you\u0027d rather a different example, the yosemite 4 card that just got added to EM. it has (I think) two ports on it. how would one add support for that? (exact locations in code, example config stanzas to add would be appreciated).\n\n\nCreate a https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Inventory/Item/FabricAdapter.interface.yaml (I am not familiar with this card, but some subassembly on it could be a FabricAdapter or the yosemite 4 card itself?) \nCreate the contained_by / containing associations as documented. \nCreate the Inventory.Connector.Port \n\n\n\n\u003e I see no mention of ports here? This looks like a backplane? Why is VPD hosting inventory information directly?\n\nThese fabric adapters have vpd and BMC can read them. That is the fabric adapter you are pointing at. The Ports are later in the file at https://github.com/openbmc/openpower-vpd-parser/blob/0eb8cacc07375beb3c0b6008dc5d5b6c7090ae37/config/ibm/50001001.json#L2439 \nIt is both an inventory,item.fabricadapter and an inventory.item.backplane",
+      "parentUuid": "36c5cf4b_9178b034",
+      "revId": "e271d931482453af77d8abe5e4639533f09e4269",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "80052248_60696b37",
         "filename": "redfish-core/lib/fabric_adapters.hpp",
         "patchSetId": 64
