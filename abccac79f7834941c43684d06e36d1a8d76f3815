@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc531ee5_d4fe2ec6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 67
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-08T16:38:33Z",
+      "side": 1,
+      "message": "There\u0027s a ton of code here, but no unit tests.",
+      "revId": "abccac79f7834941c43684d06e36d1a8d76f3815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c1ad544d_5ad213d9",
@@ -32,6 +49,24 @@
       "side": 1,
       "message": "In this commit, it will contain only \"Id\" and \"Name\".\nI\u0027ll add them even if they are mentioned as common.\nI\u0027ll remove those by the coming commits.",
       "parentUuid": "c1ad544d_5ad213d9",
+      "revId": "abccac79f7834941c43684d06e36d1a8d76f3815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d22d3284_d11873b6",
+        "filename": "Redfish.md",
+        "patchSetId": 67
+      },
+      "lineNbr": 791,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-08T16:38:33Z",
+      "side": 1,
+      "message": "then put something like “no properties”",
+      "parentUuid": "6c541a37_3fb04e47",
       "revId": "abccac79f7834941c43684d06e36d1a8d76f3815",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -73,6 +108,30 @@
       "side": 1,
       "message": "A few places check `bmcwebEnableMultiHost` (which is defined in bmcweb_config.h).",
       "parentUuid": "c2597e38_752de20d",
+      "range": {
+        "startLine": 3,
+        "startChar": 10,
+        "endLine": 3,
+        "endChar": 23
+      },
+      "revId": "abccac79f7834941c43684d06e36d1a8d76f3815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b408f7ec_ac2fab98",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 67
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-08T16:38:33Z",
+      "side": 1,
+      "message": "there are no other changes in this file in this patchset.   it’s possible this include needs fixed, but please put it in its own patchset.",
+      "parentUuid": "d1bc6507_06394fd1",
       "range": {
         "startLine": 3,
         "startChar": 10,
@@ -179,6 +238,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "24d76a8e_dd6f055c",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 67
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-08T16:38:33Z",
+      "side": 1,
+      "message": "then add them when we use them?",
+      "parentUuid": "1ca9cb47_720271f3",
+      "range": {
+        "startLine": 28,
+        "startChar": 29,
+        "endLine": 29,
+        "endChar": 38
+      },
+      "revId": "abccac79f7834941c43684d06e36d1a8d76f3815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "74b59484_a57cf938",
         "filename": "redfish-core/lib/fabric_ports.hpp",
         "patchSetId": 67
@@ -214,6 +297,30 @@
       "side": 1,
       "message": "This function `doGetValidFabricPortSubTree()` is to handle the error of the parent function `getValidFabricPortSubTree()`.\n\n\nThe parameter `callback` is passed to  `getValidFabricPortSubTree()` which will handle the successful subtree.\n\nThey may be passed from \n- getValidFabricPortPath()\n- handleFarbicPortCollectionHead\n- handleFabricPortCollectionGet\n\n\nIt usage is similar to `getValidChassisPath()`,  `getValidFabricAdapterPath()`, etc.",
       "parentUuid": "74b59484_a57cf938",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 55
+      },
+      "revId": "abccac79f7834941c43684d06e36d1a8d76f3815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86b6be98_e0f49ea8",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 67
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-08T16:38:33Z",
+      "side": 1,
+      "message": "\u003e This function `doGetValidFabricPortSubTree()` is to handle the error of the parent function `getValidFabricPortSubTree()`.\n\u003e \n\u003e \n\u003e The parameter `callback` is passed to  `getValidFabricPortSubTree()` which will handle the successful subtree.\n\u003e \n\u003e They may be passed from \n\u003e - getValidFabricPortPath()\n\u003e - handleFarbicPortCollectionHead\n\u003e - handleFabricPortCollectionGet\n\u003e \n\u003e \n\u003e It usage is similar to `getValidChassisPath()`,  `getValidFabricAdapterPath()`, etc.\n\nthen I missed it on those commits (probably because I was trying to get them merged.). please fix this anti pattern on those as well.",
+      "parentUuid": "7f841c6f_a1c2cc99",
       "range": {
         "startLine": 88,
         "startChar": 0,
@@ -449,6 +556,30 @@
       "side": 1,
       "message": "The function `getValidFabricPortSubTree()` is also used by the other places which use `portSubTree`.\n\nThis particular function `handleFarbicPortCollectionHead()` needs only the validation of adapter/port but does not need to walk thru the subtree and thus the result is ignored.",
       "parentUuid": "a7b48a78_120749d2",
+      "range": {
+        "startLine": 282,
+        "startChar": 59,
+        "endLine": 282,
+        "endChar": 74
+      },
+      "revId": "abccac79f7834941c43684d06e36d1a8d76f3815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd810d16_75ef2cca",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 67
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-08T16:38:33Z",
+      "side": 1,
+      "message": "and this is why the callback pattern I described earlier is important.",
+      "parentUuid": "9cbe7935_adf4e8dd",
       "range": {
         "startLine": 282,
         "startChar": 59,

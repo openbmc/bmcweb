@@ -376,6 +376,30 @@
       },
       "revId": "3d73c5862a0a64e87ff1f07b468ab7ce91d6af67",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "daad0514_1ec1c793",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 65
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-08T16:38:33Z",
+      "side": 1,
+      "message": "in nowhere above are you verifying that an item is item.FabricAdapter\n\nthe reality here is that this is all business logic that needs to go in the mapper.  we shouldn’t be chaining together multiple calls to dump all ports and all fabric adapters just to get a single port.\n\nbecause this is the first use of a 2 tiered association (fabric adapter -\u003e association -\u003e port) where we don’t know the type on the other side, it’s not surprising the mapper doesn’t have a method that does what we need here.  making complex code like this in bmcweb is not the answer.  let’s get the mapper updated with a call that does what we need, and returns a single value.  I’m assuming we’ll need the association equivalent of GetObject.\n\nfwiw, I’m sorry it took so long to come to this conclusion.  I really was hoping there was a clean way to do this in bmcweb that I could live with, but there isn’t, so let’s get the capability added to the mapper and go from there.",
+      "parentUuid": "e1bcd091_c3459636",
+      "range": {
+        "startLine": 296,
+        "startChar": 4,
+        "endLine": 296,
+        "endChar": 29
+      },
+      "revId": "3d73c5862a0a64e87ff1f07b468ab7ce91d6af67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
