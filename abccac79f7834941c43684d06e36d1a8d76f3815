@@ -435,6 +435,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cbe7935_adf4e8dd",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 67
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-08T15:55:32Z",
+      "side": 1,
+      "message": "The function `getValidFabricPortSubTree()` is also used by the other places which use `portSubTree`.\n\nThis particular function `handleFarbicPortCollectionHead()` needs only the validation of adapter/port but does not need to walk thru the subtree and thus the result is ignored.",
+      "parentUuid": "a7b48a78_120749d2",
+      "range": {
+        "startLine": 282,
+        "startChar": 59,
+        "endLine": 282,
+        "endChar": 74
+      },
+      "revId": "abccac79f7834941c43684d06e36d1a8d76f3815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ddb59a09_86072aa4",
