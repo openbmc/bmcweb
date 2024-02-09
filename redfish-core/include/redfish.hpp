@@ -190,9 +190,10 @@ class RedfishService
         requestRoutesBiosService(app);
         requestRoutesBiosReset(app);
 
-#ifdef BMCWEB_ENABLE_VM_NBDPROXY
-        requestNBDVirtualMediaRoutes(app);
-#endif // BMCWEB_ENABLE_VM_NBDPROXY
+        if constexpr (bmcwebVirtualMediaProvider == "virtual-media")
+        {
+            requestNBDVirtualMediaRoutes(app);
+        }
 
 #ifdef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
         requestRoutesDBusLogServiceActionsClear(app);

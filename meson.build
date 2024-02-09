@@ -92,7 +92,6 @@ feature_map = {
   'session-auth'                                : '-DBMCWEB_ENABLE_SESSION_AUTHENTICATION',
   'static-hosting'                              : '-DBMCWEB_ENABLE_STATIC_HOSTING',
   'experimental-redfish-multi-computer-system'  : '-DBMCWEB_ENABLE_MULTI_COMPUTERSYSTEM',
-  'vm-websocket'                                : '-DBMCWEB_ENABLE_VM_WEBSOCKET',
   'xtoken-auth'                                 : '-DBMCWEB_ENABLE_XTOKEN_AUTHENTICATION',
   #'vm-nbdproxy'                                : '-DBMCWEB_ENABLE_VM_NBDPROXY',
 }
