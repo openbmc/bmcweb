@@ -907,6 +907,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b85c3b7c_d4fbb9c0",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-09T00:24:22Z",
+      "side": 1,
+      "message": "Because the old implementation didn\u0027t copy file bodies, due to not having a copy operator for a file handle.  Now that we have one, you\u0027re right, it\u0027s pretty reasonable to just copy the whole body.\n\nChanged to just copy the body.",
+      "parentUuid": "504b4d8a_3b05508d",
+      "revId": "ee4ddb138542d0694602e0276ba6be7f0e45e018",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b5482654_7d308019",
