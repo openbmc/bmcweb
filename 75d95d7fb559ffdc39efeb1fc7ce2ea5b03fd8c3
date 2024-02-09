@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1e0f82c6_b99b50e3",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 894,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-09T19:25:53Z",
+      "side": 1,
+      "message": "new code should just use string_view",
+      "parentUuid": "67fe7e47_348857d7",
+      "range": {
+        "startLine": 894,
+        "startChar": 10,
+        "endLine": 894,
+        "endChar": 21
+      },
+      "revId": "75d95d7fb559ffdc39efeb1fc7ce2ea5b03fd8c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4e3e8422_5e4c4831",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 17
@@ -83,6 +107,24 @@
       "writtenOn": "2024-02-08T21:53:22Z",
       "side": 1,
       "message": "A BMCWEB_LOG_ERROR might be useful here, up to you",
+      "revId": "75d95d7fb559ffdc39efeb1fc7ce2ea5b03fd8c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94399377_fe380db6",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 911,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-09T19:25:53Z",
+      "side": 1,
+      "message": "internalError already logs to BMCWEB_LOG_ERROR.",
+      "parentUuid": "1055abbd_6900008e",
       "revId": "75d95d7fb559ffdc39efeb1fc7ce2ea5b03fd8c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
