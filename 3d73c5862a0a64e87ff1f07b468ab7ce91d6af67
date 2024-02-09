@@ -496,6 +496,30 @@
       },
       "revId": "3d73c5862a0a64e87ff1f07b468ab7ce91d6af67",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "946c4d0a_981516d3",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 65
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-09T19:59:33Z",
+      "side": 1,
+      "message": "Thanks for the hints and suggestions.\n\n\u003e What information does bmcweb have between calls 1 and 2 that it doesn\u0027t have before call 1? \n\n2nd call is the main one to get the associated ports, but I needed the dbus `fabricAdapterPath` from the input `adapterId` (1st call).\n\nI\u0027ll investigate more to try it done by one call, e.g. subtree which are all related to Item.FabricAdapter \u0026 Connector.Port, and resolve the them.",
+      "parentUuid": "85954ca4_d0710129",
+      "range": {
+        "startLine": 296,
+        "startChar": 4,
+        "endLine": 296,
+        "endChar": 29
+      },
+      "revId": "3d73c5862a0a64e87ff1f07b468ab7ce91d6af67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
