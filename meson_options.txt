@@ -21,25 +21,14 @@ option(
 )
 
 option(
-    'vm-websocket',
-    type: 'feature',
-    value: 'enabled',
-    description: '''Enable the Virtual Media WebSocket. Path is /vm/0/0 to
+    'vm-websocket-provider',
+    type: 'combo',
+    choices : ['nbd-proxy', 'virtual-media'],
+    value: 'nbd-proxy',
+    description: '''Enable the Virtual Media WebSocket. Path is /vm/0/0 and /nbd/<id> to
                     open the websocket. See
                     https://github.com/openbmc/jsnbd/blob/master/README.'''
 )
-
-# if you use this option and are seeing this comment, please comment here:
-# https://github.com/openbmc/bmcweb/issues/188 and put forward your intentions
-# for this code.  At this point, no daemon has been upstreamed that implements
-# this interface, so for the moment this appears to be dead code;  In leiu of
-# removing it, it has been disabled to try to give those that use it the
-# opportunity to upstream their backend implementation
-#option(
-#    'vm-nbdproxy',
-#    type: 'feature', value: 'disabled',
-#    description: 'Enable the Virtual Media WebSocket.'
-#)
 
 option(
     'rest',
