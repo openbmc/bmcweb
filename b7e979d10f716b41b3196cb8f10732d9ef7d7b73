@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e328fb0_df80d9b9",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-02-09T04:46:48Z",
+      "side": 1,
+      "message": "will be nicer if we avoid this copy.Maybe by adding a new API in the file body that accepts an out buffer. Can be in another patch set",
+      "revId": "b7e979d10f716b41b3196cb8f10732d9ef7d7b73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60dcf0f7_291e394a",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-02-09T04:46:48Z",
+      "side": 1,
+      "message": "do we really need this loop for static buffer?",
+      "revId": "b7e979d10f716b41b3196cb8f10732d9ef7d7b73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63c8689a_6a1aaffe",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-02-09T04:46:48Z",
+      "side": 1,
+      "message": "flat_map has performance advantage because of contiguous memory right? is it because it is negligible?",
+      "revId": "b7e979d10f716b41b3196cb8f10732d9ef7d7b73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
