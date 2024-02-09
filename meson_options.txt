@@ -24,7 +24,7 @@ option(
     'vm-websocket',
     type: 'feature',
     value: 'enabled',
-    description: '''Enable the Virtual Media WebSocket. Path is /vm/0/0 to
+    description: '''Enable the Virtual Media WebSocket. Path is /vm/0/0 and /nbd/<id> to
                     open the websocket. See
                     https://github.com/openbmc/jsnbd/blob/master/README.'''
 )
@@ -37,7 +37,8 @@ option(
 # opportunity to upstream their backend implementation
 #option(
 #    'vm-nbdproxy',
-#    type: 'feature', value: 'disabled',
+#    type: 'feature',
+#    value: 'disabled',
 #    description: 'Enable the Virtual Media WebSocket.'
 #)
 
