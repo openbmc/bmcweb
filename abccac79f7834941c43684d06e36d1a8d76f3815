@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ee0246c5_c88a71fe",
+        "filename": "Redfish.md",
+        "patchSetId": 67
+      },
+      "lineNbr": 791,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-09T14:30:40Z",
+      "side": 1,
+      "message": "Thanks. I\u0027ll change it on the next commit.",
+      "parentUuid": "d22d3284_d11873b6",
+      "revId": "abccac79f7834941c43684d06e36d1a8d76f3815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c2597e38_752de20d",
         "filename": "redfish-core/lib/fabric_adapters.hpp",
         "patchSetId": 67
@@ -132,6 +150,30 @@
       "side": 1,
       "message": "there are no other changes in this file in this patchset.   it’s possible this include needs fixed, but please put it in its own patchset.",
       "parentUuid": "d1bc6507_06394fd1",
+      "range": {
+        "startLine": 3,
+        "startChar": 10,
+        "endLine": 3,
+        "endChar": 23
+      },
+      "revId": "abccac79f7834941c43684d06e36d1a8d76f3815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fecc6fd0_43d07dc5",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 67
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-09T14:30:40Z",
+      "side": 1,
+      "message": "I\u0027ll fix it.",
+      "parentUuid": "b408f7ec_ac2fab98",
       "range": {
         "startLine": 3,
         "startChar": 10,
@@ -580,6 +622,30 @@
       "side": 1,
       "message": "and this is why the callback pattern I described earlier is important.",
       "parentUuid": "9cbe7935_adf4e8dd",
+      "range": {
+        "startLine": 282,
+        "startChar": 59,
+        "endLine": 282,
+        "endChar": 74
+      },
+      "revId": "abccac79f7834941c43684d06e36d1a8d76f3815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a8aebfa_d766f6bd",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 67
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-09T14:30:40Z",
+      "side": 1,
+      "message": "I would agree to return the error to the caller, if `getValidFabricPortSubTree()` is a generalized wrapper like `getAssociationEndPoints()` etc to make the logic clearer.\n\nHowever, like this case, `getValidFabricPortSubTree()` is designed to check/handle the error and return the subtree only if it is valid. It is also called by a few places. If so, wouldn\u0027t it appropriate to filter out errors to callers?\n\nIf not but passing the errors to the callers, would all callers need to handle the same errors and need the similar aux functions - `afterXXX()` again.",
+      "parentUuid": "fd810d16_75ef2cca",
       "range": {
         "startLine": 282,
         "startChar": 59,

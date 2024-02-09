@@ -400,6 +400,30 @@
       },
       "revId": "3d73c5862a0a64e87ff1f07b468ab7ce91d6af67",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca2adfb7_13549ab0",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 65
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-09T14:30:40Z",
+      "side": 1,
+      "message": "The current code is first checking the valid fabric adapter using `getValidFabricAdapterPath()` (which validates Item.FabricAdapter), and then get the associated Ports (which are Connector.Port).\n\nLet me try to change the logic flow like this.\n- Given `adapterId`\n- validate adapterId as Item.FabricAdapter, and get its dbus path - fabricAdapterPath\n- (a) Get Connector.Port subtree. (all Connector.Port items).\n- (b) Get connecting Connector.Ports for the given fabricAdapterPath.\n- (c) Collect the only match Connector.Ports which are in (b). This would validate the result ports are associated with fabricAdapterPath.\n- Use this (c) Connector.Ports for the further processing.\n\nWould this be okay?\nI think this logic would also be more clearer and easier to read.",
+      "parentUuid": "daad0514_1ec1c793",
+      "range": {
+        "startLine": 296,
+        "startChar": 4,
+        "endLine": 296,
+        "endChar": 29
+      },
+      "revId": "3d73c5862a0a64e87ff1f07b468ab7ce91d6af67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
