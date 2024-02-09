@@ -2,6 +2,7 @@
 
 #include <cstdint>
 #include <cstddef>
+#include <string_view>
 
 // clang-format off
 constexpr const int bmcwebInsecureDisableXssPrevention =
@@ -11,11 +12,11 @@ constexpr const bool bmcwebInsecureEnableQueryParams = @BMCWEB_INSECURE_ENABLE_Q
 
 constexpr const size_t bmcwebHttpReqBodyLimitMb = @BMCWEB_HTTP_REQ_BODY_LIMIT_MB@;
 
-constexpr const char* mesonInstallPrefix = "@MESON_INSTALL_PREFIX@";
+constexpr std::string_view mesonInstallPrefix = "@MESON_INSTALL_PREFIX@";
 
 constexpr const bool bmcwebInsecureEnableHttpPushStyleEventing = @BMCWEB_INSECURE_ENABLE_HTTP_PUSH_STYLE_EVENTING@ == 1;
 
-constexpr const char* bmcwebLoggingLevel = "@BMCWEB_LOGGING_LEVEL@";
+constexpr std::string_view bmcwebLoggingLevel = "@BMCWEB_LOGGING_LEVEL@";
 
 constexpr const bool bmcwebEnableHealthPopulate = @BMCWEB_ENABLE_HEALTH_POPULATE@ == 1;
 
@@ -26,4 +27,7 @@ constexpr const bool bmcwebEnableMultiHost = @BMCWEB_ENABLE_MULTI_HOST@ == 1;
 constexpr const bool bmcwebEnableHTTP2 = @BMCWEB_ENABLE_HTTP2@ == 1;
 
 constexpr const bool bmcwebMTLSCommonNameParsingMeta = @BMCWEB_ENABLE_MTLS_COMMON_NAME_PARSING_META@ == 1;
+
+constexpr std::string_view bmcwebVirtualMediaProvider = "@BMCWEB_VIRTUAL_MEDIA_PROVIDER@";
+
 // clang-format on
