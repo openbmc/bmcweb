@@ -13,7 +13,6 @@
 #include "kvm_websocket.hpp"
 #include "logging.hpp"
 #include "login_routes.hpp"
-#include "nbd_proxy.hpp"
 #include "obmc_console.hpp"
 #include "obmc_shell.hpp"
 #include "openbmc_dbus_rest.hpp"

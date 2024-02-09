@@ -30,6 +30,9 @@ conf_data.set10(
     get_option('mutual-tls-common-name-parsing') == 'meta',
 )
 
+conf_data.set10('BMCWEB_VIRTUAL_MEDIA_VM', get_option('vm-websocket').allowed())
+conf_data.set10('BMCWEB_VIRTUAL_MEDIA_NBD', false)
+
 # Logging level
 loglvlopt = get_option('bmcweb-logging')
 if get_option('buildtype').startswith('debug') and loglvlopt == 'disabled'
