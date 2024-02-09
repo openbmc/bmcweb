@@ -448,6 +448,30 @@
       },
       "revId": "3d73c5862a0a64e87ff1f07b468ab7ce91d6af67",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "026d5426_f1691186",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 65
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-09T18:32:50Z",
+      "side": 1,
+      "message": "There are 2 types of URIs of interests.\na) `/redfish/v1/.../FabricAdapters/\u003cstr\u003e/Ports/`        # for given adadapterId\nb) `/redfish/v1/.../FabricAdapters/\u003cstr\u003e/Ports/\u003cstr\u003e/`   # for given (adapterId,portId)\n\nI\u0027m not sure how to get the result in one mapper call  to get ports which are associated with a given `adapterId`.  \nTo deal with the association, the first step would be to find a dbus path from `adapterId\u0027. This would already require 2 steps.\n\nCan this be done in 1 mapper call?\n\nI think - the possible approach would be.\n\n- 1st  mapper-call is to validate the adapterId \u0026 get `adapterPath` (via `getValidFabricAdapterPath()`).\n\n- 2nd mapper call: getAssociatedSubTree using `adapterPath` to obtain Ports.",
+      "parentUuid": "f004e8e6_03054e30",
+      "range": {
+        "startLine": 296,
+        "startChar": 4,
+        "endLine": 296,
+        "endChar": 29
+      },
+      "revId": "3d73c5862a0a64e87ff1f07b468ab7ce91d6af67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
