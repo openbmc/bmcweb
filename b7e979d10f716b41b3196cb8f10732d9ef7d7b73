@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "14b1a56f_506e392f",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-09T15:48:15Z",
+      "side": 1,
+      "message": "I think it goes away in the simplify http2 buffering patchset (not sure though)",
+      "parentUuid": "1e328fb0_df80d9b9",
+      "revId": "b7e979d10f716b41b3196cb8f10732d9ef7d7b73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "60dcf0f7_291e394a",
@@ -55,6 +73,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "6e573507_6317a61b",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-09T15:48:15Z",
+      "side": 1,
+      "message": "this also goes away in a later patchset in the series.",
+      "parentUuid": "65450420_bd893e1a",
+      "revId": "b7e979d10f716b41b3196cb8f10732d9ef7d7b73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "63c8689a_6a1aaffe",
         "filename": "http/http2_connection.hpp",
         "patchSetId": 19
@@ -66,6 +102,24 @@
       "writtenOn": "2024-02-09T04:46:48Z",
       "side": 1,
       "message": "flat_map has performance advantage because of contiguous memory right? is it because it is negligible?",
+      "revId": "b7e979d10f716b41b3196cb8f10732d9ef7d7b73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56744f15_13fc63b5",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-09T15:48:15Z",
+      "side": 1,
+      "message": "in this case it’s done to avoid having to implement a move operator on the values.  the performance difference should be low to unmeasurable in actual code.  most of the time goes to io",
+      "parentUuid": "63c8689a_6a1aaffe",
       "revId": "b7e979d10f716b41b3196cb8f10732d9ef7d7b73",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
