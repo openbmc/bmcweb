@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9194b33f_6b044a45",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 46
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-09T19:55:08Z",
+      "side": 1,
+      "message": "TL; DR, As written, this patch series will break any platform that isn\u0027t ibm/intel.  I\u0027m looking for someone to own them going forward.\n\nNow that these are rebased, and at least do what they intend, is there anyone willing to take on getting this feature finished?  If nobody volunteers by 2/23/24 (two weeks), I will abandon the series so the review series falls off the review list.\n\nThe things remaining are we need to make a decision about either this patch is making service-config-manager optional, or service-config-manager is going to be included as a default required daemon in the build.\n\nTo become a default, the check check below in service-config-manager needs removed (and relevant startup conditions handled properly).\n\nhttps://github.com/openbmc/service-config-manager/blob/d8effd63e885cb755aa44665d833b20f187c0e53/src/main.cpp#L336\n\nWe can\u0027t have a daemon that is \"required\" be able to hold up all of startup if some other daemon fails, and there\u0027s no way bmcweb takes a hard dependency on the full startup being complete, given that bmcweb is used for failure analysis.  Looking at the code, it\u0027s mostly just a matter of the daemon adding handling for the UnitNew signals in /org/freedesktop/systemd1\n\nArguably it needs to do that anyway, because any sort of other manager might install/start a new service that would get missed by this app.\n Also, given that the listed maintainer (Appu) hasn\u0027t responded upstream in O(months) to trivial changes, I suspect we\u0027ll need to get more maintainers added.\n https://gerrit.openbmc.org/c/openbmc/service-config-manager/+/67897\n\nAlternatively, if we device that service-config-manager shouldn\u0027t be required, we can change the bmcweb flow to something like:\n\n1. Go to the systemd api, determine service status\n(note, this is already how bmcweb master works)\n2. If the service is running, and we\u0027ve requested a change, THEN go to service-config-manager\n\nThe result is that for service status, service-config-manager is not required.  For service CHANGES, we can attempt to go to service-config-manager, and return some sort of NOT SUPPORTED error back to the user if it doesn\u0027t exist.\n\n\nI would really have liked it if the authors had at least acknowledged that this patch broke other platforms BEFORE I spent a ton of time rebasing them, fixing the coding errors, loading them on my system, and testing the behavior.  I understand that people are busy, and these things are non trivial, but knowingly breaking behavior for working platforms is frankly unacceptable.  If each patch were allowed to break other people, every platform maintainer would have to review every patch, and we\u0027d never get anything done.",
+      "revId": "e547e29adc31d56ef13ab88ea3b8c23c7c4ac4f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7c04669d_9a9e1cbd",
         "filename": "redfish-core/include/utils/service_utils.hpp",
         "patchSetId": 46
