@@ -91,6 +91,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b19b2794_6bd21c79",
+        "filename": "Redfish.md",
+        "patchSetId": 67
+      },
+      "lineNbr": 791,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-09T17:02:53Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "ee0246c5_c88a71fe",
+      "revId": "abccac79f7834941c43684d06e36d1a8d76f3815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c2597e38_752de20d",
         "filename": "redfish-core/lib/fabric_adapters.hpp",
         "patchSetId": 67
@@ -646,6 +664,30 @@
       "side": 1,
       "message": "I would agree to return the error to the caller, if `getValidFabricPortSubTree()` is a generalized wrapper like `getAssociationEndPoints()` etc to make the logic clearer.\n\nHowever, like this case, `getValidFabricPortSubTree()` is designed to check/handle the error and return the subtree only if it is valid. It is also called by a few places. If so, wouldn\u0027t it appropriate to filter out errors to callers?\n\nIf not but passing the errors to the callers, would all callers need to handle the same errors and need the similar aux functions - `afterXXX()` again.",
       "parentUuid": "fd810d16_75ef2cca",
+      "range": {
+        "startLine": 282,
+        "startChar": 59,
+        "endLine": 282,
+        "endChar": 74
+      },
+      "revId": "abccac79f7834941c43684d06e36d1a8d76f3815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03e68e1b_14b58221",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 67
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-09T17:02:53Z",
+      "side": 1,
+      "message": "\u003e I would agree to return the error to the caller, if `getValidFabricPortSubTree()` is a generalized wrapper like `getAssociationEndPoints()` etc to make the logic clearer.\n\u003e \n\u003e However, like this case, `getValidFabricPortSubTree()` is designed to check/handle the error and return the subtree only if it is valid.\n\nRight, and we generally do that by returning an error.  A \"handle all possible errors for all possible callers\" routine is generally not a pattern that has been found to work.  If it does, having one branch and a method to handle that error in the callback is trivial.\n\n\u003e It is also called by a few places. If so, wouldn\u0027t it appropriate to filter out errors to callers?\n\nGenerally not, because it:\nA. breaks the mental model of async operations.  I will note that the couple of places we break this already have caused a lot of problems in bugs.\nB. Doesn\u0027t give the caller a chance to customize their error.  Pretty rarely is the error handling identical between two different callers.  The fact that it is in this case stems from the fact that we\u0027re doing multiple chained mapper calls, which is not only complex, but shows this issue.\n\nOnce we have this down to one mapper call, I\u0027d be really surprised if the error handling had anything common.\n\n\u003e \n\u003e If not but passing the errors to the callers, would all callers need to handle the same errors and need the similar aux functions - `afterXXX()` again.\n\nif (ec){\n    handleError();\n    return;\n}\n\nis a trivial amount of code to write.  Keep in mind that the error for POST is different than the error for GET, is different than the error for an Action, so pretty much all the code will need a customized (to some degree) error handler anyway.",
+      "parentUuid": "1a8aebfa_d766f6bd",
       "range": {
         "startLine": 282,
         "startChar": 59,

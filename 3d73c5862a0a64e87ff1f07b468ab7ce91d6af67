@@ -424,6 +424,30 @@
       },
       "revId": "3d73c5862a0a64e87ff1f07b468ab7ce91d6af67",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f004e8e6_03054e30",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 65
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-09T17:02:53Z",
+      "side": 1,
+      "message": "\u003e The current code is first checking the valid fabric adapter using `getValidFabricAdapterPath()` (which validates Item.FabricAdapter), and then get the associated Ports (which are Connector.Port).\n\u003e \n\u003e Let me try to change the logic flow like this.\n\u003e - Given `adapterId`\n\u003e - validate adapterId as Item.FabricAdapter, and get its dbus path - fabricAdapterPath\n\nDoing one mapper call\n\n\u003e - (a) Get Connector.Port subtree. (all Connector.Port items).\n\nDoing a second mapper call\n\n\u003e - (b) Get connecting Connector.Ports for the given fabricAdapterPath.\n\ndoing a third mapper call.\n\n\u003e - (c) Collect the only match Connector.Ports which are in (b). This would validate the result ports are associated with fabricAdapterPath.\n\nCalling the daemon.\n\n\u003e - Use this (c) Connector.Ports for the further processing.\n\u003e \n\u003e Would this be okay?\n\nNo, it is 2 mapper calls too many.  The generalized procedure for any bmcweb operation is:\n\nCall the mapper, get the result, call the connections the mapper returns that implement those interfaces.\n\n\u003e I think this logic would also be more clearer and easier to read.",
+      "parentUuid": "ca2adfb7_13549ab0",
+      "range": {
+        "startLine": 296,
+        "startChar": 4,
+        "endLine": 296,
+        "endChar": 29
+      },
+      "revId": "3d73c5862a0a64e87ff1f07b468ab7ce91d6af67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
