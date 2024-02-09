@@ -22,6 +22,7 @@ enable_http2 = get_option('experimental-http2')
 conf_data.set10('BMCWEB_ENABLE_HTTP2', enable_http2.allowed())
 conf_data.set10('BMCWEB_ENABLE_MTLS_COMMON_NAME_PARSING_META', get_option('mutual-tls-common-name-parsing') == 'meta')
 
+conf_data.set('BMCWEB_VIRTUAL_MEDIA_PROVIDER', get_option('vm-websocket-provider'))
 
 # Logging level
 loglvlopt = get_option('bmcweb-logging')

@@ -10,7 +10,6 @@
 #include "image_upload.hpp"
 #include "kvm_websocket.hpp"
 #include "login_routes.hpp"
-#include "nbd_proxy.hpp"
 #include "obmc_console.hpp"
 #include "openbmc_dbus_rest.hpp"
 #include "redfish.hpp"
