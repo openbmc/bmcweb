@@ -472,6 +472,30 @@
       },
       "revId": "3d73c5862a0a64e87ff1f07b468ab7ce91d6af67",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85954ca4_d0710129",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 65
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-09T19:03:55Z",
+      "side": 1,
+      "message": "\u003e There are 2 types of URIs of interests.\n\u003e a) `/redfish/v1/.../FabricAdapters/\u003cstr\u003e/Ports/`        # for given adadapterId\n\u003e b) `/redfish/v1/.../FabricAdapters/\u003cstr\u003e/Ports/\u003cstr\u003e/`   # for given (adapterId,portId)\n\u003e \n\u003e I\u0027m not sure how to get the result in one mapper call  to get ports which are associated with a given `adapterId`.  \n\u003e To deal with the association, the first step would be to find a dbus path from `adapterId\u0027. This would already require 2 steps.\n\u003e \n\u003e Can this be done in 1 mapper call?\n\nThe mapper has ALL of the information above in its dbus map.  None of the above would rely on intermediate data from bmcweb, so yes, it can do it in one call.\n\n\u003e \n\u003e I think - the possible approach would be.\n\u003e \n\u003e - 1st  mapper-call is to validate the adapterId \u0026 get `adapterPath` (via `getValidFabricAdapterPath()`).\n\u003e \n\u003e - 2nd mapper call: getAssociatedSubTree using `adapterPath` to obtain Ports.\n\nWhat information does bmcweb have between calls 1 and 2 that it doesn\u0027t have before call 1?  I suspect the answer is nothing aside from business logic (especially given that the HTTP request is completed at that point), which means that the logic goes in the mapper.\n\n\nI really do appreciate you thinking about this in depth.",
+      "parentUuid": "026d5426_f1691186",
+      "range": {
+        "startLine": 296,
+        "startChar": 4,
+        "endLine": 296,
+        "endChar": 29
+      },
+      "revId": "3d73c5862a0a64e87ff1f07b468ab7ce91d6af67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
