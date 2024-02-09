@@ -1933,10 +1933,11 @@ inline void requestRoutesManager(App& app)
         asyncResp->res.jsonValue["EthernetInterfaces"]["@odata.id"] =
             "/redfish/v1/Managers/bmc/EthernetInterfaces";
 
-#ifdef BMCWEB_ENABLE_VM_NBDPROXY
-        asyncResp->res.jsonValue["VirtualMedia"]["@odata.id"] =
-            "/redfish/v1/Managers/bmc/VirtualMedia";
-#endif // BMCWEB_ENABLE_VM_NBDPROXY
+        if constexpr (bmcwebVirtualMediaProvider == "virtual-media")
+        {
+            asyncResp->res.jsonValue["VirtualMedia"]["@odata.id"] =
+                "/redfish/v1/Managers/bmc/VirtualMedia";
+        }
 
         // default oem data
         nlohmann::json& oem = asyncResp->res.jsonValue["Oem"];
