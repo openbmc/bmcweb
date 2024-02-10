@@ -24,7 +24,7 @@ option(
     'vm-websocket-provider',
     type: 'combo',
     choices : ['nbd-proxy', 'virtual-media'],
-    value: 'nbd-proxy',
+    value: 'virtual-media',
     description: '''Enable the Virtual Media WebSocket. Path is /vm/0/0 and /nbd/<id> to
                     open the websocket. See
                     https://github.com/openbmc/jsnbd/blob/master/README.'''
