@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aa898930_195129a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 46
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-10T03:05:21Z",
+      "side": 1,
+      "message": "/s/device/decide/g",
+      "parentUuid": "9194b33f_6b044a45",
+      "revId": "e547e29adc31d56ef13ab88ea3b8c23c7c4ac4f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7c04669d_9a9e1cbd",
         "filename": "redfish-core/include/utils/service_utils.hpp",
         "patchSetId": 46
