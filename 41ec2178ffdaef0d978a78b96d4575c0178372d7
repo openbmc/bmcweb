@@ -107,6 +107,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4a64e83_ee45f7c9",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-02-12T18:31:02Z",
+      "side": 1,
+      "message": "+1.",
+      "parentUuid": "d81a9e0b_86f04463",
+      "revId": "41ec2178ffdaef0d978a78b96d4575c0178372d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c0adfe9b_9a73ebc8",
