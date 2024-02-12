@@ -43,6 +43,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "29228e4f_e9bbc9b7",
+        "filename": "test/http/http2_connection_test.cpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-12T18:34:05Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "44514371_f1678941",
+      "range": {
+        "startLine": 57,
+        "startChar": 30,
+        "endLine": 57,
+        "endChar": 43
+      },
+      "revId": "4cce5530d1223fbfb5e6094ccc94520d7ee10a37",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "dbd82da9_96d47497",
         "filename": "test/http/http2_connection_test.cpp",
         "patchSetId": 36
@@ -89,6 +113,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c9943e05_383b9b86",
+        "filename": "test/http/http2_connection_test.cpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-12T18:34:05Z",
+      "side": 1,
+      "message": "This was built by hand on the expected data (hence the comments about what each thing means).",
+      "parentUuid": "78014ee0_6637f424",
+      "range": {
+        "startLine": 118,
+        "startChar": 4,
+        "endLine": 134,
+        "endChar": 25
+      },
+      "revId": "4cce5530d1223fbfb5e6094ccc94520d7ee10a37",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "75983676_b885cfc4",
         "filename": "test/http/http2_connection_test.cpp",
         "patchSetId": 36
@@ -100,6 +148,30 @@
       "writtenOn": "2024-02-12T18:30:10Z",
       "side": 1,
       "message": "A comment here?",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 144,
+        "endChar": 5
+      },
+      "revId": "4cce5530d1223fbfb5e6094ccc94520d7ee10a37",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bef7b525_69083bc0",
+        "filename": "test/http/http2_connection_test.cpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-12T18:34:05Z",
+      "side": 1,
+      "message": "What kind of comment are you thinking?",
+      "parentUuid": "75983676_b885cfc4",
       "range": {
         "startLine": 139,
         "startChar": 0,
@@ -123,6 +195,24 @@
       "writtenOn": "2024-02-12T18:30:10Z",
       "side": 1,
       "message": "This is us sitting here: https://github.com/openbmc/bmcweb/blob/b66551019cf3c31186877c30a91ff8622454f342/include/security_headers.hpp#L30\nAck. So everytime we update those headers will have to update this test and https://github.com/openbmc/bmcweb/commit/4fa45dffd1ece21a468ed32850428b3b41bc8093\nAck.",
+      "revId": "4cce5530d1223fbfb5e6094ccc94520d7ee10a37",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "573bc392_df548e26",
+        "filename": "test/http/http2_connection_test.cpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-12T18:34:05Z",
+      "side": 1,
+      "message": "Yep, I\u0027m not in love with this list given that this is supposed to be a \"unit\" test, and ideally that other set of code would have its own unit test, but that\u0027s something we\u0027ll have to fix in the future if we want to deduplicate those two tests.\n\nIMO, updating two unit tests every time we change that list with pretty obvious \"here\u0027s the header changes I\u0027m expecting\" doesn\u0027t sound that unreasonable to me, and having this here makes sure a lot of headers are working and functional.",
+      "parentUuid": "782a37f9_a2c958c1",
       "revId": "4cce5530d1223fbfb5e6094ccc94520d7ee10a37",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
