@@ -345,13 +345,14 @@ inline void getLedGroupPath(
 
 inline void getLedState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         const std::string& ledGroupPath,
-                        const std::string& service)
+                        const std::string& service,
+                        const std::function<void(bool asserted)>&& callback)
 {
     sdbusplus::asio::getProperty<bool>(
         *crow::connections::systemBus, service, ledGroupPath,
         "xyz.openbmc_project.Led.Group", "Asserted",
-        [asyncResp, ledGroupPath](const boost::system::error_code& ec,
-                                  bool assert) {
+        [asyncResp, ledGroupPath,
+         callback{callback}](const boost::system::error_code& ec, bool assert) {
         if (ec)
         {
             if (ec.value() != EBADR)
@@ -364,7 +365,7 @@ inline void getLedState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             return;
         }
 
-        asyncResp->res.jsonValue["LocationIndicatorActive"] = assert;
+        callback(assert);
     });
 }
 
@@ -378,11 +379,16 @@ inline void getLedState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
  */
 inline void getLocationIndicatorActive(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& objPath)
+    const std::string& objPath,
+    const std::function<void(bool asserted)>&& callback)
 {
     BMCWEB_LOG_DEBUG("Get LocationIndicatorActive");
-    getLedGroupPath(asyncResp, objPath,
-                    std::bind_front(getLedState, asyncResp));
+    getLedGroupPath(
+        asyncResp, objPath,
+        [asyncResp, callback{callback}](const std::string& ledGroupPath,
+                                        const std::string& service) {
+        getLedState(asyncResp, ledGroupPath, service, std::move(callback));
+    });
 }
 
 inline void setLedState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -405,6 +411,15 @@ inline void setLedState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             messages::resourceNotFound(asyncResp->res, "LedGroup",
                                        ledGroupPath);
         }
+    });
+}
+
+inline void getLocationIndicatorActive(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& objPath)
+{
+    getLocationIndicatorActive(asyncResp, objPath, [asyncResp](bool asserted) {
+        asyncResp->res.jsonValue["LocationIndicatorActive"] = asserted;
     });
 }
 
