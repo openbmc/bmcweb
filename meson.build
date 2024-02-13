@@ -391,6 +391,7 @@ fs = import('fs')
 srcfiles_bmcweb = files(
   'redfish-core/src/error_messages.cpp',
   'redfish-core/src/registries.cpp',
+  'redfish-core/src/utils/dbus_utils.cpp',
   'redfish-core/src/utils/time_utils.cpp',
   'redfish-core/src/utils/json_utils.cpp',
   'src/boost_asio_ssl.cpp',
@@ -448,6 +449,7 @@ srcfiles_unittest = files(
   'test/redfish-core/include/redfish_aggregator_test.cpp',
   'test/redfish-core/include/registries_test.cpp',
   'test/redfish-core/include/utils/hex_utils_test.cpp',
+  'test/redfish-core/include/utils/dbus_utils.cpp',
   'test/redfish-core/include/utils/ip_utils_test.cpp',
   'test/redfish-core/include/utils/json_utils_test.cpp',
   'test/redfish-core/include/utils/query_param_test.cpp',
