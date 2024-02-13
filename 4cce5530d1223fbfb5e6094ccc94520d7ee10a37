@@ -135,6 +135,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "35145164_97dc7717",
+        "filename": "test/http/http2_connection_test.cpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-02-13T15:50:15Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c9943e05_383b9b86",
+      "range": {
+        "startLine": 118,
+        "startChar": 4,
+        "endLine": 134,
+        "endChar": 25
+      },
+      "revId": "4cce5530d1223fbfb5e6094ccc94520d7ee10a37",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "75983676_b885cfc4",
@@ -182,6 +206,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3461e85_93863692",
+        "filename": "test/http/http2_connection_test.cpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-02-13T15:50:15Z",
+      "side": 1,
+      "message": "This test is hard to follow, you already have some comments but I was thinking\n\n    // process all handlers\n    while (outStr.size() \u003c\n           expectedPrefix.size() + headerSize + expectedPostfix.size())\n    {\n        io.run_one();\n        outStr \u003d out.str();\n    }\n\n    // check the stream output against expected\n\n🤷, now that I write it, it doesn\u0027t seem that helpful but this test is some pretty complex stuff",
+      "parentUuid": "bef7b525_69083bc0",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 144,
+        "endChar": 5
+      },
+      "revId": "4cce5530d1223fbfb5e6094ccc94520d7ee10a37",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "782a37f9_a2c958c1",
@@ -213,6 +261,24 @@
       "side": 1,
       "message": "Yep, I\u0027m not in love with this list given that this is supposed to be a \"unit\" test, and ideally that other set of code would have its own unit test, but that\u0027s something we\u0027ll have to fix in the future if we want to deduplicate those two tests.\n\nIMO, updating two unit tests every time we change that list with pretty obvious \"here\u0027s the header changes I\u0027m expecting\" doesn\u0027t sound that unreasonable to me, and having this here makes sure a lot of headers are working and functional.",
       "parentUuid": "782a37f9_a2c958c1",
+      "revId": "4cce5530d1223fbfb5e6094ccc94520d7ee10a37",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3ff7a3e_95caffda",
+        "filename": "test/http/http2_connection_test.cpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-02-13T15:50:15Z",
+      "side": 1,
+      "message": "\u003e updating two unit tests every time we change that list with pretty obvious \"here\u0027s the header changes I\u0027m expecting\" doesn\u0027t sound that unreasonable to me\n\nAgreed and it is enforced by CI",
+      "parentUuid": "573bc392_df548e26",
       "revId": "4cce5530d1223fbfb5e6094ccc94520d7ee10a37",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
