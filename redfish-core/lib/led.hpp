@@ -24,6 +24,9 @@
 
 namespace redfish
 {
+
+static constexpr std::array<std::string_view, 1> ledGroupInterface = {
+    "xyz.openbmc_project.Led.Group"};
 /**
  * @brief Retrieves identify led group properties over dbus
  *
@@ -252,4 +255,156 @@ inline void setSystemLocationIndicatorActive(
         }
     });
 }
+
+inline void getLedAsset(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const std::string& ledGroup,
+                        const std::function<void(bool asserted)>& callback)
+{
+    dbus::utility::getDbusObject(
+        ledGroup, ledGroupInterface,
+        [asyncResp, ledGroup,
+         callback](const boost::system::error_code& ec,
+                   const dbus::utility::MapperGetObject& object) {
+        if (ec || object.empty())
+        {
+            BMCWEB_LOG_ERROR("DBUS response error {}", ec.message());
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        sdbusplus::asio::getProperty<bool>(
+            *crow::connections::systemBus, object.begin()->first, ledGroup,
+            "xyz.openbmc_project.Led.Group", "Asserted",
+            [asyncResp, callback](const boost::system::error_code& ec1,
+                                  bool assert) {
+            if (ec1)
+            {
+                if (ec1.value() != EBADR)
+                {
+                    BMCWEB_LOG_ERROR("DBUS response error {}", ec1.value());
+                    messages::internalError(asyncResp->res);
+                }
+                return;
+            }
+
+            callback(assert);
+        });
+    });
+}
+
+inline void setLedAsset(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const std::string& ledGroup, bool ledState)
+{
+    dbus::utility::getDbusObject(
+        ledGroup, ledGroupInterface,
+        [asyncResp, ledGroup,
+         ledState](const boost::system::error_code& ec,
+                   const dbus::utility::MapperGetObject& object) {
+        if (ec || object.empty())
+        {
+            BMCWEB_LOG_ERROR("DBUS response error {}", ec.message());
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        sdbusplus::asio::setProperty(
+            *crow::connections::systemBus, object.begin()->first, ledGroup,
+            "xyz.openbmc_project.Led.Group", "Asserted", ledState,
+            [asyncResp](const boost::system::error_code& ec1) {
+            if (ec1)
+            {
+                if (ec1.value() != EBADR)
+                {
+                    BMCWEB_LOG_ERROR("DBUS response error {}", ec1.value());
+                    messages::internalError(asyncResp->res);
+                }
+                return;
+            }
+        });
+    });
+}
+
+/**
+ * @brief Retrieves identify led group properties over dbus
+ *
+ * @param[in] asyncResp Shared pointer for generating response message.
+ * @param[in] objPath   Object path on PIM
+ *
+ * @return None.
+ */
+inline void getLocationIndicatorActive(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& objPath,
+    const std::function<void(bool asserted)>&& callback)
+{
+    BMCWEB_LOG_DEBUG("Get LocationIndicatorActive");
+
+    dbus::utility::getAssociationEndPoints(
+        objPath + "/identifying",
+        [asyncResp, callback](const boost::system::error_code& ec,
+                              const dbus::utility::MapperEndPoints& endpoints) {
+        if (ec)
+        {
+            if (ec.value() != EBADR)
+            {
+                BMCWEB_LOG_ERROR("DBUS response error {}", ec.value());
+                messages::internalError(asyncResp->res);
+            }
+            return;
+        }
+
+        for (const auto& endpoint : endpoints)
+        {
+            getLedAsset(asyncResp, endpoint, callback);
+        }
+    });
+}
+
+inline void getLocationIndicatorActive(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& objPath)
+{
+    getLocationIndicatorActive(asyncResp, objPath, [asyncResp](bool asserted) {
+        asyncResp->res.jsonValue["LocationIndicatorActive"] = asserted;
+    });
+}
+
+/**
+ * @brief Sets identify led group properties
+ *
+ * @param[in] asyncResp Shared pointer for generating response message.
+ * @param[in] objPath   Object path on PIM
+ * @param[in] ledState  LED state passed from request
+ *
+ * @return None.
+ */
+inline void setLocationIndicatorActive(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& objPath, bool ledState)
+{
+    BMCWEB_LOG_DEBUG("Set LocationIndicatorActive");
+
+    dbus::utility::getAssociationEndPoints(
+        objPath + "/identifying",
+        [asyncResp, ledState,
+         objPath](const boost::system::error_code& ec,
+                  const dbus::utility::MapperEndPoints& endpoints) {
+        if (ec)
+        {
+            if (ec.value() != EBADR)
+            {
+                BMCWEB_LOG_ERROR("DBUS response error {}", ec.value());
+                messages::internalError(asyncResp->res);
+            }
+            messages::resourceNotFound(asyncResp->res, "LedGroup", objPath);
+            return;
+        }
+
+        for (const auto& endpoint : endpoints)
+        {
+            setLedAsset(asyncResp, endpoint, ledState);
+        }
+    });
+}
+
 } // namespace redfish
