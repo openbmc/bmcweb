@@ -131,6 +131,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "304ec3a0_ef603d3e",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 911,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-02-13T16:02:27Z",
+      "side": 1,
+      "message": "\u003e internalError already logs to BMCWEB_LOG_ERROR.\n\nYep. But it doesn\u0027t have the D-Bus response which is really helpful in debugging these",
+      "parentUuid": "94399377_fe380db6",
+      "revId": "75d95d7fb559ffdc39efeb1fc7ce2ea5b03fd8c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b7dd8c91_88d07329",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 17
