@@ -3180,43 +3180,21 @@ inline void handleComputerSystemResetActionPost(
         messages::actionParameterUnknown(asyncResp->res, "Reset", resetType);
         return;
     }
+    sdbusplus::message::object_path statePath("/xyz/openbmc_project/state");
 
     if (hostCommand)
     {
-        sdbusplus::asio::setProperty(
-            *crow::connections::systemBus, "xyz.openbmc_project.State.Host",
-            "/xyz/openbmc_project/state/host0",
-            "xyz.openbmc_project.State.Host", "RequestedHostTransition",
-            command,
-            [asyncResp, resetType](const boost::system::error_code& ec,
-                                   sdbusplus::message_t& sdbusErrMsg) {
-            if (ec)
-            {
-                handleSystemActionResetError(ec, sdbusErrMsg, resetType,
-                                             asyncResp->res);
-
-                return;
-            }
-            messages::success(asyncResp->res);
-        });
+        redfish::setDbusProperty(asyncResp, "xyz.openbmc_project.State.Host",
+                                 statePath / "host0",
+                                 "xyz.openbmc_project.State.Host",
+                                 "RequestedHostTransition", "Reset", command);
     }
     else
     {
-        sdbusplus::asio::setProperty(
-            *crow::connections::systemBus, "xyz.openbmc_project.State.Chassis",
-            "/xyz/openbmc_project/state/chassis0",
-            "xyz.openbmc_project.State.Chassis", "RequestedPowerTransition",
-            command,
-            [asyncResp, resetType](const boost::system::error_code& ec,
-                                   sdbusplus::message_t& sdbusErrMsg) {
-            if (ec)
-            {
-                handleSystemActionResetError(ec, sdbusErrMsg, resetType,
-                                             asyncResp->res);
-                return;
-            }
-            messages::success(asyncResp->res);
-        });
+        redfish::setDbusProperty(asyncResp, "xyz.openbmc_project.State.Chassis",
+                                 statePath / "chassis0",
+                                 "xyz.openbmc_project.State.Chassis",
+                                 "RequestedPowerTransition", "Reset", command);
     }
 }
 
