@@ -335,8 +335,9 @@ srcfiles_bmcweb = files(
     # Begin large files, should be at the beginning
     'redfish-core/src/redfish.cpp',
     'redfish-core/src/registries.cpp',
-    'redfish-core/src/utils/json_utils.cpp',
+    'redfish-core/src/utils/dbus_utils.cpp',
     'redfish-core/src/utils/time_utils.cpp',
+    'redfish-core/src/utils/json_utils.cpp',
     'src/boost_asio.cpp',
     'src/boost_asio_ssl.cpp',
     'src/boost_beast.cpp',
@@ -366,7 +367,7 @@ executable(
 )
 
 srcfiles_unittest = files(
-    'test/http/crow_getroutes_test.cpp',
+   'test/http/crow_getroutes_test.cpp',
     'test/http/http2_connection_test.cpp',
     'test/http/http_body_test.cpp',
     'test/http/http_connection_test.cpp',
@@ -395,7 +396,8 @@ srcfiles_unittest = files(
     'test/redfish-core/include/redfish_aggregator_test.cpp',
     'test/redfish-core/include/registries_test.cpp',
     'test/redfish-core/include/utils/hex_utils_test.cpp',
-    'test/redfish-core/include/utils/ip_utils_test.cpp',
+    'test/redfish-core/include/utils/dbus_utils.cpp',
+   'test/redfish-core/include/utils/ip_utils_test.cpp',
     'test/redfish-core/include/utils/json_utils_test.cpp',
     'test/redfish-core/include/utils/query_param_test.cpp',
     'test/redfish-core/include/utils/stl_utils_test.cpp',

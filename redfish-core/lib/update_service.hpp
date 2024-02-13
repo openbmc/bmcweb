@@ -739,20 +739,11 @@ inline void setApplyTime(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         return;
     }
 
-    // Set the requested image apply time value
-    sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/software/apply_time",
-        "xyz.openbmc_project.Software.ApplyTime", "RequestedApplyTime",
-        applyTimeNewVal, [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("D-Bus responses error: {}", ec);
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        messages::success(asyncResp->res);
-    });
+    setDbusProperty(asyncResp, "xyz.openbmc_project.Settings",
+                    sdbusplus::message::object_path(
+                        "/xyz/openbmc_project/software/apply_time"),
+                    "xyz.openbmc_project.Software.ApplyTime",
+                    "RequestedApplyTime", "ApplyTime", applyTimeNewVal);
 }
 
 inline void

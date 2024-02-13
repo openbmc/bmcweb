@@ -2677,46 +2677,6 @@ inline void doNMI(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
         serviceName, objectPath, interfaceName, method);
 }
 
-/**
- * Handle error responses from d-bus for system power requests
- */
-inline void handleSystemActionResetError(const boost::system::error_code& ec,
-                                         const sdbusplus::message_t& eMsg,
-                                         std::string_view resetType,
-                                         crow::Response& res)
-{
-    if (ec.value() == boost::asio::error::invalid_argument)
-    {
-        messages::actionParameterNotSupported(res, resetType, "Reset");
-        return;
-    }
-
-    if (eMsg.get_error() == nullptr)
-    {
-        BMCWEB_LOG_ERROR("D-Bus response error: {}", ec);
-        messages::internalError(res);
-        return;
-    }
-    std::string_view errorMessage = eMsg.get_error()->name;
-
-    // If operation failed due to BMC not being in Ready state, tell
-    // user to retry in a bit
-    if ((errorMessage ==
-         std::string_view(
-             "xyz.openbmc_project.State.Chassis.Error.BMCNotReady")) ||
-        (errorMessage ==
-         std::string_view("xyz.openbmc_project.State.Host.Error.BMCNotReady")))
-    {
-        BMCWEB_LOG_DEBUG("BMC not ready, operation not allowed right now");
-        messages::serviceTemporarilyUnavailable(res, "10");
-        return;
-    }
-
-    BMCWEB_LOG_ERROR("System Action Reset transition fail {} sdbusplus:{}", ec,
-                     errorMessage);
-    messages::internalError(res);
-}
-
 inline void handleComputerSystemResetActionPost(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -2796,43 +2756,20 @@ inline void handleComputerSystemResetActionPost(
         messages::actionParameterUnknown(asyncResp->res, "Reset", resetType);
         return;
     }
+    sdbusplus::message::object_path statePath("/xyz/openbmc_project/state");
 
     if (hostCommand)
     {
-        sdbusplus::asio::setProperty(
-            *crow::connections::systemBus, "xyz.openbmc_project.State.Host",
-            "/xyz/openbmc_project/state/host0",
-            "xyz.openbmc_project.State.Host", "RequestedHostTransition",
-            command,
-            [asyncResp, resetType](const boost::system::error_code& ec,
-                                   sdbusplus::message_t& sdbusErrMsg) {
-            if (ec)
-            {
-                handleSystemActionResetError(ec, sdbusErrMsg, resetType,
-                                             asyncResp->res);
-
-                return;
-            }
-            messages::success(asyncResp->res);
-        });
+        setDbusProperty(asyncResp, "xyz.openbmc_project.State.Host",
+                        statePath / "host0", "xyz.openbmc_project.State.Host",
+                        "RequestedHostTransition", "Reset", command);
     }
     else
     {
-        sdbusplus::asio::setProperty(
-            *crow::connections::systemBus, "xyz.openbmc_project.State.Chassis",
-            "/xyz/openbmc_project/state/chassis0",
-            "xyz.openbmc_project.State.Chassis", "RequestedPowerTransition",
-            command,
-            [asyncResp, resetType](const boost::system::error_code& ec,
-                                   sdbusplus::message_t& sdbusErrMsg) {
-            if (ec)
-            {
-                handleSystemActionResetError(ec, sdbusErrMsg, resetType,
-                                             asyncResp->res);
-                return;
-            }
-            messages::success(asyncResp->res);
-        });
+        setDbusProperty(asyncResp, "xyz.openbmc_project.State.Chassis",
+                        statePath / "chassis0",
+                        "xyz.openbmc_project.State.Chassis",
+                        "RequestedPowerTransition", "Reset", command);
     }
 }
 

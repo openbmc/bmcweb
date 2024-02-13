@@ -711,18 +711,12 @@ inline void updateIPv4DefaultGateway(
     const std::string& ifaceId, const std::string& gateway,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, "xyz.openbmc_project.Network",
-        "/xyz/openbmc_project/network/" + ifaceId,
+    setDbusProperty(
+        asyncResp, "xyz.openbmc_project.Network",
+        sdbusplus::message::object_path("/xyz/openbmc_project/network") /
+            ifaceId,
         "xyz.openbmc_project.Network.EthernetInterface", "DefaultGateway",
-        gateway, [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        asyncResp->res.result(boost::beast::http::status::no_content);
-    });
+        "Gateway", gateway);
 }
 /**
  * @brief Creates a static IPv4 entry
@@ -1206,33 +1200,22 @@ inline void
                                            "HostName");
         return;
     }
-    sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, "xyz.openbmc_project.Network",
-        "/xyz/openbmc_project/network/config",
-        "xyz.openbmc_project.Network.SystemConfiguration", "HostName", hostname,
-        [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            messages::internalError(asyncResp->res);
-        }
-    });
+    setDbusProperty(
+        asyncResp, "xyz.openbmc_project.Network",
+        sdbusplus::message::object_path("/xyz/openbmc_project/network/config"),
+        "xyz.openbmc_project.Network.SystemConfiguration", "HostName",
+        "HostName", hostname);
 }
 
 inline void
     handleMTUSizePatch(const std::string& ifaceId, const size_t mtuSize,
                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    sdbusplus::message::object_path objPath = "/xyz/openbmc_project/network/" +
-                                              ifaceId;
-    sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, "xyz.openbmc_project.Network", objPath,
-        "xyz.openbmc_project.Network.EthernetInterface", "MTU", mtuSize,
-        [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            messages::internalError(asyncResp->res);
-        }
-    });
+    sdbusplus::message::object_path objPath("/xyz/openbmc_project/network");
+    objPath /= ifaceId;
+    setDbusProperty(asyncResp, "xyz.openbmc_project.Network", objPath,
+                    "xyz.openbmc_project.Network.EthernetInterface", "MTU",
+                    "MTUSize", mtuSize);
 }
 
 inline void
@@ -1241,16 +1224,12 @@ inline void
                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     std::vector<std::string> vectorDomainname = {domainname};
-    sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, "xyz.openbmc_project.Network",
-        "/xyz/openbmc_project/network/" + ifaceId,
-        "xyz.openbmc_project.Network.EthernetInterface", "DomainName",
-        vectorDomainname, [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            messages::internalError(asyncResp->res);
-        }
-    });
+    setDbusProperty(
+        asyncResp, "xyz.openbmc_project.Network",
+        sdbusplus::message::object_path("/xyz/openbmc_project/network") /
+            ifaceId,
+        "xyz.openbmc_project.Network.EthernetInterface", "DomainName", "FQDN",
+        vectorDomainname);
 }
 
 inline bool isHostnameValid(const std::string& hostname)
@@ -1317,32 +1296,12 @@ inline void
                           const std::string& macAddress,
                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    static constexpr std::string_view dbusNotAllowedError =
-        "xyz.openbmc_project.Common.Error.NotAllowed";
-
-    sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, "xyz.openbmc_project.Network",
-        "/xyz/openbmc_project/network/" + ifaceId,
-        "xyz.openbmc_project.Network.MACAddress", "MACAddress", macAddress,
-        [asyncResp](const boost::system::error_code& ec,
-                    const sdbusplus::message_t& msg) {
-        if (ec)
-        {
-            const sd_bus_error* err = msg.get_error();
-            if (err == nullptr)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            if (err->name == dbusNotAllowedError)
-            {
-                messages::propertyNotWritable(asyncResp->res, "MACAddress");
-                return;
-            }
-            messages::internalError(asyncResp->res);
-            return;
-        }
-    });
+    setDbusProperty(
+        asyncResp, "xyz.openbmc_project.Network",
+        sdbusplus::message::object_path("/xyz/openbmc_project/network") /
+            ifaceId,
+        "xyz.openbmc_project.Network.MACAddress", "MACAddress", "MACAddress",
+        macAddress);
 }
 
 inline void setDHCPEnabled(const std::string& ifaceId,
@@ -1351,37 +1310,12 @@ inline void setDHCPEnabled(const std::string& ifaceId,
                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     const std::string dhcp = getDhcpEnabledEnumeration(v4Value, v6Value);
-    sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, "xyz.openbmc_project.Network",
-        "/xyz/openbmc_project/network/" + ifaceId,
-        "xyz.openbmc_project.Network.EthernetInterface", propertyName, dhcp,
-        [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("D-Bus responses error: {}", ec);
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        messages::success(asyncResp->res);
-    });
-}
-
-inline void setEthernetInterfaceBoolProperty(
-    const std::string& ifaceId, const std::string& propertyName,
-    const bool& value, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
-{
-    sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, "xyz.openbmc_project.Network",
-        "/xyz/openbmc_project/network/" + ifaceId,
-        "xyz.openbmc_project.Network.EthernetInterface", propertyName, value,
-        [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("D-Bus responses error: {}", ec);
-            messages::internalError(asyncResp->res);
-            return;
-        }
-    });
+    setDbusProperty(
+        asyncResp, "xyz.openbmc_project.Network",
+        sdbusplus::message::object_path("/xyz/openbmc_project/network") /
+            ifaceId,
+        "xyz.openbmc_project.Network.EthernetInterface", propertyName, "DHCPv4",
+        dhcp);
 }
 
 enum class NetworkType
@@ -2387,8 +2321,13 @@ inline void requestEthernetInterfacesRoutes(App& app)
 
             if (interfaceEnabled)
             {
-                setEthernetInterfaceBoolProperty(ifaceId, "NICEnabled",
-                                                 *interfaceEnabled, asyncResp);
+                setDbusProperty(asyncResp, "xyz.openbmc_project.Network",
+                                sdbusplus::message::object_path(
+                                    "/xyz/openbmc_project/network") /
+                                    ifaceId,
+                                "xyz.openbmc_project.Network.EthernetInterface",
+                                "NICEnabled", "InterfaceEnabled",
+                                *interfaceEnabled);
             }
 
             if (mtuSize)
