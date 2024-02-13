@@ -258,19 +258,10 @@ inline void
         // logged.
         return;
     }
-
-    sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, "xyz.openbmc_project.User.Manager",
-        dbusObjectPath, "xyz.openbmc_project.User.Attributes", "UserGroups",
-        updatedUserGroups, [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("D-Bus responses error: {}", ec);
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        messages::success(asyncResp->res);
-    });
+    redfish::setDbusProperty(asyncResp, "xyz.openbmc_project.User.Manager",
+                             dbusObjectPath,
+                             "xyz.openbmc_project.User.Attributes",
+                             "UserGroups", "AccountTypes", updatedUserGroups);
 }
 
 inline void userErrorMessageHandler(
