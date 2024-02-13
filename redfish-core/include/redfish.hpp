@@ -216,6 +216,7 @@ class RedfishService
         requestRoutesLDAPCertificate(app);
         requestRoutesTrustStoreCertificate(app);
 
+        requestRoutesPCIeSlots(app);
         requestRoutesSystemPCIeFunctionCollection(app);
         requestRoutesSystemPCIeFunction(app);
         requestRoutesSystemPCIeDeviceCollection(app);
