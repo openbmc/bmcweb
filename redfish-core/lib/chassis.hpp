@@ -510,6 +510,8 @@ inline void handleChassisGetSubTree(
                                 chassisId);
         asyncResp->res.jsonValue["PCIeDevices"]["@odata.id"] =
             "/redfish/v1/Systems/system/PCIeDevices";
+        asyncResp->res.jsonValue["PCIeSlots"]["@odata.id"] =
+            boost::urls::format("/redfish/v1/Chassis/{}/PCIeSlots", chassisId);
 
         dbus::utility::getAssociationEndPoints(
             path + "/drive",
