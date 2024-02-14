@@ -410,6 +410,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c1c10647_8e0b80b8",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-14T20:50:38Z",
+      "side": 1,
+      "message": "\u003e \u003e So as far as this patch goes can we agree that:\n\u003e \u003e \n\u003e \u003e 0. This patch needs tested against service validator, as is documented in the developing guide.  Testing.md lists service validator specifically.  Ideally it wouldn\u0027t have been marked ready to review until that had been done, but it is what it is.  As always, happy to help if you have pre-test patches that you need help with, it just saves time if you mark things WIP that haven\u0027t been tested yet.\n\u003e \n\u003e Sure, will run the Redfish Validator but i have been running into some dependency issues (permission problems) with respect to Redfish Validator requirements for bs4 which i am trying to resolve.\n\nYou tried to run redfish-service-validator from a bitbake terminal.  bitbake forked beautifulsoup4, in a way that isn\u0027t compatible with modern python, and injects it into PYTHONPATH when you run the environment setup.\n\nRun it from a \"normal\" terminal and you should be fine.  Ping me on discord if this comment doesn\u0027t make sense and we can get you sorted.\n\n\u003e \n\u003e \u003e \n\u003e \u003e 1. This patchset needs to implement the Redfish schema properly for properties that are of type Edm.Int64.  I suspect this is going to mean calling static_cast\u003cint64_t\u003e(value) on the double for those specific properties.\n\u003e \n\u003e In BMCWeb i have made the static_cast\u003cint64_t\u003e(value) to the value.\n\nThis isn\u0027t a fix for EDM.Decimal types, only for EDM.Int64 types.",
+      "parentUuid": "0f2c13cd_dea87334",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 28
+      },
+      "revId": "37becd56a931c2d9f5502a0d1fe936a66b542f4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6c9feaf5_1563c667",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
         "patchSetId": 6
