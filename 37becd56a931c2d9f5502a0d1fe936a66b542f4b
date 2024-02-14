@@ -176,6 +176,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9785d3d4_511d0e3f",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-14T18:41:59Z",
+      "side": 1,
+      "message": "\u003e Isn\u0027t the requirement for reduced precision coming from some Redfish thing?\n\nRedfish uses EDM.Decimal to represent these kinds of things, which doesn\u0027t limit the precision in any kind of meaningful way.  In theory it\u0027s supposed to be producing fixed point values for any interface (ie 1.000), but considering almost no json library parses 1.000 differently than 1.0, the difference is moot in practice.\n\nFrom a user perspective (as both a dbus user and Redfish user) there\u0027s an expectation is that sensors (and any dbus double interface) know their precision, and don\u0027t publish things that amount to floating point division rounding errors, as that would show up on a user facing API.\n\nTemperature: 1.125\nIs different to a human compared to\nTemperature: 1.1250000000001\n\nIf things are producing the later, now bmcweb/the webui/any downstream client needs to make decisions about the value precision they want to display to users (as was done in this patch) that ideally would be handled upstream when the math is done, and we have more information about how many digits are available.\n\n\nFor this patchset, yes, bmcweb shouldn\u0027t be caring about precision.  It should be able to trust that the dbus daemon didn\u0027t produce floating point rounding issues.",
+      "parentUuid": "695b2b7c_eecb21e5",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 28
+      },
+      "revId": "37becd56a931c2d9f5502a0d1fe936a66b542f4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6c9feaf5_1563c667",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
         "patchSetId": 6
