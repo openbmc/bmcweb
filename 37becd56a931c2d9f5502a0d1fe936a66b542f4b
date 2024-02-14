@@ -200,6 +200,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a63e8bd1_900e7b5d",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-02-14T18:55:51Z",
+      "side": 1,
+      "message": "I\u0027m not sure that daemons should really be dealing with the fact that binary math and decimal math are different either, and we\u0027ve certainly not documented or communicated this expectation anywhere.  I doubt outside of dbus-sensors any of the other daemons explicitly round to some precision level.\n\nIn the case of metrics, I\u0027m not sure what you want to do.  We know there is 2GB of memory total and if 1.5234512 GB are used, that is a real number.  Saying the total percent is 76.17256 in the metric is a legitimate amount of precision that the daemon has, but you questioned it in the original commit message as being \"too much precision\".",
+      "parentUuid": "9785d3d4_511d0e3f",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 28
+      },
+      "revId": "37becd56a931c2d9f5502a0d1fe936a66b542f4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6c9feaf5_1563c667",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
         "patchSetId": 6
