@@ -152,6 +152,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "695b2b7c_eecb21e5",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-02-14T18:26:22Z",
+      "side": 1,
+      "message": "Wait... what?  Isn\u0027t the requirement for reduced precision coming from some Redfish thing?  Why would you have decided to truncate the precision ever?\n\nThere is no reason that the dbus daemons should be doing rounding in order to make an external interface happy, right?",
+      "parentUuid": "7c74de48_ce496fe9",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 28
+      },
+      "revId": "37becd56a931c2d9f5502a0d1fe936a66b542f4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6c9feaf5_1563c667",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
         "patchSetId": 6
