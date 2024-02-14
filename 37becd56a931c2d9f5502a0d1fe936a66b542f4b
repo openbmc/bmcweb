@@ -248,6 +248,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "11eddb02_4f2f348f",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-14T19:30:05Z",
+      "side": 1,
+      "message": "\u003e I doubt outside of dbus-sensors any of the other daemons explicitly round to some precision level.\n\nADCSensor explicitly rounds, because of the division math it\u0027s doing.  3 Decimal points wasn\u0027t really documented, but was based on the fact that the N bit 0-3.3V ADCs in the AST2500 were N bits (N is 12 or 14, I don\u0027t remember), so system voltages aren\u0027t going to have \"real\" precision beyond 3 digits.  (The math might actually say 4 for most use cases, hence why I say \"real\").  With all the added scale stuff added to ADCSensor over the years, the math could probably be made more accurate, but it\u0027s not off by a lot for servers with rails in the  0-12V range.\n\nMy recollection is that other sensors functionally end up rounded because of how they do their math on the hwmon interfaces (at least they used to).  Maybe that changed over time.\n\n\u003e We know there is 2GB of memory total and if 1.5234512 GB are used, that is a real number.\n\nConsidering that the ManagerDiagnosticData/MemoryStatistics/TotalBytes definitions in schema are in integer bytes (Edm.Int64), not floating point (Edm.Decimal), the above is only an issue because this patch chose to implement the schema incorrectly.  Once it is appropriately setting them as integers (I\u0027m assuming by flooring them to the closest int?), the problem you listed goes away.\n\nIt\u0027s unfortunate that dbus doesn\u0027t have a way to differentiate a floating point metric from a fixed point metric, but i\u0027m not sure it\u0027s a huge issue.  static_cast\u003cint64_t\u003e isn\u0027t the end of the world, and should be right for most bmc use cases.\n\nSo as far as this patch goes can we agree that:\n\n0. This patch needs tested against service validator, as is documented in the developing guide.  Testing.md lists service validator specifically.  Ideally it wouldn\u0027t have been marked ready to review until that had been done, but it is what it is.  As always, happy to help if you have pre-test patches that you need help with, it just saves time if you mark things WIP that haven\u0027t been tested yet.\n\n1. This patchset needs to implement the Redfish schema properly for properties that are of type Edm.Int64.  I suspect this is going to mean calling static_cast\u003cint64_t\u003e(value) on the double for those specific properties.\n\n2. Seeing metric values on a user facing API that have floating point rounding (like in the example on the original patch) are at best messy looking to a human, and at worst downright wrong to the OData spec.  They should be corrected.... SOMEWHERE so they don\u0027t show up in a user facing interface.\n\nSeem reasonable?",
+      "parentUuid": "90dc04e9_eadb7f3c",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 28
+      },
+      "revId": "37becd56a931c2d9f5502a0d1fe936a66b542f4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6c9feaf5_1563c667",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
         "patchSetId": 6
