@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "640ef79a_43824036",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2024-02-14T15:48:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aebdf71b_614ec9ea",
+      "range": {
+        "startLine": 267,
+        "startChar": 23,
+        "endLine": 267,
+        "endChar": 31
+      },
+      "revId": "835bc72a1c0e25a1606d8ba47ebfbcffe6f2c879",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6dbc729f_6bd8f220",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-02-14T15:34:37Z",
       "side": 1,
       "message": "Would it better like this because `empty()` is generally more efficient in checking vector.size() \u003d\u003d 0?\n\n```\n    if (subtreePaths.empty())\n    {\n       ...\n    }\n    if(subtreePaths.size() \u003e 1)\n    {\n        ...\n     }\n```",
+      "range": {
+        "startLine": 304,
+        "startChar": 0,
+        "endLine": 319,
+        "endChar": 5
+      },
+      "revId": "835bc72a1c0e25a1606d8ba47ebfbcffe6f2c879",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3bfac81_0f5b82aa",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2024-02-14T15:48:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6dbc729f_6bd8f220",
       "range": {
         "startLine": 304,
         "startChar": 0,
