@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e7579b9_aac053e7",
+        "filename": "Redfish.md",
+        "patchSetId": 41
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2024-02-14T14:36:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f763915_4d4ebb28",
+      "range": {
+        "startLine": 333,
+        "startChar": 0,
+        "endLine": 334,
+        "endChar": 12
+      },
+      "revId": "1933be576f50928f4978e91ae0f399e6dab5107b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dd798a4b_d3f17c27",
@@ -90,6 +114,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2cd2ebbb_b6870c1a",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2024-02-14T14:36:39Z",
+      "side": 1,
+      "message": "Since the Redfish schema does not define behavior for priorities greater than 1, we don\u0027t publish the sensor\u0027s SpeedPercent in that scenario.",
+      "parentUuid": "7ad86ef7_ce1f068c",
+      "range": {
+        "startLine": 440,
+        "startChar": 0,
+        "endLine": 450,
+        "endChar": 5
+      },
+      "revId": "1933be576f50928f4978e91ae0f399e6dab5107b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "effe272a_635fce3d",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 41
@@ -101,6 +149,30 @@
       "writtenOn": "2024-02-06T17:20:26Z",
       "side": 1,
       "message": "nullptr dereference.",
+      "range": {
+        "startLine": 497,
+        "startChar": 19,
+        "endLine": 497,
+        "endChar": 22
+      },
+      "revId": "1933be576f50928f4978e91ae0f399e6dab5107b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20e74899_60937231",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2024-02-14T14:36:39Z",
+      "side": 1,
+      "message": "Acknowledged, removed this function.",
+      "parentUuid": "effe272a_635fce3d",
       "range": {
         "startLine": 497,
         "startChar": 19,
@@ -157,6 +229,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "352003ab_e6cbfe82",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2024-02-14T14:36:39Z",
+      "side": 1,
+      "message": "Acknowledged, removed this function.",
+      "parentUuid": "3b5c705d_c6340fd2",
+      "range": {
+        "startLine": 502,
+        "startChar": 44,
+        "endLine": 502,
+        "endChar": 47
+      },
+      "revId": "1933be576f50928f4978e91ae0f399e6dab5107b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7728f9f_be3ed743",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2024-02-14T14:36:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "072457dd_b8899acb",
+      "range": {
+        "startLine": 502,
+        "startChar": 48,
+        "endLine": 502,
+        "endChar": 51
+      },
+      "revId": "1933be576f50928f4978e91ae0f399e6dab5107b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "db0d65b1_8cfce6c7",
@@ -170,6 +290,24 @@
       "writtenOn": "2024-02-08T17:11:40Z",
       "side": 1,
       "message": "This is a 4 line function only used in one place, in a function that\u0027s already pretty short.  Just put it inline on line 528, and it will avoid your nullptr dereference.",
+      "revId": "1933be576f50928f4978e91ae0f399e6dab5107b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56e4812b_acf89b53",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2024-02-14T14:36:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db0d65b1_8cfce6c7",
       "revId": "1933be576f50928f4978e91ae0f399e6dab5107b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
