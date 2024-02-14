@@ -50,6 +50,24 @@
       "message": "On the PATCH, it makes sense to have a resourceNotFound.. But what about on the GET? We aren\u0027t better just leaving the property off ?",
       "revId": "b3abebc6600f1dbf127db5d7afdbbea8640bd254",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31ce8acf_080dc6c8",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2024-02-14T15:03:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "69f83d65_95e5d0dc",
+      "revId": "b3abebc6600f1dbf127db5d7afdbbea8640bd254",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
