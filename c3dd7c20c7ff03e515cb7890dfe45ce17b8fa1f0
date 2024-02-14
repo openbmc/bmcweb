@@ -185,6 +185,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "2e27b79f_16f1d49f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-14T20:08:05Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "90423427_3efbffce",
+      "revId": "c3dd7c20c7ff03e515cb7890dfe45ce17b8fa1f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "fd71aed0_d68f499b",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 4
@@ -303,6 +321,30 @@
       "side": 1,
       "message": "They\u0027re instantaneous values of read-write storage.  Unless something is actively writing, I would expect them to match exactly.  This doesn\u0027t have to be an automated test, but some kind of manual test to know this number matches a known tool would be good.",
       "parentUuid": "85a7193a_ddc6658d",
+      "range": {
+        "startLine": 33,
+        "startChar": 68,
+        "endLine": 33,
+        "endChar": 72
+      },
+      "revId": "c3dd7c20c7ff03e515cb7890dfe45ce17b8fa1f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bb5e54b_af7f1b78",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-14T20:08:05Z",
+      "side": 1,
+      "message": "I suppose i way you are mentioning we would need some mock functionality which can return fixed values which we can compare against. I am not sure if we something like that at the moment, would need to check.",
+      "parentUuid": "6bd81705_071ac710",
       "range": {
         "startLine": 33,
         "startChar": 68,
@@ -566,6 +608,30 @@
       "side": 1,
       "message": "We do call directly to the well known name in cases where we reasonably expect only one OpenBMC implementation to exist (systemd, mapper, etc).  Considering that this implementation is only for THIS manager, and THIS BMCs health metrics, it seems reasonable that only one implementation exists (sidenote, I actually prefer that, because it keeps people from inventing their own.) so I\u0027m not going to enforce the mapper here, just that we handle the non-existence of the dbus name or path as a non-critical failure.",
       "parentUuid": "fa61f60b_d9fd45e9",
+      "range": {
+        "startLine": 40,
+        "startChar": 9,
+        "endLine": 40,
+        "endChar": 51
+      },
+      "revId": "c3dd7c20c7ff03e515cb7890dfe45ce17b8fa1f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "491a977a_1cf704d2",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-14T20:08:05Z",
+      "side": 1,
+      "message": "Added the use of specific error check as on https://github.com/openbmc/bmcweb/blob/b5f288d294e17719f30e32acc40e07681baf04b9/redfish-core/include/utils/collection.hpp#L35 which makes the non-existence of the dbus name or path as a non-critical failure.\n\nSkipping using the mapper for service name lookup at the moment as per discussion above.",
+      "parentUuid": "8e3813a6_5eb5b31b",
       "range": {
         "startLine": 40,
         "startChar": 9,

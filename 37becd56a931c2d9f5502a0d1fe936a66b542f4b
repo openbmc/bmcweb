@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "430bd51f_d5e30850",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-14T20:08:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "778a6756_15e7ea88",
+      "range": {
+        "startLine": 9,
+        "startChar": 23,
+        "endLine": 9,
+        "endChar": 54
+      },
+      "revId": "37becd56a931c2d9f5502a0d1fe936a66b542f4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "968184bc_a6fd12e3",
@@ -37,6 +61,24 @@
       "writtenOn": "2024-01-22T21:52:02Z",
       "side": 1,
       "message": "Oh.  We shouldn\u0027t directly code this service, right?  We should be using mapper to look up the Metric.Value\u0027s that we\u0027re interested in.",
+      "revId": "37becd56a931c2d9f5502a0d1fe936a66b542f4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad4fa148_0be55599",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-14T20:08:05Z",
+      "side": 1,
+      "message": "Skipping the mapper use for now for service lookup as per discussion on https://gerrit.openbmc.org/c/openbmc/bmcweb/+/68437/comment/712299af_99560999/. We can always change that in future as per need.",
+      "parentUuid": "968184bc_a6fd12e3",
       "revId": "37becd56a931c2d9f5502a0d1fe936a66b542f4b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -83,6 +125,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "df74cec6_7cd05af2",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-14T20:08:05Z",
+      "side": 1,
+      "message": "As part of properties init we set the value to Nan.",
+      "parentUuid": "9aa442dc_9164cf11",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 66
+      },
+      "revId": "37becd56a931c2d9f5502a0d1fe936a66b542f4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "53eea9f4_c317ca55",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
         "patchSetId": 6
@@ -94,6 +160,30 @@
       "writtenOn": "2024-01-22T20:05:19Z",
       "side": 1,
       "message": "nit, probably want to make this 1024.0 to ensure that it\u0027s a floating point number.",
+      "range": {
+        "startLine": 39,
+        "startChar": 68,
+        "endLine": 39,
+        "endChar": 72
+      },
+      "revId": "37becd56a931c2d9f5502a0d1fe936a66b542f4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45d7c7ff_d95758b2",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-14T20:08:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53eea9f4_c317ca55",
       "range": {
         "startLine": 39,
         "startChar": 68,
@@ -270,6 +360,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "792bfcf9_423034af",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-14T20:08:05Z",
+      "side": 1,
+      "message": "Changed static_cast\u003cint64\u003e(value) as per https://gerrit.openbmc.org/c/openbmc/bmcweb/+/68437/comment/7c74de48_ce496fe9/.",
+      "parentUuid": "652e122d_9edbd4ea",
+      "range": {
+        "startLine": 97,
+        "startChar": 8,
+        "endLine": 97,
+        "endChar": 17
+      },
+      "revId": "37becd56a931c2d9f5502a0d1fe936a66b542f4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f2c13cd_dea87334",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-14T20:08:05Z",
+      "side": 1,
+      "message": "\u003e So as far as this patch goes can we agree that:\n\u003e \n\u003e 0. This patch needs tested against service validator, as is documented in the developing guide.  Testing.md lists service validator specifically.  Ideally it wouldn\u0027t have been marked ready to review until that had been done, but it is what it is.  As always, happy to help if you have pre-test patches that you need help with, it just saves time if you mark things WIP that haven\u0027t been tested yet.\n\nSure, will run the Redfish Validator but i have been running into some dependency issues (permission problems) with respect to Redfish Validator requirements for bs4 which i am trying to resolve.\n\n\u003e \n\u003e 1. This patchset needs to implement the Redfish schema properly for properties that are of type Edm.Int64.  I suspect this is going to mean calling static_cast\u003cint64_t\u003e(value) on the double for those specific properties.\n\nIn BMCWeb i have made the static_cast\u003cint64_t\u003e(value) to the value.\n\n\u003e \n\u003e 2. Seeing metric values on a user facing API that have floating point rounding (like in the example on the original patch) are at best messy looking to a human, and at worst downright wrong to the OData spec.  They should be corrected.... SOMEWHERE so they don\u0027t show up in a user facing interface.\n\nSure, in BMCWeb made the this static_cast\u003cint64_t\u003e(value).\n\n\u003e \n\u003e Seem reasonable?",
+      "parentUuid": "11eddb02_4f2f348f",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 28
+      },
+      "revId": "37becd56a931c2d9f5502a0d1fe936a66b542f4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6c9feaf5_1563c667",
@@ -293,6 +431,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aeb374f5_a90add27",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-14T20:08:05Z",
+      "side": 1,
+      "message": "Added check for\n+    if (ec \u003d\u003d boost::system::errc::io_error)\n+    {\n+        return;\n+    }",
+      "parentUuid": "6c9feaf5_1563c667",
+      "range": {
+        "startLine": 252,
+        "startChar": 39,
+        "endLine": 252,
+        "endChar": 63
+      },
+      "revId": "37becd56a931c2d9f5502a0d1fe936a66b542f4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7a05d44a_723e0295",
@@ -306,6 +468,24 @@
       "writtenOn": "2024-01-22T19:40:41Z",
       "side": 1,
       "message": "It\u0027s really unfortunate how these objects were designed, that we have to do 8 Get property calls to return this single resource.  Oh well, not sure we can do anything about it at this point.",
+      "revId": "37becd56a931c2d9f5502a0d1fe936a66b542f4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae767c08_d3cd0c8c",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-14T20:08:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a05d44a_723e0295",
       "revId": "37becd56a931c2d9f5502a0d1fe936a66b542f4b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
