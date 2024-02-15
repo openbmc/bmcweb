@@ -16,6 +16,24 @@
       "message": "Redfish.md change?",
       "revId": "09ad25ba9222bb636ebefb00ac24fdacc5c9b432",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86334db8_a3664b6c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 40
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2024-02-15T14:49:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be8f65cf_cdcb9040",
+      "revId": "09ad25ba9222bb636ebefb00ac24fdacc5c9b432",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
