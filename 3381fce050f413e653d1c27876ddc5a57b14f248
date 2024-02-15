@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4db2c92_3d25b2ea",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2024-02-15T20:43:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51313114_947c1ec0",
+      "revId": "3381fce050f413e653d1c27876ddc5a57b14f248",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1a31dc3a_b10c7b4f",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-09-20T05:46:14Z",
       "side": 1,
       "message": "I think need to check if path.filename() empty before comparing \u0026 return error?\n\nif (path.filename.empty())\n        {\n            {\n                BMCWEB_LOG_ERROR \u003c\u003c \"Property Reports contains invalid value: \"\n                                 \u003c\u003c path.str;\n                return std::nullopt;\n            }\n        }",
+      "revId": "3381fce050f413e653d1c27876ddc5a57b14f248",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d7f45e6_fb9e4691",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2024-02-15T20:43:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a31dc3a_b10c7b4f",
       "revId": "3381fce050f413e653d1c27876ddc5a57b14f248",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
