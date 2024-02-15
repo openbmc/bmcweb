@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f4cb446_18a9f11b",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2300,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-15T23:06:45Z",
+      "side": 0,
+      "message": "Instead of returning these defaults, we return an empty list now?",
+      "range": {
+        "startLine": 2300,
+        "startChar": 16,
+        "endLine": 2300,
+        "endChar": 61
+      },
+      "revId": "b66551019cf3c31186877c30a91ff8622454f342",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

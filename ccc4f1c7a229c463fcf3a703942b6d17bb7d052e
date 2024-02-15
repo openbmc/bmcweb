@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ec87cce_3e4b4d47",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2182,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-15T23:06:45Z",
+      "side": 1,
+      "message": "Just return by computer_system::PowerMode and make each of these \"return PowerMode::X\"",
+      "range": {
+        "startLine": 2182,
+        "startChar": 0,
+        "endLine": 2182,
+        "endChar": 39
+      },
+      "revId": "ccc4f1c7a229c463fcf3a703942b6d17bb7d052e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f2a347c_2e0fe90b",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2312,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-15T23:06:45Z",
+      "side": 1,
+      "message": ".... This looks wrong.  you return by a json value, then you push back as a string.  Just return the enum, make stringList an instance of nlohmann::json::array_t, and call it good.",
+      "range": {
+        "startLine": 2312,
+        "startChar": 45,
+        "endLine": 2312,
+        "endChar": 54
+      },
+      "revId": "ccc4f1c7a229c463fcf3a703942b6d17bb7d052e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4951996_11ba8c0f",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2322,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-15T23:06:45Z",
+      "side": 1,
+      "message": "nontrival lambdas aren\u0027t allowed in new code.  Please make it a real function (assuming this doesn\u0027t go away.",
+      "range": {
+        "startLine": 2289,
+        "startChar": 9,
+        "endLine": 2322,
+        "endChar": 9
+      },
+      "revId": "ccc4f1c7a229c463fcf3a703942b6d17bb7d052e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "138e8451_a44dcea4",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2329,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-15T23:06:45Z",
+      "side": 1,
+      "message": "Please roll your new code into this callback.  We should be calling GetAll, not Get twice.",
+      "range": {
+        "startLine": 2325,
+        "startChar": 18,
+        "endLine": 2329,
+        "endChar": 51
+      },
+      "revId": "ccc4f1c7a229c463fcf3a703942b6d17bb7d052e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
