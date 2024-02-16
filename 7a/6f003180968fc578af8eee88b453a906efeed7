@@ -1,0 +1,11 @@
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Code-Review+2: Ed Tanous <ed@tanous.net>
+Code-Review+1: Abhilash Raju <abhilash.kollam@gmail.com>
+Code-Review+2: Gunnar Mills <gmills@us.ibm.com>
+Code-Review+1: Janet Adkins <janeta@us.ibm.com>
+Submitted-by: Ed Tanous <ed@tanous.net>
+Submitted-at: Fri, 16 Feb 2024 17:34:04 +0000
+Reviewed-on: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/69063
+Comments-Total: 40
+Project: openbmc/bmcweb
+Branch: refs/heads/master
