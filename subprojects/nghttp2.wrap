@@ -1,5 +1,8 @@
 [wrap-file]
-directory = nghttp2-1.54.0
-source_url = https://github.com/nghttp2/nghttp2/releases/download/v1.54.0/nghttp2-1.54.0.tar.xz
-source_filename = nghttp2-1.54.0.tar.xz
-source_hash = 20533c9354fbb6aa689b6aa0ddb77f91da1d242587444502832e1864308152df
+directory = nghttp2-1.59.0
+source_url = https://github.com/nghttp2/nghttp2/releases/download/v1.59.0/nghttp2-1.59.0.tar.xz
+source_filename = nghttp2-1.59.0.tar.xz
+source_hash = fdc9bd71f5cf8d3fdfb63066b89364c10eb2fdeab55f3c6755cd7917b2ec4ffb
+
+[provide]
+dependency_names = libnghttp2
