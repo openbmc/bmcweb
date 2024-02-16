@@ -238,6 +238,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fd3c6131_751cd6bd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-16T22:46:17Z",
+      "side": 1,
+      "message": "Sorry i didn\u0027t get your question. What do you want me to add for \"Missing Redfish documentation updates.\"?",
+      "parentUuid": "53d51323_d81a2ec2",
+      "revId": "c3dd7c20c7ff03e515cb7890dfe45ce17b8fa1f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ce4923d8_76ed57b0",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
         "patchSetId": 4
@@ -345,6 +363,30 @@
       "side": 1,
       "message": "I suppose i way you are mentioning we would need some mock functionality which can return fixed values which we can compare against. I am not sure if we something like that at the moment, would need to check.",
       "parentUuid": "6bd81705_071ac710",
+      "range": {
+        "startLine": 33,
+        "startChar": 68,
+        "endLine": 33,
+        "endChar": 72
+      },
+      "revId": "c3dd7c20c7ff03e515cb7890dfe45ce17b8fa1f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b64e0203_62e4a828",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-16T22:46:17Z",
+      "side": 1,
+      "message": "Added unit test for verification.",
+      "parentUuid": "9bb5e54b_af7f1b78",
       "range": {
         "startLine": 33,
         "startChar": 68,

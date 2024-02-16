@@ -33,6 +33,24 @@
       "message": "You\u0027ve added new bugs on code that was previously correct to the Redfish schema, so instead of calling out each individual one, I\u0027m going to give you the blanket request: Please read the Redfish CSDL schema and implement the types as it specifies, looking at each property individually.  If you need help reading CSDL (I realize the schema files are very verbose) reach out on discord or the mailing list, and people will help you.",
       "revId": "6a8bccdbc42f09c9a77339015ec3f1c11a704ec7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2c028b6_4ba6f2b4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-16T22:46:17Z",
+      "side": 1,
+      "message": "Sure, i looked into the csdl schema and have updated the value for returned parameters based on type.",
+      "parentUuid": "4da52fc7_bffb88f8",
+      "revId": "6a8bccdbc42f09c9a77339015ec3f1c11a704ec7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
