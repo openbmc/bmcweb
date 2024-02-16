@@ -69,6 +69,24 @@
       "message": "Changes looks good. This commit depends on the backend networkd change https://gerrit.openbmc.org/c/openbmc/phosphor-networkd/+/63124. Until that is merged, this may break the DHCP patch.",
       "revId": "37e0f1320764d2c54095f9db9973ce4e4ec68191",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51d4a030_b5353bba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2024-02-16T09:57:25Z",
+      "side": 1,
+      "message": "Done. network is ready to go",
+      "parentUuid": "40683152_d6254db1",
+      "revId": "37e0f1320764d2c54095f9db9973ce4e4ec68191",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
