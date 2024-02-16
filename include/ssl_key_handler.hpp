@@ -233,12 +233,10 @@ inline X509* loadCert(const std::string& filePath)
 
 inline int addExt(X509* cert, int nid, const char* value)
 {
-    X509_EXTENSION* ex = nullptr;
     X509V3_CTX ctx{};
     X509V3_set_ctx(&ctx, cert, cert, nullptr, nullptr, 0);
 
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
-    ex = X509V3_EXT_conf_nid(nullptr, &ctx, nid, const_cast<char*>(value));
+    X509_EXTENSION* ex = X509V3_EXT_conf_nid(nullptr, &ctx, nid, value);
     if (ex == nullptr)
     {
         BMCWEB_LOG_ERROR("Error: In X509V3_EXT_conf_nidn: {}", value);
@@ -445,13 +443,7 @@ inline int alpnSelectProtoCallback(SSL* /*unused*/, const unsigned char** out,
                                    const unsigned char* in, unsigned int inlen,
                                    void* /*unused*/)
 {
-    // There's a mismatch in constness for nghttp2_select_next_protocol.  The
-    // examples in nghttp2 don't show this problem.  Unclear what the right fix
-    // is here.
-
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
-    unsigned char** outNew = const_cast<unsigned char**>(out);
-    int rv = nghttp2_select_next_protocol(outNew, outlen, in, inlen);
+    int rv = nghttp2_select_alpn(out, outlen, in, inlen);
     if (rv != 1)
     {
         return SSL_TLSEXT_ERR_NOACK;
@@ -583,3 +575,4 @@ inline std::optional<boost::asio::ssl::context> getSSLClientContext()
 }
 
 } // namespace ensuressl
+/ namespace ensuressl
