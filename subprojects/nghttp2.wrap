@@ -3,3 +3,9 @@ directory = nghttp2-1.60.0
 source_url = https://github.com/nghttp2/nghttp2/releases/download/v1.60.0/nghttp2-1.60.0.tar.xz
 source_filename = nghttp2-1.60.0.tar.xz
 source_hash = 625d6c3da1d9ca4fd643a638256431ae68fd1901653b2a61a245eea7b261bf4e
+<<<<<<< PATCH SET (830292 WIP: Fix const cast issues)
+
+[provide]
+dependency_names = libnghttp2
+=======
+>>>>>>> BASE      (4f63be Up the max connectionCount to 200)
