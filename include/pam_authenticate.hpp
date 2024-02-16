@@ -24,8 +24,6 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
 
     auto msgCount = static_cast<size_t>(numMsg);
     auto messages = std::span(msg, msgCount);
-    auto responses = std::span(resp, msgCount);
-
     for (size_t i = 0; i < msgCount; ++i)
     {
         /* Ignore all PAM messages except prompting for hidden input */
@@ -49,32 +47,13 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
         // passing off ownership of this to a C application, there aren't a lot
         // of sane ways to avoid it.
 
-        // NOLINTNEXTLINE(cppcoreguidelines-no-malloc)
-        void* passPtr = malloc(appPassSize + 1);
-        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-        char* pass = reinterpret_cast<char*>(passPtr);
-        if (pass == nullptr)
-        {
-            return PAM_BUF_ERR;
-        }
+        auto passPtr = std::make_unique<char[]>(appPassSize + 1);
+        std::strncpy(passPtr.get(), appPass, appPassSize + 1);
 
-        std::strncpy(pass, appPass, appPassSize + 1);
+        auto ptr = std::make_unique<pam_response[]>(msgCount);
+        ptr[i].resp = passPtr.release();
 
-        size_t numMsgSize = static_cast<size_t>(numMsg);
-        // NOLINTNEXTLINE(cppcoreguidelines-no-malloc)
-        void* ptr = calloc(numMsgSize, sizeof(struct pam_response));
-        if (ptr == nullptr)
-        {
-            // NOLINTNEXTLINE(cppcoreguidelines-no-malloc)
-            free(pass);
-            return PAM_BUF_ERR;
-        }
-
-        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-        *resp = reinterpret_cast<pam_response*>(ptr);
-
-        responses[i]->resp = pass;
-
+        *resp = ptr.release();
         return PAM_SUCCESS;
     }
 
