@@ -8,10 +8,10 @@
 #include <string_view>
 
 // function used to get user input
-inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
+inline int pamFunctionConversation(int numMsg, const struct pam_message** msgs,
                                    struct pam_response** resp, void* appdataPtr)
 {
-    if ((appdataPtr == nullptr) || (msg == nullptr) || (resp == nullptr))
+    if ((appdataPtr == nullptr) || (msgs == nullptr) || (resp == nullptr))
     {
         return PAM_CONV_ERR;
     }
@@ -20,64 +20,56 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
     {
         return PAM_CONV_ERR;
     }
-
     auto msgCount = static_cast<size_t>(numMsg);
-    auto messages = std::span(msg, msgCount);
-    auto responses = std::span(resp, msgCount);
 
+    // NOLINTNEXTLINE(cppcoreguidelines-avoid-c-arrays)
+    auto responseArrPtr = std::make_unique<pam_response[]>(msgCount);
+    auto responses = std::span(responseArrPtr.get(), msgCount);
+    auto messagePtrs = std::span(msgs, msgCount);
     for (size_t i = 0; i < msgCount; ++i)
     {
-        /* Ignore all PAM messages except prompting for hidden input */
-        if (messages[i]->msg_style != PAM_PROMPT_ECHO_OFF)
+        const pam_message& msg = *(messagePtrs[i]);
+
+        pam_response& response = responses[i];
+        response.resp_retcode = 0;
+        response.resp = nullptr;
+
+        switch (msg.msg_style)
         {
-            continue;
+            case PAM_PROMPT_ECHO_ON:
+                break;
+            case PAM_PROMPT_ECHO_OFF:
+            {
+                // Assume PAM is only prompting for the password as hidden input
+                // Allocate memory only when PAM_PROMPT_ECHO_OFF is encounterred
+                char* appPass = static_cast<char*>(appdataPtr);
+                size_t appPassSize = std::strlen(appPass);
+
+                if ((appPassSize + 1) > PAM_MAX_RESP_SIZE)
+                {
+                    return PAM_CONV_ERR;
+                }
+                // Create an array for pam to own
+                // NOLINTNEXTLINE(cppcoreguidelines-avoid-c-arrays)
+                auto passPtr = std::make_unique<char[]>(appPassSize + 1);
+                std::strncpy(passPtr.get(), appPass, appPassSize + 1);
+
+                responses[i].resp = passPtr.release();
+            }
+            break;
+            case PAM_ERROR_MSG:
+                BMCWEB_LOG_ERROR("Pam error {}", msg.msg);
+                break;
+            case PAM_TEXT_INFO:
+                BMCWEB_LOG_ERROR("Pam info {}", msg.msg);
+                break;
+            default:
+                return PAM_CONV_ERR;
         }
-
-        /* Assume PAM is only prompting for the password as hidden input */
-        /* Allocate memory only when PAM_PROMPT_ECHO_OFF is encounterred */
-
-        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-        char* appPass = reinterpret_cast<char*>(appdataPtr);
-        size_t appPassSize = std::strlen(appPass);
-
-        if ((appPassSize + 1) > PAM_MAX_RESP_SIZE)
-        {
-            return PAM_CONV_ERR;
-        }
-        // IDeally we'd like to avoid using malloc here, but because we're
-        // passing off ownership of this to a C application, there aren't a lot
-        // of sane ways to avoid it.
-
-        // NOLINTNEXTLINE(cppcoreguidelines-no-malloc)
-        void* passPtr = malloc(appPassSize + 1);
-        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-        char* pass = reinterpret_cast<char*>(passPtr);
-        if (pass == nullptr)
-        {
-            return PAM_BUF_ERR;
-        }
-
-        std::strncpy(pass, appPass, appPassSize + 1);
-
-        size_t numMsgSize = static_cast<size_t>(numMsg);
-        // NOLINTNEXTLINE(cppcoreguidelines-no-malloc)
-        void* ptr = calloc(numMsgSize, sizeof(struct pam_response));
-        if (ptr == nullptr)
-        {
-            // NOLINTNEXTLINE(cppcoreguidelines-no-malloc)
-            free(pass);
-            return PAM_BUF_ERR;
-        }
-
-        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-        *resp = reinterpret_cast<pam_response*>(ptr);
-
-        responses[i]->resp = pass;
-
-        return PAM_SUCCESS;
     }
 
-    return PAM_CONV_ERR;
+    *resp = responseArrPtr.release();
+    return PAM_SUCCESS;
 }
 
 /**
