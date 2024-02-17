@@ -46,6 +46,30 @@
       },
       "revId": "b66551019cf3c31186877c30a91ff8622454f342",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46b3dc95_cb343363",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2300,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-17T17:45:20Z",
+      "side": 0,
+      "message": "right, but they’re here, and have been for a long time.  it’s trivial to keep the old behavior if the new property doesn’t exist.",
+      "parentUuid": "4deb6def_930a15ab",
+      "range": {
+        "startLine": 2300,
+        "startChar": 16,
+        "endLine": 2300,
+        "endChar": 61
+      },
+      "revId": "b66551019cf3c31186877c30a91ff8622454f342",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
