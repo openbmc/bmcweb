@@ -22,6 +22,30 @@
       },
       "revId": "a0b4b9f738cc25d01714967c5865617c23eafefc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d86e9517_4514cebd",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-02-18T01:47:32Z",
+      "side": 1,
+      "message": "associationEndPointPath: The path where the associated endpoint is fetched from.\npath: The subtree path for which the result should be fetched.\n\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/308004bcafc31ffa6cf895c9e04613482592459c/yaml/xyz/openbmc_project/ObjectMapper.interface.yaml#L127",
+      "parentUuid": "10074658_88be8d51",
+      "range": {
+        "startLine": 121,
+        "startChar": 10,
+        "endLine": 121,
+        "endChar": 22
+      },
+      "revId": "a0b4b9f738cc25d01714967c5865617c23eafefc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
