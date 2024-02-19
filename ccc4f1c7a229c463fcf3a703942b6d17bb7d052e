@@ -168,6 +168,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c94e4957_61169569",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2322,
+      "author": {
+        "id": 1000238
+      },
+      "writtenOn": "2024-02-19T17:29:51Z",
+      "side": 1,
+      "message": "Are you saying move this block to a new function (like getAutomaticRebootAttempts() on line 1228) or something else? This is my first experience with lambdas so code was based on other functions within bmcweb.",
+      "parentUuid": "9fefb31e_3fb50c9e",
+      "range": {
+        "startLine": 2289,
+        "startChar": 9,
+        "endLine": 2322,
+        "endChar": 9
+      },
+      "revId": "ccc4f1c7a229c463fcf3a703942b6d17bb7d052e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "138e8451_a44dcea4",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 1
