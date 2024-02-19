@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ada4369_0adc926b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000238
+      },
+      "writtenOn": "2024-02-19T21:27:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "285be202_19e01405",
+      "revId": "541c9d3ff37af70a524141abe578e9acd102f363",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8de43a9c_ef6a2bb4",
@@ -49,6 +67,24 @@
       "writtenOn": "2024-02-19T17:45:43Z",
       "side": 1,
       "message": "else, return the old list.",
+      "revId": "541c9d3ff37af70a524141abe578e9acd102f363",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e01ca49_e091e7a4",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2310,
+      "author": {
+        "id": 1000238
+      },
+      "writtenOn": "2024-02-19T21:27:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8de43a9c_ef6a2bb4",
       "revId": "541c9d3ff37af70a524141abe578e9acd102f363",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
