@@ -167,6 +167,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "81f1eef5_8da96fbd",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-19T17:37:59Z",
+      "side": 1,
+      "message": "who is \"we\"?  Is there a case where these parameters aren\u0027t available that isn\u0027t a failure?\n\nIt would\u0027ve been nice if parameters initialized to Nan was just not a thing we had to deal with in the interface, but oh well.",
+      "parentUuid": "df74cec6_7cd05af2",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 66
+      },
+      "revId": "37becd56a931c2d9f5502a0d1fe936a66b542f4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "53eea9f4_c317ca55",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
         "patchSetId": 6

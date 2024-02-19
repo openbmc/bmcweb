@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7fc596e_d04b5d35",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-19T17:37:59Z",
+      "side": 1,
+      "message": "Isn\u0027t 10000 4 decimal points, not 3?\n\nYour test results also show 4 decimal places.  Did you intend 4?  If so just update the comment.   If you intended 3, this needs to be 1000.",
+      "range": {
+        "startLine": 23,
+        "startChar": 48,
+        "endLine": 23,
+        "endChar": 64
+      },
+      "revId": "f6f66c74b272517a9241ec03797071333c375625",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b53c23d0_ab6041a2",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-19T17:37:59Z",
+      "side": 1,
+      "message": "nit, please add some kind of BMCWEB_LOG_WARNING level logging to these branches.  \"Failed to find HealthMon\" or something similar.",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 15
+      },
+      "revId": "f6f66c74b272517a9241ec03797071333c375625",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2971206e_a46f4dfe",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-19T17:37:59Z",
+      "side": 1,
+      "message": "Looks like the rounding is still in the latest patchset for percentages?  I guess I\u0027m ok with that for this patchset.  Percentages debatably don\u0027t have precision, so I\u0027m more ok with bmcweb picking a user-facing precision there.",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 58
+      },
+      "revId": "f6f66c74b272517a9241ec03797071333c375625",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adc5c8ac_7bea1665",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-19T17:37:59Z",
+      "side": 1,
+      "message": "GetAllProperties please.  We shouldn\u0027t be getting more than one property from the same interface and path by duplicating dbus calls.",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 69
+      },
+      "revId": "f6f66c74b272517a9241ec03797071333c375625",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
