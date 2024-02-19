@@ -16,26 +16,12 @@
 #include <array>
 #include <functional>
 #include <memory>
+#include <optional>
 #include <string>
 #include <string_view>
 
 namespace redfish
 {
-
-inline void handleAdapterError(const boost::system::error_code& ec,
-                               crow::Response& res,
-                               const std::string& adapterId)
-{
-    if (ec.value() == boost::system::errc::io_error)
-    {
-        messages::resourceNotFound(res, "#FabricAdapter.v1_4_0.FabricAdapter",
-                                   adapterId);
-        return;
-    }
-
-    BMCWEB_LOG_ERROR("DBus method call failed with error {}", ec.value());
-    messages::internalError(res);
-}
 
 inline void getFabricAdapterLocation(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -198,19 +184,16 @@ inline void doAdapterGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     getFabricAdapterHealth(asyncResp, serviceName, fabricAdapterPath);
 }
 
-inline bool checkFabricAdapterId(const std::string& adapterPath,
-                                 const std::string& adapterId)
-{
-    std::string fabricAdapterName =
-        sdbusplus::message::object_path(adapterPath).filename();
-
-    return !(fabricAdapterName.empty() || fabricAdapterName != adapterId);
-}
-
+/**
+ * @brief Retrieves valid FabricAdapter path
+ * @param asyncResp   Pointer to object holding response data
+ * @param callback  Callback for next step to get valid FabricAdapter path
+ */
 inline void getValidFabricAdapterPath(
     const std::string& adapterId, const std::string& systemName,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    std::function<void(const std::string& fabricAdapterPath,
+    std::function<void(const boost::system::error_code& ec,
+                       const std::string& fabricAdapterPath,
                        const std::string& serviceName)>&& callback)
 {
     if (systemName != "system")
@@ -227,21 +210,26 @@ inline void getValidFabricAdapterPath(
         [adapterId, asyncResp,
          callback](const boost::system::error_code& ec,
                    const dbus::utility::MapperGetSubTreeResponse& subtree) {
+        std::string fabricAdapterPath;
+        std::string serviceName;
         if (ec)
         {
-            handleAdapterError(ec, asyncResp->res, adapterId);
+            callback(ec, fabricAdapterPath, serviceName);
             return;
         }
+
         for (const auto& [adapterPath, serviceMap] : subtree)
         {
-            if (checkFabricAdapterId(adapterPath, adapterId))
+            std::string fabricAdapterName =
+                sdbusplus::message::object_path(adapterPath).filename();
+            if (fabricAdapterName == adapterId)
             {
-                callback(adapterPath, serviceMap.begin()->first);
-                return;
+                fabricAdapterPath = adapterPath;
+                serviceName = serviceMap.begin()->first;
+                break;
             }
         }
-        BMCWEB_LOG_WARNING("Adapter not found");
-        messages::resourceNotFound(asyncResp->res, "FabricAdapter", adapterId);
+        callback(ec, fabricAdapterPath, serviceName);
     });
 }
 
@@ -265,8 +253,30 @@ inline void
 
     getValidFabricAdapterPath(
         adapterId, systemName, asyncResp,
-        [asyncResp, systemName, adapterId](const std::string& fabricAdapterPath,
+        [asyncResp, systemName, adapterId](const boost::system::error_code& ec,
+                                           const std::string& fabricAdapterPath,
                                            const std::string& serviceName) {
+        if (ec)
+        {
+            if (ec.value() == boost::system::errc::io_error)
+            {
+                messages::resourceNotFound(asyncResp->res, "FabricAdapter",
+                                           adapterId);
+                return;
+            }
+
+            BMCWEB_LOG_ERROR("DBus method call failed with error {}",
+                             ec.value());
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        if (fabricAdapterPath.empty() || serviceName.empty())
+        {
+            BMCWEB_LOG_WARNING("Adapter not found");
+            messages::resourceNotFound(asyncResp->res, "FabricAdapter",
+                                       adapterId);
+            return;
+        }
         doAdapterGet(asyncResp, systemName, adapterId, fabricAdapterPath,
                      serviceName);
     });
@@ -357,9 +367,32 @@ inline void
                                    systemName);
         return;
     }
-    getValidFabricAdapterPath(adapterId, systemName, asyncResp,
-                              [asyncResp, systemName, adapterId](
-                                  const std::string&, const std::string&) {
+    getValidFabricAdapterPath(
+        adapterId, systemName, asyncResp,
+        [asyncResp, systemName, adapterId](const boost::system::error_code& ec,
+                                           const std::string& fabricAdapterPath,
+                                           const std::string& serviceName) {
+        if (ec)
+        {
+            if (ec.value() == boost::system::errc::io_error)
+            {
+                messages::resourceNotFound(asyncResp->res, "FabricAdapter",
+                                           adapterId);
+                return;
+            }
+
+            BMCWEB_LOG_ERROR("DBus method call failed with error {}",
+                             ec.value());
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        if (fabricAdapterPath.empty() || serviceName.empty())
+        {
+            BMCWEB_LOG_WARNING("Adapter not found");
+            messages::resourceNotFound(asyncResp->res, "FabricAdapter",
+                                       adapterId);
+            return;
+        }
         asyncResp->res.addHeader(
             boost::beast::http::field::link,
             "</redfish/v1/JsonSchemas/FabricAdapter/FabricAdapter.json>; rel=describedby");
