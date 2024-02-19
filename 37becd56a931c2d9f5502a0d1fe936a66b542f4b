@@ -189,6 +189,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "19f4f807_5c55cb76",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-19T18:57:42Z",
+      "side": 1,
+      "message": "Yes, there is a case. As part of initial properties init the values are being initialized as Nan. There is a windowSize with default value of 120 (unless over-ridden), which needs to be built up for enough samples to be used for average computation, until that point these values continue to have its initial value of Nan.",
+      "parentUuid": "81f1eef5_8da96fbd",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 66
+      },
+      "revId": "37becd56a931c2d9f5502a0d1fe936a66b542f4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "53eea9f4_c317ca55",

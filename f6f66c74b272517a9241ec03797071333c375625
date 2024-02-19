@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5974f66e_8f5f5248",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-19T18:57:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7fc596e_d04b5d35",
+      "range": {
+        "startLine": 23,
+        "startChar": 48,
+        "endLine": 23,
+        "endChar": 64
+      },
+      "revId": "f6f66c74b272517a9241ec03797071333c375625",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b53c23d0_ab6041a2",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-02-19T17:37:59Z",
       "side": 1,
       "message": "nit, please add some kind of BMCWEB_LOG_WARNING level logging to these branches.  \"Failed to find HealthMon\" or something similar.",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 15
+      },
+      "revId": "f6f66c74b272517a9241ec03797071333c375625",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba7d357f_59e239e5",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-19T18:57:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b53c23d0_ab6041a2",
       "range": {
         "startLine": 67,
         "startChar": 0,
@@ -83,6 +131,30 @@
       "writtenOn": "2024-02-19T17:37:59Z",
       "side": 1,
       "message": "GetAllProperties please.  We shouldn\u0027t be getting more than one property from the same interface and path by duplicating dbus calls.",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 69
+      },
+      "revId": "f6f66c74b272517a9241ec03797071333c375625",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d732bc5_d5894b00",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-19T18:57:42Z",
+      "side": 1,
+      "message": "They have different DBus Paths, hence different DBus Calls. \nkernelCPUObjPath\nuserCPUObjPath",
+      "parentUuid": "adc5c8ac_7bea1665",
       "range": {
         "startLine": 118,
         "startChar": 0,
