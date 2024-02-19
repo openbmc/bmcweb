@@ -16,6 +16,24 @@
       "message": "PowerMode is treated as optional in the current patchset, but give that it’s existed since the first revision of this interface, it should be required.  make the property not a pointer",
       "revId": "541c9d3ff37af70a524141abe578e9acd102f363",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "285be202_19e01405",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-19T17:43:57Z",
+      "side": 1,
+      "message": "Didn\u0027t mean to resolve this.",
+      "parentUuid": "11c51219_baf87a8c",
+      "revId": "541c9d3ff37af70a524141abe578e9acd102f363",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
