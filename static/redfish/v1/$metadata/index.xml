@@ -3948,6 +3948,10 @@
         <edmx:Include Namespace="OpenBMCAccountService"/>
         <edmx:Include Namespace="OpenBMCAccountService.v1_0_0"/>
     </edmx:Reference>
+    <edmx:Reference Uri="/redfish/v1/schema/OemMessage_v1.xml">
+        <edmx:Include Namespace="OemMessage"/>
+        <edmx:Include Namespace="OemMessage.v1_0_0"/>
+    </edmx:Reference>
     <edmx:DataServices>
         <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Service">
             <EntityContainer Name="Service" Extends="ServiceRoot.v1_0_0.ServiceContainer"/>

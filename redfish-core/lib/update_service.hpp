@@ -28,6 +28,8 @@
 #include "utils/dbus_utils.hpp"
 #include "utils/sw_utils.hpp"
 
+#include <boost/algorithm/string/case_conv.hpp>
+#include <boost/range/adaptor/reversed.hpp>
 #include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
 #include <sdbusplus/asio/property.hpp>
@@ -74,6 +76,100 @@ inline static void activateImage(const std::string& objPath,
             BMCWEB_LOG_DEBUG("error msg = {}", ec.message());
         }
     });
+}
+
+// Return true if Errror LoggingEntry is handled
+inline bool doUpdateErrorLoggingEntry(
+    const std::shared_ptr<task::TaskData>& taskData, const std::string& index,
+    const dbus::utility::DBusPropertiesMap& properties)
+{
+    using AdditionalDataType = std::vector<std::string>;
+
+    const AdditionalDataType* addData = nullptr;
+    const std::string* messagePtr = nullptr;
+    const std::string* eventIdPtr = nullptr;
+
+    std::string eventId;
+    std::string message;
+    std::string addDataStr;
+
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), properties, "Message", messagePtr,
+        "AdditionalData", addData, "EventId", eventIdPtr);
+    if (!success)
+    {
+        BMCWEB_LOG_ERROR("Log property has unexpected value");
+        taskData->messages.emplace_back(messages::internalError());
+        return true;
+    }
+
+    if (messagePtr != nullptr)
+    {
+        if (messagePtr->starts_with("xyz.openbmc_project.Software"))
+        {
+            message.append(*messagePtr);
+        }
+    }
+    if (addData != nullptr)
+    {
+        for (const auto& data : *addData)
+        {
+            addDataStr.append(data);
+            addDataStr.append(" ");
+        }
+    }
+    if (eventIdPtr != nullptr)
+    {
+        eventId.append(*eventIdPtr);
+    }
+
+    if (!message.empty() && !addDataStr.empty() && !eventId.empty())
+    {
+        taskData->messages.emplace_back(
+            messages::taskAborted(index, message, addDataStr, eventId));
+        return true;
+    }
+    return false;
+}
+
+inline void
+    afterUpdateErrorLogMessage(const std::shared_ptr<task::TaskData>& taskData,
+                               const std::string& index,
+                               const boost::system::error_code& ec,
+                               const dbus::utility::ManagedObjectType& resp)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("updateErrorLogMessage returned an error {}",
+                         ec.value());
+        return;
+    }
+
+    for (const auto& objectPath : boost::adaptors::reverse(resp))
+    {
+        for (const auto& interfaceMap : objectPath.second)
+        {
+            if (interfaceMap.first == "xyz.openbmc_project.Logging.Entry")
+            {
+                if (doUpdateErrorLoggingEntry(taskData, index,
+                                              interfaceMap.second))
+                {
+                    return;
+                }
+            }
+        }
+    }
+}
+
+inline void
+    updateErrorLogMessage(const std::shared_ptr<task::TaskData>& taskData,
+                          const std::string& index)
+{
+    sdbusplus::message::object_path path("/xyz/openbmc_project/logging");
+
+    dbus::utility::getManagedObjects(
+        "xyz.openbmc_project.Logging", path,
+        std::bind_front(afterUpdateErrorLogMessage, taskData, index));
 }
 
 // Note that asyncResp can be either a valid pointer or nullptr. If nullptr
@@ -180,8 +276,7 @@ static void
                             {
                                 taskData->state = "Exception";
                                 taskData->status = "Warning";
-                                taskData->messages.emplace_back(
-                                    messages::taskAborted(index));
+                                updateErrorLogMessage(taskData, index);
                                 return task::completed;
                             }
 
