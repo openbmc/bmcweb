@@ -188,23 +188,22 @@ inline void requestRoutesManagerResetToDefaultsAction(App& app)
 
         std::string resetType;
 
-        if (!json_util::readJsonAction(req, asyncResp->res,
-                                       "ResetToDefaultsType", resetType))
+        if (!json_util::readJsonAction(req, asyncResp->res, "ResetType",
+                                       resetType))
         {
-            BMCWEB_LOG_DEBUG("Missing property ResetToDefaultsType.");
+            BMCWEB_LOG_DEBUG("Missing property ResetType.");
 
             messages::actionParameterMissing(asyncResp->res, "ResetToDefaults",
-                                             "ResetToDefaultsType");
+                                             "ResetType");
             return;
         }
 
         if (resetType != "ResetAll")
         {
-            BMCWEB_LOG_DEBUG(
-                "Invalid property value for ResetToDefaultsType: {}",
-                resetType);
+            BMCWEB_LOG_DEBUG("Invalid property value for ResetType: {}",
+                             resetType);
             messages::actionParameterNotSupported(asyncResp->res, resetType,
-                                                  "ResetToDefaultsType");
+                                                  "ResetType");
             return;
         }
 
