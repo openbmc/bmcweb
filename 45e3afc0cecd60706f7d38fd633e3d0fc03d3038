@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "11edf765_bb4c14ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2024-02-20T04:38:55Z",
+      "side": 1,
+      "message": "I couldn\u0027t find any other doc to make change to. But I have added PhysicalSecurity property into Redfish.md, it wasn\u0027t there before.",
+      "parentUuid": "f269b74a_aa416888",
+      "revId": "45e3afc0cecd60706f7d38fd633e3d0fc03d3038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "af5839bc_ea8d3155",
