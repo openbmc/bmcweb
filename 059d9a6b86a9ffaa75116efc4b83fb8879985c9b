@@ -20,6 +20,75 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "24c42909_65224357",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-20T21:46:39Z",
+      "side": 1,
+      "message": "Callback should be passed by non const \u0026\u0026",
+      "range": {
+        "startLine": 191,
+        "startChar": 29,
+        "endLine": 191,
+        "endChar": 62
+      },
+      "revId": "059d9a6b86a9ffaa75116efc4b83fb8879985c9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58eae0a3_8da368ab",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-20T21:46:39Z",
+      "side": 1,
+      "message": "FYI, this pattern shows up a lot in the codebase.  Realistically there should be a mapper call that can do this for us, rather than bmcweb trying to invent a new version for every possible type.",
+      "range": {
+        "startLine": 186,
+        "startChar": 0,
+        "endLine": 215,
+        "endChar": 1
+      },
+      "revId": "059d9a6b86a9ffaa75116efc4b83fb8879985c9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df09d807_2abcf83f",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-20T21:46:39Z",
+      "side": 1,
+      "message": "std::move()",
+      "range": {
+        "startLine": 240,
+        "startChar": 67,
+        "endLine": 240,
+        "endChar": 75
+      },
+      "revId": "059d9a6b86a9ffaa75116efc4b83fb8879985c9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "662c4f6c_69359b5c",
         "filename": "redfish-core/lib/fabric_adapters.hpp",
         "patchSetId": 3
