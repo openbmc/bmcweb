@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "af2ed199_6476ba3b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-02-20T13:27:28Z",
+      "side": 1,
+      "message": "This was just a find/replace across the repos.  Is there some specific testing you think would be best for this?",
+      "parentUuid": "a8f4cb91_3c215430",
+      "revId": "562ae89ef05c1ba3f0a54ed40cd3859800ff0eee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b0a4de2d_75afc78b",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 1
@@ -49,6 +67,24 @@
       "side": 1,
       "message": "What a mess.  I\u0027m sorry I looked.  It looks like for the chassis action, we do a mapper lookup, then completely ignore the result and call the hardcoded process name anyway.\n\nhttps://github.com/openbmc/bmcweb/blob/5ae1f7f3e0c78f84d153f7ef24ee22bb1c73eaa0/redfish-core/lib/chassis.hpp#L832\n\nAt the very least line 832 needs fixed in this patchset.  Ideally we would delete processName entirely and change both to call GetSubtree, using the process name that the mapper gave us instead of the hardcoded one.\n\nOn the plus side, it looks like James was maintainer when that patch merged and approved that bug:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/33754\n\nSo I\u0027ll continue to throw him under the bus 4 years later.\n\n\n\nAny effort you want to spend cleaning up the mess will be appreciated.  In the context of this patch, i think the only thing that needs done is fixing line 832 in chassis.hpp, the equivalent in systems.hpp and testing, then this can merge.",
       "parentUuid": "b0a4de2d_75afc78b",
+      "revId": "562ae89ef05c1ba3f0a54ed40cd3859800ff0eee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "113e0966_ef2c1d5d",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-02-20T13:27:28Z",
+      "side": 1,
+      "message": "That had been mostly a find/replace, with a little bit of human reading.  Looks like I missed two of them.  Updated.",
+      "parentUuid": "b92723d7_263bc7c0",
       "revId": "562ae89ef05c1ba3f0a54ed40cd3859800ff0eee",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
