@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ea6395ae_3ecf486b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-20T19:40:57Z",
+      "side": 1,
+      "message": "As Lakshmi points out, this whole patch is just extending lambdas that are already too long (with the exception of the one that\u0027s one line).  If some amount of refactoring needs to take place, so be it.",
+      "revId": "205816a07127ab7f3f21b58d8da8d7299ddfb13f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6361c019_3353671e",
         "filename": "redfish-core/lib/fabric_adapters.hpp",
         "patchSetId": 2
