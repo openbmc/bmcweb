@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6625aed4_a951eb4f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-20T18:33:05Z",
+      "side": 1,
+      "message": "Redfish service validator and a POST that triggers the action seems like a pretty good place to start.",
+      "parentUuid": "af2ed199_6476ba3b",
+      "revId": "562ae89ef05c1ba3f0a54ed40cd3859800ff0eee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b0a4de2d_75afc78b",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 1
