@@ -107,6 +107,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ab3a827_d9bc0250",
+        "filename": "Redfish.md",
+        "patchSetId": 67
+      },
+      "lineNbr": 791,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-20T13:52:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b19b2794_6bd21c79",
+      "revId": "abccac79f7834941c43684d06e36d1a8d76f3815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c2597e38_752de20d",
@@ -192,6 +210,30 @@
       "side": 1,
       "message": "I\u0027ll fix it.",
       "parentUuid": "b408f7ec_ac2fab98",
+      "range": {
+        "startLine": 3,
+        "startChar": 10,
+        "endLine": 3,
+        "endChar": 23
+      },
+      "revId": "abccac79f7834941c43684d06e36d1a8d76f3815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1072877e_dcbc07a8",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 67
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-20T13:52:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fecc6fd0_43d07dc5",
       "range": {
         "startLine": 3,
         "startChar": 10,
@@ -320,6 +362,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "155430b6_5a3fdeef",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 67
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-20T13:52:28Z",
+      "side": 1,
+      "message": "Removed them.",
+      "parentUuid": "24d76a8e_dd6f055c",
+      "range": {
+        "startLine": 28,
+        "startChar": 29,
+        "endLine": 29,
+        "endChar": 38
+      },
+      "revId": "abccac79f7834941c43684d06e36d1a8d76f3815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "74b59484_a57cf938",
@@ -381,6 +447,30 @@
       "side": 1,
       "message": "\u003e This function `doGetValidFabricPortSubTree()` is to handle the error of the parent function `getValidFabricPortSubTree()`.\n\u003e \n\u003e \n\u003e The parameter `callback` is passed to  `getValidFabricPortSubTree()` which will handle the successful subtree.\n\u003e \n\u003e They may be passed from \n\u003e - getValidFabricPortPath()\n\u003e - handleFarbicPortCollectionHead\n\u003e - handleFabricPortCollectionGet\n\u003e \n\u003e \n\u003e It usage is similar to `getValidChassisPath()`,  `getValidFabricAdapterPath()`, etc.\n\nthen I missed it on those commits (probably because I was trying to get them merged.). please fix this anti pattern on those as well.",
       "parentUuid": "7f841c6f_a1c2cc99",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 55
+      },
+      "revId": "abccac79f7834941c43684d06e36d1a8d76f3815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87a53afa_2aef1957",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 67
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-20T13:52:28Z",
+      "side": 1,
+      "message": "I refactored to propagate the error to caller.",
+      "parentUuid": "86b6be98_e0f49ea8",
       "range": {
         "startLine": 88,
         "startChar": 0,
@@ -688,6 +778,30 @@
       "side": 1,
       "message": "\u003e I would agree to return the error to the caller, if `getValidFabricPortSubTree()` is a generalized wrapper like `getAssociationEndPoints()` etc to make the logic clearer.\n\u003e \n\u003e However, like this case, `getValidFabricPortSubTree()` is designed to check/handle the error and return the subtree only if it is valid.\n\nRight, and we generally do that by returning an error.  A \"handle all possible errors for all possible callers\" routine is generally not a pattern that has been found to work.  If it does, having one branch and a method to handle that error in the callback is trivial.\n\n\u003e It is also called by a few places. If so, wouldn\u0027t it appropriate to filter out errors to callers?\n\nGenerally not, because it:\nA. breaks the mental model of async operations.  I will note that the couple of places we break this already have caused a lot of problems in bugs.\nB. Doesn\u0027t give the caller a chance to customize their error.  Pretty rarely is the error handling identical between two different callers.  The fact that it is in this case stems from the fact that we\u0027re doing multiple chained mapper calls, which is not only complex, but shows this issue.\n\nOnce we have this down to one mapper call, I\u0027d be really surprised if the error handling had anything common.\n\n\u003e \n\u003e If not but passing the errors to the callers, would all callers need to handle the same errors and need the similar aux functions - `afterXXX()` again.\n\nif (ec){\n    handleError();\n    return;\n}\n\nis a trivial amount of code to write.  Keep in mind that the error for POST is different than the error for GET, is different than the error for an Action, so pretty much all the code will need a customized (to some degree) error handler anyway.",
       "parentUuid": "1a8aebfa_d766f6bd",
+      "range": {
+        "startLine": 282,
+        "startChar": 59,
+        "endLine": 282,
+        "endChar": 74
+      },
+      "revId": "abccac79f7834941c43684d06e36d1a8d76f3815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "291c05e5_27668293",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 67
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-20T13:52:28Z",
+      "side": 1,
+      "message": "I\u0027ve restructured `fabric_adapters.hpp` to address your code via https://gerrit.openbmc.org/c/openbmc/bmcweb/+/69499",
+      "parentUuid": "03e68e1b_14b58221",
       "range": {
         "startLine": 282,
         "startChar": 59,
