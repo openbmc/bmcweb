@@ -16,6 +16,23 @@
       "message": "Addressed and replied to comments. Thanks",
       "revId": "f89259a556ed12e4542c924d2aa9be61561539d0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7f43272_a97fe265",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-20T19:07:59Z",
+      "side": 1,
+      "message": "I really don\u0027t like the amount of code duplication we have here, and I haven\u0027t run this code myself, but I suspect it has relatively high latency, which isn\u0027t great for a telemetry interface that we would expect people to poll quickly.  Some pretty small tweaks to the HealthMonitor dbus interface could\u0027ve cut this down from 8 queries into one, by either implementing an ObjectManager interface for Metrics like we have for sensors, or making each value type its own interface name, so we could get them all with GetAll(\"\u003cpath\u003e\", \"\")\n\nOh well.  This patchset is now functionally correct, so I can\u0027t see a reason to hold it up much longer.  Please consider the above improvements going forward and consider updating this patch.\n\nLeaving in review for a bit to see if anyone else has comments.",
+      "revId": "f89259a556ed12e4542c924d2aa9be61561539d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
