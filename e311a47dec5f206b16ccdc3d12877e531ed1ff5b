@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f371b08_c138ee41",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-02-20T19:31:25Z",
+      "side": 1,
+      "message": "It is in PDI. \nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/fdcdfbef30771a422e0d170e56fd14ed1b7a11f0/yaml/xyz/openbmc_project/Inventory/Decorator/Revision.interface.yaml#L4\n\nIt was added to redfish in 1.21, we use 1.22. \n\nThe change is simple.",
+      "revId": "e311a47dec5f206b16ccdc3d12877e531ed1ff5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
