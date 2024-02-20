@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6361c019_3353671e",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2024-02-20T14:34:50Z",
+      "side": 1,
+      "message": "Non trivial lambda.",
+      "range": {
+        "startLine": 213,
+        "startChar": 0,
+        "endLine": 232,
+        "endChar": 53
+      },
+      "revId": "205816a07127ab7f3f21b58d8da8d7299ddfb13f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98b30311_b30a7758",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2024-02-20T14:34:50Z",
+      "side": 1,
+      "message": "Non trivial lambda.",
+      "range": {
+        "startLine": 259,
+        "startChar": 0,
+        "endLine": 281,
+        "endChar": 34
+      },
+      "revId": "205816a07127ab7f3f21b58d8da8d7299ddfb13f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe8c0ef1_dea5d447",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2024-02-20T14:34:50Z",
+      "side": 1,
+      "message": "Non trivial lambda.",
+      "range": {
+        "startLine": 375,
+        "startChar": 1,
+        "endLine": 398,
+        "endChar": 47
+      },
+      "revId": "205816a07127ab7f3f21b58d8da8d7299ddfb13f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
