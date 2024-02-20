@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d701626c_34d53c6a",
+        "filename": "include/vm_websocket.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2024-02-20T04:23:17Z",
+      "side": 0,
+      "message": "Hi @Ed, wonder why these code was added in https://gerrit.openbmc.org/c/openbmc/bmcweb/+/69333/4 but removed in this MR. Why don\u0027t you update in the https://gerrit.openbmc.org/c/openbmc/bmcweb/+/69333/4?",
+      "revId": "f249b20d0bde2aef724f5d9bdfd3fced0ae25a07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
