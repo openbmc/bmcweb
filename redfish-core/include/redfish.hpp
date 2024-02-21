@@ -124,6 +124,7 @@ class RedfishService
 #ifdef BMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE
         requestRoutesUpdateServiceActionsSimpleUpdate(app);
 #endif
+        requestRoutesUpdateServiceActionsOemConcurrentUpdate(app);
         requestRoutesSoftwareInventoryCollection(app);
         requestRoutesSoftwareInventory(app);
 

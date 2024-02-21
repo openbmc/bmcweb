@@ -147,6 +147,7 @@ oem_schema_names = [
     "OemComputerSystem",
     "OemVirtualMedia",
     "OpenBMCAccountService",
+    "OemUpdateService",
 ]
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
