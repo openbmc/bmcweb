@@ -560,6 +560,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cde06082_d3c41882",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 64
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-21T17:12:18Z",
+      "side": 1,
+      "message": "Once the other folks adding fabric adapters have confirmed that this is something that works for both, then we can consider it resolved.  Ideally someone working on this patch would\u0027ve searched for others implementing NICs/fabric adapters and collaborated.\n\nFWIW, I tried to make this work, and was unable to get this patch to produce a fabric adapter in the Redfish tree.",
+      "parentUuid": "5d78a3db_6de0aa8a",
+      "revId": "e271d931482453af77d8abe5e4639533f09e4269",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "80052248_60696b37",
         "filename": "redfish-core/lib/fabric_adapters.hpp",
         "patchSetId": 64
