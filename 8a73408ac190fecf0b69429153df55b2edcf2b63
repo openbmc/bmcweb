@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c95195a3_ae510f45",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2230,
+      "author": {
+        "id": 1000238
+      },
+      "writtenOn": "2024-02-21T20:55:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0e2fc0e_89119d5e",
+      "revId": "8a73408ac190fecf0b69429153df55b2edcf2b63",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "24ff3a8c_02faf13e",
@@ -52,6 +70,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "49402261_c3cd28b9",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2231,
+      "author": {
+        "id": 1000238
+      },
+      "writtenOn": "2024-02-21T20:55:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24ff3a8c_02faf13e",
+      "revId": "8a73408ac190fecf0b69429153df55b2edcf2b63",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ccd33db5_bb95ea39",
@@ -65,6 +101,24 @@
       "writtenOn": "2024-02-21T19:32:48Z",
       "side": 1,
       "message": "It is more common to have this as without the else in bmcweb, oh well \n```\nif (powerMode \u003d\u003d nullptr)\n{\n        BMCWEB_LOG_DEBUG(\"PowerMode is a required property\");\n        messages::internalError(asyncResp-\u003eres);\n        return;\n}\n\n        BMCWEB_LOG_DEBUG(\"Current power mode: {}\", *powerMode);\n        asyncResp-\u003eres.jsonValue[\"PowerMode\"] \u003d\n            translatePowerModeString(*powerMode);\n\n```",
+      "revId": "8a73408ac190fecf0b69429153df55b2edcf2b63",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c2ed76b_2409388a",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2258,
+      "author": {
+        "id": 1000238
+      },
+      "writtenOn": "2024-02-21T20:55:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ccd33db5_bb95ea39",
       "revId": "8a73408ac190fecf0b69429153df55b2edcf2b63",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
