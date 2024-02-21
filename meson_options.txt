@@ -199,6 +199,13 @@ option(
 )
 
 option(
+    'ibm-usb-code-update',
+    type: 'feature',
+    value: 'disabled',
+    description: '''Enable the USB code update functionality'''
+)
+
+option(
     'ibm-management-console',
     type: 'feature',
     value: 'disabled',

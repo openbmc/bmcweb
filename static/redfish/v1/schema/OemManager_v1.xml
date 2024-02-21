@@ -26,6 +26,18 @@
         <Annotation Term="OData.Description" String="OemManager Oem properties." />
         <Annotation Term="OData.AutoExpand"/>
         <Property Name="OpenBmc" Type="OemManager.OpenBmc"/>
+        <Property Name="IBM" Type="OemManager.IBM"/>
+      </ComplexType>
+
+      <ComplexType Name="IBM" BaseType="Resource.OemObject">
+          <Annotation Term="OData.AdditionalProperties" Bool="true" />
+          <Annotation Term="OData.Description" String="Oem properties for IBM." />
+          <Annotation Term="OData.AutoExpand"/>
+          <Property Name="USBCodeUpdateEnabled" Type="Edm.Boolean" Nullable="false">
+              <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+              <Annotation Term="OData.Description" String="An indication of whether the USB code update is enabled."/>
+              <Annotation Term="OData.LongDescription" String="An indication of whether the USB code update is enabled."/>
+          </Property>
       </ComplexType>
 
       <ComplexType Name="OpenBmc" BaseType="Resource.OemObject">

@@ -17,6 +17,10 @@
 
 #include "bmcweb_config.h"
 
+#ifdef BMCWEB_ENABLE_IBM_USB_CODE_UPDATE
+#include "oem/ibm/usb_code_update.hpp"
+#endif
+
 #include "app.hpp"
 #include "dbus_utility.hpp"
 #include "health.hpp"
@@ -2018,6 +2022,10 @@ inline void requestRoutesManager(App& app)
 
         managerGetLastResetTime(asyncResp);
 
+#ifdef BMCWEB_ENABLE_IBM_USB_CODE_UPDATE
+        getUSBCodeUpdateState(asyncResp);
+#endif
+
         // ManagerDiagnosticData is added for all BMCs.
         nlohmann::json& managerDiagnosticData =
             asyncResp->res.jsonValue["ManagerDiagnosticData"];
@@ -2196,13 +2204,24 @@ inline void requestRoutesManager(App& app)
 
         if (oem)
         {
-#ifdef BMCWEB_ENABLE_REDFISH_OEM_MANAGER_FAN_DATA
+#if defined(BMCWEB_ENABLE_FAN_OEM_DATA) ||                                     \
+    defined(BMCWEB_ENABLE_IBM_USB_CODE_UPDATE)
             std::optional<nlohmann::json> openbmc;
-            if (!redfish::json_util::readJson(*oem, asyncResp->res, "OpenBmc",
-                                              openbmc))
+            std::optional<nlohmann::json> ibmOem;
+            if (!redfish::json_util::readJson(*oem, asyncResp->res
+#ifdef BMCWEB_ENABLE_FAN_OEM_DATA
+                                              ,
+                                              "OpenBmc", openbmc
+#endif
+#ifdef BMCWEB_ENABLE_IBM_USB_CODE_UPDATE
+                                              ,
+                                              "IBM", ibmOem
+#endif
+                                              ))
             {
                 return;
             }
+#ifdef BMCWEB_ENABLE_FAN_OEM_DATA
             if (openbmc)
             {
                 std::optional<nlohmann::json> fan;
@@ -2217,6 +2236,24 @@ inline void requestRoutesManager(App& app)
                     pid->run();
                 }
             }
+#endif
+#ifdef BMCWEB_ENABLE_IBM_USB_CODE_UPDATE
+            if (ibmOem)
+            {
+                std::optional<bool> usbCodeUpdateEnabled;
+                if (!json_util::readJson(*ibmOem, asyncResp->res,
+                                         "USBCodeUpdateEnabled",
+                                         usbCodeUpdateEnabled))
+                {
+                    return;
+                }
+
+                if (usbCodeUpdateEnabled)
+                {
+                    setUSBCodeUpdateState(asyncResp, *usbCodeUpdateEnabled);
+                }
+            }
+#endif
 #else
             messages::propertyUnknown(asyncResp->res, "Oem");
             return;
