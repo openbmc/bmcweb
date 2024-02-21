@@ -65,6 +65,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5512b77a_308d6868",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-21T15:43:31Z",
+      "side": 1,
+      "message": "It turns out - CI does not accept it.\n\n```\nclang-tidy-17 -export-fixes /tmp/tmp63k1ly_5/tmpn25losy6.yaml -p\u003d/data0/jenkins/workspace/ci-repository/openbmc/bmcweb/build31w48z5a -quiet /data0/jenkins/workspace/ci-repository/openbmc/bmcweb/src/webserver_main.cpp\n../redfish-core/lib/fabric_adapters.hpp:242:51: error: std::move of the const variable \u0027callback\u0027 has no effect or make the variable non-const [performance-move-const-arg,-warnings-as-errors]\n  242 |         afterGetValidFabricAdapterPath(adapterId, std::move(callback), ec2,\n      |                                                   ^\n../redfish-core/lib/fabric_adapters.hpp:191:65: note: consider changing the 2nd parameter of \u0027afterGetValidFabricAdapterPath\u0027 from \u0027const std::function\u003cvoid (const boost::system::error_code \u0026, const std::string \u0026, const std::string \u0026)\u003e \u0026\u0026\u0027 (aka \u0027const function\u003cvoid (const boost::system::error_code \u0026, const basic_string\u003cchar\u003e \u0026, const basic_string\u003cchar\u003e \u0026)\u003e \u0026\u0026\u0027) to \u0027const std::function\u003cvoid (const boost::system::error_code \u0026, const std::string \u0026, const std::string \u0026)\u003e \u0026\u0027\n  191 |                              const std::string\u0026 serviceName)\u003e\u0026\u0026 callback,\n      |                                                                 ^\n239345 warnings generated.\nApplying fixes …\n\n```\n\nCI suggests to use \n```\nconst std::function\u003cvoid (const boost::system::error_code \u0026, const std::string \u0026, const std::string \u0026)\u003e\u0026 callback\n```\n\nSo, I changed the code as such and use `std::move(callback)` at caller.",
+      "parentUuid": "855e37d2_91d65683",
+      "range": {
+        "startLine": 191,
+        "startChar": 29,
+        "endLine": 191,
+        "endChar": 62
+      },
+      "revId": "059d9a6b86a9ffaa75116efc4b83fb8879985c9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "58eae0a3_8da368ab",
