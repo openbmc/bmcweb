@@ -4,6 +4,7 @@
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "generated/enums/pcie_slots.hpp"
+#include "led.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utility.hpp"
@@ -17,7 +18,13 @@
 #include <sdbusplus/unpack_properties.hpp>
 
 #include <array>
+#include <functional>
+#include <map>
+#include <memory>
+#include <optional>
+#include <string>
 #include <string_view>
+#include <vector>
 
 namespace redfish
 {
@@ -25,7 +32,8 @@ namespace redfish
 inline void
     onPcieSlotGetAllDone(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const boost::system::error_code& ec,
-                         const dbus::utility::DBusPropertiesMap& propertiesList)
+                         const dbus::utility::DBusPropertiesMap& propertiesList,
+                         const std::string& pcieSlotPath)
 {
     if (ec)
     {
@@ -112,7 +120,16 @@ inline void
         slot["HotPluggable"] = *hotPluggable;
     }
 
+    size_t index = slots.size();
     slots.emplace_back(std::move(slot));
+
+    // Get pcie slot location indicator state
+    getLocationIndicatorActive(asyncResp, pcieSlotPath,
+                               [asyncResp, index](bool asserted) {
+        nlohmann::json& slotArray = asyncResp->res.jsonValue["Slots"];
+        nlohmann::json& slotItem = slotArray.at(index);
+        slotItem["LocationIndicatorActive"] = asserted;
+    });
 }
 
 inline void onMapperAssociationDone(
@@ -151,9 +168,10 @@ inline void onMapperAssociationDone(
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, connectionName, pcieSlotPath,
         "xyz.openbmc_project.Inventory.Item.PCIeSlot",
-        [asyncResp](const boost::system::error_code& ec2,
-                    const dbus::utility::DBusPropertiesMap& propertiesList) {
-        onPcieSlotGetAllDone(asyncResp, ec2, propertiesList);
+        [asyncResp,
+         pcieSlotPath](const boost::system::error_code& ec2,
+                       const dbus::utility::DBusPropertiesMap& propertiesList) {
+        onPcieSlotGetAllDone(asyncResp, ec2, propertiesList, pcieSlotPath);
     });
 }
 
@@ -230,12 +248,165 @@ inline void handlePCIeSlotCollectionGet(
     });
 }
 
+// Get all valid  PCIe Slots which are on the given chassis
+inline void getValidPCIeSlotList(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisID, const std::string& chassisPath,
+    std::function<void(
+        const std::vector<std::pair<std::string, std::string>>&)>&& callback)
+{
+    BMCWEB_LOG_DEBUG("Get properties for PCIeSlots associated to chassis = {}",
+                     chassisID);
+
+    // get PCIeSlots that are in chassis
+    constexpr std::array<std::string_view, 1> pcieSlotIntf{
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot"};
+
+    dbus::utility::getAssociatedSubTree(
+        chassisPath + "/inventory",
+        sdbusplus::message::object_path("/xyz/openbmc_project/inventory"), 0,
+        pcieSlotIntf,
+        [asyncResp, chassisID, chassisPath, callback{std::move(callback)}](
+            const boost::system::error_code& ec,
+            const dbus::utility::MapperGetSubTreeResponse& subtree) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR("D-Bus response error on GetSubTree {}",
+                             ec.value());
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        if (subtree.empty())
+        {
+            // No PCIeSlot found
+            messages::resourceNotFound(asyncResp->res, "Chassis", "PCIeSlot");
+            return;
+        }
+
+        std::vector<std::pair<std::string, std::string>> slotPathConnNames;
+        for (const auto& [pcieSlotPath, serviceName] : subtree)
+        {
+            if (pcieSlotPath.empty() || serviceName.size() != 1)
+            {
+                BMCWEB_LOG_ERROR("Error getting PCIeSlot D-Bus object!");
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            const std::string& connectionName = serviceName[0].first;
+            slotPathConnNames.emplace_back(pcieSlotPath, connectionName);
+        }
+
+        // sort by pcieSlotPath
+        std::sort(slotPathConnNames.begin(), slotPathConnNames.end(),
+                  [](const std::pair<std::string, std::string>& slot1,
+                     const std::pair<std::string, std::string>& slot2) {
+            return slot1.first < slot2.first;
+        });
+
+        callback(slotPathConnNames);
+    });
+}
+
+inline void doHandlePCIeSlotPatch(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, size_t total,
+    const std::string& chassisID, const std::string& validChassisPath,
+    const std::map<unsigned int, bool>& locationIndicatorActiveMap)
+{
+    getValidPCIeSlotList(
+        asyncResp, chassisID, validChassisPath,
+        [asyncResp, chassisID, total,
+         locationIndicatorActiveMap{locationIndicatorActiveMap}](
+            const std::vector<std::pair<std::string, std::string>>&
+                slotPathConnNames) {
+        if (slotPathConnNames.size() != total)
+        {
+            BMCWEB_LOG_WARNING(
+                "The actual number of PCIeSlots is different from the number of the input slots");
+            int64_t totalCount = static_cast<int64_t>(total);
+            messages::invalidIndex(asyncResp->res, totalCount);
+        }
+
+        unsigned int idx = 0;
+        for (const auto& [pcieSlotPath, connectionName] : slotPathConnNames)
+        {
+            idx++;
+            if (!locationIndicatorActiveMap.contains(idx))
+            {
+                continue;
+            }
+
+            auto indicatorOnOff = locationIndicatorActiveMap.at(idx);
+            setLocationIndicatorActive(asyncResp, pcieSlotPath, indicatorOnOff);
+        }
+    });
+}
+
+inline void
+    handlePCIeSlotsPatch(App& app, const crow::Request& req,
+                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const std::string& chassisId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    std::optional<std::vector<nlohmann::json>> slotsData;
+    if (!json_util::readJsonPatch(req, asyncResp->res, "Slots", slotsData))
+    {
+        return;
+    }
+    if (!slotsData || slotsData->empty())
+    {
+        return;
+    }
+    std::vector<nlohmann::json> slots = std::move(*slotsData);
+    std::map<unsigned int, bool> locationIndicatorActiveMap;
+    unsigned int slotIndex = 0;
+    for (auto& slot : slots)
+    {
+        slotIndex++;
+        if (slot.empty())
+        {
+            continue;
+        }
+
+        bool locationIndicatorActive = false;
+        if (json_util::readJson(slot, asyncResp->res, "LocationIndicatorActive",
+                                locationIndicatorActive))
+        {
+            locationIndicatorActiveMap[slotIndex] = locationIndicatorActive;
+        }
+    }
+
+    size_t total = slots.size();
+    redfish::chassis_utils::getValidChassisPath(
+        asyncResp, chassisId,
+        [asyncResp, chassisId, total,
+         locationIndicatorActiveMap{std::move(locationIndicatorActiveMap)}](
+            const std::optional<std::string>& validChassisPath) {
+        if (!validChassisPath)
+        {
+            BMCWEB_LOG_WARNING("Not a valid chassis ID:{}", chassisId);
+            messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
+            return;
+        }
+        doHandlePCIeSlotPatch(asyncResp, total, chassisId, *validChassisPath,
+                              locationIndicatorActiveMap);
+    });
+}
+
 inline void requestRoutesPCIeSlots(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/PCIeSlots/")
         .privileges(redfish::privileges::getPCIeSlots)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handlePCIeSlotCollectionGet, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/PCIeSlots/")
+        .privileges(redfish::privileges::patchPCIeSlots)
+        .methods(boost::beast::http::verb::patch)(
+            std::bind_front(handlePCIeSlotsPatch, std::ref(app)));
 }
 
 } // namespace redfish
