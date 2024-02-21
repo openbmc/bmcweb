@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "828aba18_58f2e525",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-02-21T19:32:48Z",
+      "side": 1,
+      "message": "couple minor comments, but seems reasonable to me",
+      "revId": "8a73408ac190fecf0b69429153df55b2edcf2b63",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0e2fc0e_89119d5e",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2230,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-02-21T19:32:48Z",
+      "side": 1,
+      "message": "```\n#include \u003cstring\u003e\n```",
+      "revId": "8a73408ac190fecf0b69429153df55b2edcf2b63",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24ff3a8c_02faf13e",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2231,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-02-21T19:32:48Z",
+      "side": 1,
+      "message": "```\n#include \u003cvector\u003e\n```",
+      "revId": "8a73408ac190fecf0b69429153df55b2edcf2b63",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ccd33db5_bb95ea39",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2258,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-02-21T19:32:48Z",
+      "side": 1,
+      "message": "It is more common to have this as without the else in bmcweb, oh well \n```\nif (powerMode \u003d\u003d nullptr)\n{\n        BMCWEB_LOG_DEBUG(\"PowerMode is a required property\");\n        messages::internalError(asyncResp-\u003eres);\n        return;\n}\n\n        BMCWEB_LOG_DEBUG(\"Current power mode: {}\", *powerMode);\n        asyncResp-\u003eres.jsonValue[\"PowerMode\"] \u003d\n            translatePowerModeString(*powerMode);\n\n```",
+      "revId": "8a73408ac190fecf0b69429153df55b2edcf2b63",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

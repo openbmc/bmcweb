@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d0c03c0_ee481b37",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2223,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-02-21T19:32:48Z",
+      "side": 0,
+      "message": "Today if it is invalid, you would get an internal Error.. We are getting rid of that.",
+      "revId": "52dd6932dea23ed6f6ae24caec12c9a7f19c2284",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
