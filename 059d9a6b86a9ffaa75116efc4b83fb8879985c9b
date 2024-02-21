@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "855e37d2_91d65683",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-21T14:32:14Z",
+      "side": 1,
+      "message": "Using non-const \u0026\u0026 callback conflicts if the caller uses std::bind_front().\n\n```\n\n| ../../../../../../../../../bmcweb/redfish-core/lib/fabric_adapters.hpp: In function \u0027void redfish::getValidFabricAdapterPath(..., \nstd::function\u003cvoid(const boost::system::error_code\u0026,..)\u003e\u0026\u0026)\u0027:\n| ../../../../../../../../../bmcweb/redfish-core/lib/fabric_adapters.hpp:240:24: error: invalid initialization of reference of type \n\n\u0027std::function\u003cvoid(const boost::system::error_code\u0026, .... \u003e\u0026)\u003e\u0026\u0026\u0027 \nfrom expression of type \n\u0027std::_Bind_front_t\u003cvoid (\u0026)(\n...\n std::function\u003cvoid(const boost::system::error_code\u0026, ...\u003e\u0026)\u003e \u003e\u0027\n|   240 |         std::bind_front(afterGetValidFabricAdapterPath, adapterId, std::move(callback)));\n\n```\n\nEven with the normal lambda, we can keep `const` would be needed.\nSo, I\u0027m going to switch it to \n```\n    const std::function\u003cvoid(const boost::system::error_code\u0026,\n                             const std::string\u0026 fabricAdapterPath,\n                             const std::string\u0026 serviceName)\u003e\u0026\u0026 callback,\n```\nand call it inside lambda.\n\nI think - `const std::function\u003c\u003e\u0026\u0026 callback` seems covering more situations than without `const`.",
+      "parentUuid": "24c42909_65224357",
+      "range": {
+        "startLine": 191,
+        "startChar": 29,
+        "endLine": 191,
+        "endChar": 62
+      },
+      "revId": "059d9a6b86a9ffaa75116efc4b83fb8879985c9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "58eae0a3_8da368ab",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-02-20T21:46:39Z",
       "side": 1,
       "message": "FYI, this pattern shows up a lot in the codebase.  Realistically there should be a mapper call that can do this for us, rather than bmcweb trying to invent a new version for every possible type.",
+      "range": {
+        "startLine": 186,
+        "startChar": 0,
+        "endLine": 215,
+        "endChar": 1
+      },
+      "revId": "059d9a6b86a9ffaa75116efc4b83fb8879985c9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a11ccbad_89f29a80",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-21T14:32:14Z",
+      "side": 1,
+      "message": "It would be great if mapper functions that match with `id` (not `path`). With it,  many things can be simplified.\nFor example, to use many dbus/mapper calls, we first need to search `path` from the given `id`.  As the result, we may almost always to call `getSubTree()` and compare each path with `id`.\n\nFor now, we may need to still walk thru the subtree to find the matching path.",
+      "parentUuid": "58eae0a3_8da368ab",
       "range": {
         "startLine": 186,
         "startChar": 0,
@@ -87,6 +135,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7eea6204_93b2f17e",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-21T14:32:14Z",
+      "side": 1,
+      "message": "Changed to match with afterGetValidFabricAdapterPath() using lambda",
+      "parentUuid": "df09d807_2abcf83f",
+      "range": {
+        "startLine": 240,
+        "startChar": 67,
+        "endLine": 240,
+        "endChar": 75
+      },
+      "revId": "059d9a6b86a9ffaa75116efc4b83fb8879985c9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "662c4f6c_69359b5c",
@@ -110,6 +182,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "39f5be66_09a665f0",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-21T14:32:14Z",
+      "side": 1,
+      "message": "Yes, previously, the matching adapterId from subtree was done inside `getValidFabricAdapterPath` and generated `resourceNotFound`.\n\nPrevious code:\n```\n\ninline void getValidFabricAdapterPath(adapterId)\n{\n    dbus::utility::getSubTree(..) {\n ....\n        for (const auto\u0026 [adapterPath, serviceMap] : subtree)\n        {\n            if (checkFabricAdapterId(adapterPath, adapterId))\n            {\n                callback(adapterPath, serviceMap.begin()-\u003efirst);\n                return;\n            }\n        }\n\u003d\u003d\u003e If not found, error is handled.\n        BMCWEB_LOG_WARNING(\"Adapter not found\");\n        messages::resourceNotFound(asyncResp-\u003eres, \"FabricAdapter\", adapterId);\n    });\n```\n\nHowever, the new code is handling such non-matching condition by seeing the empty returned `fabricAdapterPath`.",
+      "parentUuid": "662c4f6c_69359b5c",
+      "range": {
+        "startLine": 262,
+        "startChar": 0,
+        "endLine": 267,
+        "endChar": 5
+      },
+      "revId": "059d9a6b86a9ffaa75116efc4b83fb8879985c9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5351d287_96a2d5af",
@@ -123,6 +219,30 @@
       "writtenOn": "2024-02-20T21:45:10Z",
       "side": 1,
       "message": "same as above.",
+      "range": {
+        "startLine": 381,
+        "startChar": 0,
+        "endLine": 386,
+        "endChar": 5
+      },
+      "revId": "059d9a6b86a9ffaa75116efc4b83fb8879985c9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2e77079_54fd99cc",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-21T14:32:14Z",
+      "side": 1,
+      "message": "Yes, as described in https://gerrit.openbmc.org/c/openbmc/bmcweb/+/69499/comment/662c4f6c_69359b5c/",
+      "parentUuid": "5351d287_96a2d5af",
       "range": {
         "startLine": 381,
         "startChar": 0,
