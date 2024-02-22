@@ -138,6 +138,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b013ab75_499c69b6",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-02-22T14:48:43Z",
+      "side": 1,
+      "message": "Maybe just a comment that Redfish supports only a primary and a secondary ?  Could also do an error if priority \u003e 1 but seems overkill",
+      "parentUuid": "2cd2ebbb_b6870c1a",
+      "range": {
+        "startLine": 440,
+        "startChar": 0,
+        "endLine": 450,
+        "endChar": 5
+      },
+      "revId": "1933be576f50928f4978e91ae0f399e6dab5107b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "effe272a_635fce3d",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 41
