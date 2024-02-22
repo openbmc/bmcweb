@@ -87,6 +87,24 @@
       "parentUuid": "bce96637_c557999b",
       "revId": "f89259a556ed12e4542c924d2aa9be61561539d0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32734e2c_769b76de",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-22T22:02:09Z",
+      "side": 1,
+      "message": "to be clear, the original patch was passed through service validator, so this is not the fault of Jagpal, but mine.  It was a refactor for which we have unit tests, but ideally, yes, we\u0027d rerun service validator.  I can do it if Jagpal can\u0027t.",
+      "parentUuid": "6c8d67c1_f47c3d9a",
+      "revId": "f89259a556ed12e4542c924d2aa9be61561539d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
