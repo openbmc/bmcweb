@@ -34,6 +34,29 @@
       "parentUuid": "6a9072b5_c4443f68",
       "revId": "01ade27da6c1f8c1dafec885867dccfe1974eeea",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebb2a2b6_0176b7e9",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-22T19:11:04Z",
+      "side": 1,
+      "message": "This code looks like it\u0027s trying to map a PCIeSlot to be equivalent to a PCIeDevice.  That\u0027s not correct.  We either have\n\nthe old way:\nItem.Board -\u003e connected_to -\u003e Item.PcieSlot -\u003e connected_to -\u003e Item.Board\n// IE, the board has a slot that has another board plugged into it\n\n\nOr the new way:\nItem.Board -\u003e Connected_to -\u003e Item.Board\n\nIe, the board has another board plugged into it.\n\n\nWhat this patchset looks like it\u0027s doing is extracting all the device inventory items off of the PCIeSlot itself.  I\u0027m not sure where that\u0027s implemented in a backend, but it\u0027s almost certainly incorrect.",
+      "range": {
+        "startLine": 341,
+        "startChar": 44,
+        "endLine": 341,
+        "endChar": 52
+      },
+      "revId": "01ade27da6c1f8c1dafec885867dccfe1974eeea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
