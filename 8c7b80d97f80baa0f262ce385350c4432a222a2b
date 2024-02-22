@@ -72,6 +72,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "28616e6d_2abc03ba",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-22T17:26:48Z",
+      "side": 1,
+      "message": "correct.",
+      "parentUuid": "d648ca73_11c870bf",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 5
+      },
+      "revId": "8c7b80d97f80baa0f262ce385350c4432a222a2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e0b5ccb2_6ce450e9",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
         "patchSetId": 13
