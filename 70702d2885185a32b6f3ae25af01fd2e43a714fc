@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c22a85ef_69d57928",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 926,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-22T22:43:30Z",
+      "side": 1,
+      "message": "One thing that I don\u0027t understand is that we\u0027re loading in the ID from the static data, and pulling in the iface from a different place.  That didn\u0027t look right to me, so I\u0027ve changed it;  Please let me know if I did the right thing  I can\u0027t see how what was there could\u0027ve worked as written, but maybe I had it wrong.",
+      "range": {
+        "startLine": 926,
+        "startChar": 0,
+        "endLine": 926,
+        "endChar": 2
+      },
+      "revId": "70702d2885185a32b6f3ae25af01fd2e43a714fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
