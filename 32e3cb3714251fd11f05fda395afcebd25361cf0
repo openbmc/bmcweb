@@ -50,6 +50,53 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "07ec7159_72c35c4d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-22T20:48:52Z",
+      "side": 1,
+      "message": "Right, that\u0027s why I was hoping we could compare against df or something else on the system in at least a manual test.  If it really was done on a full system, so be it, but 3MB would make a lot more sense (I think that\u0027s the default persistent volume size).",
+      "parentUuid": "85b6d40c_6e5f174a",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 2
+      },
+      "revId": "32e3cb3714251fd11f05fda395afcebd25361cf0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94f91ed8_ee48c29f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-22T20:48:52Z",
+      "side": 1,
+      "message": "Note, in the future you don\u0027t need to include the output.  We can trust that you ran the test if you said you did.",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 25
+      },
+      "revId": "32e3cb3714251fd11f05fda395afcebd25361cf0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8533dd2f_e14a174d",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
         "patchSetId": 16

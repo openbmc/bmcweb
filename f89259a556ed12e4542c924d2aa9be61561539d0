@@ -51,6 +51,24 @@
       "parentUuid": "a7f43272_a97fe265",
       "revId": "f89259a556ed12e4542c924d2aa9be61561539d0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bce96637_c557999b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-22T20:48:52Z",
+      "side": 1,
+      "message": "I couldn\u0027t handle the amount of duplication we have, so I fixed it.  Luckily the unit tests made that relatively easy.\n\nPlease take a look at what\u0027s here now, and ideally run it through your local tests.  I\u0027ve run unit tests, but not redfish service validator yet.",
+      "parentUuid": "34ea636a_34cfdb7b",
+      "revId": "f89259a556ed12e4542c924d2aa9be61561539d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
