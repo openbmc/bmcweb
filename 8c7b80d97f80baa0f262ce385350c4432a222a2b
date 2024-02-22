@@ -72,6 +72,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b69c1106_fdffb61c",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-22T19:01:29Z",
+      "side": 1,
+      "message": "string_view by value for any new code please.",
+      "parentUuid": "8eff3663_71108df2",
+      "range": {
+        "startLine": 28,
+        "startChar": 24,
+        "endLine": 28,
+        "endChar": 35
+      },
+      "revId": "8c7b80d97f80baa0f262ce385350c4432a222a2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d648ca73_11c870bf",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
         "patchSetId": 13
@@ -142,6 +166,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e86046ac_47cc93cd",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-22T19:01:29Z",
+      "side": 1,
+      "message": "It is because ec is checked in the frame above this one.  See other suggestion on how we can make this more clear.",
+      "parentUuid": "91d31f67_e6c97030",
+      "range": {
+        "startLine": 40,
+        "startChar": 37,
+        "endLine": 40,
+        "endChar": 47
+      },
+      "revId": "8c7b80d97f80baa0f262ce385350c4432a222a2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "033a5c58_58a83d01",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
         "patchSetId": 13
@@ -165,6 +213,53 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d5febf30_24f6e90e",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-22T19:01:29Z",
+      "side": 1,
+      "message": "Arguably we should be using std::source_location these days.  You\u0027d do something similar to:\n\nhttps://github.com/openbmc/bmcweb/blob/b4d593f1c6113311da4b29fc352187fbcb6d1fd4/redfish-core/src/error_messages.cpp#L282\n\nAnd just pass the source_location into the logging call.",
+      "parentUuid": "033a5c58_58a83d01",
+      "range": {
+        "startLine": 51,
+        "startChar": 36,
+        "endLine": 51,
+        "endChar": 65
+      },
+      "revId": "8c7b80d97f80baa0f262ce385350c4432a222a2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b055d71b_3fe72525",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-22T19:01:29Z",
+      "side": 1,
+      "message": "I appreciate you breaking out this non-trivial logic.  Can we do something where checkErrors returns the error, such that we can just do\n\n```\nif(checkErrors(ec)){\n   return;\n}\n```\n\n\nI think that would help Patricks suggestion above about checking for non errors.",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 5
+      },
+      "revId": "8c7b80d97f80baa0f262ce385350c4432a222a2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e0b5ccb2_6ce450e9",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
         "patchSetId": 13
@@ -181,6 +276,29 @@
         "startChar": 8,
         "endLine": 238,
         "endChar": 23
+      },
+      "revId": "8c7b80d97f80baa0f262ce385350c4432a222a2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2be122d5_ba2b9ecc",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-22T19:01:29Z",
+      "side": 1,
+      "message": "Not sure why this was added, but I suspect it\u0027s not needed.\n\nArguably, this should be an unconditional internal error, because if systemd isn\u0027t up, something is very..... very wrong.\n\nWe don\u0027t do that so that when you run bmcweb locally it can still pass the service validator.\n\nIf this is a change you want to see, lets break it into its own patch so we can talk through it.",
+      "range": {
+        "startLine": 268,
+        "startChar": 0,
+        "endLine": 268,
+        "endChar": 2
       },
       "revId": "8c7b80d97f80baa0f262ce385350c4432a222a2b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
