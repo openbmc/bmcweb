@@ -283,6 +283,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2be8c224_7de02e48",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 965,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-22T22:00:46Z",
+      "side": 1,
+      "message": "I removed this whole block.  Technically not having an ipv6 gateway is allowed, and this would be what gets called if you want to delete all entries.\n\nIPv4 and Ipv6 addresses aren\u0027t handled the same way, and even if they did, they\u0027re different semantics.",
+      "parentUuid": "3fd181a3_0b2e44e0",
+      "range": {
+        "startLine": 965,
+        "startChar": 18,
+        "endLine": 965,
+        "endChar": 40
+      },
+      "revId": "86fd3fb4389ec681b9f232369b4dbcdc472a1684",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e8c4f489_d8063d92",
@@ -296,6 +320,30 @@
       "writtenOn": "2023-06-01T18:12:43Z",
       "side": 1,
       "message": "This is likely not doing what you\u0027d expect.\n\nI suspect you want\n\nconst nlohmann::json::object_t* myObj \u003d thisJson.get_ptr\u003cconst nlohmann::json::object_t*\u003e();\n\nif (myObj \u003d\u003d nullptr){\n   messages::internalError();\n   return;\n}",
+      "range": {
+        "startLine": 981,
+        "startChar": 0,
+        "endLine": 981,
+        "endChar": 53
+      },
+      "revId": "86fd3fb4389ec681b9f232369b4dbcdc472a1684",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "436a59a4_f0846942",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 981,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-22T22:00:46Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "e8c4f489_d8063d92",
       "range": {
         "startLine": 981,
         "startChar": 0,
