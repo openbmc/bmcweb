@@ -95,6 +95,7 @@ feature_map = {
   'experimental-redfish-multi-computer-system'  : '-DBMCWEB_ENABLE_MULTI_COMPUTERSYSTEM',
   'vm-websocket'                                : '-DBMCWEB_ENABLE_VM_WEBSOCKET',
   'xtoken-auth'                                 : '-DBMCWEB_ENABLE_XTOKEN_AUTHENTICATION',
+  'audit-events'                                : '-DBMCWEB_ENABLE_LINUX_AUDIT_EVENTS',
   #'vm-nbdproxy'                                : '-DBMCWEB_ENABLE_VM_NBDPROXY',
 }
 
@@ -292,6 +293,11 @@ if not nghttp2.found()
 endif
 bmcweb_dependencies += nghttp2
 
+if(get_option('audit-events').allowed())
+  audit = cxx.find_library('libaudit', required: true)
+  bmcweb_dependencies += audit
+endif
+
 sdbusplus = dependency('sdbusplus', required : false, include_type: 'system')
 if not sdbusplus.found()
   sdbusplus_proj = subproject('sdbusplus', required: true)
@@ -462,6 +468,9 @@ srcfiles_unittest = files(
   'test/redfish-core/lib/power_subsystem_test.cpp',
 )
 
+if (get_option('audit-events').allowed())
+	srcfiles_unittest += files('test/include/audit_events_test.cpp',)
+endif
 
 if(get_option('tests').allowed())
     # generate the test executable
