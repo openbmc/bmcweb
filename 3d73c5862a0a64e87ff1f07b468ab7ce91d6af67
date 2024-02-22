@@ -634,6 +634,30 @@
       },
       "revId": "3d73c5862a0a64e87ff1f07b468ab7ce91d6af67",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42f5fde2_77425490",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 65
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-22T17:36:28Z",
+      "side": 1,
+      "message": "\u003e \n\u003e With the currently available mapper calls\n\nIt\u0027s VERY likely we need a new mapper call for this two tiered type of lookup.\n\n\n\u003e, I think it will require at least 3 calls.  \n\u003e One of the reasons is because the mapper calls use dbus path as an input, and thus the first step would always be getSubTree to find its path from `adapterId` or `portId` (if we choose to search it first).\n\u003e \n\u003e To squeeze these steps, I think it may be better to make a mapper call using `Id` as input, but that\u0027s not available.\n\nSo write it?\n\n\u003e (This approach may create its own questions - e.g. can `Id` always be matched the leaf of the path?).\n\nIf it can\u0027t then bmcweb shouldn\u0027t be doing it either?",
+      "parentUuid": "dc1d163b_35e1d74b",
+      "range": {
+        "startLine": 296,
+        "startChar": 4,
+        "endLine": 296,
+        "endChar": 29
+      },
+      "revId": "3d73c5862a0a64e87ff1f07b468ab7ce91d6af67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
