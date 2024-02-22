@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "d73497ae_ad8de1ed",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-22T21:10:34Z",
+      "side": 1,
+      "message": "why not?  Because I was going quickly and copy/pasted an example that probably also needs fixed 😊\n\nMade the change as requested.",
+      "parentUuid": "cdfba613_b2feabb2",
+      "revId": "6a2afbe711ca73482b1eec82f954cdaf6ee7e1cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "b62c6198_6da78ef2",
         "filename": "test/redfish-core/lib/manager_diagnostic_data_test.cpp",
         "patchSetId": 17
