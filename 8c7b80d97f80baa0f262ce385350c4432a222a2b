@@ -49,6 +49,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8eff3663_71108df2",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-02-22T18:31:14Z",
+      "side": 1,
+      "message": "nit: `const std::string\u0026` or `const std::string_view\u0026`?",
+      "range": {
+        "startLine": 28,
+        "startChar": 24,
+        "endLine": 28,
+        "endChar": 35
+      },
+      "revId": "8c7b80d97f80baa0f262ce385350c4432a222a2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d648ca73_11c870bf",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
         "patchSetId": 13
@@ -89,6 +112,52 @@
         "startChar": 0,
         "endLine": 37,
         "endChar": 5
+      },
+      "revId": "8c7b80d97f80baa0f262ce385350c4432a222a2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91d31f67_e6c97030",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-02-22T18:31:14Z",
+      "side": 1,
+      "message": "nit: Are you sure this is always a dbus error?",
+      "range": {
+        "startLine": 40,
+        "startChar": 37,
+        "endLine": 40,
+        "endChar": 47
+      },
+      "revId": "8c7b80d97f80baa0f262ce385350c4432a222a2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "033a5c58_58a83d01",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-02-22T18:31:14Z",
+      "side": 1,
+      "message": "Can we use `__func__` ?",
+      "range": {
+        "startLine": 51,
+        "startChar": 36,
+        "endLine": 51,
+        "endChar": 65
       },
       "revId": "8c7b80d97f80baa0f262ce385350c4432a222a2b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
