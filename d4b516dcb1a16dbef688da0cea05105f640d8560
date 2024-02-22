@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "941df2ce_e03f283a",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2260,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-02-22T13:37:33Z",
+      "side": 1,
+      "message": "I think you still want this in the else right?",
+      "range": {
+        "startLine": 2250,
+        "startChar": 0,
+        "endLine": 2260,
+        "endChar": 77
+      },
+      "revId": "d4b516dcb1a16dbef688da0cea05105f640d8560",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
