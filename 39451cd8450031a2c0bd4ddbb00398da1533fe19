@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f3bb8218_faeea28c",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2216,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-02-22T21:13:55Z",
+      "side": 1,
+      "message": "The only thing is this is used for both an internalError (PowerMode) and this just ignores when we don\u0027t have a valid one (PowerMode@Redfish.AllowableValues) , but if addresses the comment below on line 2257 then it is an internal error in both cases.",
+      "parentUuid": "0950ff61_abe0082f",
+      "range": {
+        "startLine": 2216,
+        "startChar": 15,
+        "endLine": 2216,
+        "endChar": 20
+      },
+      "revId": "39451cd8450031a2c0bd4ddbb00398da1533fe19",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c16652e6_bbea89ef",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 5
@@ -37,6 +61,30 @@
       "writtenOn": "2024-02-22T19:22:58Z",
       "side": 1,
       "message": "as is, we\u0027re just dropping modes that we find that aren\u0027t valid?  Is that what you intended?  Generally we would set an internal Error if dbus didn\u0027t match PDI.",
+      "range": {
+        "startLine": 2257,
+        "startChar": 0,
+        "endLine": 2257,
+        "endChar": 2
+      },
+      "revId": "39451cd8450031a2c0bd4ddbb00398da1533fe19",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebf0c83d_2399f7ef",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2257,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-02-22T21:13:55Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "c16652e6_bbea89ef",
       "range": {
         "startLine": 2257,
         "startChar": 0,
