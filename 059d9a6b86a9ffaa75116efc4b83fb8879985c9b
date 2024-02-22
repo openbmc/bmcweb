@@ -91,6 +91,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4a72ffb7_71eea4a2",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-22T17:28:54Z",
+      "side": 1,
+      "message": "Then just make it a value.  If we have to make a copy, lets make it explicit.\n\n\nThere\u0027s a bug somewhere;  We do this same pattern other places, so I would expect it to work, but sure, it\u0027s not going to be a major problem here.",
+      "parentUuid": "5512b77a_308d6868",
+      "range": {
+        "startLine": 191,
+        "startChar": 29,
+        "endLine": 191,
+        "endChar": 62
+      },
+      "revId": "059d9a6b86a9ffaa75116efc4b83fb8879985c9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "58eae0a3_8da368ab",
         "filename": "redfish-core/lib/fabric_adapters.hpp",
         "patchSetId": 3
