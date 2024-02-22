@@ -89,6 +89,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "029b6006_feff605a",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2216,
+      "author": {
+        "id": 1000238
+      },
+      "writtenOn": "2024-02-22T21:28:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0950ff61_abe0082f",
+      "range": {
+        "startLine": 2216,
+        "startChar": 15,
+        "endLine": 2216,
+        "endChar": 20
+      },
+      "revId": "39451cd8450031a2c0bd4ddbb00398da1533fe19",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c16652e6_bbea89ef",
@@ -162,6 +186,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "038e40fa_1fe38367",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2257,
+      "author": {
+        "id": 1000238
+      },
+      "writtenOn": "2024-02-22T21:28:35Z",
+      "side": 1,
+      "message": "Yes, that was the intention. If any of these modes are not valid, we would not want to say it is available. That also should not prevent the setting of any of the valid modes.",
+      "parentUuid": "c16652e6_bbea89ef",
+      "range": {
+        "startLine": 2257,
+        "startChar": 0,
+        "endLine": 2257,
+        "endChar": 2
+      },
+      "revId": "39451cd8450031a2c0bd4ddbb00398da1533fe19",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4866d043_bbbf149f",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 5
@@ -188,6 +236,24 @@
         "id": 1000153
       },
       "writtenOn": "2024-02-22T21:20:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4866d043_bbbf149f",
+      "revId": "39451cd8450031a2c0bd4ddbb00398da1533fe19",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9bf513ca_6525920d",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2263,
+      "author": {
+        "id": 1000238
+      },
+      "writtenOn": "2024-02-22T21:28:35Z",
       "side": 1,
       "message": "Done",
       "parentUuid": "4866d043_bbbf149f",
@@ -229,6 +295,30 @@
         "id": 1000153
       },
       "writtenOn": "2024-02-22T21:20:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8596001_149b4a8b",
+      "range": {
+        "startLine": 2266,
+        "startChar": 0,
+        "endLine": 2271,
+        "endChar": 5
+      },
+      "revId": "39451cd8450031a2c0bd4ddbb00398da1533fe19",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46be4759_c35e1363",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2271,
+      "author": {
+        "id": 1000238
+      },
+      "writtenOn": "2024-02-22T21:28:35Z",
       "side": 1,
       "message": "Done",
       "parentUuid": "a8596001_149b4a8b",
