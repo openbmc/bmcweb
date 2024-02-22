@@ -16,6 +16,40 @@
       "message": "@Ed you want another look here?",
       "revId": "3c6cdd12348193207ba34e75cbbcbb6d20ef596c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3807d2d7_a0ae105d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 41
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-22T17:34:08Z",
+      "side": 1,
+      "message": "I\u0027m having trouble even determining how many mapper calls are being done here, so I stopped trying.\n\nthe correct progression is \n\nHTTP request\nsingle mapper call\ncall to daemon(s) the mapper returns\nReturn value to user\n\n\nIn some places this looks like it\u0027s doing 3 chained mapper calls, then trying to parse the result in bmcweb.  That results in a ton of code below.  Lets get it down to a mapper call per object we\u0027re looking up, then we can go from there.",
+      "revId": "3c6cdd12348193207ba34e75cbbcbb6d20ef596c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7bc1805_c2ff39e5",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-22T17:34:08Z",
+      "side": 1,
+      "message": "Looks like we\u0027re now duplicating a mapper call.",
+      "revId": "3c6cdd12348193207ba34e75cbbcbb6d20ef596c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
