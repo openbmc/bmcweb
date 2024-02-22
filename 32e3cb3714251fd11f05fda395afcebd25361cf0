@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "c96b82c4_eac778e0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-02-22T21:04:56Z",
+      "side": 1,
+      "message": "I think the metric service is showing it in bytes.  I ran the health-monitor locally and it has this from the `storage/tmp` metric:\n\n```\n.Value                                      property  d         3.11234e+07                                                                                                    emits-change\n```\n\n```\ntmpfs            32G  1.7G   30G   6% /tmp\n```\n\n\nI\u0027m not sure why it is only \"3\" in the commit message, but maybe @Jagpal can confirm.",
+      "parentUuid": "07ec7159_72c35c4d",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 2
+      },
+      "revId": "32e3cb3714251fd11f05fda395afcebd25361cf0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "94f91ed8_ee48c29f",
