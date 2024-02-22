@@ -402,6 +402,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8d11240_e3dbb46f",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-22T19:49:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b055d71b_3fe72525",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 5
+      },
+      "revId": "8c7b80d97f80baa0f262ce385350c4432a222a2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e0b5ccb2_6ce450e9",
@@ -462,6 +486,30 @@
       "writtenOn": "2024-02-22T19:01:29Z",
       "side": 1,
       "message": "Not sure why this was added, but I suspect it\u0027s not needed.\n\nArguably, this should be an unconditional internal error, because if systemd isn\u0027t up, something is very..... very wrong.\n\nWe don\u0027t do that so that when you run bmcweb locally it can still pass the service validator.\n\nIf this is a change you want to see, lets break it into its own patch so we can talk through it.",
+      "range": {
+        "startLine": 268,
+        "startChar": 0,
+        "endLine": 268,
+        "endChar": 2
+      },
+      "revId": "8c7b80d97f80baa0f262ce385350c4432a222a2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f8522fe_fb42fd97",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-22T19:49:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2be122d5_ba2b9ecc",
       "range": {
         "startLine": 268,
         "startChar": 0,
