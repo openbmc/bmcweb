@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8533dd2f_e14a174d",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-22T19:56:19Z",
+      "side": 1,
+      "message": "I slightly tweaked how this was done, should still give the same result but be a little more readable.  PTAL.",
+      "revId": "32e3cb3714251fd11f05fda395afcebd25361cf0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
