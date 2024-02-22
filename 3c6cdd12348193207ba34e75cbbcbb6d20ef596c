@@ -50,6 +50,29 @@
       "message": "Looks like we\u0027re now duplicating a mapper call.",
       "revId": "3c6cdd12348193207ba34e75cbbcbb6d20ef596c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "062313e8_e062bd67",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-22T17:38:03Z",
+      "side": 1,
+      "message": "Please review the WIP aiming to change these calls.",
+      "range": {
+        "startLine": 392,
+        "startChar": 21,
+        "endLine": 392,
+        "endChar": 32
+      },
+      "revId": "3c6cdd12348193207ba34e75cbbcbb6d20ef596c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
