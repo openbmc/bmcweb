@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac905c5a_cd0edad6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-22T21:20:33Z",
+      "side": 1,
+      "message": "Made the fixes I asked for.  @Chris, please review my mods.",
+      "revId": "39451cd8450031a2c0bd4ddbb00398da1533fe19",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0950ff61_abe0082f",
@@ -37,6 +54,30 @@
       "writtenOn": "2024-02-22T21:13:55Z",
       "side": 1,
       "message": "The only thing is this is used for both an internalError (PowerMode) and this just ignores when we don\u0027t have a valid one (PowerMode@Redfish.AllowableValues) , but if addresses the comment below on line 2257 then it is an internal error in both cases.",
+      "parentUuid": "0950ff61_abe0082f",
+      "range": {
+        "startLine": 2216,
+        "startChar": 15,
+        "endLine": 2216,
+        "endChar": 20
+      },
+      "revId": "39451cd8450031a2c0bd4ddbb00398da1533fe19",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6741e50_8da7f18b",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2216,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-22T21:20:33Z",
+      "side": 1,
+      "message": "Done",
       "parentUuid": "0950ff61_abe0082f",
       "range": {
         "startLine": 2216,
@@ -95,6 +136,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "29f5b972_a8eea850",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2257,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-22T21:20:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c16652e6_bbea89ef",
+      "range": {
+        "startLine": 2257,
+        "startChar": 0,
+        "endLine": 2257,
+        "endChar": 2
+      },
+      "revId": "39451cd8450031a2c0bd4ddbb00398da1533fe19",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4866d043_bbbf149f",
@@ -112,6 +177,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef4518eb_8e49e5c1",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2263,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-22T21:20:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4866d043_bbbf149f",
+      "revId": "39451cd8450031a2c0bd4ddbb00398da1533fe19",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a8596001_149b4a8b",
@@ -125,6 +208,30 @@
       "writtenOn": "2024-02-22T19:22:58Z",
       "side": 1,
       "message": "Just make powerMode a non-pointer, and this will be done automatically.",
+      "range": {
+        "startLine": 2266,
+        "startChar": 0,
+        "endLine": 2271,
+        "endChar": 5
+      },
+      "revId": "39451cd8450031a2c0bd4ddbb00398da1533fe19",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aacf0493_d8933737",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2271,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-22T21:20:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8596001_149b4a8b",
       "range": {
         "startLine": 2266,
         "startChar": 0,
