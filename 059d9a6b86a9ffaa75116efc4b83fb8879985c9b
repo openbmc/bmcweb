@@ -113,6 +113,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9adc0151_33ddc493",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-22T18:26:06Z",
+      "side": 1,
+      "message": "There are a few places that use `const std::function\u003c...\u003e\u0026 callback` as a parameter.\n\nhttps://github.com/search?q\u003drepo%3Aopenbmc%2Fbmcweb+%22%3E%26+callback%22\u0026type\u003dcode\n\nI think they were done as such due to same reasons.\n\nHere, as you suggested, I make it as a value",
+      "parentUuid": "4a72ffb7_71eea4a2",
+      "range": {
+        "startLine": 191,
+        "startChar": 29,
+        "endLine": 191,
+        "endChar": 62
+      },
+      "revId": "059d9a6b86a9ffaa75116efc4b83fb8879985c9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "58eae0a3_8da368ab",
