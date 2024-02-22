@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdfba613_b2feabb2",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-02-22T21:06:30Z",
+      "side": 1,
+      "message": "Why not add `src \u003d std::source_location::current` here and drop all the `{}` in the call sites?",
+      "revId": "6a2afbe711ca73482b1eec82f954cdaf6ee7e1cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "b62c6198_6da78ef2",
