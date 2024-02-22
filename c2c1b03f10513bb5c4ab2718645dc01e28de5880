@@ -72,6 +72,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff666b46_b4f86646",
+        "filename": "REDFISH_CHECKLIST.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-02-22T16:11:14Z",
+      "side": 1,
+      "message": "I like the Doc.",
+      "parentUuid": "f1c7bf76_c16c1a30",
+      "revId": "c2c1b03f10513bb5c4ab2718645dc01e28de5880",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b45e749b_fcab1ed6",
@@ -139,6 +157,24 @@
       "side": 1,
       "message": "\u003e \u003e Too much work to go check 5 boxes when submitting a commit? Or do you think we should not require these things?\n\u003e \n\u003e Like too much baby sitting. Like we shouldn\u0027t have to do this. \n\u003e \n\u003e I don\u0027t think we should have to have developers copy in a boilerplate and check off they have followed open source best practices? Are we really there?\n\nWhat\u0027s the alternative?",
       "parentUuid": "b6e83c5f_23d9c4e2",
+      "revId": "c2c1b03f10513bb5c4ab2718645dc01e28de5880",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c540b3f6_8c059267",
+        "filename": "REDFISH_CHECKLIST.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-02-22T16:11:14Z",
+      "side": 1,
+      "message": "I like the document more.",
+      "parentUuid": "8e70f5d6_dee7c921",
       "revId": "c2c1b03f10513bb5c4ab2718645dc01e28de5880",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
