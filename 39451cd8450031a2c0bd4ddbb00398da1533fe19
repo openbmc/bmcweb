@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0950ff61_abe0082f",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2216,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-22T19:22:58Z",
+      "side": 1,
+      "message": "this should be at ERROR severity.  We don\u0027t expect this to happen on a working system.",
+      "range": {
+        "startLine": 2216,
+        "startChar": 15,
+        "endLine": 2216,
+        "endChar": 20
+      },
+      "revId": "39451cd8450031a2c0bd4ddbb00398da1533fe19",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c16652e6_bbea89ef",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2257,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-22T19:22:58Z",
+      "side": 1,
+      "message": "as is, we\u0027re just dropping modes that we find that aren\u0027t valid?  Is that what you intended?  Generally we would set an internal Error if dbus didn\u0027t match PDI.",
+      "range": {
+        "startLine": 2257,
+        "startChar": 0,
+        "endLine": 2257,
+        "endChar": 2
+      },
+      "revId": "39451cd8450031a2c0bd4ddbb00398da1533fe19",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4866d043_bbbf149f",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2263,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-22T19:22:58Z",
+      "side": 1,
+      "message": "can we deduplicate lines 2263 and line 2252 with the other branch?  We\u0027re creating an array, and filling it with some values.  We shouldn\u0027t have two completely different construction paths to do that.\n\n```\n    nlohmann::json::array_t modeList;\n    if (allowedModes \u003d\u003d nullptr)\n    {\n        // Set default allowed modes\n        for (mode: {\n            \"Static\", \"MaximumPerformance\", \"PowerSaving\"}{\n          modeList.push_back(mode);  \n        }\n    }\n    else\n    {\n\n        for (const auto\u0026 aMode : *allowedModes)\n        {\n            const computer_system::PowerMode modeValue \u003d\n                translatePowerModeString(aMode);\n            if (modeValue !\u003d computer_system::PowerMode::Invalid)\n            {\n                modeList.emplace_back(modeValue);\n            }\n        }\n\n    }\n    asyncResp-\u003eres.jsonValue[\"PowerMode@Redfish.AllowableValues\"] \u003d\n            modeList;\n```",
+      "revId": "39451cd8450031a2c0bd4ddbb00398da1533fe19",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8596001_149b4a8b",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2271,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-22T19:22:58Z",
+      "side": 1,
+      "message": "Just make powerMode a non-pointer, and this will be done automatically.",
+      "range": {
+        "startLine": 2266,
+        "startChar": 0,
+        "endLine": 2271,
+        "endChar": 5
+      },
+      "revId": "39451cd8450031a2c0bd4ddbb00398da1533fe19",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
