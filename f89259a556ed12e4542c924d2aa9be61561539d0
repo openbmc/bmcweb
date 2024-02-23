@@ -105,6 +105,24 @@
       "parentUuid": "6c8d67c1_f47c3d9a",
       "revId": "f89259a556ed12e4542c924d2aa9be61561539d0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26a5ce1a_f173055f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-23T00:17:28Z",
+      "side": 1,
+      "message": "Thanks @Ed for making the patch concise.\n\nI have ran the Redfish Validator with the latest patch changes from @Ed and it PASSES.\n\nElapsed time: 0:03:14\nmetadataNamespaces: 3726   \npass: 5132   \npassAction: 9   \npassGet: 205   \npassRedfishUri: 197   \nskipNoSchema: 3   \nskipOptional: 3493   \nwarnDeprecated: 4   \nwarningPresent: 7   \nValidation has succeeded.",
+      "parentUuid": "32734e2c_769b76de",
+      "revId": "f89259a556ed12e4542c924d2aa9be61561539d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

@@ -122,6 +122,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "8aa21099_f9aa97a5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-23T00:17:28Z",
+      "side": 1,
+      "message": "Looks HealthMonitor was providing a KiB value rather than bytes, so i have raised a patch https://gerrit.openbmc.org/c/openbmc/phosphor-health-monitor/+/69583 to fix the HealthMonitor.\n\nI have updated the result in Comment Description based on latest results:\n\n{\n  \"@odata.id\": \"/redfish/v1/Managers/bmc/ManagerDiagnosticData\",\n  \"@odata.type\": \"#ManagerDiagnosticData.v1_2_0.ManagerDiagnosticData\",\n  \"FreeStorageSpaceKiB\": 3773,\n  \"Id\": \"ManagerDiagnosticData\",\n  \"MemoryStatistics\": {\n    \"AvailableBytes\": 355468000,\n    \"BuffersAndCacheBytes\": 78704000,\n    \"SharedBytes\": 11876000,\n    \"TotalBytes\": 425516000\n  },\n  \"Name\": \"Manager Diagnostic Data\",\n  \"ProcessorStatistics\": {\n    \"KernelPercent\": 7.7183,\n    \"UserPercent\": 1.3552\n  },\n  \"ServiceRootUptimeSeconds\": 1753.976\n}",
+      "parentUuid": "90f59df9_575d5036",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 2
+      },
+      "revId": "32e3cb3714251fd11f05fda395afcebd25361cf0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "94f91ed8_ee48c29f",
         "filename": "/COMMIT_MSG",
         "patchSetId": 16
