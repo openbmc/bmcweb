@@ -22,6 +22,30 @@
       },
       "revId": "cb0c4e0f448fb8943e97bd09111a502fa0082456",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ede4a4c_3e30ed60",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-23T17:42:20Z",
+      "side": 1,
+      "message": "Sure, i have reverted back it to earlier one.\n\nAlso ran the Redfish validator with latest patch and it passes.\n\nElapsed time: 0:03:12\nmetadataNamespaces: 3726   \npass: 5133   \npassAction: 9   \npassGet: 205   \npassRedfishUri: 197   \nskipNoSchema: 3   \nskipOptional: 3492   \nwarnDeprecated: 4   \nwarningPresent: 7   \nValidation has succeeded.",
+      "parentUuid": "06badce1_d0b1728a",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 16
+      },
+      "revId": "cb0c4e0f448fb8943e97bd09111a502fa0082456",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
