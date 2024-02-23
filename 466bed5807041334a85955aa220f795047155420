@@ -22,6 +22,30 @@
       },
       "revId": "466bed5807041334a85955aa220f795047155420",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0b34415_dd3d8ca1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-23T08:23:39Z",
+      "side": 1,
+      "message": "\u003e If you remove this code, the feature Virtual Media via Redfish will not work anymore.\n\nVirtual media via Redfish isn\u0027t under either option, so I\u0027m not sure what you mean.  Also, Redfish virtual media never worked upstream, as it relied on Intels virtual media implementation that never made it through code review.\n\nIt\u0027s good to hear someone is relying on this though.  What would you like to see happen here?  have you followed any of the discussions around the new VM implementation?",
+      "parentUuid": "3379bce6_6f9580c7",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 30
+      },
+      "revId": "466bed5807041334a85955aa220f795047155420",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
