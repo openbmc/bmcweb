@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63cf79e3_9c83db30",
+        "filename": "REDFISH_CHECKLIST.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-23T00:17:42Z",
+      "side": 1,
+      "message": "Isn\u0027t this line continuation of 7, looks like formatting issue?",
+      "revId": "1e442d9ab60a856439e51c106d16504b0b8e07cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90ee8541_a6168444",
+        "filename": "REDFISH_CHECKLIST.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-23T00:17:42Z",
+      "side": 1,
+      "message": "Do we need to mention that patch should test for service not being up error or path doesn\u0027t exist etc and shouldn\u0027t set such errors as internal errors. If this is already documented somewhere we should make sure corresponding D-Bus errors are captured there as i had to do some digging to find out those.",
+      "revId": "1e442d9ab60a856439e51c106d16504b0b8e07cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
