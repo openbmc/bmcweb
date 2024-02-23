@@ -343,6 +343,52 @@ inline void requestRoutesEventDestinationCollection(App& app)
             return;
         }
 
+        /* Check snmpTrap port.
+        1. Allow empty port, eg:
+        "snmp://9.41.166.76:".
+        2. Invalid ports and out of range ports are not allowed, eg:
+        "snmp://9.41.166.76:ab"
+        "snmp://9.41.166.76:-40"
+        "snmp://9.41.166.76:65536".
+        */
+        if (protocol == "snmp")
+        {
+            if (!url.value().port().empty())
+            {
+                uint16_t portTmp = 0;
+                // Check the port
+                auto ret = std::from_chars(url.value().port().data(),
+                                           url.value().port().data() +
+                                               url.value().port().size(),
+                                           portTmp);
+                if (ret.ec != std::errc())
+                {
+                    messages::propertyValueFormatError(asyncResp->res, destUrl,
+                                                       "Destination");
+                    return;
+                }
+            }
+            else
+            {
+                size_t pos = destUrl.find(':');
+                if (pos != std::string::npos)
+                {
+                    std::string tmp_str = std::string(destUrl).substr(pos + 1);
+                    size_t pos2 = tmp_str.find(':');
+                    if (pos2 != std::string::npos)
+                    {
+                        std::string port_str = tmp_str.substr(pos2 + 1);
+                        if (!port_str.empty())
+                        {
+                            messages::propertyValueFormatError(
+                                asyncResp->res, destUrl, "Destination");
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+
         if (protocol == "SNMPv2c")
         {
             if (context)
