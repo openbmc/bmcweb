@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c84a1d27_a80ed2a2",
+        "filename": "REDFISH_CHECKLIST.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-23T00:34:12Z",
+      "side": 1,
+      "message": "Weird... not sure how that happened.  Fixed.",
+      "parentUuid": "63cf79e3_9c83db30",
+      "revId": "1e442d9ab60a856439e51c106d16504b0b8e07cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "90ee8541_a6168444",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-02-23T00:17:42Z",
       "side": 1,
       "message": "Do we need to mention that patch should test for service not being up error or path doesn\u0027t exist etc and shouldn\u0027t set such errors as internal errors. If this is already documented somewhere we should make sure corresponding D-Bus errors are captured there as i had to do some digging to find out those.",
+      "revId": "1e442d9ab60a856439e51c106d16504b0b8e07cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "204f80b2_6ccad986",
+        "filename": "REDFISH_CHECKLIST.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-23T00:34:12Z",
+      "side": 1,
+      "message": "\u003e Do we need to mention that patch should test for service not being up error or path doesn\u0027t exist etc and shouldn\u0027t set such errors as internal errors.\n\nIn theory that\u0027s implied by #2 \". Document any client-facing changes in behavior in the commit message. Note, that this should include behavior changes that may not affect your system.\"\n\nBut you\u0027re right, that would be good to call out explicitly.  Good suggestion.\n\n\u003e If this is already documented somewhere we should make sure corresponding D-Bus errors are captured there as i had to do some digging to find out those.\n\nDBUS_USAGE.md is where such a thing would go.",
+      "parentUuid": "90ee8541_a6168444",
       "revId": "1e442d9ab60a856439e51c106d16504b0b8e07cd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
