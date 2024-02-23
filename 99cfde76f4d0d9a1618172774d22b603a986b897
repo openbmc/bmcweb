@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6107c982_dd54b49e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-02-23T13:58:26Z",
+      "side": 1,
+      "message": "Cool. A lot cleaner code",
+      "revId": "99cfde76f4d0d9a1618172774d22b603a986b897",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72c89faa_e642f120",
+        "filename": "redfish-core/src/utils/dbus_utils.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-02-23T13:58:26Z",
+      "side": 1,
+      "message": "```#include \u003cstring_view\u003e```",
+      "revId": "99cfde76f4d0d9a1618172774d22b603a986b897",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb4bd30e_316d9545",
+        "filename": "redfish-core/src/utils/dbus_utils.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-02-23T13:58:26Z",
+      "side": 1,
+      "message": "And we would had an if here for errorName \u003d\u003d ...InvalidArgument ? And whatever other messages we support",
+      "revId": "99cfde76f4d0d9a1618172774d22b603a986b897",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffcca2e8_56db6d95",
+        "filename": "redfish-core/src/utils/dbus_utils.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-02-23T13:58:26Z",
+      "side": 1,
+      "message": "Can this have a\n\nBMCWEB_LOG_ERROR(\"D-Bus responses error: {}\", ec);",
+      "revId": "99cfde76f4d0d9a1618172774d22b603a986b897",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
