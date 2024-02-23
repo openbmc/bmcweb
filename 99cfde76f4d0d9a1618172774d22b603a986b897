@@ -18,6 +18,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5bba0c23_e45a4161",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-02-23T16:22:46Z",
+      "side": 1,
+      "message": "There are still lot of places this D-bus msg errors are not handled properly.\nusing this utility everywhere while calling setProperty may solve all error handling issues",
+      "revId": "99cfde76f4d0d9a1618172774d22b603a986b897",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "72c89faa_e642f120",
@@ -31,6 +48,40 @@
       "writtenOn": "2024-02-23T13:58:26Z",
       "side": 1,
       "message": "```#include \u003cstring_view\u003e```",
+      "revId": "99cfde76f4d0d9a1618172774d22b603a986b897",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f8df783_26bd3f02",
+        "filename": "redfish-core/src/utils/dbus_utils.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-02-23T16:22:46Z",
+      "side": 1,
+      "message": "use else if?",
+      "revId": "99cfde76f4d0d9a1618172774d22b603a986b897",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "251736df_186f25aa",
+        "filename": "redfish-core/src/utils/dbus_utils.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-02-23T16:22:46Z",
+      "side": 1,
+      "message": "can we add one common error trace which include errorName so that don\u0027t need to add a trace in each if check\n\nBMCWEB_LOG_WARNING(\"DBUS error: {}\", errorName);",
       "revId": "99cfde76f4d0d9a1618172774d22b603a986b897",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +105,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2013401f_9b8d17b2",
+        "filename": "redfish-core/src/utils/dbus_utils.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-02-23T16:22:46Z",
+      "side": 1,
+      "message": "can we add checks for all errors parsed in existing setProperty calls?",
+      "revId": "99cfde76f4d0d9a1618172774d22b603a986b897",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ffcca2e8_56db6d95",
         "filename": "redfish-core/src/utils/dbus_utils.cpp",
         "patchSetId": 5
@@ -65,6 +133,24 @@
       "writtenOn": "2024-02-23T13:58:26Z",
       "side": 1,
       "message": "Can this have a\n\nBMCWEB_LOG_ERROR(\"D-Bus responses error: {}\", ec);",
+      "revId": "99cfde76f4d0d9a1618172774d22b603a986b897",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2bd6dbcb_8746c2e6",
+        "filename": "redfish-core/src/utils/dbus_utils.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-02-23T16:22:46Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "ffcca2e8_56db6d95",
       "revId": "99cfde76f4d0d9a1618172774d22b603a986b897",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
