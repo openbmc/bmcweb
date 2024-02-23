@@ -75,12 +75,40 @@ inline void setPowerCapOverride(
         {
             return;
         }
+
+        constexpr std::array<std::string_view, 1> interfaces = {
+            "xyz.openbmc_project.Control.Power.Cap"};
+        std::string powerCapService;
+        dbus::utility::getDbusObject(
+            "/xyz/openbmc_project/control/host0/power_cap", interfaces,
+            [value, sensorsAsyncResp,
+             &powerCapService](const boost::system::error_code& ec,
+                               const dbus::utility::MapperGetObject& objects) {
+            if (ec)
+            {
+                messages::internalError(sensorsAsyncResp->asyncResp->res);
+                BMCWEB_LOG_ERROR("powerCapEnable Get handler: Dbus error {}",
+                                 ec);
+                return;
+            }
+
+            if (objects.size() != 1)
+            {
+                messages::internalError(sensorsAsyncResp->asyncResp->res);
+                BMCWEB_LOG_ERROR(
+                    "Unexpected number of Power cap services found: {}, Expected: 1",
+                    objects.size());
+                return;
+            }
+            powerCapService = objects[0].first;
+        });
+
         sdbusplus::asio::getProperty<bool>(
-            *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+            *crow::connections::systemBus, powerCapService,
             "/xyz/openbmc_project/control/host0/power_cap",
             "xyz.openbmc_project.Control.Power.Cap", "PowerCapEnable",
-            [value, sensorsAsyncResp](const boost::system::error_code& ec,
-                                      bool powerCapEnable) {
+            [value, sensorsAsyncResp, powerCapService](
+                const boost::system::error_code& ec, bool powerCapEnable) {
             if (ec)
             {
                 messages::internalError(sensorsAsyncResp->asyncResp->res);
@@ -98,7 +126,7 @@ inline void setPowerCapOverride(
             }
 
             sdbusplus::asio::setProperty(
-                *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+                *crow::connections::systemBus, powerCapService,
                 "/xyz/openbmc_project/control/host0/power_cap",
                 "xyz.openbmc_project.Control.Power.Cap", "PowerCap", *value,
                 [sensorsAsyncResp](const boost::system::error_code& ec2) {
@@ -287,8 +315,34 @@ inline void requestRoutesPower(App& app)
                 }
             };
 
+            std::string powerCapService;
+            constexpr std::array<std::string_view, 1> interfaces = {
+                "xyz.openbmc_project.Control.Power.Cap"};
+
+            dbus::utility::getDbusObject(
+                "/xyz/openbmc_project/control/host0/power_cap", interfaces,
+                [sensorAsyncResp, &powerCapService](
+                    const boost::system::error_code& ec,
+                    const dbus::utility::MapperGetObject& objects) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR(
+                        "powerCapEnable Get handler: Dbus error {}", ec);
+                    return;
+                }
+
+                if (objects.size() != 1)
+                {
+                    messages::internalError(sensorAsyncResp->asyncResp->res);
+                    BMCWEB_LOG_ERROR(
+                        "Unexpected number of Power cap services found: {}, Expected: 1",
+                        objects.size());
+                    return;
+                }
+                powerCapService = objects[0].first;
+            });
             sdbusplus::asio::getAllProperties(
-                *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+                *crow::connections::systemBus, powerCapService,
                 "/xyz/openbmc_project/control/host0/power_cap",
                 "xyz.openbmc_project.Control.Power.Cap",
                 std::move(valueHandler));
