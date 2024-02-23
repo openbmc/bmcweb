@@ -33,6 +33,23 @@
       "message": "This commit is showing error in the segment which is outside the scope of this change.\nAny input on these errors will be appreciated.\n\nscripts/hostlogger_test.py:9:1: F401 \u0027os.path\u0027 imported but unused\nimport os.path\n^\nscripts/hostlogger_test.py:13:1: F401 \u0027requests.auth.HTTPBasicAuth\u0027 imported but unused\nfrom requests.auth import HTTPBasicAuth\n^\nscripts/hostlogger_test.py:48:5: F841 local variable \u0027err\u0027 is assigned to but never used\n    except Exception as err:\n    ^\nscripts/hostlogger_test.py:66:11: F523 \u0027...\u0027.format(...) has unused arguments at position(s): 0\n        + \"LogServices/HostLogger/Entries/\".format(args.host)\n          ^\nscripts/parse_registries.py:168:13: F522 \u0027...\u0027.format(...) has unused named argument(s): filename\n            \"#pragma once\\n\"\n            ^\nscripts/update_schemas.py:6:1: F401 \u0027collections.OrderedDict\u0027 imported but unused\nfrom collections import OrderedDict\n^\nscripts/update_schemas.py:8:1: F401 \u0027json\u0027 imported but unused\nimport json",
       "revId": "a4bc40f769cdcb93eeaf8691b9c5fc5bf312b670",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ad7c4cb_7831c78c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-23T17:29:06Z",
+      "side": 1,
+      "message": "Is this still being worked?",
+      "revId": "a4bc40f769cdcb93eeaf8691b9c5fc5bf312b670",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
