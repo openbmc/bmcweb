@@ -24,6 +24,7 @@
 #include "app.hpp"
 #include "dbus_utility.hpp"
 #include "health.hpp"
+#include "led.hpp"
 #include "query.hpp"
 #include "redfish_util.hpp"
 #include "registries/privilege_registry.hpp"
@@ -49,6 +50,63 @@
 
 namespace redfish
 {
+inline void afterSetLocationIndicatorActiveState(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    bool locationIndicatorActive, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_DEBUG("DBUS response error {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    if (subtree.empty())
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    // Assume only 1 bmc D-Bus object
+    // Throw an error if there is more than 1
+    if (subtree.size() > 1)
+    {
+        BMCWEB_LOG_DEBUG("Found more than 1 bmc D-Bus object!");
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    if (subtree[0].first.empty())
+    {
+        BMCWEB_LOG_DEBUG("Error getting bmc D-Bus object!");
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    setLocationIndicatorActive(asyncResp, subtree[0].first,
+                               locationIndicatorActive);
+}
+
+/**
+ * Set the locationIndicatorActive.
+ *
+ * @param[in,out]   asyncResp                       Async HTTP response.
+ * @param[in]       locationIndicatorActive     Value of the property
+ */
+inline void setLocationIndicatorActiveState(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    bool locationIndicatorActive)
+{
+    BMCWEB_LOG_DEBUG("Get available manager resources.");
+
+    // GetSubTree on all interfaces which provide info about a Manager
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.Inventory.Item.Bmc"};
+    dbus::utility::getSubTree(
+        "/xyz/openbmc_project/inventory", 0, interfaces,
+        std::bind_front(afterSetLocationIndicatorActiveState, asyncResp,
+                        locationIndicatorActive));
+}
 
 /**
  * Function reboots the BMC.
@@ -2179,6 +2237,11 @@ inline void requestRoutesManager(App& app)
                 {
                     getLocation(asyncResp, connectionName, path);
                 }
+                else if (interfaceName ==
+                         "xyz.openbmc_project.Association.Definitions")
+                {
+                    getLocationIndicatorActive(asyncResp, path);
+                }
             }
         });
     });
@@ -2195,9 +2258,11 @@ inline void requestRoutesManager(App& app)
         std::optional<nlohmann::json> oem;
         std::optional<nlohmann::json> links;
         std::optional<std::string> datetime;
+        std::optional<bool> locationIndicatorActive;
 
-        if (!json_util::readJsonPatch(req, asyncResp->res, "Oem", oem,
-                                      "DateTime", datetime, "Links", links))
+        if (!json_util::readJsonPatch(
+                req, asyncResp->res, "Oem", oem, "DateTime", datetime, "Links",
+                links, "LocationIndicatorActive", locationIndicatorActive))
         {
             return;
         }
@@ -2286,6 +2351,11 @@ inline void requestRoutesManager(App& app)
         if (datetime)
         {
             setDateTime(asyncResp, std::move(*datetime));
+        }
+        if (locationIndicatorActive)
+        {
+            setLocationIndicatorActiveState(asyncResp,
+                                            *locationIndicatorActive);
         }
     });
 }
