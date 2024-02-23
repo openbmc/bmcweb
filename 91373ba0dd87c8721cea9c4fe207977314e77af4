@@ -87,6 +87,24 @@
       "parentUuid": "407ac99f_e41534eb",
       "revId": "91373ba0dd87c8721cea9c4fe207977314e77af4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af903735_c982c472",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-02-23T16:35:14Z",
+      "side": 1,
+      "message": "posted review comments there.\nI need to modify this commit to use utility method implemented in the given commit right?",
+      "parentUuid": "fcae926d_91e63ccd",
+      "revId": "91373ba0dd87c8721cea9c4fe207977314e77af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
