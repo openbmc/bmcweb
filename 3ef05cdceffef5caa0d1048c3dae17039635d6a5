@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "75f67334_74b149c4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-02-23T17:31:55Z",
+      "side": 1,
+      "message": "so it was always showing wrong status and disable DNS was not working",
+      "parentUuid": "5d9b7806_a03a81d5",
+      "range": {
+        "startLine": 10,
+        "startChar": 3,
+        "endLine": 10,
+        "endChar": 7
+      },
+      "revId": "3ef05cdceffef5caa0d1048c3dae17039635d6a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c76b3617_9114b8c9",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
