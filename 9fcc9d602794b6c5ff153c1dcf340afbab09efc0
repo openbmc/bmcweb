@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ff1d29a_f2d89fe6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-23T20:22:18Z",
+      "side": 1,
+      "message": "Fixed it.",
+      "parentUuid": "8d25b9e8_1f4d81b7",
+      "revId": "9fcc9d602794b6c5ff153c1dcf340afbab09efc0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ad76204f_adf37ea2",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-02-23T04:08:47Z",
       "side": 1,
       "message": "-9. Verify that all DBus usages match phosphor-dbus-interfaces, or include a link\n+8. Verify that all DBus usages match phosphor-dbus-interfaces, or include a link \n\nIs the CI fail",
+      "revId": "9fcc9d602794b6c5ff153c1dcf340afbab09efc0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9542555f_2cea236f",
+        "filename": "REDFISH_CHECKLIST.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-23T20:22:18Z",
+      "side": 1,
+      "message": "Fixed it.",
+      "parentUuid": "ad76204f_adf37ea2",
       "revId": "9fcc9d602794b6c5ff153c1dcf340afbab09efc0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
