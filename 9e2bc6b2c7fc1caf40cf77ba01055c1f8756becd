@@ -162,6 +162,41 @@
       "message": "Been a few months.  What do we want to do here?",
       "revId": "9e2bc6b2c7fc1caf40cf77ba01055c1f8756becd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52f9a86f_95359bcf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2024-02-23T18:18:33Z",
+      "side": 1,
+      "message": "I almost want to propose a new meson (build-time) option to control this ~ https://github.com/openbmc/bmcweb/blob/master/meson_options.txt\n\noption(\n    \u0027clear-site-data-on-logout\u0027,\n    type: \u0027feature\u0027,\n    value: \u0027enabled\u0027,\n    description: \u0027\u0027\u0027Use the Clear-Site-Data header on the logout response. Enable\n                    for better security. Disable to allow complex scenarios of\n                    concurrent sessions to share storage.\u0027\u0027\u0027\n)",
+      "parentUuid": "4636d3a3_569b294a",
+      "revId": "9e2bc6b2c7fc1caf40cf77ba01055c1f8756becd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4be4a81b_001e11c3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2024-02-23T18:18:33Z",
+      "side": 1,
+      "message": "A new bmcweb meson feature?",
+      "revId": "9e2bc6b2c7fc1caf40cf77ba01055c1f8756becd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
