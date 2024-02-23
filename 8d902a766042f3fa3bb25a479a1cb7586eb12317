@@ -16,6 +16,24 @@
       "message": "What about    const std::string\u0026 adapterId, const std::string\u0026 systemName, ? \nIf you have these, I feel they should be correct. You could just remove.",
       "revId": "8d902a766042f3fa3bb25a479a1cb7586eb12317",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98e78387_7e0ce3ad",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-23T13:24:11Z",
+      "side": 1,
+      "message": "Yes, we can remove this comment line.\n\nIn addition, checking `(systemName !\u003d \"system\")` from `getValidFabricAdapterPath` is better moved to the caller route handler like the other cases.  This will prevent the duplicate `systemName` checkings if `getValidFabricAdapterPath()` are used other cases.",
+      "parentUuid": "bce6a906_825f82ef",
+      "revId": "8d902a766042f3fa3bb25a479a1cb7586eb12317",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
