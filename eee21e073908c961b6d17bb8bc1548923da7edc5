@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d89e3e86_75437d0b",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 1978,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-23T08:17:08Z",
+      "side": 1,
+      "message": "This variable looks unused.",
+      "range": {
+        "startLine": 1978,
+        "startChar": 1,
+        "endLine": 1978,
+        "endChar": 47
+      },
+      "revId": "eee21e073908c961b6d17bb8bc1548923da7edc5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
