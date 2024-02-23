@@ -50,6 +50,24 @@
       "message": "A lot of code in bmcweb would just return here. \nWe haven\u0027t been clear about if we should gather as many properties as we can or just give up on the first failure.  OH well, not to be solved here",
       "revId": "64b67166cb3ecb3f09bc8a660c1b8213d46a6718",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de69798b_91526cbc",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 2260,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-23T08:11:18Z",
+      "side": 1,
+      "message": "I think it\u0027s largely that I don\u0027t care to enforce consistent behavior in that case. No working system should have that failure, so it\u0027s debatable if we\u0027re \"failing better\" is helpful at all.",
+      "parentUuid": "713ef656_a1a52018",
+      "revId": "64b67166cb3ecb3f09bc8a660c1b8213d46a6718",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
