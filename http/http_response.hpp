@@ -220,10 +220,6 @@ struct Response
     void end()
     {
         std::string etag = computeEtag();
-        if (!etag.empty())
-        {
-            addHeader(http::field::etag, etag);
-        }
         if (completed)
         {
             BMCWEB_LOG_ERROR("{} Response was ended twice", logPtr(this));
