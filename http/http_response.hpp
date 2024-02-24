@@ -47,6 +47,12 @@ struct Response
         fields().insert(key, value);
     }
 
+    // set a header value by removing any existing values with the key
+    void setHeader(http::field key, std::string_view value)
+    {
+        fields().set(key, value);
+    }
+
     void clearHeader(http::field key)
     {
         fields().erase(key);
@@ -222,7 +228,7 @@ struct Response
         std::string etag = computeEtag();
         if (!etag.empty())
         {
-            addHeader(http::field::etag, etag);
+            setHeader(http::field::etag, etag);
         }
         if (completed)
         {
@@ -267,7 +273,7 @@ struct Response
         }
         size_t hashval = std::hash<nlohmann::json>{}(jsonValue);
         std::string hexVal = "\"" + intToHexString(hashval, 8) + "\"";
-        addHeader(http::field::etag, hexVal);
+        setHeader(http::field::etag, hexVal);
         if (expectedHash && hexVal == *expectedHash)
         {
             jsonValue = nullptr;
