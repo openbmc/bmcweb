@@ -56,6 +56,29 @@
       "message": "clang-format",
       "revId": "3286a68db411224ee759fffc6ef5232b2d027dd9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2dbabe0_cfd32f45",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-26T11:37:14Z",
+      "side": 1,
+      "message": "Bypassing auth seems bypassed in handleIfMatch() -- even also if the client reconnects but sending the previous \u0027etag` value ??\n\nShould every a new request (including PATCH) even if it has a valid etag should still be validated again?",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 46
+      },
+      "revId": "3286a68db411224ee759fffc6ef5232b2d027dd9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
