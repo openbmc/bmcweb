@@ -16,6 +16,24 @@
       "message": "This is the same problem as https://gerrit.openbmc.org/c/openbmc/bmcweb/+/66685  ?",
       "revId": "3ee0f4b0736aecd7443c1d04f8faa309b8c01848",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c41b6ee2_95783621",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-26T11:38:09Z",
+      "side": 1,
+      "message": "The part of the issues is the same.\n\nThe one part (bypass auth) in https://gerrit.openbmc.org/c/openbmc/bmcweb/+/66685 may be okay, but I\u0027m not sure whether the approach is correct for all `handleIfMatch()` cases - e.g. just because sending \u0027etag\u0027 by the client?\n\nI think every request (regardless whether a etag in request matches or not) still be validated?\n\nI\u0027ll make a comment to it.\n\nSecond part (duplicate etags on GET and redfishtool passes the duplicate ones back to bmcweb) is not still happening and redfishtool PATCH will not match etag (perhaps even if the core does not occur).",
+      "parentUuid": "eacbccbc_1b69d4ce",
+      "revId": "3ee0f4b0736aecd7443c1d04f8faa309b8c01848",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
