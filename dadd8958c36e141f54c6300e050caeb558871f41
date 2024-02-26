@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "39b8f950_ffc414e5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 29
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2024-02-26T10:56:16Z",
+      "side": 1,
+      "message": "Sorry that I was not responsive. I was waiting for the patch adding associations between this sensor and chassis to be merged before proceeding with this, but it\u0027s stayed so long. I will try better. Thank you very much for your time and support.",
+      "parentUuid": "822cadba_d38ed322",
+      "revId": "dadd8958c36e141f54c6300e050caeb558871f41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4edc5d3c_890d084c",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 29
@@ -31,6 +49,30 @@
       "writtenOn": "2024-02-23T08:14:39Z",
       "side": 1,
       "message": "Why the second mapper call here?\n\nDon\u0027t we already have this information in the mapper call two levels up in the stack, where we do a full subtree?",
+      "range": {
+        "startLine": 737,
+        "startChar": 0,
+        "endLine": 740,
+        "endChar": 44
+      },
+      "revId": "dadd8958c36e141f54c6300e050caeb558871f41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb27489e_cf45356a",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 740,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2024-02-26T10:56:16Z",
+      "side": 1,
+      "message": "\u003e Don\u0027t we already have this information in the mapper call two levels up in the stack, where we do a full subtree?\n\nDo you mean the call to retrieve inventory paths with Board and Chassis interfaces. If so, I think it does not provide what I want here.\n\n\u003e Why the second mapper call here?\n\nAs I tried to get moniterd_by endpoints of the chassis, there can be many of them. In order to check if the chassis has one intrusion sensor managing it, I call getSubTree with `intrusionInterfaces` and see if it is among the monitored_by endpoint lists.\n\nDoes this address your concerns well? Hope to receive your input.",
+      "parentUuid": "4edc5d3c_890d084c",
       "range": {
         "startLine": 737,
         "startChar": 0,
@@ -66,6 +108,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "75a3ac03_505e089d",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 850,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2024-02-26T10:56:16Z",
+      "side": 1,
+      "message": "Because I want to ensure that only the chassis associated with the intrusion sensor can write to the property. I did this both in GET and PATCH functions which does not look good. I have tried to clean it up by using common functions. Hope it\u0027s easier to look at now. Please help check if it makes sense.",
+      "parentUuid": "fd8a813b_e180ba35",
+      "range": {
+        "startLine": 850,
+        "startChar": 0,
+        "endLine": 850,
+        "endChar": 43
+      },
+      "revId": "dadd8958c36e141f54c6300e050caeb558871f41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f342ea63_f7421931",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 29
@@ -77,6 +143,30 @@
       "writtenOn": "2024-02-23T08:14:39Z",
       "side": 1,
       "message": "Common error.  Please don\u0027t do object path manipulations using strings.  Please use the object_path class.",
+      "range": {
+        "startLine": 851,
+        "startChar": 0,
+        "endLine": 851,
+        "endChar": 38
+      },
+      "revId": "dadd8958c36e141f54c6300e050caeb558871f41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a2ff900_c4b54aec",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 851,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2024-02-26T10:56:16Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "f342ea63_f7421931",
       "range": {
         "startLine": 851,
         "startChar": 0,
@@ -110,6 +200,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "01468ca9_b88a5134",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 866,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2024-02-26T10:56:16Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "39bde942_baf46a04",
+      "range": {
+        "startLine": 852,
+        "startChar": 7,
+        "endLine": 866,
+        "endChar": 5
+      },
+      "revId": "dadd8958c36e141f54c6300e050caeb558871f41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a5817cb4_64c071f3",
@@ -123,6 +237,30 @@
       "writtenOn": "2024-02-23T08:14:39Z",
       "side": 1,
       "message": "param is already a const string\u0026.  If you want to rename the variable, just rename the variable, don\u0027t make another variable with the name name, type, and const level.",
+      "range": {
+        "startLine": 895,
+        "startChar": 0,
+        "endLine": 895,
+        "endChar": 41
+      },
+      "revId": "dadd8958c36e141f54c6300e050caeb558871f41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "179dc3c2_923180ec",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 895,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2024-02-26T10:56:16Z",
+      "side": 1,
+      "message": "Acknowledged. Will update in the next PS.",
+      "parentUuid": "a5817cb4_64c071f3",
       "range": {
         "startLine": 895,
         "startChar": 0,
