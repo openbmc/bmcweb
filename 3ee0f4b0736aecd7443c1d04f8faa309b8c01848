@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "98cc7c24_0f1117df",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-27T13:10:21Z",
+      "side": 1,
+      "message": "I\u0027ll keep this commit for etag handling.\ncoredump on validiate-auth is submitted via https://gerrit.openbmc.org/c/openbmc/bmcweb/+/69702",
+      "parentUuid": "bc76dd7a_88dc1345",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 39
+      },
+      "revId": "3ee0f4b0736aecd7443c1d04f8faa309b8c01848",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4ab3cc1c_bac6cee2",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-02-26T23:19:00Z",
       "side": 1,
       "message": "Do we know why in code the ETag is being set twice?\n\nI\u0027m probably ok with how you fixed it, but it would be MUCH better if we could just understand why addHeader is being calculated twice.\n\nLooking at the code, that would imply that the Response is having end() called twice.  It should only ever be called once.",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 18
+      },
+      "revId": "3ee0f4b0736aecd7443c1d04f8faa309b8c01848",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db418697_8bc6742d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-27T13:10:21Z",
+      "side": 1,
+      "message": "etags are generated in 2 places - response end() and setHashAndHandleNotModified().\nPerhaps, it can be handled by checking whether it was already generated or not.\nHowever, I think using `setHeader()` seems simpler and clearer.\n\nHere is the debug trace:\n\n```\n[INFO http_connection.hpp:248] Request:  0x927958 HTTP/1.1 GET /redfish/v1/AccountService/Accounts/readonly 9.61.58.15\n[DEBUG http_connection.hpp:280] Setting completion handler\n[DEBUG http_response.hpp:244] 0x868530 setting completion handler\n[DEBUG routing.hpp:669] Matched rule \u0027/redfish/v1/AccountService/Accounts/\u003cstr\u003e/\u0027 1 / 2\n[DEBUG dbus_privileges.hpp:53] userName \u003d admin userRole \u003d priv-admin\n[DEBUG query.hpp:121] setup redfish route\n[DEBUG http_response.hpp:254] 0x868530 releasing completion handlertrue\n[DEBUG http_response.hpp:244] 0x868530 setting completion handler\n\u003d\u003d\u003d\u003e\n[INFO http_response.hpp:225] TEST: Add etag at http_response end()\n[DEBUG http_response.hpp:234] 0x868530 calling completion handler\n[DEBUG http_response.hpp:237] 0x868530 completion handler was valid\n[DEBUG query_param.hpp:1017] Processing query params\n[DEBUG http_response.hpp:75] Moving response containers; this: 0x92ac58; other: 0x868530\n[INFO complete_response_fields.hpp:22] Response:  /redfish/v1/AccountService/Accounts/readonly 200\n\u003d\u003d\u003d\u003e\n[INFO http_response.hpp:272] TEST: Add etag at setHashAndHandleNotModified()  \n[DEBUG http_connection.hpp:547] 0x927958 doWrite\n[INFO http_file_body.hpp:202] Returning 627 bytes more\u003dfalse\n[DEBUG http_response.hpp:244] 0x92ac58 setting completion handler\n[DEBUG http_connection.hpp:514] 0x927958 async_write 2037 bytes\n[DEBUG http_connection.hpp:531] 0x927958 Clearing response\n[DEBUG http_response.hpp:191] 0x92ac58 Clearing response containers\n[DEBUG http_connection.hpp:391] 0x927958 doReadHeaders\n[DEBUG http_connection.hpp:402] 0x927958 async_read_header 0 Bytes\n[WARNING http_connection.hpp:411] 0x927958 Error while reading: end of stream\n[DEBUG http_connection.hpp:420] 0x927958 from read(1)\n[DEBUG http_response.hpp:244] 0x92ac58 setting completion handler\n[DEBUG http_connection.hpp:89] 0x927958 Connection closed, total 1\n```",
+      "parentUuid": "4ab3cc1c_bac6cee2",
       "range": {
         "startLine": 29,
         "startChar": 0,
@@ -78,6 +126,24 @@
       "side": 1,
       "message": "The part of the issues is the same.\n\nThe one part (bypass auth) in https://gerrit.openbmc.org/c/openbmc/bmcweb/+/66685 may be okay, but I\u0027m not sure whether the approach is correct for all `handleIfMatch()` cases - e.g. just because sending \u0027etag\u0027 by the client?\n\nI think every request (regardless whether a etag in request matches or not) still be validated?\n\nI\u0027ll make a comment to it.\n\nSecond part (duplicate etags on GET and redfishtool passes the duplicate ones back to bmcweb) is not still happening and redfishtool PATCH will not match etag (perhaps even if the core does not occur).",
       "parentUuid": "eacbccbc_1b69d4ce",
+      "revId": "3ee0f4b0736aecd7443c1d04f8faa309b8c01848",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb6990a4_67def686",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-02-27T13:10:21Z",
+      "side": 1,
+      "message": "Duplicated etag issue will be done via this commit.\nThe coredump issue will be handled by https://gerrit.openbmc.org/c/openbmc/bmcweb/+/69702. (which may need to be reviewed/compared with https://gerrit.openbmc.org/c/openbmc/bmcweb/+/66685",
+      "parentUuid": "c41b6ee2_95783621",
       "revId": "3ee0f4b0736aecd7443c1d04f8faa309b8c01848",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
