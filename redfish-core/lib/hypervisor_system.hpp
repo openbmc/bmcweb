@@ -5,6 +5,7 @@
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "ethernet.hpp"
+#include "event_service_manager.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "resource_messages.hpp"
