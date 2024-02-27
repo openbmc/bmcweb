@@ -101,6 +101,7 @@ include_list = [
     "Privileges",  # Used in Role
     "Processor",
     "ProcessorCollection",
+    "Protocol",
     "RedfishError",
     "RedfishExtensions",
     "Redundancy",
