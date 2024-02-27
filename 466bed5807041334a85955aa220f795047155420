@@ -46,6 +46,30 @@
       },
       "revId": "466bed5807041334a85955aa220f795047155420",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07281f17_311e7fbf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2024-02-27T09:24:52Z",
+      "side": 1,
+      "message": "Hi @Ed, I mean if you remove this flag `BMCWEB_ENABLE_VM_NBDPROXY` and its related code the feature virtual media via redfish will not work anymore.\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/managers.hpp#L1936\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/include/redfish.hpp#L193",
+      "parentUuid": "b0b34415_dd3d8ca1",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 30
+      },
+      "revId": "466bed5807041334a85955aa220f795047155420",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
