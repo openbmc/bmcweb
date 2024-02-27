@@ -936,6 +936,14 @@ other.
 - TotalThreads
 - Version
 
+### /redfish/v1/Systems/system/ResetActionInfo/
+
+#### ActionInfo
+
+- Parameters/AllowableValues
+- Parameters/DataType
+- Parameters/Required
+
 ### /redfish/v1/Systems/system/Storage/
 
 #### StorageCollection
