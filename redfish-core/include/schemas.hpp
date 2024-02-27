@@ -93,6 +93,7 @@ namespace redfish
         "Privileges",
         "Processor",
         "ProcessorCollection",
+        "Protocol",
         "redfish-error",
         "redfish-payload-annotations",
         "redfish-schema",

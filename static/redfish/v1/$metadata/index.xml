@@ -2862,6 +2862,9 @@
     <edmx:Reference Uri="/redfish/v1/schema/ProcessorCollection_v1.xml">
         <edmx:Include Namespace="ProcessorCollection"/>
     </edmx:Reference>
+    <edmx:Reference Uri="/redfish/v1/schema/Protocol_v1.xml">
+        <edmx:Include Namespace="Protocol"/>
+    </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/RedfishError_v1.xml">
         <edmx:Include Namespace="RedfishError.v1_0_0"/>
         <edmx:Include Namespace="RedfishError.v1_0_1"/>
