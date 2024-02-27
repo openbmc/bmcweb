@@ -722,6 +722,8 @@ other.
 
 ### /redfish/v1/Systems/system/
 
+- Locked@Redfish.AllowableValues
+
 #### ComputerSystem
 
 - Actions
