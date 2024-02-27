@@ -70,6 +70,23 @@
       },
       "revId": "466bed5807041334a85955aa220f795047155420",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53f1832d_95dd8e39",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2024-02-27T09:27:55Z",
+      "side": 1,
+      "message": "For more information, I have applied 4 patches:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/69333\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/69334/8\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/69335/4\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/69336/4\n\nThe feature Virtual Media via Redfish works properly if I re-enable `BMCWEB_ENABLE_VM_NBDPROXY`.",
+      "revId": "466bed5807041334a85955aa220f795047155420",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
