@@ -3585,6 +3585,75 @@ inline void handleSystemCollectionResetActionHead(
         boost::beast::http::field::link,
         "</redfish/v1/JsonSchemas/ActionInfo/ActionInfo.json>; rel=describedby");
 }
+inline void afterGetAllowedHostTransitions(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const std::vector<std::string>& allowedHostTransitions)
+{
+    nlohmann::json::array_t parameters;
+    nlohmann::json::object_t parameter;
+
+    parameter["Name"] = "ResetType";
+    parameter["Required"] = true;
+    parameter["DataType"] = "String";
+    nlohmann::json::array_t allowableValues;
+
+    // Supported on all systems currently
+    allowableValues.emplace_back("ForceOff");
+    allowableValues.emplace_back("PowerCycle");
+    allowableValues.emplace_back("Nmi");
+
+    // If error or empty put in defaults
+    if (ec || allowedHostTransitions.empty())
+    {
+        BMCWEB_LOG_DEBUG(
+            "afterGetAllowedHostTransitions got DBUS response error or empty response");
+        allowableValues.emplace_back("On");
+        allowableValues.emplace_back("ForceOn");
+        allowableValues.emplace_back("ForceRestart");
+        allowableValues.emplace_back("GracefulRestart");
+        allowableValues.emplace_back("GracefulShutdown");
+    }
+    else
+    {
+        for (const std::string& transition : allowedHostTransitions)
+        {
+            BMCWEB_LOG_DEBUG("Found allowed host tran {}", transition);
+
+            if (transition == "xyz.openbmc_project.State.Host.Transition.On")
+            {
+                allowableValues.emplace_back("On");
+                allowableValues.emplace_back("ForceOn");
+            }
+            else if (transition ==
+                     "xyz.openbmc_project.State.Host.Transition.Off")
+            {
+                allowableValues.emplace_back("GracefulShutdown");
+            }
+            else if (
+                transition ==
+                "xyz.openbmc_project.State.Host.Transition.GracefulWarmReboot")
+            {
+                allowableValues.emplace_back("GracefulRestart");
+            }
+            else if (
+                transition ==
+                "xyz.openbmc_project.State.Host.Transition.ForceWarmReboot")
+            {
+                allowableValues.emplace_back("ForceRestart");
+            }
+            else
+            {
+                BMCWEB_LOG_WARNING("Unsupported host tran {}", transition);
+            }
+        }
+    }
+
+    parameter["AllowableValues"] = std::move(allowableValues);
+    parameters.emplace_back(std::move(parameter));
+    asyncResp->res.jsonValue["Parameters"] = std::move(parameters);
+}
+
 inline void handleSystemCollectionResetActionGet(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -3625,25 +3694,15 @@ inline void handleSystemCollectionResetActionGet(
     asyncResp->res.jsonValue["Name"] = "Reset Action Info";
     asyncResp->res.jsonValue["Id"] = "ResetActionInfo";
 
-    nlohmann::json::array_t parameters;
-    nlohmann::json::object_t parameter;
-
-    parameter["Name"] = "ResetType";
-    parameter["Required"] = true;
-    parameter["DataType"] = "String";
-    nlohmann::json::array_t allowableValues;
-    allowableValues.emplace_back("On");
-    allowableValues.emplace_back("ForceOff");
-    allowableValues.emplace_back("ForceOn");
-    allowableValues.emplace_back("ForceRestart");
-    allowableValues.emplace_back("GracefulRestart");
-    allowableValues.emplace_back("GracefulShutdown");
-    allowableValues.emplace_back("PowerCycle");
-    allowableValues.emplace_back("Nmi");
-    parameter["AllowableValues"] = std::move(allowableValues);
-    parameters.emplace_back(std::move(parameter));
-
-    asyncResp->res.jsonValue["Parameters"] = std::move(parameters);
+    // Look to see if system defines AllowedHostTransitions
+    sdbusplus::asio::getProperty<std::vector<std::string>>(
+        *crow::connections::systemBus, "xyz.openbmc_project.State.Host",
+        "/xyz/openbmc_project/state/host0", "xyz.openbmc_project.State.Host",
+        "AllowedHostTransitions",
+        [asyncResp](const boost::system::error_code& ec,
+                    const std::vector<std::string>& allowedHostTransitions) {
+        afterGetAllowedHostTransitions(asyncResp, ec, allowedHostTransitions);
+    });
 }
 /**
  * SystemResetActionInfo derived class for delivering Computer Systems
