@@ -16,6 +16,24 @@
       "message": "I am ready to get rid of this include list. \nIt got added here: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/39901/4 because Redfish keeps adding schemas https://gerrit.openbmc.org/c/openbmc/bmcweb/+/39864/4 \n\nEd has your thoughts changed? \nNote: we (IBM) have plenty of flash on our systems now so my opinion is influenced by that. The allow list is a pain. \n\nEd Tanous (from 39864)\nHow much does this add to our binary footprint?\n\nWe probably should\u0027ve drawn the line in the sand on the 2020.1 schema, when Redfish added a ton of new schemas and took up ~800KB of our flash space. We need to come up with a solution to the binary size problem, as we can\u0027t just keep going down the road of adding new schema packs. Adding the whole pack made sense when OpenBMC implemented ~40% of the schemas provided, but now that we\u0027re only implementing ~5% of the schema pack, and redfish keeps expanding, installing the whole thing seems like a huge waste, and considering that equivalent binary-size-inducing patches that add less size have been held up because of the binary footprint, we should probably investigate that on this patchset as well.",
       "revId": "aef18ee51605f4e9939dc6777600d763a97f5b83",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "807bda3e_29da72e9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-28T19:04:02Z",
+      "side": 1,
+      "message": "\u003e Ed has your thoughts changed?\n\nMy thoughts are essentially that I dislike Redfish doing this, and at some point we need to find a solution.  I\u0027ve mitigated their problem a ton over the last few years by dropping size out of the bmcweb binary by optimizing/condensing actual code, a percent or two at a time.  Over the last few years I got the binary from 1.6ish MB down to ~850KB depending on what features you enable, but we\u0027re getting to the limits of diminishing returns on what can be done.  the binary is starting to get dwarfed by the schema pack.\n\nThat discussion is a different discussion than \"do we fix this bug\".  I think this patch should go in immediately.\n\n\u003e we should probably investigate that on this patchset as well.\n\nThis patchset adds a trivial amount of binary size and is fixing a bug. Could we measure it?  Sure, but we can just look at the change and know that it\u0027s not adding that much, and if we wanted to not do this, the time to decide that was when we merged the patch adding usage of Protocol, not when we\u0027re fixing the bug in it.  I see no reason to hold THIS patchset up.\n\n\u003e as we can\u0027t just keep going down the road of adding new schema packs.\n\nSome solutions I can think of:\n1. Provide an offline mode, where we just point the URLs back to the redfish schemas.  We need to come up with a way to differentiate our OEM from Redfish, and make sure the OEMs are still hosted on the BMC.\n2. Make the JSONSchema hosting optional.  This would drop about half the schema pack.\n3. Find a better way to compress the XML, possibly strip out descriptions, etc.  This could be done by storing the bare bones list of versions and properties, then generating the \"correct\" file on the fly.\n4. Engage DMTF with the problem, and make them produce a different schema pack, or start condensing old schema versions.\n5. Support multiple versions of the schema packs.  Systems low on space can use the old ones, systems with a lot of space can use the new ones.\n\nI might be in a position to go yell at the DMTF folks again soon if we want to do #4, but I\u0027m open to any of them.  I have a really old patchset for #2 that never made it on master.  We kind of do #3 already with the json schemas, but we\u0027d need to roll that into the CSDL (harder).  I\u0027ve never looked at 5 or 1.\n\nOther ideas?",
+      "parentUuid": "1231e024_6e1f3b91",
+      "revId": "aef18ee51605f4e9939dc6777600d763a97f5b83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
