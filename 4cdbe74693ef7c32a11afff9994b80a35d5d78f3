@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0abd00ad_fb8d41a2",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3588,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-28T05:33:28Z",
+      "side": 1,
+      "message": "Does this need a unit test or two?",
+      "range": {
+        "startLine": 3588,
+        "startChar": 12,
+        "endLine": 3588,
+        "endChar": 42
+      },
+      "revId": "4cdbe74693ef7c32a11afff9994b80a35d5d78f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "680cf5d5_0229d76f",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 1
