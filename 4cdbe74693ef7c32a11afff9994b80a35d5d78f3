@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "680cf5d5_0229d76f",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3593,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-28T05:33:10Z",
+      "side": 1,
+      "message": "nit, this can be declared where it\u0027s used, on line 3653",
+      "range": {
+        "startLine": 3593,
+        "startChar": 0,
+        "endLine": 3593,
+        "endChar": 2
+      },
+      "revId": "4cdbe74693ef7c32a11afff9994b80a35d5d78f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a7ee34b_b4d5a4d9",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3607,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-28T05:33:10Z",
+      "side": 1,
+      "message": "This needs to check for an error deeper than just \"any error you get the default\".\n\nAlso, if it\u0027s empty, you should get no values supported, not the defaults.",
+      "range": {
+        "startLine": 3607,
+        "startChar": 8,
+        "endLine": 3607,
+        "endChar": 11
+      },
+      "revId": "4cdbe74693ef7c32a11afff9994b80a35d5d78f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ce4c1e5_65a754dc",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3611,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-28T05:33:10Z",
+      "side": 1,
+      "message": "New code should be using the generated redfish enums for this.",
+      "range": {
+        "startLine": 3611,
+        "startChar": 36,
+        "endLine": 3611,
+        "endChar": 38
+      },
+      "revId": "4cdbe74693ef7c32a11afff9994b80a35d5d78f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8f3030c_4c2055a1",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3648,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-28T05:33:10Z",
+      "side": 1,
+      "message": "Can we break this into a separate method please?  Just to be similar to other places.",
+      "range": {
+        "startLine": 3623,
+        "startChar": 0,
+        "endLine": 3648,
+        "endChar": 13
+      },
+      "revId": "4cdbe74693ef7c32a11afff9994b80a35d5d78f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
