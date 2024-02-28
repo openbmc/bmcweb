@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "682fc5eb_8246073e",
+        "filename": "include/vm_websocket.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 1001556
+      },
+      "writtenOn": "2024-02-28T09:33:35Z",
+      "side": 1,
+      "message": "Hi,\nthere should be \"/nbd/\u003cstr\u003e\" instead of \"/nbd/0\", because currently only slot_0 is available in VirtualMedia.",
+      "revId": "f33af9ad9308871044330c583047d1ba92def814",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3affd32_b8634389",
+        "filename": "src/webserver_main.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1001556
+      },
+      "writtenOn": "2024-02-28T09:33:35Z",
+      "side": 1,
+      "message": "Directives with BMCWEB_ENABLE_VM_NBDPROXY flag should be changed to condition:\nif constexpr (bmcwebVirtualMediaProvider \u003d\u003d \"virtual-media\"), because BMCWEB_ENABLE_VM_NBDPROXY doesn\u0027t exist anymore.",
+      "revId": "f33af9ad9308871044330c583047d1ba92def814",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5ec1e91_92065199",
+        "filename": "src/webserver_main.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1001556
+      },
+      "writtenOn": "2024-02-28T09:33:35Z",
+      "side": 1,
+      "message": "There should be a namespace change from ndb_proxy to obmc_vm:\ncrow::obmc_vm::requestRoutes(app);",
+      "revId": "f33af9ad9308871044330c583047d1ba92def814",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
