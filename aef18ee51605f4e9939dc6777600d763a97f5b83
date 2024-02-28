@@ -52,6 +52,24 @@
       "parentUuid": "807bda3e_29da72e9",
       "revId": "aef18ee51605f4e9939dc6777600d763a97f5b83",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06e0e912_4f8a3941",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-28T19:24:36Z",
+      "side": 1,
+      "message": "\u003e Note: we (IBM) have plenty of flash on our systems now so my opinion is influenced by that. The allow list is a pain.\n\nTherein lies the problem.  Not all systems have a ton of flash, including some of IBMs (whitherspoon comes to mind).  Just because everyone (including me) have moved onto new better hardware doesn\u0027t mean we should be allowed to just break the build for a bunch of the old systems.  If we wanted to do something like a meson option for big-flash, little-flash, and have bmcweb make compile time decisions based on that, we could talk through what that looks like, but it hasn\u0027t really removed the complexity of maintaining this list.\n\nI kinda wonder if it might be time for Redfish to have an epoch event, and roll to V2, condense all the existing schemas (and maybe get rid of the CSDL entirely) and make some breaking protocol changes.\n\nAnywho, stream on consciousness a little above.  I still think this patch should merge as written.",
+      "parentUuid": "9bfaa7b9_ea606f84",
+      "revId": "aef18ee51605f4e9939dc6777600d763a97f5b83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
