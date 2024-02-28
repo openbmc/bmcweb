@@ -34,6 +34,24 @@
       "parentUuid": "1231e024_6e1f3b91",
       "revId": "aef18ee51605f4e9939dc6777600d763a97f5b83",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bfaa7b9_ea606f84",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-28T19:12:30Z",
+      "side": 1,
+      "message": "\u003e I am ready to get rid of this include list.\n\nI\u0027m fine getting rid of it, so long as we have overhead on the existing systems to handle it.  If we get rid of the include list, then we can\u0027t build half the existing BMC images, then that\u0027s a problem.",
+      "parentUuid": "807bda3e_29da72e9",
+      "revId": "aef18ee51605f4e9939dc6777600d763a97f5b83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
