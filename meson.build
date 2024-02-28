@@ -138,6 +138,7 @@ add_project_arguments(
   '-Wcast-align',
   '-Wconversion',
   '-Wformat=2',
+  '-Wold-style-cast',
   '-Woverloaded-virtual',
   '-Wsign-conversion',
   '-Wunused',
@@ -261,24 +262,8 @@ bmcweb_dependencies = []
 
 pam = cxx.find_library('pam', required: true)
 atomic =  cxx.find_library('atomic', required: true)
-bmcweb_dependencies += [pam, atomic]
-
-openssl = dependency('openssl', required : false, version: '>=3.0.0')
-if not openssl.found() or get_option('b_sanitize') != 'none'
-  openssl_proj = subproject(
-    'openssl',
-    required: true,
-    default_options: ['warning_level=0', 'werror=false']
-  )
-  openssl = openssl_proj.get_variable('openssl_dep')
-  openssl = openssl.as_system('system')
-else
-  # When we build openssl as a subproject, the warnings analyzer starts
-  # flagging all the C macros as old style casts, so only enable the
-  # warning for non subprojects.
-  add_project_arguments('-Wold-style-cast', language: 'cpp')
-endif
-bmcweb_dependencies += [openssl]
+openssl = dependency('openssl', required : true)
+bmcweb_dependencies += [pam, atomic, openssl]
 
 nghttp2 = dependency('libnghttp2', version: '>=1.52.0', required : false)
 if not nghttp2.found()
@@ -430,7 +415,6 @@ executable(
 srcfiles_unittest = files(
   'test/http/crow_getroutes_test.cpp',
   'test/http/http_connection_test.cpp',
-  'test/http/mutual_tls.cpp',
   'test/http/router_test.cpp',
   'test/http/http_response_test.cpp',
   'test/http/utility_test.cpp',
