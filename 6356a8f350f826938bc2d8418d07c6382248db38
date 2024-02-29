@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94b2a257_a7cc30a4",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-29T19:03:48Z",
+      "side": 1,
+      "message": "This doesn\u0027t look right.  This REQUIRES that folks implement a power interface.",
+      "range": {
+        "startLine": 88,
+        "startChar": 4,
+        "endLine": 90,
+        "endChar": 40
+      },
+      "revId": "6356a8f350f826938bc2d8418d07c6382248db38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecc332a9_92699fdc",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-29T19:03:48Z",
+      "side": 1,
+      "message": "Don\u0027t construct a callback in the higher scope, then capture it (by copy here, but that\u0027s unimportant) into a callback.  Realistically ValueHandler needs to be its own method, but it\u0027s already a lambda on master, so I understand how this could have happened.",
+      "range": {
+        "startLine": 325,
+        "startChar": 17,
+        "endLine": 325,
+        "endChar": 29
+      },
+      "revId": "6356a8f350f826938bc2d8418d07c6382248db38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1fbcb37_7f5d22ea",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-29T19:03:48Z",
+      "side": 1,
+      "message": "Non trivial lambda.  Please read \"anti-patterns\" in the openbmc docs.",
+      "range": {
+        "startLine": 324,
+        "startChar": 0,
+        "endLine": 348,
+        "endChar": 13
+      },
+      "revId": "6356a8f350f826938bc2d8418d07c6382248db38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

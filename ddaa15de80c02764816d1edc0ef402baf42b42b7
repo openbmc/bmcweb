@@ -3,6 +3,86 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "83fb89e2_d32c4078",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-29T19:03:48Z",
+      "side": 1,
+      "message": "Overall, I\u0027d like to get some understanding of what you\u0027re trying to accomplish.  You\u0027re making changes to the Power schema, which is now deprecated by Redfish, and has moved to the PowerSubsystem schema.  While making edits to what exists is fine, I\u0027d just like to understand what you\u0027re trying to accomplish.\n\nPowerSubsystem was intended to replace power, and the defaults just changed.  If this is still being used and developed, we need to have a longer discussion about how we would like it to work.",
+      "revId": "ddaa15de80c02764816d1edc0ef402baf42b42b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0a1b46d_6e4ad451",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-29T19:03:48Z",
+      "side": 1,
+      "message": "nit, \"ec\" please.  Being consistent in naming helps with automation.",
+      "range": {
+        "startLine": 84,
+        "startChar": 64,
+        "endLine": 84,
+        "endChar": 69
+      },
+      "revId": "ddaa15de80c02764816d1edc0ef402baf42b42b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33fec2cb_0aa4e116",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-29T19:03:48Z",
+      "side": 1,
+      "message": "nit, should be called \"interfaces\", as this is a getObject call, it only returns one \"object\"",
+      "range": {
+        "startLine": 85,
+        "startChar": 69,
+        "endLine": 85,
+        "endChar": 76
+      },
+      "revId": "ddaa15de80c02764816d1edc0ef402baf42b42b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44b00845_b9ed9a53",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-29T19:03:48Z",
+      "side": 1,
+      "message": "At this level the code is now 3 lambdas deep in non trivial code.  Please correct it to make it normal methods, as the developing guide requires.",
+      "revId": "ddaa15de80c02764816d1edc0ef402baf42b42b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "92aba223_8ef90bb4",
         "filename": "redfish-core/lib/power.hpp",
         "patchSetId": 4
@@ -32,6 +112,29 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "92aba223_8ef90bb4",
+      "revId": "ddaa15de80c02764816d1edc0ef402baf42b42b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e88a112_72a98c2f",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-29T19:03:48Z",
+      "side": 1,
+      "message": "I see nothing that\u0027s checking that this is the power cap for THIS chassis.  as-written, this will allow only one power cap interface on all of OpenBMC, which is disallowed in DBUS_USAGE.md.  Many things have power caps, so we can\u0027t just rely on a single one, and we certainly can\u0027t expose an API where ANY chassis can be used to set the same power cap without regard for which device it is.  I would expect there to be some association from the chassis to the power interface.\n\n\nIf you only wanted to handle 1, to simplify your patch, you could locate the \"main\" chassis (which has its own hurdles) and only allow sets on that.",
+      "range": {
+        "startLine": 365,
+        "startChar": 38,
+        "endLine": 365,
+        "endChar": 49
+      },
       "revId": "ddaa15de80c02764816d1edc0ef402baf42b42b7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
