@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5cc3a930_40bed87f",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 3650,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-29T22:39:16Z",
+      "side": 1,
+      "message": "Eh, if the service is missing it means that SetProperty won\u0027t work either.  and technically we should omit all of it to be \"correct\".\n\nI\u0027m not that worried about testing all the not found cases, as I\u0027m pretty sure we can get it right just by inspection.  And if we don\u0027t, it\u0027s a trivial fix if someone tells us we messed it up.",
+      "parentUuid": "1c9f3e76_479d9d88",
+      "range": {
+        "startLine": 3650,
+        "startChar": 39,
+        "endLine": 3650,
+        "endChar": 55
+      },
+      "revId": "1734e8c5714b5ebfa10662e21f1a2d76daa6dea9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b9ad6a12_120ac104",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 2
