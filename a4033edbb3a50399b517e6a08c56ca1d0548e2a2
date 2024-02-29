@@ -393,6 +393,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5bd26e62_30f5d14c",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 932,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-29T19:11:46Z",
+      "side": 1,
+      "message": "Then how is the users order preserved or obeyed?\n\nAdditionally, because this is a Rest interface, that means that if I patch things in the two examples, it will reorder the list AFTER I\u0027ve patched it.  It needs to return the same list (in the same order) as patched, per REST semantics.\n\nCan you please try both of my examples and verify that the order is preserved?\n\nIf they all have the same metric, I\u0027m ok with that (although I think it\u0027s incorrect, because it\u0027s random which one gets selected), but if the rest semantics around array ordering aren\u0027t obeyed, that\u0027s a problem, because redfish uses index quite often.",
+      "parentUuid": "ecc265cf_bc10163e",
+      "revId": "a4033edbb3a50399b517e6a08c56ca1d0548e2a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f8f48f8a_ee12ea1c",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 10
