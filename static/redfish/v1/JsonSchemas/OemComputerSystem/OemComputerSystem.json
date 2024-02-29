@@ -82,6 +82,16 @@
                             "type": "null"
                         }
                     ]
+                },
+                "IBM": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/IBM"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 }
             },
             "type": "object"
@@ -104,6 +114,54 @@
                 }
             },
             "properties": {},
+            "type": "object"
+        },
+        "IBM": {
+            "additionalProperties": true,
+            "description": "Oem properties for IBM.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "LampTest": {
+                    "description": "An indicator allowing an operator to run LED lamp test.",
+                    "longDescription": "This property shall contain the state of lamp state function for this resource.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "PartitionSystemAttentionIndicator": {
+                    "description": "An indicator allowing an operator to operate partition system attention.",
+                    "longDescription": "This property shall contain the state of the partition system attention of this resource.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "PlatformSystemAttentionIndicator": {
+                    "description": "An indicator allowing an operator to operate platform system attention.",
+                    "longDescription": "This property shall contain the state of the platform system attention of this resource.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                }
+            },
             "type": "object"
         }
     },

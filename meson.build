@@ -97,6 +97,7 @@ feature_map = {
   'xtoken-auth'                                 : '-DBMCWEB_ENABLE_XTOKEN_AUTHENTICATION',
   'audit-events'                                : '-DBMCWEB_ENABLE_LINUX_AUDIT_EVENTS',
   #'vm-nbdproxy'                                : '-DBMCWEB_ENABLE_VM_NBDPROXY',
+  'ibm-led-extensions'                          : '-DBMCWEB_ENABLE_IBM_LED_EXTENSIONS',
 }
 
 # Get the options status and build a project summary to show which flags are
