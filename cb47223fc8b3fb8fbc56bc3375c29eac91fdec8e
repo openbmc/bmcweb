@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3fda4ff4_6c46eea8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-29T22:02:35Z",
+      "side": 1,
+      "message": "Please fix this email address.  We definitely shouldn\u0027t have commits that have \"no reply\" email addresses.",
+      "range": {
+        "startLine": 2,
+        "startChar": 30,
+        "endLine": 2,
+        "endChar": 83
+      },
+      "revId": "cb47223fc8b3fb8fbc56bc3375c29eac91fdec8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6144d22a_81744123",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -20,6 +43,23 @@
         "endLine": 15,
         "endChar": 19
       },
+      "revId": "cb47223fc8b3fb8fbc56bc3375c29eac91fdec8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33d6d5a3_ff7317d0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-29T22:02:35Z",
+      "side": 1,
+      "message": "Can you please take another attempt at this commit message.  It doesn\u0027t seem to match what I\u0027m seeing in code.\n\nWhat I\"m seeing in code is that you removed one Odata sub property from Chassis -\u003e PCIeDeviceCollection.  This patch doesn\u0027t remove the code that implements pciedevice collection, nor does it remove support for it, it just makes it harder for the user to traverse there.\n\nPlease talk about:\n1. What error you saw\n2. How this patch corrects it.\n3. How systems are impacted.",
       "revId": "cb47223fc8b3fb8fbc56bc3375c29eac91fdec8e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
