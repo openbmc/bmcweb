@@ -194,6 +194,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "78139c84_10a3a67a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-29T21:22:21Z",
+      "side": 1,
+      "message": "Understood, please still add them to the review so at least they can run it through their tests on their platform.",
+      "parentUuid": "feb99f2f_ca8d2e6c",
+      "range": {
+        "startLine": 10,
+        "startChar": 3,
+        "endLine": 10,
+        "endChar": 7
+      },
+      "revId": "3ef05cdceffef5caa0d1048c3dae17039635d6a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c76b3617_9114b8c9",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
