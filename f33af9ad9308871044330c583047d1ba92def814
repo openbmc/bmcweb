@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3af93b47_e7001551",
+        "filename": "include/vm_websocket.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2024-02-29T10:13:44Z",
+      "side": 1,
+      "message": "I\u0027m not sure if I understand the problem with passing the \u003cstr\u003e part. It seems to be already handled in afterGetManagedObjects function (https://gerrit.openbmc.org/plugins/gitiles/openbmc/bmcweb/+/466bed5807041334a85955aa220f795047155420/include/vm_websocket.hpp#429 ). Keeping this as it is here will break our virtual media implementation after bmcweb bump, as we will be able to mount only one device.",
+      "parentUuid": "8cc5ec08_573db784",
+      "revId": "f33af9ad9308871044330c583047d1ba92def814",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c3affd32_b8634389",
         "filename": "src/webserver_main.cpp",
         "patchSetId": 1
