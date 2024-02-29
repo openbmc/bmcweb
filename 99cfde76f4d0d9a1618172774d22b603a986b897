@@ -105,6 +105,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "03e4fe79_8ea25720",
+        "filename": "redfish-core/src/utils/dbus_utils.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-02-29T19:31:06Z",
+      "side": 1,
+      "message": "understand",
+      "parentUuid": "81286ca0_3d068e33",
+      "revId": "99cfde76f4d0d9a1618172774d22b603a986b897",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "251736df_186f25aa",
@@ -136,6 +154,24 @@
       "side": 1,
       "message": "I would prefer not, simply because BMCWEB_LOG tracks the file location and line number in the log statement.  If we combine them all, then we\u0027d also have to explicitly log what error we saw.",
       "parentUuid": "251736df_186f25aa",
+      "revId": "99cfde76f4d0d9a1618172774d22b603a986b897",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "747ca486_9bbcbafe",
+        "filename": "redfish-core/src/utils/dbus_utils.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-02-29T19:31:06Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "fc778432_068cba2a",
       "revId": "99cfde76f4d0d9a1618172774d22b603a986b897",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -206,6 +242,42 @@
       "side": 1,
       "message": "as we roll in checks, we can add more, unless you want to consolidate a list of all?  It\u0027s non trivial to consolidate the list of every possible error, so I\u0027d like to see at least some indication that this stuff works better before we go and do that.\n\nThis commit covers all the errors present in the things that were tested.",
       "parentUuid": "2013401f_9b8d17b2",
+      "revId": "99cfde76f4d0d9a1618172774d22b603a986b897",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "abc21510_47d625b3",
+        "filename": "redfish-core/src/utils/dbus_utils.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-02-29T19:31:06Z",
+      "side": 1,
+      "message": "yeah, \u003d\u003d is better",
+      "parentUuid": "71e5bc42_5506a562",
+      "revId": "99cfde76f4d0d9a1618172774d22b603a986b897",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a0af62a_a0216a23",
+        "filename": "redfish-core/src/utils/dbus_utils.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-02-29T19:31:06Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "02a5da9e_f3410c60",
       "revId": "99cfde76f4d0d9a1618172774d22b603a986b897",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
