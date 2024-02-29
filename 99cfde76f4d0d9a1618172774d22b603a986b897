@@ -282,6 +282,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61b073f9_10e4ebb9",
+        "filename": "redfish-core/src/utils/dbus_utils.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-29T19:41:04Z",
+      "side": 1,
+      "message": "Marking resolved.",
+      "parentUuid": "8a0af62a_a0216a23",
+      "revId": "99cfde76f4d0d9a1618172774d22b603a986b897",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ffcca2e8_56db6d95",
