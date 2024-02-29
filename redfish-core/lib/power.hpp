@@ -30,6 +30,122 @@
 
 namespace redfish
 {
+inline void afterGetDbusObject(
+    uint32_t value, const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
+    const boost::system::error_code& error,
+    const dbus::utility::MapperGetObject& objects)
+{
+    if (error)
+    {
+        messages::internalError(sensorsAsyncResp->asyncResp->res);
+        BMCWEB_LOG_ERROR("powerCapEnable Get handler: Dbus error {}", error);
+        return;
+    }
+
+    if (objects.size() != 1)
+    {
+        messages::internalError(sensorsAsyncResp->asyncResp->res);
+        BMCWEB_LOG_ERROR(
+            "Unexpected number of Power cap services found: {}, Expected: 1",
+            objects.size());
+        return;
+    }
+    std::string powerCapService = objects[0].first;
+
+    sdbusplus::asio::getProperty<bool>(
+        *crow::connections::systemBus, powerCapService,
+        "/xyz/openbmc_project/control/host0/power_cap",
+        "xyz.openbmc_project.Control.Power.Cap", "PowerCapEnable",
+        [value, sensorsAsyncResp, powerCapService](
+            const boost::system::error_code& ec, bool powerCapEnable) {
+        if (ec)
+        {
+            messages::internalError(sensorsAsyncResp->asyncResp->res);
+            BMCWEB_LOG_ERROR("powerCapEnable Get handler: Dbus error {}", ec);
+            return;
+        }
+        if (!powerCapEnable)
+        {
+            messages::actionNotSupported(
+                sensorsAsyncResp->asyncResp->res,
+                "Setting LimitInWatts when PowerLimit feature is disabled");
+            BMCWEB_LOG_ERROR("PowerLimit feature is disabled ");
+            return;
+        }
+
+        sdbusplus::asio::setProperty(
+            *crow::connections::systemBus, powerCapService,
+            "/xyz/openbmc_project/control/host0/power_cap",
+            "xyz.openbmc_project.Control.Power.Cap", "PowerCap", value,
+            [sensorsAsyncResp](const boost::system::error_code& ec2) {
+            if (ec2)
+            {
+                BMCWEB_LOG_DEBUG("Power Limit Set: Dbus error: {}", ec2);
+                messages::internalError(sensorsAsyncResp->asyncResp->res);
+                return;
+            }
+            sensorsAsyncResp->asyncResp->res.result(
+                boost::beast::http::status::no_content);
+        });
+    });
+}
+
+inline void afterGetChassisPath(
+    const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
+    std::vector<nlohmann::json>& powerControlCollections,
+    const std::optional<std::string>& chassisPath)
+{
+    if (!chassisPath)
+    {
+        BMCWEB_LOG_WARNING("Don't find valid chassis path ");
+        messages::resourceNotFound(sensorsAsyncResp->asyncResp->res, "Chassis",
+                                   sensorsAsyncResp->chassisId);
+        return;
+    }
+
+    if (powerControlCollections.size() != 1)
+    {
+        BMCWEB_LOG_WARNING("Don't support multiple hosts at present ");
+        messages::resourceNotFound(sensorsAsyncResp->asyncResp->res, "Power",
+                                   "PowerControl");
+        return;
+    }
+
+    auto& item = powerControlCollections[0];
+
+    std::optional<nlohmann::json> powerLimit;
+    if (!json_util::readJson(item, sensorsAsyncResp->asyncResp->res,
+                             "PowerLimit", powerLimit))
+    {
+        return;
+    }
+    if (!powerLimit)
+    {
+        return;
+    }
+    std::optional<uint32_t> value;
+    if (!json_util::readJson(*powerLimit, sensorsAsyncResp->asyncResp->res,
+                             "LimitInWatts", value))
+    {
+        return;
+    }
+    if (!value)
+    {
+        return;
+    }
+
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.Control.Power.Cap"};
+    dbus::utility::getDbusObject(
+        "/xyz/openbmc_project/control/host0/power_cap", interfaces,
+
+        [value,
+         sensorsAsyncResp](const boost::system::error_code& ec,
+                           const dbus::utility::MapperGetObject& values) {
+        afterGetDbusObject(*value, sensorsAsyncResp, ec, values);
+    });
+}
+
 inline void setPowerCapOverride(
     const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
     std::vector<nlohmann::json>& powerControlCollections)
@@ -37,115 +153,188 @@ inline void setPowerCapOverride(
     auto getChassisPath =
         [sensorsAsyncResp, powerControlCollections](
             const std::optional<std::string>& chassisPath) mutable {
-        if (!chassisPath)
-        {
-            BMCWEB_LOG_WARNING("Don't find valid chassis path ");
-            messages::resourceNotFound(sensorsAsyncResp->asyncResp->res,
-                                       "Chassis", sensorsAsyncResp->chassisId);
-            return;
-        }
-
-        if (powerControlCollections.size() != 1)
-        {
-            BMCWEB_LOG_WARNING("Don't support multiple hosts at present ");
-            messages::resourceNotFound(sensorsAsyncResp->asyncResp->res,
-                                       "Power", "PowerControl");
-            return;
-        }
-
-        auto& item = powerControlCollections[0];
-
-        std::optional<nlohmann::json> powerLimit;
-        if (!json_util::readJson(item, sensorsAsyncResp->asyncResp->res,
-                                 "PowerLimit", powerLimit))
-        {
-            return;
-        }
-        if (!powerLimit)
-        {
-            return;
-        }
-        std::optional<uint32_t> value;
-        if (!json_util::readJson(*powerLimit, sensorsAsyncResp->asyncResp->res,
-                                 "LimitInWatts", value))
-        {
-            return;
-        }
-        if (!value)
-        {
-            return;
-        }
-
-        constexpr std::array<std::string_view, 1> interfaces = {
-            "xyz.openbmc_project.Control.Power.Cap"};
-        dbus::utility::getDbusObject(
-            "/xyz/openbmc_project/control/host0/power_cap", interfaces,
-            [value,
-             sensorsAsyncResp](const boost::system::error_code& error,
-                               const dbus::utility::MapperGetObject& objects) {
-            if (error)
-            {
-                messages::internalError(sensorsAsyncResp->asyncResp->res);
-                BMCWEB_LOG_ERROR("powerCapEnable Get handler: Dbus error {}",
-                                 error);
-                return;
-            }
-
-            if (objects.size() != 1)
-            {
-                messages::internalError(sensorsAsyncResp->asyncResp->res);
-                BMCWEB_LOG_ERROR(
-                    "Unexpected number of Power cap services found: {}, Expected: 1",
-                    objects.size());
-                return;
-            }
-            std::string powerCapService = objects[0].first;
-
-            sdbusplus::asio::getProperty<bool>(
-                *crow::connections::systemBus, powerCapService,
-                "/xyz/openbmc_project/control/host0/power_cap",
-                "xyz.openbmc_project.Control.Power.Cap", "PowerCapEnable",
-                [value, sensorsAsyncResp, powerCapService](
-                    const boost::system::error_code& ec, bool powerCapEnable) {
-                if (ec)
-                {
-                    messages::internalError(sensorsAsyncResp->asyncResp->res);
-                    BMCWEB_LOG_ERROR(
-                        "powerCapEnable Get handler: Dbus error {}", ec);
-                    return;
-                }
-                if (!powerCapEnable)
-                {
-                    messages::actionNotSupported(
-                        sensorsAsyncResp->asyncResp->res,
-                        "Setting LimitInWatts when PowerLimit feature is disabled");
-                    BMCWEB_LOG_ERROR("PowerLimit feature is disabled ");
-                    return;
-                }
-
-                sdbusplus::asio::setProperty(
-                    *crow::connections::systemBus, powerCapService,
-                    "/xyz/openbmc_project/control/host0/power_cap",
-                    "xyz.openbmc_project.Control.Power.Cap", "PowerCap", *value,
-                    [sensorsAsyncResp](const boost::system::error_code& ec2) {
-                    if (ec2)
-                    {
-                        BMCWEB_LOG_DEBUG("Power Limit Set: Dbus error: {}",
-                                         ec2);
-                        messages::internalError(
-                            sensorsAsyncResp->asyncResp->res);
-                        return;
-                    }
-                    sensorsAsyncResp->asyncResp->res.result(
-                        boost::beast::http::status::no_content);
-                });
-            });
-        });
+        afterGetChassisPath(sensorsAsyncResp, powerControlCollections,
+                            chassisPath);
     };
     redfish::chassis_utils::getValidChassisPath(sensorsAsyncResp->asyncResp,
                                                 sensorsAsyncResp->chassisId,
                                                 std::move(getChassisPath));
 }
+
+void valueHandler(const std::shared_ptr<SensorsAsyncResp>& sensorAsyncResp,
+                  const boost::system::error_code& ec,
+                  const dbus::utility::DBusPropertiesMap& properties)
+{
+    if (ec)
+    {
+        messages::internalError(sensorAsyncResp->asyncResp->res);
+        BMCWEB_LOG_ERROR("Power Limit GetAll handler: Dbus error {}", ec);
+        return;
+    }
+
+    nlohmann::json& tempArray =
+        sensorAsyncResp->asyncResp->res.jsonValue["PowerControl"];
+
+    // Put multiple "sensors" into a single PowerControl, 0,
+    // so only create the first one
+    if (tempArray.empty())
+    {
+        // Mandatory properties odata.id and MemberId
+        // A warning without a odata.type
+        nlohmann::json::object_t powerControl;
+        powerControl["@odata.type"] = "#Power.v1_0_0.PowerControl";
+        powerControl["@odata.id"] = "/redfish/v1/Chassis/" +
+                                    sensorAsyncResp->chassisId +
+                                    "/Power#/PowerControl/0";
+        powerControl["Name"] = "Chassis Power Control";
+        powerControl["MemberId"] = "0";
+        tempArray.emplace_back(std::move(powerControl));
+    }
+
+    nlohmann::json& sensorJson = tempArray.back();
+    bool enabled = false;
+    double powerCap = 0.0;
+    int64_t scale = 0;
+
+    for (const std::pair<std::string, dbus::utility::DbusVariantType>&
+             property : properties)
+    {
+        if (property.first == "Scale")
+        {
+            const int64_t* i = std::get_if<int64_t>(&property.second);
+
+            if (i != nullptr)
+            {
+                scale = *i;
+            }
+        }
+        else if (property.first == "PowerCap")
+        {
+            const double* d = std::get_if<double>(&property.second);
+            const int64_t* i = std::get_if<int64_t>(&property.second);
+            const uint32_t* u = std::get_if<uint32_t>(&property.second);
+
+            if (d != nullptr)
+            {
+                powerCap = *d;
+            }
+            else if (i != nullptr)
+            {
+                powerCap = static_cast<double>(*i);
+            }
+            else if (u != nullptr)
+            {
+                powerCap = *u;
+            }
+        }
+        else if (property.first == "PowerCapEnable")
+        {
+            const bool* b = std::get_if<bool>(&property.second);
+
+            if (b != nullptr)
+            {
+                enabled = *b;
+            }
+        }
+    }
+
+    // LimitException is Mandatory attribute as per OCP
+    // Baseline Profile – v1.0.0, so currently making it
+    // "NoAction" as default value to make it OCP Compliant.
+    sensorJson["PowerLimit"]["LimitException"] = "NoAction";
+
+    if (enabled)
+    {
+        // Redfish specification indicates PowerLimit should
+        // be null if the limit is not enabled.
+        sensorJson["PowerLimit"]["LimitInWatts"] = powerCap *
+                                                   std::pow(10, scale);
+    }
+}
+
+void chassisHandler(
+    const std::shared_ptr<SensorsAsyncResp>& sensorAsyncResp,
+    const boost::system::error_code& ec2,
+    const dbus::utility::MapperGetSubTreePathsResponse& chassisPaths)
+{
+    if (ec2)
+    {
+        BMCWEB_LOG_ERROR("Power Limit GetSubTreePaths handler Dbus error {}",
+                         ec2);
+        return;
+    }
+
+    bool found = false;
+    for (const std::string& chassis : chassisPaths)
+    {
+        size_t len = std::string::npos;
+        size_t lastPos = chassis.rfind('/');
+        if (lastPos == std::string::npos)
+        {
+            continue;
+        }
+
+        if (lastPos == chassis.size() - 1)
+        {
+            size_t end = lastPos;
+            lastPos = chassis.rfind('/', lastPos - 1);
+            if (lastPos == std::string::npos)
+            {
+                continue;
+            }
+
+            len = end - (lastPos + 1);
+        }
+
+        std::string interfaceChassisName = chassis.substr(lastPos + 1, len);
+        if (interfaceChassisName == sensorAsyncResp->chassisId)
+        {
+            found = true;
+            break;
+        }
+    }
+
+    if (!found)
+    {
+        BMCWEB_LOG_DEBUG("Power Limit not present for {}",
+                         sensorAsyncResp->chassisId);
+        return;
+    }
+
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.Control.Power.Cap"};
+
+    dbus::utility::getDbusObject(
+        "/xyz/openbmc_project/control/host0/power_cap", interfaces,
+        [sensorAsyncResp](const boost::system::error_code& ec,
+                          const dbus::utility::MapperGetObject& objects) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR("powerCapEnable Get handler: Dbus error {}", ec);
+            return;
+        }
+
+        if (objects.size() != 1)
+        {
+            messages::internalError(sensorAsyncResp->asyncResp->res);
+            BMCWEB_LOG_ERROR(
+                "Unexpected number of Power cap services found: {}, Expected: 1",
+                objects.size());
+            return;
+        }
+        std::string powerCapService = objects[0].first;
+        sdbusplus::asio::getAllProperties(
+            *crow::connections::systemBus, powerCapService,
+            "/xyz/openbmc_project/control/host0/power_cap",
+            "xyz.openbmc_project.Control.Power.Cap",
+            [sensorAsyncResp](
+                const boost::system::error_code& ec3,
+                const dbus::utility::DBusPropertiesMap& properties) {
+            valueHandler(sensorAsyncResp, ec3, properties);
+        });
+    });
+}
+
 inline void requestRoutesPower(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Power/")
@@ -170,190 +359,13 @@ inline void requestRoutesPower(App& app)
         // for the chassis that implements the Chassis inventory item.
         // This prevents things like power supplies providing the
         // chassis power limit
-
-        using Mapper = dbus::utility::MapperGetSubTreePathsResponse;
-        auto chassisHandler =
-            [sensorAsyncResp](const boost::system::error_code& ec2,
-                              const Mapper& chassisPaths) {
-            if (ec2)
-            {
-                BMCWEB_LOG_ERROR(
-                    "Power Limit GetSubTreePaths handler Dbus error {}", ec2);
-                return;
-            }
-
-            bool found = false;
-            for (const std::string& chassis : chassisPaths)
-            {
-                size_t len = std::string::npos;
-                size_t lastPos = chassis.rfind('/');
-                if (lastPos == std::string::npos)
-                {
-                    continue;
-                }
-
-                if (lastPos == chassis.size() - 1)
-                {
-                    size_t end = lastPos;
-                    lastPos = chassis.rfind('/', lastPos - 1);
-                    if (lastPos == std::string::npos)
-                    {
-                        continue;
-                    }
-
-                    len = end - (lastPos + 1);
-                }
-
-                std::string interfaceChassisName = chassis.substr(lastPos + 1,
-                                                                  len);
-                if (interfaceChassisName == sensorAsyncResp->chassisId)
-                {
-                    found = true;
-                    break;
-                }
-            }
-
-            if (!found)
-            {
-                BMCWEB_LOG_DEBUG("Power Limit not present for {}",
-                                 sensorAsyncResp->chassisId);
-                return;
-            }
-
-            auto valueHandler =
-                [sensorAsyncResp](
-                    const boost::system::error_code& ec,
-                    const dbus::utility::DBusPropertiesMap& properties) {
-                if (ec)
-                {
-                    messages::internalError(sensorAsyncResp->asyncResp->res);
-                    BMCWEB_LOG_ERROR(
-                        "Power Limit GetAll handler: Dbus error {}", ec);
-                    return;
-                }
-
-                nlohmann::json& tempArray =
-                    sensorAsyncResp->asyncResp->res.jsonValue["PowerControl"];
-
-                // Put multiple "sensors" into a single PowerControl, 0,
-                // so only create the first one
-                if (tempArray.empty())
-                {
-                    // Mandatory properties odata.id and MemberId
-                    // A warning without a odata.type
-                    nlohmann::json::object_t powerControl;
-                    powerControl["@odata.type"] = "#Power.v1_0_0.PowerControl";
-                    powerControl["@odata.id"] = "/redfish/v1/Chassis/" +
-                                                sensorAsyncResp->chassisId +
-                                                "/Power#/PowerControl/0";
-                    powerControl["Name"] = "Chassis Power Control";
-                    powerControl["MemberId"] = "0";
-                    tempArray.emplace_back(std::move(powerControl));
-                }
-
-                nlohmann::json& sensorJson = tempArray.back();
-                bool enabled = false;
-                double powerCap = 0.0;
-                int64_t scale = 0;
-
-                for (const std::pair<std::string,
-                                     dbus::utility::DbusVariantType>& property :
-                     properties)
-                {
-                    if (property.first == "Scale")
-                    {
-                        const int64_t* i =
-                            std::get_if<int64_t>(&property.second);
-
-                        if (i != nullptr)
-                        {
-                            scale = *i;
-                        }
-                    }
-                    else if (property.first == "PowerCap")
-                    {
-                        const double* d = std::get_if<double>(&property.second);
-                        const int64_t* i =
-                            std::get_if<int64_t>(&property.second);
-                        const uint32_t* u =
-                            std::get_if<uint32_t>(&property.second);
-
-                        if (d != nullptr)
-                        {
-                            powerCap = *d;
-                        }
-                        else if (i != nullptr)
-                        {
-                            powerCap = static_cast<double>(*i);
-                        }
-                        else if (u != nullptr)
-                        {
-                            powerCap = *u;
-                        }
-                    }
-                    else if (property.first == "PowerCapEnable")
-                    {
-                        const bool* b = std::get_if<bool>(&property.second);
-
-                        if (b != nullptr)
-                        {
-                            enabled = *b;
-                        }
-                    }
-                }
-
-                // LimitException is Mandatory attribute as per OCP
-                // Baseline Profile – v1.0.0, so currently making it
-                // "NoAction" as default value to make it OCP Compliant.
-                sensorJson["PowerLimit"]["LimitException"] = "NoAction";
-
-                if (enabled)
-                {
-                    // Redfish specification indicates PowerLimit should
-                    // be null if the limit is not enabled.
-                    sensorJson["PowerLimit"]["LimitInWatts"] =
-                        powerCap * std::pow(10, scale);
-                }
-            };
-
-            constexpr std::array<std::string_view, 1> interfaces = {
-                "xyz.openbmc_project.Control.Power.Cap"};
-
-            dbus::utility::getDbusObject(
-                "/xyz/openbmc_project/control/host0/power_cap", interfaces,
-                [sensorAsyncResp,
-                 valueHandler](const boost::system::error_code& ec,
-                               const dbus::utility::MapperGetObject& objects) {
-                if (ec)
-                {
-                    BMCWEB_LOG_ERROR(
-                        "powerCapEnable Get handler: Dbus error {}", ec);
-                    return;
-                }
-
-                if (objects.size() != 1)
-                {
-                    messages::internalError(sensorAsyncResp->asyncResp->res);
-                    BMCWEB_LOG_ERROR(
-                        "Unexpected number of Power cap services found: {}, Expected: 1",
-                        objects.size());
-                    return;
-                }
-                std::string powerCapService = objects[0].first;
-                sdbusplus::asio::getAllProperties(
-                    *crow::connections::systemBus, powerCapService,
-                    "/xyz/openbmc_project/control/host0/power_cap",
-                    "xyz.openbmc_project.Control.Power.Cap",
-                    std::move(valueHandler));
-            });
-        };
-
         constexpr std::array<std::string_view, 2> interfaces = {
             "xyz.openbmc_project.Inventory.Item.Board",
             "xyz.openbmc_project.Inventory.Item.Chassis"};
 
-        dbus::utility::getSubTreePaths("/xyz/openbmc_project/inventory", 0,
-                                       interfaces, std::move(chassisHandler));
+        dbus::utility::getSubTreePaths(
+            "/xyz/openbmc_project/inventory", 0, interfaces,
+            std::bind_front(chassisHandler, sensorAsyncResp));
     });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Power/")
