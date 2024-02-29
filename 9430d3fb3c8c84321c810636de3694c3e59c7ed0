@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "be7eb32b_c6d268a0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-02-29T19:06:00Z",
+      "side": 1,
+      "message": "seems there is a difference of one char 2002:903 vs 2002:90",
+      "parentUuid": "f2388ada_58990b66",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 5
+      },
+      "revId": "9430d3fb3c8c84321c810636de3694c3e59c7ed0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "869de644_f952440b",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 19
