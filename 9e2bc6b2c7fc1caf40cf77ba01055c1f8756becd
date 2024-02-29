@@ -197,6 +197,24 @@
       "message": "A new bmcweb meson feature?",
       "revId": "9e2bc6b2c7fc1caf40cf77ba01055c1f8756becd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ec828a0_7fa175f0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-29T20:39:35Z",
+      "side": 1,
+      "message": "Before we talk about that, can we get clarity on why folks would disable the option?  I think it\u0027s one of the below:\n\n1. We believe that the original author (me) read the OWASP guidelines wrong and this header isn\u0027t required in their requirements.  (to be clear, I\u0027m open to this if someone has docs that I haven\u0027t read).  If this is true, the option isn\u0027t needed at all.\n2. We believe that OWASP is wrong in this case, and we should override their opinion (ideally by discussing with them first).  Could we open a patch up to them removing https://github.com/oshp/oshp-validator/blob/c3befa0633839ff7fe3b83ca6566abe77595b8dd/tests_suite.yml#L84 and see what they say?\n3. We believe that OWASP isn\u0027t a relevant security authority, and we should replace it with something else.  If so, what is that authority?  I don\u0027t think anyone on this review can claim to be an authority on http browser security (definitely including myself).\n\n\nFrankly, just because it breaks a downstream use case doesn\u0027t mean that we should simply shut off security forever because of it.  Maybe we stage that option over the course of 6 months so the proxy you guys have can catch up?  I\u0027m open to that.\n\nIn nginx proxies, this would be trivially solved by putting:\n\nproxy_hide_header Clear-Site-Data\n\nIn the proxy config, then OpenBMC doesn\u0027t have to maintain tech debt for something downstream, for which (so far as I can tell) we\u0027ve followed best practices.  Has that been considered?",
+      "parentUuid": "52f9a86f_95359bcf",
+      "revId": "9e2bc6b2c7fc1caf40cf77ba01055c1f8756becd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
