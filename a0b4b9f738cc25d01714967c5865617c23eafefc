@@ -94,6 +94,30 @@
       },
       "revId": "a0b4b9f738cc25d01714967c5865617c23eafefc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6e2800f_bd18ef7f",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-29T18:53:39Z",
+      "side": 1,
+      "message": "in the simplest case, we have\n\n/path/a\nassociated to\n/path/b\nwith an association named X\n\nthe query I would expect would be\n\"Find me paths associated with /path/a, with the X association\"\n\nRight? \n\nWhat this code implements is\n    const boost::urls::url\u0026 collectionPath,\n    std::span\u003cconst std::string_view\u003e interfaces,\n    const std::string\u0026 associationEndPointPath,\n    const sdbusplus::message::object_path\u0026 path\n\nSo in the above example\n\ncollectionPath \u003d ?  This is an http url, which seems odd for a DBus helper.\n\nassociationEndpointPath \u003d ?\n\nShould this be:\nX\n/path/a/X\n/path/b\n?\n\nI suspect that this is written where it should be /path/a/X, which is redundant, given that we already provide /path/a in the path argument.\n\npath \u003d /path/a\ninterfaces \u003d ?  Is this the other sides dbus interfaces, or this side?  It\u0027s not clear from the docstring",
+      "parentUuid": "f1ccee5c_f8d8eff6",
+      "range": {
+        "startLine": 121,
+        "startChar": 10,
+        "endLine": 121,
+        "endChar": 22
+      },
+      "revId": "a0b4b9f738cc25d01714967c5865617c23eafefc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
