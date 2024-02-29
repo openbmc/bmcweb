@@ -145,6 +145,24 @@
       "message": "Networkd commit is not merged yet.\nhttps://gerrit.openbmc.org/c/openbmc/phosphor-networkd/+/63033\nlets wait",
       "revId": "9430d3fb3c8c84321c810636de3694c3e59c7ed0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d73e3d40_df15a910",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-29T21:15:59Z",
+      "side": 1,
+      "message": "What\u0027s the behavior if this goes in before the phosphor-networkd patch?  You just can\u0027t create ipv6 gateways and get an error when you do?  If that\u0027s all, I\u0027m fine with this being on master.  Seems like we shouldn\u0027t need to wait in that case.",
+      "parentUuid": "3082dd6d_7e6aae82",
+      "revId": "9430d3fb3c8c84321c810636de3694c3e59c7ed0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
