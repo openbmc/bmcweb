@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "204193b1_87964480",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 3628,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2024-02-29T22:33:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3c9da60_f4650c3c",
+      "range": {
+        "startLine": 3628,
+        "startChar": 0,
+        "endLine": 3628,
+        "endChar": 2
+      },
+      "revId": "1734e8c5714b5ebfa10662e21f1a2d76daa6dea9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "690f6371_f7e650a4",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c9f3e76_479d9d88",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 3650,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2024-02-29T22:33:21Z",
+      "side": 1,
+      "message": "Done. Although if we want to keep legacy support, I should return all the defaults if the service is missing as well (due to there not being any prior service checking earlier). But I\u0027m good either way.\n\nUnfortunately I\u0027m unable to easily test the service being available but the property not available. PSM uses sdbusplus so you get it all or nothing. I\u0027d need to do a full rebuild with the PDI change reverted. Let me know if you think this needs an explicit test.",
+      "parentUuid": "690f6371_f7e650a4",
+      "range": {
+        "startLine": 3650,
+        "startChar": 39,
+        "endLine": 3650,
+        "endChar": 55
+      },
+      "revId": "1734e8c5714b5ebfa10662e21f1a2d76daa6dea9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b9ad6a12_120ac104",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-02-29T21:35:54Z",
       "side": 1,
       "message": "nit, can you make this just use emplace_back on a separate line?  What you wrote works functionally, but brace construction of nlohmann objects does some messy things that bloats binary sizes.",
+      "range": {
+        "startLine": 3677,
+        "startChar": 4,
+        "endLine": 3677,
+        "endChar": 63
+      },
+      "revId": "1734e8c5714b5ebfa10662e21f1a2d76daa6dea9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2001aa99_5293744d",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 3677,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2024-02-29T22:33:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9ad6a12_120ac104",
       "range": {
         "startLine": 3677,
         "startChar": 4,
