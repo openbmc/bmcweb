@@ -429,6 +429,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e1b6932f_7faca318",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 932,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-02-29T19:47:24Z",
+      "side": 1,
+      "message": "User given order is obeyed and rest semantics around array ordering is taken care\n\nHere is test results\n\n1. add new static gateway\ncurl -k -H \"X-Auth-Token: $bmc_token\" -XPATCH https://${bmc}/redfish/v1/Managers/bmc/EthernetInterfaces/eth0 -d \u0027{\"IPv6StaticDefaultGateways\": [{},{\"Address\": \"2004:803:15F:32:9:3:30:1\",\"PrefixLength\": 24}]}\u0027\n\n2. verify order of gateways configured \n\ncurl -k -H \"X-Auth-Token: $bmc_token\" -X GET -D header.txt https://$bmc/redfish/v1/Managers/bmc/EthernetInterfaces/eth0\n{\n  \"@odata.id\": \"/redfish/v1/Managers/bmc/EthernetInterfaces/eth0\",\n  \"@odata.type\": \"#EthernetInterface.v1_8_0.EthernetInterface\",\n  \"DHCPv4\": {\n    \"DHCPEnabled\": false,\n    \"UseDNSServers\": true,\n    \"UseDomainName\": true,\n    \"UseNTPServers\": true\n  },\n  \"DHCPv6\": {\n    \"OperatingMode\": \"Enabled\",\n    \"UseDNSServers\": true,\n    \"UseDomainName\": true,\n    \"UseNTPServers\": true\n  },\n  \"Description\": \"Management Network Interface\",\n  \"IPv6Addresses\": [\n    {\n      \"Address\": \"fe80::a94:efff:fe82:14\",\n      \"AddressOrigin\": \"LinkLocal\",\n      \"PrefixLength\": 64\n    }\n  ],\n  \"IPv6StaticDefaultGateways\": [\n    {\n      \"Address\": \"2002:903:15F:32:9:3:30:1\",\n      \"PrefixLength\": 24\n    },\n    {\n      \"Address\": \"2004:803:15F:32:9:3:30:1\",\n      \"PrefixLength\": 24\n    }\n  ],\n  \"Id\": \"eth0\",\n  \"InterfaceEnabled\": true,\n  \"LinkStatus\": \"LinkUp\",\n  \"MTUSize\": 1500,\n  \"Name\": \"Manager Ethernet Interface\",\n  \"NameServers\": [\n    \"9.3.1.200\"\n  ],\n  \"SpeedMbps\": 0,\n  \"Status\": {\n    \"State\": \"Enabled\"\n  }\n}\n\ncurl -k -H \"X-Auth-Token: $bmc_token\" -X PATCH https://${bmc}/redfish/v1/Managers/bmc/EthernetInterfaces/eth0 -d \u0027{\"IPv6StaticDefaultGateways\": [{},{},{\"Address\": \"2005:703:15F:32:9:3:30:1\",\"PrefixLength\": 24}]}\u0027\n\ncurl -k -H \"X-Auth-Token: $bmc_token\" -X GET -D header.txt https://$bmc/redfish/v1/Managers/bmc/EthernetInterfaces/eth0\n{\n  \"@odata.id\": \"/redfish/v1/Managers/bmc/EthernetInterfaces/eth0\",\n  \"@odata.type\": \"#EthernetInterface.v1_8_0.EthernetInterface\",\n  \"DHCPv4\": {\n    \"DHCPEnabled\": false,\n    \"UseDNSServers\": true,\n    \"UseDomainName\": true,\n    \"UseNTPServers\": true\n  },\n  \"DHCPv6\": {\n    \"OperatingMode\": \"Enabled\",\n    \"UseDNSServers\": true,\n    \"UseDomainName\": true,\n    \"UseNTPServers\": true\n  },\n  \"Description\": \"Management Network Interface\",\n  \n  \"IPv6AddressPolicyTable\": [],\n  \"IPv6Addresses\": [\n    {\n      \"Address\": \"fe80::a94:efff:fe82:14\",\n      \"AddressOrigin\": \"LinkLocal\",\n      \"PrefixLength\": 64\n    }\n  ],\n  \"IPv6DefaultGateway\": \"0:0:0:0:0:0:0:0\",\n  \"IPv6StaticAddresses\": [],\n  \"IPv6StaticDefaultGateways\": [\n    {\n      \"Address\": \"2002:903:15F:32:9:3:30:1\",\n      \"PrefixLength\": 24\n    },\n    {\n      \"Address\": \"2004:803:15F:32:9:3:30:1\",\n      \"PrefixLength\": 24\n    },\n    {\n      \"Address\": \"2005:703:15F:32:9:3:30:1\",\n      \"PrefixLength\": 24\n    }\n  ],\n  \"Id\": \"eth0\",\n  \"InterfaceEnabled\": true,\n  \"LinkStatus\": \"LinkUp\",\n  \"MTUSize\": 1500,\n  \"Name\": \"Manager Ethernet Interface\", \n  \"SpeedMbps\": 0,\n  \"StatelessAddressAutoConfig\": {\n    \"IPv6AutoConfigEnabled\": false\n  },\n  \"Status\": {\n    \"State\": \"Enabled\"\n  }\n}\n\nuser given order/redfish semantic order is taken care and it works",
+      "parentUuid": "320989ab_2ce6f20b",
+      "revId": "a4033edbb3a50399b517e6a08c56ca1d0548e2a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f8f48f8a_ee12ea1c",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 10
