@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a3c9da60_f4650c3c",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 3628,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-29T21:43:56Z",
+      "side": 1,
+      "message": "nit, not sure you need to explicitly call return here.",
+      "range": {
+        "startLine": 3628,
+        "startChar": 0,
+        "endLine": 3628,
+        "endChar": 2
+      },
+      "revId": "1734e8c5714b5ebfa10662e21f1a2d76daa6dea9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "690f6371_f7e650a4",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 2
