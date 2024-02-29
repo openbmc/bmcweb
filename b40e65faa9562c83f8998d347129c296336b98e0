@@ -34,6 +34,24 @@
       "parentUuid": "5cde806e_7401e22c",
       "revId": "b40e65faa9562c83f8998d347129c296336b98e0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5d80b75_86d08416",
+        "filename": ".gitignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-29T23:05:21Z",
+      "side": 1,
+      "message": "Yeah, that\u0027s fine.  I made one small fix that we must\u0027ve added in the middle (I probably did it without thinking about it).",
+      "parentUuid": "81660006_ea6a6255",
+      "revId": "b40e65faa9562c83f8998d347129c296336b98e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
