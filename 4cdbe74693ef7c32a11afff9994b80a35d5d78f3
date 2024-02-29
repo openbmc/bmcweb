@@ -203,6 +203,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "75a73aaf_809d032e",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3607,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-29T21:35:54Z",
+      "side": 1,
+      "message": "\u003e don\u0027t have a host state mapping?\n\nIn phosphor-dbus-interfaces.  For better or worse, some folks don\u0027t find phosphor-dbus-interfaces useful.  There are definitely implementations of this in openbmc as it stands (cough x86-power-control cough).\n\nWe could certainly talk it through and see if we can get agreement, but lets do that in a different patch from this one, which isn\u0027t changing behavior.",
+      "parentUuid": "37251812_04024aaa",
+      "range": {
+        "startLine": 3607,
+        "startChar": 8,
+        "endLine": 3607,
+        "endChar": 11
+      },
+      "revId": "4cdbe74693ef7c32a11afff9994b80a35d5d78f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0ce4c1e5_65a754dc",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 1

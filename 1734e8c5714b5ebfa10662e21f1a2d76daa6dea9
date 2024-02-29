@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "690f6371_f7e650a4",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 3650,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-29T21:35:54Z",
+      "side": 1,
+      "message": "property not implemented is bad_request_descriptor.  The error you used is for if the daemon doesn\u0027t exist on dbus.",
+      "range": {
+        "startLine": 3650,
+        "startChar": 39,
+        "endLine": 3650,
+        "endChar": 55
+      },
+      "revId": "1734e8c5714b5ebfa10662e21f1a2d76daa6dea9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9ad6a12_120ac104",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 3677,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-29T21:35:54Z",
+      "side": 1,
+      "message": "nit, can you make this just use emplace_back on a separate line?  What you wrote works functionally, but brace construction of nlohmann objects does some messy things that bloats binary sizes.",
+      "range": {
+        "startLine": 3677,
+        "startChar": 4,
+        "endLine": 3677,
+        "endChar": 63
+      },
+      "revId": "1734e8c5714b5ebfa10662e21f1a2d76daa6dea9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
