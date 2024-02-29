@@ -120,6 +120,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3229cee8_64a1b4c4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-02-29T20:19:49Z",
+      "side": 1,
+      "message": "it has been there since long, seems nobody tested and used this option",
+      "parentUuid": "5cc6f98b_52399b4c",
+      "range": {
+        "startLine": 10,
+        "startChar": 3,
+        "endLine": 10,
+        "endChar": 7
+      },
+      "revId": "3ef05cdceffef5caa0d1048c3dae17039635d6a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c76b3617_9114b8c9",
@@ -167,6 +191,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "78e387d1_c2be76a0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-02-29T20:19:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c7546ff_f790f58c",
+      "range": {
+        "startLine": 11,
+        "startChar": 15,
+        "endLine": 11,
+        "endChar": 69
+      },
+      "revId": "3ef05cdceffef5caa0d1048c3dae17039635d6a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a8a90e98_1d7c04af",
@@ -180,6 +228,24 @@
       "writtenOn": "2024-02-29T18:55:29Z",
       "side": 1,
       "message": "@Ravi?",
+      "revId": "3ef05cdceffef5caa0d1048c3dae17039635d6a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93b007a9_343bb28c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-02-29T20:19:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8a90e98_1d7c04af",
       "revId": "3ef05cdceffef5caa0d1048c3dae17039635d6a5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
