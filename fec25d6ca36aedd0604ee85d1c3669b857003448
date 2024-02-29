@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d6aa817_65611c8c",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 3636,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2024-02-29T22:50:51Z",
+      "side": 1,
+      "message": "oh whoops, need to keep this declared up here unless we move this init stuff down below",
+      "revId": "fec25d6ca36aedd0604ee85d1c3669b857003448",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
