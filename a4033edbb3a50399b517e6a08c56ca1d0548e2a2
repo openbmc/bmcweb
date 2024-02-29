@@ -483,6 +483,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a90ff975_cb921961",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 932,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-02-29T22:51:08Z",
+      "side": 1,
+      "message": "That seems really brittle if we\u0027re relying on the dbus path order, but sure.",
+      "parentUuid": "83760a87_0536cf20",
+      "revId": "a4033edbb3a50399b517e6a08c56ca1d0548e2a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f8f48f8a_ee12ea1c",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 10
