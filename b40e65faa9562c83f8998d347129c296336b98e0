@@ -16,6 +16,24 @@
       "message": "Everything below this line comes from the aformentioned URL.  Your change is pretty reasonable, and I agree with it, but I would like to keep evernthing below this line generatable.  So\n\nRemove visualstudiocode from this list, and move the .vscode ignore above this line, and we should be good.",
       "revId": "b40e65faa9562c83f8998d347129c296336b98e0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81660006_ea6a6255",
+        "filename": ".gitignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2024-02-29T23:02:02Z",
+      "side": 1,
+      "message": "Let me know if this is what you were thinking, it removed a lot more then I thought it would. But the only thing new that showed up for me was the __pycache__ files.",
+      "parentUuid": "5cde806e_7401e22c",
+      "revId": "b40e65faa9562c83f8998d347129c296336b98e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
