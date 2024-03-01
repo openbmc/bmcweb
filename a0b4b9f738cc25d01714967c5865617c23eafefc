@@ -118,6 +118,30 @@
       },
       "revId": "a0b4b9f738cc25d01714967c5865617c23eafefc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76d72c07_223bae6f",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-03-01T02:35:22Z",
+      "side": 1,
+      "message": "We want to get the paths of all cores under cpu0 through the getAssociatedSubTreePaths method\n```\n[\n    {\n        \"path\": \"system/chassis/motherboard/cpu0\",\n        \"endpoints\": [\n            {\n                \"types\": {\n                    \"rType\": \"contained_by\",\n                    \"fType\": \"containing\"\n                },\n                \"paths\": [\n                    \"/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0/core0\",\n                    \"/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0/core1\",\n                    \"/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0/core2\",\n                    \"/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0/core3\",\n                    ... ...\n                ]\n            }\n        ]\n    }\n]\n```\nassociationEndPointPath \u003d /xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0/containing\npath \u003d /xyz/openbmc_project/inventory\ninterfaces \u003d xyz.openbmc_project.Inventory.Item.CpuCore\n\nis this incorrect?",
+      "parentUuid": "d6e2800f_bd18ef7f",
+      "range": {
+        "startLine": 121,
+        "startChar": 10,
+        "endLine": 121,
+        "endChar": 22
+      },
+      "revId": "a0b4b9f738cc25d01714967c5865617c23eafefc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
