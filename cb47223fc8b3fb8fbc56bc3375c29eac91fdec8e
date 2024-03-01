@@ -62,6 +62,23 @@
       "message": "Can you please take another attempt at this commit message.  It doesn\u0027t seem to match what I\u0027m seeing in code.\n\nWhat I\"m seeing in code is that you removed one Odata sub property from Chassis -\u003e PCIeDeviceCollection.  This patch doesn\u0027t remove the code that implements pciedevice collection, nor does it remove support for it, it just makes it harder for the user to traverse there.\n\nPlease talk about:\n1. What error you saw\n2. How this patch corrects it.\n3. How systems are impacted.",
       "revId": "cb47223fc8b3fb8fbc56bc3375c29eac91fdec8e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38c2ab1a_7325e801",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-01T16:34:13Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/bmcweb/+/56996 is the same commit, can we get the earlier one in?",
+      "revId": "cb47223fc8b3fb8fbc56bc3375c29eac91fdec8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ],
   "submitRequirementResults": []
