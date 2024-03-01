@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c110f4e9_7a66dd12",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2024-03-01T13:55:42Z",
+      "side": 1,
+      "message": "Leaving one non-blocking issue. Besides code looks good and has been verified positively by @Michał Płoński.",
+      "revId": "9a1f1a500827350ba8a8025561a9942c5700ed5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6342273_8dbcfa01",
+        "filename": "meson.build",
+        "patchSetId": 8
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2024-03-01T13:55:42Z",
+      "side": 1,
+      "message": "nit. This can now be removed as well.",
+      "range": {
+        "startLine": 96,
+        "startChar": 2,
+        "endLine": 96,
+        "endChar": 80
+      },
+      "revId": "9a1f1a500827350ba8a8025561a9942c5700ed5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
