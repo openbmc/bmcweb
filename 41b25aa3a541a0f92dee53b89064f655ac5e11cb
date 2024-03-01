@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7df364e_145edd6f",
+        "filename": ".gitignore",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-01T23:55:03Z",
+      "side": 0,
+      "message": "These got dropped. .vscode/ should cover all them?",
+      "range": {
+        "startLine": 11,
+        "startChar": 96,
+        "endLine": 11,
+        "endChar": 125
+      },
+      "revId": "41b25aa3a541a0f92dee53b89064f655ac5e11cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
