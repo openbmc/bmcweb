@@ -22,6 +22,30 @@
       },
       "revId": "41b25aa3a541a0f92dee53b89064f655ac5e11cb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8342f99_6277d289",
+        "filename": ".gitignore",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-03T02:39:10Z",
+      "side": 0,
+      "message": "kinda.....\n\n.vscode should cover visual studio code\nvisualstudio we\u0027ve never used, and I really doubt bmcweb will ever be compiled for windows, so.....  We can remove it.",
+      "parentUuid": "e7df364e_145edd6f",
+      "range": {
+        "startLine": 11,
+        "startChar": 96,
+        "endLine": 11,
+        "endChar": 125
+      },
+      "revId": "41b25aa3a541a0f92dee53b89064f655ac5e11cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
