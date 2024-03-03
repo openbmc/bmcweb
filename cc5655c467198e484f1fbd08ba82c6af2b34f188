@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "33ee627d_8318a2d2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2024-03-03T08:39:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0ebe857_315c59af",
+      "revId": "cc5655c467198e484f1fbd08ba82c6af2b34f188",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cbd7edff_5631d528",
@@ -49,6 +67,30 @@
       "writtenOn": "2024-03-01T16:49:53Z",
       "side": 1,
       "message": "```#include \u003cmemory\u003e```",
+      "range": {
+        "startLine": 3632,
+        "startChar": 10,
+        "endLine": 3632,
+        "endChar": 25
+      },
+      "revId": "cc5655c467198e484f1fbd08ba82c6af2b34f188",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3da26fc8_c6a7b091",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 3632,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2024-03-03T08:39:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cbd7edff_5631d528",
       "range": {
         "startLine": 3632,
         "startChar": 10,
@@ -76,6 +118,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "13cc008c_60c464a0",
+        "filename": "test/redfish-core/lib/system_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2024-03-03T08:39:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85762694_d350aa67",
+      "revId": "cc5655c467198e484f1fbd08ba82c6af2b34f188",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "55319395_e8af23d0",
@@ -93,6 +153,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "88420f9a_57ac7c82",
+        "filename": "test/redfish-core/lib/system_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2024-03-03T08:39:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55319395_e8af23d0",
+      "revId": "cc5655c467198e484f1fbd08ba82c6af2b34f188",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bf114d2d_77557c32",
@@ -106,6 +184,24 @@
       "writtenOn": "2024-03-01T16:49:53Z",
       "side": 1,
       "message": "```#include \u003cmemory\u003e```",
+      "revId": "cc5655c467198e484f1fbd08ba82c6af2b34f188",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09b8bf93_282ffb0f",
+        "filename": "test/redfish-core/lib/system_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2024-03-03T08:39:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf114d2d_77557c32",
       "revId": "cc5655c467198e484f1fbd08ba82c6af2b34f188",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
