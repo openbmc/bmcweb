@@ -519,6 +519,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e76e5d37_9cce1b94",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 932,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-04T17:10:34Z",
+      "side": 1,
+      "message": "Does that mean you tested it and this patch works?",
+      "parentUuid": "f899d378_d0b8ed52",
+      "revId": "a4033edbb3a50399b517e6a08c56ca1d0548e2a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f8f48f8a_ee12ea1c",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 10
