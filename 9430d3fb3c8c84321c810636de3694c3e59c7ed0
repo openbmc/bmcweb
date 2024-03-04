@@ -163,6 +163,24 @@
       "parentUuid": "3082dd6d_7e6aae82",
       "revId": "9430d3fb3c8c84321c810636de3694c3e59c7ed0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4c36811_580b3ef7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2024-03-04T14:09:18Z",
+      "side": 1,
+      "message": "Yes Ed, The PATCH will fail and return error if there is no networkd backend. So I believe that this change can get merged and need not wait for the backend.",
+      "parentUuid": "d73e3d40_df15a910",
+      "revId": "9430d3fb3c8c84321c810636de3694c3e59c7ed0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
