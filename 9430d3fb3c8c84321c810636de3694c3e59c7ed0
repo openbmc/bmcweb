@@ -241,6 +241,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff3e55d1_c44514f7",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 898,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-05T16:17:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "696f1c70_c2c9b8c4",
+      "range": {
+        "startLine": 898,
+        "startChar": 28,
+        "endLine": 898,
+        "endChar": 43
+      },
+      "revId": "9430d3fb3c8c84321c810636de3694c3e59c7ed0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3b8a2f40_20e534c5",
@@ -254,6 +278,24 @@
       "writtenOn": "2024-03-05T09:43:44Z",
       "side": 1,
       "message": "```\n#include \u003cboost/system/error_code.hpp\u003e\n```",
+      "revId": "9430d3fb3c8c84321c810636de3694c3e59c7ed0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e1136b1_ae556c3d",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 903,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-05T16:17:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b8a2f40_20e534c5",
       "revId": "9430d3fb3c8c84321c810636de3694c3e59c7ed0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
