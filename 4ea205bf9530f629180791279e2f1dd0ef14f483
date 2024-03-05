@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45eea794_546bc0c9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-05T03:12:37Z",
+      "side": 1,
+      "message": "Please do not leak DBus specific details outside of bmcweb.  Please follow DMTF/Odata/Redfish best practices.",
+      "range": {
+        "startLine": 44,
+        "startChar": 26,
+        "endLine": 44,
+        "endChar": 85
+      },
+      "revId": "4ea205bf9530f629180791279e2f1dd0ef14f483",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "410d5bf9_7f85cce4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-05T03:12:37Z",
+      "side": 1,
+      "message": "This doesn\u0027t follow the rules on how structured data should be provided.",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 103
+      },
+      "revId": "4ea205bf9530f629180791279e2f1dd0ef14f483",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eaafcc73_278f5848",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-05T03:12:37Z",
+      "side": 1,
+      "message": "Lots of issues here:\n1. This patch has made edits to a DMTF owned schema.\n2. This patch has changed an existing message incorrectly for backward compatibility and versioning requirements covered in the redfish standard.\n3. This patchset has failed to recognize the difference between a schema and a registry, and has provided incorrect IDs on its messages.\n4. This patchset has failed to follow OEM schema rules for Redfish.\n5. The Author of this patchset has failed to read the OpenBMC rules on OEM schemas.  Ideally time could\u0027ve been saved by reading those BEFORE writing this patchset;  Bear in mind that if this patchset takes a while;  The documentation is there to save you time.\n\nTo get help on the schema portions of this, you should be posting to a DMTF forum, asking for help, or ideally for your new message to be included in Redfish.  We do not have many Redfish schema experts in the OpenBMC maintainer pool.",
+      "revId": "4ea205bf9530f629180791279e2f1dd0ef14f483",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
