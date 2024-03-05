@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d4591138_b1fc3f16",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-05T21:09:51Z",
+      "side": 1,
+      "message": "Not resolved.  You removed it from the commit message, but not the code.",
+      "parentUuid": "f293bec8_b815c639",
+      "range": {
+        "startLine": 44,
+        "startChar": 26,
+        "endLine": 44,
+        "endChar": 85
+      },
+      "revId": "4ea205bf9530f629180791279e2f1dd0ef14f483",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "410d5bf9_7f85cce4",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "I\u0027ll hide the detail",
       "parentUuid": "410d5bf9_7f85cce4",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 103
+      },
+      "revId": "4ea205bf9530f629180791279e2f1dd0ef14f483",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "610cadd8_9fc48d93",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-05T21:09:51Z",
+      "side": 1,
+      "message": "Not resolved.  You removed it from the commit message, but not the code.",
+      "parentUuid": "992712d0_2be49547",
       "range": {
         "startLine": 46,
         "startChar": 0,
@@ -162,6 +210,24 @@
       "side": 1,
       "message": "An issue to DMTF asking how best this can be handled is created - https://github.com/DMTF/Redfish/issues/5994",
       "parentUuid": "22f1e598_9717224c",
+      "revId": "4ea205bf9530f629180791279e2f1dd0ef14f483",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e62d5ee3_c28bcbec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-05T21:09:51Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "ec38818d_8869ab96",
       "revId": "4ea205bf9530f629180791279e2f1dd0ef14f483",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
