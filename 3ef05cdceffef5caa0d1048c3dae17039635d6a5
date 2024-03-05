@@ -264,6 +264,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "035e4e5e_cba663d5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-05T09:55:07Z",
+      "side": 1,
+      "message": "\u003e Understood, please still add them to the review so at least they can run it through their tests on their platform.\n\nManoj did the original commit, since he also works at IBM, I am assuming he is okay with this. He has also been added.\n\nSince the backend merged, I assume the networkd folks are also okay with this.\n\nThese comments by Ed aren\u0027t all explicitly answered, please be as clear as possible. \nI am assuming some of their answers (like I assume there wasn\u0027t a bug. I am assuming the regression is this \"seDomainName\" configuration is actually not controlling DomainName setting\". I am assuming the new behavior is UseDomainName now works.)\n\nFor next time, please be as clear as possible. \n\n\u003e Put that in your commit message please. To be explicit:\n\n\u003e    What was the old behavior.\n\u003e    What is the new behavior, and how did it change?\n\n\n\u003e What does this fix? Was there a bug? Was it a regression?",
+      "parentUuid": "961b73e4_2fc24166",
+      "range": {
+        "startLine": 10,
+        "startChar": 3,
+        "endLine": 10,
+        "endChar": 7
+      },
+      "revId": "3ef05cdceffef5caa0d1048c3dae17039635d6a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c76b3617_9114b8c9",
