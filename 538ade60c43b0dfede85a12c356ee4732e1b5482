@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f471342_94796f00",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-05T09:57:45Z",
+      "side": 1,
+      "message": "This is the old Power/Thermal. \nleave open for the week to give someone a chance to test, if we don\u0027t get anyone, merge?",
+      "revId": "538ade60c43b0dfede85a12c356ee4732e1b5482",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
