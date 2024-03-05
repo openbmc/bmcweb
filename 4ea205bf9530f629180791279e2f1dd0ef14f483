@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f293bec8_b815c639",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-03-05T13:26:47Z",
+      "side": 1,
+      "message": "I\u0027ll hide the detail",
+      "parentUuid": "45eea794_546bc0c9",
+      "range": {
+        "startLine": 44,
+        "startChar": 26,
+        "endLine": 44,
+        "endChar": 85
+      },
+      "revId": "4ea205bf9530f629180791279e2f1dd0ef14f483",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "410d5bf9_7f85cce4",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-03-05T03:12:37Z",
       "side": 1,
       "message": "This doesn\u0027t follow the rules on how structured data should be provided.",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 103
+      },
+      "revId": "4ea205bf9530f629180791279e2f1dd0ef14f483",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "992712d0_2be49547",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-03-05T13:26:47Z",
+      "side": 1,
+      "message": "I\u0027ll hide the detail",
+      "parentUuid": "410d5bf9_7f85cce4",
       "range": {
         "startLine": 46,
         "startChar": 0,
@@ -78,6 +126,24 @@
       "side": 1,
       "message": "https://github.com/openbmc/bmcweb/blob/master/OEM_SCHEMAS.md",
       "parentUuid": "eaafcc73_278f5848",
+      "revId": "4ea205bf9530f629180791279e2f1dd0ef14f483",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22f1e598_9717224c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-03-05T13:26:47Z",
+      "side": 1,
+      "message": "I\u0027ll mark this as WIP while we go thru DMTF.",
+      "parentUuid": "57886067_ae0b34c8",
       "revId": "4ea205bf9530f629180791279e2f1dd0ef14f483",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
