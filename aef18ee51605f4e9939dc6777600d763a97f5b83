@@ -87,6 +87,24 @@
       "message": "@gunnar?",
       "revId": "aef18ee51605f4e9939dc6777600d763a97f5b83",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ec2f01e_64c9f9b1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-05T06:21:13Z",
+      "side": 1,
+      "message": "The what to do with this allow list is separate discusion. :/ I think can go",
+      "parentUuid": "0f4b7d21_a23ec355",
+      "revId": "aef18ee51605f4e9939dc6777600d763a97f5b83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
