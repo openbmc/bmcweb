@@ -146,6 +146,24 @@
       "parentUuid": "57886067_ae0b34c8",
       "revId": "4ea205bf9530f629180791279e2f1dd0ef14f483",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec38818d_8869ab96",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-03-05T17:59:01Z",
+      "side": 1,
+      "message": "An issue to DMTF asking how best this can be handled is created - https://github.com/DMTF/Redfish/issues/5994",
+      "parentUuid": "22f1e598_9717224c",
+      "revId": "4ea205bf9530f629180791279e2f1dd0ef14f483",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
