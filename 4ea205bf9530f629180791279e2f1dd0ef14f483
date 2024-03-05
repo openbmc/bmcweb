@@ -62,6 +62,24 @@
       "message": "Lots of issues here:\n1. This patch has made edits to a DMTF owned schema.\n2. This patch has changed an existing message incorrectly for backward compatibility and versioning requirements covered in the redfish standard.\n3. This patchset has failed to recognize the difference between a schema and a registry, and has provided incorrect IDs on its messages.\n4. This patchset has failed to follow OEM schema rules for Redfish.\n5. The Author of this patchset has failed to read the OpenBMC rules on OEM schemas.  Ideally time could\u0027ve been saved by reading those BEFORE writing this patchset;  Bear in mind that if this patchset takes a while;  The documentation is there to save you time.\n\nTo get help on the schema portions of this, you should be posting to a DMTF forum, asking for help, or ideally for your new message to be included in Redfish.  We do not have many Redfish schema experts in the OpenBMC maintainer pool.",
       "revId": "4ea205bf9530f629180791279e2f1dd0ef14f483",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57886067_ae0b34c8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-05T05:45:37Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/bmcweb/blob/master/OEM_SCHEMAS.md",
+      "parentUuid": "eaafcc73_278f5848",
+      "revId": "4ea205bf9530f629180791279e2f1dd0ef14f483",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
