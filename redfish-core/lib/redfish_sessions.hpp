@@ -172,7 +172,7 @@ inline void handleSessionCollectionGet(
     asyncResp->res.jsonValue["@odata.type"] =
         "#SessionCollection.SessionCollection";
     asyncResp->res.jsonValue["@odata.id"] =
-        "/redfish/v1/SessionService/Sessions/";
+        "/redfish/v1/SessionService/Sessions";
     asyncResp->res.jsonValue["Name"] = "Session Collection";
     asyncResp->res.jsonValue["Description"] = "Session Collection";
 }
@@ -282,7 +282,7 @@ inline void
 
     asyncResp->res.jsonValue["@odata.type"] =
         "#SessionService.v1_0_2.SessionService";
-    asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/SessionService/";
+    asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/SessionService";
     asyncResp->res.jsonValue["Name"] = "Session Service";
     asyncResp->res.jsonValue["Id"] = "SessionService";
     asyncResp->res.jsonValue["Description"] = "Session Service";
