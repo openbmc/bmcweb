@@ -70,6 +70,30 @@
       },
       "revId": "70702d2885185a32b6f3ae25af01fd2e43a714fc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fde69604_ee42ef83",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 926,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-05T09:41:05Z",
+      "side": 1,
+      "message": "On the other thread \"Yes it\u0027s tested with the networkd backend commit\"",
+      "parentUuid": "4e833b82_c8d4e61e",
+      "range": {
+        "startLine": 926,
+        "startChar": 0,
+        "endLine": 926,
+        "endChar": 2
+      },
+      "revId": "70702d2885185a32b6f3ae25af01fd2e43a714fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
