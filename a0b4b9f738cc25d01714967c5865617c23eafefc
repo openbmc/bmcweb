@@ -142,6 +142,30 @@
       },
       "revId": "a0b4b9f738cc25d01714967c5865617c23eafefc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3eae260d_84289e77",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-05T16:31:37Z",
+      "side": 1,
+      "message": "what does the path variable do in the above case?",
+      "parentUuid": "76d72c07_223bae6f",
+      "range": {
+        "startLine": 121,
+        "startChar": 10,
+        "endLine": 121,
+        "endChar": 22
+      },
+      "revId": "a0b4b9f738cc25d01714967c5865617c23eafefc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
