@@ -48,6 +48,28 @@ TEST(ReadJson, ValidElementsReturnsTrueResponseOkValuesUnpackedCorrectly)
     EXPECT_THAT(vec, ElementsAre(1, 2, 3));
 }
 
+TEST(ReadJson, ValidObjectElementsReturnsTrueResponseOkValuesUnpackedCorrectly)
+{
+    crow::Response res;
+    nlohmann::json::object_t jsonRequest;
+    jsonRequest["integer"] = 1;
+    jsonRequest["string"] = "hello";
+    jsonRequest["vector"] = std::vector<uint64_t>{1, 2, 3};
+    ;
+
+    int64_t integer = 0;
+    std::string str;
+    std::vector<uint64_t> vec;
+    ASSERT_TRUE(readJsonObject(jsonRequest, res, "integer", integer, "string",
+                               str, "vector", vec));
+    EXPECT_EQ(res.result(), boost::beast::http::status::ok);
+    EXPECT_THAT(res.jsonValue, IsEmpty());
+
+    EXPECT_EQ(integer, 1);
+    EXPECT_EQ(str, "hello");
+    EXPECT_THAT(vec, ElementsAre(1, 2, 3));
+}
+
 TEST(readJson, ExtraElementsReturnsFalseReponseIsBadRequest)
 {
     crow::Response res;
