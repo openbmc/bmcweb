@@ -424,6 +424,7 @@ inline void
     const std::string* sparePartNumber = nullptr;
     const std::string* model = nullptr;
     const std::string* locationCode = nullptr;
+    const bool* functional = nullptr;
 
     const bool success = sdbusplus::unpackPropertiesNoThrow(
         dbus_utils::UnpackErrorPrinter(), properties, "MemoryDataWidth",
@@ -436,7 +437,7 @@ inline void
         memoryConfiguredSpeedInMhz, "MemoryType", memoryType, "Channel",
         channel, "MemoryController", memoryController, "Slot", slot, "Socket",
         socket, "SparePartNumber", sparePartNumber, "Model", model,
-        "LocationCode", locationCode);
+        "LocationCode", locationCode, "Functional", functional);
 
     if (!success)
     {
@@ -479,6 +480,14 @@ inline void
     if (present != nullptr && !*present)
     {
         asyncResp->res.jsonValue[jsonPtr]["Status"]["State"] = "Absent";
+    }
+
+    if (functional != nullptr)
+    {
+        if (!*functional)
+        {
+            asyncResp->res.jsonValue[jsonPtr]["Status"]["Health"] = "Critical";
+        }
     }
 
     if (memoryTotalWidth != nullptr)
