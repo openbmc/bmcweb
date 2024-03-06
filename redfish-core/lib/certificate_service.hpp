@@ -471,13 +471,12 @@ inline void handleReplaceCertificateAction(
         return;
     }
     std::string certificate;
-    nlohmann::json certificateUri;
+    std::string certURI;
     std::optional<std::string> certificateType = "PEM";
 
     if (!json_util::readJsonAction(req, asyncResp->res, "CertificateString",
-                                   certificate, "CertificateUri",
-                                   certificateUri, "CertificateType",
-                                   certificateType))
+                                   certificate, "CertificateUri/@odata.id",
+                                   certURI, "CertificateType", certificateType))
     {
         BMCWEB_LOG_ERROR("Required parameters are missing");
         return;
@@ -495,14 +494,6 @@ inline void handleReplaceCertificateAction(
         return;
     }
 
-    std::string certURI;
-    if (!redfish::json_util::readJson(certificateUri, asyncResp->res,
-                                      "@odata.id", certURI))
-    {
-        messages::actionParameterMissing(asyncResp->res, "ReplaceCertificate",
-                                         "CertificateUri");
-        return;
-    }
     BMCWEB_LOG_INFO("Certificate URI to replace: {}", certURI);
 
     boost::system::result<boost::urls::url> parsedUrl =
@@ -635,7 +626,7 @@ inline void
     std::string organization;
     std::string organizationalUnit;
     std::string state;
-    nlohmann::json certificateCollection;
+    std::string certURI;
 
     // Optional parameters
     std::optional<std::vector<std::string>> optAlternativeNames =
@@ -656,13 +647,14 @@ inline void
             req, asyncResp->res, "City", city, "CommonName", commonName,
             "ContactPerson", optContactPerson, "Country", country,
             "Organization", organization, "OrganizationalUnit",
-            organizationalUnit, "State", state, "CertificateCollection",
-            certificateCollection, "AlternativeNames", optAlternativeNames,
-            "ChallengePassword", optChallengePassword, "Email", optEmail,
-            "GivenName", optGivenName, "Initials", optInitials, "KeyBitLength",
-            optKeyBitLength, "KeyCurveId", optKeyCurveId, "KeyPairAlgorithm",
-            optKeyPairAlgorithm, "KeyUsage", optKeyUsage, "Surname", optSurname,
-            "UnstructuredName", optUnstructuredName))
+            organizationalUnit, "State", state,
+            "CertificateCollection/@odata.id", certURI, "AlternativeNames",
+            optAlternativeNames, "ChallengePassword", optChallengePassword,
+            "Email", optEmail, "GivenName", optGivenName, "Initials",
+            optInitials, "KeyBitLength", optKeyBitLength, "KeyCurveId",
+            optKeyCurveId, "KeyPairAlgorithm", optKeyPairAlgorithm, "KeyUsage",
+            optKeyUsage, "Surname", optSurname, "UnstructuredName",
+            optUnstructuredName))
     {
         return;
     }
@@ -675,13 +667,6 @@ inline void
     {
         messages::actionParameterNotSupported(asyncResp->res, "GenerateCSR",
                                               "ChallengePassword");
-        return;
-    }
-
-    std::string certURI;
-    if (!redfish::json_util::readJson(certificateCollection, asyncResp->res,
-                                      "@odata.id", certURI))
-    {
         return;
     }
 
