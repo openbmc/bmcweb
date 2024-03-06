@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ab417a1c_d48c3be7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-06T15:40:41Z",
+      "side": 1,
+      "message": "Looks like Gunnar checked this in here:\n\nhttps://github.com/openbmc/bmcweb/commit/3e40fc742265c3ec1384e7e5994e62aed356331f\n\nPlease reference that in your commit message.",
+      "revId": "ba4c929835ffb9ffa01a47aa21f4e1c087c90694",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d1308c3f_a1ca6e9a",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 1
