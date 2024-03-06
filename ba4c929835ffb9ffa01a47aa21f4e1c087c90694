@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1308c3f_a1ca6e9a",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-06T15:37:44Z",
+      "side": 1,
+      "message": "Please read in both the old and the new parameter, such that code that relied on the old wrong behavior will still work.",
+      "range": {
+        "startLine": 191,
+        "startChar": 60,
+        "endLine": 192,
+        "endChar": 48
+      },
+      "revId": "ba4c929835ffb9ffa01a47aa21f4e1c087c90694",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
