@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "36b60af1_be8f04b5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-03-06T18:27:40Z",
+      "side": 1,
+      "message": "I misquoted before. I think the correct reference is:\n\nhttps://github.com/openbmc/bmcweb/blob/41b25aa3a541a0f92dee53b89064f655ac5e11cb/static/redfish/v1/schema/Chassis_v1.xml#L1599C1-L1606C20\n\n\n```\n      \u003cEntityType Name\u003d\"Chassis\" BaseType\u003d\"Chassis.v1_9_2.Chassis\"\u003e\n        \u003cNavigationProperty Name\u003d\"PCIeDevices\" Type\u003d\"PCIeDeviceCollection.PCIeDeviceCollection\" ContainsTarget\u003d\"true\" Nullable\u003d\"false\"\u003e\n          \u003cAnnotation Term\u003d\"OData.Permissions\" EnumMember\u003d\"OData.Permission/Read\"/\u003e\n          \u003cAnnotation Term\u003d\"OData.Description\" String\u003d\"The link to the collection of PCIe devices located in this chassis.\"/\u003e\n          \u003cAnnotation Term\u003d\"OData.LongDescription\" String\u003d\"This property shall contain a link to a resource collection of type PCIeDeviceCollection.\"/\u003e\n          \u003cAnnotation Term\u003d\"OData.AutoExpandReferences\"/\u003e\n        \u003c/NavigationProperty\u003e\n      \u003c/EntityType\u003e\n```",
+      "parentUuid": "6144d22a_81744123",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 19
+      },
+      "revId": "cb47223fc8b3fb8fbc56bc3375c29eac91fdec8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "33d6d5a3_ff7317d0",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
