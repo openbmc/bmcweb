@@ -123,31 +123,6 @@ inline resource::Health toRedfishSeverity(std::string_view dbusValue)
     return resource::Health::Invalid;
 }
 
-inline std::string toDbusThresholdName(std::string_view redfishValue)
-{
-    if (redfishValue == "UpperCritical")
-    {
-        return "xyz.openbmc_project.Telemetry.Trigger.Type.UpperCritical";
-    }
-
-    if (redfishValue == "LowerCritical")
-    {
-        return "xyz.openbmc_project.Telemetry.Trigger.Type.LowerCritical";
-    }
-
-    if (redfishValue == "UpperWarning")
-    {
-        return "xyz.openbmc_project.Telemetry.Trigger.Type.UpperWarning";
-    }
-
-    if (redfishValue == "LowerWarning")
-    {
-        return "xyz.openbmc_project.Telemetry.Trigger.Type.LowerWarning";
-    }
-
-    return "";
-}
-
 inline std::string toRedfishThresholdName(std::string_view dbusValue)
 {
     if (dbusValue == "xyz.openbmc_project.Telemetry.Trigger.Type.UpperCritical")
@@ -294,61 +269,101 @@ inline std::optional<DiscreteCondition>
     return std::nullopt;
 }
 
-inline bool parseNumericThresholds(crow::Response& res,
-                                   nlohmann::json& numericThresholds,
-                                   Context& ctx)
+inline bool parseThreshold(crow::Response& res,
+                           nlohmann::json::object_t& threshold,
+                           std::string_view dbusThresholdName,
+                           std::vector<NumericThresholdParams>& parsedParams)
 {
-    nlohmann::json::object_t* obj =
-        numericThresholds.get_ptr<nlohmann::json::object_t*>();
-    if (obj == nullptr)
+    double reading = 0.0;
+    std::string activation;
+    std::string dwellTimeStr;
+
+    if (!json_util::readJsonObj(threshold, res, "Reading", reading,
+                                "Activation", activation, "DwellTime",
+                                dwellTimeStr))
     {
-        messages::propertyValueTypeError(res, numericThresholds.dump(),
-                                         "NumericThresholds");
         return false;
     }
 
-    std::vector<NumericThresholdParams> parsedParams;
-    parsedParams.reserve(numericThresholds.size());
+    std::string dbusActivation = toDbusActivation(activation);
 
-    for (auto& key : *obj)
+    if (dbusActivation.empty())
     {
-        std::string dbusThresholdName = toDbusThresholdName(key.first);
-        if (dbusThresholdName.empty())
+        messages::propertyValueIncorrect(res, "Activation", activation);
+        return false;
+    }
+
+    std::optional<std::chrono::milliseconds> dwellTime =
+        time_utils::fromDurationString(dwellTimeStr);
+    if (!dwellTime)
+    {
+        messages::propertyValueIncorrect(res, "DwellTime", dwellTimeStr);
+        return false;
+    }
+
+    parsedParams.emplace_back(dbusThresholdName,
+                              static_cast<uint64_t>(dwellTime->count()),
+                              dbusActivation, reading);
+    return true;
+}
+
+struct NumericThresholds
+{
+    std::optional<nlohmann::json::object_t> upperCritical;
+    std::optional<nlohmann::json::object_t> upperWarning;
+    std::optional<nlohmann::json::object_t> lowerWarning;
+    std::optional<nlohmann::json::object_t> lowerCritical;
+
+    bool any()
+    {
+        return upperCritical || upperWarning || lowerWarning || lowerCritical;
+    }
+};
+
+inline bool parseNumericThresholds(crow::Response& res,
+                                   NumericThresholds& numericThresholds,
+                                   Context& ctx)
+{
+    std::vector<NumericThresholdParams> parsedParams;
+    if (numericThresholds.upperCritical)
+    {
+        if (!parseThreshold(
+                res, *numericThresholds.upperCritical,
+                "xyz.openbmc_project.Telemetry.Trigger.Type.UpperCritical",
+                parsedParams))
         {
-            messages::propertyUnknown(res, key.first);
             return false;
         }
-
-        double reading = 0.0;
-        std::string activation;
-        std::string dwellTimeStr;
-
-        if (!json_util::readJson(key.second, res, "Reading", reading,
-                                 "Activation", activation, "DwellTime",
-                                 dwellTimeStr))
+    }
+    if (numericThresholds.upperWarning)
+    {
+        if (!parseThreshold(
+                res, *numericThresholds.upperWarning,
+                "xyz.openbmc_project.Telemetry.Trigger.Type.UpperWarning",
+                parsedParams))
         {
             return false;
         }
-
-        std::string dbusActivation = toDbusActivation(activation);
-
-        if (dbusActivation.empty())
+    }
+    if (numericThresholds.lowerWarning)
+    {
+        if (!parseThreshold(
+                res, *numericThresholds.lowerWarning,
+                "xyz.openbmc_project.Telemetry.Trigger.Type.LowerWarning",
+                parsedParams))
         {
-            messages::propertyValueIncorrect(res, "Activation", activation);
             return false;
         }
-
-        std::optional<std::chrono::milliseconds> dwellTime =
-            time_utils::fromDurationString(dwellTimeStr);
-        if (!dwellTime)
+    }
+    if (numericThresholds.lowerCritical)
+    {
+        if (!parseThreshold(
+                res, *numericThresholds.lowerCritical,
+                "xyz.openbmc_project.Telemetry.Trigger.Type.LowerCritical",
+                parsedParams))
         {
-            messages::propertyValueIncorrect(res, "DwellTime", dwellTimeStr);
             return false;
         }
-
-        parsedParams.emplace_back(dbusThresholdName,
-                                  static_cast<uint64_t>(dwellTime->count()),
-                                  dbusActivation, reading);
     }
 
     ctx.thresholds = std::move(parsedParams);
@@ -357,7 +372,8 @@ inline bool parseNumericThresholds(crow::Response& res,
 
 inline bool parseDiscreteTriggers(
     crow::Response& res,
-    std::optional<std::vector<nlohmann::json>>& discreteTriggers, Context& ctx)
+    std::optional<std::vector<nlohmann::json::object_t>>& discreteTriggers,
+    Context& ctx)
 {
     std::vector<DiscreteThresholdParams> parsedParams;
     if (!discreteTriggers)
@@ -367,16 +383,16 @@ inline bool parseDiscreteTriggers(
     }
 
     parsedParams.reserve(discreteTriggers->size());
-    for (nlohmann::json& thresholdInfo : *discreteTriggers)
+    for (nlohmann::json::object_t& thresholdInfo : *discreteTriggers)
     {
         std::optional<std::string> name = "";
         std::string value;
         std::string dwellTimeStr;
         std::string severity;
 
-        if (!json_util::readJson(thresholdInfo, res, "Name", name, "Value",
-                                 value, "DwellTime", dwellTimeStr, "Severity",
-                                 severity))
+        if (!json_util::readJsonObj(thresholdInfo, res, "Name", name, "Value",
+                                    value, "DwellTime", dwellTimeStr,
+                                    "Severity", severity))
         {
             return false;
         }
@@ -407,10 +423,10 @@ inline bool parseDiscreteTriggers(
 
 inline bool parseTriggerThresholds(
     crow::Response& res,
-    std::optional<std::vector<nlohmann::json>>& discreteTriggers,
-    std::optional<nlohmann::json>& numericThresholds, Context& ctx)
+    std::optional<std::vector<nlohmann::json::object_t>>& discreteTriggers,
+    NumericThresholds& numericThresholds, Context& ctx)
 {
-    if (discreteTriggers && numericThresholds)
+    if (discreteTriggers && numericThresholds.any())
     {
         messages::propertyValueConflict(res, "DiscreteTriggers",
                                         "NumericThresholds");
@@ -421,7 +437,7 @@ inline bool parseTriggerThresholds(
 
     if (ctx.discreteCondition)
     {
-        if (numericThresholds)
+        if (numericThresholds.any())
         {
             messages::propertyValueConflict(res, "DiscreteTriggerCondition",
                                             "NumericThresholds");
@@ -433,7 +449,7 @@ inline bool parseTriggerThresholds(
 
     if (ctx.metricType)
     {
-        if (*ctx.metricType == MetricType::Discrete && numericThresholds)
+        if (*ctx.metricType == MetricType::Discrete && numericThresholds.any())
         {
             messages::propertyValueConflict(res, "NumericThresholds",
                                             "MetricType");
@@ -481,9 +497,9 @@ inline bool parseTriggerThresholds(
             return false;
         }
     }
-    else if (numericThresholds)
+    else if (numericThresholds.any())
     {
-        if (!parseNumericThresholds(res, *numericThresholds, ctx))
+        if (!parseNumericThresholds(res, numericThresholds, ctx))
         {
             return false;
         }
@@ -498,35 +514,22 @@ inline bool parseTriggerThresholds(
     return true;
 }
 
-inline bool parseLinks(crow::Response& res, nlohmann::json& links, Context& ctx)
+inline bool parseLinks(crow::Response& res,
+                       const std::vector<std::string>& metricReportDefinitions,
+                       Context& ctx)
 {
-    if (links.empty())
+    ctx.reports.reserve(metricReportDefinitions.size());
+    for (const std::string& reportDefinionUri : metricReportDefinitions)
     {
-        return true;
-    }
-
-    std::optional<std::vector<std::string>> metricReportDefinitions;
-    if (!json_util::readJson(links, res, "MetricReportDefinitions",
-                             metricReportDefinitions))
-    {
-        return false;
-    }
-
-    if (metricReportDefinitions)
-    {
-        ctx.reports.reserve(metricReportDefinitions->size());
-        for (std::string& reportDefinionUri : *metricReportDefinitions)
+        std::optional<sdbusplus::message::object_path> reportPath =
+            getReportPathFromReportDefinitionUri(reportDefinionUri);
+        if (!reportPath)
         {
-            std::optional<sdbusplus::message::object_path> reportPath =
-                getReportPathFromReportDefinitionUri(reportDefinionUri);
-            if (!reportPath)
-            {
-                messages::propertyValueIncorrect(res, "MetricReportDefinitions",
-                                                 reportDefinionUri);
-                return false;
-            }
-            ctx.reports.emplace_back(*reportPath);
+            messages::propertyValueIncorrect(res, "MetricReportDefinitions",
+                                             reportDefinionUri);
+            return false;
         }
+        ctx.reports.emplace_back(*reportPath);
     }
     return true;
 }
@@ -588,18 +591,29 @@ inline bool parsePostTriggerParams(crow::Response& res,
     std::optional<std::string> metricType;
     std::optional<std::vector<std::string>> triggerActions;
     std::optional<std::string> discreteTriggerCondition;
-    std::optional<std::vector<nlohmann::json>> discreteTriggers;
-    std::optional<nlohmann::json> numericThresholds;
-    std::optional<nlohmann::json> links;
+    std::optional<std::vector<nlohmann::json::object_t>> discreteTriggers;
+    std::optional<std::vector<std::string>> metricReportDefinitions;
+    NumericThresholds thresholds;
+    // clang-format off
     if (!json_util::readJsonPatch(
-            req, res, "Id", id, "Name", name, "MetricType", metricType,
-            "TriggerActions", triggerActions, "DiscreteTriggerCondition",
-            discreteTriggerCondition, "DiscreteTriggers", discreteTriggers,
-            "NumericThresholds", numericThresholds, "MetricProperties",
-            ctx.metricProperties, "Links", links))
+            req, res,
+	    "Id", id,
+            "Name", name,
+	    "MetricType", metricType,
+            "TriggerActions", triggerActions,
+            "DiscreteTriggerCondition", discreteTriggerCondition,
+            "DiscreteTriggers", discreteTriggers,
+            "NumericThresholds/UpperCritical", thresholds.upperCritical,
+            "NumericThresholds/UpperWarning", thresholds.upperWarning,
+            "NumericThresholds/LowerWarning", thresholds.lowerWarning,
+            "NumericThresholds/LowerCritical", thresholds.lowerCritical,
+            "MetricProperties", ctx.metricProperties,
+            "Links/MetricReportDefinitions", metricReportDefinitions)
+    )
     {
         return false;
     }
+    // clang-format on
 
     ctx.id = *id;
     ctx.name = *name;
@@ -646,14 +660,14 @@ inline bool parsePostTriggerParams(crow::Response& res,
         return false;
     }
 
-    if (!parseTriggerThresholds(res, discreteTriggers, numericThresholds, ctx))
+    if (!parseTriggerThresholds(res, discreteTriggers, thresholds, ctx))
     {
         return false;
     }
 
-    if (links)
+    if (metricReportDefinitions)
     {
-        if (!parseLinks(res, *links, ctx))
+        if (!parseLinks(res, *metricReportDefinitions, ctx))
         {
             return false;
         }
