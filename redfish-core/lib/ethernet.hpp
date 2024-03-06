@@ -1005,7 +1005,8 @@ inline void deleteAndCreateIPv6DefaultGateway(
  */
 
 inline void handleIPv6DefaultGateway(
-    const std::string& ifaceId, const nlohmann::json::array_t& input,
+    const std::string& ifaceId,
+    std::vector<json_util::NullOr<nlohmann::json::object_t>>& input,
     const std::vector<StaticGatewayData>& staticGatewayData,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
@@ -1013,7 +1014,7 @@ inline void handleIPv6DefaultGateway(
     std::vector<StaticGatewayData>::const_iterator staticGatewayEntry =
         staticGatewayData.begin();
 
-    for (const nlohmann::json& thisJson : input)
+    for (json_util::NullOr<nlohmann::json::object_t>& thisJson : input)
     {
         // find the next gateway entry
         while (staticGatewayEntry != staticGatewayData.end())
@@ -1027,7 +1028,7 @@ inline void handleIPv6DefaultGateway(
         }
         std::string pathString = "IPv6StaticDefaultGateways/" +
                                  std::to_string(entryIdx);
-        if (thisJson.is_null())
+        if (!thisJson.value)
         {
             if (staticGatewayEntry == staticGatewayData.end())
             {
@@ -1037,22 +1038,21 @@ inline void handleIPv6DefaultGateway(
             deleteIPv6Gateway(staticGatewayEntry->id, asyncResp);
             return;
         }
-        if (thisJson.is_object() && thisJson.empty())
+        if (thisJson.value->empty())
         {
             // Do nothing, but make sure the entry exists.
             if (staticGatewayEntry == staticGatewayData.end())
             {
-                messages::propertyValueFormatError(asyncResp->res, thisJson,
-                                                   pathString);
+                messages::propertyValueFormatError(asyncResp->res,
+                                                   *thisJson.value, pathString);
                 return;
             }
         }
         std::optional<std::string> address;
         std::optional<size_t> prefixLength;
 
-        nlohmann::json thisJsonCopy = thisJson;
-        if (!json_util::readJson(thisJsonCopy, asyncResp->res, "Address",
-                                 address, "PrefixLength", prefixLength))
+        if (!json_util::readJsonObj(*thisJson.value, asyncResp->res, "Address",
+                                    address, "PrefixLength", prefixLength))
         {
             return;
         }
@@ -1117,7 +1117,7 @@ void getEthernetIfaceData(const std::string& ethifaceId,
         [ethifaceId{std::string{ethifaceId}},
          callback{std::forward<CallbackFunc>(callback)}](
             const boost::system::error_code& ec,
-            const dbus::utility::ManagedObjectType& resp) {
+            const dbus::utility::ManagedObjectType& resp) mutable {
         EthernetInterfaceData ethData{};
         std::vector<IPv4AddressData> ipv4Data;
         std::vector<IPv6AddressData> ipv6Data;
@@ -1563,19 +1563,12 @@ inline std::vector<IPv6AddressData>::const_iterator getNextStaticIpEntry(
     });
 }
 
-inline void
-    handleIPv4StaticPatch(const std::string& ifaceId,
-                          nlohmann::json::array_t& input,
-                          const std::vector<IPv4AddressData>& ipv4Data,
-                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void handleIPv4StaticPatch(
+    const std::string& ifaceId,
+    std::vector<json_util::NullOr<nlohmann::json::object_t>>& input,
+    const std::vector<IPv4AddressData>& ipv4Data,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (input.empty())
-    {
-        messages::propertyValueTypeError(asyncResp->res, input,
-                                         "IPv4StaticAddresses");
-        return;
-    }
-
     unsigned entryIdx = 1;
     // Find the first static IP address currently active on the NIC and
     // match it to the first JSON element in the IPv4StaticAddresses array.
@@ -1584,23 +1577,23 @@ inline void
     std::vector<IPv4AddressData>::const_iterator nicIpEntry =
         getNextStaticIpEntry(ipv4Data.cbegin(), ipv4Data.cend());
 
-    for (nlohmann::json& thisJson : input)
+    for (json_util::NullOr<nlohmann::json::object_t>& thisJson : input)
     {
         std::string pathString = "IPv4StaticAddresses/" +
                                  std::to_string(entryIdx);
 
-        if (!thisJson.is_null() && !thisJson.empty())
+        if (thisJson.value && !thisJson.value->empty())
         {
             std::optional<std::string> address;
             std::optional<std::string> subnetMask;
             std::optional<std::string> gateway;
 
-            if (!json_util::readJson(thisJson, asyncResp->res, "Address",
-                                     address, "SubnetMask", subnetMask,
-                                     "Gateway", gateway))
+            if (!json_util::readJsonObj(*thisJson.value, asyncResp->res,
+                                        "Address", address, "SubnetMask",
+                                        subnetMask, "Gateway", gateway))
             {
-                messages::propertyValueFormatError(asyncResp->res, thisJson,
-                                                   pathString);
+                messages::propertyValueFormatError(asyncResp->res,
+                                                   *thisJson.value, pathString);
                 return;
             }
 
@@ -1700,17 +1693,17 @@ inline void
                 // Requesting a DELETE/DO NOT MODIFY action for an item
                 // that isn't present on the eth(n) interface. Input JSON is
                 // in error, so bail out.
-                if (thisJson.is_null())
+                if (!thisJson.value)
                 {
                     messages::resourceCannotBeDeleted(asyncResp->res);
                     return;
                 }
-                messages::propertyValueFormatError(asyncResp->res, thisJson,
-                                                   pathString);
+                messages::propertyValueFormatError(asyncResp->res,
+                                                   *thisJson.value, pathString);
                 return;
             }
 
-            if (thisJson.is_null())
+            if (!thisJson.value)
             {
                 deleteIPAddress(ifaceId, nicIpEntry->id, asyncResp);
             }
@@ -1744,33 +1737,28 @@ inline void handleStaticNameServersPatch(
 }
 
 inline void handleIPv6StaticAddressesPatch(
-    const std::string& ifaceId, const nlohmann::json::array_t& input,
+    const std::string& ifaceId,
+    std::vector<json_util::NullOr<nlohmann::json::object_t>>& input,
     const std::vector<IPv6AddressData>& ipv6Data,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (input.empty())
-    {
-        messages::propertyValueTypeError(asyncResp->res, input,
-                                         "IPv6StaticAddresses");
-        return;
-    }
     size_t entryIdx = 1;
     std::vector<IPv6AddressData>::const_iterator nicIpEntry =
         getNextStaticIpEntry(ipv6Data.cbegin(), ipv6Data.cend());
-    for (const nlohmann::json& thisJson : input)
+    for (const json_util::NullOr<nlohmann::json::object_t>& thisJson : input)
     {
         std::string pathString = "IPv6StaticAddresses/" +
                                  std::to_string(entryIdx);
 
-        if (!thisJson.is_null() && !thisJson.empty())
+        if (thisJson.value && !thisJson.value->empty())
         {
             std::optional<std::string> address;
             std::optional<uint8_t> prefixLength;
-            nlohmann::json thisJsonCopy = thisJson;
-            if (!json_util::readJson(thisJsonCopy, asyncResp->res, "Address",
-                                     address, "PrefixLength", prefixLength))
+            nlohmann::json::object_t thisJsonCopy = *thisJson.value;
+            if (!json_util::readJsonObj(thisJsonCopy, asyncResp->res, "Address",
+                                        address, "PrefixLength", prefixLength))
             {
-                messages::propertyValueFormatError(asyncResp->res, thisJson,
+                messages::propertyValueFormatError(asyncResp->res, thisJsonCopy,
                                                    pathString);
                 return;
             }
@@ -1833,17 +1821,17 @@ inline void handleIPv6StaticAddressesPatch(
                 // Requesting a DELETE/DO NOT MODIFY action for an item
                 // that isn't present on the eth(n) interface. Input JSON is
                 // in error, so bail out.
-                if (thisJson.is_null())
+                if (!thisJson.value)
                 {
                     messages::resourceCannotBeDeleted(asyncResp->res);
                     return;
                 }
-                messages::propertyValueFormatError(asyncResp->res, thisJson,
-                                                   pathString);
+                messages::propertyValueFormatError(asyncResp->res,
+                                                   *thisJson.value, pathString);
                 return;
             }
 
-            if (thisJson.is_null())
+            if (thisJson.value == std::nullopt)
             {
                 deleteIPAddress(ifaceId, nicIpEntry->id, asyncResp);
             }
@@ -2293,12 +2281,13 @@ inline void requestEthernetInterfacesRoutes(App& app)
         std::optional<std::string> fqdn;
         std::optional<std::string> macAddress;
         std::optional<std::string> ipv6DefaultGateway;
-        std::optional<nlohmann::json::array_t> ipv4StaticAddresses;
-        std::optional<nlohmann::json::array_t> ipv6StaticAddresses;
-        std::optional<nlohmann::json::array_t> ipv6StaticDefaultGateways;
+        std::optional<std::vector<json_util::NullOr<nlohmann::json::object_t>>>
+            ipv4StaticAddresses;
+        std::optional<std::vector<json_util::NullOr<nlohmann::json::object_t>>>
+            ipv6StaticAddresses;
+        std::optional<std::vector<json_util::NullOr<nlohmann::json::object_t>>>
+            ipv6StaticDefaultGateways;
         std::optional<std::vector<std::string>> staticNameServers;
-        std::optional<nlohmann::json> dhcpv4;
-        std::optional<nlohmann::json> dhcpv6;
         std::optional<bool> ipv6AutoConfigEnabled;
         std::optional<bool> interfaceEnabled;
         std::optional<size_t> mtuSize;
@@ -2307,8 +2296,14 @@ inline void requestEthernetInterfacesRoutes(App& app)
         // clang-format off
         if (!json_util::readJsonPatch(
                 req, asyncResp->res,
-                "DHCPv4", dhcpv4,
-                "DHCPv6", dhcpv6,
+		"DHCPv4/DHCPEnabled",   v4dhcpParms.dhcpv4Enabled,
+		"DHCPv4/UseDNSServers", v4dhcpParms.useDnsServers,
+		"DHCPv4/UseNTPServers", v4dhcpParms.useNtpServers,
+		"DHCPv4/UseDomainName", v4dhcpParms.useDomainName,
+	        "DHCPv6/OperatingMode", v6dhcpParms.dhcpv6OperatingMode,
+	        "DHCPv6/UseDNSServers", v6dhcpParms.useDnsServers,
+	        "DHCPv6/UseNTPServers", v6dhcpParms.useNtpServers,
+	        "DHCPv6/UseDomainName", v6dhcpParms.useDomainName,
                 "FQDN", fqdn,
                 "HostName", hostname,
                 "IPv4StaticAddresses", ipv4StaticAddresses,
@@ -2326,30 +2321,6 @@ inline void requestEthernetInterfacesRoutes(App& app)
             return;
         }
         //clang-format on
-        if (dhcpv4)
-        {
-            if (!json_util::readJson(*dhcpv4, asyncResp->res, "DHCPEnabled",
-                                     v4dhcpParms.dhcpv4Enabled, "UseDNSServers",
-                                     v4dhcpParms.useDnsServers, "UseNTPServers",
-                                     v4dhcpParms.useNtpServers, "UseDomainName",
-                                     v4dhcpParms.useDomainName))
-            {
-                return;
-            }
-        }
-
-        if (dhcpv6)
-        {
-            if (!json_util::readJson(*dhcpv6, asyncResp->res, "OperatingMode",
-                                     v6dhcpParms.dhcpv6OperatingMode,
-                                     "UseDNSServers", v6dhcpParms.useDnsServers,
-                                     "UseNTPServers", v6dhcpParms.useNtpServers,
-                                     "UseDomainName",
-                                     v6dhcpParms.useDomainName))
-            {
-                return;
-            }
-        }
 
         // Get single eth interface data, and call the below callback
         // for JSON preparation
@@ -2362,13 +2333,13 @@ inline void requestEthernetInterfacesRoutes(App& app)
              ipv6StaticAddresses = std::move(ipv6StaticAddresses),
              ipv6StaticDefaultGateway = std::move(ipv6StaticDefaultGateways),
              staticNameServers = std::move(staticNameServers),
-             dhcpv4 = std::move(dhcpv4), dhcpv6 = std::move(dhcpv6), mtuSize,
+             mtuSize,
              ipv6AutoConfigEnabled, v4dhcpParms = std::move(v4dhcpParms),
              v6dhcpParms = std::move(v6dhcpParms), interfaceEnabled](
-                const bool& success, const EthernetInterfaceData& ethData,
+                const bool success, const EthernetInterfaceData& ethData,
                 const std::vector<IPv4AddressData>& ipv4Data,
                 const std::vector<IPv6AddressData>& ipv6Data,
-                const std::vector<StaticGatewayData>& ipv6GatewayData) {
+                const std::vector<StaticGatewayData>& ipv6GatewayData) mutable {
             if (!success)
             {
                 // ... otherwise return error
@@ -2379,11 +2350,8 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 return;
             }
 
-            if (dhcpv4 || dhcpv6)
-            {
-                handleDHCPPatch(ifaceId, ethData, v4dhcpParms, v6dhcpParms,
+            handleDHCPPatch(ifaceId, ethData, v4dhcpParms, v6dhcpParms,
                                 asyncResp);
-            }
 
             if (hostname)
             {
@@ -2408,15 +2376,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
 
             if (ipv4StaticAddresses)
             {
-                // TODO(ed) for some reason the capture of
-                // ipv4Addresses above is returning a const value,
-                // not a non-const value. This doesn't really work
-                // for us, as we need to be able to efficiently move
-                // out the intermedia nlohmann::json objects. This
-                // makes a copy of the structure, and operates on
-                // that, but could be done more efficiently
-                nlohmann::json::array_t ipv4Static = *ipv4StaticAddresses;
-                handleIPv4StaticPatch(ifaceId, ipv4Static, ipv4Data, asyncResp);
+                handleIPv4StaticPatch(ifaceId, *ipv4StaticAddresses, ipv4Data, asyncResp);
             }
 
             if (staticNameServers)
