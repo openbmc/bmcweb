@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0ca4b18_3657ea60",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-06T10:03:20Z",
+      "side": 1,
+      "message": "Seems reasonable",
+      "revId": "cf641e4336b859c3c5a5b0cd1fc034fcbf185c2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08aabfb1_b506c4ad",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-06T10:03:20Z",
+      "side": 1,
+      "message": "include optional",
+      "revId": "cf641e4336b859c3c5a5b0cd1fc034fcbf185c2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
