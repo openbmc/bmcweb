@@ -39,6 +39,30 @@
       },
       "revId": "ba4c929835ffb9ffa01a47aa21f4e1c087c90694",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09b3d922_9e1c2eb7",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000926
+      },
+      "writtenOn": "2024-03-06T20:58:47Z",
+      "side": 1,
+      "message": "When the wrong parameter support will be dropped? What is the bmcweb policy about that case?\n\nAlso what should be outputed in the following prints in case both values are supported?\n```\nBMCWEB_LOG_DEBUG(\"Missing property ???\")\nmessages::actionParameterMissing(asyncResp-\u003eres, \"ResetToDefaults\", ???)\nmessages::actionParameterNotSupported(asyncResp-\u003eres, resetType, ???)\n```",
+      "parentUuid": "d1308c3f_a1ca6e9a",
+      "range": {
+        "startLine": 191,
+        "startChar": 60,
+        "endLine": 192,
+        "endChar": 48
+      },
+      "revId": "ba4c929835ffb9ffa01a47aa21f4e1c087c90694",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
