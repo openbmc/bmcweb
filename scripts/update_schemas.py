@@ -147,6 +147,7 @@ oem_schema_names = [
     "OemComputerSystem",
     "OemVirtualMedia",
     "OpenBMCAccountService",
+    "OemMessage",
     "OemUpdateService",
 ]
 

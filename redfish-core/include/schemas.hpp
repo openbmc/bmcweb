@@ -131,6 +131,7 @@ namespace redfish
         "OemComputerSystem",
         "OemVirtualMedia",
         "OpenBMCAccountService",
+        "OemMessage",
         "OemUpdateService",
     };
 }

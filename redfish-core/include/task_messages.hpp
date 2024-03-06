@@ -35,6 +35,26 @@ inline nlohmann::json
                               args);
 }
 
+inline nlohmann::json taskAborted(const std::string& arg1,
+                                  const std::string& arg2,
+                                  const std::string& arg3,
+                                  const std::string& arg4)
+{
+    return nlohmann::json{
+        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"MessageId", "TaskEvent.1.0.1.TaskAborted"},
+        {"Message", "The task with id " + arg1 + " has been aborted."},
+        {"MessageArgs", {arg1, arg2, arg3, arg4}},
+        {"Severity", "Critical"},
+        {"Resolution", "None."},
+        {"Oem",
+         {{"OpenBMC",
+           {{"@odata.type", "#OemMessage.v1_0_0.Message"},
+            {"AbortReason", arg2},
+            {"AdditionalData", arg3},
+            {"EventId", arg4}}}}}};
+}
+
 inline nlohmann::json taskAborted(std::string_view arg1)
 {
     return getLogTaskEvent(registries::task_event::Index::taskAborted,

@@ -3952,6 +3952,10 @@
         <edmx:Include Namespace="OpenBMCAccountService"/>
         <edmx:Include Namespace="OpenBMCAccountService.v1_0_0"/>
     </edmx:Reference>
+    <edmx:Reference Uri="/redfish/v1/schema/OemMessage_v1.xml">
+        <edmx:Include Namespace="OemMessage"/>
+        <edmx:Include Namespace="OemMessage.v1_0_0"/>
+    </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/OemUpdateService_v1.xml">
         <edmx:Include Namespace="OemUpdateService"/>
         <edmx:Include Namespace="OemUpdateService.v1_0_0"/>
