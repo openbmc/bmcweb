@@ -38,6 +38,7 @@
 #include <array>
 #include <limits>
 #include <ranges>
+#include <string>
 #include <string_view>
 
 namespace redfish
@@ -1439,28 +1440,22 @@ inline void requestRoutesProcessor(App& app)
             return;
         }
 
-        std::optional<nlohmann::json> appliedConfigJson;
+        std::optional<std::string> appliedConfigUri;
         if (!json_util::readJsonPatch(req, asyncResp->res,
-                                      "AppliedOperatingConfig",
-                                      appliedConfigJson))
+                                      "AppliedOperatingConfig/@odata.id",
+                                      appliedConfigUri))
         {
             return;
         }
 
-        if (appliedConfigJson)
+        if (appliedConfigUri)
         {
-            std::string appliedConfigUri;
-            if (!json_util::readJson(*appliedConfigJson, asyncResp->res,
-                                     "@odata.id", appliedConfigUri))
-            {
-                return;
-            }
             // Check for 404 and find matching D-Bus object, then run
             // property patch handlers if that all succeeds.
             getProcessorObject(asyncResp, processorId,
                                std::bind_front(patchAppliedOperatingConfig,
                                                asyncResp, processorId,
-                                               appliedConfigUri));
+                                               *appliedConfigUri));
         }
     });
 }
