@@ -32,7 +32,7 @@ namespace redfish
 {
 inline void setPowerCapOverride(
     const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
-    std::vector<nlohmann::json>& powerControlCollections)
+    std::vector<nlohmann::json::object_t>& powerControlCollections)
 {
     auto getChassisPath =
         [sensorsAsyncResp, powerControlCollections](
@@ -55,19 +55,9 @@ inline void setPowerCapOverride(
 
         auto& item = powerControlCollections[0];
 
-        std::optional<nlohmann::json> powerLimit;
-        if (!json_util::readJson(item, sensorsAsyncResp->asyncResp->res,
-                                 "PowerLimit", powerLimit))
-        {
-            return;
-        }
-        if (!powerLimit)
-        {
-            return;
-        }
         std::optional<uint32_t> value;
-        if (!json_util::readJson(*powerLimit, sensorsAsyncResp->asyncResp->res,
-                                 "LimitInWatts", value))
+        if (!json_util::readJsonObj(item, sensorsAsyncResp->asyncResp->res,
+                                    "PowerLimit/LimitInWatts", value))
         {
             return;
         }
@@ -316,8 +306,9 @@ inline void requestRoutesPower(App& app)
             asyncResp, chassisName, sensors::dbus::powerPaths,
             sensors::node::power);
 
-        std::optional<std::vector<nlohmann::json>> voltageCollections;
-        std::optional<std::vector<nlohmann::json>> powerCtlCollections;
+        std::optional<std::vector<nlohmann::json::object_t>> voltageCollections;
+        std::optional<std::vector<nlohmann::json::object_t>>
+            powerCtlCollections;
 
         if (!json_util::readJsonPatch(req, sensorAsyncResp->asyncResp->res,
                                       "PowerControl", powerCtlCollections,
@@ -332,7 +323,8 @@ inline void requestRoutesPower(App& app)
         }
         if (voltageCollections)
         {
-            std::unordered_map<std::string, std::vector<nlohmann::json>>
+            std::unordered_map<std::string,
+                               std::vector<nlohmann::json::object_t>>
                 allCollections;
             allCollections.emplace("Voltages", *std::move(voltageCollections));
             setSensorsOverride(sensorAsyncResp, allCollections);
