@@ -168,6 +168,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "800eb4f9_0c3f505d",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-03-06T18:02:16Z",
+      "side": 1,
+      "message": "What if restructuring the callbacks?\n\n```\n    getFanSpeedsPercent(const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp,\n                        const std::string\u0026 validChassisPath,\n                        const std::string\u0026 chassisId)\n{\n    redfish::fan_utils::getFanPaths(\n        ...\n        [....](\n            const dbus::utility::MapperGetSubTreePathsResponse\u0026 fanPaths) {\n            redfish::fan_utils::getFanSensorsObjects(\n                asyncResp, fanPaths,\n                std::bind_front(getFanSensorValues, asyncResp, chassisId));\n        }\n\n}\n\ngetFanSensorsObjects( fanPaths, callback )\n{\n  dbus::utility::getAssociatedSubTree(\n        ....\n        [...](\n            const boost::system::error_code\u0026 ec,\n            const dbus::utility::MapperGetSubTreeResponse\u0026 subtree) {\n.....\n        // accumulate pairs of service \u0026 sensorPath\n        std::vector\u003cstd::pair\u003cstd::string,std::string\u003e\u003e\u003e serviceAndSensorPaths;\n        for (const auto\u0026 [sensorPath, serviceMaps] : subtree)\n        {\n            for (const auto\u0026 [service, interfaces] : serviceMaps)\n            {\n                std::pair\u003cstd::string,std::string\u003e pair { service, sensorPath };\n                serviceAndSensorPaths.emplace_back( pair );\n            }\n\n        }\n        callback( std::move(serviceAndSensorPaths) );\n    });\n}\n\ngetFanSensorValues(  const std::vector\u003cstd::pair\u003cstd::string,std::string\u003e\u003e\u003e\u0026\n        serviceAndSensorPaths)\n{\n        for (const auto\u0026 [ service, path]  : serviceAndSensorPaths)\n        {\n            sdbusplus::asio::getProperty\u003cdouble\u003e(...)\n            {\n                  updateFanSensorList();\n            } \n        }\n    });\n}\n```",
+      "parentUuid": "abc5656a_6763fcb2",
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ad6f4fe9_c2dfea03",
         "filename": "redfish-core/include/utils/fan_utils.hpp",
         "patchSetId": 18
