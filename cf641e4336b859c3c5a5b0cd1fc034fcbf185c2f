@@ -33,6 +33,24 @@
       "message": "include optional",
       "revId": "cf641e4336b859c3c5a5b0cd1fc034fcbf185c2f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20b3e50e_372bca2b",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-06T17:50:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08aabfb1_b506c4ad",
+      "revId": "cf641e4336b859c3c5a5b0cd1fc034fcbf185c2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
