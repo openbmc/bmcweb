@@ -2631,7 +2631,7 @@ inline std::pair<std::string, std::string>
  */
 inline void setSensorsOverride(
     const std::shared_ptr<SensorsAsyncResp>& sensorAsyncResp,
-    std::unordered_map<std::string, std::vector<nlohmann::json>>&
+    std::unordered_map<std::string, std::vector<nlohmann::json::object_t>>&
         allCollections)
 {
     BMCWEB_LOG_INFO("setSensorsOverride for subNode{}",
@@ -2657,9 +2657,9 @@ inline void setSensorsOverride(
         }
         for (auto& item : collectionItems.second)
         {
-            if (!json_util::readJson(item, sensorAsyncResp->asyncResp->res,
-                                     "MemberId", memberId, propertyValueName,
-                                     value))
+            if (!json_util::readJsonObject(item, sensorAsyncResp->asyncResp->res,
+                                        "MemberId", memberId, propertyValueName,
+                                        value))
             {
                 return;
             }
