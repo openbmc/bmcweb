@@ -26,7 +26,9 @@
 #include <sdbusplus/asio/property.hpp>
 
 #include <array>
+#include <string>
 #include <string_view>
+#include <vector>
 
 namespace redfish
 {
@@ -69,7 +71,7 @@ inline void afterGetPowerCapEnable(
 
 inline void afterGetChassisPath(
     const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
-    std::vector<nlohmann::json>& powerControlCollections,
+    std::vector<nlohmann::json::object_t>& powerControlCollections,
     const std::optional<std::string>& chassisPath)
 {
     if (!chassisPath)
@@ -90,19 +92,9 @@ inline void afterGetChassisPath(
 
     auto& item = powerControlCollections[0];
 
-    std::optional<nlohmann::json> powerLimit;
-    if (!json_util::readJson(item, sensorsAsyncResp->asyncResp->res,
-                             "PowerLimit", powerLimit))
-    {
-        return;
-    }
-    if (!powerLimit)
-    {
-        return;
-    }
     std::optional<uint32_t> value;
-    if (!json_util::readJson(*powerLimit, sensorsAsyncResp->asyncResp->res,
-                             "LimitInWatts", value))
+    if (!json_util::readJsonObject(item, sensorsAsyncResp->asyncResp->res,
+                                   "PowerLimit/LimitInWatts", value))
     {
         return;
     }
@@ -313,8 +305,8 @@ inline void
         asyncResp, chassisName, sensors::dbus::powerPaths,
         sensors::node::power);
 
-    std::optional<std::vector<nlohmann::json>> voltageCollections;
-    std::optional<std::vector<nlohmann::json>> powerCtlCollections;
+    std::optional<std::vector<nlohmann::json::object_t>> voltageCollections;
+    std::optional<std::vector<nlohmann::json::object_t>> powerCtlCollections;
 
     if (!json_util::readJsonPatch(req, sensorAsyncResp->asyncResp->res,
                                   "PowerControl", powerCtlCollections,
@@ -332,9 +324,9 @@ inline void
     }
     if (voltageCollections)
     {
-        std::unordered_map<std::string, std::vector<nlohmann::json>>
+        std::unordered_map<std::string, std::vector<nlohmann::json::object_t>>
             allCollections;
-        allCollections.emplace("Voltages", *std::move(voltageCollections));
+        allCollections.emplace("Voltages", std::move(*voltageCollections));
         setSensorsOverride(sensorAsyncResp, allCollections);
     }
 }
