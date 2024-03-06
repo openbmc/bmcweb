@@ -22,6 +22,99 @@
       },
       "revId": "a63489bc0a37799a5934102086d83a699e7aaea3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f692bf8f_e78a9c91",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-06T15:35:20Z",
+      "side": 1,
+      "message": "You seem to have mixed up\n\nGateway: null\nwith\nGateway: \"null\"\n\nNull is a type, not a string.",
+      "parentUuid": "14bf835a_7fcc3104",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 35
+      },
+      "revId": "a63489bc0a37799a5934102086d83a699e7aaea3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2eb3b68_0e0c6d78",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-06T15:35:20Z",
+      "side": 1,
+      "message": "Can you point out the check in this tool that\u0027s checking the value you changed?  If it\u0027s allowing \"null\", and not null the tool might be broken and need fixing.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 35
+      },
+      "revId": "a63489bc0a37799a5934102086d83a699e7aaea3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bf95ae4_0836b592",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-06T15:35:20Z",
+      "side": 1,
+      "message": "should be \u003d nullptr\n\nneeds fixed multiple places.",
+      "range": {
+        "startLine": 375,
+        "startChar": 65,
+        "endLine": 375,
+        "endChar": 71
+      },
+      "revId": "a63489bc0a37799a5934102086d83a699e7aaea3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "697c5f56_f7cbfe82",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1143,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-06T15:35:20Z",
+      "side": 1,
+      "message": "????  This code is reading out from dbus.  Dbus doesn\u0027t use null.  Please double check to see if this is what you intended.",
+      "range": {
+        "startLine": 1143,
+        "startChar": 18,
+        "endLine": 1143,
+        "endChar": 40
+      },
+      "revId": "a63489bc0a37799a5934102086d83a699e7aaea3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
