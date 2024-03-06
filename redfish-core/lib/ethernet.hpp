@@ -2297,8 +2297,6 @@ inline void requestEthernetInterfacesRoutes(App& app)
         std::optional<nlohmann::json::array_t> ipv6StaticAddresses;
         std::optional<nlohmann::json::array_t> ipv6StaticDefaultGateways;
         std::optional<std::vector<std::string>> staticNameServers;
-        std::optional<nlohmann::json> dhcpv4;
-        std::optional<nlohmann::json> dhcpv6;
         std::optional<bool> ipv6AutoConfigEnabled;
         std::optional<bool> interfaceEnabled;
         std::optional<size_t> mtuSize;
@@ -2307,8 +2305,14 @@ inline void requestEthernetInterfacesRoutes(App& app)
         // clang-format off
         if (!json_util::readJsonPatch(
                 req, asyncResp->res,
-                "DHCPv4", dhcpv4,
-                "DHCPv6", dhcpv6,
+		"DHCPv4/DHCPEnabled",   v4dhcpParms.dhcpv4Enabled,
+		"DHCPv4/UseDNSServers", v4dhcpParms.useDnsServers,
+		"DHCPv4/UseNTPServers", v4dhcpParms.useNtpServers,
+		"DHCPv4/UseDomainName", v4dhcpParms.useDomainName,
+	        "DHCPv6/OperatingMode", v6dhcpParms.dhcpv6OperatingMode,
+	        "DHCPv6/UseDNSServers", v6dhcpParms.useDnsServers,
+	        "DHCPv6/UseNTPServers", v6dhcpParms.useNtpServers,
+	        "DHCPv6/UseDomainName", v6dhcpParms.useDomainName,
                 "FQDN", fqdn,
                 "HostName", hostname,
                 "IPv4StaticAddresses", ipv4StaticAddresses,
@@ -2326,30 +2330,6 @@ inline void requestEthernetInterfacesRoutes(App& app)
             return;
         }
         //clang-format on
-        if (dhcpv4)
-        {
-            if (!json_util::readJson(*dhcpv4, asyncResp->res, "DHCPEnabled",
-                                     v4dhcpParms.dhcpv4Enabled, "UseDNSServers",
-                                     v4dhcpParms.useDnsServers, "UseNTPServers",
-                                     v4dhcpParms.useNtpServers, "UseDomainName",
-                                     v4dhcpParms.useDomainName))
-            {
-                return;
-            }
-        }
-
-        if (dhcpv6)
-        {
-            if (!json_util::readJson(*dhcpv6, asyncResp->res, "OperatingMode",
-                                     v6dhcpParms.dhcpv6OperatingMode,
-                                     "UseDNSServers", v6dhcpParms.useDnsServers,
-                                     "UseNTPServers", v6dhcpParms.useNtpServers,
-                                     "UseDomainName",
-                                     v6dhcpParms.useDomainName))
-            {
-                return;
-            }
-        }
 
         // Get single eth interface data, and call the below callback
         // for JSON preparation
@@ -2362,10 +2342,10 @@ inline void requestEthernetInterfacesRoutes(App& app)
              ipv6StaticAddresses = std::move(ipv6StaticAddresses),
              ipv6StaticDefaultGateway = std::move(ipv6StaticDefaultGateways),
              staticNameServers = std::move(staticNameServers),
-             dhcpv4 = std::move(dhcpv4), dhcpv6 = std::move(dhcpv6), mtuSize,
+             mtuSize,
              ipv6AutoConfigEnabled, v4dhcpParms = std::move(v4dhcpParms),
              v6dhcpParms = std::move(v6dhcpParms), interfaceEnabled](
-                const bool& success, const EthernetInterfaceData& ethData,
+                const bool success, const EthernetInterfaceData& ethData,
                 const std::vector<IPv4AddressData>& ipv4Data,
                 const std::vector<IPv6AddressData>& ipv6Data,
                 const std::vector<StaticGatewayData>& ipv6GatewayData) {
@@ -2379,11 +2359,8 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 return;
             }
 
-            if (dhcpv4 || dhcpv6)
-            {
-                handleDHCPPatch(ifaceId, ethData, v4dhcpParms, v6dhcpParms,
+            handleDHCPPatch(ifaceId, ethData, v4dhcpParms, v6dhcpParms,
                                 asyncResp);
-            }
 
             if (hostname)
             {
