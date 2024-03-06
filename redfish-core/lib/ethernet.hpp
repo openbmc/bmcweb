@@ -354,7 +354,7 @@ inline bool extractEthernetInterfaceData(
                                 std::string defaultGatewayStr = *defaultGateway;
                                 if (defaultGatewayStr.empty())
                                 {
-                                    ethData.defaultGateway = "0.0.0.0";
+                                    ethData.defaultGateway = "null";
                                 }
                                 else
                                 {
@@ -372,8 +372,7 @@ inline bool extractEthernetInterfaceData(
                                     *defaultGateway6;
                                 if (defaultGateway6Str.empty())
                                 {
-                                    ethData.ipv6DefaultGateway =
-                                        "0:0:0:0:0:0:0:0";
+                                    ethData.ipv6DefaultGateway = "null";
                                 }
                                 else
                                 {
@@ -1141,7 +1140,7 @@ void getEthernetIfaceData(const std::string& ethifaceId,
         for (IPv4AddressData& ipv4 : ipv4Data)
         {
             if (((ipv4.linktype == LinkType::Global) &&
-                 (ipv4.gateway == "0.0.0.0")) ||
+                 (ipv4.gateway == "null")) ||
                 (ipv4.origin == "DHCP") || (ipv4.origin == "Static"))
             {
                 ipv4.gateway = ethData.defaultGateway;
@@ -1972,7 +1971,7 @@ inline void
         std::string gatewayStr = ipv4Config.gateway;
         if (gatewayStr.empty())
         {
-            gatewayStr = "0.0.0.0";
+            gatewayStr = "null";
         }
         nlohmann::json::object_t ipv4;
         ipv4["AddressOrigin"] = ipv4Config.origin;
@@ -1991,7 +1990,7 @@ inline void
     std::string ipv6GatewayStr = ethData.ipv6DefaultGateway;
     if (ipv6GatewayStr.empty())
     {
-        ipv6GatewayStr = "0:0:0:0:0:0:0:0";
+        ipv6GatewayStr = "null";
     }
 
     jsonResponse["IPv6DefaultGateway"] = ipv6GatewayStr;
