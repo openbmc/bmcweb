@@ -317,7 +317,7 @@ void getHypervisorIfaceData(const std::string& ethIfaceId,
         [ethIfaceId{std::string{ethIfaceId}},
          callback{std::forward<CallbackFunc>(callback)}](
             const boost::system::error_code& ec,
-            const dbus::utility::ManagedObjectType& resp) {
+            const dbus::utility::ManagedObjectType& resp) mutable {
         EthernetInterfaceData ethData{};
         std::vector<IPv4AddressData> ipv4Data;
         if (ec)
@@ -551,106 +551,62 @@ inline void setDHCPEnabled(const std::string& ifaceId, bool ipv4DHCPEnabled,
 }
 
 inline void handleHypervisorIPv4StaticPatch(
-    const std::string& ifaceId, const nlohmann::json& input,
+    const std::string& ifaceId,
+    std::vector<json_util::NullOr<nlohmann::json::object_t>>& input,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if ((!input.is_array()) || input.empty())
-    {
-        messages::propertyValueTypeError(asyncResp->res, input,
-                                         "IPv4StaticAddresses");
-        return;
-    }
-
     // Hypervisor considers the first IP address in the array list
     // as the Hypervisor's virtual management interface supports single IPv4
     // address
-    const nlohmann::json& thisJson = input[0];
-
-    if (!thisJson.is_null() && !thisJson.empty())
+    json_util::NullOr<nlohmann::json::object_t>& thisJson = input[0];
+    if (!thisJson.value)
     {
-        // For the error string
-        std::string pathString = "IPv4StaticAddresses/1";
-        std::optional<std::string> address;
-        std::optional<std::string> subnetMask;
-        std::optional<std::string> gateway;
-        nlohmann::json thisJsonCopy = thisJson;
-        if (!json_util::readJson(thisJsonCopy, asyncResp->res, "Address",
-                                 address, "SubnetMask", subnetMask, "Gateway",
-                                 gateway))
-        {
-            messages::propertyValueFormatError(asyncResp->res, thisJson,
-                                               pathString);
-            return;
-        }
-
-        uint8_t prefixLength = 0;
-        bool errorInEntry = false;
-        if (address)
-        {
-            if (!ip_util::ipv4VerifyIpAndGetBitcount(*address))
-            {
-                messages::propertyValueFormatError(asyncResp->res, *address,
-                                                   pathString + "/Address");
-                errorInEntry = true;
-            }
-        }
-        else
-        {
-            messages::propertyMissing(asyncResp->res, pathString + "/Address");
-            errorInEntry = true;
-        }
-
-        if (subnetMask)
-        {
-            if (!ip_util::ipv4VerifyIpAndGetBitcount(*subnetMask,
-                                                     &prefixLength))
-            {
-                messages::propertyValueFormatError(asyncResp->res, *subnetMask,
-                                                   pathString + "/SubnetMask");
-                errorInEntry = true;
-            }
-        }
-        else
-        {
-            messages::propertyMissing(asyncResp->res,
-                                      pathString + "/SubnetMask");
-            errorInEntry = true;
-        }
-
-        if (gateway)
-        {
-            if (!ip_util::ipv4VerifyIpAndGetBitcount(*gateway))
-            {
-                messages::propertyValueFormatError(asyncResp->res, *gateway,
-                                                   pathString + "/Gateway");
-                errorInEntry = true;
-            }
-        }
-        else
-        {
-            messages::propertyMissing(asyncResp->res, pathString + "/Gateway");
-            errorInEntry = true;
-        }
-
-        if (errorInEntry)
-        {
-            return;
-        }
-
-        BMCWEB_LOG_DEBUG("Calling createHypervisorIPv4 on : {},{}", ifaceId,
-                         *address);
-        createHypervisorIPv4(ifaceId, prefixLength, *gateway, *address,
-                             asyncResp);
-        // Set the DHCPEnabled to false since the Static IPv4 is set
-        setDHCPEnabled(ifaceId, false, asyncResp);
+        deleteHypervisorIPv4(ifaceId, asyncResp);
+        return;
     }
-    else
+    if (thisJson.value->empty())
     {
-        if (thisJson.is_null())
-        {
-            deleteHypervisorIPv4(ifaceId, asyncResp);
-        }
+        return;
     }
+    // For the error string
+    std::string pathString = "IPv4StaticAddresses/1";
+    std::string address;
+    std::string subnetMask;
+    std::string gateway;
+    if (!json_util::readJsonObject(*thisJson.value, asyncResp->res, "Address",
+                                   address, "SubnetMask", subnetMask, "Gateway",
+                                   gateway))
+    {
+        return;
+    }
+
+    uint8_t prefixLength = 0;
+    if (!ip_util::ipv4VerifyIpAndGetBitcount(address))
+    {
+        messages::propertyValueFormatError(asyncResp->res, address,
+                                           pathString + "/Address");
+        return;
+    }
+
+    if (!ip_util::ipv4VerifyIpAndGetBitcount(subnetMask, &prefixLength))
+    {
+        messages::propertyValueFormatError(asyncResp->res, subnetMask,
+                                           pathString + "/SubnetMask");
+        return;
+    }
+
+    if (!ip_util::ipv4VerifyIpAndGetBitcount(gateway))
+    {
+        messages::propertyValueFormatError(asyncResp->res, gateway,
+                                           pathString + "/Gateway");
+        return;
+    }
+
+    BMCWEB_LOG_DEBUG("Calling createHypervisorIPv4 on : {},{}", ifaceId,
+                     address);
+    createHypervisorIPv4(ifaceId, prefixLength, gateway, address, asyncResp);
+    // Set the DHCPEnabled to false since the Static IPv4 is set
+    setDHCPEnabled(ifaceId, false, asyncResp);
 }
 
 inline void handleHypervisorHostnamePatch(
@@ -819,15 +775,15 @@ inline void handleHypervisorEthernetInterfacePatch(
         return;
     }
     std::optional<std::string> hostName;
-    std::optional<std::vector<nlohmann::json>> ipv4StaticAddresses;
-    std::optional<nlohmann::json> ipv4Addresses;
-    std::optional<nlohmann::json> dhcpv4;
+    std::optional<std::vector<json_util::NullOr<nlohmann::json::object_t>>>
+        ipv4StaticAddresses;
+    std::optional<std::vector<nlohmann::json::object_t>> ipv4Addresses;
     std::optional<bool> ipv4DHCPEnabled;
 
     if (!json_util::readJsonPatch(req, asyncResp->res, "HostName", hostName,
                                   "IPv4StaticAddresses", ipv4StaticAddresses,
-                                  "IPv4Addresses", ipv4Addresses, "DHCPv4",
-                                  dhcpv4))
+                                  "IPv4Addresses", ipv4Addresses,
+                                  "DHCPv4/DHCPEnabled", ipv4DHCPEnabled))
     {
         return;
     }
@@ -838,21 +794,12 @@ inline void handleHypervisorEthernetInterfacePatch(
         return;
     }
 
-    if (dhcpv4)
-    {
-        if (!json_util::readJson(*dhcpv4, asyncResp->res, "DHCPEnabled",
-                                 ipv4DHCPEnabled))
-        {
-            return;
-        }
-    }
-
     getHypervisorIfaceData(
-        ifaceId, [asyncResp, ifaceId, hostName = std::move(hostName),
-                  ipv4StaticAddresses = std::move(ipv4StaticAddresses),
-                  ipv4DHCPEnabled, dhcpv4 = std::move(dhcpv4)](
-                     bool success, const EthernetInterfaceData& ethData,
-                     const std::vector<IPv4AddressData>&) {
+        ifaceId,
+        [asyncResp, ifaceId, hostName = std::move(hostName),
+         ipv4StaticAddresses = std::move(ipv4StaticAddresses),
+         ipv4DHCPEnabled](bool success, const EthernetInterfaceData& ethData,
+                          const std::vector<IPv4AddressData>&) mutable {
         if (!success)
         {
             messages::resourceNotFound(asyncResp->res, "EthernetInterface",
@@ -862,10 +809,12 @@ inline void handleHypervisorEthernetInterfacePatch(
 
         if (ipv4StaticAddresses)
         {
-            const nlohmann::json& ipv4Static = *ipv4StaticAddresses;
+            std::vector<json_util::NullOr<nlohmann::json::object_t>>&
+                ipv4Static = *ipv4StaticAddresses;
             if (ipv4Static.begin() == ipv4Static.end())
             {
-                messages::propertyValueTypeError(asyncResp->res, ipv4Static,
+                messages::propertyValueTypeError(asyncResp->res,
+                                                 std::vector<std::string>(),
                                                  "IPv4StaticAddresses");
                 return;
             }
@@ -873,18 +822,19 @@ inline void handleHypervisorEthernetInterfacePatch(
             // One and only one hypervisor instance supported
             if (ipv4Static.size() != 1)
             {
-                messages::propertyValueFormatError(asyncResp->res, ipv4Static,
+                messages::propertyValueFormatError(asyncResp->res, "[]",
                                                    "IPv4StaticAddresses");
                 return;
             }
 
-            const nlohmann::json& ipv4Json = ipv4Static[0];
+            json_util::NullOr<nlohmann::json::object_t>& ipv4Json =
+                ipv4Static[0];
             // Check if the param is 'null'. If its null, it means
             // that user wants to delete the IP address. Deleting
             // the IP address is allowed only if its statically
             // configured. Deleting the address originated from DHCP
             // is not allowed.
-            if ((ipv4Json.is_null()) &&
+            if (!ipv4Json.value &&
                 (translateDhcpEnabledToBool(ethData.dhcpEnabled, true)))
             {
                 BMCWEB_LOG_INFO("Ignoring the delete on ipv4StaticAddresses "
@@ -901,7 +851,7 @@ inline void handleHypervisorEthernetInterfacePatch(
             handleHypervisorHostnamePatch(*hostName, asyncResp);
         }
 
-        if (dhcpv4)
+        if (ipv4DHCPEnabled)
         {
             setDHCPEnabled(ifaceId, *ipv4DHCPEnabled, asyncResp);
         }
