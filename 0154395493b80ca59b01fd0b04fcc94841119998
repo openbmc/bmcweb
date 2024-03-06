@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d31a879d_1ca99990",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-06T15:42:48Z",
+      "side": 1,
+      "message": "I\u0027m uncomfortable adding any more HealthRollup code until someone volunteers to understand and own the feature as a whole.  As it stands, I don\u0027t fully understand how the existing solution works, so it\u0027s unlikely I\u0027d be able to review additions to the feature without breaking anyone.\n\nPlease work to find a health rollup expert and get them added as a reviewer, as well as to start reviewing existing health rollup code.",
+      "revId": "0154395493b80ca59b01fd0b04fcc94841119998",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
