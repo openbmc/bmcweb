@@ -428,7 +428,7 @@ inline bool toDbusReportActions(crow::Response& res,
     return true;
 }
 
-inline bool getUserMetric(crow::Response& res, nlohmann::json& metric,
+inline bool getUserMetric(crow::Response& res, nlohmann::json::object_t& metric,
                           AddReportArgs::MetricArgs& metricArgs)
 {
     std::optional<std::vector<std::string>> uris;
@@ -436,10 +436,10 @@ inline bool getUserMetric(crow::Response& res, nlohmann::json& metric,
     std::optional<std::string> collectionFunction;
     std::optional<std::string> collectionTimeScopeStr;
 
-    if (!json_util::readJson(metric, res, "MetricProperties", uris,
-                             "CollectionFunction", collectionFunction,
-                             "CollectionTimeScope", collectionTimeScopeStr,
-                             "CollectionDuration", collectionDurationStr))
+    if (!json_util::readJsonObj(metric, res, "MetricProperties", uris,
+                                "CollectionFunction", collectionFunction,
+                                "CollectionTimeScope", collectionTimeScopeStr,
+                                "CollectionDuration", collectionDurationStr))
     {
         return false;
     }
@@ -495,12 +495,12 @@ inline bool getUserMetric(crow::Response& res, nlohmann::json& metric,
 }
 
 inline bool getUserMetrics(crow::Response& res,
-                           std::span<nlohmann::json> metrics,
+                           std::span<nlohmann::json::object_t> metrics,
                            std::vector<AddReportArgs::MetricArgs>& result)
 {
     result.reserve(metrics.size());
 
-    for (nlohmann::json& m : metrics)
+    for (nlohmann::json::object_t& m : metrics)
     {
         AddReportArgs::MetricArgs metricArgs;
 
@@ -524,16 +524,17 @@ inline bool getUserParameters(crow::Response& res, const crow::Request& req,
     std::optional<std::string> reportUpdatesStr;
     std::optional<uint64_t> appendLimit;
     std::optional<bool> metricReportDefinitionEnabled;
-    std::optional<std::vector<nlohmann::json>> metrics;
+    std::optional<std::vector<nlohmann::json::object_t>> metrics;
     std::optional<std::vector<std::string>> reportActionsStr;
-    std::optional<nlohmann::json> schedule;
+    std::optional<std::string> scheduleDurationStr;
 
     if (!json_util::readJsonPatch(
             req, res, "Id", id, "Name", name, "Metrics", metrics,
             "MetricReportDefinitionType", reportingTypeStr, "ReportUpdates",
             reportUpdatesStr, "AppendLimit", appendLimit, "ReportActions",
-            reportActionsStr, "Schedule", schedule,
-            "MetricReportDefinitionEnabled", metricReportDefinitionEnabled))
+            reportActionsStr, "Schedule/RecurrenceInterval",
+            scheduleDurationStr, "MetricReportDefinitionEnabled",
+            metricReportDefinitionEnabled))
     {
         return false;
     }
@@ -600,25 +601,18 @@ inline bool getUserParameters(crow::Response& res, const crow::Request& req,
 
     if (reportingTypeStr == "Periodic")
     {
-        if (!schedule)
+        if (!scheduleDurationStr)
         {
             messages::createFailedMissingReqProperties(res, "Schedule");
             return false;
         }
 
-        std::string durationStr;
-        if (!json_util::readJson(*schedule, res, "RecurrenceInterval",
-                                 durationStr))
-        {
-            return false;
-        }
-
         std::optional<std::chrono::milliseconds> durationNum =
-            time_utils::fromDurationString(durationStr);
+            time_utils::fromDurationString(*scheduleDurationStr);
         if (!durationNum || durationNum->count() < 0)
         {
             messages::propertyValueIncorrect(res, "RecurrenceInterval",
-                                             durationStr);
+                                             *scheduleDurationStr);
             return false;
         }
         args.interval = static_cast<uint64_t>(durationNum->count());
@@ -960,14 +954,15 @@ inline void
 
 inline void
     setReportMetrics(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                     std::string_view id, std::span<nlohmann::json> metrics)
+                     std::string_view id,
+                     std::span<nlohmann::json::object_t> metrics)
 {
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, telemetry::service,
         telemetry::getDbusReportPath(id), telemetry::reportInterface,
         [asyncResp, id = std::string(id),
-         redfishMetrics = std::vector<nlohmann::json>(metrics.begin(),
-                                                      metrics.end())](
+         redfishMetrics = std::vector<nlohmann::json::object_t>(metrics.begin(),
+                                                                metrics.end())](
             boost::system::error_code ec,
             const dbus::utility::DBusPropertiesMap& properties) mutable {
         if (!redfish::telemetry::verifyCommonErrors(asyncResp->res, id, ec))
@@ -993,13 +988,8 @@ inline void
             chassisSensors;
 
         size_t index = 0;
-        for (nlohmann::json& metric : redfishMetrics)
+        for (nlohmann::json::object_t& metric : redfishMetrics)
         {
-            if (metric.is_null())
-            {
-                continue;
-            }
-
             AddReportArgs::MetricArgs metricArgs;
             std::vector<
                 std::tuple<sdbusplus::message::object_path, std::string>>
@@ -1109,16 +1099,16 @@ inline void
     std::optional<std::string> reportingTypeStr;
     std::optional<std::string> reportUpdatesStr;
     std::optional<bool> metricReportDefinitionEnabled;
-    std::optional<std::vector<nlohmann::json>> metrics;
+    std::optional<std::vector<nlohmann::json::object_t>> metrics;
     std::optional<std::vector<std::string>> reportActionsStr;
-    std::optional<nlohmann::json> schedule;
+    std::optional<std::string> scheduleDurationStr;
 
     if (!json_util::readJsonPatch(
             req, asyncResp->res, "Metrics", metrics,
             "MetricReportDefinitionType", reportingTypeStr, "ReportUpdates",
-            reportUpdatesStr, "ReportActions", reportActionsStr, "Schedule",
-            schedule, "MetricReportDefinitionEnabled",
-            metricReportDefinitionEnabled))
+            reportUpdatesStr, "ReportActions", reportActionsStr,
+            "Schedule/RecurrenceInterval", scheduleDurationStr,
+            "MetricReportDefinitionEnabled", metricReportDefinitionEnabled))
     {
         return;
     }
@@ -1151,7 +1141,7 @@ inline void
         setReportActions(asyncResp, id, dbusReportActions);
     }
 
-    if (reportingTypeStr || schedule)
+    if (reportingTypeStr || scheduleDurationStr)
     {
         std::string dbusReportingType;
         if (reportingTypeStr)
@@ -1167,21 +1157,14 @@ inline void
         }
 
         uint64_t recurrenceInterval = std::numeric_limits<uint64_t>::max();
-        if (schedule)
+        if (scheduleDurationStr)
         {
-            std::string durationStr;
-            if (!json_util::readJson(*schedule, asyncResp->res,
-                                     "RecurrenceInterval", durationStr))
-            {
-                return;
-            }
-
             std::optional<std::chrono::milliseconds> durationNum =
-                time_utils::fromDurationString(durationStr);
+                time_utils::fromDurationString(*scheduleDurationStr);
             if (!durationNum || durationNum->count() < 0)
             {
                 messages::propertyValueIncorrect(
-                    asyncResp->res, "RecurrenceInterval", durationStr);
+                    asyncResp->res, "RecurrenceInterval", *scheduleDurationStr);
                 return;
             }
 
