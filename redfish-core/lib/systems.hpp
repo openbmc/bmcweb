@@ -3643,8 +3643,8 @@ inline void afterGetAllowedHostTransitions(
 
     if (ec)
     {
-        if (ec == boost::system::linux_error::bad_request_descriptor ||
-            ec == boost::asio::error::basic_errors::host_unreachable)
+        if ((ec.value() == boost::system::linux_error::bad_request_descriptor) ||
+            (ec.value() == boost::asio::error::basic_errors::host_unreachable))
         {
             // Property not implemented so just return defaults
             BMCWEB_LOG_DEBUG("Property not available {}", ec);
