@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4cb55ca6_f63bfa7f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-07T04:39:57Z",
+      "side": 1,
+      "message": "Dang, I messed this up. \n\n```\n       \"ResetToDefaults\": {\n            \"additionalProperties\": false,\n            \"description\": \"The reset action resets the manager settings to factory defaults.  This can cause the manager to reset.\",\n            \"longDescription\": \"This action shall reset the manager settings.  This action can impact other resources.\",\n            \"parameters\": {\n                \"ResetType\": {\n                    \"$ref\": \"#/definitions/ResetToDefaultsType\",\n                    \"description\": \"The type of reset to defaults.\",\n                    \"longDescription\": \"This parameter shall contain the type of reset to defaults.\",\n                    \"requiredParameter\": true\n                }\n            },\n```\n\n\nThe GUI has this wrong too: https://github.com/openbmc/webui-vue/blob/0b4c447d2c113179b99dc9fd29aed8dc4ac06498/src/store/modules/Operations/FactoryResetStore.js#L10",
+      "parentUuid": "ab417a1c_d48c3be7",
+      "revId": "ba4c929835ffb9ffa01a47aa21f4e1c087c90694",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d1308c3f_a1ca6e9a",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 1
