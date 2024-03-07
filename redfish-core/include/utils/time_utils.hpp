@@ -417,7 +417,7 @@ inline std::pair<std::string, std::string> getDateTimeOffsetNow()
     return std::make_pair(dateTime, timeOffset);
 }
 
-using usSinceEpoch = std::chrono::duration<uint64_t, std::micro>;
+using usSinceEpoch = std::chrono::duration<int64_t, std::micro>;
 std::optional<usSinceEpoch> dateStringToEpoch(std::string_view datetime);
 } // namespace time_utils
 } // namespace redfish
