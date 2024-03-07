@@ -105,6 +105,24 @@
       "parentUuid": "0f4b7d21_a23ec355",
       "revId": "aef18ee51605f4e9939dc6777600d763a97f5b83",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "114e5bf8_c38223b4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-07T06:11:33Z",
+      "side": 1,
+      "message": "Ack. \n\n\u003e I might be in a position to go yell at the DMTF folks again soon if we want to do #4, but I\u0027m open to any of them. I have a really old patchset for #2 that never made it on master. We kind of do #3 already with the json schemas, but we\u0027d need to roll that into the CSDL (harder). I\u0027ve never looked at 5 or 1.\n\nLet\u0027s start with #4, engaging Redfish.",
+      "parentUuid": "06e0e912_4f8a3941",
+      "revId": "aef18ee51605f4e9939dc6777600d763a97f5b83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ],
   "submitRequirementResults": []
