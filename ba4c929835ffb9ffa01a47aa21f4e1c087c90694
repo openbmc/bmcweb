@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "db05d14e_7b87670c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000926
+      },
+      "writtenOn": "2024-03-07T10:11:06Z",
+      "side": 1,
+      "message": "Done.\n\nAlso created a webui commit `69913: Correct Actions/Manager.ResetToDefaults parameter name` | https://gerrit.openbmc.org/c/openbmc/webui-vue/+/69913",
+      "parentUuid": "4cb55ca6_f63bfa7f",
+      "revId": "ba4c929835ffb9ffa01a47aa21f4e1c087c90694",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d1308c3f_a1ca6e9a",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 1
@@ -97,6 +115,30 @@
       "side": 1,
       "message": "\u003e When the wrong parameter support will be dropped? What is the bmcweb policy about that case?\n\nDepends heavily on how much maintenance burden it involves. FWIW, things like dbus-rest are a large maintenance burden and still haven\u0027t been dropped.  I suspect the answer to this small 4 line branch is \"never\".  It\u0027s not worth breaking people.\n\n\u003e \n\u003e Also what should be outputed in the following prints in case both values are supported?\n\u003e ```\n\u003e BMCWEB_LOG_DEBUG(\"Missing property ???\")\n\u003e messages::actionParameterMissing(asyncResp-\u003eres, \"ResetToDefaults\", ???)\n\u003e messages::actionParameterNotSupported(asyncResp-\u003eres, resetType, ???)\n\u003e ```\n\nThe error messages can print that the new key is missing.  We\u0027re talking about an error case, so there\u0027s no way we\u0027d break working code by changing it.",
       "parentUuid": "09b3d922_9e1c2eb7",
+      "range": {
+        "startLine": 191,
+        "startChar": 60,
+        "endLine": 192,
+        "endChar": 48
+      },
+      "revId": "ba4c929835ffb9ffa01a47aa21f4e1c087c90694",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ed5392b_fd3e900e",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000926
+      },
+      "writtenOn": "2024-03-07T10:11:06Z",
+      "side": 1,
+      "message": "Done. Also left some comment about the reason why we also check another name",
+      "parentUuid": "6d0dcdb9_10308278",
       "range": {
         "startLine": 191,
         "startChar": 60,
