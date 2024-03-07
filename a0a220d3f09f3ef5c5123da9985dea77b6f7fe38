@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe3dc4e8_e0bd4502",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-07T15:12:12Z",
+      "side": 1,
+      "message": "Because the new method is in the new nghttp2.  Anaswered in the commit message.",
+      "parentUuid": "ae7f5bd1_6f4f50b9",
+      "revId": "a0a220d3f09f3ef5c5123da9985dea77b6f7fe38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3b508450_fb38c984",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-03-07T10:18:34Z",
       "side": 1,
       "message": "Huh?",
+      "revId": "a0a220d3f09f3ef5c5123da9985dea77b6f7fe38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "480d1e8f_4b6993ef",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-07T15:12:12Z",
+      "side": 1,
+      "message": "I suspect clang-format did something weird.  Fixed.",
+      "parentUuid": "3b508450_fb38c984",
       "revId": "a0a220d3f09f3ef5c5123da9985dea77b6f7fe38",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
