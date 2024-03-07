@@ -403,7 +403,7 @@ inline void handleFileUrl(const crow::Request& req,
 inline void
     handleAcquireLockAPI(const crow::Request& req,
                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                         std::vector<nlohmann::json> body)
+                         std::vector<nlohmann::json::object_t> body)
 {
     LockRequests lockRequestStructure;
     for (auto& element : body)
@@ -412,11 +412,11 @@ inline void
         uint64_t resourceId = 0;
 
         SegmentFlags segInfo;
-        std::vector<nlohmann::json> segmentFlags;
+        std::vector<nlohmann::json::object_t> segmentFlags;
 
-        if (!redfish::json_util::readJson(element, asyncResp->res, "LockType",
-                                          lockType, "ResourceID", resourceId,
-                                          "SegmentFlags", segmentFlags))
+        if (!redfish::json_util::readJsonObj(
+                element, asyncResp->res, "LockType", lockType, "ResourceID",
+                resourceId, "SegmentFlags", segmentFlags))
         {
             BMCWEB_LOG_DEBUG("Not a Valid JSON");
             asyncResp->res.result(boost::beast::http::status::bad_request);
@@ -432,9 +432,9 @@ inline void
             std::string lockFlags;
             uint32_t segmentLength = 0;
 
-            if (!redfish::json_util::readJson(e, asyncResp->res, "LockFlag",
-                                              lockFlags, "SegmentLength",
-                                              segmentLength))
+            if (!redfish::json_util::readJsonObj(e, asyncResp->res, "LockFlag",
+                                                 lockFlags, "SegmentLength",
+                                                 segmentLength))
             {
                 asyncResp->res.result(boost::beast::http::status::bad_request);
                 return;
@@ -744,7 +744,7 @@ inline void requestRoutes(App& app)
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        std::vector<nlohmann::json> body;
+        std::vector<nlohmann::json::object_t> body;
         if (!redfish::json_util::readJsonAction(req, asyncResp->res, "Request",
                                                 body))
         {
