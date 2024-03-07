@@ -73,6 +73,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7035679c_e652be1d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2024-03-07T06:01:20Z",
+      "side": 1,
+      "message": "I echo what Ed has commented here. Please point to the redfish document/spec which says 0.0.0.0 is wrong.",
+      "revId": "a63489bc0a37799a5934102086d83a699e7aaea3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7bf95ae4_0836b592",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 1
