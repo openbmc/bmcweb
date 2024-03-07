@@ -90,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "938275a0_a42a602b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-07T06:26:34Z",
+      "side": 1,
+      "message": "0.0.0.0 is wrong, I have no doubt of that, and we\u0027ve covered it many times in the past both in DMTF discussions and other places.\n\nnull is correct.\n\nthis patchset creates \"null\" as a string, which is incorrect.\n\nNo need to relitigate the redfish spec, unless someone actually thinks using null is wrong.",
+      "parentUuid": "7035679c_e652be1d",
+      "revId": "a63489bc0a37799a5934102086d83a699e7aaea3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7bf95ae4_0836b592",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 1
