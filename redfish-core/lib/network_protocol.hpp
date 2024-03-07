@@ -239,29 +239,17 @@ inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 } // namespace redfish
 
 inline void handleNTPProtocolEnabled(
-    const bool& ntpEnabled, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, bool ntpEnabled)
 {
-    std::string timeSyncMethod;
-    if (ntpEnabled)
-    {
-        timeSyncMethod = "xyz.openbmc_project.Time.Synchronization.Method.NTP";
-    }
-    else
-    {
-        timeSyncMethod =
-            "xyz.openbmc_project.Time.Synchronization.Method.Manual";
-    }
+    bool interactive = false;
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code& ec,
+                    const sdbusplus::message_t& msg) {
+        afterSetDateTime(asyncResp, ec, msg);
+    },
 
-    sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/time/sync_method",
-        "xyz.openbmc_project.Time.Synchronization", "TimeSyncMethod",
-        timeSyncMethod, [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            messages::internalError(asyncResp->res);
-        }
-    });
+        "org.freedesktop.timedate1", "/org/freedesktop/timedate1",
+        "org.freedesktop.timedate1", "SetNTP", ntpEnabled, interactive);
 }
 
 inline void
@@ -450,27 +438,18 @@ inline std::string getHostName()
 inline void
     getNTPProtocolEnabled(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/time/sync_method",
-        "xyz.openbmc_project.Time.Synchronization", "TimeSyncMethod",
-        [asyncResp](const boost::system::error_code& ec,
-                    const std::string& timeSyncMethod) {
+    sdbusplus::asio::getProperty<bool>(
+        *crow::connections::systemBus, "org.freedesktop.timedate1",
+        "/org/freedesktop/timedate1", "org.freedesktop.timedate1", "NTP",
+        [asyncResp](const boost::system::error_code& ec, bool enabled) {
         if (ec)
         {
+            BMCWEB_LOG_WARNING(
+                "Failed to get NTP status, assuming not supported");
             return;
         }
 
-        if (timeSyncMethod ==
-            "xyz.openbmc_project.Time.Synchronization.Method.NTP")
-        {
-            asyncResp->res.jsonValue["NTP"]["ProtocolEnabled"] = true;
-        }
-        else if (timeSyncMethod == "xyz.openbmc_project.Time.Synchronization."
-                                   "Method.Manual")
-        {
-            asyncResp->res.jsonValue["NTP"]["ProtocolEnabled"] = false;
-        }
+        asyncResp->res.jsonValue["NTP"]["ProtocolEnabled"] = enabled;
     });
 }
 
@@ -531,7 +510,7 @@ inline void handleManagersNetworkProtocolPatch(
 
     if (ntpEnabled)
     {
-        handleNTPProtocolEnabled(*ntpEnabled, asyncResp);
+        handleNTPProtocolEnabled(asyncResp, *ntpEnabled);
     }
     if (ntpServerObjects)
     {
