@@ -12,13 +12,13 @@
 
 namespace redfish::time_utils
 {
-using usSinceEpoch = std::chrono::duration<uint64_t, std::micro>;
+
 std::optional<usSinceEpoch> dateStringToEpoch(std::string_view datetime)
 {
     for (const char* format : std::to_array({"%FT%T%Ez", "%FT%TZ", "%FT%T"}))
     {
         // Parse using signed so we can detect negative dates
-        std::chrono::sys_time<std::chrono::duration<int64_t, std::micro>> date;
+        std::chrono::sys_time<usSinceEpoch> date;
         std::istringstream iss(std::string{datetime});
 #if __cpp_lib_chrono >= 201907L
         namespace chrono_from_stream = std::chrono;
@@ -36,7 +36,7 @@ std::optional<usSinceEpoch> dateStringToEpoch(std::string_view datetime)
                 // More information left at end of string.
                 continue;
             }
-            return usSinceEpoch{date.time_since_epoch().count()};
+            return date.time_since_epoch();
         }
     }
     return std::nullopt;

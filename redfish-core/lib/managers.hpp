@@ -1847,7 +1847,7 @@ inline void
 }
 
 inline void setDateTime(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
-                        std::string datetime)
+                        std::string_view datetime)
 {
     BMCWEB_LOG_DEBUG("Set date time: {}", datetime);
 
@@ -1859,12 +1859,11 @@ inline void setDateTime(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                                            "DateTime");
         return;
     }
-    sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, "xyz.openbmc_project.Time.Manager",
-        "/xyz/openbmc_project/time/bmc", "xyz.openbmc_project.Time.EpochTime",
-        "Elapsed", us->count(),
-        [asyncResp{std::move(asyncResp)},
-         datetime{std::move(datetime)}](const boost::system::error_code& ec) {
+    // Set the absolute datetime
+    bool relative = false;
+    bool interactive = false;
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, datetime](const boost::system::error_code& ec) {
         if (ec)
         {
             BMCWEB_LOG_DEBUG("Failed to set elapsed time. "
@@ -1874,7 +1873,11 @@ inline void setDateTime(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
             return;
         }
         asyncResp->res.jsonValue["DateTime"] = datetime;
-    });
+    },
+
+        "org.freedesktop.timedate1", "/org/freedesktop/timedate1",
+        "org.freedesktop.timedate1", "SetTime", us->count() relative,
+        interactive);
 }
 
 inline void
