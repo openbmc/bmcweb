@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "aef21ced_e24553a9",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "Why do we need a separate array for this? \nWhy doesn\u0027t this just use \n\n            const std::array\u003cconst char*, 2\u003e interfaces \u003d {\n                \"xyz.openbmc_project.Inventory.Item.Board\",\n                \"xyz.openbmc_project.Inventory.Item.Chassis\"};\n\n?",
       "revId": "f1a8a938a88f8552ae8b644620e5b046d04913e3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "5d5df480_472cfc3d",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -32,10 +33,28 @@
       "message": "Sorry, I just added a new interface(`xyz.openbmc_project.Inventory.Item.Chassis`), and I didn’t test and didn’t want to break the previous logic.",
       "parentUuid": "aef21ced_e24553a9",
       "revId": "f1a8a938a88f8552ae8b644620e5b046d04913e3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8ae5d9d_c659b9b1",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-07T04:42:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d5df480_472cfc3d",
+      "revId": "f1a8a938a88f8552ae8b644620e5b046d04913e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "b8859be8_def7bcd4",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -49,10 +68,10 @@
       "side": 1,
       "message": "These changes really feel like they should not go here.. \nCommit before? \nOr a 3rd commit?",
       "revId": "f1a8a938a88f8552ae8b644620e5b046d04913e3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "a8d771c1_d0eb7fad",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -67,8 +86,25 @@
       "message": "Sure, move to: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/48867",
       "parentUuid": "b8859be8_def7bcd4",
       "revId": "f1a8a938a88f8552ae8b644620e5b046d04913e3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2e3efec_115b46aa",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-07T04:42:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8d771c1_d0eb7fad",
+      "revId": "f1a8a938a88f8552ae8b644620e5b046d04913e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
