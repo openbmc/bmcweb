@@ -317,7 +317,7 @@ void getHypervisorIfaceData(const std::string& ethIfaceId,
         [ethIfaceId{std::string{ethIfaceId}},
          callback{std::forward<CallbackFunc>(callback)}](
             const boost::system::error_code& ec,
-            const dbus::utility::ManagedObjectType& resp) {
+            const dbus::utility::ManagedObjectType& resp) mutable {
         EthernetInterfaceData ethData{};
         std::vector<IPv4AddressData> ipv4Data;
         if (ec)
@@ -551,32 +551,20 @@ inline void setDHCPEnabled(const std::string& ifaceId, bool ipv4DHCPEnabled,
 }
 
 inline void handleHypervisorIPv4StaticPatch(
-    const std::string& ifaceId, const nlohmann::json::array_t& input,
+    const std::string& ifaceId,
+    std::vector<json_util::NullOr<nlohmann::json::object_t>>& input,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (input.empty())
-    {
-        messages::propertyValueTypeError(asyncResp->res, input,
-                                         "IPv4StaticAddresses");
-        return;
-    }
-
     // Hypervisor considers the first IP address in the array list
     // as the Hypervisor's virtual management interface supports single IPv4
     // address
-    const nlohmann::json& thisJson = input[0];
-    if (thisJson.is_null())
+    json_util::NullOr<nlohmann::json::object_t>& thisJson = input[0];
+    if (!thisJson.value)
     {
         deleteHypervisorIPv4(ifaceId, asyncResp);
         return;
     }
-    if (thisJson.empty())
-    {
-        return;
-    }
-    const nlohmann::json::object_t* obj =
-        thisJson.get_ptr<const nlohmann::json::object_t*>();
-    if (obj == nullptr)
+    if (thisJson.value->empty())
     {
         return;
     }
@@ -585,12 +573,10 @@ inline void handleHypervisorIPv4StaticPatch(
     std::optional<std::string> address;
     std::optional<std::string> subnetMask;
     std::optional<std::string> gateway;
-    nlohmann::json::object_t thisJsonCopy = *obj;
-    if (!json_util::readJsonObj(thisJsonCopy, asyncResp->res, "Address", address,
-                             "SubnetMask", subnetMask, "Gateway", gateway))
+    if (!json_util::readJsonObj(*thisJson.value, asyncResp->res, "Address",
+                                address, "SubnetMask", subnetMask, "Gateway",
+                                gateway))
     {
-        messages::propertyValueFormatError(asyncResp->res, thisJson,
-                                           pathString);
         return;
     }
 
@@ -819,13 +805,14 @@ inline void handleHypervisorEthernetInterfacePatch(
         return;
     }
     std::optional<std::string> hostName;
-    std::optional<std::vector<nlohmann::json>> ipv4StaticAddresses;
+    std::optional<std::vector<json_util::NullOr<nlohmann::json::object_t>>>
+        ipv4StaticAddresses;
     std::optional<std::vector<nlohmann::json::object_t>> ipv4Addresses;
     std::optional<bool> ipv4DHCPEnabled;
 
     if (!json_util::readJsonPatch(req, asyncResp->res, "HostName", hostName,
-                                  //"IPv4StaticAddresses", ipv4StaticAddresses,
-                                  //"IPv4Addresses", ipv4Addresses,
+                                  "IPv4StaticAddresses", ipv4StaticAddresses,
+                                  "IPv4Addresses", ipv4Addresses,
                                   "DHCPv4/DHCPEnabled", ipv4DHCPEnabled))
     {
         return;
@@ -842,7 +829,7 @@ inline void handleHypervisorEthernetInterfacePatch(
         [asyncResp, ifaceId, hostName = std::move(hostName),
          ipv4StaticAddresses = std::move(ipv4StaticAddresses),
          ipv4DHCPEnabled](bool success, const EthernetInterfaceData& ethData,
-                          const std::vector<IPv4AddressData>&) {
+                          const std::vector<IPv4AddressData>&) mutable {
         if (!success)
         {
             messages::resourceNotFound(asyncResp->res, "EthernetInterface",
@@ -852,10 +839,12 @@ inline void handleHypervisorEthernetInterfacePatch(
 
         if (ipv4StaticAddresses)
         {
-            const nlohmann::json& ipv4Static = *ipv4StaticAddresses;
+            std::vector<json_util::NullOr<nlohmann::json::object_t>>&
+                ipv4Static = *ipv4StaticAddresses;
             if (ipv4Static.begin() == ipv4Static.end())
             {
-                messages::propertyValueTypeError(asyncResp->res, ipv4Static,
+                messages::propertyValueTypeError(asyncResp->res,
+                                                 std::vector<std::string>(),
                                                  "IPv4StaticAddresses");
                 return;
             }
@@ -863,18 +852,19 @@ inline void handleHypervisorEthernetInterfacePatch(
             // One and only one hypervisor instance supported
             if (ipv4Static.size() != 1)
             {
-                messages::propertyValueFormatError(asyncResp->res, ipv4Static,
+                messages::propertyValueFormatError(asyncResp->res, "[]",
                                                    "IPv4StaticAddresses");
                 return;
             }
 
-            const nlohmann::json& ipv4Json = ipv4Static[0];
+            json_util::NullOr<nlohmann::json::object_t>& ipv4Json =
+                ipv4Static[0];
             // Check if the param is 'null'. If its null, it means
             // that user wants to delete the IP address. Deleting
             // the IP address is allowed only if its statically
             // configured. Deleting the address originated from DHCP
             // is not allowed.
-            if ((ipv4Json.is_null()) &&
+            if (!ipv4Json.value &&
                 (translateDhcpEnabledToBool(ethData.dhcpEnabled, true)))
             {
                 BMCWEB_LOG_INFO("Ignoring the delete on ipv4StaticAddresses "
