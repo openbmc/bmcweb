@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ae7cff50_fdf5baac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000926
+      },
+      "writtenOn": "2024-03-07T10:36:31Z",
+      "side": 1,
+      "message": "No problem, here is a patch for this `69916: Redfish cheatsheet: Correct Actions/Manager.ResetToDefaults command` | https://gerrit.openbmc.org/c/openbmc/docs/+/69916",
+      "parentUuid": "dce22c2e_5c77ed7d",
+      "revId": "ba4c929835ffb9ffa01a47aa21f4e1c087c90694",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d1308c3f_a1ca6e9a",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 1
