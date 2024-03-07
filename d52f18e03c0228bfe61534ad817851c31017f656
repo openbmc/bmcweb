@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "620cfd1c_7b472662",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-07T15:13:26Z",
+      "side": 1,
+      "message": "ACK.",
+      "parentUuid": "db3d64c2_7b5e1b1e",
+      "range": {
+        "startLine": 15,
+        "startChar": 8,
+        "endLine": 15,
+        "endChar": 29
+      },
+      "revId": "d52f18e03c0228bfe61534ad817851c31017f656",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f3a75b1a_6f0f28a0",
         "filename": "/COMMIT_MSG",
         "patchSetId": 9
@@ -37,6 +61,24 @@
       "writtenOn": "2024-03-07T10:17:29Z",
       "side": 1,
       "message": "Delete the certificate and restart bmcweb?",
+      "revId": "d52f18e03c0228bfe61534ad817851c31017f656",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b76ca936_aa902ec6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-07T15:13:26Z",
+      "side": 1,
+      "message": "ACK.",
+      "parentUuid": "f3a75b1a_6f0f28a0",
       "revId": "d52f18e03c0228bfe61534ad817851c31017f656",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
