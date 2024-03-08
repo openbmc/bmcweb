@@ -22,6 +22,30 @@
       },
       "revId": "025c0f8cc458393e21ad8c2703178d7c5b72c765",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d1a2b65_84ebca42",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-08T17:41:49Z",
+      "side": 1,
+      "message": "I don\u0027t understand what you\u0027re asking.\n\nserviceAddressList is a vector.\n\nThe code that was here previously was only setting the first element of the array (see like 801 in the old code).\n\nWhile I agree, this is probably not ideal, I think the new code is no less incorrect than the old code.",
+      "parentUuid": "bb811332_31a6819e",
+      "range": {
+        "startLine": 746,
+        "startChar": 20,
+        "endLine": 746,
+        "endChar": 46
+      },
+      "revId": "025c0f8cc458393e21ad8c2703178d7c5b72c765",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

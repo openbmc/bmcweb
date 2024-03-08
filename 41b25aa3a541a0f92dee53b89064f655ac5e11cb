@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ac5d3f11_83c75e5d",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-08T17:41:49Z",
+      "side": 0,
+      "message": "Correct.\n\nThe intention of this patch is to make things correct.  Technically, this should\u0027ve returned the WHOLE resource, not just the one property that got set, so it\u0027s unlikely any client could\u0027ve relied on it.",
+      "parentUuid": "54fa9fa2_be565647",
+      "range": {
+        "startLine": 453,
+        "startChar": 0,
+        "endLine": 455,
+        "endChar": 69
+      },
+      "revId": "41b25aa3a541a0f92dee53b89064f655ac5e11cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c2b3565b_93eed43e",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 10
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "714f8058_64cc924b",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-08T17:41:49Z",
+      "side": 0,
+      "message": "same answer.",
+      "parentUuid": "c2b3565b_93eed43e",
+      "range": {
+        "startLine": 487,
+        "startChar": 0,
+        "endLine": 489,
+        "endChar": 65
+      },
+      "revId": "41b25aa3a541a0f92dee53b89064f655ac5e11cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b72eb8a4_e8288cab",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 10
@@ -60,6 +108,30 @@
       "writtenOn": "2024-03-08T17:18:31Z",
       "side": 0,
       "message": "Is this set by `setDbusProperty()`?\n```\n       asyncResp-\u003eres.jsonValue[ldapServerElementName][\"ServiceAddresses\"] \u003d\n            modifiedserviceAddressList;\n```",
+      "range": {
+        "startLine": 823,
+        "startChar": 0,
+        "endLine": 825,
+        "endChar": 39
+      },
+      "revId": "41b25aa3a541a0f92dee53b89064f655ac5e11cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01e750ae_14020df4",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 825,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-08T17:41:49Z",
+      "side": 0,
+      "message": "Same answer as above.",
+      "parentUuid": "b72eb8a4_e8288cab",
       "range": {
         "startLine": 823,
         "startChar": 0,
