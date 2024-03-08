@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "26bc960d_6e84ba2f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-08T16:50:04Z",
+      "side": 1,
+      "message": "\u003e There are platforms which still use PowerCap interface and power subsystem does not interact with it.\n\nRight, but rather than completely rewriting the implementation in Power, we could just write a new, correct one in PowerSubsystem.  Why wouldn\u0027t we do that?  This isn\u0027t really fixing a bug, it\u0027s adding additional functionality.  Is there something in PowerSubsystem that doesn\u0027t work for your use case?",
+      "parentUuid": "4ccf4882_c016ca32",
+      "revId": "ddaa15de80c02764816d1edc0ef402baf42b42b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f0a1b46d_6e4ad451",
         "filename": "redfish-core/lib/power.hpp",
         "patchSetId": 4
@@ -161,6 +179,24 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "44b00845_b9ed9a53",
+      "revId": "ddaa15de80c02764816d1edc0ef402baf42b42b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a026afae_fb68006b",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-08T16:50:04Z",
+      "side": 1,
+      "message": "Doesn\u0027t appear done?  I still see at least a 2 tiered lambda in your new code.",
+      "parentUuid": "a5a3fe1e_660601fe",
       "revId": "ddaa15de80c02764816d1edc0ef402baf42b42b7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
