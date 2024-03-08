@@ -22,6 +22,30 @@
       },
       "revId": "6f0b40b5253ac8eecd04868ae0c14fe244afa783",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a945424_6ae8ce5f",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-08T03:07:47Z",
+      "side": 1,
+      "message": "```\n      \"ResetToDefaults\": {\n            \"additionalProperties\": false,\n            \"description\": \"The reset action resets the manager settings to factory defaults.  This can cause the manager to reset.\",\n            \"longDescription\": \"This action shall reset the manager settings.  This action can impact other resources.\",\n            \"parameters\": {\n                \"ResetType\": {\n                    \"$ref\": \"#/definitions/ResetToDefaultsType\",\n                    \"description\": \"The type of reset to defaults.\",\n                    \"longDescription\": \"This parameter shall contain the type of reset to defaults.\",\n                    \"requiredParameter\": true \u003c--- Doesn\u0027t this mean it is required?\n                }\n            },\n\n```",
+      "parentUuid": "934b874c_745240b4",
+      "range": {
+        "startLine": 210,
+        "startChar": 0,
+        "endLine": 210,
+        "endChar": 36
+      },
+      "revId": "6f0b40b5253ac8eecd04868ae0c14fe244afa783",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
