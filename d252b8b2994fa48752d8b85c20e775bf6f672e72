@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61c3ce06_73b63acc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-08T18:21:20Z",
+      "side": 1,
+      "message": "The power schema is a mess.  Lets start by getting it cleaned up a bit:\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/69956\n\nThat should hopefully make this patchset easier to understand.  As it stands, I\u0027m having a little trouble reading it.",
+      "revId": "d252b8b2994fa48752d8b85c20e775bf6f672e72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "76a9b447_4acaf09b",
