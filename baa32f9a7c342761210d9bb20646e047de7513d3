@@ -16,6 +16,24 @@
       "message": "Somewhere can you explain what changes you are making, why they are better, etc.",
       "revId": "baa32f9a7c342761210d9bb20646e047de7513d3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b09a69cb_94124ed3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-08T16:20:32Z",
+      "side": 1,
+      "message": "Sure, we explained it when we made the original readJson change a couple years ago, but you\u0027re right, this could use an update. https://github.com/openbmc/bmcweb/commit/ea2e6eeca15f4019923466f7c8ccc52c53a5ea94",
+      "parentUuid": "fc0e615f_78574eb8",
+      "revId": "baa32f9a7c342761210d9bb20646e047de7513d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
