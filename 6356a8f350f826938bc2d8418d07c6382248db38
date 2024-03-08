@@ -71,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c7f248e_fc7fc58f",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1000985
+      },
+      "writtenOn": "2024-03-08T03:31:14Z",
+      "side": 1,
+      "message": "yeah, it was already done that way. This change does not touch the valuehandler callback",
+      "parentUuid": "ecc332a9_92699fdc",
+      "range": {
+        "startLine": 325,
+        "startChar": 17,
+        "endLine": 325,
+        "endChar": 29
+      },
+      "revId": "6356a8f350f826938bc2d8418d07c6382248db38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e1fbcb37_7f5d22ea",
