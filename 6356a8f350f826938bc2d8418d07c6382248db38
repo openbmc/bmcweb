@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0c6b4638_62d869fc",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-08T16:58:21Z",
+      "side": 1,
+      "message": "Please don\u0027t resolve comments that are still actively being discussed.  It helps maintainers to be able to see what issues are still outstanding.\n\n\n\u003e yes thats the expectation right?\n\nNo.  The expectation is that SOME devices MIGHT implement a power cap.  Certainly not all will.\n\n\u003e This expects an object which implement the power cap interface to update the power cap values\n\nThis code is pulling from /xyz/openbmc_project/control/host0/power_cap in all cases.  There\u0027s nothing that\u0027s looking up whether the object supports the thing.",
+      "parentUuid": "c344d252_607cc5b7",
+      "range": {
+        "startLine": 88,
+        "startChar": 4,
+        "endLine": 90,
+        "endChar": 40
+      },
+      "revId": "6356a8f350f826938bc2d8418d07c6382248db38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ecc332a9_92699fdc",
         "filename": "redfish-core/lib/power.hpp",
         "patchSetId": 6
