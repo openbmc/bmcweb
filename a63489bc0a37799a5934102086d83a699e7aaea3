@@ -108,6 +108,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ca5017c7_3239d417",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2024-03-08T09:52:55Z",
+      "side": 1,
+      "message": "Sure.\nI am OK if the redfish clients are not broken if 0.0.0.0 is replaced with null. I will check our management redfish clients are not broken and update here.",
+      "parentUuid": "938275a0_a42a602b",
+      "revId": "a63489bc0a37799a5934102086d83a699e7aaea3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7bf95ae4_0836b592",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 1
