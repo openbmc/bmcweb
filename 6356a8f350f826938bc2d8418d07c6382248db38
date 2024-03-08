@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c344d252_607cc5b7",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000985
+      },
+      "writtenOn": "2024-03-08T03:19:39Z",
+      "side": 1,
+      "message": "yes thats the expectation right? This expects an object which implement the power cap interface to update the power cap values",
+      "parentUuid": "94b2a257_a7cc30a4",
+      "range": {
+        "startLine": 88,
+        "startChar": 4,
+        "endLine": 90,
+        "endChar": 40
+      },
+      "revId": "6356a8f350f826938bc2d8418d07c6382248db38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ecc332a9_92699fdc",
@@ -60,6 +84,30 @@
       "writtenOn": "2024-02-29T19:03:48Z",
       "side": 1,
       "message": "Non trivial lambda.  Please read \"anti-patterns\" in the openbmc docs.",
+      "range": {
+        "startLine": 324,
+        "startChar": 0,
+        "endLine": 348,
+        "endChar": 13
+      },
+      "revId": "6356a8f350f826938bc2d8418d07c6382248db38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d3bf695_8d281c5b",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1000985
+      },
+      "writtenOn": "2024-03-08T03:19:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1fbcb37_7f5d22ea",
       "range": {
         "startLine": 324,
         "startChar": 0,
