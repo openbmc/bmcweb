@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4ccf4882_c016ca32",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000985
+      },
+      "writtenOn": "2024-03-08T03:23:51Z",
+      "side": 1,
+      "message": "There are platforms which still use PowerCap interface and power subsystem does not interact with it. My change only touches the code which was hardcoded to look for settings service. Instead it will look for generic service which implements the PowerCap interface",
+      "parentUuid": "83fb89e2_d32c4078",
+      "revId": "ddaa15de80c02764816d1edc0ef402baf42b42b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f0a1b46d_6e4ad451",
         "filename": "redfish-core/lib/power.hpp",
         "patchSetId": 4
