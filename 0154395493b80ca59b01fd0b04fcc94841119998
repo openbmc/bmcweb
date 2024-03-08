@@ -16,6 +16,29 @@
       "message": "I\u0027m uncomfortable adding any more HealthRollup code until someone volunteers to understand and own the feature as a whole.  As it stands, I don\u0027t fully understand how the existing solution works, so it\u0027s unlikely I\u0027d be able to review additions to the feature without breaking anyone.\n\nPlease work to find a health rollup expert and get them added as a reviewer, as well as to start reviewing existing health rollup code.",
       "revId": "0154395493b80ca59b01fd0b04fcc94841119998",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5831805e_1c269f7c",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-03-08T16:31:24Z",
+      "side": 1,
+      "message": "This logic seems adding all inventory subtree paths of `interfaces` (even if they may not be associated with `path`), if there is an association of `path + \"/all_sensors\"?  \nIs it an intention? \n\nOr, is this logic trying to find all associated subtree paths that are having `all_sensors`?\nIf so,  wouldn\u0027t these chains of `getAssociationEndPoints()` \u0026 `getSubTreePaths()` be the same as `getAssociatedSubtreePaths()` like\n\n```\n dbus::utility::getAssociatedSubTreePaths(\n        path + \"/all_sensors\", \"/\", 0,\n        interfaces,\n        [health](\n            const boost::system::error_code\u0026 ec,\n            const dbus::utility::MapperGetSubTreePathsResponse\u0026 resp) {\n\n        if (ec)\n        {\n             return; // no sensors \u003d no failures\n        }\n        health-\u003einventory \u003d resp;\n```",
+      "range": {
+        "startLine": 514,
+        "startChar": 0,
+        "endLine": 515,
+        "endChar": 73
+      },
+      "revId": "0154395493b80ca59b01fd0b04fcc94841119998",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
