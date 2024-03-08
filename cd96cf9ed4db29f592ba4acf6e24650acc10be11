@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14c269cf_ff20f97a",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1568,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-08T08:59:28Z",
+      "side": 1,
+      "message": "why do we want Nullor ?",
+      "range": {
+        "startLine": 1568,
+        "startChar": 16,
+        "endLine": 1568,
+        "endChar": 33
+      },
+      "revId": "cd96cf9ed4db29f592ba4acf6e24650acc10be11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42b1b4eb_8414b5c8",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2299,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-08T08:59:28Z",
+      "side": 1,
+      "message": "tabs",
+      "range": {
+        "startLine": 2299,
+        "startChar": 1,
+        "endLine": 2299,
+        "endChar": 2
+      },
+      "revId": "cd96cf9ed4db29f592ba4acf6e24650acc10be11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
