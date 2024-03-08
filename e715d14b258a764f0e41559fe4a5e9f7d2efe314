@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7273abdf_aace2218",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 3646,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-08T03:40:29Z",
+      "side": 1,
+      "message": "The other places have the .value() so yeah, makes sense \nhttps://github.com/search?q\u003drepo%3Aopenbmc%2Fbmcweb%20bad_request_descriptor\u0026type\u003dcode",
+      "revId": "e715d14b258a764f0e41559fe4a5e9f7d2efe314",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
