@@ -2209,6 +2209,7 @@ inline nlohmann::json& getPowerSupply(nlohmann::json& powerSupplyArray,
                                       const std::string& chassisId)
 {
     std::string nameS;
+    nameS.resize(inventoryItem.name.size());
     std::ranges::replace_copy(inventoryItem.name, nameS.begin(), '_', ' ');
     // Check if matching PowerSupply object already exists in JSON array
     for (nlohmann::json& powerSupply : powerSupplyArray)
@@ -2237,6 +2238,7 @@ inline nlohmann::json& getPowerSupply(nlohmann::json& powerSupplyArray,
     url.set_fragment(("/PowerSupplies"_json_pointer).to_string());
     powerSupply["@odata.id"] = std::move(url);
     std::string escaped;
+    escaped.resize(inventoryItem.name.size());
     std::ranges::replace_copy(inventoryItem.name, escaped.begin(), '_', ' ');
     powerSupply["Name"] = std::move(escaped);
     powerSupply["Manufacturer"] = inventoryItem.manufacturer;
