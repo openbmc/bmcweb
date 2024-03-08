@@ -16,6 +16,24 @@
       "message": "Why?",
       "revId": "cb57b8988d2e454acfe0e60a3ae9dd0f65824655",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2355a94_c3e8ef76",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2173,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-08T16:26:02Z",
+      "side": 1,
+      "message": "Why the tabs?  Because I messed up.\n\nWhy clang-format off?  Because it makes the list read better, given that it\u0027s now\n\nkey value\nkey2 value2\n\nand we can line it up for better reading.\n\nIf I were to do this again, I would\u0027ve written readJson as something like\n\nJsonReader jr \u003d json_util::readJsonPatch(req, asyncResp-\u003eres);\njr.unpack(\"Oem/OpenBmc/Fan/PidControllers\", pidControllers);\njr.unpack(\"Oem/OpenBmc/Fan/FanControllers\", fanControllers);\n\n\njust so we don\u0027t have to go through all this trickery.  oh well, problem for another day.",
+      "parentUuid": "dd598e99_5d887975",
+      "revId": "cb57b8988d2e454acfe0e60a3ae9dd0f65824655",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
