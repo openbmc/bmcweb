@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "934b874c_745240b4",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-08T00:43:48Z",
+      "side": 1,
+      "message": "As written, ResetType is now required to be provided.  Looking at the schema, I think it\u0027s optional, and this code should be\n\n```\nif (resetType){\n    if (*resetType !\u003d \"ResetAll\"){\n       ....\n    }\n}\n```\n\nDoes that seem right to anyone else?",
+      "range": {
+        "startLine": 210,
+        "startChar": 0,
+        "endLine": 210,
+        "endChar": 36
+      },
+      "revId": "6f0b40b5253ac8eecd04868ae0c14fe244afa783",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
