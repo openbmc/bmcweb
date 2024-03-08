@@ -233,6 +233,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9fa3d7d2_d3b57d16",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-08T18:52:05Z",
+      "side": 1,
+      "message": "I fixed it to what I think it should be.  Please retest.",
+      "parentUuid": "726f956c_6a9e3594",
+      "range": {
+        "startLine": 375,
+        "startChar": 65,
+        "endLine": 375,
+        "endChar": 71
+      },
+      "revId": "a63489bc0a37799a5934102086d83a699e7aaea3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "697c5f56_f7cbfe82",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 1
@@ -244,6 +268,30 @@
       "writtenOn": "2024-03-06T15:35:20Z",
       "side": 1,
       "message": "????  This code is reading out from dbus.  Dbus doesn\u0027t use null.  Please double check to see if this is what you intended.",
+      "range": {
+        "startLine": 1143,
+        "startChar": 18,
+        "endLine": 1143,
+        "endChar": 40
+      },
+      "revId": "a63489bc0a37799a5934102086d83a699e7aaea3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a7de987_be51f709",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1143,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-08T18:52:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "697c5f56_f7cbfe82",
       "range": {
         "startLine": 1143,
         "startChar": 18,
