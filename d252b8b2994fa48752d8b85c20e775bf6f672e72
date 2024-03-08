@@ -63,6 +63,30 @@
       },
       "revId": "d252b8b2994fa48752d8b85c20e775bf6f672e72",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ac61e96_3f84027c",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-08T19:03:13Z",
+      "side": 1,
+      "message": "The callback happens AFTER the code above has finished, so no, there\u0027s not really a way to get the value back out, given how the \"order\" of things go.  The theory is that we always descend into new code, which in this file is super confusing because even I was confused by this code at first.\n\nTake a look at the cleanup I linked you in the last comment, which breaks out all these lambdas, and it\u0027ll probably make more sense.",
+      "parentUuid": "ba00fd8a_0a00ae13",
+      "range": {
+        "startLine": 85,
+        "startChar": 14,
+        "endLine": 85,
+        "endChar": 29
+      },
+      "revId": "d252b8b2994fa48752d8b85c20e775bf6f672e72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
