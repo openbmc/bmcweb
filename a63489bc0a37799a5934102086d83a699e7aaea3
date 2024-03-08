@@ -126,6 +126,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f858831d_010f922b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-08T16:05:50Z",
+      "side": 1,
+      "message": "Considering that ipv6StaticGateways Doesn\u0027t have nullable\u003dtrue in the schema, clients would\u0027ve been ignoring the spec if they didn\u0027t handle null.  With that said, if this breaks things, we can add temporary compatibility flag if it helps, but I\u0027d be surprised if this broke anyone that was compliant.\n\n\u003cProperty Name\u003d\"IPv6DefaultGateway\" Type\u003d\"Edm.String\"\u003e\n\u003cAnnotation Term\u003d\"OData.Permissions\" EnumMember\u003d\"OData.Permission/Read\"/\u003e\n\u003cAnnotation Term\u003d\"OData.Description\" String\u003d\"The IPv6 default gateway address in use on this interface.\"/\u003e\n\u003cAnnotation Term\u003d\"OData.LongDescription\" String\u003d\"This property shall contain the current IPv6 default gateway address in use on this interface.\"/\u003e\n\u003cAnnotation Term\u003d\"Redfish.IPv6Format\"/\u003e\n\u003c/Property\u003e",
+      "parentUuid": "ca5017c7_3239d417",
+      "revId": "a63489bc0a37799a5934102086d83a699e7aaea3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7bf95ae4_0836b592",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 1
@@ -161,6 +179,30 @@
       "side": 1,
       "message": "Hi @Ed,\n\n\u003e should be \u003d nullptr\nJust confirm that bmcweb service core-dump with this change\n```\nMar 08 10:18:56 bmcweb[10637]: [DEBUG routing.hpp:669] Matched rule \u0027/redfish/v1/Managers/bmc/EthernetInterfaces/\u003cstr\u003e/\u0027 1 / 2\nMar 08 10:18:56 bmcweb[10637]: [DEBUG dbus_privileges.hpp:53] userName \u003d root userRole \u003d priv-admin\nMar 08 10:18:56 bmcweb[10637]: [DEBUG query.hpp:121] setup redfish route\nMar 08 10:18:56 bmcweb[10637]: [DEBUG http_response.hpp:309] 0xa4d080 releasing completion handlertrue\nMar 08 10:18:56 bmcweb[10637]: [DEBUG http_response.hpp:299] 0xa4d080 setting completion handler\nMar 08 10:18:56 systemd[1]: Started Process Core Dump (PID 22698/UID 0).\nMar 08 10:18:56 phosphor-dump-manager[576]: OriginatorId is not provided\nMar 08 10:18:56 phosphor-dump-manager[576]: OriginatorType is not provided. Replacing the string with the default value\nMar 08 10:18:56 phosphor-dump-manager[576]: Initiating new BMC dump with type: core path: /var/lib/systemd/coredump/core.bmcweb.0.564b081e20a049f0a655152cba1a4bfc.17582.1709891062000000.zst\nMar 08 10:18:56 systemd-coredump[22710]: Removed old coredump core.bmcweb.0.564b081e20a049f0a655152cba1a4bfc.17582.1709891062000000.zst.\nMar 08 10:18:57 phosphor-dump-manager[22893]: cp: can\u0027t stat \u0027/var/lib/systemd/coredump/core.bmcweb.0.564b081e20a049f0a655152cba1a4bfc.17582.1709891062000000.zst\u0027: No such file or directory\nMar 08 10:18:58 systemd[1]: Starting Time \u0026 Date Service...\nMar 08 10:18:58 systemd[1]: Started Time \u0026 Date Service.\nMar 08 10:18:59 systemd[1]: Starting Hostname Service...\nMar 08 10:18:59 systemd[1]: Started Hostname Service.\nMar 08 10:19:01 phosphor-dump-manager[22767]: Fri Mar 8 10:19:01 UTC 2024 Report is available in /var/lib/phosphor-debug-collector/dumps/64\nMar 08 10:19:01 phosphor-dump-manager[22767]: Fri Mar 8 10:19:01 UTC 2024 Successfully completed\nMar 08 10:19:02 systemd-coredump[22710]: elfutils disabled, parsing ELF objects not supported\nMar 08 10:19:02 systemd-coredump[22710]: [LNK] Process 10637 (bmcweb) of user 0 dumped core.\nMar 08 10:19:02 phosphor-dump-manager[576]: OriginatorId is not provided\nMar 08 10:19:02 phosphor-dump-manager[576]: OriginatorType is not provided. Replacing the string with the default value\nMar 08 10:19:02 phosphor-dump-manager[576]: Initiating new BMC dump with type: core path: /var/lib/systemd/coredump/core.bmcweb.0.564b081e20a049f0a655152cba1a4bfc.10637.1709893136000000.zst\nMar 08 10:19:02 systemd[1]: bmcweb.service: Main process exited, code\u003ddumped, status\u003d11/SEGV\nMar 08 10:19:02 systemd[1]: bmcweb.service: Failed with result \u0027core-dump\u0027.\n```",
       "parentUuid": "7bf95ae4_0836b592",
+      "range": {
+        "startLine": 375,
+        "startChar": 65,
+        "endLine": 375,
+        "endChar": 71
+      },
+      "revId": "a63489bc0a37799a5934102086d83a699e7aaea3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "726f956c_6a9e3594",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-08T16:05:50Z",
+      "side": 1,
+      "message": "Where does it coredump?  It likely means there\u0027s somewhere that we\u0027re not checking for null and should be.",
+      "parentUuid": "abc8a5ca_dc94d07a",
       "range": {
         "startLine": 375,
         "startChar": 65,
