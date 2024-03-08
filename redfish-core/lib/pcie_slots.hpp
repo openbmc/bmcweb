@@ -59,11 +59,12 @@ inline void
     const size_t* lanes = nullptr;
     const std::string* slotType = nullptr;
     const bool* hotPluggable = nullptr;
+    const size_t* busId = nullptr;
 
     const bool success = sdbusplus::unpackPropertiesNoThrow(
         dbus_utils::UnpackErrorPrinter(), propertiesList, "Generation",
         generation, "Lanes", lanes, "SlotType", slotType, "HotPluggable",
-        hotPluggable);
+        hotPluggable, "BusId", busId);
 
     if (!success)
     {
@@ -118,6 +119,12 @@ inline void
     if (hotPluggable != nullptr)
     {
         slot["HotPluggable"] = *hotPluggable;
+    }
+
+    if (busId != nullptr)
+    {
+        slot["Oem"]["IBM"]["@odata.type"] = "#OemPCIeSlots.v1_0_0.PCIeSlot";
+        slot["Oem"]["IBM"]["LinkId"] = *busId;
     }
 
     size_t index = slots.size();

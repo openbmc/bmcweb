@@ -133,5 +133,6 @@ namespace redfish
         "OpenBMCAccountService",
         "OemMessage",
         "OemUpdateService",
+        "OemPCIeSlots",
     };
 }
