@@ -39,6 +39,30 @@
       },
       "revId": "d252b8b2994fa48752d8b85c20e775bf6f672e72",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba00fd8a_0a00ae13",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000985
+      },
+      "writtenOn": "2024-03-08T18:47:38Z",
+      "side": 1,
+      "message": "right, I was not able to assign ` powerCapService \u003d objects[0].first`. Is there another way of getting the value out of this callback?",
+      "parentUuid": "76a9b447_4acaf09b",
+      "range": {
+        "startLine": 85,
+        "startChar": 14,
+        "endLine": 85,
+        "endChar": 29
+      },
+      "revId": "d252b8b2994fa48752d8b85c20e775bf6f672e72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
