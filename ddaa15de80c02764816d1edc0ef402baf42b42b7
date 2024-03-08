@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7c8ec815_c5447726",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-08T17:27:28Z",
+      "side": 1,
+      "message": "To be clear, I\u0027m in no way saying this patch can\u0027t go in once it\u0027s correct.  What I\u0027d like is some understanding of why we\u0027re continuing to extend capability for schemas that Redfish has abandoned.  If there\u0027s something that doesn\u0027t work in the \"new\" schemas, I\u0027d like to understand what that is, so that DMTF can correct it.\n\nLike I said, we just flipped over the defaults to enable the other code path for sensors.  If there\u0027s something wrong in that path, it would be good to get that raised at DMTF level, because so far as I\u0027m aware, they think everything is fine in PowerSubsystem.",
+      "parentUuid": "26bc960d_6e84ba2f",
+      "revId": "ddaa15de80c02764816d1edc0ef402baf42b42b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f0a1b46d_6e4ad451",
         "filename": "redfish-core/lib/power.hpp",
         "patchSetId": 4
