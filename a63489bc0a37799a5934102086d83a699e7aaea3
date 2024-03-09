@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f2b093e_c8d3174a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2024-03-09T02:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f692bf8f_e78a9c91",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 35
+      },
+      "revId": "a63489bc0a37799a5934102086d83a699e7aaea3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f2eb3b68_0e0c6d78",
@@ -61,6 +85,30 @@
       "writtenOn": "2024-03-06T15:35:20Z",
       "side": 1,
       "message": "Can you point out the check in this tool that\u0027s checking the value you changed?  If it\u0027s allowing \"null\", and not null the tool might be broken and need fixing.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 35
+      },
+      "revId": "a63489bc0a37799a5934102086d83a699e7aaea3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01536086_d88339a3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2024-03-09T02:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2eb3b68_0e0c6d78",
       "range": {
         "startLine": 19,
         "startChar": 0,
