@@ -257,6 +257,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c7125dbb_76d651d7",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2024-03-09T02:48:54Z",
+      "side": 1,
+      "message": "\u003e I fixed it to what I think it should be.  Please retest.\n\nHi @Ed, This works with your change. Thanks for your support.",
+      "parentUuid": "9fa3d7d2_d3b57d16",
+      "range": {
+        "startLine": 375,
+        "startChar": 65,
+        "endLine": 375,
+        "endChar": 71
+      },
+      "revId": "a63489bc0a37799a5934102086d83a699e7aaea3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "697c5f56_f7cbfe82",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 1
