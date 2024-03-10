@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbdf6649_ac2fe30a",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-03-10T17:17:37Z",
+      "side": 1,
+      "message": "should we force an error here back to the user?\nI see that there is no such error earlier. But can we have one here \"propertyMissing\" error?",
+      "range": {
+        "startLine": 575,
+        "startChar": 8,
+        "endLine": 575,
+        "endChar": 14
+      },
+      "revId": "c1b92f9956b0592e100fc57a9c4e245c456cd5ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab9c53a4_32af4606",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-03-10T17:17:37Z",
+      "side": 1,
+      "message": "Any reason why we use another copy here?",
+      "range": {
+        "startLine": 588,
+        "startChar": 0,
+        "endLine": 588,
+        "endChar": 49
+      },
+      "revId": "c1b92f9956b0592e100fc57a9c4e245c456cd5ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98b9c0c5_dddf46f2",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 829,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-03-10T17:17:37Z",
+      "side": 1,
+      "message": "Missed to uncomment?",
+      "range": {
+        "startLine": 828,
+        "startChar": 5,
+        "endLine": 829,
+        "endChar": 67
+      },
+      "revId": "c1b92f9956b0592e100fc57a9c4e245c456cd5ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
