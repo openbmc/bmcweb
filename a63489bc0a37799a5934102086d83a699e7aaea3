@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "19d49f00_a6a25c83",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-10T07:58:18Z",
+      "side": 1,
+      "message": "What spec is this in? What section? Can you add that to your commit msg?",
+      "parentUuid": "6f2b093e_c8d3174a",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 35
+      },
+      "revId": "a63489bc0a37799a5934102086d83a699e7aaea3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f2eb3b68_0e0c6d78",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
