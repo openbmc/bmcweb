@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3fd9f111_06fe8f57",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-11T16:41:46Z",
+      "side": 1,
+      "message": "From DSP0266\n\nUg.... I was pretty confident that I was right here, but reading the spec:\n\n\n\u0027\u0027\u0027\nnull value, which the service uses when it is unable to determine the property\u0027s value due to an error or\nother temporary condition, or if the schema has requirements for using null for other special conditions.\n\u0027\u0027\u0027\n\n\n\u0027\u0027\u0027\nString properties should return an empty string (\"\") for properties configured by a user or external\nservice that have not been set to an initial value. This allows client software to identify the property as\nsupported by the service and avoids the use of null , which indicates an error condition. For example,\nthe AssetTag property must be set by the end user, and therefore would return an empty string (\"\")\nuntil assigned a value by the user, while a failure to read the stored AssetTag value due to a non-\nvolatile memory error would return null . To improve interoperability, implementations should avoid\nthe use of filler strings, such as N/A or \u003cEmpty\u003e , to represent a value not set by a user.\n\u0027\u0027\u0027\n\nBut then in other places they\u0027ve given us the advice to use null.  We probably need to open an issue on Redfish forum.",
+      "parentUuid": "19d49f00_a6a25c83",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 35
+      },
+      "revId": "a63489bc0a37799a5934102086d83a699e7aaea3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f2eb3b68_0e0c6d78",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
