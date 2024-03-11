@@ -111,6 +111,30 @@
       },
       "revId": "d252b8b2994fa48752d8b85c20e775bf6f672e72",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21b41e8a_640a43c2",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-11T16:34:37Z",
+      "side": 1,
+      "message": "Please don\u0027t wait for anything.  Just stack your patch on top of that one, and help to review it.",
+      "parentUuid": "5fbd0920_2f66fe97",
+      "range": {
+        "startLine": 85,
+        "startChar": 14,
+        "endLine": 85,
+        "endChar": 29
+      },
+      "revId": "d252b8b2994fa48752d8b85c20e775bf6f672e72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
