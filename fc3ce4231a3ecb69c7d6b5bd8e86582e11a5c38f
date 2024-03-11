@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b54fe85b_d3f75d8c",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-03-11T16:01:03Z",
+      "side": 1,
+      "message": "Should this be using ec.value?",
+      "range": {
+        "startLine": 247,
+        "startChar": 24,
+        "endLine": 247,
+        "endChar": 29
+      },
+      "revId": "fc3ce4231a3ecb69c7d6b5bd8e86582e11a5c38f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c43c3685_48f00311",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-03-11T16:01:03Z",
+      "side": 1,
+      "message": "Can ntpEnabled no longer be const \u0026?",
+      "range": {
+        "startLine": 255,
+        "startChar": 57,
+        "endLine": 255,
+        "endChar": 72
+      },
+      "revId": "fc3ce4231a3ecb69c7d6b5bd8e86582e11a5c38f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ae8666b_10f417b0",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-03-11T16:01:03Z",
+      "side": 1,
+      "message": "Can enabled be const?",
+      "range": {
+        "startLine": 456,
+        "startChar": 57,
+        "endLine": 456,
+        "endChar": 69
+      },
+      "revId": "fc3ce4231a3ecb69c7d6b5bd8e86582e11a5c38f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
