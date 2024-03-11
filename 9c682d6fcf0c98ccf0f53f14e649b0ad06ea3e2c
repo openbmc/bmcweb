@@ -16,6 +16,24 @@
       "message": "Dang this is correct based on our documentation but dang we don\u0027t follow this everywhere \"Acronyms should be same-case throughout \"\nhttps://github.com/openbmc/docs/blob/a5bc3d45c54c62917ec24108fba49e882cdacbd3/cpp-style-and-conventions.md?plain\u003d1#L278",
       "revId": "9c682d6fcf0c98ccf0f53f14e649b0ad06ea3e2c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0928fec_512d6f0c",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-11T15:05:52Z",
+      "side": 1,
+      "message": "Does it matter in practice?  I can\u0027t see certURI being any more or less readable than certUri.",
+      "parentUuid": "31c1e0bb_68a56330",
+      "revId": "9c682d6fcf0c98ccf0f53f14e649b0ad06ea3e2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
