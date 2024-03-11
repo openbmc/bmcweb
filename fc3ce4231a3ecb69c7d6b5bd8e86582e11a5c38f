@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d0f1bd2_9a90f708",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-03-11T16:27:34Z",
+      "side": 1,
+      "message": "It wasn\u0027t clear to me they are the same. I\u0027ve mostly been seeing the use of ec.value in other places in the bmcweb code I\u0027ve looked at recently.",
+      "parentUuid": "844198bb_8d5ca102",
+      "range": {
+        "startLine": 247,
+        "startChar": 24,
+        "endLine": 247,
+        "endChar": 29
+      },
+      "revId": "fc3ce4231a3ecb69c7d6b5bd8e86582e11a5c38f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c43c3685_48f00311",
