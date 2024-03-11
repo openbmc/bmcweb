@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "844198bb_8d5ca102",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-11T16:11:02Z",
+      "side": 1,
+      "message": "I think it\u0027s functionally the same?  Why would ec.value() be better here?",
+      "parentUuid": "b54fe85b_d3f75d8c",
+      "range": {
+        "startLine": 247,
+        "startChar": 24,
+        "endLine": 247,
+        "endChar": 29
+      },
+      "revId": "fc3ce4231a3ecb69c7d6b5bd8e86582e11a5c38f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c43c3685_48f00311",
         "filename": "redfish-core/lib/network_protocol.hpp",
         "patchSetId": 15
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c91c71ca_b6b2025c",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-11T16:11:02Z",
+      "side": 1,
+      "message": "We pass small values by value.  There\u0027s no reason to pass by const reference here.",
+      "parentUuid": "c43c3685_48f00311",
+      "range": {
+        "startLine": 255,
+        "startChar": 57,
+        "endLine": 255,
+        "endChar": 72
+      },
+      "revId": "fc3ce4231a3ecb69c7d6b5bd8e86582e11a5c38f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3ae8666b_10f417b0",
         "filename": "redfish-core/lib/network_protocol.hpp",
         "patchSetId": 15
@@ -60,6 +108,30 @@
       "writtenOn": "2024-03-11T16:01:03Z",
       "side": 1,
       "message": "Can enabled be const?",
+      "range": {
+        "startLine": 456,
+        "startChar": 57,
+        "endLine": 456,
+        "endChar": 69
+      },
+      "revId": "fc3ce4231a3ecb69c7d6b5bd8e86582e11a5c38f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57985bc1_82275a58",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-11T16:11:02Z",
+      "side": 1,
+      "message": "Const correctness on small values is not something we enforce at this time.",
+      "parentUuid": "3ae8666b_10f417b0",
       "range": {
         "startLine": 456,
         "startChar": 57,
