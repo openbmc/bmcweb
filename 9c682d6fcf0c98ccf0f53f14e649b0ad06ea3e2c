@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aaca3543_9c4bd5f2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-11T15:33:08Z",
+      "side": 1,
+      "message": "\"Use multiple level direct read\" if you want to add. \n\nAnd I would be okay with\n\n\"Tested: Visual only. Need help if anyone wants to test. \"",
+      "revId": "9c682d6fcf0c98ccf0f53f14e649b0ad06ea3e2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "31c1e0bb_68a56330",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 3
