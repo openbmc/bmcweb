@@ -597,10 +597,7 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
                              const nlohmann::json& inputJson)
 {
     int r = 0;
-    BMCWEB_LOG_DEBUG(
-        "Converting {} to type: {}",
-        inputJson.dump(2, ' ', true, nlohmann::json::error_handler_t::replace),
-        argType);
+    BMCWEB_LOG_DEBUG("Converting {} to type: {}", inputJson, argType);
     const std::vector<std::string> argTypes = dbusArgSplit(argType);
 
     // Assume a single object for now.
