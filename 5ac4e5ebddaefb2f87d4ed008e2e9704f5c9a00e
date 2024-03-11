@@ -159,6 +159,24 @@
       "parentUuid": "39a73e9a_34b32600",
       "revId": "5ac4e5ebddaefb2f87d4ed008e2e9704f5c9a00e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acadd5ba_e855c33c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-03-11T14:30:15Z",
+      "side": 1,
+      "message": "Since PCIeDevices are currently under Systems, it seems better to remove it from Chassis.\n\nWe also need to remove it from `Redfish.md`.\n\nhttps://github.com/openbmc/bmcweb/blob/e715d14b258a764f0e41559fe4a5e9f7d2efe314/Redfish.md?plain\u003d1#L200",
+      "parentUuid": "151680c4_78e4e132",
+      "revId": "5ac4e5ebddaefb2f87d4ed008e2e9704f5c9a00e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
