@@ -2180,7 +2180,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
 
         std::string parentInterfaceUri;
         if (!json_util::readJsonObject(relatedInterfaces[0], asyncResp->res,
-                                 "@odata.id", parentInterfaceUri))
+                                       "@odata.id", parentInterfaceUri))
         {
             messages::propertyMissing(asyncResp->res,
                                       "Links/RelatedInterfaces/0/@odata.id");
