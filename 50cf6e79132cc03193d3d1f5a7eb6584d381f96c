@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f523d2cb_9d4d0c9b",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-11T04:17:13Z",
+      "side": 1,
+      "message": "I had a comment about naming here in the bottom patch, but to you if you want to change all these",
+      "range": {
+        "startLine": 59,
+        "startChar": 24,
+        "endLine": 59,
+        "endChar": 35
+      },
+      "revId": "50cf6e79132cc03193d3d1f5a7eb6584d381f96c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
