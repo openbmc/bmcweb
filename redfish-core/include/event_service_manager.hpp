@@ -58,7 +58,6 @@ static constexpr const char* eventServiceFile =
 static constexpr const uint8_t maxNoOfSubscriptions = 20;
 static constexpr const uint8_t maxNoOfSSESubscriptions = 10;
 
-#ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static std::optional<boost::asio::posix::stream_descriptor> inotifyConn;
 static constexpr const char* redfishEventLogDir = "/var/log";
@@ -256,7 +255,6 @@ inline int formatEventLogEntry(const std::string& logEntryID,
 }
 
 } // namespace event_log
-#endif
 
 inline bool isFilterQuerySpecialChar(char c)
 {
@@ -398,10 +396,7 @@ class Subscription : public persistent_data::UserSubscription
 
     bool sendTestEventLog()
     {
-        nlohmann::json logEntryArray;
-        logEntryArray.push_back({});
-        nlohmann::json& logEntryJson = logEntryArray.back();
-
+        nlohmann::json::object_t logEntryJson;
         logEntryJson["EventId"] = "TestID";
         logEntryJson["EventType"] = "Event";
         logEntryJson["Severity"] = "OK";
@@ -412,18 +407,21 @@ class Subscription : public persistent_data::UserSubscription
             redfish::time_utils::getDateTimeOffsetNow().first;
         logEntryJson["Context"] = customText;
 
-        nlohmann::json msg;
+        nlohmann::json::array_t logEntryArray;
+        logEntryArray.push_back(std::move(logEntryJson));
+
+        nlohmann::json::object_t msg;
         msg["@odata.type"] = "#Event.v1_4_0.Event";
         msg["Id"] = std::to_string(eventSeqNum);
         msg["Name"] = "Event Log";
-        msg["Events"] = logEntryArray;
+        msg["Events"] = std::move(logEntryArray);
 
-        std::string strMsg = msg.dump(2, ' ', true,
-                                      nlohmann::json::error_handler_t::replace);
+        std::string strMsg =
+            nlohmann::json(std::move(msg))
+                .dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
         return sendEvent(std::move(strMsg));
     }
 
-#ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
     void filterAndSendEventLogs(
         const std::vector<EventLogObjectsType>& eventRecords)
     {
@@ -479,17 +477,17 @@ class Subscription : public persistent_data::UserSubscription
             return;
         }
 
-        nlohmann::json msg;
+        nlohmann::json::object_t msg;
         msg["@odata.type"] = "#Event.v1_4_0.Event";
         msg["Id"] = std::to_string(eventSeqNum);
         msg["Name"] = "Event Log";
         msg["Events"] = logEntryArray;
-        std::string strMsg = msg.dump(2, ' ', true,
-                                      nlohmann::json::error_handler_t::replace);
+        std::string strMsg =
+            nlohmann::json(std::move(msg))
+                .dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
         sendEvent(std::move(strMsg));
         eventSeqNum++;
     }
-#endif
 
     void filterAndSendReports(const std::string& reportId,
                               const telemetry::TimestampReadings& var)
@@ -1080,8 +1078,6 @@ class EventServiceManager
         }
     }
 
-#ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
-
     void resetRedfishFilePosition()
     {
         // Control would be here when Redfish file is created.
@@ -1319,7 +1315,6 @@ class EventServiceManager
         return 0;
     }
 
-#endif
     static void getReadingsForReport(sdbusplus::message_t& msg)
     {
         if (msg.is_method_error())
