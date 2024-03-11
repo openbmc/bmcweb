@@ -33,6 +33,24 @@
       "message": "CI fail \n```\n inline bool readJsonHelperObject(nlohmann::json::object_t\u0026 obj,\n-                              crow::Response\u0026 res,\n-                              std::span\u003cPerUnpack\u003e toUnpack)\n+                                 crow::Response\u0026 res,\n+                                 std::span\u003cPerUnpack\u003e toUnpack)\n {\n```",
       "revId": "0116bb8673346393c48e8383d69d1fa2f6f58130",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cae3688_edc39df4",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-11T22:34:35Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "5b5c6809_790f358b",
+      "revId": "0116bb8673346393c48e8383d69d1fa2f6f58130",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
