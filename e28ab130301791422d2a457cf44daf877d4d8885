@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "72338c4e_a3739965",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-11T15:12:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8eb73645_c8e943b9",
+      "range": {
+        "startLine": 394,
+        "startChar": 12,
+        "endLine": 394,
+        "endChar": 29
+      },
+      "revId": "e28ab130301791422d2a457cf44daf877d4d8885",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "405e6d6a_5d3980b6",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-03-11T04:10:59Z",
       "side": 1,
       "message": "I feel readJsonObject fits better with other naming here and in bmcweb. Up to you if you want to change in all these patches",
+      "range": {
+        "startLine": 523,
+        "startChar": 5,
+        "endLine": 523,
+        "endChar": 16
+      },
+      "revId": "e28ab130301791422d2a457cf44daf877d4d8885",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c125a618_e940863c",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 523,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-11T15:12:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "405e6d6a_5d3980b6",
       "range": {
         "startLine": 523,
         "startChar": 5,
