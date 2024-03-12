@@ -230,6 +230,11 @@ if not openssl.found()
 endif
 bmcweb_dependencies += [openssl]
 
+zstd = dependency('libzstd', required: get_option('http-zstd').allowed())
+if zstd.found()
+    add_project_arguments('-DHAVE_ZSTD', language: 'cpp')
+    bmcweb_dependencies += [zstd]
+endif
 nghttp2 = dependency('libnghttp2', version: '>=1.52.0', required: false)
 if not nghttp2.found()
     cmake = import('cmake')
@@ -383,6 +388,7 @@ srcfiles_bmcweb = files(
     'http/mutual_tls.cpp',
     'http/routing/sserule.cpp',
     'http/routing/websocketrule.cpp',
+    'http/zstd_decompressor.cpp',
     'redfish-core/src/dbus_log_watcher.cpp',
     'redfish-core/src/error_message_utils.cpp',
     'redfish-core/src/error_messages.cpp',
@@ -451,6 +457,7 @@ srcfiles_unittest = files(
     'test/http/server_sent_event_test.cpp',
     'test/http/utility_test.cpp',
     'test/http/verb_test.cpp',
+    'test/http/zstd_decompressor_test.cpp',
     'test/include/async_resolve_test.cpp',
     'test/include/credential_pipe_test.cpp',
     'test/include/dbus_utility_test.cpp',

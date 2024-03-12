@@ -76,6 +76,12 @@ When SSL support is enabled and a usable certificate is not found, bmcweb will
 generate a self-signed a certificate before launching the server. Please see the
 bmcweb source code for details on the parameters this certificate is built with.
 
+## Compression
+
+bmcweb supports various forms of http compression, including zstd and gzip.
+Client headers are observed to determine whether compressed payloads are
+supported.
+
 ## Redfish Aggregation
 
 bmcweb is capable of aggregating resources from satellite BMCs. Refer to
