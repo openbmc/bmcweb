@@ -170,6 +170,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "eed5ea7a_9326c768",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2024-03-12T08:32:59Z",
+      "side": 1,
+      "message": "Hi @Gunnar,\nFollow 9.6.1 Properties Overview Page 88 in\nhttps://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.19.0.pdf\n\nThere is a short paragraph describe about this null value:\n```\nIf an implementation supports a property, it shall always provide a value for that property. If a value is unknown at the time of the operation due to an internal error, or inaccessibility of the data, the value of null is an acceptable value if supported by the schema definition.\n```\nI agree with @Ed that this is the spec issue and that we need to work with the Redfish forum.",
+      "parentUuid": "c8e3a76e_b9038f3c",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 35
+      },
+      "revId": "a63489bc0a37799a5934102086d83a699e7aaea3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f2eb3b68_0e0c6d78",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
