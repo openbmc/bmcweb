@@ -10,6 +10,7 @@ feature_options = [
     'experimental-redfish-multi-computer-system',
     'google-api',
     'host-serial-socket',
+    'http-zstd',
     'hypervisor-computer-system',
     'ibm-management-console',
     'insecure-disable-auth',

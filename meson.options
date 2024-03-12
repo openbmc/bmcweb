@@ -283,6 +283,14 @@ option(
     description: 'Specifies the http request body length limit',
 )
 
+# BMCWEB_HTTP_ZSTD
+option(
+    'http-zstd',
+    type: 'feature',
+    value: 'enabled',
+    description: 'Allows compression/decompression using zstd',
+)
+
 # BMCWEB_REDFISH_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM
 option(
     'redfish-new-powersubsystem-thermalsubsystem',
