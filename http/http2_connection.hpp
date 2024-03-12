@@ -490,7 +490,7 @@ class HTTP2Connection :
         {
             BMCWEB_LOG_DEBUG("create stream for id {}", frame.hd.stream_id);
 
-            streams.emplace(frame.hd.stream_id, Http2StreamData());
+            streams[frame.hd.stream_id];
         }
         return 0;
     }
