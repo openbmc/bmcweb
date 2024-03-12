@@ -16,6 +16,41 @@
       "message": "I think another sentence like: \n\n\"Since the path is /redfish/v1/Systems/system/PCIeDevices and we already have a link from /redfish/v1/Systems/system/, remove the link here in Chassis. This is just a link, and since another link already exists, this should not break clients.\"",
       "revId": "cd8d3e129c808b1ae96a4b65f15efb31a88f51c0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d91f060a_12e6f3d8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-12T20:27:53Z",
+      "side": 1,
+      "message": "I\u0027m quite confused why this is a problem.  Looking at it, all chassis will point to the single system endpoint, which will contain all the PCIe devices.\n\nCan we get a better explanation of why this is an issue?  In addition, can we get an explanation of what clients that relied on this property should do instead?",
+      "revId": "cd8d3e129c808b1ae96a4b65f15efb31a88f51c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62dfd414_20beacee",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-12T20:27:53Z",
+      "side": 1,
+      "message": "\u003e we already have a link from /redfish/v1/Systems/system/\n\nThat lets you traverse the tree, but doesn\u0027t really help with \"what devices are in this chassis\" type questions?",
+      "parentUuid": "ba266a5a_5b8132a5",
+      "revId": "cd8d3e129c808b1ae96a4b65f15efb31a88f51c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
