@@ -1,6 +1,10 @@
 #pragma once
 
+#include "async_resp.hpp"
 #include "dbus_utility.hpp"
+#include "error_messages.hpp"
+#include "led.hpp"
+#include "utils/chassis_utils.hpp"
 
 #include <boost/url/format.hpp>
 #include <sdbusplus/unpack_properties.hpp>
@@ -18,6 +22,96 @@
 namespace redfish
 {
 
+constexpr std::array<std::string_view, 9> chassisAssemblyInterfaces = {
+    "xyz.openbmc_project.Inventory.Item.Vrm",
+    "xyz.openbmc_project.Inventory.Item.Tpm",
+    "xyz.openbmc_project.Inventory.Item.Panel",
+    "xyz.openbmc_project.Inventory.Item.Battery",
+    "xyz.openbmc_project.Inventory.Item.DiskBackplane",
+    "xyz.openbmc_project.Inventory.Item.Board",
+    "xyz.openbmc_project.Inventory.Item.Connector",
+    "xyz.openbmc_project.Inventory.Item.Drive",
+    "xyz.openbmc_project.Inventory.Item.Board.Motherboard"};
+
+inline void doGetAssociatedChassisAssembly(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisPath,
+    std::function<void(const std::vector<std::string>& assemblyList)>&&
+        callback)
+{
+    BMCWEB_LOG_DEBUG("Get associated chassis assembly");
+
+    sdbusplus::message::object_path endpointPath{chassisPath};
+    endpointPath /= "assembly";
+
+    dbus::utility::getAssociatedSubTreePaths(
+        endpointPath,
+        sdbusplus::message::object_path("/xyz/openbmc_project/inventory"), 0,
+        chassisAssemblyInterfaces,
+        [asyncResp, chassisPath, callback{callback}](
+            const boost::system::error_code& ec,
+            const dbus::utility::MapperGetSubTreePathsResponse& subtreePaths) {
+        if (ec)
+        {
+            if (ec.value() != EBADR)
+            {
+                BMCWEB_LOG_ERROR(
+                    "DBUS response error for getAssociatedSubTreePaths {}",
+                    ec.value());
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            // Pass the empty assemblyList to caller
+            callback(std::vector<std::string>());
+            return;
+        }
+
+        std::vector<std::string> sortedAssemblyList = subtreePaths;
+        std::ranges::sort(sortedAssemblyList);
+
+        callback(sortedAssemblyList);
+    });
+}
+
+/**
+ * @brief Get chassis path with given chassis ID
+ * @param[in] asyncResp - Shared pointer for asynchronous calls.
+ * @param[in] chassisID - Chassis to which the assemblies are
+ * associated.
+ * @param[in] callback
+ *
+ * @return None.
+ */
+inline void getChassisAssembly(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisID,
+    std::function<void(const std::optional<std::string>& validChassisPath,
+                       const std::vector<std::string>& sortedAssemblyList)>&&
+        callback)
+{
+    BMCWEB_LOG_DEBUG("Get ChassisAssembly");
+
+    // get the chassis path
+    redfish::chassis_utils::getValidChassisPath(
+        asyncResp, chassisID,
+        [asyncResp, callback{callback}](
+            const std::optional<std::string>& validChassisPath) {
+        if (!validChassisPath)
+        {
+            // tell the caller as not valid chassisPath
+            callback(validChassisPath, std::vector<std::string>());
+            return;
+        }
+
+        doGetAssociatedChassisAssembly(
+            asyncResp, *validChassisPath,
+            [asyncResp, validChassisPath, callback{callback}](
+                const std::vector<std::string>& sortedAssemblyList) {
+            callback(validChassisPath, sortedAssemblyList);
+        });
+    });
+}
+
 /**
  * @brief Get Asset properties on the given assembly.
  * @param[in] asyncResp - Shared pointer for asynchronous calls.
@@ -34,7 +128,7 @@ void getAssemblyAsset(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         *crow::connections::systemBus, serviceName, assembly,
         "xyz.openbmc_project.Inventory.Decorator.Asset",
         [asyncResp, assemblyIndex](
-            const boost::system::error_code ec1,
+            const boost::system::error_code& ec1,
             const dbus::utility::DBusPropertiesMap& propertiesList) {
         if (ec1)
         {
@@ -99,7 +193,7 @@ void getAssemblyLocationCode(
     sdbusplus::asio::getProperty<std::string>(
         *crow::connections::systemBus, serviceName, assembly,
         "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
-        [asyncResp, assemblyIndex](const boost::system::error_code ec1,
+        [asyncResp, assemblyIndex](const boost::system::error_code& ec1,
                                    const std::string& value) {
         if (ec1)
         {
@@ -114,6 +208,7 @@ void getAssemblyLocationCode(
         assemblyData["Location"]["PartLocation"]["ServiceLabel"] = value;
     });
 }
+
 /**
  * @brief Get properties for the assemblies associated to given chassis
  * @param[in] asyncResp - Shared pointer for asynchronous calls.
@@ -131,13 +226,6 @@ inline void
 
     const std::string& chassis =
         sdbusplus::message::object_path(chassisPath).filename();
-
-    constexpr std::array<std::string_view, 5> interfaces = {
-        "xyz.openbmc_project.Inventory.Item.Vrm",
-        "xyz.openbmc_project.Inventory.Item.Tpm",
-        "xyz.openbmc_project.Inventory.Item.Panel",
-        "xyz.openbmc_project.Inventory.Item.Battery",
-        "xyz.openbmc_project.Inventory.Item.DiskBackplane"};
 
     std::size_t assemblyIndex = 0;
 
@@ -160,9 +248,9 @@ inline void
             sdbusplus::message::object_path(assembly).filename();
 
         dbus::utility::getDbusObject(
-            assembly, interfaces,
+            assembly, chassisAssemblyInterfaces,
             [asyncResp, assemblyIndex,
-             assembly](const boost::system::error_code ec,
+             assembly](const boost::system::error_code& ec,
                        const dbus::utility::MapperGetObject& object) {
             if (ec)
             {
@@ -181,8 +269,9 @@ inline void
                         getAssemblyAsset(asyncResp, serviceName, assembly,
                                          assemblyIndex);
                     }
-                    else if (interface == "xyz.openbmc_project.Inventory."
-                                          "Decorator.LocationCode")
+                    else if (
+                        interface ==
+                        "xyz.openbmc_project.Inventory.Decorator.LocationCode")
                     {
                         getAssemblyLocationCode(asyncResp, serviceName,
                                                 assembly, assemblyIndex);
@@ -191,8 +280,15 @@ inline void
             }
         });
 
-        nlohmann::json::array_t assemblyArray =
-            asyncResp->res.jsonValue["Assemblies"];
+        getLocationIndicatorActive(asyncResp, assembly,
+                                   [asyncResp, assemblyIndex](bool asserted) {
+            nlohmann::json& assemblyArray =
+                asyncResp->res.jsonValue["Assemblies"];
+            nlohmann::json& assemblyData = assemblyArray.at(assemblyIndex);
+            assemblyData["LocationIndicatorActive"] = asserted;
+        });
+
+        nlohmann::json& assemblyArray = asyncResp->res.jsonValue["Assemblies"];
         asyncResp->res.jsonValue["Assemblies@odata.count"] =
             assemblyArray.size();
 
@@ -201,228 +297,6 @@ inline void
 }
 
 /**
- * @brief Api to check if the assemblies fetched from association Json is
- * also implemented in the system. In case the interface for that assembly
- * is not found update the list and fetch properties for only implemented
- * assemblies.
- * @param[in] asyncResp - Shared pointer for asynchronous calls.
- * @param[in] chassisPath - Chassis the assemblies are associated with.
- * @param[in] assemblies - list of all the assemblies associated with the
- * chassis.
- * @return None.
- */
-inline void
-    checkAssemblyInterface(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                           const std::string& chassisPath,
-                           const dbus::utility::MapperEndPoints& assemblies)
-{
-    constexpr std::array<std::string_view, 5> fruInterface = {
-        "xyz.openbmc_project.Inventory.Item.Vrm",
-        "xyz.openbmc_project.Inventory.Item.Tpm",
-        "xyz.openbmc_project.Inventory.Item.Panel",
-        "xyz.openbmc_project.Inventory.Item.Battery",
-        "xyz.openbmc_project.Inventory.Item.DiskBackplane"};
-
-    dbus::utility::getSubTree(
-        "/xyz/openbmc_project/inventory", 0, fruInterface,
-        [asyncResp, chassisPath,
-         assemblies](const boost::system::error_code& ec,
-                     const dbus::utility::MapperGetSubTreeResponse& subtree) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("D-Bus response error on GetSubTree {}",
-                             ec.value());
-            messages::internalError(asyncResp->res);
-            return;
-        }
-
-        if (subtree.empty())
-        {
-            BMCWEB_LOG_DEBUG("No object paths found");
-            return;
-        }
-        std::vector<std::string> updatedAssemblyList;
-        for (const auto& [objectPath, serviceName] : subtree)
-        {
-            // This list will store common paths between assemblies fetched
-            // from association json and assemblies which are actually
-            // implemeted. This is to handle the case in which there is
-            // entry in association json but implementation of interface for
-            // that particular assembly is missing.
-            auto it = std::find(assemblies.begin(), assemblies.end(),
-                                objectPath);
-            if (it != assemblies.end())
-            {
-                updatedAssemblyList.emplace(updatedAssemblyList.end(), *it);
-            }
-        }
-
-        if (!updatedAssemblyList.empty())
-        {
-            // sorting is required to facilitate patch as the array does not
-            // store and data which can be mapped back to Dbus path of
-            // assembly.
-            std::sort(updatedAssemblyList.begin(), updatedAssemblyList.end());
-
-            getAssemblyProperties(asyncResp, chassisPath, updatedAssemblyList);
-        }
-    });
-}
-
-/**
- * @brief Api to get assembly endpoints from mapper.
- * @param[in] asyncResp - Shared pointer for asynchronous calls.
- * @param[in] chassisPath - Chassis to which the assemblies are
- * associated.
- *
- * @return None.
- */
-inline void
-    getAssemblyEndpoints(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                         const std::string& chassisPath)
-{
-    BMCWEB_LOG_DEBUG("Get assembly endpoints");
-
-    sdbusplus::message::object_path assemblyPath(chassisPath);
-    assemblyPath /= "assembly";
-
-    // if there is assembly association, look
-    // for endpoints
-    dbus::utility::getAssociationEndPoints(
-        assemblyPath, [asyncResp, chassisPath](
-                          const boost::system::error_code& ec,
-                          const dbus::utility::MapperEndPoints& endpoints) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("DBUS response error : {}", ec.value());
-            messages::internalError(asyncResp->res);
-            return;
-        }
-
-        auto sortedAssemblyList = endpoints;
-        std::sort(sortedAssemblyList.begin(), sortedAssemblyList.end());
-
-        checkAssemblyInterface(asyncResp, chassisPath, sortedAssemblyList);
-        return;
-    });
-}
-
-/**
- * @brief Api to check for assembly associations.
- * @param[in] asyncResp - Shared pointer for asynchronous calls.
- * @param[in] chassisPath - Chassis to which the assemblies are
- * associated.
- *
- * @return None.
- */
-inline void checkForAssemblyAssociations(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& chassisPath, const std::string& service)
-{
-    BMCWEB_LOG_DEBUG("Check for assembly association");
-
-    using associationList =
-        std::vector<std::tuple<std::string, std::string, std::string>>;
-
-    crow::connections::systemBus->async_method_call(
-        [asyncResp,
-         chassisPath](const boost::system::error_code ec,
-                      const std::variant<associationList>& associations) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("DBUS response error : {}", ec.value());
-            messages::internalError(asyncResp->res);
-            return;
-        }
-
-        const associationList* value =
-            std::get_if<associationList>(&associations);
-        if (value == nullptr)
-        {
-            BMCWEB_LOG_ERROR(
-                "DBUS response error. Received an empty association list.");
-            messages::internalError(asyncResp->res);
-            return;
-        }
-
-        auto iter = std::ranges::find_if(value->begin(), value->end(),
-                                         [](const auto& listOfAssociations) {
-            return std::get<0>(listOfAssociations) == "assembly";
-        });
-
-        if (iter != value->end())
-        {
-            getAssemblyEndpoints(asyncResp, chassisPath);
-        }
-    },
-        service, chassisPath, "org.freedesktop.DBus.Properties", "Get",
-        "xyz.openbmc_project.Association.Definitions", "Associations");
-}
-
-/**
- * @brief Api to check if there is any association.
- * @param[in] asyncResp - Shared pointer for asynchronous calls.
- * @param[in] chassisPath - Chassis to which the assemblies are
- * associated.
- *
- * @return None.
- */
-inline void
-    checkAssociation(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                     const std::string& chassisPath,
-                     const std::string& chassisID)
-{
-    BMCWEB_LOG_DEBUG("Check chassis for association");
-
-    std::string chassis =
-        sdbusplus::message::object_path(chassisPath).filename();
-    if (chassis.empty())
-    {
-        BMCWEB_LOG_ERROR("Failed to find / in Chassis path");
-        messages::internalError(asyncResp->res);
-        return;
-    }
-
-    asyncResp->res.jsonValue["@odata.type"] = "#Assembly.v1_3_0.Assembly";
-    asyncResp->res.jsonValue["@odata.id"] =
-        boost::urls::format("/redfish/v1/Chassis/{}/Assembly", chassisID);
-    asyncResp->res.jsonValue["Name"] = "Assembly Collection";
-    asyncResp->res.jsonValue["Id"] = "Assembly";
-
-    asyncResp->res.jsonValue["Assemblies"] = nlohmann::json::array();
-    asyncResp->res.jsonValue["Assemblies@odata.count"] = 0;
-
-    // check if this chassis hosts any association
-    dbus::utility::getDbusObject(
-        chassisPath, std::array<std::string_view, 0>(),
-        [asyncResp, chassisPath](const boost::system::error_code ec,
-                                 const dbus::utility::MapperGetObject& object) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("DBUS response error {}", ec.value());
-            messages::internalError(asyncResp->res);
-            return;
-        }
-
-        for (const auto& [serviceName, interfaceList] : object)
-        {
-            for (const auto& interface : interfaceList)
-            {
-                if (interface == "xyz.openbmc_project.Association.Definitions")
-                {
-                    checkForAssemblyAssociations(asyncResp, chassisPath,
-                                                 serviceName);
-                    return;
-                }
-            }
-        }
-        return;
-    });
-}
-
-namespace assembly
-{
-/**
  * @brief Get chassis path with given chassis ID
  * @param[in] asyncResp - Shared pointer for asynchronous calls.
  * @param[in] chassisID - Chassis to which the assemblies are
@@ -430,49 +304,134 @@ namespace assembly
  *
  * @return None.
  */
-inline void getChassis(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                       const std::string& chassisID)
+inline void handleChassisAssemblyGet(
+    App& /*unused*/, const crow::Request& /*unused*/,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisID)
 {
     BMCWEB_LOG_DEBUG("Get chassis path");
 
-    constexpr std::array<std::string_view, 2> interfaces = {
-        "xyz.openbmc_project.Inventory.Item.Chassis",
-        "xyz.openbmc_project.Inventory.Item.Board"};
-
-    // get the chassis path
-    dbus::utility::getSubTreePaths(
-        "/xyz/openbmc_project/inventory", 0, interfaces,
-        [asyncResp, chassisID](
-            const boost::system::error_code ec,
-            const dbus::utility::MapperGetSubTreePathsResponse& chassisPaths) {
-        if (ec)
+    getChassisAssembly(asyncResp, "chassis",
+                       [asyncResp, chassisID](
+                           const std::optional<std::string>& validChassisPath,
+                           const std::vector<std::string>& assemblyList) {
+        if (!validChassisPath || assemblyList.empty())
         {
-            BMCWEB_LOG_ERROR("DBUS response error {}", ec.value());
-            messages::internalError(asyncResp->res);
+            BMCWEB_LOG_ERROR("Chassis not found");
+            messages::resourceNotFound(asyncResp->res, "Chassis", chassisID);
             return;
         }
+        const std::string& chassisPath = *validChassisPath;
 
-        // check if the chassis path belongs to the chassis ID passed
-        for (const auto& path : chassisPaths)
-        {
-            BMCWEB_LOG_DEBUG("Chassis Paths from Mapper ", path);
-            std::string chassis =
-                sdbusplus::message::object_path(path).filename();
-            if (chassis != chassisID)
-            {
-                // this is not the chassis we are interested in
-                continue;
-            }
+        asyncResp->res.jsonValue["@odata.type"] = "#Assembly.v1_3_0.Assembly";
+        asyncResp->res.jsonValue["@odata.id"] =
+            boost::urls::format("/redfish/v1/Chassis/{}/Assembly", chassisID);
+        asyncResp->res.jsonValue["Name"] = "Assembly Collection";
+        asyncResp->res.jsonValue["Id"] = "Assembly";
 
-            checkAssociation(asyncResp, path, chassisID);
-            return;
-        }
+        asyncResp->res.jsonValue["Assemblies"] = nlohmann::json::array();
+        asyncResp->res.jsonValue["Assemblies@odata.count"] = 0;
 
-        BMCWEB_LOG_ERROR("Chassis not found");
-        messages::resourceNotFound(asyncResp->res, "Chassis", chassisID);
+        getAssemblyProperties(asyncResp, chassisPath, assemblyList);
     });
 }
-} // namespace assembly
+
+/**
+ * @brief Set location indicator for the assemblies associated to given chassis
+ * @param[in] req - The request data
+ * @param[in] asyncResp - Shared pointer for asynchronous calls.
+ * @param[in] chassisID - Chassis the assemblies are associated with.
+ * @param[in] assemblies - list of all the assemblies associated with the
+ * chassis.
+
+ * @return None.
+ */
+inline void setAssemblyLocationIndicators(
+    const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisID, const std::vector<std::string>& assemblies)
+{
+    BMCWEB_LOG_DEBUG(
+        "Set LocationIndicatorActive for assembly associated to chassis = {}",
+        chassisID);
+
+    std::optional<std::vector<nlohmann::json>> assemblyData;
+    if (!json_util::readJsonAction(req, asyncResp->res, "Assemblies",
+                                   assemblyData))
+    {
+        return;
+    }
+    if (!assemblyData)
+    {
+        return;
+    }
+
+    std::vector<nlohmann::json> items = std::move(*assemblyData);
+    std::map<std::string, bool> locationIndicatorActiveMap;
+
+    for (auto& item : items)
+    {
+        std::optional<std::string> memberId;
+        std::optional<bool> locationIndicatorActive;
+
+        if (!json_util::readJson(item, asyncResp->res,
+                                 "LocationIndicatorActive",
+                                 locationIndicatorActive, "MemberId", memberId))
+        {
+            return;
+        }
+        if (locationIndicatorActive)
+        {
+            if (memberId)
+            {
+                locationIndicatorActiveMap[*memberId] =
+                    *locationIndicatorActive;
+            }
+            else
+            {
+                BMCWEB_LOG_DEBUG(
+                    "Property Missing - MemberId must be included with LocationIndicatorActive ");
+                messages::propertyMissing(asyncResp->res, "MemberId");
+                return;
+            }
+        }
+    }
+
+    std::size_t assemblyIndex = 0;
+    for (const auto& assembly : assemblies)
+    {
+        auto iter =
+            locationIndicatorActiveMap.find(std::to_string(assemblyIndex));
+
+        if (iter != locationIndicatorActiveMap.end())
+        {
+            setLocationIndicatorActive(asyncResp, assembly, iter->second);
+        }
+        assemblyIndex++;
+    }
+}
+
+inline void handleChassisAssemblyPatch(
+    App& /*unused*/, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisID)
+{
+    BMCWEB_LOG_DEBUG("Patch chassis path");
+
+    getChassisAssembly(asyncResp, "chassis",
+                       [req, asyncResp, chassisID](
+                           const std::optional<std::string>& validChassisPath,
+                           const std::vector<std::string>& assemblyList) {
+        if (!validChassisPath || assemblyList.empty())
+        {
+            BMCWEB_LOG_ERROR("Chassis not found");
+            messages::resourceNotFound(asyncResp->res, "Chassis", chassisID);
+            return;
+        }
+
+        setAssemblyLocationIndicators(req, asyncResp, chassisID, assemblyList);
+    });
+}
 
 /**
  * Systems derived class for delivering Assembly Schema.
@@ -485,11 +444,11 @@ inline void requestRoutesAssembly(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Assembly/")
         .privileges({{"Login"}})
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request&,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const std::string& chassisId) {
-        BMCWEB_LOG_DEBUG("chassis =", chassisId);
-        assembly::getChassis(asyncResp, chassisId);
-    });
+            std::bind_front(handleChassisAssemblyGet, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Assembly/")
+        .privileges({{"ConfigureComponents"}})
+        .methods(boost::beast::http::verb::patch)(
+            std::bind_front(handleChassisAssemblyPatch, std::ref(app)));
 }
 } // namespace redfish
