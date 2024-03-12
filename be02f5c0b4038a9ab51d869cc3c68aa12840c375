@@ -41,6 +41,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfc5d938_5207ce59",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-12T08:23:08Z",
+      "side": 1,
+      "message": "Since the client can go to /redfish/v1/Systems/system and this is just a link, the client impact should be minimal.",
+      "revId": "be02f5c0b4038a9ab51d869cc3c68aa12840c375",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "15591405_ad92422a",
