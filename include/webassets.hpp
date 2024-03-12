@@ -166,6 +166,13 @@ inline void addFile(App& app, const std::filesystem::directory_entry& dir)
         extension = webpath.extension().string();
         file.contentEncoding = "gzip";
     }
+    else if (extension == ".zstd")
+    {
+        webpath = webpath.replace_extension("");
+        // Use the non-zstd version for determining content type
+        extension = webpath.extension().string();
+        file.contentEncoding = "zstd";
+    }
 
     file.etag = getStaticEtag(webpath);
 
