@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a7f3dd72_26d974aa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-12T15:23:20Z",
+      "side": 1,
+      "message": "that’s a good find, will add it to the commit message.",
+      "parentUuid": "aff75bf9_5aba07ca",
+      "revId": "fc3ce4231a3ecb69c7d6b5bd8e86582e11a5c38f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7dc016d4_7203301d",
         "filename": "/COMMIT_MSG",
         "patchSetId": 15
@@ -103,6 +121,24 @@
       "side": 1,
       "message": "\u003e why is that bmcweb job to keep them in sync? isn’t that the job of settings/timesyncd?\n\nBefore this change, bmcweb get/set the \"NTP settings\" on phosphor-settings.\nphosphor-time-manager and phosphor-settings are responsible to sync the settings with systemd-timedated.\nSo the services like bmcweb and ipmid will only have to get/set the property on phosphor-settings, that\u0027s all.\n\nNow with this patch, bmcweb changes the behavior and directly set the \"NTP setting\" to systemd-timedated, that\u0027s why I raise the comment.",
       "parentUuid": "bcc5e916_0dd33b4c",
+      "revId": "fc3ce4231a3ecb69c7d6b5bd8e86582e11a5c38f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba3deb6b_20b699c9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-12T15:23:20Z",
+      "side": 1,
+      "message": "\u003e \u003e why is that bmcweb job to keep them in sync? isn’t that the job of settings/timesyncd?\n\u003e \n\u003e Before this change, bmcweb get/set the \"NTP settings\" on phosphor-settings.\n\u003e phosphor-time-manager and phosphor-settings are responsible to sync the settings with systemd-timedated.\n\u003e So the services like bmcweb and ipmid will only have to get/set the property on phosphor-settings, that\u0027s all.\n\u003e \n\u003e Now with this patch, bmcweb changes the behavior and directly set the \"NTP setting\" to systemd-timedated, that\u0027s why I raise the comment.\n\nright, but I’m not understanding why this is an issue with bmcweb?  shouldn’t phosphor time be watching for changes to timesyncd?\n\nAlso, to reask the question previously, is this problem visible to the user at all?  if not, I’m not sure it matters?",
+      "parentUuid": "c31eddd5_b36be760",
       "revId": "fc3ce4231a3ecb69c7d6b5bd8e86582e11a5c38f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
