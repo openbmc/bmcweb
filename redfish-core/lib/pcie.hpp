@@ -29,6 +29,8 @@
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
+#include <limits>
+
 namespace redfish
 {
 
@@ -479,9 +481,10 @@ inline void addPCIeDeviceProperties(
         }
     }
 
-    // The default value of LanesInUse is 0, and the field will be
+    // The default value of LanesInUse is "maxint", and the field will be
     // left as off if it is a default value.
-    if (lanesInUse != nullptr && *lanesInUse != 0)
+    if (lanesInUse != nullptr &&
+        *lanesInUse != std::numeric_limits<size_t>::max())
     {
         asyncResp->res.jsonValue["PCIeInterface"]["LanesInUse"] = *lanesInUse;
     }
