@@ -59,6 +59,7 @@ struct StaticFile
     std::string_view contentType;
     std::string_view contentEncoding;
     std::string etag;
+    bmcweb::CompressionType onDiskComp = bmcweb::CompressionType::Raw;
     bool renamed = false;
 };
 
@@ -100,7 +101,8 @@ inline void handleStaticAsset(
         }
     }
 
-    if (!asyncResp->res.openFile(file.absolutePath))
+    if (!asyncResp->res.openFile(file.absolutePath, bmcweb::EncodingType::Raw,
+                                 file.onDiskComp))
     {
         BMCWEB_LOG_DEBUG("failed to read file");
         asyncResp->res.result(
@@ -165,6 +167,7 @@ inline void addFile(App& app, const std::filesystem::directory_entry& dir)
         // Use the non-gzip version for determining content type
         extension = webpath.extension().string();
         file.contentEncoding = "gzip";
+        file.onDiskComp = bmcweb::CompressionType::Gzip;
     }
     else if (extension == ".zstd")
     {
@@ -172,6 +175,7 @@ inline void addFile(App& app, const std::filesystem::directory_entry& dir)
         // Use the non-zstd version for determining content type
         extension = webpath.extension().string();
         file.contentEncoding = "zstd";
+        file.onDiskComp = bmcweb::CompressionType::Zstd;
     }
 
     file.etag = getStaticEtag(webpath);
