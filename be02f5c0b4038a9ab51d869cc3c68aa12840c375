@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee144692_0593bd3e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-12T08:22:20Z",
+      "side": 1,
+      "message": "With respect to? \nPlease avoid acronyms that others might not know if possible",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 5
+      },
+      "revId": "be02f5c0b4038a9ab51d869cc3c68aa12840c375",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0a5a6d9_b039c2e8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-12T08:22:20Z",
+      "side": 1,
+      "message": "These are already linked from /redfish/v1/Systems/system ? So since the path is /redfish/v1/Systems/system/PCIeDevices we should have the link from /redfish/v1/Systems/system/ and remove the the link here?",
+      "revId": "be02f5c0b4038a9ab51d869cc3c68aa12840c375",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15591405_ad92422a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-12T08:22:20Z",
+      "side": 1,
+      "message": "I agree with the change here but the commit msg needs updated to reflect why this is needed, any client impact, etc.",
+      "revId": "be02f5c0b4038a9ab51d869cc3c68aa12840c375",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
