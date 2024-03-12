@@ -129,6 +129,13 @@ inline void requestRoutes(App& app)
                 extension = webpath.extension().string();
                 contentEncoding = "gzip";
             }
+            else if (extension == ".zstd")
+            {
+                webpath = webpath.replace_extension("");
+                // Use the non-zstd version for determining content type
+                extension = webpath.extension().string();
+                contentEncoding = "zstd";
+            }
 
             std::string etag = getStaticEtag(webpath);
 
