@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "44b535a3_db63ccbc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-03-12T16:37:52Z",
+      "side": 1,
+      "message": "Changes looks good\nNeeds to be tested?",
+      "revId": "c536e9087288543f53029fd86ca2557ec00d4581",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5aff9fa1_a4e4fe93",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 12
@@ -14,6 +31,30 @@
       "writtenOn": "2024-03-12T08:47:08Z",
       "side": 1,
       "message": "why 6? Can you add a comment ?",
+      "range": {
+        "startLine": 483,
+        "startChar": 73,
+        "endLine": 483,
+        "endChar": 74
+      },
+      "revId": "c536e9087288543f53029fd86ca2557ec00d4581",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02d4825e_4b595bf9",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-03-12T16:37:52Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "5aff9fa1_a4e4fe93",
       "range": {
         "startLine": 483,
         "startChar": 73,
