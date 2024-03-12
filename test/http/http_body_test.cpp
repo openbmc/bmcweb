@@ -56,13 +56,14 @@ TEST(HttpHttpBodyValueType, CopyOperatorString)
     // Move constructor
     HttpBody::value_type value2 = value;
     EXPECT_EQ(value2.encodingType, EncodingType::Raw);
+    EXPECT_EQ(value2.compressionType, CompressionType::Raw);
     EXPECT_EQ(value2.str(), "teststring");
     EXPECT_EQ(value2.payloadSize(), 10);
 }
 
 TEST(HttpHttpBodyValueType, MoveFile)
 {
-    HttpBody::value_type value(EncodingType::Base64);
+    HttpBody::value_type value(EncodingType::Base64, CompressionType::Raw);
     std::string filepath = makeFile("teststring");
     boost::system::error_code ec;
     value.open(filepath.c_str(), boost::beast::file_mode::read, ec);
@@ -73,6 +74,7 @@ TEST(HttpHttpBodyValueType, MoveFile)
     size_t out = value2.file().read(buffer.data(), buffer.size(), ec);
     ASSERT_FALSE(ec);
     EXPECT_EQ(value2.encodingType, EncodingType::Base64);
+    EXPECT_EQ(value2.compressionType, CompressionType::Raw);
 
     EXPECT_THAT(std::span(buffer.data(), out),
                 ElementsAre('t', 'e', 's', 't', 's', 't', 'r', 'i', 'n', 'g'));
@@ -85,7 +87,7 @@ TEST(HttpHttpBodyValueType, MoveFile)
 
 TEST(HttpHttpBodyValueType, MoveOperatorFile)
 {
-    HttpBody::value_type value(EncodingType::Base64);
+    HttpBody::value_type value(EncodingType::Base64, CompressionType::Raw);
     std::string filepath = makeFile("teststring");
     boost::system::error_code ec;
     value.open(filepath.c_str(), boost::beast::file_mode::read, ec);
@@ -96,6 +98,7 @@ TEST(HttpHttpBodyValueType, MoveOperatorFile)
     size_t out = value2.file().read(buffer.data(), buffer.size(), ec);
     ASSERT_FALSE(ec);
     EXPECT_EQ(value2.encodingType, EncodingType::Base64);
+    EXPECT_EQ(value2.compressionType, CompressionType::Raw);
 
     EXPECT_THAT(std::span(buffer.data(), out),
                 ElementsAre('t', 'e', 's', 't', 's', 't', 'r', 'i', 'n', 'g'));
@@ -107,7 +110,7 @@ TEST(HttpHttpBodyValueType, MoveOperatorFile)
 
 TEST(HttpBodyValueType, SetFd)
 {
-    HttpBody::value_type value(EncodingType::Base64);
+    HttpBody::value_type value(EncodingType::Base64, CompressionType::Raw);
     std::string filepath = makeFile("teststring");
 
     boost::system::error_code ec;

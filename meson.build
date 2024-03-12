@@ -278,6 +278,9 @@ else
 endif
 bmcweb_dependencies += [openssl]
 
+zstd = dependency('libzstd', required: true)
+bmcweb_dependencies += [zstd]
+
 nghttp2 = dependency('libnghttp2', version: '>=1.52.0', required : false)
 if not nghttp2.found()
   cmake = import('cmake')
@@ -399,6 +402,7 @@ srcfiles_bmcweb = files(
   'src/dbus_singleton.cpp',
   'src/json_html_serializer.cpp',
   'src/ossl_random.cpp',
+  'src/zstd_decompressor.cpp',
 )
 
 bmcweblib = static_library(
@@ -433,6 +437,7 @@ srcfiles_unittest = files(
   'test/http/mutual_tls_meta.cpp',
   'test/http/http_body_test.cpp',
   'test/include/dbus_utility_test.cpp',
+  'test/include/zstd_decompressor_test.cpp',
   'test/include/google/google_service_root_test.cpp',
   'test/include/json_html_serializer.cpp',
   'test/include/http_utility_test.cpp',
