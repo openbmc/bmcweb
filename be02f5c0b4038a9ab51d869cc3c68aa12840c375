@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cdf5ba7_8c875455",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2024-03-12T10:18:13Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ee144692_0593bd3e",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 5
+      },
+      "revId": "be02f5c0b4038a9ab51d869cc3c68aa12840c375",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c0a5a6d9_b039c2e8",
@@ -59,6 +83,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "149fd027_4988aaa3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2024-03-12T10:18:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24836a2b_5342dacf",
+      "revId": "be02f5c0b4038a9ab51d869cc3c68aa12840c375",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cfc5d938_5207ce59",
@@ -72,6 +114,24 @@
       "writtenOn": "2024-03-12T08:23:08Z",
       "side": 1,
       "message": "Since the client can go to /redfish/v1/Systems/system and this is just a link, the client impact should be minimal.",
+      "revId": "be02f5c0b4038a9ab51d869cc3c68aa12840c375",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f59f3066_1374c6a4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2024-03-12T10:18:13Z",
+      "side": 1,
+      "message": "This shouldn\u0027t have any impact, as it is already linked with system schema.\nIt was a duplicate link with chassis. so removed it.",
+      "parentUuid": "cfc5d938_5207ce59",
       "revId": "be02f5c0b4038a9ab51d869cc3c68aa12840c375",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
