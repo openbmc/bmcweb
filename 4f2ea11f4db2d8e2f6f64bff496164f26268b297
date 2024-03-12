@@ -22,6 +22,30 @@
       },
       "revId": "4f2ea11f4db2d8e2f6f64bff496164f26268b297",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "128dc3c6_a998e9e8",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-12T21:58:09Z",
+      "side": 1,
+      "message": "changed to messageGenerator",
+      "parentUuid": "9a989f40_b1e14043",
+      "range": {
+        "startLine": 281,
+        "startChar": 46,
+        "endLine": 281,
+        "endChar": 49
+      },
+      "revId": "4f2ea11f4db2d8e2f6f64bff496164f26268b297",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
