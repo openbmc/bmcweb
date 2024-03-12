@@ -251,14 +251,16 @@ class Connection :
             return;
         }
         req->session = userSession;
-        accept = req->getHeaderValue("Accept");
+        using boost::beast::http::field;
+        accept = req->getHeaderValue(field::accept);
+        acceptEncoding = req->getHeaderValue(field::accept_encoding);
         // Fetch the client IP address
         req->ipAddress = ip;
 
         // Check for HTTP version 1.1.
         if (req->version() == 11)
         {
-            if (req->getHeaderValue(boost::beast::http::field::host).empty())
+            if (req->getHeaderValue(field::host).empty())
             {
                 res.result(boost::beast::http::status::bad_request);
                 completeRequest(res);
@@ -383,7 +385,7 @@ class Connection :
         res = std::move(thisRes);
         res.keepAlive(keepAlive);
 
-        completeResponseFields(accept, res);
+        completeResponseFields(accept, acceptEncoding, res);
         res.addHeader(boost::beast::http::field::date, getCachedDateStr());
 
         doWrite();
@@ -755,6 +757,7 @@ class Connection :
 
     std::shared_ptr<crow::Request> req;
     std::string accept;
+    std::string acceptEncoding;
 
     crow::Response res;
 
