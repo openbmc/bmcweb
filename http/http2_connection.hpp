@@ -41,6 +41,7 @@ struct Http2StreamData
     std::shared_ptr<Request> req = std::make_shared<Request>();
     std::optional<bmcweb::HttpBody::reader> reqReader;
     std::string accept;
+    std::string acceptEnc;
     Response res;
     std::optional<bmcweb::HttpBody::writer> writer;
 };
@@ -171,7 +172,7 @@ class HTTP2Connection :
         Response& res = stream.res;
         res = std::move(completedRes);
 
-        completeResponseFields(stream.accept, res);
+        completeResponseFields(stream.accept, stream.acceptEnc, res);
         res.addHeader(boost::beast::http::field::date, getCachedDateStr());
         res.preparePayload();
 
@@ -245,8 +246,9 @@ class HTTP2Connection :
         crow::Request& thisReq = *it->second.req;
         thisReq.ioService = static_cast<decltype(thisReq.ioService)>(
             &adaptor.get_executor().context());
-
-        it->second.accept = thisReq.getHeaderValue("Accept");
+        using boost::beast::http::field;
+        it->second.accept = thisReq.getHeaderValue(field::accept);
+        it->second.acceptEnc = thisReq.getHeaderValue(field::accept_encoding);
 
         BMCWEB_LOG_DEBUG("Handling {} \"{}\"", logPtr(&thisReq),
                          thisReq.url().encoded_path());
@@ -489,7 +491,7 @@ class HTTP2Connection :
         {
             BMCWEB_LOG_DEBUG("create stream for id {}", frame.hd.stream_id);
 
-            streams.emplace(frame.hd.stream_id, Http2StreamData());
+            streams[frame.hd.stream_id];
         }
         return 0;
     }
