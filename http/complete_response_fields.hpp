@@ -18,7 +18,46 @@
 namespace crow
 {
 
-inline void completeResponseFields(std::string_view accepts, Response& res)
+inline void handleEncoding(std::string_view acceptEncoding, Response& res)
+{
+    using http_helpers::Encoding;
+    // If the payload is currently compressed, see if we can avoid
+    // decompressing it by sending it to the client directly
+    switch (res.response.body().compressionType)
+    {
+        case bmcweb::CompressionType::Zstd:
+        {
+            std::array<Encoding, 1> allowedEnc{Encoding::ZSTD};
+            Encoding encoding =
+                http_helpers::getPreferredEncoding(acceptEncoding, allowedEnc);
+
+            if (encoding == Encoding::ZSTD)
+            {
+                // If the client supports returning zstd directly, allow that.
+                res.response.body().clientCompressionType =
+                    bmcweb::CompressionType::Zstd;
+            }
+        }
+        break;
+        case bmcweb::CompressionType::Gzip:
+        {
+            std::array<Encoding, 1> allowedEnc{Encoding::GZIP};
+            Encoding encoding =
+                http_helpers::getPreferredEncoding(acceptEncoding, allowedEnc);
+            if (encoding != Encoding::GZIP)
+            {
+                BMCWEB_LOG_WARNING(
+                    "Unimplemented: Returning gzip payload to client that did not explicitly allow it.");
+            }
+        }
+        break;
+        default:
+            break;
+    }
+}
+
+inline void completeResponseFields(
+    std::string_view accepts, std::string_view acceptEncoding, Response& res)
 {
     BMCWEB_LOG_INFO("Response: {}", res.resultInt());
     addSecurityHeaders(res);
@@ -54,5 +93,7 @@ inline void completeResponseFields(std::string_view accepts, Response& res)
                 2, ' ', true, nlohmann::json::error_handler_t::replace));
         }
     }
+
+    handleEncoding(acceptEncoding, res);
 }
 } // namespace crow
