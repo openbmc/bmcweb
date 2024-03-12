@@ -3,6 +3,7 @@
 #include "duplicatable_file_handle.hpp"
 #include "logging.hpp"
 #include "utility.hpp"
+#include "zstd_decompressor.hpp"
 
 #include <fcntl.h>
 #include <unistd.h>
@@ -36,6 +37,13 @@ enum class EncodingType
     Base64,
 };
 
+enum class CompressionType
+{
+    Raw,
+    Gzip,
+    Zstd,
+};
+
 class HttpBody::value_type
 {
     DuplicatableFileHandle fileHandle;
@@ -47,6 +55,19 @@ class HttpBody::value_type
     explicit value_type(std::string_view s) : strBody(s) {}
     explicit value_type(EncodingType e) : encodingType(e) {}
     EncodingType encodingType = EncodingType::Raw;
+    CompressionType compressionType = CompressionType::Raw;
+    CompressionType clientCompressionType = CompressionType::Raw;
+
+    ~value_type() = default;
+
+    explicit value_type(EncodingType enc, CompressionType comp) :
+        encodingType(enc), compressionType(comp)
+    {}
+
+    value_type(const value_type& other) noexcept = default;
+    value_type& operator=(const value_type& other) noexcept = default;
+    value_type(value_type&& other) noexcept = default;
+    value_type& operator=(value_type&& other) noexcept = default;
 
     const boost::beast::file_posix& file() const
     {
@@ -143,6 +164,8 @@ class HttpBody::writer
     std::string buf;
     crow::utility::Base64Encoder encoder;
 
+    std::optional<ZstdDecompressor> zstd;
+
     value_type& body;
     size_t sent = 0;
     // 64KB This number is arbitrary, and selected to try to optimize for larger
@@ -156,7 +179,13 @@ class HttpBody::writer
     template <bool IsRequest, class Fields>
     writer(boost::beast::http::header<IsRequest, Fields>& /*header*/,
            value_type& bodyIn) : body(bodyIn)
-    {}
+    {
+        if (body.compressionType == CompressionType::Zstd &&
+            body.clientCompressionType != CompressionType::Zstd)
+        {
+            zstd.emplace();
+        }
+    }
 
     static void init(boost::beast::error_code& ec)
     {
@@ -222,6 +251,18 @@ class HttpBody::writer
         {
             ret.first = const_buffers_type(chunkView.data(), chunkView.size());
         }
+
+        if (zstd)
+        {
+            std::optional<const_buffers_type> decompressed =
+                zstd->decompress(ret.first);
+            if (!decompressed)
+            {
+                return boost::none;
+            }
+            ret.first = *decompressed;
+        }
+
         return ret;
     }
 };
