@@ -60,13 +60,14 @@ TEST(HttpHttpBodyValueType, CopyOperatorString)
     // Move constructor
     HttpBody::value_type value2 = value;
     EXPECT_EQ(value2.encodingType, EncodingType::Raw);
+    EXPECT_EQ(value2.compressionType, CompressionType::Raw);
     EXPECT_EQ(value2.str(), "teststring");
     EXPECT_EQ(value2.payloadSize(), 10);
 }
 
 TEST(HttpHttpBodyValueType, MoveFile)
 {
-    HttpBody::value_type value(EncodingType::Base64);
+    HttpBody::value_type value(EncodingType::Base64, CompressionType::Raw);
     TemporaryFileHandle temporaryFile("teststring");
     boost::system::error_code ec;
     value.open(temporaryFile.stringPath.c_str(), boost::beast::file_mode::read,
@@ -78,6 +79,7 @@ TEST(HttpHttpBodyValueType, MoveFile)
     size_t out = value2.file().read(buffer.data(), buffer.size(), ec);
     ASSERT_FALSE(ec);
     EXPECT_EQ(value2.encodingType, EncodingType::Base64);
+    EXPECT_EQ(value2.compressionType, CompressionType::Raw);
 
     EXPECT_THAT(std::span(buffer.data(), out),
                 ElementsAre('t', 'e', 's', 't', 's', 't', 'r', 'i', 'n', 'g'));
@@ -90,7 +92,7 @@ TEST(HttpHttpBodyValueType, MoveFile)
 
 TEST(HttpHttpBodyValueType, MoveOperatorFile)
 {
-    HttpBody::value_type value(EncodingType::Base64);
+    HttpBody::value_type value(EncodingType::Base64, CompressionType::Raw);
     TemporaryFileHandle temporaryFile("teststring");
     boost::system::error_code ec;
     value.open(temporaryFile.stringPath.c_str(), boost::beast::file_mode::read,
@@ -102,6 +104,7 @@ TEST(HttpHttpBodyValueType, MoveOperatorFile)
     size_t out = value2.file().read(buffer.data(), buffer.size(), ec);
     ASSERT_FALSE(ec);
     EXPECT_EQ(value2.encodingType, EncodingType::Base64);
+    EXPECT_EQ(value2.compressionType, CompressionType::Raw);
 
     EXPECT_THAT(std::span(buffer.data(), out),
                 ElementsAre('t', 'e', 's', 't', 's', 't', 'r', 'i', 'n', 'g'));
@@ -113,7 +116,7 @@ TEST(HttpHttpBodyValueType, MoveOperatorFile)
 
 TEST(HttpFileBodyValueType, SetFd)
 {
-    HttpBody::value_type value(EncodingType::Base64);
+    HttpBody::value_type value(EncodingType::Base64, CompressionType::Raw);
     TemporaryFileHandle temporaryFile("teststring");
     boost::system::error_code ec;
     value.setFd(fileno(fopen(temporaryFile.stringPath.c_str(), "r")), ec);
