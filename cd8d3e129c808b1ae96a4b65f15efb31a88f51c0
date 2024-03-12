@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba266a5a_5b8132a5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-12T15:09:58Z",
+      "side": 1,
+      "message": "I think another sentence like: \n\n\"Since the path is /redfish/v1/Systems/system/PCIeDevices and we already have a link from /redfish/v1/Systems/system/, remove the link here in Chassis. This is just a link, and since another link already exists, this should not break clients.\"",
+      "revId": "cd8d3e129c808b1ae96a4b65f15efb31a88f51c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
