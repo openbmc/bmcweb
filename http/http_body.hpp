@@ -2,6 +2,7 @@
 
 #include "logging.hpp"
 #include "utility.hpp"
+#include "zstd_decompressor.hpp"
 
 #include <unistd.h>
 
@@ -27,6 +28,13 @@ enum class EncodingType
     Base64,
 };
 
+enum class CompressionType
+{
+    Raw,
+    Gzip,
+    Zstd,
+};
+
 class HttpBody::value_type
 {
     boost::beast::file_posix fileHandle;
@@ -35,10 +43,14 @@ class HttpBody::value_type
 
   public:
     EncodingType encodingType = EncodingType::Raw;
+    CompressionType compressionType = CompressionType::Raw;
+    CompressionType clientCompressionType = CompressionType::Raw;
 
     ~value_type() = default;
     value_type() = default;
-    explicit value_type(EncodingType enc) : encodingType(enc) {}
+    explicit value_type(EncodingType enc, CompressionType comp) :
+        encodingType(enc), compressionType(comp)
+    {}
     explicit value_type(std::string_view str) : strBody(str) {}
 
     value_type(value_type&& other) noexcept :
@@ -164,6 +176,8 @@ class HttpBody::writer
     std::string buf;
     crow::utility::Base64Encoder encoder;
 
+    std::optional<ZstdDecompressor> zstd;
+
     value_type& body;
     size_t sent = 0;
     constexpr static size_t readBufSize = 4096;
@@ -174,7 +188,13 @@ class HttpBody::writer
     writer(boost::beast::http::header<IsRequest, Fields>& /*header*/,
            value_type& bodyIn) :
         body(bodyIn)
-    {}
+    {
+        if (body.compressionType == CompressionType::Zstd &&
+            body.clientCompressionType != CompressionType::Zstd)
+        {
+            zstd.emplace();
+        }
+    }
 
     static void init(boost::beast::error_code& ec)
     {
@@ -232,6 +252,18 @@ class HttpBody::writer
         {
             ret.first = const_buffers_type(chunkView.data(), chunkView.size());
         }
+
+        if (zstd)
+        {
+            std::optional<const_buffers_type> decompressed =
+                zstd->decompress(ret.first);
+            if (!decompressed)
+            {
+                return boost::none;
+            }
+            ret.first = *decompressed;
+        }
+
         return ret;
     }
 };
