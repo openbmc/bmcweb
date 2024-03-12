@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56c2a41f_861756dd",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-12T20:33:26Z",
+      "side": 1,
+      "message": "Looking for input here.  This class works, but the whole \"if it\u0027s null, value won\u0027t be filled in\" is a little subtle.  Anyone have any ideas?",
+      "revId": "a7d7271099554f85e84f5f78f62479c250d14845",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
