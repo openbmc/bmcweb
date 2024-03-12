@@ -122,12 +122,15 @@ inline void requestRoutes(App& app)
             std::filesystem::path webpath = relativePath;
             const char* contentEncoding = nullptr;
 
+            bmcweb::CompressionType onDiskComp = bmcweb::CompressionType::Raw;
+
             if (extension == ".gz")
             {
                 webpath = webpath.replace_extension("");
                 // Use the non-gzip version for determining content type
                 extension = webpath.extension().string();
                 contentEncoding = "gzip";
+                onDiskComp = bmcweb::CompressionType::Gzip;
             }
             else if (extension == ".zstd")
             {
@@ -135,6 +138,7 @@ inline void requestRoutes(App& app)
                 // Use the non-zstd version for determining content type
                 extension = webpath.extension().string();
                 contentEncoding = "zstd";
+                onDiskComp = bmcweb::CompressionType::Zstd;
             }
 
             std::string etag = getStaticEtag(webpath);
@@ -189,8 +193,8 @@ inline void requestRoutes(App& app)
             }
 
             app.routeDynamic(webpath)(
-                [absolutePath, contentType, contentEncoding, etag,
-                 renamed](const crow::Request& req,
+                [absolutePath, contentType, contentEncoding, etag, onDiskComp,
+                 renamed](const crow::Request&,
                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
                 if (contentType != nullptr)
                 {
@@ -231,7 +235,8 @@ inline void requestRoutes(App& app)
                 }
 
                 // res.set_header("Cache-Control", "public, max-age=86400");
-                if (!asyncResp->res.openFile(absolutePath))
+                if (!asyncResp->res.openFile(
+                        absolutePath, bmcweb::EncodingType::Raw, onDiskComp))
                 {
                     BMCWEB_LOG_DEBUG("failed to read file");
                     asyncResp->res.result(

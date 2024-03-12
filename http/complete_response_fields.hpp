@@ -58,5 +58,29 @@ inline void completeResponseFields(const Request& req, Response& res)
                 2, ' ', true, nlohmann::json::error_handler_t::replace));
         }
     }
+
+    // If the payload is currently compressed, see if we can avoid
+    // decompressing it by sending it to the client directly
+    std::string_view acceptContentEncoding =
+        req.getHeaderValue("Accept-Encoding");
+
+    if (res.response.body().compressionType == bmcweb::CompressionType::Zstd)
+    {
+        if (acceptContentEncoding.find("zstd") != std::string::npos)
+        {
+            // If the client supports returning zstd directly, allow that.
+            res.response.body().clientCompressionType =
+                bmcweb::CompressionType::Zstd;
+        }
+    }
+    else if (res.response.body().compressionType ==
+             bmcweb::CompressionType::Gzip)
+    {
+        if (acceptContentEncoding.find("gzip") != std::string::npos)
+        {
+            BMCWEB_LOG_WARNING(
+                "Returning gzip payload to client that did not explicitly allow it");
+        }
+    }
 }
 } // namespace crow
