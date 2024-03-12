@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b37ea646_a48014e1",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1442,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-12T03:11:41Z",
+      "side": 1,
+      "message": "include string",
+      "revId": "21c922ac45cb63a104869e5969b210b0e28074fb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
