@@ -295,12 +295,15 @@ struct Response
         expectedHash = hash;
     }
 
-    OpenCode openFile(const std::filesystem::path& path,
-                      bmcweb::EncodingType enc = bmcweb::EncodingType::Raw)
+    OpenCode
+        openFile(const std::filesystem::path& path,
+                 bmcweb::EncodingType enc = bmcweb::EncodingType::Raw,
+                 bmcweb::CompressionType comp = bmcweb::CompressionType::Raw)
     {
         boost::beast::error_code ec;
         response.body().open(path.c_str(), boost::beast::file_mode::read, ec);
         response.body().encodingType = enc;
+        response.body().compressionType = comp;
         if (ec)
         {
             BMCWEB_LOG_ERROR("Failed to open file {}, ec={}", path.c_str(),
