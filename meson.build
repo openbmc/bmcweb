@@ -230,6 +230,11 @@ if not openssl.found()
 endif
 bmcweb_dependencies += [openssl]
 
+zstd = dependency('libzstd', required: get_option('http-zstd').allowed())
+if zstd.found()
+    add_project_arguments('-DHAVE_ZSTD', language: 'cpp')
+    bmcweb_dependencies += [zstd]
+endif 
 nghttp2 = dependency('libnghttp2', version: '>=1.52.0', required: false)
 if not nghttp2.found()
     cmake = import('cmake')
@@ -408,6 +413,7 @@ srcfiles_bmcweb = files(
     'src/ossl_random.cpp',
     'src/ssl_key_handler.cpp',
     'src/webserver_run.cpp',
+    'src/zstd_decompressor.cpp',
 )
 
 bmcweblib = static_library(
@@ -454,6 +460,7 @@ srcfiles_unittest = files(
     'test/include/async_resolve_test.cpp',
     'test/include/credential_pipe_test.cpp',
     'test/include/dbus_utility_test.cpp',
+    'test/include/zstd_decompressor_test.cpp',
     'test/include/http_utility_test.cpp',
     'test/include/human_sort_test.cpp',
     'test/include/json_html_serializer.cpp',
