@@ -34,6 +34,24 @@
       "parentUuid": "720dcc1b_3959aca7",
       "revId": "108de66b3ff954967910b299d39efd654dedd24b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44fd41cd_8f188df1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-13T04:59:14Z",
+      "side": 1,
+      "message": "\u003e This wouldn\u0027t be the first time we call systemd directly.\n\nAgreed. \n\nAnd we do call systemd directly here too: https://github.com/openbmc/bmcweb/commit/75815e5c3677236e65643944b225abf2815b69c2 (although, my preference was https://gerrit.openbmc.org/c/openbmc/bmcweb/+/50318 over 75815e5c)\n\n\u003e I\u0027m not sure it\u0027s a line, but how about we don\u0027t call services that then directly call other services with the same arguments?\n\nCan you think of any other calls that fall into this? \nI think of bmcweb\u0027s redfish implementation as a d-bus to redfish translation. (I know you disagree here) I find bmcweb going to systemd directly makes the bmcweb Redfish architecture more complex and unexpected so I want to make sure we have a good reason here.",
+      "parentUuid": "5c66befe_65f40fe5",
+      "revId": "108de66b3ff954967910b299d39efd654dedd24b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
