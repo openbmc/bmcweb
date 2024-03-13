@@ -22,8 +22,7 @@ void getValidChassisPath(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const std::string& chassisId, Callback&& callback)
 {
     BMCWEB_LOG_DEBUG("checkChassisId enter");
-    constexpr std::array<std::string_view, 2> interfaces = {
-        "xyz.openbmc_project.Inventory.Item.Board",
+    constexpr std::array<std::string_view, 1> interfaces = {
         "xyz.openbmc_project.Inventory.Item.Chassis"};
 
     // Get the Chassis Collection
