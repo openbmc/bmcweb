@@ -130,13 +130,10 @@ inline void handlePowerSupplyCollectionGet(
         return;
     }
 
-    constexpr std::array<std::string_view, 2> chasisInterfaces = {
-        "xyz.openbmc_project.Inventory.Item.Board",
-        "xyz.openbmc_project.Inventory.Item.Chassis"};
     const std::string reqpath = "/xyz/openbmc_project/inventory";
 
     dbus::utility::getAssociatedSubTreePathsById(
-        chassisId, reqpath, chasisInterfaces, "powered_by",
+        chassisId, reqpath, chassis_utils::chassisInterfaces, "powered_by",
         powerSupplyInterface,
         [asyncResp, chassisId](
             const boost::system::error_code& ec,
@@ -194,13 +191,10 @@ inline void getValidPowerSupplyPath(
     std::function<void(const std::string& powerSupplyPath,
                        const std::string& service)>&& callback)
 {
-    constexpr std::array<std::string_view, 2> chasisInterfaces = {
-        "xyz.openbmc_project.Inventory.Item.Board",
-        "xyz.openbmc_project.Inventory.Item.Chassis"};
     const std::string reqpath = "/xyz/openbmc_project/inventory";
 
     dbus::utility::getAssociatedSubTreeById(
-        chassisId, reqpath, chasisInterfaces, "powered_by",
+        chassisId, reqpath, chassis_utils::chassisInterfaces, "powered_by",
         powerSupplyInterface,
         [asyncResp, chassisId, powerSupplyId, callback{std::move(callback)}](
             const boost::system::error_code& ec,
