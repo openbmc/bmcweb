@@ -70,6 +70,23 @@
       "parentUuid": "44fd41cd_8f188df1",
       "revId": "108de66b3ff954967910b299d39efd654dedd24b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7998b55f_96f868af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2024-03-13T06:13:37Z",
+      "side": 1,
+      "message": "It seems like we went in a wrong direction when we decided to pass the time to timedate service via phosphor-time-manager in the first place (which only made things complex but also added delay without any extra benefit). This looks like a much simpler way to set time accurately.",
+      "revId": "108de66b3ff954967910b299d39efd654dedd24b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
