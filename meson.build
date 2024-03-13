@@ -144,31 +144,35 @@ add_project_arguments(
   language: 'cpp'
 )
 
-if (cxx.get_id() == 'clang' and cxx.version().version_compare('>9.0'))
-add_project_arguments(
-  cxx.get_supported_arguments([
-    '-Weverything',
-    '-Wno-c++98-compat-pedantic',
-    '-Wno-c++98-compat',
-    '-Wno-documentation-unknown-command',
-    '-Wno-documentation',
-    '-Wno-exit-time-destructors',
-    '-Wno-global-constructors',
-    '-Wno-newline-eof',
-    '-Wno-padded',
-    '-Wno-shadow',
-    '-Wno-used-but-marked-unused',
-    '-Wno-weak-vtables',
-    '-Wno-switch-enum',
-    '-Wno-unused-macros',
+if (cxx.get_id() == 'clang')
+  if (cxx.version().version_compare('<17.0'))
+    error('This project requires clang-17 or higher')
+  endif
+  add_project_arguments(
+    cxx.get_supported_arguments([
+      '-Weverything',
+      '-Wno-c++98-compat-pedantic',
+      '-Wno-c++98-compat',
+      '-Wno-documentation-unknown-command',
+      '-Wno-documentation',
+      '-Wno-exit-time-destructors',
+      '-Wno-global-constructors',
+      '-Wno-newline-eof',
+      '-Wno-padded',
+      '-Wno-shadow',
+      '-Wno-used-but-marked-unused',
+      '-Wno-weak-vtables',
+      '-Wno-switch-enum',
+      '-Wno-unused-macros',
   ]),
   language:'cpp')
 endif
 
-# if compiler is gnu-gcc , and version is > 8.0 then we add few more
-# compiler arguments , we know that will pass
+if (cxx.get_id() == 'gcc')
+  if (cxx.version().version_compare('<13.0'))
+    error('This project requires gcc-13 or higher')
+  endif
 
-if (cxx.get_id() == 'gcc' and cxx.version().version_compare('>8.0'))
   add_project_arguments(
     cxx.get_supported_arguments([
      '-Wduplicated-cond',
