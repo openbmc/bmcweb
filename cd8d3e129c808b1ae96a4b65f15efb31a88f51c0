@@ -51,6 +51,42 @@
       "parentUuid": "ba266a5a_5b8132a5",
       "revId": "cd8d3e129c808b1ae96a4b65f15efb31a88f51c0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ddf8978_0e74f21b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-13T02:55:17Z",
+      "side": 1,
+      "message": "https://redfish.dmtf.org/schemas/v1/PCIeDevice.v1_13_0.json\n\n        \"Links\": {\n            \"additionalProperties\": false,\n            \"description\": \"The links to other resources that are related to this resource.\",\n            \"longDescription\": \"This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.\",\n            \"patternProperties\": {\n                \"^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\\\.[a-zA-Z_][a-zA-Z0-9_]*$\": {\n                    \"description\": \"This property shall specify a valid odata or Redfish property.\",\n                    \"type\": [\n                        \"array\",\n                        \"boolean\",\n                        \"integer\",\n                        \"number\",\n                        \"null\",\n                        \"object\",\n                        \"string\"\n                    ]\n                }\n            },\n            \"properties\": {\n                \"Chassis\": {\n                    \"description\": \"An array of links to the chassis in which the PCIe device is contained.\",\n                    \"items\": {\n                        \"$ref\": \"http://redfish.dmtf.org/schemas/v1/Chassis.json#/definitions/Chassis\"\n                    },\n                    \"longDescription\": \"This property shall contain an array of links to resources of type Chassis that represent the physical containers associated with this resource.\",\n                    \"readonly\": true,\n                    \"type\": \"array\"\n                },\n\nIs the property you want for  \"what devices are in this chassis\" type.",
+      "parentUuid": "62dfd414_20beacee",
+      "revId": "cd8d3e129c808b1ae96a4b65f15efb31a88f51c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f859480_cef9b63f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-13T02:55:17Z",
+      "side": 1,
+      "message": "Two things (and please add this to your comment msg/correct me if I\u0027m not getting the problem):\n1) Redfish defines paths resources can be implemented at: \n```\n\u003cAnnotation Term\u003d\"Redfish.Uris\"\u003e\n\u003cCollection\u003e\n\u003cString\u003e\n/redfish/v1/Chassis/{ChassisId}/PCIeDevices/{PCIeDeviceId}\n\u003c/String\u003e\n\u003cString\u003e\n/redfish/v1/Systems/{ComputerSystemId}/PCIeDevices/{PCIeDeviceId}\n\u003c/String\u003e\n```\nPCIeDevices were put under Systems. Redfish is a hypermedia API; there should always be a link from parent to child. We have this today.\nhttps://github.com/openbmc/bmcweb/blob/9970e93f794d0110de436828775e333e81330ad5/redfish-core/include/utils/pcie_util.hpp#L43\n\nThe link from Chassis to /redfish/v1/Systems/system/PCIeDevices is unexpected and worse than that, breaks for \n\n2) This breaks for multiple chassis systems, it assumes all PCIeDevices are in all Chasiss. \n\nWe could have put PCIeDevices under Chassis but they were put under system instead. I can see a case for either, I think Systems is fine though and Redfish gives us a way to link PCIeDevices to a Chassis but it isn\u0027t this, it is Links/Chassis on the PCIeDevice schema.\nRemove this link, one day an association will probably be needed to fill out Links/Chassis on PCIeDevice.\n\n\u003e In addition, can we get an explanation of what clients that relied on this property should do instead?\n\nThe link is still there, it is just in the system resource only now. The case of walking the whole tree isn\u0027t broke. Clients shouldn\u0027t be assuming some link.. We are removing wrong information here.",
+      "parentUuid": "d91f060a_12e6f3d8",
+      "revId": "cd8d3e129c808b1ae96a4b65f15efb31a88f51c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
