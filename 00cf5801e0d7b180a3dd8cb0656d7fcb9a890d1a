@@ -34,6 +34,24 @@
       "parentUuid": "933ea1ca_f87aec30",
       "revId": "00cf5801e0d7b180a3dd8cb0656d7fcb9a890d1a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "814754cf_d1577431",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-03-13T04:57:35Z",
+      "side": 1,
+      "message": "yes, right, thinking why 10MB is needed in this case?\nkeep it to 1MB ?",
+      "parentUuid": "845a59f3_63fb7c14",
+      "revId": "00cf5801e0d7b180a3dd8cb0656d7fcb9a890d1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
