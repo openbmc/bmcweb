@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef6e80cd_572a83f9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-13T09:47:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63c94763_9a70a204",
+      "range": {
+        "startLine": 19,
+        "startChar": 64,
+        "endLine": 19,
+        "endChar": 71
+      },
+      "revId": "0acadf6dd9f962c908aeb72a0d3bc4a3620109c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a526911c_02d0d0da",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-03-13T08:18:00Z",
       "side": 1,
       "message": "empty space, might be why CI is failing",
+      "range": {
+        "startLine": 22,
+        "startChar": 55,
+        "endLine": 22,
+        "endChar": 56
+      },
+      "revId": "0acadf6dd9f962c908aeb72a0d3bc4a3620109c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea73081c_7ef1055f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-13T09:47:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a526911c_02d0d0da",
       "range": {
         "startLine": 22,
         "startChar": 55,
