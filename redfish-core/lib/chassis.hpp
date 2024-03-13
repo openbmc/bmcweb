@@ -18,6 +18,7 @@
 #include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "utils/chassis_utils.hpp"
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
@@ -256,11 +257,8 @@ inline void handleChassisCollectionGet(
     asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Chassis";
     asyncResp->res.jsonValue["Name"] = "Chassis Collection";
 
-    constexpr std::array<std::string_view, 2> interfaces{
-        "xyz.openbmc_project.Inventory.Item.Board",
-        "xyz.openbmc_project.Inventory.Item.Chassis"};
     collection_util::getCollectionMembers(
-        asyncResp, boost::urls::url("/redfish/v1/Chassis"), interfaces,
+        asyncResp, boost::urls::url("/redfish/v1/Chassis"), chassisInterfaces,
         "/xyz/openbmc_project/inventory");
 }
 
@@ -351,14 +349,10 @@ inline void getChassisConnectivity(
 {
     BMCWEB_LOG_DEBUG("Get chassis connectivity");
 
-    constexpr std::array<std::string_view, 2> interfaces{
-        "xyz.openbmc_project.Inventory.Item.Board",
-        "xyz.openbmc_project.Inventory.Item.Chassis"};
-
     dbus::utility::getAssociatedSubTreePaths(
         chassisPath + "/contained_by",
         sdbusplus::message::object_path("/xyz/openbmc_project/inventory"), 0,
-        interfaces,
+        chassisInterfaces,
         std::bind_front(getChassisContainedBy, asyncResp, chassisId));
 
     dbus::utility::getAssociatedSubTreePaths(
@@ -731,12 +725,9 @@ inline void handleChassisGet(
     {
         return;
     }
-    constexpr std::array<std::string_view, 2> interfaces = {
-        "xyz.openbmc_project.Inventory.Item.Board",
-        "xyz.openbmc_project.Inventory.Item.Chassis"};
 
     dbus::utility::getSubTree(
-        "/xyz/openbmc_project/inventory", 0, interfaces,
+        "/xyz/openbmc_project/inventory", 0, chassisInterfaces,
         std::bind_front(handleChassisGetSubTree, asyncResp, chassisId));
 
     constexpr std::array<std::string_view, 1> interfaces2 = {
@@ -785,14 +776,10 @@ inline void handleChassisPatch(
             "299 - \"IndicatorLED is deprecated. Use LocationIndicatorActive instead.\"");
     }
 
-    constexpr std::array<std::string_view, 2> interfaces = {
-        "xyz.openbmc_project.Inventory.Item.Board",
-        "xyz.openbmc_project.Inventory.Item.Chassis"};
-
     const std::string& chassisId = param;
 
     dbus::utility::getSubTree(
-        "/xyz/openbmc_project/inventory", 0, interfaces,
+        "/xyz/openbmc_project/inventory", 0, chassisInterfaces,
         [asyncResp, chassisId, locationIndicatorActive,
          indicatorLed](const boost::system::error_code& ec,
                        const dbus::utility::MapperGetSubTreeResponse& subtree) {
