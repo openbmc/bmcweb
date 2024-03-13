@@ -181,6 +181,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3a07f6d1_b5318c2d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000044
+      },
+      "writtenOn": "2024-03-13T04:05:25Z",
+      "side": 1,
+      "message": "\u003e What do you think we should do instead? Calling settings doesn\u0027t have a method to block until NTP is actually enabled, which is the behavior Redfish clients are supposed to see. Is there a better way to fix this?\n\nI think we should accept the behavior, deep in the issue, it\u0027s systemd that returns the error. And the application, eighter WebUI or the caller of the REST/Redfish APIs should handle the error.\n\n\u003e I tested that, and this patch doesn\u0027t show that behavior. Can you tell me commands you\u0027re running that\u0027s showing that behavior?\n\nMy test is described in https://github.com/systemd/systemd/pull/11424, it\u0027s directly calling systemd-timedated:\n```\ntimedatectl set-ntp 1\nsleep 10\ntimedatectl set-ntp 0\ntimedatectl set-time \"2019-01-12\"\necho $?\ntimedatectl set-ntp 1\ntimedatectl set-time \"2019-01-12\"\necho $?\n```\n\nBe noted that the Redfish API to enable/disable NTP eventually has the same effect of \"set-ntp 1/0\", and the same for \"set-time\".\n\nI just tested with a recent systemd, and it loos like the systemd-timedated fixes the issue by blocking until NTP is set.\n\n\n\u003e Right, but that\u0027s the problem, this is a Rest API. The call should block until the setting has been accepted, so the user knows they can now set the dateTime.\n\nWith the above finding (systemd-timedated blocks the call to set NTP), I get your point.\nIndeed we could not make it block to set NTP to phosphor-settings... We do need a solution.\n\nPossibly phosphor-time-manager should handle it to sync the settings in phosphor-settings and systemd-timedated in both ways.",
+      "parentUuid": "12f42816_8d4fca92",
+      "revId": "fc3ce4231a3ecb69c7d6b5bd8e86582e11a5c38f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b54fe85b_d3f75d8c",
         "filename": "redfish-core/lib/network_protocol.hpp",
         "patchSetId": 15
