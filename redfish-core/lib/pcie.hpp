@@ -147,6 +147,54 @@ inline void requestRoutesSystemPCIeDeviceCollection(App& app)
             std::bind_front(handlePCIeDeviceCollectionGet, std::ref(app)));
 }
 
+/**
+ * @brief Fill PCIeDevice Status and Health based on PCIeSlot Link Status
+ * @param[in,out]   resp        HTTP response.
+ * @param[in]       linkStatus  PCIeSlot Link Status.
+ */
+inline void fillPcieDeviceStatus(crow::Response& resp,
+                                 const std::string& linkStatus)
+{
+    if (linkStatus ==
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot.Status.Operational")
+    {
+        resp.jsonValue["Status"]["State"] = "Enabled";
+        resp.jsonValue["Status"]["Health"] = "OK";
+        return;
+    }
+
+    if (linkStatus ==
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot.Status.Degraded")
+    {
+        resp.jsonValue["Status"]["State"] = "Enabled";
+        resp.jsonValue["Status"]["Health"] = "Critical";
+        return;
+    }
+
+    if (linkStatus ==
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot.Status.Failed")
+    {
+        resp.jsonValue["Status"]["State"] = "UnavailableOffline";
+        resp.jsonValue["Status"]["Health"] = "Warning";
+        return;
+    }
+
+    if (linkStatus ==
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot.Status.Inactive")
+    {
+        resp.jsonValue["Status"]["State"] = "StandbyOffline";
+        resp.jsonValue["Status"]["Health"] = "OK";
+        return;
+    }
+
+    if (linkStatus == "xyz.openbmc_project.Inventory.Item.PCIeSlot.Status.Open")
+    {
+        resp.jsonValue["Status"]["State"] = "Absent";
+        resp.jsonValue["Status"]["Health"] = "OK";
+        return;
+    }
+}
+
 inline void addPCIeSlotProperties(
     crow::Response& res, const boost::system::error_code& ec,
     const dbus::utility::DBusPropertiesMap& pcieSlotProperties)
@@ -161,10 +209,12 @@ inline void addPCIeSlotProperties(
     std::string generation;
     size_t lanes = 0;
     std::string slotType;
+    std::string linkStatus;
 
     bool success = sdbusplus::unpackPropertiesNoThrow(
         dbus_utils::UnpackErrorPrinter(), pcieSlotProperties, "Generation",
-        generation, "Lanes", lanes, "SlotType", slotType);
+        generation, "Lanes", lanes, "SlotType", slotType, "LinkStatus",
+        linkStatus);
 
     if (!success)
     {
@@ -209,6 +259,11 @@ inline void addPCIeSlotProperties(
             return;
         }
         res.jsonValue["Slot"]["SlotType"] = *redfishSlotType;
+    }
+
+    if (!linkStatus.empty())
+    {
+        fillPcieDeviceStatus(res, linkStatus);
     }
 }
 
@@ -289,59 +344,6 @@ inline void afterGetPCIeDeviceSlotPath(
          pcieDeviceSlot](const boost::system::error_code& ec,
                          const dbus::utility::MapperGetObject& object) {
         afterGetDbusObject(asyncResp, pcieDeviceSlot, ec, object);
-    });
-}
-
-inline void
-    getPCIeDeviceHealth(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                        const std::string& pcieDevicePath,
-                        const std::string& service)
-{
-    sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, service, pcieDevicePath,
-        "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
-        [asyncResp](const boost::system::error_code& ec, const bool value) {
-        if (ec)
-        {
-            if (ec.value() != EBADR)
-            {
-                BMCWEB_LOG_ERROR("DBUS response error for Health {}",
-                                 ec.value());
-                messages::internalError(asyncResp->res);
-            }
-            return;
-        }
-
-        if (!value)
-        {
-            asyncResp->res.jsonValue["Status"]["Health"] = "Critical";
-        }
-    });
-}
-
-inline void
-    getPCIeDeviceState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                       const std::string& pcieDevicePath,
-                       const std::string& service)
-{
-    sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, service, pcieDevicePath,
-        "xyz.openbmc_project.Inventory.Item", "Present",
-        [asyncResp](const boost::system::error_code& ec, bool value) {
-        if (ec)
-        {
-            if (ec.value() != EBADR)
-            {
-                BMCWEB_LOG_ERROR("DBUS response error for State");
-                messages::internalError(asyncResp->res);
-            }
-            return;
-        }
-
-        if (!value)
-        {
-            asyncResp->res.jsonValue["Status"]["State"] = "Absent";
-        }
     });
 }
 
@@ -546,8 +548,6 @@ inline void afterGetValidPcieDevicePath(
 {
     addPCIeDeviceCommonProperties(asyncResp, pcieDeviceId);
     getPCIeDeviceAsset(asyncResp, pcieDevicePath, service);
-    getPCIeDeviceState(asyncResp, pcieDevicePath, service);
-    getPCIeDeviceHealth(asyncResp, pcieDevicePath, service);
     getPCIeDeviceProperties(
         asyncResp, pcieDevicePath, service,
         std::bind_front(addPCIeDeviceProperties, asyncResp, pcieDeviceId));
