@@ -90,6 +90,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d662380_8d36d303",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-13T06:30:33Z",
+      "side": 1,
+      "message": "One off.  This was me looking into a bug, and finding that the error codes didn’t propagate, and bmcweb returned a 500 error, which prevented me from debugging the issue.  This isn’t part of an agenda to replace all other calls with systemd calls and as far as I know, this is the only one.  fwiw, I was really surprised that digging into phosphor-time, it was just forwarding the call through.  if at some point phosphor-time does something other than just forward the call, and can send back the error such that we can identify it, I wouldn’t have a problem changing it back.",
+      "parentUuid": "65e9d665_55b351db",
+      "revId": "108de66b3ff954967910b299d39efd654dedd24b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "7998b55f_96f868af",
