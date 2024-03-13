@@ -145,6 +145,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8cd068d6_e8cb98f8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000044
+      },
+      "writtenOn": "2024-03-13T02:52:19Z",
+      "side": 1,
+      "message": "\u003e right, but I’m not understanding why this is an issue with bmcweb? shouldn’t phosphor time be watching for changes to timesyncd?\n\nBecause in previous implementation:\n* All services (ipmi/bmcweb) gets/sets the \"NTP setting\" on phosphor-settings service. That\u0027s all. They do not care about timedated/timesyncd.\n* phosphor-settings serves the property on DBus, make sure it\u0027s serialized/de-serialized.\n* phosphor-time-manager is responsible to watch the above property, and update the systemd-timedated to enable/disable NTP.\n\n\nWith this patch (which I think is not appropriate), bmcweb directly sets the NTP settings to systemd-timedated and skips the phosphor-settings. This causes the problem.\n\n\u003e Also, to reask the question previously, is this problem visible to the user at all? if not, I’m not sure it matters?\n\nIf users sets the time quickly after disabling the NTP setting, it will have an exception internally and bmcweb will return an error, which is visible to the user.\nBut I think this is expected behavior because it does fail to set the time at the moment.\nIt\u0027s the application (e.g. WebUI) who is responsible to handle the error.",
+      "parentUuid": "ba3deb6b_20b699c9",
+      "revId": "fc3ce4231a3ecb69c7d6b5bd8e86582e11a5c38f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b54fe85b_d3f75d8c",
         "filename": "redfish-core/lib/network_protocol.hpp",
         "patchSetId": 15
