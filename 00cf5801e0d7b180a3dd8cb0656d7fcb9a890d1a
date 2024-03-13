@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "99151e60_40b94cb5",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-03-13T06:48:01Z",
+      "side": 1,
+      "message": "what was the problem with async_wait?",
+      "revId": "00cf5801e0d7b180a3dd8cb0656d7fcb9a890d1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "933ea1ca_f87aec30",
         "filename": "http/server_sent_event.hpp",
         "patchSetId": 21
@@ -68,6 +85,24 @@
       "side": 1,
       "message": "in theory a couple large messages could fill a 1MB buffer.  10mb seemed safer, especially given that there aren’t currently limits.",
       "parentUuid": "814754cf_d1577431",
+      "revId": "00cf5801e0d7b180a3dd8cb0656d7fcb9a890d1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42566f0d_fc6d92cc",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-03-13T06:48:01Z",
+      "side": 1,
+      "message": "looks like multi_buffer memory will be held till the life time of connection object. So if the multi_buffer allowed to grow to 10MB will not it be considered as memory leak?. Or are you saying that if there is no more data to be sent, the connection will be closed and object will be destroyed? \n\nDo you want to consider using shrink_to_fit after consume?",
+      "parentUuid": "44c318b9_d9efb2b5",
       "revId": "00cf5801e0d7b180a3dd8cb0656d7fcb9a890d1a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
