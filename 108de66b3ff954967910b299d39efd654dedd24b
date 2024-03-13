@@ -16,6 +16,24 @@
       "message": "This goes against what bmcweb does for other calls, e.g. for networkd / phosphor-networkd.\nWe really want bmcweb making these direct systemd calls ? What is the line?",
       "revId": "108de66b3ff954967910b299d39efd654dedd24b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c66befe_65f40fe5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-13T04:09:36Z",
+      "side": 1,
+      "message": "\u003e This goes against what bmcweb does for other calls, e.g. for networkd / phosphor-networkd.\n\nUm... what?\n\nhttps://github.com/openbmc/bmcweb/blob/9970e93f794d0110de436828775e333e81330ad5/redfish-core/lib/redfish_util.hpp#L203\n\nThis wouldn\u0027t be the first time we call systemd directly.\n\n\u003e We really want bmcweb making these direct systemd calls ? What is the line?\n\nI\u0027m not sure it\u0027s a line, but how about we don\u0027t call services that then directly call other services with the same arguments?",
+      "parentUuid": "720dcc1b_3959aca7",
+      "revId": "108de66b3ff954967910b299d39efd654dedd24b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
