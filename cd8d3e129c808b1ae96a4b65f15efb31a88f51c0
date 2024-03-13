@@ -87,6 +87,24 @@
       "parentUuid": "d91f060a_12e6f3d8",
       "revId": "cd8d3e129c808b1ae96a4b65f15efb31a88f51c0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d77e43a0_78828989",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2024-03-13T08:11:53Z",
+      "side": 1,
+      "message": "I have updated the commit msg with more information, please let me know if still I need to add more infos there.",
+      "parentUuid": "5f859480_cef9b63f",
+      "revId": "cd8d3e129c808b1ae96a4b65f15efb31a88f51c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
