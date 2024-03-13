@@ -130,24 +130,13 @@ endif
 
 # Add compiler arguments
 
-# -Wpedantic, -Wextra comes by default with warning level
-add_project_arguments(
-  cxx.get_supported_arguments([
-  '-Wcast-align',
-  '-Wconversion',
-  '-Wformat=2',
-  '-Woverloaded-virtual',
-  '-Wsign-conversion',
-  '-Wunused',
-  '-Wno-attributes',
-  ]),
-  language: 'cpp'
-)
-
-if (cxx.get_id() == 'clang' and cxx.version().version_compare('>9.0'))
-add_project_arguments(
-  cxx.get_supported_arguments([
+if (cxx.get_id() == 'clang')
+  if (cxx.version().version_compare('<17.0'))
+    error('This project requires clang-17 or higher')
+  endif
+  add_project_arguments(
     '-Weverything',
+    '-Wformat=2',
     '-Wno-c++98-compat-pedantic',
     '-Wno-c++98-compat',
     '-Wno-documentation-unknown-command',
@@ -161,25 +150,30 @@ add_project_arguments(
     '-Wno-weak-vtables',
     '-Wno-switch-enum',
     '-Wno-unused-macros',
-  ]),
-  language:'cpp')
+    language:'cpp')
 endif
 
-# if compiler is gnu-gcc , and version is > 8.0 then we add few more
-# compiler arguments , we know that will pass
+if (cxx.get_id() == 'gcc')
+  if (cxx.version().version_compare('<13.0'))
+    error('This project requires gcc-13 or higher')
+  endif
 
-if (cxx.get_id() == 'gcc' and cxx.version().version_compare('>8.0'))
   add_project_arguments(
-    cxx.get_supported_arguments([
-     '-Wduplicated-cond',
-     '-Wduplicated-branches',
-     '-Wlogical-op',
-     '-Wnull-dereference',
-     '-Wunused-parameter',
-     '-Wdouble-promotion',
-     '-Wshadow',
-     '-Wno-psabi',
-     ]),
+    '-Wformat=2',
+    '-Wcast-align',
+    '-Wconversion',
+    '-Woverloaded-virtual',
+    '-Wsign-conversion',
+    '-Wunused',
+    '-Wduplicated-cond',
+    '-Wduplicated-branches',
+    '-Wlogical-op',
+    '-Wnull-dereference',
+    '-Wunused-parameter',
+    '-Wdouble-promotion',
+    '-Wshadow',
+    '-Wno-psabi',
+    '-Wno-attributes',
     language:'cpp')
 endif
 
