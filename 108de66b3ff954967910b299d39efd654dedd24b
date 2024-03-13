@@ -52,6 +52,24 @@
       "parentUuid": "5c66befe_65f40fe5",
       "revId": "108de66b3ff954967910b299d39efd654dedd24b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4f1821d_2da67f24",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-13T05:22:06Z",
+      "side": 1,
+      "message": "I’m not sure I disagree.  bmcweb is a dbus to redfish translator.  the problem is what do we call on dbus when we need a single source of a piece of data?  do we call the application interface that millions of systems use?  or do we call the openbmc specific one that has occasional bugs and in turn just calls the other one (making the whole request flow more complex)?  if the openbmc specific one is actually doing something other than immediately turn around and call systemd, by all means let’s call it, but I’d rather go for the simpler approach of calling systemd directly, thus saving a dbus call, and providing the flexibility to not have to install phosphor-time if the system so chooses.  Not having to do int -\u003e uint -\u003e int conversion is just an added bonus.",
+      "parentUuid": "44fd41cd_8f188df1",
+      "revId": "108de66b3ff954967910b299d39efd654dedd24b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
