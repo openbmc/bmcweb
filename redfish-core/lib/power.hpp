@@ -24,7 +24,6 @@
 #include <nlohmann/json.hpp>
 #include <sdbusplus/message/native_types.hpp>
 
-#include <array>
 #include <cmath>
 #include <cstddef>
 #include <cstdint>
@@ -286,12 +285,8 @@ inline void handleChassisPowerGet(
     // This prevents things like power supplies providing the
     // chassis power limit
 
-    constexpr std::array<std::string_view, 2> interfaces = {
-        "xyz.openbmc_project.Inventory.Item.Board",
-        "xyz.openbmc_project.Inventory.Item.Chassis"};
-
     dbus::utility::getSubTreePaths(
-        "/xyz/openbmc_project/inventory", 0, interfaces,
+        "/xyz/openbmc_project/inventory", 0, chassisInterfaces,
         std::bind_front(afterGetChassis, sensorAsyncResp));
 }
 
