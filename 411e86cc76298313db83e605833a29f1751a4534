@@ -283,6 +283,30 @@
       },
       "revId": "411e86cc76298313db83e605833a29f1751a4534",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d74ebfec_84f3f41e",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-03-14T18:08:22Z",
+      "side": 1,
+      "message": "\u003e According to that, the value for link down is MAXINT, not zero. Am I misreading that? That\u0027s basically the crux of the comment I made on the PDI review.\n\nGot it.  Let\u0027s go ahead and adjust the wording there.\n\nLink down should be \"0 lanes in use\".\n\nI guess I was just so excited that someone finally took care of that commit after 2 years that I didn\u0027t read too deeply on all the words.\n\n\u003e sure, and in those cases, we omit the data from the Redfish schema, so the user-facing result looks right (sometimes by breaking the documentation in PDI by abusing empty string).\n\nYou have the same problem though.  Is \"\" at a dbus property level due to:\n- The eeprom field is empty.\n- The eeprom field is missing.\n- The eeprom field has a bad CRC.\n\n\u003e If we\u0027re going with 0 \u003d\u003d lane not used, maxint \u003d\u003d data unavailable, lets get PDI updated, and that should be an improvement to this without having to open the every interface is optional conversation.\n\n:thumbsup:",
+      "parentUuid": "d0d1f7e1_ac8a8a20",
+      "range": {
+        "startLine": 484,
+        "startChar": 56,
+        "endLine": 485,
+        "endChar": 44
+      },
+      "revId": "411e86cc76298313db83e605833a29f1751a4534",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
