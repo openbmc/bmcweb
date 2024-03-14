@@ -105,6 +105,42 @@
       "parentUuid": "5f859480_cef9b63f",
       "revId": "cd8d3e129c808b1ae96a4b65f15efb31a88f51c0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "169b0af6_6164049a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-14T03:44:01Z",
+      "side": 1,
+      "message": "\u003e The link from Chassis to /redfish/v1/Systems/system/PCIeDevices is unexpected \n\nOk, I see the problem, we put PCIeDevices as a property, when the code should\u0027ve been \n\n        asyncResp-\u003eres.jsonValue[\"Links\"][\"PCIeDevices\"][\"@odata.id\"] \u003d\n            \"/redfish/v1/Systems/system/PCIeDevices\";\n\nNote, the links added to the above.\n\n\n\u003e This breaks for multiple chassis systems, it assumes all PCIeDevices are in all Chasiss. \n\nRight, which was the assumption at the time.  Do we have any examples of a multi-chassis system today?  I haven\u0027t seen a lot of other patches worry about that.\n\n\n\nI would say lets put it under links where it belongs, to fix the \"bug\", and point folks to the new location, and when we get examples of multi-chassis systems, we can figure out what the right behavior is for those.  I\u0027m not comfortable with this patch, which basically removes something that clients might have used, and says (in effect) \"Good luck finding an alternative\".\n\nIf this link is wrong on multi-chassis systems, why aren\u0027t we just making it correct?",
+      "parentUuid": "d77e43a0_78828989",
+      "revId": "cd8d3e129c808b1ae96a4b65f15efb31a88f51c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5db84dac_f2d09d9b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-14T03:44:01Z",
+      "side": 1,
+      "message": "So, put this under that instead of deleting it?",
+      "parentUuid": "4ddf8978_0e74f21b",
+      "revId": "cd8d3e129c808b1ae96a4b65f15efb31a88f51c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
