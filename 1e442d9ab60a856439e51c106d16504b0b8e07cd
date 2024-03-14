@@ -87,6 +87,24 @@
       "parentUuid": "204f80b2_6ccad986",
       "revId": "1e442d9ab60a856439e51c106d16504b0b8e07cd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "062e6b91_b80b9907",
+        "filename": "REDFISH_CHECKLIST.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-03-14T21:37:24Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/bmcweb/blob/master/DBUS_USAGE.md\n\nI suppose object path non-reachability can be covered with the following statement -\n\"All DBus interfaces on all object paths are optional. An object missing an interface is never an error, and shall simply omit the relevant properties and/or actions from that Redfish Resource.\"\n\nI am not sure if there is anything which covers the daemon non-reachability?",
+      "parentUuid": "0f861e1e_3402bb53",
+      "revId": "1e442d9ab60a856439e51c106d16504b0b8e07cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
