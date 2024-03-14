@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c7fef24f_3d1be54e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-03-14T15:36:10Z",
+      "side": 1,
+      "message": "I\u0027m waiting for the backend change to test, and I\u0027ll update the commit message after that.",
+      "parentUuid": "1b89bff4_e178df3a",
+      "revId": "411e86cc76298313db83e605833a29f1751a4534",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "01aef9c1_c8c7de08",
         "filename": "redfish-core/lib/pcie.hpp",
         "patchSetId": 1
