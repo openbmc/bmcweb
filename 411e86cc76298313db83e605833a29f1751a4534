@@ -53,6 +53,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9feccdba_9a4e6b6e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-14T17:15:29Z",
+      "side": 1,
+      "message": "This patch is neither tested, nor does it have changes to the existing backends (peci-pcie is the only one I know of) to match this new interface, so this patchset is stalled anyway until those things happen.",
+      "revId": "411e86cc76298313db83e605833a29f1751a4534",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "01aef9c1_c8c7de08",
