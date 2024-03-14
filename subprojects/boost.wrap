@@ -1,9 +1,9 @@
 [wrap-file]
-directory = boost-1.83.0
+directory = boost-1.84.0
 
-source_url = https://github.com/boostorg/boost/releases/download/boost-1.83.0/boost-1.83.0.tar.gz
-source_hash = 0c6049764e80aa32754acd7d4f179fd5551d8172a83b71532ae093e7384e98da
-source_filename = 1_83_0.tar.gz
+source_url = https://github.com/boostorg/boost/releases/download/boost-1.84.0/boost-1.84.0.tar.gz
+source_hash = 4d27e9efed0f6f152dc28db6430b9d3dfb40c0345da7342eaa5a987dde57bd95
+source_filename = 1_84_0.tar.gz
 
 [provide]
 boost = boost_dep
