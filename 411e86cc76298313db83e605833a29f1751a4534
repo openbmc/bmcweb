@@ -38,6 +38,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "683974aa_9d062c79",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-14T16:12:40Z",
+      "side": 1,
+      "message": "Is there a related backend change for this?  I\u0027m having a tough time understanding what case we\u0027re handling here, and looking at code would probably help me if you could give me a pointer.",
+      "revId": "411e86cc76298313db83e605833a29f1751a4534",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "01aef9c1_c8c7de08",
         "filename": "redfish-core/lib/pcie.hpp",
         "patchSetId": 1
@@ -121,6 +138,30 @@
       "side": 1,
       "message": "\u003e What I would expect is that we\u0027d have a new optional interface for pcie lanes in use.\n\nIf we go this direction, almost every property is going to end up in its own \"optional\" interface.  Someone is going to make an argument that everything the BMC does has some condition where we can\u0027t figure it out.  I\u0027m not on board with that.\n\n\u003e This commit looks like it does only part of the fix.\n\nIsn\u0027t it better though?  My understanding was that the recent change was due to the fact that they wanted to be able to represent 0 lanes in use.  That appears to be what is available now with this change.\n\nThis change is really not doing anything with respect to \"errors\" and the existing code didn\u0027t do anything with respect to them either.  All this change is doing is aligning the bmcweb with the phosphor-dbus-interfaces w.r.t. the \"default\" value (which is what implementations get if they don\u0027t explicitly set the property at a dbus level).",
       "parentUuid": "1cf72fe3_d92c6d2e",
+      "range": {
+        "startLine": 484,
+        "startChar": 56,
+        "endLine": 485,
+        "endChar": 44
+      },
+      "revId": "411e86cc76298313db83e605833a29f1751a4534",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e50f371a_9fcb686d",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-14T16:12:40Z",
+      "side": 1,
+      "message": "\u003e \u003e What I would expect is that we\u0027d have a new optional interface for pcie lanes in use.\n\u003e \n\u003e If we go this direction, almost every property is going to end up in its own \"optional\" interface.  Someone is going to make an argument that everything the BMC does has some condition where we can\u0027t figure it out.  I\u0027m not on board with that.\n\nIn what I\u0027m proposing, \"We can\u0027t figure this out\" translates to MAXINT.  \"We can\u0027t provide this information on this system\" would be the optional interface.  In general I don\u0027t really see what you say being the case.  Property support tends to be batched together, and even if we end up with an interface per property because we have that wide variety of system support, is that really a problem?\n\nIn this case, the port capabilities likely come from smbios tables, whereas the lanes in use come from directly polling the serdes.  For even that reason I think it still makes sense to separate them, so that multiple services can each host their part of the interface.\n\npeci-pcie sidestepped this by pulling the PCIe information directly from the serdes, but I\u0027d be surprised if that worked on all systems.\n\n\nWith that said, is there something you\u0027re suggesting to handle 1, 2, and 3 above?  I\u0027m open to other options, but what I suggested is how most of the other interfaces work.\n\n\u003e \n\u003e \u003e This commit looks like it does only part of the fix.\n\u003e \n\u003e Isn\u0027t it better though?  My understanding was that the recent change was due to the fact that they wanted to be able to represent 0 lanes in use.  That appears to be what is available now with this change.\n\n\nRight, but now they\u0027ve also represented an error as omitting the property.  Redfish requires that we handle those 3 distinct cases differently, and as it stands now, there\u0027s no way to know the difference between 1, 2, and 3 above.\n\n\u003e \n\u003e This change is really not doing anything with respect to \"errors\" and the existing code didn\u0027t do anything with respect to them either.  All this change is doing is aligning the bmcweb with the phosphor-dbus-interfaces w.r.t. the \"default\" value (which is what implementations get if they don\u0027t explicitly set the property at a dbus level).\n\nFrom the PDI definition: \"known due to some unknown reason, like hardware failure or link down.\"\n\nFailure is literally in the description of the property now.  If that gets removed, and we handle the case where it\u0027s 0 as an error (because now exposing something that handles 0 lanes is an error) that would be an improvement.",
+      "parentUuid": "41a6a91b_e4f30e29",
       "range": {
         "startLine": 484,
         "startChar": 56,
