@@ -105,6 +105,24 @@
       "parentUuid": "0f861e1e_3402bb53",
       "revId": "1e442d9ab60a856439e51c106d16504b0b8e07cd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3eb8b2c1_936c5dac",
+        "filename": "REDFISH_CHECKLIST.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-14T21:46:24Z",
+      "side": 1,
+      "message": "We don\u0027t have anything about daemon non reachability because we don\u0027t have a consistent rule in that regard.\n\nSome daemons are required to make Redfish work (systemd, the mapper, or timesyncd for example).  Some daemons are made optional to give people the ability to choose.  Whether or not we require a daemon be present is really a judgement call that the maintainers make about general applicability of a feature (which we do get wrong sometimes).",
+      "parentUuid": "062e6b91_b80b9907",
+      "revId": "1e442d9ab60a856439e51c106d16504b0b8e07cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
