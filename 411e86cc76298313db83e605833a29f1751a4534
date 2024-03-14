@@ -72,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d3d535fd_41d273b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-03-14T20:00:43Z",
+      "side": 1,
+      "message": "I\u0027m dealing with the IBM downstream pldm - https://github.com/ibm-openbmc/pldm/blob/ca00ba4e2847c7f52f22f9da22d5be7e986bcaeb/oem/ibm/libpldmresponder/file_io_type_pcie.cpp#L381",
+      "parentUuid": "683974aa_9d062c79",
+      "revId": "411e86cc76298313db83e605833a29f1751a4534",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "01aef9c1_c8c7de08",
         "filename": "redfish-core/lib/pcie.hpp",
         "patchSetId": 1
@@ -323,6 +341,30 @@
       "side": 1,
       "message": "No problem, I get it.  Myung, does the above conversation make sense to you, and can you put up a new patchset to that effect in PDI?",
       "parentUuid": "d74ebfec_84f3f41e",
+      "range": {
+        "startLine": 484,
+        "startChar": 56,
+        "endLine": 485,
+        "endChar": 44
+      },
+      "revId": "411e86cc76298313db83e605833a29f1751a4534",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1869e89a_03f94e42",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-03-14T20:00:43Z",
+      "side": 1,
+      "message": "I submitted a PDI description update  - https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/70056",
+      "parentUuid": "96046929_b77ed7fa",
       "range": {
         "startLine": 484,
         "startChar": 56,
