@@ -177,6 +177,24 @@
       "parentUuid": "169b0af6_6164049a",
       "revId": "cd8d3e129c808b1ae96a4b65f15efb31a88f51c0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afcfa50c_6365cf6f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-14T16:44:40Z",
+      "side": 1,
+      "message": "\u003e \u003e Do we have any examples of a multi-chassis system today? I haven\u0027t seen a lot of other patches worry about that.\n\u003e \n\u003e Yes, IBM supports a multiple chassis system. With chassis upstream, being both boards and chassis, I thought most companies have multiple chassis.\n\nSorry, I meant multiple sheet metal chassis, not multiple Redfish chassis.  With that said, really this is all a host thing.  In theory all PCIeDevices are attached to the one host.\n\n\u003e I remember we had a special flag to assume one chassis but that support is long gone. \n\u003e \n\u003e \u003e  I\u0027m not comfortable with this patch, which basically removes something that clients might have used, and says (in effect) \"Good luck finding an alternative\".\n\u003e \n\u003e The link is still there.. It is under the parent of the PCIeDevices.. \"/redfish/v1/Systems/system/\".. \n\u003e I am struggling to understand why a client is looking here for the PCIeDevices\n\nbecause clients that support multiple hosts might want to look up the PCIe devices associated with just this device.\n\n\n\n\nFWIW, I\u0027m ok removing it now that I understand what happened.  I misread the code and thought it was already under links.  We can regroup later if we decide we need this.",
+      "parentUuid": "353210ef_a9c522de",
+      "revId": "cd8d3e129c808b1ae96a4b65f15efb31a88f51c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
