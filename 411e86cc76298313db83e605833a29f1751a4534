@@ -259,6 +259,30 @@
       },
       "revId": "411e86cc76298313db83e605833a29f1751a4534",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0d1f7e1_ac8a8a20",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-14T17:40:22Z",
+      "side": 1,
+      "message": "\u003e \u003e Cool. Clearly Myung is, or this patch wouldn\u0027t need to exist? Redfish differentiates them, so I\u0027m stuck where I can either:\n\u003e \n\u003e No... the change is to make it so that 0 is valid data.\n\u003e \n\u003e \u003e It\u0027s used for debugging if a link didn\u0027t come up, or if a link downtrained to a lower speed/width. That\u0027s why this interface was implemented in the first place.\n\u003e \n\u003e All of these cases are 0.\n\n\nfrom what got checked in\n```\n\"Deafult value of\n maxint is to accommodate the situation where the value of this\n property is not known due to some unknown reason, like hardware\n failure or link down.\"\n```\n          \nAccording to that, the value for link down is MAXINT, not zero.  Am I misreading that?  That\u0027s basically the crux of the comment I made on the PDI review.  I suspect if \"link down \u003d\u003d 0 lanes\" gets put in, and the backends get updated (and this commit gets changed to actually handle zero as a redfish status of disabled), then I think we\u0027re good.\n\nIt\u0027s imperfect because we still miss out on \"This isn\u0027t supported on this platform\" but I\u0027m happy to kick that can down the road forever, at least for what\u0027s there we can build a correct Redfish API.\n\n\u003e \n\u003e \u003e The distinction between \"lane not in use\" and \"not supported on this platform\" is arguably more important than \"Had an internal error\". I just bring it up for completeness.\n\u003e \n\u003e Aren\u0027t these implemented as 0 and maxint represent respectively with the current interface definition?\n\nNot so far as I\u0027m reading in the description.  I see no mention of 0 being a special case anywhere.\n\n\u003e \n\u003e \u003e As in, today we propose breaking out this one property, tomorrow we ask to separate every property on dbus? I really don\u0027t think that is going to happen.\n\u003e \n\u003e Nearly every property in the Inventory namespace you could make an argument \"my EEPROM doesn\u0027t contain this data\".\n\nsure, and in those cases, we omit the data from the Redfish schema, so the user-facing result looks right (sometimes by breaking the documentation in PDI by abusing empty string).\n\nIf we\u0027re going with 0 \u003d\u003d lane not used, maxint \u003d\u003d data unavailable, lets get PDI updated, and that should be an improvement to this without having to open the every interface is optional conversation.",
+      "parentUuid": "537368ec_ec197684",
+      "range": {
+        "startLine": 484,
+        "startChar": 56,
+        "endLine": 485,
+        "endChar": 44
+      },
+      "revId": "411e86cc76298313db83e605833a29f1751a4534",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
