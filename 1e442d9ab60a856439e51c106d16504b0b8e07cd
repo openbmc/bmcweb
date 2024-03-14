@@ -123,6 +123,24 @@
       "parentUuid": "062e6b91_b80b9907",
       "revId": "1e442d9ab60a856439e51c106d16504b0b8e07cd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd0fd636_0e596ffb",
+        "filename": "REDFISH_CHECKLIST.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-03-14T21:50:41Z",
+      "side": 1,
+      "message": "Sounds good. Thanks",
+      "parentUuid": "3eb8b2c1_936c5dac",
+      "revId": "1e442d9ab60a856439e51c106d16504b0b8e07cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
