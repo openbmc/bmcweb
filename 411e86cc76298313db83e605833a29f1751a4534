@@ -170,6 +170,30 @@
       },
       "revId": "411e86cc76298313db83e605833a29f1751a4534",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aef2e314_5214b22e",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-03-14T16:59:01Z",
+      "side": 1,
+      "message": "\u003e Property support tends to be batched together, and even if we end up with an interface per property because we have that wide variety of system support, is that really a problem?\n\nYes.  There are already too many permutations of what is acceptable in the Inventory namespace.  Breaking out everything into separate interface because one system can or can\u0027t get that particular piece of data is where we\u0027ll end up.  There\u0027s always going to be this \"one weird system\".\n\n\u003e With that said, is there something you\u0027re suggesting to handle 1, 2, and 3 above? I\u0027m open to other options, but what I suggested is how most of the other interfaces work.\n\nI\u0027m not interested in differentiating them.  This is so low value in my mind and on the use-side of a client that I don\u0027t really care to invest more time myself in it. You really need to be able to differentiate at a Redfish Client level that the PCIe Lanes In Use somehow had an internal error in the BMC (that wasn\u0027t already reported through the event log)?  If someone else finds it valuable enough and wants to propose an implementation, I\u0027ll review it, but \"split out this particular property into a separate interface\" probably isn\u0027t going to cut it because it is just setting it up for everything else.",
+      "parentUuid": "e50f371a_9fcb686d",
+      "range": {
+        "startLine": 484,
+        "startChar": 56,
+        "endLine": 485,
+        "endChar": 44
+      },
+      "revId": "411e86cc76298313db83e605833a29f1751a4534",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
