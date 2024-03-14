@@ -235,6 +235,30 @@
       },
       "revId": "411e86cc76298313db83e605833a29f1751a4534",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "537368ec_ec197684",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-03-14T17:28:51Z",
+      "side": 1,
+      "message": "\u003e Cool. Clearly Myung is, or this patch wouldn\u0027t need to exist? Redfish differentiates them, so I\u0027m stuck where I can either:\n\nNo... the change is to make it so that 0 is valid data.\n\n\u003e It\u0027s used for debugging if a link didn\u0027t come up, or if a link downtrained to a lower speed/width. That\u0027s why this interface was implemented in the first place.\n\nAll of these cases are 0.\n\n\u003e The distinction between \"lane not in use\" and \"not supported on this platform\" is arguably more important than \"Had an internal error\". I just bring it up for completeness.\n\nAren\u0027t these implemented as 0 and maxint represent respectively with the current interface definition?\n\n\u003e As in, today we propose breaking out this one property, tomorrow we ask to separate every property on dbus? I really don\u0027t think that is going to happen.\n\nNearly every property in the Inventory namespace you could make an argument \"my EEPROM doesn\u0027t contain this data\".",
+      "parentUuid": "9452adba_82015368",
+      "range": {
+        "startLine": 484,
+        "startChar": 56,
+        "endLine": 485,
+        "endChar": 44
+      },
+      "revId": "411e86cc76298313db83e605833a29f1751a4534",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
