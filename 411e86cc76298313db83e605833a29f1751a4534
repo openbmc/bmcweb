@@ -87,6 +87,30 @@
       },
       "revId": "411e86cc76298313db83e605833a29f1751a4534",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41a6a91b_e4f30e29",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-03-14T15:19:17Z",
+      "side": 1,
+      "message": "\u003e What I would expect is that we\u0027d have a new optional interface for pcie lanes in use.\n\nIf we go this direction, almost every property is going to end up in its own \"optional\" interface.  Someone is going to make an argument that everything the BMC does has some condition where we can\u0027t figure it out.  I\u0027m not on board with that.\n\n\u003e This commit looks like it does only part of the fix.\n\nIsn\u0027t it better though?  My understanding was that the recent change was due to the fact that they wanted to be able to represent 0 lanes in use.  That appears to be what is available now with this change.\n\nThis change is really not doing anything with respect to \"errors\" and the existing code didn\u0027t do anything with respect to them either.  All this change is doing is aligning the bmcweb with the phosphor-dbus-interfaces w.r.t. the \"default\" value (which is what implementations get if they don\u0027t explicitly set the property at a dbus level).",
+      "parentUuid": "1cf72fe3_d92c6d2e",
+      "range": {
+        "startLine": 484,
+        "startChar": 56,
+        "endLine": 485,
+        "endChar": 44
+      },
+      "revId": "411e86cc76298313db83e605833a29f1751a4534",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
