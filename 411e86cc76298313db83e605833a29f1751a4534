@@ -307,6 +307,30 @@
       },
       "revId": "411e86cc76298313db83e605833a29f1751a4534",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96046929_b77ed7fa",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-14T18:25:20Z",
+      "side": 1,
+      "message": "No problem, I get it.  Myung, does the above conversation make sense to you, and can you put up a new patchset to that effect in PDI?",
+      "parentUuid": "d74ebfec_84f3f41e",
+      "range": {
+        "startLine": 484,
+        "startChar": 56,
+        "endLine": 485,
+        "endChar": 44
+      },
+      "revId": "411e86cc76298313db83e605833a29f1751a4534",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
