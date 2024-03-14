@@ -1,17 +1,22 @@
 #pragma once
 
-#include "app.hpp"
-#include "async_resp.hpp"
-#include "error_messages.hpp"
-#include "event_service_manager.hpp"
-#include "ibm/locks.hpp"
-#include "resource_messages.hpp"
-#include "str_utility.hpp"
-#include "utils/json_utils.hpp"
+#include "multipart_parser.hpp"
 
+#include <app.hpp>
+#include <async_resp.hpp>
+#include <boost/algorithm/string.hpp>
+#include <boost/algorithm/string/predicate.hpp>
+#include <boost/beast/http/rfc7230.hpp>
+#include <boost/container/flat_map.hpp>
 #include <boost/container/flat_set.hpp>
+#include <dbus_utility.hpp>
+#include <error_messages.hpp>
+#include <event_service_manager.hpp>
+#include <ibm/locks.hpp>
 #include <nlohmann/json.hpp>
+#include <resource_messages.hpp>
 #include <sdbusplus/message/types.hpp>
+#include <utils/json_utils.hpp>
 
 #include <filesystem>
 #include <fstream>
@@ -32,46 +37,82 @@ constexpr const char* methodNotAllowedMsg = "Method Not Allowed";
 constexpr const char* resourceNotFoundMsg = "Resource Not Found";
 constexpr const char* contentNotAcceptableMsg = "Content Not Acceptable";
 constexpr const char* internalServerError = "Internal Server Error";
+constexpr uint32_t maxCSRLength = 4096;
+static const std::filesystem::path rootCertPath =
+    "/var/lib/ibm/bmcweb/RootCert";
+constexpr const char* internalFileSystemError = "Internal FileSystem Error";
+constexpr const char* badRequestMsg = "Bad Request";
+constexpr const char* propertyMissing = "Required Property Missing";
+constexpr const char* configFilePath =
+    "/var/lib/bmcweb/ibm-management-console/configfiles";
 
 constexpr size_t maxSaveareaDirSize =
     25000000; // Allow save area dir size to be max 25MB
 constexpr size_t minSaveareaFileSize =
     100;      // Allow save area file size of minimum 100B
 constexpr size_t maxSaveareaFileSize =
-    500000;   // Allow save area file size upto 500KB
+    25000000; // Allow save area file size upto 25MB
 constexpr size_t maxBroadcastMsgSize =
     1000;     // Allow Broadcast message size upto 1KB
 
-inline void handleFilePut(const crow::Request& req,
-                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                          const std::string& fileID)
+inline bool isValidConfigFileName(const std::string& fileName,
+                                  nlohmann::json& resp)
+{
+    if (fileName.empty())
+    {
+        BMCWEB_LOG_ERROR("Empty filename");
+        resp["Description"] = "Empty file path in the url";
+        return false;
+    }
+
+    // ConfigFile name is allowed to take upper and lowercase letters,
+    // numbers and hyphen
+    std::size_t found = fileName.find_first_not_of(
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-");
+    if (found != std::string::npos)
+    {
+        BMCWEB_LOG_ERROR("Unsupported character in filename: {}", fileName);
+        resp["Description"] = "Unsupported character in filename";
+        return false;
+    }
+
+    // Check the filename length
+    if (fileName.length() > 20)
+    {
+        BMCWEB_LOG_ERROR("Name must be maximum 20 characters. "
+                         "Input filename length is: {}",
+                         fileName.length());
+        resp["Description"] = "Filename must be maximum 20 characters";
+        return false;
+    }
+
+    return true;
+}
+
+inline bool saveConfigFile(const std::string& data, const std::string& fileID,
+                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     std::error_code ec;
-    // Check the content-type of the request
-    boost::beast::string_view contentType = req.getHeaderValue("content-type");
-    if (!bmcweb::asciiIEquals(contentType, "application/octet-stream"))
-    {
-        asyncResp->res.result(boost::beast::http::status::not_acceptable);
-        asyncResp->res.jsonValue["Description"] = contentNotAcceptableMsg;
-        return;
-    }
-    BMCWEB_LOG_DEBUG(
-        "File upload in application/octet-stream format. Continue..");
+    // Get the file size getting uploaded
+    BMCWEB_LOG_DEBUG("data length: {}", data.length());
+    BMCWEB_LOG_DEBUG("fileID: {} ", fileID);
 
-    BMCWEB_LOG_DEBUG(
-        "handleIbmPut: Request to create/update the save-area file");
-    std::string_view path =
-        "/var/lib/bmcweb/ibm-management-console/configfiles";
-    if (!crow::ibm_utils::createDirectory(path))
+    if (data.length() < minSaveareaFileSize)
     {
-        asyncResp->res.result(boost::beast::http::status::not_found);
-        asyncResp->res.jsonValue["Description"] = resourceNotFoundMsg;
-        return;
+        asyncResp->res.result(boost::beast::http::status::bad_request);
+        asyncResp->res.jsonValue["Description"] =
+            "File size is less than minimum allowed size[100B]";
+        return false;
     }
-
+    if (data.length() > maxSaveareaFileSize)
+    {
+        asyncResp->res.result(boost::beast::http::status::bad_request);
+        asyncResp->res.jsonValue["Description"] =
+            "File size exceeds maximum allowed size[25MB]";
+        return false;
+    }
     std::ofstream file;
-    std::filesystem::path loc(
-        "/var/lib/bmcweb/ibm-management-console/configfiles");
+    std::filesystem::path loc(configFilePath);
 
     // Get the current size of the savearea directory
     std::filesystem::recursive_directory_iterator iter(loc, ec);
@@ -79,11 +120,11 @@ inline void handleFilePut(const crow::Request& req,
     {
         asyncResp->res.result(
             boost::beast::http::status::internal_server_error);
-        asyncResp->res.jsonValue["Description"] = internalServerError;
-        BMCWEB_LOG_DEBUG("handleIbmPut: Failed to prepare save-area "
+        asyncResp->res.jsonValue["Description"] = internalFileSystemError;
+        BMCWEB_LOG_DEBUG("saveConfigFile: Failed to prepare save-area "
                          "directory iterator. ec : {}",
                          ec.message());
-        return;
+        return false;
     }
     std::uintmax_t saveAreaDirSize = 0;
     for (const auto& it : iter)
@@ -94,46 +135,29 @@ inline void handleFilePut(const crow::Request& req,
             {
                 asyncResp->res.result(
                     boost::beast::http::status::internal_server_error);
-                asyncResp->res.jsonValue["Description"] = internalServerError;
-                BMCWEB_LOG_DEBUG("handleIbmPut: Failed to find save-area "
+                asyncResp->res.jsonValue["Description"] =
+                    internalFileSystemError;
+                BMCWEB_LOG_DEBUG("saveConfigFile: Failed to find save-area "
                                  "directory . ec : {}",
                                  ec.message());
-                return;
+                return false;
             }
             std::uintmax_t fileSize = std::filesystem::file_size(it, ec);
             if (ec)
             {
                 asyncResp->res.result(
                     boost::beast::http::status::internal_server_error);
-                asyncResp->res.jsonValue["Description"] = internalServerError;
-                BMCWEB_LOG_DEBUG("handleIbmPut: Failed to find save-area "
+                asyncResp->res.jsonValue["Description"] =
+                    internalFileSystemError;
+                BMCWEB_LOG_DEBUG("saveConfigFile: Failed to find save-area "
                                  "file size inside the directory . ec : {}",
                                  ec.message());
-                return;
+                return false;
             }
             saveAreaDirSize += fileSize;
         }
     }
     BMCWEB_LOG_DEBUG("saveAreaDirSize: {}", saveAreaDirSize);
-
-    // Get the file size getting uploaded
-    const std::string& data = req.body();
-    BMCWEB_LOG_DEBUG("data length: {}", data.length());
-
-    if (data.length() < minSaveareaFileSize)
-    {
-        asyncResp->res.result(boost::beast::http::status::bad_request);
-        asyncResp->res.jsonValue["Description"] =
-            "File size is less than minimum allowed size[100B]";
-        return;
-    }
-    if (data.length() > maxSaveareaFileSize)
-    {
-        asyncResp->res.result(boost::beast::http::status::bad_request);
-        asyncResp->res.jsonValue["Description"] =
-            "File size exceeds maximum allowed size[500KB]";
-        return;
-    }
 
     // Form the file path
     loc /= fileID;
@@ -145,12 +169,12 @@ inline void handleFilePut(const crow::Request& req,
     {
         asyncResp->res.result(
             boost::beast::http::status::internal_server_error);
-        asyncResp->res.jsonValue["Description"] = internalServerError;
-        BMCWEB_LOG_DEBUG("handleIbmPut: Failed to find if file exists. ec : {}",
-                         ec.message());
-        return;
+        asyncResp->res.jsonValue["Description"] = internalFileSystemError;
+        BMCWEB_LOG_DEBUG(
+            "saveConfigFile: Failed to find if file exists. ec : {}",
+            ec.message());
+        return false;
     }
-
     std::uintmax_t newSizeToWrite = 0;
     if (fileExists)
     {
@@ -160,10 +184,11 @@ inline void handleFilePut(const crow::Request& req,
         {
             asyncResp->res.result(
                 boost::beast::http::status::internal_server_error);
-            asyncResp->res.jsonValue["Description"] = internalServerError;
-            BMCWEB_LOG_DEBUG("handleIbmPut: Failed to find file size. ec : {}",
-                             ec.message());
-            return;
+            asyncResp->res.jsonValue["Description"] = internalFileSystemError;
+            BMCWEB_LOG_DEBUG(
+                "saveConfigFile: Failed to find file size. ec : {}",
+                ec.message());
+            return false;
         }
         // Calculate the difference in the file size.
         // If the data.length is greater than the existing file size, then
@@ -185,14 +210,13 @@ inline void handleFilePut(const crow::Request& req,
 
     // Calculate the total dir size before writing the new file
     BMCWEB_LOG_DEBUG("total new size: {}", saveAreaDirSize + newSizeToWrite);
-
     if ((saveAreaDirSize + newSizeToWrite) > maxSaveareaDirSize)
     {
         asyncResp->res.result(boost::beast::http::status::bad_request);
         asyncResp->res.jsonValue["Description"] =
             "File size does not fit in the savearea "
             "directory maximum allowed size[25MB]";
-        return;
+        return false;
     }
 
     file.open(loc, std::ofstream::out);
@@ -209,21 +233,144 @@ inline void handleFilePut(const crow::Request& req,
             boost::beast::http::status::internal_server_error);
         asyncResp->res.jsonValue["Description"] =
             "Error while creating the file";
-        return;
+        return false;
     }
     file << data;
-
     std::string origin = "/ibm/v1/Host/ConfigFiles/" + fileID;
     // Push an event
     if (fileExists)
     {
         BMCWEB_LOG_DEBUG("config file is updated");
         asyncResp->res.jsonValue["Description"] = "File Updated";
+
+        redfish::EventServiceManager::getInstance().sendEvent(
+            redfish::messages::resourceChanged(), origin, "IBMConfigFile");
     }
     else
     {
         BMCWEB_LOG_DEBUG("config file is created");
         asyncResp->res.jsonValue["Description"] = "File Created";
+
+        redfish::EventServiceManager::getInstance().sendEvent(
+            redfish::messages::resourceCreated(), origin, "IBMConfigFile");
+    }
+    return true;
+}
+
+inline void
+    handleFileUpload(const crow::Request& req,
+                     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                     const std::string& fileID = "")
+{
+    // Check the content-type of the request
+    boost::beast::string_view contentType = req.getHeaderValue("content-type");
+    BMCWEB_LOG_DEBUG("Content Type: {}", contentType);
+    if (((req.method() == boost::beast::http::verb::put) &&
+         (!boost::iequals(contentType, "application/octet-stream"))) ||
+        ((req.method() == boost::beast::http::verb::post) &&
+         (!boost::istarts_with(contentType, "multipart/form-data"))))
+    {
+        asyncResp->res.result(boost::beast::http::status::not_acceptable);
+        asyncResp->res.jsonValue["Description"] = contentNotAcceptableMsg;
+        return;
+    }
+
+    BMCWEB_LOG_DEBUG(
+        "handleFileUpload: Request to create/update the save-area file");
+    std::string_view path = configFilePath;
+    if (!crow::ibm_utils::createDirectory(path))
+    {
+        asyncResp->res.result(boost::beast::http::status::not_found);
+        asyncResp->res.jsonValue["Description"] = resourceNotFoundMsg;
+        return;
+    }
+
+    bool uploadStatus = true;
+    // Logic to parse the data if its multipart form
+    if (boost::istarts_with(contentType, "multipart/form-data"))
+    {
+        BMCWEB_LOG_DEBUG("This is a multipart upload");
+        MultipartParser parser;
+        ParserError ec = parser.parse(req);
+        if (ec != ParserError::PARSER_SUCCESS)
+        {
+            // handle error
+            BMCWEB_LOG_ERROR("MIME parse failed, ec : {}",
+                             static_cast<int>(ec));
+            asyncResp->res.result(boost::beast::http::status::bad_request);
+            asyncResp->res.jsonValue["Description"] = badRequestMsg;
+            return;
+        }
+        const std::string* uploadData = nullptr;
+        std::string fileName;
+        for (const FormPart& formpart : parser.mime_fields)
+        {
+            boost::beast::http::fields::const_iterator it =
+                formpart.fields.find("Content-Disposition");
+            if (it == formpart.fields.end())
+            {
+                BMCWEB_LOG_ERROR("Couldn't find Content-Disposition");
+                asyncResp->res.result(boost::beast::http::status::bad_request);
+                asyncResp->res.jsonValue["Description"] = badRequestMsg;
+                return;
+            }
+            BMCWEB_LOG_DEBUG("Parsing value {}", it->value());
+            // The construction parameters of param_list must start with
+            // `;`
+            size_t index = it->value().find(';');
+            if (index == std::string::npos)
+            {
+                BMCWEB_LOG_ERROR("Parsing value failed {}", it->value());
+                continue;
+            }
+            for (const auto& param :
+                 boost::beast::http::param_list{it->value().substr(index)})
+            {
+                if (param.first == "name")
+                {
+                    fileName = param.second;
+                    BMCWEB_LOG_DEBUG("file name : {}", fileName);
+
+                    // Validate the incoming fileName
+                    if (!isValidConfigFileName(fileName,
+                                               asyncResp->res.jsonValue))
+                    {
+                        asyncResp->res.result(
+                            boost::beast::http::status::bad_request);
+                        return;
+                    }
+                }
+                uploadData = &(formpart.content);
+            }
+            if ((uploadData == nullptr) || (fileName.empty()))
+            {
+                BMCWEB_LOG_ERROR("Upload data or filename is NULL");
+                asyncResp->res.result(boost::beast::http::status::bad_request);
+                asyncResp->res.jsonValue["Description"] = propertyMissing;
+                return;
+            }
+            uploadStatus = saveConfigFile(*uploadData, fileName, asyncResp);
+            if (!uploadStatus)
+            {
+                BMCWEB_LOG_INFO("ConfigFile upload failed!! FileName: {}",
+                                fileName);
+                return;
+            }
+            BMCWEB_LOG_INFO("ConfigFile upload complete!! Filename: {}",
+                            fileName);
+        }
+    }
+    else
+    {
+        // Single file upload
+        const std::string& data = req.body();
+        uploadStatus = saveConfigFile(data, fileID, asyncResp);
+        if (!uploadStatus)
+        {
+            BMCWEB_LOG_INFO("ConfigFile upload failed!! FileName: {}", fileID);
+            return;
+        }
+        BMCWEB_LOG_INFO("ConfigFile upload complete!! Filename: {}", fileID);
     }
 }
 
@@ -231,8 +378,7 @@ inline void
     handleConfigFileList(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     std::vector<std::string> pathObjList;
-    std::filesystem::path loc(
-        "/var/lib/bmcweb/ibm-management-console/configfiles");
+    std::filesystem::path loc(configFilePath);
     if (std::filesystem::exists(loc) && std::filesystem::is_directory(loc))
     {
         for (const auto& file : std::filesystem::directory_iterator(loc))
@@ -240,8 +386,8 @@ inline void
             const std::filesystem::path& pathObj = file.path();
             if (std::filesystem::is_regular_file(pathObj))
             {
-                pathObjList.emplace_back("/ibm/v1/Host/ConfigFiles/" +
-                                         pathObj.filename().string());
+                pathObjList.push_back("/ibm/v1/Host/ConfigFiles/" +
+                                      pathObj.filename().string());
             }
         }
     }
@@ -261,8 +407,7 @@ inline void
     deleteConfigFiles(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     std::error_code ec;
-    std::filesystem::path loc(
-        "/var/lib/bmcweb/ibm-management-console/configfiles");
+    std::filesystem::path loc(configFilePath);
     if (std::filesystem::exists(loc) && std::filesystem::is_directory(loc))
     {
         std::filesystem::remove_all(loc, ec);
@@ -271,10 +416,16 @@ inline void
             asyncResp->res.result(
                 boost::beast::http::status::internal_server_error);
             asyncResp->res.jsonValue["Description"] = internalServerError;
-            BMCWEB_LOG_DEBUG("deleteConfigFiles: Failed to delete the "
+            BMCWEB_LOG_ERROR("deleteConfigFiles: Failed to delete the "
                              "config files directory. ec : {}",
                              ec.message());
         }
+        BMCWEB_LOG_CRITICAL(
+            "INFO:config files directory delete successful. PATH: {}",
+            loc.string());
+        std::string origin = "/ibm/v1/Host/ConfigFiles";
+        redfish::EventServiceManager::getInstance().sendEvent(
+            redfish::messages::resourceRemoved(), origin, "IBMConfigFile");
     }
 }
 
@@ -339,12 +490,16 @@ inline void
     {
         if (remove(filePath.c_str()) == 0)
         {
-            BMCWEB_LOG_DEBUG("File removed!");
+            BMCWEB_LOG_CRITICAL("INFO:configFile removed, FilePath: {}",
+                                filePath);
             asyncResp->res.jsonValue["Description"] = "File Deleted";
+            std::string origin = "/ibm/v1/Host/ConfigFiles/" + fileID;
+            redfish::EventServiceManager::getInstance().sendEvent(
+                redfish::messages::resourceRemoved(), origin, "IBMConfigFile");
         }
         else
         {
-            BMCWEB_LOG_ERROR("File not removed!");
+            BMCWEB_LOG_ERROR("File not removed, FilePath: {}", filePath);
             asyncResp->res.result(
                 boost::beast::http::status::internal_server_error);
             asyncResp->res.jsonValue["Description"] = internalServerError;
@@ -352,7 +507,7 @@ inline void
     }
     else
     {
-        BMCWEB_LOG_WARNING("File not found!");
+        BMCWEB_LOG_ERROR("File not found, FilePath: {}", filePath);
         asyncResp->res.result(boost::beast::http::status::not_found);
         asyncResp->res.jsonValue["Description"] = resourceNotFoundMsg;
     }
@@ -377,6 +532,12 @@ inline void
         asyncResp->res.result(boost::beast::http::status::bad_request);
         return;
     }
+
+    std::string origin = "/ibm/v1/HMC/BroadcastService";
+    nlohmann::json msgJson = {{"Message", broadcastMsg}};
+
+    redfish::EventServiceManager::getInstance().sendEvent(msgJson, origin,
+                                                          "BroadcastService");
 }
 
 inline void handleFileUrl(const crow::Request& req,
@@ -385,7 +546,7 @@ inline void handleFileUrl(const crow::Request& req,
 {
     if (req.method() == boost::beast::http::verb::put)
     {
-        handleFilePut(req, asyncResp, fileID);
+        handleFileUpload(req, asyncResp, fileID);
         return;
     }
     if (req.method() == boost::beast::http::verb::get)
@@ -398,6 +559,17 @@ inline void handleFileUrl(const crow::Request& req,
         handleFileDelete(asyncResp, fileID);
         return;
     }
+}
+
+inline void
+    handleFileUrlPost(crow::App& app, const crow::Request& req,
+                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    handleFileUpload(req, asyncResp);
 }
 
 inline void
@@ -443,12 +615,12 @@ inline void
             BMCWEB_LOG_DEBUG("Lockflag : {}", lockFlags);
             BMCWEB_LOG_DEBUG("SegmentLength : {}", segmentLength);
 
-            segInfo.emplace_back(std::make_pair(lockFlags, segmentLength));
+            segInfo.emplace_back(lockFlags, segmentLength);
         }
 
-        lockRequestStructure.emplace_back(make_tuple(
-            req.session->uniqueId, req.session->clientId.value_or(""), lockType,
-            resourceId, segInfo));
+        lockRequestStructure.emplace_back(req.session->uniqueId,
+                                          req.session->clientId.value_or(""),
+                                          lockType, resourceId, segInfo);
     }
 
     // print lock request into journal
@@ -472,7 +644,7 @@ inline void
 
     if (varAcquireLock.first)
     {
-        // Either validity failure of there is a conflict with itself
+        // Either validity failure or there is a conflict with itself
 
         auto validityStatus =
             std::get<std::pair<bool, int>>(varAcquireLock.second);
@@ -486,7 +658,8 @@ inline void
         }
         if (validityStatus.first && (validityStatus.second == 1))
         {
-            BMCWEB_LOG_ERROR("There is a conflict within itself");
+            BMCWEB_LOG_ERROR(
+                "handleAcquireLockAPI: There is a conflict within itself");
             asyncResp->res.result(boost::beast::http::status::conflict);
             return;
         }
@@ -506,15 +679,49 @@ inline void
             asyncResp->res.jsonValue["TransactionID"] = var;
             return;
         }
-        BMCWEB_LOG_DEBUG("There is a conflict with the lock table");
-        asyncResp->res.result(boost::beast::http::status::conflict);
+
+        // Check if the session is active. If active, send back the lock
+        // conflict, else clear the stale entry in the lock table.
         auto var =
             std::get<std::pair<uint32_t, LockRequest>>(conflictStatus.second);
+        std::string sessionId = std::get<0>(var.second);
+        auto session =
+            persistent_data::SessionStore::getInstance().getSessionByUid(
+                sessionId);
+
+        if (session == nullptr)
+        {
+            BMCWEB_LOG_ERROR("Releasing lock of the session id(stale): {}",
+                             sessionId);
+            // clear the stale entry
+            crow::ibm_mc_lock::Lock::getInstance().releaseLock(sessionId);
+
+            // create the new lock record for the session
+            varAcquireLock =
+                crow::ibm_mc_lock::Lock::getInstance().acquireLock(t);
+            conflictStatus =
+                std::get<crow::ibm_mc_lock::Rc>(varAcquireLock.second);
+            if (!conflictStatus.first)
+            {
+                asyncResp->res.result(boost::beast::http::status::ok);
+
+                auto id = std::get<uint32_t>(conflictStatus.second);
+                nlohmann::json returnJson;
+                returnJson["id"] = id;
+                asyncResp->res.jsonValue["TransactionID"] = id;
+                return;
+            }
+        }
+
+        BMCWEB_LOG_ERROR(
+            "handleAcquireLockAPI: There is a conflict with the lock table");
+
+        asyncResp->res.result(boost::beast::http::status::conflict);
         nlohmann::json returnJson;
         nlohmann::json segments;
         nlohmann::json myarray = nlohmann::json::array();
         returnJson["TransactionID"] = var.first;
-        returnJson["SessionID"] = std::get<0>(var.second);
+        returnJson["SessionID"] = sessionId;
         returnJson["HMCID"] = std::get<1>(var.second);
         returnJson["LockType"] = std::get<2>(var.second);
         returnJson["ResourceID"] = std::get<3>(var.second);
@@ -527,7 +734,8 @@ inline void
         }
 
         returnJson["SegmentFlags"] = myarray;
-        BMCWEB_LOG_ERROR("Conflicting lock record: {}", returnJson);
+        BMCWEB_LOG_ERROR("handleAcquireLockAPI: Conflicting lock record: {} ",
+                         returnJson);
         asyncResp->res.jsonValue["Record"] = returnJson;
         return;
     }
@@ -575,7 +783,8 @@ inline void
     }
 
     // valid rid, but the current hmc does not own all the locks
-    BMCWEB_LOG_DEBUG("Current HMC does not own all the locks");
+    BMCWEB_LOG_DEBUG(
+        "handleReleaseLockAPI: Current HMC does not own all the locks");
     asyncResp->res.result(boost::beast::http::status::unauthorized);
 
     auto var = statusRelease.second;
@@ -596,7 +805,7 @@ inline void
     }
 
     returnJson["SegmentFlags"] = myArray;
-    BMCWEB_LOG_DEBUG("handleReleaseLockAPI: lockrecord: {}", returnJson);
+    BMCWEB_LOG_DEBUG("handleReleaseLockAPI: lockrecord: {} ", returnJson);
     asyncResp->res.jsonValue["Record"] = returnJson;
 }
 
@@ -642,38 +851,284 @@ inline void
     asyncResp->res.jsonValue["Records"] = lockRecords;
 }
 
-inline bool isValidConfigFileName(const std::string& fileName,
-                                  crow::Response& res)
+inline void
+    deleteVMIDbusEntry(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                       const std::string& entryId)
 {
-    if (fileName.empty())
+    auto respHandler = [asyncResp,
+                        entryId](const boost::system::error_code ec) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR("deleteVMIDbusEntry respHandler got error {}",
+                             ec.message());
+            asyncResp->res.result(
+                boost::beast::http::status::internal_server_error);
+            return;
+        }
+    };
+    crow::connections::systemBus->async_method_call(
+        respHandler, "xyz.openbmc_project.Certs.ca.authority.Manager",
+        "/xyz/openbmc_project/certs/ca/entry/" + entryId,
+        "xyz.openbmc_project.Object.Delete", "Delete");
+}
+
+inline void
+    getCSREntryCertificate(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const std::string& entryId)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code ec,
+                    const std::variant<std::string>& certificate) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR("getCSREntryCertificate respHandler got error: {}",
+                             ec.message());
+            asyncResp->res.result(
+                boost::beast::http::status::internal_server_error);
+            asyncResp->res.jsonValue["Description"] =
+                "Failed to get request status";
+            return;
+        }
+
+        const std::string* cert = std::get_if<std::string>(&certificate);
+        if (cert == nullptr)
+        {
+            asyncResp->res.result(
+                boost::beast::http::status::internal_server_error);
+            asyncResp->res.jsonValue["Description"] =
+                "Failed to get certificate from host";
+            return;
+        }
+
+        if (cert->empty())
+        {
+            BMCWEB_LOG_ERROR("Empty Client Certificate");
+            asyncResp->res.result(
+                boost::beast::http::status::internal_server_error);
+            asyncResp->res.jsonValue["Description"] =
+                "Empty Client Certificate";
+            return;
+        }
+
+        BMCWEB_LOG_CRITICAL("INFO:Successfully got VMI client certificate");
+        asyncResp->res.jsonValue["Certificate"] = *cert;
+    },
+        "xyz.openbmc_project.Certs.ca.authority.Manager",
+        "/xyz/openbmc_project/certs/ca/entry/" + entryId,
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Certs.Entry", "ClientCertificate");
+}
+
+inline void getCSREntryAck(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const std::string& entryId)
+{
+    static boost::container::flat_map<
+        std::string, std::unique_ptr<sdbusplus::bus::match::match>>
+        ackMatches;
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, entryId](const boost::system::error_code ec,
+                             const std::variant<std::string>& hostAck) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR("getCSREntryAck respHandler got error: {}",
+                             ec.message());
+            asyncResp->res.result(
+                boost::beast::http::status::internal_server_error);
+            asyncResp->res.jsonValue["Description"] =
+                "Failed to get request status";
+            return;
+        }
+
+        const std::string* status = std::get_if<std::string>(&hostAck);
+        if (status == nullptr)
+        {
+            asyncResp->res.result(
+                boost::beast::http::status::internal_server_error);
+            asyncResp->res.jsonValue["Description"] =
+                "Failed to get host ack status";
+            return;
+        }
+
+        BMCWEB_LOG_CRITICAL(
+            "INFO:VMI Cert Entry {} new status property value {}", entryId,
+            *status);
+        if (*status == "xyz.openbmc_project.Certs.Entry.State.Pending")
+        {
+            asyncResp->res.addHeader("Retry-After", "60");
+            asyncResp->res.result(
+                boost::beast::http::status::service_unavailable);
+            asyncResp->res.jsonValue["Description"] =
+                "Host is not ready to serve the request";
+        }
+        else if (*status == "xyz.openbmc_project.Certs.Entry.State.BadCSR")
+        {
+            asyncResp->res.result(boost::beast::http::status::bad_request);
+            asyncResp->res.jsonValue["Description"] = "Bad CSR";
+            BMCWEB_LOG_CRITICAL("SignCSR failed with Bad CSR");
+        }
+        else if (*status == "xyz.openbmc_project.Certs.Entry.State.Complete")
+        {
+            getCSREntryCertificate(asyncResp, entryId);
+        }
+
+        deleteVMIDbusEntry(asyncResp, entryId);
+        auto entry = ackMatches.find(entryId);
+        if (entry != ackMatches.end())
+        {
+            BMCWEB_LOG_CRITICAL("INFO:Erasing match of entryId: {}", entryId);
+            ackMatches.erase(entryId);
+        }
+    },
+        "xyz.openbmc_project.Certs.ca.authority.Manager",
+        "/xyz/openbmc_project/certs/ca/entry/" + entryId,
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Certs.Entry", "Status");
+}
+
+static void
+    handleCsrRequest(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                     const std::string& csrString)
+{
+    static boost::container::flat_map<
+        std::string, std::unique_ptr<sdbusplus::bus::match::match>>
+        ackMatches;
+    std::shared_ptr<boost::asio::steady_timer> timeout =
+        std::make_shared<boost::asio::steady_timer>(
+            crow::connections::systemBus->get_io_context());
+
+    timeout->expires_after(std::chrono::seconds(30));
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, timeout](const boost::system::error_code ec,
+                             sdbusplus::message::message& m) {
+        sdbusplus::message::object_path objPath;
+        m.read(objPath);
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR("Error in creating CSR Entry object : {} ",
+                             ec.message());
+            asyncResp->res.result(
+                boost::beast::http::status::internal_server_error);
+            asyncResp->res.jsonValue["Description"] = internalServerError;
+            return;
+        }
+
+        std::string entryId = objPath.filename();
+        if (entryId.empty())
+        {
+            BMCWEB_LOG_ERROR("Invalid ID in objPath");
+            asyncResp->res.result(
+                boost::beast::http::status::internal_server_error);
+            asyncResp->res.jsonValue["Description"] = internalServerError;
+            return;
+        }
+
+        BMCWEB_LOG_INFO("Created CSR Entry object with entryId: {}", entryId);
+        auto timeoutHandler = [asyncResp, timeout, entryId](
+                                  const boost::system::error_code errorCode) {
+            if (errorCode)
+            {
+                if (errorCode != boost::asio::error::operation_aborted)
+                {
+                    BMCWEB_LOG_ERROR("Async_wait failed {}", errorCode);
+                }
+                return;
+            }
+
+            getCSREntryAck(asyncResp, entryId);
+            timeout->cancel();
+        };
+
+        timeout->async_wait(timeoutHandler);
+
+        auto callback = [asyncResp, timeout,
+                         entryId](sdbusplus::message::message& msg) {
+            boost::container::flat_map<std::string, std::variant<std::string>>
+                values;
+            std::string iface;
+            msg.read(iface, values);
+            if (iface == "xyz.openbmc_project.Certs.Entry")
+            {
+                auto findStatus = values.find("Status");
+                if (findStatus != values.end())
+                {
+                    BMCWEB_LOG_CRITICAL(
+                        "INFO:Found status prop change of VMI cert object with entryId: {}",
+                        entryId);
+                    getCSREntryAck(asyncResp, entryId);
+                    timeout->cancel();
+                }
+            }
+        };
+
+        std::string matchStr(
+            "interface='org.freedesktop.DBus.Properties',type='"
+            "signal',"
+            "member='PropertiesChanged',path='/xyz/openbmc_project/certs/"
+            "ca/entry/" +
+            entryId + "'");
+
+        ackMatches.emplace(
+            entryId, std::make_unique<sdbusplus::bus::match::match>(
+                         *crow::connections::systemBus, matchStr, callback));
+    },
+        "xyz.openbmc_project.Certs.ca.authority.Manager",
+        "/xyz/openbmc_project/certs/ca", "xyz.openbmc_project.Certs.Authority",
+        "SignCSR", csrString);
+}
+
+inline void
+    handlePassThrough(const crow::Request& req,
+                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      const std::string& name)
+{
+    std::vector<int32_t> command;
+    if (!redfish::json_util::readJsonPatch(req, asyncResp->res, "Send",
+                                           command))
     {
-        BMCWEB_LOG_ERROR("Empty filename");
-        res.jsonValue["Description"] = "Empty file path in the url";
-        return false;
+        BMCWEB_LOG_DEBUG("Not a Valid JSON");
+        asyncResp->res.result(boost::beast::http::status::bad_request);
+        return;
     }
 
-    // ConfigFile name is allowed to take upper and lowercase letters,
-    // numbers and hyphen
-    std::size_t found = fileName.find_first_not_of(
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-");
-    if (found != std::string::npos)
+    if (command.empty())
     {
-        BMCWEB_LOG_ERROR("Unsupported character in filename: {}", fileName);
-        res.jsonValue["Description"] = "Unsupported character in filename";
-        return false;
+        BMCWEB_LOG_ERROR("Command is empty");
+        asyncResp->res.result(boost::beast::http::status::bad_request);
+        return;
     }
 
-    // Check the filename length
-    if (fileName.length() > 20)
-    {
-        BMCWEB_LOG_ERROR("Name must be maximum 20 characters. "
-                         "Input filename length is: {}",
-                         fileName.length());
-        res.jsonValue["Description"] = "Filename must be maximum 20 characters";
-        return false;
-    }
+    auto respHandler = [asyncResp](const boost::system::error_code ec,
+                                   const std::vector<int32_t>& resp) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR("handlePassThrough respHandler got error, ec = {}",
+                             ec.value());
+            asyncResp->res.result(
+                boost::beast::http::status::internal_server_error);
+            return;
+        }
 
-    return true;
+        if (resp.empty())
+        {
+            redfish::messages::internalError(asyncResp->res);
+            return;
+        }
+
+        std::string strData = "ai " + std::to_string(resp.size());
+        for (const auto& value : resp)
+        {
+            strData.append(" ");
+            strData.append(std::to_string(value));
+        }
+
+        asyncResp->res.addHeader("Content-Type", "application/octet-stream");
+        asyncResp->res.write(strData.c_str());
+    };
+
+    crow::connections::systemBus->async_method_call(
+        respHandler, "org.open_power.OCC.Control",
+        "/org/open_power/control/" + name, "org.open_power.OCC.PassThrough",
+        "Send", command);
 }
 
 inline void requestRoutes(App& app)
@@ -695,6 +1150,8 @@ inline void requestRoutes(App& app)
             "/ibm/v1/HMC/LockService";
         asyncResp->res.jsonValue["BroadcastService"]["@odata.id"] =
             "/ibm/v1/HMC/BroadcastService";
+        asyncResp->res.jsonValue["Certificate"]["@odata.id"] =
+            "/ibm/v1/Host/Certificate";
     });
 
     BMCWEB_ROUTE(app, "/ibm/v1/Host/ConfigFiles")
@@ -723,13 +1180,78 @@ inline void requestRoutes(App& app)
                const std::string& fileName) {
         BMCWEB_LOG_DEBUG("ConfigFile : {}", fileName);
         // Validate the incoming fileName
-        if (!isValidConfigFileName(fileName, asyncResp->res))
+        if (!isValidConfigFileName(fileName, asyncResp->res.jsonValue))
         {
             asyncResp->res.result(boost::beast::http::status::bad_request);
             return;
         }
         handleFileUrl(req, asyncResp, fileName);
     });
+
+    BMCWEB_ROUTE(app, "/ibm/v1/Host/Certificate")
+        .privileges({{"ConfigureComponents", "ConfigureManager"}})
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+        asyncResp->res.jsonValue["@odata.id"] = "/ibm/v1/Host/Certificate";
+        asyncResp->res.jsonValue["Id"] = "Certificate";
+        asyncResp->res.jsonValue["Name"] = "Certificate";
+        asyncResp->res.jsonValue["Actions"]["SignCSR"] = {
+            {"target", "/ibm/v1/Host/Actions/SignCSR"}};
+        asyncResp->res.jsonValue["root"] = {
+            {"target", "/ibm/v1/Host/Certificate/root"}};
+    });
+
+    BMCWEB_ROUTE(app, "/ibm/v1/Host/Certificate/root")
+        .privileges({{"ConfigureComponents", "ConfigureManager"}})
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+        if (!std::filesystem::exists(rootCertPath))
+        {
+            BMCWEB_LOG_ERROR("RootCert file does not exist");
+            asyncResp->res.result(
+                boost::beast::http::status::internal_server_error);
+            asyncResp->res.jsonValue["Description"] = internalServerError;
+            return;
+        }
+        std::ifstream inFile;
+        inFile.open(rootCertPath.c_str());
+        if (inFile.fail())
+        {
+            BMCWEB_LOG_DEBUG("Error while opening the root certificate "
+                             "file for reading");
+            asyncResp->res.result(
+                boost::beast::http::status::internal_server_error);
+            asyncResp->res.jsonValue["Description"] = internalServerError;
+            return;
+        }
+
+        std::stringstream strStream;
+        strStream << inFile.rdbuf();
+        inFile.close();
+        asyncResp->res.jsonValue["Certificate"] = strStream.str();
+    });
+
+    BMCWEB_ROUTE(app, "/ibm/v1/Host/Actions/SignCSR")
+        .privileges({{"ConfigureComponents", "ConfigureManager"}})
+        .methods(boost::beast::http::verb::post)(
+            [](const crow::Request& req,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+        std::string csrString;
+        if (!redfish::json_util::readJsonPatch(req, asyncResp->res, "CsrString",
+                                               csrString))
+        {
+            return;
+        }
+
+        handleCsrRequest(asyncResp, csrString);
+    });
+
+    BMCWEB_ROUTE(app, "/ibm/v1/Host/ConfigFiles")
+        .privileges({{"ConfigureComponents", "ConfigureManager"}})
+        .methods(boost::beast::http::verb::post)(
+            std::bind_front(handleFileUrlPost, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService")
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
@@ -779,7 +1301,7 @@ inline void requestRoutes(App& app)
         }
         else
         {
-            BMCWEB_LOG_DEBUG(" Value of Type : {}is Not a Valid key", type);
+            BMCWEB_LOG_DEBUG(" Value of Type : {} is Not a Valid key", type);
             redfish::messages::propertyValueNotInList(asyncResp->res, type,
                                                       "Type");
         }
@@ -806,6 +1328,15 @@ inline void requestRoutes(App& app)
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
         handleBroadcastService(req, asyncResp);
+    });
+
+    BMCWEB_ROUTE(app, "/ibm/v1/OCC/Control/<str>/Actions/PassThrough.Send")
+        .privileges({{"OemIBMPerformService"}})
+        .methods(boost::beast::http::verb::post)(
+            [](const crow::Request& req,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& name) {
+        handlePassThrough(req, asyncResp, name);
     });
 }
 
