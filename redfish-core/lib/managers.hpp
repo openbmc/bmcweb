@@ -1534,7 +1534,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                         {
                             if (type == "FanZones")
                             {
-                                iface = pidConfigurationIface;
+                                iface = pidZoneConfigurationIface;
                                 findInterface = true;
                                 break;
                             }
