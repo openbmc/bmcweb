@@ -127,8 +127,8 @@ TEST(http_connection, RequestPropogates)
         // Settings ACK from server to client
         "\x00\x00\x00\x04\x01\x00\x00\x00\x00"
 
-        // Start Headers frame stream 1, size 0x0346
-        "\x00\x03\x46\x01\x04\x00\x00\x00\x01"sv;
+        // Start Headers frame stream 1, size 0x034b
+        "\x00\x03\x4b\x01\x04\x00\x00\x00\x01"sv;
 
     std::string_view expectedPostfix =
         // Data Frame, Length 12, Stream 1, End Stream flag set
@@ -137,7 +137,7 @@ TEST(http_connection, RequestPropogates)
         "StringOutput"sv;
 
     std::string_view outStr;
-    constexpr size_t headerSize = 0x346;
+    constexpr size_t headerSize = 0x34b;
 
     // Run until we receive the expected amount of data
     while (outStr.size() <
@@ -149,7 +149,7 @@ TEST(http_connection, RequestPropogates)
     EXPECT_TRUE(handler.called);
 
     // check the stream output against expected
-    EXPECT_TRUE(outStr.starts_with(expectedPrefix));
+    EXPECT_EQ(outStr.substr(0, expectedPrefix.size()), expectedPrefix);
     outStr.remove_prefix(expectedPrefix.size());
     std::vector<std::pair<std::string, std::string>> headers;
     unpackHeaders(outStr.substr(0, headerSize), headers);
@@ -158,7 +158,7 @@ TEST(http_connection, RequestPropogates)
     EXPECT_THAT(
         headers,
         UnorderedElementsAre(
-            Pair(":status", "200"),
+            Pair(":status", "200"), Pair("content-length", "12"),
             Pair("strict-transport-security",
                  "max-age=31536000; includeSubdomains"),
             Pair("x-frame-options", "DENY"), Pair("pragma", "no-cache"),
