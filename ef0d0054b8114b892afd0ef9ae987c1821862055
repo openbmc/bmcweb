@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b412fcd4_9cacba5a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-15T04:14:02Z",
+      "side": 1,
+      "message": "If someone cares, they can test. I am okay with the risk here.",
+      "revId": "ef0d0054b8114b892afd0ef9ae987c1821862055",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
