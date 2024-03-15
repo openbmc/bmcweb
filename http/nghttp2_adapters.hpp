@@ -84,6 +84,13 @@ struct nghttp2_session_callbacks
             ptr, afterSendFrame);
     }
 
+    void setOnDataChunkRecvCallback(
+        nghttp2_on_data_chunk_recv_callback afterDataChunkRecv)
+    {
+        nghttp2_session_callbacks_set_on_data_chunk_recv_callback(
+            ptr, afterDataChunkRecv);
+    }
+
   private:
     nghttp2_session_callbacks* get()
     {
