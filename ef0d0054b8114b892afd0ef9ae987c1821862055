@@ -33,6 +33,24 @@
       "message": "I am testing the change, should have the results in sometime",
       "revId": "ef0d0054b8114b892afd0ef9ae987c1821862055",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6dcdcb9_2c357278",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000985
+      },
+      "writtenOn": "2024-03-15T04:55:30Z",
+      "side": 1,
+      "message": "Tested changes in https://gerrit.openbmc.org/c/openbmc/bmcweb/+/69429 with this change and it works as intended",
+      "parentUuid": "fc949881_76c54bbc",
+      "revId": "ef0d0054b8114b892afd0ef9ae987c1821862055",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
