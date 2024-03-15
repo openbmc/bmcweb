@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b7fe7dd_5977ea15",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-03-15T09:14:11Z",
+      "side": 1,
+      "message": "wait is more general, will catch all error including writes. If you are worried only about connection termination , then read will do the job I guess. I am ok with this.",
+      "parentUuid": "264b987f_d6706fdf",
+      "revId": "00cf5801e0d7b180a3dd8cb0656d7fcb9a890d1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "933ea1ca_f87aec30",
@@ -139,6 +157,24 @@
       "side": 1,
       "message": "calling shrink_to_fit seems like a good idea.  I don\u0027t think that would be part of this commit, as it\u0027s not changing anything to do with the buffer. Abhilash, do you want to submit that as its own patch?",
       "parentUuid": "42566f0d_fc6d92cc",
+      "revId": "00cf5801e0d7b180a3dd8cb0656d7fcb9a890d1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b608073_451ec429",
+        "filename": "http/server_sent_event.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-03-15T09:14:11Z",
+      "side": 1,
+      "message": "I am ok with that",
+      "parentUuid": "974242ce_b46467cd",
       "revId": "00cf5801e0d7b180a3dd8cb0656d7fcb9a890d1a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
