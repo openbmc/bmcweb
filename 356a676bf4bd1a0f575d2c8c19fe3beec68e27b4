@@ -16,6 +16,24 @@
       "message": "this should be `handleChassisPowerPatch` right?",
       "revId": "356a676bf4bd1a0f575d2c8c19fe3beec68e27b4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dcec6599_9f909719",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-15T03:44:50Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "e642d049_35449d4b",
+      "revId": "356a676bf4bd1a0f575d2c8c19fe3beec68e27b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
