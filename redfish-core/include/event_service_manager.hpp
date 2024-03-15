@@ -1207,9 +1207,9 @@ class EventServiceManager
             std::size_t index = 0;
             while ((index + iEventSize) <= bytesTransferred)
             {
-                struct inotify_event event
-                {};
-                std::memcpy(&event, &readBuffer[index], iEventSize);
+                struct inotify_event& event =
+                    *reinterpret_cast<struct inotify_event*>(
+                        &readBuffer[index]);
                 if (event.wd == dirWatchDesc)
                 {
                     if ((event.len == 0) ||
