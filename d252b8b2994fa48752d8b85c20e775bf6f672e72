@@ -91,6 +91,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "09eb1983_f2dfdd02",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000985
+      },
+      "writtenOn": "2024-03-15T23:57:03Z",
+      "side": 1,
+      "message": "For the remaining unresolved comments, do we want to address those in this change or a follow up change. As this change is only handling the move from Settings to Generic service part.",
+      "revId": "d252b8b2994fa48752d8b85c20e775bf6f672e72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "76a9b447_4acaf09b",
         "filename": "redfish-core/lib/power.hpp",
         "patchSetId": 9
