@@ -4,6 +4,7 @@
 #include "async_resp.hpp"
 #include "authentication.hpp"
 #include "complete_response_fields.hpp"
+#include "http_file_body.hpp"
 #include "http_response.hpp"
 #include "http_utility.hpp"
 #include "logging.hpp"
@@ -38,6 +39,7 @@ namespace crow
 struct Http2StreamData
 {
     Request req{};
+    std::optional<bmcweb::FileBody::reader> reqReader;
     Response res{};
     std::optional<bmcweb::FileBody::writer> writer;
 };
@@ -108,11 +110,12 @@ class HTTP2Connection :
             stream.writer->getWithMaxSize(ec, length);
         if (ec)
         {
+            BMCWEB_LOG_CRITICAL("Failed to get buffer");
             return NGHTTP2_ERR_TEMPORAL_CALLBACK_FAILURE;
         }
-
         if (!out)
         {
+            BMCWEB_LOG_ERROR("Empty file, setting EOF");
             *dataFlags |= NGHTTP2_DATA_FLAG_EOF;
             return 0;
         }
@@ -120,20 +123,28 @@ class HTTP2Connection :
         BMCWEB_LOG_DEBUG("Send chunk of size: {}", out->first.size());
         if (length < out->first.size())
         {
+            BMCWEB_LOG_CRITICAL(
+                "Buffer overflow that should never happen happened");
             // Should never happen because of length limit on get() above
             return NGHTTP2_ERR_TEMPORAL_CALLBACK_FAILURE;
         }
-
+        boost::asio::mutable_buffer writeableBuf(buf, length);
         BMCWEB_LOG_DEBUG("Copying {} bytes to buf", out->first.size());
-        memcpy(buf, out->first.data(), out->first.size());
+        size_t copied = boost::asio::buffer_copy(writeableBuf, out->first);
+        if (copied != out->first.size())
+        {
+            BMCWEB_LOG_ERROR(
+                "Couldn't copy all {} bytes into buffer, only copied {}",
+                out->first.size(), copied);
+            return NGHTTP2_ERR_TEMPORAL_CALLBACK_FAILURE;
+        }
 
         if (!out->second)
         {
-            BMCWEB_LOG_DEBUG("Setting OEF and nocopy flag");
+            BMCWEB_LOG_DEBUG("Setting EOF flag");
             *dataFlags |= NGHTTP2_DATA_FLAG_EOF;
-            //*dataFlags |= NGHTTP2_DATA_FLAG_NO_COPY;
         }
-        return static_cast<ssize_t>(out->first.size());
+        return static_cast<ssize_t>(copied);
     }
 
     nghttp2_nv headerFromStringViews(std::string_view name,
@@ -161,6 +172,7 @@ class HTTP2Connection :
 
         completeResponseFields(thisReq, thisRes);
         thisRes.addHeader(boost::beast::http::field::date, getCachedDateStr());
+        thisRes.preparePayload();
 
         boost::beast::http::fields& fields = thisRes.fields();
         std::string code = std::to_string(thisRes.resultInt());
@@ -200,6 +212,7 @@ class HTTP2Connection :
         callbacks.setOnStreamCloseCallback(onStreamCloseCallbackStatic);
         callbacks.setOnHeaderCallback(onHeaderCallbackStatic);
         callbacks.setOnBeginHeadersCallback(onBeginHeadersCallbackStatic);
+        callbacks.setOnDataChunkRecvCallback(onDataChunkRecvStatic);
 
         nghttp2_session session(callbacks);
         session.setUserData(this);
@@ -217,7 +230,17 @@ class HTTP2Connection :
             close();
             return -1;
         }
-
+        if (it->second.reqReader)
+        {
+            boost::beast::error_code ec;
+            it->second.reqReader->finish(ec);
+            if (ec)
+            {
+                BMCWEB_LOG_CRITICAL("Failed to finalize payload");
+                close();
+                return NGHTTP2_ERR_TEMPORAL_CALLBACK_FAILURE;
+            }
+        }
         crow::Request& thisReq = it->second.req;
         BMCWEB_LOG_DEBUG("Handling {} \"{}\"", logPtr(&thisReq),
                          thisReq.url().encoded_path());
@@ -235,9 +258,67 @@ class HTTP2Connection :
         });
         auto asyncResp =
             std::make_shared<bmcweb::AsyncResp>(std::move(it->second.res));
-        handler->handle(thisReq, asyncResp);
-
+#ifndef BMCWEB_INSECURE_DISABLE_AUTHX
+        thisReq.session = crow::authentication::authenticate(
+            {}, thisRes, thisReq.method(), thisReq.req, nullptr);
+        if (!crow::authentication::isOnAllowlist(thisReq.url().path(),
+                                                 thisReq.method()) &&
+            thisReq.session == nullptr)
+        {
+            BMCWEB_LOG_WARNING("Authentication failed");
+            forward_unauthorized::sendUnauthorized(
+                thisReq.url().encoded_path(),
+                thisReq.getHeaderValue("X-Requested-With"),
+                thisReq.getHeaderValue("Accept"), thisRes);
+        }
+        else
+#endif // BMCWEB_INSECURE_DISABLE_AUTHX
+        {
+            handler->handle(thisReq, asyncResp);
+        }
         return 0;
+    }
+
+    int onDataChunkRecvCallback(uint8_t /*flags*/, int32_t stream_id,
+                                const uint8_t* data, size_t len)
+    {
+        auto thisStream = streams.find(stream_id);
+        if (thisStream == streams.end())
+        {
+            BMCWEB_LOG_ERROR("Unknown stream{}", stream_id);
+            close();
+            return -1;
+        }
+        if (!thisStream->second.reqReader)
+        {
+            thisStream->second.reqReader.emplace(
+                thisStream->second.req.req.base(),
+                thisStream->second.req.req.body());
+        }
+        boost::beast::error_code ec;
+        thisStream->second.reqReader->put(boost::asio::const_buffer(data, len),
+                                          ec);
+        if (ec)
+        {
+            BMCWEB_LOG_CRITICAL("Failed to write payload");
+            return NGHTTP2_ERR_TEMPORAL_CALLBACK_FAILURE;
+        }
+        return 0;
+    }
+
+    static int onDataChunkRecvStatic(nghttp2_session* /* session */,
+                                     uint8_t flags, int32_t stream_id,
+                                     const uint8_t* data, size_t len,
+                                     void* userData)
+    {
+        BMCWEB_LOG_DEBUG("on_frame_recv_callback");
+        if (userData == nullptr)
+        {
+            BMCWEB_LOG_CRITICAL("user data was null?");
+            return NGHTTP2_ERR_CALLBACK_FAILURE;
+        }
+        return userPtrToSelf(userData).onDataChunkRecvCallback(flags, stream_id,
+                                                               data, len);
     }
 
     int onFrameRecvCallback(const nghttp2_frame& frame)
@@ -450,8 +531,8 @@ class HTTP2Connection :
             return;
         }
         isWriting = true;
-        adaptor.async_write_some(
-            boost::asio::buffer(data.data(), data.size()),
+        boost::asio::async_write(
+            adaptor, boost::asio::const_buffer(data.data(), data.size()),
             std::bind_front(afterWriteBuffer, shared_from_this()));
     }
 
