@@ -195,6 +195,24 @@
       "parentUuid": "353210ef_a9c522de",
       "revId": "cd8d3e129c808b1ae96a4b65f15efb31a88f51c0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "541d298d_c99bfb73",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-15T04:12:09Z",
+      "side": 1,
+      "message": "\u003e multiple sheet metal chassis, not multiple Redfish chassis.\n\nYeah, we support a multiple sheet metal chassis \n\n\u003e FWIW, I\u0027m ok removing it now that I understand what happened. I misread the code and thought it was already under links. We can regroup later if we decide we need this.\n\nThat is my thinking as well.",
+      "parentUuid": "afcfa50c_6365cf6f",
+      "revId": "cd8d3e129c808b1ae96a4b65f15efb31a88f51c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
