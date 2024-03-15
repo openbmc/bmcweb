@@ -13,6 +13,7 @@
 #include <boost/asio/posix/stream_descriptor.hpp>
 
 #include <array>
+#include <bit>
 #include <cstddef>
 #include <cstring>
 #include <fstream>
@@ -125,8 +126,8 @@ void FilesystemLogWatcher::onINotify(const boost::system::error_code& ec,
     std::size_t index = 0;
     while ((index + iEventSize) <= bytesTransferred)
     {
-        struct inotify_event event{};
-        std::memcpy(&event, &readBuffer[index], iEventSize);
+        struct inotify_event& event =
+            *std::bit_cast<struct inotify_event*>(&readBuffer[index]);
         if (event.wd == dirWatchDesc)
         {
             if ((event.len == 0) ||
