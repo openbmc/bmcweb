@@ -230,6 +230,24 @@
       "parentUuid": "1d2d613a_0cebc92d",
       "revId": "00cf5801e0d7b180a3dd8cb0656d7fcb9a890d1a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97c9d88b_6f6e701b",
+        "filename": "test/http/server_sent_event_test.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-03-16T06:10:42Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "e5906b64_faeca0bb",
+      "revId": "00cf5801e0d7b180a3dd8cb0656d7fcb9a890d1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
