@@ -54,6 +54,11 @@ inline void getFanPaths(
     const std::function<void(const dbus::utility::MapperGetSubTreePathsResponse&
                                  fanPaths)>& callback)
 {
+    if (!validChassisPath)
+    {
+        BMCWEB_LOG_ERROR("Couldn't find chassis");
+        return;
+    }
     sdbusplus::message::object_path endpointPath{*validChassisPath};
     endpointPath /= "cooled_by";
 
