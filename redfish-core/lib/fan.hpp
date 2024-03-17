@@ -50,11 +50,11 @@ inline void
 
 inline void getFanPaths(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::optional<std::string>& validChassisPath,
+    const std::string& validChassisPath,
     const std::function<void(const dbus::utility::MapperGetSubTreePathsResponse&
                                  fanPaths)>& callback)
 {
-    sdbusplus::message::object_path endpointPath{*validChassisPath};
+    sdbusplus::message::object_path endpointPath{validChassisPath};
     endpointPath /= "cooled_by";
 
     dbus::utility::getAssociatedSubTreePaths(
@@ -101,7 +101,7 @@ inline void doFanCollection(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     asyncResp->res.jsonValue["Members"] = nlohmann::json::array();
     asyncResp->res.jsonValue["Members@odata.count"] = 0;
 
-    getFanPaths(asyncResp, validChassisPath,
+    getFanPaths(asyncResp, *validChassisPath,
                 std::bind_front(updateFanList, asyncResp, chassisId));
 }
 
