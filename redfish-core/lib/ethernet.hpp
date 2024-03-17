@@ -1775,54 +1775,43 @@ inline void handleIPv6StaticAddressesPatch(
                 return;
             }
 
-            const std::string* addr = nullptr;
-            uint8_t prefix = 0;
-
             // Find the address and prefixLength values. Any values that are
             // not explicitly provided are assumed to be unmodified from the
             // current state of the interface. Merge existing state into the
             // current request.
-            if (address)
+            if (!address)
             {
-                addr = &(*address);
-            }
-            else if (nicIpEntry != ipv6Data.end())
-            {
-                addr = &(nicIpEntry->address);
-            }
-            else
-            {
-                messages::propertyMissing(asyncResp->res,
-                                          pathString + "/Address");
-                return;
+                if (nicIpEntry == ipv6Data.end())
+                {
+                    messages::propertyMissing(asyncResp->res,
+                                              pathString + "/Address");
+                    return;
+                }
+                address = nicIpEntry->address;
             }
 
-            if (prefixLength)
+            if (!prefixLength)
             {
-                prefix = *prefixLength;
-            }
-            else if (nicIpEntry != ipv6Data.end())
-            {
-                prefix = nicIpEntry->prefixLength;
-            }
-            else
-            {
-                messages::propertyMissing(asyncResp->res,
-                                          pathString + "/PrefixLength");
-                return;
+                if (nicIpEntry == ipv6Data.end())
+                {
+                    messages::propertyMissing(asyncResp->res,
+                                              pathString + "/PrefixLength");
+                    return;
+                }
+                prefixLength = nicIpEntry->prefixLength;
             }
 
             if (nicIpEntry != ipv6Data.end())
             {
                 deleteAndCreateIPAddress(IpVersion::IpV6, ifaceId,
-                                         nicIpEntry->id, prefix, *addr, "",
-                                         asyncResp);
+                                         nicIpEntry->id, *prefixLength,
+                                         *address, "", asyncResp);
                 nicIpEntry = getNextStaticIpEntry(++nicIpEntry,
                                                   ipv6Data.cend());
             }
             else
             {
-                createIPv6(ifaceId, *prefixLength, *addr, asyncResp);
+                createIPv6(ifaceId, *prefixLength, *address, asyncResp);
             }
             entryIdx++;
         }

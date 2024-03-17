@@ -104,7 +104,10 @@ class HTTP2Connection :
         }
         Http2StreamData& stream = streamIt->second;
         BMCWEB_LOG_DEBUG("File read callback length: {}", length);
-
+        if (!stream.writer)
+        {
+            return NGHTTP2_ERR_TEMPORAL_CALLBACK_FAILURE;
+        }
         boost::beast::error_code ec;
         boost::optional<std::pair<boost::asio::const_buffer, bool>> out =
             stream.writer->getWithMaxSize(ec, length);
@@ -230,10 +233,11 @@ class HTTP2Connection :
             close();
             return -1;
         }
-        if (it->second.reqReader)
+        auto& reqReader = it->second.reqReader;
+        if (reqReader)
         {
             boost::beast::error_code ec;
-            it->second.reqReader->finish(ec);
+            reqReader->finish(ec);
             if (ec)
             {
                 BMCWEB_LOG_CRITICAL("Failed to finalize payload");
@@ -289,15 +293,17 @@ class HTTP2Connection :
             close();
             return -1;
         }
-        if (!thisStream->second.reqReader)
+
+        std::optional<bmcweb::HttpBody::reader>& reqReader =
+            thisStream->second.reqReader;
+        if (!reqReader)
         {
-            thisStream->second.reqReader.emplace(
-                thisStream->second.req.req.base(),
-                thisStream->second.req.req.body());
+            BMCWEB_LOG_ERROR("No reader init {}", streamId);
+            close();
+            return -1;
         }
         boost::beast::error_code ec;
-        thisStream->second.reqReader->put(boost::asio::const_buffer(data, len),
-                                          ec);
+        reqReader->put(boost::asio::const_buffer(data, len), ec);
         if (ec)
         {
             BMCWEB_LOG_CRITICAL("Failed to write payload");
