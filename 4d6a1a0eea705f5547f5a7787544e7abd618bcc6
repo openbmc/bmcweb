@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2525aa0_5079fb8a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 28
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-18T18:23:31Z",
+      "side": 1,
+      "message": "Can you please help to review https://gerrit.openbmc.org/c/openbmc/bmcweb/+/69922\n\nWhich was checked in ahead of this latest patch?  It is doing some schema unpacking cleanups that will effect this patch.",
+      "revId": "4d6a1a0eea705f5547f5a7787544e7abd618bcc6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd7d2a6e_1ac726b3",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-18T18:23:31Z",
+      "side": 1,
+      "message": "You\u0027ve invented a new type here, mostly it looks like because you want to push in abstract argument types so you can define 1 verifyParameter.\n\nJust create two versions of verifyParameter\n\nverifyParameterStr()\n\nverifyParameterArray()\n\nThat will delete a significant amount of code.",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 44
+      },
+      "revId": "4d6a1a0eea705f5547f5a7787544e7abd618bcc6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e706698_bb25aca8",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-18T18:23:31Z",
+      "side": 1,
+      "message": "nullopt dereference.",
+      "range": {
+        "startLine": 102,
+        "startChar": 56,
+        "endLine": 102,
+        "endChar": 65
+      },
+      "revId": "4d6a1a0eea705f5547f5a7787544e7abd618bcc6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78df89cf_3901d761",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-18T18:23:31Z",
+      "side": 1,
+      "message": "std::get is banned by name.",
+      "range": {
+        "startLine": 102,
+        "startChar": 33,
+        "endLine": 102,
+        "endChar": 54
+      },
+      "revId": "4d6a1a0eea705f5547f5a7787544e7abd618bcc6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80e26afc_b83b3fcb",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-18T18:23:31Z",
+      "side": 1,
+      "message": "Every single one of these branches looks identical?",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 127,
+        "endChar": 0
+      },
+      "revId": "4d6a1a0eea705f5547f5a7787544e7abd618bcc6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "733a6e4f_84ab7f18",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-18T18:23:31Z",
+      "side": 1,
+      "message": "Same here?",
+      "range": {
+        "startLine": 137,
+        "startChar": 0,
+        "endLine": 151,
+        "endChar": 13
+      },
+      "revId": "4d6a1a0eea705f5547f5a7787544e7abd618bcc6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cdbf597_4929a15f",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-18T18:23:31Z",
+      "side": 1,
+      "message": "Please keep this as a method outside the class.  Having it as a member variable implies that we\u0027re going to construct this several times.",
+      "range": {
+        "startLine": 617,
+        "startChar": 0,
+        "endLine": 725,
+        "endChar": 5
+      },
+      "revId": "4d6a1a0eea705f5547f5a7787544e7abd618bcc6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3717b4d_1c19cc34",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-18T18:23:31Z",
+      "side": 1,
+      "message": "This type looked like it changed?  Can that be done in another patch?",
+      "range": {
+        "startLine": 736,
+        "startChar": 0,
+        "endLine": 736,
+        "endChar": 43
+      },
+      "revId": "4d6a1a0eea705f5547f5a7787544e7abd618bcc6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a56e11af_1d604ec8",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 1227,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-18T18:23:31Z",
+      "side": 1,
+      "message": "Non trivial lambda.  Please follow the coding standards.",
+      "range": {
+        "startLine": 1214,
+        "startChar": 0,
+        "endLine": 1227,
+        "endChar": 9
+      },
+      "revId": "4d6a1a0eea705f5547f5a7787544e7abd618bcc6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
