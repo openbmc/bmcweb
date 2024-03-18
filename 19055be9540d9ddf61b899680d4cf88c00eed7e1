@@ -45,6 +45,29 @@
       },
       "revId": "19055be9540d9ddf61b899680d4cf88c00eed7e1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62a16014_88a08315",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-18T18:14:13Z",
+      "side": 1,
+      "message": "How do we know we\u0027re getting the power cap for THIS chassis?  Previously we got the global object, so it didn\u0027t really matter (all chassis would set the same power cap) but now that we\u0027re looking up services, there needs to be a provision for looking up a power cap for a single chassis.",
+      "range": {
+        "startLine": 326,
+        "startChar": 0,
+        "endLine": 328,
+        "endChar": 62
+      },
+      "revId": "19055be9540d9ddf61b899680d4cf88c00eed7e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
