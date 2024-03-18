@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d848f0c6_0ec3a784",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-18T16:57:54Z",
+      "side": 1,
+      "message": "please read and understand DBUS_USAGE.md.  Power cap services should be optional, treating a missing power cap as a 500 error doesn\u0027t meet that intent.",
+      "range": {
+        "startLine": 250,
+        "startChar": 0,
+        "endLine": 250,
+        "endChar": 66
+      },
+      "revId": "19055be9540d9ddf61b899680d4cf88c00eed7e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "224e3710_e542a2b0",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-18T16:57:54Z",
+      "side": 1,
+      "message": "same here.",
+      "range": {
+        "startLine": 257,
+        "startChar": 0,
+        "endLine": 257,
+        "endChar": 66
+      },
+      "revId": "19055be9540d9ddf61b899680d4cf88c00eed7e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
