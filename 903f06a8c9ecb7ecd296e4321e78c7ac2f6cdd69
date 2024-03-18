@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2371cf56_49f53182",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-03-18T17:23:27Z",
+      "side": 1,
+      "message": "I\u0027ll rephrase the commit msg.  \nMultiple attached modules may have the devices like with the similar patterns -\n\nFor example :\n- chassis1/io_module1/adapter1\n- chassis2/io_module1/adapter1\n\nIn that case, redfish output via bmcweb will show them as same.",
+      "parentUuid": "eca02937_d7dcd16d",
+      "range": {
+        "startLine": 13,
+        "startChar": 35,
+        "endLine": 13,
+        "endChar": 41
+      },
+      "revId": "903f06a8c9ecb7ecd296e4321e78c7ac2f6cdd69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "79e76812_50758438",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
