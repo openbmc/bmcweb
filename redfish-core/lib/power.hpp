@@ -33,7 +33,8 @@ namespace redfish
 
 inline void afterGetPowerCapEnable(
     const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
-    uint32_t valueToSet, const boost::system::error_code& ec,
+    uint32_t valueToSet, const std::string& powerCapService,
+    const std::string& pcap_path, const boost::system::error_code& ec,
     bool powerCapEnable)
 {
     if (ec)
@@ -52,7 +53,7 @@ inline void afterGetPowerCapEnable(
     }
 
     sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+        *crow::connections::systemBus, powerCapService,
         "/xyz/openbmc_project/control/host0/power_cap",
         "xyz.openbmc_project.Control.Power.Cap", "PowerCap", valueToSet,
         [sensorsAsyncResp](const boost::system::error_code& ec2) {
@@ -65,6 +66,34 @@ inline void afterGetPowerCapEnable(
         sensorsAsyncResp->asyncResp->res.result(
             boost::beast::http::status::no_content);
     });
+}
+
+inline void afterGetDbusObjectPatch(
+    const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
+    uint32_t valueToSet, const std::string& pcap_path,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetObject& objects)
+{
+    std::string powerCapService;
+    if (ec)
+    {
+        BMCWEB_LOG_WARNING("powerCapEnable Get handler: Dbus error {}", ec);
+        return;
+    }
+
+    if (objects.size() != 1)
+    {
+        BMCWEB_LOG_WARNING(
+            "Unexpected number of Power cap services found: {}, Expected: 1",
+            objects.size());
+        return;
+    }
+    powerCapService = objects[0].first;
+    sdbusplus::asio::getProperty<bool>(
+        *crow::connections::systemBus, powerCapService, pcap_path,
+        "xyz.openbmc_project.Control.Power.Cap", "PowerCapEnable",
+        std::bind_front(afterGetPowerCapEnable, sensorsAsyncResp, valueToSet,
+                        powerCapService, pcap_path));
 }
 
 inline void afterGetChassisPath(
@@ -110,11 +139,15 @@ inline void afterGetChassisPath(
     {
         return;
     }
-    sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/control/host0/power_cap",
-        "xyz.openbmc_project.Control.Power.Cap", "PowerCapEnable",
-        std::bind_front(afterGetPowerCapEnable, sensorsAsyncResp, *value));
+
+    std::string pcap_path = "/xyz/openbmc_project/control/" +
+                            sensorsAsyncResp->chassisId + "/power_cap";
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.Control.Power.Cap"};
+    dbus::utility::getDbusObject(pcap_path, interfaces,
+                                 std::bind_front(afterGetDbusObjectPatch,
+                                                 sensorsAsyncResp, *value,
+                                                 pcap_path));
 }
 
 inline void afterPowerCapSettingGet(
@@ -209,6 +242,36 @@ inline void afterPowerCapSettingGet(
     }
 }
 
+inline void afterGetDbusObjectGetSettings(
+    const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
+    const std::string& pcap_path, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetObject& objects)
+{
+    std::string powerCapService;
+    if (ec)
+    {
+        BMCWEB_LOG_WARNING("powerCapEnable Get handler: Dbus error {}", ec);
+        return;
+    }
+
+    if (objects.size() != 1)
+    {
+        BMCWEB_LOG_WARNING(
+            "Unexpected number of Power cap services found: {}, Expected: 1",
+            objects.size());
+        return;
+    }
+    powerCapService = objects[0].first;
+    sdbusplus::asio::getAllProperties(
+        *crow::connections::systemBus, powerCapService,
+        "/xyz/openbmc_project/control/host0/power_cap",
+        "xyz.openbmc_project.Control.Power.Cap",
+        [sensorsAsyncResp](const boost::system::error_code& ec2,
+                           const dbus::utility::DBusPropertiesMap& properties
+
+        ) { afterPowerCapSettingGet(sensorsAsyncResp, ec2, properties); });
+}
+
 using Mapper = dbus::utility::MapperGetSubTreePathsResponse;
 inline void
     afterGetChassis(const std::shared_ptr<SensorsAsyncResp>& sensorAsyncResp,
@@ -259,14 +322,13 @@ inline void
         return;
     }
 
-    sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/control/host0/power_cap",
-        "xyz.openbmc_project.Control.Power.Cap",
-        [sensorAsyncResp](const boost::system::error_code& ec,
-                          const dbus::utility::DBusPropertiesMap& properties
-
-        ) { afterPowerCapSettingGet(sensorAsyncResp, ec, properties); });
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.Control.Power.Cap"};
+    std::string pcap_path = "/xyz/openbmc_project/control/" +
+                            sensorsAsyncResp->chassisId + "/power_cap";
+    dbus::utility::getDbusObject(pcap_path, interfaces,
+                                 std::bind_front(afterGetDbusObjectGetSettings,
+                                                 sensorAsyncResp, pcap_path));
 }
 
 inline void
