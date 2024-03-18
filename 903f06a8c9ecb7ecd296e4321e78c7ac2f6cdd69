@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eca02937_d7dcd16d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-18T17:02:03Z",
+      "side": 1,
+      "message": "There\u0027s only one host here, why are unique paths important?",
+      "range": {
+        "startLine": 13,
+        "startChar": 35,
+        "endLine": 13,
+        "endChar": 41
+      },
+      "revId": "903f06a8c9ecb7ecd296e4321e78c7ac2f6cdd69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79e76812_50758438",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-18T17:02:03Z",
+      "side": 1,
+      "message": "This seems worse.  The intent originally is that this disambiguation should be pushed onto the individual DBus daemon implementations, such that non-complicated systems can have simple naming (pcie1, pcie2, etc) and complex systems can do complicated schemes like what you proposed (chassisN_io_moduleN_slotN_adapterN).  In this way, the system itself can decide if the PCIe devices should be.  bmcweb should not be making that decision.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 37
+      },
+      "revId": "903f06a8c9ecb7ecd296e4321e78c7ac2f6cdd69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
