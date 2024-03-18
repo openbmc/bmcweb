@@ -16,6 +16,24 @@
       "message": "this is a bit more than unit tests, it some refactoring.. It would be good to state that.",
       "revId": "e6ba6b9ab89a26c62a5f47ab9f8c01d101a2c5e8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88634e99_a442f3ac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 23
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-18T11:53:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8471a337_c6a4241e",
+      "revId": "e6ba6b9ab89a26c62a5f47ab9f8c01d101a2c5e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
