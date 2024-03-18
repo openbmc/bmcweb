@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "845e82d5_9f1e2be8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-18T17:51:46Z",
+      "side": 1,
+      "message": "\u003e I\u0027ll rephrase the commit msg.  \n\u003e Multiple attached modules may have the devices like with the similar patterns -\n\u003e \n\u003e For example :\n\u003e - chassis1/io_module1/adapter1\n\u003e - chassis2/io_module1/adapter1\n\nYou\u0027re not making edits to ChassisCollection, where your statement would make more sense, you\u0027re making change to ComputerSystemCollection, which there is only currently one.\n\nIf you\u0027re planning on taking over the multi-host work, that\u0027s a MUCH larger conversation that needs to happen outside this patch.\n\n\u003e \n\u003e In that case, redfish output via bmcweb will show them as same.\n\nPlease come up with an example that actually applies to this patch.  I get the feeling like you\u0027re moving toward an overall direction that you haven\u0027t really made clear.",
+      "parentUuid": "2371cf56_49f53182",
+      "range": {
+        "startLine": 13,
+        "startChar": 35,
+        "endLine": 13,
+        "endChar": 41
+      },
+      "revId": "903f06a8c9ecb7ecd296e4321e78c7ac2f6cdd69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "79e76812_50758438",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
