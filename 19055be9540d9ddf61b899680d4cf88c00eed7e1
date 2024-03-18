@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0574de31_42d29f00",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1000985
+      },
+      "writtenOn": "2024-03-18T18:18:49Z",
+      "side": 1,
+      "message": "In the original implementation, it was assumed that Settings service will be supporting power cap interface and in case it fails it reported internal error. In this change I am doing the similar check earlier.\n\n```\n            crow::connections::systemBus-\u003easync_method_call(\n                [sensorsAsyncResp](const boost::system::error_code\u0026 ec2) {\n                if (ec2)\n                {\n                    BMCWEB_LOG_DEBUG \u003c\u003c \"Power Limit Set: Dbus error: \" \u003c\u003c ec2;\n                    messages::internalError(sensorsAsyncResp-\u003easyncResp-\u003eres);\n                    return;\n                }\n                sensorsAsyncResp-\u003easyncResp-\u003eres.result(\n                    boost::beast::http::status::no_content);\n                },\n                \"xyz.openbmc_project.Settings\",\n                \"/xyz/openbmc_project/control/host0/power_cap\",\n                \"org.freedesktop.DBus.Properties\", \"Set\",\n                \"xyz.openbmc_project.Control.Power.Cap\", \"PowerCap\",\n                std::variant\u003cuint32_t\u003e(*value));\n            });\n```\n\nDo you suggest using a different type of error or just return a warning message?",
+      "parentUuid": "d848f0c6_0ec3a784",
+      "range": {
+        "startLine": 250,
+        "startChar": 0,
+        "endLine": 250,
+        "endChar": 66
+      },
+      "revId": "19055be9540d9ddf61b899680d4cf88c00eed7e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "224e3710_e542a2b0",
         "filename": "redfish-core/lib/power.hpp",
         "patchSetId": 14
