@@ -66,9 +66,11 @@ using DBusInterfacesMap =
 using ManagedObjectType =
     std::vector<std::pair<sdbusplus::message::object_path, DBusInterfacesMap>>;
 
+// List of interfaces
+using InterfaceList = std::vector<std::string>;
+
 // Map of service name to list of interfaces
-using MapperServiceMap =
-    std::vector<std::pair<std::string, std::vector<std::string>>>;
+using MapperServiceMap = std::vector<std::pair<std::string, InterfaceList>>;
 
 // Map of object paths to MapperServiceMaps
 using MapperGetSubTreeResponse =
