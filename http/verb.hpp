@@ -67,7 +67,7 @@ inline std::string_view httpVerbToString(HttpVerb verb)
             return "PUT";
         case HttpVerb::Options:
             return "OPTIONS";
-        case HttpVerb::Max:
+        default:
             return "";
     }
 
