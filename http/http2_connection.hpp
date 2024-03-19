@@ -396,49 +396,47 @@ class HTTP2Connection :
 
         BMCWEB_LOG_DEBUG("on_header_callback name: {} value {}", nameSv,
                          valueSv);
-
-        switch (frame.hd.type)
+        if (frame.hd.type != NGHTTP2_HEADERS)
         {
-            case NGHTTP2_HEADERS:
-                if (frame.headers.cat != NGHTTP2_HCAT_REQUEST)
-                {
-                    break;
-                }
-                auto thisStream = streams.find(frame.hd.stream_id);
-                if (thisStream == streams.end())
-                {
-                    BMCWEB_LOG_ERROR("Unknown stream{}", frame.hd.stream_id);
-                    close();
-                    return -1;
-                }
+            return 0;
+        }
+        if (frame.headers.cat != NGHTTP2_HCAT_REQUEST)
+        {
+            return 0;
+        }
+        auto thisStream = streams.find(frame.hd.stream_id);
+        if (thisStream == streams.end())
+        {
+            BMCWEB_LOG_ERROR("Unknown stream{}", frame.hd.stream_id);
+            close();
+            return -1;
+        }
 
-                crow::Request& thisReq = thisStream->second.req;
+        crow::Request& thisReq = thisStream->second.req;
 
-                if (nameSv == ":path")
-                {
-                    thisReq.target(valueSv);
-                }
-                else if (nameSv == ":method")
-                {
-                    boost::beast::http::verb verb =
-                        boost::beast::http::string_to_verb(valueSv);
-                    if (verb == boost::beast::http::verb::unknown)
-                    {
-                        BMCWEB_LOG_ERROR("Unknown http verb {}", valueSv);
-                        close();
-                        return -1;
-                    }
-                    thisReq.req.method(verb);
-                }
-                else if (nameSv == ":scheme")
-                {
-                    // Nothing to check on scheme
-                }
-                else
-                {
-                    thisReq.req.set(nameSv, valueSv);
-                }
-                break;
+        if (nameSv == ":path")
+        {
+            thisReq.target(valueSv);
+        }
+        else if (nameSv == ":method")
+        {
+            boost::beast::http::verb verb =
+                boost::beast::http::string_to_verb(valueSv);
+            if (verb == boost::beast::http::verb::unknown)
+            {
+                BMCWEB_LOG_ERROR("Unknown http verb {}", valueSv);
+                close();
+                return -1;
+            }
+            thisReq.req.method(verb);
+        }
+        else if (nameSv == ":scheme")
+        {
+            // Nothing to check on scheme
+        }
+        else
+        {
+            thisReq.req.set(nameSv, valueSv);
         }
         return 0;
     }
