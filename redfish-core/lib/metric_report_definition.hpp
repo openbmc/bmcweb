@@ -763,7 +763,7 @@ class AddReport
   private:
     std::shared_ptr<bmcweb::AsyncResp> asyncResp;
     AddReportArgs args;
-    boost::container::flat_map<std::string, std::string> uriToDbus{};
+    boost::container::flat_map<std::string, std::string> uriToDbus;
 };
 
 class UpdateMetrics
@@ -881,7 +881,7 @@ class UpdateMetrics
 
     const std::shared_ptr<bmcweb::AsyncResp> asyncResp;
     std::vector<std::vector<std::string>> readingParamsUris;
-    ReadingParameters readingParams{};
+    ReadingParameters readingParams;
 };
 
 inline void
