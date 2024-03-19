@@ -319,7 +319,7 @@ class Trie
                     case ParamType::PATH:
                         BMCWEB_LOG_DEBUG("<path>");
                         break;
-                    case ParamType::MAX:
+                    default:
                         BMCWEB_LOG_DEBUG("<ERROR>");
                         break;
                 }
