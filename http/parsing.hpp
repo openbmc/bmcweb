@@ -20,7 +20,9 @@ enum class JsonParseResult
 inline bool isJsonContentType(std::string_view contentType)
 {
     return bmcweb::asciiIEquals(contentType, "application/json") ||
-           bmcweb::asciiIEquals(contentType, "application/json; charset=utf-8");
+           bmcweb::asciiIEquals(contentType,
+                                "application/json; charset=utf-8") ||
+           bmcweb::asciiIEquals(contentType, "application/json;charset=utf-8");
 }
 
 inline JsonParseResult parseRequestAsJson(const crow::Request& req,
