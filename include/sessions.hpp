@@ -41,8 +41,8 @@ struct UserSession
     PersistenceType persistence{PersistenceType::TIMEOUT};
     bool cookieAuth = false;
     bool isConfigureSelfOnly = false;
-    std::string userRole{};
-    std::vector<std::string> userGroups{};
+    std::string userRole;
+    std::vector<std::string> userGroups;
 
     // There are two sources of truth for isConfigureSelfOnly:
     //  1. When pamAuthenticateUser() returns PAM_NEW_AUTHTOK_REQD.
@@ -256,11 +256,19 @@ class SessionStore
             }
         }
 
-        auto session = std::make_shared<UserSession>(UserSession{
-            uniqueId, sessionToken, std::string(username), csrfToken, clientId,
-            redfish::ip_util::toString(clientIp),
-            std::chrono::steady_clock::now(), persistence, false,
-            isConfigureSelfOnly});
+        auto session = std::make_shared<UserSession>(
+            UserSession{uniqueId,
+                        sessionToken,
+                        std::string(username),
+                        csrfToken,
+                        clientId,
+                        redfish::ip_util::toString(clientIp),
+                        std::chrono::steady_clock::now(),
+                        persistence,
+                        false,
+                        isConfigureSelfOnly,
+                        "",
+                        {}});
         auto it = authTokens.emplace(sessionToken, session);
         // Only need to write to disk if session isn't about to be destroyed.
         needWrite = persistence == PersistenceType::TIMEOUT;

@@ -180,7 +180,10 @@ struct Query
     std::optional<size_t> top = std::nullopt;
 
     // Select
-    SelectTrie selectTrie = {};
+    // Unclear how to make this use structured initialization without this.
+    // Might be a tidy bug?  Ignore for now
+    // NOLINTNEXTLINE(readability-redundant-member-init)
+    SelectTrie selectTrie{};
 };
 
 // The struct defines how resource handlers in redfish-core/lib/ can handle
