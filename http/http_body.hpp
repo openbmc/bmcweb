@@ -16,9 +16,12 @@ namespace bmcweb
 {
 struct HttpBody
 {
+    // Body concept requires specific naming of classes
+    // NOLINTBEGIN(readability-identifier-naming)
     class writer;
     class reader;
     class value_type;
+    // NOLINTEND(readability-identifier-naming)
 };
 
 enum class EncodingType
