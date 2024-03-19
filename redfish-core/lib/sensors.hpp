@@ -703,7 +703,7 @@ inline void setLedState(nlohmann::json& sensorJson,
             case LedState::BLINK:
                 sensorJson["IndicatorLED"] = "Blinking";
                 break;
-            case LedState::UNKNOWN:
+            default:
                 break;
         }
     }
