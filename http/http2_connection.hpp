@@ -38,9 +38,9 @@ namespace crow
 
 struct Http2StreamData
 {
-    Request req{};
+    Request req;
     std::optional<bmcweb::HttpBody::reader> reqReader;
-    Response res{};
+    Response res;
     std::optional<bmcweb::HttpBody::writer> writer;
 };
 
