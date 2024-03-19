@@ -63,14 +63,14 @@ struct LDAPRoleMapData
 
 struct LDAPConfigData
 {
-    std::string uri{};
-    std::string bindDN{};
-    std::string baseDN{};
-    std::string searchScope{};
-    std::string serverType{};
+    std::string uri;
+    std::string bindDN;
+    std::string baseDN;
+    std::string searchScope;
+    std::string serverType;
     bool serviceEnabled = false;
-    std::string userNameAttribute{};
-    std::string groupAttribute{};
+    std::string userNameAttribute;
+    std::string groupAttribute;
     std::vector<std::pair<std::string, LDAPRoleMapData>> groupRoleList;
 };
 
