@@ -532,7 +532,7 @@ static void dump(std::string& out, const nlohmann::json& val)
             out += "null";
             return;
         }
-        case nlohmann::json::value_t::binary:
+        default:
         {
             // Do nothing;  Should never happen.
             return;

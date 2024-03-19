@@ -164,6 +164,7 @@ if (cxx.get_id() == 'clang')
       '-Wno-weak-vtables',
       '-Wno-switch-enum',
       '-Wno-unused-macros',
+      '-Wno-covered-switch-default',
   ]),
   language:'cpp')
 endif
