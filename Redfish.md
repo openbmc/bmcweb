@@ -197,7 +197,6 @@ Fields common to all schemas
 - HotPluggable
 - Links/ComputerSystems
 - Links/ManagedBy
-- PCIeDevices
 - PCIeSlots
 - Power
   - Shall be included if component contains voltage/current sensing components,
