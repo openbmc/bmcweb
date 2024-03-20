@@ -140,6 +140,30 @@
       },
       "revId": "19055be9540d9ddf61b899680d4cf88c00eed7e1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d74c8621_556dbf9c",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1000985
+      },
+      "writtenOn": "2024-03-20T00:01:19Z",
+      "side": 1,
+      "message": "We also make sure there is only one object/service implementing powercap interface, that should take care of the requirement right?\n\n```\n    if (objects.size() !\u003d 1)\n    {\n        BMCWEB_LOG_WARNING(\n            \"Unexpected number of Power cap services found: {}, Expected: 1\",\n            objects.size());\n        return;\n    }\n```",
+      "parentUuid": "62a16014_88a08315",
+      "range": {
+        "startLine": 326,
+        "startChar": 0,
+        "endLine": 328,
+        "endChar": 62
+      },
+      "revId": "19055be9540d9ddf61b899680d4cf88c00eed7e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
