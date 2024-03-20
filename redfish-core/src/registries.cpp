@@ -5,7 +5,11 @@
 #include "str_utility.hpp"
 
 #include <ranges>
+#include <algorithm>
+#include <cstring>
+#include <span>
 #include <string>
+#include <string_view>
 #include <vector>
 
 namespace redfish::registries
