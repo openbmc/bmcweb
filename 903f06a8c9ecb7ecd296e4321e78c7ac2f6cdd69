@@ -93,6 +93,30 @@
       },
       "revId": "903f06a8c9ecb7ecd296e4321e78c7ac2f6cdd69",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4a71602_b5b18ad0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2024-03-20T10:50:03Z",
+      "side": 1,
+      "message": "\u003e This seems worse.  The intent originally is that this disambiguation should be pushed onto the individual DBus daemon implementations, such that non-complicated systems can have simple naming (pcie1, pcie2, etc) and complex systems can do complicated schemes like what you proposed (chassisN_io_moduleN_slotN_adapterN).  In this way, the system itself can decide if the PCIe devices should be. \n\n@ed - I\u0027m a bit puzzled by your mention of \"complex systems\" here, as I perceive this as more of a general issue concerning how we populate redfish resources, particularly those not directly associated with the chassis, even in relatively straightforward systems.\n\nFor instance, let\u0027s consider two distinct dbus objects:\n\n- slot1[hosts Item.PCIeSlot interface]/adapter1[hosts Item.PCIeDevice]\n- slot2[hosts Item.PCIeSlot interface]/adapter1[hosts Item.PCIeDevice]\n\nEven though these objects are located within the same chassis, they aren\u0027t recognized as unique redfish resources according to the current logic of bmcweb. This is because bmcweb only takes into account the leaf node in the path (adapter1) when populating the redfish resource.\n\n\u003e bmcweb should not be making that decision.\n\nbmcweb serves as the bridge translating the dbus data to redfish right ? In the scenario described, both dbus objects appear distinct and unique, given their differing parents and separate observation by the mapper as two distinct entities. However, bmcweb appears to treat them as identical, generating a single redfish resource due to its consideration solely of the leaf node in the path. Might it be beneficial for bmcweb to employ more comprehensive logic in discerning the uniqueness of dbus objects? I find myself questioning the appropriateness of bmcweb imposing this requirement on other applications. If indeed this is a requisite being enforced on applications, would it not be prudent for it to be formally documented?",
+      "parentUuid": "79e76812_50758438",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 37
+      },
+      "revId": "903f06a8c9ecb7ecd296e4321e78c7ac2f6cdd69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
