@@ -3,6 +3,7 @@
 #include <event_service_manager.hpp>
 #include <resource_messages.hpp>
 
+#include <format>
 #include <memory>
 #include <string>
 #include <variant>
@@ -12,6 +13,7 @@ namespace crow
 namespace dbus_monitor
 {
 
+// NOLINTBEGIN(cppcoreguidelines-avoid-non-const-global-variables)
 static std::shared_ptr<sdbusplus::bus::match::match> matchHostStateChange;
 static std::shared_ptr<sdbusplus::bus::match::match> matchBMCStateChange;
 static std::shared_ptr<sdbusplus::bus::match::match>
@@ -28,6 +30,7 @@ static std::shared_ptr<sdbusplus::bus::match::match> matchPlatformSAIChange;
 static std::shared_ptr<sdbusplus::bus::match::match> matchPartitionSAIChange;
 
 static uint64_t postCodeCounter = 0;
+// NOLINTEND(cppcoreguidelines-avoid-non-const-global-variables)
 
 void registerHostStateChangeSignal();
 void registerBMCStateChangeSignal();
@@ -41,6 +44,9 @@ void registerBootProgressChangeSignal();
 void registerEventLogCreatedSignal();
 void registerPostCodeChangeSignal();
 void registerSAIStateChangeSignal();
+void registerDumpUpdateSignal();
+void registerStateChangeSignal();
+void registerVMIConfigChangeSignal();
 
 inline void sendEventOnEthIntf(const std::string& origin)
 {
@@ -174,7 +180,6 @@ inline void bootProgressPropertyChange(sdbusplus::message::message& msg)
     std::string* type = std::get_if<std::string>(&(find->second));
     if (type != nullptr)
     {
-        BMCWEB_LOG_DEBUG << *type;
         // Push an event
         std::string origin = "/redfish/v1/Systems/system";
         redfish::EventServiceManager::getInstance().sendEvent(
@@ -365,14 +370,14 @@ void registerEventLogCreatedSignal()
         eventLogCreatedSignal);
 }
 
-static void registerStateChangeSignal()
+void registerStateChangeSignal()
 {
     registerHostStateChangeSignal();
     registerBMCStateChangeSignal();
     registerBootProgressChangeSignal();
 }
 
-static void registerVMIConfigChangeSignal()
+void registerVMIConfigChangeSignal()
 {
     registerVMIIPEnabledPropChangeSignal();
     registerVMIIPChangeSignal();
@@ -424,8 +429,6 @@ inline void dumpCreatedSignal(sdbusplus::message::message& msg)
         *propValue ==
             "xyz.openbmc_project.Common.Progress.OperationStatus.Completed")
     {
-        BMCWEB_LOG_DEBUG << "Sending event\n";
-
         std::string eventOrigin;
         // Push an event
         if (dumpType == "bmc")
@@ -565,7 +568,7 @@ void registerDumpDeletedSignal()
         dumpDeletedSignal);
 }
 
-static void registerDumpUpdateSignal()
+void registerDumpUpdateSignal()
 {
     registerDumpCreatedSignal();
     registerDumpDeletedSignal();

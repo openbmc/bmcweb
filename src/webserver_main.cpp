@@ -24,6 +24,7 @@
 #include <systemd/sd-daemon.h>
 
 #include <boost/asio/io_context.hpp>
+#include <event_dbus_monitor.hpp>
 #include <sdbusplus/asio/connection.hpp>
 #include <sdbusplus/bus.hpp>
 #include <sdbusplus/server.hpp>
