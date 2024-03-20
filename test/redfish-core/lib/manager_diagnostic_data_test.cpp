@@ -1,8 +1,13 @@
 #include "async_resp.hpp"
 #include "manager_diagnostic_data.hpp"
 
+#include <boost/asio/error.hpp>
+#include <boost/beast/http/status.hpp>
+#include <boost/system/linux_error.hpp>
 #include <nlohmann/json.hpp>
 
+#include <cstdint>
+#include <limits>
 #include <memory>
 
 #include <gtest/gtest.h>

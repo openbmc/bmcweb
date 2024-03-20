@@ -1,13 +1,19 @@
 #include "credential_pipe.hpp"
 
+#include <unistd.h>
+
 #include <boost/asio/io_context.hpp>
 #include <boost/asio/read.hpp>
 #include <boost/asio/readable_pipe.hpp>
 #include <boost/system/error_code.hpp>
 
+#include <array>
+#include <cstddef>
+#include <functional>
 #include <string>
 
 #include <gmock/gmock.h>
+#include <gtest/gtest.h>
 
 using ::testing::ElementsAre;
 

@@ -1,6 +1,7 @@
 #include "utils/stl_utils.hpp"
 
 #include <string>
+#include <vector>
 
 #include <gmock/gmock.h> // IWYU pragma: keep
 #include <gtest/gtest.h> // IWYU pragma: keep

@@ -1,11 +1,15 @@
 #include "file_test_utilities.hpp"
 #include "http_body.hpp"
 
+#include <boost/beast/core/file_base.hpp>
 #include <boost/system/error_code.hpp>
 
 #include <array>
+#include <cstddef>
+#include <cstdio>
 #include <span>
 #include <string>
+#include <utility>
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>

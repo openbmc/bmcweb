@@ -1,7 +1,5 @@
 #include "ossl_random.hpp"
 
-#include <string>
-
 #include <gmock/gmock.h> // IWYU pragma: keep
 #include <gtest/gtest.h> // IWYU pragma: keep
 

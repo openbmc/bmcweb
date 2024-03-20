@@ -1,7 +1,9 @@
 #include "ossl_random.hpp"
 
-#include <boost/uuid/uuid_generators.hpp>
+#include <boost/uuid/random_generator.hpp>
 #include <boost/uuid/uuid_io.hpp>
+
+#include <string>
 
 std::string bmcweb::getRandomUUID()
 {
