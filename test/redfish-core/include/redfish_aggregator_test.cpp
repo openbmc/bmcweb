@@ -108,7 +108,6 @@ TEST(addPrefixToItem, UnsupportedURIs)
         for (const auto& id : validIDs)
         {
             std::string initial("/redfish/v1/" + std::string(root) + "/");
-            std::string correct(initial + "asdfjkl_" + std::string(id));
             initial += id;
             jsonRequest["@odata.id"] = initial;
             addPrefixToItem(jsonRequest["@odata.id"], "asdfjkl");
