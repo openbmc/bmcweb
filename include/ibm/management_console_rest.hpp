@@ -213,7 +213,6 @@ inline void handleFilePut(const crow::Request& req,
     }
     file << data;
 
-    std::string origin = "/ibm/v1/Host/ConfigFiles/" + fileID;
     // Push an event
     if (fileExists)
     {
