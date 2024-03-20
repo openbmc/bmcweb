@@ -1,11 +1,18 @@
 #include "credential_pipe.hpp"
 
+#include <unistd.h>
+
 #include <boost/asio/io_context.hpp>
 #include <boost/beast/core/file_posix.hpp>
+#include <boost/system/detail/error_code.hpp>
 
+#include <array>
+#include <cstddef>
+#include <functional>
 #include <string>
 
 #include <gmock/gmock.h>
+#include <gtest/gtest.h>
 
 using ::testing::ElementsAre;
 
