@@ -30,7 +30,111 @@
 
 namespace redfish
 {
+struct MessageRegistries
+{
+    using MessageFileGet = std::function<void(const registries::Header*& header,
+                                              const char*& url)>;
+    using MessageGet = std::function<void(
+        const registries::Header*& header,
+        std::vector<const registries::MessageEntry*>& entries)>;
+    using MessageMap =
+        std::unordered_map<std::string, std::pair<MessageFileGet, MessageGet>>;
+    static auto makeFileGetter(auto& srcheader, auto& srcurl)
+    {
+        return [&srcheader, &srcurl](const registries::Header*& header,
+                                     const char*& url) {
+            header = &srcheader;
+            url = srcurl;
+        };
+    }
+    static auto makeMessageGetter(auto& srcheader, auto& registry)
+    {
+        return
+            [&srcheader, &registry](
+                const registries::Header*& header,
+                std::vector<const registries::MessageEntry*>& registryEntries) {
+            header = &srcheader;
+            for (const auto& entry : registry)
+            {
+                registryEntries.emplace_back(&entry);
+            }
+        };
+    }
 
+  private:
+    MessageMap messageRegistries;
+
+    MessageRegistries()
+    {
+        registerMessage(
+            "Base",
+            makeFileGetter(registries::base::header, registries::base::url),
+            makeMessageGetter(registries::base::header,
+                              registries::base::registry));
+
+        registerMessage("TaskEvent",
+                        makeFileGetter(registries::task_event::header,
+                                       registries::task_event::url),
+                        makeMessageGetter(registries::task_event::header,
+                                          registries::task_event::registry));
+
+        registerMessage(
+            "ResourceEvent",
+            makeFileGetter(registries::resource_event::header,
+                           registries::resource_event::url),
+            makeMessageGetter(registries::resource_event::header,
+                              registries::resource_event::registry));
+
+        registerMessage("OpenBMC", MessageFileGet(),
+                        makeMessageGetter(registries::openbmc::header,
+                                          registries::openbmc::registry));
+    }
+
+  public:
+    void registerMessage(const std::string& name, MessageFileGet&& fileGet,
+                         MessageGet&& messageGet)
+    {
+        messageRegistries[name] = std::make_pair(std::move(fileGet),
+                                                 std::move(messageGet));
+    }
+    void fillMemberNames(nlohmann::json& members)
+    {
+        for (const auto& [name, _] : messageRegistries)
+        {
+            nlohmann::json::object_t member;
+            member["@odata.id"] =
+                boost::urls::format("/redfish/v1/Registries/{}", name);
+            members.emplace_back(std::move(member));
+        }
+    }
+    void fillFileData(const std::string& name,
+                      const registries::Header*& header, const char*& url)
+    {
+        auto it = messageRegistries.find(name);
+        if (it != messageRegistries.end())
+        {
+            if (it->second.first)
+            {
+                it->second.first(header, url);
+            }
+        }
+    }
+    void fillMessageData(const std::string& name,
+                         const registries::Header*& header,
+                         std::vector<const registries::MessageEntry*>& entries)
+    {
+        auto it = messageRegistries.find(name);
+        if (it != messageRegistries.end())
+        {
+            it->second.second(header, entries);
+        }
+    }
+    static MessageRegistries& globalInstance()
+    {
+        static MessageRegistries global;
+        return global;
+    }
+};
 inline void handleMessageRegistryFileCollectionGet(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
@@ -51,14 +155,7 @@ inline void handleMessageRegistryFileCollectionGet(
     asyncResp->res.jsonValue["Members@odata.count"] = 4;
 
     nlohmann::json& members = asyncResp->res.jsonValue["Members"];
-    for (const char* memberName :
-         std::to_array({"Base", "TaskEvent", "ResourceEvent", "OpenBMC"}))
-    {
-        nlohmann::json::object_t member;
-        member["@odata.id"] = boost::urls::format("/redfish/v1/Registries/{}",
-                                                  memberName);
-        members.emplace_back(std::move(member));
-    }
+    MessageRegistries::globalInstance().fillMemberNames(members);
 }
 
 inline void requestRoutesMessageRegistryFileCollection(App& app)
@@ -85,27 +182,13 @@ inline void handleMessageRoutesMessageRegistryFileGet(
     std::string dmtf = "DMTF ";
     const char* url = nullptr;
 
-    if (registry == "Base")
-    {
-        header = &registries::base::header;
-        url = registries::base::url;
-    }
-    else if (registry == "TaskEvent")
-    {
-        header = &registries::task_event::header;
-        url = registries::task_event::url;
-    }
-    else if (registry == "OpenBMC")
+    if (registry == "OpenBMC")
     {
         header = &registries::openbmc::header;
         dmtf.clear();
     }
-    else if (registry == "ResourceEvent")
-    {
-        header = &registries::resource_event::header;
-        url = registries::resource_event::url;
-    }
-    else
+    MessageRegistries::globalInstance().fillFileData(registry, header, url);
+    if (header == nullptr)
     {
         messages::resourceNotFound(asyncResp->res, "MessageRegistryFile",
                                    registry);
@@ -159,42 +242,10 @@ inline void handleMessageRegistryGet(
     }
     const registries::Header* header = nullptr;
     std::vector<const registries::MessageEntry*> registryEntries;
-    if (registry == "Base")
-    {
-        header = &registries::base::header;
-        for (const registries::MessageEntry& entry : registries::base::registry)
-        {
-            registryEntries.emplace_back(&entry);
-        }
-    }
-    else if (registry == "TaskEvent")
-    {
-        header = &registries::task_event::header;
-        for (const registries::MessageEntry& entry :
-             registries::task_event::registry)
-        {
-            registryEntries.emplace_back(&entry);
-        }
-    }
-    else if (registry == "OpenBMC")
-    {
-        header = &registries::openbmc::header;
-        for (const registries::MessageEntry& entry :
-             registries::openbmc::registry)
-        {
-            registryEntries.emplace_back(&entry);
-        }
-    }
-    else if (registry == "ResourceEvent")
-    {
-        header = &registries::resource_event::header;
-        for (const registries::MessageEntry& entry :
-             registries::resource_event::registry)
-        {
-            registryEntries.emplace_back(&entry);
-        }
-    }
-    else
+    MessageRegistries::globalInstance().fillMessageData(registry, header,
+                                                        registryEntries);
+
+    if (header == nullptr)
     {
         messages::resourceNotFound(asyncResp->res, "MessageRegistryFile",
                                    registry);
