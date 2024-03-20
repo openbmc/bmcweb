@@ -1,5 +1,7 @@
 #include "dbus_singleton.hpp"
 
+#include <sdbusplus/asio/connection.hpp>
+
 namespace crow
 {
 namespace connections
