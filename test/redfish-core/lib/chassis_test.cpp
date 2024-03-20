@@ -6,9 +6,14 @@
 
 #include <boost/beast/core/string_type.hpp>
 #include <boost/beast/http/message.hpp>
+#include <boost/beast/http/verb.hpp>
 #include <nlohmann/json.hpp>
 
+#include <functional>
+#include <memory>
+#include <string>
 #include <system_error>
+#include <utility>
 
 #include <gtest/gtest.h>
 
