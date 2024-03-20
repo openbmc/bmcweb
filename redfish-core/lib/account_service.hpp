@@ -324,7 +324,7 @@ inline void parseLDAPConfigData(nlohmann::json& jsonResponse,
     std::string service = (ldapType == "LDAP") ? "LDAPService"
                                                : "ActiveDirectoryService";
 
-    nlohmann::json& ldap = jsonResponse[ldapType];
+    nlohmann::json& ldap = jsonResponse[service];
 
     ldap["ServiceEnabled"] = confData.serviceEnabled;
     ldap["ServiceAddresses"] = nlohmann::json::array({confData.uri});
