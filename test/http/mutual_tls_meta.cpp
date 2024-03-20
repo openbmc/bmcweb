@@ -1,5 +1,9 @@
 #include "http/mutual_tls_meta.hpp"
 
+#include <optional>
+#include <string>
+#include <vector>
+
 #include <gtest/gtest.h> // IWYU pragma: keep
 
 namespace redfish
