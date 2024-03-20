@@ -1,5 +1,8 @@
 
+#include "http_response.hpp"
 #include "update_service.hpp"
+
+#include <optional>
 
 #include <gtest/gtest.h>
 

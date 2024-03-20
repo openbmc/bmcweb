@@ -1,8 +1,20 @@
 #include "mutual_tls.hpp"
 
+#include "sessions.hpp"
+
+#include <openssl/asn1.h>
+#include <openssl/ec.h>
+#include <openssl/evp.h>
+#include <openssl/obj_mac.h>
+#include <openssl/types.h>
+#include <openssl/x509.h>
+#include <openssl/x509_vfy.h>
+#include <openssl/x509v3.h>
+
 #include <boost/asio/ip/address.hpp>
 #include <boost/asio/ssl/verify_context.hpp>
 
+#include <array>
 #include <memory>
 
 #include <gmock/gmock.h>
