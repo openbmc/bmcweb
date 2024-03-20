@@ -1,5 +1,11 @@
 #include "utils/time_utils.hpp"
 
+#include <chrono>
+#include <cstdint>
+#include <ctime>
+#include <limits>
+#include <optional>
+
 #include <gmock/gmock.h> // IWYU pragma: keep
 #include <gtest/gtest.h> // IWYU pragma: keep
 

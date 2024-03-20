@@ -1,7 +1,9 @@
 #include "utils/hex_utils.hpp"
 
 #include <cctype>
+#include <cstdint>
 #include <limits>
+#include <vector>
 
 #include <gmock/gmock.h> // IWYU pragma: keep
 #include <gtest/gtest.h> // IWYU pragma: keep
