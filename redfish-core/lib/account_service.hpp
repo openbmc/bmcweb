@@ -321,27 +321,37 @@ inline void parseLDAPConfigData(nlohmann::json& jsonResponse,
                                 const LDAPConfigData& confData,
                                 const std::string& ldapType)
 {
-    std::string service = (ldapType == "LDAP") ? "LDAPService"
-                                               : "ActiveDirectoryService";
-
-    nlohmann::json& ldap = jsonResponse[ldapType];
-
+    nlohmann::json::object_t ldap;
     ldap["ServiceEnabled"] = confData.serviceEnabled;
-    ldap["ServiceAddresses"] = nlohmann::json::array({confData.uri});
-    ldap["Authentication"]["AuthenticationType"] =
+    nlohmann::json::array_t serviceAddresses;
+    serviceAddresses.emplace_back(confData.uri);
+    ldap["ServiceAddresses"] = std::move(serviceAddresses);
+
+    nlohmann::json::object_t authentication;
+    authentication["AuthenticationType"] =
         account_service::AuthenticationTypes::UsernameAndPassword;
-    ldap["Authentication"]["Username"] = confData.bindDN;
-    ldap["Authentication"]["Password"] = nullptr;
+    authentication["Username"] = confData.bindDN;
+    authentication["Password"] = nullptr;
+    ldap["Authentication"] = std::move(authentication);
+    if (ldapType == "LDAP")
+    {
+        nlohmann::json::object_t ldapService;
+        nlohmann::json::object_t searchSettings;
+        nlohmann::json::array_t baseDistinguishedNames;
+        baseDistinguishedNames.emplace_back(confData.baseDN);
 
-    ldap["LDAPService"]["SearchSettings"]["BaseDistinguishedNames"] =
-        nlohmann::json::array({confData.baseDN});
-    ldap["LDAPService"]["SearchSettings"]["UsernameAttribute"] =
-        confData.userNameAttribute;
-    ldap["LDAPService"]["SearchSettings"]["GroupsAttribute"] =
-        confData.groupAttribute;
+        searchSettings["BaseDistinguishedNames"] =
+            std::move(baseDistinguishedNames);
+        searchSettings["UsernameAttribute"] = confData.userNameAttribute;
+        searchSettings["GroupsAttribute"] = confData.groupAttribute;
+        ldapService["SearchSettings"] = std::move(searchSettings);
+        std::string service = (ldapType == "LDAP") ? "LDAPService"
+                                                   : "ActiveDirectoryService";
 
-    nlohmann::json& roleMapArray = ldap["RemoteRoleMapping"];
-    roleMapArray = nlohmann::json::array();
+        ldap["LDAPService"] = std::move(ldapService);
+    }
+
+    nlohmann::json::array_t roleMapArray;
     for (const auto& obj : confData.groupRoleList)
     {
         BMCWEB_LOG_DEBUG("Pushing the data groupName={}", obj.second.groupName);
@@ -351,6 +361,10 @@ inline void parseLDAPConfigData(nlohmann::json& jsonResponse,
         remoteGroup["LocalRole"] = getRoleIdFromPrivilege(obj.second.privilege);
         roleMapArray.emplace_back(std::move(remoteGroup));
     }
+
+    ldap["RemoteRoleMapping"] = std::move(roleMapArray);
+
+    jsonResponse[ldapType].update(ldap);
 }
 
 /**
