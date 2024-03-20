@@ -951,7 +951,10 @@ int readMessageItem(const std::string& typeCode, sdbusplus::message_t& m,
                     nlohmann::json& data)
 {
     T value;
-
+    // When T == char*, this warning fires.  Unclear how to resolve 
+    // Given that sd-bus takes a void pointer to a char*, and that's
+    // Not something we can fix.
+    // NOLINTNEXTLINE(bugprone-multi-level-implicit-pointer-conversion)
     int r = sd_bus_message_read_basic(m.get(), typeCode.front(), &value);
     if (r < 0)
     {
