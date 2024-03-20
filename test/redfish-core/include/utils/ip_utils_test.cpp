@@ -1,5 +1,9 @@
 #include "utils/ip_utils.hpp"
 
+#include <boost/asio/ip/address.hpp>
+
+#include <cstdint>
+
 #include <gtest/gtest.h> // IWYU pragma: keep
 
 // IWYU pragma: no_include <gtest/gtest-message.h>
