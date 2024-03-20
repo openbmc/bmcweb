@@ -21,8 +21,11 @@
 #include "event_service_manager.hpp"
 #include "health.hpp"
 #include "http/parsing.hpp"
+#include "message_registries.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "registries/task_event_message_registry.hpp"
+#include "service_root.hpp"
 #include "task_messages.hpp"
 
 #include <boost/asio/post.hpp>
@@ -501,6 +504,16 @@ inline void requestRoutesTaskService(App& app)
         asyncResp->res.jsonValue["ServiceEnabled"] = true;
         asyncResp->res.jsonValue["Tasks"]["@odata.id"] =
             "/redfish/v1/TaskService/Tasks";
+    });
+    MessageRegistries::globalInstance().registerMessage(
+        "TaskEvent",
+        MessageRegistries::makeFileGetter(registries::task_event::header,
+                                          registries::task_event::url),
+        MessageRegistries::makeMessageGetter(registries::task_event::header,
+                                             registries::task_event::registry));
+    ServiceRootRegistry::globalInstance().addRootProvider(
+        [](nlohmann::json& root) {
+        root["Tasks"]["@odata.id"] = "/redfish/v1/TaskService";
     });
 }
 
