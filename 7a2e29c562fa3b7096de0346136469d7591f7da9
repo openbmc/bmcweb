@@ -193,6 +193,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "66c7a8cf_0a3141fc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-03-20T19:16:09Z",
+      "side": 1,
+      "message": "FWIW, I plan on writing a document in the next week or two of a revamp to phosphor-logging / PDI in order to better support the Redfish LogEvent requirements, such as the Message Registry.  I\u0027d be interested to hear some of the concerns IBM has and maybe this is something we can collaborate on.",
+      "parentUuid": "d0bb7c7f_82180649",
+      "revId": "7a2e29c562fa3b7096de0346136469d7591f7da9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2425d9c6_9e12cc72",
         "filename": "redfish-core/lib/message_registries.hpp",
         "patchSetId": 1
