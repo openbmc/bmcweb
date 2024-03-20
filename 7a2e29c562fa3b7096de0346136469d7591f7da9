@@ -176,6 +176,92 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d0bb7c7f_82180649",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-20T16:10:30Z",
+      "side": 1,
+      "message": "Lets start by getting the use case articulated clearly with examples of what people are trying to do, and what guarantees we\u0027re trying to make.  I\u0027m assuming people are creating their own message registries, but I\u0027m not really sure.  If people are extending DMTF or OpenBMC owned registries and not contributing the change, I have no sympathy given that ownership and versioning of those is called out by name in the Redfish spec, and frankly, they\u0027re making the Redfish ecosystem worse by publishing their own versions of the schemas.\n\nAssuming we\u0027re wanting to create our own registries, in terms of actual implementation, couldn\u0027t we just use the static file hosting mechanism, and have folks put their message registry in /var/www/redfish/v1/MessageRegistries/\u003cmy_registry\u003e, which bmcweb would look for additional registries when running MessageRegistryCollection?  That seems like it would keep the code complexity relatively the same, but allow people to host their own registries.\n\nIt seems like it would be much simpler than \"Maintain a patch against bmcweb that adds a callback\", the file contents would be governed by DMTF schema, and we wouldn\u0027t have to maintain a binary interface (which I\u0027m not sure we really know how to do well in openBMC).",
+      "revId": "7a2e29c562fa3b7096de0346136469d7591f7da9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2425d9c6_9e12cc72",
+        "filename": "redfish-core/lib/message_registries.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-20T16:10:30Z",
+      "side": 1,
+      "message": "Passing around std::functions isn\u0027t a great method of abstraction.  I\u0027m having a lot of trouble reading this code, and what it\u0027s intending.  The old code was much easier to read, and I don\u0027t see anything that actually \"extends\" this in the way this patchset intends.",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 64
+      },
+      "revId": "7a2e29c562fa3b7096de0346136469d7591f7da9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6377d77_55378307",
+        "filename": "redfish-core/lib/message_registries.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-20T16:10:30Z",
+      "side": 1,
+      "message": "There\u0027s way too much use of auto here.  explicit types make code easier to read, especially when we don\u0027t know what the types are.",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 66
+      },
+      "revId": "7a2e29c562fa3b7096de0346136469d7591f7da9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8baadb43_7661dd22",
+        "filename": "redfish-core/lib/message_registries.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-20T16:10:30Z",
+      "side": 1,
+      "message": "Why were all the registries BUT openbmc removed?  I wouldn\u0027t expect the openbmc registry to be any different?",
+      "range": {
+        "startLine": 185,
+        "startChar": 0,
+        "endLine": 189,
+        "endChar": 5
+      },
+      "revId": "7a2e29c562fa3b7096de0346136469d7591f7da9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "811ed74b_0c493e4a",
         "filename": "redfish-core/lib/service_root.hpp",
         "patchSetId": 1
@@ -192,6 +278,29 @@
         "startChar": 44,
         "endLine": 34,
         "endChar": 58
+      },
+      "revId": "7a2e29c562fa3b7096de0346136469d7591f7da9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b9a3d7f_b02cd17e",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-20T16:10:30Z",
+      "side": 1,
+      "message": "This is now a global object that takes memory for the whole lifecycle.  Why is that neccesary?  Can we not just read in the providers on request?",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 44
       },
       "revId": "7a2e29c562fa3b7096de0346136469d7591f7da9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
