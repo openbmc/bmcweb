@@ -2,6 +2,7 @@
 #include "http_response.hpp"
 #include "utils/json_utils.hpp"
 
+#include <boost/beast/http/field.hpp>
 #include <boost/beast/http/status.hpp>
 #include <nlohmann/json.hpp>
 
