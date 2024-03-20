@@ -7,7 +7,6 @@
 #include <nlohmann/json.hpp>
 
 #include <memory>
-#include <vector>
 
 #include <gmock/gmock.h> // IWYU pragma: keep
 #include <gtest/gtest.h> // IWYU pragma: keep

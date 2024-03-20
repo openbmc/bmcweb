@@ -2,7 +2,7 @@
 
 #include <boost/asio/ip/tcp.hpp>
 
-#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 
 TEST(AsyncResolve, ipv4Positive)
 {
