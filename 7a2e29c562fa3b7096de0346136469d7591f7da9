@@ -43,6 +43,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f0561260_d66fc3bf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-20T15:54:05Z",
+      "side": 1,
+      "message": "You say it\u0027s a concern, but you don\u0027t articulate WHY.  Also, to be frank, what you do in your downstream is your own business.  While I\u0027m open to making things better for people rebasing and forking, we need to actually articulate the concerns with examples of what people might change, and weigh them against complexity.\n\nChanges that involve:\nModifications to DMTF owned registries without DMTF approval.\nModifications to OpenBMC owned registries without OpenBMC maintainer approval.\n\nCause problems for the Redfish ecosystem as a whole, and are explicitly called out by the spec as incorrect, because there\u0027s no way to maintain semantic versioning on the registries if everyone forks their own copy.  This patchset needs to explicitly exclude any DMTF/OpenBMC owned registries from modification.\n\nThis commit seems to be under the impression that anyone can go make changes to any registry.  If you want to extend the registries:\nA. Upstream your changes to OpenBMC/DMTF\nB. Create your own company-specific registry, that you can maintain semver on.\nC. Fork your changes, and cause ecosystem problems.\n\nThose are really the only options.",
+      "range": {
+        "startLine": 12,
+        "startChar": 32,
+        "endLine": 13,
+        "endChar": 32
+      },
+      "revId": "7a2e29c562fa3b7096de0346136469d7591f7da9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fa6e8a2b_85205854",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -54,6 +77,30 @@
       "writtenOn": "2024-03-20T15:43:24Z",
       "side": 1,
       "message": "What is outside? Who is an example application? An application is calling registerMessage / addRootProvider ?",
+      "range": {
+        "startLine": 16,
+        "startChar": 31,
+        "endLine": 16,
+        "endChar": 52
+      },
+      "revId": "7a2e29c562fa3b7096de0346136469d7591f7da9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7745b31_783a6c7a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-20T15:54:05Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "fa6e8a2b_85205854",
       "range": {
         "startLine": 16,
         "startChar": 31,
@@ -89,6 +136,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4d354d9f_0b8edc0c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-20T15:54:05Z",
+      "side": 1,
+      "message": "?  None of these are an OEM API, and all are either owned or versioned by OpenBMC, or DMTF, and shouldn\u0027t be directly modified.  If we are allowing folks to directly modify these, that\u0027s an issue that needs fixed.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 35
+      },
+      "revId": "7a2e29c562fa3b7096de0346136469d7591f7da9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f7794a75_87474648",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -100,6 +170,29 @@
       "writtenOn": "2024-03-20T15:43:24Z",
       "side": 1,
       "message": "double sign off here",
+      "revId": "7a2e29c562fa3b7096de0346136469d7591f7da9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "811ed74b_0c493e4a",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-20T15:54:05Z",
+      "side": 1,
+      "message": "Why is the registry getter a nlohmann object?  We have explicit types for message registries.",
+      "range": {
+        "startLine": 34,
+        "startChar": 44,
+        "endLine": 34,
+        "endChar": 58
+      },
       "revId": "7a2e29c562fa3b7096de0346136469d7591f7da9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
