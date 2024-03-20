@@ -4,8 +4,12 @@
 #include "registries/openbmc_message_registry.hpp"
 #include "str_utility.hpp"
 
+#include <algorithm>
+#include <cstring>
 #include <ranges>
+#include <span>
 #include <string>
+#include <string_view>
 #include <vector>
 
 namespace redfish::registries

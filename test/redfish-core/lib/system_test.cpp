@@ -1,17 +1,16 @@
-#include "app.hpp"
 #include "async_resp.hpp"
-#include "http_request.hpp"
+#include "generated/enums/resource.hpp"
 #include "http_response.hpp"
 #include "systems.hpp"
 
-#include <boost/beast/core/string_type.hpp>
-#include <boost/beast/http/message.hpp>
-#include <boost/system/error_code.hpp>
+#include <boost/asio/error.hpp>
+#include <boost/beast/http/status.hpp>
+#include <boost/system/linux_error.hpp>
 #include <nlohmann/json.hpp>
 
 #include <memory>
 #include <string>
-#include <system_error>
+#include <utility>
 #include <vector>
 
 #include <gtest/gtest.h>
