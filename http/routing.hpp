@@ -431,7 +431,7 @@ class Router
             allRules.emplace_back(std::move(ruleObject));
             return *ptr;
         }
-        static_assert(numArgs < 5, "Max number of args supported is 5");
+        static_assert(numArgs <= 5, "Max number of args supported is 5");
     }
 
     void internalAddRuleObject(const std::string& rule, BaseRule* ruleObject)
