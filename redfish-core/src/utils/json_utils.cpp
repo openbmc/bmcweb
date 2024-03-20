@@ -22,6 +22,9 @@
 
 #include <nlohmann/json.hpp>
 
+#include <cstdint>
+#include <string>
+
 namespace redfish
 {
 

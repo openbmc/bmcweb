@@ -1,13 +1,21 @@
 #include "bmcweb_config.h"
 
+#include "error_messages.hpp"
+#include "http_response.hpp"
 #include "utils/query_param.hpp"
 
+#include <boost/beast/http/status.hpp>
 #include <boost/system/result.hpp>
+#include <boost/url/parse.hpp>
 #include <boost/url/url_view.hpp>
 #include <nlohmann/json.hpp>
 
-#include <new>
+#include <array>
+#include <optional>
 #include <span>
+#include <string>
+#include <utility>
+#include <vector>
 
 #include <gmock/gmock.h> // IWYU pragma: keep
 #include <gtest/gtest.h> // IWYU pragma: keep
