@@ -409,6 +409,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "73036854_f06c056c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-21T04:55:53Z",
+      "side": 1,
+      "message": "\u003e @Ed\n\u003e I was not aware of this /var/www/redfish/v1/MessageRegistries/\u003cmy_registry\u003e, Can you point me to any example usage?\n\ninclude/webassets.hpp is where we load static files from today.\n\n\u003e \n\u003e As I said above there is no intention to modify any of schemas or add any unsupported schemas.\n\nRight, but you\u0027ve modified Registries?  (Note, that schema and registry are different things).\n\n\u003e \n\u003e After reviewing new patch set, can you tell me how you wanted me to support this feature.\n\nOne meson option, fed into bmcweb_config.hpp and 15 ish lines of associated \"if constexpr\" to not enable TaskService and to not enable TaskEvent registry, for those that don\u0027t want it present.  This is the same way we handle adding/removing other features.",
+      "parentUuid": "cf8be10a_f000c12d",
+      "revId": "7a2e29c562fa3b7096de0346136469d7591f7da9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2425d9c6_9e12cc72",
         "filename": "redfish-core/lib/message_registries.hpp",
         "patchSetId": 1
@@ -621,6 +639,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "83abb4be_1d723ff6",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-21T04:55:53Z",
+      "side": 1,
+      "message": "Take a look at the redfish::registries::Header and redfish::registries::MessageEntry types.  These are the concrete classes we use to represent a message registry.",
+      "parentUuid": "6e03a5ec_6bde0051",
+      "range": {
+        "startLine": 34,
+        "startChar": 44,
+        "endLine": 34,
+        "endChar": 58
+      },
+      "revId": "7a2e29c562fa3b7096de0346136469d7591f7da9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0b9a3d7f_b02cd17e",
         "filename": "redfish-core/lib/service_root.hpp",
         "patchSetId": 1
@@ -656,6 +698,30 @@
       "side": 1,
       "message": "how? we should keep available providers somewhere right?",
       "parentUuid": "0b9a3d7f_b02cd17e",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 44
+      },
+      "revId": "7a2e29c562fa3b7096de0346136469d7591f7da9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79d2d039_49dca5ea",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-21T04:55:53Z",
+      "side": 1,
+      "message": "\u003e  we should keep available providers somewhere right?\n\nWhy?  Storing them takes runtime memory.  I would expect them to come out of RODATA, and not need to be stored.",
+      "parentUuid": "c9ec2a3d_c1e524b8",
       "range": {
         "startLine": 52,
         "startChar": 0,
