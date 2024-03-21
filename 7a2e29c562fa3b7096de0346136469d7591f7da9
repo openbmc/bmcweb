@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9a3df969_edea5aed",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-03-21T04:29:58Z",
+      "side": 1,
+      "message": "I hope new commit message is clearer now.",
+      "parentUuid": "7f084cef_60718839",
+      "revId": "7a2e29c562fa3b7096de0346136469d7591f7da9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4c49eaf5_66dc9f23",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -31,6 +49,30 @@
       "writtenOn": "2024-03-20T15:43:24Z",
       "side": 1,
       "message": "what is outside?",
+      "range": {
+        "startLine": 10,
+        "startChar": 19,
+        "endLine": 10,
+        "endChar": 26
+      },
+      "revId": "7a2e29c562fa3b7096de0346136469d7591f7da9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b5a8da0_69c9e529",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-03-21T04:29:58Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "4c49eaf5_66dc9f23",
       "range": {
         "startLine": 10,
         "startChar": 19,
@@ -54,6 +96,30 @@
       "writtenOn": "2024-03-20T15:54:05Z",
       "side": 1,
       "message": "You say it\u0027s a concern, but you don\u0027t articulate WHY.  Also, to be frank, what you do in your downstream is your own business.  While I\u0027m open to making things better for people rebasing and forking, we need to actually articulate the concerns with examples of what people might change, and weigh them against complexity.\n\nChanges that involve:\nModifications to DMTF owned registries without DMTF approval.\nModifications to OpenBMC owned registries without OpenBMC maintainer approval.\n\nCause problems for the Redfish ecosystem as a whole, and are explicitly called out by the spec as incorrect, because there\u0027s no way to maintain semantic versioning on the registries if everyone forks their own copy.  This patchset needs to explicitly exclude any DMTF/OpenBMC owned registries from modification.\n\nThis commit seems to be under the impression that anyone can go make changes to any registry.  If you want to extend the registries:\nA. Upstream your changes to OpenBMC/DMTF\nB. Create your own company-specific registry, that you can maintain semver on.\nC. Fork your changes, and cause ecosystem problems.\n\nThose are really the only options.",
+      "range": {
+        "startLine": 12,
+        "startChar": 32,
+        "endLine": 13,
+        "endChar": 32
+      },
+      "revId": "7a2e29c562fa3b7096de0346136469d7591f7da9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a519854_73c389a8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-03-21T04:29:58Z",
+      "side": 1,
+      "message": "Agreed, commit message could have been better. \nIntent was not add unsupported schemas. I hope example usage and new commit message is clearer now. \nThe intent was to have an easier way to pick the needed features by reducing the spread of compiler directives across multiple files.",
+      "parentUuid": "f0561260_d66fc3bf",
       "range": {
         "startLine": 12,
         "startChar": 32,
@@ -113,6 +179,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1645a1d8_5bbb5538",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-03-21T04:29:58Z",
+      "side": 1,
+      "message": "added example",
+      "parentUuid": "b7745b31_783a6c7a",
+      "range": {
+        "startLine": 16,
+        "startChar": 31,
+        "endLine": 16,
+        "endChar": 52
+      },
+      "revId": "7a2e29c562fa3b7096de0346136469d7591f7da9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "91fc264e_00c485dd",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -124,6 +214,30 @@
       "writtenOn": "2024-03-20T15:43:24Z",
       "side": 1,
       "message": "maintainability efforts for downstream forks?",
+      "range": {
+        "startLine": 20,
+        "startChar": 5,
+        "endLine": 20,
+        "endChar": 28
+      },
+      "revId": "7a2e29c562fa3b7096de0346136469d7591f7da9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa071477_e4c89b70",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-03-21T04:29:58Z",
+      "side": 1,
+      "message": "yes",
+      "parentUuid": "91fc264e_00c485dd",
       "range": {
         "startLine": 20,
         "startChar": 5,
@@ -157,6 +271,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e81a663_8c5a6039",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-03-21T04:29:58Z",
+      "side": 1,
+      "message": "Intention was not to modify these schemas.",
+      "parentUuid": "4d354d9f_0b8edc0c",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 35
+      },
+      "revId": "7a2e29c562fa3b7096de0346136469d7591f7da9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f7794a75_87474648",
@@ -170,6 +308,24 @@
       "writtenOn": "2024-03-20T15:43:24Z",
       "side": 1,
       "message": "double sign off here",
+      "revId": "7a2e29c562fa3b7096de0346136469d7591f7da9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d30ac77_89bbead6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-03-21T04:29:58Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f7794a75_87474648",
       "revId": "7a2e29c562fa3b7096de0346136469d7591f7da9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -211,6 +367,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cf8be10a_f000c12d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-03-21T04:29:58Z",
+      "side": 1,
+      "message": "@Ed\nI was not aware of this /var/www/redfish/v1/MessageRegistries/\u003cmy_registry\u003e, Can you point me to any example usage?\n\nAs I said above there is no intention to modify any of schemas or add any unsupported schemas.\n\nAfter reviewing new patch set, can you tell me how you wanted me to support this feature. I know at least 4 different ways to do the same feature. But I should start somewhere and I cannot judge what would be the maintainer\u0027s inclination before proposing one.\n\n@Patrick Can you see the intent from the latest commit? Do you have any suggestion? I am happy collaborate",
+      "parentUuid": "66c7a8cf_0a3141fc",
+      "revId": "7a2e29c562fa3b7096de0346136469d7591f7da9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2425d9c6_9e12cc72",
         "filename": "redfish-core/lib/message_registries.hpp",
         "patchSetId": 1
@@ -222,6 +396,30 @@
       "writtenOn": "2024-03-20T16:10:30Z",
       "side": 1,
       "message": "Passing around std::functions isn\u0027t a great method of abstraction.  I\u0027m having a lot of trouble reading this code, and what it\u0027s intending.  The old code was much easier to read, and I don\u0027t see anything that actually \"extends\" this in the way this patchset intends.",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 64
+      },
+      "revId": "7a2e29c562fa3b7096de0346136469d7591f7da9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53ff196b_43703b27",
+        "filename": "redfish-core/lib/message_registries.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-03-21T04:29:58Z",
+      "side": 1,
+      "message": "I am open to any other implementation as long it reduces the spread of compilation directives",
+      "parentUuid": "2425d9c6_9e12cc72",
       "range": {
         "startLine": 35,
         "startChar": 0,
@@ -280,6 +478,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6699e9af_0a94f46d",
+        "filename": "redfish-core/lib/message_registries.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-03-21T04:29:58Z",
+      "side": 1,
+      "message": "yeah , there was an extra dmtf.clear(),which was not needed other cases.",
+      "parentUuid": "8baadb43_7661dd22",
+      "range": {
+        "startLine": 185,
+        "startChar": 0,
+        "endLine": 189,
+        "endChar": 5
+      },
+      "revId": "7a2e29c562fa3b7096de0346136469d7591f7da9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "811ed74b_0c493e4a",
         "filename": "redfish-core/lib/service_root.hpp",
         "patchSetId": 1
@@ -303,6 +525,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6e03a5ec_6bde0051",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-03-21T04:29:58Z",
+      "side": 1,
+      "message": "I dont understand. Can you explain?",
+      "parentUuid": "811ed74b_0c493e4a",
+      "range": {
+        "startLine": 34,
+        "startChar": 44,
+        "endLine": 34,
+        "endChar": 58
+      },
+      "revId": "7a2e29c562fa3b7096de0346136469d7591f7da9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0b9a3d7f_b02cd17e",
         "filename": "redfish-core/lib/service_root.hpp",
         "patchSetId": 1
@@ -314,6 +560,30 @@
       "writtenOn": "2024-03-20T16:10:30Z",
       "side": 1,
       "message": "This is now a global object that takes memory for the whole lifecycle.  Why is that neccesary?  Can we not just read in the providers on request?",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 44
+      },
+      "revId": "7a2e29c562fa3b7096de0346136469d7591f7da9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9ec2a3d_c1e524b8",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-03-21T04:29:58Z",
+      "side": 1,
+      "message": "how? we should keep available providers somewhere right?",
+      "parentUuid": "0b9a3d7f_b02cd17e",
       "range": {
         "startLine": 52,
         "startChar": 0,
