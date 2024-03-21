@@ -45,6 +45,30 @@
       },
       "revId": "d88786bd746036c3e291044d685342ea5029c706",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d96ed801_99e2aff9",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-03-21T07:17:26Z",
+      "side": 1,
+      "message": "by meson option I believe you are referring something like -DTASK_EVENT(Correct me if I am wrong). \nIf that is the case, how may places you will use this compiler directive?. I wanted to restrict the usage of ifdef TASK_EVENT to one place, which is in webserver_main.cpp. \n\nWithout this patch I can see that it should be used in at-least in 3 files. \n1) messgae_registry.hpp\n2) server_root.hpp\n3) webserver_main.cpp\n\nThink about scenario where we have  sever such apps. These three files will be having several ifdef checks. \n\nMy want is that inclusion of application header file in wbserver_main.hpp is enough to enable everything about it",
+      "parentUuid": "cb9886f9_9d947f68",
+      "range": {
+        "startLine": 508,
+        "startChar": 0,
+        "endLine": 517,
+        "endChar": 7
+      },
+      "revId": "d88786bd746036c3e291044d685342ea5029c706",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
