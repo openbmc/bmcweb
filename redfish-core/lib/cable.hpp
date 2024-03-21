@@ -13,6 +13,7 @@
 #include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "utils/asset_utils.hpp"
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
 
@@ -145,6 +146,12 @@ inline void getCableProperties(
                 dbus::utility::getAllProperties(
                     *crow::connections::systemBus, service, cableObjectPath,
                     interface, std::bind_front(fillCableProperties, asyncResp));
+            }
+            else if (interface ==
+                     "xyz.openbmc_project.Inventory.Decorator.Asset")
+            {
+                asset_utils::getAssetInfo(asyncResp, service, cableObjectPath,
+                                          ""_json_pointer, true, true);
             }
             else if (interface == "xyz.openbmc_project.Inventory.Item")
             {
