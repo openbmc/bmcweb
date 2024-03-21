@@ -52,6 +52,24 @@
       "parentUuid": "5b05cf02_2e18d3e6",
       "revId": "f4222b5a04fea75eef9776a2b8125975ffe02e7c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffccadd2_75248ebd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-21T15:12:55Z",
+      "side": 1,
+      "message": "We do though..... https://github.com/openbmc/bmcweb/blob/1fccd0d5eafd56049a8a381543dd83d5559fbf25/.clang-tidy#L310",
+      "parentUuid": "0e8f9c3f_13043458",
+      "revId": "f4222b5a04fea75eef9776a2b8125975ffe02e7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
