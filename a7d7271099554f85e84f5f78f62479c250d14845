@@ -80,6 +80,24 @@
       "message": "Why cherry-pick why not all of    ?\n```\n    uint8_t*,\n    uint16_t*,\n    int16_t*,\n    uint32_t*,\n    int32_t*,\n    uint64_t*,\n    int64_t*,\n    bool*,\n    double*\n```",
       "revId": "a7d7271099554f85e84f5f78f62479c250d14845",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f159750a_0105fd02",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-21T15:39:41Z",
+      "side": 1,
+      "message": "Because I wasn\u0027t really paying attention apparently.  They\u0027ve been added.",
+      "parentUuid": "9aa03e34_025604a6",
+      "revId": "a7d7271099554f85e84f5f78f62479c250d14845",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
