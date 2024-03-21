@@ -16,6 +16,24 @@
       "message": "But clang-tidy-17 passes ?\nhttps://github.com/openbmc/openbmc-build-scripts/blob/176b9ebad5516207c44be4bed5741afae1021a95/scripts/build-unit-test-docker#L771\n\nSo if someone runs with 17, there shouldn\u0027t be any problems here. Correct?",
       "revId": "f4222b5a04fea75eef9776a2b8125975ffe02e7c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b05cf02_2e18d3e6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-21T02:43:33Z",
+      "side": 1,
+      "message": "\u003e But clang-tidy-17 passes ?\n\u003e https://github.com/openbmc/openbmc-build-scripts/blob/176b9ebad5516207c44be4bed5741afae1021a95/scripts/build-unit-test-docker#L771\n\nwe don’t turn on redundant init yet.  it’s a new test with clang 18\n\n\u003e \n\u003e So if someone runs with 17, there shouldn\u0027t be any problems here. Correct?\n\nI don’t think so.",
+      "parentUuid": "f5058c0c_c01ffc9d",
+      "revId": "f4222b5a04fea75eef9776a2b8125975ffe02e7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
