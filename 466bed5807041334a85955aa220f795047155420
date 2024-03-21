@@ -168,6 +168,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "46924031_2be66d35",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-21T05:19:50Z",
+      "side": 1,
+      "message": "\u003e I\u0027ve a question here. Why can\u0027t we consider using Intel\u0027s virtual-media instead of jsnbd? https://github.com/Intel-BMC/virtual-media Based on my understanding It supports both legacy and proxy mode implementations.\n\nthe Intel virtual media is one of the two that are being combined.",
+      "parentUuid": "6758b2a6_3dc1eb4f",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 30
+      },
+      "revId": "466bed5807041334a85955aa220f795047155420",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "53f1832d_95dd8e39",
