@@ -69,6 +69,30 @@
       },
       "revId": "d88786bd746036c3e291044d685342ea5029c706",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5a9e8c0_10b872d9",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-21T16:03:07Z",
+      "side": 1,
+      "message": "\u003e by meson option I believe you are referring something like -DTASK_EVENT(Correct me if I am wrong). \n\nno, I mean something like\n\n```\nif constexpr (\u003cvariable from bmcweb_config.h\u003e)\n```\n\n\u003e If that is the case, how may places you will use this compiler directive?. \n\nAs many as are required to accomplish the task.\n\n\u003e I wanted to restrict the usage of ifdef TASK_EVENT to one place, which is in webserver_main.cpp. \n\nTaskEvent isn\u0027t defined in webserver_main.cpp at all.  If I understand what you\u0027re asking, you would first have to promote the registry routes to webserver_main.cpp?  What are you trying to accomplish by restricting the ifdef to one file?  If you want a complete list, they are all available in meson_options.txt.\n\n\u003e \n\u003e Without this patch I can see that it should be used in at-least in 3 files. \n\u003e 1) messgae_registry.hpp\n\ngit ls-files | grep message_registry.cpp\n\nDoesn\u0027t return any results.  Can you please just link to the line you\u0027re talking about on github.\n\n\u003e 2) server_root.hpp\n\nI\u0027m assuming this was meant to be \"service_root.hpp\" ?\nIndividual registries aren\u0027t registered in ServiceRoot, so no, this file wouldn\u0027t need to be modified.\n\n\u003e 3) webserver_main.cpp\n\u003e \n\u003e Think about scenario where we have  sever such apps. These three files will be having several ifdef checks. \n\nI\u0027m assuming you meant \"several such apps\"?  Yes, they will have several ifdef checks, just like we already do in redfish.hpp\n\nhttps://gerrit.openbmc.org/plugins/gitiles/openbmc/bmcweb/+/1f56a3a6031ba5992d52532cf2d32c76253c9167/redfish-core/include/redfish.hpp#74\n\n\u003e \n\u003e My want is that inclusion of application header file in wbserver_main.hpp is enough to enable everything about it\n\nWhy is that better?",
+      "parentUuid": "d96ed801_99e2aff9",
+      "range": {
+        "startLine": 508,
+        "startChar": 0,
+        "endLine": 517,
+        "endChar": 7
+      },
+      "revId": "d88786bd746036c3e291044d685342ea5029c706",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
