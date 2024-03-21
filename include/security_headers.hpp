@@ -82,7 +82,7 @@ inline void addSecurityHeaders(const crow::Request& req [[maybe_unused]],
         // If XSS is disabled, we need to allow loading from addresses other
         // than self, as the BMC will be hosted elsewhere.
         res.addHeader("Content-Security-Policy", "default-src 'none'; "
-                                                 "img-src *; "
+                                                 "img-src * data:; "
                                                  "font-src *; "
                                                  "style-src *; "
                                                  "script-src *; "
