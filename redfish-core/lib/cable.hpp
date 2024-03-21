@@ -13,6 +13,7 @@
 #include <sdbusplus/unpack_properties.hpp>
 
 #include <array>
+#include <string>
 #include <string_view>
 
 namespace redfish
@@ -71,6 +72,54 @@ inline void
     }
 }
 
+inline void fillCableAsset(crow::Response& resp,
+                           const boost::system::error_code& ec,
+                           const dbus::utility::DBusPropertiesMap& properties)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("DBUS response error {}", ec);
+        messages::internalError(resp);
+        return;
+    }
+    const std::string* manufacturer = nullptr;
+    const std::string* model = nullptr;
+    const std::string* partNumber = nullptr;
+    const std::string* serialNumber = nullptr;
+    const std::string* sparePartNumber = nullptr;
+
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), properties, "Manufacturer",
+        manufacturer, "Model", model, "PartNumber", partNumber, "SerialNumber",
+        serialNumber, "SparePartNumber", sparePartNumber);
+    if (!success)
+    {
+        messages::internalError(resp);
+        return;
+    }
+    if (manufacturer != nullptr)
+    {
+        resp.jsonValue["Manufacturer"] = *manufacturer;
+    }
+    if (model != nullptr)
+    {
+        resp.jsonValue["Model"] = *model;
+    }
+    if (partNumber != nullptr)
+    {
+        resp.jsonValue["PartNumber"] = *partNumber;
+    }
+    if (serialNumber != nullptr)
+    {
+        resp.jsonValue["SerialNumber"] = *serialNumber;
+    }
+    // Like we do other places, check for empty (default) and leave off
+    if (sparePartNumber != nullptr && !sparePartNumber->empty())
+    {
+        resp.jsonValue["SparePartNumber"] = *sparePartNumber;
+    }
+}
+
 /**
  * @brief Api to get Cable properties.
  * @param[in,out]   asyncResp       Async HTTP response.
@@ -98,6 +147,18 @@ inline void
                         const boost::system::error_code& ec,
                         const dbus::utility::DBusPropertiesMap& properties) {
                     fillCableProperties(asyncResp->res, ec, properties);
+                });
+            }
+            else if (interface ==
+                     "xyz.openbmc_project.Inventory.Decorator.Asset")
+            {
+                sdbusplus::asio::getAllProperties(
+                    *crow::connections::systemBus, service, cableObjectPath,
+                    interface,
+                    [asyncResp](
+                        const boost::system::error_code& ec,
+                        const dbus::utility::DBusPropertiesMap& properties) {
+                    fillCableAsset(asyncResp->res, ec, properties);
                 });
             }
             else if (interface == "xyz.openbmc_project.Inventory.Item")

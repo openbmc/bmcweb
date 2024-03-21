@@ -163,6 +163,11 @@ Fields common to all schemas
 
 - CableType
 - LengthMeters
+- Manufacturer
+- Model
+- PartNumber
+- SerialNumber
+- SparePartNumber
 - Status
 
 ### /redfish/v1/CertificateService/
