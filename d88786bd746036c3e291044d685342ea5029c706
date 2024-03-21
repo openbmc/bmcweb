@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26e6772b_fd2b3640",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-21T04:48:03Z",
+      "side": 1,
+      "message": "webserver_main.cpp isn\u0027t where we host configuration.  bmcweb_config.hpp is.",
+      "range": {
+        "startLine": 17,
+        "startChar": 24,
+        "endLine": 19,
+        "endChar": 1
+      },
+      "revId": "d88786bd746036c3e291044d685342ea5029c706",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb9886f9_9d947f68",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-21T04:48:03Z",
+      "side": 1,
+      "message": "I kind of see what you\u0027re getting at here, but I suspect most cases are not this simple, where you would completely remove one static function from another.\n\nIf we want to make TaskService disablable, why wouldn\u0027t we do it with a meson option, like we do other things?  I suspect this same behavior can be accomplished in a 15 line diff.",
+      "range": {
+        "startLine": 508,
+        "startChar": 0,
+        "endLine": 517,
+        "endChar": 7
+      },
+      "revId": "d88786bd746036c3e291044d685342ea5029c706",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

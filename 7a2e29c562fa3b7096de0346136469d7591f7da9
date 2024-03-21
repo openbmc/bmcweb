@@ -132,6 +132,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "86722d7c_80d26067",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-21T04:48:03Z",
+      "side": 1,
+      "message": "\u003e Agreed, commit message could have been better. \n\u003e Intent was not add unsupported schemas. I hope example usage and new commit message is clearer now. \n\nIt\u0027s not.  I\u0027m arguably more confused.  This patchset is\n\n1. More code\n2. Still hardcodes the behavior like was there before, just does it by registering a large number of std::function objects.\n\n\u003e The intent was to have an easier way to pick the needed features by reducing the spread of compiler directives across multiple files.\n\nI\u0027m very confused, because I don\u0027t see any #ifdefs removed in your patch, so I\u0027m confused how this is supposed to be better.  The ifdefs are still there?",
+      "parentUuid": "8a519854_73c389a8",
+      "range": {
+        "startLine": 12,
+        "startChar": 32,
+        "endLine": 13,
+        "endChar": 32
+      },
+      "revId": "7a2e29c562fa3b7096de0346136469d7591f7da9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fa6e8a2b_85205854",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -432,6 +456,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8c15cd03_9dea8365",
+        "filename": "redfish-core/lib/message_registries.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-21T04:48:03Z",
+      "side": 1,
+      "message": "I\u0027m not really following what\u0027s wrong with the existing implementation of meson options.  Can you be more clear what you\u0027re trying to accomplish by reducing \"spread of compilation directives\"?\n\nRight now I don\u0027t see what this is accomplishing compared to what we use now, (meson options and constexpr if)",
+      "parentUuid": "53ff196b_43703b27",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 64
+      },
+      "revId": "7a2e29c562fa3b7096de0346136469d7591f7da9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d6377d77_55378307",
         "filename": "redfish-core/lib/message_registries.hpp",
         "patchSetId": 1
@@ -490,6 +538,30 @@
       "side": 1,
       "message": "yeah , there was an extra dmtf.clear(),which was not needed other cases.",
       "parentUuid": "8baadb43_7661dd22",
+      "range": {
+        "startLine": 185,
+        "startChar": 0,
+        "endLine": 189,
+        "endChar": 5
+      },
+      "revId": "7a2e29c562fa3b7096de0346136469d7591f7da9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6543f179_9a6658d9",
+        "filename": "redfish-core/lib/message_registries.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-21T04:48:03Z",
+      "side": 1,
+      "message": "Right..... which was part of the logic before, so you haven\u0027t really solved the issue?",
+      "parentUuid": "6699e9af_0a94f46d",
       "range": {
         "startLine": 185,
         "startChar": 0,
