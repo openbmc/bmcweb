@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "29c3aaa3_c8cc954a",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-21T15:26:28Z",
+      "side": 1,
+      "message": "I think NullOrValue is a better name",
+      "range": {
+        "startLine": 53,
+        "startChar": 7,
+        "endLine": 53,
+        "endChar": 13
+      },
+      "revId": "a7d7271099554f85e84f5f78f62479c250d14845",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "56c2a41f_861756dd",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 21
@@ -14,6 +37,23 @@
       "writtenOn": "2024-03-12T20:33:26Z",
       "side": 1,
       "message": "Looking for input here.  This class works, but the whole \"if it\u0027s null, value won\u0027t be filled in\" is a little subtle.  Anyone have any ideas?",
+      "revId": "a7d7271099554f85e84f5f78f62479c250d14845",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9aa03e34_025604a6",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-21T15:26:28Z",
+      "side": 1,
+      "message": "Why cherry-pick why not all of    ?\n```\n    uint8_t*,\n    uint16_t*,\n    int16_t*,\n    uint32_t*,\n    int32_t*,\n    uint64_t*,\n    int64_t*,\n    bool*,\n    double*\n```",
       "revId": "a7d7271099554f85e84f5f78f62479c250d14845",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
