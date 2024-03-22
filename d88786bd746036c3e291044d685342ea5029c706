@@ -189,6 +189,30 @@
       },
       "revId": "d88786bd746036c3e291044d685342ea5029c706",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e80ae8a_873d10f6",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-03-22T06:49:46Z",
+      "side": 1,
+      "message": "Right now changes belonging to license feature spread across multiple files(message_registry, server_root and webserver_main) . We wanted to move all those changes to licnese_sevice.hpp (as I shown in task.hpp ) . Then we just need to just include license_sevice.hpp in webserver_main.cpp to enable license feature. This is  going to be a single line change for every upstream rebase. the license service.hpp can be placed outside the bmcweb directories( meson include path change required in this case) .",
+      "parentUuid": "ff697a60_6d3b1905",
+      "range": {
+        "startLine": 508,
+        "startChar": 0,
+        "endLine": 517,
+        "endChar": 7
+      },
+      "revId": "d88786bd746036c3e291044d685342ea5029c706",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
