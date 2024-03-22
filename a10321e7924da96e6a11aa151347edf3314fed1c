@@ -34,6 +34,24 @@
       "parentUuid": "2d4da9ac_97e060a5",
       "revId": "a10321e7924da96e6a11aa151347edf3314fed1c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ceb70ecc_c7b86cc4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-22T15:59:33Z",
+      "side": 1,
+      "message": "I don\u0027t use bmcwebInsecureDisableXssPrevention when doing any webui development.. But I\u0027m not doing npm run-script server",
+      "parentUuid": "8cdd9a36_51f15249",
+      "revId": "a10321e7924da96e6a11aa151347edf3314fed1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
