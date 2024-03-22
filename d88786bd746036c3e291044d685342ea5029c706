@@ -117,6 +117,30 @@
       },
       "revId": "d88786bd746036c3e291044d685342ea5029c706",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c94e2554_05cefd52",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-03-22T05:05:50Z",
+      "side": 1,
+      "message": "Look at message_registries.hpp line no 25 . The task related headers are removed.\nWhich means message_registry is no more depending on task.\nAt line 508 task.hpp, messages related to task is registered here.\n\nThis will be invoked by [redfish.hpp](https://github.com/openbmc/bmcweb/blob/master/redfish-core/include/redfish.hpp#L228)\n\nYes I took wrong example of task to demonstrate the usage. But you can get the overall idea here.\n\nIf you want to remove task feature , then we can do it at single place which is  [redfish.hpp](https://github.com/openbmc/bmcweb/blob/master/redfish-core/include/redfish.hpp#L228) \n\nFor other applications disabling will be done at  [webserver_main.cpp](https://github.com/openbmc/bmcweb/blob/master/src/webserver_main.cpp#L81). \n\nThe overall ideas is to co-locate all related data  to single place. It will be easier to enable or disable an application then. \n\nI wanted to even remove entire code starting from [here](https://github.com/openbmc/bmcweb/blob/master/src/webserver_main.cpp#L76) to [here](https://github.com/openbmc/bmcweb/blob/master/src/webserver_main.cpp#L130) with couple of lines. \nI thought that that would be bigger change set then. \n\nIf you are interested I can incorporate those changes too in this patch set. \n\nBut it all depends on how community see it as a valuable feature or not. Personally I feel it  will have value addition in long term maintenance point of view.",
+      "parentUuid": "12857e98_8fe17f2a",
+      "range": {
+        "startLine": 508,
+        "startChar": 0,
+        "endLine": 517,
+        "endChar": 7
+      },
+      "revId": "d88786bd746036c3e291044d685342ea5029c706",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
