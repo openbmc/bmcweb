@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d4da9ac_97e060a5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-22T13:00:32Z",
+      "side": 1,
+      "message": "This is an Insecure option. It should not be enabled in production, it is development option but it should work.",
+      "revId": "a10321e7924da96e6a11aa151347edf3314fed1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
