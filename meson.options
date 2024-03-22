@@ -320,6 +320,14 @@ option(
 )
 
 option(
+    'redfish-use-secondary-postcode',
+    type: 'feature',
+    value: 'disabled',
+    description: '''Uses secondary postcode as extension of the primary
+                    portion.'''
+)
+
+option(
     'experimental-redfish-multi-computer-system',
     type: 'feature',
     value: 'disabled',

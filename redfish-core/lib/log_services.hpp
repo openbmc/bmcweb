@@ -3688,6 +3688,10 @@ static bool fillPostCodeEntry(
         std::ostringstream hexCode;
         hexCode << "0x" << std::setfill('0') << std::setw(2) << std::hex
                 << std::get<0>(code.second);
+        if constexpr (BMCWEB_REDFISH_USE_SECONDARY_POSTCODE)
+        {
+            hexCode << bytesToHexString(std::get<1>(code.second));
+        }
         std::ostringstream timeOffsetStr;
         // Set Fixed -Point Notation
         timeOffsetStr << std::fixed;

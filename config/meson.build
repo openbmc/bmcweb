@@ -31,6 +31,7 @@ feature_options = [
     'redfish-oem-manager-fan-data',
     'redfish-provisioning-feature',
     'redfish-updateservice-use-dbus',
+    'redfish-use-secondary-postcode',
     'redfish',
     'rest',
     'session-auth',
