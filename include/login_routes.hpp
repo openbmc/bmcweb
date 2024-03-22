@@ -17,25 +17,6 @@ namespace crow
 
 namespace login_routes
 {
-inline void
-    afterAuthenticateUser(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                          std::string_view username,
-                          const boost::asio::ip::address& ipAddress,
-                          int32_t pamrc)
-{
-    bool isConfigureSelfOnly = pamrc == PAM_NEW_AUTHTOK_REQD;
-    if ((pamrc != PAM_SUCCESS) && !isConfigureSelfOnly)
-    {
-        asyncResp->res.result(boost::beast::http::status::unauthorized);
-        return;
-    }
-    auto session =
-        persistent_data::SessionStore::getInstance().generateUserSession(
-            username, ipAddress, std::nullopt,
-            persistent_data::PersistenceType::TIMEOUT, isConfigureSelfOnly);
-    // if content type is json, assume json token
-    asyncResp->res.jsonValue["token"] = session->sessionToken;
-}
 
 inline void handleLogin(const crow::Request& req,
                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
@@ -170,14 +151,38 @@ inline void handleLogin(const crow::Request& req,
         password = req.getHeaderValue("password");
     }
 
-    if (username.empty() || password.empty())
+    if (!username.empty() && !password.empty())
+    {
+        int pamrc = pamAuthenticateUser(username, password);
+        bool isConfigureSelfOnly = pamrc == PAM_NEW_AUTHTOK_REQD;
+        if ((pamrc != PAM_SUCCESS) && !isConfigureSelfOnly)
+        {
+            asyncResp->res.result(boost::beast::http::status::unauthorized);
+        }
+        else
+        {
+            auto session = persistent_data::SessionStore::getInstance()
+                               .generateUserSession(
+                                   username, req.ipAddress, std::nullopt,
+                                   persistent_data::PersistenceType::TIMEOUT,
+                                   isConfigureSelfOnly);
+
+            asyncResp->res.addHeader(boost::beast::http::field::set_cookie,
+                                     "XSRF-TOKEN=" + session->csrfToken +
+                                         "; SameSite=Strict; Secure");
+            asyncResp->res.addHeader(boost::beast::http::field::set_cookie,
+                                     "SESSION=" + session->sessionToken +
+                                         "; SameSite=Strict; Secure; HttpOnly");
+
+            // if content type is json, assume json token
+            asyncResp->res.jsonValue["token"] = session->sessionToken;
+        }
+    }
+    else
     {
         BMCWEB_LOG_DEBUG("Couldn't interpret password");
         asyncResp->res.result(boost::beast::http::status::bad_request);
-        return;
     }
-    int pamrc = pamAuthenticateUser(username, password);
-    afterAuthenticateUser(asyncResp, username, req.ipAddress, pamrc);
 }
 
 inline void handleLogout(const crow::Request& req,
