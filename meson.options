@@ -303,6 +303,14 @@ option(
 )
 
 option(
+    'redfish-use-secondary-postcode',
+    type: 'feature',
+    value: 'disabled',
+    description: '''Allows displaying the secondary portion of the postcode
+                    instead of the primary portion.'''
+)
+
+option(
     'experimental-redfish-multi-computer-system',
     type: 'feature',
     value: 'disabled',
