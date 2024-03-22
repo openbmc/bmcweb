@@ -4013,8 +4013,16 @@ static bool fillPostCodeEntry(
 
         // assemble messageArgs: BootIndex, TimeOffset(100us), PostCode(hex)
         std::ostringstream hexCode;
+#ifdef BMCWEB_USE_SECONDARY_POSTCODE
+        hexCode << "0x";
+        for (auto byte : std::get<1>(code.second))
+        {
+            hexCode << std::format("{:02x}", byte);
+        }
+#else
         hexCode << "0x" << std::setfill('0') << std::setw(2) << std::hex
                 << std::get<0>(code.second);
+#endif
         std::ostringstream timeOffsetStr;
         // Set Fixed -Point Notation
         timeOffsetStr << std::fixed;
