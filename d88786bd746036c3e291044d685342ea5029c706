@@ -213,6 +213,30 @@
       },
       "revId": "d88786bd746036c3e291044d685342ea5029c706",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90e117e7_67d299f6",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-22T15:37:28Z",
+      "side": 1,
+      "message": "\u003e Right now changes belonging to license feature spread across multiple files(message_registry,\n\nThis is the part I\u0027m not understanding;  I would not expect License schema to effect message Registry at all.  They\u0027re two different schemas, used for two different purposes.\n\n\u003e , server_root \n\nWhat is \"server_root\"?\n\n\u003e and webserver_main)\n\nWhy does it make changes to webserver main? I would expect change to be made to redfish.hpp.  In addition, the schema would need to be added, that makes changes to update_schemas.py, and the static files directory.\n\n\u003e . We wanted to move all those changes to licnese_sevice.hpp (as I shown in task.hpp ) . Then we just need to just include license_sevice.hpp in webserver_main.cpp to enable license feature.\n\u003e This is  going to be a single line change for every upstream rebase. the license service.hpp can be placed outside the bmcweb directories( meson include path change required in this case) .\n\nCan\u0027t you already do that though?\n\nIn redfish.hpp, put:\nrequestRoutesLicenceCollection()\n\nand let your code do whatever it wants?\n\n\n\nOne thing that I\u0027ve thought for a long time is that the odata links:\n\nhttps://github.com/openbmc/bmcweb/blob/e10f0176d66a2737edefec71f40376566769712b/redfish-core/lib/service_root.hpp#L88C6-L88C76\n\nCould be generated automatically based on the registered routes in the router.  If the request would 404, we don\u0027t add the route.  Maybe that\u0027s an incremental improvement you could make?",
+      "parentUuid": "8e80ae8a_873d10f6",
+      "range": {
+        "startLine": 508,
+        "startChar": 0,
+        "endLine": 517,
+        "endChar": 7
+      },
+      "revId": "d88786bd746036c3e291044d685342ea5029c706",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
