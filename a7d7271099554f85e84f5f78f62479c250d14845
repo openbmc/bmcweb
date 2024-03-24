@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "79466128_1c4d8a71",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-24T19:53:23Z",
+      "side": 1,
+      "message": "Maybe a longer name, explaining this a bit more might be better, but 🤷, this is a reasonable name. We have much worse named variables.",
+      "parentUuid": "5351978f_1c814516",
+      "range": {
+        "startLine": 53,
+        "startChar": 7,
+        "endLine": 53,
+        "endChar": 13
+      },
+      "revId": "a7d7271099554f85e84f5f78f62479c250d14845",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "56c2a41f_861756dd",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 21
@@ -61,6 +85,24 @@
       "writtenOn": "2024-03-12T20:33:26Z",
       "side": 1,
       "message": "Looking for input here.  This class works, but the whole \"if it\u0027s null, value won\u0027t be filled in\" is a little subtle.  Anyone have any ideas?",
+      "revId": "a7d7271099554f85e84f5f78f62479c250d14845",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0916e6b_bd9037b3",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-24T19:53:23Z",
+      "side": 1,
+      "message": "You could see if there is a better name, I think EmptyIfNullOrValue is overkill. \nYou have a comment, you have it in the commit msg.",
+      "parentUuid": "56c2a41f_861756dd",
       "revId": "a7d7271099554f85e84f5f78f62479c250d14845",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
