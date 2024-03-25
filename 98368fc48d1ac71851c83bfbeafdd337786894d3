@@ -16,6 +16,24 @@
       "message": "What good does commented out code do?",
       "revId": "98368fc48d1ac71851c83bfbeafdd337786894d3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fe16d6b_adbc5783",
+        "filename": ".clang-tidy",
+        "patchSetId": 9
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-25T18:33:47Z",
+      "side": 1,
+      "message": "It can be turned on when we get clang-18.  I was hoping clang-18 would land before this patchset was ready and I could just comment this in, but you\u0027re right, it could probably be removed.\n\nDone.",
+      "parentUuid": "704d0f0c_22ad9e30",
+      "revId": "98368fc48d1ac71851c83bfbeafdd337786894d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
