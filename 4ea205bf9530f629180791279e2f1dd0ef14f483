@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "58968742_bffa1c8b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-03-25T15:33:12Z",
+      "side": 1,
+      "message": "The main goal of this is to show the additional information in case of `taskAborted`.  The content for a particular case may be changed as necessary.",
+      "parentUuid": "d4591138_b1fc3f16",
+      "range": {
+        "startLine": 44,
+        "startChar": 26,
+        "endLine": 44,
+        "endChar": 85
+      },
+      "revId": "4ea205bf9530f629180791279e2f1dd0ef14f483",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "410d5bf9_7f85cce4",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -133,6 +157,30 @@
       "side": 1,
       "message": "Not resolved.  You removed it from the commit message, but not the code.",
       "parentUuid": "992712d0_2be49547",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 103
+      },
+      "revId": "4ea205bf9530f629180791279e2f1dd0ef14f483",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae948bcf_aa84194d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-03-25T15:33:12Z",
+      "side": 1,
+      "message": "The main goal of this is to show the additional information in case of `taskAborted`.  The content for a particular case may be changed as necessary.",
+      "parentUuid": "610cadd8_9fc48d93",
       "range": {
         "startLine": 46,
         "startChar": 0,
@@ -228,6 +276,24 @@
       "side": 1,
       "message": "👍",
       "parentUuid": "ec38818d_8869ab96",
+      "revId": "4ea205bf9530f629180791279e2f1dd0ef14f483",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a439da1_507f85b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-03-25T15:33:12Z",
+      "side": 1,
+      "message": "I got a DMTF response - https://github.com/DMTF/Redfish/issues/5994#issuecomment-2007872016\n\nI think the comment suggests to add an additional array element as a part of the same event group ID like\n```\n{\n           \"EventType\": \"Other\",\n           \"EventGroupId\": \"4593\",\n           \"Severity\": \"Critical\",\n           \"Message\": \"The task with Id \u00274\u0027 has completed with errors.\",\n           \"MessageId\": \"TaskEvent.1.0.TaskAborted\",\n...\n       },\n       {\n           \"EventType\": \"Other\",\n           \"EventGroupId\": \"4593\",\n           \"Severity\": \"Critical\",\n           \"Message\": \"The BMC ran out of usable memory.\",\n           \"MessageId\": \"Contoso.1.0.OutOfMemory\"\n       }\n```\n\nI\u0027m not sure whether this approach is good comparing with having an OemMessage with additional fields.",
+      "parentUuid": "e62d5ee3_c28bcbec",
       "revId": "4ea205bf9530f629180791279e2f1dd0ef14f483",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
