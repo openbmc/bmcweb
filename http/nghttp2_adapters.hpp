@@ -11,7 +11,12 @@ extern "C"
 
 /* This file contains RAII compatible adapters for nghttp2 structures.  They
  * attempt to be as close to a direct call as possible, while keeping the RAII
- * lifetime safety for the various classes.*/
+ * lifetime safety for the various classes.  Because of this, they use the same
+ * naming as nghttp2, so ignore naming violations.
+ */
+
+// NOLINTBEGIN(readability-identifier-naming,
+// readability-make-member-function-const)
 
 struct nghttp2_session;
 
@@ -160,12 +165,12 @@ struct nghttp2_session
     nghttp2_session* ptr = nullptr;
 };
 
-class nghttp2_hd_inflater
+struct nghttp2_hd_inflater_ex
 {
     nghttp2_hd_inflater* ptr = nullptr;
 
   public:
-    nghttp2_hd_inflater()
+    nghttp2_hd_inflater_ex()
     {
         if (nghttp2_hd_inflate_new(&ptr) != 0)
         {
@@ -185,12 +190,12 @@ class nghttp2_hd_inflater
         return nghttp2_hd_inflate_end_headers(ptr);
     }
 
-    nghttp2_hd_inflater(const nghttp2_hd_inflater&) = delete;
-    nghttp2_hd_inflater& operator=(const nghttp2_hd_inflater&) = delete;
-    nghttp2_hd_inflater& operator=(nghttp2_hd_inflater&&) = delete;
-    nghttp2_hd_inflater(nghttp2_hd_inflater&& other) = delete;
+    nghttp2_hd_inflater_ex(const nghttp2_hd_inflater_ex&) = delete;
+    nghttp2_hd_inflater_ex& operator=(const nghttp2_hd_inflater_ex&) = delete;
+    nghttp2_hd_inflater_ex& operator=(nghttp2_hd_inflater_ex&&) = delete;
+    nghttp2_hd_inflater_ex(nghttp2_hd_inflater_ex&& other) = delete;
 
-    ~nghttp2_hd_inflater()
+    ~nghttp2_hd_inflater_ex()
     {
         if (ptr != nullptr)
         {
@@ -198,3 +203,5 @@ class nghttp2_hd_inflater
         }
     }
 };
+// NOLINTEND(readability-identifier-naming,
+// readability-make-member-function-const)

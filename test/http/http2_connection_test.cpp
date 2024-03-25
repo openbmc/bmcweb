@@ -51,7 +51,7 @@ std::string getDateStr()
 void unpackHeaders(std::string_view dataField,
                    std::vector<std::pair<std::string, std::string>>& headers)
 {
-    nghttp2_hd_inflater inflater;
+    nghttp2_hd_inflater_ex inflater;
 
     while (!dataField.empty())
     {
