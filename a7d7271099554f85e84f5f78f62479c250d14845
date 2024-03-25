@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "20e18254_f59c42d6",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-25T20:00:27Z",
+      "side": 1,
+      "message": "I think it is slightly better but I\u0027ll leave it up to you",
+      "parentUuid": "56d8ca71_9274ebfd",
+      "range": {
+        "startLine": 53,
+        "startChar": 7,
+        "endLine": 53,
+        "endChar": 13
+      },
+      "revId": "a7d7271099554f85e84f5f78f62479c250d14845",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "56c2a41f_861756dd",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 21
