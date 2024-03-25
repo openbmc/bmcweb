@@ -160,12 +160,12 @@ struct nghttp2_session
     nghttp2_session* ptr = nullptr;
 };
 
-class nghttp2_hd_inflater
+struct nghttp2_hd_inflater_ex
 {
     nghttp2_hd_inflater* ptr = nullptr;
 
   public:
-    nghttp2_hd_inflater()
+    nghttp2_hd_inflater_ex()
     {
         if (nghttp2_hd_inflate_new(&ptr) != 0)
         {
@@ -185,12 +185,12 @@ class nghttp2_hd_inflater
         return nghttp2_hd_inflate_end_headers(ptr);
     }
 
-    nghttp2_hd_inflater(const nghttp2_hd_inflater&) = delete;
-    nghttp2_hd_inflater& operator=(const nghttp2_hd_inflater&) = delete;
-    nghttp2_hd_inflater& operator=(nghttp2_hd_inflater&&) = delete;
-    nghttp2_hd_inflater(nghttp2_hd_inflater&& other) = delete;
+    nghttp2_hd_inflater_ex(const nghttp2_hd_inflater_ex&) = delete;
+    nghttp2_hd_inflater_ex& operator=(const nghttp2_hd_inflater_ex&) = delete;
+    nghttp2_hd_inflater_ex& operator=(nghttp2_hd_inflater_ex&&) = delete;
+    nghttp2_hd_inflater_ex(nghttp2_hd_inflater_ex&& other) = delete;
 
-    ~nghttp2_hd_inflater()
+    ~nghttp2_hd_inflater_ex()
     {
         if (ptr != nullptr)
         {
