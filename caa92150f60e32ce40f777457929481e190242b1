@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ea7da9b4_9347b4f3",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-25T22:11:09Z",
+      "side": 1,
+      "message": "I\u0027m having a ton of trouble reading the schemas.  There\u0027s ExternalAccountProvider and seemingly both LDAPService and LDAP properties?\n\nI was really hoping someone that understood this would weigh in.  Clearly at some point this code used LDAPService/ActiveDirectoryService.",
+      "parentUuid": "327ab7eb_2dcbe423",
+      "revId": "caa92150f60e32ce40f777457929481e190242b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "85e0e157_e29a8460",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 6
@@ -65,6 +83,24 @@
       "writtenOn": "2024-03-25T19:52:22Z",
       "side": 1,
       "message": "I would think these should only be there when ldapType \u003d\u003d \"LDAP\"",
+      "revId": "caa92150f60e32ce40f777457929481e190242b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4931808_d498b012",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-25T22:11:09Z",
+      "side": 1,
+      "message": "Maybe?  I thought AD and LDAP had the same parameters.  Maybe this is where service was supposed to be used?",
+      "parentUuid": "85e0e157_e29a8460",
       "revId": "caa92150f60e32ce40f777457929481e190242b1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
