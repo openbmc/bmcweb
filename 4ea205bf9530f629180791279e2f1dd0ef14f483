@@ -296,6 +296,24 @@
       "parentUuid": "e62d5ee3_c28bcbec",
       "revId": "4ea205bf9530f629180791279e2f1dd0ef14f483",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86bfe51c_885a1e89",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-25T18:29:06Z",
+      "side": 1,
+      "message": "Cool. Mike is a Redfish expert, so he should be able to give you correct advice.",
+      "parentUuid": "9a439da1_507f85b3",
+      "revId": "4ea205bf9530f629180791279e2f1dd0ef14f483",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
