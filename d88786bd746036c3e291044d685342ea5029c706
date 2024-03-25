@@ -237,6 +237,30 @@
       },
       "revId": "d88786bd746036c3e291044d685342ea5029c706",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d54e048_38cd2d24",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-03-25T04:59:04Z",
+      "side": 1,
+      "message": "\"This is the part I\u0027m not understanding; I would not expect License schema to effect message Registry at all. They\u0027re two different schemas, used for two different purposes.\"\n\n[This](https://redfish.dmtf.org/registries/License.1.0.0) is the DMTF approved license message. This should be served via /redfish/v1/Registries/\u003cstr\u003e/\u003cstr\u003e/ to redfish clients. How can we make it work with out modifying message_registries.hpp?\nShould BMCWEB_ROUTE(app, \"/redfish/v1/Registries/License/License\")  work ? Does bmcweb has logic to select more specific URL instead of parameterised one while routing?",
+      "parentUuid": "90e117e7_67d299f6",
+      "range": {
+        "startLine": 508,
+        "startChar": 0,
+        "endLine": 517,
+        "endChar": 7
+      },
+      "revId": "d88786bd746036c3e291044d685342ea5029c706",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
