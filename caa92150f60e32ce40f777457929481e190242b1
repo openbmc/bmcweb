@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16786ce2_695fef6d",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-25T19:52:22Z",
+      "side": 1,
+      "message": "Based on line 1557, this is either ActiveDirectory or LDAP so I guess that is how it passes the validator",
+      "revId": "caa92150f60e32ce40f777457929481e190242b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78101a72_a74d4ba9",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-25T19:52:22Z",
+      "side": 1,
+      "message": "Just remote this line?",
+      "revId": "caa92150f60e32ce40f777457929481e190242b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "327ab7eb_2dcbe423",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-25T19:52:22Z",
+      "side": 1,
+      "message": "I think this is going to cause a validator error. From a mockup \n```\n{\n    \"@odata.type\": \"#AccountService.v1_15_0.AccountService\",\n    \"Id\": \"AccountService\",\n    \"Name\": \"Account Service\",\n    \"Description\": \"Account Service\",\n    \"Status\": {\n        \"State\": \"Enabled\",\n        \"Health\": \"OK\"\n    },\n...\n    \"LDAP\": {\n        \"AccountProviderType\": \"LDAPService\",\n        \"ServiceEnabled\": false,\n        \"ServiceAddresses\": [\n            \"ldaps://ldap.example.org:636\"\n        ],\n        \"Authentication\": {\n            \"AuthenticationType\": \"UsernameAndPassword\",\n            \"Username\": \"cn\u003dManager,dc\u003dexample,dc\u003dorg\",\n            \"Password\": null\n        },\n        \"LDAPService\": {\n            \"SearchSettings\": {\n                \"BaseDistinguishedNames\": [\n                    \"dc\u003dexample,dc\u003dorg\"\n                ],\n                \"UsernameAttribute\": \"uid\",\n                \"GroupsAttribute\": \"memberof\"\n            }\n        },\n...\n    \"ActiveDirectory\": {\n        \"AccountProviderType\": \"ActiveDirectoryService\",\n        \"ServiceEnabled\": true,\n        \"ServiceAddresses\": [\n            \"ad1.example.org\",\n            \"ad2.example.org\",\n            null,\n            null\n        ],\n        \"Authentication\": {\n            \"AuthenticationType\": \"KerberosKeytab\",\n            \"KerberosKeytab\": null\n        },\n\n```\n\nSo you changing this means we are going to have \n\nLDAPService -\u003e LDAPService instead of \n\nLDAP -\u003e LDAPService",
+      "revId": "caa92150f60e32ce40f777457929481e190242b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85e0e157_e29a8460",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-25T19:52:22Z",
+      "side": 1,
+      "message": "I would think these should only be there when ldapType \u003d\u003d \"LDAP\"",
+      "revId": "caa92150f60e32ce40f777457929481e190242b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
