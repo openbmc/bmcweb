@@ -1337,13 +1337,15 @@ inline void
 {
     static constexpr std::string_view dbusNotAllowedError =
         "xyz.openbmc_project.Common.Error.NotAllowed";
+    static constexpr std::string_view dbusInvalidArgumentError =
+        "xyz.openbmc_project.Common.Error.InvalidArgument";
 
     sdbusplus::asio::setProperty(
         *crow::connections::systemBus, "xyz.openbmc_project.Network",
         "/xyz/openbmc_project/network/" + ifaceId,
         "xyz.openbmc_project.Network.MACAddress", "MACAddress", macAddress,
-        [asyncResp](const boost::system::error_code& ec,
-                    const sdbusplus::message_t& msg) {
+        [asyncResp, macAddress](const boost::system::error_code& ec,
+                                const sdbusplus::message_t& msg) {
         if (ec)
         {
             const sd_bus_error* err = msg.get_error();
@@ -1356,6 +1358,11 @@ inline void
             {
                 messages::propertyNotWritable(asyncResp->res, "MACAddress");
                 return;
+            }
+            if (err->name == dbusInvalidArgumentError)
+            {
+                messages::propertyValueIncorrect(asyncResp->res, "MACAddress",
+                                                 macAddress);
             }
             messages::internalError(asyncResp->res);
             return;
