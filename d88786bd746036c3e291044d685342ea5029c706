@@ -261,6 +261,30 @@
       },
       "revId": "d88786bd746036c3e291044d685342ea5029c706",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "847fe83e_5ee733ed",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-03-25T05:03:09Z",
+      "side": 1,
+      "message": "What is \"server_root\"? \nSorry It was typo, I mean service_root here. \n\nWhy does it make changes to webserver main? \nI could see modification are going in  both  webserver_main.hpp and redfish.hpp. I don\u0027t know which one to choose. I thought OEM specific changes will fall in webserver_main.hpp",
+      "parentUuid": "6d54e048_38cd2d24",
+      "range": {
+        "startLine": 508,
+        "startChar": 0,
+        "endLine": 517,
+        "endChar": 7
+      },
+      "revId": "d88786bd746036c3e291044d685342ea5029c706",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
