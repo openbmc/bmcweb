@@ -1357,6 +1357,11 @@ inline void
                 messages::propertyNotWritable(asyncResp->res, "MACAddress");
                 return;
             }
+            if (err->name == dbusInvalidArgument)
+            {
+                messages::propertyValueIncorrect(asyncResp->res, "MACAddress",
+                                                 macAddress);
+            }
             messages::internalError(asyncResp->res);
             return;
         }
