@@ -241,6 +241,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5f931d57_c4d41a63",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-26T17:35:48Z",
+      "side": 1,
+      "message": "\u003e std::variant any better than an invented NullOr class\n\nAt least they could google std::variant",
+      "parentUuid": "ca2cf848_21dfc543",
+      "revId": "a7d7271099554f85e84f5f78f62479c250d14845",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9aa03e34_025604a6",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 21
