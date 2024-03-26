@@ -93,6 +93,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8357e9c8_7f272ae2",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1250,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-26T18:56:00Z",
+      "side": 1,
+      "message": "Good catch!  Fixed.",
+      "parentUuid": "bf69fcd3_aec79bb6",
+      "range": {
+        "startLine": 1250,
+        "startChar": 8,
+        "endLine": 1250,
+        "endChar": 18
+      },
+      "revId": "39ae327da14540ef1d2af67f70ef9d3cb0964544",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a5b88028_5920e01d",
@@ -106,6 +130,30 @@
       "writtenOn": "2024-03-26T18:45:41Z",
       "side": 1,
       "message": "Unused. Should be deleted.",
+      "range": {
+        "startLine": 3077,
+        "startChar": 12,
+        "endLine": 3077,
+        "endChar": 40
+      },
+      "revId": "39ae327da14540ef1d2af67f70ef9d3cb0964544",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21c8f5de_9b2fbea2",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 3077,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-26T18:56:00Z",
+      "side": 1,
+      "message": "Has been removed.",
+      "parentUuid": "a5b88028_5920e01d",
       "range": {
         "startLine": 3077,
         "startChar": 12,
@@ -152,6 +200,24 @@
       "writtenOn": "2024-03-26T18:45:41Z",
       "side": 1,
       "message": "Can we add other defined common errors here?\nOr, are we planning to add errors here as and when we modify each files w.r.t this change?",
+      "revId": "39ae327da14540ef1d2af67f70ef9d3cb0964544",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d13548c_f8a889b0",
+        "filename": "redfish-core/src/utils/dbus_utils.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-26T18:56:00Z",
+      "side": 1,
+      "message": "\u003e Can we add other defined common errors here?\n\u003e Or, are we planning to add errors here as and when we modify each files w.r.t this change?\n\n\nThis was asked and answered in previous comments.  Please read the comment history, and if it still doesn\u0027t make sense, we can discuss further.",
+      "parentUuid": "eaa68afa_041301a3",
       "revId": "39ae327da14540ef1d2af67f70ef9d3cb0964544",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
