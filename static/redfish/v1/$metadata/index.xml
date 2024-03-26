@@ -3934,6 +3934,10 @@
     <edmx:Reference Uri="/redfish/v1/schema/VirtualMediaCollection_v1.xml">
         <edmx:Include Namespace="VirtualMediaCollection"/>
     </edmx:Reference>
+    <edmx:Reference Uri="/redfish/v1/schema/OemAssembly_v1.xml">
+        <edmx:Include Namespace="OemAssembly"/>
+        <edmx:Include Namespace="OemAssembly.v1_0_0"/>
+    </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/OemManager_v1.xml">
         <edmx:Include Namespace="OemManager"/>
     </edmx:Reference>

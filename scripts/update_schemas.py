@@ -142,6 +142,7 @@ include_list = [
 
 # OEM schemas
 oem_schema_names = [
+    "OemAssembly",
     "OemManager",
     "OemManagerAccount",
     "OemComputerSystem",

@@ -126,6 +126,7 @@ namespace redfish
         "UpdateService",
         "VirtualMedia",
         "VirtualMediaCollection",
+        "OemAssembly",
         "OemManager",
         "OemManagerAccount",
         "OemComputerSystem",
