@@ -1,3 +1,4 @@
+#include "boost_formatters.hpp"
 #include "http/server_sent_event.hpp"
 
 #include <boost/asio/buffer.hpp>
