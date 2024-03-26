@@ -1,6 +1,7 @@
 #pragma once
 
 #include "authentication.hpp"
+#include "boost_formatters.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "http_utility.hpp"
