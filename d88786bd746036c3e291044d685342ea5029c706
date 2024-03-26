@@ -333,6 +333,30 @@
       },
       "revId": "d88786bd746036c3e291044d685342ea5029c706",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f5656f7_4aaded4d",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-03-26T05:42:54Z",
+      "side": 1,
+      "message": "Yes auto generation or registry during build time is a better solution for plug-ability. I am happy to manage it via bbappend than a code patch. Combining auto registration of registry and auto population of service root from bmc-route will solve the plug-ability issue I have with license manager. If that is the plan then I no more required this commit.",
+      "parentUuid": "aba0801c_ca2abcf0",
+      "range": {
+        "startLine": 508,
+        "startChar": 0,
+        "endLine": 517,
+        "endChar": 7
+      },
+      "revId": "d88786bd746036c3e291044d685342ea5029c706",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
