@@ -277,6 +277,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9a5cf54d_83519abe",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-26T23:20:30Z",
+      "side": 1,
+      "message": "ok, I moved to variant.  The code is more complicated, but it doesn\u0027t require people to figure out what the nullor class does.  Variant is more generic and \"standard\" even if the code is a little worse.",
+      "parentUuid": "b545833c_0ebaa332",
+      "revId": "a7d7271099554f85e84f5f78f62479c250d14845",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9aa03e34_025604a6",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 21
