@@ -1,5 +1,6 @@
 #include "boost/asio/read.hpp"
 #include "boost/asio/read_until.hpp"
+#include "boost_formatters.hpp"
 #include "http/http_request.hpp"
 #include "http/http_response.hpp"
 #include "http/server_sent_event.hpp"
