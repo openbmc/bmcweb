@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7b246a0_75d3137b",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-26T04:03:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78101a72_a74d4ba9",
+      "revId": "caa92150f60e32ce40f777457929481e190242b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "327ab7eb_2dcbe423",
@@ -72,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d0de4c55_2142df28",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-26T04:03:16Z",
+      "side": 1,
+      "message": "Think I figured it out.  service validator passes.",
+      "parentUuid": "ea7da9b4_9347b4f3",
+      "revId": "caa92150f60e32ce40f777457929481e190242b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "85e0e157_e29a8460",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 6
@@ -101,6 +137,24 @@
       "side": 1,
       "message": "Maybe?  I thought AD and LDAP had the same parameters.  Maybe this is where service was supposed to be used?",
       "parentUuid": "85e0e157_e29a8460",
+      "revId": "caa92150f60e32ce40f777457929481e190242b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68bfc5f8_08660266",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-26T04:03:16Z",
+      "side": 1,
+      "message": "Nvm, did what you said.",
+      "parentUuid": "e4931808_d498b012",
       "revId": "caa92150f60e32ce40f777457929481e190242b1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
