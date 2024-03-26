@@ -309,6 +309,30 @@
       },
       "revId": "d88786bd746036c3e291044d685342ea5029c706",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aba0801c_ca2abcf0",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-26T04:14:23Z",
+      "side": 1,
+      "message": "\u003e  Have you done it ? or you want some one to explore more on this idea?\n\nI have not attempted it yet, just something that would incrementally help with this plugability problem.\n\n\n\u003e Should BMCWEB_ROUTE(app, \"/redfish/v1/Registries/License/License\") work ? Does bmcweb has logic to select more specific URL instead of parameterised one while routing?\n\nToday this would result in a conflict, but that\u0027s just behavior in the router.  We could make this kind of thing call both or override a specific path.\n\nThe other option is we could just register 3 routes, one for each registry, that way your downstream registry route wouldn\u0027t conflict.\n\n\n\u003e How can we make it work with out modifying message_registries.hpp?\n\nYou didn\u0027t mention that you\u0027re adding two things, Licence registry AND license service.  Adding pluggable registries is considerably harder than adding pluggable routes, because the registry needs to be made available.  What I would do is\n\n1. Move the registry generation script to run during the build, instead of running on checkin.\n2. Add code to make the script search for new registry file\n3. Have the script generate all the possible registries and error_messages.hpp/cpp files.\n4. As part of your bbappend, install the new registry file into the rootfs for bmcweb to find.\n5(optional) make all the registries installed with their own recipe, and have bmcweb generate all of them.\n\nThis way, nobody is maintaining a patch, even a single line, and people can trivially plug in their own registries if they like.\n\n\n\nI think that, combined with the above automatic hyperlinking, and BMCWEB_ROUTE overriding would get you everything you want, right?",
+      "parentUuid": "06afbb00_75072aa9",
+      "range": {
+        "startLine": 508,
+        "startChar": 0,
+        "endLine": 517,
+        "endChar": 7
+      },
+      "revId": "d88786bd746036c3e291044d685342ea5029c706",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
