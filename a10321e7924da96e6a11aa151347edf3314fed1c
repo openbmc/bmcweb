@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "33c32ec6_04551884",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 877,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2024-03-26T21:58:16Z",
+      "side": 0,
+      "message": "Hmm, yeah, 204 feels like it makes the most sense as most set property operations aren\u0027t returning anything. Another good part of this commit is we\u0027ll get a consistent response. Callers can always override if they have a special need.",
+      "parentUuid": "2ab3ed3b_a526aff8",
+      "revId": "a10321e7924da96e6a11aa151347edf3314fed1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8c2dc932_83f4dcb2",
