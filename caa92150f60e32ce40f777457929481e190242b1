@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c4e7a11_1927ff88",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-26T15:21:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "16786ce2_695fef6d",
+      "revId": "caa92150f60e32ce40f777457929481e190242b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "78101a72_a74d4ba9",
@@ -102,6 +120,24 @@
       "side": 1,
       "message": "Think I figured it out.  service validator passes.",
       "parentUuid": "ea7da9b4_9347b4f3",
+      "revId": "caa92150f60e32ce40f777457929481e190242b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e105528_9894b6b0",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-26T15:21:19Z",
+      "side": 1,
+      "message": "So ActiveDirectory and LDAP are both ExternalAccountProviders. \n\n\nSo \"ActiveDirectory\"\"LDAPService\" is valid. \n\nShould it be there? IDK.. The webuis have it: E.g. \n[\u0027ActiveDirectory\u0027][\u0027LDAPService\u0027][\u0027SearchSettings\u0027][\u0027GroupsAttribute\u0027];\n\nRedfish could have just decided to reuse ExternalAccountProvider for both LDAP and ActiveDirectory but never meant for the LDAPService property to be there when ActiveDirectory is there. I don\u0027t know enough about LDAP \n\n\n```\n                \"ActiveDirectory\": {\n                    \"$ref\": \"#/definitions/ExternalAccountProvider\",\n                    \"description\": \"The first Active Directory external account provider that this account service supports.\",\n                    \"longDescription\": \"This property shall contain the first Active Directory external account provider that this account service supports.  If the account service supports one or more Active Directory services as an external account provider, this entity shall be populated by default.  This entity shall not be present in the additional external account providers resource collection.\",\n                    \"versionAdded\": \"v1_3_0\"\n                },\n\n...\n\n                \"LDAP\": {\n                    \"$ref\": \"#/definitions/ExternalAccountProvider\",\n                    \"description\": \"The first LDAP external account provider that this account service supports.\",\n                    \"longDescription\": \"This property shall contain the first LDAP external account provider that this account service supports.  If the account service supports one or more LDAP services as an external account provider, this entity shall be populated by default.  This entity shall not be present in the additional external account providers resource collection.\",\n                    \"versionAdded\": \"v1_3_0\"\n                },\n\n```\n\n\n\n```\n        \"ExternalAccountProvider\": {\n            \"additionalProperties\": false,\n            \"description\": \"The external account provider services that can provide accounts for this manager to use for authentication.\",\n            \"longDescription\": \"This type shall contain properties that represent external account provider services that can provide accounts for this manager to use for authentication.\",\n            \"patternProperties\": {\n                \"^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\\\.[a-zA-Z_][a-zA-Z0-9_]*$\": {\n                    \"description\": \"This property shall specify a valid odata or Redfish property.\",\n                    \"type\": [\n                        \"array\",\n                        \"boolean\",\n                        \"integer\",\n                        \"number\",\n                        \"null\",\n                        \"object\",\n                        \"string\"\n                    ]\n                }\n            },\n            \"properties\": {\n                \"AccountProviderType\": {\n                    \"anyOf\": [\n                        {\n                            \"$ref\": \"#/definitions/AccountProviderTypes\"\n                        },\n                        {\n                            \"type\": \"null\"\n                        }\n                    ],\n                    \"deprecated\": \"This property is deprecated because the account provider type is known when used in the LDAP and ActiveDirectory objects.\",\n                    \"description\": \"The type of external account provider to which this service connects.\",\n                    \"longDescription\": \"This property shall contain the type of external account provider to which this service connects.\",\n                    \"readonly\": true,\n                    \"versionAdded\": \"v1_3_0\",\n                    \"versionDeprecated\": \"v1_5_0\"\n                },\n                \"Authentication\": {\n                    \"$ref\": \"#/definitions/Authentication\",\n                    \"description\": \"The authentication information for the external account provider.\",\n                    \"longDescription\": \"This property shall contain the authentication information for the external account provider.\",\n                    \"versionAdded\": \"v1_3_0\"\n                },\n                \"Certificates\": {\n                    \"$ref\": \"http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection\",\n                    \"description\": \"The link to a collection of certificates that the external account provider uses.\",\n                    \"longDescription\": \"This property shall contain a link to a resource collection of type CertificateCollection that contains certificates the external account provider uses.\",\n                    \"readonly\": true,\n                    \"versionAdded\": \"v1_4_0\"\n                },\n                \"LDAPService\": {\n                    \"$ref\": \"#/definitions/LDAPService\",\n                    \"description\": \"The additional mapping information needed to parse a generic LDAP service.\",\n                    \"longDescription\": \"This property shall contain any additional mapping information needed to parse a generic LDAP service.  This property should only be present inside the LDAP property.\",\n                    \"versionAdded\": \"v1_3_0\"\n                },\n```",
+      "parentUuid": "d0de4c55_2142df28",
       "revId": "caa92150f60e32ce40f777457929481e190242b1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
