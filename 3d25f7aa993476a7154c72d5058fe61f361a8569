@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a41b8835_c0badd57",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-26T20:28:20Z",
+      "side": 1,
+      "message": "\u003e I am looking at the old webui code \n\u003e https://github.com/openbmc/phosphor-webui/blob/e16bb5c35893591eab048ae4ef646a9e5e2f7e94/app/access-control/controllers/ldap-controller.js#L191\n\u003e \n\u003e It supports [\u0027ActiveDirectory\u0027][\u0027LDAPService\u0027][\u0027SearchSettings\u0027][\u0027UsernameAttribute\u0027]\n\nOk, so the old behavior was we just put LDAP for both.  I can replicate that.\n\n\u003e \n\u003e https://github.com/openbmc/phosphor-webui/blob/e16bb5c35893591eab048ae4ef646a9e5e2f7e94/app/access-control/controllers/ldap-controller.js#L279\n\u003e \n\u003e I see the same for the UsernameAttribute / GroupsAttribute / BaseDistinguishedNames.\n\u003e \n\u003e \n\u003e webui-vue looks to follow the same logic \n\u003e https://github.com/openbmc/webui-vue/blob/02f9709dc90a03d9ee8d0bdb4df23d9a95ed6feb/src/store/modules/SecurityAndAccess/LdapStore.js#L66\n\u003e \n\u003e The webuis could absolutely be wrong..\n\nYeah, who knows, latest patchset tries to get the old behavior and kick the can down the road for a bit.",
+      "parentUuid": "4e358316_1a507e0b",
+      "revId": "3d25f7aa993476a7154c72d5058fe61f361a8569",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "21b24c78_4a184eca",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 8
@@ -31,6 +49,24 @@
       "writtenOn": "2024-03-26T15:21:19Z",
       "side": 1,
       "message": "I still don\u0027t see this used..",
+      "revId": "3d25f7aa993476a7154c72d5058fe61f361a8569",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8338d7f7_b4e60de0",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-26T20:28:20Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "21b24c78_4a184eca",
       "revId": "3d25f7aa993476a7154c72d5058fe61f361a8569",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
