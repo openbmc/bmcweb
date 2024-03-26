@@ -95,6 +95,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbaf95ce_455ab764",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-26T17:15:11Z",
+      "side": 1,
+      "message": "This copy has been removed in the latest.",
+      "parentUuid": "636d32c9_76793a58",
+      "range": {
+        "startLine": 588,
+        "startChar": 0,
+        "endLine": 588,
+        "endChar": 49
+      },
+      "revId": "c1b92f9956b0592e100fc57a9c4e245c456cd5ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "98b9c0c5_dddf46f2",
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "ack.\n\nthis is uncommented in a later patch..  just needs hoisted to this patch.",
       "parentUuid": "98b9c0c5_dddf46f2",
+      "range": {
+        "startLine": 828,
+        "startChar": 5,
+        "endLine": 829,
+        "endChar": 67
+      },
+      "revId": "c1b92f9956b0592e100fc57a9c4e245c456cd5ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d588ccd9_5e05ec48",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 829,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-26T17:15:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2726b88_ebad33da",
       "range": {
         "startLine": 828,
         "startChar": 5,
