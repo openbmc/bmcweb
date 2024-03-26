@@ -15,76 +15,6 @@
 #include <string_view>
 #include <system_error>
 
-// Clang-tidy would rather these be static, but using static causes the template
-// specialization to not function.  Ignore the warning.
-// NOLINTBEGIN(readability-convert-member-functions-to-static, cert-dcl58-cpp)
-template <>
-struct std::formatter<boost::system::error_code>
-{
-    constexpr auto parse(std::format_parse_context& ctx)
-    {
-        return ctx.begin();
-    }
-
-    auto format(const boost::system::error_code& ec, auto& ctx) const
-    {
-        return std::format_to(ctx.out(), "{}", ec.what());
-    }
-};
-
-template <>
-struct std::formatter<boost::urls::pct_string_view>
-{
-    constexpr auto parse(std::format_parse_context& ctx)
-    {
-        return ctx.begin();
-    }
-    auto format(const boost::urls::pct_string_view& msg, auto& ctx) const
-    {
-        return std::format_to(ctx.out(), "{}",
-                              std::string_view(msg.data(), msg.size()));
-    }
-};
-
-template <>
-struct std::formatter<boost::urls::url_view>
-{
-    constexpr auto parse(std::format_parse_context& ctx)
-    {
-        return ctx.begin();
-    }
-    auto format(const boost::urls::url& msg, auto& ctx) const
-    {
-        return std::format_to(ctx.out(), "{}", std::string_view(msg.buffer()));
-    }
-};
-
-template <>
-struct std::formatter<boost::urls::url>
-{
-    constexpr auto parse(std::format_parse_context& ctx)
-    {
-        return ctx.begin();
-    }
-    auto format(const boost::urls::url& msg, auto& ctx) const
-    {
-        return std::format_to(ctx.out(), "{}", std::string_view(msg.buffer()));
-    }
-};
-
-template <>
-struct std::formatter<boost::core::string_view>
-{
-    constexpr auto parse(std::format_parse_context& ctx)
-    {
-        return ctx.begin();
-    }
-    auto format(const boost::core::string_view& msg, auto& ctx) const
-    {
-        return std::format_to(ctx.out(), "{}", std::string_view(msg));
-    }
-};
-
 template <>
 struct std::formatter<void*>
 {
@@ -98,36 +28,6 @@ struct std::formatter<void*>
                               std::to_string(std::bit_cast<size_t>(ptr)));
     }
 };
-
-template <>
-struct std::formatter<nlohmann::json::json_pointer>
-{
-    constexpr auto parse(std::format_parse_context& ctx)
-    {
-        return ctx.begin();
-    }
-    auto format(const nlohmann::json::json_pointer& ptr, auto& ctx) const
-    {
-        return std::format_to(ctx.out(), "{}", ptr.to_string());
-    }
-};
-
-template <>
-struct std::formatter<nlohmann::json>
-{
-    static constexpr auto parse(std::format_parse_context& ctx)
-    {
-        return ctx.begin();
-    }
-    auto format(const nlohmann::json& json, auto& ctx) const
-    {
-        return std::format_to(
-            ctx.out(), "{}",
-            json.dump(-1, ' ', false,
-                      nlohmann::json::error_handler_t::replace));
-    }
-};
-// NOLINTEND(readability-convert-member-functions-to-static, cert-dcl58-cpp)
 
 namespace crow
 {
