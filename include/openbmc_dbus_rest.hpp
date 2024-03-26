@@ -15,6 +15,7 @@
 #pragma once
 #include "app.hpp"
 #include "async_resp.hpp"
+#include "boost_formatters.hpp"
 #include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "http_request.hpp"
