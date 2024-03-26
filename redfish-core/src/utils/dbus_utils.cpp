@@ -1,6 +1,7 @@
 #include "utils/dbus_utils.hpp"
 
 #include "async_resp.hpp"
+#include "boost_formatters.hpp"
 
 #include <boost/system/error_code.hpp>
 #include <nlohmann/json.hpp>
