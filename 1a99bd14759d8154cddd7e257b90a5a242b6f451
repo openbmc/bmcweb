@@ -16,6 +16,24 @@
       "message": "This doesn\u0027t pass? I mean I am good removing commented out code but maybe, add that to the commit msg",
       "revId": "1a99bd14759d8154cddd7e257b90a5a242b6f451",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e243458_c8f9b569",
+        "filename": ".clang-tidy",
+        "patchSetId": 6
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-26T15:22:00Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "6c556d17_64ec51f6",
+      "revId": "1a99bd14759d8154cddd7e257b90a5a242b6f451",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
