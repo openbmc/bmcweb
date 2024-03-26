@@ -15,6 +15,7 @@
  */
 #pragma once
 
+#include "boost_formatters.hpp"
 #include "dbus_singleton.hpp"
 #include "logging.hpp"
 
