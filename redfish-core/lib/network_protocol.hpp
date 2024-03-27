@@ -264,17 +264,24 @@ inline void handleNTPProtocolEnabled(
     });
 }
 
+// Redfish states that ip addresses can be
+// string, to set a value
+// null, to delete the value
+// object_t, empty json object, to ignore the value
+using IpAddress =
+    std::variant<std::string, nlohmann::json::object_t, std::nullptr_t>;
+
 inline void
     handleNTPServersPatch(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                          const std::vector<nlohmann::json>& ntpServerObjects,
+                          const std::vector<IpAddress>& ntpServerObjects,
                           std::vector<std::string> currentNtpServers)
 {
     std::vector<std::string>::iterator currentNtpServer =
         currentNtpServers.begin();
     for (size_t index = 0; index < ntpServerObjects.size(); index++)
     {
-        const nlohmann::json& ntpServer = ntpServerObjects[index];
-        if (ntpServer.is_null())
+        const IpAddress& ntpServer = ntpServerObjects[index];
+        if (std::holds_alternative<std::nullptr_t>(ntpServer))
         {
             // Can't delete an item that doesn't exist
             if (currentNtpServer == currentNtpServers.end())
@@ -289,15 +296,13 @@ inline void
             continue;
         }
         const nlohmann::json::object_t* ntpServerObject =
-            ntpServer.get_ptr<const nlohmann::json::object_t*>();
+            std::get_if<nlohmann::json::object_t>(&ntpServer);
         if (ntpServerObject != nullptr)
         {
             if (!ntpServerObject->empty())
             {
                 messages::propertyValueNotInList(
-                    asyncResp->res,
-                    ntpServer.dump(2, ' ', true,
-                                   nlohmann::json::error_handler_t::replace),
+                    asyncResp->res, *ntpServerObject,
                     "NTP/NTPServers/" + std::to_string(index));
                 return;
             }
@@ -305,9 +310,7 @@ inline void
             if (currentNtpServer == currentNtpServers.end())
             {
                 messages::propertyValueOutOfRange(
-                    asyncResp->res,
-                    ntpServer.dump(2, ' ', true,
-                                   nlohmann::json::error_handler_t::replace),
+                    asyncResp->res, *ntpServerObject,
                     "NTP/NTPServers/" + std::to_string(index));
 
                 return;
@@ -317,15 +320,10 @@ inline void
             continue;
         }
 
-        const std::string* ntpServerStr =
-            ntpServer.get_ptr<const std::string*>();
+        const std::string* ntpServerStr = std::get_if<std::string>(&ntpServer);
         if (ntpServerStr == nullptr)
         {
-            messages::propertyValueTypeError(
-                asyncResp->res,
-                ntpServer.dump(2, ' ', true,
-                               nlohmann::json::error_handler_t::replace),
-                "NTP/NTPServers/" + std::to_string(index));
+            messages::internalError(asyncResp->res);
             return;
         }
         if (currentNtpServer == currentNtpServers.end())
@@ -504,7 +502,8 @@ inline void handleManagersNetworkProtocolPatch(
         return;
     }
     std::optional<std::string> newHostName;
-    std::optional<std::vector<nlohmann::json>> ntpServerObjects;
+
+    std::optional<std::vector<IpAddress>> ntpServerObjects;
     std::optional<bool> ntpEnabled;
     std::optional<bool> ipmiEnabled;
     std::optional<bool> sshEnabled;
