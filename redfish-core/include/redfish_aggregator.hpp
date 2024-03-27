@@ -560,21 +560,8 @@ class RedfishAggregator
             }
         }
 
-        // Create a copy of thisReq so we we can still locally process the req
-        std::error_code ec;
-        auto localReq = std::make_shared<crow::Request>(thisReq.req, ec);
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("Failed to create copy of request");
-            if (aggType == AggregationType::Resource)
-            {
-                messages::internalError(asyncResp->res);
-            }
-            return;
-        }
-
         getSatelliteConfigs(
-            std::bind_front(aggregateAndHandle, aggType, localReq, asyncResp));
+            std::bind_front(aggregateAndHandle, aggType, thisReq, asyncResp));
     }
 
     static void findSatellite(
@@ -608,16 +595,11 @@ class RedfishAggregator
     // Intended to handle an incoming request based on if Redfish Aggregation
     // is enabled.  Forwards request to satellite BMC if it exists.
     static void aggregateAndHandle(
-        AggregationType aggType,
-        const std::shared_ptr<crow::Request>& sharedReq,
+        AggregationType aggType, const crow::Request& thisReq,
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         const boost::system::error_code& ec,
         const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
     {
-        if (sharedReq == nullptr)
-        {
-            return;
-        }
         // Something went wrong while querying dbus
         if (ec)
         {
@@ -634,13 +616,12 @@ class RedfishAggregator
             // don't need to write an error code
             if (aggType == AggregationType::Resource)
             {
-                std::string nameStr = sharedReq->url().segments().back();
+                std::string nameStr = thisReq.url().segments().back();
                 messages::resourceNotFound(asyncResp->res, "", nameStr);
             }
             return;
         }
 
-        const crow::Request& thisReq = *sharedReq;
         BMCWEB_LOG_DEBUG("Aggregation is enabled, begin processing of {}",
                          thisReq.target());
 

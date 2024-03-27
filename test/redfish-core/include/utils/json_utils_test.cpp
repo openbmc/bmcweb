@@ -297,7 +297,7 @@ TEST(ReadJsonPatch, ValidElementsReturnsTrueResponseOkValuesUnpackedCorrectly)
     crow::Request req("{\"integer\": 1}", ec);
 
     // Ignore errors intentionally
-    req.req.set(boost::beast::http::field::content_type, "application/json");
+    req.req().set(boost::beast::http::field::content_type, "application/json");
 
     int64_t integer = 0;
     ASSERT_TRUE(readJsonPatch(req, res, "integer", integer));
@@ -324,7 +324,7 @@ TEST(ReadJsonPatch, OdataIgnored)
     crow::Response res;
     std::error_code ec;
     crow::Request req(R"({"@odata.etag": "etag", "integer": 1})", ec);
-    req.req.set(boost::beast::http::field::content_type, "application/json");
+    req.req().set(boost::beast::http::field::content_type, "application/json");
     // Ignore errors intentionally
 
     std::optional<int64_t> integer = 0;
@@ -352,7 +352,7 @@ TEST(ReadJsonAction, ValidElementsReturnsTrueResponseOkValuesUnpackedCorrectly)
     crow::Response res;
     std::error_code ec;
     crow::Request req("{\"integer\": 1}", ec);
-    req.req.set(boost::beast::http::field::content_type, "application/json");
+    req.req().set(boost::beast::http::field::content_type, "application/json");
     // Ignore errors intentionally
 
     int64_t integer = 0;
@@ -367,7 +367,7 @@ TEST(ReadJsonAction, EmptyObjectReturnsTrueResponseOk)
     crow::Response res;
     std::error_code ec;
     crow::Request req({"{}"}, ec);
-    req.req.set(boost::beast::http::field::content_type, "application/json");
+    req.req().set(boost::beast::http::field::content_type, "application/json");
     // Ignore errors intentionally
 
     std::optional<int64_t> integer = 0;
