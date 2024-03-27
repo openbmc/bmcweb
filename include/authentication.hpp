@@ -1,6 +1,5 @@
 #pragma once
 
-#include "common.hpp"
 #include "forward_unauthorized.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"

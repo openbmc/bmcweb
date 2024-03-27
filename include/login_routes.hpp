@@ -1,7 +1,6 @@
 #pragma once
 
 #include "app.hpp"
-#include "common.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
 #ifdef BMCWEB_ENABLE_LINUX_AUDIT_EVENTS

@@ -62,6 +62,41 @@ TEST(Router, AllowHeader)
     EXPECT_NE(router.findRoute(patchReq).route.rule, nullptr);
 }
 
+TEST(Router, OverlapingRoutes)
+{
+    // Callback handler that does nothing
+    auto fooCallback = [](const Request&,
+                          const std::shared_ptr<bmcweb::AsyncResp>&) {
+        EXPECT_FALSE(true);
+    };
+    bool barCalled = false;
+    auto foobarCallback =
+        [&barCalled](const Request&, const std::shared_ptr<bmcweb::AsyncResp>&,
+                     const std::string& bar) {
+        barCalled = true;
+        EXPECT_EQ(bar, "bar");
+    };
+
+    Router router;
+    std::error_code ec;
+
+    router.newRuleTagged<getParameterTag("/foo/<str>")>("/foo/<str>")(
+        foobarCallback);
+    router.newRuleTagged<getParameterTag("/foo")>("/foo")(fooCallback);
+    router.validate();
+    {
+        constexpr std::string_view url = "/foo/bar";
+
+        Request req{{boost::beast::http::verb::get, url, 11}, ec};
+
+        std::shared_ptr<bmcweb::AsyncResp> asyncResp =
+            std::make_shared<bmcweb::AsyncResp>();
+
+        router.handle(req, asyncResp);
+    }
+    EXPECT_TRUE(barCalled);
+}
+
 TEST(Router, 404)
 {
     bool notFoundCalled = false;
