@@ -86,6 +86,24 @@
       "parentUuid": "c1fe98d4_c5fab8a3",
       "revId": "a0e7c38a568336ac2090941579b173539c67ce0c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46edc886_f8697e96",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-27T18:57:26Z",
+      "side": 1,
+      "message": "It looks like a HostName set error previously would only ever return 500 internal error in all cases.  What were you expecting to see, and what did you see?",
+      "parentUuid": "1cca826c_f774c0b7",
+      "revId": "a0e7c38a568336ac2090941579b173539c67ce0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
