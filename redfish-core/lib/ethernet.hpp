@@ -2325,7 +2325,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
         {
             return;
         }
-        //clang-format on
+        // clang-format on
         if (dhcpv4)
         {
             if (!json_util::readJson(*dhcpv4, asyncResp->res, "DHCPEnabled",
@@ -2453,8 +2453,8 @@ inline void requestEthernetInterfacesRoutes(App& app)
             {
                 handleMTUSizePatch(ifaceId, *mtuSize, asyncResp);
             }
-            });
         });
+    });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/EthernetInterfaces/<str>/")
         .privileges(redfish::privileges::deleteEthernetInterface)
@@ -2471,11 +2471,11 @@ inline void requestEthernetInterfacesRoutes(App& app)
             [asyncResp, ifaceId](const boost::system::error_code& ec,
                                  const sdbusplus::message_t& m) {
             afterDelete(asyncResp, ifaceId, ec, m);
-            },
+        },
             "xyz.openbmc_project.Network",
             std::string("/xyz/openbmc_project/network/") + ifaceId,
             "xyz.openbmc_project.Object.Delete", "Delete");
-        });
+    });
 }
 
 } // namespace redfish
