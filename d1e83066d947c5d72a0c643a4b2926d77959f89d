@@ -51,6 +51,42 @@
       "message": "Typically more than just a 5 word commit msg is needed",
       "revId": "d1e83066d947c5d72a0c643a4b2926d77959f89d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52c427b2_030c4ab5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-27T19:16:17Z",
+      "side": 1,
+      "message": "yep, I normally would agree.  I guess I was just happy to see other people contribute to refactoring.",
+      "parentUuid": "926263f1_701fa68f",
+      "revId": "d1e83066d947c5d72a0c643a4b2926d77959f89d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ababe69c_bc2894c9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-27T19:16:17Z",
+      "side": 1,
+      "message": "I threw a simple test in the commit message of 69477\n\nThis is such a structural change, ideally we\u0027d try a patch command, but I\u0027m not that worried if we don\u0027t.  The whole point is that we\u0027re reusing code.",
+      "parentUuid": "5014d6ac_39e55c74",
+      "revId": "d1e83066d947c5d72a0c643a4b2926d77959f89d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
