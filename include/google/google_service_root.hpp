@@ -104,8 +104,7 @@ inline void resolveRoT(const std::string& command,
         "xyz.openbmc_project.Control.Hoth"};
     dbus::utility::getSubTree(
         "/xyz/openbmc_project", 0, hothIfaces,
-        [command, asyncResp, rotId,
-         entityHandler{std::forward<ResolvedEntityHandler>(entityHandler)}](
+        [command, asyncResp, rotId, entityHandler{std::move(entityHandler)}](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreeResponse& subtree) {
         hothGetSubtreeCallback(command, asyncResp, rotId, entityHandler, ec,
