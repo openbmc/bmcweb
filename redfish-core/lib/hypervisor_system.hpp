@@ -315,7 +315,7 @@ void getHypervisorIfaceData(const std::string& ethIfaceId,
     dbus::utility::getManagedObjects(
         "xyz.openbmc_project.Settings", path,
         [ethIfaceId{std::string{ethIfaceId}},
-         callback{std::forward<CallbackFunc>(callback)}](
+         callback = std::forward<CallbackFunc>(callback)](
             const boost::system::error_code& ec,
             const dbus::utility::ManagedObjectType& resp) {
         EthernetInterfaceData ethData{};
