@@ -68,6 +68,24 @@
       "parentUuid": "28f1af8c_3a6f6112",
       "revId": "a0e7c38a568336ac2090941579b173539c67ce0c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1cca826c_f774c0b7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-03-27T18:54:12Z",
+      "side": 1,
+      "message": "curl -k -H \"X-Auth-Token: $bmc_token\" -D headers.txt -X PATCH -D patch.txt -d \u0027{\"HostName\": \"openbmc@#\"}\u0027 https://${bmc}/redfish/v1/Managers/bmc/EthernetInterfaces/eth0",
+      "parentUuid": "c1fe98d4_c5fab8a3",
+      "revId": "a0e7c38a568336ac2090941579b173539c67ce0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
