@@ -439,7 +439,7 @@ class UrlSegmentMatcherVisitor
 };
 
 inline bool readUrlSegments(boost::urls::url_view url,
-                            std::initializer_list<UrlSegment>&& segments)
+                            std::initializer_list<UrlSegment> segments)
 {
     boost::urls::segments_view urlSegments = url.segments();
 
