@@ -513,7 +513,7 @@ inline void getLDAPConfigData(const std::string& ldapType,
 
     dbus::utility::getDbusObject(
         ldapConfigObjectName, interfaces,
-        [callback,
+        [callback = std::forward<CallbackFunc>(callback),
          ldapType](const boost::system::error_code& ec,
                    const dbus::utility::MapperGetObject& resp) mutable {
         if (ec || resp.empty())
