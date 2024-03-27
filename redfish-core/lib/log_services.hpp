@@ -2594,9 +2594,17 @@ static int
     bmcJournalLogEntryJson["Id"] = bmcJournalLogEntryID;
     bmcJournalLogEntryJson["Message"] = std::move(message);
     bmcJournalLogEntryJson["EntryType"] = "Oem";
-    bmcJournalLogEntryJson["Severity"] = severity <= 2   ? "Critical"
-                                         : severity <= 4 ? "Warning"
-                                                         : "OK";
+    log_entry::EventSeverity severityEnum = log_entry::EventSeverity::OK;
+    if (severity <= 2)
+    {
+        severityEnum = log_entry::EventSeverity::Critical;
+    }
+    else if (severity <= 4)
+    {
+        severityEnum = log_entry::EventSeverity::Warning;
+    }
+
+    bmcJournalLogEntryJson["Severity"] = severityEnum;
     bmcJournalLogEntryJson["OemRecordFormat"] = "BMC Journal Entry";
     bmcJournalLogEntryJson["Created"] = std::move(entryTimeStr);
     return 0;
