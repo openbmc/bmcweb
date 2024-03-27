@@ -1111,7 +1111,7 @@ void getEthernetIfaceData(const std::string& ethifaceId,
     dbus::utility::getManagedObjects(
         "xyz.openbmc_project.Network", path,
         [ethifaceId{std::string{ethifaceId}},
-         callback{std::forward<CallbackFunc>(callback)}](
+         callback = std::forward<CallbackFunc>(callback)](
             const boost::system::error_code& ec,
             const dbus::utility::ManagedObjectType& resp) mutable {
         EthernetInterfaceData ethData{};
@@ -1166,7 +1166,7 @@ void getEthernetIfaceList(CallbackFunc&& callback)
     sdbusplus::message::object_path path("/xyz/openbmc_project/network");
     dbus::utility::getManagedObjects(
         "xyz.openbmc_project.Network", path,
-        [callback{std::forward<CallbackFunc>(callback)}](
+        [callback = std::forward<CallbackFunc>(callback)](
             const boost::system::error_code& ec,
             const dbus::utility::ManagedObjectType& resp) {
         // Callback requires vector<string> to retrieve all available
