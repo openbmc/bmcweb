@@ -377,11 +377,10 @@ class Router
         return *ptr;
     }
 
-    template <uint64_t N>
+    template <uint64_t NumArgs>
     auto& newRuleTagged(const std::string& rule)
     {
-        constexpr size_t numArgs = utility::numArgsFromTag(N);
-        if constexpr (numArgs == 0)
+        if constexpr (NumArgs == 0)
         {
             using RuleT = TaggedRule<>;
             std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
@@ -389,7 +388,7 @@ class Router
             allRules.emplace_back(std::move(ruleObject));
             return *ptr;
         }
-        else if constexpr (numArgs == 1)
+        else if constexpr (NumArgs == 1)
         {
             using RuleT = TaggedRule<std::string>;
             std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
@@ -397,7 +396,7 @@ class Router
             allRules.emplace_back(std::move(ruleObject));
             return *ptr;
         }
-        else if constexpr (numArgs == 2)
+        else if constexpr (NumArgs == 2)
         {
             using RuleT = TaggedRule<std::string, std::string>;
             std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
@@ -405,7 +404,7 @@ class Router
             allRules.emplace_back(std::move(ruleObject));
             return *ptr;
         }
-        else if constexpr (numArgs == 3)
+        else if constexpr (NumArgs == 3)
         {
             using RuleT = TaggedRule<std::string, std::string, std::string>;
             std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
@@ -413,7 +412,7 @@ class Router
             allRules.emplace_back(std::move(ruleObject));
             return *ptr;
         }
-        else if constexpr (numArgs == 4)
+        else if constexpr (NumArgs == 4)
         {
             using RuleT =
                 TaggedRule<std::string, std::string, std::string, std::string>;
@@ -431,7 +430,7 @@ class Router
             allRules.emplace_back(std::move(ruleObject));
             return *ptr;
         }
-        static_assert(numArgs <= 5, "Max number of args supported is 5");
+        static_assert(NumArgs <= 5, "Max number of args supported is 5");
     }
 
     void internalAddRuleObject(const std::string& rule, BaseRule* ruleObject)
