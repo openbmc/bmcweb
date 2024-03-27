@@ -35,11 +35,9 @@ struct Connection : std::enable_shared_from_this<Connection>
     Connection& operator=(const Connection&&) = delete;
 
     virtual void sendBinary(std::string_view msg) = 0;
-    virtual void sendBinary(std::string&& msg) = 0;
     virtual void sendEx(MessageType type, std::string_view msg,
                         std::function<void()>&& onDone) = 0;
     virtual void sendText(std::string_view msg) = 0;
-    virtual void sendText(std::string&& msg) = 0;
     virtual void close(std::string_view msg = "quit") = 0;
     virtual void deferRead() = 0;
     virtual void resumeRead() = 0;
@@ -180,23 +178,7 @@ class ConnectionImpl : public Connection
         });
     }
 
-    void sendBinary(std::string&& msg) override
-    {
-        ws.binary(true);
-        outBuffer.commit(boost::asio::buffer_copy(outBuffer.prepare(msg.size()),
-                                                  boost::asio::buffer(msg)));
-        doWrite();
-    }
-
     void sendText(std::string_view msg) override
-    {
-        ws.text(true);
-        outBuffer.commit(boost::asio::buffer_copy(outBuffer.prepare(msg.size()),
-                                                  boost::asio::buffer(msg)));
-        doWrite();
-    }
-
-    void sendText(std::string&& msg) override
     {
         ws.text(true);
         outBuffer.commit(boost::asio::buffer_copy(outBuffer.prepare(msg.size()),

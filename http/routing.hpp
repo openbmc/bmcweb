@@ -605,7 +605,7 @@ class Router
         // appear to work with the std::move on adaptor.
         validatePrivilege(
             req, asyncResp, rule,
-            [&rule, asyncResp, adaptor(std::forward<Adaptor>(adaptor))](
+            [&rule, asyncResp, adaptor = std::forward<Adaptor>(adaptor)](
                 Request& thisReq) mutable {
             rule.handleUpgrade(thisReq, asyncResp, std::move(adaptor));
         });
