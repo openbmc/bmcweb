@@ -109,7 +109,7 @@ inline bool
 template <typename CallbackFn>
 void afterGetUserInfo(Request& req,
                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                      BaseRule& rule, CallbackFn&& callback,
+                      BaseRule& rule, CallbackFn callback,
                       const boost::system::error_code& ec,
                       const dbus::utility::DBusPropertiesMap& userInfoMap)
 {
@@ -151,7 +151,7 @@ void validatePrivilege(Request& req,
     std::string username = req.session->username;
     crow::connections::systemBus->async_method_call(
         [req{std::move(req)}, asyncResp, &rule,
-         callback(std::forward<CallbackFn>(callback))](
+         callback = std::forward<CallbackFn>(callback)](
             const boost::system::error_code& ec,
             const dbus::utility::DBusPropertiesMap& userInfoMap) mutable {
         afterGetUserInfo(req, asyncResp, rule,

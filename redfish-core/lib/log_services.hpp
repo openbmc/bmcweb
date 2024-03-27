@@ -966,7 +966,7 @@ inline void createDumpTaskCallback(
     }
 
     crow::connections::systemBus->async_method_call(
-        [asyncResp, payload, createdObjPath,
+        [asyncResp, payload = std::move(payload), createdObjPath,
          dumpEntryPath{std::move(dumpEntryPath)},
          dumpId](const boost::system::error_code& ec,
                  const std::string& introspectXml) {
