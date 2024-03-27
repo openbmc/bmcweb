@@ -182,7 +182,7 @@ const void* logPtr(T p)
 }
 
 template <LogLevel level>
-inline void vlog(const FormatString& format, std::format_args&& args)
+inline void vlog(const FormatString& format, const std::format_args& args)
 {
     if constexpr (bmcwebCurrentLoggingLevel < level)
     {

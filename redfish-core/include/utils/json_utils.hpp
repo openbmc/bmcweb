@@ -542,7 +542,8 @@ bool readJson(nlohmann::json& jsonRequest, crow::Response& res,
         messages::unrecognizedRequestBody(res);
         return false;
     }
-    return readJsonObject(*obj, res, key, first, in...);
+    return readJsonObject(*obj, res, key, std::forward<FirstType>(first),
+                          std::forward<UnpackTypes&&>(in)...);
 }
 
 inline std::optional<nlohmann::json::object_t>
