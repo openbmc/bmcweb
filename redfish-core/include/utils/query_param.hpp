@@ -523,7 +523,7 @@ struct ExpandNode
     nlohmann::json::json_pointer location;
     std::string uri;
 
-    inline bool operator==(const ExpandNode& other) const
+    bool operator==(const ExpandNode& other) const
     {
         return location == other.location && uri == other.uri;
     }
