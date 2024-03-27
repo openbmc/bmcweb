@@ -142,7 +142,7 @@ UnpackErrorCode unpackValueVariant(nlohmann::json& j, std::string_view key,
 {
     if constexpr (Index < std::variant_size_v<std::variant<Args...>>)
     {
-        std::variant_alternative_t<Index, std::variant<Args...>> type;
+        std::variant_alternative_t<Index, std::variant<Args...>> type{};
         UnpackErrorCode unpack = unpackValueWithErrorCode(j, key, type);
         if (unpack == UnpackErrorCode::success)
         {
@@ -224,6 +224,23 @@ UnpackErrorCode unpackValueWithErrorCode(nlohmann::json& jsonValue,
         if (!jsonValue.is_null())
         {
             return UnpackErrorCode::invalidType;
+        }
+    }
+    else if constexpr (IsVector<Type>::value)
+    {
+        nlohmann::json::object_t* obj =
+            jsonValue.get_ptr<nlohmann::json::object_t*>();
+        if (obj == nullptr)
+        {
+            return UnpackErrorCode::invalidType;
+        }
+
+        for (const auto& val : *obj)
+        {
+            value.emplace_back();
+            ret = unpackValueWithErrorCode<typename Type::value_type>(
+                      val, key, value.back()) &&
+                  ret;
         }
     }
     else
@@ -394,7 +411,6 @@ using UnpackVariant = std::variant<
     bool*,
     double*,
     std::string*,
-    nlohmann::json*,
     nlohmann::json::object_t*,
     std::variant<std::string, std::nullptr_t>*,
     std::variant<uint8_t, std::nullptr_t>*,
@@ -416,7 +432,6 @@ using UnpackVariant = std::variant<
     //std::vector<bool>*,
     std::vector<double>*,
     std::vector<std::string>*,
-    std::vector<nlohmann::json>*,
     std::vector<nlohmann::json::object_t>*,
     std::optional<uint8_t>*,
     std::optional<uint16_t>*,
@@ -428,7 +443,6 @@ using UnpackVariant = std::variant<
     std::optional<bool>*,
     std::optional<double>*,
     std::optional<std::string>*,
-    std::optional<nlohmann::json>*,
     std::optional<nlohmann::json::object_t>*,
     std::optional<std::vector<uint8_t>>*,
     std::optional<std::vector<uint16_t>>*,
@@ -440,7 +454,6 @@ using UnpackVariant = std::variant<
     //std::optional<std::vector<bool>>*,
     std::optional<std::vector<double>>*,
     std::optional<std::vector<std::string>>*,
-    std::optional<std::vector<nlohmann::json>>*,
     std::optional<std::vector<nlohmann::json::object_t>>*,
     std::optional<std::variant<std::string, std::nullptr_t>>*,
     std::optional<std::variant<uint8_t, std::nullptr_t>>*,
@@ -453,7 +466,14 @@ using UnpackVariant = std::variant<
     std::optional<std::variant<double, std::nullptr_t>>*,
     std::optional<std::variant<bool, std::nullptr_t>>*,
     std::optional<std::vector<std::variant<nlohmann::json::object_t, std::nullptr_t>>>*,
-    std::optional<std::variant<nlohmann::json::object_t, std::nullptr_t>>*
+    std::optional<std::vector<std::variant<std::string, nlohmann::json::object_t, std::nullptr_t>>>*,
+
+    // Note, these types are kept for historical completeness, but should not be used,
+    // As they do not provide object type safety.  Instead, rely on nlohmann::json::object_t
+    nlohmann::json*,
+    std::optional<std::vector<nlohmann::json>>*,
+    std::vector<nlohmann::json>*,
+    std::optional<nlohmann::json>*
 >;
 // clang-format on
 
