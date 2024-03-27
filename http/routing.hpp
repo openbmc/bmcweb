@@ -1,7 +1,6 @@
 #pragma once
 
 #include "async_resp.hpp"
-#include "common.hpp"
 #include "dbus_privileges.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
@@ -20,11 +19,10 @@
 #include "verb.hpp"
 #include "websocket.hpp"
 
-#include <boost/beast/ssl/ssl_stream.hpp>
 #include <boost/container/flat_map.hpp>
-#include <boost/url/format.hpp>
-#include <sdbusplus/unpack_properties.hpp>
+#include <boost/container/small_vector.hpp>
 
+#include <algorithm>
 #include <cerrno>
 #include <cstdint>
 #include <cstdlib>
@@ -43,74 +41,67 @@ class Trie
   public:
     struct Node
     {
-        unsigned ruleIndex{};
-        std::array<size_t, static_cast<size_t>(ParamType::MAX)>
-            paramChildrens{};
+        unsigned ruleIndex = 0U;
+
+        size_t stringParamChild = 0U;
+        size_t pathParamChild = 0U;
         using ChildMap = boost::container::flat_map<
             std::string, unsigned, std::less<>,
-            std::vector<std::pair<std::string, unsigned>>>;
+            boost::container::small_vector<std::pair<std::string, unsigned>,
+                                           6>>;
         ChildMap children;
 
         bool isSimpleNode() const
         {
-            return ruleIndex == 0 &&
-                   std::all_of(std::begin(paramChildrens),
-                               std::end(paramChildrens),
-                               [](size_t x) { return x == 0U; });
+            return ruleIndex == 0 && stringParamChild == 0 &&
+                   pathParamChild == 0;
         }
     };
 
     Trie() : nodes(1) {}
 
   private:
-    void optimizeNode(Node* node)
+    void optimizeNode(Node& node)
     {
-        for (size_t x : node->paramChildrens)
+        if (node.stringParamChild != 0U)
         {
-            if (x == 0U)
-            {
-                continue;
-            }
-            Node* child = &nodes[x];
-            optimizeNode(child);
+            optimizeNode(nodes[node.stringParamChild]);
         }
-        if (node->children.empty())
+        if (node.pathParamChild != 0U)
+        {
+            optimizeNode(nodes[node.pathParamChild]);
+        }
+
+        if (node.children.empty())
         {
             return;
         }
-        bool mergeWithChild = true;
-        for (const Node::ChildMap::value_type& kv : node->children)
-        {
-            Node* child = &nodes[kv.second];
-            if (!child->isSimpleNode())
-            {
-                mergeWithChild = false;
-                break;
-            }
-        }
+        bool mergeWithChild = std::all_of(
+            node.children.begin(), node.children.end(),
+            [this](const auto& kv) { return nodes[kv.second].isSimpleNode(); });
         if (mergeWithChild)
         {
             Node::ChildMap merged;
-            for (const Node::ChildMap::value_type& kv : node->children)
+            for (const Node::ChildMap::value_type& kv : node.children)
             {
-                Node* child = &nodes[kv.second];
-                for (const Node::ChildMap::value_type& childKv :
-                     child->children)
+                Node& child = nodes[kv.second];
+                for (const Node::ChildMap::value_type& childKv : child.children)
                 {
                     merged[kv.first + childKv.first] = childKv.second;
                 }
             }
-            node->children = std::move(merged);
+            node.children = std::move(merged);
             optimizeNode(node);
         }
         else
         {
-            for (const Node::ChildMap::value_type& kv : node->children)
+            for (const Node::ChildMap::value_type& kv : node.children)
             {
-                Node* child = &nodes[kv.second];
+                Node& child = nodes[kv.second];
                 optimizeNode(child);
             }
         }
+        node.children.shrink_to_fit();
     }
 
     void optimize()
@@ -124,32 +115,29 @@ class Trie
         optimize();
     }
 
-    void findRouteIndexes(const std::string& reqUrl,
-                          std::vector<unsigned>& routeIndexes,
-                          const Node* node = nullptr, unsigned pos = 0) const
+    void findRouteIndexesHelper(const std::string& reqUrl,
+                                std::vector<unsigned>& routeIndexes,
+                                const Node& node, unsigned pos) const
     {
-        if (node == nullptr)
-        {
-            node = head();
-        }
-        for (const Node::ChildMap::value_type& kv : node->children)
+        for (const Node::ChildMap::value_type& kv : node.children)
         {
             const std::string& fragment = kv.first;
-            const Node* child = &nodes[kv.second];
+            const Node& child = nodes[kv.second];
             if (pos >= reqUrl.size())
             {
-                if (child->ruleIndex != 0 && fragment != "/")
+                if (child.ruleIndex != 0 && fragment != "/")
                 {
-                    routeIndexes.push_back(child->ruleIndex);
+                    routeIndexes.push_back(child.ruleIndex);
                 }
-                findRouteIndexes(reqUrl, routeIndexes, child,
-                                 static_cast<unsigned>(pos + fragment.size()));
+                findRouteIndexesHelper(
+                    reqUrl, routeIndexes, child,
+                    static_cast<unsigned>(pos + fragment.size()));
             }
             else
             {
-                if (reqUrl.compare(pos, fragment.size(), fragment) == 0)
+                if (reqUrl.starts_with(fragment))
                 {
-                    findRouteIndexes(
+                    findRouteIndexesHelper(
                         reqUrl, routeIndexes, child,
                         static_cast<unsigned>(pos + fragment.size()));
                 }
@@ -157,9 +145,16 @@ class Trie
         }
     }
 
+    void findRouteIndexes(const std::string& reqUrl,
+                          std::vector<unsigned>& routeIndexes) const
+    {
+        findRouteIndexesHelper(reqUrl, routeIndexes, head(), 0);
+    }
+
+  private:
     std::pair<unsigned, std::vector<std::string>>
-        find(const std::string_view reqUrl, const Node* node = nullptr,
-             size_t pos = 0, std::vector<std::string>* params = nullptr) const
+        findHelper(const std::string_view reqUrl, const Node& node, size_t pos,
+                   std::vector<std::string>* params) const
     {
         std::vector<std::string> empty;
         if (params == nullptr)
@@ -170,13 +165,9 @@ class Trie
         unsigned found{};
         std::vector<std::string> matchParams;
 
-        if (node == nullptr)
-        {
-            node = head();
-        }
         if (pos == reqUrl.size())
         {
-            return {node->ruleIndex, *params};
+            return {node.ruleIndex, *params};
         }
 
         auto updateFound =
@@ -189,7 +180,7 @@ class Trie
             }
         };
 
-        if (node->paramChildrens[static_cast<size_t>(ParamType::STRING)] != 0U)
+        if (node.stringParamChild != 0U)
         {
             size_t epos = pos;
             for (; epos < reqUrl.size(); epos++)
@@ -203,42 +194,36 @@ class Trie
             if (epos != pos)
             {
                 params->emplace_back(reqUrl.substr(pos, epos - pos));
-                std::pair<unsigned, std::vector<std::string>> ret =
-                    find(reqUrl,
-                         &nodes[node->paramChildrens[static_cast<size_t>(
-                             ParamType::STRING)]],
-                         epos, params);
+                std::pair<unsigned, std::vector<std::string>> ret = findHelper(
+                    reqUrl, nodes[node.stringParamChild], epos, params);
                 updateFound(ret);
                 params->pop_back();
             }
         }
 
-        if (node->paramChildrens[static_cast<size_t>(ParamType::PATH)] != 0U)
+        if (node.pathParamChild != 0U)
         {
             size_t epos = reqUrl.size();
 
             if (epos != pos)
             {
                 params->emplace_back(reqUrl.substr(pos, epos - pos));
-                std::pair<unsigned, std::vector<std::string>> ret =
-                    find(reqUrl,
-                         &nodes[node->paramChildrens[static_cast<size_t>(
-                             ParamType::PATH)]],
-                         epos, params);
+                std::pair<unsigned, std::vector<std::string>> ret = findHelper(
+                    reqUrl, nodes[node.pathParamChild], epos, params);
                 updateFound(ret);
                 params->pop_back();
             }
         }
 
-        for (const Node::ChildMap::value_type& kv : node->children)
+        for (const Node::ChildMap::value_type& kv : node.children)
         {
             const std::string& fragment = kv.first;
-            const Node* child = &nodes[kv.second];
+            const Node& child = nodes[kv.second];
 
-            if (reqUrl.compare(pos, fragment.size(), fragment) == 0)
+            if (reqUrl.starts_with(fragment))
             {
                 std::pair<unsigned, std::vector<std::string>> ret =
-                    find(reqUrl, child, pos + fragment.size(), params);
+                    findHelper(reqUrl, child, pos + fragment.size(), params);
                 updateFound(ret);
             }
         }
@@ -246,41 +231,53 @@ class Trie
         return {found, matchParams};
     }
 
-    void add(const std::string& url, unsigned ruleIndex)
+  public:
+    std::pair<unsigned, std::vector<std::string>>
+        find(const std::string_view reqUrl) const
+    {
+        return findHelper(reqUrl, head(), 0, nullptr);
+    };
+
+    void add(std::string_view url, unsigned ruleIndex)
     {
         size_t idx = 0;
 
-        for (unsigned i = 0; i < url.size(); i++)
+        while (!url.empty())
         {
-            char c = url[i];
+            char c = url[0];
             if (c == '<')
             {
-                constexpr static std::array<
-                    std::pair<ParamType, std::string_view>, 3>
-                    paramTraits = {{
-                        {ParamType::STRING, "<str>"},
-                        {ParamType::STRING, "<string>"},
-                        {ParamType::PATH, "<path>"},
-                    }};
-
-                for (const std::pair<ParamType, std::string_view>& x :
-                     paramTraits)
+                bool found = false;
+                for (const std::string_view str1 :
+                     {"<str>", "<string>", "<path>"})
                 {
-                    if (url.compare(i, x.second.size(), x.second) == 0)
+                    if (!url.starts_with(str1))
                     {
-                        size_t index = static_cast<size_t>(x.first);
-                        if (nodes[idx].paramChildrens[index] == 0U)
-                        {
-                            unsigned newNodeIdx = newNode();
-                            nodes[idx].paramChildrens[index] = newNodeIdx;
-                        }
-                        idx = nodes[idx].paramChildrens[index];
-                        i += static_cast<unsigned>(x.second.size());
-                        break;
+                        continue;
                     }
+                    found = true;
+                    size_t* param = &nodes[idx].stringParamChild;
+                    if (str1 == "<path>")
+                    {
+                        param = &nodes[idx].pathParamChild;
+                    }
+                    if (*param == 0U)
+                    {
+                        unsigned newNodeIdx = newNode();
+                        *param = newNodeIdx;
+                    }
+                    idx = *param;
+
+                    url.remove_prefix(str1.size());
+                    break;
+                }
+                if (found)
+                {
+                    continue;
                 }
 
-                i--;
+                BMCWEB_LOG_CRITICAL("Cant find tag for {}", url);
+                return;
             }
             else
             {
@@ -291,48 +288,36 @@ class Trie
                     nodes[idx].children.emplace(piece, newNodeIdx);
                 }
                 idx = nodes[idx].children[piece];
+                url.remove_prefix(1);
             }
         }
         if (nodes[idx].ruleIndex != 0U)
         {
-            throw std::runtime_error("handler already exists for " + url);
+            throw std::runtime_error(
+                std::format("handler already exists for {}", url));
         }
         nodes[idx].ruleIndex = ruleIndex;
     }
 
   private:
-    void debugNodePrint(Node* n, size_t level)
+    void debugNodePrint(Node& n, size_t level)
     {
-        for (size_t i = 0; i < static_cast<size_t>(ParamType::MAX); i++)
+        if (n.stringParamChild != 0U)
         {
-            if (n->paramChildrens[i] != 0U)
-            {
-                BMCWEB_LOG_DEBUG(
-                    "{}({}{}",
-                    std::string(2U * level,
-                                ' ') /*, n->paramChildrens[i], ") "*/);
-                switch (static_cast<ParamType>(i))
-                {
-                    case ParamType::STRING:
-                        BMCWEB_LOG_DEBUG("<str>");
-                        break;
-                    case ParamType::PATH:
-                        BMCWEB_LOG_DEBUG("<path>");
-                        break;
-                    case ParamType::MAX:
-                        BMCWEB_LOG_DEBUG("<ERROR>");
-                        break;
-                }
-
-                debugNodePrint(&nodes[n->paramChildrens[i]], level + 1);
-            }
+            BMCWEB_LOG_DEBUG("{}({} <str>", std::string(2U * level, ' '));
+            debugNodePrint(nodes[n.stringParamChild], level + 1);
         }
-        for (const Node::ChildMap::value_type& kv : n->children)
+        if (n.pathParamChild != 0U)
+        {
+            BMCWEB_LOG_DEBUG("{}({} <path>", std::string(2U * level, ' '));
+            debugNodePrint(nodes[n.pathParamChild], level + 1);
+        }
+        for (const Node::ChildMap::value_type& kv : n.children)
         {
             BMCWEB_LOG_DEBUG("{}({}{}{}",
                              std::string(2U * level, ' ') /*, kv.second, ") "*/,
                              kv.first);
-            debugNodePrint(&nodes[kv.second], level + 1);
+            debugNodePrint(nodes[kv.second], level + 1);
         }
     }
 
@@ -343,14 +328,14 @@ class Trie
     }
 
   private:
-    const Node* head() const
+    const Node& head() const
     {
-        return &nodes.front();
+        return nodes.front();
     }
 
-    Node* head()
+    Node& head()
     {
-        return &nodes.front();
+        return nodes.front();
     }
 
     unsigned newNode()
@@ -377,11 +362,10 @@ class Router
         return *ptr;
     }
 
-    template <uint64_t N>
+    template <uint64_t NumArgs>
     auto& newRuleTagged(const std::string& rule)
     {
-        constexpr size_t numArgs = utility::numArgsFromTag(N);
-        if constexpr (numArgs == 0)
+        if constexpr (NumArgs == 0)
         {
             using RuleT = TaggedRule<>;
             std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
@@ -389,7 +373,7 @@ class Router
             allRules.emplace_back(std::move(ruleObject));
             return *ptr;
         }
-        else if constexpr (numArgs == 1)
+        else if constexpr (NumArgs == 1)
         {
             using RuleT = TaggedRule<std::string>;
             std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
@@ -397,7 +381,7 @@ class Router
             allRules.emplace_back(std::move(ruleObject));
             return *ptr;
         }
-        else if constexpr (numArgs == 2)
+        else if constexpr (NumArgs == 2)
         {
             using RuleT = TaggedRule<std::string, std::string>;
             std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
@@ -405,7 +389,7 @@ class Router
             allRules.emplace_back(std::move(ruleObject));
             return *ptr;
         }
-        else if constexpr (numArgs == 3)
+        else if constexpr (NumArgs == 3)
         {
             using RuleT = TaggedRule<std::string, std::string, std::string>;
             std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
@@ -413,7 +397,7 @@ class Router
             allRules.emplace_back(std::move(ruleObject));
             return *ptr;
         }
-        else if constexpr (numArgs == 4)
+        else if constexpr (NumArgs == 4)
         {
             using RuleT =
                 TaggedRule<std::string, std::string, std::string, std::string>;
@@ -431,7 +415,7 @@ class Router
             allRules.emplace_back(std::move(ruleObject));
             return *ptr;
         }
-        static_assert(numArgs <= 5, "Max number of args supported is 5");
+        static_assert(NumArgs <= 5, "Max number of args supported is 5");
     }
 
     void internalAddRuleObject(const std::string& rule, BaseRule* ruleObject)
