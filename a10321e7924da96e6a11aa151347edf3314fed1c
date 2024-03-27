@@ -87,6 +87,24 @@
       "parentUuid": "8c2dc932_83f4dcb2",
       "revId": "a10321e7924da96e6a11aa151347edf3314fed1c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a293035_fe554fc3",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 2748,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-27T18:35:04Z",
+      "side": 0,
+      "message": "Added handling in dbus_utils.cpp.",
+      "parentUuid": "e1bf63fc_d1c4562f",
+      "revId": "a10321e7924da96e6a11aa151347edf3314fed1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
