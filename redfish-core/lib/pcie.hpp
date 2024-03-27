@@ -221,7 +221,7 @@ inline void getPCIeDeviceSlotPath(
     dbus::utility::getAssociatedSubTreePaths(
         associationPath, sdbusplus::message::object_path(inventoryPath), 0,
         pcieSlotInterface,
-        [callback, asyncResp, pcieDevicePath](
+        [callback = std::move(callback), asyncResp, pcieDevicePath](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreePathsResponse& endpoints) {
         if (ec)

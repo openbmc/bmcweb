@@ -63,7 +63,7 @@ class App
         router.handle(req, asyncResp);
     }
 
-    DynamicRule& routeDynamic(std::string&& rule)
+    DynamicRule& routeDynamic(const std::string& rule)
     {
         return router.newRuleDynamic(rule);
     }
