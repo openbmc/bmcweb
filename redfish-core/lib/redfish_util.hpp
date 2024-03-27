@@ -69,7 +69,7 @@ void getMainChassisId(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
         "xyz.openbmc_project.Inventory.Item.Chassis"};
     dbus::utility::getSubTree(
         "/xyz/openbmc_project/inventory", 0, interfaces,
-        [callback,
+        [callback = std::forward<CallbackFunc>(callback),
          asyncResp](const boost::system::error_code& ec,
                     const dbus::utility::MapperGetSubTreeResponse& subtree) {
         if (ec)
@@ -104,7 +104,7 @@ void getPortStatusAndPath(
     CallbackFunc&& callback)
 {
     crow::connections::systemBus->async_method_call(
-        [protocolToDBus, callback{std::forward<CallbackFunc>(callback)}](
+        [protocolToDBus, callback = std::forward<CallbackFunc>(callback)](
             const boost::system::error_code& ec,
             const std::vector<UnitStruct>& r) {
         std::vector<std::tuple<std::string, std::string, bool>> socketData;
@@ -211,7 +211,7 @@ void getPortNumber(const std::string& socketPath, CallbackFunc&& callback)
         std::vector<std::tuple<std::string, std::string>>>(
         *crow::connections::systemBus, "org.freedesktop.systemd1", socketPath,
         "org.freedesktop.systemd1.Socket", "Listen",
-        [callback{std::forward<CallbackFunc>(callback)}](
+        [callback = std::forward<CallbackFunc>(callback)](
             const boost::system::error_code& ec,
             const std::vector<std::tuple<std::string, std::string>>& resp) {
         if (ec)
