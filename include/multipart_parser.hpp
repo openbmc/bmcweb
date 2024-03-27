@@ -239,7 +239,7 @@ class MultipartParser
         return static_cast<char>(c | 0x20);
     }
 
-    inline bool isBoundaryChar(char c) const
+    bool isBoundaryChar(char c) const
     {
         return boundaryIndex[static_cast<unsigned char>(c)];
     }
