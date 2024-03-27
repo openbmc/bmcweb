@@ -122,6 +122,24 @@
       "parentUuid": "46edc886_f8697e96",
       "revId": "a0e7c38a568336ac2090941579b173539c67ce0c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84d9eea4_acfb635a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-03-27T19:11:04Z",
+      "side": 1,
+      "message": "Yes I have tested other patch operations, this commit works as expected.\nthe build I am using does not have networkd commit to return InvalidArgument error so HostName patch did not work as expected on the build.\nThank you",
+      "parentUuid": "46edc886_f8697e96",
+      "revId": "a0e7c38a568336ac2090941579b173539c67ce0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
