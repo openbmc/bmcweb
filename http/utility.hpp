@@ -46,7 +46,7 @@ constexpr typename std::underlying_type<E>::type toUnderlying(E e) noexcept
     return static_cast<typename std::underlying_type<E>::type>(e);
 }
 
-constexpr inline uint64_t getParameterTag(std::string_view url)
+constexpr uint64_t getParameterTag(std::string_view url)
 {
     uint64_t tagValue = 0;
     size_t urlSegmentIndex = std::string_view::npos;
