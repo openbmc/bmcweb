@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e7c9578_1f36955a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2024-03-27T04:34:13Z",
+      "side": 1,
+      "message": "Tested by section should mention about the response data verification as well - to confirm there are no changes from previous behaviour",
+      "revId": "d023250f1823f4a5c0b847418240c33f8999614f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
