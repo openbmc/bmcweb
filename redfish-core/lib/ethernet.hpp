@@ -1347,29 +1347,24 @@ inline void setDHCPConfig(const std::string& propertyName, const bool& value,
                           const std::string& ethifaceId, NetworkType type)
 {
     BMCWEB_LOG_DEBUG("{} = {}", propertyName, value);
+    std::string redfishPropertyName;
     sdbusplus::message::object_path path("/xyz/openbmc_project/network/");
     path /= ethifaceId;
 
     if (type == NetworkType::dhcp4)
     {
         path /= "dhcp4";
+        redfishPropertyName = "DHCPv4";
     }
     else
     {
         path /= "dhcp6";
+        redfishPropertyName = "DHCPv6";
     }
 
-    sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, "xyz.openbmc_project.Network", path,
-        "xyz.openbmc_project.Network.DHCPConfiguration", propertyName, value,
-        [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("D-Bus responses error: {}", ec);
-            messages::internalError(asyncResp->res);
-            return;
-        }
-    });
+    setDbusProperty(asyncResp, "xyz.openbmc_project.Network", path,
+                    "xyz.openbmc_project.Network.DHCPConfiguration",
+                    propertyName, redfishPropertyName, value);
 }
 
 inline void handleSLAACAutoConfigPatch(
@@ -1378,19 +1373,11 @@ inline void handleSLAACAutoConfigPatch(
 {
     sdbusplus::message::object_path path("/xyz/openbmc_project/network");
     path /= ifaceId;
-    sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, "xyz.openbmc_project.Network", path,
-        "xyz.openbmc_project.Network.EthernetInterface", "IPv6AcceptRA",
-        ipv6AutoConfigEnabled,
-        [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("D-Bus responses error: {}", ec);
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        messages::success(asyncResp->res);
-    });
+    setDbusProperty(asyncResp, "xyz.openbmc_project.Network", path,
+                    "xyz.openbmc_project.Network.EthernetInterface",
+                    "IPv6AcceptRA",
+                    "StatelessAddressAutoConfig/IPv6AutoConfigEnabled",
+                    ipv6AutoConfigEnabled);
 }
 
 inline void handleDHCPPatch(const std::string& ifaceId,
@@ -1663,18 +1650,12 @@ inline void handleStaticNameServersPatch(
     const std::vector<std::string>& updatedStaticNameServers,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, "xyz.openbmc_project.Network",
-        "/xyz/openbmc_project/network/" + ifaceId,
+    setDbusProperty(
+        asyncResp, "xyz.openbmc_project.Network",
+        sdbusplus::message::object_path("/xyz/openbmc_project/network") /
+            ifaceId,
         "xyz.openbmc_project.Network.EthernetInterface", "StaticNameServers",
-        updatedStaticNameServers,
-        [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            messages::internalError(asyncResp->res);
-            return;
-        }
-    });
+        "StaticNameServers", updatedStaticNameServers);
 }
 
 inline void handleIPv6StaticAddressesPatch(
