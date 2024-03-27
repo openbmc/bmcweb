@@ -104,6 +104,24 @@
       "parentUuid": "1cca826c_f774c0b7",
       "revId": "a0e7c38a568336ac2090941579b173539c67ce0c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c02b709_28e7ed2a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-27T19:01:23Z",
+      "side": 1,
+      "message": "I just tried:\n\n```\ncurl  -k --user \"root:0penBmc\" -H \"Content-Type: application/json\" -X PATCH -d \u0027{\"HostName\":\"openbmc@#\"}\u0027 https://192.168.7.2/redfish/v1/Managers/bmc/EthernetInterfaces/eth0\n```\n\nAnd the response was\n\n```\ncurl  -k --user \"root:0penBmc\" -H \"Content-Type: application/json\" -X PATCH -d \u0027{\"HostName\":\"openbmc@#\"}\u0027 https://192.168.7.2/redfish/v1/Managers/bmc/EthernetInterfaces/eth0\n{\n  \"error\": {\n    \"@Message.ExtendedInfo\": [\n      {\n        \"@odata.type\": \"#Message.v1_1_1.Message\",\n        \"Message\": \"The property \u0027HostName\u0027 with the requested value of \u0027\\\"openbmc@#\\\"\u0027 could not be written because the value does not meet the constraints of the implementation.\",\n        \"MessageArgs\": [\n          \"HostName\",\n          \"\\\"openbmc@#\\\"\"\n        ],\n        \"MessageId\": \"Base.1.16.0.PropertyValueIncorrect\",\n        \"MessageSeverity\": \"Warning\",\n        \"Resolution\": \"No resolution is required.\"\n      }\n    ],\n    \"code\": \"Base.1.16.0.PropertyValueIncorrect\",\n    \"message\": \"The property \u0027HostName\u0027 with the requested value of \u0027\\\"openbmc@#\\\"\u0027 could not be written because the value does not meet the constraints of the implementation.\"\n  }\n}%\n```\n\nis that different behavior than you\u0027re seeing?",
+      "parentUuid": "46edc886_f8697e96",
+      "revId": "a0e7c38a568336ac2090941579b173539c67ce0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
