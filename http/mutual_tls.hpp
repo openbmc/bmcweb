@@ -93,8 +93,7 @@ inline std::shared_ptr<persistent_data::UserSession>
     // Meta Inc. CommonName parsing
     if (bmcwebMTLSCommonNameParsingMeta)
     {
-        std::optional<std::string_view> sslUserMeta =
-            mtlsMetaParseSslUser(sslUser);
+        std::optional<std::string> sslUserMeta = mtlsMetaParseSslUser(sslUser);
         if (!sslUserMeta)
         {
             return nullptr;
