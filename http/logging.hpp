@@ -196,7 +196,7 @@ inline void vlog(const FormatString& format, std::format_args&& args)
     filename = filename.substr(filename.rfind('/') + 1);
     std::cout << std::format("[{} {}:{}] ", levelString, filename,
                              format.loc.line())
-              << std::vformat(format.str, args) << std::endl;
+              << std::vformat(format.str, args) << '\n';
 }
 } // namespace crow
 
