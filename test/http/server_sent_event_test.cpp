@@ -34,7 +34,7 @@ TEST(ServerSentEvent, SseWorks)
 
     std::shared_ptr<ConnectionImpl<boost::beast::test::stream>> conn =
         std::make_shared<ConnectionImpl<boost::beast::test::stream>>(
-            io, std::move(stream), openHandler, closeHandler);
+            std::move(stream), openHandler, closeHandler);
     conn->start();
     // Connect
     {
