@@ -313,7 +313,12 @@ summary(
     section: 'Directories',
 )
 
-install_subdir('static', install_dir: 'share/www', strip_directory: true, follow_symlinks: true)
+install_subdir(
+    'static',
+    install_dir: 'share/www',
+    strip_directory: true,
+    follow_symlinks: true,
+)
 
 # Config subdirectory
 
@@ -408,6 +413,11 @@ srcfiles_unittest = files(
     'test/redfish-core/lib/thermal_subsystem_test.cpp',
     'test/redfish-core/lib/update_service_test.cpp',
 )
+
+if (get_option('b_sanitize') == 'none')
+    # Has issues with sanitizers because openssl isn't compiled with sanitizers enabled
+    srcfiles_unittest += 'test/include/ssl_key_handler_test.cpp'
+endif
 
 if (get_option('tests').allowed())
     # generate the test executable
