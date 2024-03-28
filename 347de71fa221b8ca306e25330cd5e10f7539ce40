@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "136b220e_8bd986c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2024-03-28T01:54:38Z",
+      "side": 1,
+      "message": "Ravi tested this for some ethernet interface use cases. @Asmitha please update the commit message with the Tested by section.",
+      "revId": "347de71fa221b8ca306e25330cd5e10f7539ce40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
