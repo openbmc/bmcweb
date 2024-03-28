@@ -116,9 +116,18 @@ class Server
         fs::path certFile = certPath / "server.pem";
         BMCWEB_LOG_INFO("Building SSL Context file={}", certFile.string());
         std::string sslPemFile(certFile);
-        ensuressl::ensureOpensslKeyPresentAndValid(sslPemFile);
+        std::string cert =
+            ensuressl::ensureOpensslKeyPresentAndValid(sslPemFile);
+        if (cert.empty())
+        {
+            throw std::runtime_error("Failed to load string");
+        }
         std::shared_ptr<boost::asio::ssl::context> sslContext =
-            ensuressl::getSslContext(sslPemFile);
+            ensuressl::getSslContext(cert);
+        if (sslContext == nullptr)
+        {
+            throw std::runtime_error("Failed to load certificate");
+        }
         adaptorCtx = sslContext;
         handler->ssl(std::move(sslContext));
 #endif
