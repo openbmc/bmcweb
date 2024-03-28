@@ -18,7 +18,7 @@ namespace crow
 
 namespace sse_socket
 {
-struct Connection : std::enable_shared_from_this<Connection>
+struct Connection : public std::enable_shared_from_this<Connection>
 {
   public:
     Connection() = default;
@@ -38,11 +38,11 @@ template <typename Adaptor>
 class ConnectionImpl : public Connection
 {
   public:
-    ConnectionImpl(boost::asio::io_context& ioIn, Adaptor&& adaptorIn,
+    ConnectionImpl(Adaptor&& adaptorIn,
                    std::function<void(Connection&)> openHandlerIn,
                    std::function<void(Connection&)> closeHandlerIn) :
         adaptor(std::move(adaptorIn)),
-        ioc(ioIn), timer(ioc), openHandler(std::move(openHandlerIn)),
+        timer(getIoContext()), openHandler(std::move(openHandlerIn)),
         closeHandler(std::move(closeHandlerIn))
 
     {
@@ -276,7 +276,6 @@ class ConnectionImpl : public Connection
     using BodyType = bmcweb::HttpBody;
     boost::beast::http::response<BodyType> res;
     std::optional<boost::beast::http::response_serializer<BodyType>> serializer;
-    boost::asio::io_context& ioc;
     boost::asio::steady_timer timer;
     bool doingWrite = false;
 
