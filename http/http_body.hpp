@@ -117,6 +117,7 @@ class HttpBody::value_type
         strBody.shrink_to_fit();
         fileHandle = boost::beast::file_posix();
         fileSize = std::nullopt;
+        encodingType = EncodingType::Raw;
     }
 
     void open(const char* path, boost::beast::file_mode mode,
