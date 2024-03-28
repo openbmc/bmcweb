@@ -29,6 +29,61 @@
 namespace redfish
 {
 
+inline void afterAddLinkedFabricAdapter(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, size_t index,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperEndPoints& fabricAdapterPaths)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR)
+        {
+            BMCWEB_LOG_DEBUG("FabricAdapter Slot association not found");
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBUS response error {}", ec.value());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    if (fabricAdapterPaths.empty())
+    {
+        // No association to FabricAdapter
+        BMCWEB_LOG_DEBUG("FabricAdapter Slot association not found");
+        return;
+    }
+
+    // Add a link to FabricAdapter
+    nlohmann::json::object_t linkOemIbm;
+    linkOemIbm["@odata.type"] = "#OemPCIeSlots.v1_0_0.PCIeLinks";
+    nlohmann::json& fabricArray = linkOemIbm["UpstreamFabricAdapters"];
+    for (const auto& fabricAdapterPath : fabricAdapterPaths)
+    {
+        std::string fabricAdapterName =
+            sdbusplus::message::object_path(fabricAdapterPath).filename();
+        nlohmann::json::object_t item;
+        item["@odata.id"] = boost::urls::format(
+            "/redfish/v1/Systems/system/FabricAdapters/{}", fabricAdapterName);
+        fabricArray.emplace_back(std::move(item));
+    }
+    linkOemIbm["UpstreamFabricAdapters@odata.count"] = fabricArray.size();
+
+    asyncResp->res.jsonValue["Slots"][index]["Links"]["Oem"]["IBM"] =
+        std::move(linkOemIbm);
+}
+
+inline void
+    addLinkedFabricAdapter(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const std::string& pcieSlotPath, size_t index)
+{
+    constexpr std::array<std::string_view, 1> fabricAdapterInterfaces{
+        "xyz.openbmc_project.Inventory.Item.FabricAdapter"};
+    dbus::utility::getAssociatedSubTreePaths(
+        pcieSlotPath + "/contained_by",
+        sdbusplus::message::object_path("/xyz/openbmc_project/inventory"), 0,
+        fabricAdapterInterfaces,
+        std::bind_front(afterAddLinkedFabricAdapter, asyncResp, index));
+}
+
 inline void
     onPcieSlotGetAllDone(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const boost::system::error_code& ec,
@@ -129,6 +184,9 @@ inline void
 
     size_t index = slots.size();
     slots.emplace_back(std::move(slot));
+
+    // Get FabricAdapter device link if exists
+    addLinkedFabricAdapter(asyncResp, pcieSlotPath, index);
 
     // Get pcie slot location indicator state
     getLocationIndicatorActive(asyncResp, pcieSlotPath,

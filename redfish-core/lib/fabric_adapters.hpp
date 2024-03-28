@@ -159,6 +159,104 @@ inline void
     });
 }
 
+inline void afterDoCheckFabricAdapterChassis(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const dbus::utility::MapperEndPoints& pcieSlotPaths,
+    const std::function<void(const std::string&,
+                             const dbus::utility::MapperEndPoints&)>& callback,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperEndPoints& chassisPaths)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR)
+        {
+            // This PCIeSlot has no chassis association.
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBUS response error {}", ec.value());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    if (chassisPaths.size() != 1)
+    {
+        BMCWEB_LOG_ERROR("PCIe Slot association error! ");
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    sdbusplus::message::object_path path(chassisPaths[0]);
+    std::string chassisName = path.filename();
+
+    callback(chassisName, pcieSlotPaths);
+}
+
+inline void doCheckFabricAdapterChassis(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& fabricAdapterPath,
+    const dbus::utility::MapperEndPoints& pcieSlotPaths,
+    std::function<void(const std::string&,
+                       const dbus::utility::MapperEndPoints&)>
+        callback)
+{
+    constexpr std::array<std::string_view, 1> chassisInterface{
+        "xyz.openbmc_project.Inventory.Item.Chassis"};
+    dbus::utility::getAssociatedSubTreePaths(
+        fabricAdapterPath + "/chassis",
+        sdbusplus::message::object_path("/xyz/openbmc_project/inventory"), 0,
+        chassisInterface,
+        std::bind_front(afterDoCheckFabricAdapterChassis, asyncResp,
+                        pcieSlotPaths, std::move(callback)));
+}
+
+inline void afterGetFabricAdapterPCIeSlots(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& fabricAdapterPath,
+    std::function<void(const std::string&,
+                       const dbus::utility::MapperEndPoints&)>
+        callback,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperEndPoints& pcieSlotPaths)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR)
+        {
+            BMCWEB_LOG_DEBUG("Slot association not found");
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBUS response error {}", ec.value());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    if (pcieSlotPaths.empty())
+    {
+        // no slot associations
+        BMCWEB_LOG_DEBUG("Slot association not found");
+        return;
+    }
+
+    // Check whether PCIeSlot is associated with chassis
+    doCheckFabricAdapterChassis(asyncResp, fabricAdapterPath, pcieSlotPaths,
+                                std::move(callback));
+}
+
+inline void getFabricAdapterPCIeSlots(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& fabricAdapterPath,
+    std::function<void(const std::string&,
+                       const dbus::utility::MapperEndPoints&)>&& callback)
+{
+    constexpr std::array<std::string_view, 1> pcieSlotInterface{
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot"};
+    dbus::utility::getAssociatedSubTreePaths(
+        fabricAdapterPath + "/containing",
+        sdbusplus::message::object_path("/xyz/openbmc_project/inventory"), 0,
+        pcieSlotInterface,
+        std::bind_front(afterGetFabricAdapterPCIeSlots, asyncResp,
+                        fabricAdapterPath, std::move(callback)));
+}
+
 inline void doAdapterGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const std::string& systemName,
                          const std::string& adapterId,
@@ -177,6 +275,18 @@ inline void doAdapterGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
     asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
     asyncResp->res.jsonValue["Status"]["Health"] = "OK";
+
+    // add pcieslots
+    getFabricAdapterPCIeSlots(
+        asyncResp, fabricAdapterPath,
+        [asyncResp](const std::string& chassisName,
+                    const dbus::utility::MapperEndPoints& /*pcieSlotPaths*/) {
+        asyncResp->res.jsonValue["Oem"]["IBM"]["@odata.type"] =
+            "#OemFabricAdapter.v1_0_0.IBM";
+        asyncResp->res.jsonValue["Oem"]["IBM"]["Slots"]["@odata.id"] =
+            boost::urls::format("/redfish/v1/Chassis/{}/PCIeSlots",
+                                chassisName);
+    });
 
     getFabricAdapterLocation(asyncResp, serviceName, fabricAdapterPath);
     getFabricAdapterAsset(asyncResp, serviceName, fabricAdapterPath);
