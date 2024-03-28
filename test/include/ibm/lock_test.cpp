@@ -166,43 +166,6 @@ TEST_F(LockTest, MultiRequestWithConflictduetoSameSegmentLength)
     const LockRequests& t = request;
     EXPECT_TRUE(lockManager.isConflictRequest(t));
 }
-#if 0 // Comment out due to bad code in include/ibm/locks.hpp
-TEST_F(LockTest, MultiRequestWithoutConflictduetoDifferentSegmentData)
-{
-    MockLock lockManager;
-    // Corrupt the locktype
-    std::get<2>(request[0]) = "Write";
-    // Match the segment lengths to points them to lock similar kind of
-    // resource
-    std::get<4>(request[0])[0].first = "DontLock";
-    std::get<4>(request[0])[1].first = "LockAll";
-
-    // Change the resource id(2nd byte) of first record, so the locks are
-    // different so no conflict
-    std::get<3>(request[0]) = 216179379183550464; // HEX 03 00 06 00 00 00 00 00
-    std::get<3>(request[1]) = 288236973221478400; // HEX 04 00 06 00 00 00 00 00
-    const LockRequests& t = request;
-    EXPECT_FALSE(lockManager.isConflictRequest(t));
-}
-
-TEST_F(LockTest, MultiRequestWithConflictduetoSameSegmentData)
-{
-    MockLock lockManager;
-    // Corrupt the locktype
-    std::get<2>(request[0]) = "Write";
-    // Match the segment lengths to points them to lock similar kind of
-    // resource
-    std::get<4>(request[0])[0].first = "DontLock";
-    std::get<4>(request[0])[1].first = "LockAll";
-    // Dont Change the resource id(1st & 2nd byte) at all, so that the
-    // conflict occurs from the second segment which is trying to lock all
-    // the resources.
-    std::get<3>(request[0]) = 216173882346831872; // 03 00 01 00 2B 00 00 00
-    std::get<3>(request[1]) = 216173882346831872; // 03 00 01 00 2B 00 00 00
-    const LockRequests& t = request;
-    EXPECT_TRUE(lockManager.isConflictRequest(t));
-}
-#endif
 
 TEST_F(LockTest, MultiRequestWithoutConflictduetoDifferentSegmentLength)
 {
@@ -242,23 +205,6 @@ TEST_F(LockTest, MultiRequestWithoutConflictduetoReadLocktypeAndLockall)
     // Return No Conflict
     EXPECT_FALSE(lockManager.isConflictRequest(t));
 }
-
-#if 0 // Comment out due to bad code in include/ibm/locks.hpp
-TEST_F(LockTest, RequestConflictedWithLockTableEntries)
-{
-    MockLock lockManager;
-    const LockRequests& t = request1;
-    auto rc1 = lockManager.isConflictWithTable(t);
-    // Corrupt the lock type
-    std::get<2>(request[0]) = "Write";
-    // Corrupt the lockflag
-    std::get<4>(request[0])[1].first = "LockAll";
-    const LockRequests& p = request;
-    auto rc2 = lockManager.isConflictWithTable(p);
-    // Return a Conflict
-    EXPECT_TRUE(rc2.first);
-}
-#endif
 
 TEST_F(LockTest, RequestNotConflictedWithLockTableEntries)
 {
