@@ -87,6 +87,42 @@
       "parentUuid": "5014d6ac_39e55c74",
       "revId": "d1e83066d947c5d72a0c643a4b2926d77959f89d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23841620_af48d2c7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-03-28T11:21:56Z",
+      "side": 1,
+      "message": "Ravi ran a few patch tests on redfish endpoints defined in this file and this change is working as expected. Updated the commit message with a \"Tested by\" section.",
+      "parentUuid": "ababe69c_bc2894c9",
+      "revId": "d1e83066d947c5d72a0c643a4b2926d77959f89d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad42c2e2_c287a011",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-03-28T11:21:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52c427b2_030c4ab5",
+      "revId": "d1e83066d947c5d72a0c643a4b2926d77959f89d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
