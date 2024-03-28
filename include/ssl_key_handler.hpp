@@ -106,7 +106,7 @@ inline bool verifyOpensslKeyCert(const std::string& filepath)
     bool privateKeyValid = false;
     bool certValid = false;
 
-    std::cout << "Checking certs in file " << filepath << "\n";
+    BMCWEB_LOG_INFO("Checking certs in file {}", filepath);
 
     FILE* file = fopen(filepath.c_str(), "r");
     if (file != nullptr)
@@ -118,15 +118,15 @@ inline bool verifyOpensslKeyCert(const std::string& filepath)
             RSA* rsa = EVP_PKEY_get1_RSA(pkey);
             if (rsa != nullptr)
             {
-                std::cout << "Found an RSA key\n";
+                BMCWEB_LOG_INFO("Found an RSA key");
                 if (RSA_check_key(rsa) == 1)
                 {
                     privateKeyValid = true;
                 }
                 else
                 {
-                    std::cerr << "Key not valid error number "
-                              << ERR_get_error() << "\n";
+                    BMCWEB_LOG_ERROR("Key not valid error number {}",
+                                     ERR_get_error());
                 }
                 RSA_free(rsa);
             }
@@ -135,15 +135,15 @@ inline bool verifyOpensslKeyCert(const std::string& filepath)
                 EC_KEY* ec = EVP_PKEY_get1_EC_KEY(pkey);
                 if (ec != nullptr)
                 {
-                    std::cout << "Found an EC key\n";
+                    BMCWEB_LOG_INFO("Found an EC key");
                     if (EC_KEY_check_key(ec) == 1)
                     {
                         privateKeyValid = true;
                     }
                     else
                     {
-                        std::cerr << "Key not valid error number "
-                                  << ERR_get_error() << "\n";
+                        BMCWEB_LOG_ERROR("Key not valid error number {}",
+                                         ERR_get_error());
                     }
                     EC_KEY_free(ec);
                 }
@@ -154,8 +154,8 @@ inline bool verifyOpensslKeyCert(const std::string& filepath)
 
             if (pkeyCtx == nullptr)
             {
-                std::cerr << "Unable to allocate pkeyCtx " << ERR_get_error()
-                          << "\n";
+                BMCWEB_LOG_ERROR("Unable to allocate pkeyCtx {}",
+                                 ERR_get_error());
             }
             else if (EVP_PKEY_check(pkeyCtx) == 1)
             {
@@ -163,8 +163,8 @@ inline bool verifyOpensslKeyCert(const std::string& filepath)
             }
             else
             {
-                std::cerr << "Key not valid error number " << ERR_get_error()
-                          << "\n";
+                BMCWEB_LOG_ERROR("Key not valid error number {}",
+                                 ERR_get_error());
             }
 #endif
 
@@ -179,8 +179,8 @@ inline bool verifyOpensslKeyCert(const std::string& filepath)
                 X509* x509 = PEM_read_X509(file, nullptr, nullptr, nullptr);
                 if (x509 == nullptr)
                 {
-                    std::cout << "error getting x509 cert " << ERR_get_error()
-                              << "\n";
+                    BMCWEB_LOG_ERROR("error getting x509 cert {}",
+                                     ERR_get_error());
                 }
                 else
                 {
@@ -253,14 +253,14 @@ inline void generateSslCertificate(const std::string& filepath,
                                    const std::string& cn)
 {
     FILE* pFile = nullptr;
-    std::cout << "Generating new keys\n";
+    BMCWEB_LOG_INFO("Generating new keys");
     initOpenssl();
 
-    std::cerr << "Generating EC key\n";
+    BMCWEB_LOG_INFO("Generating EC key");
     EVP_PKEY* pPrivKey = createEcKey();
     if (pPrivKey != nullptr)
     {
-        std::cerr << "Generating x509 Certificate\n";
+        BMCWEB_LOG_INFO("Generating x509 Certificates");
         // Use this code to directly generate a certificate
         X509* x509 = X509_new();
         if (x509 != nullptr)
@@ -359,7 +359,7 @@ EVP_PKEY* createEcKey()
                 /* pKey owns myecc from now */
                 if (EC_KEY_check_key(myecc) <= 0)
                 {
-                    std::cerr << "EC_check_key failed.\n";
+                    BMCWEB_LOG_ERROR("EC_check_key failed.");
                 }
             }
         }
@@ -423,7 +423,7 @@ inline void ensureOpensslKeyPresentAndValid(const std::string& filepath)
 
     if (!pemFileValid)
     {
-        std::cerr << "Error in verifying signature, regenerating\n";
+        BMCWEB_LOG_WARNING("Error in verifying signature, regenerating");
         generateSslCertificate(filepath, "testhost");
     }
 }
