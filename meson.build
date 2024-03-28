@@ -328,8 +328,10 @@ else
   cmake = import('cmake')
   opt = cmake.subproject_options()
   opt.add_cmake_defines({
-    'BOOST_INCLUDE_LIBRARIES': 'asio;beast;callable_traits;headers;process;type_index;url;uuid'
+    'BOOST_INCLUDE_LIBRARIES': 'asio;beast;callable_traits;headers;process;type_index;url;uuid',
+    'BUILD_SHARED_LIBS': 'OFF',
   })
+
   boost = cmake.subproject('boost', required: true, options: opt)
   boost_asio = boost.dependency('boost_asio').as_system()
   boost_beast = boost.dependency('boost_beast').as_system()
