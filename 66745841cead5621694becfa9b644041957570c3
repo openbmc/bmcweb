@@ -16,6 +16,24 @@
       "message": "Is this really a critical log or just an error ?\n\ncritical: Something went badly wrong, and we\u0027re no longer able to serve traffic. \"critical\" should be used when bmcweb encountered an event or entered a state that caused crucial function to stop working or when bmcweb encountered a fatal error.\n\nerror: Something went wrong, and we weren\u0027t able to give the expected response. Service is still operational. \"error\" should be used for unexpected conditions that prevented bmcweb from fulfilling the request. \"error\" shall be used for 5xx errors.",
       "revId": "66745841cead5621694becfa9b644041957570c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6af17797_5ab893ec",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-28T18:44:51Z",
+      "side": 1,
+      "message": "\u003e Is this really a critical log or just an error ?\n\u003e \n\nThe log statement arguably mirrors my mood at the time I found this was the core bug.  You\u0027re right, this should probably be info or debug, because as the code is now, it\u0027s expected.\n\nIdeally updateRetryConfig just wouldn\u0027t be called if the policy is null, but that\u0027s a refactor for another day.\n\n\u003e critical: Something went badly wrong, and we\u0027re no longer able to serve traffic. \"critical\" should be used when bmcweb encountered an event or entered a state that caused crucial function to stop working or when bmcweb encountered a fatal error.\n\u003e \n\u003e error: Something went wrong, and we weren\u0027t able to give the expected response. Service is still operational. \"error\" should be used for unexpected conditions that prevented bmcweb from fulfilling the request. \"error\" shall be used for 5xx errors.\n\n\nUpdated to debug level.",
+      "parentUuid": "84293893_742e8e7f",
+      "revId": "66745841cead5621694becfa9b644041957570c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
