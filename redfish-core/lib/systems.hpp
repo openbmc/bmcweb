@@ -38,10 +38,7 @@
 #include <boost/container/flat_map.hpp>
 #include <boost/system/error_code.hpp>
 #include <boost/system/linux_error.hpp>
-#include <boost/url/format.hpp>
-#include <generated/enums/computer_system.hpp>
-#include <sdbusplus/asio/property.hpp>
-#include <sdbusplus/message.hpp>
+#include <boost/url/format.hpp>e <sdbusplus/message.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
 #include <array>
@@ -3228,7 +3225,7 @@ inline void handleComputerSystemHead(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& /*systemName*/)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!redfish::setUpRedfishRoute(app, re /*unused*/ q, asyncResp))
     {
         return;
     }
@@ -3580,7 +3577,7 @@ inline void handleSystemCollectionResetActionHead(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& /*systemName*/)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!redfish::setUpRedfishRoute(app, re /*unused*/ q, asyncResp))
     {
         return;
     }
