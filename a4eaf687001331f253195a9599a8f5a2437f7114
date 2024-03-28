@@ -45,6 +45,54 @@
       },
       "revId": "a4eaf687001331f253195a9599a8f5a2437f7114",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82ce5636_784557ce",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-28T22:56:10Z",
+      "side": 1,
+      "message": "Most of them.  There\u0027s still one failure that I haven\u0027t tracked down.  It seems to be one of those essoteric things where redfish expects a normal GET of the SSE handler to return 200, not 404.\n\nProbably just some statement in the spec that the original folks missed.  Shouldn\u0027t effect real users at all.",
+      "parentUuid": "89b65f0e_5c08ec54",
+      "range": {
+        "startLine": 27,
+        "startChar": 55,
+        "endLine": 27,
+        "endChar": 59
+      },
+      "revId": "a4eaf687001331f253195a9599a8f5a2437f7114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d458e19b_03601bb9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-28T22:56:10Z",
+      "side": 1,
+      "message": "Yes, ideally we should.  I know I\u0027ve asked before.",
+      "parentUuid": "e3eb9d19_c2995785",
+      "range": {
+        "startLine": 27,
+        "startChar": 8,
+        "endLine": 27,
+        "endChar": 35
+      },
+      "revId": "a4eaf687001331f253195a9599a8f5a2437f7114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
