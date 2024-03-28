@@ -5,6 +5,8 @@
 #include "logging.hpp"
 #include "ossl_random.hpp"
 
+#include <boost/beast/core/file_posix.hpp>
+
 extern "C"
 {
 #include <nghttp2/nghttp2.h>
@@ -20,6 +22,7 @@ extern "C"
 }
 
 #include <boost/asio/ssl/context.hpp>
+#include <boost/system/error_code.hpp>
 
 #include <optional>
 #include <random>
@@ -101,63 +104,40 @@ inline bool validateCertificate(X509* const cert)
     return false;
 }
 
-inline bool verifyOpensslKeyCert(const std::string& filepath)
+inline std::string verifyOpensslKeyCert(const std::string& filepath)
 {
     bool privateKeyValid = false;
-    bool certValid = false;
 
     BMCWEB_LOG_INFO("Checking certs in file {}", filepath);
-
-    FILE* file = fopen(filepath.c_str(), "r");
-    if (file != nullptr)
+    boost::beast::file_posix file;
+    boost::system::error_code ec;
+    file.open(filepath.c_str(), boost::beast::file_mode::read, ec);
+    if (ec)
     {
-        EVP_PKEY* pkey = PEM_read_PrivateKey(file, nullptr, nullptr, nullptr);
-        if (pkey != nullptr)
-        {
-#if (OPENSSL_VERSION_NUMBER < 0x30000000L)
-            RSA* rsa = EVP_PKEY_get1_RSA(pkey);
-            if (rsa != nullptr)
-            {
-                BMCWEB_LOG_INFO("Found an RSA key");
-                if (RSA_check_key(rsa) == 1)
-                {
-                    privateKeyValid = true;
-                }
-                else
-                {
-                    BMCWEB_LOG_ERROR("Key not valid error number {}",
-                                     ERR_get_error());
-                }
-                RSA_free(rsa);
-            }
-            else
-            {
-                EC_KEY* ec = EVP_PKEY_get1_EC_KEY(pkey);
-                if (ec != nullptr)
-                {
-                    BMCWEB_LOG_INFO("Found an EC key");
-                    if (EC_KEY_check_key(ec) == 1)
-                    {
-                        privateKeyValid = true;
-                    }
-                    else
-                    {
-                        BMCWEB_LOG_ERROR("Key not valid error number {}",
-                                         ERR_get_error());
-                    }
-                    EC_KEY_free(ec);
-                }
-            }
-#else
-            EVP_PKEY_CTX* pkeyCtx = EVP_PKEY_CTX_new_from_pkey(nullptr, pkey,
-                                                               nullptr);
+        return "";
+    }
+    bool certValid = false;
+    std::string fileContents;
+    fileContents.resize(static_cast<size_t>(file.size(ec)), '\0');
+    file.read(fileContents.data(), fileContents.size(), ec);
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("Failed to read file");
+        return "";
+    }
 
-            if (pkeyCtx == nullptr)
-            {
-                BMCWEB_LOG_ERROR("Unable to allocate pkeyCtx {}",
-                                 ERR_get_error());
-            }
-            else if (EVP_PKEY_check(pkeyCtx) == 1)
+    BIO* bufio = BIO_new_mem_buf(static_cast<void*>(fileContents.data()),
+                                 static_cast<int>(fileContents.size()));
+    EVP_PKEY* pkey = PEM_read_bio_PrivateKey(bufio, nullptr, nullptr, nullptr);
+    BIO_free(bufio);
+    if (pkey != nullptr)
+    {
+#if (OPENSSL_VERSION_NUMBER < 0x30000000L)
+        RSA* rsa = EVP_PKEY_get1_RSA(pkey);
+        if (rsa != nullptr)
+        {
+            BMCWEB_LOG_INFO("Found an RSA key");
+            if (RSA_check_key(rsa) == 1)
             {
                 privateKeyValid = true;
             }
@@ -166,37 +146,72 @@ inline bool verifyOpensslKeyCert(const std::string& filepath)
                 BMCWEB_LOG_ERROR("Key not valid error number {}",
                                  ERR_get_error());
             }
-#endif
-
-            if (privateKeyValid)
+            RSA_free(rsa);
+        }
+        else
+        {
+            EC_KEY* ec = EVP_PKEY_get1_EC_KEY(pkey);
+            if (ec != nullptr)
             {
-                // If the order is certificate followed by key in input file
-                // then, certificate read will fail. So, setting the file
-                // pointer to point beginning of file to avoid certificate and
-                // key order issue.
-                fseek(file, 0, SEEK_SET);
-
-                X509* x509 = PEM_read_X509(file, nullptr, nullptr, nullptr);
-                if (x509 == nullptr)
+                BMCWEB_LOG_INFO("Found an EC key");
+                if (EC_KEY_check_key(ec) == 1)
                 {
-                    BMCWEB_LOG_ERROR("error getting x509 cert {}",
-                                     ERR_get_error());
+                    privateKeyValid = true;
                 }
                 else
                 {
-                    certValid = validateCertificate(x509);
-                    X509_free(x509);
+                    BMCWEB_LOG_ERROR("Key not valid error number {}",
+                                     ERR_get_error());
                 }
+                EC_KEY_free(ec);
             }
+        }
+#else
+        EVP_PKEY_CTX* pkeyCtx = EVP_PKEY_CTX_new_from_pkey(nullptr, pkey,
+                                                           nullptr);
+
+        if (pkeyCtx == nullptr)
+        {
+            BMCWEB_LOG_ERROR("Unable to allocate pkeyCtx {}", ERR_get_error());
+        }
+        else if (EVP_PKEY_check(pkeyCtx) == 1)
+        {
+            privateKeyValid = true;
+        }
+        else
+        {
+            BMCWEB_LOG_ERROR("Key not valid error number {}", ERR_get_error());
+        }
+#endif
+
+        if (privateKeyValid)
+        {
+            BIO* bufio2 =
+                BIO_new_mem_buf(static_cast<void*>(fileContents.data()),
+                                static_cast<int>(fileContents.size()));
+            X509* x509 = PEM_read_bio_X509(bufio2, nullptr, nullptr, nullptr);
+            BIO_free(bufio2);
+            if (x509 == nullptr)
+            {
+                BMCWEB_LOG_ERROR("error getting x509 cert {}", ERR_get_error());
+            }
+            else
+            {
+                certValid = validateCertificate(x509);
+                X509_free(x509);
+            }
+        }
 
 #if (OPENSSL_VERSION_NUMBER > 0x30000000L)
-            EVP_PKEY_CTX_free(pkeyCtx);
+        EVP_PKEY_CTX_free(pkeyCtx);
 #endif
-            EVP_PKEY_free(pkey);
-        }
-        fclose(file);
+        EVP_PKEY_free(pkey);
     }
-    return certValid;
+    if (!certValid)
+    {
+        return "";
+    }
+    return fileContents;
 }
 
 inline X509* loadCert(const std::string& filePath)
@@ -249,13 +264,26 @@ inline int addExt(X509* cert, int nid, const char* value)
     return 0;
 }
 
-inline void generateSslCertificate(const std::string& filepath,
-                                   const std::string& cn)
+// Writes a certificate to a path, ignoring errors
+inline void writeCertificateToFile(const std::string& filepath,
+                                   const std::string& certificate)
 {
-    FILE* pFile = nullptr;
+    boost::system::error_code ec;
+    boost::beast::file_posix file;
+    file.open(filepath.c_str(), boost::beast::file_mode::write, ec);
+    if (!ec)
+    {
+        file.write(certificate.data(), certificate.size(), ec);
+        // ignore result
+    }
+}
+
+inline std::string generateSslCertificate(const std::string& cn)
+{
     BMCWEB_LOG_INFO("Generating new keys");
     initOpenssl();
 
+    std::string buffer;
     BMCWEB_LOG_INFO("Generating EC key");
     EVP_PKEY* pPrivKey = createEcKey();
     if (pPrivKey != nullptr)
@@ -316,18 +344,33 @@ inline void generateSslCertificate(const std::string& filepath,
             // Sign the certificate with our private key
             X509_sign(x509, pPrivKey, EVP_sha256());
 
-            pFile = fopen(filepath.c_str(), "wt");
+            BIO* bufio = BIO_new(BIO_s_mem());
 
-            if (pFile != nullptr)
+            int pkeyRet = PEM_write_bio_PrivateKey(
+                bufio, pPrivKey, nullptr, nullptr, 0, nullptr, nullptr);
+            if (pkeyRet <= 0)
             {
-                PEM_write_PrivateKey(pFile, pPrivKey, nullptr, nullptr, 0,
-                                     nullptr, nullptr);
-
-                PEM_write_X509(pFile, x509);
-                fclose(pFile);
-                pFile = nullptr;
+                BMCWEB_LOG_ERROR(
+                    "Failed to write pkey with code {}.  Ignoring.", pkeyRet);
             }
 
+            char* data = nullptr;
+            long int dataLen = BIO_get_mem_data(bufio, &data);
+            buffer += std::string_view(data, static_cast<size_t>(dataLen));
+            BIO_free(bufio);
+
+            bufio = BIO_new(BIO_s_mem());
+            pkeyRet = PEM_write_bio_X509(bufio, x509);
+            if (pkeyRet <= 0)
+            {
+                BMCWEB_LOG_ERROR(
+                    "Failed to write X509 with code {}.  Ignoring.", pkeyRet);
+            }
+            dataLen = BIO_get_mem_data(bufio, &data);
+            buffer += std::string_view(data, static_cast<size_t>(dataLen));
+
+            BIO_free(bufio);
+            BMCWEB_LOG_INFO("Cert size is {}", buffer.size());
             X509_free(x509);
         }
 
@@ -336,6 +379,7 @@ inline void generateSslCertificate(const std::string& filepath,
     }
 
     // cleanup_openssl();
+    return buffer;
 }
 
 EVP_PKEY* createEcKey()
@@ -415,17 +459,24 @@ void initOpenssl()
 #endif
 }
 
-inline void ensureOpensslKeyPresentAndValid(const std::string& filepath)
+inline std::string ensureOpensslKeyPresentAndValid(const std::string& filepath)
 {
-    bool pemFileValid = false;
+    std::string cert = verifyOpensslKeyCert(filepath);
 
-    pemFileValid = verifyOpensslKeyCert(filepath);
-
-    if (!pemFileValid)
+    if (cert.empty())
     {
         BMCWEB_LOG_WARNING("Error in verifying signature, regenerating");
-        generateSslCertificate(filepath, "testhost");
+        cert = generateSslCertificate("testhost");
+        if (cert.empty())
+        {
+            BMCWEB_LOG_ERROR("Failed to generate cert");
+        }
+        else
+        {
+            writeCertificateToFile(filepath, cert);
+        }
     }
+    return cert;
 }
 
 inline int nextProtoCallback(SSL* /*unused*/, const unsigned char** data,
@@ -480,10 +531,20 @@ inline std::shared_ptr<boost::asio::ssl::context>
     BMCWEB_LOG_DEBUG("Using default TrustStore location: {}", trustStorePath);
     mSslContext->add_verify_path(trustStorePath);
 
-    mSslContext->use_certificate_file(sslPemFile,
-                                      boost::asio::ssl::context::pem);
-    mSslContext->use_private_key_file(sslPemFile,
-                                      boost::asio::ssl::context::pem);
+    boost::system::error_code ec;
+    boost::asio::const_buffer buf(sslPemFile.data(), sslPemFile.size());
+    mSslContext->use_certificate(buf, boost::asio::ssl::context::pem, ec);
+    if (ec)
+    {
+        BMCWEB_LOG_CRITICAL("Failed to open ssl certificate");
+        return nullptr;
+    }
+    mSslContext->use_private_key(buf, boost::asio::ssl::context::pem);
+    if (ec)
+    {
+        BMCWEB_LOG_CRITICAL("Failed to open ssl pkey");
+        return nullptr;
+    }
 
     if constexpr (BMCWEB_EXPERIMENTAL_HTTP2)
     {
