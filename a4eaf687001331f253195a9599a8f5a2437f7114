@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3eb9d19_c2995785",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-28T20:29:47Z",
+      "side": 1,
+      "message": "We will have to get this running in CI so we can catch breaks like this.",
+      "range": {
+        "startLine": 27,
+        "startChar": 8,
+        "endLine": 27,
+        "endChar": 35
+      },
+      "revId": "a4eaf687001331f253195a9599a8f5a2437f7114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89b65f0e_5c08ec54",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-28T20:29:47Z",
+      "side": 1,
+      "message": "the SSE fails are fixed by https://gerrit.openbmc.org/c/openbmc/bmcweb/+/70294?",
+      "range": {
+        "startLine": 27,
+        "startChar": 55,
+        "endLine": 27,
+        "endChar": 59
+      },
+      "revId": "a4eaf687001331f253195a9599a8f5a2437f7114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
