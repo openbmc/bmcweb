@@ -190,6 +190,7 @@ struct Response
     {
         BMCWEB_LOG_DEBUG("{} Clearing response containers", logPtr(this));
         response.clear();
+        response.body().clear();
 
         jsonValue = nullptr;
         completed = false;
