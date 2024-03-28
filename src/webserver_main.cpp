@@ -65,6 +65,8 @@ inline void setupSocket(crow::App& app)
 
 static int run()
 {
+    std::ios::sync_with_stdio(false);
+
     auto io = std::make_shared<boost::asio::io_context>();
     App app(io);
 
