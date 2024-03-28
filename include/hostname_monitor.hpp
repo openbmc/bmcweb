@@ -121,8 +121,15 @@ inline int onPropertyUpdate(sd_bus_message* m, void* /* userdata */,
                 "Ready to generate new HTTPs certificate with subject cn: {}",
                 *hostname);
 
-            ensuressl::generateSslCertificate("/tmp/hostname_cert.tmp",
-                                              *hostname);
+            std::string certData = ensuressl::generateSslCertificate(*hostname);
+            if (certData.empty())
+            {
+                BMCWEB_LOG_ERROR("Failed to generate cert");
+                return 0;
+            }
+            ensuressl::writeCertificateToFile("/tmp/hostname_cert.tmp",
+                                              certData);
+
             installCertificate("/tmp/hostname_cert.tmp");
         }
         ASN1_STRING_free(asn1);
