@@ -532,6 +532,11 @@ class Subscription : public persistent_data::UserSubscription
     void updateRetryConfig(uint32_t retryAttempts,
                            uint32_t retryTimeoutInterval)
     {
+        if (policy == nullptr)
+        {
+            BMCWEB_LOG_DEBUG("Retry policy was nullptr, ignoring set");
+            return;
+        }
         policy->maxRetryAttempts = retryAttempts;
         policy->retryIntervalSecs = std::chrono::seconds(retryTimeoutInterval);
     }
