@@ -16,6 +16,24 @@
       "message": "I see it here https://releases.llvm.org/18.1.0/tools/clang/docs/analyzer/checkers.html#unix-stdclibraryfunctions-c",
       "revId": "23abc2d67055661763e3077ec2e27d2110c8083e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cab9414_88584f4c",
+        "filename": ".clang-tidy",
+        "patchSetId": 8
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-28T17:29:52Z",
+      "side": 1,
+      "message": "So far as I can tell, they renamed the namespace to be specific to the OS.  This just came out when I ran clang-tidy-18 --checks\u003d\"*\u0027 --list-checks, so I assume it\u0027s correct.",
+      "parentUuid": "f841518e_d9b20bed",
+      "revId": "23abc2d67055661763e3077ec2e27d2110c8083e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
