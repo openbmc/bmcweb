@@ -46,6 +46,30 @@
       },
       "revId": "964b912872ef417e2a3504a307f88d567f511cc4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce82776f_4b37509a",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-29T03:56:00Z",
+      "side": 1,
+      "message": "So, we don\u0027t do an empty check (default) in other resources. https://gerrit.openbmc.org/c/openbmc/bmcweb/+/38044 was some previous discussion (NOTE: just because we decided this direction 3.5 years ago, doesn\u0027t mean we can\u0027t make a different decision today) \n\nThe validator did not have a warning about these being empty (I saw that in the past - 38044). Technically, I don\u0027t think there is anything wrong with 1 or a few being filled out and the rest empty. \n\nI agree that a cable is more likely not to have all of these fields.\n\nFan, PowerSupply, BMC, memory, and pcie device, could also not have all of these fields though.. And it feels odd that we would not be consistent. \n\n3 choices I can think of:\n1) Do nothing. If you have a cable PartNumber, but nothing else.. Manufacturer/Model/SerialNumber are empty. Annoying but not wrong.  \n2) Add empty checks here, but here in cables only, just like we do for SparePartNumber. I am okay with this but with as many resources that have Manufacturer, Model, etc., this will come up again. \n3) Add empty checks here and in all places we use this asset interface (Fan, PowerSupply, BMC, memory, and PCIe device).",
+      "parentUuid": "004e79cb_d7420bf6",
+      "range": {
+        "startLine": 116,
+        "startChar": 4,
+        "endLine": 116,
+        "endChar": 71
+      },
+      "revId": "964b912872ef417e2a3504a307f88d567f511cc4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
