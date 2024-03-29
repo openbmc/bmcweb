@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2a7e6d5_90ac5730",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-29T03:00:15Z",
+      "side": 1,
+      "message": "Should we do this with all of them?  It seems likely that a cable might now have all of these properties (serial number for example seems iffy on most cables).",
+      "range": {
+        "startLine": 116,
+        "startChar": 4,
+        "endLine": 116,
+        "endChar": 71
+      },
+      "revId": "964b912872ef417e2a3504a307f88d567f511cc4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
