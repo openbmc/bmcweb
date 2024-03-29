@@ -307,6 +307,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bac2cd07_2d5fccfc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-29T07:29:07Z",
+      "side": 1,
+      "message": "\u003e No, currently the time-manager only watch phosphor-settings, and call systemd-timedated to update the NTP setting.\n\nI understand now.\n\n\n\u003e We are already working on \"time-manager\" to sync the settings. Will submit the patch later.\n\nThank you;  I appreciate it.",
+      "parentUuid": "79d07123_dfa8985b",
+      "revId": "fc3ce4231a3ecb69c7d6b5bd8e86582e11a5c38f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b54fe85b_d3f75d8c",
         "filename": "redfish-core/lib/network_protocol.hpp",
         "patchSetId": 15
