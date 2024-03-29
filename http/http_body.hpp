@@ -170,7 +170,11 @@ class HttpBody::writer
 
     value_type& body;
     size_t sent = 0;
-    constexpr static size_t readBufSize = 4096;
+    // 64KB This number is arbitrary, and selected to try to optimize for larger
+    // files and fewer loops over per-connection reduction in memory usage.
+    // Nginx uses 16-32KB here, so we're in the range of what other webservers
+    // do.
+    constexpr static size_t readBufSize = 1024UL * 64UL;
     std::array<char, readBufSize> fileReadBuf{};
 
   public:
