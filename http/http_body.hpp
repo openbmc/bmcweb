@@ -169,7 +169,8 @@ class HttpBody::writer
 
     value_type& body;
     size_t sent = 0;
-    constexpr static size_t readBufSize = 4096;
+    // 16KB
+    constexpr static size_t readBufSize = 1024UL * 16UL;
     std::array<char, readBufSize> fileReadBuf{};
 
   public:
