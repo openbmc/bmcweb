@@ -110,6 +110,24 @@
       "message": "who calls clear method? Is this just a test case scenario?  doesn\u0027t the destructor of response do the job? Once the redfish request is completed the response object is destructed right? Then what is the problem in handling next read? I hope concurrent execution of two redfish request for same file should work.\nIf destructor is not doing the job then we must call clear method from destructor too.",
       "revId": "a4eaf687001331f253195a9599a8f5a2437f7114",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a72edcd_1a2cd819",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-29T05:45:43Z",
+      "side": 1,
+      "message": "\u003e who calls clear method?\n\nhttp_connection.hpp is where it\u0027s called from\n\n\u003e Is this just a test case scenario?\n\nNo.  This happens on real connections (Redfish protocol validator fails because of this).\n\n\u003e  doesn\u0027t the destructor of response do the job?\n\u003e Once the redfish request is completed the response object is destructed right? \n\nNo.  Response objects are reused on a single connection.  The Response destructor is never called.  Response objects are destroyed in HTTP2, although that\u0027s something that should be corrected at some point.\n\n\u003e Then what is the problem in handling next read? I hope concurrent execution of two redfish request for same file should work.\n\nYes, two redfish requests for the same file will work (if done from different connections).  If the same connection is used the request after file body is used it returns a content-length of non zero, but then returns 0 bytes, and deadlocks.\n\n\n\u003e If destructor is not doing the job then we must call clear method from destructor too.\n\nThe destructor is fine;  The object is just reused.",
+      "parentUuid": "fc6f9603_fa27ad9e",
+      "revId": "a4eaf687001331f253195a9599a8f5a2437f7114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
