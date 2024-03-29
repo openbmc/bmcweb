@@ -30,7 +30,7 @@ inline void
 {
     if (ec)
     {
-        BMCWEB_LOG_DEBUG("DBUS response error {}", ec);
+        BMCWEB_LOG_ERROR("DBUS response error {}", ec);
         messages::internalError(resp);
         return;
     }
