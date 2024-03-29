@@ -49,6 +49,69 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f558359a_be2adda1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-29T19:31:04Z",
+      "side": 1,
+      "message": "What is \"audit\"?",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 22
+      },
+      "revId": "2ebde16133c7407ba10f0e1c2f231e0b242d16d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02b24c83_40c5bed9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-29T19:31:04Z",
+      "side": 1,
+      "message": "what is stmt?",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 14
+      },
+      "revId": "2ebde16133c7407ba10f0e1c2f231e0b242d16d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b586633_a4579344",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-29T19:31:04Z",
+      "side": 1,
+      "message": "We\u0027re making a pretty core change here, so in terms of testing I would expect:\n1. Redfish protocol validator to have no regressions (after a few patches get on master it\u0027s failing one test, that\u0027s fine).\n2. Redfish service validator to pass\n3. Http1 and Http2 requests to pass for GET/PATCH/POST\n4. the Webui to load without any new errors and work properly.\n5. KVM (Or some other websocket thing) to be working.\n\nThat seems like the minimum set of tests for a change this core.",
+      "revId": "2ebde16133c7407ba10f0e1c2f231e0b242d16d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6e50580b_2c17b026",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 5
