@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe3c39aa_12d15596",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-29T19:20:32Z",
+      "side": 1,
+      "message": "In this example you gave, req is of type Request, but you\u0027ve made a shared pointer of boost::beast::http::request\u003cbmcweb::HttpBody\u003e (which is also called Request::req, so the confusion is warranted).\n\nWhy does making a member pointer shared help us here?",
+      "range": {
+        "startLine": 30,
+        "startChar": 8,
+        "endLine": 30,
+        "endChar": 29
+      },
+      "revId": "2ebde16133c7407ba10f0e1c2f231e0b242d16d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13da2689_bd5cd646",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-29T19:20:32Z",
+      "side": 1,
+      "message": "But it\u0027s still a copy.  Why are we making a copy at all?",
+      "range": {
+        "startLine": 56,
+        "startChar": 44,
+        "endLine": 57,
+        "endChar": 17
+      },
+      "revId": "2ebde16133c7407ba10f0e1c2f231e0b242d16d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e50580b_2c17b026",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-29T19:20:32Z",
+      "side": 1,
+      "message": "We already went through this same thing with Response, when we changed from everywhere using\n\nResponse\u0026\n\nto\n\nstd::shared_ptr\u003cResponse\u003e\n\nI\u0027m not sure why we\u0027re proposing something different here, where the internals make copies of objects instead of the externals.  We shouldn\u0027t be making copies at all (unless a copy is explicitly required).",
+      "revId": "2ebde16133c7407ba10f0e1c2f231e0b242d16d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5d9f5d5_ebc8f39b",
+        "filename": "http/http_request.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-29T19:20:32Z",
+      "side": 1,
+      "message": "Why would we make this a pointer instead of Request?",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 74
+      },
+      "revId": "2ebde16133c7407ba10f0e1c2f231e0b242d16d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b65ca950_728dfad4",
+        "filename": "http/http_request.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-29T19:20:32Z",
+      "side": 1,
+      "message": "this is going to force a malloc every clear, which isn\u0027t the intent of clear().  Maybe you want reqPtr-\u003eclear()?",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 78
+      },
+      "revId": "2ebde16133c7407ba10f0e1c2f231e0b242d16d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
