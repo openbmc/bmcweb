@@ -22,6 +22,30 @@
       },
       "revId": "964b912872ef417e2a3504a307f88d567f511cc4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "004e79cb_d7420bf6",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-29T03:03:42Z",
+      "side": 1,
+      "message": "\"might not\"*",
+      "parentUuid": "d2a7e6d5_90ac5730",
+      "range": {
+        "startLine": 116,
+        "startChar": 4,
+        "endLine": 116,
+        "endChar": 71
+      },
+      "revId": "964b912872ef417e2a3504a307f88d567f511cc4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
