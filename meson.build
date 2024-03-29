@@ -296,7 +296,7 @@ bmcweb_dependencies += sdbusplus
 tinyxml = dependency(
     'tinyxml2',
     include_type: 'system',
-    version: '>=9.0.0',
+    version: '>=10.0.0',
 )
 if not tinyxml.found()
     tinyxml_proj = subproject('tinyxml2', required: true)
