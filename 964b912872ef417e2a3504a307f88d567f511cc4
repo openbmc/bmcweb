@@ -70,6 +70,30 @@
       },
       "revId": "964b912872ef417e2a3504a307f88d567f511cc4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "026430ef_7b4854d2",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-29T07:05:23Z",
+      "side": 1,
+      "message": "\u003e So, we don\u0027t do an empty check (default) in other resources. https://gerrit.openbmc.org/c/openbmc/bmcweb/+/38044 was some previous discussion (NOTE: just because we decided this direction 3.5 years ago, doesn\u0027t mean we can\u0027t make a different decision today) \n\nYep, I was about to say exactly the same.  4 years ago was a different time, and while I still think keeping the optional interfaces separate is easier to parse, and less subjective about what a field means, I\u0027m not prepared to argue with everyone else about it.  So long as it\u0027s documented that \"empty string means it doesn\u0027t exist\", I\u0027m not prepared to fight the difference between empty string and not supported.  It\u0027s not important enough, as it basically only involves manufacturing scenarios.\n\n\u003e \n\u003e The validator did not have a warning about these being empty (I saw that in the past - 38044). Technically, I don\u0027t think there is anything wrong with 1 or a few being filled out and the rest empty. \n\nWeird.... I wonder if DMTF pulled back on that.\n\n\u003e \n\u003e I agree that a cable is more likely not to have all of these fields.\n\u003e \n\u003e Fan, PowerSupply, BMC, memory, and pcie device, could also not have all of these fields though.. And it feels odd that we would not be consistent.\n\n\u003e \n\u003e 3 choices I can think of:\n\u003e 1) Do nothing. If you have a cable PartNumber, but nothing else.. Manufacturer/Model/SerialNumber are empty. Annoying but not wrong.  \n\n....  Arguably wrong in Redfish if the device doesn\u0027t support those things, but sure.\n\u003e 2) Add empty checks here, but here in cables only, just like we do for SparePartNumber. I am okay with this but with as many resources that have Manufacturer, Model, etc., this will come up again. \n\u003e 3) Add empty checks here and in all places we use this asset interface (Fan, PowerSupply, BMC, memory, and PCIe device).\n\n\nIf we\u0027re making the argument that we should be consistent, we should be reusing code, like here:\nhttps://github.com/openbmc/bmcweb/blob/1847f2a0c517df6a7439b9bd491afbf6b2302a92/redfish-core/lib/fan.hpp#L306\n\nThat\u0027s almost line for line identical to what\u0027s being put here.  If we refactored and reused, I\u0027d be happy with the consistency argument (and it would be easy to change in the future), and reuse for other types.\n\nSo I\u0027m going to go with #4, reuse the code we have, and whether or not it handles empty strings we can figure out in the future, but at least when we figure it out, we\u0027ll have one place we need to change instead of N.",
+      "parentUuid": "ce82776f_4b37509a",
+      "range": {
+        "startLine": 116,
+        "startChar": 4,
+        "endLine": 116,
+        "endChar": 71
+      },
+      "revId": "964b912872ef417e2a3504a307f88d567f511cc4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
