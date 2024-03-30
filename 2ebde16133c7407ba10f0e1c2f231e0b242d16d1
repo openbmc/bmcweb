@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "25b2f578_3603ca40",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-03-30T21:56:28Z",
+      "side": 1,
+      "message": "The current code is already using the same naming.\n\nCurrent code:\n\n```\nstruct Request\n{\n      boost::beast::http::request\u003cbmcweb::HttpBody\u003e req;\n}\n```\nMany parts use `req` for `crow::Request` which makes `req.req` to be used.\n\nI think I\u0027ll not create `req()` but use only `req` as `Request` (and all internal body references are limited inside `Request`.\n\n```\nstruct Request\n{\n      std::shared_ptr\u003cboost::beast::http::request\u003cbmcweb::HttpBody\u003e\u003e reqPtr;\n}\n```\n\n\u003e Why does making a member pointer shared help us here?\n\nSame as using `std::shared_ptr\u003ccrow::Request\u003e`, this allows the content to be valid until all Requests are needed.\n\n```\nClass Connection\n{\n   crow::Request req;\n\n...\n  void handle()\n  {\n    req \u003d crow::Request(parser-\u003erelease(), reqEc);\n    \n    ....many depths...\n     crow::connections::systemBus-\u003easync_method_call(\n        [req, asyncResp, \u0026rule, ...]() {\n              ... (B) this part will still need \u003creq\u003e\n        });\n    ...\n    (A)\n    .... req may be no longer used (e.g. req.clear()).\n  }\n}\n ```\n\nIf not using `shared_ptr\u003c\u003e` (either in Request or its body), (B) would need a deep copy of Request (i.e. body will need to be kept).",
+      "parentUuid": "fe3c39aa_12d15596",
+      "range": {
+        "startLine": 30,
+        "startChar": 8,
+        "endLine": 30,
+        "endChar": 29
+      },
+      "revId": "2ebde16133c7407ba10f0e1c2f231e0b242d16d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "13da2689_bd5cd646",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-03-29T19:20:32Z",
       "side": 1,
       "message": "But it\u0027s still a copy.  Why are we making a copy at all?",
+      "range": {
+        "startLine": 56,
+        "startChar": 44,
+        "endLine": 57,
+        "endChar": 17
+      },
+      "revId": "2ebde16133c7407ba10f0e1c2f231e0b242d16d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5fdfb76_23559df0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-03-30T21:56:28Z",
+      "side": 1,
+      "message": "I meant - there are places that use copy operations of `Request` to keep the content valid for all related logics are done.\n(I think we\u0027ve tried to use \u0026req, or std::move(req), but those are not sufficiently covering all cases).\n\nIf so, it is better to make Request to be less overhead (esp, for the cases that have a larger content - e.g. code update image).\n\nFor it, this commit is suggesting to use shared_ptr\u003c\u003e in the body (`req`) of `Request`.\n\n```\nstruct Request\n{\n-    boost::beast::http::request\u003cbmcweb::HttpBody\u003e req;\n+    std::shared_ptr\u003cboost::beast::http::request\u003cbmcweb::HttpBody\u003e\u003e reqPtr;\n}\n```\n\nWith previous code, copy of Request is expensive, but copy of Request with the new code is not (as it is only incrementing a ref count of a shared_ptr).\n\nI\u0027ll rephrase the commit message.",
+      "parentUuid": "13da2689_bd5cd646",
       "range": {
         "startLine": 56,
         "startChar": 44,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0efa4e8e_59ee297c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-03-30T21:56:28Z",
+      "side": 1,
+      "message": "I meant it as a logging inside `completeRequest()` in our downstream.\nI\u0027ll remove this.",
+      "parentUuid": "f558359a_be2adda1",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 22
+      },
+      "revId": "2ebde16133c7407ba10f0e1c2f231e0b242d16d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "02b24c83_40c5bed9",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-03-29T19:31:04Z",
       "side": 1,
       "message": "what is stmt?",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 14
+      },
+      "revId": "2ebde16133c7407ba10f0e1c2f231e0b242d16d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4e37423_0ec368e3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-03-30T21:56:28Z",
+      "side": 1,
+      "message": "I meant it as Debug logging statement",
+      "parentUuid": "02b24c83_40c5bed9",
       "range": {
         "startLine": 83,
         "startChar": 0,
@@ -112,6 +208,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "94388e06_8acbddb9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-03-30T21:56:28Z",
+      "side": 1,
+      "message": "I\u0027ve tried \n- redfish service validator\n- http1/http2 GET/PATCH/POST\n- Webui\n\nI\u0027ll further look at the others.",
+      "parentUuid": "5b586633_a4579344",
+      "revId": "2ebde16133c7407ba10f0e1c2f231e0b242d16d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6e50580b_2c17b026",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 5
@@ -123,6 +237,24 @@
       "writtenOn": "2024-03-29T19:20:32Z",
       "side": 1,
       "message": "We already went through this same thing with Response, when we changed from everywhere using\n\nResponse\u0026\n\nto\n\nstd::shared_ptr\u003cResponse\u003e\n\nI\u0027m not sure why we\u0027re proposing something different here, where the internals make copies of objects instead of the externals.  We shouldn\u0027t be making copies at all (unless a copy is explicitly required).",
+      "revId": "2ebde16133c7407ba10f0e1c2f231e0b242d16d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b4bf15d_8af574ed",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-03-30T21:56:28Z",
+      "side": 1,
+      "message": "I haven\u0027t investigated `Response` handling and I haven\u0027t changed it.  (I also did not observed the issue related to it).\n\nWhat I found is `Request` which seems copying \u0026 moving depending on the flows.\nIn one case, it causes the invalid content of it (i.e. `completeRequest()` esp on PATCH) as it is moved to `validatePrivilege()` async-call.\n\nAlthough the issue can be avoided by copying it, but it becomes too costly especially when `Request.req` is large (i.e. Code update).",
+      "parentUuid": "6e50580b_2c17b026",
       "revId": "2ebde16133c7407ba10f0e1c2f231e0b242d16d1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -140,6 +272,30 @@
       "writtenOn": "2024-03-29T19:20:32Z",
       "side": 1,
       "message": "Why would we make this a pointer instead of Request?",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 74
+      },
+      "revId": "2ebde16133c7407ba10f0e1c2f231e0b242d16d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f88daeae_ec1775dc",
+        "filename": "http/http_request.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-03-30T21:56:28Z",
+      "side": 1,
+      "message": "You mean - `std::shared_ptr\u003ccrow::Request\u003e` and use it at the references areas.\nI have thought it, but there are so many places to change.\n\nChanging its body of Request to shared_ptr would cause less code change impacts to code change, but have the same/similar effects.\n\nIf we change to `std::shared_ptr\u003ccrow::Request\u003e`, the code changes would be\n- all or most `crow::Request\u0026` (esp on function args) would need to be changed to `std::shared_ptr\u003ccrow::Request\u003e\u0026`\u0027.\n- the code that use `req.` would need to be like `req-\u003e`.\n\nIf that\u0027s still preferred, I think we can do it after this.",
+      "parentUuid": "f5d9f5d5_ebc8f39b",
       "range": {
         "startLine": 23,
         "startChar": 0,
@@ -173,6 +329,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc93415b_b520eda2",
+        "filename": "http/http_request.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-03-30T21:56:28Z",
+      "side": 1,
+      "message": "This semantic of `clear()` is to release the original Request in this current flow of the logic.\nHowever, if there are references of it, the content will need be available for those.\nSo, reqPtr-\u003eclear() would not be correct as it will clear out its content for all references. (It may become same as simple pointer reference - \u0026Request).\n\nSo, I\u0027ve changed to do reqPtr\u003dnullptr (although reqPtr\u003dstd::make_shared() is correct).  (By doing it, the other referencing code will still have the valid content - e..g above (B)).\n\n```\n   reqPtr \u003d nullptr;\n```\n\nThis would be similar to do like if we do\n\n```\n   std::shared_ptr\u003ccrow::Request\u003e req;\n    ...\n   req \u003d nullptr;\n```",
+      "parentUuid": "b65ca950_728dfad4",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 78
+      },
+      "revId": "2ebde16133c7407ba10f0e1c2f231e0b242d16d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eeb6cf1b_1e6e9003",
@@ -196,6 +376,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0615b897_8d8e077f",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-03-30T21:56:28Z",
+      "side": 1,
+      "message": "It was originally `req.req.method()` and I replaced to map it to *req.reqPtr [i.e., req.req()] .\n\nSince `method()` is also under `req.method()`, it makes sense to change `req.method()`.\nI\u0027ll make those changes.",
+      "parentUuid": "eeb6cf1b_1e6e9003",
+      "range": {
+        "startLine": 77,
+        "startChar": 8,
+        "endLine": 77,
+        "endChar": 26
+      },
+      "revId": "2ebde16133c7407ba10f0e1c2f231e0b242d16d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "004ea231_48514fa2",
@@ -209,6 +413,30 @@
       "writtenOn": "2024-03-29T19:22:27Z",
       "side": 1,
       "message": "This doesn\u0027t have to be a copy anymore, right?",
+      "range": {
+        "startLine": 564,
+        "startChar": 0,
+        "endLine": 564,
+        "endChar": 65
+      },
+      "revId": "2ebde16133c7407ba10f0e1c2f231e0b242d16d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86b151ba_ed7aa9ba",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-03-30T21:56:28Z",
+      "side": 1,
+      "message": "Looking at the logic again, I think we can share thisReq?\nSo, I\u0027ll make the changes accordingly.",
+      "parentUuid": "004ea231_48514fa2",
       "range": {
         "startLine": 564,
         "startChar": 0,
