@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4e7ec15f_85d85662",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2024-03-30T16:01:25Z",
+      "side": 1,
+      "message": "replaces",
+      "range": {
+        "startLine": 18,
+        "startChar": 34,
+        "endLine": 18,
+        "endChar": 44
+      },
+      "revId": "a4eaf687001331f253195a9599a8f5a2437f7114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e3eb9d19_c2995785",
         "filename": "/COMMIT_MSG",
         "patchSetId": 8
@@ -91,6 +114,23 @@
         "endLine": 27,
         "endChar": 35
       },
+      "revId": "a4eaf687001331f253195a9599a8f5a2437f7114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed2ef9f8_0233def2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2024-03-30T16:01:25Z",
+      "side": 1,
+      "message": "LGTM.",
       "revId": "a4eaf687001331f253195a9599a8f5a2437f7114",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
