@@ -226,6 +226,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "af10a4b7_70ed9145",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-31T18:56:17Z",
+      "side": 1,
+      "message": "Redfish protocol validator is going to be important here.  It tests 404 handler, if-match handlers, and a bunch of other stuff.",
+      "parentUuid": "94388e06_8acbddb9",
+      "revId": "2ebde16133c7407ba10f0e1c2f231e0b242d16d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6e50580b_2c17b026",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 5
@@ -326,6 +344,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e219cea2_5ebf48ad",
+        "filename": "http/http_request.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-31T18:56:17Z",
+      "side": 1,
+      "message": "\u003e You mean - `std::shared_ptr\u003ccrow::Request\u003e` and use it at the references areas.\n\nYes, very similar to what\u0027s been done with Response.\n\n\u003e I have thought it, but there are so many places to change.\n\nIn theory none of the handlers have to change, right?  Just the core code?\n\n\u003e \n\u003e Changing its body of Request to shared_ptr would cause less code change impacts to code change, but have the same/similar effects.\n\nNo, it doesn\u0027t have similar effects, because it\u0027s still making a copy of Request for every invocation.  When we use shared_ptr, we make no copies.\n\n\u003e \n\u003e If we change to `std::shared_ptr\u003ccrow::Request\u003e`, the code changes would be\n\u003e - all or most `crow::Request\u0026` (esp on function args) would need to be changed to `std::shared_ptr\u003ccrow::Request\u003e\u0026`\u0027.\n\u003e - the code that use `req.` would need to be like `req-\u003e`.\n\nOnly in the core, not in handlers, right?\n\n\u003e \n\u003e If that\u0027s still preferred, I think we can do it after this.\n\nIf we do shared_ptr\u003cRequest\u003e, this change isn\u0027t required at all.",
+      "parentUuid": "f88daeae_ec1775dc",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 74
+      },
+      "revId": "2ebde16133c7407ba10f0e1c2f231e0b242d16d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b65ca950_728dfad4",
         "filename": "http/http_request.hpp",
         "patchSetId": 5
@@ -373,6 +415,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f8830c9e_779a28b4",
+        "filename": "http/http_request.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-31T18:56:17Z",
+      "side": 1,
+      "message": "\u003e This semantic of `clear()` is to release the original Request in this current flow of the logic.\n\u003e However, if there are references of it, the content will need be available for those.\n\u003e So, reqPtr-\u003eclear() would not be correct as it will clear out its content for all references. (It may become same as simple pointer reference - \u0026Request).\n\nIn the context that clear is called, there should be no references.  Arguably, we could check if use_count \u003e 1, and close the connection if the request is still being used after the request is complete to denote that someone extended the lifetime of Request beyond what they should\u0027ve.\n\n\u003e \n\u003e So, I\u0027ve changed to do reqPtr\u003dnullptr (although reqPtr\u003dstd::make_shared() is correct).  (By doing it, the other referencing code will still have the valid content - e..g above (B)).\n\nIt\u0027s still going to require a second malloc, which defeats the intent of reusing the object in most cases.\n\n\u003e \n\u003e ```\n\u003e    reqPtr \u003d nullptr;\n\u003e ```\n\u003e \n\u003e This would be similar to do like if we do\n\u003e \n\u003e ```\n\u003e    std::shared_ptr\u003ccrow::Request\u003e req;\n\u003e     ...\n\u003e    req \u003d nullptr;\n\u003e ```",
+      "parentUuid": "cc93415b_b520eda2",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 78
+      },
+      "revId": "2ebde16133c7407ba10f0e1c2f231e0b242d16d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eeb6cf1b_1e6e9003",
         "filename": "redfish-core/include/query.hpp",
         "patchSetId": 5
@@ -408,6 +474,30 @@
       "side": 1,
       "message": "It was originally `req.req.method()` and I replaced to map it to *req.reqPtr [i.e., req.req()] .\n\nSince `method()` is also under `req.method()`, it makes sense to change `req.method()`.\nI\u0027ll make those changes.",
       "parentUuid": "eeb6cf1b_1e6e9003",
+      "range": {
+        "startLine": 77,
+        "startChar": 8,
+        "endLine": 77,
+        "endChar": 26
+      },
+      "revId": "2ebde16133c7407ba10f0e1c2f231e0b242d16d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a4141bd_edcafe5a",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-03-31T18:56:17Z",
+      "side": 1,
+      "message": "Lets just do that in another patch ahead of this one, as that\u0027s arguably a cleanup.",
+      "parentUuid": "0615b897_8d8e077f",
       "range": {
         "startLine": 77,
         "startChar": 8,
