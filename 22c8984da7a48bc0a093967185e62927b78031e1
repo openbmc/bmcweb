@@ -39,6 +39,23 @@
       "message": "LGTM.",
       "revId": "22c8984da7a48bc0a093967185e62927b78031e1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc3e09a4_635f1e60",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-03-31T21:03:38Z",
+      "side": 1,
+      "message": "Can you add that this is the default nginx size? I.e., can you repeat some of the commit msg here?",
+      "revId": "22c8984da7a48bc0a093967185e62927b78031e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
