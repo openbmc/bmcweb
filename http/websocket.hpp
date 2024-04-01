@@ -92,7 +92,8 @@ class ConnectionImpl : public Connection
         BMCWEB_LOG_DEBUG("starting connection {}", logPtr(this));
 
         using bf = boost::beast::http::field;
-        std::string protocolHeader = req.req[bf::sec_websocket_protocol];
+        std::string protocolHeader{
+            req.getHeaderValue(bf::sec_websocket_protocol)};
 
         ws.set_option(boost::beast::websocket::stream_base::decorator(
             [session{session},
