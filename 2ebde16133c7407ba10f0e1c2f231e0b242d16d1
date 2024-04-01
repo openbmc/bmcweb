@@ -297,6 +297,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fecb434b_5641bf15",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-04-01T13:44:31Z",
+      "side": 1,
+      "message": "I agree.  I\u0027ll work on it",
+      "parentUuid": "56218a44_ebf959c3",
+      "revId": "2ebde16133c7407ba10f0e1c2f231e0b242d16d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f5d9f5d5_ebc8f39b",
         "filename": "http/http_request.hpp",
         "patchSetId": 5
@@ -356,6 +374,30 @@
       "side": 1,
       "message": "\u003e You mean - `std::shared_ptr\u003ccrow::Request\u003e` and use it at the references areas.\n\nYes, very similar to what\u0027s been done with Response.\n\n\u003e I have thought it, but there are so many places to change.\n\nIn theory none of the handlers have to change, right?  Just the core code?\n\n\u003e \n\u003e Changing its body of Request to shared_ptr would cause less code change impacts to code change, but have the same/similar effects.\n\nNo, it doesn\u0027t have similar effects, because it\u0027s still making a copy of Request for every invocation.  When we use shared_ptr, we make no copies.\n\n\u003e \n\u003e If we change to `std::shared_ptr\u003ccrow::Request\u003e`, the code changes would be\n\u003e - all or most `crow::Request\u0026` (esp on function args) would need to be changed to `std::shared_ptr\u003ccrow::Request\u003e\u0026`\u0027.\n\u003e - the code that use `req.` would need to be like `req-\u003e`.\n\nOnly in the core, not in handlers, right?\n\n\u003e \n\u003e If that\u0027s still preferred, I think we can do it after this.\n\nIf we do shared_ptr\u003cRequest\u003e, this change isn\u0027t required at all.",
       "parentUuid": "f88daeae_ec1775dc",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 74
+      },
+      "revId": "2ebde16133c7407ba10f0e1c2f231e0b242d16d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "515a7dcf_cf57a5aa",
+        "filename": "http/http_request.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-04-01T13:44:31Z",
+      "side": 1,
+      "message": "\u003eYes, very similar to what\u0027s been done with Response.\n\nRight. It will be similar to asyncResp.\n\n\u003eOnly in the core, not in handlers, right?\n\nNot the main logics, but the places would be the area to hold it, and the areas of passing args etc.\n\n\u003eIf we do shared_ptr\u003cRequest\u003e, this change isn\u0027t required at all.\n\nYou mean - the change of body as shared_ptr is not needed if we do change req to shared_ptr.\nYes, I agree.  That was my original thought too. (I just chose this to reduce the total code changes).\n\nI\u0027ll work on making it as shared_ptr\u003ccrow::Request\u003e.",
+      "parentUuid": "e219cea2_5ebf48ad",
       "range": {
         "startLine": 23,
         "startChar": 0,
@@ -498,6 +540,30 @@
       "side": 1,
       "message": "Lets just do that in another patch ahead of this one, as that\u0027s arguably a cleanup.",
       "parentUuid": "0615b897_8d8e077f",
+      "range": {
+        "startLine": 77,
+        "startChar": 8,
+        "endLine": 77,
+        "endChar": 26
+      },
+      "revId": "2ebde16133c7407ba10f0e1c2f231e0b242d16d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67c22e66_e28e7088",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-04-01T13:44:31Z",
+      "side": 1,
+      "message": "Ok, I\u0027ll do.",
+      "parentUuid": "9a4141bd_edcafe5a",
       "range": {
         "startLine": 77,
         "startChar": 8,
