@@ -1,6 +1,7 @@
 #pragma once
 
 #include "app.hpp"
+#include "assembly.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "generated/enums/pcie_slots.hpp"
@@ -17,7 +18,9 @@
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
+#include <algorithm>
 #include <array>
+#include <cstdint>
 #include <functional>
 #include <map>
 #include <memory>
@@ -82,6 +85,89 @@ inline void
         sdbusplus::message::object_path("/xyz/openbmc_project/inventory"), 0,
         fabricAdapterInterfaces,
         std::bind_front(afterAddLinkedFabricAdapter, asyncResp, index));
+}
+
+inline void doLinkAssociatedDiskBackplaneToChassis(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId, const std::string& drivePath, size_t index,
+    const std::optional<std::string>& validChassisPath,
+    const std::vector<std::string>& assemblyList)
+{
+    if (!validChassisPath || assemblyList.empty())
+    {
+        BMCWEB_LOG_WARNING("Chassis not found");
+        messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
+        return;
+    }
+
+    auto it = std::find(assemblyList.begin(), assemblyList.end(), drivePath);
+    if (it == assemblyList.end())
+    {
+        BMCWEB_LOG_ERROR("Drive path {} not found in the assembly list",
+                         drivePath);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    nlohmann::json::object_t item;
+    item["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Chassis/{}/Assembly#/Assemblies/{}", chassisId,
+        std::to_string(it - assemblyList.begin()));
+
+    asyncResp->res.jsonValue["Slots"][index]["Links"]["Oem"]["IBM"]
+                            ["@odata.type"] = "#OemPCIeSlots.v1_0_0.PCIeLinks";
+    asyncResp->res.jsonValue["Slots"][index]["Links"]["Oem"]["IBM"]
+                            ["AssociatedAssembly"] = std::move(item);
+}
+
+inline void afterLinkAssociatedDiskBackplane(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, size_t index,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperEndPoints& endpoints)
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR)
+        {
+            // Disk backplane association not found for this pcie slot.
+            BMCWEB_LOG_DEBUG("Disk backplane association not found");
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBUS response error {}", ec.value());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    if (endpoints.empty())
+    {
+        BMCWEB_LOG_ERROR("No association was found for disk backplane drive");
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    // Each slot points to one disk backplane, so picking the top one
+    // or the only one we will have instead of looping through.
+    const std::string& drivePath = endpoints[0];
+    std::string chassisId{"chassis"};
+    getChassisAssembly(asyncResp, chassisId,
+                       std::bind_front(doLinkAssociatedDiskBackplaneToChassis,
+                                       asyncResp, chassisId, drivePath, index));
+}
+
+/**
+ * @brief Add PCIeSlot to NMVe backplane assembly link
+ *
+ * @param[in, out]  asyncResp       Async HTTP response.
+ * @param[in]       pcieSlotPath    Object path of the PCIeSlot.
+ * @param[in]       index           Index.
+ */
+inline void linkAssociatedDiskBackplane(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& pcieSlotPath, size_t index)
+{
+    dbus::utility::getAssociationEndPoints(
+        pcieSlotPath + "/inventory",
+        std::bind_front(afterLinkAssociatedDiskBackplane, asyncResp, index));
 }
 
 inline void
@@ -187,6 +273,9 @@ inline void
 
     // Get FabricAdapter device link if exists
     addLinkedFabricAdapter(asyncResp, pcieSlotPath, index);
+
+    // Get processor link
+    linkAssociatedDiskBackplane(asyncResp, pcieSlotPath, index);
 
     // Get pcie slot location indicator state
     getLocationIndicatorActive(asyncResp, pcieSlotPath,
