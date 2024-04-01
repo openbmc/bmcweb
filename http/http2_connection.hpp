@@ -434,7 +434,7 @@ class HTTP2Connection :
                 close();
                 return -1;
             }
-            thisReq.req.method(verb);
+            thisReq.method(verb);
         }
         else if (nameSv == ":scheme")
         {
@@ -442,7 +442,7 @@ class HTTP2Connection :
         }
         else
         {
-            thisReq.req.set(nameSv, valueSv);
+            thisReq.addHeader(nameSv, valueSv);
         }
         return 0;
     }

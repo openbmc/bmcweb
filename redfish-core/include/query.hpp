@@ -46,7 +46,7 @@ inline void
         return;
     }
     // Restart the request without if-match
-    req.req.erase(boost::beast::http::field::if_match);
+    req.clearHeader(boost::beast::http::field::if_match);
     BMCWEB_LOG_DEBUG("Restarting request");
     app.handle(req, asyncResp);
 }
@@ -74,9 +74,9 @@ inline bool handleIfMatch(crow::App& app, const crow::Request& req,
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match
         return true;
     }
-    if (req.req.method() != boost::beast::http::verb::patch &&
-        req.req.method() != boost::beast::http::verb::post &&
-        req.req.method() != boost::beast::http::verb::delete_)
+    if (req.method() != boost::beast::http::verb::patch &&
+        req.method() != boost::beast::http::verb::post &&
+        req.method() != boost::beast::http::verb::delete_)
     {
         messages::preconditionFailed(asyncResp->res);
         return false;
