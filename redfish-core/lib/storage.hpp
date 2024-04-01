@@ -21,7 +21,6 @@
 #include "dbus_utility.hpp"
 #include "generated/enums/drive.hpp"
 #include "generated/enums/protocol.hpp"
-#include "health.hpp"
 #include "human_sort.hpp"
 #include "openbmc_dbus_rest.hpp"
 #include "query.hpp"
@@ -104,7 +103,6 @@ inline void requestRoutesStorageCollection(App& app)
 
 inline void afterChassisDriveCollectionSubtree(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::shared_ptr<HealthPopulate>& health,
     const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreePathsResponse& driveList)
 {
@@ -119,12 +117,6 @@ inline void afterChassisDriveCollectionSubtree(
     driveArray = nlohmann::json::array();
     auto& count = asyncResp->res.jsonValue["Drives@odata.count"];
     count = 0;
-
-    if constexpr (bmcwebEnableHealthPopulate)
-    {
-        health->inventory.insert(health->inventory.end(), driveList.begin(),
-                                 driveList.end());
-    }
 
     for (const std::string& drive : driveList)
     {
@@ -144,14 +136,13 @@ inline void afterChassisDriveCollectionSubtree(
 
     count = driveArray.size();
 }
-inline void getDrives(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                      const std::shared_ptr<HealthPopulate>& health)
+inline void getDrives(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     const std::array<std::string_view, 1> interfaces = {
         "xyz.openbmc_project.Inventory.Item.Drive"};
     dbus::utility::getSubTreePaths(
         "/xyz/openbmc_project/inventory", 0, interfaces,
-        std::bind_front(afterChassisDriveCollectionSubtree, asyncResp, health));
+        std::bind_front(afterChassisDriveCollectionSubtree, asyncResp));
 }
 
 inline void afterSystemsStorageGetSubtree(
@@ -187,13 +178,7 @@ inline void afterSystemsStorageGetSubtree(
     asyncResp->res.jsonValue["Id"] = storageId;
     asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
 
-    auto health = std::make_shared<HealthPopulate>(asyncResp);
-    if constexpr (bmcwebEnableHealthPopulate)
-    {
-        health->populate();
-    }
-
-    getDrives(asyncResp, health);
+    getDrives(asyncResp);
     asyncResp->res.jsonValue["Controllers"]["@odata.id"] = boost::urls::format(
         "/redfish/v1/Systems/system/Storage/{}/Controllers", storageId);
 }
@@ -691,13 +676,6 @@ inline void afterGetSubtreeSystemsStorageDrive(
 
     // default it to Enabled
     asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
-
-    if constexpr (bmcwebEnableHealthPopulate)
-    {
-        auto health = std::make_shared<HealthPopulate>(asyncResp);
-        health->inventory.emplace_back(path);
-        health->populate();
-    }
 
     addAllDriveInfo(asyncResp, connectionNames[0].first, path,
                     connectionNames[0].second);

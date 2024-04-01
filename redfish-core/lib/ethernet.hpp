@@ -21,7 +21,6 @@
 #include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
-#include "health.hpp"
 #include "human_sort.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
@@ -1780,26 +1779,6 @@ inline void
     jsonResponse["@odata.id"] = boost::urls::format(
         "/redfish/v1/Managers/bmc/EthernetInterfaces/{}", ifaceId);
     jsonResponse["InterfaceEnabled"] = ethData.nicEnabled;
-
-    if constexpr (bmcwebEnableHealthPopulate)
-    {
-        constexpr std::array<std::string_view, 1> inventoryForEthernet = {
-            "xyz.openbmc_project.Inventory.Item.Ethernet"};
-        auto health = std::make_shared<HealthPopulate>(asyncResp);
-        dbus::utility::getSubTreePaths(
-            "/", 0, inventoryForEthernet,
-            [health](const boost::system::error_code& ec,
-                     const dbus::utility::MapperGetSubTreePathsResponse& resp) {
-            if (ec)
-            {
-                return;
-            }
-
-            health->inventory = resp;
-        });
-
-        health->populate();
-    }
 
     if (ethData.nicEnabled)
     {
