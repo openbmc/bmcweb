@@ -22,6 +22,30 @@
       },
       "revId": "a965802a5b9273548210b38993f3e1cc7c6f9964",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23cd33e7_a5ff27fc",
+        "filename": "http/http_request.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-04-01T20:00:35Z",
+      "side": 1,
+      "message": "There are places that use `req.set()` instead of `req.insert()` [which is already defined as `req.addHeader()`].\nI think we can use `reqaddHeader()` (instead of `set()).  I will change those.",
+      "parentUuid": "02d9cc1f_64db11ad",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 5
+      },
+      "revId": "a965802a5b9273548210b38993f3e1cc7c6f9964",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
