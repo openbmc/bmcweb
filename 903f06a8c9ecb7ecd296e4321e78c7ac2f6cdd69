@@ -189,6 +189,30 @@
       },
       "revId": "903f06a8c9ecb7ecd296e4321e78c7ac2f6cdd69",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35f85728_62593bbb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2024-04-01T23:50:37Z",
+      "side": 1,
+      "message": "\u003e \u003e \n\u003e \u003e Yes, I do remember this TOF issue. But I feel some how this was not well documented since its a byproduct of that discussion.\n\u003e \n\u003e The TOF issue was documented, there are designs in the docs folder that are merged;  What more documentation were you looking for?\n\nI did look at the physical-topology document stated in the TOF issue, but I could not find it. I am specifically looking for something that states along the lines of  \"any dbus application hosting inventory should have unique leaf nodes in their dbus path - without that, the inventory would not be published in redfish since bmcweb was designed to only identify resources purely based on leaf nodes\", could you point me to any existing document that states this requirement ?",
+      "parentUuid": "78eb2776_81a850ee",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 37
+      },
+      "revId": "903f06a8c9ecb7ecd296e4321e78c7ac2f6cdd69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
