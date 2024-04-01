@@ -55,14 +55,15 @@ static bool fwUpdateInProgress = false;
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static std::unique_ptr<boost::asio::steady_timer> fwAvailableTimer;
 
-inline static void cleanUp()
+inline void cleanUp()
 {
     fwUpdateInProgress = false;
     fwUpdateMatcher = nullptr;
     fwUpdateErrorMatcher = nullptr;
 }
-inline static void activateImage(const std::string& objPath,
-                                 const std::string& service)
+
+inline void activateImage(const std::string& objPath,
+                          const std::string& service)
 {
     BMCWEB_LOG_DEBUG("Activate image for {} {}", objPath, service);
     sdbusplus::asio::setProperty(
@@ -894,9 +895,8 @@ inline void requestRoutesSoftwareInventoryCollection(App& app)
     });
 }
 /* Fill related item links (i.e. bmc, bios) in for inventory */
-inline static void
-    getRelatedItems(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                    const std::string& purpose)
+inline void getRelatedItems(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& purpose)
 {
     if (purpose == sw_util::bmcPurpose)
     {
