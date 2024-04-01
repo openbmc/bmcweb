@@ -271,21 +271,15 @@ static bool getUniqueEntryID(const std::string& logEntry, std::string& entryID,
 // Entry is formed like "BootID_timestamp" or "BootID_timestamp_index"
 inline static bool
     getTimestampFromID(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                       const std::string& entryID, sd_id128_t& bootID,
+                       std::string_view entryIDStrView, sd_id128_t& bootID,
                        uint64_t& timestamp, uint64_t& index)
 {
-    if (entryID.empty())
-    {
-        return false;
-    }
-
     // Convert the unique ID back to a bootID + timestamp to find the entry
-    std::string_view entryIDStrView(entryID);
     auto underscore1Pos = entryIDStrView.find('_');
     if (underscore1Pos == std::string_view::npos)
     {
         // EntryID has no bootID or timestamp
-        messages::resourceNotFound(asyncResp->res, "LogEntry", entryID);
+        messages::resourceNotFound(asyncResp->res, "LogEntry", entryIDStrView);
         return false;
     }
 
@@ -294,41 +288,44 @@ inline static bool
     // Convert entryIDViewString to BootID
     // NOTE: bootID string which needs to be null-terminated for
     // sd_id128_from_string()
-    std::string bootIDStr(entryID, 0, underscore1Pos);
+    std::string bootIDStr(entryIDStrView.substr(0, underscore1Pos));
     if (sd_id128_from_string(bootIDStr.c_str(), &bootID) < 0)
     {
-        messages::resourceNotFound(asyncResp->res, "LogEntry", entryID);
+        messages::resourceNotFound(asyncResp->res, "LogEntry", entryIDStrView);
         return false;
     }
 
     // Get the timestamp from entryID
-    std::string_view timestampStrView = entryIDStrView;
-    timestampStrView.remove_prefix(underscore1Pos + 1);
+    entryIDStrView.remove_prefix(underscore1Pos + 1);
 
-    // Check the index in timestamp
-    auto underscore2Pos = timestampStrView.find('_');
-    if (underscore2Pos != std::string_view::npos)
+    auto [timestampEnd, tstampEc] = std::from_chars(
+        entryIDStrView.begin(), entryIDStrView.end(), timestamp);
+    if (tstampEc != std::errc())
     {
-        // Timestamp has an index
-        timestampStrView.remove_suffix(timestampStrView.size() -
-                                       underscore2Pos);
-        std::string_view indexStr(timestampStrView);
-        indexStr.remove_prefix(underscore2Pos + 1);
-        auto [ptr, ec] = std::from_chars(indexStr.begin(), indexStr.end(),
-                                         index);
-        if (ec != std::errc())
-        {
-            messages::resourceNotFound(asyncResp->res, "LogEntry", entryID);
-            return false;
-        }
+        messages::resourceNotFound(asyncResp->res, "LogEntry", entryIDStrView);
+        return false;
     }
-
-    // Now timestamp has no index
-    auto [ptr, ec] = std::from_chars(timestampStrView.begin(),
-                                     timestampStrView.end(), timestamp);
-    if (ec != std::errc())
+    entryIDStrView = std::string_view(
+        timestampEnd,
+        static_cast<size_t>(std::distance(timestampEnd, entryIDStrView.end())));
+    if (entryIDStrView.empty())
     {
-        messages::resourceNotFound(asyncResp->res, "LogEntry", entryID);
+        index = 0U;
+        return true;
+    }
+    // Timestamp might include optional index, if two events happened at the
+    // same "time".
+    if (entryIDStrView[0] != '_')
+    {
+        messages::resourceNotFound(asyncResp->res, "LogEntry", entryIDStrView);
+        return false;
+    }
+    entryIDStrView.remove_prefix(1);
+    auto [ptr, indexEc] = std::from_chars(entryIDStrView.begin(), entryIDStrView.end(),
+                                          index);
+    if (indexEc != std::errc() || ptr != entryIDStrView.end())
+    {
+        messages::resourceNotFound(asyncResp->res, "LogEntry", entryIDStrView);
         return false;
     }
     return true;
