@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aaf90425_8d0594af",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-04-01T21:33:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6fe16b79_fff22f1e",
+      "revId": "cac5877f08fedcf589c0b84bb8105992968f1155",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c7590f29_e6f082ea",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-04-01T21:30:45Z",
       "side": 1,
       "message": "This can be removed",
+      "revId": "cac5877f08fedcf589c0b84bb8105992968f1155",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cea4909_284132de",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-04-01T21:33:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7590f29_e6f082ea",
       "revId": "cac5877f08fedcf589c0b84bb8105992968f1155",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -65,6 +101,24 @@
       "writtenOn": "2024-04-01T21:30:45Z",
       "side": 1,
       "message": "This can be removed",
+      "revId": "cac5877f08fedcf589c0b84bb8105992968f1155",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0610c25_b2627861",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-04-01T21:33:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f4f1518_a892ffd4",
       "revId": "cac5877f08fedcf589c0b84bb8105992968f1155",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
