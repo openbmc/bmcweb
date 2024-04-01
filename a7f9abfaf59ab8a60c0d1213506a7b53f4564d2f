@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24d9a01b_b4b7ccc0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-01T23:51:20Z",
+      "side": 1,
+      "message": "This isn\u0027t really a fair analysis, given that the option itself didn\u0027t even exist until 9 months ago, and health rollup was the default before that.\n\nI\u0027m not sure the commit message needs fixed, I\u0027m just giving my piece.",
+      "range": {
+        "startLine": 10,
+        "startChar": 42,
+        "endLine": 10,
+        "endChar": 71
+      },
+      "revId": "a7f9abfaf59ab8a60c0d1213506a7b53f4564d2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b12767c_4a62391c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-01T23:51:20Z",
+      "side": 1,
+      "message": "Remove this please.  There\u0027s no design or interface reason the old health rollup couldn\u0027t have worked with OperationalStatus.Functional.  It\u0027s just that nobody wanted to own it after James left (myself included).",
+      "range": {
+        "startLine": 13,
+        "startChar": 44,
+        "endLine": 14,
+        "endChar": 53
+      },
+      "revId": "a7f9abfaf59ab8a60c0d1213506a7b53f4564d2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c86deb47_34834843",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-01T23:51:20Z",
+      "side": 1,
+      "message": "Just setting expectations, it\u0027s going to be a looooooong time before I even talk about entertaining any \"new\" health rollup system.  Nobody cared about this one and multiple calls to get people to own health rollup as a whole went completely unanswered.  If I see a new design doc shortly after this gets removed, under the premise that \"the code is now deleted, so therefore it functionally never existed\", it will put me in a mood that the submitter isn\u0027t going to like.\n\nAs a feature, health rollup is non trivial to get correct, and even when you do, it\u0027s very likely to cause a performance problem.  I don\u0027t know of ANY bmc stack that implements it consistently to any other stack.  That would kind of imply that it\u0027s OEM-specific by definition.\n\nI suspect that Redfish needs to publish better guidance on how health rollup needs to work functionally, and very likely bmcweb needs to find a solution to the performance problems with calling lots of DBus objects, both of which which are going to be a non trivial amount of work) before we can entertain anything net new.",
+      "range": {
+        "startLine": 15,
+        "startChar": 27,
+        "endLine": 15,
+        "endChar": 67
+      },
+      "revId": "a7f9abfaf59ab8a60c0d1213506a7b53f4564d2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7af195d4_25a9c9f2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-01T23:51:20Z",
+      "side": 1,
+      "message": "The actual changes I asked for are commit message nits that I\u0027m not really worried about.",
+      "revId": "a7f9abfaf59ab8a60c0d1213506a7b53f4564d2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
