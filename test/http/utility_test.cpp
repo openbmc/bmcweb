@@ -1,8 +1,6 @@
 
 #include "utility.hpp"
 
-#include <bits/basic_string.h>
-
 #include <boost/system/result.hpp>
 #include <boost/url/parse.hpp>
 #include <boost/url/url.hpp>
