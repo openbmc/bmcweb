@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "948b347e_558f7d44",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-04-01T20:48:37Z",
+      "side": 1,
+      "message": "remove this",
+      "revId": "d5c861c18fd3693b455fed578d69bbf30d6af1c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
