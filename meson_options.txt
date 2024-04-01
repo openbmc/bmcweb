@@ -119,16 +119,6 @@ option(
 )
 
 option(
-    'redfish-enable-proccessor-memory-status',
-    type: 'feature',
-    value: 'disabled',
-    description: '''Enable/disable the deprecated processor and memory summary
-                    status. The default condition is disabling the processor
-                    and memory summary status. This option will be removed in
-                    1Q 2024.'''
-)
-
-option(
     'redfish-provisioning-feature',
     type: 'feature',
     value: 'disabled',
