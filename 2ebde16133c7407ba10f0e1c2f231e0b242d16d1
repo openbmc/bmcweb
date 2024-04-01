@@ -410,6 +410,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5edd6baf_ded880d4",
+        "filename": "http/http_request.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-01T17:00:08Z",
+      "side": 1,
+      "message": "\u003e \u003eYes, very similar to what\u0027s been done with Response.\n\u003e \n\u003e Right. It will be similar to asyncResp.\n\u003e \n\u003e \u003eOnly in the core, not in handlers, right?\n\u003e \n\u003e Not the main logics, but the places would be the area to hold it, and the areas of passing args etc.\n\u003e \n\u003e \u003eIf we do shared_ptr\u003cRequest\u003e, this change isn\u0027t required at all.\n\u003e \n\u003e You mean - the change of body as shared_ptr is not needed if we do change req to shared_ptr.\n\u003e Yes, I agree.  That was my original thought too. (I just chose this to reduce the total code changes).\n\u003e \n\nLets focus on making sure the end code is as correct as we can make it, not reducing the total # of lines changed.\n\n\u003e I\u0027ll work on making it as shared_ptr\u003ccrow::Request\u003e.\n\nSounds good.",
+      "parentUuid": "515a7dcf_cf57a5aa",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 74
+      },
+      "revId": "2ebde16133c7407ba10f0e1c2f231e0b242d16d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b65ca950_728dfad4",
         "filename": "http/http_request.hpp",
         "patchSetId": 5
