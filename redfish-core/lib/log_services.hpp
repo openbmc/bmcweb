@@ -123,9 +123,8 @@ inline std::string getDumpPath(std::string_view dumpType)
     return dbusDumpPath;
 }
 
-inline static int getJournalMetadata(sd_journal* journal,
-                                     std::string_view field,
-                                     std::string_view& contents)
+inline int getJournalMetadata(sd_journal* journal, std::string_view field,
+                              std::string_view& contents)
 {
     const char* data = nullptr;
     size_t length = 0;
@@ -145,9 +144,8 @@ inline static int getJournalMetadata(sd_journal* journal,
     return ret;
 }
 
-inline static int getJournalMetadata(sd_journal* journal,
-                                     std::string_view field, const int& base,
-                                     long int& contents)
+inline int getJournalMetadata(sd_journal* journal, std::string_view field,
+                              const int& base, long int& contents)
 {
     int ret = 0;
     std::string_view metadata;
@@ -161,8 +159,7 @@ inline static int getJournalMetadata(sd_journal* journal,
     return ret;
 }
 
-inline static bool getEntryTimestamp(sd_journal* journal,
-                                     std::string& entryTimestamp)
+inline bool getEntryTimestamp(sd_journal* journal, std::string& entryTimestamp)
 {
     int ret = 0;
     uint64_t timestamp = 0;
@@ -176,8 +173,8 @@ inline static bool getEntryTimestamp(sd_journal* journal,
     return true;
 }
 
-inline static bool getUniqueEntryID(sd_journal* journal, std::string& entryID,
-                                    const bool firstEntry = true)
+inline bool getUniqueEntryID(sd_journal* journal, std::string& entryID,
+                             const bool firstEntry = true)
 {
     int ret = 0;
     static sd_id128_t prevBootID{};
@@ -269,7 +266,7 @@ static bool getUniqueEntryID(const std::string& logEntry, std::string& entryID,
 }
 
 // Entry is formed like "BootID_timestamp" or "BootID_timestamp_index"
-inline static bool
+inline bool
     getTimestampFromID(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                        std::string_view entryIDStrView, sd_id128_t& bootID,
                        uint64_t& timestamp, uint64_t& index)
@@ -1228,7 +1225,7 @@ inline void clearDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         "xyz.openbmc_project.Collection.DeleteAll", "DeleteAll");
 }
 
-inline static void
+inline void
     parseCrashdumpParameters(const dbus::utility::DBusPropertiesMap& params,
                              std::string& filename, std::string& timestamp,
                              std::string& logfile)
@@ -3931,8 +3928,8 @@ inline void requestRoutesPostCodesClear(App& app)
  *
  * @return bool true if the parsing is successful, false the parsing fails
  */
-inline static bool parsePostCode(const std::string& postCodeID,
-                                 uint64_t& currentValue, uint16_t& index)
+inline bool parsePostCode(const std::string& postCodeID, uint64_t& currentValue,
+                          uint16_t& index)
 {
     std::vector<std::string> split;
     bmcweb::split(split, postCodeID, '-');
