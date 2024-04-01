@@ -80,6 +80,10 @@ struct Request
     {
         return req.method();
     }
+    void method(boost::beast::http::verb verb)
+    {
+        return req.method(verb);
+    }
 
     std::string_view getHeaderValue(std::string_view key) const
     {
@@ -89,6 +93,21 @@ struct Request
     std::string_view getHeaderValue(boost::beast::http::field key) const
     {
         return req[key];
+    }
+
+    void set(boost::beast::http::field key, std::string_view value)
+    {
+        req.set(key, value);
+    }
+
+    void set(std::string_view key, std::string_view value)
+    {
+        req.set(key, value);
+    }
+
+    void erase(boost::beast::http::field key)
+    {
+        req.erase(key);
     }
 
     std::string_view methodString() const
