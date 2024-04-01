@@ -184,11 +184,37 @@ inline void afterDoCheckFabricAdapterChassis(
         messages::internalError(asyncResp->res);
         return;
     }
-
     sdbusplus::message::object_path path(chassisPaths[0]);
     std::string chassisName = path.filename();
 
     callback(chassisName, pcieSlotPaths);
+}
+
+inline void
+    linkAsPCIeDevice(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                     const std::string& fabricAdapterPath)
+{
+    const std::string pcieDeviceName =
+        sdbusplus::message::object_path(fabricAdapterPath).filename();
+
+    if (pcieDeviceName.empty())
+    {
+        BMCWEB_LOG_ERROR("Failed to find / in pcie device path");
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    nlohmann::json::object_t device;
+    nlohmann::json::array_t deviceArray;
+
+    device["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Systems/system/PCIeDevices/{}", pcieDeviceName);
+
+    deviceArray.emplace_back(device);
+
+    asyncResp->res.jsonValue["Links"]["PCIeDevices@odata.count"] =
+        deviceArray.size();
+    asyncResp->res.jsonValue["Links"]["PCIeDevices"] = std::move(deviceArray);
 }
 
 inline void doCheckFabricAdapterChassis(
@@ -261,7 +287,8 @@ inline void doAdapterGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const std::string& systemName,
                          const std::string& adapterId,
                          const std::string& fabricAdapterPath,
-                         const std::string& serviceName)
+                         const std::string& serviceName,
+                         const dbus::utility::InterfaceList& interfaces)
 {
     asyncResp->res.addHeader(
         boost::beast::http::field::link,
@@ -292,21 +319,32 @@ inline void doAdapterGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     getFabricAdapterAsset(asyncResp, serviceName, fabricAdapterPath);
     getFabricAdapterState(asyncResp, serviceName, fabricAdapterPath);
     getFabricAdapterHealth(asyncResp, serviceName, fabricAdapterPath);
+
+    // if the adapter also implements this interface, link the adapter schema to
+    // PCIeDevice schema for this adapter.
+    if (std::ranges::find(interfaces,
+                          "xyz.openbmc_project.Inventory.Item.PCIeDevice") !=
+        interfaces.end())
+    {
+        linkAsPCIeDevice(asyncResp, fabricAdapterPath);
+    }
 }
 
 inline void afterGetValidFabricAdapterPath(
     const std::string& adapterId,
-    std::function<void(const boost::system::error_code&,
-                       const std::string& fabricAdapterPath,
-                       const std::string& serviceName)>& callback,
+    std::function<void(
+        const boost::system::error_code&, const std::string& fabricAdapterPath,
+        const std::string& serviceName,
+        const dbus::utility::InterfaceList& interfaces)>& callback,
     const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreeResponse& subtree)
 {
     std::string fabricAdapterPath;
     std::string serviceName;
+    dbus::utility::InterfaceList interfaces;
     if (ec)
     {
-        callback(ec, fabricAdapterPath, serviceName);
+        callback(ec, fabricAdapterPath, serviceName, interfaces);
         return;
     }
 
@@ -316,17 +354,19 @@ inline void afterGetValidFabricAdapterPath(
         {
             fabricAdapterPath = adapterPath;
             serviceName = serviceMap.begin()->first;
+            interfaces = serviceMap.begin()->second;
             break;
         }
     }
-    callback(ec, fabricAdapterPath, serviceName);
+    callback(ec, fabricAdapterPath, serviceName, interfaces);
 }
 
 inline void getValidFabricAdapterPath(
     const std::string& adapterId,
-    std::function<void(const boost::system::error_code& ec,
-                       const std::string& fabricAdapterPath,
-                       const std::string& serviceName)>&& callback)
+    std::function<void(
+        const boost::system::error_code& ec,
+        const std::string& fabricAdapterPath, const std::string& serviceName,
+        const dbus::utility::InterfaceList& interfaces)>&& callback)
 {
     constexpr std::array<std::string_view, 1> interfaces{
         "xyz.openbmc_project.Inventory.Item.FabricAdapter"};
@@ -339,7 +379,8 @@ inline void afterHandleFabricAdapterGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& adapterId,
     const boost::system::error_code& ec, const std::string& fabricAdapterPath,
-    const std::string& serviceName)
+    const std::string& serviceName,
+    const dbus::utility::InterfaceList& interfaces)
 {
     if (ec)
     {
@@ -361,7 +402,7 @@ inline void afterHandleFabricAdapterGet(
         return;
     }
     doAdapterGet(asyncResp, systemName, adapterId, fabricAdapterPath,
-                 serviceName);
+                 serviceName, interfaces);
 }
 
 inline void
@@ -458,7 +499,8 @@ inline void handleFabricAdapterCollectionHead(
 inline void afterHandleFabricAdapterHead(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& adapterId, const boost::system::error_code& ec,
-    const std::string& fabricAdapterPath, const std::string& serviceName)
+    const std::string& fabricAdapterPath, const std::string& serviceName,
+    const dbus::utility::InterfaceList& interfaces)
 {
     if (ec)
     {
@@ -473,7 +515,7 @@ inline void afterHandleFabricAdapterHead(
         messages::internalError(asyncResp->res);
         return;
     }
-    if (fabricAdapterPath.empty() || serviceName.empty())
+    if (fabricAdapterPath.empty() || serviceName.empty() || interfaces.empty())
     {
         BMCWEB_LOG_WARNING("Adapter not found");
         messages::resourceNotFound(asyncResp->res, "FabricAdapter", adapterId);
