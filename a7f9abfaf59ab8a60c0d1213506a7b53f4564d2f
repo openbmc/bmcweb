@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "48866257_0463328f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-04-02T01:58:57Z",
+      "side": 1,
+      "message": "It got added 10 months ago. https://github.com/openbmc/bmcweb/commit/6f8273e49cffdd347c223b9538558edfb05e818a\n\nSince that time, no one enabled it (I find that relevant info).\n\nI would expect anyone removing an option to at least do some GitHub searching to ensure it doesn\u0027t break anyone.",
+      "parentUuid": "24d9a01b_b4b7ccc0",
+      "range": {
+        "startLine": 10,
+        "startChar": 42,
+        "endLine": 10,
+        "endChar": 71
+      },
+      "revId": "a7f9abfaf59ab8a60c0d1213506a7b53f4564d2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b12767c_4a62391c",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-04-01T23:51:20Z",
       "side": 1,
       "message": "Remove this please.  There\u0027s no design or interface reason the old health rollup couldn\u0027t have worked with OperationalStatus.Functional.  It\u0027s just that nobody wanted to own it after James left (myself included).",
+      "range": {
+        "startLine": 13,
+        "startChar": 44,
+        "endLine": 14,
+        "endChar": 53
+      },
+      "revId": "a7f9abfaf59ab8a60c0d1213506a7b53f4564d2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7865a603_ef736cff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-04-02T01:58:57Z",
+      "side": 1,
+      "message": "Done. Removed.",
+      "parentUuid": "5b12767c_4a62391c",
       "range": {
         "startLine": 13,
         "startChar": 44,
@@ -72,6 +120,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "b32398c1_7f1ec939",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-04-02T01:58:57Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "c86deb47_34834843",
+      "range": {
+        "startLine": 15,
+        "startChar": 27,
+        "endLine": 15,
+        "endChar": 67
+      },
+      "revId": "a7f9abfaf59ab8a60c0d1213506a7b53f4564d2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "7af195d4_25a9c9f2",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -83,6 +155,24 @@
       "writtenOn": "2024-04-01T23:51:20Z",
       "side": 1,
       "message": "The actual changes I asked for are commit message nits that I\u0027m not really worried about.",
+      "revId": "a7f9abfaf59ab8a60c0d1213506a7b53f4564d2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6450088_19dc0577",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-04-02T01:58:57Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "7af195d4_25a9c9f2",
       "revId": "a7f9abfaf59ab8a60c0d1213506a7b53f4564d2f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
