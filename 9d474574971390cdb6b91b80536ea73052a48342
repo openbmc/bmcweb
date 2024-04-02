@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "eae9e8f4_526dc684",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-02T16:09:01Z",
+      "side": 1,
+      "message": "\u003e There is some trade-off here; because we are at HEAD, we are more likely to break. Can we mention that?\n\nsure.\n\n\u003e Are we concerned at all about recreatable builds, e.g. someone reports a problem at commit xxxxxx, but when attempting to reproduce nghttp2 is now using a different HEAD.\n\nPeople shouldn\u0027t be reporting breakages against a bmcweb version, they should be reporting against an openbmc version, which has consistent build dependencies.  Mostly this comes out of me being tired of keeping these up to date.  Sure, we might break (in a development machine), but I like the idea that if a release is about to break us, we have the potential to be able to report it before it gets in a major version.  That seems worthwhile.\n\nYou\u0027re right, it\u0027s all tradeoffs, there\u0027s no perfect solution.  Will update the commit message.",
+      "parentUuid": "032ef613_9530a9ac",
+      "revId": "9d474574971390cdb6b91b80536ea73052a48342",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e28a85f6_5def4db2",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
