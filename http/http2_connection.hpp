@@ -298,9 +298,9 @@ class HTTP2Connection :
             thisStream->second.reqReader;
         if (!reqReader)
         {
-            BMCWEB_LOG_ERROR("No reader init {}", streamId);
-            close();
-            return -1;
+            reqReader.emplace(
+                bmcweb::HttpBody::reader(thisStream->second.req.req.base(),
+                                         thisStream->second.req.req.body()));
         }
         boost::beast::error_code ec;
         reqReader->put(boost::asio::const_buffer(data, len), ec);
