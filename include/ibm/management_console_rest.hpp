@@ -16,17 +16,9 @@
 #include <filesystem>
 #include <fstream>
 
-using SType = std::string;
-using SegmentFlags = std::vector<std::pair<std::string, uint32_t>>;
-using LockRequest = std::tuple<SType, SType, SType, uint64_t, SegmentFlags>;
-using LockRequests = std::vector<LockRequest>;
-using Rc = std::pair<bool, std::variant<uint32_t, LockRequest>>;
-using RcGetLockList =
-    std::variant<std::string, std::vector<std::pair<uint32_t, LockRequests>>>;
-using ListOfSessionIds = std::vector<std::string>;
 namespace crow
 {
-namespace ibm_mc
+namespace ibm_mc_lock
 {
 constexpr const char* methodNotAllowedMsg = "Method Not Allowed";
 constexpr const char* resourceNotFoundMsg = "Resource Not Found";
@@ -442,24 +434,24 @@ inline void
             BMCWEB_LOG_DEBUG("Lockflag : {}", lockFlags);
             BMCWEB_LOG_DEBUG("SegmentLength : {}", segmentLength);
 
-            segInfo.emplace_back(std::make_pair(lockFlags, segmentLength));
+            segInfo.emplace_back(SegmentFlag{lockFlags, segmentLength});
         }
 
-        lockRequestStructure.emplace_back(make_tuple(
+        lockRequestStructure.emplace_back(LockRequest{
             req.session->uniqueId, req.session->clientId.value_or(""), lockType,
-            resourceId, segInfo));
+            resourceId, segInfo});
     }
 
     // print lock request into journal
 
     for (auto& i : lockRequestStructure)
     {
-        BMCWEB_LOG_DEBUG("{}", std::get<0>(i));
-        BMCWEB_LOG_DEBUG("{}", std::get<1>(i));
-        BMCWEB_LOG_DEBUG("{}", std::get<2>(i));
-        BMCWEB_LOG_DEBUG("{}", std::get<3>(i));
+        BMCWEB_LOG_DEBUG("{}", i.sessionId);
+        BMCWEB_LOG_DEBUG("{}", i.hmcId);
+        BMCWEB_LOG_DEBUG("{}", i.locktype);
+        BMCWEB_LOG_DEBUG("{}", i.resourceId);
 
-        for (const auto& p : std::get<4>(i))
+        for (const auto& p : i.segmentinfo)
         {
             BMCWEB_LOG_DEBUG("{}, {}", p.first, p.second);
         }
@@ -494,12 +486,12 @@ inline void
     {
         auto conflictStatus =
             std::get<crow::ibm_mc_lock::Rc>(varAcquireLock.second);
-        if (!conflictStatus.first)
+        if (!conflictStatus.lock)
         {
             BMCWEB_LOG_DEBUG("There is no conflict with the locktable");
             asyncResp->res.result(boost::beast::http::status::ok);
 
-            auto var = std::get<uint32_t>(conflictStatus.second);
+            auto var = std::get<uint32_t>(conflictStatus.value);
             nlohmann::json returnJson;
             returnJson["id"] = var;
             asyncResp->res.jsonValue["TransactionID"] = var;
@@ -507,18 +499,17 @@ inline void
         }
         BMCWEB_LOG_DEBUG("There is a conflict with the lock table");
         asyncResp->res.result(boost::beast::http::status::conflict);
-        auto var =
-            std::get<std::pair<uint32_t, LockRequest>>(conflictStatus.second);
+        auto var = std::get<RcValue>(conflictStatus.value);
         nlohmann::json returnJson;
         nlohmann::json segments;
         nlohmann::json myarray = nlohmann::json::array();
-        returnJson["TransactionID"] = var.first;
-        returnJson["SessionID"] = std::get<0>(var.second);
-        returnJson["HMCID"] = std::get<1>(var.second);
-        returnJson["LockType"] = std::get<2>(var.second);
-        returnJson["ResourceID"] = std::get<3>(var.second);
+        returnJson["TransactionID"] = var.id;
+        returnJson["SessionID"] = var.request.sessionId;
+        returnJson["HMCID"] = var.request.hmcId;
+        returnJson["LockType"] = var.request.locktype;
+        returnJson["ResourceID"] = var.request.resourceId;
 
-        for (const auto& i : std::get<4>(var.second))
+        for (const auto& i : var.request.segmentinfo)
         {
             segments["LockFlag"] = i.first;
             segments["SegmentLength"] = i.second;
@@ -554,8 +545,8 @@ inline void
     // validate the request ids
 
     auto varReleaselock = crow::ibm_mc_lock::Lock::getInstance().releaseLock(
-        listTransactionIds, std::make_pair(req.session->clientId.value_or(""),
-                                           req.session->uniqueId));
+        listTransactionIds, SessionFlags{req.session->clientId.value_or(""),
+                                         req.session->uniqueId});
 
     if (!varReleaselock.first)
     {
@@ -566,7 +557,7 @@ inline void
     }
     auto statusRelease =
         std::get<crow::ibm_mc_lock::RcRelaseLock>(varReleaselock.second);
-    if (statusRelease.first)
+    if (statusRelease.released)
     {
         // The current hmc owns all the locks, so we already released
         // them
@@ -577,17 +568,17 @@ inline void
     BMCWEB_LOG_DEBUG("Current HMC does not own all the locks");
     asyncResp->res.result(boost::beast::http::status::unauthorized);
 
-    auto var = statusRelease.second;
+    auto var = statusRelease.value;
     nlohmann::json returnJson;
     nlohmann::json segments;
     nlohmann::json myArray = nlohmann::json::array();
-    returnJson["TransactionID"] = var.first;
-    returnJson["SessionID"] = std::get<0>(var.second);
-    returnJson["HMCID"] = std::get<1>(var.second);
-    returnJson["LockType"] = std::get<2>(var.second);
-    returnJson["ResourceID"] = std::get<3>(var.second);
+    returnJson["TransactionID"] = var.id;
+    returnJson["SessionID"] = var.request.sessionId;
+    returnJson["HMCID"] = var.request.hmcId;
+    returnJson["LockType"] = var.request.locktype;
+    returnJson["ResourceID"] = var.request.resourceId;
 
-    for (const auto& i : std::get<4>(var.second))
+    for (const auto& i : var.request.segmentinfo)
     {
         segments["LockFlag"] = i.first;
         segments["SegmentLength"] = i.second;
@@ -618,15 +609,15 @@ inline void
             nlohmann::json returnJson;
 
             returnJson["TransactionID"] = transactionId.first;
-            returnJson["SessionID"] = std::get<0>(lockRecord);
-            returnJson["HMCID"] = std::get<1>(lockRecord);
-            returnJson["LockType"] = std::get<2>(lockRecord);
-            returnJson["ResourceID"] = std::get<3>(lockRecord);
+            returnJson["SessionID"] = lockRecord.sessionId;
+            returnJson["HMCID"] = lockRecord.hmcId;
+            returnJson["LockType"] = lockRecord.locktype;
+            returnJson["ResourceID"] = lockRecord.resourceId;
 
             nlohmann::json segments;
             nlohmann::json segmentInfoArray = nlohmann::json::array();
 
-            for (const auto& segment : std::get<4>(lockRecord))
+            for (const auto& segment : lockRecord.segmentinfo)
             {
                 segments["LockFlag"] = segment.first;
                 segments["SegmentLength"] = segment.second;
@@ -808,5 +799,5 @@ inline void requestRoutes(App& app)
     });
 }
 
-} // namespace ibm_mc
+} // namespace ibm_mc_lock
 } // namespace crow
