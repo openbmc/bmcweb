@@ -323,6 +323,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f630aa0_89075d66",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000044
+      },
+      "writtenOn": "2024-04-02T06:05:49Z",
+      "side": 1,
+      "message": "The changes to time-manager is submitted to https://gerrit.openbmc.org/c/openbmc/phosphor-time-manager/+/70457",
+      "parentUuid": "bac2cd07_2d5fccfc",
+      "revId": "fc3ce4231a3ecb69c7d6b5bd8e86582e11a5c38f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b54fe85b_d3f75d8c",
