@@ -144,6 +144,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "002e5e44_30e3a2a8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-04-02T02:37:50Z",
+      "side": 1,
+      "message": "I added some of this to the commit msg removing the design doc so it is more likely to be seen. \nhttps://gerrit.openbmc.org/c/openbmc/docs/+/70455",
+      "parentUuid": "b32398c1_7f1ec939",
+      "range": {
+        "startLine": 15,
+        "startChar": 27,
+        "endLine": 15,
+        "endChar": 67
+      },
+      "revId": "a7f9abfaf59ab8a60c0d1213506a7b53f4564d2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "7af195d4_25a9c9f2",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
