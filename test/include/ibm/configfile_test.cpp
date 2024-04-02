@@ -11,7 +11,7 @@
 
 namespace crow
 {
-namespace ibm_mc
+namespace ibm_mc_lock
 {
 
 TEST(IsValidConfigFileName, FileNameValidCharReturnsTrue)
@@ -52,5 +52,5 @@ TEST(IsValidConfigFileName, FileNameMoreThan20CharReturnsFalse)
     EXPECT_FALSE(isValidConfigFileName("BadfileBadfileBadfile", res));
 }
 
-} // namespace ibm_mc
+} // namespace ibm_mc_lock
 } // namespace crow
