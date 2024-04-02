@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "032ef613_9530a9ac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-04-02T14:30:55Z",
+      "side": 1,
+      "message": "There is some trade-off here; because we are at HEAD, we are more likely to break. Can we mention that? Are we concerned at all about recreatable builds, e.g. someone reports a problem at commit xxxxxx, but when attempting to reproduce nghttp2 is now using a different HEAD.",
+      "revId": "9d474574971390cdb6b91b80536ea73052a48342",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e28a85f6_5def4db2",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
