@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0330f33f_53fa8b18",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-02T03:38:06Z",
+      "side": 1,
+      "message": "\u003e It got added 10 months ago. https://github.com/openbmc/bmcweb/commit/6f8273e49cffdd347c223b9538558edfb05e818a\n\nsure.\n\n\u003e \n\u003e Since that time, no one enabled it (I find that relevant info).\n\u003e \n\u003e I would expect anyone removing an option to at least do some GitHub searching to ensure it doesn\u0027t break anyone.\n\nWhen was the last time ibm-bmc rebased?  Intel-bmc?  AMI-bmc?  Nvidia-BMC?  I promise you at least one is longer than 10 months.  That\u0027s really my point, just because someone doesn\u0027t notice it missing for 10 months, doesn\u0027t mean it\u0027s not used (especially with error handling stuff like this).\n\nBut you\u0027re right, it\u0027s not used upstream, we can proceed, I just suspect we\u0027re going to be creating work for someone.",
+      "parentUuid": "48866257_0463328f",
+      "range": {
+        "startLine": 10,
+        "startChar": 42,
+        "endLine": 10,
+        "endChar": 71
+      },
+      "revId": "a7f9abfaf59ab8a60c0d1213506a7b53f4564d2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b12767c_4a62391c",
@@ -156,6 +180,30 @@
       "side": 1,
       "message": "I added some of this to the commit msg removing the design doc so it is more likely to be seen. \nhttps://gerrit.openbmc.org/c/openbmc/docs/+/70455",
       "parentUuid": "b32398c1_7f1ec939",
+      "range": {
+        "startLine": 15,
+        "startChar": 27,
+        "endLine": 15,
+        "endChar": 67
+      },
+      "revId": "a7f9abfaf59ab8a60c0d1213506a7b53f4564d2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6aa4f521_c0d43bdc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-02T03:38:06Z",
+      "side": 1,
+      "message": "👍\n\nTo be clear, I appreciate YOU doing this.  If you\u0027re personally pushing a new health rollup, I\u0027m happy to read it.  I\u0027m annoyed with the people that use health rollup and don\u0027t seem to want to push anything forward.",
+      "parentUuid": "002e5e44_30e3a2a8",
       "range": {
         "startLine": 15,
         "startChar": 27,
