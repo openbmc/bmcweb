@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96c31418_87a1b278",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 40
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-04-02T13:30:55Z",
+      "side": 1,
+      "message": "Seems reasonable",
+      "revId": "9d9f3678ad4f4828a767eb7b1dccd67592b827bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1af42260_0d258603",
+        "filename": "test/redfish-core/include/utils/json_utils_test.cpp",
+        "patchSetId": 40
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-04-02T13:30:55Z",
+      "side": 1,
+      "message": "include variant",
+      "revId": "9d9f3678ad4f4828a767eb7b1dccd67592b827bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "455459ed_86d32375",
+        "filename": "test/redfish-core/include/utils/json_utils_test.cpp",
+        "patchSetId": 40
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-04-02T13:30:55Z",
+      "side": 1,
+      "message": "```#include \u003ccstddef\u003e```",
+      "revId": "9d9f3678ad4f4828a767eb7b1dccd67592b827bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
