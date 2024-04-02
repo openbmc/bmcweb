@@ -289,11 +289,14 @@ class HTTP2Connection :
             close();
             return -1;
         }
-        if (!thisStream->second.reqReader)
+
+        std::optional<bmcweb::HttpBody::reader>& reqReader =
+            thisStream->second.reqReader;
+        if (!reqReader)
         {
-            thisStream->second.reqReader.emplace(
-                thisStream->second.req.req.base(),
-                thisStream->second.req.req.body());
+            reqReader.emplace(
+                bmcweb::HttpBody::reader(thisStream->second.req.req.base(),
+                                         thisStream->second.req.req.body()));
         }
         boost::beast::error_code ec;
         thisStream->second.reqReader->put(boost::asio::const_buffer(data, len),
