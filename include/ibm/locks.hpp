@@ -16,26 +16,59 @@ namespace crow
 namespace ibm_mc_lock
 {
 
-using SType = std::string;
-
 /*----------------------------------------
 |Segment flags : LockFlag | SegmentLength|
 ------------------------------------------*/
 
-using SegmentFlags = std::vector<std::pair<SType, uint32_t>>;
+struct SegmentFlag
+{
+    std::string first;
+    uint32_t second;
+};
 
-// Lockrequest = session-id | hmc-id | locktype | resourceid | segmentinfo
-using LockRequest = std::tuple<SType, SType, SType, uint64_t, SegmentFlags>;
+using SegmentFlags = std::vector<SegmentFlag>;
+
+struct LockRequest
+{
+    std::string sessionId;
+    std::string hmcId;
+    std::string locktype;
+    uint64_t resourceId;
+    SegmentFlags segmentinfo;
+};
+
 using LockRequests = std::vector<LockRequest>;
-using Rc =
-    std::pair<bool, std::variant<uint32_t, std::pair<uint32_t, LockRequest>>>;
-using RcRelaseLock = std::pair<bool, std::pair<uint32_t, LockRequest>>;
+
+struct RcValue
+{
+    uint32_t id;
+    LockRequest request;
+};
+
+struct Rc
+{
+    using RcTypes = std::variant<uint32_t, RcValue>;
+    bool lock;
+    RcTypes value;
+};
+
+struct RcRelaseLock
+{
+    bool released;
+    RcValue value;
+};
+
 using RcGetLockList =
     std::variant<std::string, std::vector<std::pair<uint32_t, LockRequests>>>;
 using ListOfTransactionIds = std::vector<uint32_t>;
 using RcAcquireLock = std::pair<bool, std::variant<Rc, std::pair<bool, int>>>;
 using RcReleaseLockApi = std::pair<bool, std::variant<bool, RcRelaseLock>>;
-using SessionFlags = std::pair<SType, SType>;
+struct SessionFlags
+{
+    std::string first;
+    std::string second;
+};
+
 using ListOfSessionIds = std::vector<std::string>;
 
 class Lock
@@ -197,7 +230,7 @@ inline RcGetLockList Lock::getLockList(const ListOfSessionIds& listSessionId)
             {
                 // Check if session id of this entry matches with session id
                 // given
-                if (std::get<0>(it->second[0]) == i)
+                if (it->second[0].sessionId == i)
                 {
                     BMCWEB_LOG_DEBUG("Session id is found in the locktable");
 
@@ -230,7 +263,7 @@ inline RcReleaseLockApi Lock::releaseLock(const ListOfTransactionIds& p,
     // Validation passed, check if all the locks are owned by the
     // requesting HMC
     auto status2 = isItMyLock(p, ids);
-    if (!status2.first)
+    if (!status2.released)
     {
         return std::make_pair(false, status2);
     }
@@ -282,7 +315,7 @@ inline void Lock::releaseLock(const std::string& sessionId)
             {
                 // Check if session id of this entry matches with session id
                 // given
-                if (std::get<0>(it->second[0]) == sessionId)
+                if (it->second[0].sessionId == sessionId)
                 {
                     BMCWEB_LOG_DEBUG("Remove the lock from the locktable "
                                      "having sessionID={}",
@@ -307,8 +340,8 @@ inline RcRelaseLock Lock::isItMyLock(const ListOfTransactionIds& refRids,
         // complete lock row(in the map), because the rest of the lock records
         // would have the same client id
 
-        std::string expectedClientId = std::get<1>(lockTable[id][0]);
-        std::string expectedSessionId = std::get<0>(lockTable[id][0]);
+        std::string expectedClientId = lockTable[id][0].hmcId;
+        std::string expectedSessionId = lockTable[id][0].sessionId;
 
         if ((expectedClientId == ids.first) &&
             (expectedSessionId == ids.second))
@@ -331,10 +364,11 @@ inline RcRelaseLock Lock::isItMyLock(const ListOfTransactionIds& refRids,
         else
         {
             BMCWEB_LOG_DEBUG("Lock is not owned by the current hmc");
-            return std::make_pair(false, std::make_pair(id, lockTable[id][0]));
+            RcValue foo{id, lockTable[id][0]};
+            return RcRelaseLock{false, std::move(foo)};
         }
     }
-    return std::make_pair(true, std::make_pair(0, LockRequest()));
+    return RcRelaseLock{true, {}};
 }
 
 inline bool Lock::validateRids(const ListOfTransactionIds& refRids)
@@ -362,31 +396,31 @@ inline bool Lock::isValidLockRequest(const LockRequest& refLockRecord)
 {
     // validate the locktype
 
-    if (!((std::get<2>(refLockRecord) == "Read" ||
-           (std::get<2>(refLockRecord) == "Write"))))
+    if (!((refLockRecord.locktype == "Read") ||
+           (refLockRecord.locktype == "Write")))
     {
         BMCWEB_LOG_DEBUG("Validation of LockType Failed");
-        BMCWEB_LOG_DEBUG("Locktype : {}", std::get<2>(refLockRecord));
+        BMCWEB_LOG_DEBUG("Locktype : {}", refLockRecord.locktype);
         return false;
     }
 
-    BMCWEB_LOG_DEBUG("{}", static_cast<int>(std::get<4>(refLockRecord).size()));
+    BMCWEB_LOG_DEBUG("{}", static_cast<int>(refLockRecord.segmentinfo.size()));
 
     // validate the number of segments
     // Allowed No of segments are between 2 and 6
-    if ((static_cast<int>(std::get<4>(refLockRecord).size()) > 6) ||
-        (static_cast<int>(std::get<4>(refLockRecord).size()) < 2))
+    if ((static_cast<int>(refLockRecord.segmentinfo.size()) > 6) ||
+        (static_cast<int>(refLockRecord.segmentinfo.size()) < 2))
     {
         BMCWEB_LOG_DEBUG("Validation of Number of Segments Failed");
         BMCWEB_LOG_DEBUG("Number of Segments provided : {}",
-                         std::get<4>(refLockRecord).size());
+                         refLockRecord.segmentinfo.size());
         return false;
     }
 
     int lockFlag = 0;
     // validate the lockflags & segment length
 
-    for (const auto& p : std::get<4>(refLockRecord))
+    for (const auto& p : refLockRecord.segmentinfo)
     {
         // validate the lock flags
         // Allowed lockflags are locksame,lockall & dontlock
@@ -432,8 +466,8 @@ inline Rc Lock::isConflictWithTable(const LockRequests& refLockRequestStructure)
         // as there will be no conflict
         BMCWEB_LOG_DEBUG("Lock table is empty, so adding the lockrecords");
         lockTable.emplace(thisTransactionId, refLockRequestStructure);
-
-        return std::make_pair(false, thisTransactionId);
+        Rc::RcTypes foo(std::in_place_index<0>, thisTransactionId);
+        return Rc{false, std::move(foo)};
     }
     BMCWEB_LOG_DEBUG(
         "Lock table is not empty, check for conflict with lock table");
@@ -449,8 +483,10 @@ inline Rc Lock::isConflictWithTable(const LockRequests& refLockRequestStructure)
                 bool status = isConflictRecord(lockRecord1, lockRecord2);
                 if (status)
                 {
-                    return std::make_pair(
-                        true, std::make_pair(map.first, lockRecord2));
+                    RcValue foo{map.first, lockRecord2};
+
+                    Rc::RcTypes foo1 = std::move(foo);
+                    return Rc{true, std::move(foo1)};
                 }
             }
         }
@@ -465,7 +501,7 @@ inline Rc Lock::isConflictWithTable(const LockRequests& refLockRequestStructure)
     transactionId = generateTransactionId();
     lockTable.emplace(std::make_pair(transactionId, refLockRequestStructure));
 
-    return std::make_pair(false, transactionId);
+    return {false, transactionId};
 }
 
 inline bool Lock::isConflictRequest(const LockRequests& refLockRequestStructure)
@@ -531,20 +567,20 @@ inline bool Lock::isConflictRecord(const LockRequest& refLockRecord1,
 {
     // No conflict if both are read locks
 
-    if (std::get<2>(refLockRecord1) == "Read" &&
-        std::get<2>(refLockRecord2) == "Read")
+    if (refLockRecord1.locktype == "Read") &&
+        refLockRecord2.locktype == "Read"))
     {
         BMCWEB_LOG_DEBUG("Both are read locks, no conflict");
         return false;
     }
 
     uint32_t i = 0;
-    for (const auto& p : std::get<4>(refLockRecord1))
+    for (const auto& p : refLockRecord1.segmentinfo)
     {
         // return conflict when any of them is try to lock all resources
         // under the current resource level.
         if (p.first == "LockAll" ||
-            std::get<4>(refLockRecord2)[i].first == "LockAll")
+            refLockRecord2.segmentinfo[i].first == "LockAll"
         {
             BMCWEB_LOG_DEBUG(
                 "Either of the Comparing locks are trying to lock all "
@@ -554,22 +590,21 @@ inline bool Lock::isConflictRecord(const LockRequest& refLockRecord1,
 
         // determine if there is a lock-all-with-same-segment-size.
         // If the current segment sizes are the same,then we should fail.
-
         if ((p.first == "LockSame" ||
-             std::get<4>(refLockRecord2)[i].first == "LockSame") &&
-            (p.second == std::get<4>(refLockRecord2)[i].second))
+             refLockRecord2.segmentinfo[i].first == "LockSame") &&
+            (p.second == refLockRecord2.segmentinfo[i].second))
         {
             return true;
         }
 
         // if segment lengths are not the same, it means two different locks
         // So no conflict
-        if (p.second != std::get<4>(refLockRecord2)[i].second)
+        if (p.second != refLockRecord2.segmentinfo[i].second)
         {
             BMCWEB_LOG_DEBUG("Segment lengths are not same");
             BMCWEB_LOG_DEBUG("Segment 1 length : {}", p.second);
             BMCWEB_LOG_DEBUG("Segment 2 length : {}",
-                             std::get<4>(refLockRecord2)[i].second);
+                             refLockRecord2.segmentinfo[i].second);
             return false;
         }
 
@@ -586,8 +621,8 @@ inline bool Lock::isConflictRecord(const LockRequest& refLockRecord1,
             // data. Therefore we need to convert the incoming
             // resourceID into Big Endian before processing further.
             if (!(checkByte(
-                    boost::endian::endian_reverse(std::get<3>(refLockRecord1)),
-                    boost::endian::endian_reverse(std::get<3>(refLockRecord2)),
+                    boost::endian::endian_reverse(refLockRecord1.resourceId),
+                    boost::endian::endian_reverse(refLockRecord2.resourceId),
                     j)))
             {
                 return false;
