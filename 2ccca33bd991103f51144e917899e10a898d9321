@@ -33,6 +33,24 @@
       "message": "I think this code makes more sense here but oh well",
       "revId": "2ccca33bd991103f51144e917899e10a898d9321",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4a94291_67b62a3e",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-04-02T14:19:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05b8f304_068ca1be",
+      "revId": "2ccca33bd991103f51144e917899e10a898d9321",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
