@@ -851,6 +851,22 @@ void actionParameterValueTypeError(crow::Response& res,
                                    std::string_view arg3);
 
 /**
+ * @brief Formats ActionParameterValueTypeError message into JSON
+ * Message body: "The value <arg1> for the parameter <arg2> in the action <arg3>
+ * is of a different type than the parameter can accept."
+ *
+ * @param[in] arg1 Parameter of message that will replace %1 in its body.
+ * @param[in] arg2 Parameter of message that will replace %2 in its body.
+ * @param[in] arg3 Parameter of message that will replace %3 in its body.
+ *
+ * @returns Message ActionParameterValueTypeError formatted to JSON */
+nlohmann::json actionParameterValueError(const nlohmann::json& arg1,
+                                         std::string_view arg2);
+
+void actionParameterValueError(crow::Response& res, const nlohmann::json& arg1,
+                               std::string_view arg2);
+
+/**
  * @brief Formats SessionLimitExceeded message into JSON
  * Message body: "The session establishment failed due to the number of
  * simultaneous sessions exceeding the limit of the implementation."
