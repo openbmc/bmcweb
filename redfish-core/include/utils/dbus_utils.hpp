@@ -39,7 +39,14 @@ void afterSetProperty(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       const nlohmann::json& propertyValue,
                       const boost::system::error_code& ec,
                       const sdbusplus::message_t& msg);
-}
+
+void afterSetPropertyAction(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& redfishActionName,
+                            const std::string& redfishPropertyName,
+                            const nlohmann::json& propertyValue,
+                            const boost::system::error_code& ec,
+                            const sdbusplus::message_t& msg);
+} // namespace details
 
 template <typename PropertyType>
 void setDbusProperty(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -47,7 +54,8 @@ void setDbusProperty(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                      const sdbusplus::message::object_path& path,
                      std::string_view interface, std::string_view dbusProperty,
                      std::string_view redfishPropertyName,
-                     const PropertyType& prop)
+                     const PropertyType& prop, bool isAction = false,
+                     std::string_view redfishActionName = {})
 {
     std::string processNameStr(processName);
     std::string interfaceStr(interface);
@@ -57,10 +65,21 @@ void setDbusProperty(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         *crow::connections::systemBus, processNameStr, path.str, interfaceStr,
         dbusPropertyStr, prop,
         [asyncResp, redfishPropertyNameStr = std::string{redfishPropertyName},
-         jsonProp = nlohmann::json(prop)](const boost::system::error_code& ec,
-                                          const sdbusplus::message_t& msg) {
-        details::afterSetProperty(asyncResp, redfishPropertyNameStr, jsonProp,
-                                  ec, msg);
+         jsonProp = nlohmann::json(prop), isAction,
+         redfishActionNameStr = std::string{redfishActionName}](
+            const boost::system::error_code& ec,
+            const sdbusplus::message_t& msg) {
+        if (isAction)
+        {
+            details::afterSetPropertyAction(asyncResp, redfishActionNameStr,
+                                            redfishPropertyNameStr, jsonProp,
+                                            ec, msg);
+        }
+        else
+        {
+            details::afterSetProperty(asyncResp, redfishPropertyNameStr,
+                                      jsonProp, ec, msg);
+        }
     });
 }
 
