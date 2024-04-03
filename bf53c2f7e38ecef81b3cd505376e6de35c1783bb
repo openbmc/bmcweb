@@ -18,6 +18,29 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "81816de2_53fd5aee",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-03T21:30:08Z",
+      "side": 1,
+      "message": "Inspecting the networkd config file isn\u0027t really a test.  If there\u0027s not an easy way to test this functionally, call that out in your commit message, but it seems like it would be relatively easy to assign a static IP (that could be the same as the DHCP id if you\u0027re concerned about your network) then assign a DHCP ip and make sure both keep the bmc on the network?",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 35
+      },
+      "revId": "bf53c2f7e38ecef81b3cd505376e6de35c1783bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "3fbff1f7_346a3012",
@@ -48,6 +71,30 @@
       "writtenOn": "2024-04-03T21:19:51Z",
       "side": 1,
       "message": "Can we use the `IpVersion` enum instead of a bool?",
+      "range": {
+        "startLine": 714,
+        "startChar": 55,
+        "endLine": 714,
+        "endChar": 71
+      },
+      "revId": "bf53c2f7e38ecef81b3cd505376e6de35c1783bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d62679a2_262d859f",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-03T21:30:08Z",
+      "side": 1,
+      "message": "This kind of brings up an interesting question: Why does this change only apply to ip4v?  Wouldn\u0027t the same thing happen when deleting ipv6?",
+      "parentUuid": "9ed51b0e_b19ff64b",
       "range": {
         "startLine": 714,
         "startChar": 55,
