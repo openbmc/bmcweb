@@ -55,6 +55,63 @@ TEST(UpdateService, ParseTFTPPostitive)
     }
 }
 
+TEST(UpdateService, ParseHTTPSPostitive)
+{
+    crow::Response res;
+    {
+        // No protocol, schema on url
+        std::optional<boost::urls::url> ret =
+            parseSimpleUpdateUrl("https://1.1.1.1/path", std::nullopt, res);
+        ASSERT_TRUE(ret);
+        if (!ret)
+        {
+            return;
+        }
+        EXPECT_EQ(ret->encoded_host_and_port(), "1.1.1.1");
+        EXPECT_EQ(ret->encoded_path(), "/path");
+        EXPECT_EQ(ret->scheme(), "https");
+    }
+    {
+        // Protocol, no schema on url
+        std::optional<boost::urls::url> ret =
+            parseSimpleUpdateUrl("1.1.1.1/path", "HTTPS", res);
+        ASSERT_TRUE(ret);
+        if (!ret)
+        {
+            return;
+        }
+        EXPECT_EQ(ret->encoded_host_and_port(), "1.1.1.1");
+        EXPECT_EQ(ret->encoded_path(), "/path");
+        EXPECT_EQ(ret->scheme(), "https");
+    }
+    {
+        // Both protocl and schema on url
+        std::optional<boost::urls::url> ret =
+            parseSimpleUpdateUrl("https://1.1.1.1/path", "HTTPS", res);
+        ASSERT_TRUE(ret);
+        if (!ret)
+        {
+            return;
+        }
+        EXPECT_EQ(ret->encoded_host_and_port(), "1.1.1.1");
+        EXPECT_EQ(ret->encoded_path(), "/path");
+        EXPECT_EQ(ret->scheme(), "https");
+    }
+    {
+        // Both protocl and schema on url
+        std::optional<boost::urls::url> ret =
+            parseSimpleUpdateUrl("https://1.1.1.1", "HTTPS", res);
+        ASSERT_TRUE(ret);
+        if (!ret)
+        {
+            return;
+        }
+        EXPECT_EQ(ret->encoded_host_and_port(), "1.1.1.1");
+        EXPECT_EQ(ret->encoded_path(), "/");
+        EXPECT_EQ(ret->scheme(), "https");
+    }
+}
+
 TEST(UpdateService, ParseTFTPNegative)
 {
     crow::Response res;
