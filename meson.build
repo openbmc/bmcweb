@@ -298,6 +298,7 @@ tinyxml = dependency(
     'tinyxml2',
     include_type: 'system',
     version: '>=9.0.0',
+    default_options: ['tests=false'],
 )
 if not tinyxml.found()
     tinyxml_proj = subproject('tinyxml2', required: true)
