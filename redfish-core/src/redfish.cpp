@@ -95,9 +95,6 @@ RedfishService::RedfishService(App& app)
     requestRoutesDrive(app);
     requestRoutesCable(app);
     requestRoutesCableCollection(app);
-#ifdef BMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE
-    requestRoutesUpdateServiceActionsSimpleUpdate(app);
-#endif
 
     requestRoutesSystemLogServiceCollection(app);
     requestRoutesEventLogService(app);
