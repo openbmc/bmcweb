@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f264abb4_8b1293a0",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-04-03T16:01:01Z",
+      "side": 1,
+      "message": "This was incorrect. See https://gerrit.openbmc.org/c/openbmc/bmcweb/+/70504",
+      "revId": "d547d8d2c30a7d00852855da8ecc15c0cc424b0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
