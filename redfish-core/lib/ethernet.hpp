@@ -701,18 +701,37 @@ inline void extractIPData(const std::string& ethifaceId,
 }
 
 /**
- * @brief Deletes given IPv4 interface
+ * @brief Deletes given static IP address for the interface
  *
  * @param[in] ifaceId     Id of interface whose IP should be deleted
  * @param[in] ipHash      DBus Hash id of IP that should be deleted
+ * @param[in] ipV4        Assigned 'true' when deleting an IPv4 address
  * @param[io] asyncResp   Response object that will be returned to client
  *
  * @return None
  */
 inline void deleteIPAddress(const std::string& ifaceId,
-                            const std::string& ipHash,
+                            const std::string& ipHash, const bool& ipV4,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
+    if (ipV4)
+    {
+        // Remove the IPv4 default gateway that was assigned when a static
+        // IPv4 address was created. There is no equivalent atomic removal of
+        // the default gateway address when deleting an IPv4 static address.
+        std::string gateway{};
+        sdbusplus::asio::setProperty(
+            *crow::connections::systemBus, "xyz.openbmc_project.Network",
+            "/xyz/openbmc_project/network/" + ifaceId,
+            "xyz.openbmc_project.Network.EthernetInterface", "DefaultGateway",
+            gateway, [asyncResp](const boost::system::error_code& ec) {
+            if (ec)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+        });
+    }
     crow::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code& ec) {
         if (ec)
@@ -1633,7 +1652,7 @@ inline void
 
             if (thisJson.is_null())
             {
-                deleteIPAddress(ifaceId, nicIpEntry->id, asyncResp);
+                deleteIPAddress(ifaceId, nicIpEntry->id, true, asyncResp);
             }
             if (nicIpEntry != ipv4Data.cend())
             {
@@ -1749,7 +1768,7 @@ inline void handleIPv6StaticAddressesPatch(
 
             if (thisJson.is_null())
             {
-                deleteIPAddress(ifaceId, nicIpEntry->id, asyncResp);
+                deleteIPAddress(ifaceId, nicIpEntry->id, false, asyncResp);
             }
             if (nicIpEntry != ipv6Data.cend())
             {
