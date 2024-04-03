@@ -98,8 +98,6 @@ RedfishService::RedfishService(App& app)
 #ifdef BMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE
     requestRoutesUpdateServiceActionsSimpleUpdate(app);
 #endif
-    requestRoutesSoftwareInventoryCollection(app);
-    requestRoutesSoftwareInventory(app);
 
     requestRoutesSystemLogServiceCollection(app);
     requestRoutesEventLogService(app);
