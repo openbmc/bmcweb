@@ -16,6 +16,24 @@
       "message": "Should this be LDAPService?\n\nI only read a bit after the prior comment.",
       "revId": "7a479501cbbf4974da68f0c7b59073bb873aeae6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "386831a1_548245e8",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 947,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-03T05:22:40Z",
+      "side": 1,
+      "message": "Yep.  Fixed.",
+      "parentUuid": "af5d6d9b_84feae02",
+      "revId": "7a479501cbbf4974da68f0c7b59073bb873aeae6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
