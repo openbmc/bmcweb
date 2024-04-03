@@ -1484,32 +1484,12 @@ inline void handleHypervisorSystemResetPost(
 
     std::string command = "xyz.openbmc_project.State.Host.Transition.On";
 
-    sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, "xyz.openbmc_project.State.Hypervisor",
-        "/xyz/openbmc_project/state/hypervisor0",
-        "xyz.openbmc_project.State.Host", "RequestedHostTransition", command,
-        [asyncResp, resetType](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("D-Bus responses error: {}", ec);
-            if (ec.value() == boost::asio::error::invalid_argument)
-            {
-                messages::actionParameterNotSupported(asyncResp->res,
-                                                      *resetType, "Reset");
-                return;
-            }
-
-            if (ec.value() == boost::asio::error::host_unreachable)
-            {
-                messages::resourceNotFound(asyncResp->res, "Actions", "Reset");
-                return;
-            }
-
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        messages::success(asyncResp->res);
-    });
+    setDbusPropertyAction(asyncResp, "xyz.openbmc_project.State.Hypervisor",
+                          sdbusplus::message::object_path(
+                              "/xyz/openbmc_project/state/hypervisor0"),
+                          "xyz.openbmc_project.State.Host",
+                          "RequestedHostTransition", "ResetType",
+                          "ComputerSystem.Reset", command);
 }
 
 inline void requestRoutesHypervisorSystems(App& app)

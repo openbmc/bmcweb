@@ -1461,6 +1461,29 @@ void actionParameterValueTypeError(crow::Response& res,
 
 /**
  * @internal
+ * @brief Formats actionParameterValueError message into JSON
+ *
+ * See header file for more information
+ * @endinternal
+ */
+nlohmann::json actionParameterValueError(const nlohmann::json& arg1,
+                                         std::string_view arg2)
+{
+    std::string arg1Str = arg1.dump(2, ' ', true,
+                                    nlohmann::json::error_handler_t::replace);
+    return getLog(redfish::registries::base::Index::actionParameterValueError,
+                  std::to_array<std::string_view>({arg1Str, arg2}));
+}
+
+void actionParameterValueError(crow::Response& res, const nlohmann::json& arg1,
+                               std::string_view arg2)
+{
+    res.result(boost::beast::http::status::bad_request);
+    addMessageToErrorJson(res.jsonValue, actionParameterValueError(arg1, arg2));
+}
+
+/**
+ * @internal
  * @brief Formats SessionLimitExceeded message into JSON
  *
  * See header file for more information

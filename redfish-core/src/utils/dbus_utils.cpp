@@ -72,7 +72,54 @@ void afterSetProperty(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         messages::internalError(asyncResp->res);
         return;
     }
-    // Only set 204 if another erro hasn't already happened.
+    // Only set 204 if another error hasn't already happened.
+    if (asyncResp->res.result() == boost::beast::http::status::ok)
+    {
+        asyncResp->res.result(boost::beast::http::status::no_content);
+    }
+};
+
+void afterSetPropertyAction(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& redfishActionName,
+                            const std::string& redfishActionParameterName,
+                            const boost::system::error_code& ec,
+                            const sdbusplus::message_t& /*msg*/)
+{
+    if (ec)
+    {
+        if (ec.value() == boost::asio::error::invalid_argument)
+        {
+            BMCWEB_LOG_WARNING(
+                "Resource {} is patched with invalid argument during action {}",
+                redfishActionParameterName, redfishActionName);
+            if (redfishActionParameterName.empty())
+            {
+                messages::operationFailed(asyncResp->res);
+            }
+            else
+            {
+                messages::actionParameterValueError(asyncResp->res,
+                                                    redfishActionParameterName,
+                                                    redfishActionName);
+            }
+            return;
+        }
+        if (ec.value() == boost::asio::error::host_unreachable)
+        {
+            BMCWEB_LOG_WARNING(
+                "Resource {} is not found while performing action {}",
+                redfishActionParameterName, redfishActionName);
+            messages::resourceNotFound(asyncResp->res, "Actions",
+                                       redfishActionName);
+            return;
+        }
+
+        BMCWEB_LOG_ERROR("D-Bus error setting Redfish Property {} ec={}",
+                         redfishActionParameterName, ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    // Only set 204 if another error hasn't already happened.
     if (asyncResp->res.result() == boost::beast::http::status::ok)
     {
         asyncResp->res.result(boost::beast::http::status::no_content);
