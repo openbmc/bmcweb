@@ -71,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "05193a70_0b4f81c9",
+        "filename": "test/redfish-core/include/utils/json_utils_test.cpp",
+        "patchSetId": 40
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-03T15:56:54Z",
+      "side": 1,
+      "message": "I got mixed up in patches.  sorry about that.  Should be done now.",
+      "parentUuid": "79ac4996_787d993d",
+      "revId": "9d9f3678ad4f4828a767eb7b1dccd67592b827bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "455459ed_86d32375",
@@ -120,6 +138,24 @@
       "side": 1,
       "message": "Not seeing it",
       "parentUuid": "3174df5f_85c85b4c",
+      "revId": "9d9f3678ad4f4828a767eb7b1dccd67592b827bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2655f23_c26a06b7",
+        "filename": "test/redfish-core/include/utils/json_utils_test.cpp",
+        "patchSetId": 40
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-03T15:56:54Z",
+      "side": 1,
+      "message": "Same.",
+      "parentUuid": "ed7305c5_e2d6418d",
       "revId": "9d9f3678ad4f4828a767eb7b1dccd67592b827bd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
