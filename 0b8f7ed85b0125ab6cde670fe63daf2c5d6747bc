@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a520d72_8e8ffd28",
+        "filename": "redfish-core/include/utils/dbus_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-03T17:09:31Z",
+      "side": 1,
+      "message": "Should we call these something else?  In actions they\u0027re no longer properties, I think they\u0027re action params?  (we should look in redfish and see what it calls them in Actioninfo).",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 52
+      },
+      "revId": "0b8f7ed85b0125ab6cde670fe63daf2c5d6747bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
