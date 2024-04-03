@@ -103,6 +103,30 @@
       },
       "revId": "bf53c2f7e38ecef81b3cd505376e6de35c1783bb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1f19f8a_7c400479",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2024-04-03T22:00:58Z",
+      "side": 1,
+      "message": "There\u0027s a whole other set of changes for IPv6GatewayStaticAddress that I assume is taking precedence over this feature.",
+      "parentUuid": "d62679a2_262d859f",
+      "range": {
+        "startLine": 714,
+        "startChar": 55,
+        "endLine": 714,
+        "endChar": 71
+      },
+      "revId": "bf53c2f7e38ecef81b3cd505376e6de35c1783bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
