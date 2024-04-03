@@ -466,6 +466,10 @@ inline std::optional<boost::urls::url>
         {
             imageURI = "tftp://" + imageURI;
         }
+        else if (*transferProtocol == "HTTPS")
+        {
+            imageURI = "https://" + imageURI;
+        }
         else
         {
             messages::actionParameterNotSupported(res, "TransferProtocol",
@@ -496,6 +500,14 @@ inline std::optional<boost::urls::url>
             return std::nullopt;
         }
     }
+    else if (url->scheme() == "https")
+    {
+        // Empty paths default to "/"
+        if (url->encoded_path().empty())
+        {
+            url->set_encoded_path("/");
+        }
+    }
     else
     {
         messages::actionParameterNotSupported(res, "ImageURI", imageURI);
@@ -510,6 +522,13 @@ inline std::optional<boost::urls::url>
     }
 
     return *url;
+}
+
+inline void doHttpsUpdate(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const boost::urls::url_view_base& url)
+{
+    messages::actionParameterNotSupported(asyncResp->res, "ImageURI",
+                                          url.buffer());
 }
 
 inline void doTftpUpdate(const crow::Request& req,
@@ -602,6 +621,10 @@ inline void handleUpdateServiceSimpleUpdateAction(
     if (url->scheme() == "tftp")
     {
         doTftpUpdate(req, asyncResp, *url);
+    }
+    else if (url->scheme() == "https")
+    {
+        doHttpsUpdate(asyncResp, *url);
     }
     else
     {
@@ -837,6 +860,7 @@ inline void
         "/redfish/v1/UpdateService/Actions/UpdateService.SimpleUpdate";
 
     nlohmann::json::array_t allowed;
+    allowed.emplace_back(update_service::TransferProtocolType::HTTPS);
 
 #ifdef BMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE
     allowed.emplace_back(update_service::TransferProtocolType::TFTP);
