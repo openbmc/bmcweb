@@ -43,7 +43,7 @@ TEST(UpdateService, ParseTFTPPostitive)
         EXPECT_EQ(ret->scheme(), "tftp");
     }
     {
-        // Both protocl and schema on url
+        // Both protocol and schema on url
         std::optional<boost::urls::url> ret =
             parseSimpleUpdateUrl("tftp://1.1.1.1/path", "TFTP", res);
         ASSERT_TRUE(ret);
@@ -54,6 +54,63 @@ TEST(UpdateService, ParseTFTPPostitive)
         EXPECT_EQ(ret->encoded_host_and_port(), "1.1.1.1");
         EXPECT_EQ(ret->encoded_path(), "/path");
         EXPECT_EQ(ret->scheme(), "tftp");
+    }
+}
+
+TEST(UpdateService, ParseHTTPSPostitive)
+{
+    crow::Response res;
+    {
+        // No protocol, schema on url
+        std::optional<boost::urls::url> ret =
+            parseSimpleUpdateUrl("https://1.1.1.1/path", std::nullopt, res);
+        ASSERT_TRUE(ret);
+        if (!ret)
+        {
+            return;
+        }
+        EXPECT_EQ(ret->encoded_host_and_port(), "1.1.1.1");
+        EXPECT_EQ(ret->encoded_path(), "/path");
+        EXPECT_EQ(ret->scheme(), "https");
+    }
+    {
+        // Protocol, no schema on url
+        std::optional<boost::urls::url> ret =
+            parseSimpleUpdateUrl("1.1.1.1/path", "HTTPS", res);
+        ASSERT_TRUE(ret);
+        if (!ret)
+        {
+            return;
+        }
+        EXPECT_EQ(ret->encoded_host_and_port(), "1.1.1.1");
+        EXPECT_EQ(ret->encoded_path(), "/path");
+        EXPECT_EQ(ret->scheme(), "https");
+    }
+    {
+        // Both protocol and schema on url with path
+        std::optional<boost::urls::url> ret =
+            parseSimpleUpdateUrl("https://1.1.1.1/path", "HTTPS", res);
+        ASSERT_TRUE(ret);
+        if (!ret)
+        {
+            return;
+        }
+        EXPECT_EQ(ret->encoded_host_and_port(), "1.1.1.1");
+        EXPECT_EQ(ret->encoded_path(), "/path");
+        EXPECT_EQ(ret->scheme(), "https");
+    }
+    {
+        // Both protocol and schema on url without path
+        std::optional<boost::urls::url> ret =
+            parseSimpleUpdateUrl("https://1.1.1.1", "HTTPS", res);
+        ASSERT_TRUE(ret);
+        if (!ret)
+        {
+            return;
+        }
+        EXPECT_EQ(ret->encoded_host_and_port(), "1.1.1.1");
+        EXPECT_EQ(ret->encoded_path(), "/");
+        EXPECT_EQ(ret->scheme(), "https");
     }
 }
 
