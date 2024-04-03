@@ -442,9 +442,9 @@ struct TftpUrl
 };
 
 inline std::optional<TftpUrl>
-    parseTftpUrl(std::string imageURI,
-                 std::optional<std::string> transferProtocol,
-                 crow::Response& res)
+    parseSimpleUpdateUrl(std::string imageURI,
+                         std::optional<std::string> transferProtocol,
+                         crow::Response& res)
 {
     if (imageURI.find("://") == std::string::npos)
     {
@@ -563,8 +563,8 @@ inline void handleUpdateServiceSimpleUpdateAction(
         BMCWEB_LOG_DEBUG("Missing TransferProtocol or ImageURI parameter");
         return;
     }
-    std::optional<TftpUrl> ret = parseTftpUrl(imageURI, transferProtocol,
-                                              asyncResp->res);
+    std::optional<TftpUrl> ret =
+        parseSimpleUpdateUrl(imageURI, transferProtocol, asyncResp->res);
     if (!ret)
     {
         return;
