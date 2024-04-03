@@ -499,6 +499,44 @@ inline std::optional<TftpUrl>
     return TftpUrl{path, host};
 }
 
+inline void doTftpUpdate(const crow::Request& req,
+                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const TftpUrl& tftpUrl)
+{
+    BMCWEB_LOG_DEBUG("Server: {} File: {}", tftpUrl.tftpServer, tftpUrl.fwFile);
+
+    // Setup callback for when new software detected
+    // Give TFTP 10 minutes to complete
+    monitorForSoftwareAvailable(
+        asyncResp, req,
+        "/redfish/v1/UpdateService/Actions/UpdateService.SimpleUpdate", 600);
+
+    // TFTP can take up to 10 minutes depending on image size and
+    // connection speed. Return to caller as soon as the TFTP operation
+    // has been started. The callback above will ensure the activate
+    // is started once the download has completed
+    redfish::messages::success(asyncResp->res);
+
+    // Call TFTP service
+    crow::connections::systemBus->async_method_call(
+        [](const boost::system::error_code& ec) {
+        if (ec)
+        {
+            // messages::internalError(asyncResp->res);
+            cleanUp();
+            BMCWEB_LOG_DEBUG("error_code = {}", ec);
+            BMCWEB_LOG_DEBUG("error msg = {}", ec.message());
+        }
+        else
+        {
+            BMCWEB_LOG_DEBUG("Call to DownloaViaTFTP Success");
+        }
+    },
+        "xyz.openbmc_project.Software.Download",
+        "/xyz/openbmc_project/software", "xyz.openbmc_project.Common.TFTP",
+        "DownloadViaTFTP", tftpUrl.fwFile, tftpUrl.tftpServer);
+}
+
 inline void handleUpdateServiceSimpleUpdateAction(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
@@ -531,39 +569,7 @@ inline void handleUpdateServiceSimpleUpdateAction(
     {
         return;
     }
-
-    BMCWEB_LOG_DEBUG("Server: {} File: {}", ret->tftpServer, ret->fwFile);
-
-    // Setup callback for when new software detected
-    // Give TFTP 10 minutes to complete
-    monitorForSoftwareAvailable(
-        asyncResp, req,
-        "/redfish/v1/UpdateService/Actions/UpdateService.SimpleUpdate", 600);
-
-    // TFTP can take up to 10 minutes depending on image size and
-    // connection speed. Return to caller as soon as the TFTP operation
-    // has been started. The callback above will ensure the activate
-    // is started once the download has completed
-    redfish::messages::success(asyncResp->res);
-
-    // Call TFTP service
-    crow::connections::systemBus->async_method_call(
-        [](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            // messages::internalError(asyncResp->res);
-            cleanUp();
-            BMCWEB_LOG_DEBUG("error_code = {}", ec);
-            BMCWEB_LOG_DEBUG("error msg = {}", ec.message());
-        }
-        else
-        {
-            BMCWEB_LOG_DEBUG("Call to DownloaViaTFTP Success");
-        }
-    },
-        "xyz.openbmc_project.Software.Download",
-        "/xyz/openbmc_project/software", "xyz.openbmc_project.Common.TFTP",
-        "DownloadViaTFTP", ret->fwFile, ret->tftpServer);
+    doTftpUpdate(req, asyncResp, *ret);
 
     BMCWEB_LOG_DEBUG("Exit UpdateService.SimpleUpdate doPost");
 }
