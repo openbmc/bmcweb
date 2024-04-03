@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b415132_7230921f",
+        "filename": "redfish-core/include/utils/dbus_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-03T15:04:51Z",
+      "side": 1,
+      "message": "Can you just make this a separate method, rather than try to pass in optional arguments?  I think that will make the code clearer, and there\u0027s things like \"prop\" that might not apply to Actions.",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 1
+      },
+      "revId": "02646f2dc8afc23716f92ed08c72be5407fb54a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f23995f_dac7c5f1",
+        "filename": "redfish-core/src/utils/dbus_utils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-03T15:04:51Z",
+      "side": 1,
+      "message": "typo (which wasn\u0027t your fault, it was a typo in the other one as well).  Please fix both while we\u0027re here.",
+      "range": {
+        "startLine": 109,
+        "startChar": 31,
+        "endLine": 109,
+        "endChar": 35
+      },
+      "revId": "02646f2dc8afc23716f92ed08c72be5407fb54a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
