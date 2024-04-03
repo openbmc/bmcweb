@@ -19,6 +19,7 @@
 
 #include "app.hpp"
 #include "dbus_utility.hpp"
+#include "generated/enums/update_service.hpp"
 #include "multipart_parser.hpp"
 #include "ossl_random.hpp"
 #include "query.hpp"
@@ -434,16 +435,10 @@ inline void monitorForSoftwareAvailable(
         std::bind_front(afterUpdateErrorMatcher, asyncResp, url));
 }
 
-struct TftpUrl
-{
-    std::string fwFile;
-    std::string tftpServer;
-};
-
-inline std::optional<TftpUrl>
-    parseTftpUrl(std::string imageURI,
-                 std::optional<std::string> transferProtocol,
-                 crow::Response& res)
+inline std::optional<boost::urls::url>
+    parseSimpleUpdateUrl(std::string imageURI,
+                         std::optional<std::string> transferProtocol,
+                         crow::Response& res)
 {
     if (imageURI.find("://") == std::string::npos)
     {
@@ -460,7 +455,11 @@ inline std::optional<TftpUrl>
             return std::nullopt;
         }
         // OpenBMC currently only supports TFTP
-        if (*transferProtocol != "TFTP")
+        if (*transferProtocol == "TFTP")
+        {
+            imageURI = "tftp://" + imageURI;
+        }
+        else
         {
             messages::actionParameterNotSupported(res, "TransferProtocol",
                                                   *transferProtocol);
@@ -468,7 +467,6 @@ inline std::optional<TftpUrl>
                              *transferProtocol);
             return std::nullopt;
         }
-        imageURI = "tftp://" + imageURI;
     }
 
     boost::system::result<boost::urls::url> url =
@@ -482,27 +480,47 @@ inline std::optional<TftpUrl>
     }
     url->normalize();
 
-    if (url->scheme() != "tftp")
+    if (url->scheme() == "tftp")
+    {
+        if (url->encoded_path().size() < 2)
+        {
+            messages::actionParameterNotSupported(res, "ImageURI",
+                                                  url->buffer());
+            return std::nullopt;
+        }
+    }
+    else
     {
         messages::actionParameterNotSupported(res, "ImageURI", imageURI);
         return std::nullopt;
     }
-    std::string path(url->encoded_path());
-    if (path.size() < 2)
+
+    if (url->encoded_path().empty())
     {
-        messages::actionParameterNotSupported(res, "ImageURI", imageURI);
+        messages::actionParameterValueTypeError(res, imageURI, "ImageURI",
+                                                "UpdateService.SimpleUpdate");
         return std::nullopt;
     }
-    path.erase(0, 1);
-    std::string host(url->encoded_host_and_port());
-    return TftpUrl{path, host};
+
+    return *url;
 }
 
 inline void doTftpUpdate(const crow::Request& req,
                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                         const TftpUrl& tftpUrl)
+                         const boost::urls::url& url)
 {
-    BMCWEB_LOG_DEBUG("Server: {} File: {}", tftpUrl.tftpServer, tftpUrl.fwFile);
+    std::string path(url.encoded_path());
+    if (path.size() < 2)
+    {
+        messages::actionParameterNotSupported(asyncResp->res, "ImageURI",
+                                              url.buffer());
+        return;
+    }
+    // TFTP expects a path without a /
+    path.erase(0, 1);
+    std::string host(url.encoded_host_and_port());
+
+    BMCWEB_LOG_DEBUG("Server: {} File: {}", url.encoded_host_and_port(), path);
 
     // Setup callback for when new software detected
     // Give TFTP 10 minutes to complete
@@ -533,7 +551,7 @@ inline void doTftpUpdate(const crow::Request& req,
     },
         "xyz.openbmc_project.Software.Download",
         "/xyz/openbmc_project/software", "xyz.openbmc_project.Common.TFTP",
-        "DownloadViaTFTP", tftpUrl.fwFile, tftpUrl.tftpServer);
+        "DownloadViaTFTP", path, std::string(url.encoded_host_and_port()));
 }
 
 inline void handleUpdateServiceSimpleUpdateAction(
@@ -562,13 +580,21 @@ inline void handleUpdateServiceSimpleUpdateAction(
         BMCWEB_LOG_DEBUG("Missing TransferProtocol or ImageURI parameter");
         return;
     }
-    std::optional<TftpUrl> ret = parseTftpUrl(imageURI, transferProtocol,
-                                              asyncResp->res);
-    if (!ret)
+    std::optional<boost::urls::url> url =
+        parseSimpleUpdateUrl(imageURI, transferProtocol, asyncResp->res);
+    if (!url)
     {
         return;
     }
-    doTftpUpdate(req, asyncResp, *ret);
+    if (url->scheme() == "tftp")
+    {
+        doTftpUpdate(req, asyncResp, *url);
+    }
+    else
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
 
     BMCWEB_LOG_DEBUG("Exit UpdateService.SimpleUpdate doPost");
 }
@@ -790,15 +816,21 @@ inline void
     asyncResp->res.jsonValue["MaxImageSizeBytes"] = bmcwebHttpReqBodyLimitMb *
                                                     1024 * 1024;
 
-#ifdef BMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE
     // Update Actions object.
     nlohmann::json& updateSvcSimpleUpdate =
         asyncResp->res.jsonValue["Actions"]["#UpdateService.SimpleUpdate"];
     updateSvcSimpleUpdate["target"] =
         "/redfish/v1/UpdateService/Actions/UpdateService.SimpleUpdate";
-    updateSvcSimpleUpdate["TransferProtocol@Redfish.AllowableValues"] = {
-        "TFTP"};
+
+    nlohmann::json::array_t allowed;
+
+#ifdef BMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE
+    allowed.emplace_back(update_service::TransferProtocolType::TFTP);
 #endif
+
+    updateSvcSimpleUpdate["TransferProtocol@Redfish.AllowableValues"] =
+        std::move(allowed);
+
     // Get the current ApplyTime value
     sdbusplus::asio::getProperty<std::string>(
         *crow::connections::systemBus, "xyz.openbmc_project.Settings",
