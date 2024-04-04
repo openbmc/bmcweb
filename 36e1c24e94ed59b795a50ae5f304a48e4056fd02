@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4193de8_73c12227",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-04-04T15:58:30Z",
+      "side": 1,
+      "message": "Oops it was my mistake.\nThanks for finding and fixing it.",
+      "revId": "36e1c24e94ed59b795a50ae5f304a48e4056fd02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
