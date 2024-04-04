@@ -46,6 +46,30 @@
       },
       "revId": "0b8f7ed85b0125ab6cde670fe63daf2c5d6747bc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9a814d4_fce632a7",
+        "filename": "redfish-core/include/utils/dbus_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-04T17:54:34Z",
+      "side": 1,
+      "message": "dbusPropValue seems like an improvement.  Feel free to change that if you want.\n\nLooks like redfish calls them \"parameters\" so lets use that instead of redfishPropertyName.  Change to rfActionParameterName?",
+      "parentUuid": "a328b4d6_c029771b",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 52
+      },
+      "revId": "0b8f7ed85b0125ab6cde670fe63daf2c5d6747bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
