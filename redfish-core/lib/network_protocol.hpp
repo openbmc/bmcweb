@@ -252,16 +252,11 @@ inline void handleNTPProtocolEnabled(
             "xyz.openbmc_project.Time.Synchronization.Method.Manual";
     }
 
-    sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/time/sync_method",
-        "xyz.openbmc_project.Time.Synchronization", "TimeSyncMethod",
-        timeSyncMethod, [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            messages::internalError(asyncResp->res);
-        }
-    });
+    setDbusProperty(asyncResp, "xyz.openbmc_project.Settings",
+                    sdbusplus::message::object_path(
+                        "/xyz/openbmc_project/time/sync_method"),
+                    "xyz.openbmc_project.Time.Synchronization",
+                    "TimeSyncMethod", "NTP/ProtocolEnabled", timeSyncMethod);
 }
 
 inline void
@@ -294,17 +289,21 @@ inline void
         {
             if (!ntpServerObject->empty())
             {
-                messages::propertyValueNotInList(asyncResp->res, ntpServer,
-                                                 "NTP/NTPServers/" +
-                                                     std::to_string(index));
+                messages::propertyValueNotInList(
+                    asyncResp->res,
+                    ntpServer.dump(2, ' ', true,
+                                   nlohmann::json::error_handler_t::replace),
+                    "NTP/NTPServers/" + std::to_string(index));
                 return;
             }
             // Can't retain an item that doesn't exist
             if (currentNtpServer == currentNtpServers.end())
             {
-                messages::propertyValueOutOfRange(asyncResp->res, ntpServer,
-                                                  "NTP/NTPServers/" +
-                                                      std::to_string(index));
+                messages::propertyValueOutOfRange(
+                    asyncResp->res,
+                    ntpServer.dump(2, ' ', true,
+                                   nlohmann::json::error_handler_t::replace),
+                    "NTP/NTPServers/" + std::to_string(index));
 
                 return;
             }
@@ -317,9 +316,11 @@ inline void
             ntpServer.get_ptr<const std::string*>();
         if (ntpServerStr == nullptr)
         {
-            messages::propertyValueTypeError(asyncResp->res, ntpServer,
-                                             "NTP/NTPServers/" +
-                                                 std::to_string(index));
+            messages::propertyValueTypeError(
+                asyncResp->res,
+                ntpServer.dump(2, ' ', true,
+                               nlohmann::json::error_handler_t::replace),
+                "NTP/NTPServers/" + std::to_string(index));
             return;
         }
         if (currentNtpServer == currentNtpServers.end())
@@ -362,16 +363,9 @@ inline void
                         continue;
                     }
 
-                    sdbusplus::asio::setProperty(
-                        *crow::connections::systemBus, service, objectPath,
-                        interface, "StaticNTPServers", currentNtpServers,
-                        [asyncResp](const boost::system::error_code& ec2) {
-                        if (ec2)
-                        {
-                            messages::internalError(asyncResp->res);
-                            return;
-                        }
-                    });
+                    setDbusProperty(asyncResp, service, objectPath, interface,
+                                    "StaticNTPServers",
+                                    "NTP/NTPServers/" currentNtpServers);
                 }
             }
         }
@@ -400,30 +394,14 @@ inline void
         {
             if (entry.first.starts_with(netBasePath))
             {
-                sdbusplus::asio::setProperty(
-                    *crow::connections::systemBus, entry.second.begin()->first,
-                    entry.first,
+                setDbusProperty(
+                    asyncResp, entry.second.begin()->first, entry.first,
                     "xyz.openbmc_project.Control.Service.Attributes", "Running",
-                    protocolEnabled,
-                    [asyncResp](const boost::system::error_code& ec2) {
-                    if (ec2)
-                    {
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
-                });
-                sdbusplus::asio::setProperty(
-                    *crow::connections::systemBus, entry.second.begin()->first,
-                    entry.first,
+                    "IPMI/ProtocolEnabled", protocolEnabled);
+                setDbusProperty(
+                    asyncResp, entry.second.begin()->first, entry.first,
                     "xyz.openbmc_project.Control.Service.Attributes", "Enabled",
-                    protocolEnabled,
-                    [asyncResp](const boost::system::error_code& ec2) {
-                    if (ec2)
-                    {
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
-                });
+                    "IPMI/ProtocolEnabled", protocolEnabled);
             }
         }
     });

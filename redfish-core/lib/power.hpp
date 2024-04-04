@@ -53,20 +53,11 @@ inline void afterGetPowerCapEnable(
         return;
     }
 
-    sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/control/host0/power_cap",
-        "xyz.openbmc_project.Control.Power.Cap", "PowerCap", valueToSet,
-        [sensorsAsyncResp](const boost::system::error_code& ec2) {
-        if (ec2)
-        {
-            BMCWEB_LOG_DEBUG("Power Limit Set: Dbus error: {}", ec2);
-            messages::internalError(sensorsAsyncResp->asyncResp->res);
-            return;
-        }
-        sensorsAsyncResp->asyncResp->res.result(
-            boost::beast::http::status::no_content);
-    });
+    setDbusProperty(asyncResp, "xyz.openbmc_project.Settings",
+                    sdbusplus::message::object_path(
+                        "/xyz/openbmc_project/control/host0/power_cap"),
+                    "xyz.openbmc_project.Control.Power.Cap", "PowerCap",
+                    "PowerControl", valueToSet);
 }
 
 inline void afterGetChassisPath(
