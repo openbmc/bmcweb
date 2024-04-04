@@ -1265,19 +1265,11 @@ inline void setAutomaticRetryAttempts(
     const uint32_t retryAttempts)
 {
     BMCWEB_LOG_DEBUG("Set Automatic Retry Attempts.");
-    sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, "xyz.openbmc_project.State.Host",
-        "/xyz/openbmc_project/state/host0",
+    setDbusProperty(
+        asyncResp, "xyz.openbmc_project.State.Host",
+        sdbusplus::message::object_path("/xyz/openbmc_project/state/host0"),
         "xyz.openbmc_project.Control.Boot.RebootAttempts", "RetryAttempts",
-        retryAttempts, [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR(
-                "DBUS response error: Set setAutomaticRetryAttempts{}", ec);
-            messages::internalError(asyncResp->res);
-            return;
-        }
-    });
+        "Boot/AutomaticRetryAttempts", retryAttempts);
 }
 
 inline computer_system::PowerRestorePolicyTypes
@@ -1528,20 +1520,9 @@ inline void setTrustedModuleRequiredToBoot(
         }
 
         // Valid TPM Enable object found, now setting the value
-        sdbusplus::asio::setProperty(
-            *crow::connections::systemBus, serv, path,
-            "xyz.openbmc_project.Control.TPM.Policy", "TPMEnable", tpmRequired,
-            [asyncResp](const boost::system::error_code& ec2) {
-            if (ec2)
-            {
-                BMCWEB_LOG_ERROR(
-                    "DBUS response error: Set TrustedModuleRequiredToBoot{}",
-                    ec2);
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            BMCWEB_LOG_DEBUG("Set TrustedModuleRequiredToBoot done.");
-        });
+        setDbusProperty(asyncResp, serv, path,
+                        "xyz.openbmc_project.Control.TPM.Policy", "TPMEnable",
+                        "Boot/TrustedModuleRequiredToBoot", tpmRequired);
     });
 }
 
@@ -1586,24 +1567,11 @@ inline void setBootType(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     // Act on validated parameters
     BMCWEB_LOG_DEBUG("DBUS boot type: {}", bootTypeStr);
 
-    sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/control/host0/boot",
-        "xyz.openbmc_project.Control.Boot.Type", "BootType", bootTypeStr,
-        [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            if (ec.value() == boost::asio::error::host_unreachable)
-            {
-                messages::resourceNotFound(asyncResp->res, "Set", "BootType");
-                return;
-            }
-            BMCWEB_LOG_ERROR("DBUS response error {}", ec);
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        BMCWEB_LOG_DEBUG("Boot type update done.");
-    });
+    setDbusProperty(asyncResp, "xyz.openbmc_project.Settings",
+                    sdbusplus::message::object_path(
+                        "/xyz/openbmc_project/control/host0/boot"),
+                    "xyz.openbmc_project.Control.Boot.Type", "BootType",
+                    "Boot/BootSourceOverrideMode", bootTypeStr);
 }
 
 /**
@@ -1654,19 +1622,11 @@ inline void setBootEnable(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     // Act on validated parameters
     BMCWEB_LOG_DEBUG("DBUS boot override enable: {}", bootOverrideEnable);
 
-    sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/control/host0/boot",
-        "xyz.openbmc_project.Object.Enable", "Enabled", bootOverrideEnable,
-        [asyncResp](const boost::system::error_code& ec2) {
-        if (ec2)
-        {
-            BMCWEB_LOG_ERROR("DBUS response error {}", ec2);
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        BMCWEB_LOG_DEBUG("Boot override enable update done.");
-    });
+    setDbusProperty(asyncResp, "xyz.openbmc_project.Settings",
+                    sdbusplus::message::object_path(
+                        "/xyz/openbmc_project/control/host0/boot"),
+                    "xyz.openbmc_project.Object.Enable", "Enabled",
+                    "Boot/BootSourceOverrideEnabled", bootOverrideEnable);
 
     if (!bootOverrideEnable)
     {
@@ -1678,19 +1638,11 @@ inline void setBootEnable(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     BMCWEB_LOG_DEBUG("DBUS boot override persistent: {}",
                      bootOverridePersistent);
 
-    sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/control/host0/boot/one_time",
-        "xyz.openbmc_project.Object.Enable", "Enabled", !bootOverridePersistent,
-        [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("DBUS response error {}", ec);
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        BMCWEB_LOG_DEBUG("Boot one_time update done.");
-    });
+    setDbusProperty(asyncResp, "xyz.openbmc_project.Settings",
+                    sdbusplus::message::object_path(
+                        "/xyz/openbmc_project/control/host0/boot/one_time"),
+                    "xyz.openbmc_project.Object.Enable", "Enabled",
+                    "Boot/BootSourceOverrideEnabled", !bootOverridePersistent);
 }
 
 /**
@@ -1731,33 +1683,16 @@ inline void
     BMCWEB_LOG_DEBUG("DBUS boot source: {}", bootSourceStr);
     BMCWEB_LOG_DEBUG("DBUS boot mode: {}", bootModeStr);
 
-    sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/control/host0/boot",
-        "xyz.openbmc_project.Control.Boot.Source", "BootSource", bootSourceStr,
-        [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("DBUS response error {}", ec);
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        BMCWEB_LOG_DEBUG("Boot source update done.");
-    });
-
-    sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/control/host0/boot",
-        "xyz.openbmc_project.Control.Boot.Mode", "BootMode", bootModeStr,
-        [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("DBUS response error {}", ec);
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        BMCWEB_LOG_DEBUG("Boot mode update done.");
-    });
+    setDbusProperty(asyncResp, "xyz.openbmc_project.Settings",
+                    sdbusplus::message::object_path(
+                        "/xyz/openbmc_project/control/host0/boot"),
+                    "xyz.openbmc_project.Control.Boot.Source", "BootSource",
+                    "Boot/BootSourceOverrideTarget", bootSourceStr);
+    setDbusProperty(asyncResp, "xyz.openbmc_project.Settings",
+                    sdbusplus::message::object_path(
+                        "/xyz/openbmc_project/control/host0/boot"),
+                    "xyz.openbmc_project.Control.Boot.Mode", "BootMode",
+                    "Boot/BootSourceOverrideTarget", bootModeStr);
 }
 
 /**
@@ -1839,18 +1774,9 @@ inline void setAssetTag(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             return;
         }
 
-        sdbusplus::asio::setProperty(
-            *crow::connections::systemBus, service, path,
-            "xyz.openbmc_project.Inventory.Decorator.AssetTag", "AssetTag",
-            assetTag, [asyncResp](const boost::system::error_code& ec2) {
-            if (ec2)
-            {
-                BMCWEB_LOG_ERROR("D-Bus response error on AssetTag Set {}",
-                                 ec2);
-                messages::internalError(asyncResp->res);
-                return;
-            }
-        });
+        setDbusProperty(asyncResp, service, path,
+                        "xyz.openbmc_project.Inventory.Decorator.AssetTag",
+                        "AssetTag", "AssetTag", assetTag);
     });
 }
 
@@ -1903,21 +1829,11 @@ inline void
         return;
     }
 
-    sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/logging/settings",
-        "xyz.openbmc_project.Logging.Settings", "QuiesceOnHwError",
-        *stopBootEnabled, [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            if (ec.value() != EBADR)
-            {
-                BMCWEB_LOG_ERROR("DBUS response error {}", ec);
-                messages::internalError(asyncResp->res);
-            }
-            return;
-        }
-    });
+    setDbusProperty(asyncResp, "xyz.openbmc_project.Settings",
+                    sdbusplus::message::object_path(
+                        "/xyz/openbmc_project/logging/settings"),
+                    "xyz.openbmc_project.Logging.Settings", "QuiesceOnHwError",
+                    "Boot/StopBootOnFault", *stopBootEnabled);
 }
 
 /**
@@ -1954,18 +1870,12 @@ inline void
         return;
     }
 
-    sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/control/host0/auto_reboot",
-        "xyz.openbmc_project.Control.Boot.RebootPolicy", "AutoReboot",
-        autoRebootEnabled, [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("DBUS response error {}", ec);
-            messages::internalError(asyncResp->res);
-            return;
-        }
-    });
+    setDbusProperty(asyncResp, "xyz.openbmc_project.Settings",
+                    sdbusplus::message::object_path(
+                        "/xyz/openbmc_project/control/host0/auto_reboot"),
+                    "xyz.openbmc_project.Control.Boot.RebootPolicy",
+                    "AutoReboot", "Boot/AutomaticRetryConfig",
+                    autoRebootEnabled);
 }
 
 inline std::string dbusPowerRestorePolicyFromRedfish(std::string_view policy)
@@ -2008,18 +1918,12 @@ inline void
         return;
     }
 
-    sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/control/host0/power_restore_policy",
+    setDbusProperty(
+        asyncResp, "xyz.openbmc_project.Settings",
+        sdbusplus::message::object_path(
+            "/xyz/openbmc_project/control/host0/power_restore_policy"),
         "xyz.openbmc_project.Control.Power.RestorePolicy", "PowerRestorePolicy",
-        powerRestorePolicy, [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("DBUS response error {}", ec);
-            messages::internalError(asyncResp->res);
-            return;
-        }
-    });
+        "PowerRestorePolicy", powerRestorePolicy);
 }
 
 #ifdef BMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE
@@ -2388,17 +2292,9 @@ inline void setPowerMode(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         BMCWEB_LOG_DEBUG("Setting power mode({}) -> {}", powerMode, path);
 
         // Set the Power Mode property
-        sdbusplus::asio::setProperty(
-            *crow::connections::systemBus, service, path,
-            "xyz.openbmc_project.Control.Power.Mode", "PowerMode", powerMode,
-            [asyncResp](const boost::system::error_code& ec2) {
-            if (ec2)
-            {
-                BMCWEB_LOG_ERROR("DBUS response error {}", ec2);
-                messages::internalError(asyncResp->res);
-                return;
-            }
-        });
+        setDbusProperty(asyncResp, service, path,
+                        "xyz.openbmc_project.Control.Power.Mode", "PowerMode",
+                        "PowerMode", powerMode);
     });
 }
 
@@ -2556,34 +2452,20 @@ inline void
             return;
         }
 
-        sdbusplus::asio::setProperty(
-            *crow::connections::systemBus, "xyz.openbmc_project.Watchdog",
-            "/xyz/openbmc_project/watchdog/host0",
-            "xyz.openbmc_project.State.Watchdog", "ExpireAction",
-            wdtTimeOutActStr, [asyncResp](const boost::system::error_code& ec) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR("DBUS response error {}", ec);
-                messages::internalError(asyncResp->res);
-                return;
-            }
-        });
+        setDbusProperty(asyncResp, "xyz.openbmc_project.Watchdog",
+                        sdbusplus::message::object_path(
+                            "/xyz/openbmc_project/watchdog/host0"),
+                        "xyz.openbmc_project.State.Watchdog", "ExpireAction",
+                        "HostWatchdogTimer/TimeoutAction", wdtTimeOutActStr);
     }
 
     if (wdtEnable)
     {
-        sdbusplus::asio::setProperty(
-            *crow::connections::systemBus, "xyz.openbmc_project.Watchdog",
-            "/xyz/openbmc_project/watchdog/host0",
-            "xyz.openbmc_project.State.Watchdog", "Enabled", *wdtEnable,
-            [asyncResp](const boost::system::error_code& ec) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR("DBUS response error {}", ec);
-                messages::internalError(asyncResp->res);
-                return;
-            }
-        });
+        setDbusProperty(asyncResp, "xyz.openbmc_project.Watchdog",
+                        sdbusplus::message::object_path(
+                            "/xyz/openbmc_project/watchdog/host0"),
+                        "xyz.openbmc_project.State.Watchdog", "Enabled",
+                        "HostWatchdogTimer/FunctionEnabled", *wdtEnable);
     }
 }
 
@@ -2814,81 +2696,45 @@ inline void
 
         if (ipsEnable)
         {
-            sdbusplus::asio::setProperty(
-                *crow::connections::systemBus, service, path,
-                "xyz.openbmc_project.Control.Power.IdlePowerSaver", "Enabled",
-                *ipsEnable, [asyncResp](const boost::system::error_code& ec2) {
-                if (ec2)
-                {
-                    BMCWEB_LOG_ERROR("DBUS response error {}", ec2);
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-            });
+            setDbusProperty(asyncResp, service, path,
+                            "xyz.openbmc_project.Control.Power.IdlePowerSaver",
+                            "Enabled", "IdlePowerSaver/Enabled", *ipsEnable);
         }
         if (ipsEnterUtil)
         {
-            sdbusplus::asio::setProperty(
-                *crow::connections::systemBus, service, path,
-                "xyz.openbmc_project.Control.Power.IdlePowerSaver",
-                "EnterUtilizationPercent", *ipsEnterUtil,
-                [asyncResp](const boost::system::error_code& ec2) {
-                if (ec2)
-                {
-                    BMCWEB_LOG_ERROR("DBUS response error {}", ec2);
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-            });
+            setDbusProperty(asyncResp, service, path,
+                            "xyz.openbmc_project.Control.Power.IdlePowerSaver",
+                            "EnterUtilizationPercent",
+                            "IdlePowerSaver/EnterUtilizationPercent",
+                            *ipsEnterUtil);
         }
         if (ipsEnterTime)
         {
             // Convert from seconds into milliseconds for DBus
             const uint64_t timeMilliseconds = *ipsEnterTime * 1000;
-            sdbusplus::asio::setProperty(
-                *crow::connections::systemBus, service, path,
-                "xyz.openbmc_project.Control.Power.IdlePowerSaver",
-                "EnterDwellTime", timeMilliseconds,
-                [asyncResp](const boost::system::error_code& ec2) {
-                if (ec2)
-                {
-                    BMCWEB_LOG_ERROR("DBUS response error {}", ec2);
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-            });
+            setDbusProperty(asyncResp, service, path,
+                            "xyz.openbmc_project.Control.Power.IdlePowerSaver",
+                            "EnterDwellTime",
+                            "IdlePowerSaver/EnterDwellTimeSeconds",
+                            timeMilliseconds);
         }
         if (ipsExitUtil)
         {
-            sdbusplus::asio::setProperty(
-                *crow::connections::systemBus, service, path,
-                "xyz.openbmc_project.Control.Power.IdlePowerSaver",
-                "ExitUtilizationPercent", *ipsExitUtil,
-                [asyncResp](const boost::system::error_code& ec2) {
-                if (ec2)
-                {
-                    BMCWEB_LOG_ERROR("DBUS response error {}", ec2);
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-            });
+            setDbusProperty(asyncResp, service, path,
+                            "xyz.openbmc_project.Control.Power.IdlePowerSaver",
+                            "ExitUtilizationPercent",
+                            "IdlePowerSaver/ExitUtilizationPercent",
+                            *ipsExitUtil);
         }
         if (ipsExitTime)
         {
             // Convert from seconds into milliseconds for DBus
             const uint64_t timeMilliseconds = *ipsExitTime * 1000;
-            sdbusplus::asio::setProperty(
-                *crow::connections::systemBus, service, path,
-                "xyz.openbmc_project.Control.Power.IdlePowerSaver",
-                "ExitDwellTime", timeMilliseconds,
-                [asyncResp](const boost::system::error_code& ec2) {
-                if (ec2)
-                {
-                    BMCWEB_LOG_ERROR("DBUS response error {}", ec2);
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-            });
+            setDbusProperty(asyncResp, service, path,
+                            "xyz.openbmc_project.Control.Power.IdlePowerSaver",
+                            "ExitDwellTime",
+                            "IdlePowerSaver/ExitDwellTimeSeconds",
+                            timeMilliseconds);
         }
     });
 
