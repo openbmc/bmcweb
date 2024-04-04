@@ -16,6 +16,75 @@
       "message": "Made a bunch of fixes.\n\nAdded the correct message to error_messages.cpp\n\nFixed the variable names.\n\nChanged the prototype so the template parameter was the last argument.\n\nHandled the case where an action might not have ANY attributes, and logged a different error in that case.\n\nPTAL",
       "revId": "20e803889c11260dd069738f71949c2941c678d2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7dde7a74_cb177c36",
+        "filename": "redfish-core/include/error_messages.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-04-04T19:21:38Z",
+      "side": 1,
+      "message": "nit: actionParameterValueError",
+      "range": {
+        "startLine": 854,
+        "startChar": 18,
+        "endLine": 854,
+        "endChar": 47
+      },
+      "revId": "20e803889c11260dd069738f71949c2941c678d2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "340d2763_ea3cb265",
+        "filename": "redfish-core/include/error_messages.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-04-04T19:21:38Z",
+      "side": 1,
+      "message": "should be removed",
+      "range": {
+        "startLine": 860,
+        "startChar": 0,
+        "endLine": 860,
+        "endChar": 73
+      },
+      "revId": "20e803889c11260dd069738f71949c2941c678d2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c9aec0c_efd7f0a8",
+        "filename": "redfish-core/src/utils/dbus_utils.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-04-04T19:21:38Z",
+      "side": 1,
+      "message": "actionParameterValueError implies \u003carg1\u003e of \u003carg2\u003e is invalid/not supported?\n\nIsn\u0027t \"actionParameterNotSupported\" okay (as in previous PS)?",
+      "range": {
+        "startLine": 95,
+        "startChar": 26,
+        "endLine": 95,
+        "endChar": 51
+      },
+      "revId": "20e803889c11260dd069738f71949c2941c678d2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
