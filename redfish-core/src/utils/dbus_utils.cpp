@@ -27,6 +27,12 @@ void afterSetProperty(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         {
             messages::insufficientPrivilege(asyncResp->res);
         }
+        if (ec.value() == boost::asio::error::host_unreachable)
+        {
+            messages::resourceNotFound(asyncResp->res, "Set",
+                                       redfishPropertyName);
+            return;
+        }
         const sd_bus_error* dbusError = msg.get_error();
         if (dbusError != nullptr)
         {
@@ -58,6 +64,11 @@ void afterSetProperty(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             {
                 messages::propertyNotWritable(asyncResp->res,
                                               redfishPropertyName);
+                return;
+            }
+            if (errorName == "xyz.openbmc_project.Common.Error.Unavailable")
+            {
+                messages::resourceInStandby(asyncResp->res);
                 return;
             }
         }
