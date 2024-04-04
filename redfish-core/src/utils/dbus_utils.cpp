@@ -27,6 +27,16 @@ void afterSetProperty(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         {
             messages::insufficientPrivilege(asyncResp->res);
         }
+        if (ec.value() == boost::asio::error::host_unreachable)
+        {
+            messages::resourceNotFound(asyncResp->res, "Set",
+                                       redfishPropertyName);
+            return;
+        }
+        if (ec.value() != EBADR)
+        {
+            messages::internalError(asyncResp->res);
+        }
         const sd_bus_error* dbusError = msg.get_error();
         if (dbusError != nullptr)
         {
@@ -60,13 +70,57 @@ void afterSetProperty(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                                               redfishPropertyName);
                 return;
             }
+            if (errorName == "xyz.openbmc_project.Common.Error.Unavailable")
+            {
+                messages::resourceInStandby(asyncResp->res);
+                return;
+            }
         }
         BMCWEB_LOG_ERROR("D-Bus error setting Redfish Property {} ec={}",
                          redfishPropertyName, ec);
         messages::internalError(asyncResp->res);
         return;
     }
-    // Only set 204 if another erro hasn't already happened.
+    // Only set 204 if another error hasn't already happened.
+    if (asyncResp->res.result() == boost::beast::http::status::ok)
+    {
+        asyncResp->res.result(boost::beast::http::status::no_content);
+    }
+};
+
+void afterSetPropertyAction(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& redfishActionName,
+                            const std::string& redfishPropertyName,
+                            const boost::system::error_code& ec,
+                            const sdbusplus::message_t& /*msg*/)
+{
+    if (ec)
+    {
+        if (ec.value() == boost::asio::error::invalid_argument)
+        {
+            BMCWEB_LOG_WARNING(
+                "Resource {} is patched with invalid argument during action {}",
+                redfishPropertyName, redfishActionName);
+            messages::actionParameterNotSupported(
+                asyncResp->res, redfishPropertyName, redfishActionName);
+            return;
+        }
+        if (ec.value() == boost::asio::error::host_unreachable)
+        {
+            BMCWEB_LOG_WARNING(
+                "Resource {} is not found while performing action {}",
+                redfishPropertyName, redfishActionName);
+            messages::resourceNotFound(asyncResp->res, "Actions",
+                                       redfishActionName);
+            return;
+        }
+
+        BMCWEB_LOG_ERROR("D-Bus error setting Redfish Property {} ec={}",
+                         redfishPropertyName, ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    // Only set 204 if another error hasn't already happened.
     if (asyncResp->res.result() == boost::beast::http::status::ok)
     {
         asyncResp->res.result(boost::beast::http::status::no_content);
