@@ -1399,65 +1399,6 @@ inline void
 }
 
 /**
- * Handle the D-Bus response from attempting to set the CPU's AppliedConfig
- * property. Main task is to translate error messages into Redfish errors.
- *
- * @param[in,out]   resp    HTTP response.
- * @param[in]       setPropVal  Value which we attempted to set.
- * @param[in]       ec      D-Bus response error code.
- * @param[in]       msg     D-Bus response message.
- */
-inline void
-    handleAppliedConfigResponse(const std::shared_ptr<bmcweb::AsyncResp>& resp,
-                                const std::string& setPropVal,
-                                const boost::system::error_code& ec,
-                                const sdbusplus::message_t& msg)
-{
-    if (!ec)
-    {
-        BMCWEB_LOG_DEBUG("Set Property succeeded");
-        return;
-    }
-
-    BMCWEB_LOG_DEBUG("Set Property failed: {}", ec);
-
-    const sd_bus_error* dbusError = msg.get_error();
-    if (dbusError == nullptr)
-    {
-        messages::internalError(resp->res);
-        return;
-    }
-
-    // The asio error code doesn't know about our custom errors, so we have to
-    // parse the error string. Some of these D-Bus -> Redfish translations are a
-    // stretch, but it's good to try to communicate something vaguely useful.
-    if (strcmp(dbusError->name,
-               "xyz.openbmc_project.Common.Error.InvalidArgument") == 0)
-    {
-        // Service did not like the object_path we tried to set.
-        messages::propertyValueIncorrect(
-            resp->res, "AppliedOperatingConfig/@odata.id", setPropVal);
-    }
-    else if (strcmp(dbusError->name,
-                    "xyz.openbmc_project.Common.Error.NotAllowed") == 0)
-    {
-        // Service indicates we can never change the config for this processor.
-        messages::propertyNotWritable(resp->res, "AppliedOperatingConfig");
-    }
-    else if (strcmp(dbusError->name,
-                    "xyz.openbmc_project.Common.Error.Unavailable") == 0)
-    {
-        // Service indicates the config cannot be changed right now, but maybe
-        // in a different system state.
-        messages::resourceInStandby(resp->res);
-    }
-    else
-    {
-        messages::internalError(resp->res);
-    }
-}
-
-/**
  * Handle the PATCH operation of the AppliedOperatingConfig property. Do basic
  * validation of the input data, and then set the D-Bus property.
  *
@@ -1500,8 +1441,8 @@ inline void patchAppliedOperatingConfig(
     if (!appliedConfigUri.starts_with(expectedPrefix) ||
         expectedPrefix.size() == appliedConfigUri.size())
     {
-        messages::propertyValueIncorrect(
-            resp->res, "AppliedOperatingConfig/@odata.id", appliedConfigUri);
+        messages::propertyValueIncorrect(resp->res, "AppliedOperatingConfig",
+                                         appliedConfigUri);
         return;
     }
 
@@ -1516,14 +1457,10 @@ inline void patchAppliedOperatingConfig(
     BMCWEB_LOG_INFO("Setting config to {}", configPath.str);
 
     // Set the property, with handler to check error responses
-    sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, *controlService, cpuObjectPath,
+    setDbusProperty(
+        resp, *controlService, cpuObjectPath,
         "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig",
-        "AppliedConfig", configPath,
-        [resp, appliedConfigUri](const boost::system::error_code& ec,
-                                 const sdbusplus::message_t& msg) {
-        handleAppliedConfigResponse(resp, appliedConfigUri, ec, msg);
-    });
+        "AppliedConfig", "AppliedOperatingConfig", configPath);
 }
 
 inline void

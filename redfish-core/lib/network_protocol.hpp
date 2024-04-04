@@ -361,16 +361,9 @@ inline void
                         continue;
                     }
 
-                    sdbusplus::asio::setProperty(
-                        *crow::connections::systemBus, service, objectPath,
-                        interface, "StaticNTPServers", currentNtpServers,
-                        [asyncResp](const boost::system::error_code& ec2) {
-                        if (ec2)
-                        {
-                            messages::internalError(asyncResp->res);
-                            return;
-                        }
-                    });
+                    setDbusProperty(asyncResp, service, objectPath, interface,
+                                    "StaticNTPServers", "NTP/NTPServers/",
+                                    currentNtpServers);
                 }
             }
         }
@@ -399,30 +392,14 @@ inline void
         {
             if (entry.first.starts_with(netBasePath))
             {
-                sdbusplus::asio::setProperty(
-                    *crow::connections::systemBus, entry.second.begin()->first,
-                    entry.first,
+                setDbusProperty(
+                    asyncResp, entry.second.begin()->first, entry.first,
                     "xyz.openbmc_project.Control.Service.Attributes", "Running",
-                    protocolEnabled,
-                    [asyncResp](const boost::system::error_code& ec2) {
-                    if (ec2)
-                    {
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
-                });
-                sdbusplus::asio::setProperty(
-                    *crow::connections::systemBus, entry.second.begin()->first,
-                    entry.first,
+                    "IPMI/ProtocolEnabled", protocolEnabled);
+                setDbusProperty(
+                    asyncResp, entry.second.begin()->first, entry.first,
                     "xyz.openbmc_project.Control.Service.Attributes", "Enabled",
-                    protocolEnabled,
-                    [asyncResp](const boost::system::error_code& ec2) {
-                    if (ec2)
-                    {
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
-                });
+                    "IPMI/ProtocolEnabled", protocolEnabled);
             }
         }
     });
