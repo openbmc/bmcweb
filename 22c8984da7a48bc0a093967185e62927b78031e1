@@ -56,6 +56,24 @@
       "message": "Can you add that this is the default nginx size? I.e., can you repeat some of the commit msg here?",
       "revId": "22c8984da7a48bc0a093967185e62927b78031e1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e872bbbe_c8cb3417",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-05T23:03:56Z",
+      "side": 1,
+      "message": "The awkward part here is that I\u0027m not even sure this number is right.  It\u0027s still arbitrary.  The old way used to be the whole file, the new way is 4k (which is too small, because I can see the performance impact on a browser).  That\u0027s why I\u0027m avoiding documenting it.",
+      "parentUuid": "dc3e09a4_635f1e60",
+      "revId": "22c8984da7a48bc0a093967185e62927b78031e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
