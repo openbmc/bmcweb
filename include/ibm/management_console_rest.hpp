@@ -4,7 +4,7 @@
 #include "async_resp.hpp"
 #include "error_messages.hpp"
 #include "event_service_manager.hpp"
-#include "ibm/locks.hpp"
+#include "ibm/utils.hpp"
 #include "resource_messages.hpp"
 #include "str_utility.hpp"
 #include "utils/json_utils.hpp"
@@ -16,14 +16,6 @@
 #include <filesystem>
 #include <fstream>
 
-using SType = std::string;
-using SegmentFlags = std::vector<std::pair<std::string, uint32_t>>;
-using LockRequest = std::tuple<SType, SType, SType, uint64_t, SegmentFlags>;
-using LockRequests = std::vector<LockRequest>;
-using Rc = std::pair<bool, std::variant<uint32_t, LockRequest>>;
-using RcGetLockList =
-    std::variant<std::string, std::vector<std::pair<uint32_t, LockRequests>>>;
-using ListOfSessionIds = std::vector<std::string>;
 namespace crow
 {
 namespace ibm_mc
@@ -277,22 +269,6 @@ inline void
     }
 }
 
-inline void
-    getLockServiceData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
-{
-    asyncResp->res.jsonValue["@odata.type"] = "#LockService.v1_0_0.LockService";
-    asyncResp->res.jsonValue["@odata.id"] = "/ibm/v1/HMC/LockService/";
-    asyncResp->res.jsonValue["Id"] = "LockService";
-    asyncResp->res.jsonValue["Name"] = "LockService";
-
-    asyncResp->res.jsonValue["Actions"]["#LockService.AcquireLock"] = {
-        {"target", "/ibm/v1/HMC/LockService/Actions/LockService.AcquireLock"}};
-    asyncResp->res.jsonValue["Actions"]["#LockService.ReleaseLock"] = {
-        {"target", "/ibm/v1/HMC/LockService/Actions/LockService.ReleaseLock"}};
-    asyncResp->res.jsonValue["Actions"]["#LockService.GetLockList"] = {
-        {"target", "/ibm/v1/HMC/LockService/Actions/LockService.GetLockList"}};
-}
-
 inline void handleFileGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                           const std::string& fileID)
 {
@@ -399,248 +375,6 @@ inline void handleFileUrl(const crow::Request& req,
     }
 }
 
-inline void
-    handleAcquireLockAPI(const crow::Request& req,
-                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                         std::vector<nlohmann::json::object_t> body)
-{
-    LockRequests lockRequestStructure;
-    for (auto& element : body)
-    {
-        std::string lockType;
-        uint64_t resourceId = 0;
-
-        SegmentFlags segInfo;
-        std::vector<nlohmann::json::object_t> segmentFlags;
-
-        if (!redfish::json_util::readJsonObject(
-                element, asyncResp->res, "LockType", lockType, "ResourceID",
-                resourceId, "SegmentFlags", segmentFlags))
-        {
-            BMCWEB_LOG_DEBUG("Not a Valid JSON");
-            asyncResp->res.result(boost::beast::http::status::bad_request);
-            return;
-        }
-        BMCWEB_LOG_DEBUG("{}", lockType);
-        BMCWEB_LOG_DEBUG("{}", resourceId);
-
-        BMCWEB_LOG_DEBUG("Segment Flags are present");
-
-        for (auto& e : segmentFlags)
-        {
-            std::string lockFlags;
-            uint32_t segmentLength = 0;
-
-            if (!redfish::json_util::readJsonObject(
-                    e, asyncResp->res, "LockFlag", lockFlags, "SegmentLength",
-                    segmentLength))
-            {
-                asyncResp->res.result(boost::beast::http::status::bad_request);
-                return;
-            }
-
-            BMCWEB_LOG_DEBUG("Lockflag : {}", lockFlags);
-            BMCWEB_LOG_DEBUG("SegmentLength : {}", segmentLength);
-
-            segInfo.emplace_back(std::make_pair(lockFlags, segmentLength));
-        }
-
-        lockRequestStructure.emplace_back(make_tuple(
-            req.session->uniqueId, req.session->clientId.value_or(""), lockType,
-            resourceId, segInfo));
-    }
-
-    // print lock request into journal
-
-    for (auto& i : lockRequestStructure)
-    {
-        BMCWEB_LOG_DEBUG("{}", std::get<0>(i));
-        BMCWEB_LOG_DEBUG("{}", std::get<1>(i));
-        BMCWEB_LOG_DEBUG("{}", std::get<2>(i));
-        BMCWEB_LOG_DEBUG("{}", std::get<3>(i));
-
-        for (const auto& p : std::get<4>(i))
-        {
-            BMCWEB_LOG_DEBUG("{}, {}", p.first, p.second);
-        }
-    }
-
-    const LockRequests& t = lockRequestStructure;
-
-    auto varAcquireLock = crow::ibm_mc_lock::Lock::getInstance().acquireLock(t);
-
-    if (varAcquireLock.first)
-    {
-        // Either validity failure of there is a conflict with itself
-
-        auto validityStatus =
-            std::get<std::pair<bool, int>>(varAcquireLock.second);
-
-        if ((!validityStatus.first) && (validityStatus.second == 0))
-        {
-            BMCWEB_LOG_DEBUG("Not a Valid record");
-            BMCWEB_LOG_DEBUG("Bad json in request");
-            asyncResp->res.result(boost::beast::http::status::bad_request);
-            return;
-        }
-        if (validityStatus.first && (validityStatus.second == 1))
-        {
-            BMCWEB_LOG_ERROR("There is a conflict within itself");
-            asyncResp->res.result(boost::beast::http::status::conflict);
-            return;
-        }
-    }
-    else
-    {
-        auto conflictStatus =
-            std::get<crow::ibm_mc_lock::Rc>(varAcquireLock.second);
-        if (!conflictStatus.first)
-        {
-            BMCWEB_LOG_DEBUG("There is no conflict with the locktable");
-            asyncResp->res.result(boost::beast::http::status::ok);
-
-            auto var = std::get<uint32_t>(conflictStatus.second);
-            nlohmann::json returnJson;
-            returnJson["id"] = var;
-            asyncResp->res.jsonValue["TransactionID"] = var;
-            return;
-        }
-        BMCWEB_LOG_DEBUG("There is a conflict with the lock table");
-        asyncResp->res.result(boost::beast::http::status::conflict);
-        auto var =
-            std::get<std::pair<uint32_t, LockRequest>>(conflictStatus.second);
-        nlohmann::json returnJson;
-        nlohmann::json segments;
-        nlohmann::json myarray = nlohmann::json::array();
-        returnJson["TransactionID"] = var.first;
-        returnJson["SessionID"] = std::get<0>(var.second);
-        returnJson["HMCID"] = std::get<1>(var.second);
-        returnJson["LockType"] = std::get<2>(var.second);
-        returnJson["ResourceID"] = std::get<3>(var.second);
-
-        for (const auto& i : std::get<4>(var.second))
-        {
-            segments["LockFlag"] = i.first;
-            segments["SegmentLength"] = i.second;
-            myarray.push_back(segments);
-        }
-
-        returnJson["SegmentFlags"] = myarray;
-        BMCWEB_LOG_ERROR("Conflicting lock record: {}", returnJson);
-        asyncResp->res.jsonValue["Record"] = returnJson;
-        return;
-    }
-}
-inline void
-    handleRelaseAllAPI(const crow::Request& req,
-                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
-{
-    crow::ibm_mc_lock::Lock::getInstance().releaseLock(req.session->uniqueId);
-    asyncResp->res.result(boost::beast::http::status::ok);
-}
-
-inline void
-    handleReleaseLockAPI(const crow::Request& req,
-                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                         const std::vector<uint32_t>& listTransactionIds)
-{
-    BMCWEB_LOG_DEBUG("{}", listTransactionIds.size());
-    BMCWEB_LOG_DEBUG("Data is present");
-    for (unsigned int listTransactionId : listTransactionIds)
-    {
-        BMCWEB_LOG_DEBUG("{}", listTransactionId);
-    }
-
-    // validate the request ids
-
-    auto varReleaselock = crow::ibm_mc_lock::Lock::getInstance().releaseLock(
-        listTransactionIds, std::make_pair(req.session->clientId.value_or(""),
-                                           req.session->uniqueId));
-
-    if (!varReleaselock.first)
-    {
-        // validation Failed
-        BMCWEB_LOG_ERROR("handleReleaseLockAPI: validation failed");
-        asyncResp->res.result(boost::beast::http::status::bad_request);
-        return;
-    }
-    auto statusRelease =
-        std::get<crow::ibm_mc_lock::RcRelaseLock>(varReleaselock.second);
-    if (statusRelease.first)
-    {
-        // The current hmc owns all the locks, so we already released
-        // them
-        return;
-    }
-
-    // valid rid, but the current hmc does not own all the locks
-    BMCWEB_LOG_DEBUG("Current HMC does not own all the locks");
-    asyncResp->res.result(boost::beast::http::status::unauthorized);
-
-    auto var = statusRelease.second;
-    nlohmann::json returnJson;
-    nlohmann::json segments;
-    nlohmann::json myArray = nlohmann::json::array();
-    returnJson["TransactionID"] = var.first;
-    returnJson["SessionID"] = std::get<0>(var.second);
-    returnJson["HMCID"] = std::get<1>(var.second);
-    returnJson["LockType"] = std::get<2>(var.second);
-    returnJson["ResourceID"] = std::get<3>(var.second);
-
-    for (const auto& i : std::get<4>(var.second))
-    {
-        segments["LockFlag"] = i.first;
-        segments["SegmentLength"] = i.second;
-        myArray.push_back(segments);
-    }
-
-    returnJson["SegmentFlags"] = myArray;
-    BMCWEB_LOG_DEBUG("handleReleaseLockAPI: lockrecord: {}", returnJson);
-    asyncResp->res.jsonValue["Record"] = returnJson;
-}
-
-inline void
-    handleGetLockListAPI(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                         const ListOfSessionIds& listSessionIds)
-{
-    BMCWEB_LOG_DEBUG("{}", listSessionIds.size());
-
-    auto status =
-        crow::ibm_mc_lock::Lock::getInstance().getLockList(listSessionIds);
-    auto var = std::get<std::vector<std::pair<uint32_t, LockRequests>>>(status);
-
-    nlohmann::json lockRecords = nlohmann::json::array();
-
-    for (const auto& transactionId : var)
-    {
-        for (const auto& lockRecord : transactionId.second)
-        {
-            nlohmann::json returnJson;
-
-            returnJson["TransactionID"] = transactionId.first;
-            returnJson["SessionID"] = std::get<0>(lockRecord);
-            returnJson["HMCID"] = std::get<1>(lockRecord);
-            returnJson["LockType"] = std::get<2>(lockRecord);
-            returnJson["ResourceID"] = std::get<3>(lockRecord);
-
-            nlohmann::json segments;
-            nlohmann::json segmentInfoArray = nlohmann::json::array();
-
-            for (const auto& segment : std::get<4>(lockRecord))
-            {
-                segments["LockFlag"] = segment.first;
-                segments["SegmentLength"] = segment.second;
-                segmentInfoArray.push_back(segments);
-            }
-
-            returnJson["SegmentFlags"] = segmentInfoArray;
-            lockRecords.push_back(returnJson);
-        }
-    }
-    asyncResp->res.result(boost::beast::http::status::ok);
-    asyncResp->res.jsonValue["Records"] = lockRecords;
-}
-
 inline bool isValidConfigFileName(const std::string& fileName,
                                   crow::Response& res)
 {
@@ -690,8 +424,6 @@ inline void requestRoutes(App& app)
         asyncResp->res.jsonValue["Name"] = "IBM Service Root";
         asyncResp->res.jsonValue["ConfigFiles"]["@odata.id"] =
             "/ibm/v1/Host/ConfigFiles";
-        asyncResp->res.jsonValue["LockService"]["@odata.id"] =
-            "/ibm/v1/HMC/LockService";
         asyncResp->res.jsonValue["BroadcastService"]["@odata.id"] =
             "/ibm/v1/HMC/BroadcastService";
     });
@@ -728,75 +460,6 @@ inline void requestRoutes(App& app)
             return;
         }
         handleFileUrl(req, asyncResp, fileName);
-    });
-
-    BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService")
-        .privileges({{"ConfigureComponents", "ConfigureManager"}})
-        .methods(boost::beast::http::verb::get)(
-            [](const crow::Request&,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        getLockServiceData(asyncResp);
-    });
-
-    BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.AcquireLock")
-        .privileges({{"ConfigureComponents", "ConfigureManager"}})
-        .methods(boost::beast::http::verb::post)(
-            [](const crow::Request& req,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        std::vector<nlohmann::json::object_t> body;
-        if (!redfish::json_util::readJsonAction(req, asyncResp->res, "Request",
-                                                body))
-        {
-            BMCWEB_LOG_DEBUG("Not a Valid JSON");
-            asyncResp->res.result(boost::beast::http::status::bad_request);
-            return;
-        }
-        handleAcquireLockAPI(req, asyncResp, body);
-    });
-    BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.ReleaseLock")
-        .privileges({{"ConfigureComponents", "ConfigureManager"}})
-        .methods(boost::beast::http::verb::post)(
-            [](const crow::Request& req,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        std::string type;
-        std::vector<uint32_t> listTransactionIds;
-
-        if (!redfish::json_util::readJsonPatch(req, asyncResp->res, "Type",
-                                               type, "TransactionIDs",
-                                               listTransactionIds))
-        {
-            asyncResp->res.result(boost::beast::http::status::bad_request);
-            return;
-        }
-        if (type == "Transaction")
-        {
-            handleReleaseLockAPI(req, asyncResp, listTransactionIds);
-        }
-        else if (type == "Session")
-        {
-            handleRelaseAllAPI(req, asyncResp);
-        }
-        else
-        {
-            BMCWEB_LOG_DEBUG(" Value of Type : {}is Not a Valid key", type);
-            redfish::messages::propertyValueNotInList(asyncResp->res, type,
-                                                      "Type");
-        }
-    });
-    BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.GetLockList")
-        .privileges({{"ConfigureComponents", "ConfigureManager"}})
-        .methods(boost::beast::http::verb::post)(
-            [](const crow::Request& req,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        ListOfSessionIds listSessionIds;
-
-        if (!redfish::json_util::readJsonPatch(req, asyncResp->res,
-                                               "SessionIDs", listSessionIds))
-        {
-            asyncResp->res.result(boost::beast::http::status::bad_request);
-            return;
-        }
-        handleGetLockListAPI(asyncResp, listSessionIds);
     });
 
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/BroadcastService")
