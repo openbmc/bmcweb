@@ -3,6 +3,7 @@
 #include "logging.hpp"
 #include "utility.hpp"
 
+#include <fcntl.h>
 #include <unistd.h>
 
 #include <boost/beast/core/buffers_range.hpp>
@@ -138,6 +139,12 @@ class HttpBody::value_type
         else
         {
             BMCWEB_LOG_WARNING("Failed to read file size on {}", path);
+        }
+        int r = posix_fadvise(fileHandle.native_handle(), 0, 0,
+                              POSIX_FADV_SEQUENTIAL);
+        if (r != 0)
+        {
+            BMCWEB_LOG_WARNING("Fasvise returned {} ignoring", r);
         }
         ec = {};
     }
