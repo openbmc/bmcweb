@@ -11,9 +11,6 @@
 #include <csignal>
 #include <optional>
 #include <random>
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
-#include "ibm/locks.hpp"
-#endif
 
 namespace persistent_data
 {
@@ -310,9 +307,6 @@ class SessionStore
 
     void removeSession(const std::shared_ptr<UserSession>& session)
     {
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
-        crow::ibm_mc_lock::Lock::getInstance().releaseLock(session->uniqueId);
-#endif
         authTokens.erase(session->sessionToken);
         needWrite = true;
     }
@@ -396,10 +390,6 @@ class SessionStore
                 if (timeNow - authTokensIt->second->lastUpdated >=
                     timeoutInSeconds)
                 {
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
-                    crow::ibm_mc_lock::Lock::getInstance().releaseLock(
-                        authTokensIt->second->uniqueId);
-#endif
                     authTokensIt = authTokens.erase(authTokensIt);
 
                     needWrite = true;
