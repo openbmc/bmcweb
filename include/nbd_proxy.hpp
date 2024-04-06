@@ -125,9 +125,9 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
 
     void send(std::string_view buffer, std::function<void()>&& onDone)
     {
-        boost::asio::buffer_copy(ws2uxBuf.prepare(buffer.size()),
-                                 boost::asio::buffer(buffer));
-        ws2uxBuf.commit(buffer.size());
+        size_t copied = boost::asio::buffer_copy(
+            ws2uxBuf.prepare(buffer.size()), boost::asio::buffer(buffer));
+        ws2uxBuf.commit(copied);
 
         doWrite(std::move(onDone));
     }

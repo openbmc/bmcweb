@@ -52,11 +52,11 @@ class KvmSession : public std::enable_shared_from_this<KvmSession>
 
         BMCWEB_LOG_DEBUG("conn:{}, Read {} bytes from websocket", logPtr(&conn),
                          data.size());
-        boost::asio::buffer_copy(inputBuffer.prepare(data.size()),
-                                 boost::asio::buffer(data));
+        size_t copied = boost::asio::buffer_copy(
+            inputBuffer.prepare(data.size()), boost::asio::buffer(data));
         BMCWEB_LOG_DEBUG("conn:{}, Committing {} bytes from websocket",
-                         logPtr(&conn), data.size());
-        inputBuffer.commit(data.size());
+                         logPtr(&conn), copied);
+        inputBuffer.commit(copied);
 
         BMCWEB_LOG_DEBUG("conn:{}, inputbuffer size {}", logPtr(&conn),
                          inputBuffer.size());

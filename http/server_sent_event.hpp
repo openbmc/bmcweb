@@ -228,9 +228,9 @@ class ConnectionImpl : public Connection
         }
         rawData += "\n\n";
 
-        boost::asio::buffer_copy(inputBuffer.prepare(rawData.size()),
-                                 boost::asio::buffer(rawData));
-        inputBuffer.commit(rawData.size());
+        size_t copied = boost::asio::buffer_copy(
+            inputBuffer.prepare(rawData.size()), boost::asio::buffer(rawData));
+        inputBuffer.commit(copied);
     }
 
     void startTimeout()
