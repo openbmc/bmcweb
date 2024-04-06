@@ -128,7 +128,7 @@ inline void
  */
 inline std::string getTransferProtocolTypeFromUri(const std::string& imageUri)
 {
-    boost::system::result<boost::urls::url_view> url =
+    boost::system::result<boost::urls::url> url =
         boost::urls::parse_uri(imageUri);
     if (!url)
     {
@@ -367,7 +367,7 @@ enum class TransferProtocol
  *
  */
 inline std::optional<TransferProtocol>
-    getTransferProtocolFromUri(boost::urls::url_view imageUri)
+    getTransferProtocolFromUri(const boost::urls::url_view_base& imageUri)
 {
     std::string_view scheme = imageUri.scheme();
     if (scheme == "smb")
@@ -553,7 +553,7 @@ inline void validateParams(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
         return;
     }
-    boost::system::result<boost::urls::url_view> url =
+    boost::system::result<boost::urls::url> url =
         boost::urls::parse_uri(*actionParams.imageUrl);
     if (!url)
     {

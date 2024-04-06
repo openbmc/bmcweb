@@ -41,7 +41,7 @@
 #include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
 #include <boost/url/url.hpp>
-#include <boost/url/url_view.hpp>
+#include <boost/url/url_view_base.hpp>
 
 #include <cstdlib>
 #include <functional>
@@ -637,7 +637,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     explicit ConnectionInfo(
         boost::asio::io_context& iocIn, const std::string& idIn,
         const std::shared_ptr<ConnectionPolicy>& connPolicyIn,
-        boost::urls::url_view hostIn, unsigned int connIdIn) :
+        const boost::urls::url_view_base& hostIn, unsigned int connIdIn) :
         subId(idIn),
         connPolicy(connPolicyIn), host(hostIn), connId(connIdIn), ioc(iocIn),
         resolver(iocIn), conn(iocIn), timer(iocIn)
@@ -728,7 +728,7 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
         }
     }
 
-    void sendData(std::string&& data, boost::urls::url_view destUri,
+    void sendData(std::string&& data, const boost::urls::url_view_base& destUri,
                   const boost::beast::http::fields& httpHeader,
                   const boost::beast::http::verb verb,
                   const std::function<void(Response&)>& resHandler)
@@ -837,7 +837,7 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
     explicit ConnectionPool(
         boost::asio::io_context& iocIn, const std::string& idIn,
         const std::shared_ptr<ConnectionPolicy>& connPolicyIn,
-        boost::urls::url_view destIPIn) :
+        const boost::urls::url_view_base& destIPIn) :
         ioc(iocIn),
         id(idIn), connPolicy(connPolicyIn), destIP(destIPIn)
     {
@@ -880,7 +880,7 @@ class HttpClient
 
     // Send a request to destIP where additional processing of the
     // result is not required
-    void sendData(std::string&& data, boost::urls::url_view destUri,
+    void sendData(std::string&& data, const boost::urls::url_view_base& destUri,
                   const boost::beast::http::fields& httpHeader,
                   const boost::beast::http::verb verb)
     {
@@ -890,7 +890,8 @@ class HttpClient
 
     // Send request to destIP and use the provided callback to
     // handle the response
-    void sendDataWithCallback(std::string&& data, boost::urls::url_view destUrl,
+    void sendDataWithCallback(std::string&& data,
+                              const boost::urls::url_view_base& destUrl,
                               const boost::beast::http::fields& httpHeader,
                               const boost::beast::http::verb verb,
                               const std::function<void(Response&)>& resHandler)
