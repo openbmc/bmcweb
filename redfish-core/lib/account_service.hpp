@@ -2544,7 +2544,6 @@ inline void
     std::optional<std::string> roleId;
     std::optional<bool> locked;
     std::optional<std::vector<std::string>> accountTypes;
-    bool userSelf = (username == req.session->username);
     std::optional<nlohmann::json> oem;
 
     if (req.session == nullptr)
@@ -2578,6 +2577,7 @@ inline void
         return;
     }
 
+    bool userSelf = (username == req.session->username);
     Privileges effectiveUserPrivileges =
         redfish::getUserPrivileges(*req.session);
     Privileges configureUsers = {"ConfigureUsers"};
