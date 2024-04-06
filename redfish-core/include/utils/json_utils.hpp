@@ -659,21 +659,14 @@ template <typename... UnpackTypes>
 bool readJsonPatch(const crow::Request& req, crow::Response& res,
                    std::string_view key, UnpackTypes&&... in)
 {
-    std::optional<nlohmann::json> jsonRequest = readJsonPatchHelper(req, res);
+    std::optional<nlohmann::json::object_t> jsonRequest =
+        readJsonPatchHelper(req, res);
     if (!jsonRequest)
     {
         return false;
     }
-    nlohmann::json::object_t* object =
-        jsonRequest->get_ptr<nlohmann::json::object_t*>();
-    if (object == nullptr)
-    {
-        BMCWEB_LOG_DEBUG("Json value is empty");
-        messages::emptyJSON(res);
-        return false;
-    }
 
-    return readJsonObject(*object, res, key,
+    return readJsonObject(*jsonRequest, res, key,
                           std::forward<UnpackTypes&&>(in)...);
 }
 
