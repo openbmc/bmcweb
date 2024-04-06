@@ -387,11 +387,16 @@ bmcweb_dependencies += conf_h_dep
 fs = import('fs')
 
 srcfiles_bmcweb = files(
+  # Begin large files, should be at the beginning
+  'redfish-core/src/redfish.cpp',
+  'src/webserver_run.cpp',
+  # end large files
+
   'redfish-core/src/error_messages.cpp',
   'redfish-core/src/registries.cpp',
   'redfish-core/src/utils/dbus_utils.cpp',
-  'redfish-core/src/utils/time_utils.cpp',
   'redfish-core/src/utils/json_utils.cpp',
+  'redfish-core/src/utils/time_utils.cpp',
   'src/boost_asio_ssl.cpp',
   'src/boost_asio.cpp',
   'src/boost_beast.cpp',
