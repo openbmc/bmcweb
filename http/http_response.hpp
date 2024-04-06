@@ -80,6 +80,7 @@ struct Response
         }
         response = std::move(r.response);
         jsonValue = std::move(r.jsonValue);
+        expectedHash = std::move(r.expectedHash);
 
         // Only need to move completion handler if not already completed
         // Note, there are cases where we might move out of a Response object
@@ -140,6 +141,11 @@ struct Response
     }
 
     std::string_view getHeaderValue(std::string_view key) const
+    {
+        return fields()[key];
+    }
+
+    std::string_view getHeaderValue(boost::beast::http::field key) const
     {
         return fields()[key];
     }
