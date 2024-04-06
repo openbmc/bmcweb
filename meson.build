@@ -440,7 +440,6 @@ srcfiles_unittest = files(
   'test/include/async_resolve_test.cpp',
   'test/include/credential_pipe_test.cpp',
   'test/include/ibm/configfile_test.cpp',
-  'test/include/ibm/lock_test.cpp',
   'test/include/multipart_test.cpp',
   'test/include/openbmc_dbus_rest_test.cpp',
   'test/include/str_utility_test.cpp',
