@@ -167,17 +167,18 @@ class HTTP2Connection :
             close();
             return -1;
         }
-        Response& thisRes = it->second.res;
-        thisRes = std::move(completedRes);
-        crow::Request& thisReq = it->second.req;
+        Http2StreamData& stream = it->second;
+        Response& res = stream.res;
+        res = std::move(completedRes);
+        crow::Request& thisReq = stream.req;
+
+        completeResponseFields(thisReq, res);
+        res.addHeader(boost::beast::http::field::date, getCachedDateStr());
+        res.preparePayload();
+
+        boost::beast::http::fields& fields = res.fields();
+        std::string code = std::to_string(res.resultInt());
         std::vector<nghttp2_nv> hdr;
-
-        completeResponseFields(thisReq, thisRes);
-        thisRes.addHeader(boost::beast::http::field::date, getCachedDateStr());
-        thisRes.preparePayload();
-
-        boost::beast::http::fields& fields = thisRes.fields();
-        std::string code = std::to_string(thisRes.resultInt());
         hdr.emplace_back(
             headerFromStringViews(":status", code, NGHTTP2_NV_FLAG_NONE));
         for (const boost::beast::http::fields::value_type& header : fields)
@@ -185,8 +186,6 @@ class HTTP2Connection :
             hdr.emplace_back(headerFromStringViews(
                 header.name_string(), header.value(), NGHTTP2_NV_FLAG_NONE));
         }
-        Http2StreamData& stream = it->second;
-        crow::Response& res = stream.res;
         http::response<bmcweb::HttpBody>& fbody = res.response;
         stream.writer.emplace(fbody.base(), fbody.body());
 
@@ -279,6 +278,13 @@ class HTTP2Connection :
         else
 #endif // BMCWEB_INSECURE_DISABLE_AUTHX
         {
+            std::string_view expected = thisReq.getHeaderValue(
+                boost::beast::http::field::if_none_match);
+            BMCWEB_LOG_DEBUG("Setting expected hash {}", expected);
+            if (!expected.empty())
+            {
+                asyncResp->res.setExpectedHash(expected);
+            }
             handler->handle(thisReq, asyncResp);
         }
         return 0;
