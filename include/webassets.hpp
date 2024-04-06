@@ -25,6 +25,37 @@ struct CmpStr
     }
 };
 
+inline std::string getStaticEtag(const std::filesystem::path& webpath)
+{
+    // webpack outputs production chunks in the form:
+    // <filename>.<hash>.<extension>
+    // For example app.63e2c453.css
+    // Try to detect this, so we can use the hash as the ETAG
+    std::vector<std::string> split;
+    bmcweb::split(split, webpath.filename().string(), '.');
+    BMCWEB_LOG_DEBUG("Checking {} split.size() {}", webpath.filename().string(),
+                     split.size());
+    if (split.size() < 3)
+    {
+        return "";
+    }
+
+    // get the second to last element
+    std::string hash = split.rbegin()[1];
+
+    // Webpack hashes are 8 characters long
+    if (hash.size() != 8)
+    {
+        return "";
+    }
+    // Webpack hashes only include hex printable characters
+    if (hash.find_first_not_of("0123456789abcdefABCDEF") != std::string::npos)
+    {
+        return "";
+    }
+    return std::format("\"{}\"", hash);
+}
+
 inline void requestRoutes(App& app)
 {
     constexpr static std::array<std::pair<const char*, const char*>, 17>
@@ -99,6 +130,9 @@ inline void requestRoutes(App& app)
                 contentEncoding = "gzip";
             }
 
+            std::string etag = getStaticEtag(webpath);
+
+            bool renamed = false;
             if (webpath.filename().string().starts_with("index."))
             {
                 webpath = webpath.parent_path();
@@ -107,6 +141,7 @@ inline void requestRoutes(App& app)
                     // insert the non-directory version of this path
                     webroutes::routes.insert(webpath);
                     webpath += "/";
+                    renamed = true;
                 }
             }
 
@@ -147,9 +182,9 @@ inline void requestRoutes(App& app)
             }
 
             app.routeDynamic(webpath)(
-                [absolutePath, contentType, contentEncoding](
-                    const crow::Request&,
-                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                [absolutePath, contentType, contentEncoding, etag,
+                 renamed](const crow::Request& req,
+                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
                 if (contentType != nullptr)
                 {
                     asyncResp->res.addHeader(
@@ -161,6 +196,31 @@ inline void requestRoutes(App& app)
                     asyncResp->res.addHeader(
                         boost::beast::http::field::content_encoding,
                         contentEncoding);
+                }
+
+                if (!etag.empty())
+                {
+                    asyncResp->res.addHeader(boost::beast::http::field::etag,
+                                             etag);
+                    // Don't cache paths that don't have the etag in them, like
+                    // index, which gets transformed to /
+                    if (!renamed)
+                    {
+                        // Anything with a hash can be cached forever and is
+                        // immutable
+                        asyncResp->res.addHeader(
+                            boost::beast::http::field::cache_control,
+                            "max-age=31556926, immutable");
+                    }
+
+                    std::string_view cachedEtag = req.getHeaderValue(
+                        boost::beast::http::field::if_none_match);
+                    if (cachedEtag == etag)
+                    {
+                        asyncResp->res.result(
+                            boost::beast::http::status::not_modified);
+                        return;
+                    }
                 }
 
                 // res.set_header("Cache-Control", "public, max-age=86400");
