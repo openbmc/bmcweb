@@ -221,7 +221,7 @@ struct Context
 inline std::optional<sdbusplus::message::object_path>
     getReportPathFromReportDefinitionUri(const std::string& uri)
 {
-    boost::system::result<boost::urls::url_view> parsed =
+    boost::system::result<boost::urls::url> parsed =
         boost::urls::parse_relative_ref(uri);
 
     if (!parsed)
@@ -546,7 +546,7 @@ inline bool parseMetricProperties(crow::Response& res, Context& ctx)
     size_t uriIdx = 0;
     for (const std::string& uriStr : *ctx.metricProperties)
     {
-        boost::system::result<boost::urls::url_view> uri =
+        boost::system::result<boost::urls::url> uri =
             boost::urls::parse_relative_ref(uriStr);
         if (!uri)
         {
