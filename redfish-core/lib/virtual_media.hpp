@@ -28,6 +28,7 @@
 #include <boost/process/async_pipe.hpp>
 #include <boost/url/format.hpp>
 #include <boost/url/url_view.hpp>
+#include <boost/url/url_view_base.hpp>
 
 #include <array>
 #include <ranges>
@@ -367,7 +368,7 @@ enum class TransferProtocol
  *
  */
 inline std::optional<TransferProtocol>
-    getTransferProtocolFromUri(boost::urls::url_view imageUri)
+    getTransferProtocolFromUri(const boost::urls::url_view_base& imageUri)
 {
     std::string_view scheme = imageUri.scheme();
     if (scheme == "smb")
