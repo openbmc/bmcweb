@@ -438,18 +438,18 @@ class UrlSegmentMatcherVisitor
     std::string_view segment;
 };
 
-inline bool readUrlSegments(boost::urls::url_view url,
+inline bool readUrlSegments(const boost::urls::url_view_base& url,
                             std::initializer_list<UrlSegment> segments)
 {
-    boost::urls::segments_view urlSegments = url.segments();
+    const boost::urls::segments_view& urlSegments = url.segments();
 
     if (!urlSegments.is_absolute())
     {
         return false;
     }
 
-    boost::urls::segments_view::iterator it = urlSegments.begin();
-    boost::urls::segments_view::iterator end = urlSegments.end();
+    boost::urls::segments_view::const_iterator it = urlSegments.begin();
+    boost::urls::segments_view::const_iterator end = urlSegments.end();
 
     for (const auto& segment : segments)
     {
@@ -482,16 +482,17 @@ inline bool readUrlSegments(boost::urls::url_view url,
 } // namespace details
 
 template <typename... Args>
-inline bool readUrlSegments(boost::urls::url_view url, Args&&... args)
+inline bool readUrlSegments(const boost::urls::url_view_base& url,
+                            Args&&... args)
 {
     return details::readUrlSegments(url, {std::forward<Args>(args)...});
 }
 
-inline boost::urls::url replaceUrlSegment(boost::urls::url_view urlView,
-                                          const uint replaceLoc,
-                                          std::string_view newSegment)
+inline boost::urls::url
+    replaceUrlSegment(const boost::urls::url_view_base& urlView,
+                      const uint replaceLoc, std::string_view newSegment)
 {
-    boost::urls::segments_view urlSegments = urlView.segments();
+    const boost::urls::segments_view& urlSegments = urlView.segments();
     boost::urls::url url("/");
 
     if (!urlSegments.is_absolute())
@@ -573,22 +574,11 @@ inline void setPortDefaults(boost::urls::url& url)
 
 namespace nlohmann
 {
-template <>
-struct adl_serializer<boost::urls::url>
-{
-    // nlohmann requires a specific casing to look these up in adl
-    // NOLINTNEXTLINE(readability-identifier-naming)
-    static void to_json(json& j, const boost::urls::url& url)
-    {
-        j = url.buffer();
-    }
-};
-
-template <>
-struct adl_serializer<boost::urls::url_view>
+template <std::derived_from<boost::urls::url_view_base> URL>
+struct adl_serializer<URL>
 {
     // NOLINTNEXTLINE(readability-identifier-naming)
-    static void to_json(json& j, boost::urls::url_view url)
+    static void to_json(json& j, const URL& url)
     {
         j = url.buffer();
     }

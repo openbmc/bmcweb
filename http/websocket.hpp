@@ -44,7 +44,7 @@ struct Connection : std::enable_shared_from_this<Connection>
     virtual void resumeRead() = 0;
     virtual boost::asio::io_context& getIoContext() = 0;
     virtual ~Connection() = default;
-    virtual boost::urls::url_view url() = 0;
+    virtual const boost::urls::url_view_base& url() = 0;
 };
 
 template <typename Adaptor>
@@ -54,7 +54,7 @@ class ConnectionImpl : public Connection
 
   public:
     ConnectionImpl(
-        const boost::urls::url_view& urlViewIn,
+        const boost::urls::url_view_base& urlViewIn,
         const std::shared_ptr<persistent_data::UserSession>& sessionIn,
         Adaptor adaptorIn, std::function<void(Connection&)> openHandlerIn,
         std::function<void(Connection&, const std::string&, bool)>
@@ -204,7 +204,7 @@ class ConnectionImpl : public Connection
         });
     }
 
-    boost::urls::url_view url() override
+    const boost::urls::url_view_base& url() override
     {
         return uri;
     }

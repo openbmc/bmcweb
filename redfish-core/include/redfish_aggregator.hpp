@@ -79,7 +79,7 @@ inline bool searchCollectionsArray(std::string_view uri,
         parseCount--;
     }
 
-    boost::system::result<boost::urls::url_view> parsedUrl =
+    boost::system::result<boost::urls::url> parsedUrl =
         boost::urls::parse_relative_ref(
             uri.substr(serviceRootUri.size(), parseCount));
     if (!parsedUrl)
@@ -111,7 +111,8 @@ inline bool searchCollectionsArray(std::string_view uri,
     }
 
     boost::urls::url collectionUrl(*it);
-    boost::urls::segments_view collectionSegments = collectionUrl.segments();
+    const boost::urls::segments_view collectionSegments =
+        collectionUrl.segments();
     boost::urls::segments_view::iterator itCollection =
         collectionSegments.begin();
     const boost::urls::segments_view::const_iterator endCollection =
@@ -176,7 +177,7 @@ static inline void addPrefixToStringItem(std::string& strValue,
         return;
     }
 
-    boost::urls::url_view thisUrl = *parsed;
+    const boost::urls::url_view_base& thisUrl = *parsed;
 
     // We don't need to aggregate JsonSchemas due to potential issues such as
     // version mismatches between aggregator and satellite BMCs.  For now
@@ -202,8 +203,8 @@ static inline void addPrefixToStringItem(std::string& strValue,
     const boost::urls::segments_view urlSegments = thisUrl.segments();
     bool addedPrefix = false;
     boost::urls::url url("/");
-    boost::urls::segments_view::iterator it = urlSegments.begin();
-    const boost::urls::segments_view::const_iterator end = urlSegments.end();
+    boost::urls::segments_view::const_iterator it = urlSegments.begin();
+    boost::urls::segments_view::const_iterator end = urlSegments.end();
 
     // Skip past the leading "/redfish/v1"
     it++;
@@ -671,9 +672,8 @@ class RedfishAggregator
 
         const boost::urls::segments_view urlSegments = thisReq.url().segments();
         boost::urls::url currentUrl("/");
-        boost::urls::segments_view::iterator it = urlSegments.begin();
-        const boost::urls::segments_view::const_iterator end =
-            urlSegments.end();
+        boost::urls::segments_view::const_iterator it = urlSegments.begin();
+        boost::urls::segments_view::const_iterator end = urlSegments.end();
 
         // Skip past the leading "/redfish/v1"
         it++;
@@ -1188,7 +1188,7 @@ class RedfishAggregator
     {
         using crow::utility::OrMorePaths;
         using crow::utility::readUrlSegments;
-        const boost::urls::url_view url = thisReq.url();
+        const boost::urls::url_view_base& url = thisReq.url();
 
         // We don't need to aggregate JsonSchemas due to potential issues such
         // as version mismatches between aggregator and satellite BMCs.  For
@@ -1214,9 +1214,8 @@ class RedfishAggregator
         // /redfish/v1/UpdateService/FirmwareInventory
         const boost::urls::segments_view urlSegments = url.segments();
         boost::urls::url currentUrl("/");
-        boost::urls::segments_view::iterator it = urlSegments.begin();
-        const boost::urls::segments_view::const_iterator end =
-            urlSegments.end();
+        boost::urls::segments_view::const_iterator it = urlSegments.begin();
+        boost::urls::segments_view::const_iterator end = urlSegments.end();
 
         // Skip past the leading "/redfish/v1"
         it++;
