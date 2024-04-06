@@ -205,7 +205,7 @@ struct QueryCapabilities
 // handlers so that handlers don't need to query again.
 inline Query delegate(const QueryCapabilities& queryCapabilities, Query& query)
 {
-    Query delegated;
+    Query delegated{};
     // delegate only
     if (query.isOnly && queryCapabilities.canDelegateOnly)
     {
@@ -376,7 +376,7 @@ inline bool getSelectParam(std::string_view value, Query& query)
 inline std::optional<Query> parseParameters(boost::urls::params_view urlParams,
                                             crow::Response& res)
 {
-    Query ret;
+    Query ret{};
     for (const boost::urls::params_view::value_type& it : urlParams)
     {
         if (it.key == "only")
@@ -700,29 +700,21 @@ inline std::optional<std::string> formatQueryForExpand(const Query& query)
         return "";
     }
     std::string str = "?$expand=";
-    bool queryTypeExpected = false;
     switch (query.expandType)
     {
-        case ExpandType::None:
-            return "";
         case ExpandType::Links:
-            queryTypeExpected = true;
             str += '~';
             break;
         case ExpandType::NotLinks:
-            queryTypeExpected = true;
             str += '.';
             break;
         case ExpandType::Both:
-            queryTypeExpected = true;
             str += '*';
             break;
+        case ExpandType::None:
+            return "";
         default:
             return std::nullopt;
-    }
-    if (!queryTypeExpected)
-    {
-        return std::nullopt;
     }
     str += "($levels=";
     str += std::to_string(query.expandLevel - 1);
