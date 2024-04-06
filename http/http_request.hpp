@@ -110,7 +110,7 @@ struct Request
         return req.target();
     }
 
-    boost::urls::url_view url() const
+    const boost::urls::url_view_base& url() const
     {
         return {urlBase};
     }
