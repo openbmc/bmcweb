@@ -339,7 +339,7 @@ class Connection :
             });
 
             redfish::dump_utils::getValidDumpEntryForAttachment(
-                asyncResp, url,
+                asyncResp, req.url(),
                 [asyncResp, this, self(shared_from_this())](
                     [[maybe_unused]] const std::string& objectPath,
                     [[maybe_unused]] const std::string& entryID,

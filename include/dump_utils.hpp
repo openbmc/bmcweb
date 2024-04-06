@@ -14,6 +14,7 @@
 
 #include <cstddef>
 #include <string>
+#include <string_view>
 
 namespace redfish
 {
@@ -21,7 +22,8 @@ namespace dump_utils
 {
 
 inline void getValidDumpEntryForAttachment(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const std::string& url,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::urls::url_view_base& url,
     std::function<void(const std::string& objectPath,
                        const std::string& /*entryID*/,
                        const std::string& /*dumpType*/)>&& callback)

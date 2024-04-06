@@ -4,6 +4,7 @@
 #include <boost/beast/http/fields.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/url/parse.hpp>
+#include <boost/url/url.hpp>
 #include <nlohmann/json.hpp>
 
 namespace persistent_data

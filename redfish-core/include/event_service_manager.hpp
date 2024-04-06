@@ -32,6 +32,7 @@
 #include <boost/asio/io_context.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/url/format.hpp>
+#include <boost/url/url_view_base.hpp>
 #include <sdbusplus/bus/match.hpp>
 
 #include <algorithm>
@@ -355,7 +356,8 @@ class Subscription : public persistent_data::UserSubscription
     Subscription(Subscription&&) = delete;
     Subscription& operator=(Subscription&&) = delete;
 
-    Subscription(boost::urls::url_view url, boost::asio::io_context& ioc) :
+    Subscription(const boost::urls::url_view_base& url,
+                 boost::asio::io_context& ioc) :
         policy(std::make_shared<crow::ConnectionPolicy>())
     {
         destinationUrl = url;
