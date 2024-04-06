@@ -144,6 +144,11 @@ struct Response
         return fields()[key];
     }
 
+    std::string_view getHeaderValue(boost::beast::http::field key) const
+    {
+        return fields()[key];
+    }
+
     void keepAlive(bool k)
     {
         response.keep_alive(k);
