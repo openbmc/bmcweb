@@ -1899,13 +1899,13 @@ inline void
     std::optional<bool> locked;
     std::optional<std::vector<std::string>> accountTypes;
 
-    bool userSelf = (username == req.session->username);
-
     if (req.session == nullptr)
     {
         messages::internalError(asyncResp->res);
         return;
     }
+
+    bool userSelf = (username == req.session->username);
 
     Privileges effectiveUserPrivileges =
         redfish::getUserPrivileges(*req.session);
