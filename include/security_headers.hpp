@@ -15,8 +15,11 @@ inline void addSecurityHeaders(crow::Response& res)
                                                  "includeSubdomains");
 
     res.addHeader(bf::pragma, "no-cache");
-    res.addHeader(bf::cache_control, "no-store, max-age=0");
 
+    if (res.getHeaderValue(bf::cache_control).empty())
+    {
+        res.addHeader(bf::cache_control, "no-store, max-age=0");
+    }
     res.addHeader("X-Content-Type-Options", "nosniff");
 
     std::string_view contentType = res.getHeaderValue("Content-Type");
