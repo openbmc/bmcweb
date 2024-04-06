@@ -7,6 +7,7 @@
 #include "ethernet.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "resource_messages.hpp"
 #include "utils/ip_utils.hpp"
 #include "utils/json_utils.hpp"
 
