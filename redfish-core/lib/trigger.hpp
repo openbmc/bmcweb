@@ -546,7 +546,7 @@ inline bool parseMetricProperties(crow::Response& res, Context& ctx)
     size_t uriIdx = 0;
     for (const std::string& uriStr : *ctx.metricProperties)
     {
-        boost::system::result<boost::urls::url_view> uri =
+        boost::system::result<boost::urls::url> uri =
             boost::urls::parse_relative_ref(uriStr);
         if (!uri)
         {

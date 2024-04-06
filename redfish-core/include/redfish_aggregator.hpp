@@ -202,7 +202,7 @@ static inline void addPrefixToStringItem(std::string& strValue,
     const boost::urls::segments_view urlSegments = thisUrl.segments();
     bool addedPrefix = false;
     boost::urls::url url("/");
-    boost::urls::segments_view::iterator it = urlSegments.begin();
+    boost::urls::segments_view::const_iterator it = urlSegments.begin();
     const boost::urls::segments_view::const_iterator end = urlSegments.end();
 
     // Skip past the leading "/redfish/v1"
@@ -671,9 +671,8 @@ class RedfishAggregator
 
         const boost::urls::segments_view urlSegments = thisReq.url().segments();
         boost::urls::url currentUrl("/");
-        boost::urls::segments_view::iterator it = urlSegments.begin();
-        const boost::urls::segments_view::const_iterator end =
-            urlSegments.end();
+        boost::urls::segments_view::const_iterator it = urlSegments.begin();
+        boost::urls::segments_view::const_iterator end = urlSegments.end();
 
         // Skip past the leading "/redfish/v1"
         it++;
@@ -1188,7 +1187,7 @@ class RedfishAggregator
     {
         using crow::utility::OrMorePaths;
         using crow::utility::readUrlSegments;
-        const boost::urls::url_view url = thisReq.url();
+        boost::urls::url_view url = thisReq.url();
 
         // We don't need to aggregate JsonSchemas due to potential issues such
         // as version mismatches between aggregator and satellite BMCs.  For
@@ -1214,9 +1213,8 @@ class RedfishAggregator
         // /redfish/v1/UpdateService/FirmwareInventory
         const boost::urls::segments_view urlSegments = url.segments();
         boost::urls::url currentUrl("/");
-        boost::urls::segments_view::iterator it = urlSegments.begin();
-        const boost::urls::segments_view::const_iterator end =
-            urlSegments.end();
+        boost::urls::segments_view::const_iterator it = urlSegments.begin();
+        boost::urls::segments_view::const_iterator end = urlSegments.end();
 
         // Skip past the leading "/redfish/v1"
         it++;
