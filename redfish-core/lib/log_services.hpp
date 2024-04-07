@@ -2198,8 +2198,8 @@ inline bool getHostLoggerEntries(
     return true;
 }
 
-inline void fillHostLoggerEntryJson(const std::string& logEntryID,
-                                    const std::string& msg,
+inline void fillHostLoggerEntryJson(std::string_view logEntryID,
+                                    std::string_view msg,
                                     nlohmann::json::object_t& logEntryJson)
 {
     // Fill in the log entry with the gathered data.
@@ -2368,14 +2368,13 @@ inline void requestRoutesSystemHostLoggerLogEntry(App& app)
                                        systemName);
             return;
         }
-        const std::string& targetID = param;
+        std::string_view targetID = param;
 
         uint64_t idInt = 0;
 
-        auto [ptr, ec] = std::from_chars(&*targetID.begin(), &*targetID.end(),
+        auto [ptr, ec] = std::from_chars(targetID.begin(), targetID.end(),
                                          idInt);
-        if (ec == std::errc::invalid_argument ||
-            ec == std::errc::result_out_of_range)
+        if (ec != std::errc{} || ptr != targetID.end())
         {
             messages::resourceNotFound(asyncResp->res, "LogEntry", param);
             return;
@@ -3920,31 +3919,38 @@ inline void requestRoutesPostCodesClear(App& app)
  *
  * @return bool true if the parsing is successful, false the parsing fails
  */
-inline bool parsePostCode(const std::string& postCodeID, uint64_t& currentValue,
+inline bool parsePostCode(std::string_view postCodeID, uint64_t& currentValue,
                           uint16_t& index)
 {
     std::vector<std::string> split;
     bmcweb::split(split, postCodeID, '-');
-    if (split.size() != 2 || split[0].length() < 2 || split[0].front() != 'B')
+    if (split.size() != 2)
+    {
+        return false;
+    }
+    std::string_view postCodeNumber = split[0];
+    if (postCodeNumber.size() < 2)
+    {
+        return false;
+    }
+    if (postCodeNumber[0] != 'B')
+    {
+        return false;
+    }
+    postCodeNumber.remove_prefix(1);
+    auto [ptrIndex, ecIndex] = std::from_chars(postCodeNumber.begin(),
+                                               postCodeNumber.end(), index);
+    if (ptrIndex != postCodeNumber.end() || ecIndex != std::errc())
     {
         return false;
     }
 
-    auto start = std::next(split[0].begin());
-    auto end = split[0].end();
-    auto [ptrIndex, ecIndex] = std::from_chars(&*start, &*end, index);
+    std::string_view postCodeIndex = split[1];
 
-    if (ptrIndex != &*end || ecIndex != std::errc())
-    {
-        return false;
-    }
+    auto [ptrValue, ecValue] = std::from_chars(
+        postCodeIndex.begin(), postCodeIndex.end(), currentValue);
 
-    start = split[1].begin();
-    end = split[1].end();
-
-    auto [ptrValue, ecValue] = std::from_chars(&*start, &*end, currentValue);
-
-    return ptrValue == &*end && ecValue == std::errc();
+    return ptrValue == postCodeIndex.end() && ecValue == std::errc();
 }
 
 static bool fillPostCodeEntry(
