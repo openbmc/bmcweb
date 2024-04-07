@@ -712,7 +712,11 @@ inline void addPCIeFunctionProperties(
     {
         const std::string* strProperty =
             std::get_if<std::string>(&property.second);
-
+        if (strProperty == nullptr)
+        {
+            BMCWEB_LOG_ERROR("Function wasn't a string?");
+            continue;
+        }
         if (property.first == functionName + "DeviceId")
         {
             resp.jsonValue["DeviceId"] = *strProperty;
@@ -799,11 +803,12 @@ inline void
                                    systemName);
         return;
     }
+    std::string_view pcieFunctionIdView = pcieFunctionIdStr;
 
     uint64_t pcieFunctionId = 0;
     std::from_chars_result result = std::from_chars(
-        &*pcieFunctionIdStr.begin(), &*pcieFunctionIdStr.end(), pcieFunctionId);
-    if (result.ec != std::errc{} || result.ptr != &*pcieFunctionIdStr.end())
+        pcieFunctionIdView.begin(), pcieFunctionIdView.end(), pcieFunctionId);
+    if (result.ec != std::errc{} || result.ptr != pcieFunctionIdView.end())
     {
         messages::resourceNotFound(asyncResp->res, "PCIeFunction",
                                    pcieFunctionIdStr);
