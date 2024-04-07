@@ -242,7 +242,6 @@ inline void getCpuDataByService(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
         asyncResp->res.jsonValue["Name"] = "Processor";
         asyncResp->res.jsonValue["ProcessorType"] = "CPU";
 
-        bool slotPresent = false;
         std::string corePath = objPath + "/core";
         size_t totalCores = 0;
         for (const auto& object : dbusData)
@@ -267,7 +266,6 @@ inline void getCpuDataByService(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                                 {
                                     if (*present)
                                     {
-                                        slotPresent = true;
                                         totalCores++;
                                     }
                                 }
@@ -276,19 +274,6 @@ inline void getCpuDataByService(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                     }
                 }
             }
-        }
-        // In getCpuDataByInterface(), state and health are set
-        // based on the present and functional status. If core
-        // count is zero, then it has a higher precedence.
-        if (slotPresent)
-        {
-            if (totalCores == 0)
-            {
-                // Slot is not populated, set status end return
-                asyncResp->res.jsonValue["Status"]["State"] = "Absent";
-                asyncResp->res.jsonValue["Status"]["Health"] = "OK";
-            }
-            asyncResp->res.jsonValue["TotalCores"] = totalCores;
         }
         return;
     });
