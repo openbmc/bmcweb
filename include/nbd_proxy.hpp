@@ -63,8 +63,13 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
         boost::system::error_code ec;
         peerSocket.close(ec);
 
-        BMCWEB_LOG_DEBUG("std::remove({})", socketId);
-        std::remove(socketId.c_str());
+        BMCWEB_LOG_DEBUG("std::filesystem::remove({})", socketId);
+        std::error_code ec2;
+        std::filesystem::remove(socketId.c_str(), ec2);
+        if (ec2)
+        {
+            BMCWEB_LOG_DEBUG("Failed to remove file, ignoring");
+        }
 
         crow::connections::systemBus->async_method_call(
             dbus::utility::logError, "xyz.openbmc_project.VirtualMedia", path,
