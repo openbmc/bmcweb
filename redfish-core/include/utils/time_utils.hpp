@@ -53,7 +53,6 @@ inline std::optional<std::chrono::milliseconds>
         // P1DT1H1M1.100S
         P,
         Days,
-        T,
         Hours,
         Minutes,
         Seconds,
@@ -74,14 +73,10 @@ inline std::optional<std::chrono::milliseconds>
             stage = ProcessingStage::Days;
             continue;
         }
-        if (stage == ProcessingStage::Days || stage == ProcessingStage::T)
+        if (stage == ProcessingStage::Days)
         {
             if (v.front() == 'T')
             {
-                if (stage == ProcessingStage::T)
-                {
-                    return std::nullopt;
-                }
                 v.remove_prefix(1);
                 stage = ProcessingStage::Hours;
                 continue;
