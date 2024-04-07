@@ -303,24 +303,24 @@ class Trie
   private:
     void debugNodePrint(Node* n, size_t level)
     {
+        std::string indent(2U * level, -' ');
         for (size_t i = 0; i < static_cast<size_t>(ParamType::MAX); i++)
         {
             if (n->paramChildrens[i] != 0U)
             {
-                BMCWEB_LOG_DEBUG(
-                    "{}({}{}",
-                    std::string(2U * level,
-                                ' ') /*, n->paramChildrens[i], ") "*/);
                 switch (static_cast<ParamType>(i))
                 {
                     case ParamType::STRING:
-                        BMCWEB_LOG_DEBUG("<str>");
+                        BMCWEB_LOG_DEBUG("{}({}) <str>", indent,
+                                         n->paramChildrens[i]);
                         break;
                     case ParamType::PATH:
+                        BMCWEB_LOG_DEBUG("{}({}) <path>", indent,
+                                         n->paramChildrens[i]);
                         BMCWEB_LOG_DEBUG("<path>");
                         break;
                     default:
-                        BMCWEB_LOG_DEBUG("<ERROR>");
+                        BMCWEB_LOG_DEBUG("{}<ERROR>", indent);
                         break;
                 }
 
@@ -329,9 +329,7 @@ class Trie
         }
         for (const Node::ChildMap::value_type& kv : n->children)
         {
-            BMCWEB_LOG_DEBUG("{}({}{}{}",
-                             std::string(2U * level, ' ') /*, kv.second, ") "*/,
-                             kv.first);
+            BMCWEB_LOG_DEBUG("{}({}{}) ", indent, kv.second, kv.first);
             debugNodePrint(&nodes[kv.second], level + 1);
         }
     }
