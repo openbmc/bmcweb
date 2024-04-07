@@ -790,8 +790,7 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
         {
             // If we can't buffer the request then we should let the
             // callback handle a 429 Too Many Requests dummy response
-            BMCWEB_LOG_ERROR("{}:{} request queue full.  Dropping request.",
-                             id);
+            BMCWEB_LOG_ERROR("{} request queue full.  Dropping request.", id);
             Response dummyRes;
             dummyRes.result(boost::beast::http::status::too_many_requests);
             resHandler(dummyRes);
