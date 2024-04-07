@@ -106,25 +106,32 @@ enum class UnpackErrorCode
 };
 
 template <typename ToType, typename FromType>
-bool checkRange(const FromType& from, std::string_view key)
+bool checkRange(const FromType& from [[maybe_unused]],
+                std::string_view key [[maybe_unused]])
 {
-    if (from > std::numeric_limits<ToType>::max())
-    {
-        BMCWEB_LOG_DEBUG("Value for key {} was greater than max: {}", key,
-                         __PRETTY_FUNCTION__);
-        return false;
-    }
-    if (from < std::numeric_limits<ToType>::lowest())
-    {
-        BMCWEB_LOG_DEBUG("Value for key {} was less than min: {}", key,
-                         __PRETTY_FUNCTION__);
-        return false;
-    }
     if constexpr (std::is_floating_point_v<ToType>)
     {
         if (std::isnan(from))
         {
             BMCWEB_LOG_DEBUG("Value for key {} was NAN", key);
+            return false;
+        }
+    }
+    if constexpr (std::numeric_limits<ToType>::max() <
+                  std::numeric_limits<FromType>::max())
+    {
+        if (from > std::numeric_limits<ToType>::max())
+        {
+            BMCWEB_LOG_DEBUG("Value for key {} was less than min: {}", key);
+            return false;
+        }
+    }
+    if constexpr (std::numeric_limits<ToType>::lowest() >
+                  std::numeric_limits<FromType>::lowest())
+    {
+        if (from < std::numeric_limits<ToType>::lowest())
+        {
+            BMCWEB_LOG_DEBUG("Value for key {} was less than min: {}", key);
             return false;
         }
     }
