@@ -3963,7 +3963,11 @@ static bool fillPostCodeEntry(
     // Get the Message from the MessageRegistry
     const registries::Message* message =
         registries::getMessage("OpenBMC.0.2.BIOSPOSTCode");
-
+    if (message == nullptr)
+    {
+        BMCWEB_LOG_CRITICAL("Couldn't find known message?");
+        return false;
+    }
     uint64_t currentCodeIndex = 0;
     uint64_t firstCodeTimeUs = 0;
     for (const std::pair<uint64_t, std::tuple<uint64_t, std::vector<uint8_t>>>&
