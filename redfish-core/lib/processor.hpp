@@ -282,12 +282,6 @@ inline void getCpuDataByService(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
         // count is zero, then it has a higher precedence.
         if (slotPresent)
         {
-            if (totalCores == 0)
-            {
-                // Slot is not populated, set status end return
-                asyncResp->res.jsonValue["Status"]["State"] = "Absent";
-                asyncResp->res.jsonValue["Status"]["Health"] = "OK";
-            }
             asyncResp->res.jsonValue["TotalCores"] = totalCores;
         }
         return;
