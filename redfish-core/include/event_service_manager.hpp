@@ -766,8 +766,17 @@ class EventServiceManager
             }
 
             persistent_data::getConfig().writeData();
-            std::remove(eventServiceFile);
-            BMCWEB_LOG_DEBUG("Remove old eventservice config");
+            std::error_code ec;
+            std::filesystem::remove(eventServiceFile, ec);
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG(
+                    "Failed to remove old event service file.  Ignoring");
+            }
+            else
+            {
+                BMCWEB_LOG_DEBUG("Remove old eventservice config");
+            }
         }
     }
 
