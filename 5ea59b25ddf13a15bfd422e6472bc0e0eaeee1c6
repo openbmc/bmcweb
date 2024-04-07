@@ -34,6 +34,24 @@
       "parentUuid": "c14c01be_242e5db6",
       "revId": "5ea59b25ddf13a15bfd422e6472bc0e0eaeee1c6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c192eab_eec83ce1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2024-04-07T13:40:17Z",
+      "side": 1,
+      "message": "I pushed the base commit today - WIP. https://gerrit.openbmc.org/c/openbmc/bmcweb/+/70652\n\nThe re-design of ConfigFile is not complete yet. I will push those changes on top of this commit in this month.\n\nI am OK if the removal of locks feature gets in before the re-design is complete - to get the covert failures fixed. @Gunnar - please share your views.",
+      "parentUuid": "1c30bdef_7504eec8",
+      "revId": "5ea59b25ddf13a15bfd422e6472bc0e0eaeee1c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
