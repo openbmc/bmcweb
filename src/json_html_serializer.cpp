@@ -492,6 +492,10 @@ static void dump(std::string& out, const nlohmann::json& val)
         {
             out += '\"';
             const std::string* ptr = val.get_ptr<const std::string*>();
+            if (ptr == nullptr)
+            {
+                return;
+            }
             dumpEscaped(out, *ptr);
             out += '\"';
             return;
