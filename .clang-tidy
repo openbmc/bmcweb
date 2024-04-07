@@ -331,5 +331,6 @@ CheckOptions:
   - { key: readability-identifier-naming.NamespaceCase, value: lower_case }
   - { key: readability-identifier-naming.StructCase,    value: CamelCase  }
   - { key: readability-identifier-naming.FunctionIgnoredRegexp,  value: (BMCWEB_LOG_DEBUG|BMCWEB_LOG_INFO|BMCWEB_LOG_WARNING|BMCWEB_LOG_ERROR|BMCWEB_LOG_CRITICAL) }
+  - { key: readability-identifier-naming.StructIgnoredRegexp,  value: (BMCWEB_LOG_DEBUG|BMCWEB_LOG_INFO|BMCWEB_LOG_WARNING|BMCWEB_LOG_ERROR|BMCWEB_LOG_CRITICAL) }
   - { key: cppcoreguidelines-macro-usage.AllowedRegexp, value: DEBUG*|NLOHMANN_JSON_SERIALIZE_ENUM }
   - { key: performance-unnecessary-value-param.AllowedTypes, value: ((segments_view)|(url_view)) }
