@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "946f74dd_12048abf",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-08T22:02:27Z",
+      "side": 0,
+      "message": "note, these are changed to use the absolute versions of set_notBefore, not the gmtime_adj_notBefore, which is relative to the current timestamp.",
+      "range": {
+        "startLine": 35,
+        "startChar": 9,
+        "endLine": 35,
+        "endChar": 19
+      },
+      "revId": "9985a20ad220262bc23df393d099c2c9ef1bf0ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
