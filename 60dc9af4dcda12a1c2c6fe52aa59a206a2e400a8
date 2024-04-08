@@ -16,6 +16,24 @@
       "message": "I am surprised we haven\u0027t seen complaints on this..",
       "revId": "60dc9af4dcda12a1c2c6fe52aa59a206a2e400a8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97a44c19_dd1fda5e",
+        "filename": "include/hostname_monitor.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-08T18:52:43Z",
+      "side": 1,
+      "message": "I\u0027m not sure people understand enough to know this was a temporary file, and I think it\u0027s created in /tmp, so it\u0027s not like it survives a reboot.  I would expect the BMC would work completely fine with this bug.",
+      "parentUuid": "c8a16d50_efc9e9fc",
+      "revId": "60dc9af4dcda12a1c2c6fe52aa59a206a2e400a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
