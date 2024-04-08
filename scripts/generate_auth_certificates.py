@@ -14,6 +14,8 @@ try:
 except ImportError:
     raise Exception("Please run pip install pyOpenSSL to run this script.")
 
+SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
+
 # Script to generate a certificates for a CA, server, and client
 # allowing for client authentication using mTLS certificates.
 # This can then be used to test mTLS client authentication for Redfish
@@ -31,8 +33,9 @@ def generateCACert(serial):
     cert.set_serial_number(serial)
     cert.set_version(2)
     cert.set_pubkey(key)
-    cert.gmtime_adj_notBefore(0)
-    cert.gmtime_adj_notAfter(10 * 365 * 24 * 60 * 60)
+
+    cert.set_notBefore(b"19700101000000Z")
+    cert.set_notAfter(b"20700101000000Z")
 
     caCertSubject = cert.get_subject()
     caCertSubject.countryName = "US"
@@ -58,7 +61,7 @@ def generateCACert(serial):
         [
             crypto.X509Extension(
                 b"authorityKeyIdentifier", False, b"keyid:always", issuer=cert
-            )
+            ),
         ]
     )
 
@@ -78,8 +81,9 @@ def generateCert(commonName, extensions, caKey, caCert, serial):
     cert.set_serial_number(serial)
     cert.set_version(2)
     cert.set_pubkey(key)
-    cert.gmtime_adj_notBefore(0)
-    cert.gmtime_adj_notAfter(365 * 24 * 60 * 60)
+
+    cert.set_notBefore(b"19700101000000Z")
+    cert.set_notAfter(b"20700101000000Z")
 
     certSubject = cert.get_subject()
     certSubject.countryName = "US"
@@ -89,16 +93,19 @@ def generateCert(commonName, extensions, caKey, caCert, serial):
     certSubject.organizationalUnitName = "bmcweb"
     certSubject.commonName = commonName
     cert.set_issuer(caCert.get_issuer())
+    san_list = [b"DNS:localhost", b"DNS:127.0.0.1"]
 
-    cert.add_extensions(extensions)
-    cert.add_extensions(
+    extensions.extend(
         [
             crypto.X509Extension(
                 b"authorityKeyIdentifier", False, b"keyid", issuer=caCert
-            )
+            ),
+            crypto.X509Extension(
+                b"subjectAltName", False, b", ".join(san_list)
+            ),
         ]
     )
-
+    cert.add_extensions(extensions)
     cert.sign(caKey, "sha256")
     return key, cert
 
@@ -125,25 +132,38 @@ def main():
             respectively."""
         )
     serial = 1000
-
+    certsDir = os.path.join(SCRIPT_DIR, "certs")
+    print(f"Writing certs to {certsDir}")
     try:
         print("Making certs directory.")
-        os.mkdir("certs")
+        os.mkdir(certsDir)
     except OSError as error:
         if error.errno == 17:
             print("certs directory already exists. Skipping...")
         else:
             print(error)
-    caKey, caCert = generateCACert(serial)
+
+    cacertFilename = os.path.join(certsDir, "CA-cert.cer")
+    cakeyFilename = os.path.join(certsDir, "CA-key.pem")
+    if os.path.exists(cacertFilename):
+        with open(cacertFilename, "rb") as cacert_file:
+            caCertDump = cacert_file.read()
+        caCert = crypto.load_certificate(crypto.FILETYPE_PEM, caCertDump)
+        with open(cakeyFilename, "rb") as cakey_file:
+            caKeyDump = cakey_file.read()
+        caKey = crypto.load_privatekey(crypto.FILETYPE_PEM, caKeyDump)
+    else:
+
+        caKey, caCert = generateCACert(serial)
+        caKeyDump = crypto.dump_privatekey(crypto.FILETYPE_PEM, caKey)
+        caCertDump = crypto.dump_certificate(crypto.FILETYPE_PEM, caCert)
+        with open(cacertFilename, "wb") as f:
+            f.write(caCertDump)
+            print("CA cert generated.")
+        with open(cakeyFilename, "wb") as f:
+            f.write(caKeyDump)
+            print("CA key generated.")
     serial += 1
-    caKeyDump = crypto.dump_privatekey(crypto.FILETYPE_PEM, caKey)
-    caCertDump = crypto.dump_certificate(crypto.FILETYPE_PEM, caCert)
-    with open("certs/CA-cert.pem", "wb") as f:
-        f.write(caCertDump)
-        print("CA cert generated.")
-    with open("certs/CA-key.pem", "wb") as f:
-        f.write(caKeyDump)
-        print("CA key generated.")
 
     clientExtensions = [
         crypto.X509Extension(
@@ -160,10 +180,10 @@ def main():
     serial += 1
     clientKeyDump = crypto.dump_privatekey(crypto.FILETYPE_PEM, clientKey)
     clientCertDump = crypto.dump_certificate(crypto.FILETYPE_PEM, clientCert)
-    with open("certs/client-key.pem", "wb") as f:
+    with open(os.path.join(certsDir, "client-key.pem"), "wb") as f:
         f.write(clientKeyDump)
         print("Client key generated.")
-    with open("certs/client-cert.pem", "wb") as f:
+    with open(os.path.join(certsDir, "client-cert.pem"), "wb") as f:
         f.write(clientCertDump)
         print("Client cert generated.")
 
@@ -182,16 +202,38 @@ def main():
     serial += 1
     serverKeyDump = crypto.dump_privatekey(crypto.FILETYPE_PEM, serverKey)
     serverCertDump = crypto.dump_certificate(crypto.FILETYPE_PEM, serverCert)
-    with open("certs/server-key.pem", "wb") as f:
+    with open(os.path.join(certsDir, "server-key.pem"), "wb") as f:
         f.write(serverKeyDump)
         print("Server key generated.")
-    with open("certs/server-cert.pem", "wb") as f:
+    with open(os.path.join(certsDir, "server-cert.pem"), "wb") as f:
         f.write(serverCertDump)
         print("Server cert generated.")
 
-    caCertJSON = {}
-    caCertJSON["CertificateString"] = caCertDump.decode()
-    caCertJSON["CertificateType"] = "PEM"
+    pkcs12Cert = crypto.PKCS12()
+    pkcs12Cert.set_certificate(clientCert)
+    pkcs12Cert.set_privatekey(clientKey)
+    pkcs12Cert.set_ca_certificates([caCert])
+    pkcs12Cert.set_friendlyname(bytes(username, encoding="utf-8"))
+    with open(os.path.join(certsDir, "client.p12"), "wb") as f:
+        f.write(pkcs12Cert.export())
+        print("Client p12 cert file generated and stored in client.p12.")
+        print(
+            "Copy this file to a system with a browser and install the "
+            "cert into the browser."
+        )
+        print(
+            "You will then be able to test redfish and webui "
+            "authentication using this certificate."
+        )
+        print(
+            "Note: this p12 file was generated without a password, so it "
+            "can be imported easily."
+        )
+
+    caCertJSON = {
+        "CertificateString": caCertDump.decode(),
+        "CertificateType": "PEM",
+    }
     caCertPath = "/redfish/v1/Managers/bmc/Truststore/Certificates"
     replaceCertPath = "/redfish/v1/CertificateService/Actions/"
     replaceCertPath += "CertificateService.ReplaceCertificate"
@@ -209,9 +251,10 @@ def main():
             "An existing CA certificate is likely already installed."
             " Replacing..."
         )
-        caCertificateUri = {}
-        caCertificateUri["@odata.id"] = caCertPath + "/1"
-        caCertJSON["CertificateUri"] = caCertificateUri
+        caCertJSON["CertificateUri"] = {
+            "@odata.id": caCertPath + "/1",
+        }
+
         response = redfishObject.post(replaceCertPath, body=caCertJSON)
         if response.status == 200:
             print("Successfully replaced existing CA certificate.")
@@ -226,16 +269,14 @@ def main():
         print("Successfully installed CA certificate.")
     else:
         raise Exception("Could not install certificate: " + response.read)
-    serverCertJSON = {}
-    serverCertJSON["CertificateString"] = (
-        serverKeyDump.decode() + serverCertDump.decode()
-    )
-    serverCertificateUri = {}
-    serverCertificateUri["@odata.id"] = (
-        "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/1"
-    )
-    serverCertJSON["CertificateUri"] = serverCertificateUri
-    serverCertJSON["CertificateType"] = "PEM"
+    serverCertJSON = {
+        "CertificateString": serverKeyDump.decode() + serverCertDump.decode(),
+        "CertificateUri": {
+            "@odata.id": "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/1",
+        },
+        "CertificateType": "PEM",
+    }
+
     print("Replacing server certificate...")
     response = redfishObject.post(replaceCertPath, body=serverCertJSON)
     if response.status == 200:
@@ -256,34 +297,15 @@ def main():
     response = requests.get(
         "https://" + host + "/redfish/v1/SessionService/Sessions",
         verify=False,
-        cert=("certs/client-cert.pem", "certs/client-key.pem"),
+        cert=(
+            os.path.join(certsDir, "client-cert.pem"),
+            os.path.join(certsDir, "client-key.pem"),
+        ),
     )
     response.raise_for_status()
     print("Redfish TLS authentication success!")
     print("Generating p12 cert file for browser authentication.")
-    pkcs12Cert = crypto.PKCS12()
-    pkcs12Cert.set_certificate(clientCert)
-    pkcs12Cert.set_privatekey(clientKey)
-    pkcs12Cert.set_ca_certificates([caCert])
-    pkcs12Cert.set_friendlyname(bytes(username, encoding="utf-8"))
-    with open("certs/client.p12", "wb") as f:
-        f.write(pkcs12Cert.export())
-        print(
-            "Client p12 cert file generated and stored in"
-            "./certs/client.p12."
-        )
-        print(
-            "Copy this file to a system with a browser and install the"
-            "cert into the browser."
-        )
-        print(
-            "You will then be able to test redfish and webui"
-            "authentication using this certificate."
-        )
-        print(
-            "Note: this p12 file was generated without a password, so it"
-            "can be imported easily."
-        )
 
 
-main()
+if __name__ == "__main__":
+    main()
