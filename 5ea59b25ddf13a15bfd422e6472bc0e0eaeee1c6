@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b0debf29_147a37fe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-08T16:52:03Z",
+      "side": 1,
+      "message": "\u003e Thank you for fix Ed Tanous\n\u003e I have this general question, locks code is under ibm-management-console flag\n\u003e and by default this flag will be disabled right? should not have hit any issues with this code unless this oem flag enabled explicitly right?\n\nFunctionally no, but the problem is that static analyzers can still see this code, and score it or flag issues with it, and those analyzers don\u0027t know that these code paths are disabled.  Because it wasn\u0027t built to the same coding style that the rest of bmcweb was (using defined dbus interfaces, not relying on undefined behavior, etc) there are lots of issues flagged in these files that need resolved if one wants a clean static analysis run.\n\nIn theory we could go back to not compiling this code in all cases, but then someone would need to maintain it against breakages when people change APIs that it relies on.\n\nI agree with you, these don\u0027t have any on-bmc functional impact if the option is disabled.\n\n\u003e \n\u003e As Sunitha mentioned, we will continue to work on re-design this locks.",
+      "parentUuid": "9bd48c96_d9efced7",
+      "revId": "5ea59b25ddf13a15bfd422e6472bc0e0eaeee1c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c14c01be_242e5db6",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 6
