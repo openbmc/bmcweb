@@ -109,6 +109,14 @@
                 }
             },
             "properties": {
+                "AssociatedAssembly": {
+                    "description": "Represent association slot with assembly.",
+                    "readonly": true,
+                    "type": [
+                        "null",
+                        "object"
+                    ]
+                },
                 "UpstreamFabricAdapters": {
                     "description": "The upstream fabric adapters.",
                     "items": {

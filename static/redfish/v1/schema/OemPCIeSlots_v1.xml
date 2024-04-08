@@ -42,9 +42,8 @@
         <Annotation Term="OData.AdditionalProperties" Bool="true" />
         <Annotation Term="OData.Description" String="Oem properties for IBM." />
         <Annotation Term="OData.AutoExpand"/>
-
         <Property Name="PCIeSlot" Type="OemPCIeSlots.v1_0_0.PCIeSlot"/>
-
+        <Property Name="PCIeLinks" Type="OemPCIeSlots.v1_0_0.PCIeLinks"/>
       </ComplexType>
 
       <ComplexType Name="PCIeSlot" BaseType="Resource.OemObject">
@@ -58,6 +57,10 @@
         <Annotation Term="OData.AdditionalProperties" Bool="true" />
         <Annotation Term="OData.Description" String="Oem properties for IBM." />
         <Annotation Term="OData.AutoExpand"/>
+        <Property Name="AssociatedAssembly" Type="Resource.Resource">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Represent association slot with assembly."/>
+        </Property>
         <Property Name="UpstreamFabricAdapters" Type="Collection(FabricAdapter.FabricAdapter)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The upstream fabric adapters."/>
