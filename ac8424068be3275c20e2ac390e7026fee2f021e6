@@ -16,6 +16,24 @@
       "message": "Let\u0027s go ERROR here like the next one",
       "revId": "ac8424068be3275c20e2ac390e7026fee2f021e6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fee23880_ddced303",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 3968,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-08T18:54:55Z",
+      "side": 1,
+      "message": "(caveat, I don\u0027t care, and will make the change)\n\nMy thinking was that if this message DOESN\u0027T exist, something is very.... very wrong in the build, considering this message is defined in a static file, and realistically this could only happen if there were memory corruption or something.\n\nWith that said, sure, changing to error.",
+      "parentUuid": "21088ddc_66031dab",
+      "revId": "ac8424068be3275c20e2ac390e7026fee2f021e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
