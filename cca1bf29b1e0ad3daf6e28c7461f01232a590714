@@ -16,6 +16,24 @@
       "message": "Any more about how this was found? Just inspection?",
       "revId": "cca1bf29b1e0ad3daf6e28c7461f01232a590714",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d297a75f_a874701d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-04-08T18:04:50Z",
+      "side": 1,
+      "message": "I think inspection but it doesn\u0027t matter. This is dead code, remove it.",
+      "parentUuid": "ba50b976_5df49198",
+      "revId": "cca1bf29b1e0ad3daf6e28c7461f01232a590714",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
