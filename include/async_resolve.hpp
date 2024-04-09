@@ -9,7 +9,6 @@
 #include <sdbusplus/message.hpp>
 
 #include <charconv>
-#include <iostream>
 #include <memory>
 
 namespace async_resolve
