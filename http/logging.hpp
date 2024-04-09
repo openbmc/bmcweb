@@ -65,7 +65,7 @@ const void* logPtr(T p)
 }
 
 template <LogLevel level, typename... Args>
-inline void vlog(std::format_string<Args...> format, Args... args,
+inline void vlog(std::format_string<Args...>&& format, Args&&... args,
                  const std::source_location& loc) noexcept
 {
     if constexpr (bmcwebCurrentLoggingLevel < level)
@@ -78,9 +78,27 @@ inline void vlog(std::format_string<Args...> format, Args... args,
     constexpr std::string_view levelString = mapLogLevelFromName[stringIndex];
     std::string_view filename = loc.file_name();
     filename = filename.substr(filename.rfind('/') + 1);
-    std::cout << std::format("[{} {}:{}] ", levelString, filename, loc.line())
-              << std::format(format, std::forward<Args>(args)...) << '\n'
-              << std::flush;
+    std::string logLocation;
+    logLocation = std::format("[{} {}:{}] ", levelString, filename, loc.line());
+    try
+    {
+        // TODO, multiple static analysis tools flag that this could potentially throw
+        // Based on the documentation, it shouldn't throw, so long as none of the
+        // formatters throw, so unclear at this point why this try/catch is required,
+        // but add it to silence the static analysis tools.
+        logLocation += std::format(std::move(format),
+                                   std::forward<Args>(args)...);
+    }
+    catch (const std::format_error& /*error*/)
+    {
+        logLocation += "Failed to format";
+        // Nothing more we can do here if logging is broken.
+    }
+    logLocation += '\n';
+    // Intentionally ignore error return.
+    fwrite(logLocation.data(), sizeof(std::string::value_type),
+           logLocation.size(), stdout);
+    fflush(stdout);
 }
 } // namespace crow
 
@@ -92,7 +110,8 @@ struct BMCWEB_LOG_CRITICAL
                         const std::source_location& loc =
                             std::source_location::current()) noexcept
     {
-        crow::vlog<crow::LogLevel::Critical, Args...>(format, args..., loc);
+        crow::vlog<crow::LogLevel::Critical, Args...>(
+            std::move(format), std::forward<Args>(args)..., loc);
     }
 };
 
@@ -104,7 +123,8 @@ struct BMCWEB_LOG_ERROR
                      const std::source_location& loc =
                          std::source_location::current()) noexcept
     {
-        crow::vlog<crow::LogLevel::Error, Args...>(format, args..., loc);
+        crow::vlog<crow::LogLevel::Error, Args...>(
+            std::move(format), std::forward<Args>(args)..., loc);
     }
 };
 
@@ -116,7 +136,8 @@ struct BMCWEB_LOG_WARNING
                        const std::source_location& loc =
                            std::source_location::current()) noexcept
     {
-        crow::vlog<crow::LogLevel::Warning, Args...>(format, args..., loc);
+        crow::vlog<crow::LogLevel::Warning, Args...>(
+            std::move(format), std::forward<Args>(args)..., loc);
     }
 };
 
@@ -128,7 +149,8 @@ struct BMCWEB_LOG_INFO
                     const std::source_location& loc =
                         std::source_location::current()) noexcept
     {
-        crow::vlog<crow::LogLevel::Info, Args...>(format, args..., loc);
+        crow::vlog<crow::LogLevel::Info, Args...>(
+            std::move(format), std::forward<Args>(args)..., loc);
     }
 };
 
@@ -140,7 +162,8 @@ struct BMCWEB_LOG_DEBUG
                      const std::source_location& loc =
                          std::source_location::current()) noexcept
     {
-        crow::vlog<crow::LogLevel::Debug, Args...>(format, args..., loc);
+        crow::vlog<crow::LogLevel::Debug, Args...>(
+            std::move(format), std::forward<Args>(args)..., loc);
     }
 };
 
