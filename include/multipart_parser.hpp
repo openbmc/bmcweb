@@ -209,6 +209,8 @@ class MultipartParser
                 }
                 case State::END:
                     break;
+                default:
+                    return ParserError::ERROR_UNEXPECTED_END_OF_INPUT;
             }
         }
 

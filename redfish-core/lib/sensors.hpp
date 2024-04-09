@@ -360,7 +360,7 @@ void getObjectsWithConnection(
     // Make call to ObjectMapper to find all sensors objects
     dbus::utility::getSubTree(
         path, 2, interfaces,
-        [callback{std::forward<Callback>(callback)}, sensorsAsyncResp,
+        [callback = std::forward<Callback>(callback), sensorsAsyncResp,
          sensorNames](const boost::system::error_code& ec,
                       const dbus::utility::MapperGetSubTreeResponse& subtree) {
         // Response handler for parsing objects subtree
@@ -422,9 +422,10 @@ void getConnections(std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
                     Callback&& callback)
 {
     auto objectsWithConnectionCb =
-        [callback](const std::set<std::string>& connections,
-                   const std::set<std::pair<std::string, std::string>>&
-                   /*objectsWithConnection*/) { callback(connections); };
+        [callback = std::forward<Callback>(callback)](
+            const std::set<std::string>& connections,
+            const std::set<std::pair<std::string, std::string>>&
+            /*objectsWithConnection*/) { callback(connections); };
     getObjectsWithConnection(sensorsAsyncResp, sensorNames,
                              std::move(objectsWithConnectionCb));
 }
@@ -523,7 +524,7 @@ void getChassis(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     // Get the Chassis Collection
     dbus::utility::getSubTreePaths(
         "/xyz/openbmc_project/inventory", 0, interfaces,
-        [callback{std::forward<Callback>(callback)}, asyncResp,
+        [callback = std::forward<Callback>(callback), asyncResp,
          chassisIdStr{std::string(chassisId)},
          chassisSubNode{std::string(chassisSubNode)}, sensorTypes](
             const boost::system::error_code& ec,
@@ -566,7 +567,7 @@ void getChassis(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         dbus::utility::getAssociationEndPoints(
             sensorPath,
             [asyncResp, chassisSubNode, sensorTypes,
-             callback{std::forward<const Callback>(callback)}](
+             callback = std::forward<const Callback>(callback)](
                 const boost::system::error_code& ec2,
                 const dbus::utility::MapperEndPoints& nodeSensorList) {
             if (ec2)
@@ -703,7 +704,7 @@ inline void setLedState(nlohmann::json& sensorJson,
             case LedState::BLINK:
                 sensorJson["IndicatorLED"] = "Blinking";
                 break;
-            case LedState::UNKNOWN:
+            default:
                 break;
         }
     }
@@ -1451,7 +1452,7 @@ static void getInventoryItemsData(
         dbus::utility::getManagedObjects(
             invConnection, path,
             [sensorsAsyncResp, inventoryItems, invConnections,
-             callback{std::forward<Callback>(callback)}, invConnectionsIndex](
+             callback = std::forward<Callback>(callback), invConnectionsIndex](
                 const boost::system::error_code& ec,
                 const dbus::utility::ManagedObjectType& resp) {
             BMCWEB_LOG_DEBUG("getInventoryItemsData respHandler enter");
@@ -1527,7 +1528,7 @@ static void getInventoryItemsConnections(
     // Make call to ObjectMapper to find all inventory items
     dbus::utility::getSubTree(
         path, 0, interfaces,
-        [callback{std::forward<Callback>(callback)}, sensorsAsyncResp,
+        [callback = std::forward<Callback>(callback), sensorsAsyncResp,
          inventoryItems](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreeResponse& subtree) {
@@ -1603,7 +1604,7 @@ static void getInventoryItemAssociations(
     sdbusplus::message::object_path path("/");
     dbus::utility::getManagedObjects(
         "xyz.openbmc_project.ObjectMapper", path,
-        [callback{std::forward<Callback>(callback)}, sensorsAsyncResp,
+        [callback = std::forward<Callback>(callback), sensorsAsyncResp,
          sensorNames](const boost::system::error_code& ec,
                       const dbus::utility::ManagedObjectType& resp) {
         BMCWEB_LOG_DEBUG("getInventoryItemAssociations respHandler enter");
@@ -1772,7 +1773,7 @@ void getInventoryLedData(
         // Response handler for Get State property
         auto respHandler =
             [sensorsAsyncResp, inventoryItems, ledConnections, ledPath,
-             callback{std::forward<Callback>(callback)}, ledConnectionsIndex](
+             callback = std::forward<Callback>(callback), ledConnectionsIndex](
                 const boost::system::error_code& ec, const std::string& state) {
             BMCWEB_LOG_DEBUG("getInventoryLedData respHandler enter");
             if (ec)
@@ -1863,7 +1864,7 @@ void getInventoryLeds(
     // Make call to ObjectMapper to find all inventory items
     dbus::utility::getSubTree(
         path, 0, interfaces,
-        [callback{std::forward<Callback>(callback)}, sensorsAsyncResp,
+        [callback = std::forward<Callback>(callback), sensorsAsyncResp,
          inventoryItems](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreeResponse& subtree) {
@@ -1953,7 +1954,7 @@ void getPowerSupplyAttributesData(
 
     // Response handler for Get DeratingFactor property
     auto respHandler = [sensorsAsyncResp, inventoryItems,
-                        callback{std::forward<Callback>(callback)}](
+                        callback = std::forward<Callback>(callback)](
                            const boost::system::error_code& ec,
                            const uint32_t value) {
         BMCWEB_LOG_DEBUG("getPowerSupplyAttributesData respHandler enter");
@@ -2035,7 +2036,7 @@ void getPowerSupplyAttributes(
     // Make call to ObjectMapper to find the PowerSupplyAttributes service
     dbus::utility::getSubTree(
         "/xyz/openbmc_project", 0, interfaces,
-        [callback{std::forward<Callback>(callback)}, sensorsAsyncResp,
+        [callback = std::forward<Callback>(callback), sensorsAsyncResp,
          inventoryItems](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreeResponse& subtree) {
@@ -2119,12 +2120,12 @@ static void
 {
     BMCWEB_LOG_DEBUG("getInventoryItems enter");
     auto getInventoryItemAssociationsCb =
-        [sensorsAsyncResp, callback{std::forward<Callback>(callback)}](
+        [sensorsAsyncResp, callback = std::forward<Callback>(callback)](
             std::shared_ptr<std::vector<InventoryItem>> inventoryItems) {
         BMCWEB_LOG_DEBUG("getInventoryItemAssociationsCb enter");
         auto getInventoryItemsConnectionsCb =
             [sensorsAsyncResp, inventoryItems,
-             callback{std::forward<const Callback>(callback)}](
+             callback = std::forward<const Callback>(callback)](
                 std::shared_ptr<std::set<std::string>> invConnections) {
             BMCWEB_LOG_DEBUG("getInventoryItemsConnectionsCb enter");
             auto getInventoryItemsDataCb = [sensorsAsyncResp, inventoryItems,
@@ -2772,7 +2773,7 @@ inline void retrieveUriToDbusMap(const std::string& chassis,
 
     auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
     auto callback = [asyncResp,
-                     mapCompleteCb{std::forward<Callback>(mapComplete)}](
+                     mapCompleteCb = std::forward<Callback>(mapComplete)](
                         const boost::beast::http::status status,
                         const std::map<std::string, std::string>& uriToDbus) {
         mapCompleteCb(status, uriToDbus);

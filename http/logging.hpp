@@ -160,19 +160,6 @@ constexpr crow::LogLevel getLogLevelFromName(std::string_view name)
 constexpr crow::LogLevel bmcwebCurrentLoggingLevel =
     getLogLevelFromName(bmcwebLoggingLevel);
 
-struct FormatString
-{
-    std::string_view str;
-    std::source_location loc;
-
-    // NOLINTNEXTLINE(google-explicit-constructor)
-    FormatString(const char* stringIn, const std::source_location& locIn =
-                                           std::source_location::current()) :
-        str(stringIn),
-        loc(locIn)
-    {}
-};
-
 template <typename T>
 const void* logPtr(T p)
 {
@@ -181,8 +168,9 @@ const void* logPtr(T p)
     return std::bit_cast<const void*>(p);
 }
 
-template <LogLevel level>
-inline void vlog(const FormatString& format, std::format_args&& args)
+template <LogLevel level, typename... Args>
+inline void vlog(std::format_string<Args...> format, Args... args,
+                 const std::source_location& loc) noexcept
 {
     if constexpr (bmcwebCurrentLoggingLevel < level)
     {
@@ -192,46 +180,90 @@ inline void vlog(const FormatString& format, std::format_args&& args)
     static_assert(stringIndex < mapLogLevelFromName.size(),
                   "Missing string for level");
     constexpr std::string_view levelString = mapLogLevelFromName[stringIndex];
-    std::string_view filename = format.loc.file_name();
+    std::string_view filename = loc.file_name();
     filename = filename.substr(filename.rfind('/') + 1);
-    std::cout << std::format("[{} {}:{}] ", levelString, filename,
-                             format.loc.line())
-              << std::vformat(format.str, args) << std::endl;
+    std::cout << std::format("[{} {}:{}] ", levelString, filename, loc.line())
+              << std::format(format, std::forward<Args>(args)...) << '\n'
+              << std::flush;
 }
 } // namespace crow
 
 template <typename... Args>
-inline void BMCWEB_LOG_CRITICAL(const crow::FormatString& format,
-                                Args&&... args)
+struct BMCWEB_LOG_CRITICAL
 {
-    crow::vlog<crow::LogLevel::Critical>(
-        format, std::make_format_args(std::forward<Args>(args)...));
-}
+    // NOLINTNEXTLINE(google-explicit-constructor)
+    BMCWEB_LOG_CRITICAL(std::format_string<Args...> format, Args&&... args,
+                        const std::source_location& loc =
+                            std::source_location::current()) noexcept
+    {
+        crow::vlog<crow::LogLevel::Critical, Args...>(format, args..., loc);
+    }
+};
 
 template <typename... Args>
-inline void BMCWEB_LOG_ERROR(const crow::FormatString& format, Args&&... args)
+struct BMCWEB_LOG_ERROR
 {
-    crow::vlog<crow::LogLevel::Error>(
-        format, std::make_format_args(std::forward<Args>(args)...));
-}
+    // NOLINTNEXTLINE(google-explicit-constructor)
+    BMCWEB_LOG_ERROR(std::format_string<Args...> format, Args&&... args,
+                     const std::source_location& loc =
+                         std::source_location::current()) noexcept
+    {
+        crow::vlog<crow::LogLevel::Error, Args...>(format, args..., loc);
+    }
+};
 
 template <typename... Args>
-inline void BMCWEB_LOG_WARNING(const crow::FormatString& format, Args&&... args)
+struct BMCWEB_LOG_WARNING
 {
-    crow::vlog<crow::LogLevel::Warning>(
-        format, std::make_format_args(std::forward<Args>(args)...));
-}
+    // NOLINTNEXTLINE(google-explicit-constructor)
+    BMCWEB_LOG_WARNING(std::format_string<Args...> format, Args&&... args,
+                       const std::source_location& loc =
+                           std::source_location::current()) noexcept
+    {
+        crow::vlog<crow::LogLevel::Warning, Args...>(format, args..., loc);
+    }
+};
 
 template <typename... Args>
-inline void BMCWEB_LOG_INFO(const crow::FormatString& format, Args&&... args)
+struct BMCWEB_LOG_INFO
 {
-    crow::vlog<crow::LogLevel::Info>(
-        format, std::make_format_args(std::forward<Args>(args)...));
-}
+    // NOLINTNEXTLINE(google-explicit-constructor)
+    BMCWEB_LOG_INFO(std::format_string<Args...> format, Args&&... args,
+                    const std::source_location& loc =
+                        std::source_location::current()) noexcept
+    {
+        crow::vlog<crow::LogLevel::Info, Args...>(format, args..., loc);
+    }
+};
 
 template <typename... Args>
-inline void BMCWEB_LOG_DEBUG(const crow::FormatString& format, Args&&... args)
+struct BMCWEB_LOG_DEBUG
 {
-    crow::vlog<crow::LogLevel::Debug>(
-        format, std::make_format_args(std::forward<Args>(args)...));
-}
+    // NOLINTNEXTLINE(google-explicit-constructor)
+    BMCWEB_LOG_DEBUG(std::format_string<Args...> format, Args&&... args,
+                     const std::source_location& loc =
+                         std::source_location::current()) noexcept
+    {
+        crow::vlog<crow::LogLevel::Debug, Args...>(format, args..., loc);
+    }
+};
+
+template <typename... Args>
+BMCWEB_LOG_CRITICAL(std::format_string<Args...>, Args&&...)
+    -> BMCWEB_LOG_CRITICAL<Args...>;
+
+template <typename... Args>
+BMCWEB_LOG_ERROR(std::format_string<Args...>, Args&&...)
+    -> BMCWEB_LOG_ERROR<Args...>;
+
+template <typename... Args>
+BMCWEB_LOG_WARNING(std::format_string<Args...>, Args&&...)
+    -> BMCWEB_LOG_WARNING<Args...>;
+
+template <typename... Args>
+BMCWEB_LOG_INFO(std::format_string<Args...>, Args&&...)
+    -> BMCWEB_LOG_INFO<Args...>;
+
+template <typename... Args>
+BMCWEB_LOG_DEBUG(std::format_string<Args...>, Args&&...)
+    -> BMCWEB_LOG_DEBUG<Args...>;

@@ -715,6 +715,8 @@ inline std::optional<std::string> formatQueryForExpand(const Query& query)
             queryTypeExpected = true;
             str += '*';
             break;
+        default:
+            return std::nullopt;
     }
     if (!queryTypeExpected)
     {
