@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/PCIeDevice_v1.xml">
+    <edmx:Include Namespace="PCIeDevice"/>
+    <edmx:Include Namespace="PCIeDevice.v1_9_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OemPCIeDevice">
+      <Annotation Term="Redfish.OwningEntity" String="IBM"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OemPCIeDevice.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="IBM"/>
+
+      <ComplexType Name="Oem" BaseType="Resource.OemObject">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="OemPCIeDevice Oem properties."/>
+        <Annotation Term="OData.AutoExpand"/>
+        <Property Name="IBM" Type="OemPCIeDevice.v1_0_0.IBM"/>
+      </ComplexType>
+
+      <ComplexType Name="IBM" BaseType="Resource.OemObject">
+        <Annotation Term="OData.AdditionalProperties" Bool="true" />
+        <Annotation Term="OData.Description" String="Oem properties for IBM." />
+        <Annotation Term="OData.AutoExpand"/>
+        <Property Name="LinkReset" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Reset the PCIe Link"/>
+          <Annotation Term="OData.LongDescription" String="A true value resets the PCIe Link."/>
+        </Property>
+
+        <Property Name="PCIeSlot" Type="OemPCIeDevice.IBM">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="PCIe Slot Link"/>
+          <Annotation Term="OData.LongDescription" String="Represent PCIe Slot Link which has all PCIe device list."/>
+        </Property>
+      </ComplexType>
+
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>
