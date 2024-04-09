@@ -104,6 +104,24 @@
       "parentUuid": "cc1f3750_849914fc",
       "revId": "2e9769f183012755007925b49c6ee69b7bb8525c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0fd91e30_3841f0a9",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-09T17:59:36Z",
+      "side": 1,
+      "message": "Also please note, the generation of the client cert isn\u0027t being changed in this commit.  The code was just moved to further up such that it still gets generated if the HTTP request fails.",
+      "parentUuid": "7dcf3425_cc36be78",
+      "revId": "2e9769f183012755007925b49c6ee69b7bb8525c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
