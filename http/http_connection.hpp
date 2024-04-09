@@ -67,9 +67,7 @@ class Connection :
         handler(handlerIn), timer(std::move(timerIn)),
         getCachedDateStr(getCachedDateStrF)
     {
-        parser.emplace(std::piecewise_construct, std::make_tuple());
-        parser->body_limit(httpReqBodyLimit);
-        parser->header_limit(httpHeaderLimit);
+        initParser();
 
 #ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
         prepareMutualTls();
@@ -213,6 +211,14 @@ class Connection :
         }
 
         doReadHeaders();
+    }
+
+    void initParser()
+    {
+        boost::beast::http::request_parser<bmcweb::HttpBody>& instance =
+            parser.emplace(std::piecewise_construct, std::make_tuple());
+        // reset body limit for newly created parser
+        instance.header_limit(httpHeaderLimit);
     }
 
     void handle()
@@ -387,6 +393,63 @@ class Connection :
     }
 
   private:
+    uint64_t getContentLengthLimit()
+    {
+#ifndef BMCWEB_INSECURE_DISABLE_AUTHX
+        if (userSession == nullptr)
+        {
+            return loggedOutPostBodyLimit;
+        }
+#endif
+
+        return httpReqBodyLimit;
+    }
+
+    // Returns true if content length was within limits
+    // Returns false if content length error has been returned
+    bool handleContentLengthError()
+    {
+        const boost::optional<uint64_t> contentLength =
+            parser->content_length();
+        if (!contentLength)
+        {
+            BMCWEB_LOG_DEBUG("No content length available");
+            res.result(boost::beast::http::status::bad_request);
+        }
+        else
+        {
+            uint64_t maxAllowedContentLength = getContentLengthLimit();
+
+            if (*contentLength <= maxAllowedContentLength)
+            {
+                return true;
+            }
+            BMCWEB_LOG_DEBUG("Content length greater than limit {}",
+                             *contentLength);
+
+            // If the users content limit is between the logged in
+            // and logged out limits They probably just didn't log
+            // in
+            if (*contentLength > loggedOutPostBodyLimit &&
+                *contentLength < httpReqBodyLimit)
+            {
+                res.result(boost::beast::http::status::unauthorized);
+            }
+            else
+            {
+                // Otherwise they're over both limits, so inform
+                // them
+                res.result(boost::beast::http::status::payload_too_large);
+            }
+            BMCWEB_LOG_DEBUG("Content length {} is greater than limit {}",
+                             *contentLength, maxAllowedContentLength);
+        }
+        doWrite();
+        close();
+
+        return false;
+    }
+
     void doReadHeaders()
     {
         BMCWEB_LOG_DEBUG("{} doReadHeaders", logPtr(this));
@@ -407,10 +470,18 @@ class Connection :
             {
                 cancelDeadlineTimer();
 
-                if (ec == boost::beast::http::error::end_of_stream)
+                if (ec == boost::beast::http::error::header_limit)
                 {
-                    BMCWEB_LOG_WARNING("{} Error while reading: {}",
-                                       logPtr(this), ec.message());
+                    // Otherwise they're over both limits, so inform
+                    // them
+                    res.result(boost::beast::http::status::
+                                   request_header_fields_too_large);
+
+                    doWrite();
+                }
+                else if (ec == boost::beast::http::error::end_of_stream)
+                {
+                    BMCWEB_LOG_WARNING("End of stream: {}", logPtr(this));
                 }
                 else
                 {
@@ -424,35 +495,18 @@ class Connection :
 
             readClientIp();
 
-            boost::asio::ip::address ip;
-            if (getClientIp(ip))
-            {
-                BMCWEB_LOG_DEBUG("Unable to get client IP");
-            }
             if constexpr (!std::is_same_v<Adaptor, boost::beast::test::stream>)
             {
 #ifndef BMCWEB_INSECURE_DISABLE_AUTHX
                 boost::beast::http::verb method = parser->get().method();
                 userSession = crow::authentication::authenticate(
-                    ip, res, method, parser->get().base(), mtlsSession);
-
-                bool loggedIn = userSession != nullptr;
-                if (!loggedIn)
-                {
-                    const boost::optional<uint64_t> contentLength =
-                        parser->content_length();
-                    if (contentLength &&
-                        *contentLength > loggedOutPostBodyLimit)
-                    {
-                        BMCWEB_LOG_DEBUG("Content length greater than limit {}",
-                                         *contentLength);
-                        close();
-                        return;
-                    }
-
-                    BMCWEB_LOG_DEBUG("Starting quick deadline");
-                }
+                    req.ipAddress, res, method, parser->get().base(),
+                    mtlsSession);
 #endif // BMCWEB_INSECURE_DISABLE_AUTHX
+            }
+            if (!handleContentLengthError())
+            {
+                return;
             }
 
             if (parser->is_done())
@@ -483,6 +537,19 @@ class Connection :
 
             if (ec)
             {
+                if (ec == boost::beast::http::error::body_limit)
+                {
+                    if (handleContentLengthError())
+                    {
+                        BMCWEB_LOG_CRITICAL("Body length limit reached, "
+                                            "but no content-length "
+                                            "available?  Should never happen");
+                        res.result(
+                            boost::beast::http::status::payload_too_large);
+                        doWrite();
+                    }
+                }
+
                 BMCWEB_LOG_ERROR("{} Error while reading: {}", logPtr(this),
                                  ec.message());
                 close();
@@ -531,10 +598,7 @@ class Connection :
 
         BMCWEB_LOG_DEBUG("{} Clearing response", logPtr(this));
         res.clear();
-        parser.emplace(std::piecewise_construct, std::make_tuple());
-        parser->body_limit(httpReqBodyLimit); // reset body limit for
-                                              // newly created parser
-        buffer.consume(buffer.size());
+        initParser();
 
         userSession = nullptr;
 
