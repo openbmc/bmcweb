@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "976900e9_bcaec50d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001220
+      },
+      "writtenOn": "2024-04-09T18:04:38Z",
+      "side": 1,
+      "message": "To expand a little, once the certs are generated, the user is free to use them for mTLS of the user they specified in the --user flag (or root by default).\nTo use with cURL:\ncurl --cert client-cert.pem --key client-key.pem -vvv --cacert CA-cert.pem\nOtherwise, the simpler method is to take the PKCS12 bundle and install it in a browser which allows for immediate access to HTTP GET requests.",
+      "parentUuid": "c8eff5de_752ec643",
+      "revId": "2e9769f183012755007925b49c6ee69b7bb8525c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5187b8ff_14f88af0",
         "filename": "scripts/generate_auth_certificates.py",
         "patchSetId": 6
@@ -120,6 +138,29 @@
       "side": 1,
       "message": "Also please note, the generation of the client cert isn\u0027t being changed in this commit.  The code was just moved to further up such that it still gets generated if the HTTP request fails.",
       "parentUuid": "7dcf3425_cc36be78",
+      "revId": "2e9769f183012755007925b49c6ee69b7bb8525c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "116f564f_f2eddb52",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1001220
+      },
+      "writtenOn": "2024-04-09T18:04:38Z",
+      "side": 1,
+      "message": "nit: This print statement should be moved up to line 303 if still desirable.",
+      "range": {
+        "startLine": 394,
+        "startChar": 0,
+        "endLine": 394,
+        "endChar": 65
+      },
       "revId": "2e9769f183012755007925b49c6ee69b7bb8525c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
