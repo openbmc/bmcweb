@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6916c424_4f9dde46",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-04-09T04:04:48Z",
+      "side": 1,
+      "message": "ok got it. since you have fixed it for now, we can merge this fix and wait some more time (~3 months) to remove whole locks feature so that mean while we can get this new re-design \u0026 implementation of locks.",
+      "parentUuid": "b0debf29_147a37fe",
+      "revId": "5ea59b25ddf13a15bfd422e6472bc0e0eaeee1c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c14c01be_242e5db6",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 6
