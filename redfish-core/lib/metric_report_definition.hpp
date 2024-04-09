@@ -652,7 +652,7 @@ inline bool getChassisSensorNodeFromMetrics(
 class AddReport
 {
   public:
-    AddReport(AddReportArgs argsIn,
+    AddReport(AddReportArgs&& argsIn,
               const std::shared_ptr<bmcweb::AsyncResp>& asyncRespIn) :
         asyncResp(asyncRespIn),
         args(std::move(argsIn))
