@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f71b774_1698fe86",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-04-09T17:32:27Z",
+      "side": 1,
+      "message": "Hi Ed Tanous\n\nlooks like this is useful tool for verifying/testing certificates functions.\nCan we have script usage steps updated some where?",
+      "revId": "2e9769f183012755007925b49c6ee69b7bb8525c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5187b8ff_14f88af0",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-04-09T17:32:27Z",
+      "side": 1,
+      "message": "remove?",
+      "revId": "2e9769f183012755007925b49c6ee69b7bb8525c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc1f3750_849914fc",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-04-09T17:32:27Z",
+      "side": 1,
+      "message": "currently as per my understanding, BMC certificate-manager does not support PKCS12 format and certificate bundles right? why do we need to support pkcs12 format?",
+      "revId": "2e9769f183012755007925b49c6ee69b7bb8525c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
