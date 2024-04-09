@@ -2,7 +2,6 @@
 
 #include <boost/beast/http/verb.hpp>
 
-#include <iostream>
 #include <optional>
 #include <string_view>
 
