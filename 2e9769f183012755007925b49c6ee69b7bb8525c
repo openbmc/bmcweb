@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c8eff5de_752ec643",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-09T17:58:32Z",
+      "side": 1,
+      "message": "The script takes 3 arguments, host, user, and password, for which user and password default to the openbmc defaults (root/0penBmc)\n\nThe usage steps are documented under the --help flag.",
+      "parentUuid": "2f71b774_1698fe86",
+      "revId": "2e9769f183012755007925b49c6ee69b7bb8525c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5187b8ff_14f88af0",
         "filename": "scripts/generate_auth_certificates.py",
         "patchSetId": 6
@@ -31,6 +49,24 @@
       "writtenOn": "2024-04-09T17:32:27Z",
       "side": 1,
       "message": "remove?",
+      "revId": "2e9769f183012755007925b49c6ee69b7bb8525c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c99a25df_3d4c31f9",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-09T17:58:32Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "5187b8ff_14f88af0",
       "revId": "2e9769f183012755007925b49c6ee69b7bb8525c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -48,6 +84,24 @@
       "writtenOn": "2024-04-09T17:32:27Z",
       "side": 1,
       "message": "currently as per my understanding, BMC certificate-manager does not support PKCS12 format and certificate bundles right? why do we need to support pkcs12 format?",
+      "revId": "2e9769f183012755007925b49c6ee69b7bb8525c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7dcf3425_cc36be78",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-09T17:58:32Z",
+      "side": 1,
+      "message": "Did you see the prints on line 311?  They explain why it\u0027s being generated.",
+      "parentUuid": "cc1f3750_849914fc",
       "revId": "2e9769f183012755007925b49c6ee69b7bb8525c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
