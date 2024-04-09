@@ -78,9 +78,17 @@ inline void vlog(std::format_string<Args...> format, Args... args,
     constexpr std::string_view levelString = mapLogLevelFromName[stringIndex];
     std::string_view filename = loc.file_name();
     filename = filename.substr(filename.rfind('/') + 1);
-    std::cout << std::format("[{} {}:{}] ", levelString, filename, loc.line())
-              << std::format(format, std::forward<Args>(args)...) << '\n'
-              << std::flush;
+    std::string logLocation = std::format("[{} {}:{}] ", levelString, filename,
+                                          loc.line());
+    // Intentionally ignore error return.
+    fwrite(logLocation.data(), sizeof(std::string::value_type),
+           logLocation.size(), stdout);
+    std::string logLocation2 = std::format(format, std::forward<Args>(args)...);
+    fwrite(logLocation2.data(), sizeof(std::string::value_type),
+           logLocation2.size(), stdout);
+    // Intentionally ignore error return.
+    fwrite("\n", sizeof(char), 1, stdout);
+    fflush(stdout);
 }
 } // namespace crow
 
