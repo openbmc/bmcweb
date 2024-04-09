@@ -152,7 +152,7 @@ inline void handlePhysicalSecurityGetSubTree(
     {
         if (!object.second.empty())
         {
-            const auto service = object.second.front();
+            const auto& service = object.second.front();
 
             BMCWEB_LOG_DEBUG("Get intrusion status by service ");
 
