@@ -70,6 +70,30 @@
       },
       "revId": "3c6d68ccbccd39f82d76b180e743ba2369c70bc3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9631820f_32236ffc",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 2377,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-10T20:45:27Z",
+      "side": 1,
+      "message": "\u003e Thanks for the clarification.\n\u003e \n\u003e What if it reads to the last char and successfully parsed?\n\u003e If so, would it return `ec\u003d\u003dstd::errc() \u0026\u0026 ptr\u003d\u003dtargetId.end()`?\n\u003e \n\u003e https://en.cppreference.com/w/cpp/utility/from_chars\n\u003e \u003e```std::from_chars_result\n\u003e     from_chars( const char* first, const char* last,\n\u003e                 /* integer-type */\u0026 value, int base \u003d 10 );\n\u003e                 ...\n\u003e Parameters\n\u003e      first, last\t-\tvalid character range to parse\n\u003e ```\n\u003e \u003eOn success, returns a value of type std::from_chars_result such that ... or has the value equal to `last` if all characters match and ec is value-initialized.\n\n\nYou removed the part of that page that matters:\n```\nOn success, returns a value of type std::from_chars_result such that ptr points at the first character not matching the pattern, or has the value equal to last if all characters match and ec is value-initialized.\n```\n\n\"such that ptr points at the first character not matching the pattern\"\n\nIf there are characters in the output that don\u0027t parse, it is still considered a success.  In this context, we would like it to fail if any of the characters were not a number.\n\n\u003e \n\u003e Here, `last` would be `targetId.end()`.\n\u003e \n\u003e Then, should we check only `if(ec !\u003d std::errc{})`?\n\nFor example, the string\n\n123ABC\n\nWould pass this test if we only checked for ec !\u003d std::errc{}.",
+      "parentUuid": "a11c73ac_c9830951",
+      "range": {
+        "startLine": 2377,
+        "startChar": 8,
+        "endLine": 2377,
+        "endChar": 55
+      },
+      "revId": "3c6d68ccbccd39f82d76b180e743ba2369c70bc3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
