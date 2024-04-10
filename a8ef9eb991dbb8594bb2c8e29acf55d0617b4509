@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51026a5d_8a0a1121",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-10T20:20:22Z",
+      "side": 1,
+      "message": "in theory this could also be\n\n\",\".join([dmtf[0] for dmtf in dmtf_registries])\n\n\nUp to you if you want to do that.  What you\u0027ve written is already better than what was there.",
+      "range": {
+        "startLine": 248,
+        "startChar": 22,
+        "endLine": 248,
+        "endChar": 217
+      },
+      "revId": "a8ef9eb991dbb8594bb2c8e29acf55d0617b4509",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
