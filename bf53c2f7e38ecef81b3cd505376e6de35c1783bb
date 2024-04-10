@@ -192,6 +192,40 @@
       "message": "this reset/remove IPv4 default gateway should be done after successfully deleting IP address, please move code into callback of delete ip address below.",
       "revId": "bf53c2f7e38ecef81b3cd505376e6de35c1783bb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4abb7af1_78379e1d",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 723,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-04-10T04:20:59Z",
+      "side": 1,
+      "message": "please use this existing method to update gateway \nupdateIPv4DefaultGateway(ifaceId, gateway, asyncResp);",
+      "revId": "bf53c2f7e38ecef81b3cd505376e6de35c1783bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd867967_87b95a34",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 810,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-04-10T04:20:59Z",
+      "side": 1,
+      "message": "I think gateway needs to updated while delete and create new IPv4 address as well",
+      "revId": "bf53c2f7e38ecef81b3cd505376e6de35c1783bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
