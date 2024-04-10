@@ -46,6 +46,30 @@
       },
       "revId": "3c6d68ccbccd39f82d76b180e743ba2369c70bc3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a11c73ac_c9830951",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 2377,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-04-10T20:23:15Z",
+      "side": 1,
+      "message": "Thanks for the clarification.\n\nWhat if it reads to the last char and successfully parsed?\nIf so, would it return `ec\u003d\u003dstd::errc() \u0026\u0026 ptr\u003d\u003dtargetId.end()`?\n\nhttps://en.cppreference.com/w/cpp/utility/from_chars\n\u003e```std::from_chars_result\n    from_chars( const char* first, const char* last,\n                /* integer-type */\u0026 value, int base \u003d 10 );\n                ...\nParameters\n     first, last\t-\tvalid character range to parse\n```\n\u003eOn success, returns a value of type std::from_chars_result such that ... or has the value equal to `last` if all characters match and ec is value-initialized.\n\nHere, `last` would be `targetId.end()`.\n\nThen, should we check only `if(ec !\u003d std::errc{})`?",
+      "parentUuid": "7138813c_e7772725",
+      "range": {
+        "startLine": 2377,
+        "startChar": 8,
+        "endLine": 2377,
+        "endChar": 55
+      },
+      "revId": "3c6d68ccbccd39f82d76b180e743ba2369c70bc3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
