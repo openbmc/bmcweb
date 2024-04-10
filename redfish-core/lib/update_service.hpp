@@ -668,6 +668,7 @@ inline void setApplyTime(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
 inline void
     updateMultipartContext(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const crow::Request& req,
                            const MultipartParser& parser)
 {
     const std::string* uploadData = nullptr;
@@ -754,6 +755,9 @@ inline void
 
     setApplyTime(asyncResp, *applyTime);
 
+    // Setup callback for when new software detected
+    monitorForSoftwareAvailable(asyncResp, req, "/redfish/v1/UpdateService");
+
     uploadImageFile(asyncResp->res, *uploadData);
 }
 
@@ -783,10 +787,6 @@ inline void
     {
         MultipartParser parser;
 
-        // Setup callback for when new software detected
-        monitorForSoftwareAvailable(asyncResp, req,
-                                    "/redfish/v1/UpdateService");
-
         ParserError ec = parser.parse(req);
         if (ec != ParserError::PARSER_SUCCESS)
         {
@@ -796,7 +796,8 @@ inline void
             messages::internalError(asyncResp->res);
             return;
         }
-        updateMultipartContext(asyncResp, parser);
+
+        updateMultipartContext(asyncResp, req, parser);
     }
     else
     {
