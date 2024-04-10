@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47aff076_885b9963",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-04-10T16:42:51Z",
+      "side": 1,
+      "message": "Just one type, but otherwise looks good to me.",
+      "revId": "3060dd6987be6f2c7259d9280af845d181ac8bc5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "185c0698_da52e3c5",
+        "filename": "meson.build",
+        "patchSetId": 12
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-04-10T16:42:51Z",
+      "side": 1,
+      "message": "Typo: beginning",
+      "range": {
+        "startLine": 390,
+        "startChar": 40,
+        "endLine": 390,
+        "endChar": 48
+      },
+      "revId": "3060dd6987be6f2c7259d9280af845d181ac8bc5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
