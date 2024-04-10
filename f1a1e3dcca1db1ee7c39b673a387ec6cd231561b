@@ -16,6 +16,24 @@
       "message": "You lost a DEBUG but oh well. Add back if you think it will ever be used. \nI can\u0027t see that it would be",
       "revId": "f1a1e3dcca1db1ee7c39b673a387ec6cd231561b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4057681_34471228",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-10T18:58:03Z",
+      "side": 0,
+      "message": "I\u0027m of the opinion that if we need to get error_messages to do what we did for internalError, and just have it log the location it was called as part of doing the message.  I didn\u0027t delete this one on purpose, but I suspect it can stay deleted.",
+      "parentUuid": "db8bc06c_a59906da",
+      "revId": "f1a1e3dcca1db1ee7c39b673a387ec6cd231561b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
