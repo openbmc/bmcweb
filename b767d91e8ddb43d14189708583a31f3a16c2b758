@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "0745a9d6_b194c44f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-10T18:51:04Z",
+      "side": 1,
+      "message": "I support this in concept and in its current implementation.  Whether or not openbmc has use of a given registry is a different issue than whether or not we pull in the DMTF official registries.",
+      "parentUuid": "dd6bdd95_b5b5a877",
+      "revId": "b767d91e8ddb43d14189708583a31f3a16c2b758",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "3978e729_83233b72",
         "filename": "redfish-core/include/registries/logservice_message_registry.hpp",
         "patchSetId": 2
