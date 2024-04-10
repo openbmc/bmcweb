@@ -151,6 +151,47 @@
       },
       "revId": "bf53c2f7e38ecef81b3cd505376e6de35c1783bb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bda201a1_7e4e9015",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-04-10T04:12:29Z",
+      "side": 1,
+      "message": "IPv4 gateway is associated with static IPv4 addresses while configuring ipv4 addresses as per redfish schema, While IPv6 just requires IP address and prefix while configuring IPv6 address and redfish support IPv6GatewayStaticAddress property for ipv6 gateways.\nsince configure IP address redfish command takes gateway input while configuring IP address, it should be cleaned as part of delete as well.",
+      "parentUuid": "e8faeef3_a2a34bf7",
+      "range": {
+        "startLine": 714,
+        "startChar": 55,
+        "endLine": 714,
+        "endChar": 71
+      },
+      "revId": "bf53c2f7e38ecef81b3cd505376e6de35c1783bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f84a0925_f76a85f1",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 723,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-04-10T04:12:29Z",
+      "side": 1,
+      "message": "this reset/remove IPv4 default gateway should be done after successfully deleting IP address, please move code into callback of delete ip address below.",
+      "revId": "bf53c2f7e38ecef81b3cd505376e6de35c1783bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
