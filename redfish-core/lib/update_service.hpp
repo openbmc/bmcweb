@@ -745,10 +745,6 @@ inline void
     {
         MultipartParser parser;
 
-        // Setup callback for when new software detected
-        monitorForSoftwareAvailable(asyncResp, req,
-                                    "/redfish/v1/UpdateService");
-
         ParserError ec = parser.parse(req);
         if (ec != ParserError::PARSER_SUCCESS)
         {
@@ -758,6 +754,10 @@ inline void
             messages::internalError(asyncResp->res);
             return;
         }
+        // Setup callback for when new software detected
+        monitorForSoftwareAvailable(asyncResp, req,
+                                    "/redfish/v1/UpdateService");
+
         updateMultipartContext(asyncResp, parser);
     }
     else
