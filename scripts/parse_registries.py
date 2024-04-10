@@ -234,12 +234,42 @@ def make_privilege_registry():
         )
 
 
+def to_pascal_case(text):
+    s = text.replace("_", " ")
+    s = s.split()
+    if len(text) == 0:
+        return text
+    return "".join(i.capitalize() for i in s[0:])
+
+
 def main():
+    dmtf_registries = (
+        ("base", "1.16.0"),
+        ("composition", "1.1.2"),
+        ("environmental", "1.0.1"),
+        ("ethernet_fabric", "1.0.1"),
+        ("fabric", "1.0.2"),
+        ("heartbeat_event", "1.0.1"),
+        ("job_event", "1.0.1"),
+        ("license", "1.0.3"),
+        ("log_service", "1.0.1"),
+        ("network_device", "1.0.3"),
+        ("platform", "1.0.1"),
+        ("power", "1.0.1"),
+        ("resource_event", "1.3.0"),
+        ("sensor_event", "1.0.1"),
+        ("storage_device", "1.2.1"),
+        ("task_event", "1.0.3"),
+        ("telemetry", "1.0.0"),
+        ("update", "1.0.2"),
+    )
+
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--registries",
         type=str,
-        default="base,task_event,resource_event,privilege,openbmc",
+        default="privilege,openbmc,"
+        + ",".join([dmtf[0] for dmtf in dmtf_registries]),
         help="Comma delimited list of registries to update",
     )
 
@@ -248,28 +278,16 @@ def main():
     registries = set(args.registries.split(","))
     files = []
 
-    if "base" in registries:
-        files.append(
-            make_getter(
-                "Base.1.16.0.json", "base_message_registry.hpp", "base"
+    for registry, version in dmtf_registries:
+        if registry in registries:
+            registry_pascal_case = to_pascal_case(registry)
+            files.append(
+                make_getter(
+                    f"{registry_pascal_case}.{version}.json",
+                    f"{registry}_message_registry.hpp",
+                    registry,
+                )
             )
-        )
-    if "task_event" in registries:
-        files.append(
-            make_getter(
-                "TaskEvent.1.0.3.json",
-                "task_event_message_registry.hpp",
-                "task_event",
-            )
-        )
-    if "resource_event" in registries:
-        files.append(
-            make_getter(
-                "ResourceEvent.1.3.0.json",
-                "resource_event_message_registry.hpp",
-                "resource_event",
-            )
-        )
     if "openbmc" in registries:
         files.append(openbmc_local_getter())
 
