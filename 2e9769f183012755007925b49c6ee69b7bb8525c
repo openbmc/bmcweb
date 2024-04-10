@@ -181,6 +181,30 @@
       },
       "revId": "2e9769f183012755007925b49c6ee69b7bb8525c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f981e91f_c61aee11",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-10T17:16:29Z",
+      "side": 1,
+      "message": "Moved the log line.",
+      "parentUuid": "116f564f_f2eddb52",
+      "range": {
+        "startLine": 394,
+        "startChar": 0,
+        "endLine": 394,
+        "endChar": 65
+      },
+      "revId": "2e9769f183012755007925b49c6ee69b7bb8525c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
