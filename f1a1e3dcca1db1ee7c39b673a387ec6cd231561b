@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db8bc06c_a59906da",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-04-10T18:49:09Z",
+      "side": 0,
+      "message": "You lost a DEBUG but oh well. Add back if you think it will ever be used. \nI can\u0027t see that it would be",
+      "revId": "f1a1e3dcca1db1ee7c39b673a387ec6cd231561b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
