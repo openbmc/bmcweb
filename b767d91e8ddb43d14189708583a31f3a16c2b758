@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd6bdd95_b5b5a877",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-10T18:50:14Z",
+      "side": 1,
+      "message": "I supp",
+      "revId": "b767d91e8ddb43d14189708583a31f3a16c2b758",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3978e729_83233b72",
+        "filename": "redfish-core/include/registries/logservice_message_registry.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-10T18:50:14Z",
+      "side": 1,
+      "message": "Really?  Those guys made a registry with ONE entry in it?  WHYYYYYYYYYYYY?????????\n\n\nhttps://github.com/DMTF/Redfish-Publications/blob/main/registries/LogService.1.0.1.json",
+      "revId": "b767d91e8ddb43d14189708583a31f3a16c2b758",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6227fbbb_78ebb417",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-10T18:50:14Z",
+      "side": 1,
+      "message": "Can we code golf this just a little?  something like\n\ndmtf_registries \u003d ((\"task_event\", \"1.0.3\"), (\"telemetry\", ....)\n\n```\nfor registry, version in registries:\n        registry_camel_case \u003d to_camel_case(registry) \n        files.append(\n            make_getter(\n                f\"Update.{version}.json\",\n                f\"{registry}_message_registry.hpp\",\n                registry,\n            )\n        )\n```\nif not, I\u0027m ok with it as is, it just makes my eyes hurt.\n\nIn a perfect world, we\u0027d be getting this list directly from the Registries blob, or from the github DMTF_PUBLICATIONS repo, so we don\u0027t have to manually add registries every time, but alas, that\u0027s a problem for another day.",
+      "range": {
+        "startLine": 251,
+        "startChar": 2,
+        "endLine": 392,
+        "endChar": 9
+      },
+      "revId": "b767d91e8ddb43d14189708583a31f3a16c2b758",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
