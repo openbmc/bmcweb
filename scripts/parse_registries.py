@@ -239,7 +239,7 @@ def main():
     parser.add_argument(
         "--registries",
         type=str,
-        default="base,task_event,resource_event,privilege,openbmc",
+        default="base,composition,environmental,ethernetfabric,fabric,heartbeat_event,job_event,license,logservice,networkdevice,platform,power,resource_event,sensor_event,storage_device,task_event,telemetry,update,privilege,openbmc",
         help="Comma delimited list of registries to update",
     )
 
@@ -254,12 +254,92 @@ def main():
                 "Base.1.16.0.json", "base_message_registry.hpp", "base"
             )
         )
-    if "task_event" in registries:
+    if "composition" in registries:
         files.append(
             make_getter(
-                "TaskEvent.1.0.3.json",
-                "task_event_message_registry.hpp",
-                "task_event",
+                "Composition.1.1.2",
+                "composition_message_registry.hpp",
+                "composition",
+            )
+        )
+    if "environmental" in registries:
+        files.append(
+            make_getter(
+                "Environmental.1.0.1",
+                "environmental_message_registry.hpp",
+                "environmental",
+            )
+        )
+    if "ethernetfabric" in registries:
+        files.append(
+            make_getter(
+                "EthernetFabric.1.0.1",
+                "ethernetfabric_message_registry.hpp",
+                "ethernetfabric",
+            )
+        )
+    if "fabric" in registries:
+        files.append(
+            make_getter(
+                "Fabric.1.0.2",
+                "fabric_message_registry.hpp",
+                "fabric",
+            )
+        )
+    if "heartbeat_event" in registries:
+        files.append(
+            make_getter(
+                "HeartbeatEvent.1.0.1.json",
+                "heartbeat_event_message_registry.hpp",
+                "heartbeat_event",
+            )
+        )
+    if "job_event" in registries:
+        files.append(
+            make_getter(
+                "JobEvent.1.0.1.json",
+                "job_event_message_registry.hpp",
+                "job_event",
+            )
+        )
+    if "license" in registries:
+        files.append(
+            make_getter(
+                "License.1.0.3",
+                "license_message_registry.hpp",
+                "license",
+            )
+        )
+    if "logservice" in registries:
+        files.append(
+            make_getter(
+                "LogService.1.0.1",
+                "logservice_message_registry.hpp",
+                "logservice",
+            )
+        )
+    if "networkdevice" in registries:
+        files.append(
+            make_getter(
+                "NetworkDevice.1.0.3",
+                "networkdevice_message_registry.hpp",
+                "networkdevice",
+            )
+        )
+    if "platform" in registries:
+        files.append(
+            make_getter(
+                "Platform.1.0.1",
+                "platform_message_registry.hpp",
+                "platform",
+            )
+        )
+    if "power" in registries:
+        files.append(
+            make_getter(
+                "Power.1.0.1",
+                "power_message_registry.hpp",
+                "power",
             )
         )
     if "resource_event" in registries:
@@ -268,6 +348,46 @@ def main():
                 "ResourceEvent.1.3.0.json",
                 "resource_event_message_registry.hpp",
                 "resource_event",
+            )
+        )
+    if "sensor_event" in registries:
+        files.append(
+            make_getter(
+                "SensorEvent.1.0.1.json",
+                "sensor_event_message_registry.hpp",
+                "sensor_event",
+            )
+        )
+    if "storage_device" in registries:
+        files.append(
+            make_getter(
+                "StorageDevice.1.2.1.json",
+                "storage_device_message_registry.hpp",
+                "storage_device",
+            )
+        )
+    if "task_event" in registries:
+        files.append(
+            make_getter(
+                "TaskEvent.1.0.3.json",
+                "task_event_message_registry.hpp",
+                "task_event",
+            )
+        )
+    if "telemetry" in registries:
+        files.append(
+            make_getter(
+                "Telemetry.1.0.0.json",
+                "telemetry_message_registry.hpp",
+                "telemetry",
+            )
+        )
+    if "update" in registries:
+        files.append(
+            make_getter(
+                "Update.1.0.2.json",
+                "update_message_registry.hpp",
+                "update",
             )
         )
     if "openbmc" in registries:
