@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "962b6663_f7089b35",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-04-10T19:12:20Z",
+      "side": 1,
+      "message": "It looks good to me.  (with minor comments).",
+      "revId": "e32276033777f26abd71ad5eed160526bf5d4fd8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3e22c36_533370c8",
+        "filename": "include/kvm_websocket.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-04-10T19:12:20Z",
+      "side": 1,
+      "message": "Perhaps `committed` or `copied` like in `http/server_sent_event.hpp`?",
+      "range": {
+        "startLine": 55,
+        "startChar": 15,
+        "endLine": 55,
+        "endChar": 21
+      },
+      "revId": "e32276033777f26abd71ad5eed160526bf5d4fd8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00ed6512_4e0856e9",
+        "filename": "include/nbd_proxy.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-04-10T19:12:20Z",
+      "side": 1,
+      "message": "Perhaps `committed` or `copied` like in `http/server_sent_event.hpp`?",
+      "range": {
+        "startLine": 128,
+        "startChar": 15,
+        "endLine": 128,
+        "endChar": 21
+      },
+      "revId": "e32276033777f26abd71ad5eed160526bf5d4fd8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
