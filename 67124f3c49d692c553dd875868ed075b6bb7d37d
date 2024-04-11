@@ -22,6 +22,30 @@
       },
       "revId": "67124f3c49d692c553dd875868ed075b6bb7d37d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19116ec8_3303f529",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 3941,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-11T20:25:17Z",
+      "side": 1,
+      "message": "Definitely doesn\u0027t.  Fixed.",
+      "parentUuid": "99f9fdb8_f17fb14f",
+      "range": {
+        "startLine": 3941,
+        "startChar": 47,
+        "endLine": 3941,
+        "endChar": 49
+      },
+      "revId": "67124f3c49d692c553dd875868ed075b6bb7d37d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
