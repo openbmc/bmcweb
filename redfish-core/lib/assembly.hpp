@@ -6,6 +6,7 @@
 #include "led.hpp"
 #include "utils/chassis_utils.hpp"
 
+#include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
@@ -247,6 +248,36 @@ inline void getReadyToRemoveOfTodBattery(
                         assemblyIndex));
 }
 
+void getAssemblyPresence(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const auto& serviceName, const auto& assembly,
+                         const auto& assemblyIndex)
+{
+    nlohmann::json& assemblyArray = asyncResp->res.jsonValue["Assemblies"];
+    nlohmann::json& assemblyData = assemblyArray.at(assemblyIndex);
+
+    assemblyData["Status"]["State"] = "Enabled";
+
+    sdbusplus::asio::getProperty<bool>(
+        *crow::connections::systemBus, serviceName, assembly,
+        "xyz.openbmc_project.Inventory.Item", "Present",
+        [asyncResp, assemblyIndex](const boost::system::error_code& ec,
+                                   const bool value) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR("DBUS response error: {}", ec.value());
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        if (!value)
+        {
+            nlohmann::json& array = asyncResp->res.jsonValue["Assemblies"];
+            nlohmann::json& data = array.at(assemblyIndex);
+            data["Status"]["State"] = "Absent";
+        }
+    });
+}
+
 /**
  * @brief Get properties for the assemblies associated to given chassis
  * @param[in] asyncResp - Shared pointer for asynchronous calls.
@@ -321,6 +352,11 @@ inline void
                     {
                         getAssemblyLocationCode(asyncResp, serviceName,
                                                 assembly, assemblyIndex);
+                    }
+                    else if (interface == "xyz.openbmc_project.Inventory.Item")
+                    {
+                        getAssemblyPresence(asyncResp, serviceName, assembly,
+                                            assemblyIndex);
                     }
                 }
             }
