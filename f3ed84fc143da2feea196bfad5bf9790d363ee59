@@ -70,6 +70,30 @@
       },
       "revId": "f3ed84fc143da2feea196bfad5bf9790d363ee59",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c9ee927_a4e8352a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-11T19:34:47Z",
+      "side": 1,
+      "message": "FWIW, My long term goal is to get rid of UnpackVariant altogether.  I don\u0027t think the \"Need to explicitly declare every possible type to unpack\" paradigm meshes well with bmcweb, and I suspect unduly causes thrash in people that want to use the code.  Ideally we wouldn\u0027t have to be making core utility changes to unpack a new type.\n\nIt was done originally because it significantly dropped the binary size, given how many readJson calls we had, but as we\u0027ve been dropping those calls and cleaning this stuff up, it\u0027s making the variant itself less and less relevant (we could probably survive the binary size increase if we removed it today, but I haven\u0027t measured).\n\nThis is the long winded way of saying, I don\u0027t really want to put a date here;  It doesn\u0027t hurt anything to have, aside from people being able to write less than optimal code",
+      "parentUuid": "0d5c571e_4f3eec83",
+      "range": {
+        "startLine": 11,
+        "startChar": 10,
+        "endLine": 11,
+        "endChar": 65
+      },
+      "revId": "f3ed84fc143da2feea196bfad5bf9790d363ee59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
