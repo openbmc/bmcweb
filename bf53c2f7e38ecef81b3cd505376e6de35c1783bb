@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0035343a_7dcb9dbb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2024-04-11T17:10:05Z",
+      "side": 1,
+      "message": "Ed,\n\nHere\u0027s some background.\n\nReference point 1:\nAt present, if you send:\nPATCH \u003curl\u003e/redfish/v1/Managers/bmc/EthernetInterfaces/eth1\n{\n    \"IPv4StaticAddresses\": [\n        {\n            \"Address\": \"192.168.70.3\",\n            \"SubnetMask\": \"255.255.255.0\",\n            \"Gateway\": \"192.168.70.1\"\n        },\n        {\n            \"Address\": \"192.168.60.55\",\n            \"SubnetMask\": \"255.255.254.0\",\n            \"Gateway\": \"192.168.60.1\"\n        }\n    ]\n}\n\nBMCWeb iterates over the collection of static addresses, setting an Address/netmask on each pass.\nThe D-Bus interface allows any number of IPv4 address/netmask combinations.\nThe D-Bus interface only has a single default gateway.\nYou will get two static addresses, two different subnet masks, and only a single gateway entry.\nThe default gateway is assigned to whichever entry in the collection was last processed.\n\nThe ethernet.hpp code will set a single \"DefaultGateway\" property, never more.\nPhosphor-network will store one gateway, never more.\n\nDoing the PATCH above will not get the results expected.\n\nIn short, don\u0027t do the PATCH above with the current\nBMCWeb/D-Bus/phosphor-network implementation. Best practice is to assign one,\nand only one, static IPv4 address.\n\nReference point 2:\nGet rid of this state.\nLet\u0027s perform a DELETE operation with the most recent BMCWeb code.\nPATCH \u003curl\u003e/redfish/v1/Managers/bmc/EthernetInterfaces/eth1\n{\n    \"IPv4StaticAddresses\": [\n        null,\n        null\n    ]\n}\n\n\nThe IPv4 addresses are removed from the D-Bus list.\nThe gateway is still assigned, because the independent DefaultGateway D-Bus entry still has a value.\nThere is chaff in the network.conf file that has not been removed, and cannot be removed.\n\nReference point 3:\nTurn on DHCPv4.\n\nNow we have a problem.\nDHCPv4 is going to give an address, netmask, a gateway, and other features.\nThe gateway assigned by the prior static change is still present.\nNo one ever deleted it.\nWhat happens to the IPv4 traffic that needs to be sent?\nDoes it go via the default gateway from the static IPv4?\nDoes it go via the DHCPv4 gateway?\nI believe this is going to be random.\nWhat happens if the cable is moved to another subnet, that perhaps doesn\u0027t have 192.xxxx addresses, yet the gateway selected is the 192.xxxx gateway?\n\nThere\u0027s no guarantee that IPv4 traffic on the interface will function as expected.\n\nReference point 4:\nRestore the BMC network to a \u0027time zero\u0027 state.\nRemove the network.conf file, and reboot.\n\nAssign a static address to the BMC as before.\nPATCH \u003curl\u003e/redfish/v1/Managers/bmc/EthernetInterfaces/eth1\n{\n     \"IPv4StaticAddresses\": [\n     {\n             \"Address\": \"192.168.70.3\",\n             \"SubnetMask\": \"255.255.255.0\",\n             \"Gateway\": \"192.168.70.1\"\n     }\n     ]\n}\n\nThe network.conf file shows the results:[Network]\nGateway\u003d192.168.70.1\nAddress\u003d192.168.70.3/24\nDHCP\u003dipv6\n\nNow, instead of deleting the address directly, turn on DHCPv4.\nPATCH \u003curl\u003e/redfish/v1/Managers/bmc/EthernetInterfaces/eth1\nContent-Type: application/json\n{\n    \"DHCPv4\": {\n        \"DHCPEnabled\": true\n    }\n}\n\nThe network.conf file is in an unexpected state.\n[Network]\nAddress\u003d192.168.70.3/24\nDHCP\u003dtrue\n\nphosphor-network has done us one favor, and that\u0027s to remove the Gateway entry.\nIt has also done us a disservice by assigning the last known static address to the NIC.\nSo now the NIC has two active IPv4 addresses.\nIt\u0027s now necessary to issue another PATCH with a *null* element to get rid of the static address.\nAlternately phoshpor-network needs to have logic to stop performing this action.\n\nConclusion:\nBMCWeb assigned the gateway as part of the IPv4 address assignment.\nBMCWeb needs to be responsible for removing it.",
+      "parentUuid": "9d6194f0_2a964dac",
+      "revId": "bf53c2f7e38ecef81b3cd505376e6de35c1783bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6b20d577_8df8e95a",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -71,6 +89,23 @@
       "writtenOn": "2024-04-03T21:19:51Z",
       "side": 1,
       "message": "I\u0027m not familiar enough with networking to judge the merits of this change, but just have one comment on the coding",
+      "revId": "bf53c2f7e38ecef81b3cd505376e6de35c1783bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "349bb349_676a4f36",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2024-04-11T17:10:05Z",
+      "side": 1,
+      "message": "FYI",
       "revId": "bf53c2f7e38ecef81b3cd505376e6de35c1783bb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
