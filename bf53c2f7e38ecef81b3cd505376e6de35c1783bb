@@ -307,6 +307,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fb9adae0_156c52ce",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 723,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-11T18:55:46Z",
+      "side": 1,
+      "message": "Why does it need to be done after?\n\nChaining DBus operations makes code a lot more complicated, and gets dangerously close to bmcweb actually doing business logic (which ideally it shouldn\u0027t ever do).  If we can avoid it, we should, but I\u0027m open to it if there\u0027s a good reason that we can articulate (ideally in a comment).",
+      "parentUuid": "f84a0925_f76a85f1",
+      "revId": "bf53c2f7e38ecef81b3cd505376e6de35c1783bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cd867967_87b95a34",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 1
