@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b0072323_8a763805",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-11T18:52:32Z",
+      "side": 1,
+      "message": "\u003e \n\u003e Now we have a problem.\n\u003e DHCPv4 is going to give an address, netmask, a gateway, and other features.\n\u003e The gateway assigned by the prior static change is still present.\n\u003e No one ever deleted it.\n\nThis seems like the core of the problem, and IMO is something phosphor-networkd should just solve.  If you\u0027re enabling DHCP, clearly you don\u0027t want a static gateway (you want the DHCP gateway), so it should be cleaning that up.\n\n\u003e What happens to the IPv4 traffic that needs to be sent?\n\u003e Does it go via the default gateway from the static IPv4?\n\u003e Does it go via the DHCPv4 gateway?\n\u003e I believe this is going to be random.\n\nYep.  Makes sense.\n\n\u003e Alternately phoshpor-network needs to have logic to stop performing this action.\n\nYes, this, although I\u0027m not sure this is something phosphor-networkd can stop, given its APIs are adding one IP address at a time.  I guess it could reject the second one if there\u0027s already a gateway set?\n\n\u003e \n\u003e Conclusion:\n\u003e BMCWeb assigned the gateway as part of the IPv4 address assignment.\n\u003e BMCWeb needs to be responsible for removing it.\n\nGotcha.  I can see how you came to this conclusion, and the above text makes way more sense than the commit message.\n\nLets:\n1. Have bmcweb reject any request that sets more than one unique gateway, with a \"PropertyValueConflict\" message back to the user, so this problem on new deployments just straight up isn\u0027t possible to hit.\n2. Make sure that the code on delete of a SINGLE ip address no longer removes the gateway.  In your example above this would be \n\n\"IPv4StaticAddresses\": [{}, null]\n\nWhich as the code is written, would delete the gateway, even though it\u0027s still valid.\n\nSeem reasonable?\n\nI appreciate you writing up the above.  It makes the issue much more clear, especially with reproduction steps.  If you wanted to get the above filed as a bmcweb bug, that might help others that hit this same thing, and let us track this to conclusion, but I realize that\u0027s extra work, so up to you.",
+      "parentUuid": "0035343a_7dcb9dbb",
+      "revId": "bf53c2f7e38ecef81b3cd505376e6de35c1783bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6b20d577_8df8e95a",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
