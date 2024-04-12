@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a7d1efa_4364de91",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-12T20:46:09Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 7,
+        "startChar": 19,
+        "endLine": 7,
+        "endChar": 26
+      },
+      "revId": "d5441743b5122f5a68c90142a42fb18769c75796",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6da493af_ced3fc35",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1062,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-12T20:46:09Z",
+      "side": 1,
+      "message": "This doesn\u0027t look correct I think?  Shouldn\u0027t include odata.id",
+      "range": {
+        "startLine": 1062,
+        "startChar": 25,
+        "endLine": 1062,
+        "endChar": 59
+      },
+      "revId": "d5441743b5122f5a68c90142a42fb18769c75796",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
