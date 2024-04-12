@@ -31,6 +31,12 @@ inline void
         asyncResp->res.result(boost::beast::http::status::service_unavailable);
         return;
     }
+    if (req.ioService == nullptr)
+    {
+        asyncResp->res.result(
+            boost::beast::http::status::internal_server_error);
+        return;
+    }
     // Make this const static so it survives outside this method
     static boost::asio::steady_timer timeout(*req.ioService,
                                              std::chrono::seconds(5));
