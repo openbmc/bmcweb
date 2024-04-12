@@ -65,6 +65,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a93a2fe_c69c5b75",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-04-12T09:15:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b3f7fc41_eece07e4",
+      "range": {
+        "startLine": 294,
+        "startChar": 20,
+        "endLine": 295,
+        "endChar": 76
+      },
+      "revId": "9843a486d07fbe6ad1636240c5e607cf3a39e27e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bbbefa7d_8a6a4f5e",
@@ -102,6 +126,30 @@
       "side": 1,
       "message": "Same, I have been testing this with a bit older codebase. Hence missed to remove this change.",
       "parentUuid": "bbbefa7d_8a6a4f5e",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 9
+      },
+      "revId": "9843a486d07fbe6ad1636240c5e607cf3a39e27e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38131e71_38abec83",
+        "filename": "redfish-core/src/utils/dbus_utils.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-04-12T09:15:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e42f5b45_8ee48d6f",
       "range": {
         "startLine": 36,
         "startChar": 0,
