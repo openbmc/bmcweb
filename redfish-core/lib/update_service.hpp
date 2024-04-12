@@ -513,6 +513,12 @@ static void monitorForSoftwareAvailable(
         return;
     }
 
+    if (req.ioService == nullptr)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
     fwAvailableTimer =
         std::make_unique<boost::asio::steady_timer>(*req.ioService);
 
