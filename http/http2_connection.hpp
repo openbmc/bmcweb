@@ -246,6 +246,8 @@ class HTTP2Connection :
             }
         }
         crow::Request& thisReq = it->second.req;
+        thisReq.ioService = static_cast<decltype(thisReq.ioService)>(
+            &adaptor.get_executor().context());
         BMCWEB_LOG_DEBUG("Handling {} \"{}\"", logPtr(&thisReq),
                          thisReq.url().encoded_path());
 
