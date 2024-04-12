@@ -766,6 +766,12 @@ inline void
         return;
     }
 
+    if (req.ioService == nullptr)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
     // Make this static so it survives outside this method
     static boost::asio::steady_timer timeout(*req.ioService);
     timeout.expires_after(std::chrono::seconds(timeOut));
