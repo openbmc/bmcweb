@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cca09a3_913a2703",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-12T15:55:17Z",
+      "side": 1,
+      "message": "Looks like https://gerrit.openbmc.org/c/openbmc/phosphor-time-manager/+/70457 merged.  We can go ahead with this.  Leaving in review for a day or two to see if anyone has any objections.",
+      "revId": "7c10c2dee2621b98078b6c772cbedfe09fa1b061",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
