@@ -24,42 +24,10 @@
 #include "vm_websocket.hpp"
 #include "webassets.hpp"
 
-#include <systemd/sd-daemon.h>
-
 #include <boost/asio/io_context.hpp>
 #include <sdbusplus/asio/connection.hpp>
 #include <sdbusplus/bus.hpp>
 #include <sdbusplus/server.hpp>
-
-constexpr int defaultPort = 18080;
-
-static void setupSocket(crow::App& app)
-{
-    int listenFd = sd_listen_fds(0);
-    if (1 == listenFd)
-    {
-        BMCWEB_LOG_INFO("attempting systemd socket activation");
-        if (sd_is_socket_inet(SD_LISTEN_FDS_START, AF_UNSPEC, SOCK_STREAM, 1,
-                              0) != 0)
-        {
-            BMCWEB_LOG_INFO("Starting webserver on socket handle {}",
-                            SD_LISTEN_FDS_START);
-            app.socket(SD_LISTEN_FDS_START);
-        }
-        else
-        {
-            BMCWEB_LOG_INFO(
-                "bad incoming socket, starting webserver on port {}",
-                defaultPort);
-            app.port(defaultPort);
-        }
-    }
-    else
-    {
-        BMCWEB_LOG_INFO("Starting webserver on port {}", defaultPort);
-        app.port(defaultPort);
-    }
-}
 
 int run()
 {
@@ -122,8 +90,6 @@ int run()
 
     crow::login_routes::requestRoutes(app);
 
-    setupSocket(app);
-
 #ifdef BMCWEB_ENABLE_VM_NBDPROXY
     crow::nbd_proxy::requestRoutes(app);
 #endif
@@ -137,10 +103,11 @@ int run()
     }
 #endif
 
-#ifdef BMCWEB_ENABLE_SSL
-    BMCWEB_LOG_INFO("Start Hostname Monitor Service...");
-    crow::hostname_monitor::registerHostnameSignal();
-#endif
+    if constexpr (bmcwebEnableTLS)
+    {
+        BMCWEB_LOG_INFO("Start Hostname Monitor Service...");
+        crow::hostname_monitor::registerHostnameSignal();
+    }
 
     bmcweb::registerUserRemovedSignal();
 
