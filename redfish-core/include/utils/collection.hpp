@@ -27,6 +27,11 @@ inline void handleCollectionMembers(
     const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreePathsResponse& objects)
 {
+    if (jsonKeyName.empty())
+    {
+        BMCWEB_LOG_CRITICAL("Json Key called empty.  Did you mean /Members?");
+        return;
+    }
     nlohmann::json::json_pointer jsonCountKeyName = jsonKeyName;
     std::string back = jsonCountKeyName.back();
     jsonCountKeyName.pop_back();
