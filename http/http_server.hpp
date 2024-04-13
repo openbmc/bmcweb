@@ -27,36 +27,14 @@ template <typename Handler, typename Adaptor = boost::asio::ip::tcp::socket>
 class Server
 {
   public:
-    Server(Handler* handlerIn,
-           std::unique_ptr<boost::asio::ip::tcp::acceptor>&& acceptorIn,
+    Server(Handler* handlerIn, const boost::asio::ip::tcp::endpoint& endpoint,
            std::shared_ptr<boost::asio::ssl::context> adaptorCtxIn,
            std::shared_ptr<boost::asio::io_context> io =
                std::make_shared<boost::asio::io_context>()) :
         ioService(std::move(io)),
-        acceptor(std::move(acceptorIn)),
+        acceptor(*ioService, endpoint),
         signals(*ioService, SIGINT, SIGTERM, SIGHUP), handler(handlerIn),
         adaptorCtx(std::move(adaptorCtxIn))
-    {}
-
-    Server(Handler* handlerIn, uint16_t port,
-           const std::shared_ptr<boost::asio::ssl::context>& adaptorCtxIn,
-           const std::shared_ptr<boost::asio::io_context>& io =
-               std::make_shared<boost::asio::io_context>()) :
-        Server(handlerIn,
-               std::make_unique<boost::asio::ip::tcp::acceptor>(
-                   *io, boost::asio::ip::tcp::endpoint(
-                            boost::asio::ip::make_address("0.0.0.0"), port)),
-               adaptorCtxIn, io)
-    {}
-
-    Server(Handler* handlerIn, int existingSocket,
-           const std::shared_ptr<boost::asio::ssl::context>& adaptorCtxIn,
-           const std::shared_ptr<boost::asio::io_context>& io =
-               std::make_shared<boost::asio::io_context>()) :
-        Server(handlerIn,
-               std::make_unique<boost::asio::ip::tcp::acceptor>(
-                   *io, boost::asio::ip::tcp::v6(), existingSocket),
-               adaptorCtxIn, io)
     {}
 
     void updateDateStr()
@@ -90,7 +68,7 @@ class Server
         };
 
         BMCWEB_LOG_INFO("bmcweb server is running, local endpoint {}",
-                        acceptor->local_endpoint().address().to_string());
+                        acceptor.local_endpoint().address().to_string());
         startAsyncWaitForSignal();
         doAccept();
     }
@@ -148,7 +126,7 @@ class Server
                     BMCWEB_LOG_INFO("Receivied reload signal");
                     loadCertificate();
                     boost::system::error_code ec2;
-                    acceptor->cancel(ec2);
+                    acceptor.cancel(ec2);
                     if (ec2)
                     {
                         BMCWEB_LOG_ERROR(
@@ -188,7 +166,7 @@ class Server
                 handler, std::move(timer), getCachedDateStr,
                 Adaptor(*ioService));
         }
-        acceptor->async_accept(
+        acceptor.async_accept(
             boost::beast::get_lowest_layer(connection->socket()),
             [this, connection](const boost::system::error_code& ec) {
             if (!ec)
@@ -203,7 +181,7 @@ class Server
   private:
     std::shared_ptr<boost::asio::io_context> ioService;
     std::function<std::string()> getCachedDateStr;
-    std::unique_ptr<boost::asio::ip::tcp::acceptor> acceptor;
+    boost::asio::ip::tcp::acceptor acceptor;
     boost::asio::signal_set signals;
 
     std::string dateStr;
