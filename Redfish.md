@@ -58,9 +58,14 @@ Fields common to all schemas
 - AccountLockoutThreshold
 - Accounts
 - Description
+- HTTPBasicAuth
 - LDAP
 - MaxPasswordLength
 - MinPasswordLength
+- MultiFactorAuth/ClientCertificate/Certificates
+- MultiFactorAuth/ClientCertificate/CertificateMappingAttribute
+- MultiFactorAuth/ClientCertificate/Enabled
+- MultiFactorAuth/ClientCertificate/RespondToUnauthenticatedClients
 - Oem/OpenBMC/AuthMethods/BasicAuth
 - Oem/OpenBMC/AuthMethods/Cookie
 - Oem/OpenBMC/AuthMethods/SessionToken
@@ -68,6 +73,31 @@ Fields common to all schemas
 - Oem/OpenBMC/AuthMethods/XToken
 - Roles
 - ServiceEnabled
+
+### /redfish/v1/AccountService/MultiFactorAuth/ClientCertificate/Certificates
+
+- Members
+- Members@odata.count
+
+### /redfish/v1/AccountService/MultiFactorAuth/ClientCertificate/Certificates/{Certificate}
+
+- CertificateString
+- Id
+- Issuer/City
+- Issuer/CommonName
+- Issuer/Country
+- Issuer/Organization
+- Issuer/OrganizationalUnit
+- Issuer/State
+- KeyUsage
+- Subject/City
+- Subject/Country
+- Subject/CommonName
+- Subject/Organization
+- Subject/OrganizationalUnit
+- Subject/State
+- ValidNotAfter
+- ValidNotBefore
 
 ### /redfish/v1/AggregationService/
 
