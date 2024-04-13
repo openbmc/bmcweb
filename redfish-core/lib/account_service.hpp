@@ -16,6 +16,7 @@
 #pragma once
 
 #include "app.hpp"
+#include "certificate_service.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "generated/enums/account_service.hpp"
@@ -23,6 +24,7 @@
 #include "persistent_data.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
 
@@ -1168,6 +1170,80 @@ inline void handleAccountServiceHead(
 }
 
 inline void
+    getClientCertificates(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const nlohmann::json::json_pointer& keyLocation)
+{
+    boost::urls::url url(
+        "/redfish/v1/AccountService/MultiFactorAuth/ClientCertificate/Certificates");
+    std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.Certs.Certificate"};
+    std::string path = "/xyz/openbmc_project/certs/authority/truststore";
+
+    collection_util::getCollectionToKey(asyncResp, url, interfaces, path,
+                                        keyLocation);
+}
+
+inline void handleAccountServiceClientCertificatesInstanceHead(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& /*id*/)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/Certificate/Certificate.json>; rel=describedby");
+}
+
+inline void handleAccountServiceClientCertificatesInstanceGet(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const std::string& id)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    BMCWEB_LOG_DEBUG("ClientCertificate Certificate ID={}", id);
+    const boost::urls::url certURL = boost::urls::format(
+        "/redfish/v1/AccountService/MultiFactorAuth/ClientCertificate/Certificates/{}",
+        id);
+    std::string objPath =
+        sdbusplus::message::object_path(certs::authorityObjectPath) / id;
+    getCertificateProperties(
+        asyncResp, objPath,
+        "xyz.openbmc_project.Certs.Manager.Authority.Truststore", id, certURL,
+        "Client Certificate");
+}
+
+inline void handleAccountServiceClientCertificatesHead(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/CertificateCollection/CertificateCollection.json>; rel=describedby");
+}
+
+inline void handleAccountServiceClientCertificatesGet(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    getClientCertificates(asyncResp, "/Members"_json_pointer);
+}
+
+inline void
     handleAccountServiceGet(App& app, const crow::Request& req,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
@@ -1208,6 +1284,23 @@ inline void
     allowed.emplace_back(account_service::BasicAuthState::Disabled);
     json["HTTPBasicAuth@AllowableValues"] = std::move(allowed);
 
+    nlohmann::json::object_t clientCertificate;
+    clientCertificate["Enabled"] = authMethodsConfig.tls;
+    clientCertificate["RespondToUnauthenticatedClients"] = true;
+    clientCertificate["CertificateMappingAttribute"] =
+        account_service::CertificateMappingAttribute::CommonName;
+    nlohmann::json::object_t certificates;
+    certificates["@odata.id"] =
+        "/redfish/v1/AccountService/MultiFactorAuth/ClientCertificate/Certificates";
+    certificates["@odata.type"] =
+        "#CertificateCollection.CertificateCollection";
+    clientCertificate["Certificates"] = std::move(certificates);
+    json["MultiFactorAuth"]["ClientCertificate"] = std::move(clientCertificate);
+
+    getClientCertificates(
+        asyncResp,
+        "/MultiFactorAuth/ClientCertificate/Certificates/Members"_json_pointer);
+
     json["Oem"]["OpenBMC"]["@odata.type"] =
         "#OpenBMCAccountService.v1_0_0.AccountService";
     json["Oem"]["OpenBMC"]["@odata.id"] =
@@ -1243,7 +1336,7 @@ inline void
             return;
         }
 
-        BMCWEB_LOG_DEBUG("Got {}properties for AccountService",
+        BMCWEB_LOG_DEBUG("Got {} properties for AccountService",
                          propertiesList.size());
 
         const uint8_t* minPasswordLength = nullptr;
@@ -2017,6 +2110,34 @@ inline void requestAccountServiceRoutes(App& app)
         .privileges(redfish::privileges::patchAccountService)
         .methods(boost::beast::http::verb::patch)(
             std::bind_front(handleAccountServicePatch, std::ref(app)));
+
+    BMCWEB_ROUTE(
+        app,
+        "/redfish/v1/AccountService/MultiFactorAuth/ClientCertificate/Certificates")
+        .privileges(redfish::privileges::headAccountService)
+        .methods(boost::beast::http::verb::head)(std::bind_front(
+            handleAccountServiceClientCertificatesHead, std::ref(app)));
+
+    BMCWEB_ROUTE(
+        app,
+        "/redfish/v1/AccountService/MultiFactorAuth/ClientCertificate/Certificates")
+        .privileges(redfish::privileges::getAccountService)
+        .methods(boost::beast::http::verb::get)(std::bind_front(
+            handleAccountServiceClientCertificatesGet, std::ref(app)));
+
+    BMCWEB_ROUTE(
+        app,
+        "/redfish/v1/AccountService/MultiFactorAuth/ClientCertificate/Certificates/<str>")
+        .privileges(redfish::privileges::headAccountService)
+        .methods(boost::beast::http::verb::head)(std::bind_front(
+            handleAccountServiceClientCertificatesInstanceHead, std::ref(app)));
+
+    BMCWEB_ROUTE(
+        app,
+        "/redfish/v1/AccountService/MultiFactorAuth/ClientCertificate/Certificates/<str>/")
+        .privileges(redfish::privileges::getCertificate)
+        .methods(boost::beast::http::verb::get)(std::bind_front(
+            handleAccountServiceClientCertificatesInstanceGet, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Accounts/")
         .privileges(redfish::privileges::headManagerAccountCollection)
