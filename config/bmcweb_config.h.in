@@ -25,5 +25,7 @@ constexpr const bool bmcwebEnableMultiHost = @BMCWEB_ENABLE_MULTI_HOST@ == 1;
 
 constexpr const bool bmcwebEnableHTTP2 = @BMCWEB_ENABLE_HTTP2@ == 1;
 
+constexpr const bool bmcwebEnableTLS = @BMCWEB_ENABLE_TLS@ == 1;
+
 constexpr const bool bmcwebMTLSCommonNameParsingMeta = @BMCWEB_ENABLE_MTLS_COMMON_NAME_PARSING_META@ == 1;
 // clang-format on
