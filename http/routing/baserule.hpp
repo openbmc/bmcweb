@@ -37,7 +37,6 @@ class BaseRule
     virtual void handle(const Request& /*req*/,
                         const std::shared_ptr<bmcweb::AsyncResp>&,
                         const std::vector<std::string>&) = 0;
-#ifndef BMCWEB_ENABLE_SSL
     virtual void
         handleUpgrade(const Request& /*req*/,
                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -45,7 +44,7 @@ class BaseRule
     {
         asyncResp->res.result(boost::beast::http::status::not_found);
     }
-#else
+
     virtual void handleUpgrade(
         const Request& /*req*/,
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -53,7 +52,6 @@ class BaseRule
     {
         asyncResp->res.result(boost::beast::http::status::not_found);
     }
-#endif
 
     size_t getMethods() const
     {
