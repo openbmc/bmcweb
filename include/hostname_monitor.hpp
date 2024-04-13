@@ -1,5 +1,4 @@
 #pragma once
-#ifdef BMCWEB_ENABLE_SSL
 #include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "include/dbus_utility.hpp"
@@ -148,4 +147,3 @@ inline void registerHostnameSignal()
 }
 } // namespace hostname_monitor
 } // namespace crow
-#endif
