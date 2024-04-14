@@ -16,6 +16,24 @@
       "message": "If anyone is curious, it\u0027s this line.",
       "revId": "6d681128e650dfd27fcba006fce6d86c75b6b2dd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29756e94_2932a436",
+        "filename": "http/logging.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-04-14T23:23:15Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "3b88318c_87088b20",
+      "revId": "6d681128e650dfd27fcba006fce6d86c75b6b2dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
