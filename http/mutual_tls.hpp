@@ -4,8 +4,11 @@
 #include "mutual_tls_meta.hpp"
 #include "persistent_data.hpp"
 
+extern "C"
+{
 #include <openssl/crypto.h>
 #include <openssl/ssl.h>
+}
 
 #include <boost/asio/ip/address.hpp>
 #include <boost/asio/ssl/verify_context.hpp>
