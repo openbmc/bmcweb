@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d5a383b2_95190e3c",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1052,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-14T22:59:41Z",
+      "side": 1,
+      "message": "Added handling so that TFTP URLs are rejected from within the handler.",
+      "parentUuid": "b3569e5c_602a2916",
+      "revId": "8e45b16db04db4d4e588df1e1f74b1dfb7af6e9c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3f2cfc26_b9dc0657",
         "filename": "redfish-core/src/redfish.cpp",
         "patchSetId": 10
@@ -31,6 +49,24 @@
       "writtenOn": "2024-04-14T22:51:06Z",
       "side": 1,
       "message": "You might need to drop this one as you renamed this one to handleUpdateServiceSimpleUpdateAction and moved it inside requestRoutesUpdateService?",
+      "revId": "8e45b16db04db4d4e588df1e1f74b1dfb7af6e9c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87fc79b9_2d584657",
+        "filename": "redfish-core/src/redfish.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-14T22:59:41Z",
+      "side": 1,
+      "message": "Good catch, fixed it.",
+      "parentUuid": "3f2cfc26_b9dc0657",
       "revId": "8e45b16db04db4d4e588df1e1f74b1dfb7af6e9c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
