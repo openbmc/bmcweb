@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3569e5c_602a2916",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1052,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-04-14T22:51:06Z",
+      "side": 1,
+      "message": "Do you want to add #ifdef BMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE for SimpleUpdateService as it was in original code?",
+      "revId": "8e45b16db04db4d4e588df1e1f74b1dfb7af6e9c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f2cfc26_b9dc0657",
+        "filename": "redfish-core/src/redfish.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-04-14T22:51:06Z",
+      "side": 1,
+      "message": "You might need to drop this one as you renamed this one to handleUpdateServiceSimpleUpdateAction and moved it inside requestRoutesUpdateService?",
+      "revId": "8e45b16db04db4d4e588df1e1f74b1dfb7af6e9c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
