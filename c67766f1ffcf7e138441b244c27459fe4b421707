@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c59a764_5ec5e898",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-04-14T23:22:14Z",
+      "side": 1,
+      "message": "ERROR?",
+      "revId": "c67766f1ffcf7e138441b244c27459fe4b421707",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02a4301c_4e0d7b83",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2091,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-04-14T23:22:14Z",
+      "side": 1,
+      "message": "headClientCertificateCollection ? \nI am aware of the problems with the privilege registry but for now, I think having these follow their schemas makes the most sense (I suspect this is  a no-op.)",
+      "range": {
+        "startLine": 2091,
+        "startChar": 41,
+        "endLine": 2091,
+        "endChar": 59
+      },
+      "revId": "c67766f1ffcf7e138441b244c27459fe4b421707",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "314917e6_9a220c9a",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2098,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-04-14T23:22:14Z",
+      "side": 1,
+      "message": "getCertificateCollection?",
+      "range": {
+        "startLine": 2098,
+        "startChar": 41,
+        "endLine": 2098,
+        "endChar": 58
+      },
+      "revId": "c67766f1ffcf7e138441b244c27459fe4b421707",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5f26ec3_668018cc",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2105,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-04-14T23:22:14Z",
+      "side": 1,
+      "message": "headCertificate?",
+      "range": {
+        "startLine": 2105,
+        "startChar": 41,
+        "endLine": 2105,
+        "endChar": 59
+      },
+      "revId": "c67766f1ffcf7e138441b244c27459fe4b421707",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
