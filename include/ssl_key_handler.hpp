@@ -8,7 +8,6 @@
 extern "C"
 {
 #include <nghttp2/nghttp2.h>
-}
 #include <openssl/bio.h>
 #include <openssl/dh.h>
 #include <openssl/dsa.h>
@@ -18,6 +17,7 @@ extern "C"
 #include <openssl/rand.h>
 #include <openssl/rsa.h>
 #include <openssl/ssl.h>
+}
 
 #include <boost/asio/ssl/context.hpp>
 
