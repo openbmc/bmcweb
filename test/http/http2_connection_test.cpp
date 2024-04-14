@@ -136,8 +136,8 @@ TEST(http_connection, RequestPropogates)
         // Settings ACK from server to client
         "\x00\x00\x00\x04\x01\x00\x00\x00\x00"
 
-        // Start Headers frame stream 1, size 0x034b
-        "\x00\x03\x4b\x01\x04\x00\x00\x00\x01"sv;
+        // Start Headers frame stream 1, size 0x005f
+        "\x00\x00\x5f\x01\x04\x00\x00\x00\x01"sv;
 
     std::string_view expectedPostfix =
         // Data Frame, Length 12, Stream 1, End Stream flag set
@@ -146,7 +146,7 @@ TEST(http_connection, RequestPropogates)
         "StringOutput"sv;
 
     std::string_view outStr;
-    constexpr size_t headerSize = 0x34b;
+    constexpr size_t headerSize = 0x05f;
 
     // Run until we receive the expected amount of data
     while (outStr.size() <
@@ -164,27 +164,14 @@ TEST(http_connection, RequestPropogates)
     unpackHeaders(outStr.substr(0, headerSize), headers);
     outStr.remove_prefix(headerSize);
 
-    EXPECT_THAT(
-        headers,
-        UnorderedElementsAre(
-            Pair(":status", "200"), Pair("content-length", "12"),
-            Pair("strict-transport-security",
-                 "max-age=31536000; includeSubdomains"),
-            Pair("x-frame-options", "DENY"), Pair("pragma", "no-cache"),
-            Pair("cache-control", "no-store, max-age=0"),
-            Pair("x-content-type-options", "nosniff"),
-            Pair("referrer-policy", "no-referrer"),
-            Pair(
-                "permissions-policy",
-                "accelerometer=(),ambient-light-sensor=(),autoplay=(),battery=(),camera=(),display-capture=(),document-domain=(),encrypted-media=(),fullscreen=(),gamepad=(),geolocation=(),gyroscope=(),layout-animations=(self),legacy-image-formats=(self),magnetometer=(),microphone=(),midi=(),oversized-images=(self),payment=(),picture-in-picture=(),publickey-credentials-get=(),speaker-selection=(),sync-xhr=(self),unoptimized-images=(self),unsized-media=(self),usb=(),screen-wak-lock=(),web-share=(),xr-spatial-tracking=()"),
-            Pair("x-permitted-cross-domain-policies", "none"),
-            Pair("cross-origin-embedder-policy", "require-corp"),
-            Pair("cross-origin-opener-policy", "same-origin"),
-            Pair("cross-origin-resource-policy", "same-origin"),
-            Pair(
-                "content-security-policy",
-                "default-src 'none'; img-src 'self' data:; font-src 'self'; style-src 'self'; script-src 'self'; connect-src 'self' wss:; form-action 'none'; frame-ancestors 'none'; object-src 'none'; base-uri 'none'"),
-            Pair("date", "TestTime")));
+    EXPECT_THAT(headers,
+                UnorderedElementsAre(
+                    Pair(":status", "200"), Pair("content-length", "12"),
+                    Pair("strict-transport-security",
+                         "max-age=31536000; includeSubdomains"),
+                    Pair("cache-control", "no-store, max-age=0"),
+                    Pair("x-content-type-options", "nosniff"),
+                    Pair("pragma", "no-cache"), Pair("date", "TestTime")));
 
     EXPECT_EQ(outStr, expectedPostfix);
 }
