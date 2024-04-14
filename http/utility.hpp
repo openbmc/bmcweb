@@ -2,7 +2,10 @@
 
 #include "bmcweb_config.h"
 
+extern "C"
+{
 #include <openssl/crypto.h>
+}
 
 #include <boost/callable_traits.hpp>
 #include <boost/url/parse.hpp>
