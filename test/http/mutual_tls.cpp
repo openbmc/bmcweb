@@ -2,6 +2,8 @@
 
 #include "sessions.hpp"
 
+extern "C"
+{
 #include <openssl/asn1.h>
 #include <openssl/ec.h>
 #include <openssl/evp.h>
@@ -10,6 +12,7 @@
 #include <openssl/x509.h>
 #include <openssl/x509_vfy.h>
 #include <openssl/x509v3.h>
+}
 
 #include <boost/asio/ip/address.hpp>
 #include <boost/asio/ssl/verify_context.hpp>
