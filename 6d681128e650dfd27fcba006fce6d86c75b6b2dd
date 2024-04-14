@@ -34,6 +34,24 @@
       "parentUuid": "3b88318c_87088b20",
       "revId": "6d681128e650dfd27fcba006fce6d86c75b6b2dd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f842bef_7378972d",
+        "filename": "http/logging.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-14T23:58:12Z",
+      "side": 1,
+      "message": "I probably should\u0027ve specified, this is a theoretical error that a static analyzer flagged.  I\u0027m still looking at it, but wanted to keep it in my stack as I work through this stuff.",
+      "parentUuid": "29756e94_2932a436",
+      "revId": "6d681128e650dfd27fcba006fce6d86c75b6b2dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
