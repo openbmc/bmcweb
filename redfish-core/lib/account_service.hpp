@@ -1847,6 +1847,15 @@ inline void processAfterGetAllGroups(
         roleId, enabled);
 }
 
+struct AccountCollectionPatchParams
+{
+    std::string username;
+    std::string password;
+    std::string roleId;
+    bool enabled = true;
+    std::optional<std::vector<std::string>> accountTypes;
+};
+
 inline void handleAccountCollectionPost(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
@@ -1855,38 +1864,33 @@ inline void handleAccountCollectionPost(
     {
         return;
     }
-    std::string username;
-    std::string password;
+    AccountCollectionPatchParams params;
     std::optional<std::string> roleIdJson;
     std::optional<bool> enabledJson;
-    std::optional<std::vector<std::string>> accountTypes;
-    if (!json_util::readJsonPatch(req, asyncResp->res, "UserName", username,
-                                  "Password", password, "RoleId", roleIdJson,
-                                  "Enabled", enabledJson, "AccountTypes",
-                                  accountTypes))
+    if (!json_util::readJsonPatch(req, asyncResp->res, "UserName",
+                                  params.username, "Password", params.password,
+                                  "RoleId", roleIdJson, "Enabled", enabledJson,
+                                  "AccountTypes", params.accountTypes))
     {
         return;
     }
-
     std::string roleId = roleIdJson.value_or("User");
-    std::string priv = getPrivilegeFromRoleId(roleId);
-    if (priv.empty())
+    params.roleId = getPrivilegeFromRoleId(roleId);
+    if (params.roleId.empty())
     {
         messages::propertyValueNotInList(asyncResp->res, roleId, "RoleId");
         return;
     }
-    roleId = priv;
-
-    bool enabled = enabledJson.value_or(true);
+    params.enabled = enabledJson.value_or(true);
 
     // Reading AllGroups property
     sdbusplus::asio::getProperty<std::vector<std::string>>(
         *crow::connections::systemBus, "xyz.openbmc_project.User.Manager",
         "/xyz/openbmc_project/user", "xyz.openbmc_project.User.Manager",
         "AllGroups",
-        [asyncResp, username, password{std::move(password)}, roleId, enabled,
-         accountTypes](const boost::system::error_code& ec,
-                       const std::vector<std::string>& allGroupsList) {
+        [asyncResp, params = std::move(params)](
+            const boost::system::error_code& ec,
+            const std::vector<std::string>& allGroupsList) {
         if (ec)
         {
             BMCWEB_LOG_DEBUG("ERROR with async_method_call");
@@ -1900,8 +1904,9 @@ inline void handleAccountCollectionPost(
             return;
         }
 
-        processAfterGetAllGroups(asyncResp, username, password, roleId, enabled,
-                                 accountTypes, allGroupsList);
+        processAfterGetAllGroups(asyncResp, params.username, params.password,
+                                 params.roleId, params.enabled,
+                                 params.accountTypes, allGroupsList);
     });
 }
 

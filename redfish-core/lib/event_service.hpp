@@ -433,7 +433,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
                                              "Protocol");
             return;
         }
-        subValue->protocol = protocol;
+        subValue->protocol = std::move(protocol);
 
         if (verifyCertificate)
         {

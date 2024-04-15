@@ -199,10 +199,10 @@ inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
     getNTPProtocolEnabled(asyncResp);
 
-    getEthernetIfaceData(
-        [hostName, asyncResp](const bool& success,
-                              const std::vector<std::string>& ntpServers,
-                              const std::vector<std::string>& domainNames) {
+    getEthernetIfaceData([hostName = std::move(hostName), asyncResp](
+                             const bool& success,
+                             const std::vector<std::string>& ntpServers,
+                             const std::vector<std::string>& domainNames) {
         if (!success)
         {
             messages::resourceNotFound(asyncResp->res, "ManagerNetworkProtocol",
@@ -347,7 +347,7 @@ inline void
         "xyz.openbmc_project.Network.EthernetInterface"};
     dbus::utility::getSubTree(
         "/xyz/openbmc_project", 0, ethInterfaces,
-        [asyncResp, currentNtpServers](
+        [asyncResp, currentNtpServers = std::move(currentNtpServers)](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreeResponse& subtree) {
         if (ec)
@@ -516,7 +516,7 @@ inline void handleManagersNetworkProtocolPatch(
     if (ntpServerObjects)
     {
         getEthernetIfaceData(
-            [asyncResp, ntpServerObjects](
+            [asyncResp, ntpServerObjects = std::move(ntpServerObjects)](
                 const bool success, std::vector<std::string>& currentNtpServers,
                 const std::vector<std::string>& /*domainNames*/) {
             if (!success)

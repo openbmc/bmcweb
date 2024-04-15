@@ -94,7 +94,8 @@ inline void populateSoftwareInformation(
         dbus::utility::getSubTree(
             "/xyz/openbmc_project/software", 0, interfaces,
             [asyncResp, swVersionPurpose, activeVersionPropName,
-             populateLinkToImages, functionalSwIds](
+             populateLinkToImages,
+             functionalSwIds = std::move(functionalSwIds)](
                 const boost::system::error_code& ec2,
                 const dbus::utility::MapperGetSubTreeResponse& subtree) {
             if (ec2)
@@ -136,8 +137,9 @@ inline void populateSoftwareInformation(
                 sdbusplus::asio::getAllProperties(
                     *crow::connections::systemBus, obj.second[0].first,
                     obj.first, "xyz.openbmc_project.Software.Version",
-                    [asyncResp, swId, runningImage, swVersionPurpose,
-                     activeVersionPropName, populateLinkToImages](
+                    [asyncResp, swId = std::move(swId), runningImage,
+                     swVersionPurpose, activeVersionPropName,
+                     populateLinkToImages](
                         const boost::system::error_code& ec3,
                         const dbus::utility::DBusPropertiesMap&
                             propertiesList) {

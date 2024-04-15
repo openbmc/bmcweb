@@ -2265,9 +2265,9 @@ inline void setPowerMode(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         "xyz.openbmc_project.Control.Power.Mode"};
     dbus::utility::getSubTree(
         "/", 0, interfaces,
-        [asyncResp,
-         powerMode](const boost::system::error_code& ec,
-                    const dbus::utility::MapperGetSubTreeResponse& subtree) {
+        [asyncResp, powerMode = std::move(powerMode)](
+            const boost::system::error_code& ec,
+            const dbus::utility::MapperGetSubTreeResponse& subtree) {
         if (ec)
         {
             BMCWEB_LOG_ERROR("DBUS response error on Power.Mode GetSubTree {}",

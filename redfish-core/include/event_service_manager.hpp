@@ -386,14 +386,17 @@ class Subscription : public persistent_data::UserSubscription
             redfish::time_utils::getDateTimeOffsetNow().first;
         logEntryJson["Context"] = customText;
 
-        nlohmann::json msg;
+        logEntryArray.emplace_back(std::move(logEntryJson));
+
+        nlohmann::json::object_t msg;
         msg["@odata.type"] = "#Event.v1_4_0.Event";
         msg["Id"] = std::to_string(eventSeqNum);
         msg["Name"] = "Event Log";
-        msg["Events"] = logEntryArray;
+        msg["Events"] = std::move(logEntryArray);
 
-        std::string strMsg = msg.dump(2, ' ', true,
-                                      nlohmann::json::error_handler_t::replace);
+        std::string strMsg =
+            nlohmann::json(std::move(msg))
+                .dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
         return sendEvent(std::move(strMsg));
     }
 
