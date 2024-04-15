@@ -88,35 +88,46 @@ static void addMessageToErrorJson(nlohmann::json& target,
 
 void moveErrorsToErrorJson(nlohmann::json& target, nlohmann::json& source)
 {
-    if (!source.is_object())
+    nlohmann::json::object_t* sourceObj =
+        source.get_ptr<nlohmann::json::object_t*>();
+    if (sourceObj == nullptr)
     {
         return;
     }
-    auto errorIt = source.find("error");
-    if (errorIt == source.end())
+
+    nlohmann::json::object_t::iterator errorIt = sourceObj->find("error");
+    if (errorIt == sourceObj->end())
     {
         // caller puts error message in root
         messages::addMessageToErrorJson(target, source);
         source.clear();
         return;
     }
-    auto extendedInfoIt = errorIt->find(messages::messageAnnotation);
-    if (extendedInfoIt == errorIt->end())
+    nlohmann::json::object_t* errorObj =
+        errorIt->second.get_ptr<nlohmann::json::object_t*>();
+    if (errorObj == nullptr)
+    {
+        return;
+    }
+
+    nlohmann::json::object_t::iterator extendedInfoIt =
+        errorObj->find(messages::messageAnnotation);
+    if (extendedInfoIt == errorObj->end())
     {
         return;
     }
     const nlohmann::json::array_t* extendedInfo =
-        (*extendedInfoIt).get_ptr<const nlohmann::json::array_t*>();
+        extendedInfoIt->second.get_ptr<const nlohmann::json::array_t*>();
     if (extendedInfo == nullptr)
     {
-        source.erase(errorIt);
+        sourceObj->erase(errorIt);
         return;
     }
     for (const nlohmann::json& message : *extendedInfo)
     {
         addMessageToErrorJson(target, message);
     }
-    source.erase(errorIt);
+    sourceObj->erase(errorIt);
 }
 
 static void addMessageToJsonRoot(nlohmann::json& target,
