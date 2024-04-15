@@ -16,6 +16,24 @@
       "message": "New line here if you wanted to match",
       "revId": "e69fa17b249c569b2c00d86a2dcbaa6198fa1d52",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f454975_ae73e2cc",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1061,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-15T15:20:43Z",
+      "side": 1,
+      "message": "Made it consistent.",
+      "parentUuid": "f836d087_01bb835c",
+      "revId": "e69fa17b249c569b2c00d86a2dcbaa6198fa1d52",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
