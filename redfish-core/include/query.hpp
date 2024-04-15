@@ -16,7 +16,6 @@
 
 #include <functional>
 #include <memory>
-#include <new>
 #include <optional>
 #include <string>
 #include <string_view>
@@ -31,11 +30,10 @@
 
 namespace redfish
 {
-inline void
-    afterIfMatchRequest(crow::App& app,
-                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                        crow::Request& req, const std::string& ifMatchHeader,
-                        const crow::Response& resIn)
+inline void afterIfMatchRequest(
+    crow::App& app, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::shared_ptr<crow::Request>& req, const std::string& ifMatchHeader,
+    const crow::Response& resIn)
 {
     std::string computedEtag = resIn.computeEtag();
     BMCWEB_LOG_DEBUG("User provided if-match etag {} computed etag {}",
@@ -46,7 +44,7 @@ inline void
         return;
     }
     // Restart the request without if-match
-    req.clearHeader(boost::beast::http::field::if_match);
+    req->clearHeader(boost::beast::http::field::if_match);
     BMCWEB_LOG_DEBUG("Restarting request");
     app.handle(req, asyncResp);
 }
@@ -84,8 +82,10 @@ inline bool handleIfMatch(crow::App& app, const crow::Request& req,
     boost::system::error_code ec;
 
     // Try to GET the same resource
-    crow::Request newReq(
-        {boost::beast::http::verb::get, req.url().encoded_path(), 11}, ec);
+    auto getReq = std::make_shared<crow::Request>(
+        crow::Request::Body{boost::beast::http::verb::get,
+                            req.url().encoded_path(), 11},
+        ec);
 
     if (ec)
     {
@@ -94,17 +94,21 @@ inline bool handleIfMatch(crow::App& app, const crow::Request& req,
     }
 
     // New request has the same credentials as the old request
-    newReq.session = req.session;
+    getReq->session = req.session;
 
     // Construct a new response object to fill in, and check the hash of before
     // we modify the Resource.
     std::shared_ptr<bmcweb::AsyncResp> getReqAsyncResp =
         std::make_shared<bmcweb::AsyncResp>();
 
+    // Ideally we would have a shared_ptr to the original Request which we could
+    // modify to remove the If-Match and restart it. But instead we have to make
+    // a full copy to restart it.
     getReqAsyncResp->res.setCompleteRequestHandler(std::bind_front(
-        afterIfMatchRequest, std::ref(app), asyncResp, req, ifMatch));
+        afterIfMatchRequest, std::ref(app), asyncResp,
+        std::make_shared<crow::Request>(req), std::move(ifMatch)));
 
-    app.handle(newReq, getReqAsyncResp);
+    app.handle(getReq, getReqAsyncResp);
     return false;
 }
 

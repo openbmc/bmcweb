@@ -37,7 +37,7 @@ namespace crow
 
 struct Http2StreamData
 {
-    Request req;
+    std::shared_ptr<Request> req = std::make_shared<Request>();
     std::optional<bmcweb::HttpBody::reader> reqReader;
     Response res;
     std::optional<bmcweb::HttpBody::writer> writer;
@@ -170,7 +170,7 @@ class HTTP2Connection :
         Http2StreamData& stream = it->second;
         Response& res = stream.res;
         res = std::move(completedRes);
-        crow::Request& thisReq = stream.req;
+        crow::Request& thisReq = *stream.req;
 
         completeResponseFields(thisReq, res);
         res.addHeader(boost::beast::http::field::date, getCachedDateStr());
@@ -243,7 +243,7 @@ class HTTP2Connection :
                 return NGHTTP2_ERR_TEMPORAL_CALLBACK_FAILURE;
             }
         }
-        crow::Request& thisReq = it->second.req;
+        crow::Request& thisReq = *it->second.req;
         thisReq.ioService = static_cast<decltype(thisReq.ioService)>(
             &adaptor.get_executor().context());
         BMCWEB_LOG_DEBUG("Handling {} \"{}\"", logPtr(&thisReq),
@@ -285,7 +285,7 @@ class HTTP2Connection :
             {
                 asyncResp->res.setExpectedHash(expected);
             }
-            handler->handle(thisReq, asyncResp);
+            handler->handle(it->second.req, asyncResp);
         }
         return 0;
     }
@@ -306,8 +306,8 @@ class HTTP2Connection :
         if (!reqReader)
         {
             reqReader.emplace(
-                bmcweb::HttpBody::reader(thisStream->second.req.req.base(),
-                                         thisStream->second.req.req.body()));
+                bmcweb::HttpBody::reader(thisStream->second.req->req.base(),
+                                         thisStream->second.req->req.body()));
         }
         boost::beast::error_code ec;
         reqReader->put(boost::asio::const_buffer(data, len), ec);
@@ -425,7 +425,7 @@ class HTTP2Connection :
             return -1;
         }
 
-        crow::Request& thisReq = thisStream->second.req;
+        crow::Request& thisReq = *thisStream->second.req;
 
         if (nameSv == ":path")
         {
@@ -493,7 +493,7 @@ class HTTP2Connection :
 
             Http2StreamData& stream = streams[frame.hd.stream_id];
             // http2 is by definition always tls
-            stream.req.isSecure = true;
+            stream.req->isSecure = true;
         }
         return 0;
     }

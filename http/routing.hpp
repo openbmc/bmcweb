@@ -491,7 +491,7 @@ class Router
         return route;
     }
 
-    FindRouteResponse findRoute(Request& req) const
+    FindRouteResponse findRoute(const Request& req) const
     {
         FindRouteResponse findRoute;
 
@@ -529,11 +529,11 @@ class Router
     }
 
     template <typename Adaptor>
-    void handleUpgrade(Request& req,
+    void handleUpgrade(const std::shared_ptr<Request>& req,
                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                        Adaptor&& adaptor)
     {
-        std::optional<HttpVerb> verb = httpVerbFromBoost(req.method());
+        std::optional<HttpVerb> verb = httpVerbFromBoost(req->method());
         if (!verb || static_cast<size_t>(*verb) >= perMethods.size())
         {
             asyncResp->res.result(boost::beast::http::status::not_found);
@@ -543,11 +543,12 @@ class Router
         Trie& trie = perMethod.trie;
         std::vector<BaseRule*>& rules = perMethod.rules;
 
-        Trie::FindResult found = trie.find(req.url().encoded_path());
+        Trie::FindResult found = trie.find(req->url().encoded_path());
         unsigned ruleIndex = found.ruleIndex;
         if (ruleIndex == 0U)
         {
-            BMCWEB_LOG_DEBUG("Cannot match rules {}", req.url().encoded_path());
+            BMCWEB_LOG_DEBUG("Cannot match rules {}",
+                             req->url().encoded_path());
             asyncResp->res.result(boost::beast::http::status::not_found);
             return;
         }
@@ -563,7 +564,7 @@ class Router
         {
             BMCWEB_LOG_DEBUG(
                 "Rule found but method mismatch: {} with {}({}) / {}",
-                req.url().encoded_path(), req.methodString(),
+                req->url().encoded_path(), req->methodString(),
                 static_cast<uint32_t>(*verb), methods);
             asyncResp->res.result(boost::beast::http::status::not_found);
             return;
@@ -574,25 +575,24 @@ class Router
 
         // TODO(ed) This should be able to use std::bind_front, but it doesn't
         // appear to work with the std::move on adaptor.
-        validatePrivilege(
-            req, asyncResp, rule,
-            [&rule, asyncResp, adaptor = std::forward<Adaptor>(adaptor)](
-                Request& thisReq) mutable {
-            rule.handleUpgrade(thisReq, asyncResp, std::move(adaptor));
+        validatePrivilege(req, asyncResp, rule,
+                          [req, &rule, asyncResp,
+                           adaptor = std::forward<Adaptor>(adaptor)]() mutable {
+            rule.handleUpgrade(*req, asyncResp, std::move(adaptor));
         });
     }
 
-    void handle(Request& req,
+    void handle(const std::shared_ptr<Request>& req,
                 const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
     {
-        std::optional<HttpVerb> verb = httpVerbFromBoost(req.method());
+        std::optional<HttpVerb> verb = httpVerbFromBoost(req->method());
         if (!verb || static_cast<size_t>(*verb) >= perMethods.size())
         {
             asyncResp->res.result(boost::beast::http::status::not_found);
             return;
         }
 
-        FindRouteResponse foundRoute = findRoute(req);
+        FindRouteResponse foundRoute = findRoute(*req);
 
         if (foundRoute.route.rule == nullptr)
         {
@@ -600,13 +600,13 @@ class Router
             // route
             if (foundRoute.allowHeader.empty())
             {
-                foundRoute.route = findRouteByIndex(req.url().encoded_path(),
+                foundRoute.route = findRouteByIndex(req->url().encoded_path(),
                                                     notFoundIndex);
             }
             else
             {
                 // See if we have a method not allowed (405) handler
-                foundRoute.route = findRouteByIndex(req.url().encoded_path(),
+                foundRoute.route = findRouteByIndex(req->url().encoded_path(),
                                                     methodNotAllowedIndex);
             }
         }
@@ -640,14 +640,15 @@ class Router
         BMCWEB_LOG_DEBUG("Matched rule '{}' {} / {}", rule.rule,
                          static_cast<uint32_t>(*verb), rule.getMethods());
 
-        if (req.session == nullptr)
+        if (req->session == nullptr)
         {
-            rule.handle(req, asyncResp, params);
+            rule.handle(*req, asyncResp, params);
             return;
         }
-        validatePrivilege(req, asyncResp, rule,
-                          [&rule, asyncResp, params](Request& thisReq) mutable {
-            rule.handle(thisReq, asyncResp, params);
+        validatePrivilege(
+            req, asyncResp, rule,
+            [req, asyncResp, &rule, params = std::move(params)]() {
+            rule.handle(*req, asyncResp, params);
         });
     }
 

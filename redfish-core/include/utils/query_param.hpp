@@ -502,7 +502,8 @@ inline bool processOnly(crow::App& app, crow::Response& res,
     // TODO(Ed) copy request headers?
     // newReq.session = req.session;
     std::error_code ec;
-    crow::Request newReq({boost::beast::http::verb::get, *url, 11}, ec);
+    auto newReq = std::make_shared<crow::Request>(
+        crow::Request::Body{boost::beast::http::verb::get, *url, 11}, ec);
     if (ec)
     {
         messages::internalError(res);
@@ -853,8 +854,10 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
             const std::string subQuery = node.uri + *queryStr;
             BMCWEB_LOG_DEBUG("URL of subquery:  {}", subQuery);
             std::error_code ec;
-            crow::Request newReq({boost::beast::http::verb::get, subQuery, 11},
-                                 ec);
+            auto newReq = std::make_shared<crow::Request>(
+                crow::Request::Body{boost::beast::http::verb::get, subQuery,
+                                    11},
+                ec);
             if (ec)
             {
                 messages::internalError(finalRes->res);
