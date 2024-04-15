@@ -74,8 +74,6 @@ inline void requestRoutes(App& app)
     for (const std::filesystem::directory_entry& dir : paths)
     {
         const std::filesystem::path& absolutePath = dir.path();
-        std::filesystem::path relativePath{
-            absolutePath.string().substr(rootpath.string().size() - 1)};
         if (std::filesystem::is_directory(dir))
         {
             // don't recurse into hidden directories or symlinks
@@ -87,8 +85,10 @@ inline void requestRoutes(App& app)
         }
         else if (std::filesystem::is_regular_file(dir))
         {
+            std::filesystem::path relativePath{
+                absolutePath.string().substr(rootpath.string().size() - 1)};
             std::string extension = relativePath.extension();
-            std::filesystem::path webpath = relativePath;
+            std::filesystem::path webpath = std::move(relativePath);
             const char* contentEncoding = nullptr;
 
             if (extension == ".gz")
