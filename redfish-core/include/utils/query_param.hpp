@@ -960,19 +960,19 @@ inline void recursiveSelect(nlohmann::json& currRoot,
     if (object != nullptr)
     {
         BMCWEB_LOG_DEBUG("Current JSON is an object");
-        auto it = currRoot.begin();
-        while (it != currRoot.end())
+        auto it = object->begin();
+        while (it != object->end())
         {
             auto nextIt = std::next(it);
-            BMCWEB_LOG_DEBUG("key={}", it.key());
-            const SelectTrieNode* nextNode = currNode.find(it.key());
+            BMCWEB_LOG_DEBUG("key={}", it->first);
+            const SelectTrieNode* nextNode = currNode.find(it->first);
             // Per the Redfish spec section 7.3.3, the service shall select
             // certain properties as if $select was omitted. This applies to
             // every TrieNode that contains leaves and the root.
             constexpr std::array<std::string_view, 5> reservedProperties = {
                 "@odata.id", "@odata.type", "@odata.context", "@odata.etag",
                 "error"};
-            bool reserved = std::ranges::find(reservedProperties, it.key()) !=
+            bool reserved = std::ranges::find(reservedProperties, it->first) !=
                             reservedProperties.end();
             if (reserved || (nextNode != nullptr && nextNode->isSelected()))
             {
@@ -981,13 +981,13 @@ inline void recursiveSelect(nlohmann::json& currRoot,
             }
             if (nextNode != nullptr)
             {
-                BMCWEB_LOG_DEBUG("Recursively select: {}", it.key());
-                recursiveSelect(*it, *nextNode);
+                BMCWEB_LOG_DEBUG("Recursively select: {}", it->first);
+                recursiveSelect(it->second, *nextNode);
                 it = nextIt;
                 continue;
             }
-            BMCWEB_LOG_DEBUG("{} is getting removed!", it.key());
-            it = currRoot.erase(it);
+            BMCWEB_LOG_DEBUG("{} is getting removed!", it->first);
+            it = object->erase(it);
         }
     }
     nlohmann::json::array_t* array =
