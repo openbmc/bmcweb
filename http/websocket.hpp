@@ -91,9 +91,17 @@ class ConnectionImpl : public Connection
             req.getHeaderValue(bf::sec_websocket_protocol)};
 
         ws.set_option(boost::beast::websocket::stream_base::decorator(
+<<<<<<< PATCH SET (82f221 WIP: Fix more moves)
+            [session{session}, protocolHeader = std::move(protocolHeader)](
+                boost::beast::websocket::response_type& m) {
+
+#ifndef BMCWEB_INSECURE_DISABLE_CSRF_PREVENTION
+            if (session != nullptr)
+=======
             [session{session},
              protocolHeader](boost::beast::websocket::response_type& m) {
             if constexpr (!BMCWEB_INSECURE_DISABLE_CSRF)
+>>>>>>> BASE      (1c3c46 WIP: Move under exception handler)
             {
                 if (session != nullptr)
                 {
