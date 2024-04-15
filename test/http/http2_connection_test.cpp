@@ -38,16 +38,17 @@ using ::testing::UnorderedElementsAre;
 struct FakeHandler
 {
     bool called = false;
-    void handle(Request& req,
+    void handle(std::shared_ptr<Request> req,
                 const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
     {
         called = true;
-        EXPECT_EQ(req.url().buffer(), "/redfish/v1/");
-        EXPECT_EQ(req.methodString(), "GET");
-        EXPECT_EQ(req.getHeaderValue(boost::beast::http::field::user_agent),
+        EXPECT_EQ(req->url().buffer(), "/redfish/v1/");
+        EXPECT_EQ(req->methodString(), "GET");
+        EXPECT_EQ(req->getHeaderValue(boost::beast::http::field::user_agent),
                   "curl/8.5.0");
-        EXPECT_EQ(req.getHeaderValue(boost::beast::http::field::accept), "*/*");
-        EXPECT_EQ(req.getHeaderValue(":authority"), "localhost:18080");
+        EXPECT_EQ(req->getHeaderValue(boost::beast::http::field::accept),
+                  "*/*");
+        EXPECT_EQ(req->getHeaderValue(":authority"), "localhost:18080");
         asyncResp->res.write("StringOutput");
     }
 };
