@@ -23,7 +23,7 @@ namespace crow
 struct FakeHandler
 {
     static void
-        handleUpgrade(Request& /*req*/,
+        handleUpgrade(const std::shared_ptr<Request>& /*req*/,
                       const std::shared_ptr<bmcweb::AsyncResp>& /*asyncResp*/,
                       boost::beast::test::stream&& /*adaptor*/)
     {
@@ -31,16 +31,16 @@ struct FakeHandler
         EXPECT_FALSE(true);
     }
 
-    void handle(Request& req,
+    void handle(const std::shared_ptr<Request>& req,
                 const std::shared_ptr<bmcweb::AsyncResp>& /*asyncResp*/)
     {
-        EXPECT_EQ(req.method(), boost::beast::http::verb::get);
-        EXPECT_EQ(req.target(), "/");
-        EXPECT_EQ(req.getHeaderValue(boost::beast::http::field::host),
+        EXPECT_EQ(req->method(), boost::beast::http::verb::get);
+        EXPECT_EQ(req->target(), "/");
+        EXPECT_EQ(req->getHeaderValue(boost::beast::http::field::host),
                   "openbmc_project.xyz");
-        EXPECT_FALSE(req.keepAlive());
-        EXPECT_EQ(req.version(), 11);
-        EXPECT_EQ(req.body(), "");
+        EXPECT_FALSE(req->keepAlive());
+        EXPECT_EQ(req->version(), 11);
+        EXPECT_EQ(req->body(), "");
 
         called = true;
     }
