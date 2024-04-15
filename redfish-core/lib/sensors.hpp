@@ -1589,7 +1589,7 @@ static void getInventoryItemsConnections(
             }
         }
 
-        callback(invConnections);
+        callback(std::move(invConnections));
         BMCWEB_LOG_DEBUG("getInventoryItemsConnections respHandler exit");
     });
     BMCWEB_LOG_DEBUG("getInventoryItemsConnections exit");
@@ -2059,8 +2059,8 @@ void getPowerSupplyAttributes(
     // Make call to ObjectMapper to find the PowerSupplyAttributes service
     dbus::utility::getSubTree(
         "/xyz/openbmc_project", 0, interfaces,
-        [callback = std::forward<Callback>(callback), sensorsAsyncResp,
-         inventoryItems](
+        [callback = std::forward<Callback>(callback),
+         sensorsAsyncResp = std::move(sensorsAsyncResp), inventoryItems](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreeResponse& subtree) {
         // Response handler for parsing output from GetSubTree
