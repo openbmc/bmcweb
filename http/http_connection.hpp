@@ -65,9 +65,8 @@ class Connection :
     Connection(Handler* handlerIn, boost::asio::steady_timer&& timerIn,
                std::function<std::string()>& getCachedDateStrF,
                Adaptor adaptorIn) :
-        adaptor(std::move(adaptorIn)),
-        handler(handlerIn), timer(std::move(timerIn)),
-        getCachedDateStr(getCachedDateStrF)
+        adaptor(std::move(adaptorIn)), handler(handlerIn),
+        timer(std::move(timerIn)), getCachedDateStr(getCachedDateStrF)
     {
         parser.emplace(std::piecewise_construct, std::make_tuple());
         parser->body_limit(httpReqBodyLimit);
@@ -224,7 +223,7 @@ class Connection :
         {
             return;
         }
-        req = crow::Request(parser->release(), reqEc);
+        req = std::make_shared<crow::Request>(parser->release(), reqEc);
         if (reqEc)
         {
             BMCWEB_LOG_DEBUG("Request failed to construct{}", reqEc.message());
@@ -232,15 +231,15 @@ class Connection :
             completeRequest(res);
             return;
         }
-        req.session = userSession;
+        req->session = userSession;
 
         // Fetch the client IP address
         readClientIp();
 
         // Check for HTTP version 1.1.
-        if (req.version() == 11)
+        if (req->version() == 11)
         {
-            if (req.getHeaderValue(boost::beast::http::field::host).empty())
+            if (req->getHeaderValue(boost::beast::http::field::host).empty())
             {
                 res.result(boost::beast::http::status::bad_request);
                 completeRequest(res);
@@ -249,11 +248,11 @@ class Connection :
         }
 
         BMCWEB_LOG_INFO("Request:  {} HTTP/{}.{} {} {} {}", logPtr(this),
-                        req.version() / 10, req.version() % 10,
-                        req.methodString(), req.target(),
-                        req.ipAddress.to_string());
+                        req->version() / 10, req->version() % 10,
+                        req->methodString(), req->target(),
+                        req->ipAddress.to_string());
 
-        req.ioService = static_cast<decltype(req.ioService)>(
+        req->ioService = static_cast<decltype(req->ioService)>(
             &adaptor.get_executor().context());
 
         if (res.completed)
@@ -261,19 +260,19 @@ class Connection :
             completeRequest(res);
             return;
         }
-        keepAlive = req.keepAlive();
+        keepAlive = req->keepAlive();
         if constexpr (!std::is_same_v<Adaptor, boost::beast::test::stream>)
         {
 #ifndef BMCWEB_INSECURE_DISABLE_AUTHX
-            if (!crow::authentication::isOnAllowlist(req.url().path(),
-                                                     req.method()) &&
-                req.session == nullptr)
+            if (!crow::authentication::isOnAllowlist(req->url().path(),
+                                                     req->method()) &&
+                req->session == nullptr)
             {
                 BMCWEB_LOG_WARNING("Authentication failed");
                 forward_unauthorized::sendUnauthorized(
-                    req.url().encoded_path(),
-                    req.getHeaderValue("X-Requested-With"),
-                    req.getHeaderValue("Accept"), res);
+                    req->url().encoded_path(),
+                    req->getHeaderValue("X-Requested-With"),
+                    req->getHeaderValue("Accept"), res);
                 completeRequest(res);
                 return;
             }
@@ -286,11 +285,11 @@ class Connection :
             self->completeRequest(thisRes);
         });
         bool isSse =
-            isContentTypeAllowed(req.getHeaderValue("Accept"),
+            isContentTypeAllowed(req->getHeaderValue("Accept"),
                                  http_helpers::ContentType::EventStream, false);
         std::string_view upgradeType(
-            req.getHeaderValue(boost::beast::http::field::upgrade));
-        if ((req.isUpgrade() &&
+            req->getHeaderValue(boost::beast::http::field::upgrade));
+        if ((req->isUpgrade() &&
              bmcweb::asciiIEquals(upgradeType, "websocket")) ||
             isSse)
         {
@@ -312,7 +311,7 @@ class Connection :
             return;
         }
         std::string_view expected =
-            req.getHeaderValue(boost::beast::http::field::if_none_match);
+            req->getHeaderValue(boost::beast::http::field::if_none_match);
         if (!expected.empty())
         {
             res.setExpectedHash(expected);
@@ -344,7 +343,7 @@ class Connection :
         res = std::move(thisRes);
         res.keepAlive(keepAlive);
 
-        completeResponseFields(req, res);
+        completeResponseFields(*req, res);
         res.addHeader(boost::beast::http::field::date, getCachedDateStr());
 
         doWrite();
@@ -362,7 +361,7 @@ class Connection :
         {
             return;
         }
-        req.ipAddress = ip;
+        req->ipAddress = ip;
     }
 
     boost::system::error_code getClientIp(boost::asio::ip::address& ip)
@@ -423,8 +422,6 @@ class Connection :
                 BMCWEB_LOG_DEBUG("{} from read(1)", logPtr(this));
                 return;
             }
-
-            readClientIp();
 
             boost::asio::ip::address ip;
             if (getClientIp(ip))
@@ -540,8 +537,7 @@ class Connection :
 
         userSession = nullptr;
 
-        // Destroy the Request via the std::optional
-        req.clear();
+        req->clear();
         doReadHeaders();
     }
 
@@ -618,7 +614,7 @@ class Connection :
 
     boost::beast::flat_static_buffer<8192> buffer;
 
-    crow::Request req;
+    std::shared_ptr<crow::Request> req;
     crow::Response res;
 
     std::shared_ptr<persistent_data::UserSession> userSession;
