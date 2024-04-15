@@ -419,8 +419,8 @@ static void monitorForSoftwareAvailable(
     fwAvailableTimer->async_wait(
         std::bind_front(afterAvailbleTimerAsyncWait, asyncResp));
 
-    task::Payload payload(req);
-    auto callback = [asyncResp, payload](sdbusplus::message_t& m) mutable {
+    auto callback = [asyncResp, payload = task::Payload(req)](
+                        sdbusplus::message_t& m) mutable {
         BMCWEB_LOG_DEBUG("Match fired");
         softwareInterfaceAdded(asyncResp, m, std::move(payload));
     };
@@ -1023,9 +1023,9 @@ inline void requestRoutesSoftwareInventory(App& app)
             "xyz.openbmc_project.Software.Version"};
         dbus::utility::getSubTree(
             "/", 0, interfaces,
-            [asyncResp,
-             swId](const boost::system::error_code& ec,
-                   const dbus::utility::MapperGetSubTreeResponse& subtree) {
+            [asyncResp, swId = std::move(swId)](
+                const boost::system::error_code& ec,
+                const dbus::utility::MapperGetSubTreeResponse& subtree) {
             BMCWEB_LOG_DEBUG("doGet callback...");
             if (ec)
             {
