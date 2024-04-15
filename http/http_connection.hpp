@@ -63,7 +63,7 @@ class Connection :
   public:
     Connection(Handler* handlerIn, boost::asio::steady_timer&& timerIn,
                std::function<std::string()>& getCachedDateStrF,
-               Adaptor adaptorIn) :
+               Adaptor&& adaptorIn) :
         adaptor(std::move(adaptorIn)),
         handler(handlerIn), timer(std::move(timerIn)),
         getCachedDateStr(getCachedDateStrF)
@@ -677,9 +677,9 @@ class Connection :
 
         std::chrono::seconds timeout(15);
 
-        std::weak_ptr<Connection<Adaptor, Handler>> weakSelf = weak_from_this();
         timer.expires_after(timeout);
-        timer.async_wait([weakSelf](const boost::system::error_code& ec) {
+        timer.async_wait(
+            [weakSelf = weak_from_this()](const boost::system::error_code& ec) {
             // Note, we are ignoring other types of errors here;  If the timer
             // failed for any reason, we should still close the connection
             std::shared_ptr<Connection<Adaptor, Handler>> self =
