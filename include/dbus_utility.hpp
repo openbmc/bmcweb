@@ -178,7 +178,7 @@ inline void getSubTreePaths(
                        const MapperGetSubTreePathsResponse&)>&& callback)
 {
     crow::connections::systemBus->async_method_call(
-        [callback{std::move(callback)}](
+        [callback = std::move(callback)](
             const boost::system::error_code& ec,
             const MapperGetSubTreePathsResponse& subtreePaths) {
             callback(ec, subtreePaths);
