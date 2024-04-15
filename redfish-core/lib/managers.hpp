@@ -206,7 +206,7 @@ inline void requestRoutesManagerResetToDefaultsAction(App& app)
             BMCWEB_LOG_WARNING(
                 "Using deprecated ResetToDefaultsType, should be ResetType."
                 "Support for the ResetToDefaultsType will be dropped in 2Q24");
-            resetType = resetToDefaultsType;
+            resetType = std::move(resetToDefaultsType);
         }
 
         if (resetType != "ResetAll")
@@ -402,6 +402,8 @@ inline void
                     }
                 }
 
+                nlohmann::json::json_pointer fanJsonLoc("/Oem/OpenBmc/Fan");
+
                 boost::urls::url url("/redfish/v1/Managers/bmc");
                 if (intfPair.first == pidZoneConfigurationIface)
                 {
@@ -414,9 +416,9 @@ inline void
                     nlohmann::json& zone = zones[name];
                     zone["Chassis"]["@odata.id"] =
                         boost::urls::format("/redfish/v1/Chassis/{}", chassis);
-                    url.set_fragment(
-                        ("/Oem/OpenBmc/Fan/FanZones"_json_pointer / name)
-                            .to_string());
+                    fanJsonLoc /= "FanZones";
+                    fanJsonLoc /= name;
+                    url.set_fragment(fanJsonLoc.to_string());
                     zone["@odata.id"] = std::move(url);
                     zone["@odata.type"] = "#OemManager.FanZone";
                     config = &zone;
@@ -433,10 +435,9 @@ inline void
 
                     nlohmann::json& controller = stepwise[name];
                     config = &controller;
-                    url.set_fragment(
-                        ("/Oem/OpenBmc/Fan/StepwiseControllers"_json_pointer /
-                         name)
-                            .to_string());
+                    fanJsonLoc /= "StepwiseControllers";
+                    fanJsonLoc /= name;
+                    url.set_fragment(fanJsonLoc.to_string());
                     controller["@odata.id"] = std::move(url);
                     controller["@odata.type"] =
                         "#OemManager.StepwiseController";
@@ -458,22 +459,18 @@ inline void
                     config = &element;
                     if (isFan)
                     {
-                        url.set_fragment(
-                            ("/Oem/OpenBmc/Fan/FanControllers"_json_pointer /
-                             name)
-                                .to_string());
-                        element["@odata.id"] = std::move(url);
+                        fanJsonLoc /= "FanControllers";
+                        fanJsonLoc /= name;
                         element["@odata.type"] = "#OemManager.FanController";
                     }
                     else
                     {
-                        url.set_fragment(
-                            ("/Oem/OpenBmc/Fan/PidControllers"_json_pointer /
-                             name)
-                                .to_string());
-                        element["@odata.id"] = std::move(url);
+                        fanJsonLoc /= "PidControllers";
+                        fanJsonLoc /= name;
                         element["@odata.type"] = "#OemManager.PidController";
                     }
+                    url.set_fragment(fanJsonLoc.to_string());
+                    element["@odata.id"] = std::move(url);
                 }
                 else
                 {
@@ -593,11 +590,14 @@ inline void
                             {
                                 dbus::utility::escapePathForDbus(itemCopy);
                                 nlohmann::json::object_t input;
-                                boost::urls::url managerUrl = boost::urls::format(
-                                    "/redfish/v1/Managers/bmc#{}",
-                                    ("/Oem/OpenBmc/Fan/FanZones"_json_pointer /
-                                     itemCopy)
-                                        .to_string());
+                                nlohmann::json::json_pointer fanZones(
+                                    "/Oem/OpenBmc/Fan/FanZones");
+                                fanZones /= itemCopy;
+
+                                boost::urls::url managerUrl =
+                                    boost::urls::format(
+                                        "/redfish/v1/Managers/bmc#{}",
+                                        fanZones.to_string());
                                 input["@odata.id"] = std::move(managerUrl);
                                 data.emplace_back(std::move(input));
                             }
@@ -1181,7 +1181,7 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
             thermalModeIface};
         dbus::utility::getSubTree(
             "/", 0, thermalModeIfaces,
-            [self](
+            [self = std::move(self)](
                 const boost::system::error_code& ec,
                 const dbus::utility::MapperGetSubTreeResponse& subtreeLocal) {
             if (ec || subtreeLocal.empty())
@@ -1379,8 +1379,9 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
             thermalModeIface};
         dbus::utility::getSubTree(
             "/", 0, thermalModeIfaces,
-            [self](const boost::system::error_code& ec,
-                   const dbus::utility::MapperGetSubTreeResponse& subtree) {
+            [self = std::move(self)](
+                const boost::system::error_code& ec,
+                const dbus::utility::MapperGetSubTreeResponse& subtree) {
             if (ec || subtree.empty())
             {
                 return;
@@ -1397,8 +1398,9 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
             const std::string& owner = subtree[0].second[0].first;
             sdbusplus::asio::getAllProperties(
                 *crow::connections::systemBus, owner, path, thermalModeIface,
-                [self, path, owner](const boost::system::error_code& ec2,
-                                    const dbus::utility::DBusPropertiesMap& r) {
+                [self = std::move(self), path,
+                 owner](const boost::system::error_code& ec2,
+                        const dbus::utility::DBusPropertiesMap& r) {
                 if (ec2)
                 {
                     BMCWEB_LOG_ERROR(
@@ -1760,7 +1762,8 @@ inline void
     sdbusplus::message::object_path objPath("/xyz/openbmc_project/software");
     dbus::utility::getManagedObjects(
         "xyz.openbmc_project.Software.BMC.Updater", objPath,
-        [asyncResp, firmwareId, runningFirmwareTarget](
+        [asyncResp, firmwareId = std::move(firmwareId),
+         runningFirmwareTarget = std::move(runningFirmwareTarget)](
             const boost::system::error_code& ec,
             const dbus::utility::ManagedObjectType& subtree) {
         if (ec)

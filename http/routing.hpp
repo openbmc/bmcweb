@@ -522,7 +522,7 @@ class Router
             findRoute.allowHeader += httpVerbToString(thisVerb);
             if (perMethodIndex == reqMethodIndex)
             {
-                findRoute.route = route;
+                findRoute.route = std::move(route);
             }
         }
         return findRoute;
@@ -646,7 +646,8 @@ class Router
             return;
         }
         validatePrivilege(req, asyncResp, rule,
-                          [&rule, asyncResp, params](Request& thisReq) mutable {
+                          [&rule, asyncResp, params = std::move(params)](
+                              Request& thisReq) mutable {
             rule.handle(thisReq, asyncResp, params);
         });
     }
