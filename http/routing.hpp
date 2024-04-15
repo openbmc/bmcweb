@@ -522,7 +522,7 @@ class Router
             findRoute.allowHeader += httpVerbToString(thisVerb);
             if (perMethodIndex == reqMethodIndex)
             {
-                findRoute.route = route;
+                findRoute.route = std::move(route);
             }
         }
         return findRoute;
