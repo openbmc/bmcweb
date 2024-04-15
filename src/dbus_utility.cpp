@@ -108,7 +108,7 @@ void getSubTree(const std::string& path, int32_t depth,
                                    const MapperGetSubTreeResponse&)>&& callback)
 {
     dbus::utility::async_method_call(
-        [callback{std::move(callback)}](
+        [callback = std::move(callback)](
             const boost::system::error_code& ec,
             const MapperGetSubTreeResponse& subtree) { callback(ec, subtree); },
         "xyz.openbmc_project.ObjectMapper",
@@ -124,7 +124,7 @@ void getSubTreePaths(
                        const MapperGetSubTreePathsResponse&)>&& callback)
 {
     dbus::utility::async_method_call(
-        [callback{std::move(callback)}](
+        [callback = std::move(callback)](
             const boost::system::error_code& ec,
             const MapperGetSubTreePathsResponse& subtreePaths) {
             callback(ec, subtreePaths);
@@ -143,7 +143,7 @@ void getAssociatedSubTree(
                        const MapperGetSubTreeResponse&)>&& callback)
 {
     dbus::utility::async_method_call(
-        [callback{std::move(callback)}](
+        [callback = std::move(callback)](
             const boost::system::error_code& ec,
             const MapperGetSubTreeResponse& subtree) { callback(ec, subtree); },
         "xyz.openbmc_project.ObjectMapper",
@@ -160,7 +160,7 @@ void getAssociatedSubTreePaths(
                        const MapperGetSubTreePathsResponse&)>&& callback)
 {
     dbus::utility::async_method_call(
-        [callback{std::move(callback)}](
+        [callback = std::move(callback)](
             const boost::system::error_code& ec,
             const MapperGetSubTreePathsResponse& subtreePaths) {
             callback(ec, subtreePaths);
@@ -180,7 +180,7 @@ void getAssociatedSubTreeById(
                        const MapperGetSubTreeResponse&)>&& callback)
 {
     dbus::utility::async_method_call(
-        [callback{std::move(callback)}](
+        [callback = std::move(callback)](
             const boost::system::error_code& ec,
             const MapperGetSubTreeResponse& subtree) { callback(ec, subtree); },
         "xyz.openbmc_project.ObjectMapper",
@@ -198,7 +198,7 @@ void getAssociatedSubTreePathsById(
                        const MapperGetSubTreePathsResponse&)>&& callback)
 {
     dbus::utility::async_method_call(
-        [callback{std::move(callback)}](
+        [callback = std::move(callback)](
             const boost::system::error_code& ec,
             const MapperGetSubTreePathsResponse& subtreePaths) {
             callback(ec, subtreePaths);
@@ -215,8 +215,8 @@ void getDbusObject(const std::string& path,
                                       const MapperGetObject&)>&& callback)
 {
     dbus::utility::async_method_call(
-        [callback{std::move(callback)}](const boost::system::error_code& ec,
-                                        const MapperGetObject& object) {
+        [callback = std::move(callback)](const boost::system::error_code& ec,
+                                         const MapperGetObject& object) {
             callback(ec, object);
         },
         "xyz.openbmc_project.ObjectMapper",
@@ -240,8 +240,8 @@ void getManagedObjects(const std::string& service,
                                           const ManagedObjectType&)>&& callback)
 {
     dbus::utility::async_method_call(
-        [callback{std::move(callback)}](const boost::system::error_code& ec,
-                                        const ManagedObjectType& objects) {
+        [callback = std::move(callback)](const boost::system::error_code& ec,
+                                         const ManagedObjectType& objects) {
             callback(ec, objects);
         },
         service, path, "org.freedesktop.DBus.ObjectManager",
