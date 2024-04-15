@@ -566,7 +566,7 @@ inline bool getUserParameters(crow::Response& res, const crow::Request& req,
                                              "MetricReportDefinitionType");
             return false;
         }
-        args.reportingType = dbusReportingType;
+        args.reportingType = std::move(dbusReportingType);
     }
 
     if (reportUpdatesStr)
@@ -578,7 +578,7 @@ inline bool getUserParameters(crow::Response& res, const crow::Request& req,
                                              "ReportUpdates");
             return false;
         }
-        args.reportUpdates = dbusReportUpdates;
+        args.reportUpdates = std::move(dbusReportUpdates);
     }
 
     if (appendLimit)
