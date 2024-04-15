@@ -16,6 +16,24 @@
       "message": "Can you link https://www.boost.org/doc/libs/1_80_0/doc/html/boost_process/v2.html#boost_process.v2.introduction \n\nand copy the important parts like \n\n\n```\n Boost.process V2 is an redesign of boost.process, based on previous design mistakes \u0026 improved system APIs.\n\nThe major changes are\n\n    Simplified interface\n    Reliance on pidfd_open on linux\n    Full asio integration\n    Removed unreliable functionality\n    UTF8 Support\n    separate compilation\n    fd safe by default\n```",
       "revId": "12d6af384d3c757b3b8d0fae27057fc24f3f1381",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25552898_dde4a52c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 27
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-15T03:06:26Z",
+      "side": 1,
+      "message": "Can do.  This is WIP because I haven\u0027t really done anything other than make sure it compiles.  It needs a good testing, although hopefully it\u0027s mechanical enough of a change that it doesn\u0027t break anything.",
+      "parentUuid": "eeae9376_9c777a75",
+      "revId": "12d6af384d3c757b3b8d0fae27057fc24f3f1381",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
