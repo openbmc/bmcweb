@@ -2,10 +2,9 @@
 
 #include <security/pam_appl.h>
 
-#include <boost/utility/string_view.hpp>
-
 #include <cstring>
 #include <memory>
+#include <string_view>
 #include <span>
 
 // function used to get user input

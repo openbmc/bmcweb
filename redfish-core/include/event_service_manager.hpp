@@ -26,6 +26,7 @@
 #include "str_utility.hpp"
 #include "utility.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/time_utils.hpp"
 
 #include <sys/inotify.h>
 
