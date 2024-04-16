@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "614be149_2ec7cab5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-16T17:12:56Z",
+      "side": 1,
+      "message": "Change done by automation.  No reason to hold this in review.\n\nThe privilege registry comments certainly need discussed at some point, but this commit isn\u0027t the right forum to do that, so lets just get this moving.",
+      "revId": "5910d945ab14872a5f22a0222d146783c9e4c4c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
