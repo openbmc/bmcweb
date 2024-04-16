@@ -43,13 +43,13 @@ class SseSocketRule : public BaseRule
     }
     void handleUpgrade(const Request& /*req*/,
                        const std::shared_ptr<bmcweb::AsyncResp>& /*asyncResp*/,
-                       boost::beast::ssl_stream<boost::asio::ip::tcp::socket>&&
+                       boost::asio::ssl::stream<boost::asio::ip::tcp::socket>&&
                            adaptor) override
     {
         std::shared_ptr<crow::sse_socket::ConnectionImpl<
-            boost::beast::ssl_stream<boost::asio::ip::tcp::socket>>>
+            boost::asio::ssl::stream<boost::asio::ip::tcp::socket>>>
             myConnection = std::make_shared<crow::sse_socket::ConnectionImpl<
-                boost::beast::ssl_stream<boost::asio::ip::tcp::socket>>>(
+                boost::asio::ssl::stream<boost::asio::ip::tcp::socket>>>(
                 std::move(adaptor), openHandler, closeHandler);
         myConnection->start();
     }

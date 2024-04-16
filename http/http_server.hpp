@@ -8,8 +8,8 @@
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/signal_set.hpp>
 #include <boost/asio/ssl/context.hpp>
+#include <boost/asio/ssl/stream.hpp>
 #include <boost/asio/steady_timer.hpp>
-#include <boost/beast/ssl/ssl_stream.hpp>
 
 #include <atomic>
 #include <chrono>
@@ -165,7 +165,7 @@ class Server
         boost::asio::steady_timer timer(*ioService);
         std::shared_ptr<Connection<Adaptor, Handler>> connection;
         if constexpr (std::is_same<Adaptor,
-                                   boost::beast::ssl_stream<
+                                   boost::asio::ssl::stream<
                                        boost::asio::ip::tcp::socket>>::value)
         {
             if (adaptorCtx == nullptr)
