@@ -40,6 +40,8 @@ struct Http2StreamData
 {
     Request req;
     std::optional<bmcweb::HttpBody::reader> reqReader;
+    std::string accept;
+    std::string origin;
     Response res;
     std::optional<bmcweb::HttpBody::writer> writer;
 };
@@ -170,10 +172,9 @@ class HTTP2Connection :
         }
         Response& thisRes = it->second.res;
         thisRes = std::move(completedRes);
-        crow::Request& thisReq = it->second.req;
         std::vector<nghttp2_nv> hdr;
 
-        completeResponseFields(thisReq, thisRes);
+        completeResponseFields(it->second.accept, it->second.origin, thisRes);
         thisRes.addHeader(boost::beast::http::field::date, getCachedDateStr());
         thisRes.preparePayload();
 
@@ -248,6 +249,10 @@ class HTTP2Connection :
         crow::Request& thisReq = it->second.req;
         thisReq.ioService = static_cast<decltype(thisReq.ioService)>(
             &adaptor.get_executor().context());
+
+        it->second.accept = thisReq.getHeaderValue("Accept");
+        it->second.origin = thisReq.getHeaderValue("Origin");
+
         BMCWEB_LOG_DEBUG("Handling {} \"{}\"", logPtr(&thisReq),
                          thisReq.url().encoded_path());
 
