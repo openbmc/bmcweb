@@ -2,6 +2,8 @@
 #include "http_response.hpp"
 #include "update_service.hpp"
 
+#include <boost/url/url.hpp>
+
 #include <optional>
 
 #include <gtest/gtest.h>
