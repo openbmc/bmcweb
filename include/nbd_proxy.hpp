@@ -20,7 +20,6 @@
 #include "websocket.hpp"
 
 #include <boost/asio/local/stream_protocol.hpp>
-#include <boost/asio/write.hpp>
 #include <boost/beast/core/buffers_to_string.hpp>
 #include <boost/container/flat_map.hpp>
 

@@ -19,13 +19,16 @@
 
 #include "app.hpp"
 #include "dbus_utility.hpp"
+#include "error_messages.hpp"
 #include "multipart_parser.hpp"
 #include "ossl_random.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "task.hpp"
+#include "task_messages.hpp"
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
+#include "utils/json_utils.hpp"
 #include "utils/sw_utils.hpp"
 
 #include <boost/system/error_code.hpp>
