@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2270b06b_a9e2818f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2024-04-16T18:51:31Z",
+      "side": 1,
+      "message": "Tested it and confirmed this fixes the issue of redfish pages not being served as pretty-printed JSON in the browser (after fixing the Accepts-\u003eAccept issue).",
+      "revId": "c1822c21c3d9434ca7f63d6ab1713a33848ca713",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84957700_31d43c3e",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2024-04-16T18:51:31Z",
+      "side": 1,
+      "message": "The header name is `Accept` (no \u0027s\u0027)",
+      "range": {
+        "startLine": 236,
+        "startChar": 38,
+        "endLine": 236,
+        "endChar": 45
+      },
+      "revId": "c1822c21c3d9434ca7f63d6ab1713a33848ca713",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
