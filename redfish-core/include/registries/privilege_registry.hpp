@@ -150,6 +150,22 @@ const static auto& putAllowDenyCollection = privilegeSetConfigureManager;
 const static auto& deleteAllowDenyCollection = privilegeSetConfigureManager;
 const static auto& postAllowDenyCollection = privilegeSetConfigureManager;
 
+// Application
+const static auto& getApplication = privilegeSetLogin;
+const static auto& headApplication = privilegeSetLogin;
+const static auto& patchApplication = privilegeSetConfigureComponents;
+const static auto& putApplication = privilegeSetConfigureComponents;
+const static auto& deleteApplication = privilegeSetConfigureComponents;
+const static auto& postApplication = privilegeSetConfigureComponents;
+
+// ApplicationCollection
+const static auto& getApplicationCollection = privilegeSetLogin;
+const static auto& headApplicationCollection = privilegeSetLogin;
+const static auto& patchApplicationCollection = privilegeSetConfigureComponents;
+const static auto& putApplicationCollection = privilegeSetConfigureComponents;
+const static auto& deleteApplicationCollection = privilegeSetConfigureComponents;
+const static auto& postApplicationCollection = privilegeSetConfigureComponents;
+
 // Assembly
 const static auto& getAssembly = privilegeSetLogin;
 const static auto& headAssembly = privilegeSetLogin;
@@ -157,6 +173,14 @@ const static auto& patchAssembly = privilegeSetConfigureComponents;
 const static auto& putAssembly = privilegeSetConfigureComponents;
 const static auto& deleteAssembly = privilegeSetConfigureComponents;
 const static auto& postAssembly = privilegeSetConfigureComponents;
+
+// AttributeRegistry
+const static auto& getAttributeRegistry = privilegeSetLogin;
+const static auto& headAttributeRegistry = privilegeSetLogin;
+const static auto& patchAttributeRegistry = privilegeSetConfigureManager;
+const static auto& putAttributeRegistry = privilegeSetConfigureManager;
+const static auto& deleteAttributeRegistry = privilegeSetConfigureManager;
+const static auto& postAttributeRegistry = privilegeSetConfigureManager;
 
 // Battery
 const static auto& getBattery = privilegeSetLogin;
@@ -286,6 +310,22 @@ const static auto& putCircuitCollection = privilegeSetConfigureComponents;
 const static auto& deleteCircuitCollection = privilegeSetConfigureComponents;
 const static auto& postCircuitCollection = privilegeSetConfigureComponents;
 
+// ComponentIntegrity
+const static auto& getComponentIntegrity = privilegeSetLogin;
+const static auto& headComponentIntegrity = privilegeSetLogin;
+const static auto& patchComponentIntegrity = privilegeSetConfigureManager;
+const static auto& putComponentIntegrity = privilegeSetConfigureManager;
+const static auto& deleteComponentIntegrity = privilegeSetConfigureManager;
+const static auto& postComponentIntegrity = privilegeSetConfigureManager;
+
+// ComponentIntegrityCollection
+const static auto& getComponentIntegrityCollection = privilegeSetLogin;
+const static auto& headComponentIntegrityCollection = privilegeSetLogin;
+const static auto& patchComponentIntegrityCollection = privilegeSetConfigureManager;
+const static auto& putComponentIntegrityCollection = privilegeSetConfigureManager;
+const static auto& deleteComponentIntegrityCollection = privilegeSetConfigureManager;
+const static auto& postComponentIntegrityCollection = privilegeSetConfigureManager;
+
 // CompositionReservation
 const static auto& getCompositionReservation = privilegeSetLogin;
 const static auto& headCompositionReservation = privilegeSetLogin;
@@ -358,6 +398,38 @@ const static auto& putConnectionMethodCollection = privilegeSetConfigureManager;
 const static auto& deleteConnectionMethodCollection = privilegeSetConfigureManager;
 const static auto& postConnectionMethodCollection = privilegeSetConfigureManager;
 
+// Container
+const static auto& getContainer = privilegeSetLogin;
+const static auto& headContainer = privilegeSetLogin;
+const static auto& patchContainer = privilegeSetConfigureComponents;
+const static auto& putContainer = privilegeSetConfigureComponents;
+const static auto& deleteContainer = privilegeSetConfigureComponents;
+const static auto& postContainer = privilegeSetConfigureComponents;
+
+// ContainerCollection
+const static auto& getContainerCollection = privilegeSetLogin;
+const static auto& headContainerCollection = privilegeSetLogin;
+const static auto& patchContainerCollection = privilegeSetConfigureComponents;
+const static auto& putContainerCollection = privilegeSetConfigureComponents;
+const static auto& deleteContainerCollection = privilegeSetConfigureComponents;
+const static auto& postContainerCollection = privilegeSetConfigureComponents;
+
+// ContainerImage
+const static auto& getContainerImage = privilegeSetLogin;
+const static auto& headContainerImage = privilegeSetLogin;
+const static auto& patchContainerImage = privilegeSetConfigureComponents;
+const static auto& putContainerImage = privilegeSetConfigureComponents;
+const static auto& deleteContainerImage = privilegeSetConfigureComponents;
+const static auto& postContainerImage = privilegeSetConfigureComponents;
+
+// ContainerImageCollection
+const static auto& getContainerImageCollection = privilegeSetLogin;
+const static auto& headContainerImageCollection = privilegeSetLogin;
+const static auto& patchContainerImageCollection = privilegeSetConfigureComponents;
+const static auto& putContainerImageCollection = privilegeSetConfigureComponents;
+const static auto& deleteContainerImageCollection = privilegeSetConfigureComponents;
+const static auto& postContainerImageCollection = privilegeSetConfigureComponents;
+
 // Control
 const static auto& getControl = privilegeSetLogin;
 const static auto& headControl = privilegeSetLogin;
@@ -374,6 +446,70 @@ const static auto& putControlCollection = privilegeSetConfigureManager;
 const static auto& deleteControlCollection = privilegeSetConfigureManager;
 const static auto& postControlCollection = privilegeSetConfigureManager;
 
+// CoolantConnector
+const static auto& getCoolantConnector = privilegeSetLogin;
+const static auto& headCoolantConnector = privilegeSetLogin;
+const static auto& patchCoolantConnector = privilegeSetConfigureComponents;
+const static auto& putCoolantConnector = privilegeSetConfigureComponents;
+const static auto& deleteCoolantConnector = privilegeSetConfigureComponents;
+const static auto& postCoolantConnector = privilegeSetConfigureComponents;
+
+// CoolantConnectorCollection
+const static auto& getCoolantConnectorCollection = privilegeSetLogin;
+const static auto& headCoolantConnectorCollection = privilegeSetLogin;
+const static auto& patchCoolantConnectorCollection = privilegeSetConfigureComponents;
+const static auto& putCoolantConnectorCollection = privilegeSetConfigureComponents;
+const static auto& deleteCoolantConnectorCollection = privilegeSetConfigureComponents;
+const static auto& postCoolantConnectorCollection = privilegeSetConfigureComponents;
+
+// CoolingLoop
+const static auto& getCoolingLoop = privilegeSetLogin;
+const static auto& headCoolingLoop = privilegeSetLogin;
+const static auto& patchCoolingLoop = privilegeSetConfigureComponents;
+const static auto& putCoolingLoop = privilegeSetConfigureComponents;
+const static auto& deleteCoolingLoop = privilegeSetConfigureComponents;
+const static auto& postCoolingLoop = privilegeSetConfigureComponents;
+
+// CoolingLoopCollection
+const static auto& getCoolingLoopCollection = privilegeSetLogin;
+const static auto& headCoolingLoopCollection = privilegeSetLogin;
+const static auto& patchCoolingLoopCollection = privilegeSetConfigureComponents;
+const static auto& putCoolingLoopCollection = privilegeSetConfigureComponents;
+const static auto& deleteCoolingLoopCollection = privilegeSetConfigureComponents;
+const static auto& postCoolingLoopCollection = privilegeSetConfigureComponents;
+
+// CoolingUnit
+const static auto& getCoolingUnit = privilegeSetLogin;
+const static auto& headCoolingUnit = privilegeSetLogin;
+const static auto& patchCoolingUnit = privilegeSetConfigureComponents;
+const static auto& putCoolingUnit = privilegeSetConfigureComponents;
+const static auto& deleteCoolingUnit = privilegeSetConfigureComponents;
+const static auto& postCoolingUnit = privilegeSetConfigureComponents;
+
+// CoolingUnitCollection
+const static auto& getCoolingUnitCollection = privilegeSetLogin;
+const static auto& headCoolingUnitCollection = privilegeSetLogin;
+const static auto& patchCoolingUnitCollection = privilegeSetConfigureComponents;
+const static auto& putCoolingUnitCollection = privilegeSetConfigureComponents;
+const static auto& deleteCoolingUnitCollection = privilegeSetConfigureComponents;
+const static auto& postCoolingUnitCollection = privilegeSetConfigureComponents;
+
+// CXLLogicalDevice
+const static auto& getCXLLogicalDevice = privilegeSetLogin;
+const static auto& headCXLLogicalDevice = privilegeSetLogin;
+const static auto& patchCXLLogicalDevice = privilegeSetConfigureComponents;
+const static auto& putCXLLogicalDevice = privilegeSetConfigureComponents;
+const static auto& deleteCXLLogicalDevice = privilegeSetConfigureComponents;
+const static auto& postCXLLogicalDevice = privilegeSetConfigureComponents;
+
+// CXLLogicalDeviceCollection
+const static auto& getCXLLogicalDeviceCollection = privilegeSetLogin;
+const static auto& headCXLLogicalDeviceCollection = privilegeSetLogin;
+const static auto& patchCXLLogicalDeviceCollection = privilegeSetConfigureComponents;
+const static auto& putCXLLogicalDeviceCollection = privilegeSetConfigureComponents;
+const static auto& deleteCXLLogicalDeviceCollection = privilegeSetConfigureComponents;
+const static auto& postCXLLogicalDeviceCollection = privilegeSetConfigureComponents;
+
 // Drive
 const static auto& getDrive = privilegeSetLogin;
 const static auto& headDrive = privilegeSetLogin;
@@ -389,6 +525,14 @@ const static auto& patchDriveCollection = privilegeSetConfigureComponents;
 const static auto& postDriveCollection = privilegeSetConfigureComponents;
 const static auto& putDriveCollection = privilegeSetConfigureComponents;
 const static auto& deleteDriveCollection = privilegeSetConfigureComponents;
+
+// DriveMetrics
+const static auto& getDriveMetrics = privilegeSetLogin;
+const static auto& headDriveMetrics = privilegeSetLogin;
+const static auto& patchDriveMetrics = privilegeSetConfigureComponents;
+const static auto& putDriveMetrics = privilegeSetConfigureComponents;
+const static auto& deleteDriveMetrics = privilegeSetConfigureComponents;
+const static auto& postDriveMetrics = privilegeSetConfigureComponents;
 
 // Endpoint
 const static auto& getEndpoint = privilegeSetLogin;
@@ -550,6 +694,22 @@ const static auto& putFanCollection = privilegeSetConfigureManager;
 const static auto& deleteFanCollection = privilegeSetConfigureManager;
 const static auto& postFanCollection = privilegeSetConfigureManager;
 
+// Filter
+const static auto& getFilter = privilegeSetLogin;
+const static auto& headFilter = privilegeSetLogin;
+const static auto& patchFilter = privilegeSetConfigureComponents;
+const static auto& putFilter = privilegeSetConfigureComponents;
+const static auto& deleteFilter = privilegeSetConfigureComponents;
+const static auto& postFilter = privilegeSetConfigureComponents;
+
+// FilterCollection
+const static auto& getFilterCollection = privilegeSetLogin;
+const static auto& headFilterCollection = privilegeSetLogin;
+const static auto& patchFilterCollection = privilegeSetConfigureComponents;
+const static auto& putFilterCollection = privilegeSetConfigureComponents;
+const static auto& deleteFilterCollection = privilegeSetConfigureComponents;
+const static auto& postFilterCollection = privilegeSetConfigureComponents;
+
 // GraphicsController
 const static auto& getGraphicsController = privilegeSetLogin;
 const static auto& headGraphicsController = privilegeSetLogin;
@@ -565,6 +725,30 @@ const static auto& patchGraphicsControllerCollection = privilegeSetConfigureComp
 const static auto& putGraphicsControllerCollection = privilegeSetConfigureComponents;
 const static auto& deleteGraphicsControllerCollection = privilegeSetConfigureComponents;
 const static auto& postGraphicsControllerCollection = privilegeSetConfigureComponents;
+
+// Heater
+const static auto& getHeater = privilegeSetLogin;
+const static auto& headHeater = privilegeSetLogin;
+const static auto& patchHeater = privilegeSetConfigureManager;
+const static auto& putHeater = privilegeSetConfigureManager;
+const static auto& deleteHeater = privilegeSetConfigureManager;
+const static auto& postHeater = privilegeSetConfigureManager;
+
+// HeaterCollection
+const static auto& getHeaterCollection = privilegeSetLogin;
+const static auto& headHeaterCollection = privilegeSetLogin;
+const static auto& patchHeaterCollection = privilegeSetConfigureManager;
+const static auto& putHeaterCollection = privilegeSetConfigureManager;
+const static auto& deleteHeaterCollection = privilegeSetConfigureManager;
+const static auto& postHeaterCollection = privilegeSetConfigureManager;
+
+// HeaterMetrics
+const static auto& getHeaterMetrics = privilegeSetLogin;
+const static auto& headHeaterMetrics = privilegeSetLogin;
+const static auto& patchHeaterMetrics = privilegeSetConfigureManager;
+const static auto& putHeaterMetrics = privilegeSetConfigureManager;
+const static auto& deleteHeaterMetrics = privilegeSetConfigureManager;
+const static auto& postHeaterMetrics = privilegeSetConfigureManager;
 
 // HostInterface
 const static auto& getHostInterface = privilegeSetLogin;
@@ -662,6 +846,54 @@ const static auto& putKeyService = privilegeSetConfigureManager;
 const static auto& deleteKeyService = privilegeSetConfigureManager;
 const static auto& postKeyService = privilegeSetConfigureManager;
 
+// LeakDetection
+const static auto& getLeakDetection = privilegeSetLogin;
+const static auto& headLeakDetection = privilegeSetLogin;
+const static auto& patchLeakDetection = privilegeSetConfigureComponents;
+const static auto& postLeakDetection = privilegeSetConfigureComponents;
+const static auto& putLeakDetection = privilegeSetConfigureComponents;
+const static auto& deleteLeakDetection = privilegeSetConfigureComponents;
+
+// LeakDetector
+const static auto& getLeakDetector = privilegeSetLogin;
+const static auto& headLeakDetector = privilegeSetLogin;
+const static auto& patchLeakDetector = privilegeSetConfigureComponents;
+const static auto& postLeakDetector = privilegeSetConfigureComponents;
+const static auto& putLeakDetector = privilegeSetConfigureComponents;
+const static auto& deleteLeakDetector = privilegeSetConfigureComponents;
+
+// LeakDetectorCollection
+const static auto& getLeakDetectorCollection = privilegeSetLogin;
+const static auto& headLeakDetectorCollection = privilegeSetLogin;
+const static auto& patchLeakDetectorCollection = privilegeSetConfigureComponents;
+const static auto& postLeakDetectorCollection = privilegeSetConfigureComponents;
+const static auto& putLeakDetectorCollection = privilegeSetConfigureComponents;
+const static auto& deleteLeakDetectorCollection = privilegeSetConfigureComponents;
+
+// License
+const static auto& getLicense = privilegeSetLogin;
+const static auto& headLicense = privilegeSetLogin;
+const static auto& patchLicense = privilegeSetConfigureManager;
+const static auto& putLicense = privilegeSetConfigureManager;
+const static auto& deleteLicense = privilegeSetConfigureManager;
+const static auto& postLicense = privilegeSetConfigureManager;
+
+// LicenseCollection
+const static auto& getLicenseCollection = privilegeSetLogin;
+const static auto& headLicenseCollection = privilegeSetLogin;
+const static auto& patchLicenseCollection = privilegeSetConfigureManager;
+const static auto& putLicenseCollection = privilegeSetConfigureManager;
+const static auto& deleteLicenseCollection = privilegeSetConfigureManager;
+const static auto& postLicenseCollection = privilegeSetConfigureManager;
+
+// LicenseService
+const static auto& getLicenseService = privilegeSetLogin;
+const static auto& headLicenseService = privilegeSetLogin;
+const static auto& patchLicenseService = privilegeSetConfigureManager;
+const static auto& putLicenseService = privilegeSetConfigureManager;
+const static auto& deleteLicenseService = privilegeSetConfigureManager;
+const static auto& postLicenseService = privilegeSetConfigureManager;
+
 // LogEntry
 const static auto& getLogEntry = privilegeSetLogin;
 const static auto& headLogEntry = privilegeSetLogin;
@@ -731,6 +963,7 @@ const static auto& getManagerDiagnosticData = privilegeSetLogin;
 const static auto& headManagerDiagnosticData = privilegeSetLogin;
 const static auto& patchManagerDiagnosticData = privilegeSetConfigureManager;
 const static auto& postManagerDiagnosticData = privilegeSetConfigureManager;
+const static auto& deleteManagerDiagnosticData = privilegeSetConfigureManager;
 const static auto& putManagerDiagnosticData = privilegeSetConfigureManager;
 
 // ManagerNetworkProtocol
@@ -812,6 +1045,30 @@ const static auto& patchMemoryMetrics = privilegeSetConfigureComponents;
 const static auto& postMemoryMetrics = privilegeSetConfigureComponents;
 const static auto& putMemoryMetrics = privilegeSetConfigureComponents;
 const static auto& deleteMemoryMetrics = privilegeSetConfigureComponents;
+
+// MemoryRegion
+const static auto& getMemoryRegion = privilegeSetLogin;
+const static auto& headMemoryRegion = privilegeSetLogin;
+const static auto& patchMemoryRegion = privilegeSetConfigureComponents;
+const static auto& postMemoryRegion = privilegeSetConfigureComponents;
+const static auto& putMemoryRegion = privilegeSetConfigureComponents;
+const static auto& deleteMemoryRegion = privilegeSetConfigureComponents;
+
+// MemoryRegionCollection
+const static auto& getMemoryRegionCollection = privilegeSetLogin;
+const static auto& headMemoryRegionCollection = privilegeSetLogin;
+const static auto& patchMemoryRegionCollection = privilegeSetConfigureComponents;
+const static auto& postMemoryRegionCollection = privilegeSetConfigureComponents;
+const static auto& putMemoryRegionCollection = privilegeSetConfigureComponents;
+const static auto& deleteMemoryRegionCollection = privilegeSetConfigureComponents;
+
+// MessageRegistry
+const static auto& getMessageRegistry = privilegeSetLogin;
+const static auto& headMessageRegistry = privilegeSetLogin;
+const static auto& patchMessageRegistry = privilegeSetConfigureManager;
+const static auto& postMessageRegistry = privilegeSetConfigureManager;
+const static auto& putMessageRegistry = privilegeSetConfigureManager;
+const static auto& deleteMessageRegistry = privilegeSetConfigureManager;
 
 // MessageRegistryFile
 const static auto& getMessageRegistryFile = privilegeSetLogin;
@@ -972,6 +1229,30 @@ const static auto& patchOperatingConfigCollection = privilegeSetConfigureCompone
 const static auto& postOperatingConfigCollection = privilegeSetConfigureComponents;
 const static auto& putOperatingConfigCollection = privilegeSetConfigureComponents;
 const static auto& deleteOperatingConfigCollection = privilegeSetConfigureComponents;
+
+// OperatingSystem
+const static auto& getOperatingSystem = privilegeSetLogin;
+const static auto& headOperatingSystem = privilegeSetLogin;
+const static auto& patchOperatingSystem = privilegeSetConfigureComponents;
+const static auto& postOperatingSystem = privilegeSetConfigureComponents;
+const static auto& putOperatingSystem = privilegeSetConfigureComponents;
+const static auto& deleteOperatingSystem = privilegeSetConfigureComponents;
+
+// OutboundConnection
+const static auto& getOutboundConnection = privilegeSetLogin;
+const static auto& headOutboundConnection = privilegeSetLogin;
+const static auto& patchOutboundConnection = privilegeSetConfigureManager;
+const static auto& putOutboundConnection = privilegeSetConfigureManager;
+const static auto& deleteOutboundConnection = privilegeSetConfigureManager;
+const static auto& postOutboundConnection = privilegeSetConfigureManager;
+
+// OutboundConnectionCollection
+const static auto& getOutboundConnectionCollection = privilegeSetLogin;
+const static auto& headOutboundConnectionCollection = privilegeSetLogin;
+const static auto& patchOutboundConnectionCollection = privilegeSetConfigureManager;
+const static auto& putOutboundConnectionCollection = privilegeSetConfigureManager;
+const static auto& deleteOutboundConnectionCollection = privilegeSetConfigureManager;
+const static auto& postOutboundConnectionCollection = privilegeSetConfigureManager;
 
 // Outlet
 const static auto& getOutlet = privilegeSetLogin;
@@ -1157,6 +1438,14 @@ const static auto& putPowerSupplyMetrics = privilegeSetConfigureManager;
 const static auto& deletePowerSupplyMetrics = privilegeSetConfigureManager;
 const static auto& postPowerSupplyMetrics = privilegeSetConfigureManager;
 
+// PrivilegeRegistry
+const static auto& getPrivilegeRegistry = privilegeSetLogin;
+const static auto& headPrivilegeRegistry = privilegeSetLogin;
+const static auto& patchPrivilegeRegistry = privilegeSetConfigureManager;
+const static auto& postPrivilegeRegistry = privilegeSetConfigureManager;
+const static auto& putPrivilegeRegistry = privilegeSetConfigureManager;
+const static auto& deletePrivilegeRegistry = privilegeSetConfigureManager;
+
 // Processor
 const static auto& getProcessor = privilegeSetLogin;
 const static auto& headProcessor = privilegeSetLogin;
@@ -1180,6 +1469,54 @@ const static auto& patchProcessorMetrics = privilegeSetConfigureComponents;
 const static auto& putProcessorMetrics = privilegeSetConfigureComponents;
 const static auto& deleteProcessorMetrics = privilegeSetConfigureComponents;
 const static auto& postProcessorMetrics = privilegeSetConfigureComponents;
+
+// Pump
+const static auto& getPump = privilegeSetLogin;
+const static auto& headPump = privilegeSetLogin;
+const static auto& patchPump = privilegeSetConfigureComponents;
+const static auto& putPump = privilegeSetConfigureComponents;
+const static auto& deletePump = privilegeSetConfigureComponents;
+const static auto& postPump = privilegeSetConfigureComponents;
+
+// PumpCollection
+const static auto& getPumpCollection = privilegeSetLogin;
+const static auto& headPumpCollection = privilegeSetLogin;
+const static auto& patchPumpCollection = privilegeSetConfigureComponents;
+const static auto& putPumpCollection = privilegeSetConfigureComponents;
+const static auto& deletePumpCollection = privilegeSetConfigureComponents;
+const static auto& postPumpCollection = privilegeSetConfigureComponents;
+
+// RegisteredClient
+const static auto& getRegisteredClient = privilegeSetLogin;
+const static auto& headRegisteredClient = privilegeSetLogin;
+const static auto& patchRegisteredClient = privilegeSetConfigureManagerOrConfigureSelf;
+const static auto& postRegisteredClient = privilegeSetConfigureManagerOrConfigureSelf;
+const static auto& putRegisteredClient = privilegeSetConfigureManagerOrConfigureSelf;
+const static auto& deleteRegisteredClient = privilegeSetConfigureManagerOrConfigureSelf;
+
+// RegisteredClientCollection
+const static auto& getRegisteredClientCollection = privilegeSetLogin;
+const static auto& headRegisteredClientCollection = privilegeSetLogin;
+const static auto& patchRegisteredClientCollection = privilegeSetConfigureManagerOrConfigureComponents;
+const static auto& postRegisteredClientCollection = privilegeSetConfigureManagerOrConfigureComponents;
+const static auto& putRegisteredClientCollection = privilegeSetConfigureManagerOrConfigureComponents;
+const static auto& deleteRegisteredClientCollection = privilegeSetConfigureManagerOrConfigureComponents;
+
+// Reservoir
+const static auto& getReservoir = privilegeSetLogin;
+const static auto& headReservoir = privilegeSetLogin;
+const static auto& patchReservoir = privilegeSetConfigureComponents;
+const static auto& putReservoir = privilegeSetConfigureComponents;
+const static auto& deleteReservoir = privilegeSetConfigureComponents;
+const static auto& postReservoir = privilegeSetConfigureComponents;
+
+// ReservoirCollection
+const static auto& getReservoirCollection = privilegeSetLogin;
+const static auto& headReservoirCollection = privilegeSetLogin;
+const static auto& patchReservoirCollection = privilegeSetConfigureComponents;
+const static auto& putReservoirCollection = privilegeSetConfigureComponents;
+const static auto& deleteReservoirCollection = privilegeSetConfigureComponents;
+const static auto& postReservoirCollection = privilegeSetConfigureComponents;
 
 // ResourceBlock
 const static auto& getResourceBlock = privilegeSetLogin;
@@ -1269,6 +1606,14 @@ const static auto& postSecureBootDatabaseCollection = privilegeSetConfigureCompo
 const static auto& putSecureBootDatabaseCollection = privilegeSetConfigureComponents;
 const static auto& deleteSecureBootDatabaseCollection = privilegeSetConfigureComponents;
 
+// SecurityPolicy
+const static auto& getSecurityPolicy = privilegeSetLogin;
+const static auto& headSecurityPolicy = privilegeSetLogin;
+const static auto& patchSecurityPolicy = privilegeSetConfigureManager;
+const static auto& putSecurityPolicy = privilegeSetConfigureManager;
+const static auto& deleteSecurityPolicy = privilegeSetConfigureManager;
+const static auto& postSecurityPolicy = privilegeSetConfigureManager;
+
 // Sensor
 const static auto& getSensor = privilegeSetLogin;
 const static auto& headSensor = privilegeSetLogin;
@@ -1301,6 +1646,14 @@ const static auto& putSerialInterfaceCollection = privilegeSetConfigureManager;
 const static auto& deleteSerialInterfaceCollection = privilegeSetConfigureManager;
 const static auto& postSerialInterfaceCollection = privilegeSetConfigureManager;
 
+// ServiceConditions
+const static auto& getServiceConditions = privilegeSetLogin;
+const static auto& headServiceConditions = privilegeSetLogin;
+const static auto& patchServiceConditions = privilegeSetConfigureManager;
+const static auto& putServiceConditions = privilegeSetConfigureManager;
+const static auto& deleteServiceConditions = privilegeSetConfigureManager;
+const static auto& postServiceConditions = privilegeSetConfigureManager;
+
 // ServiceRoot
 const static auto& getServiceRoot = privilegeSetLoginOrNoAuth;
 const static auto& headServiceRoot = privilegeSetLoginOrNoAuth;
@@ -1310,8 +1663,8 @@ const static auto& deleteServiceRoot = privilegeSetConfigureManager;
 const static auto& postServiceRoot = privilegeSetConfigureManager;
 
 // Session
-const static auto& getSession = privilegeSetLogin;
-const static auto& headSession = privilegeSetLogin;
+const static auto& getSession = privilegeSetConfigureManagerOrConfigureSelf;
+const static auto& headSession = privilegeSetConfigureManagerOrConfigureSelf;
 const static auto& patchSession = privilegeSetConfigureManager;
 const static auto& putSession = privilegeSetConfigureManager;
 const static auto& deleteSession = privilegeSetConfigureManagerOrConfigureSelf;
@@ -1413,6 +1766,14 @@ const static auto& postStorageControllerCollection = privilegeSetConfigureCompon
 const static auto& putStorageControllerCollection = privilegeSetConfigureComponents;
 const static auto& deleteStorageControllerCollection = privilegeSetConfigureComponents;
 
+// StorageControllerMetrics
+const static auto& getStorageControllerMetrics = privilegeSetLogin;
+const static auto& headStorageControllerMetrics = privilegeSetLogin;
+const static auto& patchStorageControllerMetrics = privilegeSetConfigureComponents;
+const static auto& postStorageControllerMetrics = privilegeSetConfigureComponents;
+const static auto& putStorageControllerMetrics = privilegeSetConfigureComponents;
+const static auto& deleteStorageControllerMetrics = privilegeSetConfigureComponents;
+
 // Switch
 const static auto& getSwitch = privilegeSetLogin;
 const static auto& headSwitch = privilegeSetLogin;
@@ -1428,6 +1789,14 @@ const static auto& patchSwitchCollection = privilegeSetConfigureComponents;
 const static auto& postSwitchCollection = privilegeSetConfigureComponents;
 const static auto& putSwitchCollection = privilegeSetConfigureComponents;
 const static auto& deleteSwitchCollection = privilegeSetConfigureComponents;
+
+// SwitchMetrics
+const static auto& getSwitchMetrics = privilegeSetLogin;
+const static auto& headSwitchMetrics = privilegeSetLogin;
+const static auto& patchSwitchMetrics = privilegeSetConfigureComponents;
+const static auto& postSwitchMetrics = privilegeSetConfigureComponents;
+const static auto& putSwitchMetrics = privilegeSetConfigureComponents;
+const static auto& deleteSwitchMetrics = privilegeSetConfigureComponents;
 
 // Task
 const static auto& getTask = privilegeSetLogin;
@@ -1469,6 +1838,14 @@ const static auto& putThermal = privilegeSetConfigureManager;
 const static auto& deleteThermal = privilegeSetConfigureManager;
 const static auto& postThermal = privilegeSetConfigureManager;
 
+// ThermalEquipment
+const static auto& getThermalEquipment = privilegeSetLogin;
+const static auto& headThermalEquipment = privilegeSetLogin;
+const static auto& patchThermalEquipment = privilegeSetConfigureManager;
+const static auto& putThermalEquipment = privilegeSetConfigureManager;
+const static auto& deleteThermalEquipment = privilegeSetConfigureManager;
+const static auto& postThermalEquipment = privilegeSetConfigureManager;
+
 // ThermalMetrics
 const static auto& getThermalMetrics = privilegeSetLogin;
 const static auto& headThermalMetrics = privilegeSetLogin;
@@ -1500,6 +1877,22 @@ const static auto& patchTriggersCollection = privilegeSetConfigureManager;
 const static auto& putTriggersCollection = privilegeSetConfigureManager;
 const static auto& deleteTriggersCollection = privilegeSetConfigureManager;
 const static auto& postTriggersCollection = privilegeSetConfigureManager;
+
+// TrustedComponent
+const static auto& getTrustedComponent = privilegeSetLogin;
+const static auto& headTrustedComponent = privilegeSetLogin;
+const static auto& patchTrustedComponent = privilegeSetConfigureManager;
+const static auto& putTrustedComponent = privilegeSetConfigureManager;
+const static auto& deleteTrustedComponent = privilegeSetConfigureManager;
+const static auto& postTrustedComponent = privilegeSetConfigureManager;
+
+// TrustedComponentCollection
+const static auto& getTrustedComponentCollection = privilegeSetLogin;
+const static auto& headTrustedComponentCollection = privilegeSetLogin;
+const static auto& patchTrustedComponentCollection = privilegeSetConfigureManager;
+const static auto& putTrustedComponentCollection = privilegeSetConfigureManager;
+const static auto& deleteTrustedComponentCollection = privilegeSetConfigureManager;
+const static auto& postTrustedComponentCollection = privilegeSetConfigureManager;
 
 // UpdateService
 const static auto& getUpdateService = privilegeSetLogin;

@@ -189,7 +189,7 @@ namespace redfish::privileges
 
 def make_privilege_registry():
     path, json_file, type_name, url = make_getter(
-        "Redfish_1.3.0_PrivilegeRegistry.json",
+        "Redfish_1.5.0_PrivilegeRegistry.json",
         "privilege_registry.hpp",
         "privilege",
     )
