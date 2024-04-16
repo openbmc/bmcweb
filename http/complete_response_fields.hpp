@@ -17,13 +17,11 @@
 namespace crow
 {
 
-inline void completeResponseFields(const Request& req, Response& res)
+inline void completeResponseFields(std::string_view accepts,
+                                   std::string_view origin, Response& res)
 {
-    BMCWEB_LOG_INFO("Response:  {} {}", req.url().encoded_path(),
-                    res.resultInt());
-    addSecurityHeaders(req, res);
-
-    authentication::cleanupTempSession(req);
+    BMCWEB_LOG_INFO("Response: {}", res.resultInt());
+    addSecurityHeaders(origin, res);
 
     res.setHashAndHandleNotModified();
     if (res.jsonValue.is_structured())
@@ -31,8 +29,7 @@ inline void completeResponseFields(const Request& req, Response& res)
         using http_helpers::ContentType;
         std::array<ContentType, 3> allowed{ContentType::CBOR, ContentType::JSON,
                                            ContentType::HTML};
-        ContentType preferred =
-            getPreferredContentType(req.getHeaderValue("Accept"), allowed);
+        ContentType preferred = getPreferredContentType(accepts, allowed);
 
         if (preferred == ContentType::HTML)
         {
