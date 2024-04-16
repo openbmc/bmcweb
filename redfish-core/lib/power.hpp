@@ -22,6 +22,7 @@
 #include "registries/privilege_registry.hpp"
 #include "sensors.hpp"
 #include "utils/chassis_utils.hpp"
+#include "utils/json_utils.hpp"
 
 #include <sdbusplus/asio/property.hpp>
 

@@ -1,7 +1,13 @@
 #pragma once
 
+#include "privileges.hpp"
+#include "registries/privilege_registry.hpp"
+
 #include <app.hpp>
 #include <event_service_manager.hpp>
+
+#include <memory>
+#include <string>
 
 namespace redfish
 {
