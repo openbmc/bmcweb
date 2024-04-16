@@ -36,7 +36,6 @@
 #include <boost/beast/http/read.hpp>
 #include <boost/beast/http/write.hpp>
 #include <boost/beast/ssl/ssl_stream.hpp>
-#include <boost/beast/version.hpp>
 #include <boost/container/devector.hpp>
 #include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>

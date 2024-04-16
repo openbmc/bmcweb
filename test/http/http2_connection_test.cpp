@@ -2,6 +2,7 @@
 #include "http/http2_connection.hpp"
 #include "http/http_request.hpp"
 #include "http/http_response.hpp"
+#include "nghttp2_adapters.hpp"
 
 #include <nghttp2/nghttp2.h>
 #include <unistd.h>
