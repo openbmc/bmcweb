@@ -5,8 +5,7 @@
 #include "http_request.hpp"
 #include "http_response.hpp"
 
-inline void addSecurityHeaders(const crow::Request& req [[maybe_unused]],
-                               crow::Response& res)
+inline void addSecurityHeaders(crow::Response& res)
 {
     /*
      TODO(ed) these should really check content types.  for example,
