@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c1baad8_bdf3f082",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-04-16T19:33:58Z",
+      "side": 1,
+      "message": "And I assume our websockets still work? E.g. host console or something?",
+      "revId": "835a0931b92620a813795a809cf4d0b974355b89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
