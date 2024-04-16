@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "094d04d8_1b825992",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-04-16T15:28:11Z",
+      "side": 1,
+      "message": "I am fine with this. I would rather a date and remove in 6 months or a year but shrug, not a big deal.",
+      "revId": "67762b919024757c502069a9543f227617a523d2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
