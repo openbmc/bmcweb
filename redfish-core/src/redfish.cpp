@@ -1,5 +1,7 @@
 #include "redfish.hpp"
 
+#include "bmcweb_config.h"
+
 #include "account_service.hpp"
 #include "aggregation_service.hpp"
 #include "app.hpp"
@@ -23,7 +25,6 @@
 #include "metric_report_definition.hpp"
 #include "network_protocol.hpp"
 #include "pcie.hpp"
-#include "pcie_slots.hpp"
 #include "power.hpp"
 #include "power_subsystem.hpp"
 #include "power_supply.hpp"
