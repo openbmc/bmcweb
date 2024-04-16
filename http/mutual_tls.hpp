@@ -108,5 +108,5 @@ inline std::shared_ptr<persistent_data::UserSession>
     std::string unsupportedClientId;
     return persistent_data::SessionStore::getInstance().generateUserSession(
         sslUser, clientIp, unsupportedClientId,
-        persistent_data::PersistenceType::TIMEOUT);
+        persistent_data::SessionType::MutualTLS);
 }
