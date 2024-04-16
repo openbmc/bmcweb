@@ -16,6 +16,24 @@
       "message": "This was here, so if you were only patching LDAP, don\u0027t we still want that? I guess if there isn\u0027t a \"ActiveDirectory\" in the PATCH, all the LdapPatchParams are all std::optional so they would just be not present and would fall through handleLDAPPatch ?",
       "revId": "67762b919024757c502069a9543f227617a523d2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68c1686f_b4766812",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1350,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-16T15:53:43Z",
+      "side": 0,
+      "message": "There\u0027s already a block within handleLdapPatch that checks for \"Do we need to do anything\".\n\nIt arguably should be moved higher in the function, so we don\u0027t try to handle errors if there\u0027s nothing set.  In practice, we don\u0027t do much if this is called, but let me try to rearrange to make it more obvious.",
+      "parentUuid": "e42d0037_b86ab390",
+      "revId": "67762b919024757c502069a9543f227617a523d2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
