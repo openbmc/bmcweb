@@ -150,8 +150,7 @@ void validatePrivilege(Request& req,
     }
     std::string username = req.session->username;
     crow::connections::systemBus->async_method_call(
-        [req{std::move(req)}, asyncResp, &rule,
-         callback = std::forward<CallbackFn>(callback)](
+        [req, asyncResp, &rule, callback = std::forward<CallbackFn>(callback)](
             const boost::system::error_code& ec,
             const dbus::utility::DBusPropertiesMap& userInfoMap) mutable {
         afterGetUserInfo(req, asyncResp, rule,
