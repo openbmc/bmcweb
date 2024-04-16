@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2d0d3fe9_d36e6025",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 941,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-04-16T17:54:09Z",
+      "side": 1,
+      "message": "Error here",
+      "parentUuid": "3dc36602_e6eb0b44",
+      "revId": "8143d0abe1e04f2ff9eb5adbf39c136a50bd1659",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "793b8c80_76d73d45",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 11
