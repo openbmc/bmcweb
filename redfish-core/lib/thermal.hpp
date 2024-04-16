@@ -19,6 +19,7 @@
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "sensors.hpp"
+#include "utils/json_utils.hpp"
 
 namespace redfish
 {

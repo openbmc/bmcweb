@@ -2,11 +2,10 @@
 
 #include <security/pam_appl.h>
 
-#include <boost/utility/string_view.hpp>
-
 #include <cstring>
 #include <memory>
 #include <span>
+#include <string_view>
 
 // function used to get user input
 inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,

@@ -1,6 +1,7 @@
 #include "http/http2_connection.hpp"
 #include "http/http_request.hpp"
 #include "http/http_response.hpp"
+#include "nghttp2_adapters.hpp"
 
 #include <boost/asio/steady_timer.hpp>
 #include <boost/beast/_experimental/test/stream.hpp>

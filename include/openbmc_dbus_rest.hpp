@@ -32,7 +32,6 @@
 #include <boost/beast/http/verb.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/container/vector.hpp>
-#include <boost/iterator/iterator_facade.hpp>
 #include <boost/system/error_code.hpp>
 #include <nlohmann/json.hpp>
 #include <sdbusplus/asio/connection.hpp>

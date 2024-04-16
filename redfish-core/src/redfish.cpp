@@ -1,5 +1,7 @@
 #include "redfish.hpp"
 
+#include "bmcweb_config.h"
+
 #include "account_service.hpp"
 #include "aggregation_service.hpp"
 #include "app.hpp"

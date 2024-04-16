@@ -12,6 +12,7 @@
 #include "ibm/management_console_rest.hpp"
 #include "image_upload.hpp"
 #include "kvm_websocket.hpp"
+#include "logging.hpp"
 #include "login_routes.hpp"
 #include "nbd_proxy.hpp"
 #include "obmc_console.hpp"
@@ -19,8 +20,6 @@
 #include "openbmc_dbus_rest.hpp"
 #include "redfish.hpp"
 #include "redfish_aggregator.hpp"
-#include "security_headers.hpp"
-#include "ssl_key_handler.hpp"
 #include "user_monitor.hpp"
 #include "vm_websocket.hpp"
 #include "webassets.hpp"
@@ -29,8 +28,8 @@
 #include <event_dbus_monitor.hpp>
 #include <obmc_hypervisor.hpp>
 #include <sdbusplus/asio/connection.hpp>
-#include <sdbusplus/bus.hpp>
-#include <sdbusplus/server.hpp>
+
+#include <memory>
 
 int run()
 {
