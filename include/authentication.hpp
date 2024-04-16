@@ -19,20 +19,6 @@ namespace crow
 namespace authentication
 {
 
-inline void cleanupTempSession(const Request& req)
-{
-    // TODO(ed) THis should really be handled by the persistent data
-    // middleware, but because it is upstream, it doesn't have access to the
-    // session information.  Should the data middleware persist the current
-    // user session?
-    if (req.session != nullptr &&
-        req.session->persistence ==
-            persistent_data::PersistenceType::SINGLE_REQUEST)
-    {
-        persistent_data::SessionStore::getInstance().removeSession(req.session);
-    }
-}
-
 inline std::shared_ptr<persistent_data::UserSession>
     performBasicAuth(const boost::asio::ip::address& clientIp,
                      std::string_view authHeader)
@@ -76,15 +62,29 @@ inline std::shared_ptr<persistent_data::UserSession>
         return nullptr;
     }
 
-    // TODO(ed) generateUserSession is a little expensive for basic
-    // auth, as it generates some random identifiers that will never be
-    // used.  This should have a "fast" path for when user tokens aren't
-    // needed.
-    // This whole flow needs to be revisited anyway, as we can't be
-    // calling directly into pam for every request
+    // Attempt to locate an existing Basic Auth session from the same ip address
+    // and user
+    for (auto& session :
+         persistent_data::SessionStore::getInstance().getSessions())
+    {
+        if (session->sessionType != persistent_data::SessionType::Basic)
+        {
+            continue;
+        }
+        if (session->clientIp != redfish::ip_util::toString(clientIp))
+        {
+            continue;
+        }
+        if (session->username != user)
+        {
+            continue;
+        }
+        return session;
+    }
+
     return persistent_data::SessionStore::getInstance().generateUserSession(
-        user, clientIp, std::nullopt,
-        persistent_data::PersistenceType::SINGLE_REQUEST, isConfigureSelfOnly);
+        user, clientIp, std::nullopt, persistent_data::SessionType::Basic,
+        isConfigureSelfOnly);
 }
 
 inline std::shared_ptr<persistent_data::UserSession>

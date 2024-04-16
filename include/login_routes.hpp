@@ -166,11 +166,11 @@ inline void handleLogin(const crow::Request& req,
         }
         else
         {
-            auto session = persistent_data::SessionStore::getInstance()
-                               .generateUserSession(
-                                   username, req.ipAddress, std::nullopt,
-                                   persistent_data::PersistenceType::TIMEOUT,
-                                   isConfigureSelfOnly);
+            auto session =
+                persistent_data::SessionStore::getInstance()
+                    .generateUserSession(username, req.ipAddress, std::nullopt,
+                                         persistent_data::SessionType::Session,
+                                         isConfigureSelfOnly);
 
             bmcweb::setSessionCookies(asyncResp->res, *session);
 

@@ -248,7 +248,7 @@ class Connection :
             return;
         }
         req->session = userSession;
-
+        accept = req->getHeaderValue("Accept");
         // Fetch the client IP address
         req->ipAddress = ip;
 
@@ -441,7 +441,7 @@ class Connection :
             }
         }
 
-        completeResponseFields(*req, res);
+        completeResponseFields(accept, res);
         res.addHeader(boost::beast::http::field::date, getCachedDateStr());
 
         doWrite();
@@ -810,6 +810,8 @@ class Connection :
     boost::beast::flat_static_buffer<8192> buffer;
 
     std::shared_ptr<crow::Request> req;
+    std::string accept;
+
     crow::Response res;
 
     std::shared_ptr<persistent_data::UserSession> userSession;

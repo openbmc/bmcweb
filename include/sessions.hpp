@@ -10,9 +10,11 @@
 
 #include <algorithm>
 #include <csignal>
+#include <memory>
 #include <optional>
 #include <random>
 #include <string>
+#include <vector>
 
 namespace persistent_data
 {
@@ -22,10 +24,13 @@ namespace persistent_data
 // https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#session-id-entropy
 constexpr std::size_t sessionTokenSize = 20;
 
-enum class PersistenceType
+enum class SessionType
 {
-    TIMEOUT, // User session times out after a predetermined amount of time
-    SINGLE_REQUEST // User times out once this request is completed.
+    None,
+    Basic,
+    Session,
+    Cookie,
+    MutualTLS
 };
 
 struct UserSession
@@ -37,7 +42,7 @@ struct UserSession
     std::optional<std::string> clientId;
     std::string clientIp;
     std::chrono::time_point<std::chrono::steady_clock> lastUpdated;
-    PersistenceType persistence{PersistenceType::TIMEOUT};
+    SessionType sessionType{SessionType::None};
     bool cookieAuth = false;
     bool isConfigureSelfOnly = false;
     std::string userRole;
@@ -129,7 +134,7 @@ struct UserSession
         // the tradeoffs of all the corner cases involved are non-trivial, so
         // this is done temporarily
         userSession->lastUpdated = std::chrono::steady_clock::now();
-        userSession->persistence = PersistenceType::TIMEOUT;
+        userSession->sessionType = SessionType::Session;
 
         return userSession;
     }
@@ -182,8 +187,7 @@ class SessionStore
   public:
     std::shared_ptr<UserSession> generateUserSession(
         std::string_view username, const boost::asio::ip::address& clientIp,
-        const std::optional<std::string>& clientId,
-        PersistenceType persistence = PersistenceType::TIMEOUT,
+        const std::optional<std::string>& clientId, SessionType sessionType,
         bool isConfigureSelfOnly = false)
     {
         // Only need csrf tokens for cookie based auth, token doesn't matter
@@ -207,14 +211,15 @@ class SessionStore
                         clientId,
                         redfish::ip_util::toString(clientIp),
                         std::chrono::steady_clock::now(),
-                        persistence,
+                        sessionType,
                         false,
                         isConfigureSelfOnly,
                         "",
                         {}});
         auto it = authTokens.emplace(sessionToken, session);
         // Only need to write to disk if session isn't about to be destroyed.
-        needWrite = persistence == PersistenceType::TIMEOUT;
+        needWrite = sessionType != SessionType::Basic &&
+                    sessionType != SessionType::MutualTLS;
         return it.first->second;
     }
 
@@ -262,22 +267,43 @@ class SessionStore
         needWrite = true;
     }
 
-    std::vector<const std::string*> getUniqueIds(
-        bool getAll = true,
-        const PersistenceType& type = PersistenceType::SINGLE_REQUEST)
+    std::vector<std::string> getAllUniqueIds()
     {
         applySessionTimeouts();
-
-        std::vector<const std::string*> ret;
+        std::vector<std::string> ret;
         ret.reserve(authTokens.size());
         for (auto& session : authTokens)
         {
-            if (getAll || type == session.second->persistence)
+            ret.push_back(session.second->uniqueId);
+        }
+        return ret;
+    }
+
+    std::vector<std::string> getUniqueIdsBySessionType(SessionType type)
+    {
+        applySessionTimeouts();
+
+        std::vector<std::string> ret;
+        ret.reserve(authTokens.size());
+        for (auto& session : authTokens)
+        {
+            if (type == session.second->sessionType)
             {
-                ret.push_back(&session.second->uniqueId);
+                ret.push_back(session.second->uniqueId);
             }
         }
         return ret;
+    }
+
+    std::vector<std::shared_ptr<UserSession>> getSessions()
+    {
+        std::vector<std::shared_ptr<UserSession>> sessions;
+        sessions.reserve(authTokens.size());
+        for (auto& session : authTokens)
+        {
+            sessions.push_back(session.second);
+        }
+        return sessions;
     }
 
     void removeSessionsByUsername(std::string_view username)

@@ -27,6 +27,9 @@
 
 #include <boost/url/format.hpp>
 
+#include <string>
+#include <vector>
+
 namespace redfish
 {
 
@@ -134,15 +137,14 @@ inline void
 
 inline nlohmann::json getSessionCollectionMembers()
 {
-    std::vector<const std::string*> sessionIds =
-        persistent_data::SessionStore::getInstance().getUniqueIds(
-            false, persistent_data::PersistenceType::TIMEOUT);
+    std::vector<std::string> sessionIds =
+        persistent_data::SessionStore::getInstance().getAllUniqueIds();
     nlohmann::json ret = nlohmann::json::array();
-    for (const std::string* uid : sessionIds)
+    for (const std::string& uid : sessionIds)
     {
         nlohmann::json::object_t session;
         session["@odata.id"] =
-            boost::urls::format("/redfish/v1/SessionService/Sessions/{}", *uid);
+            boost::urls::format("/redfish/v1/SessionService/Sessions/{}", uid);
         ret.emplace_back(std::move(session));
     }
     return ret;
@@ -246,7 +248,7 @@ inline void handleSessionCollectionPost(
     std::shared_ptr<persistent_data::UserSession> session =
         persistent_data::SessionStore::getInstance().generateUserSession(
             username, req.ipAddress, clientId,
-            persistent_data::PersistenceType::TIMEOUT, isConfigureSelfOnly);
+            persistent_data::SessionType::Session, isConfigureSelfOnly);
     if (session == nullptr)
     {
         messages::internalError(asyncResp->res);

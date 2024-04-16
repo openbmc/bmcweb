@@ -231,8 +231,9 @@ class ConfigFile
         sessions = nlohmann::json::array();
         for (const auto& p : SessionStore::getInstance().authTokens)
         {
-            if (p.second->persistence !=
-                persistent_data::PersistenceType::SINGLE_REQUEST)
+            if (p.second->sessionType != persistent_data::SessionType::Basic &&
+                p.second->sessionType !=
+                    persistent_data::SessionType::MutualTLS)
             {
                 nlohmann::json::object_t session;
                 session["unique_id"] = p.second->uniqueId;
@@ -320,8 +321,9 @@ class ConfigFile
         sessions = nlohmann::json::array();
         for (const auto& p : SessionStore::getInstance().authTokens)
         {
-            if (p.second->persistence !=
-                persistent_data::PersistenceType::SINGLE_REQUEST)
+            if (p.second->sessionType != persistent_data::SessionType::Basic &&
+                p.second->sessionType !=
+                    persistent_data::SessionType::MutualTLS)
             {
                 nlohmann::json::object_t session;
                 session["unique_id"] = p.second->uniqueId;

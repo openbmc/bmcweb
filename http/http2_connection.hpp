@@ -30,6 +30,7 @@
 #include <chrono>
 #include <functional>
 #include <memory>
+#include <string>
 #include <vector>
 
 namespace crow
@@ -39,6 +40,7 @@ struct Http2StreamData
 {
     std::shared_ptr<Request> req = std::make_shared<Request>();
     std::optional<bmcweb::HttpBody::reader> reqReader;
+    std::string accept;
     Response res;
     std::optional<bmcweb::HttpBody::writer> writer;
 };
@@ -167,9 +169,8 @@ class HTTP2Connection :
         Http2StreamData& stream = it->second;
         Response& res = stream.res;
         res = std::move(completedRes);
-        crow::Request& thisReq = *stream.req;
 
-        completeResponseFields(thisReq, res);
+        completeResponseFields(stream.accept, res);
         res.addHeader(boost::beast::http::field::date, getCachedDateStr());
         res.preparePayload();
 
@@ -242,6 +243,9 @@ class HTTP2Connection :
         crow::Request& thisReq = *it->second.req;
         thisReq.ioService = static_cast<decltype(thisReq.ioService)>(
             &adaptor.get_executor().context());
+
+        it->second.accept = thisReq.getHeaderValue("Accept");
+
         BMCWEB_LOG_DEBUG("Handling {} \"{}\"", logPtr(&thisReq),
                          thisReq.url().encoded_path());
 
