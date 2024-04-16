@@ -16,6 +16,24 @@
       "message": "And I assume our websockets still work? E.g. host console or something?",
       "revId": "835a0931b92620a813795a809cf4d0b974355b89",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c58537a_537175bf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-16T22:52:09Z",
+      "side": 1,
+      "message": "Host console doesn\u0027t work on my machine, but I\u0027d be really surprised if anything were broken here.  The fact that these are two classes seems like two maintainers can\u0027t really get along, so instead of \"fixing\" the existing one or making something that sets a policy, they just invented a new one that wraps the first.  The differences are mostly in buffering internally.",
+      "parentUuid": "5c1baad8_bdf3f082",
+      "revId": "835a0931b92620a813795a809cf4d0b974355b89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
