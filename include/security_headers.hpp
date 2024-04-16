@@ -5,7 +5,7 @@
 #include "http_request.hpp"
 #include "http_response.hpp"
 
-inline void addSecurityHeaders(const crow::Request& req [[maybe_unused]],
+inline void addSecurityHeaders(std::string_view origin [[maybe_unused]],
                                crow::Response& res)
 {
     /*
@@ -92,7 +92,6 @@ inline void addSecurityHeaders(const crow::Request& req [[maybe_unused]],
                                                  "object-src *; "
                                                  "base-uri *");
 
-        std::string_view origin = req.getHeaderValue("Origin");
         res.addHeader(bf::access_control_allow_origin, origin);
         res.addHeader(bf::access_control_allow_methods, "GET, "
                                                         "POST, "
