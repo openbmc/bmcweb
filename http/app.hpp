@@ -11,7 +11,7 @@
 #include <boost/asio/io_context.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/ssl/context.hpp>
-#include <boost/beast/ssl/ssl_stream.hpp>
+#include <boost/asio/ssl/stream.hpp>
 
 #include <chrono>
 #include <cstdint>
@@ -30,7 +30,7 @@ namespace crow
 class App
 {
   public:
-    using ssl_socket_t = boost::beast::ssl_stream<boost::asio::ip::tcp::socket>;
+    using ssl_socket_t = boost::asio::ssl::stream<boost::asio::ip::tcp::socket>;
     using ssl_server_t = Server<App, ssl_socket_t>;
     using socket_t = boost::asio::ip::tcp::socket;
     using server_t = Server<App, socket_t>;

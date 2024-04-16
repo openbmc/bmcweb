@@ -22,7 +22,6 @@
 #include <boost/beast/http/read.hpp>
 #include <boost/beast/http/serializer.hpp>
 #include <boost/beast/http/write.hpp>
-#include <boost/beast/ssl/ssl_stream.hpp>
 #include <boost/beast/websocket.hpp>
 #include <boost/system/error_code.hpp>
 
@@ -545,7 +544,7 @@ class HTTP2Connection :
     void close()
     {
         if constexpr (std::is_same_v<Adaptor,
-                                     boost::beast::ssl_stream<
+                                     boost::asio::ssl::stream<
                                          boost::asio::ip::tcp::socket>>)
         {
             adaptor.next_layer().close();
