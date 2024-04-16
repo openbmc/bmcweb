@@ -4,8 +4,6 @@
 #include "webserver_run.hpp"
 
 #include <exception>
-#include <memory>
-#include <string>
 
 int main(int /*argc*/, char** /*argv*/)
 {

@@ -1,19 +1,17 @@
 
 #include "utils/dbus_utils.hpp"
 
-#include "http_request.hpp"
+#include "async_resp.hpp"
 #include "http_response.hpp"
 
 #include <boost/beast/http/status.hpp>
+#include <boost/system/errc.hpp>
 #include <nlohmann/json.hpp>
+#include <sdbusplus/message.hpp>
 
-#include <cstdint>
-#include <optional>
+#include <memory>
 #include <string>
-#include <system_error>
-#include <vector>
 
-#include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
 namespace redfish::details
