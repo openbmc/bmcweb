@@ -238,8 +238,10 @@ inline void
 
     if (!found)
     {
-        BMCWEB_LOG_DEBUG("Power Limit not present for {}",
-                         sensorAsyncResp->chassisId);
+        BMCWEB_LOG_WARNING("Power Limit not present for {}",
+                           sensorAsyncResp->chassisId);
+        messages::resourceNotFound(sensorAsyncResp->asyncResp->res,
+                                   sensorAsyncResp->chassisId, "Chassis");
         return;
     }
 
