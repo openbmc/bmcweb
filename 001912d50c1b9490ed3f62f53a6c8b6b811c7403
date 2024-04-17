@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bbac1586_5c5fcf44",
+        "filename": "config/meson.build",
+        "patchSetId": 21
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-17T17:00:34Z",
+      "side": 1,
+      "message": "I changed everything internally to be TLS, I just didn\u0027t want to change the name of the option because that would break people.\n\nI wonder if we should use the meson deprecated options, and have the deprecated option drive a new option?  not sure it\u0027s worth the effort.\n\nFWIW, I changed SSL-\u003eTLS because I\u0027ve more than once had the conversation with a security person that told us we were wrong for enabling SSL and it was outdated (even though the option really controls TLS).",
+      "parentUuid": "202aacaa_04f3d937",
+      "revId": "001912d50c1b9490ed3f62f53a6c8b6b811c7403",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4b03fa91_661d6c1b",
         "filename": "http/http_server.hpp",
         "patchSetId": 21
