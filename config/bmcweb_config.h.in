@@ -1,27 +1,55 @@
 #pragma once
 
 #include <cstdint>
-#include <cstddef>
+#include <string_view>
 
 // clang-format off
-constexpr const int bmcwebInsecureDisableXssPrevention =
-    @BMCWEB_INSECURE_DISABLE_XSS_PREVENTION@;
+namespace bmcweb {
 
-constexpr const bool bmcwebInsecureEnableQueryParams = @BMCWEB_INSECURE_ENABLE_QUERY_PARAMS@ == 1;
+// NOLINTBEGIN(readability-identifier-naming)
+constexpr const std::string_view LOGGING_LEVEL = "@LOGGING_LEVEL@";
+constexpr const std::string_view MUTUAL_TLS_COMMON_NAME_PARSING = "@MUTUAL_TLS_COMMON_NAME_PARSING@";
+constexpr const std::string_view DNS_RESOLVER = "@DNS_RESOLVER@";
 
-constexpr const size_t bmcwebHttpReqBodyLimitMb = @BMCWEB_HTTP_REQ_BODY_LIMIT_MB@;
+constexpr const uint64_t HTTP_BODY_LIMIT = @HTTP_BODY_LIMIT@;
+constexpr const uint16_t HTTPS_PORT = @HTTPS_PORT@;
 
-constexpr const char* mesonInstallPrefix = "@MESON_INSTALL_PREFIX@";
+constexpr const bool BASIC_AUTH = @BASIC_AUTH@;
+constexpr const bool COOKIE_AUTH = @COOKIE_AUTH@;
+constexpr const bool EXPERIMENTAL_HTTP2 = @EXPERIMENTAL_HTTP2@;
+constexpr const bool EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM = @EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM@;
+constexpr const bool GOOGLE_API = @GOOGLE_API@;
+constexpr const bool HOST_SERIAL_SOCKET = @HOST_SERIAL_SOCKET@;
+constexpr const bool IBM_MANAGEMENT_CONSOLE = @IBM_MANAGEMENT_CONSOLE@;
+constexpr const bool INSECURE_DISABLE_AUTH = @INSECURE_DISABLE_AUTH@;
+constexpr const bool INSECURE_DISABLE_CSRF = @INSECURE_DISABLE_CSRF@;
+constexpr const bool INSECURE_DISABLE_SSL = @INSECURE_DISABLE_SSL@;
+constexpr const bool INSECURE_DISABLE_XSS = @INSECURE_DISABLE_XSS@;
+constexpr const bool INSECURE_ENABLE_REDFISH_QUERY = @INSECURE_ENABLE_REDFISH_QUERY@;
+constexpr const bool INSECURE_IGNORE_CONTENT_TYPE = @INSECURE_IGNORE_CONTENT_TYPE@;
+constexpr const bool INSECURE_PUSH_STYLE_NOTIFICATION = @INSECURE_PUSH_STYLE_NOTIFICATION@;
+constexpr const bool INSECURE_TFTP_UPDATE = @INSECURE_TFTP_UPDATE@;
+constexpr const bool KVM = @KVM@;
+constexpr const bool MUTUAL_TLS_AUTH = @MUTUAL_TLS_AUTH@;
+constexpr const bool REDFISH_AGGREGATION = @REDFISH_AGGREGATION@;
+constexpr const bool REDFISH_ALLOW_DEPRECATED_POWER_THERMAL = @REDFISH_ALLOW_DEPRECATED_POWER_THERMAL@;
+constexpr const bool REDFISH_BMC_JOURNAL = @REDFISH_BMC_JOURNAL@;
+constexpr const bool REDFISH_CPU_LOG = @REDFISH_CPU_LOG@;
+constexpr const bool REDFISH_DBUS_LOG = @REDFISH_DBUS_LOG@;
+constexpr const bool REDFISH_DUMP_LOG = @REDFISH_DUMP_LOG@;
+constexpr const bool REDFISH_HOST_LOGGER = @REDFISH_HOST_LOGGER@;
+constexpr const bool REDFISH_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM = @REDFISH_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM@;
+constexpr const bool REDFISH_OEM_MANAGER_FAN_DATA = @REDFISH_OEM_MANAGER_FAN_DATA@;
+constexpr const bool REDFISH_PROVISIONING_FEATURE = @REDFISH_PROVISIONING_FEATURE@;
+constexpr const bool REDFISH = @REDFISH@;
+constexpr const bool REST = @REST@;
+constexpr const bool SESSION_AUTH = @SESSION_AUTH@;
+constexpr const bool STATIC_HOSTING = @STATIC_HOSTING@;
+constexpr const bool TESTS = @TESTS@;
+constexpr const bool VM_WEBSOCKET = @VM_WEBSOCKET@;
+constexpr const bool VM_NBDPROXY = @VM_NBDPROXY@;
+constexpr const bool XTOKEN_AUTH = @XTOKEN_AUTH@;
 
-constexpr const bool bmcwebInsecureEnableHttpPushStyleEventing = @BMCWEB_INSECURE_ENABLE_HTTP_PUSH_STYLE_EVENTING@ == 1;
-
-constexpr const char* bmcwebLoggingLevel = "@BMCWEB_LOGGING_LEVEL@";
-
-constexpr const bool bmcwebEnableMultiHost = @BMCWEB_ENABLE_MULTI_HOST@ == 1;
-
-constexpr const bool bmcwebEnableHTTP2 = @BMCWEB_ENABLE_HTTP2@ == 1;
-
-constexpr const bool bmcwebEnableTLS = @BMCWEB_ENABLE_TLS@ == 1;
-
-constexpr const bool bmcwebMTLSCommonNameParsingMeta = @BMCWEB_ENABLE_MTLS_COMMON_NAME_PARSING_META@ == 1;
+// NOLINTEND(readability-identifier-naming)
+}
 // clang-format on
