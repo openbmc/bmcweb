@@ -356,10 +356,14 @@ with open(os.path.join(cpp_path, "schemas.hpp"), "w") as hpp_file:
         "{WARNING}\n"
         "// clang-format off\n"
         "#include <array>\n"
+        "#include <string_view>\n"
         "\n"
         "namespace redfish\n"
         "{{\n"
-        "    constexpr std::array schemas {{\n".format(WARNING=WARNING)
+        "    constexpr std::array<std::string_view,{SIZE}> schemas {{\n".format(
+            WARNING=WARNING,
+            SIZE=len(json_schema_files) + len(oem_schema_names),
+        )
     )
     for schema_file in json_schema_files:
         hpp_file.write('        "{}",\n'.format(schema_file))
