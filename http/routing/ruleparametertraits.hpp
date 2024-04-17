@@ -1,6 +1,7 @@
 #pragma once
 
 #include "sserule.hpp"
+#include "streamrule.hpp"
 #include "websocketrule.hpp"
 
 #include <boost/beast/http/verb.hpp>
@@ -19,6 +20,14 @@ struct RuleParameterTraits
         self_t* self = static_cast<self_t*>(this);
         WebSocketRule* p = new WebSocketRule(self->rule);
         p->privilegesSet = self->privilegesSet;
+        self->ruleToUpgrade.reset(p);
+        return *p;
+    }
+
+    StreamingResponseRule& streamingResponse()
+    {
+        self_t* self = static_cast<self_t*>(this);
+        StreamingResponseRule* p = new StreamingResponseRule(self->rule);
         self->ruleToUpgrade.reset(p);
         return *p;
     }

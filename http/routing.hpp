@@ -7,6 +7,7 @@
 #include "error_messages.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
+#include "http_stream.hpp"
 #include "logging.hpp"
 #include "privileges.hpp"
 #include "routing/baserule.hpp"

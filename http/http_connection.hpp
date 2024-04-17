@@ -16,6 +16,7 @@
 #include "str_utility.hpp"
 #include "utility.hpp"
 
+#include <boost/algorithm/string/predicate.hpp>
 #include <boost/asio/io_context.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/ssl/stream.hpp>
@@ -314,6 +315,20 @@ class Connection :
             handler->handleUpgrade(thisReq, asyncResp, std::move(adaptor));
             return;
         }
+
+        std::string url(req->target());
+        if (boost::algorithm::contains(url,
+                                       "/system/LogServices/Dump/Entries/") &&
+            boost::algorithm::ends_with(url, "/attachment"))
+        {
+            BMCWEB_LOG_DEBUG("upgrade stream connection");
+            handler->handleUpgrade(thisReq, asyncResp, std::move(adaptor));
+            // delete lambda with self shared_ptr
+            // to enable connection destruction
+            res.completeRequestHandler = nullptr;
+            return;
+        }
+
         std::string_view expected =
             req->getHeaderValue(boost::beast::http::field::if_none_match);
         if (!expected.empty())
