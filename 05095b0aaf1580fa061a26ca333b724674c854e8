@@ -33,6 +33,24 @@
       "message": "Should this be for the content-type mime-type of \"text/html\" regardless of any additional content-type directives?\nIn other words, can we change this to contentType.startsWith(\"text/html\").\n\nI am worried that a network scanner will request URI / with a slightly different content-type, such as \"text/html; charset\u003dUTF-8\" (space added).  As coded in this patchset, this will cause bmcweb to omit various repsonse headers.  then the scanner will flag security issues.\n\nI am not an HTML expert and did not find the answer in https://jazz07.rchland.ibm.com:13443/jazz/web/projects/CSSD#action\u003dcom.ibm.team.workitem.viewWorkItem\u0026id\u003d603937",
       "revId": "05095b0aaf1580fa061a26ca333b724674c854e8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db6107f2_2a35b2f1",
+        "filename": "include/security_headers.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-17T17:36:12Z",
+      "side": 1,
+      "message": "\u003e Should this be for the content-type mime-type of \"text/html\" regardless of any additional content-type directives?\n\nMy thinking was that we don\u0027t really have a good content-type header parser, and there\u0027s literally only one place where we can set content-type html (in the static files loader) and there we set UTF-8.  Note, this is also the reason why we can do an exact match, instead of an HTTP-specified case insensitive match.\n\n\u003e In other words, can we change this to contentType.startsWith(\"text/html\").\n\nACK.  I didn\u0027t think about using starts_with, but I guess that works.  Will change.\n\n\u003e \n\u003e I am worried that a network scanner will request URI / with a slightly different content-type, such as \"text/html; charset\u003dUTF-8\" (space added).\n\n\u003e  As coded in this patchset, this will cause bmcweb to omit various repsonse headers.  then the scanner will flag security issues.\n\u003e \n\u003e I am not an HTML expert and did not find the answer in https://jazz07.rchland.ibm.com:13443/jazz/web/projects/CSSD#action\u003dcom.ibm.team.workitem.viewWorkItem\u0026id\u003d603937\n\n\nto be clear, this is is checking crow::RESPONSE.getHeaderValue(), which a network scanner doesn\u0027t have any input into.  The content-type is set from within bmcweb, from a hardcoded list of possible values, so there\u0027s (hopefully) no way to influence this outside of bmcweb.\n\n\nFYI, I don\u0027t have access to the link you published.",
+      "parentUuid": "d262a04b_5e7e1939",
+      "revId": "05095b0aaf1580fa061a26ca333b724674c854e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
