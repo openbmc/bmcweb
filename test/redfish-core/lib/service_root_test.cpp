@@ -84,14 +84,14 @@ void assertServiceRootGet(crow::Response& res)
     EXPECT_EQ(json["ProtocolFeaturesSupported"].size(), 6);
     EXPECT_FALSE(json["ProtocolFeaturesSupported"]["ExcerptQuery"]);
     EXPECT_EQ(json["ProtocolFeaturesSupported"]["ExpandQuery"]["ExpandAll"],
-              bmcwebInsecureEnableQueryParams);
+              bmcweb::INSECURE_ENABLE_REDFISH_QUERY);
     EXPECT_EQ(json["ProtocolFeaturesSupported"]["ExpandQuery"]["Levels"],
-              bmcwebInsecureEnableQueryParams);
+              bmcweb::INSECURE_ENABLE_REDFISH_QUERY);
     EXPECT_EQ(json["ProtocolFeaturesSupported"]["ExpandQuery"]["Links"],
-              bmcwebInsecureEnableQueryParams);
+              bmcweb::INSECURE_ENABLE_REDFISH_QUERY);
     EXPECT_EQ(json["ProtocolFeaturesSupported"]["ExpandQuery"]["NoLinks"],
-              bmcwebInsecureEnableQueryParams);
-    if (bmcwebInsecureEnableQueryParams)
+              bmcweb::INSECURE_ENABLE_REDFISH_QUERY);
+    if constexpr (bmcweb::INSECURE_ENABLE_REDFISH_QUERY)
     {
         EXPECT_EQ(json["ProtocolFeaturesSupported"]["ExpandQuery"].size(), 5);
         EXPECT_EQ(json["ProtocolFeaturesSupported"]["ExpandQuery"]["MaxLevels"],
