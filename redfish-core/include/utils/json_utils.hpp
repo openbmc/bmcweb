@@ -491,9 +491,6 @@ struct PerUnpack
     bool complete = false;
 };
 
-inline bool readJsonHelper(nlohmann::json& jsonRequest, crow::Response& res,
-                           std::span<PerUnpack> toUnpack);
-
 inline bool readJsonHelperObject(nlohmann::json::object_t& obj,
                                  crow::Response& res,
                                  std::span<PerUnpack> toUnpack)
@@ -524,9 +521,9 @@ inline bool readJsonHelperObject(nlohmann::json::object_t& obj,
             {
                 // Include the slash in the key so we can compare later
                 key = unpackSpec.key.substr(0, keysplitIndex + 1);
-                nlohmann::json j;
-                result = details::unpackValue<nlohmann::json>(item.second, key,
-                                                              res, j) &&
+                nlohmann::json::object_t j;
+                result = details::unpackValue<nlohmann::json::object_t>(
+                             item.second, key, res, j) &&
                          result;
                 if (!result)
                 {
@@ -545,7 +542,7 @@ inline bool readJsonHelperObject(nlohmann::json::object_t& obj,
                     p.complete = true;
                 }
 
-                result = readJsonHelper(j, res, nextLevel) && result;
+                result = readJsonHelperObject(j, res, nextLevel) && result;
                 break;
             }
 
@@ -591,20 +588,6 @@ inline bool readJsonHelperObject(nlohmann::json::object_t& obj,
         }
     }
     return result;
-}
-
-inline bool readJsonHelper(nlohmann::json& jsonRequest, crow::Response& res,
-                           std::span<PerUnpack> toUnpack)
-{
-    nlohmann::json::object_t* obj =
-        jsonRequest.get_ptr<nlohmann::json::object_t*>();
-    if (obj == nullptr)
-    {
-        BMCWEB_LOG_DEBUG("Json value is not an object");
-        messages::unrecognizedRequestBody(res);
-        return false;
-    }
-    return readJsonHelperObject(*obj, res, toUnpack);
 }
 
 inline void packVariant(std::span<PerUnpack> /*toPack*/) {}
