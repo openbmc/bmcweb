@@ -358,3 +358,12 @@ option(
                     enable on production systems at this time.  Other query
                     parameters such as only are not controlled by this option.'''
 )
+
+option(
+    'start-update-dbus-interface',
+    type: 'feature',
+    value: 'disabled',
+    description: '''Enables xyz.openbmc_project.Software.Update D-Bus interface to
+                    propagate UpdateService requests to the corresponding updater
+                    daemons instead of moving files to /tmp/images dir.'''
+)
