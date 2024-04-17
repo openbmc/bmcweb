@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "202aacaa_04f3d937",
+        "filename": "config/meson.build",
+        "patchSetId": 21
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-04-17T16:47:53Z",
+      "side": 1,
+      "message": "Kind of wish we could use one, either \"ssl\" or \"tls\". oh well.",
+      "revId": "001912d50c1b9490ed3f62f53a6c8b6b811c7403",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b03fa91_661d6c1b",
+        "filename": "http/http_server.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-04-17T16:47:53Z",
+      "side": 1,
+      "message": "Are these truly Critical?",
+      "revId": "001912d50c1b9490ed3f62f53a6c8b6b811c7403",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
