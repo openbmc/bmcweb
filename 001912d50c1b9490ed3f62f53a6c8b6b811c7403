@@ -87,6 +87,24 @@
       "parentUuid": "4b03fa91_661d6c1b",
       "revId": "001912d50c1b9490ed3f62f53a6c8b6b811c7403",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44f5265c_86483fd5",
+        "filename": "http/http_server.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-17T20:26:04Z",
+      "side": 1,
+      "message": "It means that bmcweb can\u0027t handle ANY request from any user, so yeah, I think they\u0027re critical under the rules?  Right?",
+      "parentUuid": "b3b04390_f49dca5e",
+      "revId": "001912d50c1b9490ed3f62f53a6c8b6b811c7403",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
