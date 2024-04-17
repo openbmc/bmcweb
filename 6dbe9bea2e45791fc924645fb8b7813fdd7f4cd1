@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8762280_a25b7331",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 2973,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-04-17T16:45:28Z",
+      "side": 0,
+      "message": "I feel this is a better name.. \nhandle\u003credfish schema\u003eGet.. \nSo handleSensorGet",
+      "range": {
+        "startLine": 2973,
+        "startChar": 37,
+        "endLine": 2973,
+        "endChar": 52
+      },
+      "revId": "6dbe9bea2e45791fc924645fb8b7813fdd7f4cd1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
