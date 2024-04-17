@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae507ac3_de44138d",
+        "filename": "http/app.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-04-17T11:28:50Z",
+      "side": 1,
+      "message": "don\u0027t you prefer having using declarations for ssl_stream, socket etc in bmcweb namespace. If that was there the switch between different options could be done in single place and will be customisable using some compiler directive as per need.",
+      "revId": "32f6bc1d5b11cd7cacf6b2580770f1e90afaeef0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
