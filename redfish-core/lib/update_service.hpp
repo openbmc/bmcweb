@@ -663,12 +663,11 @@ inline void setApplyTime(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                     "RequestedApplyTime", "ApplyTime", applyTimeNewVal);
 }
 
-inline void
-    updateMultipartContext(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                           const MultipartParser& parser)
+inline bool extractMultipartUpdateParameters(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const MultipartParser& parser, std::optional<std::string>& applyTime,
+    const std::string** uploadData, std::vector<std::string>& targets)
 {
-    const std::string* uploadData = nullptr;
-    std::optional<std::string> applyTime = "OnReset";
     bool targetFound = false;
     for (const FormPart& formpart : parser.mime_fields)
     {
@@ -677,7 +676,7 @@ inline void
         if (it == formpart.fields.end())
         {
             BMCWEB_LOG_ERROR("Couldn't find Content-Disposition");
-            return;
+            return false;
         }
         BMCWEB_LOG_INFO("Parsing value {}", it->value());
 
@@ -698,7 +697,6 @@ inline void
 
             if (param.second == "UpdateParameters")
             {
-                std::vector<std::string> targets;
                 nlohmann::json content =
                     nlohmann::json::parse(formpart.content);
                 nlohmann::json::object_t* obj =
@@ -707,45 +705,61 @@ inline void
                 {
                     messages::propertyValueFormatError(asyncResp->res, targets,
                                                        "UpdateParameters");
-                    return;
+                    return false;
                 }
 
                 if (!json_util::readJsonObject(
                         *obj, asyncResp->res, "Targets", targets,
                         "@Redfish.OperationApplyTime", applyTime))
                 {
-                    return;
+                    return false;
                 }
                 if (targets.size() != 1)
                 {
                     messages::propertyValueFormatError(asyncResp->res, targets,
                                                        "Targets");
-                    return;
+                    return false;
                 }
                 if (targets[0] != "/redfish/v1/Managers/bmc")
                 {
                     messages::propertyValueNotInList(asyncResp->res, targets[0],
                                                      "Targets/0");
-                    return;
+                    return false;
                 }
                 targetFound = true;
             }
             else if (param.second == "UpdateFile")
             {
-                uploadData = &(formpart.content);
+                *uploadData = &(formpart.content);
             }
         }
     }
 
-    if (uploadData == nullptr)
+    if (*uploadData == nullptr)
     {
         BMCWEB_LOG_ERROR("Upload data is NULL");
         messages::propertyMissing(asyncResp->res, "UpdateFile");
-        return;
+        return false;
     }
     if (!targetFound)
     {
         messages::propertyMissing(asyncResp->res, "targets");
+        return false;
+    }
+    return true;
+}
+
+inline void
+    updateMultipartContext(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const MultipartParser& parser)
+{
+    const std::string* uploadData = nullptr;
+    std::optional<std::string> applyTime = "OnReset";
+    std::vector<std::string> targets;
+
+    if (!extractMultipartUpdateParameters(asyncResp, parser, applyTime,
+                                          &uploadData, targets))
+    {
         return;
     }
 
