@@ -150,11 +150,9 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
 
     boost::asio::io_context& ioc;
 
-#ifdef BMCWEB_DBUS_DNS_RESOLVER
-    using Resolver = async_resolve::Resolver;
-#else
-    using Resolver = boost::asio::ip::tcp::resolver;
-#endif
+    using Resolver = std::conditional_t<bmcweb::DNS_RESOLVER == "systemd-dbus",
+                                        async_resolve::Resolver,
+                                        boost::asio::ip::tcp::resolver>;
     Resolver resolver;
 
     boost::asio::ip::tcp::socket conn;
