@@ -2903,13 +2903,15 @@ inline void
     });
 }
 
-inline void handleSensorGet(App& app, const crow::Request& req,
-                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                            const std::string& chassisId,
-                            const std::string& sensorId)
+inline void
+    doSensorCollection(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                       const std::string& chassisId,
+                       const std::string& sensorId,
+                       const std::optional<std::string>& validChassisPath)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!validChassisPath)
     {
+        messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
         return;
     }
     std::pair<std::string, std::string> nameType =
@@ -2953,6 +2955,21 @@ inline void handleSensorGet(App& app, const crow::Request& req,
         getSensorFromDbus(asyncResp, sensorPath, subtree);
         BMCWEB_LOG_DEBUG("respHandler1 exit");
     });
+}
+
+inline void handleSensorGet(App& app, const crow::Request& req,
+                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& chassisId,
+                            const std::string& sensorId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    redfish::chassis_utils::getValidChassisPath(
+        asyncResp, chassisId,
+        std::bind_front(doSensorCollection, asyncResp, chassisId, sensorId));
 }
 
 } // namespace sensors
