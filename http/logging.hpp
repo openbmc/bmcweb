@@ -145,7 +145,7 @@ constexpr crow::LogLevel getLogLevelFromName(std::string_view name)
 
 // configured bmcweb LogLevel
 constexpr crow::LogLevel bmcwebCurrentLoggingLevel =
-    getLogLevelFromName(bmcwebLoggingLevel);
+    getLogLevelFromName(bmcweb::LOGGING_LEVEL);
 
 template <typename T>
 const void* logPtr(T p)

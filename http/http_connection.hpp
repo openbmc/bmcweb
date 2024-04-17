@@ -39,9 +39,8 @@ namespace crow
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static int connectionCount = 0;
 
-// request body limit size set by the bmcwebHttpReqBodyLimitMb option
-constexpr uint64_t httpReqBodyLimit = 1024UL * 1024UL *
-                                      bmcwebHttpReqBodyLimitMb;
+// request body limit size set by the bmcweb::HTTP_BODY_LIMIT option
+constexpr uint64_t httpReqBodyLimit = 1024UL * 1024UL * bmcweb::HTTP_BODY_LIMIT;
 
 constexpr uint64_t loggedOutPostBodyLimit = 4096;
 
@@ -73,9 +72,10 @@ class Connection :
         parser->body_limit(httpReqBodyLimit);
         parser->header_limit(httpHeaderLimit);
 
-#ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
-        prepareMutualTls();
-#endif // BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
+        if constexpr (bmcweb::MUTUAL_TLS_AUTH)
+        {
+            prepareMutualTls();
+        }
 
         connectionCount++;
 
@@ -192,7 +192,7 @@ class Connection :
     void afterSslHandshake()
     {
         // If http2 is enabled, negotiate the protocol
-        if constexpr (bmcwebEnableHTTP2)
+        if constexpr (bmcweb::EXPERIMENTAL_HTTP2)
         {
             const unsigned char* alpn = nullptr;
             unsigned int alpnlen = 0;
