@@ -1,5 +1,4 @@
 #pragma once
-#ifdef BMCWEB_DBUS_DNS_RESOLVER
 #include "dbus_singleton.hpp"
 #include "logging.hpp"
 
@@ -124,4 +123,3 @@ class Resolver
 };
 
 } // namespace async_resolve
-#endif
