@@ -934,8 +934,8 @@ inline void requestRoutesUpdateService(App& app)
         asyncResp->res.jsonValue["FirmwareInventory"]["@odata.id"] =
             "/redfish/v1/UpdateService/FirmwareInventory";
         // Get the MaxImageSizeBytes
-        asyncResp->res.jsonValue["MaxImageSizeBytes"] =
-            bmcwebHttpReqBodyLimitMb * 1024 * 1024;
+        asyncResp->res.jsonValue["MaxImageSizeBytes"] = BMCWEB_HTTP_BODY_LIMIT *
+                                                        1024 * 1024;
         nlohmann::json& updateSvcConUpdate =
             asyncResp->res
                 .jsonValue["Actions"]["Oem"]["#OemUpdateService.v1_0_0."
@@ -943,15 +943,17 @@ inline void requestRoutesUpdateService(App& app)
         updateSvcConUpdate["target"] =
             "/redfish/v1/UpdateService/Actions/Oem/OemUpdateService.ConcurrentUpdate";
 
-#ifdef BMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE
-        // Update Actions object.
-        nlohmann::json& updateSvcSimpleUpdate =
-            asyncResp->res.jsonValue["Actions"]["#UpdateService.SimpleUpdate"];
-        updateSvcSimpleUpdate["target"] =
-            "/redfish/v1/UpdateService/Actions/UpdateService.SimpleUpdate";
-        updateSvcSimpleUpdate["TransferProtocol@Redfish.AllowableValues"] = {
-            "TFTP"};
-#endif
+        if constexpr (BMCWEB_INSECURE_TFTP_UPDATE)
+        {
+            // Update Actions object.
+            nlohmann::json& updateSvcSimpleUpdate =
+                asyncResp->res
+                    .jsonValue["Actions"]["#UpdateService.SimpleUpdate"];
+            updateSvcSimpleUpdate["target"] =
+                "/redfish/v1/UpdateService/Actions/UpdateService.SimpleUpdate";
+            updateSvcSimpleUpdate["TransferProtocol@Redfish.AllowableValues"] =
+                {"TFTP"};
+        }
         // Get the current ApplyTime value
         sdbusplus::asio::getProperty<std::string>(
             *crow::connections::systemBus, "xyz.openbmc_project.Settings",

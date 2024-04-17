@@ -61,42 +61,11 @@ incdir = include_directories('include', 'redfish-core/include', 'redfish-core/li
 ## create a MAP of  "options : feature_flag"
 
 feature_map = {
-    'basic-auth': '-DBMCWEB_ENABLE_BASIC_AUTHENTICATION',
     'bmc-shell-socket': '-DBMCWEB_ENABLE_BMC_SHELL_WEBSOCKET',
-     'cookie-auth': '-DBMCWEB_ENABLE_COOKIE_AUTHENTICATION',
-    'event-subscription': '-DBMCWEB_ENABLE_EVENT_SUBSCRIPTION_WEBSOCKET',
-    'google-api': '-DBMCWEB_ENABLE_GOOGLE_API',
-    'host-serial-socket': '-DBMCWEB_ENABLE_HOST_SERIAL_WEBSOCKET',
     'hypervisor-serial-socket': '-DBMCWEB_ENABLE_HYPERVISOR_SERIAL_WEBSOCKET',
     'ibm-management-console': '-DBMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE',
-    'insecure-disable-auth': '-DBMCWEB_INSECURE_DISABLE_AUTHX',
-    'ibm-usb-code-update': '-DBMCWEB_ENABLE_IBM_USB_CODE_UPDATE',
-    'insecure-disable-csrf': '-DBMCWEB_INSECURE_DISABLE_CSRF_PREVENTION',
-    'insecure-disable-ssl': '-DBMCWEB_INSECURE_DISABLE_SSL',
-    'insecure-push-style-notification': '-DBMCWEB_INSECURE_ENABLE_HTTP_PUSH_STYLE_EVENTING',
-    'insecure-tftp-update': '-DBMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE',
-    'insecure-ignore-content-type': '-DBMCWEB_INSECURE_IGNORE_CONTENT_TYPE',
-    'kvm': '-DBMCWEB_ENABLE_KVM',
-    'mutual-tls-auth': '-DBMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION',
-    'redfish-aggregation': '-DBMCWEB_ENABLE_REDFISH_AGGREGATION',
-    'redfish-allow-deprecated-power-thermal': '-DBMCWEB_ALLOW_DEPRECATED_POWER_THERMAL',
-    'redfish-bmc-journal': '-DBMCWEB_ENABLE_REDFISH_BMC_JOURNAL',
-    'redfish-cpu-log': '-DBMCWEB_ENABLE_REDFISH_CPU_LOG',
-    'redfish-dbus-log': '-DBMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES',
-    'redfish-dump-log': '-DBMCWEB_ENABLE_REDFISH_DUMP_LOG',
-    'redfish-host-logger': '-DBMCWEB_ENABLE_REDFISH_HOST_LOGGER',
-    'redfish-new-powersubsystem-thermalsubsystem': '-DBMCWEB_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM',
-    'redfish-oem-manager-fan-data': '-DBMCWEB_ENABLE_REDFISH_OEM_MANAGER_FAN_DATA',
-    'redfish-provisioning-feature': '-DBMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE',
-    'redfish': '-DBMCWEB_ENABLE_REDFISH',
-    'rest': '-DBMCWEB_ENABLE_DBUS_REST',
-    'session-auth': '-DBMCWEB_ENABLE_SESSION_AUTHENTICATION',
-    'static-hosting': '-DBMCWEB_ENABLE_STATIC_HOSTING',
-    'experimental-redfish-multi-computer-system': '-DBMCWEB_ENABLE_MULTI_COMPUTERSYSTEM',
     'redfish-license': '-DBMCWEB_ENABLE_REDFISH_LICENSE',
-    'xtoken-auth': '-DBMCWEB_ENABLE_XTOKEN_AUTHENTICATION',
     'audit-events': '-DBMCWEB_ENABLE_LINUX_AUDIT_EVENTS',
-    #'vm-nbdproxy': '-DBMCWEB_ENABLE_VM_NBDPROXY',
     'ibm-led-extensions': '-DBMCWEB_ENABLE_IBM_LED_EXTENSIONS',
     'hw-isolation': '-DBMCWEB_ENABLE_HW_ISOLATION',
 }
@@ -106,44 +75,13 @@ feature_map = {
 
 foreach option_key, option_value : feature_map
     if (get_option(option_key).allowed())
-        if (
-            option_key == 'mutual-tls-auth'
-            or option_key == 'insecure-disable-ssl'
-        )
-            if (
-                get_option('insecure-disable-ssl').disabled()
-                or get_option('mutual-tls-auth').disabled()
-            )
-                add_project_arguments(option_value, language: 'cpp')
-                summary(option_key, option_value, section: 'Enabled Features')
-            endif
-        elif (
-            option_key in [
-                'basic-auth',
-                'cookie-auth',
-                'session-auth',
-                'xtoken-auth',
-                'mutual-tls-auth',
-            ]
-        )
-            if (get_option('insecure-disable-auth').disabled())
-                add_project_arguments(option_value, language: 'cpp')
-                summary(option_key, option_value, section: 'Enabled Features')
-            endif
-        else
-            summary(option_key, option_value, section: 'Enabled Features')
-            add_project_arguments(option_value, language: 'cpp')
-        endif
-    else
-        if (option_key == 'insecure-disable-ssl')
-            summary('ssl', '-DBMCWEB_ENABLE_SSL', section: 'Enabled Features')
-            add_project_arguments('-DBMCWEB_ENABLE_SSL', language: 'cpp')
-        endif
+        summary(option_key, option_value, section: 'Features')
+        add_project_arguments(option_value, language: 'cpp')
     endif
 endforeach
 
 if (get_option('tests').allowed())
-    summary('unittest', 'NA', section: 'Enabled Features')
+    summary('unittest', 'NA', section: 'Features')
 endif
 
 # Add compiler arguments
@@ -219,16 +157,6 @@ if (get_option('buildtype') != 'plain')
         endif
     endif
 endif
-
-if (
-    get_option('bmcweb-logging') != 'disabled'
-    or get_option('buildtype').startswith('debug')
-)
-    add_project_arguments(['-DBMCWEB_ENABLE_DEBUG'], language: 'cpp')
-
-    summary('debug', '-DBMCWEB_ENABLE_DEBUG', section: 'Enabled Features')
-endif
-
 # Set Compiler Security flags
 
 security_flags = [

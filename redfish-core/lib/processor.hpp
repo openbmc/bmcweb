@@ -1637,7 +1637,7 @@ inline void requestRoutesOperatingConfigCollection(App& app)
             return;
         }
 
-        if constexpr (bmcwebEnableMultiHost)
+        if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
         {
             // Option currently returns no systems.  TBD
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -1717,7 +1717,7 @@ inline void requestRoutesOperatingConfig(App& app)
         {
             return;
         }
-        if constexpr (bmcwebEnableMultiHost)
+        if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
         {
             // Option currently returns no systems.  TBD
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -1858,7 +1858,7 @@ inline void requestRoutesProcessorCollection(App& app)
         {
             return;
         }
-        if constexpr (bmcwebEnableMultiHost)
+        if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
         {
             // Option currently returns no systems.  TBD
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -1900,7 +1900,7 @@ inline void
     {
         return;
     }
-    if constexpr (bmcwebEnableMultiHost)
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
         // Option currently returns no systems.  TBD
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -1967,7 +1967,7 @@ inline void requestRoutesProcessor(App& app)
         {
             return;
         }
-        if constexpr (bmcwebEnableMultiHost)
+        if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
         {
             // Option currently returns no systems.  TBD
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -2074,7 +2074,7 @@ inline void
         return;
     }
 
-    if constexpr (bmcwebEnableMultiHost)
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
         // Option currently returns no systems.  TBD
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -2117,7 +2117,7 @@ inline void handleSubProcessorCoreGet(
         return;
     }
 
-    if constexpr (bmcwebEnableMultiHost)
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
         // Option currently returns no systems.  TBD
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",

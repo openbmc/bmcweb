@@ -497,7 +497,7 @@ inline void setProtocolDefaults(boost::urls::url& url,
         }
         if (url.port_number() == 80)
         {
-            if (bmcwebInsecureEnableHttpPushStyleEventing)
+            if constexpr (BMCWEB_INSECURE_PUSH_STYLE_NOTIFICATION)
             {
                 url.set_scheme("http");
             }

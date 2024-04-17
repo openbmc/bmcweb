@@ -10,6 +10,7 @@
 #include <boost/asio/ssl/context.hpp>
 #include <boost/asio/ssl/stream.hpp>
 #include <boost/asio/steady_timer.hpp>
+#include <persistent_data.hpp>
 
 #include <atomic>
 #include <chrono>
@@ -19,9 +20,7 @@
 #include <memory>
 #include <utility>
 #include <vector>
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
-#include <persistent_data.hpp>
-#endif
+
 namespace crow
 {
 
@@ -37,9 +36,10 @@ class Server
         signals(*ioService, SIGINT, SIGTERM, SIGHUP), handler(handlerIn),
         adaptorCtx(std::move(adaptorCtxIn))
     {
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
-        signals.add(SIGUSR1);
-#endif
+        if constexpr (BMCWEB_IBM_MANAGEMENT_CONSOLE)
+        {
+            signals.add(SIGUSR1);
+        }
     }
 
     void updateDateStr()
@@ -80,7 +80,7 @@ class Server
 
     void loadCertificate()
     {
-        if constexpr (!bmcwebEnableTLS)
+        if constexpr (BMCWEB_INSECURE_DISABLE_SSL)
         {
             return;
         }

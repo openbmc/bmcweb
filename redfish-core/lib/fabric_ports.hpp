@@ -257,7 +257,7 @@ inline void
     {
         return;
     }
-    if constexpr (bmcwebEnableMultiHost)
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
         // Option currently returns no systems.  TBD
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -312,7 +312,7 @@ inline void
     {
         return;
     }
-    if constexpr (bmcwebEnableMultiHost)
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
         // Option currently returns no systems.  TBD
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -361,7 +361,7 @@ inline void handleFabricPortCollectionHead(
     {
         return;
     }
-    if constexpr (bmcwebEnableMultiHost)
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
         // Option currently returns no systems.  TBD
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -443,7 +443,7 @@ inline void handleFabricPortCollectionGet(
     {
         return;
     }
-    if constexpr (bmcwebEnableMultiHost)
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
         // Option currently returns no systems.  TBD
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -494,7 +494,7 @@ inline void handlePortPatch(App& app, const crow::Request& req,
     {
         return;
     }
-    if constexpr (bmcwebEnableMultiHost)
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
         // Option currently returns no systems.  TBD
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",

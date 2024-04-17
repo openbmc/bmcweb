@@ -59,31 +59,34 @@ RedfishService::RedfishService(App& app)
     requestRoutesMetadata(app);
 
     requestAccountServiceRoutes(app);
-#ifdef BMCWEB_ENABLE_REDFISH_AGGREGATION
-    requestRoutesAggregationService(app);
-    requestRoutesAggregationSourceCollection(app);
-    requestRoutesAggregationSource(app);
-#endif
+    if constexpr (BMCWEB_REDFISH_AGGREGATION)
+    {
+        requestRoutesAggregationService(app);
+        requestRoutesAggregationSourceCollection(app);
+        requestRoutesAggregationSource(app);
+    }
     requestRoutesRoles(app);
     requestRoutesRoleCollection(app);
     requestRoutesServiceRoot(app);
     requestRoutesNetworkProtocol(app);
     requestRoutesSession(app);
     requestEthernetInterfacesRoutes(app);
-#ifdef BMCWEB_ALLOW_DEPRECATED_POWER_THERMAL
-    requestRoutesThermal(app);
-    requestRoutesPower(app);
-#endif
-#ifdef BMCWEB_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM
-    requestRoutesEnvironmentMetrics(app);
-    requestRoutesPowerSubsystem(app);
-    requestRoutesPowerSupply(app);
-    requestRoutesPowerSupplyCollection(app);
-    requestRoutesThermalMetrics(app);
-    requestRoutesThermalSubsystem(app);
-    requestRoutesFan(app);
-    requestRoutesFanCollection(app);
-#endif
+    if constexpr (BMCWEB_REDFISH_ALLOW_DEPRECATED_POWER_THERMAL)
+    {
+        requestRoutesThermal(app);
+        requestRoutesPower(app);
+    }
+    if constexpr (BMCWEB_REDFISH_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM)
+    {
+        requestRoutesEnvironmentMetrics(app);
+        requestRoutesPowerSubsystem(app);
+        requestRoutesPowerSupply(app);
+        requestRoutesPowerSupplyCollection(app);
+        requestRoutesThermalMetrics(app);
+        requestRoutesThermalSubsystem(app);
+        requestRoutesFan(app);
+        requestRoutesFanCollection(app);
+    }
     requestRoutesManagerCollection(app);
     requestRoutesManager(app);
     requestRoutesManagerResetAction(app);
@@ -105,9 +108,10 @@ RedfishService::RedfishService(App& app)
     requestRoutesCable(app);
     requestRoutesCableCollection(app);
     requestRoutesAssembly(app);
-#ifdef BMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE
-    requestRoutesUpdateServiceActionsSimpleUpdate(app);
-#endif
+    if constexpr (BMCWEB_INSECURE_TFTP_UPDATE)
+    {
+        requestRoutesUpdateServiceActionsSimpleUpdate(app);
+    }
     requestRoutesUpdateServiceActionsOemConcurrentUpdate(app);
     requestRoutesSoftwareInventoryCollection(app);
     requestRoutesSoftwareInventory(app);
@@ -121,38 +125,41 @@ RedfishService::RedfishService(App& app)
     requestRoutesPostCodesEntry(app);
     requestRoutesPostCodesEntryCollection(app);
 
-#ifdef BMCWEB_ENABLE_REDFISH_DUMP_LOG
-    requestRoutesSystemDumpService(app);
-    requestRoutesSystemDumpEntryCollection(app);
-    requestRoutesSystemDumpEntry(app);
-    requestRoutesSystemDumpCreate(app);
-    requestRoutesSystemDumpClear(app);
+    if constexpr (BMCWEB_REDFISH_DUMP_LOG)
+    {
+        requestRoutesSystemDumpService(app);
+        requestRoutesSystemDumpEntryCollection(app);
+        requestRoutesSystemDumpEntry(app);
+        requestRoutesSystemDumpCreate(app);
+        requestRoutesSystemDumpClear(app);
 
-    requestRoutesBMCDumpService(app);
-    requestRoutesBMCDumpEntryCollection(app);
-    requestRoutesBMCDumpEntry(app);
-    requestRoutesBMCDumpEntryDownload(app);
-    requestRoutesBMCDumpCreate(app);
-    requestRoutesBMCDumpClear(app);
+        requestRoutesBMCDumpService(app);
+        requestRoutesBMCDumpEntryCollection(app);
+        requestRoutesBMCDumpEntry(app);
+        requestRoutesBMCDumpEntryDownload(app);
+        requestRoutesBMCDumpCreate(app);
+        requestRoutesBMCDumpClear(app);
 
-    requestRoutesFaultLogDumpService(app);
-    requestRoutesFaultLogDumpEntryCollection(app);
-    requestRoutesFaultLogDumpEntry(app);
-    requestRoutesFaultLogDumpClear(app);
-#endif
+        requestRoutesFaultLogDumpService(app);
+        requestRoutesFaultLogDumpEntryCollection(app);
+        requestRoutesFaultLogDumpEntry(app);
+        requestRoutesFaultLogDumpClear(app);
+    }
 
-#ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
-    requestRoutesJournalEventLogEntryCollection(app);
-    requestRoutesJournalEventLogEntry(app);
-    requestRoutesJournalEventLogClear(app);
-#endif
+    if constexpr (BMCWEB_REDFISH_DBUS_LOG)
+    {
+        requestRoutesJournalEventLogEntryCollection(app);
+        requestRoutesJournalEventLogEntry(app);
+        requestRoutesJournalEventLogClear(app);
+    }
 
     requestRoutesBMCLogServiceCollection(app);
-#ifdef BMCWEB_ENABLE_REDFISH_BMC_JOURNAL
-    requestRoutesBMCJournalLogService(app);
-    requestRoutesBMCJournalLogEntryCollection(app);
-    requestRoutesBMCJournalLogEntry(app);
-#endif
+    if constexpr (BMCWEB_REDFISH_BMC_JOURNAL)
+    {
+        requestRoutesBMCJournalLogService(app);
+        requestRoutesBMCJournalLogEntryCollection(app);
+        requestRoutesBMCJournalLogEntry(app);
+    }
 
 #ifdef BMCWEB_ENABLE_LINUX_AUDIT_EVENTS
     requestRoutesAuditLogService(app);
@@ -161,14 +168,15 @@ RedfishService::RedfishService(App& app)
     requestRoutesFullAuditLogDownload(app);
 #endif
 
-#ifdef BMCWEB_ENABLE_REDFISH_CPU_LOG
-    requestRoutesCrashdumpService(app);
-    requestRoutesCrashdumpEntryCollection(app);
-    requestRoutesCrashdumpEntry(app);
-    requestRoutesCrashdumpFile(app);
-    requestRoutesCrashdumpClear(app);
-    requestRoutesCrashdumpCollect(app);
-#endif // BMCWEB_ENABLE_REDFISH_CPU_LOG
+    if constexpr (BMCWEB_REDFISH_CPU_LOG)
+    {
+        requestRoutesCrashdumpService(app);
+        requestRoutesCrashdumpEntryCollection(app);
+        requestRoutesCrashdumpEntry(app);
+        requestRoutesCrashdumpFile(app);
+        requestRoutesCrashdumpClear(app);
+        requestRoutesCrashdumpCollect(app);
+    }
 
     requestRoutesProcessorCollection(app);
     requestRoutesProcessor(app);
@@ -185,33 +193,36 @@ RedfishService::RedfishService(App& app)
     requestRoutesBiosSettings(app);
     requestRoutesBiosReset(app);
 
-#ifdef BMCWEB_ENABLE_VM_NBDPROXY
-    requestNBDVirtualMediaRoutes(app);
-#endif // BMCWEB_ENABLE_VM_NBDPROXY
+    if constexpr (BMCWEB_VM_NBDPROXY)
+    {
+        requestNBDVirtualMediaRoutes(app);
+    }
 
-#ifdef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
-    requestRoutesCELogService(app);
-    requestRoutesDBusLogServiceActionsClear(app);
-    requestRoutesDBusCELogServiceActionsClear(app);
-    requestRoutesDBusEventLogEntryCollection(app);
-    requestRoutesDBusCELogEntryCollection(app);
-    requestRoutesDBusEventLogEntry(app);
-    requestRoutesDBusCELogEntry(app);
-    requestRoutesDBusEventLogEntryDownload(app);
-    requestRoutesDBusCEEventLogEntryDownload(app);
-    requestRoutesDBusEventLogEntryDownloadPelJson(app);
-    requestRoutesDBusCELogEntryDownloadPelJson(app);
-#endif
+    if constexpr (BMCWEB_REDFISH_DBUS_LOG)
+    {
+        requestRoutesCELogService(app);
+        requestRoutesDBusLogServiceActionsClear(app);
+        requestRoutesDBusCELogServiceActionsClear(app);
+        requestRoutesDBusEventLogEntryCollection(app);
+        requestRoutesDBusCELogEntryCollection(app);
+        requestRoutesDBusEventLogEntry(app);
+        requestRoutesDBusCELogEntry(app);
+        requestRoutesDBusEventLogEntryDownload(app);
+        requestRoutesDBusCEEventLogEntryDownload(app);
+        requestRoutesDBusEventLogEntryDownloadPelJson(app);
+        requestRoutesDBusCELogEntryDownloadPelJson(app);
+    }
 #ifdef BMCWEB_ENABLE_REDFISH_LICENSE
     requestRoutesLicenseService(app);
     requestRoutesLicenseEntryCollection(app);
     requestRoutesLicenseEntry(app);
 #endif
-#ifdef BMCWEB_ENABLE_REDFISH_HOST_LOGGER
-    requestRoutesSystemHostLogger(app);
-    requestRoutesSystemHostLoggerCollection(app);
-    requestRoutesSystemHostLoggerLogEntry(app);
-#endif
+    if constexpr (BMCWEB_REDFISH_HOST_LOGGER)
+    {
+        requestRoutesSystemHostLogger(app);
+        requestRoutesSystemHostLoggerCollection(app);
+        requestRoutesSystemHostLoggerLogEntry(app);
+    }
 #ifdef BMCWEB_ENABLE_HW_ISOLATION
     requestRoutesSystemHardwareIsolationLogService(app);
 #endif

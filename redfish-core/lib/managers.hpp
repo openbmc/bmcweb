@@ -17,13 +17,10 @@
 
 #include "bmcweb_config.h"
 
-#ifdef BMCWEB_ENABLE_IBM_USB_CODE_UPDATE
-#include "oem/ibm/usb_code_update.hpp"
-#endif
-
 #include "app.hpp"
 #include "dbus_utility.hpp"
 #include "led.hpp"
+#include "oem/ibm/usb_code_update.hpp"
 #include "query.hpp"
 #include "redfish_util.hpp"
 #include "registries/privilege_registry.hpp"
@@ -2045,7 +2042,7 @@ inline void requestRoutesManager(App& app)
         asyncResp->res.jsonValue["EthernetInterfaces"]["@odata.id"] =
             "/redfish/v1/Managers/bmc/EthernetInterfaces";
 
-        if constexpr (bmcwebNbdProxy)
+        if constexpr (BMCWEB_VM_NBDPROXY)
         {
             asyncResp->res.jsonValue["VirtualMedia"]["@odata.id"] =
                 "/redfish/v1/Managers/bmc/VirtualMedia";
@@ -2098,15 +2095,18 @@ inline void requestRoutesManager(App& app)
         asyncResp->res.jsonValue["SerialConsole"]["MaxConcurrentSessions"] = 15;
         asyncResp->res.jsonValue["SerialConsole"]["ConnectTypesSupported"] =
             nlohmann::json::array_t({"IPMI", "SSH"});
-#ifdef BMCWEB_ENABLE_KVM
-        // Fill in GraphicalConsole info
-        asyncResp->res.jsonValue["GraphicalConsole"]["ServiceEnabled"] = true;
-        asyncResp->res.jsonValue["GraphicalConsole"]["MaxConcurrentSessions"] =
-            4;
-        asyncResp->res.jsonValue["GraphicalConsole"]["ConnectTypesSupported"] =
-            nlohmann::json::array_t({"KVMIP"});
-#endif // BMCWEB_ENABLE_KVM
-        if constexpr (!bmcwebEnableMultiHost)
+        if constexpr (BMCWEB_KVM)
+        {
+            // Fill in GraphicalConsole info
+            asyncResp->res.jsonValue["GraphicalConsole"]["ServiceEnabled"] =
+                true;
+            asyncResp->res
+                .jsonValue["GraphicalConsole"]["MaxConcurrentSessions"] = 4;
+            asyncResp->res
+                .jsonValue["GraphicalConsole"]["ConnectTypesSupported"] =
+                nlohmann::json::array_t({"KVMIP"});
+        }
+        if constexpr (!BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
         {
             asyncResp->res.jsonValue["Links"]["ManagerForServers@odata.count"] =
                 1;
@@ -2125,9 +2125,10 @@ inline void requestRoutesManager(App& app)
 
         managerGetLastResetTime(asyncResp);
 
-#ifdef BMCWEB_ENABLE_IBM_USB_CODE_UPDATE
-        getUSBCodeUpdateState(asyncResp);
-#endif
+        if constexpr (BMCWEB_IBM_USB_CODE_UPDATE)
+        {
+            getUSBCodeUpdateState(asyncResp);
+        }
 
         // ManagerDiagnosticData is added for all BMCs.
         nlohmann::json& managerDiagnosticData =
@@ -2135,10 +2136,11 @@ inline void requestRoutesManager(App& app)
         managerDiagnosticData["@odata.id"] =
             "/redfish/v1/Managers/bmc/ManagerDiagnosticData";
 
-#ifdef BMCWEB_ENABLE_REDFISH_OEM_MANAGER_FAN_DATA
-        auto pids = std::make_shared<GetPIDValues>(asyncResp);
-        pids->run();
-#endif
+        if constexpr (BMCWEB_REDFISH_OEM_MANAGER_FAN_DATA)
+        {
+            auto pids = std::make_shared<GetPIDValues>(asyncResp);
+            pids->run();
+        }
 
         getMainChassisId(asyncResp,
                          [](const std::string& chassisId,
@@ -2305,49 +2307,51 @@ inline void requestRoutesManager(App& app)
         {
             return;
         }
+
         // clang-format on
 
         if (pidControllers || fanControllers || fanZones ||
             stepwiseControllers || profile || usbCodeUpdateEnabled)
         {
-#ifdef BMCWEB_ENABLE_REDFISH_OEM_MANAGER_FAN_DATA
-            std::vector<
-                std::pair<std::string, std::optional<nlohmann::json::object_t>>>
-                configuration;
-            if (pidControllers)
+            if constexpr (BMCWEB_REDFISH_OEM_MANAGER_FAN_DATA ||
+                          BMCWEB_IBM_USB_CODE_UPDATE)
             {
-                configuration.emplace_back("PidControllers",
-                                           std::move(pidControllers));
+                std::vector<std::pair<std::string,
+                                      std::optional<nlohmann::json::object_t>>>
+                    configuration;
+                if (pidControllers)
+                {
+                    configuration.emplace_back("PidControllers",
+                                               std::move(pidControllers));
+                }
+                if (fanControllers)
+                {
+                    configuration.emplace_back("FanControllers",
+                                               std::move(fanControllers));
+                }
+                if (fanZones)
+                {
+                    configuration.emplace_back("FanZones", std::move(fanZones));
+                }
+                if (stepwiseControllers)
+                {
+                    configuration.emplace_back("StepwiseControllers",
+                                               std::move(stepwiseControllers));
+                }
+                auto pid = std::make_shared<SetPIDValues>(
+                    asyncResp, std::move(configuration), profile);
+                pid->run();
             }
-            if (fanControllers)
+            else
             {
-                configuration.emplace_back("FanControllers",
-                                           std::move(fanControllers));
+                messages::propertyUnknown(asyncResp->res, "Oem");
+                return;
             }
-            if (fanZones)
-            {
-                configuration.emplace_back("FanZones", std::move(fanZones));
-            }
-            if (stepwiseControllers)
-            {
-                configuration.emplace_back("StepwiseControllers",
-                                           std::move(stepwiseControllers));
-            }
-            auto pid = std::make_shared<SetPIDValues>(
-                asyncResp, std::move(configuration), profile);
-            pid->run();
-#endif
-#ifdef BMCWEB_ENABLE_IBM_USB_CODE_UPDATE
-            if (usbCodeUpdateEnabled)
-            {
-                setUSBCodeUpdateState(asyncResp, *usbCodeUpdateEnabled);
-            }
-#endif
-#if !defined(BMCWEB_ENABLE_FAN_OEM_DATA) &&                                    \
-    !defined(BMCWEB_ENABLE_IBM_USB_CODE_UPDATE)
-            messages::propertyUnknown(asyncResp->res, "Oem");
-            return;
-#endif
+        }
+
+        if (usbCodeUpdateEnabled)
+        {
+            setUSBCodeUpdateState(asyncResp, *usbCodeUpdateEnabled);
         }
 
         if (activeSoftwareImageOdataId)

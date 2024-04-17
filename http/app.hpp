@@ -35,8 +35,8 @@ class App
     using ssl_socket_t = boost::asio::ssl::stream<boost::asio::ip::tcp::socket>;
     using raw_socket_t = boost::asio::ip::tcp::socket;
 
-    using socket_type =
-        std::conditional_t<bmcwebEnableTLS, ssl_socket_t, raw_socket_t>;
+    using socket_type = std::conditional_t<BMCWEB_INSECURE_DISABLE_SSL,
+                                           raw_socket_t, ssl_socket_t>;
     using server_type = Server<App, socket_type>;
 
     explicit App(std::shared_ptr<boost::asio::io_context> ioIn =

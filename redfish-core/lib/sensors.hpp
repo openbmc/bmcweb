@@ -64,21 +64,30 @@ constexpr auto powerPaths = std::to_array<std::string_view>({
     "/xyz/openbmc_project/sensors/power"
 });
 
-constexpr auto sensorPaths = std::to_array<std::string_view>({
-    "/xyz/openbmc_project/sensors/power",
-    "/xyz/openbmc_project/sensors/current",
-    "/xyz/openbmc_project/sensors/airflow",
-    "/xyz/openbmc_project/sensors/humidity",
-#ifdef BMCWEB_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM
-    "/xyz/openbmc_project/sensors/voltage",
-    "/xyz/openbmc_project/sensors/fan_tach",
-    "/xyz/openbmc_project/sensors/temperature",
-    "/xyz/openbmc_project/sensors/fan_pwm",
-    "/xyz/openbmc_project/sensors/altitude",
-    "/xyz/openbmc_project/sensors/energy",
-#endif
-    "/xyz/openbmc_project/sensors/utilization"
-});
+constexpr auto getSensorPaths(){
+    if constexpr(BMCWEB_REDFISH_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM){
+    return std::to_array<std::string_view>({
+        "/xyz/openbmc_project/sensors/power",
+        "/xyz/openbmc_project/sensors/current",
+        "/xyz/openbmc_project/sensors/airflow",
+        "/xyz/openbmc_project/sensors/humidity",
+        "/xyz/openbmc_project/sensors/voltage",
+        "/xyz/openbmc_project/sensors/fan_tach",
+        "/xyz/openbmc_project/sensors/temperature",
+        "/xyz/openbmc_project/sensors/fan_pwm",
+        "/xyz/openbmc_project/sensors/altitude",
+        "/xyz/openbmc_project/sensors/energy",
+        "/xyz/openbmc_project/sensors/utilization"});
+    } else {
+      return  std::to_array<std::string_view>({"/xyz/openbmc_project/sensors/power",
+        "/xyz/openbmc_project/sensors/current",
+        "/xyz/openbmc_project/sensors/airflow",
+        "/xyz/openbmc_project/sensors/humidity",
+        "/xyz/openbmc_project/sensors/utilization"});
+}
+}
+
+constexpr auto sensorPaths = getSensorPaths();
 
 constexpr auto thermalPaths = std::to_array<std::string_view>({
     "/xyz/openbmc_project/sensors/fan_tach",
