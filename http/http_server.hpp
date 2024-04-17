@@ -74,7 +74,7 @@ class Server
 
     void loadCertificate()
     {
-        if constexpr (!bmcwebEnableTLS)
+        if constexpr (bmcweb::INSECURE_DISABLE_SSL)
         {
             return;
         }
