@@ -16,6 +16,24 @@
       "message": "don\u0027t you prefer having using declarations for ssl_stream, socket etc in bmcweb namespace. If that was there the switch between different options could be done in single place and will be customisable using some compiler directive as per need.",
       "revId": "32f6bc1d5b11cd7cacf6b2580770f1e90afaeef0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98bea7df_e26841ac",
+        "filename": "http/app.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-17T15:38:49Z",
+      "side": 1,
+      "message": "\u003e don\u0027t you prefer having using declarations for ssl_stream, socket etc in bmcweb namespace.\n\nFor all intents and purposes, crow:: and bmcweb:: are the same namespace these days.  Arguably at some point we should just scrub and find all the remaining crow:: things, and change them to bmcweb, but that would break a lot of forks, which I don\u0027t want to do.\n\n\u003e If that was there the switch between different options could be done in single place and will be customisable using some compiler directive as per need.\n\nFWIW, that\u0027s not something bmcweb has ever optimized for, because it would pull in a lot of extra headers into unrelated places.  Even though this was a change to many places, it was done with two sed replace commands (one for the definition and one for the include).",
+      "parentUuid": "ae507ac3_de44138d",
+      "revId": "32f6bc1d5b11cd7cacf6b2580770f1e90afaeef0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
