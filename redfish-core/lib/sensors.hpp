@@ -2903,15 +2903,10 @@ inline void
     });
 }
 
-inline void handleSensorGet(App& app, const crow::Request& req,
-                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+inline void handleSensorGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& chassisId,
                             const std::string& sensorId)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-    {
-        return;
-    }
     std::pair<std::string, std::string> nameType =
         splitSensorNameAndType(sensorId);
     if (nameType.first.empty() || nameType.second.empty())
@@ -2955,6 +2950,63 @@ inline void handleSensorGet(App& app, const crow::Request& req,
     });
 }
 
+inline void getBoardName(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         std::string_view chassisId, std::string_view sensorId)
+{
+    constexpr std::array<std::string_view, 2> interfaces{
+        "xyz.openbmc_project.Inventory.Item.Board",
+        "xyz.openbmc_project.Inventory.Item.Chassis"};
+    const boost::urls::url collectionPath =
+        boost::urls::url("/redfish/v1/Chassis");
+
+    ::dbus::utility::getSubTreePaths(
+        "/xyz/openbmc_project/inventory", 0, interfaces,
+        [collectionPath, asyncResp{std::move(asyncResp)},
+         chassisIdStr{std::string(chassisId)},
+         sensorIdStr{std::string(sensorId)}](
+            const boost::system::error_code& ec,
+            const ::dbus::utility::MapperGetSubTreePathsResponse& objects) {
+        if (ec == boost::system::errc::io_error)
+        {
+            BMCWEB_LOG_ERROR("getChassis respHandler DBUS error: {}", ec);
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        std::string boardName;
+        for (const auto& object : objects)
+        {
+            sdbusplus::message::object_path path(object);
+            boardName = path.filename();
+            if (boardName.empty())
+            {
+                continue;
+            }
+        }
+
+        if (chassisIdStr != boardName)
+        {
+            messages::resourceNotFound(asyncResp->res, chassisIdStr, "Chassis");
+            return;
+        }
+
+        handleSensorGet(asyncResp, chassisIdStr, sensorIdStr);
+    });
+}
+
+inline void
+    handleBoardNameGet(App& app, const crow::Request& req,
+                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                       const std::string& chassisId,
+                       const std::string& sensorId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    getBoardName(asyncResp, chassisId, sensorId);
+}
+
 } // namespace sensors
 
 inline void requestRoutesSensorCollection(App& app)
@@ -2970,7 +3022,7 @@ inline void requestRoutesSensor(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Sensors/<str>/")
         .privileges(redfish::privileges::getSensor)
         .methods(boost::beast::http::verb::get)(
-            std::bind_front(sensors::handleSensorGet, std::ref(app)));
+            std::bind_front(sensors::handleBoardNameGet, std::ref(app)));
 }
 
 } // namespace redfish

@@ -239,6 +239,8 @@ inline void
     {
         BMCWEB_LOG_DEBUG("Power Limit not present for {}",
                          sensorAsyncResp->chassisId);
+        messages::resourceNotFound(sensorAsyncResp->asyncResp->res,
+                                   sensorAsyncResp->chassisId, "Chassis");
         return;
     }
 
