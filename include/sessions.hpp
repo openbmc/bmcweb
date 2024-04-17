@@ -134,35 +134,11 @@ struct UserSession
 
 struct AuthConfigMethods
 {
-#ifdef BMCWEB_ENABLE_BASIC_AUTHENTICATION
-    bool basic = true;
-#else
-    bool basic = false;
-#endif
-
-#ifdef BMCWEB_ENABLE_SESSION_AUTHENTICATION
-    bool sessionToken = true;
-#else
-    bool sessionToken = false;
-#endif
-
-#ifdef BMCWEB_ENABLE_XTOKEN_AUTHENTICATION
-    bool xtoken = true;
-#else
-    bool xtoken = false;
-#endif
-
-#ifdef BMCWEB_ENABLE_COOKIE_AUTHENTICATION
-    bool cookie = true;
-#else
-    bool cookie = false;
-#endif
-
-#ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
-    bool tls = true;
-#else
-    bool tls = false;
-#endif
+    bool basic = bmcweb::BASIC_AUTH;
+    bool sessionToken = bmcweb::SESSION_AUTH;
+    bool xtoken = bmcweb::XTOKEN_AUTH;
+    bool cookie = bmcweb::COOKIE_AUTH;
+    bool tls = bmcweb::MUTUAL_TLS_AUTH;
 
     void fromJson(const nlohmann::json& j)
     {
