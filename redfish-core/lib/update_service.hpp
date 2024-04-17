@@ -40,9 +40,11 @@
 
 #include <array>
 #include <filesystem>
+#include <memory>
 #include <optional>
 #include <string>
 #include <string_view>
+#include <vector>
 
 namespace redfish
 {
@@ -666,14 +668,19 @@ inline void setApplyTime(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                     "RequestedApplyTime", "ApplyTime", applyTimeNewVal);
 }
 
-inline void
-    updateMultipartContext(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                           const crow::Request& req,
-                           const MultipartParser& parser)
+struct MultiPartUpdateParameters
 {
-    const std::string* uploadData = nullptr;
-    std::optional<std::string> applyTime = "OnReset";
-    bool targetFound = false;
+    std::optional<std::string> applyTime;
+    std::string uploadData;
+    std::vector<boost::urls::url> targets;
+};
+
+inline std::optional<MultiPartUpdateParameters>
+    extractMultipartUpdateParameters(
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+        const MultipartParser& parser)
+{
+    MultiPartUpdateParameters multiRet;
     for (const FormPart& formpart : parser.mime_fields)
     {
         boost::beast::http::fields::const_iterator it =
@@ -681,7 +688,7 @@ inline void
         if (it == formpart.fields.end())
         {
             BMCWEB_LOG_ERROR("Couldn't find Content-Disposition");
-            return;
+            return std::nullopt;
         }
         BMCWEB_LOG_INFO("Parsing value {}", it->value());
 
@@ -702,63 +709,96 @@ inline void
 
             if (param.second == "UpdateParameters")
             {
-                std::vector<std::string> targets;
+                std::vector<std::string> tempTargets;
                 nlohmann::json content =
                     nlohmann::json::parse(formpart.content);
                 nlohmann::json::object_t* obj =
                     content.get_ptr<nlohmann::json::object_t*>();
                 if (obj == nullptr)
                 {
-                    messages::propertyValueFormatError(asyncResp->res, targets,
-                                                       "UpdateParameters");
-                    return;
+                    messages::propertyValueTypeError(
+                        asyncResp->res, formpart.content, "UpdateParameters");
+                    return std::nullopt;
                 }
 
                 if (!json_util::readJsonObject(
-                        *obj, asyncResp->res, "Targets", targets,
-                        "@Redfish.OperationApplyTime", applyTime))
+                        *obj, asyncResp->res, "Targets", tempTargets,
+                        "@Redfish.OperationApplyTime", multiRet.applyTime))
                 {
-                    return;
+                    return std::nullopt;
                 }
-                if (targets.size() != 1)
+
+                for (size_t urlIndex = 0; urlIndex < tempTargets.size();
+                     urlIndex++)
                 {
-                    messages::propertyValueFormatError(asyncResp->res, targets,
-                                                       "Targets");
-                    return;
+                    const std::string& target = tempTargets[urlIndex];
+                    boost::system::result<boost::urls::url_view> url =
+                        boost::urls::parse_origin_form(target);
+                    if (!url)
+                    {
+                        messages::propertyValueFormatError(
+                            asyncResp->res, target,
+                            std::format("Targets/{}", urlIndex));
+                        return std::nullopt;
+                    }
+                    multiRet.targets.emplace_back(*url);
                 }
-                if (targets[0] != "/redfish/v1/Managers/bmc")
+                if (multiRet.targets.size() != 1)
                 {
-                    messages::propertyValueNotInList(asyncResp->res, targets[0],
-                                                     "Targets/0");
-                    return;
+                    messages::propertyValueFormatError(
+                        asyncResp->res, multiRet.targets, "Targets");
+                    return std::nullopt;
                 }
-                targetFound = true;
+                if (multiRet.targets[0].path() != "/redfish/v1/Managers/bmc")
+                {
+                    messages::propertyValueNotInList(
+                        asyncResp->res, multiRet.targets[0], "Targets/0");
+                    return std::nullopt;
+                }
             }
             else if (param.second == "UpdateFile")
             {
-                uploadData = &(formpart.content);
+                multiRet.uploadData = std::move(formpart.content);
             }
         }
     }
 
-    if (uploadData == nullptr)
+    if (multiRet.uploadData.empty())
     {
         BMCWEB_LOG_ERROR("Upload data is NULL");
         messages::propertyMissing(asyncResp->res, "UpdateFile");
+        return std::nullopt;
+    }
+    if (multiRet.targets.empty())
+    {
+        messages::propertyMissing(asyncResp->res, "Targets");
+        return std::nullopt;
+    }
+    return multiRet;
+}
+
+inline void
+    updateMultipartContext(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const crow::Request& req,
+                           const MultipartParser& parser)
+{
+    std::optional<MultiPartUpdateParameters> multipart =
+        extractMultipartUpdateParameters(asyncResp, parser);
+    if (!multipart)
+    {
         return;
     }
-    if (!targetFound)
+    if (!multipart->applyTime)
     {
-        messages::propertyMissing(asyncResp->res, "targets");
-        return;
+        multipart->applyTime = "OnReset";
     }
 
-    setApplyTime(asyncResp, *applyTime);
+    setApplyTime(asyncResp, *multipart->applyTime);
 
     // Setup callback for when new software detected
     monitorForSoftwareAvailable(asyncResp, req, "/redfish/v1/UpdateService");
 
-    uploadImageFile(asyncResp->res, *uploadData);
+    uploadImageFile(asyncResp->res, multipart->uploadData);
 }
 
 inline void
