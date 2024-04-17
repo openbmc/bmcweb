@@ -827,7 +827,7 @@ inline void
     asyncResp->res.jsonValue["FirmwareInventory"]["@odata.id"] =
         "/redfish/v1/UpdateService/FirmwareInventory";
     // Get the MaxImageSizeBytes
-    asyncResp->res.jsonValue["MaxImageSizeBytes"] = bmcwebHttpReqBodyLimitMb *
+    asyncResp->res.jsonValue["MaxImageSizeBytes"] = bmcweb::HTTP_BODY_LIMIT *
                                                     1024 * 1024;
 
     // Update Actions object.
@@ -838,9 +838,10 @@ inline void
 
     nlohmann::json::array_t allowed;
 
-#ifdef BMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE
-    allowed.emplace_back(update_service::TransferProtocolType::TFTP);
-#endif
+    if constexpr (bmcweb::INSECURE_PUSH_STYLE_NOTIFICATION)
+    {
+        allowed.emplace_back(update_service::TransferProtocolType::TFTP);
+    }
 
     updateSvcSimpleUpdate["TransferProtocol@Redfish.AllowableValues"] =
         std::move(allowed);
