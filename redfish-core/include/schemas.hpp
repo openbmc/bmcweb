@@ -11,10 +11,11 @@
  ***************************************************************/
 // clang-format off
 #include <array>
+#include <string_view>
 
 namespace redfish
 {
-    constexpr std::array schemas {
+    constexpr std::array<std::string_view,116> schemas {
         "AccountService",
         "ActionInfo",
         "AggregationService",
