@@ -60,7 +60,7 @@ inline void addSecurityHeaders(const crow::Request& req [[maybe_unused]],
     res.addHeader("Cross-Origin-Embedder-Policy", "require-corp");
     res.addHeader("Cross-Origin-Opener-Policy", "same-origin");
     res.addHeader("Cross-Origin-Resource-Policy", "same-origin");
-    if (bmcwebInsecureDisableXssPrevention == 0)
+    if constexpr (!bmcweb::INSECURE_DISABLE_XSS)
     {
         res.addHeader("Content-Security-Policy", "default-src 'none'; "
                                                  "img-src 'self' data:; "
