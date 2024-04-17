@@ -1,0 +1,299 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Reservoir.v1_0_1.json",
+    "$ref": "#/definitions/Reservoir",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "Reservoir": {
+            "additionalProperties": false,
+            "description": "The Reservoir schema describes a reservoir unit for a cooling system or similar device.",
+            "longDescription": "This resource shall represent the management properties for monitoring and management of reservoirs for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "Assembly": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Assembly.json#/definitions/Assembly",
+                    "description": "The link to the assembly associated with this reservoir.",
+                    "longDescription": "This property shall contain a link to a resource of type Assembly.",
+                    "readonly": true
+                },
+                "CapacityLiters": {
+                    "description": "The capacity of the reservoir (L).",
+                    "longDescription": "This property shall contain the capacity of the reservoir in liter units.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "Coolant": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CoolingLoop.json#/definitions/Coolant",
+                    "description": "Details about the coolant used in this unit.",
+                    "longDescription": "This property shall contain details regarding the coolant contained or used by this unit."
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Filters": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/FilterCollection.json#/definitions/FilterCollection",
+                    "description": "A link to a collection of filters.",
+                    "longDescription": "This property shall contain a link to a resource collection of type FilterCollection that contains a set of filters.",
+                    "readonly": true
+                },
+                "FluidLevelPercent": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The fluid capacity filled (percent).",
+                    "excerptCopy": "SensorExcerpt",
+                    "longDescription": "This property shall contain the amount of fluid capacity, in percent units, filled in this reservoir.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Percent`.  Services that support this property shall also return the FluidLevelStatus property.",
+                    "readonly": true
+                },
+                "FluidLevelStatus": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Health"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The status of the fluid level in this reservoir.",
+                    "longDescription": "This property shall indicate the status of the fluid level in this reservoir.",
+                    "readonly": true
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "InternalPressurekPa": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The internal pressure (kPa) reading.",
+                    "excerptCopy": "SensorExcerpt",
+                    "longDescription": "This property shall contain the internal pressure, measured in kilopascal units, for the reservoir.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `PressurekPa`.",
+                    "readonly": true
+                },
+                "Location": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location",
+                    "description": "The location of the reservoir.",
+                    "longDescription": "This property shall contain the location information of this reservoir."
+                },
+                "LocationIndicatorActive": {
+                    "description": "An indicator allowing an operator to physically locate this resource.",
+                    "longDescription": "This property shall contain the state of the indicator used to physically identify or locate this resource.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "Manufacturer": {
+                    "description": "The manufacturer of this reservoir.",
+                    "longDescription": "This property shall contain the name of the organization responsible for producing the reservoir.  This organization may be the entity from whom the reservoir is purchased, but this is not necessarily true.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Model": {
+                    "description": "The model number for this reservoir.",
+                    "longDescription": "This property shall contain the model information as defined by the manufacturer for this reservoir.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "PartNumber": {
+                    "description": "The part number for this reservoir.",
+                    "longDescription": "This property shall contain the part number as defined by the manufacturer for this reservoir.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "PhysicalContext": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PhysicalContext.json#/definitions/PhysicalContext",
+                    "description": "The area or device associated with this reservoir.",
+                    "longDescription": "This property shall contain a description of the affected device or region within the chassis with which this reservoir is associated.",
+                    "readonly": true
+                },
+                "ReservoirType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ReservoirType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The type of reservoir.",
+                    "longDescription": "This property shall contain the type of reservoir represented by this resource.",
+                    "readonly": true
+                },
+                "SerialNumber": {
+                    "description": "The serial number for this reservoir.",
+                    "longDescription": "This property shall contain the serial number as defined by the manufacturer for this reservoir.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "SparePartNumber": {
+                    "description": "The spare part number for this reservoir.",
+                    "longDescription": "This property shall contain the spare or replacement part number as defined by the manufacturer for this reservoir.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                },
+                "UserLabel": {
+                    "description": "A user-assigned label.",
+                    "longDescription": "This property shall contain a user-assigned label used to identify this resource.  If a value has not been assigned by a user, the value of this property shall be an empty string.",
+                    "readonly": false,
+                    "type": "string"
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "ReservoirType": {
+            "enum": [
+                "Reserve",
+                "Overflow",
+                "Inline",
+                "Immersion"
+            ],
+            "enumDescriptions": {
+                "Immersion": "An immersion cooling tank.",
+                "Inline": "An inline or integrated reservoir.",
+                "Overflow": "An overflow reservoir for excess fluid.",
+                "Reserve": "A reservoir providing reserve fluid capacity."
+            },
+            "type": "string"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2023.1",
+    "title": "#Reservoir.v1_0_1.Reservoir"
+}

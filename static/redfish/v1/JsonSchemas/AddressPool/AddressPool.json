@@ -1,0 +1,2080 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/AddressPool.v1_2_4.json",
+    "$ref": "#/definitions/AddressPool",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "ASNumberRange": {
+            "additionalProperties": false,
+            "description": "Autonomous System (AS) number range.",
+            "longDescription": "This type shall contain the Autonomous System (AS) number range.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Lower": {
+                    "description": "Lower Autonomous System (AS) number.",
+                    "longDescription": "This property shall contain the lower Autonomous System (AS) number to be used as part of a range of ASN values.",
+                    "maximum": 65535,
+                    "minimum": 1,
+                    "readonly": false,
+                    "type": "integer",
+                    "versionAdded": "v1_1_0"
+                },
+                "Upper": {
+                    "description": "Upper Autonomous System (AS) number.",
+                    "longDescription": "This property shall contain the upper Autonomous System (AS) number to be used as part of a range of ASN values.",
+                    "maximum": 65535,
+                    "minimum": 1,
+                    "readonly": false,
+                    "type": "integer",
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
+        },
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "AddressPool": {
+            "additionalProperties": false,
+            "description": "The schema definition of an address pool and its configuration.",
+            "longDescription": "This resource shall represent an address pool in a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Ethernet": {
+                    "$ref": "#/definitions/Ethernet",
+                    "description": "The Ethernet-related properties for this address pool.",
+                    "longDescription": "This property shall contain the Ethernet-related properties for this address pool.",
+                    "versionAdded": "v1_1_0"
+                },
+                "GenZ": {
+                    "$ref": "#/definitions/GenZ",
+                    "description": "The Gen-Z related properties for this address pool.",
+                    "longDescription": "This property shall contain the Gen-Z related properties for this address pool."
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "BFDSingleHopOnly": {
+            "additionalProperties": false,
+            "description": "Bidirectional Forwarding Detection (BFD) related properties for an Ethernet fabric.",
+            "longDescription": "This type shall contain the BFD-related properties for an Ethernet fabric that uses Bidirectional Forwarding Detection (BFD) for link fault detection.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "DemandModeEnabled": {
+                    "description": "Bidirectional Forwarding Detection (BFD) Demand Mode status.",
+                    "longDescription": "This property shall indicate if Bidirectional Forwarding Detection (BFD) Demand Mode is enabled.  In Demand mode, no periodic BFD Control packets will flow in either direction.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "DesiredMinTxIntervalMilliseconds": {
+                    "description": "Desired Bidirectional Forwarding Detection (BFD) minimal transmit interval.",
+                    "longDescription": "This property shall contain the minimum interval, in milliseconds, that the local system would like to use when transmitting Bidirectional Forwarding Detection (BFD) Control packets, less any jitter applied.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "KeyChain": {
+                    "description": "Bidirectional Forwarding Detection (BFD) Key Chain name.",
+                    "longDescription": "This property shall contain the name of the Bidirectional Forwarding Detection (BFD) Key Chain.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "LocalMultiplier": {
+                    "description": "Bidirectional Forwarding Detection (BFD) multiplier value.",
+                    "longDescription": "This property shall contain the Bidirectional Forwarding Detection (BFD) multiplier value.  A BFD multiplier consists of the number of consecutive BFD packets that shall be missed from a BFD peer before declaring that peer unavailable and informing the higher-layer protocols of the failure.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "MeticulousModeEnabled": {
+                    "description": "Meticulous MD5 authentication of the Bidirectional Forwarding Detection (BFD) session.",
+                    "longDescription": "This property shall indicate whether the keyed MD5 sequence number is updated with every packet.  If `true`, the keyed MD5 sequence number is updated with every packet.  If `false`, it is updated periodically.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "RequiredMinRxIntervalMilliseconds": {
+                    "description": "Bidirectional Forwarding Detection (BFD) receive value.",
+                    "longDescription": "This property shall contain the Bidirectional Forwarding Detection (BFD) receive value.  The BFD receive value determines how frequently (in milliseconds) BFD packets will be expected to be received from BFD peers.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "SourcePort": {
+                    "description": "Bidirectional Forwarding Detection (BFD) source port.",
+                    "longDescription": "This property shall contain the Bidirectional Forwarding Detection (BFD) source port.",
+                    "maximum": 65535,
+                    "minimum": 49152,
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
+        },
+        "BGPEvpn": {
+            "additionalProperties": false,
+            "description": "BGP Ethernet Virtual Private Network (BGP EVPN) related properties for an Ethernet fabric.",
+            "longDescription": "This type shall contain the EVPN-related properties for an Ethernet fabric that uses an IETF-defined Ethernet Virtual Private Network (EVPN) based control plane specification based on RFC7432.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "ARPProxyEnabled": {
+                    "description": "Address Resolution Protocol (ARP) proxy status.",
+                    "longDescription": "This property shall indicate whether proxy Address Resolution Protocol (ARP) is enabled.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "ARPSupressionEnabled": {
+                    "description": "Address Resolution Protocol (ARP) suppression status.",
+                    "longDescription": "This property shall indicate whether Address Resolution Protocol (ARP) suppression is enabled.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "AnycastGatewayIPAddress": {
+                    "description": "The anycast gateway IPv4 address.",
+                    "longDescription": "This property shall contain the anycast gateway IPv4 address for a host subnet.",
+                    "pattern": "^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}$",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "AnycastGatewayMACAddress": {
+                    "description": "The anycast gateway MAC address.",
+                    "longDescription": "This property shall contain the anycast gateway MAC address for a host subnet.",
+                    "pattern": "^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "ESINumberRange": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ESINumberRange"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The Ethernet Segment Identifier (ESI) number range for the fabric.",
+                    "longDescription": "This property shall contain Ethernet Segment Identifier (ESI) number ranges for allocation in supporting functions such as multihoming.",
+                    "versionAdded": "v1_1_0"
+                },
+                "EVINumberRange": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/EVINumberRange"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The Ethernet Virtual Private Network (EVPN) Instance number (EVI) number range for the fabric.",
+                    "longDescription": "This property shall contain the Ethernet Virtual Private Network (EVPN) Instance number (EVI) range for EVPN-based fabrics.",
+                    "versionAdded": "v1_1_0"
+                },
+                "GatewayIPAddress": {
+                    "description": "The gateway IPv4 address.",
+                    "longDescription": "This property shall contain the Gateway IPv4 address for a host subnet.",
+                    "pattern": "^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}$",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "GatewayIPAddressRange": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/GatewayIPAddressRange"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The IPv4 address range for gateways.",
+                    "longDescription": "This property shall contain the IPv4 address range for gateway nodes on this subnet.",
+                    "versionAdded": "v1_2_0"
+                },
+                "NDPProxyEnabled": {
+                    "description": "Network Discovery Protocol (NDP) proxy status.",
+                    "longDescription": "This property shall indicate whether Network Discovery Protocol (NDP) proxy is enabled.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "NDPSupressionEnabled": {
+                    "description": "Network Discovery Protocol (NDP) suppression status.",
+                    "longDescription": "This property shall indicate whether Network Discovery Protocol (NDP) suppression is enabled.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "RouteDistinguisherAdministratorSubfield": {
+                    "description": "The Route Distinguisher (RD) Administrator subfield.",
+                    "longDescription": "This property shall contain the RFC4364-defined Route Distinguisher (RD) Administrator subfield.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0"
+                },
+                "RouteDistinguisherRange": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/RouteDistinguisherRange"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The Route Distinguisher (RD) number range for the fabric.",
+                    "longDescription": "This property shall contain the Route Distinguisher (RD) Instance number range for Ethernet Virtual Private Network (EVPN) based fabrics.",
+                    "versionAdded": "v1_1_0"
+                },
+                "RouteTargetAdministratorSubfield": {
+                    "description": "The Route Target (RT) Administrator Subfield.",
+                    "longDescription": "This property shall contain the RFC4364-defined Route Target (RT) Administrator subfield.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0"
+                },
+                "RouteTargetRange": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/RouteTargetRange"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The Route Target (RT) number range for the fabric.",
+                    "longDescription": "This property shall contain the Route Target (RT) Instance number range for Ethernet Virtual Private Network (EVPN) based fabrics.",
+                    "versionAdded": "v1_1_0"
+                },
+                "UnderlayMulticastEnabled": {
+                    "description": "Underlay multicast status.",
+                    "longDescription": "This property shall indicate whether multicast is enabled on the Ethernet fabric underlay.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "UnknownUnicastSuppressionEnabled": {
+                    "description": "Suppression of unknown unicast packets.",
+                    "longDescription": "This property shall indicate whether unknown unicast packets should be suppressed.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "VLANIdentifierAddressRange": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/VLANIdentifierAddressRange"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Virtual LAN (VLAN) tag related address range applicable to this Ethernet fabric or for end-host subnets.",
+                    "longDescription": "This property shall contain the Virtual LAN (VLAN) tag related address range applicable to this Ethernet fabric or for endpoint host subnets.  VLAN tags can be used for the purpose of identifying packets belonging to different networks.",
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
+        },
+        "BGPNeighbor": {
+            "additionalProperties": false,
+            "description": "Border Gateway Protocol (BGP) neighbor related properties.",
+            "longDescription": "This type shall contain all Border Gateway Protocol (BGP) neighbor related properties.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Address": {
+                    "description": "Border Gateway Protocol (BGP) neighbor address.",
+                    "longDescription": "This property shall contain the IPv4 address assigned to a Border Gateway Protocol (BGP) neighbor.",
+                    "pattern": "^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}$",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "AllowOwnASEnabled": {
+                    "description": "Allow own Autonomous System (AS) status.",
+                    "longDescription": "This property shall indicate whether the Autonomous System (AS) of the receiving router is permitted in a Border Gateway Protocol (BGP) update.  If `true`, routes should be received and processed even if the router detects its own ASN in the AS-Path.  If `false`, they should be dropped.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "CIDR": {
+                    "description": "The Classless Inter-Domain Routing (CIDR) value used for neighbor communication.  This is the number of ones before the first zero in the subnet mask.",
+                    "longDescription": "The value of this property shall contain the RFC4271-defined Classless Inter-Domain Routing (CIDR) value.",
+                    "readonly": false,
+                    "type": "integer",
+                    "versionAdded": "v1_2_0"
+                },
+                "ConnectRetrySeconds": {
+                    "description": "Border Gateway Protocol (BGP) retry timer in seconds.",
+                    "longDescription": "This property shall contain the Border Gateway Protocol (BGP) Retry Timer.  The BGP Retry Timer allows the administrator to set the amount of time in seconds between retries to establish a connection to configured peers that have gone down.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "Enabled": {
+                    "description": "An indication of whether BGP neighbor communication is enabled.",
+                    "longDescription": "The value of this property shall indicate whether BGP neighbor communication is enabled.",
+                    "readonly": false,
+                    "type": "boolean",
+                    "versionAdded": "v1_2_0"
+                },
+                "HoldTimeSeconds": {
+                    "description": "Border Gateway Protocol (BGP) hold timer in seconds.",
+                    "longDescription": "This property shall contain the Border Gateway Protocol (BGP) Hold Timer agreed upon between peers.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "KeepaliveIntervalSeconds": {
+                    "description": "Border Gateway Protocol (BGP) Keepalive timer in seconds.",
+                    "longDescription": "This property shall contain the Keepalive timer in seconds.  It is used in conjunction with the Border Gateway Protocol (BGP) hold timer.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "LocalAS": {
+                    "description": "Local Autonomous System (AS) number.",
+                    "longDescription": "This property shall contain the Autonomous System (AS) number of the local Border Gateway Protocol (BGP) peer.",
+                    "maximum": 65535,
+                    "minimum": 1,
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "LogStateChangesEnabled": {
+                    "description": "Border Gateway Protocol (BGP) neighbor log state change status.",
+                    "longDescription": "This property shall indicate whether Border Gateway Protocol (BGP) neighbor state changes are logged.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "MaxPrefix": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/MaxPrefix"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Border Gateway Protocol (BGP) max prefix properties.",
+                    "longDescription": "These properties are applicable to configuring Border Gateway Protocol (BGP) max prefix related properties.",
+                    "versionAdded": "v1_1_0"
+                },
+                "MinimumAdvertisementIntervalSeconds": {
+                    "description": "Minimum Border Gateway Protocol (BGP) advertisement interval in seconds.",
+                    "longDescription": "This property shall contain the minimum time between Border Gateway Protocol (BGP) route advertisements in seconds.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "PassiveModeEnabled": {
+                    "description": "Border Gateway Protocol (BGP) passive mode status.",
+                    "longDescription": "This property shall indicate whether Border Gateway Protocol (BGP) passive mode is enabled.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "PathMTUDiscoveryEnabled": {
+                    "description": "Path MTU discovery status.",
+                    "longDescription": "This property shall indicate whether MTU discovery is permitted.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "PeerAS": {
+                    "description": "Peer Autonomous System (AS) number.",
+                    "longDescription": "This property shall contain the Autonomous System (AS) number of the external Border Gateway Protocol (BGP) peer.",
+                    "maximum": 65535,
+                    "minimum": 1,
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "ReplacePeerASEnabled": {
+                    "description": "Replace Border Gateway Protocol (BGP) peer Autonomous System (AS) status.",
+                    "longDescription": "This property shall indicate whether peer Autonomous System (AS) numbers should be replaced.  If `true`, private ASNs are removed and replaced with the peer AS.  If `false`, they remain unchanged.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "TCPMaxSegmentSizeBytes": {
+                    "description": "TCP max segment size in bytes.",
+                    "longDescription": "This property shall contain the TCP max segment size in bytes signifying the number of bytes that shall be transported in a single packet.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "TreatAsWithdrawEnabled": {
+                    "description": "Border Gateway Protocol (BGP) treat as withdraw status.",
+                    "longDescription": "This property shall indicate Border Gateway Protocol (BGP) withdraw status.  If `true`, the UPDATE message containing the path attribute shall be treated as though all contained routes had been withdrawn.  If `false`, they should remain.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
+        },
+        "BGPRoute": {
+            "additionalProperties": false,
+            "description": "Border Gateway Protocol (BGP) route properties.",
+            "longDescription": "This type shall contain properties that are applicable to configuring Border Gateway Protocol (BGP) route related properties.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AdvertiseInactiveRoutesEnabled": {
+                    "description": "Advertise inactive route status.",
+                    "longDescription": "This property shall indicate whether inactive routes should be advertised.  If `true`, advertise the best Border Gateway Protocol (BGP) route that is inactive because of Interior Gateway Protocol (IGP) preference.  If `false`, do not use as part of BGP best path selection.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "DistanceExternal": {
+                    "description": "Route distance for external routes.",
+                    "longDescription": "This property shall modify the administrative distance for routes learned via External BGP (eBGP).",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "DistanceInternal": {
+                    "description": "Route distance for internal routes.",
+                    "longDescription": "This property shall modify the administrative distance for routes learned via Internal BGP (iBGP).",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "DistanceLocal": {
+                    "description": "Route distance for local routes.",
+                    "longDescription": "This property shall modify the administrative distance for routes configured on a local router.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "ExternalCompareRouterIdEnabled": {
+                    "description": "Compare router identifier status.",
+                    "longDescription": "This property shall indicate whether external router identifiers should be compared.  If `true`, prefer the route that comes from the Border Gateway Protocol (BGP) router with the lowest router identifier.  If `false`, do not use as part of BGP best path selection.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "FlapDampingEnabled": {
+                    "description": "Route flap dampening status.",
+                    "longDescription": "This property shall indicate whether route flap dampening should be enabled.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "SendDefaultRouteEnabled": {
+                    "description": "Send default route status.",
+                    "longDescription": "This property shall indicate whether the default route should be advertised.  If `true`, the default route is advertised to all Border Gateway Protocol (BGP) neighbors unless specifically denied.  If `false`, the default route is not advertised.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
+        },
+        "CommonBGPProperties": {
+            "additionalProperties": false,
+            "description": "Common BGP properties.",
+            "longDescription": "This property shall contain properties shared across both External and Internal Border Gateway Protocol (BGP) related properties.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "ASNumberRange": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ASNumberRange"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Autonomous System (AS) number range.",
+                    "longDescription": "This property shall contain the range of Autonomous System (AS) numbers assigned to each Border Gateway Protocol (BGP) peer within the fabric.",
+                    "versionAdded": "v1_1_0"
+                },
+                "BGPNeighbor": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/BGPNeighbor"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Border Gateway Protocol (BGP) neighbor related properties.",
+                    "longDescription": "This property shall contain all Border Gateway Protocol (BGP) neighbor related properties.",
+                    "versionAdded": "v1_1_0"
+                },
+                "BGPRoute": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/BGPRoute"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Border Gateway Protocol (BGP) route-related properties.",
+                    "longDescription": "This property shall contain Border Gateway Protocol (BGP) route-related properties.",
+                    "versionAdded": "v1_1_0"
+                },
+                "GracefulRestart": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/GracefulRestart"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Graceful restart related properties.",
+                    "longDescription": "This property shall contain all graceful restart related properties.",
+                    "versionAdded": "v1_1_0"
+                },
+                "MultiplePaths": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/MultiplePaths"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Multiple path related properties.",
+                    "longDescription": "This property shall contain all multiple path related properties.",
+                    "versionAdded": "v1_1_0"
+                },
+                "SendCommunityEnabled": {
+                    "description": "Indicates whether community attributes are sent.",
+                    "longDescription": "This property shall indicate whether community attributes are sent to BGP neighbors.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
+        },
+        "DHCP": {
+            "additionalProperties": false,
+            "description": "DHCP-related properties for an Ethernet fabric.",
+            "longDescription": "This type shall contain settings for assigning DHCP-related properties to the Ethernet fabric.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "DHCPInterfaceMTUBytes": {
+                    "description": "Dynamic Host Configuration Protocol (DHCP) interface Maximum Transmission Unit (MTU).",
+                    "longDescription": "This property shall contain the Maximum Transmission Unit (MTU) to use on this interface in bytes.",
+                    "maximum": 9194,
+                    "minimum": 68,
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "DHCPRelayEnabled": {
+                    "description": "Dynamic Host Configuration Protocol (DHCP) relay status.",
+                    "longDescription": "This property shall indicate whether Dynamic Host Configuration Protocol (DHCP) Relay is enabled.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "DHCPServer": {
+                    "description": "The Dynamic Host Configuration Protocol (DHCP) IPv4 addresses for this Ethernet fabric.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of addresses assigned to the Dynamic Host Configuration Protocol (DHCP) server for this Ethernet fabric.",
+                    "readonly": false,
+                    "type": "array",
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
+        },
+        "EBGP": {
+            "additionalProperties": false,
+            "description": "External BGP (eBGP) related properties for an Ethernet fabric.",
+            "longDescription": "This type shall contain the External BGP (eBGP) related properties for an Ethernet fabric.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "ASNumberRange": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ASNumberRange"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Autonomous System (AS) number range.",
+                    "longDescription": "This property shall contain the range of Autonomous System (AS) numbers assigned to each Border Gateway Protocol (BGP) peer within the fabric.",
+                    "versionAdded": "v1_1_0"
+                },
+                "AllowDuplicateASEnabled": {
+                    "description": "Allow duplicate Autonomous System (AS) path.",
+                    "longDescription": "This property shall indicate whether duplicate Autonomous System (AS) numbers are allowed.  If `true`, routes with the same AS number as the receiving router should be allowed.  If `false`, routes should be dropped if the router receives its own AS number in a Border Gateway Protocol (BGP) update.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "AllowOverrideASEnabled": {
+                    "description": "Option to override an Autonomous System (AS) number with the AS number of the sending peer.",
+                    "longDescription": "This property shall indicate whether Autonomous System (AS) numbers should be overridden.  If `true`, AS number should be overridden with the AS number of the sending peer.  If `false`, AS number override is disabled.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "AlwaysCompareMEDEnabled": {
+                    "description": "Compare Multi Exit Discriminator (MED) status.",
+                    "longDescription": "This property shall indicate whether neighbor Multi Exit Discriminator (MED) attributes should be compared.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "BGPLocalPreference": {
+                    "description": "Local preference value.",
+                    "longDescription": "This property shall contain the local preference value.  Highest local preference value is preferred for Border Gateway Protocol (BGP) best path selection.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "BGPNeighbor": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/BGPNeighbor"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Border Gateway Protocol (BGP) neighbor related properties.",
+                    "longDescription": "This property shall contain all Border Gateway Protocol (BGP) neighbor related properties.",
+                    "versionAdded": "v1_1_0"
+                },
+                "BGPRoute": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/BGPRoute"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Border Gateway Protocol (BGP) route-related properties.",
+                    "longDescription": "This property shall contain Border Gateway Protocol (BGP) route-related properties.",
+                    "versionAdded": "v1_1_0"
+                },
+                "BGPWeight": {
+                    "description": "BGP weight attribute.",
+                    "longDescription": "This property shall contain the Border Gateway Protocol (BGP) weight attribute value for external peers.  A higher BGP weight value is preferred for BGP best path selection.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "GracefulRestart": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/GracefulRestart"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Graceful restart related properties.",
+                    "longDescription": "This property shall contain all graceful restart related properties.",
+                    "versionAdded": "v1_1_0"
+                },
+                "MED": {
+                    "description": "BGP Multi Exit Discriminator (MED) value.",
+                    "longDescription": "This property shall contain the Border Gateway Protocol (BGP) Multi Exit Discriminator (MED) value.  A lower MED value is preferred for BGP best path selection.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "MultihopEnabled": {
+                    "description": "External BGP (eBGP) multihop status.",
+                    "longDescription": "This property shall indicate whether External BGP (eBGP) multihop is enabled.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "MultihopTTL": {
+                    "description": "External BGP (eBGP) multihop Time to Live (TTL) value.",
+                    "longDescription": "This property shall contain the External BGP (eBGP) multihop Time to Live (TTL) value.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "MultiplePaths": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/MultiplePaths"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Multiple path related properties.",
+                    "longDescription": "This property shall contain all multiple path related properties.",
+                    "versionAdded": "v1_1_0"
+                },
+                "SendCommunityEnabled": {
+                    "description": "Indicates whether community attributes are sent.",
+                    "longDescription": "This property shall indicate whether community attributes are sent to BGP neighbors.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
+        },
+        "ESINumberRange": {
+            "additionalProperties": false,
+            "description": "The Ethernet Segment Identifier (ESI) number range for an Ethernet fabric.",
+            "longDescription": "This type shall contain Ethernet Segment Identifier (ESI) number ranges for allocation in supporting functions such as multihoming.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Lower": {
+                    "description": "Lower Ethernet Segment Identifier (ESI) number.",
+                    "longDescription": "This property shall contain the lower Ethernet Segment Identifier (ESI) number to be used as part of a range of ESI numbers.",
+                    "readonly": false,
+                    "type": "integer",
+                    "versionAdded": "v1_1_0"
+                },
+                "Upper": {
+                    "description": "Upper Ethernet Segment Identifier (ESI) number.",
+                    "longDescription": "This property shall contain the upper Ethernet Segment Identifier (ESI) number to be used as part of a range of ESI numbers.",
+                    "readonly": false,
+                    "type": "integer",
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
+        },
+        "EVINumberRange": {
+            "additionalProperties": false,
+            "description": "The Ethernet Virtual Private Network (EVPN) Instance (EVI) number range for an Ethernet fabric.",
+            "longDescription": "This type shall contain the Ethernet Virtual Private Network (EVPN) Instance (EVI) number range for EVPN-based fabrics.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Lower": {
+                    "description": "Lower Ethernet Virtual Private Network (EVPN) Instance (EVI) number.",
+                    "longDescription": "This property shall contain the lower Ethernet Virtual Private Network (EVPN) Instance (EVI) number to be used as part of a range of EVI numbers.",
+                    "readonly": false,
+                    "type": "integer",
+                    "versionAdded": "v1_1_0"
+                },
+                "Upper": {
+                    "description": "Upper Ethernet Virtual Private Network (EVPN) Instance (EVI) number.",
+                    "longDescription": "This property shall contain the upper Ethernet Virtual Private Network (EVPN) Instance (EVI) number to be used as part of a range of EVI numbers.",
+                    "readonly": false,
+                    "type": "integer",
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
+        },
+        "Ethernet": {
+            "additionalProperties": false,
+            "description": "Ethernet-related properties for an address pool.",
+            "longDescription": "This type shall contain the Ethernet-related properties for an address pool.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "BFDSingleHopOnly": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/BFDSingleHopOnly"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Bidirectional Forwarding Detection (BFD) related properties for this Ethernet fabric.",
+                    "longDescription": "This property shall contain the Bidirectional Forwarding Detection (BFD) related properties for this Ethernet fabric.",
+                    "versionAdded": "v1_1_0"
+                },
+                "BGPEvpn": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/BGPEvpn"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "BGP Ethernet Virtual Private Network (EVPN) related properties for this Ethernet fabric.",
+                    "longDescription": "This property shall contain the BGP Ethernet Virtual Private Network (EVPN) related properties for this Ethernet fabric.",
+                    "versionAdded": "v1_1_0"
+                },
+                "EBGP": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/EBGP"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "External BGP (eBGP) related properties for this Ethernet fabric.",
+                    "longDescription": "This property shall contain the External BGP (eBGP) related properties for this Ethernet fabric.",
+                    "versionAdded": "v1_1_0"
+                },
+                "IPv4": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/IPv4"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "IPv4 and Virtual LAN (VLAN) related addressing for this Ethernet fabric.",
+                    "longDescription": "This property shall contain IPv4 and Virtual LAN (VLAN) addressing-related properties for this Ethernet fabric.",
+                    "versionAdded": "v1_1_0"
+                },
+                "MultiProtocolEBGP": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/EBGP"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Multi Protocol eBGP (MP eBGP) related properties for this Ethernet fabric.",
+                    "longDescription": "This property shall contain the Multi Protocol eBGP (MP eBGP) related properties for this Ethernet fabric.",
+                    "versionAdded": "v1_1_0"
+                },
+                "MultiProtocolIBGP": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/CommonBGPProperties"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Multi Protocol iBGP (MP iBGP) related properties for this Ethernet fabric.",
+                    "longDescription": "This property shall contain the Multi Protocol iBGP (MP iBGP) related properties for this Ethernet fabric.",
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
+        },
+        "GatewayIPAddressRange": {
+            "additionalProperties": false,
+            "description": "The IPv4 address range for gateway nodes for Ethernet Virtual Private Network (EVPN) based fabrics.",
+            "longDescription": "This type shall contain the IPv4 address range for gateway nodes for Ethernet Virtual Private Network (EVPN) based fabrics.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Lower": {
+                    "description": "The lower IPv4 address.",
+                    "longDescription": "This property shall contain the lower IP address to be used as part of a range of addresses for gateway nodes in Ethernet Virtual Private Network (EVPN) based fabrics.",
+                    "pattern": "^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}$",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0"
+                },
+                "Upper": {
+                    "description": "The upper IPv4 address.",
+                    "longDescription": "This property shall contain the upper IP address to be used as part of a range of addresses for gateway nodes in Ethernet Virtual Private Network (EVPN) based fabrics.",
+                    "pattern": "^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}$",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0"
+                }
+            },
+            "type": "object"
+        },
+        "GenZ": {
+            "additionalProperties": false,
+            "description": "Gen-Z related properties for an address pool.",
+            "longDescription": "This type shall contain Gen-Z related properties for an address pool.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AccessKey": {
+                    "description": "The Access Key required for this address pool.",
+                    "longDescription": "This property shall contain the Gen-Z Core Specification-defined Access Key required for this address pool.",
+                    "pattern": "^0[xX]([a-fA-F]|[0-9]){2}$",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "MaxCID": {
+                    "description": "The maximum value for the Component Identifier (CID).",
+                    "longDescription": "This property shall contain the maximum value for the Gen-Z Core Specification-defined Component Identifier (CID).",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "MaxSID": {
+                    "description": "The maximum value for the Subnet Identifier (SID).",
+                    "longDescription": "This property shall contain the maximum value for the Gen-Z Core Specification-defined Subnet Identifier (SID).",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "MinCID": {
+                    "description": "The minimum value for the Component Identifier (CID).",
+                    "longDescription": "This property shall contain the minimum value for the Gen-Z Core Specification-defined Component Identifier (CID).",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "MinSID": {
+                    "description": "The minimum value for the Subnet Identifier (SID).",
+                    "longDescription": "This property shall contain the minimum value for the Gen-Z Core Specification-defined Subnet Identifier (SID).",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "GracefulRestart": {
+            "additionalProperties": false,
+            "description": "Border Gateway Protocol (BGP) graceful restart properties.",
+            "longDescription": "This type shall contain properties that are applicable to configuring Border Gateway Protocol (BGP) graceful restart related properties.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "GracefulRestartEnabled": {
+                    "description": "Border Gateway Protocol (BGP) graceful restart status.",
+                    "longDescription": "This property shall indicate whether to enable Border Gateway Protocol (BGP) graceful restart features.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "HelperModeEnabled": {
+                    "description": "Graceful restart helper mode status.",
+                    "longDescription": "This property shall indicate what to do with stale routes.  If `true`, the router continues to be forward packets to stale routes.  If `false`, it does not forward packets to stale routes.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "StaleRoutesTimeSeconds": {
+                    "description": "Stale route timer in seconds.",
+                    "longDescription": "This property shall contain the time in seconds to hold stale routes for a restarting peer.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "TimeSeconds": {
+                    "description": "Graceful restart timer in seconds.",
+                    "longDescription": "This property shall contain the time in seconds to wait for a graceful restart capable neighbor to re-establish Border Gateway Protocol (BGP) peering.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
+        },
+        "IPv4": {
+            "additionalProperties": false,
+            "description": "IPv4 and Virtual LAN (VLAN) related addressing for an Ethernet fabric.",
+            "longDescription": "This type shall contain IPv4 and Virtual LAN (VLAN) addressing-related properties for an Ethernet fabric.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AnycastGatewayIPAddress": {
+                    "description": "The anycast gateway IPv4 address.",
+                    "longDescription": "This property shall contain the anycast gateway IPv4 address for a host subnet.",
+                    "pattern": "^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}$",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "AnycastGatewayMACAddress": {
+                    "description": "The anycast gateway MAC address.",
+                    "longDescription": "This property shall contain the anycast gateway MAC address for a host subnet.",
+                    "pattern": "^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "DHCP": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/DHCP"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The Dynamic Host Configuration Protocol (DHCP) related addressing for this Ethernet fabric.",
+                    "longDescription": "This property shall contain the primary and secondary Dynamic Host Configuration Protocol (DHCP) server addressing for this Ethernet fabric.",
+                    "versionAdded": "v1_1_0"
+                },
+                "DNSDomainName": {
+                    "description": "The Domain Name Service (DNS) domain name for this Ethernet fabric.",
+                    "longDescription": "This property shall contain the Domain Name Service (DNS) domain name for this Ethernet fabric.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "DNSServer": {
+                    "description": "The Domain Name Service (DNS) servers for this Ethernet fabric.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of the Domain Name Service (DNS) servers for this Ethernet fabric.",
+                    "pattern": "^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}$",
+                    "readonly": false,
+                    "type": "array",
+                    "versionAdded": "v1_1_0"
+                },
+                "DistributeIntoUnderlayEnabled": {
+                    "description": "Indicates if host subnets should be distributed into the fabric underlay.",
+                    "longDescription": "This property shall indicate whether host subnets are distributed into the fabric underlay.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "EBGPAddressRange": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/IPv4AddressRange"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "External BGP (eBGP) related addressing for this Ethernet fabric.",
+                    "longDescription": "This property shall contain the range of IPv4 addresses assigned to External BGP (eBGP) neighbors belonging to different ASes (Autonomous Systems).",
+                    "versionAdded": "v1_1_0"
+                },
+                "FabricLinkAddressRange": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/IPv4AddressRange"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Link-related IPv4 addressing for this Ethernet fabric typically applied to connections between spine and leaf Ethernet switches.",
+                    "longDescription": "This property shall contain link-related IPv4 addressing for this Ethernet fabric typically applied to connections between spine and leaf Ethernet switches.",
+                    "versionAdded": "v1_1_0"
+                },
+                "GatewayIPAddress": {
+                    "description": "The gateway IPv4 address.",
+                    "longDescription": "This property shall contain the gateway IPv4 address for a host subnet.",
+                    "pattern": "^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}$",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "HostAddressRange": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/IPv4AddressRange"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "IPv4-related host subnet addressing for physical device endpoints that connect to this Ethernet fabric.",
+                    "longDescription": "This property shall contain the IP subnet range for host addressing for physical device endpoints that connect to this Ethernet fabric.  An endpoint shall be allocated an IP address from this host address range.  The Ethernet fabric should provide IP unicast or multicast connectivity for host device endpoints belonging to this host address range.",
+                    "versionAdded": "v1_1_0"
+                },
+                "IBGPAddressRange": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/IPv4AddressRange"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Internal BGP (iBGP) related addressing for this Ethernet fabric.",
+                    "longDescription": "This property shall contain the range of IPv4 addresses assigned to Internal BGP (iBGP) neighbors belonging to the same AS (Autonomous System).",
+                    "versionAdded": "v1_1_0"
+                },
+                "LoopbackAddressRange": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/IPv4AddressRange"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Loopback-related IPv4 addressing for this Ethernet fabric.",
+                    "longDescription": "This property shall contain the range of loopback-related IPv4 addresses assigned to this Ethernet fabric's Ethernet switches.  A loopback interface provides a stable interface to which an IP address is then assigned.  This address can be configured as the source address when the networking device needs to send data for control-plane protocols such as BGP and OSPF.",
+                    "versionAdded": "v1_1_0"
+                },
+                "ManagementAddressRange": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/IPv4AddressRange"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Management-related addressing for this Ethernet fabric.",
+                    "longDescription": "This property shall contain the range of management IPv4 addresses assigned to manage this Ethernet fabric's Ethernet switches.",
+                    "versionAdded": "v1_1_0"
+                },
+                "NTPOffsetHoursMinutes": {
+                    "description": "The Network Time Protocol (NTP) offset configuration.",
+                    "longDescription": "This property shall contain the Network Time Protocol (NTP) offset.  The NTP offset property is used to calculate the time from UTC (Universal Time Coordinated) time in hours and minutes.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "NTPServer": {
+                    "description": "The Network Time Protocol (NTP) servers for this Ethernet fabric.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of the Network Time Protocol (NTP) servers for this Ethernet fabric.",
+                    "readonly": false,
+                    "type": "array",
+                    "versionAdded": "v1_1_0"
+                },
+                "NTPTimezone": {
+                    "description": "The Network Time Protocol (NTP) time zone for this Ethernet fabric.",
+                    "longDescription": "This property shall contain the Network Time Protocol (NTP) time zone name assigned to this Ethernet fabric.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "NativeVLAN": {
+                    "description": "The untagged Virtual LAN (VLAN) ID value.",
+                    "longDescription": "This property shall contain the Virtual LAN (VLAN) ID value for untagged traffic.",
+                    "maximum": 4094,
+                    "minimum": 1,
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "SystemMACRange": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/SystemMACRange"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The MAC address range for systems in this subnet.",
+                    "longDescription": "This property shall contain the Media Access Control (MAC) address range for systems in Ethernet Virtual Private Network (EVPN) based fabrics.",
+                    "versionAdded": "v1_2_0"
+                },
+                "VLANIdentifierAddressRange": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/VLANIdentifierAddressRange"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Virtual LAN (VLAN) tag related addressing for this Ethernet fabric or for end-host networks.",
+                    "longDescription": "This property shall contain Virtual LAN (VLAN) tags for the entire fabric as well as to end hosts.",
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
+        },
+        "IPv4AddressRange": {
+            "additionalProperties": false,
+            "description": "IPv4-related address range for an Ethernet fabric.",
+            "longDescription": "This type shall contain an IPv4-related address range for an Ethernet fabric.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Lower": {
+                    "description": "Lower IPv4 network address.",
+                    "longDescription": "This property shall contain the lower IPv4 network address to be used as part of a subnet.",
+                    "pattern": "^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}$",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "Upper": {
+                    "description": "Upper IPv4 network address.",
+                    "longDescription": "This property shall contain the upper IPv4 network address to be used as part of a host subnet.",
+                    "pattern": "^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}$",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
+        },
+        "Links": {
+            "additionalProperties": false,
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Endpoints": {
+                    "description": "An array of links to the endpoints that this address pool contains.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Endpoint.json#/definitions/Endpoint"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Endpoint that this address pool contains.",
+                    "readonly": false,
+                    "type": "array"
+                },
+                "Endpoints@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                },
+                "Zones": {
+                    "description": "An array of links to the zones that this address pool contains.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Zone.json#/definitions/Zone"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Zone that this address pool contains.",
+                    "readonly": false,
+                    "type": "array"
+                },
+                "Zones@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                }
+            },
+            "type": "object"
+        },
+        "MaxPrefix": {
+            "additionalProperties": false,
+            "description": "Border Gateway Protocol (BGP) max prefix properties.",
+            "longDescription": "This type shall contain properties that are applicable to configuring Border Gateway Protocol (BGP) max prefix related properties.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "MaxPrefixNumber": {
+                    "description": "Maximum prefix number.",
+                    "longDescription": "This property shall contain the maximum number of prefixes allowed from the neighbor.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "RestartTimerSeconds": {
+                    "description": "Border Gateway Protocol (BGP) restart timer in seconds.",
+                    "longDescription": "This property determines how long peer routers will wait to delete stale routes before a Border Gateway Protocol (BGP) open message is received.  This timer should be less than the BGP HoldTimeSeconds property.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "ShutdownThresholdPercentage": {
+                    "description": "Shutdown threshold status.",
+                    "longDescription": "This property shall contain the percentage of the maximum prefix received value, `1` to `100`, at which the router starts to generate a warning message.",
+                    "maximum": 100,
+                    "minimum": 1,
+                    "readonly": false,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "%",
+                    "versionAdded": "v1_1_0"
+                },
+                "ThresholdWarningOnlyEnabled": {
+                    "description": "Threshold warning only status.",
+                    "longDescription": "This property shall indicate what action to take if the Border Gateway Protocol (BGP) route threshold is reached.  If `true`, when the Maximum-Prefix limit is exceeded, a log message is generated.  If `false`, when the Maximum-Prefix limit is exceeded, the peer session is terminated.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
+        },
+        "MultiplePaths": {
+            "additionalProperties": false,
+            "description": "Border Gateway Protocol (BGP) multiple path properties.",
+            "longDescription": "This type shall contain properties that are applicable to configuring Border Gateway Protocol (BGP) multiple path related properties.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "MaximumPaths": {
+                    "description": "Maximum paths number.",
+                    "longDescription": "This property shall contain the maximum number of paths for multiple path operation.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "UseMultiplePathsEnabled": {
+                    "description": "Border Gateway Protocol (BGP) multiple paths status.",
+                    "longDescription": "This property shall indicate whether multiple paths should be advertised.  If `true`, Border Gateway Protocol (BGP) advertises multiple paths for the same prefix for path diversity.  If `false`, it advertises based on best path selection.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "RouteDistinguisherRange": {
+            "additionalProperties": false,
+            "description": "The Route Distinguisher (RD) number range for an Ethernet fabric.",
+            "longDescription": "This type shall contain the Route Distinguisher (RD) Instance number range for Ethernet Virtual Private Network (EVPN) based fabrics.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Lower": {
+                    "description": "Lower Route Distinguisher (RD) number.",
+                    "longDescription": "This property shall contain the lower Route Distinguisher (RD) number to be used as part of a range of Route Distinguisher values.",
+                    "readonly": false,
+                    "type": "integer",
+                    "versionAdded": "v1_1_0"
+                },
+                "Upper": {
+                    "description": "Upper Route Distinguisher (RD) number.",
+                    "longDescription": "This property shall contain the upper Route Distinguisher (RD) number to be used as part of a range of Route Distinguisher values.",
+                    "readonly": false,
+                    "type": "integer",
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
+        },
+        "RouteTargetRange": {
+            "additionalProperties": false,
+            "description": "The Route Target (RT) number range for the fabric.",
+            "longDescription": "This type shall contain the Route Target (RT) Instance number range for Ethernet Virtual Private Network (EVPN) based fabrics.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Lower": {
+                    "description": "Lower Route Target (RT) number.",
+                    "longDescription": "This property shall contain the lower Route Target (RT) number to be used as part of a range of Route Target values.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "Upper": {
+                    "description": "Upper Route Target (RT) number.",
+                    "longDescription": "This property shall contain the upper Route Target (RT) number to be used as part of a range of Route Target values.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
+        },
+        "SystemMACRange": {
+            "additionalProperties": false,
+            "description": "The Media Access Control (MAC) address range for the EVPN-based fabrics.",
+            "longDescription": "This type shall contain the Media Access Control (MAC) address range for Ethernet Virtual Private Network (EVPN) based fabrics.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Lower": {
+                    "description": "The lower system MAC address.",
+                    "longDescription": "This property shall contain the lower system Media Access Control (MAC) address to be used as part of a range of system MAC addresses.",
+                    "pattern": "^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0"
+                },
+                "Upper": {
+                    "description": "The upper system MAC address.",
+                    "longDescription": "This property shall contain the upper system Media Access Control (MAC) address to be used as part of a range of system MAC addresses.",
+                    "pattern": "^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0"
+                }
+            },
+            "type": "object"
+        },
+        "VLANIdentifierAddressRange": {
+            "additionalProperties": false,
+            "description": "VLAN tag related addressing for an Ethernet fabric or for end-host networks.",
+            "longDescription": "This type shall contain settings for assigning Virtual LAN (VLAN) tags for the entire fabric as well as for end hosts.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Lower": {
+                    "description": "Virtual LAN (VLAN) tag lower value.",
+                    "longDescription": "This property shall contain the Virtual LAN (VLAN) tag lower value.",
+                    "maximum": 4094,
+                    "minimum": 1,
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "Upper": {
+                    "description": "Virtual LAN (VLAN) tag upper value.",
+                    "longDescription": "This property shall contain the Virtual LAN (VLAN) tag upper value.",
+                    "maximum": 4094,
+                    "minimum": 1,
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2021.2",
+    "title": "#AddressPool.v1_2_4.AddressPool"
+}

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################               -->
+<!--# Redfish Schema:  DriveMetrics v1.2.0                                                         -->
+<!--#                                                                                              -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,              -->
+<!--# available at http://www.dmtf.org/standards/redfish                                           -->
+<!--# Copyright 2014-2023 DMTF in cooperation with Storage Networking Industry Association (SNIA). -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright         -->
+<!--################################################################################               -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/StorageControllerMetrics_v1.xml">
+    <edmx:Include Namespace="StorageControllerMetrics"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="DriveMetrics">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="DriveMetrics" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The usage and health statistics for a drive."/>
+        <Annotation Term="OData.LongDescription" String="The DriveMetrics schema shall contain the usage and health statistics for a drive in a Redfish implementation."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/Storage/{StorageId}/Drives/{DriveId}/Metrics</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/Drives/{DriveId}/Metrics</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/Drives/{DriveId}/Metrics</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Drives/{DriveId}/Metrics</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/Drives/{DriveId}/Metrics</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/Drives/{DriveId}/Metrics</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Drives/{DriveId}/Metrics</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/Drives/{DriveId}/Metrics</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="DriveMetrics.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.1"/>
+
+      <EntityType Name="DriveMetrics" BaseType="DriveMetrics.DriveMetrics">
+        <Property Name="CorrectableIOReadErrorCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of correctable read errors for the lifetime of the drive."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of correctable read errors for the lifetime of the drive."/>
+        </Property>
+        <Property Name="CorrectableIOWriteErrorCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of correctable write errors for the lifetime of the drive."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of correctable write errors for the lifetime of the drive."/>
+        </Property>
+        <Property Name="UncorrectableIOReadErrorCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of uncorrectable read errors for the lifetime of the drive."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of uncorrectable read errors for the lifetime of the drive."/>
+        </Property>
+        <Property Name="UncorrectableIOWriteErrorCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of uncorrectable write errors for the lifetime of the drive."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of uncorrectable write errors for the lifetime of the drive."/>
+        </Property>
+        <Property Name="BadBlockCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of bad blocks reported by the drive."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of bad blocks reported by the drive."/>
+        </Property>
+        <Property Name="PowerOnHours" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of power-on hours for the lifetime of the drive."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of power-on hours for the lifetime of the drive."/>
+        </Property>
+        <Property Name="NVMeSMART" Type="StorageControllerMetrics.NVMeSMARTMetrics" Nullable="false">
+          <Annotation Term="OData.Description" String="The NVMe SMART metrics for the drive."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the NVMe SMART metrics for the drive as defined by the NVMe SMART/Health Information log page.  This property shall not be present if the service represents NVMe controllers in the drive as StorageController resources."/>
+        </Property>
+        <Property Name="Actions" Type="DriveMetrics.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="DriveMetrics.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="DriveMetrics.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="DriveMetrics" BaseType="DriveMetrics.v1_0_0.DriveMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="DriveMetrics.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.2"/>
+
+      <EntityType Name="DriveMetrics" BaseType="DriveMetrics.v1_0_0.DriveMetrics">
+        <Property Name="NativeCommandQueueDepth" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The current depth of the Native Command Queue."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the current depth of the Native Command Queue as defined by the SATA Specification."/>
+        </Property>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="DriveMetrics.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="DriveMetrics" BaseType="DriveMetrics.v1_1_0.DriveMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="DriveMetrics.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.3"/>
+
+      <EntityType Name="DriveMetrics" BaseType="DriveMetrics.v1_1_1.DriveMetrics">
+        <Property Name="ReadIOKiBytes" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of kibibytes read."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of kibibytes read from the time of last reset or wrap."/>
+          <Annotation Term="Measures.Unit" String="KiBy"/>
+        </Property>
+        <Property Name="WriteIOKiBytes" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of kibibytes written."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of kibibytes written from the time of last reset or wrap."/>
+          <Annotation Term="Measures.Unit" String="KiBy"/>
+        </Property>
+      </EntityType>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

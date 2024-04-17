@@ -1,0 +1,441 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Zone.v1_6_2.json",
+    "$ref": "#/definitions/Zone",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "#Zone.AddEndpoint": {
+                    "$ref": "#/definitions/AddEndpoint"
+                },
+                "#Zone.RemoveEndpoint": {
+                    "$ref": "#/definitions/RemoveEndpoint"
+                },
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource.",
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
+        },
+        "AddEndpoint": {
+            "additionalProperties": false,
+            "description": "This action adds an endpoint to a zone.",
+            "longDescription": "This action shall add an endpoint to a zone.",
+            "parameters": {
+                "Endpoint": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Endpoint.json#/definitions/Endpoint",
+                    "description": "The endpoint to add to the zone.",
+                    "longDescription": "This parameter shall contain a link to the specified endpoint to add to the zone.",
+                    "requiredParameter": true
+                },
+                "EndpointETag": {
+                    "description": "The current ETag of the endpoint to add to the zone.",
+                    "longDescription": "This parameter shall contain the current ETag of the endpoint to add to the zone.  If the client-provided ETag does not match the current ETag of the endpoint that the Endpoint parameter specifies, the service shall return the HTTP 428 (Precondition Required) status code to reject the request.",
+                    "type": "string"
+                },
+                "ZoneETag": {
+                    "description": "The current ETag of the zone.",
+                    "longDescription": "This parameter shall contain the current ETag of the zone.  If the client-provided ETag does not match the current ETag of the zone, the service shall return the HTTP 428 (Precondition Required) status code to reject the request.",
+                    "type": "string"
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_5_0"
+        },
+        "ExternalAccessibility": {
+            "enum": [
+                "GloballyAccessible",
+                "NonZonedAccessible",
+                "ZoneOnly",
+                "NoInternalRouting"
+            ],
+            "enumDescriptions": {
+                "GloballyAccessible": "Any external entity with the correct access details, which might include authorization information, can access the endpoints that this zone lists.",
+                "NoInternalRouting": "Routing is not enabled within this zone.",
+                "NonZonedAccessible": "Any external entity that another zone does not explicitly list can access the endpoints that this zone lists.",
+                "ZoneOnly": "Only accessible by endpoints that this zone explicitly lists."
+            },
+            "enumLongDescriptions": {
+                "GloballyAccessible": "This value shall indicate that any external entity with the correct access details, which may include authorization information, can access the endpoints that this zone lists, regardless of zone.",
+                "NoInternalRouting": "This value shall indicate that implicit routing within this zone is not defined.",
+                "NonZonedAccessible": "This value shall indicate that any external entity that another zone does not explicitly list can access the endpoints that this zone lists.",
+                "ZoneOnly": "This value shall indicate that endpoints in this zone are only accessible by endpoints that this zone explicitly lists."
+            },
+            "type": "string"
+        },
+        "Links": {
+            "additionalProperties": false,
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AddressPools": {
+                    "description": "An array of links to the address pools associated with this zone.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/AddressPool.json#/definitions/AddressPool"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type AddressPool with which this zone is associated.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_4_0"
+                },
+                "AddressPools@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "ContainedByZones": {
+                    "description": "An array of links to the zone that contain this zone.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Zone.json#/definitions/Zone"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Zone that represent the zones that contain this zone.  The zones referenced by this property shall not be contained by other zones.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_4_0"
+                },
+                "ContainedByZones@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "ContainsZones": {
+                    "description": "An array of links to the zones that are contained by this zone.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Zone.json#/definitions/Zone"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Zone that represent the zones that are contained by this zone.  The zones referenced by this property shall not contain other zones.",
+                    "readonly": false,
+                    "type": "array",
+                    "versionAdded": "v1_4_0"
+                },
+                "ContainsZones@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Endpoints": {
+                    "description": "The links to the endpoints that this zone contains.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Endpoint.json#/definitions/Endpoint"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Endpoint that this zone contains.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "Endpoints@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "InvolvedSwitches": {
+                    "description": "The links to the collection of switches in this zone.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Switch.json#/definitions/Switch"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Switch in this zone.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "InvolvedSwitches@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                },
+                "ResourceBlocks": {
+                    "description": "The links to the resource blocks with which this zone is associated.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/ResourceBlock.json#/definitions/ResourceBlock"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type ResourceBlock with which this zone is associated.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_1_0"
+                },
+                "ResourceBlocks@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "RemoveEndpoint": {
+            "additionalProperties": false,
+            "description": "This action removes an endpoint from a zone.",
+            "longDescription": "This action shall remove an endpoint from a zone.",
+            "parameters": {
+                "Endpoint": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Endpoint.json#/definitions/Endpoint",
+                    "description": "The endpoint to remove from the zone.",
+                    "longDescription": "This parameter shall contain a link to the specified endpoint to remove from the zone.",
+                    "requiredParameter": true
+                },
+                "EndpointETag": {
+                    "description": "The current ETag of the endpoint to remove from the system.",
+                    "longDescription": "This parameter shall contain the current ETag of the endpoint to remove from the system.  If the client-provided ETag does not match the current ETag of the endpoint that the Endpoint parameter specifies, the service shall return the HTTP 428 (Precondition Required) status code to reject the request.",
+                    "type": "string"
+                },
+                "ZoneETag": {
+                    "description": "The current ETag of the zone.",
+                    "longDescription": "This parameter shall contain the current ETag of the zone.  If the client-provided ETag does not match the current ETag of the zone, the service shall return the HTTP 428 (Precondition Required) status code to reject the request.",
+                    "type": "string"
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_5_0"
+        },
+        "Zone": {
+            "additionalProperties": false,
+            "description": "The Zone schema describes a simple fabric zone for a Redfish implementation.",
+            "longDescription": "This resource shall represent a simple fabric zone for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource.",
+                    "versionAdded": "v1_1_0"
+                },
+                "DefaultRoutingEnabled": {
+                    "description": "This property indicates whether routing within this zone is enabled.",
+                    "longDescription": "This property shall indicate whether routing within this zone is enabled.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "ExternalAccessibility": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ExternalAccessibility"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Indicates accessibility of endpoints in this zone to endpoints outside of this zone.",
+                    "longDescription": "This property shall contain and indication of accessibility of endpoints in this zone to endpoints outside of this zone.",
+                    "readonly": false,
+                    "versionAdded": "v1_3_0"
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Identifiers": {
+                    "description": "The durable names for the zone.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Identifier"
+                    },
+                    "longDescription": "This property shall contain a list of all known durable names for the associated zone.",
+                    "type": "array",
+                    "versionAdded": "v1_2_0"
+                },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                },
+                "ZoneType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ZoneType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The type of zone.",
+                    "longDescription": "This property shall contain the type of zone that this zone represents.",
+                    "readonly": false,
+                    "versionAdded": "v1_4_0"
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "ZoneType": {
+            "enum": [
+                "Default",
+                "ZoneOfEndpoints",
+                "ZoneOfZones",
+                "ZoneOfResourceBlocks"
+            ],
+            "enumDescriptions": {
+                "Default": "The zone in which all endpoints are added by default when instantiated.",
+                "ZoneOfEndpoints": "A zone that contains endpoints.",
+                "ZoneOfResourceBlocks": "A zone that contains resource blocks.",
+                "ZoneOfZones": "A zone that contains zones."
+            },
+            "enumLongDescriptions": {
+                "Default": "This value shall indicate a zone in which all endpoints are added by default when instantiated.  This value shall only be used for zones subordinate to the fabric collection.",
+                "ZoneOfEndpoints": "This value shall indicate a zone that contains resources of type Endpoint.  This value shall only be used for zones subordinate to the fabric collection.",
+                "ZoneOfResourceBlocks": "This value shall indicate a zone that contains resources of type ResourceBlock.  This value shall only be used for zones subordinate to the composition service.",
+                "ZoneOfZones": "This value shall indicate a zone that contains resources of type Zone.  This value shall only be used for zones subordinate to the fabric collection."
+            },
+            "enumVersionAdded": {
+                "ZoneOfResourceBlocks": "v1_6_0"
+            },
+            "type": "string"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2020.4",
+    "title": "#Zone.v1_6_2.Zone"
+}

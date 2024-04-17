@@ -1,0 +1,339 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/MemoryRegion.v1_0_1.json",
+    "$ref": "#/definitions/MemoryRegion",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "MemoryChunk": {
+            "additionalProperties": false,
+            "description": "Definition of memory chunk providing capacity for memory region.",
+            "longDescription": "This type shall contain the definition of a memory chunk providing capacity for memory region.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "ChunkLink": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MemoryChunks.json#/definitions/MemoryChunks",
+                    "description": "The link to the memory chunk providing capacity to the memory region.",
+                    "longDescription": "This property shall contain a link to a resource of type MemoryChunks that provides capacity to the memory region.",
+                    "readonly": true
+                },
+                "ChunkOffsetMiB": {
+                    "description": "Offset of the memory chunk within the memory region in mebibytes (MiB).",
+                    "longDescription": "The value of this property shall be the offset of the memory chunk within the memory region in mebibytes (MiB).",
+                    "readonly": true,
+                    "type": "integer",
+                    "units": "MiBy"
+                }
+            },
+            "type": "object"
+        },
+        "MemoryExtent": {
+            "additionalProperties": false,
+            "description": "Definition of memory extent identifying an available address range in the memory region.",
+            "longDescription": "This type shall contain the definition of a memory extent identifying an available address range in the dynamic capacity memory region.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "ExtentOffsetMiB": {
+                    "description": "Offset of the memory extent within the memory region in mebibytes (MiB).",
+                    "longDescription": "The value of this property shall be the offset of the memory extent within the memory region in mebibytes (MiB).",
+                    "readonly": true,
+                    "type": "integer",
+                    "units": "MiBy"
+                },
+                "ExtentSizeMiB": {
+                    "description": "Size of the memory extent in mebibytes (MiB).",
+                    "longDescription": "This property shall contain the size of the memory extent in MiB.",
+                    "readonly": true,
+                    "type": "integer",
+                    "units": "MiBy"
+                },
+                "SequenceNumber": {
+                    "description": "The memory extent sequence number.",
+                    "longDescription": "This property shall contain the sequence number instructing host on the relative order the extents have to be placed in the host adjacent virtual address space.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "Tag": {
+                    "description": "The user-assigned tag of this memory extent.",
+                    "longDescription": "This property shall contain an opaque context attached to each extent to track usage of each extent or map extent to specific processes, transactions, or workloads on the host.",
+                    "readonly": true,
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "MemoryRegion": {
+            "additionalProperties": false,
+            "description": "The schema definition of a memory region and its configuration.",
+            "longDescription": "This resource shall represent memory region in a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "BlockSizeMiB": {
+                    "description": "The memory region block size in mebibytes (MiB).",
+                    "longDescription": "This property shall contain the memory region block size in mebibytes (MiB).  The region size, base offset, all extent sizes, and all extent base offsets shall be aligned to this block size.",
+                    "readonly": false,
+                    "type": "integer",
+                    "units": "MiBy"
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "ExtentsCount": {
+                    "description": "The number of extents defined for this memory region.",
+                    "longDescription": "This property shall contain the number of extents defined for this memory region.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "HardwareManagedCoherencyRegion": {
+                    "description": "An indication of whether the device manages the cache coherency across hosts for this memory region.",
+                    "longDescription": "This property shall indicate whether the device manages the cache coherency across hosts and thereby ensures that each host has a consistent view of this memory region content as defined in the 'Flags' field of 'Device Scoped Memory Affinity Structure' defined in the Coherent Device Attribute Table (CDAT) Specification.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "MemoryChunks": {
+                    "description": "The set of memory chunks providing capacity for this memory region.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/MemoryChunk"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain the set of memory chunks providing capacity for this memory region.",
+                    "type": "array"
+                },
+                "MemoryExtents": {
+                    "description": "The set of memory extents defined for this memory region.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/MemoryExtent"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain the set of memory extents defining address ranges available for an access in dynamic capacity memory regions.",
+                    "type": "array"
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "NonVolatileRegion": {
+                    "description": "An indication of whether this memory region represents non-volatile memory.",
+                    "longDescription": "This property shall indicate whether this memory region represents non-volatile memory as defined in the 'Flags' field of 'Device Scoped Memory Affinity Structure' defined in the Coherent Device Attribute Table (CDAT) Specification.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "RegionBaseOffsetMiB": {
+                    "description": "The offset of the memory region in the device address range in mebibytes (MiB).",
+                    "longDescription": "The value of this property shall contain the offset of the memory region in the device address range in mebibytes (MiB).",
+                    "readonly": true,
+                    "type": "integer",
+                    "units": "MiBy"
+                },
+                "RegionNumber": {
+                    "description": "The memory region number.",
+                    "longDescription": "This property shall contain the memory region number.",
+                    "readonly": true,
+                    "type": "integer"
+                },
+                "RegionSizeMiB": {
+                    "description": "The size of the memory region in mebibytes (MiB).",
+                    "longDescription": "This property shall contain the size of the memory region in mebibytes (MiB).",
+                    "readonly": true,
+                    "type": "integer",
+                    "units": "MiBy"
+                },
+                "RegionType": {
+                    "$ref": "#/definitions/RegionType",
+                    "description": "The type of memory region.",
+                    "longDescription": "This property shall contain the type of memory region.",
+                    "readonly": true
+                },
+                "SanitizeOnRelease": {
+                    "description": "An indication of whether the capacity released from this memory region will be sanitized before it is made available to any host.",
+                    "longDescription": "This property shall indicate whether the device has been configured such that capacity released from this memory region will be sanitized before it is made available to any host.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "ShareableRegion": {
+                    "description": "An indication of whether this memory region can be shared across multiple hosts.",
+                    "longDescription": "This property shall indicate whether this memory region can be shared across multiple hosts as defined in the 'Flags' field of 'Device Scoped Memory Affinity Structure' defined in the Coherent Device Attribute Table (CDAT) Specification.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                }
+            },
+            "required": [
+                "RegionType",
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "RegionType": {
+            "enum": [
+                "Static",
+                "Dynamic"
+            ],
+            "enumDescriptions": {
+                "Dynamic": "Dynamic memory region.  The address range coverage may be changed in the runtime.",
+                "Static": "Static memory region.  The whole address range is always covered by memory."
+            },
+            "type": "string"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2023.2",
+    "title": "#MemoryRegion.v1_0_1.MemoryRegion"
+}

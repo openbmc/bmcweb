@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  ResolutionStep v1.0.0                                               -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/ActionInfo_v1.xml">
+    <edmx:Include Namespace="ActionInfo"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ResolutionStep">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <ComplexType Name="ResolutionStep" Abstract="true">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="This type describes a recommended step of the service-defined resolution."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe a recommended step of the service-defined resolution.  The set of recommended steps are used to resolve the cause of a log entry, an event, a condition, or an error message."/>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ResolutionStep.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.3"/>
+
+      <ComplexType Name="ResolutionStep" BaseType="ResolutionStep.ResolutionStep">
+        <Property Name="ResolutionType" Type="ResolutionStep.v1_0_0.ResolutionType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The type of the resolution step."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of the resolution step."/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+        <Property Name="Priority" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The priority in the set of resolution steps."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the priority in the set of resolution steps.  The value `0` shall indicate the highest priority.  Increasing values shall represent decreasing priority.  If two or more resolution steps have the same priority, the execution order of the resolution steps shall be in array order.  If a resolution step does not have a priority assignment, the default is 0.  The priority is used to determine the execution order of the resolution steps."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+        <Property Name="ActionURI" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description"  String="The action URI for a resolution step."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the action URI for a resolution step."/>
+          <Annotation Term="OData.IsURL"/>
+        </Property>
+        <Property Name="ActionParameters" Type="Collection(ActionInfo.Parameters)">
+          <Annotation Term="OData.Description" String="The parameters of the action URI for a resolution step."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the parameters of the action URI for a resolution step."/>
+        </Property>
+        <Property Name="TargetComponentURI" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The target URI of the component for a resolution step."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the target URI of the component for a resolution step.  This property shall be present if the ActionURI property is not supported."/>
+          <Annotation Term="OData.IsURL"/>
+        </Property>
+        <Property Name="RetryIntervalSeconds" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The interval between retries for a resolution step."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the interval, in seconds, between the retries for a resolution step."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Measures.Unit" String="s"/>
+        </Property>
+        <Property Name="RetryCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of retries for a resolution step."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of the retries for a resolution step."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+        <Property Name="Oem" Type="Resource.Oem" Nullable="false">
+          <Annotation Term="OData.Description" String="The OEM extension property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="ResolutionType">
+        <Member Name="ContactVendor">
+          <Annotation Term="OData.Description" String="Contact vendor for service."/>
+        </Member>
+        <Member Name="ReplaceComponent">
+          <Annotation Term="OData.Description" String="Replace a component."/>
+        </Member>
+        <Member Name="FirmwareUpdate">
+          <Annotation Term="OData.Description" String="Perform a firmware update operation."/>
+        </Member>
+        <Member Name="Reset">
+          <Annotation Term="OData.Description" String="Perform a reset operation."/>
+        </Member>
+        <Member Name="PowerCycle">
+          <Annotation Term="OData.Description" String="Perform a power cycle operation."/>
+        </Member>
+        <Member Name="ResetToDefaults">
+          <Annotation Term="OData.Description" String="Reset the settings to factory defaults."/>
+        </Member>
+        <Member Name="CollectDiagnosticData">
+          <Annotation Term="OData.Description" String="Collect diagnostic data."/>
+        </Member>
+        <Member Name="OEM">
+          <Annotation Term="OData.Description" String="Perform an OEM-defined resolution step."/>
+        </Member>
+      </EnumType>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

@@ -1,0 +1,634 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  MemoryMetrics v1.7.2                                                -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="MemoryMetrics" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The usage and health statistics for a memory device or system memory summary."/>
+        <Annotation Term="OData.LongDescription" String="The MemoryMetrics schema shall contain the memory metrics for a memory device or system memory summary in a Redfish implementation."/>
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/MemorySummary/MemoryMetrics</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/Memory/{MemoryId}/MemoryMetrics</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/Processors/{ProcessorId}/MemorySummary/MemoryMetrics</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Memory/{MemoryId}/MemoryMetrics</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Processors/{ProcessorId}/MemorySummary/MemoryMetrics</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Memory/{MemoryId}/MemoryMetrics</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/MemorySummary/MemoryMetrics</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Processors/{ProcessorId}/MemorySummary/MemoryMetrics</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Memory/{MemoryId}/MemoryMetrics</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Processors/{ProcessorId}/MemorySummary/MemoryMetrics</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Memory/{MemoryId}/MemoryMetrics</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/MemorySummary/MemoryMetrics</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Processors/{ProcessorId}/MemorySummary/MemoryMetrics</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/Memory/{MemoryId}/MemoryMetrics</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+
+      <Action Name="ClearCurrentPeriod" IsBound="true">
+        <Parameter Name="MemoryMetrics" Type="MemoryMetrics.v1_0_0.Actions"/>
+        <Annotation Term="OData.Description" String="This action sets the CurrentPeriod property's values to 0."/>
+        <Annotation Term="OData.LongDescription" String="This action shall set the CurrentPeriod property's values to 0."/>
+      </Action>
+
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2016.1"/>
+
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.MemoryMetrics">
+        <Property Name="BlockSizeBytes" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The block size, in bytes."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the block size, in bytes, of all structure elements.  When this resource is subordinate to the MemorySummary object, this property is not applicable."/>
+          <Annotation Term="Measures.Unit" String="By"/>
+        </Property>
+        <Property Name="CurrentPeriod" Type="MemoryMetrics.v1_0_0.CurrentPeriod" Nullable="false">
+          <Annotation Term="OData.Description" String="The memory metrics since the last reset or ClearCurrentPeriod action."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain properties that describe the memory metrics for the current period."/>
+        </Property>
+        <Property Name="LifeTime" Type="MemoryMetrics.v1_0_0.LifeTime" Nullable="false">
+          <Annotation Term="OData.Description" String="The memory metrics for the lifetime of the memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain properties that describe the memory metrics for the lifetime of the memory."/>
+        </Property>
+        <Property Name="HealthData" Type="MemoryMetrics.v1_0_0.HealthData" Nullable="false">
+          <Annotation Term="OData.Description" String="The health information of the memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain properties that describe the health data memory metrics for the memory."/>
+        </Property>
+        <Property Name="Actions" Type="MemoryMetrics.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="CurrentPeriod">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The memory metrics since the last system reset or ClearCurrentPeriod action."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe the memory metrics since last system reset or ClearCurrentPeriod action."/>
+        <Property Name="BlocksRead" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of blocks read since reset."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of blocks read since reset.  When this resource is subordinate to the MemorySummary object, this property shall be the sum of BlocksRead over all memory."/>
+        </Property>
+        <Property Name="BlocksWritten" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of blocks written since reset."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of blocks written since reset.  When this resource is subordinate to the MemorySummary object, this property shall be the sum of BlocksWritten over all memory."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="LifeTime">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The memory metrics for the lifetime of the memory."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe the memory metrics since manufacturing."/>
+        <Property Name="BlocksRead" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of blocks read for the lifetime of the memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of blocks read for the lifetime of the memory.  When this resource is subordinate to the MemorySummary object, this property shall be the sum of BlocksRead over all memory."/>
+        </Property>
+        <Property Name="BlocksWritten" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of blocks written for the lifetime of the memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of blocks written for the lifetime of the memory.  When this resource is subordinate to the MemorySummary object, this property shall be the sum of BlocksWritten over all memory."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="HealthData">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The health information of the memory."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain properties that describe the HealthData metrics for this resource."/>
+        <Property Name="RemainingSpareBlockPercentage" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The remaining spare blocks, as a percentage."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the remaining spare blocks as a percentage, `0` to `100`.  When this resource is subordinate to the MemorySummary object, this property shall be the RemainingSpareBlockPercentage over all memory."/>
+          <Annotation Term="Measures.Unit" String="%"/>
+        </Property>
+        <Property Name="LastShutdownSuccess" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether the last shutdown succeeded."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the last shutdown succeeded."/>
+        </Property>
+        <Property Name="DataLossDetected" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether data loss was detected."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether data loss was detected.  When this resource is subordinate to the MemorySummary object, this property shall indicate whether any data loss was detected in any area of memory."/>
+        </Property>
+        <Property Name="PerformanceDegraded" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether performance has degraded."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether performance has degraded.  When this resource is subordinate to the MemorySummary object, this property shall indicate whether degraded performance mode status is detected in any area of memory."/>
+        </Property>
+        <Property Name="AlarmTrips" Type="MemoryMetrics.v1_0_0.AlarmTrips" Nullable="false">
+          <Annotation Term="OData.Description" String="Alarm trip information about the memory."/>
+          <Annotation Term="OData.LongDescription" String="This object shall contain properties describe the types of alarms that have been raised by the memory.  When this resource is subordinate to the MemorySummary object, this property shall indicate whether an alarm of a given type have been raised by any area of memory."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="AlarmTrips">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The alarm trip information about the memory.  These alarms are reset when the system resets.  Note that if they are re-discovered they can be reasserted."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain properties that describe the types of alarms that have been raised by the memory.  These alarms shall be reset when the system resets.  Note that if they are re-discovered they can be reasserted."/>
+        <Property Name="Temperature" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether a temperature threshold alarm trip was detected."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether a temperature threshold alarm trip was detected."/>
+        </Property>
+        <Property Name="SpareBlock" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether the spare block capacity crossing alarm trip was detected."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the spare block capacity crossing alarm trip was detected."/>
+        </Property>
+        <Property Name="UncorrectableECCError" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether the uncorrectable error threshold alarm trip was detected."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the uncorrectable error threshold alarm trip was detected."/>
+        </Property>
+        <Property Name="CorrectableECCError" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether the correctable error threshold crossing alarm trip was detected."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the correctable error threshold crossing alarm trip was detected."/>
+        </Property>
+        <Property Name="AddressParityError" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether an address parity error was detected that a retry could not correct."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether an address parity error was detected that a retry could not correct."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="MemoryMetrics.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
+      </ComplexType>
+
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated."/>
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_0_0.MemoryMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to show BlocksWritten in CurrentPeriod and LifeTime ComplexTypes, and to update annotations in earlier versions of namespaces."/>
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_0_1.MemoryMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version shows that AlarmTrips was modified to add semantics about AlarmTrips resets upon system reset."/>
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_0_2.MemoryMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_0_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number.  It was also created to add missing percent units onto existing properties."/>
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_0_3.MemoryMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_0_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_0_4.MemoryMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_0_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions to give guidance to the usage of certain properties when the metrics is used for a summary of all memory in a system.  It was also created to update descriptions that this schema defines."/>
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_0_5.MemoryMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_0_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update description HealthData to allow for usage when this resource is subordinate to the MemorySummary object."/>
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_0_6.MemoryMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_0_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_0_7.MemoryMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_0_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the range of possible values for properties with percent units."/>
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_0_8.MemoryMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_0_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_0_9.MemoryMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2016.2"/>
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_0_0.MemoryMetrics"/>
+
+      <ComplexType Name="HealthData" BaseType="MemoryMetrics.v1_0_0.HealthData">
+        <Property Name="PredictedMediaLifeLeftPercent" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The percentage of reads and writes that are predicted to still be available for the media."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an indicator of the percentage, `0` to `100`, of life remaining in the media."/>
+          <Annotation Term="Measures.Unit" String="%"/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Validation.Maximum" Int="100"/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated."/>
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_1_0.MemoryMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to show BlocksWritten in CurrentPeriod and LifeTime ComplexTypes, and to update annotations in earlier versions of namespaces."/>
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_1_1.MemoryMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_1_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version shows that AlarmTrips was modified to add semantics about AlarmTrips resets upon system reset."/>
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_1_2.MemoryMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_1_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number.  It was also created to add missing percent units onto existing properties."/>
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_1_3.MemoryMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_1_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_1_4.MemoryMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_1_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions to give guidance to the usage of certain properties when the metrics is used for a summary of all memory in a system.  It was also created to update descriptions that this schema defines."/>
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_1_5.MemoryMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_1_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update description HealthData to allow for usage when this resource is subordinate to the MemorySummary object."/>
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_1_6.MemoryMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_1_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_1_7.MemoryMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_1_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the range of possible values for properties with percent units."/>
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_1_8.MemoryMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_1_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_1_9.MemoryMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2019.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add the BandwidthPercent property.  It was also created to update property descriptions for cases when the metrics are used in a summary of all memory in a system."/>
+
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_1_6.MemoryMetrics">
+        <Property Name="BandwidthPercent" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The memory bandwidth utilization as a percentage."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain memory bandwidth utilization as a percentage.  When this resource is subordinate to the MemorySummary object, this property shall be the memory bandwidth utilization over all memory as a percentage, typically `0` to `100`."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Measures.Unit" String="%"/>
+        </Property>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_2_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update description HealthData to allow for usage when this resource is subordinate to the MemorySummary object."/>
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_2_0.MemoryMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_2_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_2_1.MemoryMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_2_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the range of possible values for properties with percent units."/>
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_2_2.MemoryMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_2_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_2_3.MemoryMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.1"/>
+      <Annotation Term="OData.Description" String="This version was created to add the OperatingSpeedMHz property."/>
+
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_2_1.MemoryMetrics">
+        <Property Name="OperatingSpeedMHz" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Operating speed of memory in MHz or MT/s as appropriate."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the operating speed of memory in MHz or MT/s (mega-transfers per second) as reported by the memory device.  Memory devices that operate at their bus speed shall report the operating speed in MHz (bus speed), while memory devices that transfer data faster than their bus speed, such as DDR memory, shall report the operating speed in MT/s (mega-transfers/second).  The reported value shall match the conventionally reported values for the technology used by the memory device."/>
+          <Annotation Term="Measures.Unit" String="MHz"/>
+        </Property>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_3_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_3_0.MemoryMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_3_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the range of possible values for properties with percent units."/>
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_3_1.MemoryMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_3_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_3_2.MemoryMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_4_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.3"/>
+      <Annotation Term="OData.Description" String="This version was created to add CorrectableECCErrorCount and UncorrectableECCErrorCount properties for CurrentPeriod and LifeTime of the memory."/>
+
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_3_0.MemoryMetrics"/>
+
+      <ComplexType Name="CurrentPeriod" BaseType="MemoryMetrics.v1_0_0.CurrentPeriod">
+        <Property Name="CorrectableECCErrorCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of correctable errors since reset."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of correctable errors since reset.  When this resource is subordinate to the MemorySummary object, this property shall be the sum of CorrectableECCErrorCount over all memory."/>
+        </Property>
+        <Property Name="UncorrectableECCErrorCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of uncorrectable errors since reset."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of uncorrectable errors since reset.  When this resource is subordinate to the MemorySummary object, this property shall be the sum of UncorrectableECCErrorCount over all memory."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="LifeTime" BaseType="MemoryMetrics.v1_0_0.LifeTime">
+        <Property Name="CorrectableECCErrorCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of correctable errors for the lifetime of the memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of correctable errors for the lifetime of the memory.  When this resource is subordinate to the MemorySummary object, this property shall be the sum of CorrectableECCErrorCount over all memory."/>
+        </Property>
+        <Property Name="UncorrectableECCErrorCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of uncorrectable errors for the lifetime of the memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of uncorrectable errors for the lifetime of the memory.  When this resource is subordinate to the MemorySummary object, this property shall be the sum of UncorrectableECCErrorCount over all memory."/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_4_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to fix typos in descriptions and long descriptions."/>
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_4_0.MemoryMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_4_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the range of possible values for properties with percent units."/>
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_4_1.MemoryMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_4_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_4_2.MemoryMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_5_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.1"/>
+
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_4_1.MemoryMetrics"/>
+
+      <ComplexType Name="CurrentPeriod" BaseType="MemoryMetrics.v1_4_0.CurrentPeriod">
+        <Property Name="IndeterminateCorrectableErrorCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of indeterminate correctable errors since reset."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of indeterminate correctable errors since reset.  Since the error origin is indeterminate, the same error can be duplicated across multiple MemoryMetrics resources.  When this resource is subordinate to the MemorySummary object, this property shall be the sum of indeterminate correctable errors across all memory without duplication, which may not be the sum of all IndeterminateCorrectableErrorCount properties over all memory."/>
+        </Property>
+        <Property Name="IndeterminateUncorrectableErrorCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of indeterminate uncorrectable errors since reset."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of indeterminate uncorrectable errors since reset.  Since the error origin is indeterminate, the same error can be duplicated across multiple MemoryMetrics resources.  When this resource is subordinate to the MemorySummary object, this property shall be the sum of indeterminate uncorrectable errors across all memory without duplication, which may not be the sum of all IndeterminateUncorrectableErrorCount properties over all memory."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="LifeTime" BaseType="MemoryMetrics.v1_4_0.LifeTime">
+        <Property Name="IndeterminateCorrectableErrorCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of indeterminate correctable errors for the lifetime of the memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of indeterminate correctable errors for the lifetime of the memory.  Since the error origin is indeterminate, the same error can be duplicated across multiple MemoryMetrics resources.  When this resource is subordinate to the MemorySummary object, this property shall be the sum of indeterminate correctable errors across all memory without duplication, which may not be the sum of all IndeterminateCorrectableErrorCount properties over all memory."/>
+        </Property>
+        <Property Name="IndeterminateUncorrectableErrorCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of indeterminate uncorrectable errors for the lifetime of the memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of indeterminate uncorrectable errors for the lifetime of the memory.  Since the error origin is indeterminate, the same error can be duplicated across multiple MemoryMetrics resources.  When this resource is subordinate to the MemorySummary object, this property shall be the sum of indeterminate uncorrectable errors across all memory without duplication, which may not be the sum of all IndeterminateUncorrectableErrorCount properties over all memory."/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_5_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the range of possible values for properties with percent units."/>
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_5_0.MemoryMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_5_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_5_1.MemoryMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_6_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.3"/>
+
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_5_0.MemoryMetrics">
+        <Property Name="CorrectedVolatileErrorCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of corrected errors in volatile memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of corrected errors in volatile memory."/>
+        </Property>
+        <Property Name="CorrectedPersistentErrorCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of corrected errors in persistent memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of corrected errors in persistent memory."/>
+        </Property>
+        <Property Name="DirtyShutdownCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of shutdowns while outstanding writes have not completed to persistent memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of shutdowns while outstanding writes have not completed to persistent memory."/>
+        </Property>
+        <Property Name="CXL" Type="MemoryMetrics.v1_6_0.CXL">
+          <Annotation Term="OData.Description" String="The memory metrics specific to CXL devices."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the memory metrics specific to CXL devices."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="CXL">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The memory metrics specific to CXL devices."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the memory metrics specific to CXL devices."/>
+        <Property Name="AlertCapabilities" Type="MemoryMetrics.v1_6_0.AlertCapabilities">
+          <Annotation Term="OData.Description" String="The conditions that would generate an alert to the CXL Fabric Manager or host."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the conditions that would generate an alert to the CXL Fabric Manager or host."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="AlertCapabilities">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The conditions that would generate an alert to the CXL Fabric Manager or host."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the conditions that would generate an alert to the CXL Fabric Manager or host."/>
+        <Property Name="Temperature" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates whether temperature conditions generate an alert to the CXL Fabric Manager or host."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether temperature conditions generate an alert to the CXL Fabric Manager or host."/>
+        </Property>
+        <Property Name="SpareBlock" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates whether spare block conditions generate an alert to the CXL Fabric Manager or host."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether spare block conditions generate an alert to the CXL Fabric Manager or host."/>
+        </Property>
+        <Property Name="UncorrectableECCError" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates whether uncorrectable ECC errors generate an alert to the CXL Fabric Manager or host."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether uncorrectable ECC errors generate an alert to the CXL Fabric Manager or host."/>
+        </Property>
+        <Property Name="CorrectableECCError" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates whether correctable ECC errors generate an alert to the CXL Fabric Manager or host."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether correctable ECC errors generate an alert to the CXL Fabric Manager or host."/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_6_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the range of possible values for properties with percent units."/>
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_6_0.MemoryMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_6_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_6_1.MemoryMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_7_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.1"/>
+
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_6_0.MemoryMetrics">
+        <Property Name="CapacityUtilizationPercent" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The memory capacity utilization as a percentage."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the memory capacity utilization as a percentage, typically `0` to `100`.  When this resource is subordinate to the MemorySummary object, this property shall be the memory capacity utilization over all memory as a percentage."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Measures.Unit" String="%"/>
+        </Property>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_7_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the range of possible values for properties with percent units."/>
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_7_0.MemoryMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_7_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_7_1.MemoryMetrics"/>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

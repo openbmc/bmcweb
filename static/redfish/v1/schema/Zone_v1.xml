@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  Zone v1.6.2                                                         -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Switch_v1.xml">
+    <edmx:Include Namespace="Switch"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Endpoint_v1.xml">
+    <edmx:Include Namespace="Endpoint"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/ResourceBlock_v1.xml">
+    <edmx:Include Namespace="ResourceBlock"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/AddressPool_v1.xml">
+    <edmx:Include Namespace="AddressPool"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="Zone" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The Zone schema describes a simple fabric zone for a Redfish implementation."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent a simple fabric zone for a Redfish implementation."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="true"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="true"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/Fabrics/{FabricId}/Zones/{ZoneId}</String>
+            <String>/redfish/v1/CompositionService/ResourceZones/{ZoneId}</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+
+      <Action Name="AddEndpoint" IsBound="true">
+        <Annotation Term="OData.Description" String="This action adds an endpoint to a zone."/>
+        <Annotation Term="OData.LongDescription" String="This action shall add an endpoint to a zone."/>
+        <Parameter Name="Zone" Type="Zone.v1_1_0.Actions"/>
+        <Parameter Name="Endpoint" Type="Endpoint.Endpoint" Nullable="false">
+          <Annotation Term="OData.Description" String="The endpoint to add to the zone."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain a link to the specified endpoint to add to the zone."/>
+        </Parameter>
+        <Parameter Name="EndpointETag" Type="Edm.String">
+          <Annotation Term="OData.Description" String="The current ETag of the endpoint to add to the zone."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the current ETag of the endpoint to add to the zone.  If the client-provided ETag does not match the current ETag of the endpoint that the Endpoint parameter specifies, the service shall return the HTTP 428 (Precondition Required) status code to reject the request."/>
+        </Parameter>
+        <Parameter Name="ZoneETag" Type="Edm.String">
+          <Annotation Term="OData.Description" String="The current ETag of the zone."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the current ETag of the zone.  If the client-provided ETag does not match the current ETag of the zone, the service shall return the HTTP 428 (Precondition Required) status code to reject the request."/>
+        </Parameter>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_5_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <Action Name="RemoveEndpoint" IsBound="true">
+        <Annotation Term="OData.Description" String="This action removes an endpoint from a zone."/>
+        <Annotation Term="OData.LongDescription" String="This action shall remove an endpoint from a zone."/>
+        <Parameter Name="Zone" Type="Zone.v1_1_0.Actions"/>
+        <Parameter Name="Endpoint" Type="Endpoint.Endpoint" Nullable="false">
+          <Annotation Term="OData.Description" String="The endpoint to remove from the zone."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain a link to the specified endpoint to remove from the zone."/>
+        </Parameter>
+        <Parameter Name="EndpointETag" Type="Edm.String">
+          <Annotation Term="OData.Description" String="The current ETag of the endpoint to remove from the system."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the current ETag of the endpoint to remove from the system.  If the client-provided ETag does not match the current ETag of the endpoint that the Endpoint parameter specifies, the service shall return the HTTP 428 (Precondition Required) status code to reject the request."/>
+        </Parameter>
+        <Parameter Name="ZoneETag" Type="Edm.String">
+          <Annotation Term="OData.Description" String="The current ETag of the zone."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the current ETag of the zone.  If the client-provided ETag does not match the current ETag of the zone, the service shall return the HTTP 428 (Precondition Required) status code to reject the request."/>
+        </Parameter>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_5_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2016.2"/>
+
+      <EntityType Name="Zone" BaseType="Zone.Zone">
+        <Property Name="Status" Type="Resource.Status" Nullable="false">
+          <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+        </Property>
+        <Property Name="Links" Type="Zone.v1_0_0.Links" Nullable="false">
+          <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Links" BaseType="Resource.Links">
+        <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+        <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+        <NavigationProperty Name="Endpoints" Type="Collection(Endpoint.Endpoint)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The links to the endpoints that this zone contains."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Endpoint that this zone contains."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="InvolvedSwitches" Type="Collection(Switch.Switch)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The links to the collection of switches in this zone."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Switch in this zone."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated."/>
+      <EntityType Name="Zone" BaseType="Zone.v1_0_0.Zone"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove the Nullable facet from NavigationProperties of the Collection type."/>
+      <EntityType Name="Zone" BaseType="Zone.v1_0_1.Zone"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="Zone" BaseType="Zone.v1_0_2.Zone"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_0_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to regenerate the JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="Zone" BaseType="Zone.v1_0_3.Zone"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_0_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="Zone" BaseType="Zone.v1_0_4.Zone"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_0_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Zone" BaseType="Zone.v1_0_5.Zone"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2017.1"/>
+
+      <EntityType Name="Zone" BaseType="Zone.v1_0_2.Zone">
+        <Property Name="Actions" Type="Zone.v1_1_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Links" BaseType="Zone.v1_0_0.Links">
+        <NavigationProperty Name="ResourceBlocks" Type="Collection(ResourceBlock.ResourceBlock)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The links to the resource blocks with which this zone is associated."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type ResourceBlock with which this zone is associated."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="Zone.v1_1_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to edit Schema-defined descriptions."/>
+      <EntityType Name="Zone" BaseType="Zone.v1_1_0.Zone"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="Zone" BaseType="Zone.v1_1_1.Zone"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_1_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="Zone" BaseType="Zone.v1_1_2.Zone"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_1_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="Zone" BaseType="Zone.v1_1_3.Zone"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_1_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Zone" BaseType="Zone.v1_1_4.Zone"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2017.3"/>
+
+      <EntityType Name="Zone" BaseType="Zone.v1_1_1.Zone">
+        <Property Name="Identifiers" Type="Collection(Resource.Identifier)" Nullable="false">
+          <Annotation Term="OData.Description" String="The durable names for the zone."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a list of all known durable names for the associated zone."/>
+        </Property>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_2_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="Zone" BaseType="Zone.v1_2_0.Zone"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_2_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format, and to add a missing term to Identifiers to disallow it from being `null`."/>
+      <EntityType Name="Zone" BaseType="Zone.v1_2_1.Zone"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_2_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="Zone" BaseType="Zone.v1_2_2.Zone"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_2_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Zone" BaseType="Zone.v1_2_3.Zone"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2019.1"/>
+
+      <EntityType Name="Zone" BaseType="Zone.v1_2_2.Zone">
+        <Property Name="ExternalAccessibility" Type="Zone.v1_3_0.ExternalAccessibility">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates accessibility of endpoints in this zone to endpoints outside of this zone."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain and indication of accessibility of endpoints in this zone to endpoints outside of this zone."/>
+        </Property>
+      </EntityType>
+
+      <EnumType Name="ExternalAccessibility">
+        <Member Name="GloballyAccessible">
+          <Annotation Term="OData.Description" String="Any external entity with the correct access details, which might include authorization information, can access the endpoints that this zone lists."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that any external entity with the correct access details, which may include authorization information, can access the endpoints that this zone lists, regardless of zone."/>
+        </Member>
+        <Member Name="NonZonedAccessible">
+          <Annotation Term="OData.Description" String="Any external entity that another zone does not explicitly list can access the endpoints that this zone lists."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that any external entity that another zone does not explicitly list can access the endpoints that this zone lists."/>
+        </Member>
+        <Member Name="ZoneOnly">
+          <Annotation Term="OData.Description" String="Only accessible by endpoints that this zone explicitly lists."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that endpoints in this zone are only accessible by endpoints that this zone explicitly lists."/>
+        </Member>
+        <Member Name="NoInternalRouting">
+          <Annotation Term="OData.Description" String="Routing is not enabled within this zone."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that implicit routing within this zone is not defined."/>
+        </Member>
+      </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_3_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="Zone" BaseType="Zone.v1_3_0.Zone"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_3_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Zone" BaseType="Zone.v1_3_1.Zone"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_3_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Zone" BaseType="Zone.v1_3_2.Zone"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_3_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
+      <EntityType Name="Zone" BaseType="Zone.v1_3_3.Zone"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_3_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions."/>
+      <EntityType Name="Zone" BaseType="Zone.v1_3_4.Zone"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_4_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2019.4"/>
+
+      <EntityType Name="Zone" BaseType="Zone.v1_3_1.Zone">
+        <Property Name="ZoneType" Type="Zone.v1_4_0.ZoneType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The type of zone."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of zone that this zone represents."/>
+        </Property>
+        <Property Name="DefaultRoutingEnabled" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="This property indicates whether routing within this zone is enabled."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether routing within this zone is enabled."/>
+        </Property>
+      </EntityType>
+
+      <EnumType Name="ZoneType">
+        <Member Name="Default">
+          <Annotation Term="OData.Description" String="The zone in which all endpoints are added by default when instantiated."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a zone in which all endpoints are added by default when instantiated.  This value shall only be used for zones subordinate to the fabric collection."/>
+        </Member>
+        <Member Name="ZoneOfEndpoints">
+          <Annotation Term="OData.Description" String="A zone that contains endpoints."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a zone that contains resources of type Endpoint.  This value shall only be used for zones subordinate to the fabric collection."/>
+        </Member>
+        <Member Name="ZoneOfZones">
+          <Annotation Term="OData.Description" String="A zone that contains zones."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a zone that contains resources of type Zone.  This value shall only be used for zones subordinate to the fabric collection."/>
+        </Member>
+        <Member Name="ZoneOfResourceBlocks">
+          <Annotation Term="OData.Description" String="A zone that contains resource blocks."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a zone that contains resources of type ResourceBlock.  This value shall only be used for zones subordinate to the composition service."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_6_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="Links" BaseType="Zone.v1_1_0.Links">
+        <NavigationProperty Name="AddressPools" Type="Collection(AddressPool.AddressPool)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the address pools associated with this zone."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type AddressPool with which this zone is associated."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="ContainedByZones" Type="Collection(Zone.Zone)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the zone that contain this zone."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Zone that represent the zones that contain this zone.  The zones referenced by this property shall not be contained by other zones."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="ContainsZones" Type="Collection(Zone.Zone)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An array of links to the zones that are contained by this zone."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Zone that represent the zones that are contained by this zone.  The zones referenced by this property shall not contain other zones."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_4_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Zone" BaseType="Zone.v1_4_0.Zone"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_4_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Zone" BaseType="Zone.v1_4_1.Zone"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_4_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
+      <EntityType Name="Zone" BaseType="Zone.v1_4_2.Zone"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_4_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions."/>
+      <EntityType Name="Zone" BaseType="Zone.v1_4_3.Zone"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_5_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.3"/>
+      <Annotation Term="OData.Description" String="This version was created to add AddEndpoint and RemoveEndpoint actions.  It was also created to add `NoInternalRouting` to ExternalAccessibility."/>
+
+      <EntityType Name="Zone" BaseType="Zone.v1_4_2.Zone"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_5_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
+      <EntityType Name="Zone" BaseType="Zone.v1_5_0.Zone"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_5_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions."/>
+      <EntityType Name="Zone" BaseType="Zone.v1_5_1.Zone"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_6_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.4"/>
+      <Annotation Term="OData.Description" String="This version was created to add `ZoneOfResourceBlocks` to ZoneType."/>
+
+      <EntityType Name="Zone" BaseType="Zone.v1_5_0.Zone"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_6_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
+      <EntityType Name="Zone" BaseType="Zone.v1_6_0.Zone"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_6_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions."/>
+      <EntityType Name="Zone" BaseType="Zone.v1_6_1.Zone"/>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

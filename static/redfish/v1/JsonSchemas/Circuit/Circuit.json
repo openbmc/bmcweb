@@ -1,0 +1,1164 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Circuit.v1_7_1.json",
+    "$ref": "#/definitions/Circuit",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "#Circuit.BreakerControl": {
+                    "$ref": "#/definitions/BreakerControl"
+                },
+                "#Circuit.PowerControl": {
+                    "$ref": "#/definitions/PowerControl"
+                },
+                "#Circuit.ResetMetrics": {
+                    "$ref": "#/definitions/ResetMetrics"
+                },
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "BreakerControl": {
+            "additionalProperties": false,
+            "description": "This action attempts to reset the circuit breaker.",
+            "longDescription": "This action shall control the state of the circuit breaker or over-current protection device.",
+            "parameters": {
+                "PowerState": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Circuit.json#/definitions/PowerState",
+                    "description": "The desired power state of the circuit if the breaker is reset successfully.",
+                    "longDescription": "This parameter shall contain the desired power state of the circuit."
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "Circuit": {
+            "additionalProperties": false,
+            "description": "This is the schema definition for an electrical circuit.",
+            "longDescription": "This resource shall be used to represent an electrical circuit for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "BreakerState": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Circuit.json#/definitions/BreakerStates"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The state of the overcurrent protection device.",
+                    "longDescription": "This property shall contain the state of the overcurrent protection device.",
+                    "readonly": true
+                },
+                "CircuitType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/CircuitType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The type of circuit.",
+                    "longDescription": "This property shall contain the type of circuit.",
+                    "readonly": true
+                },
+                "ConfigurationLocked": {
+                    "description": "Indicates whether the configuration is locked.",
+                    "longDescription": "This property shall indicate whether modification requests to this resource are not permitted.  If `true`, services shall reject modification requests to other properties in this resource.",
+                    "readonly": false,
+                    "type": "boolean",
+                    "versionAdded": "v1_5_0"
+                },
+                "CriticalCircuit": {
+                    "description": "Designates if this is a critical circuit.",
+                    "longDescription": "This property shall indicate whether the circuit is designated as a critical circuit, and therefore is excluded from autonomous logic that could affect the state of the circuit.  The value shall be `true` if the circuit is deemed critical, and `false` if the circuit is not critical.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "CurrentAmps": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorCurrentExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The current (A) for this single-phase circuit.",
+                    "excerptCopy": "SensorCurrentExcerpt",
+                    "longDescription": "This property shall contain the current, in ampere units, for this single-phase circuit.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Current`.  This property shall not appear in resource instances representing poly-phase circuits."
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "ElectricalConsumerNames": {
+                    "description": "An array of names of downstream devices that are powered by this circuit.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of user-assigned identifying strings that describe downstream devices that are powered by this circuit.",
+                    "readonly": false,
+                    "type": "array",
+                    "versionAdded": "v1_4_0"
+                },
+                "ElectricalContext": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/ElectricalContext"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The combination of current-carrying conductors.",
+                    "longDescription": "This property shall contain the combination of current-carrying conductors that distribute power.",
+                    "readonly": true
+                },
+                "ElectricalSourceManagerURI": {
+                    "description": "The URI of the management interface for the upstream electrical source connection for this circuit.",
+                    "format": "uri-reference",
+                    "longDescription": "This property shall contain a URI to the management application or device that provides monitoring or control of the upstream electrical source that provides power to this circuit.  If a value has not been assigned by a user, the value of this property shall be an empty string.",
+                    "readonly": false,
+                    "type": "string",
+                    "versionAdded": "v1_4_0"
+                },
+                "ElectricalSourceName": {
+                    "description": "The name of the upstream electrical source, such as a circuit or outlet, connected to this circuit.",
+                    "longDescription": "This property shall contain a string that identifies the upstream electrical source, such as the name of a circuit or outlet, that provides power to this circuit.  If a value has not been assigned by a user, the value of this property shall be an empty string.",
+                    "readonly": false,
+                    "type": "string",
+                    "versionAdded": "v1_4_0"
+                },
+                "EnergykWh": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorEnergykWhExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The energy (kWh) for this circuit.",
+                    "excerptCopy": "SensorEnergykWhExcerpt",
+                    "longDescription": "This property shall contain the total energy, in kilowatt-hour units, for this circuit that represents the `Total` ElectricalContext sensor when multiple energy sensors exist for this circuit.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `EnergykWh`."
+                },
+                "FrequencyHz": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The frequency (Hz) for this circuit.",
+                    "excerptCopy": "SensorExcerpt",
+                    "longDescription": "This property shall contain the frequency, in hertz units, for this circuit.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Frequency`."
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "IndicatorLED": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/IndicatorLED"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "deprecated": "This property has been deprecated in favor of the LocationIndicatorActive property.",
+                    "description": "The state of the indicator LED, which identifies the circuit.",
+                    "longDescription": "This property shall contain the indicator light state for the indicator light associated with this circuit.",
+                    "readonly": false,
+                    "versionDeprecated": "v1_1_0"
+                },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
+                },
+                "LocationIndicatorActive": {
+                    "description": "An indicator allowing an operator to physically locate this resource.",
+                    "longDescription": "This property shall contain the state of the indicator used to physically identify or locate this resource.  A write to this property shall update the value of IndicatorLED in this resource, if supported, to reflect the implementation of the locating function.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "NominalVoltage": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Circuit.json#/definitions/NominalVoltageType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The nominal voltage for this circuit.",
+                    "longDescription": "This property shall contain the nominal voltage for this circuit, in volt units.",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "PhaseWiringType": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Circuit.json#/definitions/PhaseWiringType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The number of ungrounded current-carrying conductors (phases) and the total number of conductors (wires).",
+                    "longDescription": "This property shall contain the number of ungrounded current-carrying conductors (phases) and the total number of conductors (wires).",
+                    "readonly": true
+                },
+                "PlugType": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Circuit.json#/definitions/PlugType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The type of plug according to NEMA, IEC, or regional standards.",
+                    "longDescription": "This property shall contain the type of physical plug used for this circuit, as defined by IEC, NEMA, or regional standards.",
+                    "readonly": true
+                },
+                "PolyPhaseCurrentAmps": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/CurrentSensors"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The current readings for this circuit.",
+                    "longDescription": "This property shall contain the current sensors for this circuit.  For single-phase circuits, this property shall contain a duplicate copy of the current sensor referenced in the CurrentAmps property, if present.  For poly-phase circuits, this property should contain multiple current sensor readings used to fully describe the circuit."
+                },
+                "PolyPhaseEnergykWh": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/EnergySensors"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The energy readings for this circuit.",
+                    "longDescription": "This property shall contain the energy sensors for this circuit.  For single-phase circuits, this property shall contain a duplicate copy of the energy sensor referenced in the EnergykWh property, if present.  For poly-phase circuits, this property should contain multiple energy sensor readings used to fully describe the circuit."
+                },
+                "PolyPhasePowerWatts": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/PowerSensors"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The power readings for this circuit.",
+                    "longDescription": "This property shall contain the power sensors for this circuit.  For single-phase circuits, this property shall contain a duplicate copy of the power sensor referenced in the PowerWatts property, if present.  For poly-phase circuits, this property should contain multiple power sensor readings used to fully describe the circuit."
+                },
+                "PolyPhaseVoltage": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/VoltageSensors"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The voltage readings for this circuit.",
+                    "longDescription": "This property shall contain the voltage sensors for this circuit.  For single-phase circuits, this property shall contain a duplicate copy of the voltage sensor referenced in the Voltage property, if present.  For poly-phase circuits, this property should contain multiple voltage sensor readings used to fully describe the circuit."
+                },
+                "PowerControlLocked": {
+                    "description": "Indicates whether power control requests are locked.",
+                    "longDescription": "This property shall indicate whether requests to the PowerControl action are locked.  If `true`, services shall reject requests to the PowerControl action.",
+                    "readonly": false,
+                    "type": "boolean",
+                    "versionAdded": "v1_5_0"
+                },
+                "PowerCycleDelaySeconds": {
+                    "description": "The number of seconds to delay power on after a PowerControl action to cycle power.  Zero seconds indicates no delay.",
+                    "longDescription": "This property shall contain the number of seconds to delay power on after a PowerControl action to cycle power.  The value `0` shall indicate no delay to power on.",
+                    "readonly": false,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "PowerEnabled": {
+                    "description": "Indicates if the circuit can be powered.",
+                    "longDescription": "This property shall indicate the power enable state of the circuit.  The value `true` shall indicate that the circuit can be powered on, and `false` shall indicate that the circuit cannot be powered.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "PowerLoadPercent": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The power load (percent) for this circuit.",
+                    "excerptCopy": "SensorExcerpt",
+                    "longDescription": "This property shall contain the power load, in percent units, for this circuit that represents the `Total` ElectricalContext for this circuit.",
+                    "versionAdded": "v1_3_0"
+                },
+                "PowerOffDelaySeconds": {
+                    "description": "The number of seconds to delay power off after a PowerControl action.  Zero seconds indicates no delay to power off.",
+                    "longDescription": "This property shall contain the number of seconds to delay power off after a PowerControl action.  The value `0` shall indicate no delay to power off.",
+                    "readonly": false,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "PowerOnDelaySeconds": {
+                    "description": "The number of seconds to delay power up after a power cycle or a PowerControl action.  Zero seconds indicates no delay to power up.",
+                    "longDescription": "This property shall contain the number of seconds to delay power up after a power cycle or a PowerControl action.  The value `0` shall indicate no delay to power up.",
+                    "readonly": false,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "PowerRestoreDelaySeconds": {
+                    "description": "The number of seconds to delay power on after power has been restored.  Zero seconds indicates no delay.",
+                    "longDescription": "This property shall contain the number of seconds to delay power on after a power fault.  The value `0` shall indicate no delay to power on.",
+                    "readonly": false,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "PowerRestorePolicy": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Circuit.json#/definitions/PowerRestorePolicyTypes",
+                    "description": "The desired power state of the circuit when power is restored after a power loss.",
+                    "longDescription": "This property shall contain the desired PowerState of the circuit when power is applied.  The value `LastState` shall return the circuit to the PowerState it was in when power was lost.",
+                    "readonly": false
+                },
+                "PowerState": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/PowerState"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The power state of the circuit.",
+                    "longDescription": "This property shall contain the power state of the circuit.",
+                    "readonly": true
+                },
+                "PowerStateInTransition": {
+                    "description": "Indicates whether the power state is undergoing a delayed transition.",
+                    "longDescription": "This property shall indicate whether the PowerState property will undergo a transition between on and off states due to a configured delay.  The transition may be due to the configuration of the power on, off, or restore delay properties.  If `true`, the PowerState property will transition at the conclusion of a configured delay.",
+                    "readonly": true,
+                    "type": "boolean",
+                    "versionAdded": "v1_5_0"
+                },
+                "PowerWatts": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorPowerExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The power (W) for this circuit.",
+                    "excerptCopy": "SensorPowerExcerpt",
+                    "longDescription": "This property shall contain the total power, in watt units, for this circuit that represents the `Total` ElectricalContext sensor when multiple power sensors exist for this circuit.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Power`."
+                },
+                "RatedCurrentAmps": {
+                    "description": "The rated maximum current allowed for this circuit.",
+                    "longDescription": "This property shall contain the rated maximum current for this circuit, in ampere units, after any required de-rating, due to safety agency or other regulatory requirements, has been applied.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "A"
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                },
+                "UnbalancedCurrentPercent": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The current imbalance (percent) between phases.",
+                    "excerptCopy": "SensorExcerpt",
+                    "longDescription": "This property shall contain the current imbalance, in percent units, between phases in a poly-phase circuit.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Percent`.",
+                    "versionAdded": "v1_5_0"
+                },
+                "UnbalancedVoltagePercent": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The voltage imbalance (percent) between phases.",
+                    "excerptCopy": "SensorExcerpt",
+                    "longDescription": "This property shall contain the voltage imbalance, in percent units, between phases in a poly-phase circuit.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Percent`.",
+                    "versionAdded": "v1_5_0"
+                },
+                "UserLabel": {
+                    "description": "A user-assigned label.",
+                    "longDescription": "This property shall contain a user-assigned label used to identify this resource.  If a value has not been assigned by a user, the value of this property shall be an empty string.",
+                    "readonly": false,
+                    "type": "string",
+                    "versionAdded": "v1_4_0"
+                },
+                "Voltage": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorVoltageExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The voltage (V) for this single-phase circuit.",
+                    "excerptCopy": "SensorVoltageExcerpt",
+                    "longDescription": "This property shall contain the voltage, in volt units, for this single-phase circuit.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Voltage`.  This property shall not appear in resource instances representing poly-phase circuits."
+                },
+                "VoltageType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/VoltageType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The type of voltage applied to the circuit.",
+                    "longDescription": "This property shall contain the type of voltage applied to the circuit.",
+                    "readonly": true
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "CircuitType": {
+            "enum": [
+                "Mains",
+                "Branch",
+                "Subfeed",
+                "Feeder",
+                "Bus"
+            ],
+            "enumDescriptions": {
+                "Branch": "A branch (output) circuit.",
+                "Bus": "An electrical bus circuit.",
+                "Feeder": "A feeder (output) circuit.",
+                "Mains": "A mains input or utility circuit.",
+                "Subfeed": "A subfeed (output) circuit."
+            },
+            "enumVersionAdded": {
+                "Bus": "v1_3_0"
+            },
+            "type": "string"
+        },
+        "CurrentSensors": {
+            "additionalProperties": false,
+            "description": "The current sensors for this circuit.",
+            "longDescription": "This type shall contain properties that describe current sensor readings for a circuit.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Line1": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorCurrentExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Line 1 current (A).",
+                    "excerptCopy": "SensorCurrentExcerpt",
+                    "longDescription": "This property shall contain the line current, in ampere units, for L1.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Current`.  This property shall not be present if the equipment does not include an L1 measurement."
+                },
+                "Line2": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorCurrentExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Line 2 current (A).",
+                    "excerptCopy": "SensorCurrentExcerpt",
+                    "longDescription": "This property shall contain the line current, in ampere units, for L2.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Current`.  This property shall not be present if the equipment does not include an L2 measurement."
+                },
+                "Line3": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorCurrentExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Line 3 current (A).",
+                    "excerptCopy": "SensorCurrentExcerpt",
+                    "longDescription": "This property shall contain the line current, in ampere units, for L3.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Current`.  This property shall not be present if the equipment does not include an L3 measurement."
+                },
+                "Neutral": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorCurrentExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Neutral line current (A).",
+                    "excerptCopy": "SensorCurrentExcerpt",
+                    "longDescription": "This property shall contain the line current, in ampere units, for the Neutral line.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Current`.  This property shall not be present if the equipment does not include a Neutral line measurement."
+                }
+            },
+            "type": "object"
+        },
+        "EnergySensors": {
+            "additionalProperties": false,
+            "description": "The energy readings for this circuit.",
+            "longDescription": "This type shall contain properties that describe energy sensor readings for a circuit.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Line1ToLine2": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorEnergykWhExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The Line 1 to Line 2 energy (kWh) for this circuit.",
+                    "excerptCopy": "SensorEnergykWhExcerpt",
+                    "longDescription": "This property shall contain the energy, in kilowatt-hour units, between L1 and L2.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `EnergykWh`.  This property shall not be present if the equipment does not include an L1-L2 measurement."
+                },
+                "Line1ToNeutral": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorEnergykWhExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The Line 1 to Neutral energy (kWh) for this circuit.",
+                    "excerptCopy": "SensorEnergykWhExcerpt",
+                    "longDescription": "This property shall contain the energy, in kilowatt-hour units, between L1 and Neutral.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `EnergykWh`.  This property shall not be present if the equipment does not include an L1-Neutral measurement."
+                },
+                "Line2ToLine3": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorEnergykWhExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The Line 2 to Line 3 energy (kWh) for this circuit.",
+                    "excerptCopy": "SensorEnergykWhExcerpt",
+                    "longDescription": "This property shall contain the energy, in kilowatt-hour units, between L2 and L3.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `EnergykWh`.  This property shall not be present if the equipment does not include an L2-L3 measurement."
+                },
+                "Line2ToNeutral": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorEnergykWhExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The Line 2 to Neutral energy (kWh) for this circuit.",
+                    "excerptCopy": "SensorEnergykWhExcerpt",
+                    "longDescription": "This property shall contain the energy, in kilowatt-hour units, between L2 and Neutral.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `EnergykWh`.  This property shall not be present if the equipment does not include an L2-Neutral measurement."
+                },
+                "Line3ToLine1": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorEnergykWhExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The Line 3 to Line 1 energy (kWh) for this circuit.",
+                    "excerptCopy": "SensorEnergykWhExcerpt",
+                    "longDescription": "This property shall contain the energy, in kilowatt-hour units, between L3 and L1.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `EnergykWh`.  This property shall not be present if the equipment does not include an L3-L1 measurement."
+                },
+                "Line3ToNeutral": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorEnergykWhExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The Line 3 to Neutral energy (kWh) for this circuit.",
+                    "excerptCopy": "SensorEnergykWhExcerpt",
+                    "longDescription": "This property shall contain the energy, in kilowatt-hour units, between L3 and Neutral.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `EnergykWh`.  This property shall not be present if the equipment does not include an L3-Neutral measurement."
+                }
+            },
+            "type": "object"
+        },
+        "Links": {
+            "additionalProperties": false,
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "BranchCircuit": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Circuit.json#/definitions/Circuit"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "A reference to the branch circuit related to this circuit.",
+                    "longDescription": "This property shall contain a link to a resource of type Circuit that represents the branch circuit associated with this circuit.",
+                    "readonly": true
+                },
+                "DistributionCircuits": {
+                    "description": "An array of links to the circuits powered by this circuit.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Circuit.json#/definitions/Circuit"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Circuit that represent the circuits powered by this circuit.",
+                    "readonly": false,
+                    "type": "array",
+                    "versionAdded": "v1_4_0"
+                },
+                "DistributionCircuits@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                },
+                "Outlets": {
+                    "description": "An array of references to the outlets contained by this circuit.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Outlet.json#/definitions/Outlet"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Outlet that represent the outlets associated with this circuit.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "Outlets@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "PowerOutlet": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Outlet.json#/definitions/Outlet"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "A link to the power outlet that provides power to this circuit.",
+                    "longDescription": "This property shall contain a link to a resource of type Outlet that represents the outlet that provides power to this circuit.",
+                    "readonly": false,
+                    "versionAdded": "v1_4_0"
+                },
+                "SourceCircuit": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Circuit.json#/definitions/Circuit"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "A link to the circuit that provides power to this circuit.",
+                    "longDescription": "This property shall contain a link to a resource of type Circuit that represents the circuit that provides power to this circuit.  This property should be used when the power source is not represented by an Outlet resource, such as a feeder circuit.",
+                    "readonly": false,
+                    "versionAdded": "v1_4_0"
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "PowerControl": {
+            "additionalProperties": false,
+            "description": "This action turns the circuit on or off.",
+            "longDescription": "This action shall control the power state of the circuit.",
+            "parameters": {
+                "PowerState": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Circuit.json#/definitions/PowerState",
+                    "description": "The desired power state of the circuit.",
+                    "longDescription": "This parameter shall contain the desired power state of the circuit."
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "PowerSensors": {
+            "additionalProperties": false,
+            "description": "This property contains the power sensors.",
+            "longDescription": "This type shall contain properties that describe power sensor readings for a circuit.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Line1ToLine2": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorPowerExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The Line 1 to Line 2 power (W) for this circuit.",
+                    "excerptCopy": "SensorPowerExcerpt",
+                    "longDescription": "This property shall contain the power, in watt units, between L1 and L2.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Power`.  This property shall not be present if the equipment does not include an L1-L2 measurement."
+                },
+                "Line1ToNeutral": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorPowerExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The Line 1 to Neutral power (W) for this circuit.",
+                    "excerptCopy": "SensorPowerExcerpt",
+                    "longDescription": "This property shall contain the power, in watt units, between L1 and Neutral.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Power`.  This property shall not be present if the equipment does not include an L1-Neutral measurement."
+                },
+                "Line2ToLine3": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorPowerExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The Line 2 to Line 3 power (W) for this circuit.",
+                    "excerptCopy": "SensorPowerExcerpt",
+                    "longDescription": "This property shall contain the power, in watt units, between L2 and L3.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Power`.  This property shall not be present if the equipment does not include an L2-L3 measurement."
+                },
+                "Line2ToNeutral": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorPowerExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The Line 2 to Neutral power (W) for this circuit.",
+                    "excerptCopy": "SensorPowerExcerpt",
+                    "longDescription": "This property shall contain the power, in watt units, between L2 and Neutral.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Power`.  This property shall not be present if the equipment does not include an L2-Neutral measurement."
+                },
+                "Line3ToLine1": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorPowerExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The Line 3 to Line 1 power (W) for this circuit.",
+                    "excerptCopy": "SensorPowerExcerpt",
+                    "longDescription": "This property shall contain the power, in watt units, between L3 and L1.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Power`.  This property shall not be present if the equipment does not include an L3-L1 measurement."
+                },
+                "Line3ToNeutral": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorPowerExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The Line 3 to Neutral power (W) for this circuit.",
+                    "excerptCopy": "SensorPowerExcerpt",
+                    "longDescription": "This property shall contain the power, in watt units, between L3 and Neutral.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Power`.  This property shall not be present if the equipment does not include an L3-Neutral measurement."
+                }
+            },
+            "type": "object"
+        },
+        "ResetMetrics": {
+            "additionalProperties": false,
+            "description": "This action resets metrics related to this circuit.",
+            "longDescription": "This action shall reset any time intervals or counted values for this circuit.",
+            "parameters": {},
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "VoltageSensors": {
+            "additionalProperties": false,
+            "description": "The voltage readings for this circuit.",
+            "longDescription": "This type shall contain properties that describe voltage sensor readings for a circuit.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Line1ToLine2": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorVoltageExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The Line 1 to Line 2 voltage (V) for this circuit.",
+                    "excerptCopy": "SensorVoltageExcerpt",
+                    "longDescription": "This property shall contain the line-to-line voltage, in volt units, between L1 and L2.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Voltage`.  This property shall not be present if the equipment does not include an L1-L2 measurement."
+                },
+                "Line1ToNeutral": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorVoltageExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The Line 1 to Neutral voltage (V) for this circuit.",
+                    "excerptCopy": "SensorVoltageExcerpt",
+                    "longDescription": "This property shall contain the line-to-line voltage, in volt units, between L1 and Neutral.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Voltage`.  This property shall not be present if the equipment does not include an L1-Neutral measurement."
+                },
+                "Line2ToLine3": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorVoltageExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The Line 2 to Line 3 voltage (V) for this circuit.",
+                    "excerptCopy": "SensorVoltageExcerpt",
+                    "longDescription": "This property shall contain the line-to-line voltage, in volt units, between L2 and L3.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Voltage`.  This property shall not be present if the equipment does not include an L2-L3 measurement."
+                },
+                "Line2ToNeutral": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorVoltageExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The Line 2 to Neutral voltage (V) for this circuit.",
+                    "excerptCopy": "SensorVoltageExcerpt",
+                    "longDescription": "This property shall contain the line-to-line voltage, in volt units, between L2 and Neutral.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Voltage`.  This property shall not be present if the equipment does not include an L2-Neutral measurement."
+                },
+                "Line3ToLine1": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorVoltageExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The Line 3 to Line 1 voltage (V) for this circuit.",
+                    "excerptCopy": "SensorVoltageExcerpt",
+                    "longDescription": "This property shall contain the line-to-line voltage, in volt units, between L3 and L1.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Voltage`.  This property shall not be present if the equipment does not include an L3-L1 measurement."
+                },
+                "Line3ToNeutral": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorVoltageExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The Line 3 to Neutral voltage (V) for this circuit.",
+                    "excerptCopy": "SensorVoltageExcerpt",
+                    "longDescription": "This property shall contain the line-to-line voltage, in volt units, between L3 and Neutral.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Voltage`.  This property shall not be present if the equipment does not include an L3-Neutral measurement."
+                }
+            },
+            "type": "object"
+        },
+        "VoltageType": {
+            "enum": [
+                "AC",
+                "DC"
+            ],
+            "enumDescriptions": {
+                "AC": "Alternating Current (AC) circuit.",
+                "DC": "Direct Current (DC) circuit."
+            },
+            "type": "string"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2022.2",
+    "title": "#Circuit.v1_7_1.Circuit"
+}

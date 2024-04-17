@@ -1,0 +1,255 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/NetworkAdapterMetrics.v1_0_1.json",
+    "$ref": "#/definitions/NetworkAdapterMetrics",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "NetworkAdapterMetrics": {
+            "additionalProperties": false,
+            "description": "The NetworkAdapterMetrics schema contains usage and health statistics for a network adapter.",
+            "longDescription": "This resource shall represent the network metrics for a single network adapter in a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "CPUCorePercent": {
+                    "description": "The device CPU core utilization as a percentage.",
+                    "longDescription": "This property shall contain the device CPU core utilization as a percentage, typically `0` to `100`.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "%"
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "HostBusRXPercent": {
+                    "description": "The host bus, such as PCIe, RX utilization as a percentage.",
+                    "longDescription": "This property shall contain the host bus, such as PCIe, RX utilization as a percentage, typically `0` to `100`, which is calculated by dividing the total bytes received by the theoretical max.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "%"
+                },
+                "HostBusTXPercent": {
+                    "description": "The host bus, such as PCIe, TX utilization as a percentage.",
+                    "longDescription": "This property shall contain the host bus, such as PCIe, TX utilization as a percentage, typically `0` to `100`, which is calculated by dividing the total bytes transmitted by the theoretical max.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "%"
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "NCSIRXBytes": {
+                    "description": "The total number of NC-SI bytes received since reset.",
+                    "longDescription": "This property shall contain the total number of NC-SI bytes received since reset, including both passthrough and non-passthrough traffic.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "By"
+                },
+                "NCSIRXFrames": {
+                    "description": "The total number of NC-SI frames received since reset.",
+                    "longDescription": "This property shall contain the total number of NC-SI frames received since reset, including both passthrough and non-passthrough traffic.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "NCSITXBytes": {
+                    "description": "The total number of NC-SI bytes sent since reset.",
+                    "longDescription": "This property shall contain the total number of NC-SI bytes sent since reset, including both passthrough and non-passthrough traffic.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "By"
+                },
+                "NCSITXFrames": {
+                    "description": "The total number of NC-SI frames sent since reset.",
+                    "longDescription": "This property shall contain the total number of NC-SI frames sent since reset, including both passthrough and non-passthrough traffic.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "RXBytes": {
+                    "description": "The total number of bytes received since reset.",
+                    "longDescription": "This property shall contain the total number of bytes received since reset, including host and remote management passthrough traffic, and inclusive of all protocol overhead.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "By"
+                },
+                "RXMulticastFrames": {
+                    "description": "The total number of good multicast frames received since reset.",
+                    "longDescription": "This property shall contain the total number of good multicast frames received since reset.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "RXUnicastFrames": {
+                    "description": "The total number of good unicast frames received since reset.",
+                    "longDescription": "This property shall contain the total number of good unicast frames received since reset.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "TXBytes": {
+                    "description": "The total number of bytes transmitted since reset.",
+                    "longDescription": "This property shall contain the total number of bytes transmitted since reset, including host and remote management passthrough traffic, and inclusive of all protocol overhead.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "By"
+                },
+                "TXMulticastFrames": {
+                    "description": "The total number of good multicast frames transmitted since reset.",
+                    "longDescription": "This property shall contain the total number of good multicast frames transmitted since reset.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "TXUnicastFrames": {
+                    "description": "The total number of good unicast frames transmitted since reset.",
+                    "longDescription": "This property shall contain the total number of good unicast frames transmitted since reset.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2021.1",
+    "title": "#NetworkAdapterMetrics.v1_0_1.NetworkAdapterMetrics"
+}

@@ -1,0 +1,768 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Endpoint.v1_8_1.json",
+    "$ref": "#/definitions/Endpoint",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "ConnectedEntity": {
+            "additionalProperties": false,
+            "description": "Represents a remote resource that is connected to the network accessible to this endpoint.",
+            "longDescription": "This type shall represent a remote resource that is connected to a network accessible to an endpoint.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "EntityLink": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Resource",
+                    "description": "The link to the associated entity.",
+                    "longDescription": "This property shall contain a link to an entity of the type specified by the description of the EntityType property value.",
+                    "readonly": true
+                },
+                "EntityPciId": {
+                    "$ref": "#/definitions/PciId",
+                    "description": "The PCI ID of the connected entity.",
+                    "longDescription": "This property shall contain the PCI ID of the connected PCIe entity."
+                },
+                "EntityRole": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/EntityRole"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The role of the connected entity.",
+                    "longDescription": "This property shall indicate if the specified entity is an initiator, target, or both.",
+                    "readonly": true
+                },
+                "EntityType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/EntityType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The type of the connected entity.",
+                    "longDescription": "This property shall indicate if type of connected entity.",
+                    "readonly": true
+                },
+                "GenZ": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/GenZ"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The Gen-Z related properties for the entity.",
+                    "longDescription": "This property shall contain the Gen-Z related properties for the entity.",
+                    "versionAdded": "v1_4_0"
+                },
+                "Identifiers": {
+                    "description": "Identifiers for the remote entity.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Identifier"
+                    },
+                    "longDescription": "Identifiers for the remote entity shall be unique in the context of other resources that can reached over the connected network.",
+                    "type": "array"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                },
+                "PciClassCode": {
+                    "deprecated": "This property has been deprecated in favor of the ClassCode property inside the EntityPciId object.",
+                    "description": "The Class Code, Subclass, and Programming Interface code of this PCIe function.",
+                    "longDescription": "This property shall contain the PCI Class Code, Subclass, and Programming Interface of the PCIe device function.",
+                    "pattern": "^0[xX](([a-fA-F]|[0-9]){2}){3}$",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionDeprecated": "v1_2_0"
+                },
+                "PciFunctionNumber": {
+                    "deprecated": "This property has been deprecated in favor of the FunctionNumber property inside the EntityPciId object.",
+                    "description": "The PCI ID of the connected entity.",
+                    "longDescription": "This property shall contain the PCI Function Number of the connected PCIe entity.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionDeprecated": "v1_2_0"
+                }
+            },
+            "type": "object"
+        },
+        "Endpoint": {
+            "additionalProperties": false,
+            "description": "The Endpoint schema contains the properties of an endpoint resource that represents the properties of an entity that sends or receives protocol-defined messages over a transport.",
+            "longDescription": "This resource contains a fabric endpoint for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "ConnectedEntities": {
+                    "description": "All the entities connected to this endpoint.",
+                    "items": {
+                        "$ref": "#/definitions/ConnectedEntity"
+                    },
+                    "longDescription": "This property shall contain all entities to which this endpoint allows access.",
+                    "type": "array"
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "EndpointProtocol": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Protocol.json#/definitions/Protocol"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The protocol supported by this endpoint.",
+                    "longDescription": "This property shall contain the protocol this endpoint uses to communicate with other endpoints on this fabric.",
+                    "readonly": true
+                },
+                "HostReservationMemoryBytes": {
+                    "description": "The amount of memory in bytes that the host should allocate to connect to this endpoint.",
+                    "longDescription": "This property shall contain the amount of memory in bytes that the host should allocate to connect to this endpoint.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "By"
+                },
+                "IPTransportDetails": {
+                    "description": "An array of details for each IP transport supported by this endpoint.  The array structure can model multiple IP addresses for this endpoint.",
+                    "items": {
+                        "$ref": "#/definitions/IPTransportDetails"
+                    },
+                    "longDescription": "This array shall contain the details for each IP transport supported by this endpoint.",
+                    "type": "array",
+                    "versionAdded": "v1_1_0"
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Identifiers": {
+                    "description": "Identifiers for this endpoint.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Identifier"
+                    },
+                    "longDescription": "Identifiers for this endpoint shall be unique in the context of other endpoints that can reached over the connected network.",
+                    "type": "array"
+                },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "PciId": {
+                    "$ref": "#/definitions/PciId",
+                    "description": "The PCI ID of the endpoint.",
+                    "longDescription": "This property shall contain the PCI ID of the endpoint."
+                },
+                "Redundancy": {
+                    "autoExpand": true,
+                    "description": "Redundancy information for the lower-level endpoints supporting this endpoint.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Redundancy.json#/definitions/Redundancy"
+                    },
+                    "longDescription": "The values of the properties in this array shall show how this endpoint is grouped with other endpoints for form redundancy sets.",
+                    "type": "array"
+                },
+                "Redundancy@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "EntityRole": {
+            "enum": [
+                "Initiator",
+                "Target",
+                "Both"
+            ],
+            "enumDescriptions": {
+                "Both": "The entity can both send and receive commands, messages, and other requests to or from other entities on the fabric.",
+                "Initiator": "The entity sends commands, messages, or other types of requests to other entities on the fabric, but cannot receive commands from other entities.",
+                "Target": "The entity receives commands, messages, or other types of requests from other entities on the fabric, but cannot send commands to other entities."
+            },
+            "type": "string"
+        },
+        "EntityType": {
+            "enum": [
+                "StorageInitiator",
+                "RootComplex",
+                "NetworkController",
+                "Drive",
+                "StorageExpander",
+                "DisplayController",
+                "Bridge",
+                "Processor",
+                "Volume",
+                "AccelerationFunction",
+                "MediaController",
+                "MemoryChunk",
+                "Switch",
+                "FabricBridge",
+                "Manager",
+                "StorageSubsystem",
+                "Memory",
+                "CXLDevice"
+            ],
+            "enumDescriptions": {
+                "AccelerationFunction": "The entity is an acceleration function realized through a device, such as an FPGA.",
+                "Bridge": "The entity is a PCIe bridge.",
+                "CXLDevice": "The entity is a CXL logical device.",
+                "DisplayController": "The entity is a display controller.",
+                "Drive": "The entity is a drive.",
+                "FabricBridge": "The entity is a fabric bridge.",
+                "Manager": "The entity is a manager.",
+                "MediaController": "The entity is a media controller.",
+                "Memory": "The entity is a memory device.",
+                "MemoryChunk": "The entity is a memory chunk.",
+                "NetworkController": "The entity is a network controller.",
+                "Processor": "The entity is a processor.",
+                "RootComplex": "The entity is a PCIe root complex.",
+                "StorageExpander": "The entity is a storage expander.",
+                "StorageInitiator": "The entity is a storage initiator.",
+                "StorageSubsystem": "The entity is a storage subsystem.",
+                "Switch": "The entity is a switch, not an expander.  Use `Expander` for expanders.",
+                "Volume": "The entity is a volume."
+            },
+            "enumLongDescriptions": {
+                "AccelerationFunction": "This value shall indicate the entity this endpoint represents is an acceleration function.  The EntityLink property, if present, should be of type AccelerationFunction.",
+                "Bridge": "This value shall indicate the entity this endpoint represents is a PCIe bridge.",
+                "CXLDevice": "This value shall indicate the entity this endpoint represents is a CXL logical device.  The EntityLink property, if present, should be of type CXLLogicalDevice.",
+                "DisplayController": "This value shall indicate the entity this endpoint represents is a display controller.",
+                "Drive": "This value shall indicate the entity this endpoint represents is a drive.  The EntityLink property, if present, should be of type Drive.",
+                "FabricBridge": "This value shall indicate the entity this endpoint represents is a fabric bridge.  The EntityLink property, if present, should be of type FabricAdapter.",
+                "Manager": "This value shall indicate the entity this endpoint represents is a manager.  The EntityLink property, if present, should be of type Manager.",
+                "MediaController": "This value shall indicate the entity this endpoint represents is a media controller.  The EntityLink property, if present, should be of type MediaController.",
+                "Memory": "This value shall indicate the entity this endpoint represents is a memory device.  The EntityLink property, if present, should be of type Memory.",
+                "MemoryChunk": "This value shall indicate the entity this endpoint represents is a memory chunk.  The EntityLink property, if present, should be of type MemoryChunk.",
+                "NetworkController": "This value shall indicate the entity this endpoint represents is a network controller.  The EntityLink property, if present, should be of type NetworkDeviceFunction or EthernetInterface.",
+                "Processor": "This value shall indicate the entity this endpoint represents is a processor.  The EntityLink property, if present, should be of type Processor.",
+                "RootComplex": "This value shall indicate the entity this endpoint represents is a PCIe root complex.  The EntityLink property, if present, should be of type ComputerSystem.",
+                "StorageExpander": "This value shall indicate the entity this endpoint represents is a storage expander.  The EntityLink property, if present, should be of type Chassis.",
+                "StorageInitiator": "This value shall indicate the entity this endpoint represents is a storage initiator.  The EntityLink property, if present, should be of type StorageController.",
+                "StorageSubsystem": "This value shall indicate the entity this endpoint represents is a storage subsystem.  The EntityLink property, if present, should be of type Storage.",
+                "Switch": "This value shall indicate the entity this endpoint represents is a switch and not an expander.  The EntityLink property, if present, should be of type Switch.",
+                "Volume": "This value shall indicate the entity this endpoint represents is a volume.  The EntityLink property, if present, should be of type Volume."
+            },
+            "enumVersionAdded": {
+                "AccelerationFunction": "v1_3_0",
+                "CXLDevice": "v1_8_0",
+                "FabricBridge": "v1_4_0",
+                "Manager": "v1_5_0",
+                "MediaController": "v1_4_0",
+                "Memory": "v1_8_0",
+                "MemoryChunk": "v1_4_0",
+                "StorageSubsystem": "v1_6_0",
+                "Switch": "v1_4_0",
+                "Volume": "v1_1_0"
+            },
+            "type": "string"
+        },
+        "GCID": {
+            "additionalProperties": false,
+            "description": "The Global Component ID (GCID).",
+            "longDescription": "This type shall contain the Gen-Z Core Specification-defined Global Component ID.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "CID": {
+                    "description": "The component identifier portion of the GCID for the entity.",
+                    "longDescription": "This property shall contain the 12 bit component identifier portion of the GCID of the entity.",
+                    "pattern": "^0[xX]([a-fA-F]|[0-9]){3}$",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                },
+                "SID": {
+                    "description": "The subnet identifier portion of the GCID for the entity.",
+                    "longDescription": "This property shall contain the 16 bit subnet identifier portion of the GCID of the entity.",
+                    "pattern": "^0[xX](([a-fA-F]|[0-9]){2}){2}$",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                }
+            },
+            "type": "object"
+        },
+        "GenZ": {
+            "additionalProperties": false,
+            "description": "The Gen-Z related properties for an entity.",
+            "longDescription": "This type shall contain the Gen-Z related properties for an entity.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AccessKey": {
+                    "deprecated": "This property has been deprecated in favor of the ConnectionKeys property in the Connection resource.",
+                    "description": "The Access Key for the entity.",
+                    "longDescription": "This property shall contain the Gen-Z Core Specification-defined 6 bit Access Key for the entity.",
+                    "pattern": "^0[xX]([a-fA-F]|[0-9]){2}$",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0",
+                    "versionDeprecated": "v1_6_0"
+                },
+                "GCID": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/GCID"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The Global Component ID (GCID) for the entity.",
+                    "longDescription": "This property shall contain the Gen-Z Core Specification-defined Global Component ID for the entity.",
+                    "versionAdded": "v1_4_0"
+                },
+                "RegionKey": {
+                    "deprecated": "This property has been deprecated in favor of the ConnectionKeys property in the Connection resource.",
+                    "description": "The Region Key for the entity.",
+                    "longDescription": "This property shall contain the Gen-Z Core Specification-defined 32 bit Region Key for the entity.",
+                    "pattern": "^0[xX](([a-fA-F]|[0-9]){2}){4}$",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0",
+                    "versionDeprecated": "v1_6_0"
+                }
+            },
+            "type": "object"
+        },
+        "IPTransportDetails": {
+            "additionalProperties": false,
+            "description": "This type specifies the details of the transport supported by the endpoint.  The properties that are present are dependent on the type of transport supported by the endpoint.",
+            "longDescription": "The type shall contain properties that specify the details of the transport supported by the endpoint.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "IPv4Address": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/IPAddresses.json#/definitions/IPv4Address",
+                    "description": "The IPv4 addresses assigned to the endpoint.",
+                    "longDescription": "This property shall contain the IPv4Address.",
+                    "versionAdded": "v1_1_0"
+                },
+                "IPv6Address": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/IPAddresses.json#/definitions/IPv6Address",
+                    "description": "The IPv6 addresses assigned to the endpoint.",
+                    "longDescription": "This property shall contain the IPv6Address.",
+                    "versionAdded": "v1_1_0"
+                },
+                "Port": {
+                    "description": "The UDP or TCP port number used by the endpoint.",
+                    "longDescription": "This property shall contain a specified UDP or TCP port number used for communication with the endpoint.",
+                    "maximum": 65535,
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": "integer",
+                    "versionAdded": "v1_1_0"
+                },
+                "TransportProtocol": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Protocol.json#/definitions/Protocol",
+                    "description": "The protocol used by the connection entity.",
+                    "longDescription": "This property shall contain the protocol used by the connection entity.",
+                    "readonly": true,
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
+        },
+        "Links": {
+            "additionalProperties": false,
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AddressPools": {
+                    "description": "An array of links to the address pools associated with this endpoint.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/AddressPool.json#/definitions/AddressPool"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type AddressPool with which this endpoint is associated.",
+                    "readonly": false,
+                    "type": "array",
+                    "versionAdded": "v1_4_0"
+                },
+                "AddressPools@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "ConnectedPorts": {
+                    "description": "An array of links to the switch ports or remote device ports at the other end of the link.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Port.json#/definitions/Port"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Port that represent the switch ports or remote device ports to which this endpoint is connected.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_4_0"
+                },
+                "ConnectedPorts@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Connections": {
+                    "description": "The connections to which this endpoint belongs.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Connection.json#/definitions/Connection"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Connection that represent the connections to which this endpoint belongs.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_5_0"
+                },
+                "Connections@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "LocalPorts": {
+                    "description": "An array of links to the device ports that this endpoint represents.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Port.json#/definitions/Port"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Port that represent the device ports that this endpoint represents.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_7_0"
+                },
+                "LocalPorts@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "MutuallyExclusiveEndpoints": {
+                    "description": "An array of links to the endpoints that cannot be used in zones if this endpoint is in a zone.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Endpoint.json#/definitions/Endpoint"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Endpoint that cannot be used in a zone if this endpoint is in a zone.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "MutuallyExclusiveEndpoints@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "NetworkDeviceFunction": {
+                    "description": "When NetworkDeviceFunction resources are present, this array contains links to the network device functions that connect to this endpoint.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkDeviceFunction.json#/definitions/NetworkDeviceFunction"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type NetworkDeviceFunction with which this endpoint is associated.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_1_0"
+                },
+                "NetworkDeviceFunction@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                },
+                "Ports": {
+                    "deprecated": "This property has been deprecated in favor of the ConnectedPorts and LocalPorts properties to clarify the semantics of each port referenced.",
+                    "description": "An array of links to the physical ports associated with this endpoint.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Port.json#/definitions/Port"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Port that are utilized by this endpoint.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionDeprecated": "v1_7_0"
+                },
+                "Ports@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Zones": {
+                    "description": "The zones to which this endpoint belongs.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Zone.json#/definitions/Zone"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Zone that represent the zones to which this endpoint belongs.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_6_0"
+                },
+                "Zones@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "PciId": {
+            "additionalProperties": false,
+            "description": "A PCI ID.",
+            "longDescription": "This type shall describe a PCI ID.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "ClassCode": {
+                    "description": "The Class Code, Subclass, and Programming Interface code of this PCIe function.",
+                    "longDescription": "This property shall contain the PCI Class Code, Subclass, and Programming Interface of the PCIe device function.",
+                    "pattern": "^0[xX](([a-fA-F]|[0-9]){2}){3}$",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0"
+                },
+                "DeviceId": {
+                    "description": "The Device ID of this PCIe function.",
+                    "longDescription": "This property shall contain the PCI Device ID of the PCIe device function.",
+                    "pattern": "^0[xX](([a-fA-F]|[0-9]){2}){2}$",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "FunctionNumber": {
+                    "description": "The PCI ID of the connected entity.",
+                    "longDescription": "This property shall contain the PCI Function Number of the connected PCIe entity.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0"
+                },
+                "SubsystemId": {
+                    "description": "The Subsystem ID of this PCIe function.",
+                    "longDescription": "This property shall contain the PCI Subsystem ID of the PCIe device function.",
+                    "pattern": "^0[xX](([a-fA-F]|[0-9]){2}){2}$",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "SubsystemVendorId": {
+                    "description": "The Subsystem Vendor ID of this PCIe function.",
+                    "longDescription": "This property shall contain the PCI Subsystem Vendor ID of the PCIe device function.",
+                    "pattern": "^0[xX](([a-fA-F]|[0-9]){2}){2}$",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "VendorId": {
+                    "description": "The Vendor ID of this PCIe function.",
+                    "longDescription": "This property shall contain the PCI Vendor ID of the PCIe device function.",
+                    "pattern": "^0[xX](([a-fA-F]|[0-9]){2}){2}$",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2022.3",
+    "title": "#Endpoint.v1_8_1.Endpoint"
+}

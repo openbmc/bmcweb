@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  NetworkDeviceFunctionMetrics v1.1.2                                 -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunctionMetrics">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="NetworkDeviceFunctionMetrics" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The NetworkDeviceFunctionMetrics schema contains usage and health statistics for a network function of a network adapter."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent the network metrics for a single network function of a network adapter in a Redfish implementation."/>
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/NetworkDeviceFunctions/{NetworkDeviceFunctionId}/Metrics</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunctionMetrics.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.1"/>
+
+      <EntityType Name="NetworkDeviceFunctionMetrics" BaseType="NetworkDeviceFunctionMetrics.NetworkDeviceFunctionMetrics">
+        <Property Name="Ethernet" Type="NetworkDeviceFunctionMetrics.v1_0_0.Ethernet" Nullable="false">
+          <Annotation Term="OData.Description" String="The network function metrics specific to Ethernet adapters."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain network function metrics specific to Ethernet adapters."/>
+        </Property>
+        <Property Name="TXAvgQueueDepthPercent" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The average TX queue depth as the percentage."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the average TX queue depth as a percentage, typically `0` to `100`."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Measures.Unit" String="%"/>
+        </Property>
+        <Property Name="RXAvgQueueDepthPercent" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The average RX queue depth as the percentage."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the average RX queue depth as a percentage, typically `0` to `100`."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Measures.Unit" String="%"/>
+        </Property>
+        <Property Name="RXFrames" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of frames received on a network function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of frames received on a network function."/>
+        </Property>
+        <Property Name="RXBytes" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of bytes received on a network function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of bytes received on a network function, inclusive of all protocol overhead."/>
+          <Annotation Term="Measures.Unit" String="By"/>
+        </Property>
+        <Property Name="RXUnicastFrames" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of good unicast frames received on a network function since reset."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of good unicast frames received on a network function since reset."/>
+        </Property>
+        <Property Name="RXMulticastFrames" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of good multicast frames received on a network function since reset."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of good multicast frames received on a network function since reset, including host and remote management passthrough traffic."/>
+        </Property>
+        <Property Name="TXFrames" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of frames sent on a network function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of frames sent on a network function."/>
+        </Property>
+        <Property Name="TXBytes" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of bytes sent on a network function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of bytes sent on a network function, inclusive of all protocol overhead."/>
+          <Annotation Term="Measures.Unit" String="By"/>
+        </Property>
+        <Property Name="TXUnicastFrames" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of good unicast frames transmitted on a network function since reset."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of good unicast frames transmitted on a network function since reset, including host and remote management passthrough traffic."/>
+        </Property>
+        <Property Name="TXMulticastFrames" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of good multicast frames transmitted on a network function since reset."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of good multicast frames transmitted on a network function since reset, including host and remote management passthrough traffic."/>
+        </Property>
+        <Property Name="TXQueuesEmpty" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Whether all TX queues for a network function are empty."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether all TX queues for a network function are empty."/>
+        </Property>
+        <Property Name="RXQueuesEmpty" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Whether nothing is in a network function's RX queues to DMA."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether nothing is in a network function's RX queues to DMA."/>
+        </Property>
+        <Property Name="TXQueuesFull" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of TX queues that are full."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of TX queues that are full."/>
+        </Property>
+        <Property Name="RXQueuesFull" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of RX queues that are full."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of RX queues that are full."/>
+        </Property>
+        <Property Name="Actions" Type="NetworkDeviceFunctionMetrics.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Ethernet">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The network function metrics for an Ethernet interface."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe the Ethernet-related network function metrics."/>
+        <Property Name="NumOffloadedIPv4Conns" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of offloaded TCP/IPv4 connections."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of offloaded TCP/IPv4 connections."/>
+        </Property>
+        <Property Name="NumOffloadedIPv6Conns" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of offloaded TCP/IPv6 connections."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of offloaded TCP/IPv6 connections."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="NetworkDeviceFunctionMetrics.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunctionMetrics.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the range of possible values for properties with percent units."/>
+      <EntityType Name="NetworkDeviceFunctionMetrics" BaseType="NetworkDeviceFunctionMetrics.v1_0_0.NetworkDeviceFunctionMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunctionMetrics.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="NetworkDeviceFunctionMetrics" BaseType="NetworkDeviceFunctionMetrics.v1_0_1.NetworkDeviceFunctionMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunctionMetrics.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add FibreChannel function metrics."/>
+
+      <EntityType Name="NetworkDeviceFunctionMetrics" BaseType="NetworkDeviceFunctionMetrics.v1_0_0.NetworkDeviceFunctionMetrics">
+        <Property Name="FibreChannel" Type="NetworkDeviceFunctionMetrics.v1_1_0.FibreChannel" Nullable="false">
+          <Annotation Term="OData.Description" String="The network function metrics specific to Fibre Channel adapters."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain network function metrics specific to Fibre Channel adapters."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="FibreChannel">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The network function metrics for a Fibre Channel interface."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe the Fibre Channel-related network function metrics."/>
+        <Property Name="RXSequences" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of Fibre Channel sequences received."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of Fibre Channel sequences received."/>
+        </Property>
+        <Property Name="TXSequences" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of Fibre Channel sequences transmitted."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of Fibre Channel sequences transmitted."/>
+        </Property>
+        <Property Name="TXExchanges" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of Fibre Channel exchanges transmitted."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of Fibre Channel exchanges transmitted."/>
+        </Property>
+        <Property Name="RXExchanges" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of Fibre Channel exchanges received."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of Fibre Channel exchanges received."/>
+        </Property>
+        <Property Name="PortLoginRequests" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of port login (PLOGI) requests transmitted."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of PLOGI requests sent by this function."/>
+        </Property>
+        <Property Name="PortLoginAccepts" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of port login (PLOGI) accept (ACC) responses."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of PLOGI ACC responses received by this Fibre Channel function."/>
+        </Property>
+        <Property Name="PortLoginRejects" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of port login (PLOGI) reject (RJT) responses."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of PLOGI RJT responses received by this Fibre Channel function."/>
+        </Property>
+        <Property Name="RXPeerCongestionFPINs" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of Peer Congestion Fabric Performance Impact Notifications (FPINs) received."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of Peer Congestion FPINs received by this Fibre Channel function."/>
+        </Property>
+        <Property Name="TXPeerCongestionFPINs" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of Peer Congestion Fabric Performance Impact Notifications (FPINs) sent."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of Peer Congestion FPINs sent by this Fibre Channel function."/>
+        </Property>
+        <Property Name="RXCongestionFPINs" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of Congestion Fabric Performance Impact Notifications (FPINs) received."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of Congestion FPINs received by this Fibre Channel function."/>
+        </Property>
+        <Property Name="TXCongestionFPINs" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of Congestion Fabric Performance Impact Notifications (FPINs) sent."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of Congestion FPINs sent by this Fibre Channel function."/>
+        </Property>
+        <Property Name="RXLinkIntegrityFPINs" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of Link Integrity Fabric Performance Impact Notifications (FPINs) received."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of Link Integrity FPINs received by this Fibre Channel function."/>
+        </Property>
+        <Property Name="TXLinkIntegrityFPINs" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of Link Integrity Fabric Performance Impact Notifications (FPINs) sent."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of Link Integrity FPINs sent by this Fibre Channel function."/>
+        </Property>
+        <Property Name="RXDeliveryFPINs" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of Delivery Fabric Performance Impact Notifications (FPINs) received."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of Delivery FPINs received by this Fibre Channel function."/>
+        </Property>
+        <Property Name="TXDeliveryFPINs" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of Delivery Fabric Performance Impact Notifications (FPINs) sent."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of Delivery FPINs sent by this Fibre Channel function."/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunctionMetrics.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the range of possible values for properties with percent units."/>
+      <EntityType Name="NetworkDeviceFunctionMetrics" BaseType="NetworkDeviceFunctionMetrics.v1_1_0.NetworkDeviceFunctionMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunctionMetrics.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="NetworkDeviceFunctionMetrics" BaseType="NetworkDeviceFunctionMetrics.v1_1_1.NetworkDeviceFunctionMetrics"/>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

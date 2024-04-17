@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  TrustedComponent v1.3.0                                             -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/CertificateCollection_v1.xml">
+    <edmx:Include Namespace="CertificateCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/SoftwareInventory_v1.xml">
+    <edmx:Include Namespace="SoftwareInventory"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/ComponentIntegrity_v1.xml">
+    <edmx:Include Namespace="ComponentIntegrity"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TrustedComponent">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="TrustedComponent" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The TrustedComponent resource represents a trusted device, such as a TPM."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent a trusted component in a Redfish implementation."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="true"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/Chassis/{ChassisId}/TrustedComponents/{TrustedComponentId}</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+
+      <Action Name="TPMGetEventLog" IsBound="true">
+        <Annotation Term="OData.Description" String="This action retrieves the event log for TPM 2.0 devices."/>
+        <Annotation Term="OData.LongDescription" String="This action shall return the event log for TPM 2.0 devices."/>
+        <Parameter Name="TrustedComponent" Type="TrustedComponent.v1_0_0.Actions"/>
+        <ReturnType Type="TrustedComponent.v1_3_0.TPMGetEventLogResponse" Nullable="false"/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_3_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TrustedComponent.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.2"/>
+
+      <EntityType Name="TrustedComponent" BaseType="TrustedComponent.TrustedComponent">
+        <Property Name="Actions" Type="TrustedComponent.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
+        </Property>
+        <Property Name="UUID" Type="Resource.UUID">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The UUID for this trusted component."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a universally unique identifier number for the trusted component."/>
+        </Property>
+        <Property Name="Status" Type="Resource.Status" Nullable="false">
+          <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+        </Property>
+        <Property Name="TrustedComponentType" Type="TrustedComponent.v1_0_0.TrustedComponentType" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The type of trusted component, such as any physical distinction about the trusted component."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of trusted component."/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+        <NavigationProperty Name="Certificates" Type="CertificateCollection.CertificateCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to a collection of device identity certificates of the trusted component."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CertificateCollection that contains device identity certificates of the trusted component."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <Property Name="Links" Type="TrustedComponent.v1_0_0.Links" Nullable="false">
+          <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+        </Property>
+        <Property Name="Manufacturer" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The manufacturer of this trusted component."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name of the organization responsible for producing the trusted component.  This organization may be the entity from whom the trusted component is purchased, but this is not necessarily true."/>
+        </Property>
+        <Property Name="Model" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The model number of the trusted component."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name by which the manufacturer generally refers to the trusted component."/>
+        </Property>
+        <Property Name="SKU" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The SKU of the trusted component."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the stock-keeping unit number for this trusted component."/>
+        </Property>
+        <Property Name="SerialNumber" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The serial number of the trusted component."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a manufacturer-allocated number that identifies the trusted component."/>
+        </Property>
+        <Property Name="PartNumber" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The part number of the trusted component."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a part number assigned by the organization that is responsible for producing or manufacturing the trusted component."/>
+        </Property>
+        <Property Name="FirmwareVersion" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The software version of the active software image on the trusted component."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a version number associated with the active software image on the trusted component."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="TrustedComponent.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
+      </ComplexType>
+
+      <EnumType Name="TrustedComponentType">
+        <Member Name="Discrete">
+          <Annotation Term="OData.Description" String="A discrete trusted component."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the entity has a well-defined physical boundary within the chassis."/>
+        </Member>
+        <Member Name="Integrated">
+          <Annotation Term="OData.Description" String="An integrated trusted component."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the entity is integrated into another device."/>
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="Links" BaseType="Resource.Links">
+        <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+        <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+        <NavigationProperty Name="ComponentsProtected" Type="Collection(Resource.Item)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to resources that the target component protects."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources whose integrity is measured or reported by the trusted component."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="IntegratedInto" Type="Resource.Item">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A link to a resource to which this trusted component is integrated."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource to which this trusted component is physically integrated.  This property shall be present if TrustedComponentType contains `Integrated`."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="ComponentIntegrity" Type="Collection(ComponentIntegrity.ComponentIntegrity)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to ComponentIntegrity resources for which the trusted component is responsible."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type ComponentIntegrity that represent the communication established with the trusted component by other resources.  The TargetComponentURI property in the referenced ComponentIntegrity resources shall reference this trusted component."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="ActiveSoftwareImage" Type="SoftwareInventory.SoftwareInventory" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The link to the software inventory resource that represents the active firmware image for this trusted component."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type SoftwareInventory that represents the active firmware image for this trusted component."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="SoftwareImages" Type="Collection(SoftwareInventory.SoftwareInventory)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The images that are associated with this trusted component."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type SoftwareInventory that represent the firmware images that apply to this trusted component."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TrustedComponent.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="TrustedComponent" BaseType="TrustedComponent.v1_0_0.TrustedComponent"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TrustedComponent.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.1"/>
+
+      <EntityType Name="TrustedComponent" BaseType="TrustedComponent.v1_0_0.TrustedComponent">
+        <Property Name="TPM" Type="TrustedComponent.v1_1_0.TPM" Nullable="false">
+          <Annotation Term="OData.Description" String="TPM-specific information for this trusted component."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain TPM-specific information for this trusted component.  This property shall only be present for TCG-defined TPM trusted components."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="TPM">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="TPM-specific information for a trusted component."/>
+        <Annotation Term="OData.LongDescription" String="This property shall contain TPM-specific information for a trusted component."/>
+        <Property Name="HardwareInterfaceVendorID" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The hardware interface vendor ID for this trusted component."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the TCG-defined 'TPM Hardware Interface Vendor ID' for this trusted component with the most significant byte shown first."/>
+          <Annotation Term="Validation.Pattern" String="^0[xX]([0-9A-Fa-f]{2}){2}$"/>
+        </Property>
+        <Property Name="CapabilitiesVendorID" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The capabilities vendor ID for this trusted component."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an ASCII string of the 4-byte TCG-defined 'TPM Capabilities Vendor ID' for this trusted component."/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TrustedComponent.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="TrustedComponent" BaseType="TrustedComponent.v1_1_0.TrustedComponent"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TrustedComponent.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.2"/>
+
+      <EntityType Name="TrustedComponent" BaseType="TrustedComponent.v1_1_0.TrustedComponent"/>
+
+      <ComplexType Name="Links" BaseType="TrustedComponent.v1_0_0.Links">
+        <NavigationProperty Name="Owner" Type="Resource.Item">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A link to the resource that owns this trusted component."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to the resource that owns this trusted component.  In the case of TPMs, particularly in multiple chassis implementations, this is the resource used to establish a new PCR."/>
+        </NavigationProperty>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TrustedComponent.v1_2_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="TrustedComponent" BaseType="TrustedComponent.v1_2_0.TrustedComponent"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TrustedComponent.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.3"/>
+      <Annotation Term="OData.Description" String="This version was created to add the TPMGetEventLog action to allow retrieval of a TPM event log."/>
+
+      <EntityType Name="TrustedComponent" BaseType="TrustedComponent.v1_2_1.TrustedComponent"/>
+
+      <ComplexType Name="TPMGetEventLogResponse">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The TPM event log."/>
+        <Annotation Term="OData.LongDescription" String="This object shall contain the TPM event log."/>
+        <Property Name="EventLog" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The Base64-encoded event log for the TPM."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Base64-encoded string of the entire event log defined in the 'Event Logging' section of the 'TCG PC Client Platform Firmware Profile Specification'."/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+        <Property Name="Oem" Type="Resource.Oem" Nullable="false">
+          <Annotation Term="OData.Description" String="The OEM extension property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

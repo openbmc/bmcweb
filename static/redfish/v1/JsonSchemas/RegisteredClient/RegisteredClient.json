@@ -1,0 +1,249 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/RegisteredClient.v1_1_1.json",
+    "$ref": "#/definitions/RegisteredClient",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "ClientType": {
+            "enum": [
+                "Monitor",
+                "Configure"
+            ],
+            "enumDescriptions": {
+                "Configure": "The registered client performs update, create, and delete operations on the resources listed in the ManagedResources property as well as read operations on the service.",
+                "Monitor": "The registered client only performs read operations on this service."
+            },
+            "type": "string"
+        },
+        "ManagedResource": {
+            "additionalProperties": false,
+            "description": "A resource managed by a client.",
+            "longDescription": "This object shall contain information about a resource managed by a client.  The managed resource may specify subordinate resources.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "IncludesSubordinates": {
+                    "description": "Indicates whether the subordinate resources of the managed resource are also managed by the registered client.",
+                    "longDescription": "This property shall indicate whether the subordinate resources of the managed resource referenced by the ManagedResourceURI property are also managed by the registered client.  If not specified, the value is assumed to be `false` unless ManagedResourceURI references a resource collection.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "ManagedResourceURI": {
+                    "description": "The URI of the resource or resource collection managed by the registered client.",
+                    "format": "uri-reference",
+                    "longDescription": "This property shall contain the URI of the Redfish resource or Redfish resource collection managed by the registered client.  When the URI references a resource collection, all members of the resource collection may be monitored or configured by the client, and the IncludesSubordinates property shall contain `true`.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "PreferExclusive": {
+                    "description": "Indicates whether the registered client expects to have exclusive access to the managed resource.",
+                    "longDescription": "This property shall indicate whether the registered client expects to have exclusive access to the managed resource referenced by the ManagedResourceURI property, and also its subordinate resources if IncludesSubordinates contains `true`.  If not specified, the value is assumed to be `false`.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "RegisteredClient": {
+            "additionalProperties": false,
+            "description": "The RegisteredClient schema defines the record format for a registered client.  It is designed to allow well-behaved clients to register with a Redfish service such that other clients are aware the service might be configured or monitored by the client.",
+            "longDescription": "This resource shall represent a registered client for a Redfish implementation.  It is not expected that transient tools, such as a short-lived CLI tool, register.  Clients and management tools that live for long periods of time can create RegisteredClient resources so that other clients are aware the service might be configured or monitored by the client.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "ClientType": {
+                    "$ref": "#/definitions/ClientType",
+                    "description": "The type of registered client.",
+                    "longDescription": "This property shall contain the type of registered client.",
+                    "readonly": false
+                },
+                "ClientURI": {
+                    "description": "The URI of the registered client.",
+                    "format": "uri-reference",
+                    "longDescription": "This property shall contain the URI of the registered client.",
+                    "readonly": false,
+                    "type": "string"
+                },
+                "Context": {
+                    "description": "A client-supplied data for providing context for its own use.",
+                    "longDescription": "This property shall contain data provided by the owning client used to identify the service, provide context about its state, or other information.  The value of this property shall not contain unencrypted sensitive data such as user credentials.  Services shall support values of at least 256 bytes in length.",
+                    "readonly": false,
+                    "type": "string",
+                    "versionAdded": "v1_1_0"
+                },
+                "CreatedDate": {
+                    "description": "The date and time when the client entry was created.",
+                    "format": "date-time",
+                    "longDescription": "This property shall contain the date and time when the client entry was created.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "ExpirationDate": {
+                    "description": "The date and time when the client entry will expire.",
+                    "format": "date-time",
+                    "longDescription": "This property shall contain the date and time when the client entry expires.  Registered clients that are actively managing or monitoring should periodically update this value.  The value should not be more than 7 days after the date when it was last set.  If the current date is beyond this date, the service may delete this client entry.",
+                    "readonly": false,
+                    "type": "string"
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "ManagedResources": {
+                    "description": "An array of resources that the registered client monitors or configures.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ManagedResource"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of resources that the registered client monitors or configures.  Other clients can use this property to understand which resources are monitored or configured by the registered client.",
+                    "type": "array"
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "SubContext": {
+                    "description": "Additional client-supplied data for providing contextual information for its own use.",
+                    "longDescription": "This property shall contain additional data provided by the owning client used to identify the service, provide context about its state, or other information.  The value of this property shall not contain unencrypted sensitive data such as user credentials.  Services shall support values of at least 256 bytes in length.",
+                    "readonly": false,
+                    "type": "string",
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "required": [
+                "ClientType",
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "requiredOnCreate": [
+                "ClientType"
+            ],
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2023.1",
+    "title": "#RegisteredClient.v1_1_1.RegisteredClient"
+}
