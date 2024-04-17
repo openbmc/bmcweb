@@ -38,64 +38,75 @@ int run()
     // Static assets need to be initialized before Authorization, because auth
     // needs to build the whitelist from the static routes
 
-#ifdef BMCWEB_ENABLE_STATIC_HOSTING
-    crow::webassets::requestRoutes(app);
-#endif
+    if constexpr (BMCWEB_STATIC_HOSTING)
+    {
+        crow::webassets::requestRoutes(app);
+    }
 
-#ifdef BMCWEB_ENABLE_KVM
-    crow::obmc_kvm::requestRoutes(app);
-#endif
+    if constexpr (BMCWEB_KVM)
+    {
+        crow::obmc_kvm::requestRoutes(app);
+    }
 
-#ifdef BMCWEB_ENABLE_REDFISH
-    redfish::RedfishService redfish(app);
+    if constexpr (BMCWEB_REDFISH)
+    {
+        redfish::RedfishService redfish(app);
 
-    // Create EventServiceManager instance and initialize Config
-    redfish::EventServiceManager::getInstance(&*io);
+        // Create EventServiceManager instance and initialize Config
+        redfish::EventServiceManager::getInstance(&*io);
 
-#ifdef BMCWEB_ENABLE_REDFISH_AGGREGATION
-    // Create RedfishAggregator instance and initialize Config
-    redfish::RedfishAggregator::getInstance(&*io);
-#endif
-#endif
+        if constexpr (BMCWEB_REDFISH_AGGREGATION)
+        {
+            // Create RedfishAggregator instance and initialize Config
+            redfish::RedfishAggregator::getInstance(&*io);
+        }
+    }
 
-#ifdef BMCWEB_ENABLE_DBUS_REST
-    crow::dbus_monitor::requestRoutes(app);
-    crow::image_upload::requestRoutes(app);
-    crow::openbmc_mapper::requestRoutes(app);
-#endif
+    if constexpr (BMCWEB_REST)
+    {
+        crow::dbus_monitor::requestRoutes(app);
+        crow::image_upload::requestRoutes(app);
+        crow::openbmc_mapper::requestRoutes(app);
+    }
 
-#ifdef BMCWEB_ENABLE_HOST_SERIAL_WEBSOCKET
-    crow::obmc_console::requestRoutes(app);
-#endif
+    if constexpr (BMCWEB_HOST_SERIAL_SOCKET)
+    {
+        crow::obmc_console::requestRoutes(app);
+    }
 
-#ifdef BMCWEB_ENABLE_VM_WEBSOCKET
-    crow::obmc_vm::requestRoutes(app);
-#endif
+    if constexpr (BMCWEB_VM_WEBSOCKET)
+    {
+        crow::obmc_vm::requestRoutes(app);
+    }
 
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
-    crow::ibm_mc::requestRoutes(app);
-#endif
+    if constexpr (BMCWEB_IBM_MANAGEMENT_CONSOLE)
+    {
+        crow::ibm_mc::requestRoutes(app);
+    }
 
-#ifdef BMCWEB_ENABLE_GOOGLE_API
-    crow::google_api::requestRoutes(app);
-#endif
+    if constexpr (BMCWEB_GOOGLE_API)
+    {
+        crow::google_api::requestRoutes(app);
+    }
 
     crow::login_routes::requestRoutes(app);
 
-#ifdef BMCWEB_ENABLE_VM_NBDPROXY
-    crow::nbd_proxy::requestRoutes(app);
-#endif
-
-#ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
-    int rc = redfish::EventServiceManager::startEventLogMonitor(*io);
-    if (rc != 0)
+    if constexpr (BMCWEB_VM_NBDPROXY)
     {
-        BMCWEB_LOG_ERROR("Redfish event handler setup failed...");
-        return rc;
+        crow::nbd_proxy::requestRoutes(app);
     }
-#endif
 
-    if constexpr (bmcwebEnableTLS)
+    if constexpr (BMCWEB_REDFISH_DBUS_LOG)
+    {
+        int rc = redfish::EventServiceManager::startEventLogMonitor(*io);
+        if (rc != 0)
+        {
+            BMCWEB_LOG_ERROR("Redfish event handler setup failed...");
+            return rc;
+        }
+    }
+
+    if constexpr (!BMCWEB_INSECURE_DISABLE_SSL)
     {
         BMCWEB_LOG_INFO("Start Hostname Monitor Service...");
         crow::hostname_monitor::registerHostnameSignal();

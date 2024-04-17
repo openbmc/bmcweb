@@ -388,7 +388,7 @@ inline std::optional<Query> parseParameters(boost::urls::params_view urlParams,
             }
             ret.isOnly = true;
         }
-        else if (it.key == "$expand" && bmcwebInsecureEnableQueryParams)
+        else if (it.key == "$expand" && BMCWEB_INSECURE_ENABLE_REDFISH_QUERY)
         {
             if (!getExpandType(it.value, ret))
             {

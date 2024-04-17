@@ -1926,15 +1926,16 @@ inline void
         "PowerRestorePolicy", powerRestorePolicy);
 }
 
-#ifdef BMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE
 /**
  * @brief Retrieves provisioning status
  *
- * @param[in] asyncResp     Shared pointer for completing asynchronous calls.
+ * @param[in] asyncResp     Shared pointer for completing asynchronous
+ * calls.
  *
  * @return None.
  */
-inline void getProvisioningStatus(std::shared_ptr<bmcweb::AsyncResp> asyncResp)
+inline void
+    getProvisioningStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     BMCWEB_LOG_DEBUG("Get OEM information.");
     sdbusplus::asio::getAllProperties(
@@ -1976,9 +1977,9 @@ inline void getProvisioningStatus(std::shared_ptr<bmcweb::AsyncResp> asyncResp)
             return;
         }
 
-        if (*provState == true)
+        if (*provState)
         {
-            if (*lockState == true)
+            if (*lockState)
             {
                 oemPFR["ProvisioningStatus"] = "ProvisionedAndLocked";
             }
@@ -1993,7 +1994,6 @@ inline void getProvisioningStatus(std::shared_ptr<bmcweb::AsyncResp> asyncResp)
         }
     });
 }
-#endif
 
 /**
  * @brief Translate the PowerMode string to enum value
@@ -2773,7 +2773,7 @@ inline void handleComputerSystemCollectionGet(
 
     nlohmann::json& ifaceArray = asyncResp->res.jsonValue["Members"];
     ifaceArray = nlohmann::json::array();
-    if constexpr (bmcwebEnableMultiHost)
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
         asyncResp->res.jsonValue["Members@odata.count"] = 0;
         // Option currently returns no systems.  TBD
@@ -2853,7 +2853,7 @@ inline void handleComputerSystemResetActionPost(
                                    systemName);
         return;
     }
-    if constexpr (bmcwebEnableMultiHost)
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
         // Option currently returns no systems.  TBD
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -2991,7 +2991,7 @@ inline void
         return;
     }
 
-    if constexpr (bmcwebEnableMultiHost)
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
         // Option currently returns no systems.  TBD
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -3063,14 +3063,15 @@ inline void
     getPortStatusAndPath(std::span{protocolToDBusForSystems},
                          std::bind_front(afterPortRequest, asyncResp));
 
-#ifdef BMCWEB_ENABLE_KVM
-    // Fill in GraphicalConsole info
-    asyncResp->res.jsonValue["GraphicalConsole"]["ServiceEnabled"] = true;
-    asyncResp->res.jsonValue["GraphicalConsole"]["MaxConcurrentSessions"] = 4;
-    asyncResp->res.jsonValue["GraphicalConsole"]["ConnectTypesSupported"] =
-        nlohmann::json::array_t({"KVMIP"});
-
-#endif // BMCWEB_ENABLE_KVM
+    if constexpr (BMCWEB_KVM)
+    {
+        // Fill in GraphicalConsole info
+        asyncResp->res.jsonValue["GraphicalConsole"]["ServiceEnabled"] = true;
+        asyncResp->res.jsonValue["GraphicalConsole"]["MaxConcurrentSessions"] =
+            4;
+        asyncResp->res.jsonValue["GraphicalConsole"]["ConnectTypesSupported"] =
+            nlohmann::json::array_t({"KVMIP"});
+    }
 
     getMainChassisId(asyncResp,
                      [](const std::string& chassisId,
@@ -3097,9 +3098,10 @@ inline void
     getStopBootOnFault(asyncResp);
     getAutomaticRetryPolicy(asyncResp);
     getLastResetTime(asyncResp);
-#ifdef BMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE
-    getProvisioningStatus(asyncResp);
-#endif
+    if constexpr (BMCWEB_REDFISH_PROVISIONING_FEATURE)
+    {
+        getProvisioningStatus(asyncResp);
+    }
     getTrustedModuleRequiredToBoot(asyncResp);
     getPowerMode(asyncResp);
     getIdlePowerSaver(asyncResp);
@@ -3114,7 +3116,7 @@ inline void handleComputerSystemPatch(
     {
         return;
     }
-    if constexpr (bmcwebEnableMultiHost)
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
         // Option currently returns no systems.  TBD
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -3363,7 +3365,7 @@ inline void handleSystemCollectionResetActionGet(
     {
         return;
     }
-    if constexpr (bmcwebEnableMultiHost)
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
         // Option currently returns no systems.  TBD
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",

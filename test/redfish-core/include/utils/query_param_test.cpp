@@ -546,7 +546,7 @@ TEST(QueryParams, ParseParametersExpand)
     crow::Response res;
 
     std::optional<Query> query = parseParameters(ret->params(), res);
-    if constexpr (bmcwebInsecureEnableQueryParams)
+    if constexpr (BMCWEB_INSECURE_ENABLE_REDFISH_QUERY)
     {
         ASSERT_TRUE(query);
         if (!query)

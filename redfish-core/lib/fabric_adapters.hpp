@@ -266,7 +266,7 @@ inline void
     {
         return;
     }
-    if constexpr (bmcwebEnableMultiHost)
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
         // Option currently returns no systems.  TBD
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -293,7 +293,7 @@ inline void handleFabricAdapterCollectionGet(
     {
         return;
     }
-    if constexpr (bmcwebEnableMultiHost)
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
         // Option currently returns no systems. TBD
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -333,7 +333,7 @@ inline void handleFabricAdapterCollectionHead(
     {
         return;
     }
-    if constexpr (bmcwebEnableMultiHost)
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
         // Option currently returns no systems.  TBD
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -391,7 +391,7 @@ inline void
         return;
     }
 
-    if constexpr (bmcwebEnableMultiHost)
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
         // Option currently returns no systems. TBD
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
