@@ -51,6 +51,24 @@
       "parentUuid": "d262a04b_5e7e1939",
       "revId": "05095b0aaf1580fa061a26ca333b724674c854e8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e99958cd_fde5acb1",
+        "filename": "include/security_headers.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-18T16:16:19Z",
+      "side": 1,
+      "message": "I\u0027ve made the change asked for (using starts_with).",
+      "parentUuid": "db6107f2_2a35b2f1",
+      "revId": "05095b0aaf1580fa061a26ca333b724674c854e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
