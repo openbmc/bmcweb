@@ -34,6 +34,24 @@
       "parentUuid": "ae507ac3_de44138d",
       "revId": "32f6bc1d5b11cd7cacf6b2580770f1e90afaeef0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3305edf2_c36b1718",
+        "filename": "http/app.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-04-18T04:02:52Z",
+      "side": 1,
+      "message": "Even though this was a change to many places, it was done with two sed replace commands \n\nBut we have all those files need to be reviewed right? If we had type alias in a single file then both contributer and reviewer job would have been easier. \n\nbmcweb is an application not a library.If worry is about the possibility of name collision ,that can be easily spotted and fixed in application. \n\nI still not convinced why bmcweb does not encourage type aliases for boost types. It is much easier to read, write and maintain IMO.",
+      "parentUuid": "98bea7df_e26841ac",
+      "revId": "32f6bc1d5b11cd7cacf6b2580770f1e90afaeef0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
