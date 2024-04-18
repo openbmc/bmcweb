@@ -16,6 +16,23 @@
       "message": "Please reply to all comments. :)",
       "revId": "65f1cad8f453faef6b4cd31f0932b4d8aac5b4f1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac2a4e48_a2393c8f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001810
+      },
+      "writtenOn": "2024-04-18T12:31:27Z",
+      "side": 1,
+      "message": "Fixed all comments. Thanks",
+      "revId": "65f1cad8f453faef6b4cd31f0932b4d8aac5b4f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

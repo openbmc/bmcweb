@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "59eb3cde_4ab753f8",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1001810
+      },
+      "writtenOn": "2024-04-18T12:31:27Z",
+      "side": 1,
+      "message": "Updated. Thanks",
+      "parentUuid": "267b090d_c80fd0fb",
+      "revId": "c1ce1a77f6228af30742c334aad8d1b7d895ee0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6008240b_118b4abd",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 8
@@ -85,6 +103,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ec5d2364_57005509",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 2978,
+      "author": {
+        "id": 1001810
+      },
+      "writtenOn": "2024-04-18T12:31:27Z",
+      "side": 1,
+      "message": "Fixed. Thanks",
+      "parentUuid": "6008240b_118b4abd",
+      "range": {
+        "startLine": 2978,
+        "startChar": 12,
+        "endLine": 2978,
+        "endChar": 22
+      },
+      "revId": "c1ce1a77f6228af30742c334aad8d1b7d895ee0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cd72fd5a_3a2016f7",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 8
@@ -96,6 +138,24 @@
       "writtenOn": "2024-04-17T16:45:28Z",
       "side": 1,
       "message": "Why can\u0027t you use https://github.com/openbmc/bmcweb/blob/6dbe9bea2e45791fc924645fb8b7813fdd7f4cd1/redfish-core/include/utils/chassis_utils.hpp#L21 ?",
+      "revId": "c1ce1a77f6228af30742c334aad8d1b7d895ee0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2e73609_5f0655a2",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 2986,
+      "author": {
+        "id": 1001810
+      },
+      "writtenOn": "2024-04-18T12:31:27Z",
+      "side": 1,
+      "message": "Modified. Thanks",
+      "parentUuid": "cd72fd5a_3a2016f7",
       "revId": "c1ce1a77f6228af30742c334aad8d1b7d895ee0b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -137,6 +197,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8d64add7_303df06f",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 2995,
+      "author": {
+        "id": 1001810
+      },
+      "writtenOn": "2024-04-18T12:31:27Z",
+      "side": 1,
+      "message": "Changed back to handleSensorGet and another function name changed to handleChassisNameGet. Thanks",
+      "parentUuid": "19b0f683_0ee21c83",
+      "revId": "c1ce1a77f6228af30742c334aad8d1b7d895ee0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3e381aca_81963dae",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 8
@@ -171,6 +249,30 @@
       "writtenOn": "2024-04-18T12:31:10Z",
       "side": 1,
       "message": "Done",
+      "parentUuid": "3e381aca_81963dae",
+      "range": {
+        "startLine": 3005,
+        "startChar": 7,
+        "endLine": 3005,
+        "endChar": 12
+      },
+      "revId": "c1ce1a77f6228af30742c334aad8d1b7d895ee0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef363a3c_7d510edb",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 3005,
+      "author": {
+        "id": 1001810
+      },
+      "writtenOn": "2024-04-18T12:31:27Z",
+      "side": 1,
+      "message": "Fixed. Thanks",
       "parentUuid": "3e381aca_81963dae",
       "range": {
         "startLine": 3005,
