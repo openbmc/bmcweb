@@ -16,6 +16,24 @@
       "message": "These were one of the places that was hard to maintain.  Ideally we wouldn\u0027t have references to IBM in generic headers.  If we were to do something like this again, we would create a generic \"Register for session callbacks\" implementation within session service that IBM management console could register for, that way we can break up the dependencies in a way that doesn\u0027t require folks reading code to verify the IBM session service works properly, which they almost certainly don\u0027t have the test harnesses for.",
       "revId": "757178a551c2dcc24730dccb6ed1cd11005b3b8f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39ad7b8c_640dfb0a",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2024-04-18T04:09:16Z",
+      "side": 0,
+      "message": "Acknowledged",
+      "parentUuid": "070739e7_499355b6",
+      "revId": "757178a551c2dcc24730dccb6ed1cd11005b3b8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
