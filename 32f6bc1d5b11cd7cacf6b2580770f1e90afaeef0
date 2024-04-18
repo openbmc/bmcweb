@@ -52,6 +52,24 @@
       "parentUuid": "98bea7df_e26841ac",
       "revId": "32f6bc1d5b11cd7cacf6b2580770f1e90afaeef0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9a8f777_8e6885c7",
+        "filename": "http/app.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-18T04:36:19Z",
+      "side": 1,
+      "message": "\u003e Even though this was a change to many places, it was done with two sed replace commands \n\u003e \n\u003e But we have all those files need to be reviewed right? If we had type alias in a single file then both contributer and reviewer job would have been easier. \n\nAll the call sites need to be reviewed for correctness, regardless of if it\u0027s a one line change or a many line change, the same as if you\u0027d replaced the behavior of a function.  The more important part is that when reviewing new code, you don\u0027t have to remember which using matches to which documentation.  Having the base class be obvious makes it a lot easier to look up the docs.\n\n\u003e \n\u003e bmcweb is an application not a library.If worry is about the possibility of name collision ,that can be easily spotted and fixed in application. \n\u003e \n\u003e I still not convinced why bmcweb does not encourage type aliases for boost types. It is much easier to read, write and maintain IMO.\n\nYour opinion is noted;  This commit is not the right place to have that discussion.  This change itself is not changing the number of using declarations.  If you have a small example that you can show how this can make code better, feel free to send the patch, or start a discussion on discord or the mailing list.",
+      "parentUuid": "3305edf2_c36b1718",
+      "revId": "32f6bc1d5b11cd7cacf6b2580770f1e90afaeef0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
