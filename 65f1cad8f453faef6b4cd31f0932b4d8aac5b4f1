@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "9426e70f_fd1046ad",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-18T16:13:45Z",
+      "side": 1,
+      "message": "Is this a problem in practice, or just a hypothetical problem?  This was done this way because grabbing sensors happens very often, so doubling up the number of dbus transactions slows things down.  While I\u0027m ok making it work this way, I\u0027d like to see if we can find a way that doesn\u0027t add an extra dbus call.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 0
+      },
+      "revId": "65f1cad8f453faef6b4cd31f0932b4d8aac5b4f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "421503fa_203eb49b",
@@ -48,6 +71,24 @@
       "writtenOn": "2024-04-18T14:25:51Z",
       "side": 1,
       "message": "I am still confused why this code doesn\u0027t look like https://github.com/openbmc/bmcweb/blob/3e7374243ff53125f3a55c2d0b1927e89261b1f9/redfish-core/lib/thermal_metrics.hpp#L47 \n\nWhy doesn\u0027t that helper getValidChassisPath function work?",
+      "revId": "65f1cad8f453faef6b4cd31f0932b4d8aac5b4f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76738f46_2375a874",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 2958,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-18T16:13:45Z",
+      "side": 1,
+      "message": "Really we should be using getAssociatedSubTreePaths here, and everywhere we\u0027re doing that same compare.\n\nhttps://github.com/openbmc/bmcweb/blob/3e7374243ff53125f3a55c2d0b1927e89261b1f9/include/dbus_utility.hpp#L212C13-L212C38",
+      "parentUuid": "0392881a_10bb7ea5",
       "revId": "65f1cad8f453faef6b4cd31f0932b4d8aac5b4f1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
