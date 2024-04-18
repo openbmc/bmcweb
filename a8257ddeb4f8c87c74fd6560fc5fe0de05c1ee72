@@ -34,6 +34,24 @@
       "parentUuid": "47966862_75ba7a7f",
       "revId": "a8257ddeb4f8c87c74fd6560fc5fe0de05c1ee72",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70defd58_459ed303",
+        "filename": "redfish-core/src/redfish.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-04-18T13:51:02Z",
+      "side": 0,
+      "message": "Redfish moved away from pcie slots schema.. \nI think it is best if we don\u0027t register it, but then removing it here means it isn\u0027t getting compiled. I wonder if we should continue with the current code here..\n\nSomething like https://gerrit.openbmc.org/c/openbmc/bmcweb/+/62073 I think should be our future direction",
+      "parentUuid": "a7e45b46_f17ce863",
+      "revId": "a8257ddeb4f8c87c74fd6560fc5fe0de05c1ee72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
