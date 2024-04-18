@@ -16,6 +16,24 @@
       "message": "What!? we aren\u0027t registering PCIe Slots \nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/pcie_slots.hpp#L233C13-L233C35\n\nhttps://github.com/openbmc/bmcweb/commit/7691cc2f7ef1f0ceedf3de0554045a614f25776d did.. so it got blasted somehow.",
       "revId": "a8257ddeb4f8c87c74fd6560fc5fe0de05c1ee72",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7e45b46_f17ce863",
+        "filename": "redfish-core/src/redfish.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-04-18T13:45:35Z",
+      "side": 0,
+      "message": "Oh, it got reverted https://github.com/openbmc/bmcweb/commit/e825cbc8f967e54dfd6d911ebbbc6b2bfc7bc543 and then you fixed the compile here:\nhttps://github.com/openbmc/bmcweb/commit/4ce2c1b55617262e497164ebed001509d5ce8a60",
+      "parentUuid": "47966862_75ba7a7f",
+      "revId": "a8257ddeb4f8c87c74fd6560fc5fe0de05c1ee72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
