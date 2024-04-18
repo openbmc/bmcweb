@@ -58,6 +58,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d964241_33b1f5f0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001810
+      },
+      "writtenOn": "2024-04-18T16:33:15Z",
+      "side": 1,
+      "message": "Updated. Thank you",
+      "revId": "65f1cad8f453faef6b4cd31f0932b4d8aac5b4f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0392881a_10bb7ea5",
@@ -88,6 +105,24 @@
       "writtenOn": "2024-04-18T16:13:45Z",
       "side": 1,
       "message": "Really we should be using getAssociatedSubTreePaths here, and everywhere we\u0027re doing that same compare.\n\nhttps://github.com/openbmc/bmcweb/blob/3e7374243ff53125f3a55c2d0b1927e89261b1f9/include/dbus_utility.hpp#L212C13-L212C38",
+      "parentUuid": "0392881a_10bb7ea5",
+      "revId": "65f1cad8f453faef6b4cd31f0932b4d8aac5b4f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c2d3e94_a42ac55a",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 2958,
+      "author": {
+        "id": 1001810
+      },
+      "writtenOn": "2024-04-18T16:33:15Z",
+      "side": 1,
+      "message": "Both are same, since we need to get the sensor details after the actual chassisName and user supplied chassis are matching, written own function which handles both (comparing both actual chassisName and chassisId, if both are matching then processing for sensor values in another function in handleSensorNameGet, if not matching returning.",
       "parentUuid": "0392881a_10bb7ea5",
       "revId": "65f1cad8f453faef6b4cd31f0932b4d8aac5b4f1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
