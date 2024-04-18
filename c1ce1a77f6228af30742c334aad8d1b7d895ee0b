@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d82a1f4d_ec0e21a6",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-04-18T12:31:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "267b090d_c80fd0fb",
+      "revId": "c1ce1a77f6228af30742c334aad8d1b7d895ee0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6008240b_118b4abd",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-04-17T16:45:28Z",
       "side": 1,
       "message": "can we call this chassisName?",
+      "range": {
+        "startLine": 2978,
+        "startChar": 12,
+        "endLine": 2978,
+        "endChar": 22
+      },
+      "revId": "c1ce1a77f6228af30742c334aad8d1b7d895ee0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c9f66e3_885617ff",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 2978,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-04-18T12:31:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6008240b_118b4abd",
       "range": {
         "startLine": 2978,
         "startChar": 12,
@@ -75,6 +117,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f26e3f60_6b240b18",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 2995,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-04-18T12:31:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19b0f683_0ee21c83",
+      "revId": "c1ce1a77f6228af30742c334aad8d1b7d895ee0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3e381aca_81963dae",
@@ -88,6 +148,30 @@
       "writtenOn": "2024-04-17T16:45:28Z",
       "side": 1,
       "message": "can we call this chassis? Follow Redfish\u0027s schema naming here?\ngetChassisName",
+      "range": {
+        "startLine": 3005,
+        "startChar": 7,
+        "endLine": 3005,
+        "endChar": 12
+      },
+      "revId": "c1ce1a77f6228af30742c334aad8d1b7d895ee0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07fdb946_09965ca0",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 3005,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-04-18T12:31:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e381aca_81963dae",
       "range": {
         "startLine": 3005,
         "startChar": 7,
