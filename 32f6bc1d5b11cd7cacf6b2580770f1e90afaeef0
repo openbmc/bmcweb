@@ -88,6 +88,24 @@
       "parentUuid": "c9a8f777_8e6885c7",
       "revId": "32f6bc1d5b11cd7cacf6b2580770f1e90afaeef0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2f03e23_c5db3ca9",
+        "filename": "http/app.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-18T16:01:19Z",
+      "side": 1,
+      "message": "The problem with having something so general is that now EVERY compile unit needs to pull and compile in the entirety of boost ssl stream, because SSL stream is a template, the implementation is defined in the header, and it is relatively expensive to compile.\n\nIf that kind of definition were put into a compile unit (cpp file) and abstracted through a non-template header (as is my plan at some point), then we absolutely could do that (although we still wouldn\u0027t go as general as common_defs.hpp, we\u0027d do something like ssl_stream.hpp).\n\nAgain.... This is not the place to have this discussion.  Put the above idea in a patchset (even if it doesn\u0027t build) and push it to gerrit.  We can talk more about it there.",
+      "parentUuid": "6eba0e1a_9ef7cd2b",
+      "revId": "32f6bc1d5b11cd7cacf6b2580770f1e90afaeef0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
