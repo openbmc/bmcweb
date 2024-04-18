@@ -52,6 +52,24 @@
       "parentUuid": "a7e45b46_f17ce863",
       "revId": "a8257ddeb4f8c87c74fd6560fc5fe0de05c1ee72",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efe805d3_6fed52f5",
+        "filename": "redfish-core/src/redfish.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-04-18T14:24:13Z",
+      "side": 0,
+      "message": "I am okay with this because I don\u0027t see where pcie_slots is the future direction",
+      "parentUuid": "70defd58_459ed303",
+      "revId": "a8257ddeb4f8c87c74fd6560fc5fe0de05c1ee72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
