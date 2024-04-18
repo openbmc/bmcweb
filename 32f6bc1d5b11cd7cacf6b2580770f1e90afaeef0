@@ -106,6 +106,24 @@
       "parentUuid": "6eba0e1a_9ef7cd2b",
       "revId": "32f6bc1d5b11cd7cacf6b2580770f1e90afaeef0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0d2d392_82d54daf",
+        "filename": "http/app.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-18T16:38:08Z",
+      "side": 1,
+      "message": "FYI, at some point, one thing I\u0027d like to have us build is a class that implements the AsyncReadStream and AsyncWriteStream requirements, so we can share the class between TLS and non TLS sockets, and keeps the boost imports within the class compile unit itself, which should save us some code, and compile times.\n\nhttps://www.boost.org/doc/libs/1_85_0/libs/beast/doc/html/beast/concepts/streams.html\n\nIn that, maybe we might have a define for this kind of thing, because it\u0027s relatively self contained, but lets talk about that when we get there.",
+      "parentUuid": "a2f03e23_c5db3ca9",
+      "revId": "32f6bc1d5b11cd7cacf6b2580770f1e90afaeef0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
