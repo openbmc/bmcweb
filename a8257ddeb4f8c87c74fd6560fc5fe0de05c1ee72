@@ -70,6 +70,24 @@
       "parentUuid": "70defd58_459ed303",
       "revId": "a8257ddeb4f8c87c74fd6560fc5fe0de05c1ee72",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0aad9028_9bdcea27",
+        "filename": "redfish-core/src/redfish.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-18T15:40:01Z",
+      "side": 0,
+      "message": "Yep, I probably could\u0027ve added that backtrace to the commit message, but if we want to add it back, that would be a different commit.  After this, (and when we get clang 18) we can actually turn on header checking in tidy.",
+      "parentUuid": "efe805d3_6fed52f5",
+      "revId": "a8257ddeb4f8c87c74fd6560fc5fe0de05c1ee72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
