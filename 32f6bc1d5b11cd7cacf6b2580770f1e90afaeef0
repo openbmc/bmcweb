@@ -70,6 +70,24 @@
       "parentUuid": "3305edf2_c36b1718",
       "revId": "32f6bc1d5b11cd7cacf6b2580770f1e90afaeef0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6eba0e1a_9ef7cd2b",
+        "filename": "http/app.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-04-18T10:33:14Z",
+      "side": 1,
+      "message": "I was thinking about adding a common_defs.hpp with content such as\nnamespace bmcweb\n{\n    using tcpstream\u003dboost::asio::tcp::socket;\n    using sslstream \u003dboost::asio::ssl\u003ctcpstream\u003e;\n    \n}\n\nthen include common_defs wherever you need tcp and ssl stream.Any refactoring such as above will be just single change in common_defs.hpp \n\nAnyway It is my opinion. Finally it is maintainer\u0027s call. I am ok with whatever decision maintainer take.",
+      "parentUuid": "c9a8f777_8e6885c7",
+      "revId": "32f6bc1d5b11cd7cacf6b2580770f1e90afaeef0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
