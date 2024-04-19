@@ -162,6 +162,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9f6d46ef_51b00ec5",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 2986,
+      "author": {
+        "id": 1000559
+      },
+      "writtenOn": "2024-04-19T18:00:55Z",
+      "side": 1,
+      "message": "What is the modification that addressed this question?",
+      "parentUuid": "c2e73609_5f0655a2",
+      "revId": "c1ce1a77f6228af30742c334aad8d1b7d895ee0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "19b0f683_0ee21c83",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 8
