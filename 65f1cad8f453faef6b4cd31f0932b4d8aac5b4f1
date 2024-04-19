@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f2f1a6f_fa17b2e2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001810
+      },
+      "writtenOn": "2024-04-19T05:54:23Z",
+      "side": 1,
+      "message": "This can be a negative test case or corner test case, where if purposefully or mistakenly trying to get the sensor data or patch the sensor data, by providing wrong ChassisName /redfish/v1/Chassis/XYZ/Sensor/\u003csensor\u003e (where XYZ is not a valid chassisName) it should give error.",
+      "parentUuid": "9426e70f_fd1046ad",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 0
+      },
+      "revId": "65f1cad8f453faef6b4cd31f0932b4d8aac5b4f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "421503fa_203eb49b",
@@ -71,6 +95,23 @@
       "writtenOn": "2024-04-18T16:33:15Z",
       "side": 1,
       "message": "Updated. Thank you",
+      "revId": "65f1cad8f453faef6b4cd31f0932b4d8aac5b4f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7002da3a_7111ab41",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001810
+      },
+      "writtenOn": "2024-04-19T05:54:23Z",
+      "side": 1,
+      "message": "Responded to the review comments. Thanks",
       "revId": "65f1cad8f453faef6b4cd31f0932b4d8aac5b4f1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
