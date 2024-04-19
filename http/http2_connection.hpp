@@ -268,7 +268,7 @@ class HTTP2Connection :
             std::make_shared<bmcweb::AsyncResp>(std::move(it->second.res));
 #ifndef BMCWEB_INSECURE_DISABLE_AUTHX
         thisReq.session = crow::authentication::authenticate(
-            {}, thisRes, thisReq.method(), thisReq.req, nullptr);
+            {}, asyncResp->res, thisReq.method(), thisReq.req, nullptr);
         if (!crow::authentication::isOnAllowlist(thisReq.url().path(),
                                                  thisReq.method()) &&
             thisReq.session == nullptr)
@@ -277,7 +277,7 @@ class HTTP2Connection :
             forward_unauthorized::sendUnauthorized(
                 thisReq.url().encoded_path(),
                 thisReq.getHeaderValue("X-Requested-With"),
-                thisReq.getHeaderValue("Accept"), thisRes);
+                thisReq.getHeaderValue("Accept"), asyncResp->res);
         }
         else
 #endif // BMCWEB_INSECURE_DISABLE_AUTHX
