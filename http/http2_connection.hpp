@@ -280,7 +280,7 @@ class HTTP2Connection :
             forward_unauthorized::sendUnauthorized(
                 thisReq.url().encoded_path(),
                 thisReq.getHeaderValue("X-Requested-With"),
-                thisReq.getHeaderValue("Accept"), thisRes);
+                thisReq.getHeaderValue("Accept"), asyncResp->res);
         }
         else
 #endif // BMCWEB_INSECURE_DISABLE_AUTHX
