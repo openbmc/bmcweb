@@ -153,6 +153,13 @@ option(
     value: 'enabled',
     description: 'Enable basic authentication'
 )
+option(
+     'redfish-license',
+     type : 'feature',
+     value : 'disabled',
+     description : '''Enable License transactions through Redfish. Paths are
+                      under /redfish/v1/LicenseService/Licenses/'''
+)
 
 option(
     'session-auth',
