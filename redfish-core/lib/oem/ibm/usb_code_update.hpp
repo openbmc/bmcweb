@@ -16,7 +16,8 @@ static constexpr const char* usbCodeUpdateObjectPath =
 static constexpr const char* usbCodeUpdateInterface =
     "xyz.openbmc_project.Control.Service.Attributes";
 
-constexpr std::array<std::string_view, 1> interfaces = {usbCodeUpdateInterface};
+constexpr std::array<std::string_view, 1> usbCodeUpdateInterfaces = {
+    usbCodeUpdateInterface};
 
 /**
  * @brief Retrieves BMC USB code update state.
@@ -30,10 +31,9 @@ inline void
 {
     BMCWEB_LOG_DEBUG("Get USB code update state");
     dbus::utility::getDbusObject(
-        usbCodeUpdateObjectPath, interfaces,
-        [asyncResp, usbCodeUpdateObjectPath](
-            const boost::system::error_code& ec1,
-            const dbus::utility::MapperGetObject& object) {
+        usbCodeUpdateObjectPath, usbCodeUpdateInterfaces,
+        [asyncResp](const boost::system::error_code& ec1,
+                    const dbus::utility::MapperGetObject& object) {
         if (ec1 || object.empty())
         {
             BMCWEB_LOG_ERROR("DBUS response error {}", ec1);
@@ -48,7 +48,7 @@ inline void
                         bool usbCodeUpdateState) {
             if (ec2)
             {
-                BMCWEB_LOG_ERRO("DBUS response error: {}", ec2);
+                BMCWEB_LOG_ERROR("DBUS response error: {}", ec2);
                 messages::internalError(asyncResp->res);
                 return;
             }
@@ -77,10 +77,9 @@ inline void
 {
     BMCWEB_LOG_DEBUG("Set USB code update status.");
     dbus::utility::getDbusObject(
-        usbCodeUpdateObjectPath, interfaces,
-        [asyncResp, usbCodeUpdateObjectPath,
-         state](const boost::system::error_code& ec1,
-                const dbus::utility::MapperGetObject& object) {
+        usbCodeUpdateObjectPath, usbCodeUpdateInterfaces,
+        [asyncResp, state](const boost::system::error_code& ec1,
+                           const dbus::utility::MapperGetObject& object) {
         if (ec1 || object.empty())
         {
             BMCWEB_LOG_ERROR("DBUS response error {}", ec1);
@@ -94,8 +93,8 @@ inline void
             [asyncResp](const boost::system::error_code& ec2) {
             if (ec2)
             {
-                BMCWEB_LOG_ERRO("Can't set USB code update status. Error: {}",
-                                ec2);
+                BMCWEB_LOG_ERROR("Can't set USB code update status. Error: {}",
+                                 ec2);
                 messages::internalError(asyncResp->res);
                 return;
             }
