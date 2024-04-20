@@ -126,60 +126,73 @@ static std::shared_ptr<persistent_data::UserSession>
     performCookieAuth(boost::beast::http::verb method [[maybe_unused]],
                       const boost::beast::http::header<true>& reqHeader)
 {
-    BMCWEB_LOG_DEBUG("[AuthMiddleware] Cookie authentication");
+    using headers = boost::beast::http::header<true>;
+    std::pair<headers::const_iterator, headers::const_iterator> cookies =
+        reqHeader.equal_range(boost::beast::http::field::cookie);
 
-    std::string_view cookieValue = reqHeader["Cookie"];
-    if (cookieValue.empty())
+    // Be extra paranoid, bmcweb sets 3 cookies, if someone is trying to make us
+    // parse more than 10, something is very wrong.
+    if (std::distance(cookies.first, cookies.second) > 10)
     {
+        BMCWEB_LOG_ERROR("Too many cookies");
         return nullptr;
     }
 
-    auto startIndex = cookieValue.find("SESSION=");
-    if (startIndex == std::string::npos)
+    for (auto it = cookies.first; it != cookies.second; it++)
     {
-        return nullptr;
-    }
-    startIndex += sizeof("SESSION=") - 1;
-    auto endIndex = cookieValue.find(';', startIndex);
-    if (endIndex == std::string::npos)
-    {
-        endIndex = cookieValue.size();
-    }
-    std::string_view authKey = cookieValue.substr(startIndex,
-                                                  endIndex - startIndex);
+        std::string_view cookieValue = it->value();
+        BMCWEB_LOG_DEBUG("Checking cookie {}", cookieValue);
+        auto startIndex = cookieValue.find("SESSION=");
+        if (startIndex == std::string::npos)
+        {
+            BMCWEB_LOG_DEBUG(
+                "Cookie was present, but didn't look like a session {}",
+                cookieValue);
+            continue;
+        }
+        startIndex += sizeof("SESSION=") - 1;
+        auto endIndex = cookieValue.find(';', startIndex);
+        if (endIndex == std::string::npos)
+        {
+            endIndex = cookieValue.size();
+        }
+        std::string_view authKey = cookieValue.substr(startIndex,
+                                                      endIndex - startIndex);
 
-    std::shared_ptr<persistent_data::UserSession> sessionOut =
-        persistent_data::SessionStore::getInstance().loginSessionByToken(
-            authKey);
-    if (sessionOut == nullptr)
-    {
-        return nullptr;
-    }
-    sessionOut->cookieAuth = true;
+        std::shared_ptr<persistent_data::UserSession> sessionOut =
+            persistent_data::SessionStore::getInstance().loginSessionByToken(
+                authKey);
+        if (sessionOut == nullptr)
+        {
+            return nullptr;
+        }
+        sessionOut->cookieAuth = true;
 #ifndef BMCWEB_INSECURE_DISABLE_CSRF_PREVENTION
-    // RFC7231 defines methods that need csrf protection
-    if (method != boost::beast::http::verb::get)
-    {
-        std::string_view csrf = reqHeader["X-XSRF-TOKEN"];
-        // Make sure both tokens are filled
-        if (csrf.empty() || sessionOut->csrfToken.empty())
+        // RFC7231 defines methods that need csrf protection
+        if (method != boost::beast::http::verb::get)
         {
-            return nullptr;
-        }
+            std::string_view csrf = reqHeader["X-XSRF-TOKEN"];
+            // Make sure both tokens are filled
+            if (csrf.empty() || sessionOut->csrfToken.empty())
+            {
+                return nullptr;
+            }
 
-        if (csrf.size() != persistent_data::sessionTokenSize)
-        {
-            return nullptr;
+            if (csrf.size() != persistent_data::sessionTokenSize)
+            {
+                return nullptr;
+            }
+            // Reject if csrf token not available
+            if (!crow::utility::constantTimeStringCompare(
+                    csrf, sessionOut->csrfToken))
+            {
+                return nullptr;
+            }
         }
-        // Reject if csrf token not available
-        if (!crow::utility::constantTimeStringCompare(csrf,
-                                                      sessionOut->csrfToken))
-        {
-            return nullptr;
-        }
-    }
 #endif
-    return sessionOut;
+        return sessionOut;
+    }
+    return nullptr;
 }
 #endif
 
