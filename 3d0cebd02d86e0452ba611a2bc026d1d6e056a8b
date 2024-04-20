@@ -22,6 +22,30 @@
       },
       "revId": "3d0cebd02d86e0452ba611a2bc026d1d6e056a8b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75bd1d16_aa8bebde",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-20T00:21:28Z",
+      "side": 1,
+      "message": "yep.  Fixed in latest patch.  I checked and the only thing that param was used for was mTLS, which I haven\u0027t even looked at for http2 connections yet, so I don\u0027t think that one would show up as a failure, but fixing it is the right thing to do all the same.",
+      "parentUuid": "11a3a58c_312e05ee",
+      "range": {
+        "startLine": 274,
+        "startChar": 16,
+        "endLine": 274,
+        "endChar": 23
+      },
+      "revId": "3d0cebd02d86e0452ba611a2bc026d1d6e056a8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
