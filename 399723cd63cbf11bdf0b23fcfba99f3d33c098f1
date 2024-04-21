@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "782cbbd8_c77c455a",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-04-21T03:18:36Z",
+      "side": 1,
+      "message": "user error? BMCWEB_LOG_WARNING?",
+      "revId": "399723cd63cbf11bdf0b23fcfba99f3d33c098f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce12f99d_4f38a378",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1316,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-04-21T03:18:36Z",
+      "side": 1,
+      "message": "lets add patch support for HTTPBasicAuth?",
+      "revId": "399723cd63cbf11bdf0b23fcfba99f3d33c098f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
