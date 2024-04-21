@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fde9a298_5b9c9cf9",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-21T04:28:25Z",
+      "side": 1,
+      "message": "No, this would be an implementation error, because the json key is set by the programmer, not the user.  This was just so that.\nA. when you mess it up, bmcweb doesn\u0027t crash (I know this because I messed it up and it crashed.\nB. Give some hints about what code is wrong in the log.",
+      "parentUuid": "782cbbd8_c77c455a",
+      "revId": "399723cd63cbf11bdf0b23fcfba99f3d33c098f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ce12f99d_4f38a378",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 2
@@ -31,6 +49,24 @@
       "writtenOn": "2024-04-21T03:18:36Z",
       "side": 1,
       "message": "lets add patch support for HTTPBasicAuth?",
+      "revId": "399723cd63cbf11bdf0b23fcfba99f3d33c098f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2da450d7_e945c3f3",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1316,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-21T04:28:25Z",
+      "side": 1,
+      "message": "Feel free to send code in to do that.  It should be pretty easy to implement, because it\u0027s essentially the same as the OEM schema we already ahve.  It\u0027ll probably be at least a week before I\u0027m able to get back to implement it.",
+      "parentUuid": "ce12f99d_4f38a378",
       "revId": "399723cd63cbf11bdf0b23fcfba99f3d33c098f1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
