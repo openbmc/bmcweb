@@ -58,6 +58,7 @@ Fields common to all schemas
 - AccountLockoutThreshold
 - Accounts
 - Description
+- HTTPBasicAuth
 - LDAP
 - MaxPasswordLength
 - MinPasswordLength
