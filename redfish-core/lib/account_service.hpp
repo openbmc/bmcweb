@@ -818,6 +818,7 @@ struct AuthMethods
     std::optional<bool> sessionToken;
     std::optional<bool> xToken;
     std::optional<bool> tls;
+    std::optional<std::string> httpBasicAuth;
 };
 
 inline void
@@ -827,7 +828,7 @@ inline void
     persistent_data::AuthConfigMethods& authMethodsConfig =
         persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
 
-    if (auth.basicAuth)
+    if (auth.basicAuth || auth.httpBasicAuth)
     {
 #ifndef BMCWEB_ENABLE_BASIC_AUTHENTICATION
         messages::actionNotSupported(
@@ -835,7 +836,8 @@ inline void
             "Setting BasicAuth when basic-auth feature is disabled");
         return;
 #endif
-        authMethodsConfig.basic = *auth.basicAuth;
+        authMethodsConfig.basic = *auth.basicAuth ||
+                                  (auth.httpBasicAuth.value() == "Enabled");
     }
 
     if (auth.cookie)
@@ -1211,6 +1213,9 @@ inline void
     json["Oem"]["OpenBMC"]["AuthMethods"]["XToken"] = authMethodsConfig.xtoken;
     json["Oem"]["OpenBMC"]["AuthMethods"]["Cookie"] = authMethodsConfig.cookie;
     json["Oem"]["OpenBMC"]["AuthMethods"]["TLS"] = authMethodsConfig.tls;
+    json["HTTPBasicAuth"] = authMethodsConfig.basic
+                                ? account_service::BasicAuthState::Enabled
+                                : account_service::BasicAuthState::Disabled;
 
     // /redfish/v1/AccountService/LDAP/Certificates is something only
     // ConfigureManager can access then only display when the user has
@@ -1329,7 +1334,8 @@ inline void handleAccountServicePatch(
             "Oem/OpenBMC/AuthMethods/Cookie", auth.cookie,
             "Oem/OpenBMC/AuthMethods/SessionToken", auth.sessionToken,
             "Oem/OpenBMC/AuthMethods/TLS", auth.tls,
-            "Oem/OpenBMC/AuthMethods/XToken", auth.xToken))
+            "Oem/OpenBMC/AuthMethods/XToken", auth.xToken,
+            "HTTPBasicAuth", auth.httpBasicAuth))
     {
         return;
     }
