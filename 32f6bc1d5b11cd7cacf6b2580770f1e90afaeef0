@@ -142,6 +142,24 @@
       "parentUuid": "e0d2d392_82d54daf",
       "revId": "32f6bc1d5b11cd7cacf6b2580770f1e90afaeef0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3e2ee05_0d2177b4",
+        "filename": "http/app.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-04-22T05:55:46Z",
+      "side": 1,
+      "message": "I was not thinking about a generic header included by all compile unit. As you suggested it should be ssl_defs.hpp, and that should be included only when it is needed. Otherwise I don\u0027t have any other comments for the commit. It looks fine to me.",
+      "parentUuid": "d6f7524b_42e7a18a",
+      "revId": "32f6bc1d5b11cd7cacf6b2580770f1e90afaeef0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
