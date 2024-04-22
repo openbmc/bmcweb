@@ -1191,8 +1191,7 @@ inline void
 
     nlohmann::json& json = asyncResp->res.jsonValue;
     json["@odata.id"] = "/redfish/v1/AccountService";
-    json["@odata.type"] = "#AccountService."
-                          "v1_10_0.AccountService";
+    json["@odata.type"] = "#AccountService.v1_15_0.AccountService";
     json["Id"] = "AccountService";
     json["Name"] = "Account Service";
     json["Description"] = "Account Service";
@@ -1200,6 +1199,15 @@ inline void
     json["MaxPasswordLength"] = 20;
     json["Accounts"]["@odata.id"] = "/redfish/v1/AccountService/Accounts";
     json["Roles"]["@odata.id"] = "/redfish/v1/AccountService/Roles";
+    json["HTTPBasicAuth"] = authMethodsConfig.basic
+                                ? account_service::BasicAuthState::Enabled
+                                : account_service::BasicAuthState::Disabled;
+
+    nlohmann::json::array_t allowed;
+    allowed.emplace_back(account_service::BasicAuthState::Enabled);
+    allowed.emplace_back(account_service::BasicAuthState::Disabled);
+    json["HTTPBasicAuth@AllowableValues"] = std::move(allowed);
+
     json["Oem"]["OpenBMC"]["@odata.type"] =
         "#OpenBMCAccountService.v1_0_0.AccountService";
     json["Oem"]["OpenBMC"]["@odata.id"] =
@@ -1300,6 +1308,7 @@ inline void handleAccountServicePatch(
     LdapPatchParams ldapObject;
     LdapPatchParams activeDirectoryObject;
     AuthMethods auth;
+    std::optional<std::string> httpBasicAuth;
     // clang-format off
     if (!json_util::readJsonPatch(
             req, asyncResp->res,
@@ -1329,11 +1338,29 @@ inline void handleAccountServicePatch(
             "Oem/OpenBMC/AuthMethods/Cookie", auth.cookie,
             "Oem/OpenBMC/AuthMethods/SessionToken", auth.sessionToken,
             "Oem/OpenBMC/AuthMethods/TLS", auth.tls,
-            "Oem/OpenBMC/AuthMethods/XToken", auth.xToken))
+            "Oem/OpenBMC/AuthMethods/XToken", auth.xToken,
+            "HTTPBasicAuth", httpBasicAuth))
     {
         return;
     }
     // clang-format on
+
+    if (httpBasicAuth)
+    {
+        if (*httpBasicAuth == "Enabled")
+        {
+            auth.basicAuth = true;
+        }
+        else if (*httpBasicAuth == "Disabled")
+        {
+            auth.basicAuth = false;
+        }
+        else
+        {
+            messages::propertyValueNotInList(asyncResp->res, "HttpBasicAuth",
+                                             *httpBasicAuth);
+        }
+    }
 
     if (minPasswordLength)
     {
