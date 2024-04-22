@@ -316,13 +316,6 @@ option(
 )
 
 option(
-    'insecure-disable-xss',
-    type: 'feature',
-    value: 'disabled',
-    description: 'Disable XSS preventions'
-)
-
-option(
     'insecure-tftp-update',
     type: 'feature',
     value: 'disabled',

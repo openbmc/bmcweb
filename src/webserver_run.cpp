@@ -3,7 +3,6 @@
 #include "bmcweb_config.h"
 
 #include "app.hpp"
-#include "cors_preflight.hpp"
 #include "dbus_monitor.hpp"
 #include "dbus_singleton.hpp"
 #include "event_service_manager.hpp"
@@ -80,11 +79,6 @@ int run()
 #ifdef BMCWEB_ENABLE_GOOGLE_API
     crow::google_api::requestRoutes(app);
 #endif
-
-    if (bmcwebInsecureDisableXssPrevention != 0)
-    {
-        cors_preflight::requestRoutes(app);
-    }
 
     crow::login_routes::requestRoutes(app);
 
