@@ -69,6 +69,24 @@
       "parentUuid": "ce12f99d_4f38a378",
       "revId": "399723cd63cbf11bdf0b23fcfba99f3d33c098f1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "428db1f3_83f89d5d",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1316,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-04-22T12:06:37Z",
+      "side": 1,
+      "message": "sure, working on this commit to add HTTPBasicAuth patch support \nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/70976",
+      "parentUuid": "2da450d7_e945c3f3",
+      "revId": "399723cd63cbf11bdf0b23fcfba99f3d33c098f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
