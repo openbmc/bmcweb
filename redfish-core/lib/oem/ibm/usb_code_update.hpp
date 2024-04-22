@@ -36,6 +36,12 @@ inline void
                     const dbus::utility::MapperGetObject& object) {
         if (ec1 || object.empty())
         {
+            if (ec1 == boost::system::errc::io_error)
+            {
+                BMCWEB_LOG_WARNING("USB code update not found");
+                return;
+            }
+
             BMCWEB_LOG_ERROR("DBUS response error {}", ec1);
             messages::internalError(asyncResp->res);
             return;
