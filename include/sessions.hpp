@@ -134,6 +134,7 @@ struct UserSession
 
 struct AuthConfigMethods
 {
+    std::string httpBasicAuth;
 #ifdef BMCWEB_ENABLE_BASIC_AUTHENTICATION
     bool basic = true;
 #else
@@ -168,7 +169,7 @@ struct AuthConfigMethods
     {
         for (const auto& element : j.items())
         {
-            const bool* value = element.value().get_ptr<const bool*>();
+            auto value = element.value().get_ptr<const bool*, const std::string*>();
             if (value == nullptr)
             {
                 continue;
@@ -189,6 +190,10 @@ struct AuthConfigMethods
             else if (element.key() == "BasicAuth")
             {
                 basic = *value;
+            }
+	    else if (element.key() == "HttpBasicAuth")
+            {
+                httpBasic = *value;
             }
             else if (element.key() == "TLS")
             {
