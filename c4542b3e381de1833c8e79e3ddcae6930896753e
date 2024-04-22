@@ -39,6 +39,30 @@
       },
       "revId": "c4542b3e381de1833c8e79e3ddcae6930896753e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d7cb4fe_879662f0",
+        "filename": "meson_options.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-22T17:07:57Z",
+      "side": 1,
+      "message": "Yes.  Because we now explicitly have the constexpr ifs match (and it\u0027s a compile failure to have a mismatch) we need to comment this back in.\n\nFrankly, we commented this out, and it didn\u0027t really have the result we were looking for (a stronger push to get the backend merged into upstream).  We need to reevalute nbdproxy outside of this patch.",
+      "parentUuid": "5bc551c4_94052e62",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 1
+      },
+      "revId": "c4542b3e381de1833c8e79e3ddcae6930896753e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
