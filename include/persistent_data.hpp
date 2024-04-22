@@ -23,7 +23,8 @@ class ConfigFile
   public:
     // todo(ed) should read this from a fixed location somewhere, not CWD
     static constexpr const char* filename = "bmcweb_persistent_data.json";
-
+    static constexpr const char* dumpFilename =
+        "bmcweb_current_session_snapshot.json";
     ConfigFile()
     {
         readData();
@@ -187,6 +188,86 @@ class ConfigFile
             writeData();
         }
     }
+
+#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
+    void writeCurrentSessionData()
+    {
+        std::ofstream persistentFile(dumpFilename);
+        std::filesystem::perms permission =
+            std::filesystem::perms::owner_read |
+            std::filesystem::perms::owner_write |
+            std::filesystem::perms::group_read;
+        std::filesystem::permissions(filename, permission);
+        const auto& eventServiceConfig =
+            EventServiceStore::getInstance().getEventServiceConfig();
+        nlohmann::json data{
+            {"eventservice_config",
+             {{"ServiceEnabled", eventServiceConfig.enabled},
+              {"DeliveryRetryAttempts", eventServiceConfig.retryAttempts},
+              {"DeliveryRetryIntervalSeconds",
+               eventServiceConfig.retryTimeoutInterval}}
+
+            },
+            {"system_uuid", systemUuid},
+            {"revision", jsonRevision},
+            {"timeout", SessionStore::getInstance().getTimeoutInSeconds()}};
+
+        nlohmann::json& sessions = data["sessions"];
+        sessions = nlohmann::json::array();
+        for (const auto& p : SessionStore::getInstance().authTokens)
+        {
+            if (p.second->persistence !=
+                persistent_data::PersistenceType::SINGLE_REQUEST)
+            {
+                nlohmann::json::object_t session;
+                session["unique_id"] = p.second->uniqueId;
+                session["username"] = p.second->username;
+                session["client_ip"] = p.second->clientIp;
+                if (p.second->clientId)
+                {
+                    session["client_id"] = *p.second->clientId;
+                }
+                sessions.push_back(std::move(session));
+            }
+        }
+
+        nlohmann::json& subscriptions = data["subscriptions"];
+        subscriptions = nlohmann::json::array();
+        for (const auto& it :
+             EventServiceStore::getInstance().subscriptionsConfigMap)
+        {
+            std::shared_ptr<UserSubscription> subValue = it.second;
+            if (subValue->subscriptionType == "SSE")
+            {
+                BMCWEB_LOG_DEBUG("The subscription type is SSE, so skipping.");
+                continue;
+            }
+            nlohmann::json::object_t headers;
+            for (const boost::beast::http::fields::value_type& header :
+                 subValue->httpHeaders)
+            {
+                std::string name(header.name_string());
+                headers[std::move(name)] = header.value();
+            }
+
+            subscriptions.push_back({
+                {"Id", subValue->id},
+                {"Context", subValue->customText},
+                {"DeliveryRetryPolicy", subValue->retryPolicy},
+                {"Destination", subValue->destinationUrl},
+                {"EventFormatType", subValue->eventFormatType},
+                {"HttpHeaders", std::move(headers)},
+                {"MessageIds", subValue->registryMsgIds},
+                {"Protocol", subValue->protocol},
+                {"RegistryPrefixes", subValue->registryPrefixes},
+                {"ResourceTypes", subValue->resourceTypes},
+                {"SubscriptionType", subValue->subscriptionType},
+                {"MetricReportDefinitions", subValue->metricReportDefinitions},
+            });
+        }
+        persistentFile << data;
+    }
+#endif
 
     void writeData()
     {
