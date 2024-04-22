@@ -142,14 +142,6 @@ inline bool translateUserGroup(const std::vector<std::string>& userGroups,
             // port via ssh and websocket.
             accountTypes.emplace_back("HostConsole");
         }
-        else if (userGroup == "web")
-        {
-            // 'web' is one of the valid groups in the UserGroups property of
-            // the user account in the D-Bus object. This group is currently not
-            // doing anything, and is considered to be equivalent to 'redfish'.
-            // 'redfish' user group is mapped to 'Redfish'and 'WebUI'
-            // AccountTypes, so do nothing here...
-        }
         else
         {
             // Invalid user group name. Caller throws an exception.
