@@ -122,12 +122,12 @@ inline void handleMessageRoutesMessageRegistryFileGet(
     asyncResp->res.jsonValue["Id"] = header->registryPrefix;
     asyncResp->res.jsonValue["Registry"] = header->id;
     nlohmann::json::array_t languages;
-    languages.emplace_back("en");
+    languages.emplace_back(header->language);
     asyncResp->res.jsonValue["Languages@odata.count"] = languages.size();
     asyncResp->res.jsonValue["Languages"] = std::move(languages);
     nlohmann::json::array_t locationMembers;
     nlohmann::json::object_t location;
-    location["Language"] = "en";
+    location["Language"] = header->language;
     location["Uri"] = "/redfish/v1/Registries/" + registry + "/" + registry;
 
     if (url != nullptr)
