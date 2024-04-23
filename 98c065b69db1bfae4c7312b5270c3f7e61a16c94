@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f60973f_041f5733",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1602,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-23T18:30:04Z",
+      "side": 1,
+      "message": "This looks unrelated to this patch?  This is probably something that phosphor-networkd should be doing, not bmcweb.",
+      "range": {
+        "startLine": 1595,
+        "startChar": 0,
+        "endLine": 1602,
+        "endChar": 17
+      },
+      "revId": "98c065b69db1bfae4c7312b5270c3f7e61a16c94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

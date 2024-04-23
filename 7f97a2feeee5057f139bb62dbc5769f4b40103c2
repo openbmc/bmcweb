@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a95dcc53_53ecb68d",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-23T18:30:04Z",
+      "side": 1,
+      "message": "This seems relatively easy to compute with:\n\n```\nstd::count_if(ipv4Data.begin(), ipv4Data.end(), [](const IPv4AddressData\u0026 addr){\n    return addr.origin \u003d\u003d \"Static\";\n});\n```\n\nEverything else in this struct is coming directly from dbus, and isn\u0027t a computed value.  I\u0027d like to keep that abstraction if possible.  Would the above code let us just compute the value when we needed it?",
+      "range": {
+        "startLine": 101,
+        "startChar": 11,
+        "endLine": 101,
+        "endChar": 26
+      },
+      "revId": "7f97a2feeee5057f139bb62dbc5769f4b40103c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c481444_31edc47c",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-23T18:30:04Z",
+      "side": 1,
+      "message": "Enums should be passed by value.",
+      "range": {
+        "startLine": 746,
+        "startChar": 34,
+        "endLine": 746,
+        "endChar": 43
+      },
+      "revId": "7f97a2feeee5057f139bb62dbc5769f4b40103c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "142c622b_5af17135",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 821,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-23T18:30:04Z",
+      "side": 1,
+      "message": "pass integer values by value, not by const ref please.",
+      "range": {
+        "startLine": 821,
+        "startChar": 32,
+        "endLine": 821,
+        "endChar": 45
+      },
+      "revId": "7f97a2feeee5057f139bb62dbc5769f4b40103c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5e45840_d377ba3a",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 837,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-23T18:30:04Z",
+      "side": 1,
+      "message": "Rather than pass numStaticAddrs through all the layers, is this something we could just do it earlier?  I left a comment where I suspect it could go.\n\nAs written, we\u0027re chaining this after we do all the deletes, but do we really need to do that?  At the beginning of the patch we know whether it needs to be cleared based on the final state?  That would remove the need to pass a lot of the parameters into the two delete functions and I suspect would greatly simplify this patch.",
+      "range": {
+        "startLine": 833,
+        "startChar": 0,
+        "endLine": 837,
+        "endChar": 9
+      },
+      "revId": "7f97a2feeee5057f139bb62dbc5769f4b40103c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4294a045_080f9327",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1169,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-23T18:30:04Z",
+      "side": 1,
+      "message": "This comment is now on the wrong line.",
+      "revId": "7f97a2feeee5057f139bb62dbc5769f4b40103c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5dda052e_2a52114b",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1179,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-23T18:30:04Z",
+      "side": 1,
+      "message": "Right here we know if we need to clear the DHCP setting, right?  If staticIPv4Count \u003d\u003d 0 here, we could just do the DHCP update here on this line, instead of passing the count through to all the delete functions?",
+      "revId": "7f97a2feeee5057f139bb62dbc5769f4b40103c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b48430df_1c6ac86e",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1556,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-23T18:30:04Z",
+      "side": 1,
+      "message": "nit, please do on a different line.  predecrement vs postdecrement is not the most obvious thing to review (although this code does look correct), and is a lot clearer if it\u0027s done on a separate line before or after the operation.",
+      "range": {
+        "startLine": 1556,
+        "startChar": 32,
+        "endLine": 1556,
+        "endChar": 49
+      },
+      "revId": "7f97a2feeee5057f139bb62dbc5769f4b40103c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
