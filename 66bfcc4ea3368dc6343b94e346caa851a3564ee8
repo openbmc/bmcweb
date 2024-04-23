@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "08abef35_64f01078",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001810
+      },
+      "writtenOn": "2024-04-23T21:44:32Z",
+      "side": 1,
+      "message": "Will check and Update",
+      "parentUuid": "a6352292_b74eaf3b",
+      "revId": "66bfcc4ea3368dc6343b94e346caa851a3564ee8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "39ffac81_6b7eca35",
@@ -31,6 +49,23 @@
       "writtenOn": "2024-04-23T13:17:52Z",
       "side": 1,
       "message": "modified the code as per the review. Please make review comments as \"Resolved\" for all the comments (earlier comments) which are agreed or OK. So, that I can work on unresolved comments.",
+      "revId": "66bfcc4ea3368dc6343b94e346caa851a3564ee8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dcf5adcd_f04d4c2b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001810
+      },
+      "writtenOn": "2024-04-23T21:44:32Z",
+      "side": 1,
+      "message": "Updated responses to review comments. Thanks",
       "revId": "66bfcc4ea3368dc6343b94e346caa851a3564ee8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -60,6 +95,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "60edab65_0b24e475",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1001810
+      },
+      "writtenOn": "2024-04-23T21:44:32Z",
+      "side": 1,
+      "message": "This change is for /redfish/v1/Chassis/\u003cSTR\u003e/Power/PowerControl/\u003cSTR\u003e which is also giving 200 OK without body even if the chassisName is given wrong. This change is in power.hpp",
+      "parentUuid": "dbda8a02_27567e44",
+      "range": {
+        "startLine": 243,
+        "startChar": 26,
+        "endLine": 244,
+        "endChar": 72
+      },
+      "revId": "66bfcc4ea3368dc6343b94e346caa851a3564ee8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ac5e11ca_77323e27",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 12
@@ -71,6 +130,30 @@
       "writtenOn": "2024-04-23T18:58:43Z",
       "side": 1,
       "message": "This code is a callback for an individual sensor, not a sensor Collection.  handleSensorCollectionGet is for the sensor collection.  This should be called doSensor",
+      "range": {
+        "startLine": 2973,
+        "startChar": 24,
+        "endLine": 2973,
+        "endChar": 42
+      },
+      "revId": "66bfcc4ea3368dc6343b94e346caa851a3564ee8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08edfe16_0d66a676",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 2973,
+      "author": {
+        "id": 1001810
+      },
+      "writtenOn": "2024-04-23T21:44:32Z",
+      "side": 1,
+      "message": "Will update and push the changes. is the name \"doSensorGet\" fine.",
+      "parentUuid": "ac5e11ca_77323e27",
       "range": {
         "startLine": 2973,
         "startChar": 24,
