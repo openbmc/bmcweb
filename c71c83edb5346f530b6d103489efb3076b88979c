@@ -16,6 +16,24 @@
       "message": "Based on you working on this, i\u0027m assuming you would prefer this patch over https://gerrit.openbmc.org/c/openbmc/bmcweb/+/70850\n\n?\n\nOr are you thinking we should do both?",
       "revId": "c71c83edb5346f530b6d103489efb3076b88979c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9ce1e12_7fe6b3d5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2024-04-23T18:25:06Z",
+      "side": 1,
+      "message": "Not necessarily. I just wanted to get this done and see what it looked like. I don\u0027t think both are needed. 70850 might be better - I will leave some more comments on it.",
+      "parentUuid": "282cf106_7ec9b3a0",
+      "revId": "c71c83edb5346f530b6d103489efb3076b88979c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
