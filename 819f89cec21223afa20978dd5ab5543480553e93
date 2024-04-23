@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfe59922_c0092b51",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2024-04-23T04:16:33Z",
+      "side": 1,
+      "message": "Maybe make this 20? I know my browser already sends at least 8 junk cookies to my BMC because its hostname shares a domain with other web applications. I imagine some environments may be even worse.",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 56
+      },
+      "revId": "819f89cec21223afa20978dd5ab5543480553e93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
