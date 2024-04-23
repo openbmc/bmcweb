@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b3f0eaf_9f5d1a5e",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-23T18:58:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59eb3cde_4ab753f8",
+      "revId": "c1ce1a77f6228af30742c334aad8d1b7d895ee0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6008240b_118b4abd",

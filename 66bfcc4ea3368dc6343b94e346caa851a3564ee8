@@ -16,6 +16,52 @@
       "message": "modified the code as per the review. Please make review comments as \"Resolved\" for all the comments (earlier comments) which are agreed or OK. So, that I can work on unresolved comments.",
       "revId": "66bfcc4ea3368dc6343b94e346caa851a3564ee8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbda8a02_27567e44",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-23T18:58:43Z",
+      "side": 1,
+      "message": "This looks unrelated to the change in sensorCollection?",
+      "range": {
+        "startLine": 243,
+        "startChar": 26,
+        "endLine": 244,
+        "endChar": 72
+      },
+      "revId": "66bfcc4ea3368dc6343b94e346caa851a3564ee8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac5e11ca_77323e27",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 2973,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-23T18:58:43Z",
+      "side": 1,
+      "message": "This code is a callback for an individual sensor, not a sensor Collection.  handleSensorCollectionGet is for the sensor collection.  This should be called doSensor",
+      "range": {
+        "startLine": 2973,
+        "startChar": 24,
+        "endLine": 2973,
+        "endChar": 42
+      },
+      "revId": "66bfcc4ea3368dc6343b94e346caa851a3564ee8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
