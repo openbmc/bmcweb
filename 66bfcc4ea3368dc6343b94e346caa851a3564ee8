@@ -119,6 +119,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b5027d5f_9b8dd846",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-23T21:52:09Z",
+      "side": 1,
+      "message": "Right.... so it\u0027s unrelated to changing sensor collection (which is in sensor.hpp).  Please put it in its own patch (and with its own tests).",
+      "parentUuid": "60edab65_0b24e475",
+      "range": {
+        "startLine": 243,
+        "startChar": 26,
+        "endLine": 244,
+        "endChar": 72
+      },
+      "revId": "66bfcc4ea3368dc6343b94e346caa851a3564ee8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ac5e11ca_77323e27",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 12
@@ -154,6 +178,30 @@
       "side": 1,
       "message": "Will update and push the changes. is the name \"doSensorGet\" fine.",
       "parentUuid": "ac5e11ca_77323e27",
+      "range": {
+        "startLine": 2973,
+        "startChar": 24,
+        "endLine": 2973,
+        "endChar": 42
+      },
+      "revId": "66bfcc4ea3368dc6343b94e346caa851a3564ee8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64baa442_96e057ec",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 2973,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-23T21:52:09Z",
+      "side": 1,
+      "message": "sure, that\u0027s fine, so long as it\u0027s not explicitly named the wrong thing (ie, sensor collection when this is not a sensor collection) it\u0027s fine.  We\u0027re not that consistent on the naming conventions.",
+      "parentUuid": "08edfe16_0d66a676",
       "range": {
         "startLine": 2973,
         "startChar": 24,
