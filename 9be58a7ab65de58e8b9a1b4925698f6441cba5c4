@@ -50,6 +50,24 @@
       "message": "I\u0027m implementing AMI AttributeRegistry, and MegaRAC BIOS provides AttributeRegistry with \"en-US\" language. Probably it will work fine with default \"en\", but i decided to make language adjustable. Language from header is already being used here ( https://gerrit.openbmc.org/c/openbmc/bmcweb/+/70741/1/redfish-core/lib/message_registries.hpp#b214), so my change would make behaviour more consistent (if DMTF somewhy change language from \"en\" to something else, not all \"language\" fields would be affected with current implementation).",
       "revId": "9be58a7ab65de58e8b9a1b4925698f6441cba5c4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ece4c8e_e92ada91",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-23T17:38:05Z",
+      "side": 1,
+      "message": "\u003e I\u0027m implementing AMI AttributeRegistry, and MegaRAC BIOS provides AttributeRegistry with \"en-US\" language.\n\nACK.\n\n\u003e  Probably it will work fine with default \"en\", but i decided to make language adjustable. Language from header is already being used here ( https://gerrit.openbmc.org/c/openbmc/bmcweb/+/70741/1/redfish-core/lib/message_registries.hpp#b214), so my change would make behaviour more consistent (if DMTF somewhy change language from \"en\" to something else, not all \"language\" fields would be affected with current implementation).\n\nYep, agreed.  Just trying to understand why you\u0027re doing it so I can do my best not to break you in the future.  Best of luck.",
+      "parentUuid": "662fca9b_d3d3b7fe",
+      "revId": "9be58a7ab65de58e8b9a1b4925698f6441cba5c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
