@@ -22,6 +22,30 @@
       },
       "revId": "819f89cec21223afa20978dd5ab5543480553e93",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43ba58e5_debfdf52",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-23T15:13:55Z",
+      "side": 1,
+      "message": "oof...   I forgot cookies were shared across a domain......  I wonder if this limit is overly paranoid.",
+      "parentUuid": "bfe59922_c0092b51",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 56
+      },
+      "revId": "819f89cec21223afa20978dd5ab5543480553e93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
