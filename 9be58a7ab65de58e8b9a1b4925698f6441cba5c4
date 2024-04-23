@@ -33,6 +33,23 @@
       "message": "Please get added to a CLA, which will allow CI to trigger for you.",
       "revId": "9be58a7ab65de58e8b9a1b4925698f6441cba5c4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "662fca9b_d3d3b7fe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002068
+      },
+      "writtenOn": "2024-04-23T17:21:48Z",
+      "side": 1,
+      "message": "I\u0027m implementing AMI AttributeRegistry, and MegaRAC BIOS provides AttributeRegistry with \"en-US\" language. Probably it will work fine with default \"en\", but i decided to make language adjustable. Language from header is already being used here ( https://gerrit.openbmc.org/c/openbmc/bmcweb/+/70741/1/redfish-core/lib/message_registries.hpp#b214), so my change would make behaviour more consistent (if DMTF somewhy change language from \"en\" to something else, not all \"language\" fields would be affected with current implementation).",
+      "revId": "9be58a7ab65de58e8b9a1b4925698f6441cba5c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
