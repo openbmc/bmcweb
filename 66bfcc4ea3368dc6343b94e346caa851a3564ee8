@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39ffac81_6b7eca35",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001810
+      },
+      "writtenOn": "2024-04-23T13:17:52Z",
+      "side": 1,
+      "message": "modified the code as per the review. Please make review comments as \"Resolved\" for all the comments (earlier comments) which are agreed or OK. So, that I can work on unresolved comments.",
+      "revId": "66bfcc4ea3368dc6343b94e346caa851a3564ee8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
