@@ -52,6 +52,24 @@
       "parentUuid": "d4d2b649_629e2d19",
       "revId": "5b90429a75c58797ec29ac9a8ed18c2dcd7d4950",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f99fd9ff_005cc695",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-23T15:00:39Z",
+      "side": 0,
+      "message": "Does\u0027t the code on master simply ignore the web group?  If we check in this code and don\u0027t ignore it anymore, don\u0027t users that have that group now break?",
+      "parentUuid": "9f751148_35629f3e",
+      "revId": "5b90429a75c58797ec29ac9a8ed18c2dcd7d4950",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
