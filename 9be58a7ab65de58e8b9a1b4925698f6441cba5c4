@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bee350a_5c517f79",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-23T15:10:41Z",
+      "side": 1,
+      "message": "Please do your best to answer why this is required in a commit message.  Are you implementing a schema in another language?  Has DMTF started publishing multiple language schemas.\n\nThe code looks fine, and makes sense (I don\u0027t remember why we hardcoded that in the first place) but knowing why you made the change would be helpful.",
+      "revId": "9be58a7ab65de58e8b9a1b4925698f6441cba5c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "85480077_27b7f121",
