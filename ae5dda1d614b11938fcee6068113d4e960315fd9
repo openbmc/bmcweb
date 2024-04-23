@@ -16,6 +16,24 @@
       "message": "I understand why build-time option \u0027insecure-disable-xss\u0027 was needed but do not understand all aspects of its implementation, so I cannot comment on that.\nWith that, this change seems okay.",
       "revId": "ae5dda1d614b11938fcee6068113d4e960315fd9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79914aed_be728003",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-23T15:06:47Z",
+      "side": 1,
+      "message": "I\u0027m pretty certain nobody has used this option in the last 3-4ish years since webui-vue has come into the picture.  If I\u0027m wrong..... we can still pull it from the history and bring it back, but I do think the proxy is a much better solution than this was.",
+      "parentUuid": "3fd0e976_80085115",
+      "revId": "ae5dda1d614b11938fcee6068113d4e960315fd9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
