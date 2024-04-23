@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d63dca15_9e35644a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-23T17:03:54Z",
+      "side": 1,
+      "message": "Some issues with this patch as written:\nA. It writes a redfish enum into bmcweb internals.  It does this as a string, but we should not be storing redfish-specific enums in generic structures.\nB. It appears to have the intent to completely remove the old support, thereby breaking people that used the old OEM option.  I see no reason why we can\u0027t port those users forward, by keeping the same on disk format, the same internals, and just converting the bool we have today into the Redfish enum at get/patch time.\n\nIf we really need another mode of operation, it needs to be justified in the commit message.",
+      "revId": "24897028109a543297b7fac3e439468510ac26b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de73f010_bb036f9e",
@@ -43,6 +60,53 @@
         "startChar": 0,
         "endLine": 198,
         "endChar": 13
+      },
+      "revId": "24897028109a543297b7fac3e439468510ac26b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cad49489_a3405f7c",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-23T17:03:54Z",
+      "side": 1,
+      "message": "\u003e HttpBasicAuth is a enum value where as BasicAuth is boolean.\n\nThat distinction isn\u0027t important to code.  A bool and an enum with two values is functionally the same.  If we want to implement the \"Unadvertised\" state in HTTPBasicAuth, lets put that in a patch separate from enable/disable.\n\nFWIW, I don\u0027t really think we need to implement the \"Unadvertised\" state.  Arguably we have better logic for deciding when to advertise www-authenticate than Redfish can specify, so I suspect we can just use Enabled, and it will be functionally correct, even if it\u0027s not technically correct.\n\n\u003e once HttpBasicAuth is completed supported then will remove BasicAuth support\n\nPlease don\u0027t.  They represent the same feature, we have no reason to remove the code, or write new code for a totally new feature.\n\nJust transform the bool into the enum when redfish reads it.",
+      "parentUuid": "55afc46f_6d5c7ca7",
+      "range": {
+        "startLine": 191,
+        "startChar": 0,
+        "endLine": 198,
+        "endChar": 13
+      },
+      "revId": "24897028109a543297b7fac3e439468510ac26b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "922c3fa5_7f18b4c2",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1236,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-23T17:03:54Z",
+      "side": 1,
+      "message": "Please take a look at how I did this in my patch.  It uses the generated redfish enums.",
+      "range": {
+        "startLine": 1236,
+        "startChar": 46,
+        "endLine": 1236,
+        "endChar": 59
       },
       "revId": "24897028109a543297b7fac3e439468510ac26b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
