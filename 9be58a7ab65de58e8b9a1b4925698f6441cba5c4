@@ -102,6 +102,24 @@
       "message": "Seems good but more in the commit msg as Ed mentioned would help.",
       "revId": "9be58a7ab65de58e8b9a1b4925698f6441cba5c4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c73a649_c96cd57a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-04-24T17:18:27Z",
+      "side": 1,
+      "message": "Still need a CLA and getting on the gerrit approval list. Have you signed an individual CLA or a CCLA?",
+      "parentUuid": "85480077_27b7f121",
+      "revId": "9be58a7ab65de58e8b9a1b4925698f6441cba5c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
