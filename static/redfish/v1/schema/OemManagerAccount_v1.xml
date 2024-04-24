@@ -53,12 +53,17 @@
 				<Property Name="ExpirationDate" Type="Edm.String" Nullable="true">
 					<Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
 					<Annotation Term="OData.Description" String="The expiration date of the ACF file."/>
-					<Annotation Term="OData.LongDescription" String="The expiration date of the ACF file, if the expiration date has been from the BMC then the ACF is not validD"/>
+					<Annotation Term="OData.LongDescription" String="The expiration date of the ACF file, if the expiration date has been from the BMC then the ACF is not valid."/>
 				</Property>
 				<Property Name="ACFInstalled" Type="Edm.Boolean">
 					<Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
 					<Annotation Term="OData.Description" String="This property is set to true if the ACF is installed."/>
 					<Annotation Term="OData.LongDescription" String="This property indicates if the ACF is installed or not."/>
+				</Property>
+				<Property Name="AllowUnauthACFUpload" Type="Edm.Boolean">
+					<Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+					<Annotation Term="OData.Description" String="This property shall indicate if unauthorized users shall be allowed to upload ACFs."/>
+					<Annotation Term="OData.LongDescription" String="This property indicates if unauthorized users are allowed to upload ACFs or not.  When this property is true, users are allowed to upload ACFs regardless of their authentication status, regardless of their Role, and regardless of the time window created by Operator Panel function 74."/>
 				</Property>
 			</ComplexType>
 

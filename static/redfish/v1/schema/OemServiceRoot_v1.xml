@@ -59,6 +59,11 @@
           <Annotation Term="OData.Description" String="The time offset from UTC that the DateTime property is in `+HH:MM` format."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the offset from UTC time that the DateTime property contains.  If both DateTime and DateTimeLocalOffset are provided in modification requests, services shall apply DateTimeLocalOffset after DateTime is applied."/>
         </Property>
+        <Property Name="ACFWindowActive" Type="OemServiceRoot.IBM">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether the time window for an unauthorized agent to upload an ACF is active."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate if the time window for an unauthorized agent to upload an ACF is active."/>
+        </Property>
       </ComplexType>
 
     </Schema>

@@ -85,6 +85,15 @@
                         "boolean"
                     ],
                     "versionAdded": "v1_0_0"
+                },
+                "AllowUnauthACFUpload": {
+                    "description": "This property shall indicate if unauthorized users shall be allowed to upload ACFs.",
+                    "longDescription": "This property indicates if unauthorized users are allowed to upload ACFs or not.  When this property is true, users are allowed to upload ACFs regardless of their authentication status, regardless of their Role, and regardless of the time window created by Operator Panel function 74.",
+                    "readonly": false,
+                    "type": [
+                        "boolean"
+                    ],
+                    "versionAdded": "v1_0_0"
                 }
             },
             "type": "object"
