@@ -16,6 +16,24 @@
       "message": "Do we want a TODO to remove this in the future?",
       "revId": "dbf6966a0cad0a7160b68040a3d0f73d98a52ce2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37cd55c1_a3af1ba9",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1215,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-24T23:28:44Z",
+      "side": 1,
+      "message": "I don\u0027t think we want to remove it.  It\u0027s not that much technical debt (it\u0027s identical in behavior to the DMTF one) and we want to continue to support interfaces that have existed for this long.\n\nIf we get in a situation where it\u0027s causing a lot of technical pain, we can discuss it, but I don\u0027t think we\u0027re in that boat now, and we have to support the Oem OpenBMC Manager schema forever, because we\u0027ve implemented features outside of Redfish that are openbmc specific.",
+      "parentUuid": "bc3800e6_6cfc729e",
+      "revId": "dbf6966a0cad0a7160b68040a3d0f73d98a52ce2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
