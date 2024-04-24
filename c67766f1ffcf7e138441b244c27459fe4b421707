@@ -107,6 +107,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a920b054_f769a3cf",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2091,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-24T18:39:58Z",
+      "side": 1,
+      "message": "I changed these to certificate.",
+      "parentUuid": "76e4fbe1_af0c911b",
+      "range": {
+        "startLine": 2091,
+        "startChar": 41,
+        "endLine": 2091,
+        "endChar": 59
+      },
+      "revId": "c67766f1ffcf7e138441b244c27459fe4b421707",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "314917e6_9a220c9a",
@@ -178,6 +202,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "90384dd6_43df24e2",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2098,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-24T18:39:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4224ded3_1f2f4b3e",
+      "range": {
+        "startLine": 2098,
+        "startChar": 41,
+        "endLine": 2098,
+        "endChar": 58
+      },
+      "revId": "c67766f1ffcf7e138441b244c27459fe4b421707",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d5f26ec3_668018cc",
@@ -191,6 +239,30 @@
       "writtenOn": "2024-04-14T23:22:14Z",
       "side": 1,
       "message": "headCertificate?",
+      "range": {
+        "startLine": 2105,
+        "startChar": 41,
+        "endLine": 2105,
+        "endChar": 59
+      },
+      "revId": "c67766f1ffcf7e138441b244c27459fe4b421707",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0eaa37af_9254c3e4",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2105,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-24T18:39:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5f26ec3_668018cc",
       "range": {
         "startLine": 2105,
         "startChar": 41,
