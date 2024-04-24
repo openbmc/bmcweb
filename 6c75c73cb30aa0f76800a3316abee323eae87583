@@ -108,6 +108,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0e906531_2ab5ffac",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2024-04-24T14:07:30Z",
+      "side": 1,
+      "message": "I think you can send multiple NTP servers list from the DHCP server and test this piece of code. Did that show the servers list good?",
+      "parentUuid": "54480b45_99c54bed",
+      "revId": "6c75c73cb30aa0f76800a3316abee323eae87583",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a4ab2adf_e6a520c9",
         "filename": "redfish-core/lib/network_protocol.hpp",
         "patchSetId": 1
