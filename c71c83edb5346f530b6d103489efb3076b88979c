@@ -52,6 +52,24 @@
       "parentUuid": "e9ce1e12_7fe6b3d5",
       "revId": "c71c83edb5346f530b6d103489efb3076b88979c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53665f85_e1d2d7f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-04-24T23:32:59Z",
+      "side": 1,
+      "message": "@Jonathan, @Ed,\n\n70850 has been WIP to make Request as shared_ptr, and this 71006 seems fulfilling it.\nSo, I\u0027m good for this approach.\n\nI think one additional test may need to be done by checking the content of `req` inside `completeRequest()` on PATCH approach as 70850 is showing and proving the issue.  (This part won\u0027t be seen by default).",
+      "parentUuid": "e012e697_02a356e5",
+      "revId": "c71c83edb5346f530b6d103489efb3076b88979c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
