@@ -87,6 +87,30 @@
       },
       "revId": "c4542b3e381de1833c8e79e3ddcae6930896753e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66c12bbb_951b110d",
+        "filename": "meson_options.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-24T23:03:39Z",
+      "side": 1,
+      "message": "\u003e Can we do this in a different commit?\n\nFunctionally, they\u0027re not separate.  I can put it in a predecessor commit to this one if you just want the git history to be separate, but if we start enforcing meson_options correctness (Which is a good thing) it also means.... they have to be correct.\n\nGiven that the NBD server is at least in review, I\u0027m not sure this belongs commented out anyway.",
+      "parentUuid": "6ebcab70_db938467",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 1
+      },
+      "revId": "c4542b3e381de1833c8e79e3ddcae6930896753e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
