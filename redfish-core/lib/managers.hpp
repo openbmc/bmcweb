@@ -23,7 +23,6 @@
 
 #include "app.hpp"
 #include "dbus_utility.hpp"
-#include "health.hpp"
 #include "led.hpp"
 #include "query.hpp"
 #include "redfish_util.hpp"
@@ -2116,12 +2115,6 @@ inline void requestRoutesManager(App& app)
 
             asyncResp->res.jsonValue["Links"]["ManagerForServers"] =
                 std::move(managerForServers);
-        }
-        if constexpr (bmcwebEnableHealthPopulate)
-        {
-            auto health = std::make_shared<HealthPopulate>(asyncResp);
-            health->isManagersHealth = true;
-            health->populate();
         }
 
         sw_util::populateSoftwareInformation(asyncResp, sw_util::bmcPurpose,

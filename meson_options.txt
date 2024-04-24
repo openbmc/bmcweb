@@ -119,16 +119,6 @@ option(
 )
 
 option(
-    'redfish-enable-proccessor-memory-status',
-    type: 'feature',
-    value: 'disabled',
-    description: '''Enable/disable the deprecated processor and memory summary
-                    status. The default condition is disabling the processor
-                    and memory summary status. This option will be removed in
-                    1Q 2024.'''
-)
-
-option(
     'redfish-provisioning-feature',
     type: 'feature',
     value: 'disabled',
@@ -267,9 +257,11 @@ option(
 option(
     'redfish-health-populate',
     type: 'feature',
-    value: 'disabled',
+    value: 'enabled',
     description: '''Enables HealthPopulate and generate the Status property for
-                    the resource. This option will be removed Q1 2024'''
+                    the resource. Upstream this is removed. Downstream this is
+                    only the chassis resource. Will do something different for
+                    next gen.'''
 )
 
 option(

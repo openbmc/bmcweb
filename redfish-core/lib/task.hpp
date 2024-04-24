@@ -14,12 +14,10 @@
 // limitations under the License.
 */
 #pragma once
-#include "bmcweb_config.h"
 
 #include "app.hpp"
 #include "dbus_utility.hpp"
 #include "event_service_manager.hpp"
-#include "health.hpp"
 #include "http/parsing.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
@@ -493,11 +491,6 @@ inline void requestRoutesTaskService(App& app)
 
         asyncResp->res.jsonValue["LifeCycleEventOnTaskStateChange"] = true;
 
-        if constexpr (bmcwebEnableHealthPopulate)
-        {
-            auto health = std::make_shared<HealthPopulate>(asyncResp);
-            health->populate();
-        }
         asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
         asyncResp->res.jsonValue["ServiceEnabled"] = true;
         asyncResp->res.jsonValue["Tasks"]["@odata.id"] =
