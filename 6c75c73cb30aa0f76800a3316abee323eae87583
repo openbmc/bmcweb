@@ -53,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "34641034_8e924fe5",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001663
+      },
+      "writtenOn": "2024-04-24T13:42:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b3be51ce_40f60dee",
+      "revId": "6c75c73cb30aa0f76800a3316abee323eae87583",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "96496092_742297c0",
@@ -83,6 +101,24 @@
       "writtenOn": "2024-04-24T09:20:06Z",
       "side": 1,
       "message": "const?",
+      "revId": "6c75c73cb30aa0f76800a3316abee323eae87583",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e38e0df4_a9ef5430",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 1001663
+      },
+      "writtenOn": "2024-04-24T13:42:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4ab2adf_e6a520c9",
       "revId": "6c75c73cb30aa0f76800a3316abee323eae87583",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
