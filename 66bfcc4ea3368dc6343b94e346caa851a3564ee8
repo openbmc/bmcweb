@@ -70,6 +70,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a32babde_00b0ad98",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001810
+      },
+      "writtenOn": "2024-04-24T05:25:02Z",
+      "side": 1,
+      "message": "Responded to review comments. Thanks",
+      "revId": "66bfcc4ea3368dc6343b94e346caa851a3564ee8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dbda8a02_27567e44",
@@ -143,6 +160,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cc43e0c9_f32750fd",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1001810
+      },
+      "writtenOn": "2024-04-24T05:25:02Z",
+      "side": 1,
+      "message": "Do we have to push the code changes (small change only) required for power.hpp for the issue in another thread.",
+      "parentUuid": "b5027d5f_9b8dd846",
+      "range": {
+        "startLine": 243,
+        "startChar": 26,
+        "endLine": 244,
+        "endChar": 72
+      },
+      "revId": "66bfcc4ea3368dc6343b94e346caa851a3564ee8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ac5e11ca_77323e27",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 12
@@ -202,6 +243,30 @@
       "side": 1,
       "message": "sure, that\u0027s fine, so long as it\u0027s not explicitly named the wrong thing (ie, sensor collection when this is not a sensor collection) it\u0027s fine.  We\u0027re not that consistent on the naming conventions.",
       "parentUuid": "08edfe16_0d66a676",
+      "range": {
+        "startLine": 2973,
+        "startChar": 24,
+        "endLine": 2973,
+        "endChar": 42
+      },
+      "revId": "66bfcc4ea3368dc6343b94e346caa851a3564ee8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad2f9621_75fe509d",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 2973,
+      "author": {
+        "id": 1001810
+      },
+      "writtenOn": "2024-04-24T05:25:02Z",
+      "side": 1,
+      "message": "will change to either doSensorGet or finishSensorGet and push the code",
+      "parentUuid": "64baa442_96e057ec",
       "range": {
         "startLine": 2973,
         "startChar": 24,
