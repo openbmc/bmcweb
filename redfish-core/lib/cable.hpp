@@ -7,6 +7,7 @@
 #include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
+#include "generated/enums/cable.hpp"
 #include "generated/enums/resource.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
@@ -58,10 +59,11 @@ inline void fillCableProperties(
 
     const std::string* cableTypeDescription = nullptr;
     const double* length = nullptr;
+    const std::string* cableStatus = nullptr;
 
     const bool success = sdbusplus::unpackPropertiesNoThrow(
         dbus_utils::UnpackErrorPrinter(), properties, "CableTypeDescription",
-        cableTypeDescription, "Length", length);
+        cableTypeDescription, "Length", length, "CableStatus", cableStatus);
 
     if (!success)
     {
@@ -91,6 +93,63 @@ inline void fillCableProperties(
             asyncResp->res.jsonValue["LengthMeters"] = *length;
         }
     }
+
+    if (cableStatus != nullptr && !cableStatus->empty())
+    {
+        if (*cableStatus ==
+            "xyz.openbmc_project.Inventory.Item.Cable.Status.Inactive")
+        {
+            asyncResp->res.jsonValue["CableStatus"] =
+                cable::CableStatus::Normal;
+            asyncResp->res.jsonValue["Status"]["State"] =
+                resource::State::StandbyOffline;
+            asyncResp->res.jsonValue["Status"]["Health"] = resource::Health::OK;
+        }
+        else if (*cableStatus ==
+                 "xyz.openbmc_project.Inventory.Item.Cable.Status.Running")
+        {
+            asyncResp->res.jsonValue["CableStatus"] =
+                cable::CableStatus::Normal;
+            asyncResp->res.jsonValue["Status"]["State"] =
+                resource::State::Enabled;
+            asyncResp->res.jsonValue["Status"]["Health"] = resource::Health::OK;
+        }
+        else if (*cableStatus ==
+                 "xyz.openbmc_project.Inventory.Item.Cable.Status.PoweredOff")
+        {
+            asyncResp->res.jsonValue["CableStatus"] =
+                cable::CableStatus::Disabled;
+            asyncResp->res.jsonValue["Status"]["State"] =
+                resource::State::StandbyOffline;
+            asyncResp->res.jsonValue["Status"]["Health"] = resource::Health::OK;
+        }
+    }
+}
+
+inline void fillCablePartNumber(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& cableObjectPath, const std::string& service)
+{
+    dbus::utility::getProperty<std::string>(
+        *crow::connections::systemBus, service, cableObjectPath,
+        "xyz.openbmc_project.Inventory.Decorator.Asset", "PartNumber",
+        [asyncResp](const boost::system::error_code& ec,
+                    const std::string& property) {
+            if (ec)
+            {
+                if (ec.value() != EBADR)
+                {
+                    BMCWEB_LOG_ERROR("DBus response error for PartNumber, {}",
+                                     ec.value());
+                    messages::internalError(asyncResp->res);
+                }
+
+                // PartNumber is optional, ignore the failure if it doesn't
+                // exist.
+                return;
+            }
+            asyncResp->res.jsonValue["PartNumber"] = property;
+        });
 }
 
 inline void fillCableHealthState(
@@ -149,6 +208,11 @@ inline void getCableProperties(
             else if (interface == "xyz.openbmc_project.Inventory.Item")
             {
                 fillCableHealthState(asyncResp, cableObjectPath, service);
+            }
+            else if (interface ==
+                     "xyz.openbmc_project.Inventory.Decorator.Asset")
+            {
+                fillCablePartNumber(asyncResp, cableObjectPath, service);
             }
         }
     }
