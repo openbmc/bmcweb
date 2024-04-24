@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8925918d_26959379",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-24T15:04:34Z",
+      "side": 1,
+      "message": "Does this change the behavior of the NTPServers Property at all?",
+      "revId": "3273c8186688cc2e15af85c1ddff4cdcd127cf80",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
