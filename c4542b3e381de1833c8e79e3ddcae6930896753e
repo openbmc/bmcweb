@@ -111,6 +111,30 @@
       },
       "revId": "c4542b3e381de1833c8e79e3ddcae6930896753e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5655a779_9a9f8b58",
+        "filename": "meson_options.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-24T23:22:20Z",
+      "side": 1,
+      "message": "ok, I figured out a way to do it.  It defeats the purpose of being consistent, but sets this option to false always in the bmcweb_config.h.",
+      "parentUuid": "66c12bbb_951b110d",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 1
+      },
+      "revId": "c4542b3e381de1833c8e79e3ddcae6930896753e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
