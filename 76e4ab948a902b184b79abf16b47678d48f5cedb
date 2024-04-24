@@ -22,6 +22,30 @@
       },
       "revId": "76e4ab948a902b184b79abf16b47678d48f5cedb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fea86199_ec90297e",
+        "filename": "http/routing.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-24T23:40:22Z",
+      "side": 1,
+      "message": "I think it\u0027s ok without changing baserule.  Baserule doesn\u0027t do any async operation  that require the Request, so I think we should be ok there.",
+      "parentUuid": "88a321c9_562dad6e",
+      "range": {
+        "startLine": 651,
+        "startChar": 0,
+        "endLine": 651,
+        "endChar": 49
+      },
+      "revId": "76e4ab948a902b184b79abf16b47678d48f5cedb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
