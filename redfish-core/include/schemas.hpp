@@ -15,7 +15,7 @@
 
 namespace redfish
 {
-    constexpr std::array<std::string_view,116> schemas {
+    constexpr std::array<std::string_view,115> schemas {
         "AccountService",
         "ActionInfo",
         "AggregationService",
@@ -83,7 +83,6 @@ namespace redfish
         "PCIeDeviceCollection",
         "PCIeFunction",
         "PCIeFunctionCollection",
-        "PCIeSlots",
         "PhysicalContext",
         "Port",
         "PortCollection",
