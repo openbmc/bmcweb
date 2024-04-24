@@ -5492,6 +5492,7 @@
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/OemComputerSystem_v1.xml">
         <edmx:Include Namespace="OemComputerSystem"/>
+        <edmx:Include Namespace="OemComputerSystem.v1_0_0"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/OemVirtualMedia_v1.xml">
         <edmx:Include Namespace="OemVirtualMedia"/>

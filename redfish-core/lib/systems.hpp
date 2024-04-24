@@ -47,8 +47,16 @@
 #include <sdbusplus/unpack_properties.hpp>
 
 #include <array>
+#include <cstdint>
+#include <functional>
+#include <memory>
+#include <optional>
+#include <ranges>
+#include <string>
 #include <string_view>
+#include <utility>
 #include <variant>
+#include <vector>
 
 namespace redfish
 {
@@ -2665,6 +2673,171 @@ inline void
     BMCWEB_LOG_DEBUG("EXIT: Get idle power saver parameters");
 }
 
+/*
+ * Handle Enabled Panel Functions
+ */
+inline void doGetEnabledPanelFunctions(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    std::function<void(const boost::system::error_code& ec,
+                       const std::vector<uint8_t>&)>&& callback)
+{
+    BMCWEB_LOG_DEBUG("Get Enabled Panel functions");
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, callback](const boost::system::error_code& ec,
+                              const std::vector<uint8_t>& enabledFuncs) {
+        callback(ec, enabledFuncs);
+    },
+        "com.ibm.PanelApp", "/com/ibm/panel_app", "com.ibm.panel",
+        "getEnabledFunctions");
+}
+
+/*
+ * Get Enabled Panel Functions
+ */
+inline void getEnabledPanelFunctions(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    doGetEnabledPanelFunctions(
+        asyncResp, [asyncResp](const boost::system::error_code& ec,
+                               const std::vector<uint8_t>& enabledFuncs) {
+        if (ec)
+        {
+            if (ec.value() != EBADR)
+            {
+                BMCWEB_LOG_ERROR("Get Enabled Panel Functions D-bus error: {}",
+                                 ec.value());
+                messages::internalError(asyncResp->res);
+            }
+            return;
+        }
+        nlohmann::json& oem = asyncResp->res.jsonValue["Oem"];
+        oem["@odata.type"] = "#OemComputerSystem.Oem";
+        oem["IBM"]["@odata.type"] = "#OemComputerSystem.IBM";
+        oem["IBM"]["EnabledPanelFunctions"] = enabledFuncs;
+    });
+}
+
+/**
+ * Execute a Panel Enabled Function
+ */
+inline void
+    executePanelFunction(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const uint8_t funcNo)
+{
+    BMCWEB_LOG_DEBUG("Execute Panel function {}", std::to_string(funcNo));
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp,
+         funcNo](const boost::system::error_code& ec,
+                 const sdbusplus::message_t& msg,
+                 const std::tuple<bool, std::string, std::string>& result) {
+        if (ec)
+        {
+            const sd_bus_error* dbusError = msg.get_error();
+            if (dbusError == nullptr)
+            {
+                BMCWEB_LOG_ERROR("Execute a panel function D-bus error:  {}",
+                                 ec.value());
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            if (dbusError->name ==
+                std::string_view("xyz.openbmc_project.Common.Error.NotAllowed"))
+            {
+                BMCWEB_LOG_WARNING("PanelFunction {} is not enabled",
+                                   std::to_string(funcNo));
+                messages::operationNotAllowed(asyncResp->res);
+                return;
+            }
+            if (dbusError->name ==
+                std::string_view(
+                    "xyz.openbmc_project.Common.Error.InternalFailure"))
+            {
+                BMCWEB_LOG_ERROR("ExecutePanelFunction {} is failed",
+                                 std::to_string(funcNo));
+                messages::operationFailed(asyncResp->res);
+                return;
+            }
+            BMCWEB_LOG_ERROR("Execute a panel function D-bus error:  {}",
+                             ec.value());
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        if (!std::get<0>(result))
+        {
+            BMCWEB_LOG_ERROR("ExecutePanelFunction {} is failed",
+                             std::to_string(funcNo));
+            messages::operationFailed(asyncResp->res);
+            return;
+        }
+        asyncResp->res.jsonValue["Result"] = {std::get<1>(result),
+                                              std::get<2>(result)};
+        messages::success(asyncResp->res);
+    },
+        "com.ibm.PanelApp", "/com/ibm/panel_app", "com.ibm.panel",
+        "ExecuteFunction", funcNo);
+}
+
+inline void handleSystemActionsOemExecutePanelFunctionPost(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    BMCWEB_LOG_DEBUG("handleSystemActionsOemExecutePanelFunctionPost...");
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    uint8_t funcNo = 0;
+    if (!json_util::readJsonAction(req, asyncResp->res, "FuncNo", funcNo))
+    {
+        BMCWEB_LOG_WARNING("Missing funcNo");
+        messages::actionParameterMissing(asyncResp->res, "ExecutePanelFunction",
+                                         "FuncNo");
+        return;
+    }
+
+    doGetEnabledPanelFunctions(
+        asyncResp,
+        [funcNo, asyncResp](const boost::system::error_code& ec,
+                            const std::vector<uint8_t>& enabledFuncs) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR("Get Enabled Panel Functions D-bus error: {}",
+                             ec.value());
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        auto it = std::ranges::find(enabledFuncs, funcNo);
+        if (it == enabledFuncs.end())
+        {
+            BMCWEB_LOG_WARNING("PanelFunction {} is not enabled",
+                               std::to_string(funcNo));
+            messages::operationNotAllowed(asyncResp->res);
+            return;
+        }
+        executePanelFunction(asyncResp, funcNo);
+    });
+}
+
+/**
+ * SystemActionsOemExecutePanelFunction class supports handle POST method for
+ * ExecutePanelFunction  action. The class retrieves and sends data directly to
+ * D-Bus.
+ */
+inline void requestRoutesSystemActionsOemExecutePanelFunction(App& app)
+{
+    BMCWEB_ROUTE(
+        app,
+        "/redfish/v1/Systems/system/Actions/Oem/OemComputerSystem.ExecutePanelFunction/")
+        .privileges(redfish::privileges::postComputerSystem)
+        .methods(boost::beast::http::verb::post)(std::bind_front(
+            handleSystemActionsOemExecutePanelFunctionPost, std::ref(app)));
+}
+
 /**
  * @brief Sets Idle Power Saver properties.
  *
@@ -3254,6 +3427,13 @@ inline void
     getTrustedModuleRequiredToBoot(asyncResp);
     getPowerMode(asyncResp);
     getIdlePowerSaver(asyncResp);
+
+    // Panel Function
+    getEnabledPanelFunctions(asyncResp);
+
+    nlohmann::json& actionOem = asyncResp->res.jsonValue["Actions"]["Oem"];
+    actionOem["#OemComputerSystem.v1_0_0.ExecutePanelFunction"]["target"] =
+        "/redfish/v1/Systems/system/Actions/Oem/OemComputerSystem.ExecutePanelFunction";
 }
 
 inline void handleComputerSystemPatch(

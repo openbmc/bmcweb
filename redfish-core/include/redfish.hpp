@@ -192,7 +192,7 @@ class RedfishService
         requestRoutesMemory(app);
 
         requestRoutesSystems(app);
-
+        requestRoutesSystemActionsOemExecutePanelFunction(app);
         requestRoutesBiosService(app);
         requestRoutesBiosSettings(app);
         requestRoutesBiosAttributeRegistry(app);
