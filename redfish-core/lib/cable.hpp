@@ -41,10 +41,11 @@ inline void afterFillCableProperties(
 {
     const std::string* cableTypeDescription = nullptr;
     const double* length = nullptr;
+    const std::string* cableStatus = nullptr;
 
     const bool success = sdbusplus::unpackPropertiesNoThrow(
         dbus_utils::UnpackErrorPrinter(), properties, "CableTypeDescription",
-        cableTypeDescription, "Length", length);
+        cableTypeDescription, "Length", length, "CableStatus", cableStatus);
 
     if (!success)
     {
@@ -72,6 +73,31 @@ inline void afterFillCableProperties(
         else
         {
             asyncResp->res.jsonValue["LengthMeters"] = *length;
+        }
+    }
+
+    if (cableStatus != nullptr && !cableStatus->empty())
+    {
+        if (*cableStatus ==
+            "xyz.openbmc_project.Inventory.Item.Cable.Status.Inactive")
+        {
+            asyncResp->res.jsonValue["CableStatus"] = "Normal";
+            asyncResp->res.jsonValue["Status"]["State"] = "StandbyOffline";
+            asyncResp->res.jsonValue["Status"]["Health"] = "OK";
+        }
+        else if (*cableStatus ==
+                 "xyz.openbmc_project.Inventory.Item.Cable.Status.Running")
+        {
+            asyncResp->res.jsonValue["CableStatus"] = "Normal";
+            asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
+            asyncResp->res.jsonValue["Status"]["Health"] = "OK";
+        }
+        else if (*cableStatus ==
+                 "xyz.openbmc_project.Inventory.Item.Cable.Status.PoweredOff")
+        {
+            asyncResp->res.jsonValue["CableStatus"] = "Disabled";
+            asyncResp->res.jsonValue["Status"]["State"] = "StandbyOffline";
+            asyncResp->res.jsonValue["Status"]["Health"] = "OK";
         }
     }
 }
@@ -103,6 +129,26 @@ inline void
         }
 
         afterFillCableProperties(asyncResp, properties);
+    });
+
+    sdbusplus::asio::getProperty<std::string>(
+        *crow::connections::systemBus, service, cableObjectPath,
+        "xyz.openbmc_project.Inventory.Decorator.Asset", "PartNumber",
+        [asyncResp](const boost::system::error_code& ec,
+                    const std::string& property) {
+        if (ec)
+        {
+            if (ec.value() != EBADR)
+            {
+                BMCWEB_LOG_ERROR("DBus response error for PartNumber, {}",
+                                 ec.value());
+                messages::internalError(asyncResp->res);
+            }
+
+            // PartNumber is optional, ignore the failure if it doesn't exist.
+            return;
+        }
+        asyncResp->res.jsonValue["PartNumber"] = property;
     });
 }
 
