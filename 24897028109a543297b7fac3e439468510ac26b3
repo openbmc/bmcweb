@@ -91,6 +91,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7ec51e8c_e4740964",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-04-24T13:14:17Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "cad49489_a3405f7c",
+      "range": {
+        "startLine": 191,
+        "startChar": 0,
+        "endLine": 198,
+        "endChar": 13
+      },
+      "revId": "24897028109a543297b7fac3e439468510ac26b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "922c3fa5_7f18b4c2",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 2
@@ -102,6 +126,30 @@
       "writtenOn": "2024-04-23T17:03:54Z",
       "side": 1,
       "message": "Please take a look at how I did this in my patch.  It uses the generated redfish enums.",
+      "range": {
+        "startLine": 1236,
+        "startChar": 46,
+        "endLine": 1236,
+        "endChar": 59
+      },
+      "revId": "24897028109a543297b7fac3e439468510ac26b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "774e969e_ac618c04",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1236,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-04-24T13:14:17Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "922c3fa5_7f18b4c2",
       "range": {
         "startLine": 1236,
         "startChar": 46,
