@@ -27,7 +27,8 @@ namespace crow
 struct Request
 {
     using Body = boost::beast::http::request<bmcweb::HttpBody>;
-    Body req;
+    std::shared_ptr<Body> reqPtr;
+    Body& req;
 
   private:
     boost::urls::url urlBase;
@@ -37,8 +38,9 @@ struct Request
 
     std::shared_ptr<persistent_data::UserSession> session;
 
-    std::string userRole;
-    Request(Body reqIn, std::error_code& ec) : req(std::move(reqIn))
+    std::string userRole{};
+    Request(Body reqIn, std::error_code& ec) :
+        reqPtr(std::make_shared<Body>(std::move(reqIn))), req(*reqPtr)
     {
         if (!setUrlInfo())
         {
@@ -46,16 +48,18 @@ struct Request
         }
     }
 
-    Request(std::string_view bodyIn, std::error_code& /*ec*/) : req({}, bodyIn)
+    Request(std::string_view bodyIn, std::error_code& /*ec*/) :
+        reqPtr(std::make_shared<Body>(Body({}, bodyIn))), req(*reqPtr)
     {}
 
-    Request() = default;
+    Request() : reqPtr(std::make_shared<Body>()), req(*reqPtr) {}
 
     Request(const Request& other) = default;
+
     Request(Request&& other) = default;
 
-    Request& operator=(const Request&) = default;
-    Request& operator=(Request&&) = default;
+    Request& operator=(const Request&) = delete;
+    Request& operator=(const Request&&) = delete;
     ~Request() = default;
 
     void addHeader(std::string_view key, std::string_view value)
