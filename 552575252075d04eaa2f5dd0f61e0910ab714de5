@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "589b7ce7_3d9ec73f",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-25T23:05:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "981382e7_c8ef489b",
+      "revId": "552575252075d04eaa2f5dd0f61e0910ab714de5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e5a2dc83_5fb4ca00",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-04-25T19:47:04Z",
       "side": 1,
       "message": "nitpick: keep the variable name the same between http / http2. accepts (or accept)",
+      "revId": "552575252075d04eaa2f5dd0f61e0910ab714de5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40b8aa1a_ff2100bd",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-25T23:05:06Z",
+      "side": 1,
+      "message": "Changed http to  \"accept\"",
+      "parentUuid": "e5a2dc83_5fb4ca00",
       "revId": "552575252075d04eaa2f5dd0f61e0910ab714de5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
