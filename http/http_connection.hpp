@@ -8,6 +8,7 @@
 #ifdef BMCWEB_ENABLE_LINUX_AUDIT_EVENTS
 #include "audit_events.hpp"
 #endif
+#include "dump_utils.hpp"
 #include "http_response.hpp"
 #include "http_utility.hpp"
 #include "logging.hpp"
@@ -33,6 +34,9 @@
 
 #include <atomic>
 #include <chrono>
+#include <functional>
+#include <string>
+#include <string_view>
 #include <vector>
 
 namespace crow
@@ -321,11 +325,34 @@ class Connection :
                                        "/system/LogServices/Dump/Entries/") &&
             boost::algorithm::ends_with(url, "/attachment"))
         {
-            BMCWEB_LOG_DEBUG("upgrade stream connection");
-            handler->handleUpgrade(thisReq, asyncResp, std::move(adaptor));
-            // delete lambda with self shared_ptr
-            // to enable connection destruction
-            res.completeRequestHandler = nullptr;
+            asyncResp->res.setCompleteRequestHandler(
+                [self(shared_from_this())](crow::Response& thisRes) {
+                if (thisRes.result() != boost::beast::http::status::ok)
+                {
+                    // When any error occurs before handle upgradation,
+                    // the result in response will be set to respective
+                    // error. By default the Result will be OK (200),
+                    // which implies successful handle upgrade. Response
+                    // needs to be sent over this connection only on
+                    // failure.
+                    self->completeRequest(thisRes);
+                    return;
+                }
+            });
+
+            redfish::dump_utils::getValidDumpEntryForAttachment(
+                asyncResp, url,
+                [asyncResp, this, self(shared_from_this())](
+                    [[maybe_unused]] const std::string& objectPath,
+                    [[maybe_unused]] const std::string& entryID,
+                    [[maybe_unused]] const std::string& dumpType) {
+                BMCWEB_LOG_DEBUG("upgrade stream connection");
+                handler->handleUpgrade(*req, asyncResp, std::move(adaptor));
+
+                // delete lambda with self shared_ptr
+                // to enable connection destruction
+                res.completeRequestHandler = nullptr;
+            });
             return;
         }
 
