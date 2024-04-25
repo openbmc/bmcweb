@@ -89,7 +89,6 @@ struct EthernetInterfaceData
     std::string defaultGateway;
     std::string ipv6DefaultGateway;
     std::string macAddress;
-    std::optional<uint32_t> vlanId;
     std::vector<std::string> nameServers;
     std::vector<std::string> staticNameServers;
     std::vector<std::string> domainnames;
@@ -205,21 +204,6 @@ inline bool extractEthernetInterfaceData(
                             if (mac != nullptr)
                             {
                                 ethData.macAddress = *mac;
-                            }
-                        }
-                    }
-                }
-                else if (ifacePair.first == "xyz.openbmc_project.Network.VLAN")
-                {
-                    for (const auto& propertyPair : ifacePair.second)
-                    {
-                        if (propertyPair.first == "Id")
-                        {
-                            const uint32_t* id =
-                                std::get_if<uint32_t>(&propertyPair.second);
-                            if (id != nullptr)
-                            {
-                                ethData.vlanId = *id;
                             }
                         }
                     }
@@ -1600,26 +1584,6 @@ inline void
         jsonResponse["FQDN"] = fqdn;
     }
 
-    if (ethData.vlanId)
-    {
-        jsonResponse["EthernetInterfaceType"] = "Virtual";
-        jsonResponse["VLAN"]["VLANEnable"] = true;
-        jsonResponse["VLAN"]["VLANId"] = *ethData.vlanId;
-        jsonResponse["VLAN"]["Tagged"] = true;
-
-        nlohmann::json::array_t relatedInterfaces;
-        nlohmann::json& parentInterface = relatedInterfaces.emplace_back();
-        parentInterface["@odata.id"] =
-            boost::urls::format("/redfish/v1/Managers/bmc/EthernetInterfaces",
-                                extractParentInterfaceName(ifaceId));
-        jsonResponse["Links"]["RelatedInterfaces"] =
-            std::move(relatedInterfaces);
-    }
-    else
-    {
-        jsonResponse["EthernetInterfaceType"] = "Physical";
-    }
-
     jsonResponse["NameServers"] = ethData.nameServers;
     jsonResponse["StaticNameServers"] = ethData.staticNameServers;
 
@@ -2091,27 +2055,6 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 handleMTUSizePatch(ifaceId, *mtuSize, asyncResp);
             }
             });
-        });
-
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/EthernetInterfaces/<str>/")
-        .privileges(redfish::privileges::deleteEthernetInterface)
-        .methods(boost::beast::http::verb::delete_)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& ifaceId) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-        {
-            return;
-        }
-
-        crow::connections::systemBus->async_method_call(
-            [asyncResp, ifaceId](const boost::system::error_code& ec,
-                                 const sdbusplus::message_t& m) {
-            afterDelete(asyncResp, ifaceId, ec, m);
-            },
-            "xyz.openbmc_project.Network",
-            std::string("/xyz/openbmc_project/network/") + ifaceId,
-            "xyz.openbmc_project.Object.Delete", "Delete");
         });
 }
 
