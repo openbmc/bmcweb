@@ -35,7 +35,7 @@ namespace crow
 
 struct Http2StreamData
 {
-    crow::Request req{};
+    crow::Request req;
     crow::Response res{};
     size_t sentSofar = 0;
 };
