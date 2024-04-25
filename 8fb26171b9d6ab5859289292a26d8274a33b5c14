@@ -34,6 +34,24 @@
       "parentUuid": "7839e49e_4c942b45",
       "revId": "8fb26171b9d6ab5859289292a26d8274a33b5c14",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5abd083b_f4c095df",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-25T18:49:52Z",
+      "side": 1,
+      "message": "\u003e I would prefer to register PCIeSlots.\n\nWhy?  And what has changed?  pcie slots has been disabled for a very long time.\n\n\u003e Should we enable it?\n\nGiven that the last time we enabled it, I had to revert it because it broke things, that seems like a bad idea.",
+      "parentUuid": "b613043f_955b22fc",
+      "revId": "8fb26171b9d6ab5859289292a26d8274a33b5c14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
