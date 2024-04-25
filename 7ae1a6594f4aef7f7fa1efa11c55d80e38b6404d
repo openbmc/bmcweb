@@ -70,6 +70,30 @@
       },
       "revId": "7ae1a6594f4aef7f7fa1efa11c55d80e38b6404d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b41c274e_6dca9054",
+        "filename": "include/dbus_privileges.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-25T20:44:51Z",
+      "side": 1,
+      "message": "\u003e To the original problem, what exactly is the case that the req is cleared up\n\nIf the connection closes between when when async method call starts and ends.\n\n\u003e  so ideally there is no case for req to be cleared before asyncResp is destructed.\n\nWhen we account for multiple connections, http/2, and very large payloads, this isn\u0027t really true.  We would ideally like to clear out the connection as soon as possible to reuse the ram that might be taken up by the body.  This also forces users to parse their data in the first handle() callback, thus avoiding the anti pattern of passing the full Request object between layers, then only reading one small piece of it.\n\nMy intended fix is here:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/70850\n\nJonathans fix is here:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/71006\n\nBoth are different ways of solving the same problem, and in practice we might end up doing both.",
+      "parentUuid": "7e7d19e7_0ad0124d",
+      "range": {
+        "startLine": 153,
+        "startChar": 23,
+        "endLine": 153,
+        "endChar": 26
+      },
+      "revId": "7ae1a6594f4aef7f7fa1efa11c55d80e38b6404d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
