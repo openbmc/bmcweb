@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6bbd9af_0a06a4f0",
+        "filename": "include/authentication.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-04-25T19:30:42Z",
+      "side": 1,
+      "message": "And if the cookie field is empty, it just falls right through. Ack.",
+      "revId": "babb55f4f96266a9c88148bd68139569972626ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f3c8916_4b622381",
+        "filename": "include/authentication.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-04-25T19:30:42Z",
+      "side": 1,
+      "message": "if it-\u003evalue was empty we would end up here just the same. \nHence why     if (cookieValue.empty()) was removed. Ack.",
+      "revId": "babb55f4f96266a9c88148bd68139569972626ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
