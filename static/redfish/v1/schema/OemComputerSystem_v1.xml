@@ -27,6 +27,7 @@
             </ComplexType>
 
             <ComplexType Name="IBM" BaseType="Resource.OemObject">
+                <Annotation Term="Redfish.OwningEntity" String="IBM"/>
                 <Annotation Term="OData.AdditionalProperties" Bool="true" />
                 <Annotation Term="OData.Description" String="Oem properties for IBM." />
                 <Annotation Term="OData.AutoExpand"/>
@@ -44,6 +45,16 @@
                     <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
                     <Annotation Term="OData.Description" String="An indicator allowing an operator to operate platform system attention."/>
                     <Annotation Term="OData.LongDescription" String="This property shall contain the state of the platform system attention of this resource."/>
+                </Property>
+                <Property Name="PCIeTopologyRefresh" Type="Edm.Boolean">
+                  <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+                  <Annotation Term="OData.Description" String="An indication of topology information is ready."/>
+                  <Annotation Term="OData.LongDescription" String="This property when set to 'true' refreshes the topology information. The application which uses this should set it to 'false' when a refresh occurs."/>
+                </Property>
+                <Property Name="SavePCIeTopologyInfo" Type="Edm.Boolean">
+                  <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+                  <Annotation Term="OData.Description" String="An indication of PEL topology information is saved."/>
+                  <Annotation Term="OData.LongDescription" String="This property when set to 'true' saves the topology information. The information is saved in the form of a PEL(Error Log)."/>
                 </Property>
                 <Property Name="EnabledPanelFunctions" Type="OemComputerSystem.IBM">
                   <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>

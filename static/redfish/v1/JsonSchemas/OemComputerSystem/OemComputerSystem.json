@@ -161,6 +161,24 @@
                         "null"
                     ]
                 },
+                "PCIeTopologyRefresh": {
+                    "description": "An indication of topology information is ready.",
+                    "longDescription": "This property when set to 'true' refreshes the topology information. The application which uses this should set it to 'false' when a refresh occurs.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "SavePCIeTopologyInfo": {
+                    "description": "An indication of PEL topology information is saved.",
+                    "longDescription": "This property when set to 'true' saves the topology information. The information is saved in the form of a PEL(Error Log).",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
                 "EnabledPanelFunctions": {
                     "description": "Enabled Panel functions",
                     "longDescription": "This property shall contain the list of enabled panel functions.",
