@@ -46,6 +46,30 @@
       },
       "revId": "7ae1a6594f4aef7f7fa1efa11c55d80e38b6404d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32a3c1ec_afe1a0e2",
+        "filename": "include/dbus_privileges.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1000044
+      },
+      "writtenOn": "2024-04-25T07:20:27Z",
+      "side": 1,
+      "message": "This patch seems wrong, because when it\u0027s \"moved\" here, the `req` in http_connection becomes empty, and thus in `completeRequest()`, it\u0027s using an \"empty\" `req`.\n\nTo the original problem, what exactly is the case that the `req` is cleared up? The whole bmcweb uses the `asyncResp` as shared_ptr to hold the `connection`, and the `req` is a member of `connection`, so ideally there is no case for `req` to be cleared before `asyncResp` is destructed.",
+      "parentUuid": "7e7d19e7_0ad0124d",
+      "range": {
+        "startLine": 153,
+        "startChar": 23,
+        "endLine": 153,
+        "endChar": 26
+      },
+      "revId": "7ae1a6594f4aef7f7fa1efa11c55d80e38b6404d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
