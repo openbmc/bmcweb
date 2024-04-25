@@ -94,7 +94,7 @@ option(
 option(
     'redfish-dump-log',
     type: 'feature',
-    value: 'disabled',
+    value: 'enabled',
     description: '''Enable Dump log service transactions through Redfish. Paths
                    are under /redfish/v1/Systems/system/LogServices/Dump
                    and /redfish/v1/Managers/bmc/LogServices/Dump'''
@@ -103,7 +103,7 @@ option(
 option(
     'redfish-dbus-log',
     type: 'feature',
-    value: 'disabled',
+    value: 'enabled',
     description: '''Enable DBUS log service transactions through Redfish. Paths
                     are under
                     /redfish/v1/Systems/system/LogServices/EventLog/Entries'''
@@ -146,7 +146,7 @@ option(
 option(
      'redfish-license',
      type : 'feature',
-     value : 'disabled',
+     value : 'enabled',
      description : '''Enable License transactions through Redfish. Paths are
                       under /redfish/v1/LicenseService/Licenses/'''
 )
@@ -198,14 +198,14 @@ option(
 option(
     'ibm-usb-code-update',
     type: 'feature',
-    value: 'disabled',
+    value: 'enabled',
     description: '''Enable the USB code update functionality'''
 )
 
 option(
     'ibm-management-console',
     type: 'feature',
-    value: 'disabled',
+    value: 'enabled',
     description: '''Enable the IBM management console specific functionality.
                     Paths are under /ibm/v1/'''
 )
@@ -391,7 +391,7 @@ option(
 
 option('ibm-led-extensions',
     type : 'feature',
-    value : 'disabled',
+    value : 'enabled',
     description : '''Enable the IBM LED extensions such as lamp test and system
                      attention indicators.'''
 )

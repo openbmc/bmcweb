@@ -110,7 +110,17 @@ void assertServiceRootGet(crow::Response& res)
     EXPECT_FALSE(
         json["ProtocolFeaturesSupported"]["DeepOperations"]["DeepPATCH"]);
     EXPECT_EQ(json["ProtocolFeaturesSupported"]["DeepOperations"].size(), 2);
-    EXPECT_EQ(json.size(), 21);
+    if (bmcwebEnableLicense)
+    {
+        EXPECT_EQ(json["LicenseService"]["@odata.id"],
+                  "/redfish/v1/LicenseService");
+        EXPECT_EQ(json["LicenseService"].size(), 1);
+        EXPECT_EQ(json.size(), 22);
+    }
+    else
+    {
+        EXPECT_EQ(json.size(), 21);
+    }
 }
 
 TEST(HandleServiceRootGet, ServiceRootStaticAttributesAreExpected)

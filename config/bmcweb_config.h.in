@@ -19,6 +19,8 @@ constexpr const char* bmcwebLoggingLevel = "@BMCWEB_LOGGING_LEVEL@";
 
 constexpr const bool bmcwebEnableHealthPopulate = @BMCWEB_ENABLE_HEALTH_POPULATE@ == 1;
 
+constexpr const bool bmcwebEnableLicense = @BMCWEB_ENABLE_REDFISH_LICENSE@ == 1;
+
 constexpr const bool bmcwebEnableMultiHost = @BMCWEB_ENABLE_MULTI_HOST@ == 1;
 
 constexpr const bool bmcwebEnableHTTP2 = @BMCWEB_ENABLE_HTTP2@ == 1;
