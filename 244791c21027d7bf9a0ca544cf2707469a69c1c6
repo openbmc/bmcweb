@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e7f001c_6e709bc8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-25T22:56:48Z",
+      "side": 1,
+      "message": "Honest question.  Is the namespace a good idea?\n\nBMCWEB_DO_OPTION\n\nversus\n\nbmcweb::DO_OPTION\n\nI kinda wonder if the former would be better.",
+      "revId": "244791c21027d7bf9a0ca544cf2707469a69c1c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
