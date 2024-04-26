@@ -2121,7 +2121,8 @@ inline void getEnabledPanelFunctions(
                                const std::vector<uint8_t>& enabledFuncs) {
         if (ec)
         {
-            if (ec.value() != EBADR)
+            if (ec.value() != EBADR &&
+                ec.value() != boost::asio::error::host_unreachable)
             {
                 BMCWEB_LOG_ERROR("Get Enabled Panel Functions D-bus error: {}",
                                  ec.value());
