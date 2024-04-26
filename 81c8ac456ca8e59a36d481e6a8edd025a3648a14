@@ -149,6 +149,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7564c8b5_3147dad4",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 2116,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-26T20:41:06Z",
+      "side": 1,
+      "message": "\u003e Doesn\u0027t /redfish/v1/AccountService/MultiFactorAuth also need to be implemented?\n\u003e \n\u003e Something doesn\u0027t add up here or my understanding of Redfish is off. \n\u003e I thought all segments in a path should map to a schema. \n\u003e So you could go to a Redfish Route and walk backwards to /redfish/v1/\n\u003e E.g.\n\u003e /redfish/v1/Systems/system/LogServices/EventLog/Entries/141 \u003c- LogEntry \n\u003e /redfish/v1/Systems/system/LogServices/EventLog/Entries/ \u003c- LogEntryCollection\n\u003e /redfish/v1/Systems/system/LogServices/EventLog/ \u003c- LogService \n\u003e /redfish/v1/Systems/system/LogServices/ \u003c- LogServiceCollection\n\u003e ...\n\n\nThis is one of the weird things in the redfish spec that I\u0027ve complained to them before as inconsistent.  Because \"MultiFactorAuth\" is a ComplexType, and not a schema object, it counts as a fragment.  In theory, you\u0027d never go Schema -\u003e Complex -\u003e Schema..... yet there\u0027s a couple places they do, and I think we decided that this is the right behavior to not have a handler for the URI you noticed, because /redfish/v1/AccountService/MultiFactorAuth technically doesn\u0027t exist, and there\u0027s no odata.type we could put there.\n\nYou\u0027re not wrong..... this stuff is confusing, but based on my understanding (which very much could be wrong) this is correct.\n\nYour comment below about not seeing the /redfish/v1/AccountService/MultiFactorAuth/ClientCertificate URL is explained by ClientCertificate being a ComplexType.",
+      "parentUuid": "9ca67aea_2abd1780",
+      "range": {
+        "startLine": 2116,
+        "startChar": 9,
+        "endLine": 2116,
+        "endChar": 52
+      },
+      "revId": "81c8ac456ca8e59a36d481e6a8edd025a3648a14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e365f298_39e0b9ee",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 6
@@ -160,6 +184,24 @@
       "writtenOn": "2024-04-26T20:18:49Z",
       "side": 1,
       "message": "Redfish is a hypermedia API. \nI think you need a /redfish/v1/AccountService/MultiFactorAuth/ClientCertificate \n\n\nI see this path here: https://redfish.dmtf.org/schemas/v1/CertificateCollection_v1.xml\n```\n\u003cString\u003e\n/redfish/v1/AccountService/MultiFactorAuth/ClientCertificate/Certificates\n\u003c/String\u003e\n```\nand the below paths at : https://redfish.dmtf.org/schemas/v1/Certificate_v1.xml\n```\n\u003cString\u003e\n/redfish/v1/AccountService/MultiFactorAuth/ClientCertificate/Certificates/{CertificateId}\n\u003c/String\u003e\n```",
+      "revId": "81c8ac456ca8e59a36d481e6a8edd025a3648a14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "573055f6_bccaed1c",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 2123,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-26T20:41:06Z",
+      "side": 1,
+      "message": "Let me know if my explanation in the other comment explains this, if not, I can reply directly here.",
+      "parentUuid": "e365f298_39e0b9ee",
       "revId": "81c8ac456ca8e59a36d481e6a8edd025a3648a14",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
