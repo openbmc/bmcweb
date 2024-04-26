@@ -66,6 +66,7 @@ incdir = include_directories(
 feature_map = {
   'basic-auth'                                  : '-DBMCWEB_ENABLE_BASIC_AUTHENTICATION',
   'cookie-auth'                                 : '-DBMCWEB_ENABLE_COOKIE_AUTHENTICATION',
+  'event-subscription'                          : '-DBMCWEB_ENABLE_EVENT_SUBSCRIPTION_WEBSOCKET',
   'google-api'                                  : '-DBMCWEB_ENABLE_GOOGLE_API',
   'host-serial-socket'                          : '-DBMCWEB_ENABLE_HOST_SERIAL_WEBSOCKET',
   'ibm-management-console'                      : '-DBMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE',

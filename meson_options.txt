@@ -292,6 +292,13 @@ option(
 )
 
 option(
+    'event-subscription',
+    type : 'feature',
+    value : 'enabled',
+    description: 'Enable Event Subscription through websocket'
+)
+
+option(
     'experimental-redfish-multi-computer-system',
     type: 'feature',
     value: 'disabled',
