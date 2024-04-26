@@ -294,8 +294,7 @@ inline void requestRoutesPower(App& app)
                 std::move(valueHandler));
         };
 
-        constexpr std::array<std::string_view, 2> interfaces = {
-            "xyz.openbmc_project.Inventory.Item.Board",
+        constexpr std::array<std::string_view, 1> interfaces = {
             "xyz.openbmc_project.Inventory.Item.Chassis"};
 
         dbus::utility::getSubTreePaths("/xyz/openbmc_project/inventory", 0,

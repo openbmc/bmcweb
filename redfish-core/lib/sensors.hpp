@@ -517,8 +517,7 @@ void getChassis(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 Callback&& callback)
 {
     BMCWEB_LOG_DEBUG("getChassis enter");
-    constexpr std::array<std::string_view, 2> interfaces = {
-        "xyz.openbmc_project.Inventory.Item.Board",
+    constexpr std::array<std::string_view, 1> interfaces = {
         "xyz.openbmc_project.Inventory.Item.Chassis"};
 
     // Get the Chassis Collection
