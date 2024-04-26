@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "45797df9_4c49ac43",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1181,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-26T17:58:07Z",
+      "side": 1,
+      "message": "\u003e I think certs/authority object path meant for CA certificates right?\n\nThat\u0027s not what\u0027s in the existing code in Manager, and this code does seem to work.\n\n\u003e ldap client certificate place at object path\n\u003e /xyz/openbmc_project/certs/client/ldap\n\u003e similarly certificate-manager may need to host these client certificates at similar path \n\u003e /xyz/openbmc_project/certs/client/\u003c\u003e\n\nNothing changes about this compared to TrustStore, which uses the existing paths.  If we wanted to change those, we could, but that IMO isn\u0027t what this patch is trying to do.  It\u0027s trying to bring up ClientCertificates, using the existing flow that already exists.",
+      "parentUuid": "b6b10533_c966c1b0",
+      "revId": "81c8ac456ca8e59a36d481e6a8edd025a3648a14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "50cec41c_0f313b8a",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 6
