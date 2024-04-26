@@ -122,6 +122,46 @@
       "parentUuid": "50cec41c_0f313b8a",
       "revId": "81c8ac456ca8e59a36d481e6a8edd025a3648a14",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ca67aea_2abd1780",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 2116,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-04-26T20:18:49Z",
+      "side": 1,
+      "message": "Doesn\u0027t /redfish/v1/AccountService/MultiFactorAuth also need to be implemented?\n\nSomething doesn\u0027t add up here or my understanding of Redfish is off. \nI thought all segments in a path should map to a schema. \nSo you could go to a Redfish Route and walk backwards to /redfish/v1/\nE.g.\n/redfish/v1/Systems/system/LogServices/EventLog/Entries/141 \u003c- LogEntry \n/redfish/v1/Systems/system/LogServices/EventLog/Entries/ \u003c- LogEntryCollection\n/redfish/v1/Systems/system/LogServices/EventLog/ \u003c- LogService \n/redfish/v1/Systems/system/LogServices/ \u003c- LogServiceCollection\n...",
+      "range": {
+        "startLine": 2116,
+        "startChar": 9,
+        "endLine": 2116,
+        "endChar": 52
+      },
+      "revId": "81c8ac456ca8e59a36d481e6a8edd025a3648a14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e365f298_39e0b9ee",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 2123,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-04-26T20:18:49Z",
+      "side": 1,
+      "message": "Redfish is a hypermedia API. \nI think you need a /redfish/v1/AccountService/MultiFactorAuth/ClientCertificate \n\n\nI see this path here: https://redfish.dmtf.org/schemas/v1/CertificateCollection_v1.xml\n```\n\u003cString\u003e\n/redfish/v1/AccountService/MultiFactorAuth/ClientCertificate/Certificates\n\u003c/String\u003e\n```\nand the below paths at : https://redfish.dmtf.org/schemas/v1/Certificate_v1.xml\n```\n\u003cString\u003e\n/redfish/v1/AccountService/MultiFactorAuth/ClientCertificate/Certificates/{CertificateId}\n\u003c/String\u003e\n```",
+      "revId": "81c8ac456ca8e59a36d481e6a8edd025a3648a14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
