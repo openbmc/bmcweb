@@ -16,6 +16,23 @@
       "message": "Ravi, can you take another look at this?",
       "revId": "81c8ac456ca8e59a36d481e6a8edd025a3648a14",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6b10533_c966c1b0",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1181,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-04-26T17:02:46Z",
+      "side": 1,
+      "message": "I think certs/authority object path meant for CA certificates right?\nldap client certificate place at object path\n/xyz/openbmc_project/certs/client/ldap\nsimilarly certificate-manager may need to host these client certificates at similar path \n/xyz/openbmc_project/certs/client/\u003c\u003e",
+      "revId": "81c8ac456ca8e59a36d481e6a8edd025a3648a14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
