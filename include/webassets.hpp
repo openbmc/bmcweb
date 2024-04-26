@@ -8,22 +8,17 @@
 
 #include <boost/container/flat_set.hpp>
 
+#include <algorithm>
+#include <array>
 #include <filesystem>
 #include <fstream>
 #include <string>
+#include <string_view>
 
 namespace crow
 {
 namespace webassets
 {
-
-struct CmpStr
-{
-    bool operator()(const char* a, const char* b) const
-    {
-        return std::strcmp(a, b) < 0;
-    }
-};
 
 inline std::string getStaticEtag(const std::filesystem::path& webpath)
 {
@@ -56,9 +51,61 @@ inline std::string getStaticEtag(const std::filesystem::path& webpath)
     return std::format("\"{}\"", hash);
 }
 
+inline void
+    handleStaticAsset(const std::filesystem::path& absolutePath,
+                      std::string_view contentType,
+                      std::string_view contentEncoding, std::string_view etag,
+                      bool renamed, const crow::Request& req,
+                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    if (!contentType.empty())
+    {
+        asyncResp->res.addHeader(boost::beast::http::field::content_type,
+                                 contentType);
+    }
+
+    if (!contentEncoding.empty())
+    {
+        asyncResp->res.addHeader(boost::beast::http::field::content_encoding,
+                                 contentEncoding);
+    }
+
+    if (!etag.empty())
+    {
+        asyncResp->res.addHeader(boost::beast::http::field::etag, etag);
+        // Don't cache paths that don't have the etag in them, like
+        // index, which gets transformed to /
+        if (!renamed)
+        {
+            // Anything with a hash can be cached forever and is
+            // immutable
+            asyncResp->res.addHeader(boost::beast::http::field::cache_control,
+                                     "max-age=31556926, immutable");
+        }
+
+        std::string_view cachedEtag =
+            req.getHeaderValue(boost::beast::http::field::if_none_match);
+        if (cachedEtag == etag)
+        {
+            asyncResp->res.result(boost::beast::http::status::not_modified);
+            return;
+        }
+    }
+
+    // res.set_header("Cache-Control", "public, max-age=86400");
+    if (!asyncResp->res.openFile(absolutePath))
+    {
+        BMCWEB_LOG_DEBUG("failed to read file");
+        asyncResp->res.result(
+            boost::beast::http::status::internal_server_error);
+        return;
+    }
+}
+
 inline void requestRoutes(App& app)
 {
-    constexpr static std::array<std::pair<const char*, const char*>, 17>
+    constexpr static std::array<std::pair<std::string_view, std::string_view>,
+                                17>
         contentTypes{
             {{".css", "text/css;charset=UTF-8"},
              {".html", "text/html;charset=UTF-8"},
@@ -155,21 +202,12 @@ inline void requestRoutes(App& app)
                 BMCWEB_LOG_DEBUG("Got duplicated path {}", webpath.string());
                 continue;
             }
-            const char* contentType = nullptr;
+            const auto* contentType = std::ranges::find_if(
+                contentTypes, [&extension](const auto& val) {
+                return val.first == extension;
+            });
 
-            for (const std::pair<const char*, const char*>& ext : contentTypes)
-            {
-                if (ext.first == nullptr || ext.second == nullptr)
-                {
-                    continue;
-                }
-                if (extension == ext.first)
-                {
-                    contentType = ext.second;
-                }
-            }
-
-            if (contentType == nullptr)
+            if (contentType == contentTypes.end())
             {
                 BMCWEB_LOG_ERROR(
                     "Cannot determine content-type for {} with extension {}",
@@ -182,55 +220,11 @@ inline void requestRoutes(App& app)
             }
 
             app.routeDynamic(webpath)(
-                [absolutePath, contentType, contentEncoding, etag,
+                [absolutePath, ct{contentType->second}, contentEncoding, etag,
                  renamed](const crow::Request& req,
                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                if (contentType != nullptr)
-                {
-                    asyncResp->res.addHeader(
-                        boost::beast::http::field::content_type, contentType);
-                }
-
-                if (contentEncoding != nullptr)
-                {
-                    asyncResp->res.addHeader(
-                        boost::beast::http::field::content_encoding,
-                        contentEncoding);
-                }
-
-                if (!etag.empty())
-                {
-                    asyncResp->res.addHeader(boost::beast::http::field::etag,
-                                             etag);
-                    // Don't cache paths that don't have the etag in them, like
-                    // index, which gets transformed to /
-                    if (!renamed)
-                    {
-                        // Anything with a hash can be cached forever and is
-                        // immutable
-                        asyncResp->res.addHeader(
-                            boost::beast::http::field::cache_control,
-                            "max-age=31556926, immutable");
-                    }
-
-                    std::string_view cachedEtag = req.getHeaderValue(
-                        boost::beast::http::field::if_none_match);
-                    if (cachedEtag == etag)
-                    {
-                        asyncResp->res.result(
-                            boost::beast::http::status::not_modified);
-                        return;
-                    }
-                }
-
-                // res.set_header("Cache-Control", "public, max-age=86400");
-                if (!asyncResp->res.openFile(absolutePath))
-                {
-                    BMCWEB_LOG_DEBUG("failed to read file");
-                    asyncResp->res.result(
-                        boost::beast::http::status::internal_server_error);
-                    return;
-                }
+                handleStaticAsset(absolutePath, ct, contentEncoding, etag,
+                                  renamed, req, asyncResp);
             });
         }
     }
