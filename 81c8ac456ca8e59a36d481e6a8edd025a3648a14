@@ -68,6 +68,24 @@
       "message": "same here, I think hosting client certificates at \"xyz.openbmc_project.Certs.Manager.Authority.Truststore\" does not look right.\nas per my understanding authority D-bus meant for CA certificates management",
       "revId": "81c8ac456ca8e59a36d481e6a8edd025a3648a14",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40932621_da2edb14",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1217,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-26T17:58:34Z",
+      "side": 1,
+      "message": "It\u0027s what\u0027s already used currently, so I\u0027m not sure what more we can do.",
+      "parentUuid": "50cec41c_0f313b8a",
+      "revId": "81c8ac456ca8e59a36d481e6a8edd025a3648a14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
