@@ -1,6 +1,40 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "97907f3e_d61209d3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000044
+      },
+      "writtenOn": "2024-04-26T05:45:56Z",
+      "side": 1,
+      "message": "Comparing with https://gerrit.openbmc.org/c/openbmc/bmcweb/+/70850, \nthe other patch saves the \"Accept\" field but in case we need other data from the `req`, it will request additional changes.\n\nI prefer this change that makes sure the `req` object is held by the connection and thus fixes the dangling reference issue, and it makes sure the `connection` could use `req` without pre-saving any data.",
+      "revId": "76e4ab948a902b184b79abf16b47678d48f5cedb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15e95180_e1aa9b82",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000044
+      },
+      "writtenOn": "2024-04-26T05:45:56Z",
+      "side": 1,
+      "message": "What does this mean?",
+      "revId": "76e4ab948a902b184b79abf16b47678d48f5cedb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "88a321c9_562dad6e",
