@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4a686b0c_d5c91df9",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1181,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-04-26T18:27:32Z",
+      "side": 1,
+      "message": "Yes i understand, but if we look at certificate-manager design CA authority certificate and client certificate handled differently.\n\nhttps://github.com/openbmc/phosphor-dbus-interfaces/tree/master/yaml/xyz/openbmc_project/Certs#signed-certificate-upload-design-flowpre-generated\n\nas per certificate-manager design\n\"The URI /xyz/openbmc_project/certs/authority/truststore maps to instance of the certificate application handling Certificate Authority certificates\"\nso I was thinking these MFA client certificates needs to be handled differently than CA certificates in certificate-manager otherwise this commit looks good.",
+      "parentUuid": "45797df9_4c49ac43",
+      "revId": "81c8ac456ca8e59a36d481e6a8edd025a3648a14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "50cec41c_0f313b8a",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 6
