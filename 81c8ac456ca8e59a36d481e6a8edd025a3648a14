@@ -109,6 +109,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "78beba24_c95a0d5c",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1181,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-27T17:26:20Z",
+      "side": 1,
+      "message": "\u003e As per my understanding there two categories, CA root certificates and client certificates.\n\u003e if we are hosting these certs at \"/xyz/openbmc_project/certs/authority/truststore\" is there any way to know which is CA certificate or client certificates?\n\u003e suppose if we configure both LDAP certificates  and MFA client certificates \n\u003e there should be way to differentiate\n\nThey\u0027re all root certificates.  If phosphor-certificate-manager wanted to, it could have methods for getting certificates by an ext property, which would allow us to filter down further, but this doesn\u0027t seem terribly useful.  It seems relatively unlikely that a user is going to set up both LDAP and mutual TLS, so in practice we\u0027d likely have one root certificate, and this issue wouldn\u0027t pop up.\n\nFWIW, I\u0027m open to looking into changes into that area, but I think the development order should go:\n1. Implement ClientCertificateCollection GET, using existing certificate methods.\n2. Implement ClientCertificateCollection POST, using existing certificate methods.\n(at this point, the base use cases work, and we can test compliance).\n3. Implement support in phosphor-certificate-manager for filtering client certificates.\n4. Move bmcweb over to the new certificate filtering API (which should be a simple change).\n\nSeem reasonable?",
+      "parentUuid": "05e9278a_44f2b785",
+      "revId": "81c8ac456ca8e59a36d481e6a8edd025a3648a14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "50cec41c_0f313b8a",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 6
