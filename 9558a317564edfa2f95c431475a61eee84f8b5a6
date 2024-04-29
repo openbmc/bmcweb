@@ -16,6 +16,24 @@
       "message": "did these mean to get switched?",
       "revId": "9558a317564edfa2f95c431475a61eee84f8b5a6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12af6c2b_ddbfef32",
+        "filename": "http/app.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-29T17:13:04Z",
+      "side": 1,
+      "message": "Yep, note that the option went from \"bmcweb enable tls\" to \"bmcweb ... disable TLS\"\n\nThis is one of the places where we inverted the option in meson.  Now that we\u0027re consistent, we have to keep the same \"disabled\" through the whole path.",
+      "parentUuid": "5b15f1ca_557f6a4a",
+      "revId": "9558a317564edfa2f95c431475a61eee84f8b5a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
