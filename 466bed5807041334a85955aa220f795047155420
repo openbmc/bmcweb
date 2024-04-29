@@ -216,6 +216,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "79d318c7_7e31e424",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-29T15:22:02Z",
+      "side": 1,
+      "message": "It has a merge conflict and needs rebased.  I\u0027m waiting until https://gerrit.openbmc.org/c/openbmc/bmcweb/+/70915 merges to do the rebase, so I don\u0027t have to do the rebase twice.",
+      "parentUuid": "e8560ede_e29e2116",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 30
+      },
+      "revId": "466bed5807041334a85955aa220f795047155420",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "53f1832d_95dd8e39",
