@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0da9fa75_9ba41763",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-29T16:21:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7bee350a_5c517f79",
+      "revId": "9be58a7ab65de58e8b9a1b4925698f6441cba5c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d38f06ac_714e13f2",
@@ -118,6 +136,24 @@
       "side": 1,
       "message": "Still need a CLA and getting on the gerrit approval list. Have you signed an individual CLA or a CCLA?",
       "parentUuid": "85480077_27b7f121",
+      "revId": "9be58a7ab65de58e8b9a1b4925698f6441cba5c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a07c3ac2_b525b3cd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-29T16:21:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c73a649_c96cd57a",
       "revId": "9be58a7ab65de58e8b9a1b4925698f6441cba5c4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
