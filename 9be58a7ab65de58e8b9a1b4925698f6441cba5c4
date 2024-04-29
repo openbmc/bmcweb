@@ -55,6 +55,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "81d83f2a_83431658",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-29T16:32:33Z",
+      "side": 1,
+      "message": "I ran a quick redfish-service-validator on this and it passed.  It\u0027s a pretty trivial, non user impacting code change to paths that everyone shares, so I\u0027m ok here.",
+      "parentUuid": "d38f06ac_714e13f2",
+      "revId": "9be58a7ab65de58e8b9a1b4925698f6441cba5c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "85480077_27b7f121",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
