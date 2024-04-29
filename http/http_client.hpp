@@ -121,8 +121,7 @@ struct PendingRequest
     PendingRequest(
         boost::beast::http::request<bmcweb::HttpBody>&& reqIn,
         const std::function<void(bool, uint32_t, Response&)>& callbackIn) :
-        req(std::move(reqIn)),
-        callback(callbackIn)
+        req(std::move(reqIn)), callback(callbackIn)
     {}
 };
 
@@ -637,9 +636,8 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         boost::asio::io_context& iocIn, const std::string& idIn,
         const std::shared_ptr<ConnectionPolicy>& connPolicyIn,
         const boost::urls::url_view_base& hostIn, unsigned int connIdIn) :
-        subId(idIn),
-        connPolicy(connPolicyIn), host(hostIn), connId(connIdIn), ioc(iocIn),
-        resolver(iocIn), conn(iocIn), timer(iocIn)
+        subId(idIn), connPolicy(connPolicyIn), host(hostIn), connId(connIdIn),
+        ioc(iocIn), resolver(iocIn), conn(iocIn), timer(iocIn)
     {
         initializeConnection(host.scheme() == "https");
     }
@@ -836,8 +834,7 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
         boost::asio::io_context& iocIn, const std::string& idIn,
         const std::shared_ptr<ConnectionPolicy>& connPolicyIn,
         const boost::urls::url_view_base& destIPIn) :
-        ioc(iocIn),
-        id(idIn), connPolicy(connPolicyIn), destIP(destIPIn)
+        ioc(iocIn), id(idIn), connPolicy(connPolicyIn), destIP(destIPIn)
     {
         BMCWEB_LOG_DEBUG("Initializing connection pool for {}", id);
 
@@ -866,8 +863,7 @@ class HttpClient
     HttpClient() = delete;
     explicit HttpClient(boost::asio::io_context& iocIn,
                         const std::shared_ptr<ConnectionPolicy>& connPolicyIn) :
-        ioc(iocIn),
-        connPolicy(connPolicyIn)
+        ioc(iocIn), connPolicy(connPolicyIn)
     {}
 
     HttpClient(const HttpClient&) = delete;

@@ -127,8 +127,7 @@ inline void requestRoutesMetricReport(App& app)
 
                 telemetry::fillReport(asyncResp->res.jsonValue, id, ret);
             });
-        },
-            telemetry::service, reportPath, telemetry::reportInterface,
+        }, telemetry::service, reportPath, telemetry::reportInterface,
             "Update");
     });
 }

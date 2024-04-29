@@ -2834,8 +2834,7 @@ inline void doNMI(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
             return;
         }
         messages::success(asyncResp->res);
-    },
-        serviceName, objectPath, interfaceName, method);
+    }, serviceName, objectPath, interfaceName, method);
 }
 
 inline void handleComputerSystemResetActionPost(

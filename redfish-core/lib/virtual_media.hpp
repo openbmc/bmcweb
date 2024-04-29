@@ -669,8 +669,7 @@ inline void doEjectAction(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 messages::internalError(asyncResp->res);
                 return;
             }
-        },
-            service, "/xyz/openbmc_project/VirtualMedia/Legacy/" + name,
+        }, service, "/xyz/openbmc_project/VirtualMedia/Legacy/" + name,
             "xyz.openbmc_project.VirtualMedia.Legacy", "Unmount");
     }
     else // proxy
@@ -684,8 +683,7 @@ inline void doEjectAction(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 messages::internalError(asyncResp->res);
                 return;
             }
-        },
-            service, "/xyz/openbmc_project/VirtualMedia/Proxy/" + name,
+        }, service, "/xyz/openbmc_project/VirtualMedia/Proxy/" + name,
             "xyz.openbmc_project.VirtualMedia.Proxy", "Unmount");
     }
 }

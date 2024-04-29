@@ -33,8 +33,7 @@ struct Request
 
     std::string userRole;
     Request(boost::beast::http::request<bmcweb::HttpBody> reqIn,
-            std::error_code& ec) :
-        req(std::move(reqIn))
+            std::error_code& ec) : req(std::move(reqIn))
     {
         if (!setUrlInfo())
         {
