@@ -159,6 +159,30 @@
       },
       "revId": "c4542b3e381de1833c8e79e3ddcae6930896753e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c54ae8a7_dde65be8",
+        "filename": "meson_options.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-29T16:25:32Z",
+      "side": 1,
+      "message": "FWIW, https://gerrit.openbmc.org/c/openbmc/bmcweb/+/69333 I suspect will clean it up by consolidating the two options into one.",
+      "parentUuid": "4636c328_e6430a4c",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 1
+      },
+      "revId": "c4542b3e381de1833c8e79e3ddcae6930896753e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
