@@ -541,7 +541,7 @@ inline void requestRoutes(App& app)
         !(bmcwebVmWebsocket && bmcwebNbdProxy),
         "nbd proxy cannot be turned on at the same time as vm websocket.");
 
-    if constexpr (bmcwebVmWebsocket)
+    if constexpr (bmcwebBbdProxy)
     {
         BMCWEB_ROUTE(app, "/nbd/<str>")
             .privileges({{"ConfigureComponents", "ConfigureManager"}})
@@ -557,7 +557,7 @@ inline void requestRoutes(App& app)
             .onclose(nbd_proxy::onClose)
             .onmessageex(nbd_proxy::onMessage);
     }
-    if constexpr (bmcwebNbdProxy)
+    if constexpr (bmcwebVmWebsocket)
     {
         BMCWEB_ROUTE(app, "/vm/0/0")
             .privileges({{"ConfigureComponents", "ConfigureManager"}})
