@@ -70,6 +70,24 @@
       "parentUuid": "e012e697_02a356e5",
       "revId": "c71c83edb5346f530b6d103489efb3076b88979c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "277b22a7_3047c4a1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-29T15:37:40Z",
+      "side": 1,
+      "message": "\u003e @Jonathan, @Ed,\n\u003e \n\u003e 70850 has been WIP to make Request as shared_ptr, and this 71006 seems fulfilling it.\n\u003e So, I\u0027m good for this approach.\n\u003e \n\u003e I think one additional test may need to be done by checking the content of `req` inside `completeRequest()` on PATCH approach as 70850 is showing and proving the issue.  (This part won\u0027t be seen by default).\n\nI think we get that by testing that the HTML json parser works, right?",
+      "parentUuid": "53665f85_e1d2d7f6",
+      "revId": "c71c83edb5346f530b6d103489efb3076b88979c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
