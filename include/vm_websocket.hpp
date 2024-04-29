@@ -509,15 +509,6 @@ inline void onMessage(crow::websocket::Connection& conn, std::string_view data,
 
     session->second->send(data, std::move(whenComplete));
 }
-
-inline void requestRoutes(App& app)
-{
-    BMCWEB_ROUTE(app, "/nbd/<str>")
-        .websocket()
-        .onopen(onOpen)
-        .onclose(onClose)
-        .onmessageex(onMessage);
-}
 } // namespace nbd_proxy
 
 namespace obmc_vm
@@ -529,7 +520,7 @@ inline void requestRoutes(App& app)
         !(bmcwebVmWebsocket && bmcwebNbdProxy),
         "nbd proxy cannot be turned on at the same time as vm websocket.");
 
-    if constexpr (bmcwebVmWebsocket)
+    if constexpr (bmcwebNbdProxy)
     {
         BMCWEB_ROUTE(app, "/nbd/<str>")
             .privileges({{"ConfigureComponents", "ConfigureManager"}})
@@ -545,7 +536,7 @@ inline void requestRoutes(App& app)
             .onclose(nbd_proxy::onClose)
             .onmessageex(nbd_proxy::onMessage);
     }
-    if constexpr (bmcwebNbdProxy)
+    if constexpr (bmcwebVmWebsocket)
     {
         BMCWEB_ROUTE(app, "/vm/0/0")
             .privileges({{"ConfigureComponents", "ConfigureManager"}})
