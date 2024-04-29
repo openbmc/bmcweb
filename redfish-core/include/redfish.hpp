@@ -175,6 +175,13 @@ class RedfishService
         requestRoutesBMCJournalLogEntry(app);
 #endif
 
+#ifdef BMCWEB_ENABLE_LINUX_AUDIT_EVENTS
+        requestRoutesAuditLogService(app);
+        requestRoutesAuditLogEntry(app);
+        requestRoutesAuditLogEntryCollection(app);
+        requestRoutesFullAuditLogDownload(app);
+#endif
+
 #ifdef BMCWEB_ENABLE_REDFISH_CPU_LOG
         requestRoutesCrashdumpService(app);
         requestRoutesCrashdumpEntryCollection(app);

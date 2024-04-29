@@ -1,8 +1,8 @@
 {
-    "@Redfish.Copyright": "Copyright 2022 OpenBMC. All rights reserved.",
+    "@Redfish.Copyright": "Copyright 2024 OpenBMC. All rights reserved.",
     "@odata.type": "#MessageRegistry.v1_4_0.MessageRegistry",
     "Description": "This registry defines the base messages for OpenBMC.",
-    "Id": "OpenBMC.0.4.0",
+    "Id": "OpenBMC.0.5.0",
     "Language": "en",
     "Messages": {
         "ADDDCCorrectable": {
@@ -86,6 +86,31 @@
             "NumberOfArgs": 0,
             "Resolution": "None.",
             "Severity": "Critical"
+        },
+        "AuditLogEntry": {
+            "Description": "General audit log entry, use for non-parsed fields",
+            "Message": "%1",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None."
+        },
+        "AuditLogUsysConfig": {
+            "Description": "Audit log entry with parsed fields",
+            "Message": "type=%1 op=%2 acct=%3 exe=%4 hostname=%5 addr=%6 terminal=%7 res=%8",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 8,
+            "ParamTypes": [
+                "string",
+                "string",
+                "string",
+                "string",
+                "string",
+                "string",
+                "string",
+                "string"
+            ],
+            "Resolution": "None."
         },
         "BIOSAttributesChanged": {
             "Description": "Indicates that a set of BIOS Attributes has changed.",
@@ -1667,5 +1692,5 @@
     "Name": "OpenBMC Message Registry",
     "OwningEntity": "OpenBMC",
     "RegistryPrefix": "OpenBMC",
-    "RegistryVersion": "0.4.0"
+    "RegistryVersion": "0.5.0"
 }
