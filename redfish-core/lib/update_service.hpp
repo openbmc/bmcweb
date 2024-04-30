@@ -32,6 +32,8 @@
 #include "utils/json_utils.hpp"
 #include "utils/sw_utils.hpp"
 
+#include <sys/mman.h>
+
 #include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
 #include <sdbusplus/asio/property.hpp>
@@ -61,6 +63,24 @@ static bool fwUpdateInProgress = false;
 // Timer for software available
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static std::unique_ptr<boost::asio::steady_timer> fwAvailableTimer;
+
+struct MemoryFileDescriptor
+{
+    int fd = -1;
+
+    explicit MemoryFileDescriptor(std::string filename)
+    {
+        fd = memfd_create(filename.c_str(), 0);
+    }
+
+    ~MemoryFileDescriptor()
+    {
+        if (fd != -1)
+        {
+            close(fd);
+        }
+    }
+};
 
 inline void cleanUp()
 {
@@ -188,7 +208,7 @@ inline bool handleCreateTask(const boost::system::error_code& ec2,
 }
 
 inline void createTask(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                       task::Payload&& payload,
+                       const task::Payload&& payload,
                        const sdbusplus::message::object_path& objPath)
 {
     std::shared_ptr<task::TaskData> task = task::TaskData::createTask(
@@ -660,6 +680,31 @@ inline void uploadImageFile(crow::Response& res, std::string_view body)
     }
 }
 
+// Convert the Request Apply Time to the D-Bus value
+inline bool convertApplyTime(crow::Response& res, const std::string& applyTime,
+                             std::string& applyTimeNewVal)
+{
+    if (applyTime == "Immediate")
+    {
+        applyTimeNewVal =
+            "xyz.openbmc_project.Software.Update.ApplyTimes.Immediate";
+    }
+    else if (applyTime == "OnReset")
+    {
+        applyTimeNewVal =
+            "xyz.openbmc_project.Software.Update.ApplyTimes.OnReset";
+    }
+    else
+    {
+        BMCWEB_LOG_WARNING(
+            "ApplyTime value {} is not in the list of acceptable values",
+            applyTime);
+        messages::propertyValueNotInList(res, applyTime, "ApplyTime");
+        return false;
+    }
+    return true;
+}
+
 inline void setApplyTime(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const std::string& applyTime)
 {
@@ -800,6 +845,127 @@ inline std::optional<MultiPartUpdateParameters>
 }
 
 inline void
+    handleStartUpdate(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      const task::Payload&& payload,
+                      const std::string& objectPath,
+                      const boost::system::error_code& ec,
+                      const sdbusplus::message::object_path& retPath)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("error_code = {}", ec);
+        BMCWEB_LOG_ERROR("error msg = {}", ec.message());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    BMCWEB_LOG_INFO("Call to StartUpdate Success, retPath = {}", retPath.str);
+    createTask(asyncResp, std::move(payload), objectPath);
+}
+
+inline void handleProcessUpdateRequest(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const task::Payload&& payload,
+    const std::shared_ptr<MemoryFileDescriptor>& memfd,
+    const std::string& applyTime, const std::set<std::string>& targetSet,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("error_code = {}", ec);
+        BMCWEB_LOG_ERROR("error msg = {}", ec.message());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    BMCWEB_LOG_DEBUG("Found {} software paths", subtree.size());
+
+    for (const auto& [objectPath, serviceNameMap] : subtree)
+    {
+        sdbusplus::message::object_path path(objectPath);
+        std::string target = path.filename();
+        if (target.empty())
+        {
+            BMCWEB_LOG_ERROR("Invalid software path");
+            continue;
+        }
+        if (targetSet.find(target) == targetSet.end())
+        {
+            continue;
+        }
+        BMCWEB_LOG_DEBUG("Found objectPath {} serviceName {}", objectPath,
+                         serviceNameMap[0].first);
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, payload(std::move(payload)),
+             objectPath](const boost::system::error_code& ec1,
+                         const sdbusplus::message::object_path& retPath) {
+            handleStartUpdate(asyncResp, std::move(payload), objectPath, ec1,
+                              retPath);
+        },
+            serviceNameMap[0].first, objectPath,
+            "xyz.openbmc_project.Software.Update", "StartUpdate",
+            sdbusplus::message::unix_fd(memfd->fd), applyTime);
+    }
+}
+
+inline void
+    processUpdateRequest(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const crow::Request& req, std::string_view body,
+                         const std::string& applyTime,
+                         std::vector<boost::urls::url>& targets)
+{
+    std::string applyTimeNewVal;
+    if (!convertApplyTime(asyncResp->res, applyTime, applyTimeNewVal))
+    {
+        return;
+    }
+
+    auto memfd = std::make_shared<MemoryFileDescriptor>("update-image");
+    if (memfd == nullptr || memfd->fd == -1)
+    {
+        BMCWEB_LOG_ERROR("Failed to create image memfd");
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    if (write(memfd->fd, body.data(), body.length()) !=
+        static_cast<int>(body.length()))
+    {
+        BMCWEB_LOG_ERROR("Failed to write to image memfd");
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    if (lseek(memfd->fd, 0, SEEK_SET) == -1)
+    {
+        BMCWEB_LOG_ERROR("Failed to seek to beginning of image memfd");
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    std::set<std::string> targetSet;
+    for (const auto& target : targets)
+    {
+        sdbusplus::message::object_path path(target.buffer());
+        std::string leaf = path.filename();
+        if (leaf.empty())
+        {
+            continue;
+        }
+        targetSet.insert(leaf);
+    }
+
+    task::Payload payload(req);
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.Software.Update"};
+    dbus::utility::getSubTree(
+        "/xyz/openbmc_project/software", 0, interfaces,
+        [asyncResp, payload, memfd, applyTimeNewVal,
+         targetSet](const boost::system::error_code& ec,
+                    const dbus::utility::MapperGetSubTreeResponse& subtree) {
+        handleProcessUpdateRequest(asyncResp, std::move(payload), memfd,
+                                   applyTimeNewVal, targetSet, ec, subtree);
+    });
+}
+
+inline void
     updateMultipartContext(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            const crow::Request& req, MultipartParser&& parser)
 {
@@ -814,12 +980,21 @@ inline void
         multipart->applyTime = "OnReset";
     }
 
-    setApplyTime(asyncResp, *multipart->applyTime);
+    if constexpr (BMCWEB_REDFISH_UPDATESERVICE_USE_DBUS)
+    {
+        processUpdateRequest(asyncResp, req, multipart->uploadData,
+                             *multipart->applyTime, multipart->targets);
+    }
+    else
+    {
+        setApplyTime(asyncResp, *multipart->applyTime);
 
-    // Setup callback for when new software detected
-    monitorForSoftwareAvailable(asyncResp, req, "/redfish/v1/UpdateService");
+        // Setup callback for when new software detected
+        monitorForSoftwareAvailable(asyncResp, req,
+                                    "/redfish/v1/UpdateService");
 
-    uploadImageFile(asyncResp->res, multipart->uploadData);
+        uploadImageFile(asyncResp->res, multipart->uploadData);
+    }
 }
 
 inline void
