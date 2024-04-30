@@ -152,6 +152,24 @@
       "parentUuid": "8ffa2386_4684b28e",
       "revId": "22c8984da7a48bc0a093967185e62927b78031e1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8cf77d3b_ca69ffd9",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-30T16:02:10Z",
+      "side": 1,
+      "message": "\u003e Why 64 over 16?\n\u003e No real concern here on memory usage so might as well go a little higher but still in the nginx range?\n\u003e Max realistically we would have here is 100 ? 100 * 64KB \u003d 6 MB ? but even that case would be really unlikely ?\n\nYou asked the question, and basically answered it.  There\u0027s no reason to be that conservative with this.  64KB is still arbitrary, but reduces the number of times the buffer path shows up in the debug logs.\n\nNginx has a bunch of weirdness to it, I might have been reading the wrong buffer config.  proxy buffers, have 8k X 4, file buffers, the default is 2 X 32KB per worker.",
+      "parentUuid": "c31758ba_0fc69b8d",
+      "revId": "22c8984da7a48bc0a093967185e62927b78031e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
