@@ -92,6 +92,40 @@
       },
       "revId": "1b23acd95dd5174f96bb1ad1b0d65e496cecb10e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebbb67be_8a4ddef5",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 733,
+      "author": {
+        "id": 1001322
+      },
+      "writtenOn": "2024-04-30T05:07:09Z",
+      "side": 1,
+      "message": "As Ed pointed out, if std::string\u0026 changes are added, please refer with uploadData",
+      "revId": "1b23acd95dd5174f96bb1ad1b0d65e496cecb10e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12e4eeba_71f7dac1",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 1001322
+      },
+      "writtenOn": "2024-04-30T05:07:09Z",
+      "side": 1,
+      "message": "Same as line 733",
+      "revId": "1b23acd95dd5174f96bb1ad1b0d65e496cecb10e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
