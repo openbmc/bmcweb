@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1da5dc36_c970c895",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-04-30T14:31:42Z",
+      "side": 1,
+      "message": "Ack. https://gerrit.openbmc.org/c/openbmc/bmcweb/+/69333/13/include/vm_websocket.hpp",
+      "revId": "86a04949786ed2fd8dbc3cc63fbdf8b8def61011",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
