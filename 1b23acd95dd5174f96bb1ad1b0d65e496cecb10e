@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d9467ec_4a7c0eb0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-30T02:40:59Z",
+      "side": 1,
+      "message": "Can we test something that actually executes the code that\u0027s been modified?  A simple \"just use curl to do a firmware update\" would be fine.  If you want to test the last patch in the series, and make them all commit at once, that\u0027s fine too, but redfish service validator does nothing to test the code you\u0027ve modified, so I wouldn\u0027t expect it to be in the tested statement.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 2
+      },
+      "revId": "1b23acd95dd5174f96bb1ad1b0d65e496cecb10e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b12d8821_a55d36bd",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 666,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-30T02:40:59Z",
+      "side": 1,
+      "message": "Can we just make this return an optional struct of \n\n{\n   std::string data;\n   std::vector\u003cstd::string\u003e\u0026 targets;\n}\n\nThat seems a lot simpler than passing in things by pointers.",
+      "range": {
+        "startLine": 666,
+        "startChar": 7,
+        "endLine": 666,
+        "endChar": 12
+      },
+      "revId": "1b23acd95dd5174f96bb1ad1b0d65e496cecb10e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bbdd57f_d22d536f",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-30T02:40:59Z",
+      "side": 1,
+      "message": "We generally would pass out parameters by std::string\u0026",
+      "range": {
+        "startLine": 669,
+        "startChar": 4,
+        "endLine": 669,
+        "endChar": 34
+      },
+      "revId": "1b23acd95dd5174f96bb1ad1b0d65e496cecb10e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
