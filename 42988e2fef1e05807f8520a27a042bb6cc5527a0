@@ -16,6 +16,63 @@
       "message": "this is going to collide with https://gerrit.openbmc.org/c/openbmc/bmcweb/+/70915.   just be aware.",
       "revId": "42988e2fef1e05807f8520a27a042bb6cc5527a0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8685a0a7_74ce1c98",
+        "filename": "meson_options.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-30T17:18:08Z",
+      "side": 1,
+      "message": "Option should start with \"redfish-\" and be with the redfish options.",
+      "revId": "42988e2fef1e05807f8520a27a042bb6cc5527a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f952171e_c95d441c",
+        "filename": "meson_options.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-30T17:18:08Z",
+      "side": 1,
+      "message": "This looks like you tried to wrap this by hand?  We try to get 80 character lines if we can.",
+      "range": {
+        "startLine": 366,
+        "startChar": 20,
+        "endLine": 366,
+        "endChar": 82
+      },
+      "revId": "42988e2fef1e05807f8520a27a042bb6cc5527a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96f1529c_9e412cfb",
+        "filename": "meson_options.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-30T17:18:08Z",
+      "side": 1,
+      "message": "In the description, please add a date for which this option will be deleted by.  We ask for dates to ensure that designs are still actively being pursued, and it lets us drop options for features that were partially completed and the initiator has since dropped.  Generally we would pick a date in the next quarter (End of Q3 24) for a simple interface change.  If we need to change the date, and the feature is still being actively worked, we always can, but it helps to keep maintainers in the loop about whether this code is still used, and signals that this option is only for a migration path, not to be used on any production systems.",
+      "revId": "42988e2fef1e05807f8520a27a042bb6cc5527a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
