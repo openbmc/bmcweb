@@ -16,6 +16,24 @@
       "message": "This doesn\u0027t look correct",
       "revId": "89fb1e1c5d0a5dd2a09cb0d27c396384aa25cbfa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12a66dab_46bbd9d9",
+        "filename": "config/bmcweb_config.h.in",
+        "patchSetId": 13
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-30T15:48:35Z",
+      "side": 1,
+      "message": "Yep, two patches added that header here.  Fixed.",
+      "parentUuid": "4a17d4af_6fb8203a",
+      "revId": "89fb1e1c5d0a5dd2a09cb0d27c396384aa25cbfa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
