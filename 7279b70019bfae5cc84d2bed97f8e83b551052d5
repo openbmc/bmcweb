@@ -1,0 +1,291 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79fc737b_ff0c97fe",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 778,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-30T03:06:39Z",
+      "side": 1,
+      "message": "Ideally in new code, we would be using a proper URL object (boost::urls::url).  It didn\u0027t exist at the time this was last written, which is why this code doesn\u0027t use it, but had we had that type safety, it would\u0027ve make it clearer that there was an error below.",
+      "range": {
+        "startLine": 778,
+        "startChar": 10,
+        "endLine": 778,
+        "endChar": 29
+      },
+      "revId": "7279b70019bfae5cc84d2bed97f8e83b551052d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f2e2a01_448ce4f4",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 783,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-30T03:06:39Z",
+      "side": 1,
+      "message": "Do we need to call cleanUp in this path?  CleanUp cleans the global variables, and I thought the whole point of this flow is that we\u0027re not using globals, so we can do parallel updates.",
+      "range": {
+        "startLine": 783,
+        "startChar": 0,
+        "endLine": 783,
+        "endChar": 2
+      },
+      "revId": "7279b70019bfae5cc84d2bed97f8e83b551052d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b167589b_ccb359ba",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 811,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-30T03:06:39Z",
+      "side": 1,
+      "message": "Same as above.",
+      "range": {
+        "startLine": 811,
+        "startChar": 0,
+        "endLine": 811,
+        "endChar": 2
+      },
+      "revId": "7279b70019bfae5cc84d2bed97f8e83b551052d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d1fb559_a5dfa0af",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 821,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-30T03:06:39Z",
+      "side": 1,
+      "message": "Please make this lambda a proper function.",
+      "range": {
+        "startLine": 806,
+        "startChar": 6,
+        "endLine": 821,
+        "endChar": 8
+      },
+      "revId": "7279b70019bfae5cc84d2bed97f8e83b551052d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb6264f2_6395428c",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 825,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-30T03:06:39Z",
+      "side": 1,
+      "message": "I don\u0027t see handling for bad inputs.  If you input a target that doesn\u0027t exist, this isn\u0027t going to work.",
+      "range": {
+        "startLine": 825,
+        "startChar": 0,
+        "endLine": 825,
+        "endChar": 5
+      },
+      "revId": "7279b70019bfae5cc84d2bed97f8e83b551052d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6e0b97e_ab6cd7d6",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 840,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-30T03:06:39Z",
+      "side": 1,
+      "message": "Please wrap this in an RAII class (take a look at something like TemporaryFile in the unit tests for inspiration) so that we\u0027re not having to chase down close() calls in all the exit paths.",
+      "range": {
+        "startLine": 840,
+        "startChar": 13,
+        "endLine": 840,
+        "endChar": 25
+      },
+      "revId": "7279b70019bfae5cc84d2bed97f8e83b551052d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0520d6e4_72799169",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 848,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-30T03:06:39Z",
+      "side": 1,
+      "message": "write returns an ssize_t, but then we\u0027re casting length to an int?  This looks like it will cause warnings on some combination of 32/64 bit.  PTAL and see if this is what you intended",
+      "revId": "7279b70019bfae5cc84d2bed97f8e83b551052d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "183b9690_63f71458",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 848,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-30T03:06:39Z",
+      "side": 1,
+      "message": "This is going to require 2X the memory of the image, which in the past has caused OOM crashes when we\u0027ve done it on accident.  Please come up with a solution that doesn\u0027t require 2X the memory to actually do the copy.  Probably you\u0027re going to have to copy in X KB chunks, while shrinking the file.\n\nAt some point we\u0027ll have direct file uploads working with all this stuff wired into http body, but until we do, we have to be somewhat careful.",
+      "range": {
+        "startLine": 847,
+        "startChar": 1,
+        "endLine": 848,
+        "endChar": 40
+      },
+      "revId": "7279b70019bfae5cc84d2bed97f8e83b551052d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27ad9749_ac26e306",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 851,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-30T03:06:39Z",
+      "side": 1,
+      "message": "Missing close for fd.",
+      "revId": "7279b70019bfae5cc84d2bed97f8e83b551052d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6692546_1a529ddf",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-30T03:06:39Z",
+      "side": 1,
+      "message": "Please handle your errors.  If you\u0027re intentionally ignoring the return code here, leave a comment describing why.",
+      "range": {
+        "startLine": 854,
+        "startChar": 4,
+        "endLine": 854,
+        "endChar": 9
+      },
+      "revId": "7279b70019bfae5cc84d2bed97f8e83b551052d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45653be9_0e1f49ac",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 856,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-30T03:06:39Z",
+      "side": 1,
+      "message": "nit, this is going to silently remove duplicates, which arguably we should log an error for.",
+      "range": {
+        "startLine": 856,
+        "startChar": 9,
+        "endLine": 856,
+        "endChar": 12
+      },
+      "revId": "7279b70019bfae5cc84d2bed97f8e83b551052d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da115f92_e5f5a185",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 859,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-30T03:06:39Z",
+      "side": 1,
+      "message": "Targets is a set of Redfish URLs, not dbus paths.  Why are we parsing them as dbus paths?",
+      "range": {
+        "startLine": 859,
+        "startChar": 0,
+        "endLine": 859,
+        "endChar": 2
+      },
+      "revId": "7279b70019bfae5cc84d2bed97f8e83b551052d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e5fcb1a_c7402646",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 874,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-30T03:06:39Z",
+      "side": 1,
+      "message": "\u003d std::move(targetSet)\n\n(Static analyzers will complain about this being a copy).",
+      "range": {
+        "startLine": 874,
+        "startChar": 9,
+        "endLine": 874,
+        "endChar": 18
+      },
+      "revId": "7279b70019bfae5cc84d2bed97f8e83b551052d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
