@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "52f018f2_0333e7bb",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 666,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-30T03:11:17Z",
+      "side": 1,
+      "message": "As I pointed out in the other patch, ideally targets would be a\n\nstd::vector\u003cboost::urls::url\u003e, to keep typesafety here.",
+      "parentUuid": "b12d8821_a55d36bd",
+      "range": {
+        "startLine": 666,
+        "startChar": 7,
+        "endLine": 666,
+        "endChar": 12
+      },
+      "revId": "1b23acd95dd5174f96bb1ad1b0d65e496cecb10e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8bbdd57f_d22d536f",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 1
