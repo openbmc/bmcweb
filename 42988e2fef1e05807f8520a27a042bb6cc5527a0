@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26e4a86a_c7ed6f43",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-04-30T02:35:20Z",
+      "side": 1,
+      "message": "this is going to collide with https://gerrit.openbmc.org/c/openbmc/bmcweb/+/70915.   just be aware.",
+      "revId": "42988e2fef1e05807f8520a27a042bb6cc5527a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
