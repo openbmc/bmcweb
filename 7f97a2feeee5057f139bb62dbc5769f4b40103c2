@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bf9d9609_8d27b16f",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2024-05-01T20:52:53Z",
+      "side": 1,
+      "message": "I have reworked the latest submission to eliminate this altogether.",
+      "parentUuid": "a95dcc53_53ecb68d",
+      "range": {
+        "startLine": 101,
+        "startChar": 11,
+        "endLine": 101,
+        "endChar": 26
+      },
+      "revId": "7f97a2feeee5057f139bb62dbc5769f4b40103c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1c481444_31edc47c",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 5
@@ -37,6 +61,30 @@
       "writtenOn": "2024-04-23T18:30:04Z",
       "side": 1,
       "message": "Enums should be passed by value.",
+      "range": {
+        "startLine": 746,
+        "startChar": 34,
+        "endLine": 746,
+        "endChar": 43
+      },
+      "revId": "7f97a2feeee5057f139bb62dbc5769f4b40103c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bca740ff_2eccdc7c",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2024-05-01T20:52:53Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "1c481444_31edc47c",
       "range": {
         "startLine": 746,
         "startChar": 34,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f5ebb06_6890e316",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 821,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2024-05-01T20:52:53Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "142c622b_5af17135",
+      "range": {
+        "startLine": 821,
+        "startChar": 32,
+        "endLine": 821,
+        "endChar": 45
+      },
+      "revId": "7f97a2feeee5057f139bb62dbc5769f4b40103c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f5e45840_d377ba3a",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-04-23T18:30:04Z",
       "side": 1,
       "message": "Rather than pass numStaticAddrs through all the layers, is this something we could just do it earlier?  I left a comment where I suspect it could go.\n\nAs written, we\u0027re chaining this after we do all the deletes, but do we really need to do that?  At the beginning of the patch we know whether it needs to be cleared based on the final state?  That would remove the need to pass a lot of the parameters into the two delete functions and I suspect would greatly simplify this patch.",
+      "range": {
+        "startLine": 833,
+        "startChar": 0,
+        "endLine": 837,
+        "endChar": 9
+      },
+      "revId": "7f97a2feeee5057f139bb62dbc5769f4b40103c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9ba1e35_2671014c",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 837,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2024-05-01T20:52:53Z",
+      "side": 1,
+      "message": "I have come up with a new schema that removes passing the count.",
+      "parentUuid": "f5e45840_d377ba3a",
       "range": {
         "startLine": 833,
         "startChar": 0,
@@ -127,6 +223,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "746bb8fc_cf560778",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1179,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2024-05-01T20:52:53Z",
+      "side": 1,
+      "message": "I don\u0027t think so.\nThe function is getEthernetIntfData. This is a getter function, not a setter function. Calling this function should not perform a modification action.\n\nIt no longer matters with my new submission.",
+      "parentUuid": "5dda052e_2a52114b",
+      "revId": "7f97a2feeee5057f139bb62dbc5769f4b40103c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b48430df_1c6ac86e",
@@ -140,6 +254,30 @@
       "writtenOn": "2024-04-23T18:30:04Z",
       "side": 1,
       "message": "nit, please do on a different line.  predecrement vs postdecrement is not the most obvious thing to review (although this code does look correct), and is a lot clearer if it\u0027s done on a separate line before or after the operation.",
+      "range": {
+        "startLine": 1556,
+        "startChar": 32,
+        "endLine": 1556,
+        "endChar": 49
+      },
+      "revId": "7f97a2feeee5057f139bb62dbc5769f4b40103c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a50f6d96_b735f8fa",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1556,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2024-05-01T20:52:53Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b48430df_1c6ac86e",
       "range": {
         "startLine": 1556,
         "startChar": 32,
