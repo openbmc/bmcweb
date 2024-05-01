@@ -133,6 +133,24 @@
       "parentUuid": "96f1529c_9e412cfb",
       "revId": "42988e2fef1e05807f8520a27a042bb6cc5527a0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a101d24f_bbdd28c1",
+        "filename": "meson_options.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-01T18:49:51Z",
+      "side": 1,
+      "message": "@Ed, We can always change the date if it takes more time, for now, we can keep Q3 24.",
+      "parentUuid": "023acf26_3e9322fb",
+      "revId": "42988e2fef1e05807f8520a27a042bb6cc5527a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

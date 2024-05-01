@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb606e3a_d11ed648",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-01T18:49:51Z",
+      "side": 1,
+      "message": "Sure thanks. There is a comment from @Gunnar which i will add to this and merge the changes into my stack to address comment on other diffs.",
+      "parentUuid": "54534870_c9c80a86",
+      "revId": "12cd274e1de4b215489d85c2d90ceb9798eb84fd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9ad219af_073b6ddc",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-05-01T16:26:48Z",
       "side": 1,
       "message": "The option will be removed at the end of Q3? \nThe code will be moved to the normal code update flow at the end of Q3 and the option removed? \n\nWhat to give yourself more time? Q4?",
+      "range": {
+        "startLine": 252,
+        "startChar": 40,
+        "endLine": 253,
+        "endChar": 38
+      },
+      "revId": "12cd274e1de4b215489d85c2d90ceb9798eb84fd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fbdff4f_d58ddbd3",
+        "filename": "meson_options.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-01T18:49:51Z",
+      "side": 1,
+      "message": "\u003e The option will be removed at the end of Q3? \n\u003e The code will be moved to the normal code update flow at the end of Q3 and the option removed? \n\nSure, will update the description to reflect this.\n\n\u003e \n\u003e What to give yourself more time? Q4?\n\nWe can keep Q3 for now. In case it takes more time we can move these dates.",
+      "parentUuid": "9ad219af_073b6ddc",
       "range": {
         "startLine": 252,
         "startChar": 40,
