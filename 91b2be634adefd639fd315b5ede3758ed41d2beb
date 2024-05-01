@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3b6f8479_a4c9b23f",
+        "filename": "test/redfish-core/lib/update_service_test.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-01T17:08:08Z",
+      "side": 1,
+      "message": "mis-spelled: protocol.",
+      "revId": "91b2be634adefd639fd315b5ede3758ed41d2beb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cbd7c6d5_e957f3a8",
         "filename": "test/redfish-core/lib/update_service_test.cpp",
         "patchSetId": 23
@@ -31,6 +48,24 @@
       "writtenOn": "2024-05-01T16:42:17Z",
       "side": 1,
       "message": "Nitpick:\ncould say \n\" // Both protocl and schema on url no path \" so it is easy to see what is different from the one above. Save someone 30 secs reviewing this code.",
+      "revId": "91b2be634adefd639fd315b5ede3758ed41d2beb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a6d7163_a9f4f247",
+        "filename": "test/redfish-core/lib/update_service_test.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-01T17:08:08Z",
+      "side": 1,
+      "message": "+1\n\nBoth protocol and schema on url, no path",
+      "parentUuid": "cbd7c6d5_e957f3a8",
       "revId": "91b2be634adefd639fd315b5ede3758ed41d2beb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
