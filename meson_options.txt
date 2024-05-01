@@ -319,7 +319,7 @@ option(
 option(
     'audit-events',
     type: 'feature',
-    value: 'disabled',
+    value: 'enabled',
     description: 'Enable audit events support for bmcweb'
 )
 
