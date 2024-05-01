@@ -280,6 +280,24 @@
       "message": "Should it break if it is not empty?",
       "revId": "65f1cad8f453faef6b4cd31f0932b4d8aac5b4f1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f34c7926_86a802b2",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 2984,
+      "author": {
+        "id": 1001810
+      },
+      "writtenOn": "2024-05-01T18:02:24Z",
+      "side": 1,
+      "message": "Modified the code. Thanks",
+      "parentUuid": "af188f47_c7790ec0",
+      "revId": "65f1cad8f453faef6b4cd31f0932b4d8aac5b4f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

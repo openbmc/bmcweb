@@ -184,6 +184,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9b829d61_c5d6c270",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1001810
+      },
+      "writtenOn": "2024-05-01T18:02:24Z",
+      "side": 1,
+      "message": "Code change in power.hpp is removed from here. Updated only for sensor collection.",
+      "parentUuid": "cc43e0c9_f32750fd",
+      "range": {
+        "startLine": 243,
+        "startChar": 26,
+        "endLine": 244,
+        "endChar": 72
+      },
+      "revId": "66bfcc4ea3368dc6343b94e346caa851a3564ee8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ac5e11ca_77323e27",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 12
@@ -267,6 +291,30 @@
       "side": 1,
       "message": "will change to either doSensorGet or finishSensorGet and push the code",
       "parentUuid": "64baa442_96e057ec",
+      "range": {
+        "startLine": 2973,
+        "startChar": 24,
+        "endLine": 2973,
+        "endChar": 42
+      },
+      "revId": "66bfcc4ea3368dc6343b94e346caa851a3564ee8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a080762_9b7ae12b",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 2973,
+      "author": {
+        "id": 1001810
+      },
+      "writtenOn": "2024-05-01T18:02:24Z",
+      "side": 1,
+      "message": "Modified Code. changed to doSensorGet. Thanks",
+      "parentUuid": "ad2f9621_75fe509d",
       "range": {
         "startLine": 2973,
         "startChar": 24,
