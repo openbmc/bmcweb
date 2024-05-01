@@ -146,7 +146,7 @@ RedfishService::RedfishService(App& app)
         requestRoutesFaultLogDumpClear(app);
     }
 
-    if constexpr (BMCWEB_REDFISH_DBUS_LOG)
+    if constexpr (!BMCWEB_REDFISH_DBUS_LOG)
     {
         requestRoutesJournalEventLogEntryCollection(app);
         requestRoutesJournalEventLogEntry(app);
