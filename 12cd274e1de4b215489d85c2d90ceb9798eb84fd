@@ -16,6 +16,29 @@
       "message": "Please take a look at the changes I\u0027ve made, and make sure they make sense to you.  If they don\u0027t, please let me know",
       "revId": "12cd274e1de4b215489d85c2d90ceb9798eb84fd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ad219af_073b6ddc",
+        "filename": "meson_options.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-01T16:26:48Z",
+      "side": 1,
+      "message": "The option will be removed at the end of Q3? \nThe code will be moved to the normal code update flow at the end of Q3 and the option removed? \n\nWhat to give yourself more time? Q4?",
+      "range": {
+        "startLine": 252,
+        "startChar": 40,
+        "endLine": 253,
+        "endChar": 38
+      },
+      "revId": "12cd274e1de4b215489d85c2d90ceb9798eb84fd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
