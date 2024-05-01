@@ -43,6 +43,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6be34f70_188527f0",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-01T16:28:06Z",
+      "side": 1,
+      "message": "include memory and vector since you are using below",
+      "revId": "1b23acd95dd5174f96bb1ad1b0d65e496cecb10e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b12d8821_a55d36bd",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 1
