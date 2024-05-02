@@ -1560,7 +1560,7 @@ inline void requestRoutesSystemLogServiceCollection(App& app)
             logServiceArray.emplace_back(std::move(dumpLog));
         }
 
-        if constexpr (BMCWEB_REDFISH_DUMP_LOG)
+        if constexpr (BMCWEB_REDFISH_CPU_LOG)
         {
             nlohmann::json::object_t crashdump;
             crashdump["@odata.id"] =
