@@ -16,6 +16,24 @@
       "message": "Jonathan, in terms of this patch, and https://gerrit.openbmc.org/c/openbmc/bmcweb/+/70850\n\nWhat are you thinking we should do?  This patch, the other patch, both?  I think both solve the problem, and I don\u0027t have a strong opinion either way.",
       "revId": "a1a8b7db4c4a043c8c10cc1deb5371052a66a3b0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16facad7_0fec66eb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000900
+      },
+      "writtenOn": "2024-05-02T18:46:34Z",
+      "side": 1,
+      "message": "I prefer this one since I think it\u0027s ready to go and that other one is not.\n\nThe other one (storing necessary headers separately) is fine, but I think it\u0027s incomplete since it leaves the Request in a moved-out-of state, and therefore leaves the door cracked for a similar bug to arise. If you added something else to track the validity (e.g. put the Request back in an optional), such that use of a move-out-of Request would crash then I think it\u0027d be more complete.",
+      "parentUuid": "a416b6f6_5b57d1c9",
+      "revId": "a1a8b7db4c4a043c8c10cc1deb5371052a66a3b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
