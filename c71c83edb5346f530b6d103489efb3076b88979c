@@ -124,6 +124,24 @@
       "parentUuid": "f5d040ac_1f894470",
       "revId": "c71c83edb5346f530b6d103489efb3076b88979c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58c36731_36dff25a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-05-03T16:20:47Z",
+      "side": 1,
+      "message": "Sorry, I was not available.\nWhat I meant is to access some attributes of `req` inside `completeRequest()` like\n\nhttps://github.com/baemyung/bmcweb/blob/36a59eafed32c0063d444fc0722f899c0024092d/http/http_connection.hpp#L369C1-L372C34\n\n```\n    void completeRequest(crow::Response\u0026 thisRes)\n    {\n        res \u003d std::move(thisRes);\n        res.keepAlive(keepAlive);\n\n       \u003e\u003e BMCWEB_LOG_INFO(\"TEST: req.target\u003d{}\", req.target());\n        \n        completeResponseFields(req, res);\n```\nBut, by this commit (using shared_ptr\u003cRequest\u003e), I think the issue like this would have been solved. (I\u0027ll keep check it out later).\n\nThank you.",
+      "parentUuid": "a5dff6dd_0134d8e7",
+      "revId": "c71c83edb5346f530b6d103489efb3076b88979c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
