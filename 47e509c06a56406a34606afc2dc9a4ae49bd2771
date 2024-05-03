@@ -16,6 +16,29 @@
       "message": "Updated per your latest.",
       "revId": "47e509c06a56406a34606afc2dc9a4ae49bd2771",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f9919d3_546af912",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1527,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-03T00:51:28Z",
+      "side": 1,
+      "message": "I suspect you want something like\n\nstd::format(\"IPv4StaticAddresses/{}/Gateway\", entryIdx);\n\nas written, this is going to produce a string like\n\n\"NIC: eth0 Gateway: 1.1.1.1\"\n\nBut then you push it into propertyValueConflict as if it\u0027s a json path.",
+      "range": {
+        "startLine": 1527,
+        "startChar": 22,
+        "endLine": 1527,
+        "endChar": 26
+      },
+      "revId": "47e509c06a56406a34606afc2dc9a4ae49bd2771",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
