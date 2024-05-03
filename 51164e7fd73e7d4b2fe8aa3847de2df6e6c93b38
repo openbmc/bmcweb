@@ -68,6 +68,42 @@
       "parentUuid": "ac7e5fb4_f9537736",
       "revId": "51164e7fd73e7d4b2fe8aa3847de2df6e6c93b38",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80f4bc1a_ccd939db",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-03T17:57:52Z",
+      "side": 1,
+      "message": "You can, or just tell me that you think it\u0027s ok like you did.  I\u0027m not a robot 😊",
+      "parentUuid": "6d197738_13d5e00a",
+      "revId": "51164e7fd73e7d4b2fe8aa3847de2df6e6c93b38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35caae00_bb2637d0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-03T17:57:52Z",
+      "side": 1,
+      "message": "DMTF is the right place to voice that opinion if you\u0027d like to see it changed.  There\u0027s nothing bmcweb can do about that in this commit, but I\u0027m sure if you raised an issue, DMTF would probably just add a new message for posting the property value conflict with the values associated as 4 args instead of the two we have today.  FWIW, PropertyValueConflict itself was added based on the same feedback.",
+      "parentUuid": "cd96f818_e08bca62",
+      "revId": "51164e7fd73e7d4b2fe8aa3847de2df6e6c93b38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
