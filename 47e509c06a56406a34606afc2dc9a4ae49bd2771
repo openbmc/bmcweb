@@ -18,6 +18,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba99110d_c6e6a292",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2024-05-03T16:00:50Z",
+      "side": 1,
+      "message": "Thanks for all of your rapid reviews.\nI do appreciate it very much.",
+      "revId": "47e509c06a56406a34606afc2dc9a4ae49bd2771",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2f9919d3_546af912",
@@ -31,6 +48,30 @@
       "writtenOn": "2024-05-03T00:51:28Z",
       "side": 1,
       "message": "I suspect you want something like\n\nstd::format(\"IPv4StaticAddresses/{}/Gateway\", entryIdx);\n\nas written, this is going to produce a string like\n\n\"NIC: eth0 Gateway: 1.1.1.1\"\n\nBut then you push it into propertyValueConflict as if it\u0027s a json path.",
+      "range": {
+        "startLine": 1527,
+        "startChar": 22,
+        "endLine": 1527,
+        "endChar": 26
+      },
+      "revId": "47e509c06a56406a34606afc2dc9a4ae49bd2771",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fe296f1_dd32e6ff",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1527,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2024-05-03T16:00:50Z",
+      "side": 1,
+      "message": "I hadn\u0027t made the correlation between what is present on the NIC and entryIdx \u003d\u003d 1.\nIn my mind there was no entryIdx yet, and by extension no viable path to report.\nHowever, this clause is intended to cover a leading {}.",
+      "parentUuid": "2f9919d3_546af912",
       "range": {
         "startLine": 1527,
         "startChar": 22,
@@ -64,6 +105,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "690a97fa_2d07b7e4",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1671,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2024-05-03T16:00:50Z",
+      "side": 1,
+      "message": "I was punch drunk?",
+      "parentUuid": "2397acb9_c6f2fdcf",
+      "range": {
+        "startLine": 1671,
+        "startChar": 16,
+        "endLine": 1671,
+        "endChar": 26
+      },
+      "revId": "47e509c06a56406a34606afc2dc9a4ae49bd2771",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "06fec2e0_b611aeb6",
@@ -77,6 +142,24 @@
       "writtenOn": "2024-05-03T00:56:37Z",
       "side": 1,
       "message": "Do we need to set gatewayValue in this path?  If there\u0027s already an ip address with a gateway, we want to count it, right?\n\nSomething like\n```\ngatewayValue \u003d nicIpEntry-\u003egateway;\nactivePath \u003d pathString;\ngatewayValueAssigned \u003d true;\n```\n?\n\nI\u0027m imagining the case where we have one ip address set, then we do\n```\nPATCH: [\n{}.\n{Gateway: Gateway that doesn\u0027t match 0}\n]\n```\n\nI think we would incorrectly set the gateway of the second one, right?",
+      "revId": "47e509c06a56406a34606afc2dc9a4ae49bd2771",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eec46dd6_48f72350",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1692,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2024-05-03T16:00:50Z",
+      "side": 1,
+      "message": "I removed this because the very first action coming into handleIPv4Patch is to collect the Gateway from ethData.gateway.\nYour example is:\nLeave the first active entry alone \u0027{}\u0027, so that means there\u0027s an active gateway.\nIf there isn\u0027t an IpV4Data then \u0027{}\u0027 is asking to preserve an address that doesn\u0027t exist. Return an error.\nSince the first entry returned an error, the second entry in your patch won\u0027t get processed.",
+      "parentUuid": "06fec2e0_b611aeb6",
       "revId": "47e509c06a56406a34606afc2dc9a4ae49bd2771",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
