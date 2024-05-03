@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddec829a_0b563cbd",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-03T17:25:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb704c33_496bfad8",
+      "revId": "91b2be634adefd639fd315b5ede3758ed41d2beb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3b6f8479_a4c9b23f",
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "3b6f8479_a4c9b23f",
+      "revId": "91b2be634adefd639fd315b5ede3758ed41d2beb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c7f9987_b27155fa",
+        "filename": "test/redfish-core/lib/update_service_test.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-03T17:25:21Z",
+      "side": 1,
+      "message": "Done. Fixed in one other place as well.",
+      "parentUuid": "3f11d710_a54d1657",
       "revId": "91b2be634adefd639fd315b5ede3758ed41d2beb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -120,6 +156,24 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "3a6d7163_a9f4f247",
+      "revId": "91b2be634adefd639fd315b5ede3758ed41d2beb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e83da22_7f0763ab",
+        "filename": "test/redfish-core/lib/update_service_test.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-03T17:25:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3111af3_abcbb587",
       "revId": "91b2be634adefd639fd315b5ede3758ed41d2beb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
