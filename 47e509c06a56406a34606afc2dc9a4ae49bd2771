@@ -39,6 +39,46 @@
       },
       "revId": "47e509c06a56406a34606afc2dc9a4ae49bd2771",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2397acb9_c6f2fdcf",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1671,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-03T00:56:37Z",
+      "side": 1,
+      "message": "why are we appending \"/\" here?  I suspect you can just do \u003d pathString?",
+      "range": {
+        "startLine": 1671,
+        "startChar": 16,
+        "endLine": 1671,
+        "endChar": 26
+      },
+      "revId": "47e509c06a56406a34606afc2dc9a4ae49bd2771",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06fec2e0_b611aeb6",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1692,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-03T00:56:37Z",
+      "side": 1,
+      "message": "Do we need to set gatewayValue in this path?  If there\u0027s already an ip address with a gateway, we want to count it, right?\n\nSomething like\n```\ngatewayValue \u003d nicIpEntry-\u003egateway;\nactivePath \u003d pathString;\ngatewayValueAssigned \u003d true;\n```\n?\n\nI\u0027m imagining the case where we have one ip address set, then we do\n```\nPATCH: [\n{}.\n{Gateway: Gateway that doesn\u0027t match 0}\n]\n```\n\nI think we would incorrectly set the gateway of the second one, right?",
+      "revId": "47e509c06a56406a34606afc2dc9a4ae49bd2771",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
