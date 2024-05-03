@@ -18,6 +18,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ecb42dc_1a71dd3a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2024-05-03T16:36:13Z",
+      "side": 1,
+      "message": "This should pass CI now.",
+      "revId": "3fb85f2bf775770cbe1d269fd3093adab390c896",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b8e7833c_033ec880",
@@ -54,6 +71,30 @@
       "writtenOn": "2024-05-03T16:35:44Z",
       "side": 1,
       "message": "and also clang-tidy is flagging this.",
+      "parentUuid": "b8e7833c_033ec880",
+      "range": {
+        "startLine": 1662,
+        "startChar": 40,
+        "endLine": 1662,
+        "endChar": 76
+      },
+      "revId": "3fb85f2bf775770cbe1d269fd3093adab390c896",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d33873d_809e0d91",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1662,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2024-05-03T16:36:13Z",
+      "side": 1,
+      "message": "Removed the offending \u0027:\u0027\nSwitched to using arg1 and arg2 because clang-tidy griped about wasteful temporary strings during the message composition.",
       "parentUuid": "b8e7833c_033ec880",
       "range": {
         "startLine": 1662,
