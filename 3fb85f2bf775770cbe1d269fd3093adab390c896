@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e24d1cfd_835ba261",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-03T16:20:48Z",
+      "side": 1,
+      "message": "Last minior thing, then from my perspective this is good to go.",
+      "revId": "3fb85f2bf775770cbe1d269fd3093adab390c896",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8e7833c_033ec880",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1662,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-03T16:20:48Z",
+      "side": 1,
+      "message": "This is still not a valid json pointer.  I think you want just\n\n\npathString + \"/Gateway\"\n\nSimilar story with the second parameter.",
+      "range": {
+        "startLine": 1662,
+        "startChar": 40,
+        "endLine": 1662,
+        "endChar": 76
+      },
+      "revId": "3fb85f2bf775770cbe1d269fd3093adab390c896",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
