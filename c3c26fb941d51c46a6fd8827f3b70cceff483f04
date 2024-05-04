@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa53dc20_9c5e7bde",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-05-04T13:38:05Z",
+      "side": 1,
+      "message": "why to support empty path?",
+      "revId": "c3c26fb941d51c46a6fd8827f3b70cceff483f04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
