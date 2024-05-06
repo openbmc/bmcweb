@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c5f730bd_62c40688",
+        "filename": "include/webassets.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-06T20:05:31Z",
+      "side": 1,
+      "message": "thank you for reminding me that I haven\u0027t pushed https://gerrit.openbmc.org/c/openbmc/webui-vue/+/71275",
+      "parentUuid": "0af4cbd5_91a39613",
+      "revId": "238a46278ec4b4d018ce7537bd5d9de4a7b0da27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "37235e1f_0c8b476d",
         "filename": "include/webassets.hpp",
         "patchSetId": 6
