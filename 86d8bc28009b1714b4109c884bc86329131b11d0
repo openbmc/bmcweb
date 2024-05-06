@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f16cd5e_d43d3c49",
+        "filename": "http/logging.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-06T18:34:58Z",
+      "side": 1,
+      "message": "The static analysis tools flag std::format as throwing?\nWhy are they unhappy with this std::format and not others? E.g. line 82, or any other places we use it https://github.com/search?q\u003drepo%3Aopenbmc%2Fbmcweb%20std%3A%3Aformat\u0026type\u003dcode",
+      "revId": "86d8bc28009b1714b4109c884bc86329131b11d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
