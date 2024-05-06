@@ -16,6 +16,24 @@
       "message": "The static analysis tools flag std::format as throwing?\nWhy are they unhappy with this std::format and not others? E.g. line 82, or any other places we use it https://github.com/search?q\u003drepo%3Aopenbmc%2Fbmcweb%20std%3A%3Aformat\u0026type\u003dcode",
       "revId": "86d8bc28009b1714b4109c884bc86329131b11d0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24280de4_b8a2e5ef",
+        "filename": "http/logging.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-06T18:39:15Z",
+      "side": 1,
+      "message": "Those are all excellent questions;  I spent a lot of time trying to find answers to that, and couldn\u0027t.  You can see me pushing many different variations of patch on this review to try to play with what flags and what doesn\u0027t.  I\u0027d normally think of it as a false positive, but multiple static analysis tools including clang-tidy are now flagging it when we simplify the code in a change that didn\u0027t change anything.  (one static analysis tool was flagging before we simplified).\n\nMy guesses here are:\n1. We\u0027re moving an object that the moved object has the potential to throw.\n2. The libstdc++ implementation doesn\u0027t correctly mark this variant as noexcept.\n3. We\u0027re accidentally throwing in a std::formatted.",
+      "parentUuid": "5f16cd5e_d43d3c49",
+      "revId": "86d8bc28009b1714b4109c884bc86329131b11d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
