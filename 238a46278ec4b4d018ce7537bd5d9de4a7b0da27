@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0af4cbd5_91a39613",
+        "filename": "include/webassets.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-06T20:03:03Z",
+      "side": 1,
+      "message": "This is code that worked great for the angularjs gui that bmcweb had waaaaaaaaay long ago (pre phosphor-webui, possibly pre openbmc).  You can see from that commit, I was VERY good about writing commit messages and keeping my changes small 😊\n\nThis was a TODO to figure out how to make that work without a manifest, or to get webpack to create a manifest, that yes, never got done.\n\n\u003e I think this is only index.html? \n\nI have a patch that I need to push to fix that as well and make index.html versioned.  Coming shortly to a webui near you.\n\nMy mean worry with setting 300 is that a firmware update can be accomplished faster than that, so in theory, if you pull down the UI, do a firmware update, and reboot, you might get an old webui with a new bmc.  My preference in that case was to just make it etag cachable so the browser requests it every time, but the bmc most of the time will respond with \"nothing has changed\".",
+      "parentUuid": "e0738685_7a11607f",
+      "revId": "238a46278ec4b4d018ce7537bd5d9de4a7b0da27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "37235e1f_0c8b476d",
         "filename": "include/webassets.hpp",
         "patchSetId": 6
