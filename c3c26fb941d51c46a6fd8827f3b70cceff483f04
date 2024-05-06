@@ -16,6 +16,24 @@
       "message": "why to support empty path?",
       "revId": "c3c26fb941d51c46a6fd8827f3b70cceff483f04",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a495db16_4d5bd349",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-06T15:13:50Z",
+      "side": 1,
+      "message": "The same reason browsers and curl support it, because a user expects it to work.",
+      "parentUuid": "aa53dc20_9c5e7bde",
+      "revId": "c3c26fb941d51c46a6fd8827f3b70cceff483f04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
