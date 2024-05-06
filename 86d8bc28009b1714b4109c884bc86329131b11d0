@@ -70,6 +70,24 @@
       "parentUuid": "83b13294_84966ff7",
       "revId": "86d8bc28009b1714b4109c884bc86329131b11d0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c72def30_52a43f52",
+        "filename": "http/logging.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-06T21:11:53Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "005bca07_6f3f4367",
+      "revId": "86d8bc28009b1714b4109c884bc86329131b11d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
