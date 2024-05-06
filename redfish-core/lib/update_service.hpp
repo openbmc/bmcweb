@@ -538,11 +538,12 @@ inline void doTftpUpdate(const crow::Request& req,
                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const boost::urls::url_view_base& url)
 {
-#ifndef BMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE
-    messages::actionParameterNotSupported(asyncResp->res, "ImageURI",
-                                          url.buffer());
-    return;
-#endif
+    if (!BMCWEB_INSECURE_TFTP_UPDATE)
+    {
+        messages::actionParameterNotSupported(asyncResp->res, "ImageURI",
+                                              url.buffer());
+        return;
+    }
 
     std::string path(url.encoded_path());
     if (path.size() < 2)
