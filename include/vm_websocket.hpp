@@ -449,7 +449,9 @@ inline void
 
     // If the socket file exists (i.e. after bmcweb crash),
     // we cannot reuse it.
-    std::remove(socket.c_str());
+    std::error_code ec2;
+    std::filesystem::remove(socket.c_str(), ec2);
+    // Ignore failures.  File might not exist.
 
     sessions[&conn] = std::make_shared<NbdProxyServer>(conn, socket, endpointId,
                                                        path);
