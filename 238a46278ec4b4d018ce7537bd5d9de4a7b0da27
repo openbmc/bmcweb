@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0738685_7a11607f",
+        "filename": "include/webassets.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-06T18:58:59Z",
+      "side": 1,
+      "message": "This was commented out before?\nIt looks like it was added 7 years ago. \nhttps://github.com/openbmc/bmcweb/commit/911ac31759cb7b77a856af8806b4e064d50d7422#diff-0fb43383e781216758c91c0ab87c2dd8b88c6f1c9a751f9dedf13b923d9c48d5\n\nThat commit added other commented out code. This just a TODO, that never got done?\n\nFrom https://simonhearne.com/2022/caching-header-best-practices/\n\n```\nThe Solution #\n\nUse versioned assets wherever possible (e.g. main.v123.min.css or main.min.css?v\u003d123) and set a single caching header allowing the maximum cache duration of one year:\n\nCache-Control: max-age\u003d31536000, immutable\n\nFor non-versioned assets which may change, combine the Cache-Control header with an ETag for asynchronous revalidation in the client:\n\nCache-Control: max-age\u003d604800, stale-while-revalidate\u003d86400\nETag: \"\u003cfile-hash-generated-by-server\u003e\"\n\nFor HTML files, set a low TTL and private cache flags:\n\nCache-Control: max-age:300, private\n\nDo not emit unnecessary caching headers (including ETag and Last-Modified) to prevent unexpected client and server behaviours.\n```\n\n\nI think this is only index.html? It looks like all the font, img, js, and css are etagged. So wonder if we should just change this to \nCache-Control: max-age:300, private \n\n```\nls\ncss  favicon.ico.gz  fonts  img  index.html.gz  js\n\nls js/\napp.aac5e725.js.gz  chunk-vendors.1f9b40c4.js.gz\n\nls img/\nbuilt-on-openbmc-logo.3af95303.svg.gz  logo-header.5f4dd833.svg.gz\nlogin-company-logo.82078867.svg.gz\n\nls css/\napp.8abe237b.css.gz  chunk-vendors.00879a7c.css.gz\n\nls fonts/\nIBMPlexSans-Italic.0c255909.woff       IBMPlexSans-Regular.563da118.woff\nIBMPlexSans-Light.e4a49bd4.woff        IBMPlexSans-SemiBold.400393e8.woff\nIBMPlexSans-LightItalic.f353764b.woff  IBMPlexSans-SemiBoldItalic.eacd8de5.woff\n```\n\nNote: My build is older, I believe https://gerrit.openbmc.org/c/openbmc/webui-vue/+/70966 moved the favicon to be etagged",
+      "revId": "238a46278ec4b4d018ce7537bd5d9de4a7b0da27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37235e1f_0c8b476d",
+        "filename": "include/webassets.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-06T18:58:59Z",
+      "side": 1,
+      "message": "include array, string_view",
+      "revId": "238a46278ec4b4d018ce7537bd5d9de4a7b0da27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4b79563_08d7f32b",
+        "filename": "include/webassets.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-06T18:58:59Z",
+      "side": 1,
+      "message": "#include \u003calgorithm\u003e",
+      "revId": "238a46278ec4b4d018ce7537bd5d9de4a7b0da27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
