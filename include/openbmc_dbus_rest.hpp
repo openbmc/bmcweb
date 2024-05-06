@@ -821,7 +821,11 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
             {
                 return -ERANGE;
             }
-            sd_bus_message_append_basic(m, argCode[0], doubleValue);
+            r = sd_bus_message_append_basic(m, argCode[0], doubleValue);
+            if (r < 0)
+            {
+                return r;
+            }
         }
         else if (argCode.starts_with("a"))
         {
@@ -2373,7 +2377,11 @@ inline void
                             return;
                         }
 
-                        convertDBusToJSON("v", msg, propertyItem);
+                        int r = convertDBusToJSON("v", msg, propertyItem);
+                        if (r < 0)
+                        {
+                            BMCWEB_LOG_ERROR("Couldn't convert vector to json");
+                        }
                     });
                 }
                 property = property->NextSiblingElement("property");
