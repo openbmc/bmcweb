@@ -65,6 +65,7 @@ incdir = include_directories(
 
 feature_map = {
   'basic-auth'                                  : '-DBMCWEB_ENABLE_BASIC_AUTHENTICATION',
+  'bmc-shell-socket'                            : '-DBMCWEB_ENABLE_BMC_SHELL_WEBSOCKET',
   'cookie-auth'                                 : '-DBMCWEB_ENABLE_COOKIE_AUTHENTICATION',
   'event-subscription'                          : '-DBMCWEB_ENABLE_EVENT_SUBSCRIPTION_WEBSOCKET',
   'google-api'                                  : '-DBMCWEB_ENABLE_GOOGLE_API',

@@ -34,6 +34,8 @@ struct Connection : std::enable_shared_from_this<Connection>
     Connection& operator=(const Connection&) = delete;
     Connection& operator=(const Connection&&) = delete;
 
+    virtual const std::string& getUserName() const = 0;
+
     virtual void sendBinary(std::string_view msg) = 0;
     virtual void sendEx(MessageType type, std::string_view msg,
                         std::function<void()>&& onDone) = 0;
@@ -134,6 +136,11 @@ class ConnectionImpl : public Connection
         ws.async_accept(*ptr,
                         std::bind_front(&self_t::acceptDone, this,
                                         shared_from_this(), std::move(mobile)));
+    }
+
+    const std::string& getUserName() const override
+    {
+        return session->username;
     }
 
     void sendBinary(std::string_view msg) override

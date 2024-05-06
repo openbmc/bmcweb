@@ -396,6 +396,15 @@ option(
                     parameters such as only are not controlled by this option.'''
 )
 
+option(
+      'bmc-shell-socket',
+      type : 'feature',
+      value : 'enabled',
+      description : '''Enable BMC command shell WebSocket, which makes it
+                       possible to access secure shell. Path is
+                       \'/bmc-console\'.'''
+)
+
 option('ibm-led-extensions',
     type : 'feature',
     value : 'enabled',
