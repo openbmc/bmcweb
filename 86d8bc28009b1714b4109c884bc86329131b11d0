@@ -34,6 +34,24 @@
       "parentUuid": "5f16cd5e_d43d3c49",
       "revId": "86d8bc28009b1714b4109c884bc86329131b11d0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83b13294_84966ff7",
+        "filename": "http/logging.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-06T19:47:39Z",
+      "side": 1,
+      "message": "There are several advantages to this patch, and I want to see it get in. \nThis stinks we have to have this but to keep the static analysis tools I am okay with it. You have a comment explaining the try/catch.",
+      "parentUuid": "24280de4_b8a2e5ef",
+      "revId": "86d8bc28009b1714b4109c884bc86329131b11d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
