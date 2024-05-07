@@ -44,6 +44,7 @@ feature_options = [
 ]
 
 string_options = [
+    'bmcweb-logging',
     'dns-resolver',
     'mutual-tls-common-name-parsing',
 ]
@@ -53,26 +54,27 @@ int_options = [
     'https_port',
 ]
 
-foreach option_key : feature_options
+feature_options_string = '\n//Feature options\n'
+string_options_string = '\n// String options\n'
+int_options_string = '\n// Integer options\n'
 
-    option_key_config = option_key.to_upper()
+foreach option_key : feature_options
+    option_key_config = 'BMCWEB_' + option_key.to_upper()
     option_key_config = option_key_config.replace('-', '_')
 
     message(option_key_config)
+
     opt = get_option(option_key)
     if string_options.contains(option_key)
+        string_options_string += 'constexpr std::string_view  ' + option_key_config + ' = "' + opt + '";\n'
     elif int_options.contains(option_key)
+        int_options_string += 'constexpr const int         ' + option_key_config + ' = ' + opt.to_string() + ';\n'
     else
+        feature_options_string += 'constexpr const bool        ' + option_key_config + ' = ' + opt.allowed().to_string() + ';\n'
         opt = opt.allowed().to_string()
     endif
-    conf_data.set(option_key_config, opt)
     summary(option_key, opt, section: 'Features')
 endforeach
-
-conf_data.set('MESON_INSTALL_PREFIX', get_option('prefix'))
-
-conf_data.set10('BMCWEB_VIRTUAL_MEDIA_VM', get_option('vm-websocket').allowed())
-conf_data.set10('BMCWEB_VIRTUAL_MEDIA_NBD', false)
 
 # Logging level
 loglvlopt = get_option('bmcweb-logging')
@@ -81,7 +83,15 @@ if get_option('buildtype').startswith('debug') and loglvlopt == 'disabled'
     loglvlopt = 'debug'
 endif
 loglvlopt = loglvlopt.to_upper()
-conf_data.set('LOGGING_LEVEL', loglvlopt)
+string_options_string += 'constexpr std::string_view  BMCWEB_LOGGING_LEVEL' + ' = "' + loglvlopt + '";\n'
+
+# NBD proxy is disabled due to lack of maintenance.  See meson_options.txt
+feature_options_string += 'constexpr const bool        BMCWEB_VM_NBDPROXY = false;\n'
+
+conf_data.set(
+    'BMCWEB_OPTIONS',
+    string_options_string + int_options_string + feature_options_string,
+)
 
 conf_h_dep = declare_dependency(
     include_directories: include_directories('.'),
@@ -93,12 +103,14 @@ conf_h_dep = declare_dependency(
 )
 
 # Configure and install systemd unit files
+systemd_conf_data = configuration_data()
+systemd_conf_data.set('MESON_INSTALL_PREFIX', get_option('prefix'))
 
 configure_file(
     input: 'bmcweb.socket.in',
     output: 'bmcweb.socket',
     install_dir: systemd_system_unit_dir,
-    configuration: conf_data,
+    configuration: systemd_conf_data,
     install: true,
 )
 
@@ -106,7 +118,7 @@ configure_file(
     input: 'bmcweb.service.in',
     output: 'bmcweb.service',
     install_dir: systemd_system_unit_dir,
-    configuration: conf_data,
+    configuration: systemd_conf_data,
     install: true,
 )
 
