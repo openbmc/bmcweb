@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2a6d58d_524ab230",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-07T01:57:01Z",
+      "side": 1,
+      "message": "It is the dbus rest api, not sure how much use it is getting anymore.",
+      "revId": "d6368fe4403e7a24e7bdd47300a88611f236df5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4162daf_d6b7a7c7",
+        "filename": "include/openbmc_dbus_rest.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-07T01:57:01Z",
+      "side": 1,
+      "message": "I prefer not to use single-var names (in this case, it doesn\u0027t matter much). \nSo 🤷",
+      "range": {
+        "startLine": 824,
+        "startChar": 12,
+        "endLine": 824,
+        "endChar": 13
+      },
+      "revId": "d6368fe4403e7a24e7bdd47300a88611f236df5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "019c35f8_262534c9",
+        "filename": "include/openbmc_dbus_rest.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2384,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-07T01:57:01Z",
+      "side": 1,
+      "message": "continuing on propose?\nReturning isn\u0027t better?",
+      "revId": "d6368fe4403e7a24e7bdd47300a88611f236df5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
