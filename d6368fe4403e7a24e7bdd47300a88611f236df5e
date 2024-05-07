@@ -116,6 +116,24 @@
       "parentUuid": "19851609_5ab4c46c",
       "revId": "d6368fe4403e7a24e7bdd47300a88611f236df5e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70b33a75_02096691",
+        "filename": "include/openbmc_dbus_rest.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2384,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-07T15:48:54Z",
+      "side": 1,
+      "message": "We\u0027re in a lambda context here that started on line 2372\n\nI\u0027m assuming you mean the while loop on line 2356?  I don\u0027t think we can force a return from this level.",
+      "parentUuid": "f96e46ed_9d282830",
+      "revId": "d6368fe4403e7a24e7bdd47300a88611f236df5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
