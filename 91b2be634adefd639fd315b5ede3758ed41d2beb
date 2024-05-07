@@ -194,6 +194,24 @@
       "parentUuid": "3e83da22_7f0763ab",
       "revId": "91b2be634adefd639fd315b5ede3758ed41d2beb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6a106dd_bd880a74",
+        "filename": "test/redfish-core/lib/update_service_test.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2024-05-07T23:57:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c6d00b1_8d4604cd",
+      "revId": "91b2be634adefd639fd315b5ede3758ed41d2beb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
