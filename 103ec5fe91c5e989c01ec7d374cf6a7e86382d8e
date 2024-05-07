@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c78de6e_665289d2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-07T02:03:43Z",
+      "side": 1,
+      "message": "Seems correct, based on https://github.com/openbmc/bmcweb/blob/17c472452c9a3518aeac636d01b8e2f01c4fa21f/config/bmcweb_config.h.in#L30",
+      "revId": "103ec5fe91c5e989c01ec7d374cf6a7e86382d8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
