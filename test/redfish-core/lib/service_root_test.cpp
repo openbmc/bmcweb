@@ -83,23 +83,21 @@ void assertServiceRootGet(crow::Response& res)
 
     EXPECT_EQ(json["ProtocolFeaturesSupported"].size(), 6);
     EXPECT_FALSE(json["ProtocolFeaturesSupported"]["ExcerptQuery"]);
-    EXPECT_EQ(json["ProtocolFeaturesSupported"]["ExpandQuery"]["ExpandAll"],
-              BMCWEB_INSECURE_ENABLE_REDFISH_QUERY);
-    EXPECT_EQ(json["ProtocolFeaturesSupported"]["ExpandQuery"]["Levels"],
-              BMCWEB_INSECURE_ENABLE_REDFISH_QUERY);
-    EXPECT_EQ(json["ProtocolFeaturesSupported"]["ExpandQuery"]["Links"],
-              BMCWEB_INSECURE_ENABLE_REDFISH_QUERY);
-    EXPECT_EQ(json["ProtocolFeaturesSupported"]["ExpandQuery"]["NoLinks"],
-              BMCWEB_INSECURE_ENABLE_REDFISH_QUERY);
+    EXPECT_TRUE(json["ProtocolFeaturesSupported"]["ExpandQuery"]["ExpandAll"]);
+    EXPECT_TRUE(json["ProtocolFeaturesSupported"]["ExpandQuery"]["Levels"]);
+    EXPECT_TRUE(json["ProtocolFeaturesSupported"]["ExpandQuery"]["Links"]);
+    EXPECT_TRUE(json["ProtocolFeaturesSupported"]["ExpandQuery"]["NoLinks"]);
+    EXPECT_EQ(json["ProtocolFeaturesSupported"]["ExpandQuery"].size(), 5);
+
     if constexpr (BMCWEB_INSECURE_ENABLE_REDFISH_QUERY)
     {
-        EXPECT_EQ(json["ProtocolFeaturesSupported"]["ExpandQuery"].size(), 5);
         EXPECT_EQ(json["ProtocolFeaturesSupported"]["ExpandQuery"]["MaxLevels"],
                   6);
     }
     else
     {
-        EXPECT_EQ(json["ProtocolFeaturesSupported"]["ExpandQuery"].size(), 4);
+        EXPECT_EQ(json["ProtocolFeaturesSupported"]["ExpandQuery"]["MaxLevels"],
+                  1);
     }
     EXPECT_FALSE(json["ProtocolFeaturesSupported"]["FilterQuery"]);
     EXPECT_TRUE(json["ProtocolFeaturesSupported"]["OnlyMemberQuery"]);

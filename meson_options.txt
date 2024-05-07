@@ -360,9 +360,12 @@ option(
     'insecure-enable-redfish-query',
     type: 'feature',
     value: 'disabled',
-    description: '''Enables Redfish expand query parameter.  This feature is
-                    experimental, and has not been tested against the full
-                    limits of user-facing behavior.  It is not recommended to
-                    enable on production systems at this time.  Other query
-                    parameters such as only are not controlled by this option.'''
+    description: '''Enables Redfish expand query parameter with a level
+                    greater than 1. Redfish expand query parameter is enabled
+                    but limited to 1 level, this moves the max level to 6.
+                    This feature is experimental, and has not been tested
+                    against the full limits of user-facing behavior. It is
+                    not recommended to enable on production systems at this
+                    time. Other query parameters such as only are not
+                    controlled by this option.'''
 )
