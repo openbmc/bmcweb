@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98497f45_88999ccc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-07T17:31:33Z",
+      "side": 1,
+      "message": "Today expand doesn\u0027t obey permissions (and never has).  Before we consider enabling this, we need to ensure that we have a handle on how we expect permissions to work, in a way that has intent documented.  Unfortunately, the redfish spec doesn\u0027t really document this.",
+      "revId": "2d2c4e79983a5622e8ac93eb74908e47270a907a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02f955a2_d6f23982",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-07T17:31:33Z",
+      "side": 1,
+      "message": "looks like it needs to be \n\nBMCWEB_INSECURE_ENABLE_REDFISH_QUERY ? 6 : 1;",
+      "range": {
+        "startLine": 100,
+        "startChar": 51,
+        "endLine": 100,
+        "endChar": 52
+      },
+      "revId": "2d2c4e79983a5622e8ac93eb74908e47270a907a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ce5b9ee_27e061d4",
+        "filename": "test/redfish-core/include/utils/query_param_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-07T17:31:33Z",
+      "side": 1,
+      "message": "else, EXPECT_EQ(query.expandLevel, 0)\n?",
+      "revId": "2d2c4e79983a5622e8ac93eb74908e47270a907a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
