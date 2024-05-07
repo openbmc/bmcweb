@@ -669,8 +669,8 @@ TEST(QueryParams, GetExpandType)
     EXPECT_TRUE(getExpandType(".", query));
     EXPECT_EQ(query.expandLevel, 1);
 
-    EXPECT_TRUE(getExpandType(".($levels=42)", query));
-    EXPECT_EQ(query.expandLevel, 42);
+    // We have a limit of 3
+    EXPECT_FALSE(getExpandType(".($levels=42)", query));
 
     // Overflow
     EXPECT_FALSE(getExpandType(".($levels=256)", query));
