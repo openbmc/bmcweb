@@ -357,13 +357,16 @@ TEST(RecursiveSelect, ReservedPropertiesAreSelected)
         "/redfish/v1?$select=Prefix1/ExplicitSelectMe,Prefix3/ExplicitSelectMe");
     ASSERT_TRUE(ret);
     crow::Response res;
-    std::optional<Query> query = parseParameters(ret->params(), res);
+    std::string_view url = "/redfish/v1";
+
+    std::optional<Query> query = parseParameters(ret->params(), res, url);
     ASSERT_TRUE(query);
     if (!query)
     {
         return;
     }
     recursiveSelect(root, query.value().selectTrie.root);
+
     EXPECT_EQ(root, expected);
 }
 
@@ -516,17 +519,19 @@ TEST(QueryParams, ParseParametersOnly)
         return;
     }
 
+    std::string_view url = "/redfish/v1";
     crow::Response res;
-    std::optional<Query> query = parseParameters(ret->params(), res);
+    std::optional<Query> query = parseParameters(ret->params(), res, url);
     ASSERT_TRUE(query);
     if (!query)
     {
         return;
     }
+
     EXPECT_TRUE(query->isOnly);
 }
 
-TEST(QueryParams, ParseParametersExpand)
+TEST(QueryParams, ParseParametersExpandDontAllow)
 {
     auto ret = boost::urls::parse_relative_ref("/redfish/v1?$expand=*");
     ASSERT_TRUE(ret);
@@ -535,9 +540,25 @@ TEST(QueryParams, ParseParametersExpand)
         return;
     }
 
+    std::string_view url = "/redfish/v1";
     crow::Response res;
 
-    std::optional<Query> query = parseParameters(ret->params(), res);
+    std::optional<Query> query = parseParameters(ret->params(), res, url);
+    // We do not allow
+    ASSERT_EQ(query, std::nullopt);
+}
+
+TEST(QueryParams, ParseParametersExpand)
+{
+    auto ret = boost::urls::parse_relative_ref(
+        "/redfish/v1/Chassis?$expand=*($levels=2)");
+    ASSERT_TRUE(ret);
+
+    std::string_view url = "/redfish/v1/Chassis";
+    crow::Response res;
+
+    std::optional<Query> query = parseParameters(ret->params(), res, url);
+
     if constexpr (bmcwebInsecureEnableQueryParams)
     {
         ASSERT_TRUE(query);
@@ -563,9 +584,10 @@ TEST(QueryParams, ParseParametersTop)
         return;
     }
 
+    std::string_view url = "/redfish/v1";
     crow::Response res;
 
-    std::optional<Query> query = parseParameters(ret->params(), res);
+    std::optional<Query> query = parseParameters(ret->params(), res, url);
     ASSERT_TRUE(query);
     if (!query)
     {
@@ -579,9 +601,10 @@ TEST(QueryParams, ParseParametersTopOutOfRangeNegative)
     auto ret = boost::urls::parse_relative_ref("/redfish/v1?$top=-1");
     ASSERT_TRUE(ret);
 
+    std::string_view url = "/redfish/v1";
     crow::Response res;
 
-    std::optional<Query> query = parseParameters(ret->params(), res);
+    std::optional<Query> query = parseParameters(ret->params(), res, url);
     ASSERT_TRUE(query == std::nullopt);
 }
 
@@ -593,9 +616,11 @@ TEST(QueryParams, ParseParametersTopOutOfRangePositive)
     {
         return;
     }
+
+    std::string_view url = "/redfish/v1";
     crow::Response res;
 
-    std::optional<Query> query = parseParameters(ret->params(), res);
+    std::optional<Query> query = parseParameters(ret->params(), res, url);
     ASSERT_TRUE(query == std::nullopt);
 }
 
@@ -604,9 +629,10 @@ TEST(QueryParams, ParseParametersSkip)
     auto ret = boost::urls::parse_relative_ref("/redfish/v1?$skip=1");
     ASSERT_TRUE(ret);
 
+    std::string_view url = "/redfish/v1";
     crow::Response res;
 
-    std::optional<Query> query = parseParameters(ret->params(), res);
+    std::optional<Query> query = parseParameters(ret->params(), res, url);
     ASSERT_TRUE(query);
     if (!query)
     {
@@ -620,9 +646,10 @@ TEST(QueryParams, ParseParametersSkipOutOfRange)
         "/redfish/v1?$skip=99999999999999999999");
     ASSERT_TRUE(ret);
 
+    std::string_view url = "/redfish/v1";
     crow::Response res;
 
-    std::optional<Query> query = parseParameters(ret->params(), res);
+    std::optional<Query> query = parseParameters(ret->params(), res, url);
     ASSERT_EQ(query, std::nullopt);
 }
 
@@ -631,9 +658,10 @@ TEST(QueryParams, ParseParametersUnexpectedGetsIgnored)
     auto ret = boost::urls::parse_relative_ref("/redfish/v1?unexpected_param");
     ASSERT_TRUE(ret);
 
+    std::string_view url = "/redfish/v1";
     crow::Response res;
 
-    std::optional<Query> query = parseParameters(ret->params(), res);
+    std::optional<Query> query = parseParameters(ret->params(), res, url);
     ASSERT_TRUE(query != std::nullopt);
 }
 
@@ -642,9 +670,10 @@ TEST(QueryParams, ParseParametersUnexpectedDollarGetsError)
     auto ret = boost::urls::parse_relative_ref("/redfish/v1?$unexpected_param");
     ASSERT_TRUE(ret);
 
+    std::string_view url = "/redfish/v1";
     crow::Response res;
 
-    std::optional<Query> query = parseParameters(ret->params(), res);
+    std::optional<Query> query = parseParameters(ret->params(), res, url);
     ASSERT_TRUE(query == std::nullopt);
     EXPECT_EQ(res.result(), boost::beast::http::status::not_implemented);
 }
