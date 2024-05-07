@@ -79,13 +79,14 @@ inline void vlog(std::format_string<Args...>&& format, Args&&... args,
     std::string_view filename = loc.file_name();
     filename = filename.substr(filename.rfind('/') + 1);
     std::string logLocation;
-    logLocation = std::format("[{} {}:{}] ", levelString, filename, loc.line());
     try
     {
         // TODO, multiple static analysis tools flag that this could potentially
         // throw Based on the documentation, it shouldn't throw, so long as none
         // of the formatters throw, so unclear at this point why this try/catch
         // is required, but add it to silence the static analysis tools.
+        logLocation = std::format("[{} {}:{}] ", levelString, filename,
+                                  loc.line());
         logLocation += std::format(std::move(format),
                                    std::forward<Args>(args)...);
     }
