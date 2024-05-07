@@ -98,6 +98,24 @@
       "parentUuid": "019c35f8_262534c9",
       "revId": "d6368fe4403e7a24e7bdd47300a88611f236df5e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f96e46ed_9d282830",
+        "filename": "include/openbmc_dbus_rest.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2384,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-07T13:44:57Z",
+      "side": 1,
+      "message": "Huh? What about this while loop?",
+      "parentUuid": "19851609_5ab4c46c",
+      "revId": "d6368fe4403e7a24e7bdd47300a88611f236df5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
