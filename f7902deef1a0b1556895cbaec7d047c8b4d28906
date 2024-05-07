@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a9a44b0_2a9abe50",
+        "filename": "include/vm_websocket.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-07T02:02:39Z",
+      "side": 1,
+      "message": "Static analysis doesn\u0027t complain about not checking this?\nIf so, you could do what you did on line 214 \nhttps://github.com/openbmc/bmcweb/commit/4c521c3c34162b6a5930ac1d78da3456f9b69283",
+      "revId": "f7902deef1a0b1556895cbaec7d047c8b4d28906",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
