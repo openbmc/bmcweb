@@ -52,6 +52,23 @@
       "parentUuid": "9a48cb51_b030adb7",
       "revId": "7a97f8eddfb56c1f8d20cf1526501c360bb75998",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fe34965_421d82b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-07T23:49:43Z",
+      "side": 1,
+      "message": "FYI, I\u0027ve played around with this flow a little.  What I suspect is that we now need to implement the Redfish property AccountService. RespondToUnauthenticatedClients\n\nAnd use that to control the switch inside http_connection.  Redfish added this recently, and in theory that would allow a client to simply control the behavior, rather than trying to sort out something that works in all cases.",
+      "revId": "7a97f8eddfb56c1f8d20cf1526501c360bb75998",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
