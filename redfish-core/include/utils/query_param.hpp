@@ -290,6 +290,13 @@ inline bool getExpandType(std::string_view value, Query& query)
     {
         return false;
     }
+    if constexpr (!BMCWEB_INSECURE_ENABLE_REDFISH_QUERY)
+    {
+        if (query.expandLevel > 1)
+        {
+            return false;
+        }
+    }
     value.remove_prefix(
         static_cast<size_t>(std::distance(value.begin(), it.ptr)));
     return value == ")";
@@ -389,7 +396,7 @@ inline std::optional<Query> parseParameters(boost::urls::params_view urlParams,
             }
             ret.isOnly = true;
         }
-        else if (it.key == "$expand" && BMCWEB_INSECURE_ENABLE_REDFISH_QUERY)
+        else if (it.key == "$expand")
         {
             if (!getExpandType(it.value, ret))
             {

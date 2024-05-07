@@ -546,20 +546,13 @@ TEST(QueryParams, ParseParametersExpand)
     crow::Response res;
 
     std::optional<Query> query = parseParameters(ret->params(), res);
-    if constexpr (BMCWEB_INSECURE_ENABLE_REDFISH_QUERY)
+    ASSERT_TRUE(query);
+    if (!query)
     {
-        ASSERT_TRUE(query);
-        if (!query)
-        {
-            return;
-        }
-        EXPECT_TRUE(query.value().expandType ==
-                    redfish::query_param::ExpandType::Both);
+        return;
     }
-    else
-    {
-        ASSERT_EQ(query, std::nullopt);
-    }
+    EXPECT_TRUE(query.value().expandType ==
+                redfish::query_param::ExpandType::Both);
 }
 
 TEST(QueryParams, ParseParametersTop)

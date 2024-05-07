@@ -95,19 +95,18 @@ inline void handleServiceRootGetImpl(
         asyncResp->res.jsonValue["ProtocolFeaturesSupported"];
     protocolFeatures["ExcerptQuery"] = false;
 
-    protocolFeatures["ExpandQuery"]["ExpandAll"] =
-        BMCWEB_INSECURE_ENABLE_REDFISH_QUERY;
+    protocolFeatures["ExpandQuery"]["ExpandAll"] = true;
+
+    protocolFeatures["ExpandQuery"]["MaxLevels"] = 1;
+
     // This is the maximum level defined in ServiceRoot.v1_13_0.json
     if constexpr (BMCWEB_INSECURE_ENABLE_REDFISH_QUERY)
     {
         protocolFeatures["ExpandQuery"]["MaxLevels"] = 6;
     }
-    protocolFeatures["ExpandQuery"]["Levels"] =
-        BMCWEB_INSECURE_ENABLE_REDFISH_QUERY;
-    protocolFeatures["ExpandQuery"]["Links"] =
-        BMCWEB_INSECURE_ENABLE_REDFISH_QUERY;
-    protocolFeatures["ExpandQuery"]["NoLinks"] =
-        BMCWEB_INSECURE_ENABLE_REDFISH_QUERY;
+    protocolFeatures["ExpandQuery"]["Levels"] = true;
+    protocolFeatures["ExpandQuery"]["Links"] = true;
+    protocolFeatures["ExpandQuery"]["NoLinks"] = true;
     protocolFeatures["FilterQuery"] = false;
     protocolFeatures["OnlyMemberQuery"] = true;
     protocolFeatures["SelectQuery"] = true;
