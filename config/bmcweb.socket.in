@@ -2,7 +2,7 @@
 Description=BMC Webserver socket
 
 [Socket]
-ListenStream=@HTTPS_PORT@
+ListenStream=@BMCWEB_HTTPS_PORT@
 ReusePort=true
 
 [Install]
