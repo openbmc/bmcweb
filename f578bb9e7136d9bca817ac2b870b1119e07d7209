@@ -16,6 +16,29 @@
       "message": "Fixed review comments and modified code accordingly. Review and approve.",
       "revId": "f578bb9e7136d9bca817ac2b870b1119e07d7209",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ee9a84a_e5569930",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 2970,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-07T20:39:11Z",
+      "side": 1,
+      "message": "this is now just checking if the chassis is valid?\n\nWhat if you have\n\n/redfish/v1/Chassis1/Sensors/Sensor1\n/redfish/v1/Chassis2/Sensors/Sensor2\n\nWon\u0027t\n\n/redfish/v1/Chassis1/Sensors/Sensor2\n\nStill return the same result?\n\nYes, I could see this would prevent\n\n/redfish/v1/NoExist/Sensors/Sensor2\n\nfrom returning the right behavior, but shouldn\u0027t we handle both cases?\n\nPlease add the missing tests cases above to your testing.",
+      "range": {
+        "startLine": 2970,
+        "startChar": 28,
+        "endLine": 2970,
+        "endChar": 47
+      },
+      "revId": "f578bb9e7136d9bca817ac2b870b1119e07d7209",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

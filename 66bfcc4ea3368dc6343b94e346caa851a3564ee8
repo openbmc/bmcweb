@@ -208,6 +208,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c8ced6e0_a8d7a3a8",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-07T20:39:11Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "cc43e0c9_f32750fd",
+      "range": {
+        "startLine": 243,
+        "startChar": 26,
+        "endLine": 244,
+        "endChar": 72
+      },
+      "revId": "66bfcc4ea3368dc6343b94e346caa851a3564ee8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ac5e11ca_77323e27",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 12
