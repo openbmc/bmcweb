@@ -167,6 +167,88 @@ inline void handleEnvironmentMetricsHead(
                                                 std::move(respHandler));
 }
 
+inline void afterGetPropertyForPowerWatts(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId, const boost::system::error_code& ec,
+    double value)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("Can't get Power Watts! {}", ec.value());
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+    asyncResp->res.jsonValue["PowerWatts"]["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Chassis/{}/Sensors/total_power", chassisId);
+    asyncResp->res.jsonValue["PowerWatts"]["DataSourceUri"] =
+        boost::urls::format("/redfish/v1/Chassis/{}/Sensors/total_power",
+                            chassisId);
+    asyncResp->res.jsonValue["PowerWatts"]["Reading"] = value;
+}
+
+inline void afterGetDbusObjectForPowerWatts(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetObject& object)
+{
+    if (ec || object.empty())
+    {
+        BMCWEB_LOG_ERROR("DBUS response error: {}", ec.value());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    sdbusplus::asio::getProperty<double>(
+        *crow::connections::systemBus, object.begin()->first,
+        "/xyz/openbmc_project/sensors/power/total_power",
+        "xyz.openbmc_project.Sensor.Value", "Value",
+        std::bind_front(afterGetPropertyForPowerWatts, asyncResp, chassisId));
+}
+
+inline void afterGetPowerWatts(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreePathsResponse& paths)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("DBUS response error for getSubTreePaths: {}",
+                             ec.value());
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+
+    auto find = std::ranges::find_if(paths, [](const std::string& tempPath) {
+        sdbusplus::message::object_path path(tempPath);
+        std::string leaf = path.filename();
+        return leaf == "total_power";
+    });
+    if (find == paths.end())
+    {
+        BMCWEB_LOG_DEBUG("There is no total_power");
+        return;
+    }
+
+    dbus::utility::getDbusObject(
+        "/xyz/openbmc_project/sensors/power/total_power", {},
+        std::bind_front(afterGetDbusObjectForPowerWatts, asyncResp, chassisId));
+}
+
+inline void getPowerWatts(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const std::string& chassisId)
+{
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.Sensor.Value"};
+    dbus::utility::getSubTreePaths(
+        "/xyz/openbmc_project/sensors", 0, interfaces,
+        std::bind_front(afterGetPowerWatts, asyncResp, chassisId));
+}
 inline void handleEnvironmentMetricsGet(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -196,6 +278,7 @@ inline void handleEnvironmentMetricsGet(
             "/redfish/v1/Chassis/{}/EnvironmentMetrics", chassisId);
 
         getFanSpeedsPercent(asyncResp, *validChassisPath, chassisId);
+        getPowerWatts(asyncResp, chassisId);
     };
 
     redfish::chassis_utils::getValidChassisPath(asyncResp, chassisId,
