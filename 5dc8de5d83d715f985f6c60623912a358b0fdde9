@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6ccd2ec_07f34107",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000733
+      },
+      "writtenOn": "2024-05-08T23:58:38Z",
+      "side": 1,
+      "message": "After a quick test this does seem to resolve the web-UI login problems I\u0027d been seeing.",
+      "revId": "5dc8de5d83d715f985f6c60623912a358b0fdde9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
