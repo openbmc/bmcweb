@@ -18,6 +18,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ab37678_9e555b50",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001810
+      },
+      "writtenOn": "2024-05-08T17:27:25Z",
+      "side": 1,
+      "message": "Responded for review comments. Thanks",
+      "revId": "f578bb9e7136d9bca817ac2b870b1119e07d7209",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5ee9a84a_e5569930",
@@ -31,6 +48,30 @@
       "writtenOn": "2024-05-07T20:39:11Z",
       "side": 1,
       "message": "this is now just checking if the chassis is valid?\n\nWhat if you have\n\n/redfish/v1/Chassis1/Sensors/Sensor1\n/redfish/v1/Chassis2/Sensors/Sensor2\n\nWon\u0027t\n\n/redfish/v1/Chassis1/Sensors/Sensor2\n\nStill return the same result?\n\nYes, I could see this would prevent\n\n/redfish/v1/NoExist/Sensors/Sensor2\n\nfrom returning the right behavior, but shouldn\u0027t we handle both cases?\n\nPlease add the missing tests cases above to your testing.",
+      "range": {
+        "startLine": 2970,
+        "startChar": 28,
+        "endLine": 2970,
+        "endChar": 47
+      },
+      "revId": "f578bb9e7136d9bca817ac2b870b1119e07d7209",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5441a19d_cc08dfd4",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 2970,
+      "author": {
+        "id": 1001810
+      },
+      "writtenOn": "2024-05-08T17:27:25Z",
+      "side": 1,
+      "message": "Yes. It is tested for all the possible trest cases.\nfor ex: If we have /redfish/v1/Chassis1/Sensors/Sensor1 and /redfish/v1/Chassis2/Sensors/Sensors2\n\nif /redfish/v1/Chassis1/Sensors/Sensor1 is valid, then /redfish/v1/Chassis2/Sensors/Sensor1 and /redfish/v1/Chassis1/Sensors/Sensor2 are returning error. Even checked for PATCH and POST methods along with GET method.",
+      "parentUuid": "5ee9a84a_e5569930",
       "range": {
         "startLine": 2970,
         "startChar": 28,
