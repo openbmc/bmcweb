@@ -70,6 +70,7 @@ feature_map = {
   'event-subscription'                          : '-DBMCWEB_ENABLE_EVENT_SUBSCRIPTION_WEBSOCKET',
   'google-api'                                  : '-DBMCWEB_ENABLE_GOOGLE_API',
   'host-serial-socket'                          : '-DBMCWEB_ENABLE_HOST_SERIAL_WEBSOCKET',
+  'hypervisor-serial-socket'                    : '-DBMCWEB_ENABLE_HYPERVISOR_SERIAL_WEBSOCKET',
   'ibm-management-console'                      : '-DBMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE',
   'insecure-disable-auth'                       : '-DBMCWEB_INSECURE_DISABLE_AUTHX',
   'ibm-usb-code-update'                         : '-DBMCWEB_ENABLE_IBM_USB_CODE_UPDATE',

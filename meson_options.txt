@@ -411,3 +411,11 @@ option('ibm-led-extensions',
     description : '''Enable the IBM LED extensions such as lamp test and system
                      attention indicators.'''
 )
+
+option(
+      'hypervisor-serial-socket',
+      type: 'feature',
+      value: 'enabled',
+      description: '''Enable hypervisor serial console WebSocket. Path is
+                      \'/console1\'.'''
+)
