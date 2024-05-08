@@ -177,6 +177,7 @@ inline std::shared_ptr<persistent_data::UserSession>
                 }
             }
         }
+        return sessionOut;
     }
     return nullptr;
 }
