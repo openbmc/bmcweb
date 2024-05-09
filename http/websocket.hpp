@@ -95,21 +95,21 @@ class ConnectionImpl : public Connection
         ws.set_option(boost::beast::websocket::stream_base::decorator(
             [session{session},
              protocolHeader](boost::beast::websocket::response_type& m) {
-
-#ifndef BMCWEB_INSECURE_DISABLE_CSRF_PREVENTION
-            if (session != nullptr)
+            if constexpr (!BMCWEB_INSECURE_DISABLE_CSRF)
             {
-                // use protocol for csrf checking
-                if (session->cookieAuth &&
-                    !crow::utility::constantTimeStringCompare(
-                        protocolHeader, session->csrfToken))
+                if (session != nullptr)
                 {
-                    BMCWEB_LOG_ERROR("Websocket CSRF error");
-                    m.result(boost::beast::http::status::unauthorized);
-                    return;
+                    // use protocol for csrf checking
+                    if (session->cookieAuth &&
+                        !crow::utility::constantTimeStringCompare(
+                            protocolHeader, session->csrfToken))
+                    {
+                        BMCWEB_LOG_ERROR("Websocket CSRF error");
+                        m.result(boost::beast::http::status::unauthorized);
+                        return;
+                    }
                 }
             }
-#endif
             if (!protocolHeader.empty())
             {
                 m.insert(bf::sec_websocket_protocol, protocolHeader);

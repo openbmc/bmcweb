@@ -281,20 +281,21 @@ class Connection :
         keepAlive = req->keepAlive();
         if constexpr (!std::is_same_v<Adaptor, boost::beast::test::stream>)
         {
-#ifndef BMCWEB_INSECURE_DISABLE_AUTHX
-            if (!crow::authentication::isOnAllowlist(req->url().path(),
-                                                     req->method()) &&
-                req->session == nullptr)
+            if constexpr (!BMCWEB_INSECURE_DISABLE_AUTH)
             {
-                BMCWEB_LOG_WARNING("Authentication failed");
-                forward_unauthorized::sendUnauthorized(
-                    req->url().encoded_path(),
-                    req->getHeaderValue("X-Requested-With"),
-                    req->getHeaderValue("Accept"), res);
-                completeRequest(res);
-                return;
+                if (!crow::authentication::isOnAllowlist(req->url().path(),
+                                                         req->method()) &&
+                    req->session == nullptr)
+                {
+                    BMCWEB_LOG_WARNING("Authentication failed");
+                    forward_unauthorized::sendUnauthorized(
+                        req->url().encoded_path(),
+                        req->getHeaderValue("X-Requested-With"),
+                        req->getHeaderValue("Accept"), res);
+                    completeRequest(res);
+                    return;
+                }
             }
-#endif // BMCWEB_INSECURE_DISABLE_AUTHX
         }
         auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
         BMCWEB_LOG_DEBUG("Setting completion handler");
@@ -474,12 +475,13 @@ class Connection :
   private:
     uint64_t getContentLengthLimit()
     {
-#ifndef BMCWEB_INSECURE_DISABLE_AUTHX
-        if (userSession == nullptr)
+        if constexpr (!BMCWEB_INSECURE_DISABLE_AUTH)
         {
-            return loggedOutPostBodyLimit;
+            if (userSession == nullptr)
+            {
+                return loggedOutPostBodyLimit;
+            }
         }
-#endif
 
         return httpReqBodyLimit;
     }
@@ -585,11 +587,12 @@ class Connection :
 
             if constexpr (!std::is_same_v<Adaptor, boost::beast::test::stream>)
             {
-#ifndef BMCWEB_INSECURE_DISABLE_AUTHX
-                boost::beast::http::verb method = parser->get().method();
-                userSession = crow::authentication::authenticate(
-                    ip, res, method, parser->get().base(), mtlsSession);
-#endif // BMCWEB_INSECURE_DISABLE_AUTHX
+                if constexpr (!BMCWEB_INSECURE_DISABLE_AUTH)
+                {
+                    boost::beast::http::verb method = parser->get().method();
+                    userSession = crow::authentication::authenticate(
+                        ip, res, method, parser->get().base(), mtlsSession);
+                }
             }
 
             std::string_view expect =

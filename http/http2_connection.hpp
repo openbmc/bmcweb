@@ -258,31 +258,30 @@ class HTTP2Connection :
         });
         auto asyncResp =
             std::make_shared<bmcweb::AsyncResp>(std::move(it->second.res));
-#ifndef BMCWEB_INSECURE_DISABLE_AUTHX
-        thisReq.session = crow::authentication::authenticate(
-            {}, asyncResp->res, thisReq.method(), thisReq.req, nullptr);
-        if (!crow::authentication::isOnAllowlist(thisReq.url().path(),
-                                                 thisReq.method()) &&
-            thisReq.session == nullptr)
+        if constexpr (!BMCWEB_INSECURE_DISABLE_AUTH)
         {
-            BMCWEB_LOG_WARNING("Authentication failed");
-            forward_unauthorized::sendUnauthorized(
-                thisReq.url().encoded_path(),
-                thisReq.getHeaderValue("X-Requested-With"),
-                thisReq.getHeaderValue("Accept"), asyncResp->res);
-        }
-        else
-#endif // BMCWEB_INSECURE_DISABLE_AUTHX
-        {
-            std::string_view expected = thisReq.getHeaderValue(
-                boost::beast::http::field::if_none_match);
-            BMCWEB_LOG_DEBUG("Setting expected hash {}", expected);
-            if (!expected.empty())
+            thisReq.session = crow::authentication::authenticate(
+                {}, asyncResp->res, thisReq.method(), thisReq.req, nullptr);
+            if (!crow::authentication::isOnAllowlist(thisReq.url().path(),
+                                                     thisReq.method()) &&
+                thisReq.session == nullptr)
             {
-                asyncResp->res.setExpectedHash(expected);
+                BMCWEB_LOG_WARNING("Authentication failed");
+                forward_unauthorized::sendUnauthorized(
+                    thisReq.url().encoded_path(),
+                    thisReq.getHeaderValue("X-Requested-With"),
+                    thisReq.getHeaderValue("Accept"), asyncResp->res);
+                return 0;
             }
-            handler->handle(it->second.req, asyncResp);
         }
+        std::string_view expected =
+            thisReq.getHeaderValue(boost::beast::http::field::if_none_match);
+        BMCWEB_LOG_DEBUG("Setting expected hash {}", expected);
+        if (!expected.empty())
+        {
+            asyncResp->res.setExpectedHash(expected);
+        }
+        handler->handle(it->second.req, asyncResp);
         return 0;
     }
 
