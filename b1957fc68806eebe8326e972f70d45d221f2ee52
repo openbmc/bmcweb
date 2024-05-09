@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1661c0b9_60c04cb5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-09T20:44:35Z",
+      "side": 1,
+      "message": "Another small tweak for static analysis tools :/ \nI am okay with it",
+      "revId": "b1957fc68806eebe8326e972f70d45d221f2ee52",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
