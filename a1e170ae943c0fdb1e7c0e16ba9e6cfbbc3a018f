@@ -22,6 +22,30 @@
       },
       "revId": "a1e170ae943c0fdb1e7c0e16ba9e6cfbbc3a018f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de9e491f_67463485",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-09T03:38:02Z",
+      "side": 1,
+      "message": "Refactored the lambda into a function.",
+      "parentUuid": "92755e4b_78b7ba99",
+      "range": {
+        "startLine": 88,
+        "startChar": 8,
+        "endLine": 188,
+        "endChar": 4
+      },
+      "revId": "a1e170ae943c0fdb1e7c0e16ba9e6cfbbc3a018f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
