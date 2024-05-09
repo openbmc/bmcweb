@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7ee1d7a_66ef048b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-09T03:37:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "815ccb92_57dd68c0",
+      "revId": "1b23acd95dd5174f96bb1ad1b0d65e496cecb10e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6d9467ec_4a7c0eb0",
@@ -41,6 +59,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "34d9a944_856fd250",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-09T03:37:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d9467ec_4a7c0eb0",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 2
+      },
+      "revId": "1b23acd95dd5174f96bb1ad1b0d65e496cecb10e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6be34f70_188527f0",
@@ -54,6 +96,24 @@
       "writtenOn": "2024-05-01T16:28:06Z",
       "side": 1,
       "message": "include memory and vector since you are using below",
+      "revId": "1b23acd95dd5174f96bb1ad1b0d65e496cecb10e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6866b96f_ee4b5645",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-09T03:37:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6be34f70_188527f0",
       "revId": "1b23acd95dd5174f96bb1ad1b0d65e496cecb10e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -105,6 +165,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "60a7a5c6_3aad2cfc",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 666,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-09T03:37:43Z",
+      "side": 1,
+      "message": "Added reference for uploadData as mentioned in other comment.\n\nChanged to use of std::vector\u003cboost::urls::url\u003e.",
+      "parentUuid": "52f018f2_0333e7bb",
+      "range": {
+        "startLine": 666,
+        "startChar": 7,
+        "endLine": 666,
+        "endChar": 12
+      },
+      "revId": "1b23acd95dd5174f96bb1ad1b0d65e496cecb10e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8bbdd57f_d22d536f",
@@ -118,6 +202,30 @@
       "writtenOn": "2024-04-30T02:40:59Z",
       "side": 1,
       "message": "We generally would pass out parameters by std::string\u0026",
+      "range": {
+        "startLine": 669,
+        "startChar": 4,
+        "endLine": 669,
+        "endChar": 34
+      },
+      "revId": "1b23acd95dd5174f96bb1ad1b0d65e496cecb10e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5ae0402_0a0a8984",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-09T03:37:43Z",
+      "side": 1,
+      "message": "Want to avoid the deep copy of the content. I have changed this to const std::string*\u0026 uploadData.",
+      "parentUuid": "8bbdd57f_d22d536f",
       "range": {
         "startLine": 669,
         "startChar": 4,
@@ -145,6 +253,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e717b37_6af6bd44",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 733,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-09T03:37:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ebbb67be_8a4ddef5",
+      "revId": "1b23acd95dd5174f96bb1ad1b0d65e496cecb10e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "12e4eeba_71f7dac1",
@@ -158,6 +284,24 @@
       "writtenOn": "2024-04-30T05:07:09Z",
       "side": 1,
       "message": "Same as line 733",
+      "revId": "1b23acd95dd5174f96bb1ad1b0d65e496cecb10e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c46efadd_9cd371e1",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-09T03:37:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12e4eeba_71f7dac1",
       "revId": "1b23acd95dd5174f96bb1ad1b0d65e496cecb10e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
