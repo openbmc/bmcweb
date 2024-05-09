@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f92a3f2_05e28ab5",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1747,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-09T20:49:02Z",
+      "side": 1,
+      "message": "why not params.roleId?",
+      "range": {
+        "startLine": 1747,
+        "startChar": 44,
+        "endLine": 1747,
+        "endChar": 54
+      },
+      "revId": "82f22196a9ec65fe9514b2b59f4b26758e5d3abe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdd0ae8c_cd7ba7e9",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1747,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-09T20:49:02Z",
+      "side": 1,
+      "message": "params.enabled?",
+      "range": {
+        "startLine": 1747,
+        "startChar": 67,
+        "endLine": 1747,
+        "endChar": 78
+      },
+      "revId": "82f22196a9ec65fe9514b2b59f4b26758e5d3abe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
