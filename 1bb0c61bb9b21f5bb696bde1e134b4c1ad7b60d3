@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c330761b_c9863cac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-09T20:37:43Z",
+      "side": 1,
+      "message": "I am okay with this for a couple of reasons:\n1) I don\u0027t think this optimization could make a measurable difference \n2) This is the D-Bus rest API which isn\u0027t used much anymore \n3) I am okay with slight tweaks to please the static analysis tools \n\nIt has been open for a few days, but maybe wait until the end of the week to see if anyone objects",
+      "revId": "1bb0c61bb9b21f5bb696bde1e134b4c1ad7b60d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
