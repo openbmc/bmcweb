@@ -43,14 +43,15 @@
           <Annotation Term="OData.Description" String="Reset the PCIe Link"/>
           <Annotation Term="OData.LongDescription" String="A true value resets the PCIe Link."/>
         </Property>
+      </ComplexType>
 
-        <Property Name="PCIeSlot" Type="OemPCIeDevice.IBM">
+      <ComplexType Name="PCIeLinks" BaseType="Resource.OemObject">
+        <Property Name="PCIeSlot" Type="Resource.Resource">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="PCIe Slot Link"/>
           <Annotation Term="OData.LongDescription" String="Represent PCIe Slot Link which has all PCIe device list."/>
         </Property>
       </ComplexType>
-
     </Schema>
 
   </edmx:DataServices>
