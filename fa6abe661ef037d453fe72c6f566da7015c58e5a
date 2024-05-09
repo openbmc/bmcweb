@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06d09f10_b2363823",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-09T20:43:11Z",
+      "side": 1,
+      "message": "We are in a tricky spot with PCIe Slots. \nThere is a commit up to remove them https://gerrit.openbmc.org/c/openbmc/bmcweb/+/71057\n\nRedfish moved away from this schema and pcie slot part of pcie device",
+      "revId": "fa6abe661ef037d453fe72c6f566da7015c58e5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89636c94_4d58eb56",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-09T20:43:11Z",
+      "side": 1,
+      "message": "Isn\u0027t this just location codes? What is going on here? The commit msg says \"Bmcweb: Add PcieSlots Location Code\". PCIeSlot Location codes is all I would expect",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 71
+      },
+      "revId": "fa6abe661ef037d453fe72c6f566da7015c58e5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3f125c9_08e96e0c",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-09T20:43:11Z",
+      "side": 1,
+      "message": "How is this tied to pcie slot locaiton code?",
+      "revId": "fa6abe661ef037d453fe72c6f566da7015c58e5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f584ccf_ce95ba81",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-09T20:43:11Z",
+      "side": 1,
+      "message": "This seems like a separate commit",
+      "revId": "fa6abe661ef037d453fe72c6f566da7015c58e5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39bf0ae5_7ccd8c54",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-09T20:43:11Z",
+      "side": 1,
+      "message": "This is the code I would expect in this commit.",
+      "revId": "fa6abe661ef037d453fe72c6f566da7015c58e5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f7c563e_b4616e50",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-09T20:43:11Z",
+      "side": 1,
+      "message": "What if the slot doesn\u0027t have the interface?",
+      "revId": "fa6abe661ef037d453fe72c6f566da7015c58e5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
