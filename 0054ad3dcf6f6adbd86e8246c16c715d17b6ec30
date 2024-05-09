@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d02bdd5e_0bb38d07",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-09T04:39:31Z",
+      "side": 1,
+      "message": "I\u0027m pretty sure this url constructor throws on invalid urls?  Because we\u0027re dealing with user data here, I think we want one of the parse_* variants?\n\nhttps://www.boost.org/doc/libs/1_85_0/libs/url/doc/html/url/urls/parsing.html",
+      "range": {
+        "startLine": 725,
+        "startChar": 41,
+        "endLine": 725,
+        "endChar": 57
+      },
+      "revId": "0054ad3dcf6f6adbd86e8246c16c715d17b6ec30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
