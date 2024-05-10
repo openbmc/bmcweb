@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31253ec0_9d3fe926",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-10T22:34:53Z",
+      "side": 1,
+      "message": "keeping this as a std::move was important to not make a copy of a large block of memory (which we\u0027ve done before with bad results).\n\nTo fix the warning (which was correct) we should pass in the Parser by rvalue ref (Parser\u0026\u0026), and remove the const from the loop on line 708",
+      "range": {
+        "startLine": 785,
+        "startChar": 0,
+        "endLine": 785,
+        "endChar": 55
+      },
+      "revId": "325e226ec9820e01778c57055798951ec8cd8c9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
