@@ -281,6 +281,24 @@
       "parentUuid": "3f7c563e_b4616e50",
       "revId": "fa6abe661ef037d453fe72c6f566da7015c58e5a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67809c0f_7c2a6ad4",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-10T14:24:28Z",
+      "side": 1,
+      "message": "But not all slots will have this interface.. Even if all our slots have this interface, other company\u0027s slots might not.\n\nCan you do a EBADR chcek, like line 154?\n\n        if (ec1)\n        {\n            if (ec1.value() \u003d\u003d EBADR)\n            {\n                // This PCIeSlot doesn\u0027t have a LocationCode interface \n                return;\n            }",
+      "parentUuid": "7590354a_e2454822",
+      "revId": "fa6abe661ef037d453fe72c6f566da7015c58e5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
