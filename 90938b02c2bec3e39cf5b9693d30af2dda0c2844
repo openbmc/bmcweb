@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "535d99b4_e8da0a16",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-10T22:18:31Z",
+      "side": 1,
+      "message": "Remove the const here instead of removing the std::move below.  We still want a move.",
+      "range": {
+        "startLine": 191,
+        "startChar": 23,
+        "endLine": 191,
+        "endChar": 28
+      },
+      "revId": "90938b02c2bec3e39cf5b9693d30af2dda0c2844",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
