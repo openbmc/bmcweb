@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "587ceaf7_c2ad8c9e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-05-10T13:49:40Z",
+      "side": 1,
+      "message": "Besides the direction of the PCIeSlot removal, the code looks good to me.",
+      "revId": "c198e09f813720ce569dd9bef9f4140e7308f82a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
