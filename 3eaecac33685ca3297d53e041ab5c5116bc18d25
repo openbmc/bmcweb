@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4a0eb03c_c685e052",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-10T00:46:18Z",
+      "side": 0,
+      "message": "how did this build before when BMCWEB_INSECURE_DISABLE_AUTHX \u003d\u003d false?",
+      "revId": "3eaecac33685ca3297d53e041ab5c5116bc18d25",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a001b63a_fd329dc2",
         "filename": "http/http_connection.hpp",
         "patchSetId": 2
@@ -32,6 +49,24 @@
       "side": 0,
       "message": "Done",
       "parentUuid": "a001b63a_fd329dc2",
+      "revId": "3eaecac33685ca3297d53e041ab5c5116bc18d25",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17db90d6_99668986",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-10T00:46:18Z",
+      "side": 0,
+      "message": "Ack.",
+      "parentUuid": "d086f301_6404af0b",
       "revId": "3eaecac33685ca3297d53e041ab5c5116bc18d25",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
