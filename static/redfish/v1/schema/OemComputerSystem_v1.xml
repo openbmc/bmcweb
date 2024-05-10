@@ -26,43 +26,6 @@
                 <Property Name="IBM" Type="OemComputerSystem.IBM"/>
             </ComplexType>
 
-            <ComplexType Name="IBM" BaseType="Resource.OemObject">
-                <Annotation Term="Redfish.OwningEntity" String="IBM"/>
-                <Annotation Term="OData.AdditionalProperties" Bool="true" />
-                <Annotation Term="OData.Description" String="Oem properties for IBM." />
-                <Annotation Term="OData.AutoExpand"/>
-                <Property Name="LampTest" Type="Edm.Boolean">
-                    <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-                    <Annotation Term="OData.Description" String="An indicator allowing an operator to run LED lamp test."/>
-                    <Annotation Term="OData.LongDescription" String="This property shall contain the state of lamp state function for this resource."/>
-                </Property>
-                <Property Name="PartitionSystemAttentionIndicator" Type="Edm.Boolean">
-                    <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-                    <Annotation Term="OData.Description" String="An indicator allowing an operator to operate partition system attention."/>
-                    <Annotation Term="OData.LongDescription" String="This property shall contain the state of the partition system attention of this resource."/>
-                </Property>
-                <Property Name="PlatformSystemAttentionIndicator" Type="Edm.Boolean">
-                    <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-                    <Annotation Term="OData.Description" String="An indicator allowing an operator to operate platform system attention."/>
-                    <Annotation Term="OData.LongDescription" String="This property shall contain the state of the platform system attention of this resource."/>
-                </Property>
-                <Property Name="PCIeTopologyRefresh" Type="Edm.Boolean">
-                  <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-                  <Annotation Term="OData.Description" String="An indication of topology information is ready."/>
-                  <Annotation Term="OData.LongDescription" String="This property when set to 'true' refreshes the topology information. The application which uses this should set it to 'false' when a refresh occurs."/>
-                </Property>
-                <Property Name="SavePCIeTopologyInfo" Type="Edm.Boolean">
-                  <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-                  <Annotation Term="OData.Description" String="An indication of PEL topology information is saved."/>
-                  <Annotation Term="OData.LongDescription" String="This property when set to 'true' saves the topology information. The information is saved in the form of a PEL(Error Log)."/>
-                </Property>
-                <Property Name="EnabledPanelFunctions" Type="OemComputerSystem.IBM">
-                  <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-                  <Annotation Term="OData.Description" String="List of enabled panel functions."/>
-                  <Annotation Term="OData.LongDescription" String="This property shall contain the list of enabled panel functions."/>
-                </Property>
-            </ComplexType>
-
             <ComplexType Name="OpenBmc" BaseType="Resource.OemObject">
                 <Annotation Term="OData.AdditionalProperties" Bool="true" />
                 <Annotation Term="OData.Description" String="Oem properties for OpenBmc." />
@@ -101,8 +64,70 @@
                     <Annotation Term="OData.LongDescription" String="Platform firmware is provisioned and locked. So re-provisioning is not allowed in this state."/>
                 </Member>
             </EnumType>
+
+            <ComplexType Name="IBM" BaseType="Resource.OemObject">
+                <Annotation Term="Redfish.OwningEntity" String="IBM"/>
+                <Annotation Term="OData.AdditionalProperties" Bool="true" />
+                <Annotation Term="OData.Description" String="Oem properties for IBM." />
+                <Annotation Term="OData.AutoExpand"/>
+                <Property Name="LampTest" Type="Edm.Boolean">
+                    <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+                    <Annotation Term="OData.Description" String="An indicator allowing an operator to run LED lamp test."/>
+                    <Annotation Term="OData.LongDescription" String="This property shall contain the state of lamp state function for this resource."/>
+                </Property>
+                <Property Name="PartitionSystemAttentionIndicator" Type="Edm.Boolean">
+                    <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+                    <Annotation Term="OData.Description" String="An indicator allowing an operator to operate partition system attention."/>
+                    <Annotation Term="OData.LongDescription" String="This property shall contain the state of the partition system attention of this resource."/>
+                </Property>
+                <Property Name="PlatformSystemAttentionIndicator" Type="Edm.Boolean">
+                    <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+                    <Annotation Term="OData.Description" String="An indicator allowing an operator to operate platform system attention."/>
+                    <Annotation Term="OData.LongDescription" String="This property shall contain the state of the platform system attention of this resource."/>
+                </Property>
+                <Property Name="PCIeTopologyRefresh" Type="Edm.Boolean">
+                  <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+                  <Annotation Term="OData.Description" String="An indication of topology information is ready."/>
+                  <Annotation Term="OData.LongDescription" String="This property when set to 'true' refreshes the topology information. The application which uses this should set it to 'false' when a refresh occurs."/>
+                </Property>
+                <Property Name="SavePCIeTopologyInfo" Type="Edm.Boolean">
+                  <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+                  <Annotation Term="OData.Description" String="An indication of PEL topology information is saves."/>
+                  <Annotation Term="OData.LongDescription" String="This property when set to 'true' saves the topology information. The information is saved in the form of a PEL(Error Log)."/>
+                </Property>
+            </ComplexType>
         </Schema>
+
         <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OemComputerSystem.v1_0_0">
+            <ComplexType Name="IBM" BaseType="OemComputerSystem.IBM">
+                <Property Name="EnabledPanelFunctions" Type="Collection(Edm.Int64)">
+                  <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+                  <Annotation Term="OData.Description" String="List of enabled panel functions."/>
+                  <Annotation Term="OData.LongDescription" String="This property shall contain the list of enabled panel functions."/>
+                </Property>
+                <Property Name="ChapData" Type="OemComputerSystem.v1_0_0.ChapData">
+                  <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+                  <Annotation Term="OData.Description" String="ChapData details to Host."/>
+                  <Annotation Term="OData.LongDescription" String="This property shall contain ChapData."/>
+                </Property>
+            </ComplexType>
+
+            <ComplexType Name="ChapData" BaseType="Resource.OemObject">
+                <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+                <Annotation Term="OData.Description" String="ChapData details to Host."/>
+                <Annotation Term="OData.LongDescription" String="This type shall contain ChapData."/>
+                <Property Name="ChapName" Type="Edm.String">
+                  <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+                  <Annotation Term="OData.Description" String="A user selected name associated with each of the chap secret password."/>
+                  <Annotation Term="OData.LongDescription" String="This property shall contain ChapName that is a user selected name associated with each of the chap secret password."/>
+                </Property>
+                <Property Name="ChapSecret" Type="Edm.String">
+                  <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+                  <Annotation Term="OData.Description" String="An encrypted secret password transferred to the Host for the respective ChapName."/>
+                  <Annotation Term="OData.LongDescription" String="This property shall contain ChapSecret that is an encrypted secret password transferred to the Host for the respective ChapName."/>
+                </Property>
+            </ComplexType>
+
             <Action Name="ExecutePanelFunction" IsBound="true">
                 <Annotation Term="OData.Description" String="This action executes a panel function."/>
                 <Annotation Term="OData.LongDescription" String="This action executes a panel function if the function is enabled."/>

@@ -2257,6 +2257,87 @@ inline void requestRoutesSystemActionsOemExecutePanelFunction(App& app)
             handleSystemActionsOemExecutePanelFunctionPost, std::ref(app)));
 }
 
+/*
+ * Get ChapData
+ */
+inline void getChapData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    BMCWEB_LOG_DEBUG("Get ChapData");
+    sdbusplus::asio::getAllProperties(
+        *crow::connections::systemBus, "xyz.openbmc_project.PLDM",
+        "/xyz/openbmc_project/pldm", "com.ibm.PLDM.ChapData",
+        [asyncResp](const boost::system::error_code ec,
+                    const dbus::utility::DBusPropertiesMap& propertiesList) {
+        if (ec)
+        {
+            if (ec.value() != EBADR)
+            {
+                BMCWEB_LOG_ERROR("Get ChapData D-bus error: {}", ec.value());
+                messages::internalError(asyncResp->res);
+            }
+            return;
+        }
+
+        const std::string* chapName = nullptr;
+        const std::string* chapSecret = nullptr;
+        const bool success = sdbusplus::unpackPropertiesNoThrow(
+            dbus_utils::UnpackErrorPrinter(), propertiesList, "ChapName",
+            chapName, "ChapSecret", chapSecret);
+
+        if (!success)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        nlohmann::json& oemIBM = asyncResp->res.jsonValue["Oem"]["IBM"];
+        oemIBM["@odata.type"] = "#OemComputerSystem.IBM";
+
+        nlohmann::json& chapData = oemIBM["ChapData"];
+        chapData["ChapName"] = *chapName;
+        chapData["ChapSecret"] = *chapSecret;
+    });
+}
+
+/*
+ * Set ChapData
+ */
+inline void setChapData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        std::optional<std::string> chapName,
+                        std::optional<std::string> chapSecret)
+{
+    BMCWEB_LOG_DEBUG("Set ChapData");
+    if (chapName)
+    {
+        sdbusplus::asio::setProperty(
+            *crow::connections::systemBus, "xyz.openbmc_project.PLDM",
+            "/xyz/openbmc_project/pldm", "com.ibm.PLDM.ChapData", "ChapName",
+            *chapName, [asyncResp](const boost::system::error_code& ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("DBUS response error: {}", ec.value());
+                messages::internalError(asyncResp->res);
+                return;
+            }
+        });
+    }
+
+    if (chapSecret)
+    {
+        sdbusplus::asio::setProperty(
+            *crow::connections::systemBus, "xyz.openbmc_project.PLDM",
+            "/xyz/openbmc_project/pldm", "com.ibm.PLDM.ChapData", "ChapSecret",
+            *chapSecret, [asyncResp](const boost::system::error_code& ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("DBUS response error: {}", ec.value());
+                messages::internalError(asyncResp->res);
+                return;
+            }
+        });
+    }
+}
+
 /**
  * @brief Sets Idle Power Saver properties.
  *
@@ -2852,6 +2933,9 @@ inline void
     nlohmann::json& actionOem = asyncResp->res.jsonValue["Actions"]["Oem"];
     actionOem["#OemComputerSystem.v1_0_0.ExecutePanelFunction"]["target"] =
         "/redfish/v1/Systems/system/Actions/Oem/OemComputerSystem.ExecutePanelFunction";
+
+    // ChapData
+    getChapData(asyncResp);
 }
 
 inline void handleComputerSystemPatch(
@@ -2998,12 +3082,16 @@ inline void handleComputerSystemPatch(
             std::optional<bool> platformSAI;
             std::optional<bool> pcieTopologyRefresh;
             std::optional<bool> savePCIeTopologyInfo;
+            std::optional<std::string> chapName;
+            std::optional<std::string> chapSecret;
             if (!json_util::readJson(
                     *ibmOem, asyncResp->res, "LampTest", lampTest,
                     "PartitionSystemAttentionIndicator", partitionSAI,
                     "PlatformSystemAttentionIndicator", platformSAI,
                     "PCIeTopologyRefresh", pcieTopologyRefresh,
-                    "SavePCIeTopologyInfo", savePCIeTopologyInfo))
+                    "SavePCIeTopologyInfo", savePCIeTopologyInfo,
+                    "ChapData/ChapName", chapName, "ChapData/ChapSecret",
+                    chapSecret))
             {
                 return;
             }
@@ -3024,10 +3112,13 @@ inline void handleComputerSystemPatch(
 #else
             std::optional<bool> pcieTopologyRefresh;
             std::optional<bool> savePCIeTopologyInfo;
-            if (!json_util::readJson(*ibmOem, asyncResp->res,
-                                     "PCIeTopologyRefresh", pcieTopologyRefresh,
-                                     "SavePCIeTopologyInfo",
-                                     savePCIeTopologyInfo))
+            std::optional<std::string> chapName;
+            std::optional<std::string> chapSecret;
+            if (!json_util::readJson(
+                    *ibmOem, asyncResp->res, "PCIeTopologyRefresh",
+                    pcieTopologyRefresh, "SavePCIeTopologyInfo",
+                    savePCIeTopologyInfo, "ChapData/ChapName", chapName,
+                    "ChapData/ChapSecret", chapSecret))
             {
                 return;
             }
@@ -3039,6 +3130,10 @@ inline void handleComputerSystemPatch(
             if (savePCIeTopologyInfo)
             {
                 setSavePCIeTopologyInfo(asyncResp, *savePCIeTopologyInfo);
+            }
+            if (chapName || chapSecret)
+            {
+                setChapData(asyncResp, chapName, chapSecret);
             }
         }
     }
