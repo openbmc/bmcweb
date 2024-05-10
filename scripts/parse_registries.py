@@ -171,6 +171,27 @@ def get_variable_name_for_privilege_set(privilege_list):
     return "Or".join(names)
 
 
+def create_Subordinate_Overrides(target_list):
+    target_list_create = []
+    target_list_copy = target_list.copy()
+    target_list_create.append([target_list[0]])
+    targetLength = len(target_list)
+    for i in range(targetLength):
+        # remove firs element
+        # it already get covered
+        target_list_copy.pop(0)
+        target_temp = []
+        for j in range(i + 1):
+            if not (j > 0 and j == (targetLength - 1)):
+                target_temp.append(target_list[j])
+        if target_list_copy:
+            for target_end in target_list_copy:
+                target_temp_copy = target_temp.copy()
+                target_temp_copy.append(target_end)
+                target_list_create.append(target_temp_copy)
+    return target_list_create
+
+
 PRIVILEGE_HEADER = (
     PRAGMA_ONCE
     + WARNING
@@ -229,6 +250,37 @@ def make_privilege_registry():
                     )
                 )
             registry.write("\n")
+            if "SubordinateOverrides" in mapping:
+                for subordinateOverrides in mapping["SubordinateOverrides"]:
+                    target_list_list = create_Subordinate_Overrides(
+                        subordinateOverrides["Targets"]
+                    )
+                    for target_list in target_list_list:
+                        concateVarName = ""
+                        registry.write("// Subordinate override for ")
+                        for target in target_list:
+                            registry.write(target + " -> ")
+                            concateVarName += target
+                        registry.write(entity)
+                        registry.write("\n")
+                        for operation, privilege_list in subordinateOverrides[
+                            "OperationMap"
+                        ].items():
+                            privilege_string = get_privilege_string_from_list(
+                                privilege_list
+                            )
+                            operation = operation.lower()
+                            registry.write(
+                                "const static auto& {}{}SubOver{} ="
+                                "privilegeSet{};\n".format(
+                                    operation,
+                                    entity,
+                                    concateVarName,
+                                    privilege_dict[privilege_string][1],
+                                )
+                            )
+                        registry.write("\n")
+                registry.write("\n")
         registry.write(
             "} // namespace redfish::privileges\n// clang-format on\n"
         )
