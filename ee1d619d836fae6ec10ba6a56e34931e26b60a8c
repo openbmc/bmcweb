@@ -16,6 +16,24 @@
       "message": "Something weird with Jenkins as it aborted the build because of new patch but didn\u0027t start the build again. Not sure how to trigger the build now?",
       "revId": "ee1d619d836fae6ec10ba6a56e34931e26b60a8c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98c61754_b58c7714",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-10T22:36:37Z",
+      "side": 1,
+      "message": "Give it a moment.  Looks like the last build hasn\u0027t finished aborting yet.  I suspect once it has actually aborted, it will kick off the new one.  If not, I can kick it off manually.",
+      "parentUuid": "1bb2cf57_882b3a3f",
+      "revId": "ee1d619d836fae6ec10ba6a56e34931e26b60a8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
