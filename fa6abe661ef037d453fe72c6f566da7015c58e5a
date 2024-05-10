@@ -65,6 +65,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3be9555b_6ef0e892",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-10T14:21:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7709d4d1_1094c819",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 71
+      },
+      "revId": "fa6abe661ef037d453fe72c6f566da7015c58e5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c3f125c9_08e96e0c",
@@ -96,6 +120,24 @@
       "side": 1,
       "message": "not required. mistakenly got it while rebasing.",
       "parentUuid": "c3f125c9_08e96e0c",
+      "revId": "fa6abe661ef037d453fe72c6f566da7015c58e5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da55c813_7689f1cc",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-10T14:21:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f118e7d_6907f809",
       "revId": "fa6abe661ef037d453fe72c6f566da7015c58e5a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -135,6 +177,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba158da9_f6a5d182",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-10T14:21:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6705667_6b6611d3",
+      "revId": "fa6abe661ef037d453fe72c6f566da7015c58e5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "39bf0ae5_7ccd8c54",
@@ -166,6 +226,24 @@
       "side": 1,
       "message": "Right , this is the actual change with this commit.",
       "parentUuid": "39bf0ae5_7ccd8c54",
+      "revId": "fa6abe661ef037d453fe72c6f566da7015c58e5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72927e0e_5cb76337",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-10T14:21:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d64848d9_dff021e2",
       "revId": "fa6abe661ef037d453fe72c6f566da7015c58e5a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
