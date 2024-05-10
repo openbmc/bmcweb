@@ -34,6 +34,24 @@
       "parentUuid": "1bb2cf57_882b3a3f",
       "revId": "ee1d619d836fae6ec10ba6a56e34931e26b60a8c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e22cfdcc_691f42a0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-10T22:46:04Z",
+      "side": 1,
+      "message": "Also keep in mind, you can always run CI locally before you push if waiting on it is taking too long for you.",
+      "parentUuid": "98c61754_b58c7714",
+      "revId": "ee1d619d836fae6ec10ba6a56e34931e26b60a8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
