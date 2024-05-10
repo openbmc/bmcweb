@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bb2cf57_882b3a3f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-10T22:32:20Z",
+      "side": 1,
+      "message": "Something weird with Jenkins as it aborted the build because of new patch but didn\u0027t start the build again. Not sure how to trigger the build now?",
+      "revId": "ee1d619d836fae6ec10ba6a56e34931e26b60a8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
