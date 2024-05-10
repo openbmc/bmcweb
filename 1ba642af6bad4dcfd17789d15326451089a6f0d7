@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "401c6df5_46e8208d",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 996,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-10T23:36:45Z",
+      "side": 1,
+      "message": "this got moved into updateMultipartContext, I\u0027m assuming you didn\u0027t mean to add it back here.",
+      "range": {
+        "startLine": 996,
+        "startChar": 0,
+        "endLine": 996,
+        "endChar": 55
+      },
+      "revId": "1ba642af6bad4dcfd17789d15326451089a6f0d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
