@@ -153,7 +153,7 @@ inline std::shared_ptr<persistent_data::UserSession>
         }
         sessionOut->cookieAuth = true;
 
-        if constexpr (BMCWEB_INSECURE_DISABLE_CSRF)
+        if constexpr (!BMCWEB_INSECURE_DISABLE_CSRF)
         {
             // RFC7231 defines methods that need csrf protection
             if (method != boost::beast::http::verb::get)
