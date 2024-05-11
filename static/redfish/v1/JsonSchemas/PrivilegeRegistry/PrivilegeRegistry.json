@@ -1,0 +1,343 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/PrivilegeRegistry.v1_1_4.json",
+    "$ref": "#/definitions/PrivilegeRegistry",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this Resource.",
+            "longDescription": "This type shall contain the available actions for this Resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this Resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource.",
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
+        },
+        "Mapping": {
+            "additionalProperties": false,
+            "description": "The mapping between a Resource type and the relevant privileges that accesses the Resource.",
+            "longDescription": "This type shall describe a mapping between a Resource type and the relevant privileges that accesses the Resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Entity": {
+                    "description": "The Resource name, such as `Manager`.",
+                    "longDescription": "This property shall contain the Resource name, such as `Manager`.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "OperationMap": {
+                    "$ref": "#/definitions/OperationMap",
+                    "description": "List mapping between HTTP methods and privilege required for the Resource.",
+                    "longDescription": "This property shall list the mapping between HTTP methods and the privilege required for the Resource."
+                },
+                "PropertyOverrides": {
+                    "description": "The privilege overrides of properties within a Resource.",
+                    "items": {
+                        "$ref": "#/definitions/Target_PrivilegeMap"
+                    },
+                    "longDescription": "This property shall contain the privilege overrides of properties, such as the `Password` property in the `ManagerAccount` Resource.",
+                    "type": "array"
+                },
+                "ResourceURIOverrides": {
+                    "description": "The privilege overrides of Resource URIs.",
+                    "items": {
+                        "$ref": "#/definitions/Target_PrivilegeMap"
+                    },
+                    "longDescription": "This property shall contain the privilege overrides of Resource URIs.  The target lists the Resource URI and the new privileges.",
+                    "type": "array"
+                },
+                "SubordinateOverrides": {
+                    "description": "The privilege overrides of the subordinate Resource.",
+                    "items": {
+                        "$ref": "#/definitions/Target_PrivilegeMap"
+                    },
+                    "longDescription": "This property shall contain the privilege overrides of the subordinate Resource.  The target lists are identified by Resource type.",
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this Resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "OperationMap": {
+            "additionalProperties": false,
+            "description": "The specific privileges required to complete a set of HTTP operations.",
+            "longDescription": "This type shall describe the specific privileges required to complete a set of HTTP operations.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "DELETE": {
+                    "description": "The privilege required to complete an HTTP DELETE operation.",
+                    "items": {
+                        "$ref": "#/definitions/OperationPrivilege"
+                    },
+                    "longDescription": "This property shall contain the privilege required to complete an HTTP DELETE operation.",
+                    "type": "array"
+                },
+                "GET": {
+                    "description": "The privilege required to complete an HTTP GET operation.",
+                    "items": {
+                        "$ref": "#/definitions/OperationPrivilege"
+                    },
+                    "longDescription": "This property shall contain the privilege required to complete an HTTP GET operation.",
+                    "type": "array"
+                },
+                "HEAD": {
+                    "description": "The privilege required to complete an HTTP HEAD operation.",
+                    "items": {
+                        "$ref": "#/definitions/OperationPrivilege"
+                    },
+                    "longDescription": "This property shall contain the privilege required to complete an HTTP HEAD operation.",
+                    "type": "array"
+                },
+                "PATCH": {
+                    "description": "The privilege required to complete an HTTP PATCH operation.",
+                    "items": {
+                        "$ref": "#/definitions/OperationPrivilege"
+                    },
+                    "longDescription": "This property shall contain the privilege required to complete an HTTP PATCH operation.",
+                    "type": "array"
+                },
+                "POST": {
+                    "description": "The privilege required to complete an HTTP POST operation.",
+                    "items": {
+                        "$ref": "#/definitions/OperationPrivilege"
+                    },
+                    "longDescription": "This property shall contain the privilege required to complete an HTTP POST operation.",
+                    "type": "array"
+                },
+                "PUT": {
+                    "description": "The privilege required to complete an HTTP PUT operation.",
+                    "items": {
+                        "$ref": "#/definitions/OperationPrivilege"
+                    },
+                    "longDescription": "This property shall contain the privilege required to complete an HTTP PUT operation.",
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        },
+        "OperationPrivilege": {
+            "additionalProperties": false,
+            "description": "The privileges for a specific HTTP operation.",
+            "longDescription": "This type shall describe the privileges required to complete a specific HTTP operation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Privilege": {
+                    "description": "An array of privileges that are required to complete a specific HTTP operation on a Resource.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "longDescription": "This array shall contain an array of privileges that are required to complete a specific HTTP operation on a Resource.  This set of strings match zero or more strings in the PrivilegesUsed and OEMPrivilegesUsed properties.",
+                    "readonly": true,
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        },
+        "PrivilegeRegistry": {
+            "additionalProperties": false,
+            "description": "The PrivilegeRegistry schema describes the operation-to-privilege mappings.",
+            "longDescription": "This Resource contains operation-to-privilege mappings.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this Resource.",
+                    "longDescription": "This property shall contain the available actions for this Resource.",
+                    "versionAdded": "v1_1_0"
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Mappings": {
+                    "description": "The mappings between entities and the relevant privileges that access those entities.",
+                    "items": {
+                        "$ref": "#/definitions/Mapping"
+                    },
+                    "longDescription": "This property shall describe the mappings between entities and the relevant privileges that access those entities.",
+                    "type": "array"
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "OEMPrivilegesUsed": {
+                    "description": "The set of OEM privileges used in this mapping.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "longDescription": "This property shall contain an array of OEM privileges used in this mapping.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "PrivilegesUsed": {
+                    "description": "The set of Redfish standard privileges used in this mapping.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Privileges.json#/definitions/PrivilegeType"
+                    },
+                    "longDescription": "This property shall contain an array of Redfish standard privileges used in this mapping.",
+                    "readonly": true,
+                    "type": "array"
+                }
+            },
+            "required": [
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "Target_PrivilegeMap": {
+            "additionalProperties": false,
+            "description": "This type describes a mapping between one or more targets and the HTTP operations associated with them.",
+            "longDescription": "This type shall describe a mapping between one or more targets and the HTTP operations associated with them.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "OperationMap": {
+                    "$ref": "#/definitions/OperationMap",
+                    "description": "The mapping between the HTTP operation and the privilege required to complete the operation.",
+                    "longDescription": "This property shall contain the mapping between the HTTP operation and the privilege required to complete the operation."
+                },
+                "Targets": {
+                    "description": "The set of URIs, Resource types, or properties.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain the array of URIs, Resource types, or properties.  For example, `/redfish/v1/Systems/1`, `Manager`, or `Password`.  When the Targets property is not present, no override is specified.",
+                    "readonly": true,
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2017.1",
+    "title": "#PrivilegeRegistry.v1_1_4.PrivilegeRegistry"
+}

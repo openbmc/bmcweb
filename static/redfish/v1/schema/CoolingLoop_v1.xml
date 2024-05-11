@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  CoolingLoop v1.0.2                                                  -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Chassis_v1.xml">
+    <edmx:Include Namespace="Chassis"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Facility_v1.xml">
+    <edmx:Include Namespace="Facility"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Manager_v1.xml">
+    <edmx:Include Namespace="Manager"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Sensor_v1.xml">
+    <edmx:Include Namespace="Sensor"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Control_v1.xml">
+    <edmx:Include Namespace="Control"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/CoolantConnectorCollection_v1.xml">
+    <edmx:Include Namespace="CoolantConnectorCollection"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CoolingLoop">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="CoolingLoop" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="This schema describes a cooling loop.  A cooling loop might be any coolant-carrying vessel, such as facility-level pipework, an immersion cooling tank, or a manifold.  A loop might describe its connectors and instrumentation but does not generally include active cooling components or subsystems."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent a cooling loop for a Redfish implementation."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="true"/>
+            <Annotation Term="OData.Description" String="Any writable properties can be updated."/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/ThermalEquipment/CoolingLoops/{CoolingLoopId}</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+
+      <ComplexType Name="Coolant" Abstract="true">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="This type describes coolant."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe the coolant used with a device."/>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CoolingLoop.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.1"/>
+
+      <EntityType Name="CoolingLoop" BaseType="CoolingLoop.CoolingLoop">
+        <Property Name="Status" Type="Resource.Status" Nullable="false">
+          <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+        </Property>
+        <Property Name="UserLabel" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="A user-assigned label."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a user-assigned label used to identify this resource.  If a value has not been assigned by a user, the value of this property shall be an empty string."/>
+        </Property>
+        <Property Name="Coolant" Type="CoolingLoop.v1_0_0.Coolant" Nullable="false">
+          <Annotation Term="OData.Description" String="The coolant details for this cooling loop."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the details about the coolant contained in this cooling loop."/>
+        </Property>
+        <Property Name="CoolantLevelStatus" Type="Resource.Health">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The status of the coolant level in this cooling loop."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the status of the coolant level in this cooling loop."/>
+        </Property>
+        <Property Name="CoolantQuality" Type="Resource.Health">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The quality of the coolant."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the quality of the coolant contained in this cooling loop."/>
+        </Property>
+        <Property Name="RatedFlowLitersPerMinute" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The rated liquid flow (L/min) for this cooling loop."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the rated liquid flow, in liters per minute units, for this cooling loop."/>
+          <Annotation Term="Measures.Unit" String="L/min"/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+        <Property Name="RatedPressurekPa" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The rated pressure (kPa) for this cooling loop."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the rated maximum pressure, in kilopascal units, for this cooling loop."/>
+          <Annotation Term="Measures.Unit" String="kPa"/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+        <Property Name="CoolingManagerURI" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The link to the application that manages the cooling loop."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a URI to the application or device that provides administration or management of the cooling loop associated with this interface."/>
+          <Annotation Term="OData.IsURL"/>
+        </Property>
+        <Property Name="SupplyEquipmentNames" Type="Collection(Edm.String)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An array of names of upstream devices that supply coolant to this cooling loop."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of user-assigned identifying strings that describe upstream devices that supply coolant to this cooling loop."/>
+        </Property>
+        <Property Name="ConsumingEquipmentNames" Type="Collection(Edm.String)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An array of names of downstream devices that receive coolant from this cooling loop."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of user-assigned identifying strings that describe downstream devices that receive coolant from this cooling loop."/>
+        </Property>
+        <Property Name="LocationIndicatorActive" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indicator allowing an operator to physically locate this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the state of the indicator used to physically identify or locate this resource."/>
+        </Property>
+        <NavigationProperty Name="PrimaryCoolantConnectors" Type="CoolantConnectorCollection.CoolantConnectorCollection" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A link to the primary coolant connectors for this equipment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CoolantConnectorCollection that contains the primary coolant connectors for this equipment."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="SecondaryCoolantConnectors" Type="CoolantConnectorCollection.CoolantConnectorCollection" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A link to the secondary coolant connectors for this equipment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CoolantConnectorCollection that contains the secondary coolant connectors for this equipment."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="CoolantLevelPercent" Type="Sensor.Sensor">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="Redfish.ExcerptCopy"/>
+          <Annotation Term="OData.Description" String="The coolant capacity filled (percent)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the amount of coolant capacity, in percent units, filled in this cooling loop.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Percent`.  Services that support this property shall also return the CoolantLevelStatus property."/>
+        </NavigationProperty>
+        <Property Name="Links" Type="CoolingLoop.v1_0_0.Links" Nullable="false">
+          <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+        </Property>
+        <Property Name="Actions" Type="CoolingLoop.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Coolant" BaseType="CoolingLoop.Coolant">
+        <Property Name="CoolantType" Type="CoolingLoop.v1_0_0.CoolantType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The type of coolant."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of coolant used by this resource."/>
+        </Property>
+        <Property Name="AdditivePercent" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The percent additives contained in the coolant."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the percent of additives, `0` to `100`, by volume, contained in the coolant mixture."/>
+          <Annotation Term="Measures.Unit" String="%"/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Validation.Maximum" Int="100"/>
+        </Property>
+        <Property Name="AdditiveName" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The name of the additive."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name of the additive contained in the coolant."/>
+        </Property>
+        <Property Name="SpecificHeatkJoulesPerKgK" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The specific heat capacity (kJ/(kg*K)) of the coolant."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the specific heat capacity of the coolant, in kilojoules per kilogram per degree kelvin units, as measured at room temperature (20-25 degrees C) and atmospheric pressure."/>
+          <Annotation Term="Measures.Unit" String="kJ/kg/K"/>
+        </Property>
+        <Property Name="DensityKgPerCubicMeter" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The density (kg/m^3) of the coolant."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the density of the coolant, in kilograms per cubic meter units, as measured at room temperature (20-25 degrees C) and atmospheric pressure."/>
+          <Annotation Term="Measures.Unit" String="kg/m3"/>
+        </Property>
+        <Property Name="ServicedDate" Type="Edm.DateTimeOffset">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The date the coolant was last serviced."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date the coolant was last serviced or tested for quality."/>
+        </Property>
+        <Property Name="ServiceHours" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The hours of service this coolant has provided."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of hours of service that the coolant has provided."/>
+        </Property>
+        <Property Name="RatedServiceHours" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The rated hours of service life for this coolant."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of hours of service that the coolant is rated to provide before servicing or replacement is necessary."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="Links" BaseType="Resource.Links">
+        <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+        <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+        <NavigationProperty Name="Chassis" Type="Chassis.Chassis">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A link to the chassis that contains this equipment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to resources of type Chassis that represent the physical container that contains this resource."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="Facility" Type="Facility.Facility" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A link to the facility that contains this equipment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Facility that represents the facility that contains this equipment."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="ManagedBy" Type="Collection(Manager.Manager)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the managers responsible for managing this equipment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Manager that represent the managers that manage this equipment."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="CoolingLoop.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
+      </ComplexType>
+
+      <EnumType Name="CoolantType">
+        <Member Name="Water">
+          <Annotation Term="OData.Description" String="Water or glycol mixture, including additives."/>
+        </Member>
+        <Member Name="Hydrocarbon">
+          <Annotation Term="OData.Description" String="Hydrocarbon-based."/>
+        </Member>
+        <Member Name="Fluorocarbon">
+          <Annotation Term="OData.Description" String="Fluorocarbon-based."/>
+        </Member>
+        <Member Name="Dielectric">
+          <Annotation Term="OData.Description" String="Dielectric fluid."/>
+        </Member>
+      </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CoolingLoop.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the range of possible values for properties with percent units."/>
+      <EntityType Name="CoolingLoop" BaseType="CoolingLoop.v1_0_0.CoolingLoop"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CoolingLoop.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="CoolingLoop" BaseType="CoolingLoop.v1_0_1.CoolingLoop"/>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>
