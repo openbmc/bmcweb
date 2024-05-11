@@ -23,24 +23,6 @@ WARNING = """/****************************************************************
  * github organization.
  ***************************************************************/"""
 
-# OEM schemas
-oem_schema_names = [
-    "OemAssembly",
-    "OemManager",
-    "OemManagerAccount",
-    "OemComputerSystem",
-    "OemVirtualMedia",
-    "OpenBMCAccountService",
-    "OemMessage",
-    "OemUpdateService",
-    "OemPCIeSlots",
-    "OemFabricAdapter",
-    "OemServiceRoot",
-    "OemPCIeDevice",
-    "OemLogEntry",
-    "OemLogEntryAttachment",
-]
-
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 
 proxies = {"https": os.environ.get("https_proxy", None)}
@@ -65,8 +47,12 @@ cpp_path = os.path.realpath(
 )
 
 
-schema_path = os.path.join(static_path, "schema")
-json_schema_path = os.path.join(static_path, "JsonSchemas")
+schema_path = os.path.join(
+    SCRIPT_DIR, "..", "redfish-core", "schema", "dmtf", "csdl"
+)
+json_schema_path = os.path.join(
+    SCRIPT_DIR, "..", "redfish-core", "schema", "dmtf", "json-schema"
+)
 metadata_index_path = os.path.join(static_path, "$metadata", "index.xml")
 
 zipBytesIO = BytesIO(r.content)
@@ -155,16 +141,11 @@ for key, value in json_schema_files.items():
 json_schema_files = OrderedDict(
     sorted(json_schema_files.items(), key=lambda x: SchemaVersion(x[0]))
 )
-
-csdl_filenames.sort(key=SchemaVersion)
-
-# Create oem filenames - from oem json names
-oem_csdl_filenames = []
-for filename in oem_schema_names:
-    oem_csdl_filenames.append(filename + "_v1.xml")
-
-# Append Oem csdl files
-csdl_filenames += oem_csdl_filenames
+for csdl_file in csdl_filenames:
+    with open(os.path.join(schema_path, csdl_file), "wb") as schema_out:
+        content = zip_ref.read(os.path.join("csdl", csdl_file))
+        content = content.replace(b"\r\n", b"\n")
+        schema_out.write(content)
 
 with open(metadata_index_path, "w") as metadata_index:
     metadata_index.write('<?xml version="1.0" encoding="UTF-8"?>\n')
@@ -174,25 +155,20 @@ with open(metadata_index_path, "w") as metadata_index:
         ' Version="4.0">\n'
     )
 
-    for filename in csdl_filenames:
-        # filename looks like Zone_v1.xml
-        if filename in oem_csdl_filenames:
-            with open(
-                os.path.join(schema_path, filename), "rb"
-            ) as oem_csdl_in:
-                content = oem_csdl_in.read()
-                content = content.replace(b"\r\n", b"\n")
-        else:
-            with open(os.path.join(schema_path, filename), "wb") as schema_out:
-                content = zip_ref.read(os.path.join("csdl", filename))
-                content = content.replace(b"\r\n", b"\n")
-                schema_out.write(content)
+    schema_static_dir = os.path.join(
+        SCRIPT_DIR, "..", "static", "redfish", "v1", "schema"
+    )
+    for filename in sorted(os.listdir(schema_static_dir), key=SchemaVersion):
+        if not filename.endswith(".xml"):
+            continue
 
         metadata_index.write(
             '    <edmx:Reference Uri="/redfish/v1/schema/' + filename + '">\n'
         )
 
-        xml_root = ET.fromstring(content)
+        xml_root = ET.parse(
+            os.path.join(schema_static_dir, filename)
+        ).getroot()
         edmx = "{http://docs.oasis-open.org/odata/ns/edmx}"
         edm = "{http://docs.oasis-open.org/odata/ns/edm}"
         for edmx_child in xml_root:
@@ -230,13 +206,18 @@ with open(metadata_index_path, "w") as metadata_index:
 
 for schema, version in json_schema_files.items():
     zip_filepath = os.path.join("json-schema", version[0])
-    schemadir = os.path.join(json_schema_path, schema)
-    os.makedirs(schemadir)
 
-    with open(os.path.join(schemadir, schema + ".json"), "wb") as schema_file:
+    with open(os.path.join(json_schema_path, version[0]), "wb") as schema_file:
         schema_file.write(zip_ref.read(zip_filepath).replace(b"\r\n", b"\n"))
 
 with open(os.path.join(cpp_path, "schemas.hpp"), "w") as hpp_file:
+    schemas = []
+    for root, dirs, files in os.walk(
+        os.path.join(SCRIPT_DIR, "..", "static", "redfish", "v1", "schema")
+    ):
+        for csdl_file in sorted(files, key=SchemaVersion):
+            if csdl_file.endswith(".xml"):
+                schemas.append(csdl_file.replace("_v1.xml", ""))
     hpp_file.write(
         "#pragma once\n"
         "{WARNING}\n"
@@ -248,14 +229,11 @@ with open(os.path.join(cpp_path, "schemas.hpp"), "w") as hpp_file:
         "{{\n"
         "    constexpr std::array<std::string_view,{SIZE}> schemas {{\n".format(
             WARNING=WARNING,
-            SIZE=len(json_schema_files) + len(oem_schema_names),
+            SIZE=len(schemas),
         )
     )
-    for schema_file in json_schema_files:
-        hpp_file.write('        "{}",\n'.format(schema_file))
-
-    for schema_file in oem_schema_names:
-        hpp_file.write('        "{}",\n'.format(schema_file))
+    for schema in schemas:
+        hpp_file.write('        "{}",\n'.format(schema))
 
     hpp_file.write("    };\n}\n")
 
