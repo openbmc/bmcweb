@@ -7,7 +7,7 @@ from collections import defaultdict
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 REDFISH_SCHEMA_DIR = os.path.realpath(
-    os.path.join(SCRIPT_DIR, "..", "static", "redfish", "v1", "schema")
+    os.path.join(SCRIPT_DIR, "..", "redfish-core", "schema")
 )
 
 OUTFOLDER = os.path.realpath(
@@ -45,6 +45,7 @@ def parse_schema(element, filename):
 
 
 def parse_file(filename):
+    print(f"Parsing {filename}")
     tree = ET.parse(filename)
     root = tree.getroot()
     results = []
@@ -135,12 +136,13 @@ def generate_enums(flat_list):
 
 def main():
     print("Reading from {}".format(REDFISH_SCHEMA_DIR))
-    dir_list = os.listdir(REDFISH_SCHEMA_DIR)
 
-    filepaths = [
-        os.path.join(REDFISH_SCHEMA_DIR, filename) for filename in dir_list
-    ]
-
+    filepaths = []
+    for root, dirs, files in os.walk(REDFISH_SCHEMA_DIR):
+        for csdl_file in files:
+            if csdl_file.endswith(".xml"):
+                filepaths.append(os.path.join(root, csdl_file))
+    print(filepaths)
     enum_list = []
 
     for filepath in filepaths:
