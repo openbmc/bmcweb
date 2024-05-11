@@ -373,7 +373,7 @@ summary({
           'systemd unit directory' : systemd_system_unit_dir
         }, section : 'Directories')
 
-install_subdir('static', install_dir : 'share/www', strip_directory : true)
+install_subdir('static', install_dir: 'share/www', strip_directory: true, follow_symlinks: true)
 
 # Config subdirectory
 
