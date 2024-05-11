@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################               -->
+<!--# Redfish Schema:  StorageControllerMetrics v1.0.2                                             -->
+<!--#                                                                                              -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,              -->
+<!--# available at http://www.dmtf.org/standards/redfish                                           -->
+<!--# Copyright 2014-2023 DMTF in cooperation with Storage Networking Industry Association (SNIA). -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright         -->
+<!--################################################################################               -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/StorageController_v1.xml">
+    <edmx:Include Namespace="StorageController"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageControllerMetrics">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="StorageControllerMetrics" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The usage and health statistics for a storage controller."/>
+        <Annotation Term="OData.LongDescription" String="The StorageControllerMetrics schema shall contain the usage and health statistics for a storage controller in a Redfish implementation."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/Storage/{StorageId}/Controllers/{ControllerId}/Metrics</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/Storage/{StorageId}/Controllers/{ControllerId}/Metrics</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/Controllers/{ControllerId}/Metrics</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/Controllers/{ControllerId}/Metrics</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/Controllers/{ControllerId}/Metrics</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/Controllers/{ControllerId}/Metrics</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+
+      <ComplexType Name="NVMeSMARTMetrics"  Abstract="true">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The NVMe SMART metrics."/>
+        <Annotation Term="OData.LongDescription" String="This object shall contain the NVMe SMART metrics as defined by the NVMe SMART/Health Information log page."/>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageControllerMetrics.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.1"/>
+
+      <EntityType Name="StorageControllerMetrics" BaseType="StorageControllerMetrics.StorageControllerMetrics">
+        <Property Name="CorrectableECCErrorCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of correctable errors for the lifetime of the memory of the storage controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of correctable errors for the lifetime of memory of the storage controller."/>
+        </Property>
+        <Property Name="UncorrectableECCErrorCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of uncorrectable errors for the lifetime of the memory of the storage controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of uncorrectable errors for the lifetime of memory of the storage controller."/>
+        </Property>
+        <Property Name="CorrectableParityErrorCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of correctable parity errors for the lifetime of the memory of the storage controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of correctable errors for the lifetime of memory of the storage controller."/>
+        </Property>
+        <Property Name="UncorrectableParityErrorCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of uncorrectable parity errors for the lifetime of the memory of the storage controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of uncorrectable errors for the lifetime of memory of the storage controller."/>
+        </Property>
+        <Property Name="StateChangeCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of state changes for this storage controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of times the State property within the Status property of the parent StorageController resource changed."/>
+        </Property>
+        <Property Name="NVMeSMART" Type="StorageControllerMetrics.NVMeSMARTMetrics" Nullable="false">
+          <Annotation Term="OData.Description" String="The NVMe SMART metrics for this storage controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the NVMe SMART metrics for this storage controller as defined by the NVMe SMART/Health Information log page.  This property shall only be present for NVMe storage controllers."/>
+        </Property>
+        <Property Name="Actions" Type="StorageControllerMetrics.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="NVMeSMARTMetrics" BaseType="StorageControllerMetrics.NVMeSMARTMetrics">
+        <Property Name="CriticalWarnings" Type="StorageController.NVMeSMARTCriticalWarnings" Nullable="false">
+          <Annotation Term="OData.Description" String="The NVMe SMART critical warnings."/>
+          <Annotation Term="OData.LongDescription" String="The property shall contain the NVMe-defined 'Critical Warning'."/>
+        </Property>
+        <Property Name="CompositeTemperatureCelsius" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The composite temperature (C)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the composite temperature in degree Celsius units for this storage controller.  Services shall derive this value from the NVMe-defined 'Composite Temperature', which represents a composite temperature in kelvin units of the controller and namespaces associated with that controller."/>
+          <Annotation Term="Measures.Unit" String="Cel"/>
+        </Property>
+        <Property Name="AvailableSparePercent" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The normalized percentage of the remaining spare capacity available."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the NVMe-defined 'Available Spare', which represents the normalized percentage, `0` to `100`, of the remaining spare capacity available."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Validation.Maximum" Int="100"/>
+          <Annotation Term="Measures.Unit" String="%"/>
+        </Property>
+        <Property Name="AvailableSpareThresholdPercent" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The available spare threshold as a normalized percentage."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the NVMe-defined 'Available Spare Threshold' as a percentage, `0` to `100`.  When the available spare falls below this value, an asynchronous event completion may occur."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Validation.Maximum" Int="100"/>
+          <Annotation Term="Measures.Unit" String="%"/>
+        </Property>
+        <Property Name="PercentageUsed" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The percentage of the NVM subsystem life used."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the NVMe-defined 'Percentage Used', which represents a vendor-specific estimate of the percentage of the NVM subsystem life used based on the actual usage and the manufacturer's prediction of NVM life.  A value of `100` indicates that the estimated endurance of the NVM in the NVM subsystem has been consumed, but this may not indicate an NVM subsystem failure.  The value is allowed to exceed `100`.  Percentages greater than `254` shall be represented as `255`."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Validation.Maximum" Int="255"/>
+          <Annotation Term="Measures.Unit" String="%"/>
+        </Property>
+        <Property Name="EGCriticalWarningSummary" Type="StorageControllerMetrics.v1_0_0.EGCriticalWarningSummary" Nullable="false">
+          <Annotation Term="OData.Description" String="The Endurance Group critical warnings summary."/>
+          <Annotation Term="OData.LongDescription" String="The property shall contain the NVMe-defined 'Endurance Group Critical Warning Summary'."/>
+        </Property>
+        <Property Name="DataUnitsRead" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of 512 byte data units the host has read from the controller as part of processing a SMART Data Units Read Command in units of one thousand."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the NVMe-defined 'Data Units Read', which represents the number of 512 byte data units the host has read from the controller as part of processing a SMART Data Units Read Command in units of one thousand."/>
+        </Property>
+        <Property Name="DataUnitsWritten" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of 512 byte data units the host has written to the controller as part of processing a User Data Out Command in units of one thousand."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the NVMe-defined 'Data Units Written', which represents the number of 512 byte data units the host has written to the controller as part of processing a User Data Out Command in units of one thousand."/>
+        </Property>
+        <Property Name="HostReadCommands" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of SMART Host Read Commands completed by the controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the NVMe-defined 'Host Read Commands', which represents the number of SMART Host Read Commands completed by the controller."/>
+        </Property>
+        <Property Name="HostWriteCommands" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of User Data Out Commands completed by the controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the NVMe-defined 'Host Write Commands', which represents the number of User Data Out Commands completed by the controller."/>
+        </Property>
+        <Property Name="ControllerBusyTimeMinutes" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total time the controller is busy with I/O commands in minutes."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the NVMe-defined 'Controller Busy Time', which represents the total time the controller is busy with I/O commands in minutes."/>
+        </Property>
+        <Property Name="PowerCycles" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of power cycles."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the NVMe-defined 'Power Cycles', which represents the number of power cycles."/>
+        </Property>
+        <Property Name="PowerOnHours" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of power-on hours."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the NVMe-defined 'Power On Hours', which represents the number of power-on hours."/>
+        </Property>
+        <Property Name="UnsafeShutdowns" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of unsafe shutdowns."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the NVMe-defined 'Unsafe Shutdowns', which represents the number of times when the controller does not report it is safe to power down prior to loss of main power."/>
+        </Property>
+        <Property Name="MediaAndDataIntegrityErrors" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of occurrences where the controller detected an unrecovered data integrity error."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the NVMe-defined 'Media and Data Integrity Errors', which represents the number of occurrences where the controller detected an unrecovered data integrity error."/>
+        </Property>
+        <Property Name="NumberOfErrorInformationLogEntries" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of error information log entries over the life of the controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the NVMe-defined 'Number of Error Information Log Entries', which represents the number of error information log entries over the life of the controller."/>
+        </Property>
+        <Property Name="WarningCompositeTempTimeMinutes" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The amount of time in minutes that the controller has been operational and that the composite temperature has been greater than or equal to the warning composite temperature threshold."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the NVMe-defined 'Warning Composite Temperature Time', which represents the amount of time in minutes that the controller has been operational and that the composite temperature has been greater than or equal to the warning composite temperature threshold."/>
+        </Property>
+        <Property Name="CriticalCompositeTempTimeMinutes" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The amount of time in minutes that the controller has been operational and that the composite temperature has been greater than or equal to the critical composite temperature threshold."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the NVMe-defined 'Critical Composite Temperature Time', which represents the amount of time in minutes that the controller has been operational and that the composite temperature has been greater than or equal to the critical composite temperature threshold."/>
+        </Property>
+        <Property Name="TemperatureSensorsCelsius" Type="Collection(Edm.Decimal)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The temperature sensor readings in degree Celsius units for this storage controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of temperature sensor readings in degree Celsius units for this storage controller.  Services shall derive each array member from the NVMe-defined 'Temperature Sensor' values, which represent a temperature sensor reading in kelvin units."/>
+          <Annotation Term="Measures.Unit" String="Cel"/>
+        </Property>
+        <Property Name="ThermalMgmtTemp1TransitionCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of times the controller transitioned to lower power states or performed vendor-specific thermal-management actions while minimizing the impact on performance in order to attempt to reduce the composite temperature."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the NVMe-defined 'Thermal Management Temperature 1 Transition Count', which represents the number of times the controller transitioned to lower power states or performed vendor-specific thermal-management actions while minimizing the impact on performance in order to attempt to reduce the composite temperature."/>
+        </Property>
+        <Property Name="ThermalMgmtTemp2TransitionCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of times the controller transitioned to lower power states or performed vendor-specific thermal-management actions regardless of the impact on performance in order to attempt to reduce the composite temperature."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the NVMe-defined 'Thermal Management Temperature 2 Transition Count', which represents the number of times the controller transitioned to lower power states or performed vendor-specific thermal-management actions regardless of the impact on performance in order to attempt to reduce the composite temperature."/>
+        </Property>
+        <Property Name="ThermalMgmtTemp1TotalTimeSeconds" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of seconds the controller transitioned to lower power states or performed vendor-specific thermal-management actions while minimizing the impact on performance in order to attempt to reduce the composite temperature."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the NVMe-defined 'Total Time For Thermal Management Temperature 1', which represents the number of seconds the controller transitioned to lower power states or performed vendor-specific thermal-management actions while minimizing the impact on performance in order to attempt to reduce the composite temperature."/>
+        </Property>
+        <Property Name="ThermalMgmtTemp2TotalTimeSeconds" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of seconds the controller transitioned to lower power states or performed vendor-specific thermal-management actions regardless of the impact on performance in order to attempt to reduce the composite temperature."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the NVMe-defined 'Total Time For Thermal Management Temperature 2', which represents the number of seconds the controller transitioned to lower power states or performed vendor-specific thermal-management actions regardless of the impact on performance in order to attempt to reduce the composite temperature."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="EGCriticalWarningSummary">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The Endurance Group critical warnings summary."/>
+        <Annotation Term="OData.LongDescription" String="The object shall contain the NVMe-defined 'Endurance Group Critical Warning Summary'."/>
+        <Property Name="NamespacesInReadOnlyMode" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether namespaces in one or more Endurance Groups are in read-only mode not as a result of a change in the write protection state of a namespace."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether namespaces in one or more Endurance Groups are in read-only mode not as a result of a change in the write protection state of a namespace."/>
+        </Property>
+        <Property Name="ReliabilityDegraded" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether the reliability of one or more Endurance Groups is degraded due to significant media-related errors or any internal error that degrades the NVM subsystem reliability."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the reliability of one or more Endurance Groups is degraded due to significant media-related errors or any internal error that degrades the NVM subsystem reliability."/>
+        </Property>
+        <Property Name="SpareCapacityUnderThreshold" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether the available spare capacity of one or more Endurance Groups is below the threshold."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the available spare capacity of one or more Endurance Groups is below the threshold."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="StorageControllerMetrics.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageControllerMetrics.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the range of possible values for properties with percent units."/>
+      <EntityType Name="StorageControllerMetrics" BaseType="StorageControllerMetrics.v1_0_0.StorageControllerMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageControllerMetrics.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="StorageControllerMetrics" BaseType="StorageControllerMetrics.v1_0_1.StorageControllerMetrics"/>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

@@ -1,0 +1,763 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/NetworkAdapter.v1_10_0.json",
+    "$ref": "#/definitions/NetworkAdapter",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "#NetworkAdapter.ResetSettingsToDefault": {
+                    "$ref": "#/definitions/ResetSettingsToDefault"
+                },
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "ControllerCapabilities": {
+            "additionalProperties": false,
+            "description": "The capabilities of a controller.",
+            "longDescription": "This type shall describe the capabilities of a controller.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "DataCenterBridging": {
+                    "$ref": "#/definitions/DataCenterBridging",
+                    "description": "Data center bridging (DCB) for this controller.",
+                    "longDescription": "This property shall contain capability, status, and configuration values related to data center bridging (DCB) for this controller."
+                },
+                "NPAR": {
+                    "$ref": "#/definitions/NicPartitioning",
+                    "description": "NIC Partitioning (NPAR) capabilities for this controller.",
+                    "longDescription": "This property shall contain capability, status, and configuration values related to NIC partitioning for this controller.",
+                    "versionAdded": "v1_2_0"
+                },
+                "NPIV": {
+                    "$ref": "#/definitions/NPIV",
+                    "description": "N_Port ID Virtualization (NPIV) capabilities for this controller.",
+                    "longDescription": "This property shall contain N_Port ID Virtualization (NPIV) capabilities for this controller."
+                },
+                "NetworkDeviceFunctionCount": {
+                    "description": "The maximum number of physical functions available on this controller.",
+                    "longDescription": "This property shall contain the number of physical functions available on this controller.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "NetworkPortCount": {
+                    "description": "The number of physical ports on this controller.",
+                    "longDescription": "This property shall contain the number of physical ports on this controller.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "VirtualizationOffload": {
+                    "$ref": "#/definitions/VirtualizationOffload",
+                    "description": "Virtualization offload for this controller.",
+                    "longDescription": "This property shall contain capability, status, and configuration values related to virtualization offload for this controller."
+                }
+            },
+            "type": "object"
+        },
+        "ControllerLinks": {
+            "additionalProperties": false,
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "ActiveSoftwareImage": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/SoftwareInventory.json#/definitions/SoftwareInventory",
+                    "description": "The link to the software inventory resource that represents the active firmware image for this controller.",
+                    "longDescription": "This property shall contain a link to a resource of type SoftwareInventory that represents the active firmware image for this controller.",
+                    "readonly": false,
+                    "versionAdded": "v1_10_0"
+                },
+                "NetworkDeviceFunctions": {
+                    "description": "An array of links to the network device functions associated with this network controller.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkDeviceFunction.json#/definitions/NetworkDeviceFunction"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type NetworkDeviceFunction that represent the network device functions associated with this network controller.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "NetworkDeviceFunctions@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "NetworkPorts": {
+                    "deprecated": "This property has been deprecated in favor of the Ports property.",
+                    "description": "An array of links to the network ports associated with this network controller.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkPort.json#/definitions/NetworkPort"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type NetworkPort that represent the network ports associated with this network controller.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionDeprecated": "v1_5_0"
+                },
+                "NetworkPorts@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                },
+                "PCIeDevices": {
+                    "description": "An array of links to the PCIe devices associated with this network controller.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/PCIeDevice.json#/definitions/PCIeDevice"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type PCIeDevice that represent the PCIe devices associated with this network controller.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "PCIeDevices@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Ports": {
+                    "description": "An array of links to the ports associated with this network controller.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Port.json#/definitions/Port"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Port that represent the ports associated with this network controller.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_5_0"
+                },
+                "Ports@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "SoftwareImages": {
+                    "description": "The images that are associated with this controller.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/SoftwareInventory.json#/definitions/SoftwareInventory"
+                    },
+                    "longDescription": "This property shall contain an array of links to resource of type SoftwareInventory that represent the firmware images that apply to this controller.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_10_0"
+                },
+                "SoftwareImages@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                }
+            },
+            "type": "object"
+        },
+        "Controllers": {
+            "additionalProperties": false,
+            "description": "A network controller ASIC that makes up part of a network adapter.",
+            "longDescription": "This type shall describe a network controller ASIC that makes up part of a network adapter.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "ControllerCapabilities": {
+                    "$ref": "#/definitions/ControllerCapabilities",
+                    "description": "The capabilities of this controller.",
+                    "longDescription": "This property shall contain the capabilities of this controller."
+                },
+                "FirmwarePackageVersion": {
+                    "description": "The version of the user-facing firmware package.",
+                    "longDescription": "This property shall contain the version number of the user-facing firmware package.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Identifiers": {
+                    "description": "The durable names for the network adapter controller.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Identifier"
+                    },
+                    "longDescription": "This property shall contain a list of all known durable names for the controller associated with the network adapter.",
+                    "type": "array",
+                    "versionAdded": "v1_3_0"
+                },
+                "Links": {
+                    "$ref": "#/definitions/ControllerLinks",
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
+                },
+                "Location": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location",
+                    "description": "The location of the network adapter controller.",
+                    "longDescription": "This property shall contain the location information of the controller associated with the network adapter.",
+                    "versionAdded": "v1_1_0"
+                },
+                "PCIeInterface": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PCIeDevice.json#/definitions/PCIeInterface",
+                    "description": "The PCIe interface details for this controller.",
+                    "longDescription": "This property shall contain details for the PCIe interface that connects this PCIe-based controller to its host.",
+                    "versionAdded": "v1_2_0"
+                }
+            },
+            "type": "object"
+        },
+        "DataCenterBridging": {
+            "additionalProperties": false,
+            "description": "Data center bridging (DCB) for capabilities of a controller.",
+            "longDescription": "This type shall describe the capability, status, and configuration values related to data center bridging (DCB) for a controller.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Capable": {
+                    "description": "An indication of whether this controller is capable of data center bridging (DCB).",
+                    "longDescription": "This property shall indicate whether this controller is capable of data center bridging (DCB).",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "NPIV": {
+            "additionalProperties": false,
+            "description": "N_Port ID Virtualization (NPIV) capabilities for a controller.",
+            "longDescription": "This type shall contain N_Port ID Virtualization (NPIV) capabilities for a controller.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "MaxDeviceLogins": {
+                    "description": "The maximum number of N_Port ID Virtualization (NPIV) logins allowed simultaneously from all ports on this controller.",
+                    "longDescription": "This property shall contain the maximum number of N_Port ID Virtualization (NPIV) logins allowed simultaneously from all ports on this controller.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "MaxPortLogins": {
+                    "description": "The maximum number of N_Port ID Virtualization (NPIV) logins allowed per physical port on this controller.",
+                    "longDescription": "This property shall contain the maximum number of N_Port ID Virtualization (NPIV) logins allowed per physical port on this controller.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "NetworkAdapter": {
+            "additionalProperties": false,
+            "description": "The NetworkAdapter schema represents a physical network adapter capable of connecting to a computer network.  Examples include but are not limited to Ethernet, Fibre Channel, and converged network adapters.",
+            "longDescription": "This resource shall represent a physical network adapter capable of connecting to a computer network in a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "Assembly": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Assembly.json#/definitions/Assembly",
+                    "description": "The link to the assembly resource associated with this adapter.",
+                    "longDescription": "This property shall contain a link to a resource of type Assembly.",
+                    "readonly": true,
+                    "versionAdded": "v1_1_0"
+                },
+                "Certificates": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
+                    "description": "The link to a collection of certificates for device identity and attestation.",
+                    "longDescription": "This property shall contain a link to a resource collection of type CertificateCollection that contains certificates for device identity and attestation.",
+                    "readonly": true,
+                    "versionAdded": "v1_6_0"
+                },
+                "Controllers": {
+                    "description": "The set of network controllers ASICs that make up this NetworkAdapter.",
+                    "items": {
+                        "$ref": "#/definitions/Controllers"
+                    },
+                    "longDescription": "This property shall contain the set of network controllers ASICs that make up this network adapter.",
+                    "type": "array"
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "EnvironmentMetrics": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EnvironmentMetrics.json#/definitions/EnvironmentMetrics",
+                    "description": "The link to the environment metrics for this network adapter.",
+                    "longDescription": "This property shall contain a link to a resource of type EnvironmentMetrics that specifies the environment metrics for this network adapter.",
+                    "readonly": true,
+                    "versionAdded": "v1_7_0"
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Identifiers": {
+                    "description": "The durable names for the network adapter.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Identifier"
+                    },
+                    "longDescription": "This property shall contain a list of all known durable names for the network adapter.",
+                    "type": "array",
+                    "versionAdded": "v1_4_0"
+                },
+                "LLDPEnabled": {
+                    "description": "Enable or disable LLDP globally for an adapter.",
+                    "longDescription": "This property shall contain the state indicating whether LLDP is globally enabled on a network adapter.  If set to `false`, the LLDPEnabled value for the ports associated with this adapter shall be disregarded.",
+                    "readonly": false,
+                    "type": "boolean",
+                    "versionAdded": "v1_7_0"
+                },
+                "Location": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location",
+                    "description": "The location of the network adapter.",
+                    "longDescription": "This property shall contain the location information of the network adapter.",
+                    "versionAdded": "v1_4_0"
+                },
+                "Manufacturer": {
+                    "description": "The manufacturer or OEM of this network adapter.",
+                    "longDescription": "This property shall contain a value that represents the manufacturer of the network adapter.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Measurements": {
+                    "deprecated": "This property has been deprecated in favor of the ComponentIntegrity resource.",
+                    "description": "An array of DSP0274-defined measurement blocks.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/SoftwareInventory.json#/definitions/MeasurementBlock"
+                    },
+                    "longDescription": "This property shall contain an array of DSP0274-defined measurement blocks.",
+                    "type": "array",
+                    "versionAdded": "v1_6_0",
+                    "versionDeprecated": "v1_9_0"
+                },
+                "Metrics": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkAdapterMetrics.json#/definitions/NetworkAdapterMetrics"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The link to the metrics associated with this adapter.",
+                    "longDescription": "This property shall contain a link to a resource of type NetworkAdapterMetrics that contains the metrics associated with this adapter.",
+                    "readonly": true,
+                    "versionAdded": "v1_7_0"
+                },
+                "Model": {
+                    "description": "The model string for this network adapter.",
+                    "longDescription": "This property shall contain the information about how the manufacturer refers to this network adapter.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "NetworkDeviceFunctions": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkDeviceFunctionCollection.json#/definitions/NetworkDeviceFunctionCollection",
+                    "description": "The link to the collection of network device functions associated with this network adapter.",
+                    "longDescription": "This property shall contain a link to a resource collection of type NetworkDeviceFunctionCollection.",
+                    "readonly": true
+                },
+                "NetworkPorts": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkPortCollection.json#/definitions/NetworkPortCollection",
+                    "deprecated": "This property has been deprecated in favor of the Ports property.",
+                    "description": "The link to the collection of network ports associated with this network adapter.",
+                    "longDescription": "This property shall contain a link to a resource collection of type NetworkPortCollection.",
+                    "readonly": true,
+                    "versionDeprecated": "v1_5_0"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "PartNumber": {
+                    "description": "Part number for this network adapter.",
+                    "longDescription": "This property shall contain the part number for the network adapter as defined by the manufacturer.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Ports": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PortCollection.json#/definitions/PortCollection",
+                    "description": "The link to the collection of ports associated with this network adapter.",
+                    "longDescription": "This property shall contain a link to a resource collection of type PortCollection.",
+                    "readonly": true,
+                    "versionAdded": "v1_5_0"
+                },
+                "Processors": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ProcessorCollection.json#/definitions/ProcessorCollection",
+                    "description": "The link to the collection of offload processors contained in this network adapter.",
+                    "longDescription": "This property shall contain a link to a resource collection of type ProcessorCollection that represent the offload processors contained in this network adapter.",
+                    "readonly": true,
+                    "versionAdded": "v1_8_0"
+                },
+                "SKU": {
+                    "description": "The manufacturer SKU for this network adapter.",
+                    "longDescription": "This property shall contain the SKU for the network adapter.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "SerialNumber": {
+                    "description": "The serial number for this network adapter.",
+                    "longDescription": "This property shall contain the serial number for the network adapter.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "NicPartitioning": {
+            "additionalProperties": false,
+            "description": "NIC Partitioning capability, status, and configuration for a controller.",
+            "longDescription": "This type shall contain the capability, status, and configuration values for a controller.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "NparCapable": {
+                    "description": "An indication of whether the controller supports NIC function partitioning.",
+                    "longDescription": "This property shall indicate whether the controller supports NIC function partitioning.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0"
+                },
+                "NparEnabled": {
+                    "description": "An indication of whether NIC function partitioning is active on this controller.",
+                    "longDescription": "This property shall indicate whether NIC function partitioning is active on this controller.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0"
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "ResetSettingsToDefault": {
+            "additionalProperties": false,
+            "description": "This action is to clear the settings back to factory defaults.",
+            "longDescription": "This action shall reset of all active and pending settings back to factory default settings upon reset of the network adapter.",
+            "parameters": {},
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "SRIOV": {
+            "additionalProperties": false,
+            "description": "Single-root input/output virtualization (SR-IOV) capabilities.",
+            "longDescription": "This type shall contain single-root input/output virtualization (SR-IOV) capabilities.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "SRIOVVEPACapable": {
+                    "description": "An indication of whether this controller supports single root input/output virtualization (SR-IOV) in Virtual Ethernet Port Aggregator (VEPA) mode.",
+                    "longDescription": "This property shall indicate whether this controller supports single root input/output virtualization (SR-IOV) in Virtual Ethernet Port Aggregator (VEPA) mode.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "VirtualFunction": {
+            "additionalProperties": false,
+            "description": "A virtual function of a controller.",
+            "longDescription": "This type shall describe the capability, status, and configuration values related to a virtual function for a controller.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "DeviceMaxCount": {
+                    "description": "The maximum number of virtual functions supported by this controller.",
+                    "longDescription": "This property shall contain the maximum number of virtual functions supported by this controller.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "MinAssignmentGroupSize": {
+                    "description": "The minimum number of virtual functions that can be allocated or moved between physical functions for this controller.",
+                    "longDescription": "This property shall contain the minimum number of virtual functions that can be allocated or moved between physical functions for this controller.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "NetworkPortMaxCount": {
+                    "description": "The maximum number of virtual functions supported per network port for this controller.",
+                    "longDescription": "This property shall contain the maximum number of virtual functions supported per network port for this controller.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "VirtualizationOffload": {
+            "additionalProperties": false,
+            "description": "A Virtualization offload capability of a controller.",
+            "longDescription": "This type shall describe the capability, status, and configuration values related to a virtualization offload for a controller.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "SRIOV": {
+                    "$ref": "#/definitions/SRIOV",
+                    "description": "Single-root input/output virtualization (SR-IOV) capabilities.",
+                    "longDescription": "This property shall contain single-root input/output virtualization (SR-IOV) capabilities."
+                },
+                "VirtualFunction": {
+                    "$ref": "#/definitions/VirtualFunction",
+                    "description": "The virtual function of the controller.",
+                    "longDescription": "This property shall describe the capability, status, and configuration values related to the virtual function for this controller."
+                }
+            },
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2023.3",
+    "title": "#NetworkAdapter.v1_10_0.NetworkAdapter"
+}

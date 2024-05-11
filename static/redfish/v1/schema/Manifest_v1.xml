@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  Manifest v1.1.1                                                     -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manifest">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <ComplexType Name="Manifest" Abstract="true">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="This type describes a manifest containing a set of requests to be fulfilled.  The manifest contains a set of stanzas, where each stanza describes a single request."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe a manifest containing a set of requests to be fulfilled."/>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manifest.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.4"/>
+
+      <ComplexType Name="Manifest" BaseType="Manifest.Manifest">
+        <Property Name="Description" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The description of this manifest."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the description of this manifest."/>
+        </Property>
+        <Property Name="Timestamp" Type="Edm.DateTimeOffset">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The date and time when the manifest was created."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date and time when the manifest was created."/>
+        </Property>
+        <Property Name="Expand" Type="Manifest.v1_0_0.Expand">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The expansion control for references in manifest responses, similar to the `$expand=.` query parameter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the expansion control for references in manifest responses."/>
+        </Property>
+        <Property Name="Stanzas" Type="Collection(Manifest.v1_0_0.Stanza)">
+          <Annotation Term="OData.Description" String="An array of stanzas that describe the requests specified by this manifest."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of stanzas that describe the requests specified by this manifest."/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="Expand">
+        <Member Name="None">
+          <Annotation Term="OData.Description" String="Do not expand any references."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that references in the manifest response will not be expanded."/>
+        </Member>
+        <Member Name="All">
+          <Annotation Term="OData.Description" String="Expand all subordinate references."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that all subordinate references in the manifest response will be expanded."/>
+        </Member>
+        <Member Name="Relevant">
+          <Annotation Term="OData.Description" String="Expand relevant subordinate references.  Relevant references are those that are tied to a constrained composition request, such as a request for a quantity of processors."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that relevant subordinate references in the manifest response will be expanded."/>
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="Stanza">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="A stanza contains properties that describe a request to be fulfilled within a manifest."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain properties that describe a request to be fulfilled within a manifest."/>
+        <Property Name="StanzaType" Type="Manifest.v1_0_0.StanzaType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The type of stanza."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of stanza."/>
+        </Property>
+        <Property Name="OEMStanzaType" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The OEM-defined type of stanza."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the OEM-defined type of stanza.  This property shall be present if StanzaType is `OEM`."/>
+        </Property>
+        <Property Name="StanzaId" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The identifier of the stanza.  This is a unique identifier specified by the client and is not used by the service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the identifier of the stanza."/>
+        </Property>
+        <Property Name="Request" Type="Manifest.v1_0_0.Request">
+          <Annotation Term="OData.Description" String="The request details for the stanza."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the request details for the stanza, and the contents vary depending on the value of the StanzaType property."/>
+        </Property>
+        <Property Name="Response" Type="Manifest.v1_0_0.Response">
+          <Annotation Term="OData.Description" String="The response details for the stanza."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the response details for the stanza, and the contents vary depending on the value of the StanzaType property."/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="StanzaType">
+        <Member Name="ComposeSystem">
+          <Annotation Term="OData.Description" String="A stanza that describes the desired end state for computer system composition operation.  The resources consumed by the composed computer system are moved to the active pool."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a stanza that describes the specific, constrained, or mixed resources required to compose a computer system.  The resource blocks assigned to the computer system shall be moved to the active pool.  The Request property of the stanza shall contain a resource of type ComputerSystem that represents the composition request.  The Response property of the stanza shall contain a resource of type ComputerSystem that represents the composed system or a Redfish Specification-defined error response."/>
+        </Member>
+        <Member Name="DecomposeSystem">
+          <Annotation Term="OData.Description" String="A stanza that references a computer system to decompose and return resources to the free pool."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a stanza that references a computer system to decompose and return the resource blocks to the free pool that are no longer contributing to composed resources.  The Request property of the stanza shall be a Redfish Specification-defined reference object containing a reference to the resource of type ComputerSystem to decompose.  The Response property of the stanza shall contain a resource of type ComputerSystem that represents the decomposed system or a Redfish Specification-defined error response."/>
+        </Member>
+        <Member Name="ComposeResource">
+          <Annotation Term="OData.Description" String="A stanza that describes the desired end state for a composed resource block.  The resources consumed by the composed resource block are moved to the active pool."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a stanza that describes a composed resource block.  The resource blocks assigned to the composed resource block shall be moved to the active pool.  The Request property of the stanza shall contain a resource of type ResourceBlock that represents the composition request.  The Response property of the stanza shall contain a resource of type ResourceBlock that represents the composed resource block or a Redfish Specification-defined error response."/>
+        </Member>
+        <Member Name="DecomposeResource">
+          <Annotation Term="OData.Description" String="A stanza that references a composed resource block to decompose and return resources to the free pool."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a stanza that references a composed resource block to decompose and return the resource blocks to the free pool that are no longer contributing to composed resources.  The Request property of the stanza shall be a reference object as defined by the 'Reference properties' clause of the Redfish Specification containing a reference to the resource of type ResourceBlock to decompose.  The Response property of the stanza shall contain a resource of type ResourceBlock that represents the decomposed resource block or a Redfish Specification-defined error response."/>
+        </Member>
+        <Member Name="OEM">
+          <Annotation Term="OData.Description" String="A stanza that describes an OEM-specific request."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a stanza that describes an OEM-specific request.  The OEMStanzaType property shall contain the specific OEM stanza type."/>
+        </Member>
+        <Member Name="RegisterResourceBlock">
+          <Annotation Term="OData.Description" String="A stanza that references a resource, such as a computer system, in order to create a resource block that references the resource and add it to the free pool."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a stanza that references a resource to create a resource block that references the resource and add it to the free pool.  The Request property of the stanza shall contain a resource of type ResourceBlock that represents the registration request.  The Response property of the stanza shall contain a resource of type ResourceBlock that represents the composed system or a Redfish Specification-defined error response."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_1_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="Request">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The content of the request for the stanza."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe the request details of a stanza within a manifest.  Its contents vary depending on the value of the StanzaType property of the stanza."/>
+      </ComplexType>
+
+      <ComplexType Name="Response">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The content of the response for the stanza."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe the response details of a stanza within a manifest.  Its contents vary depending on the value of the StanzaType property of the stanza."/>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manifest.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manifest.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.1"/>
+      <Annotation Term="OData.Description" String="This version was created to add `RegisterResourceBlock` to the StanzaType enumeration."/>
+
+      <ComplexType Name="Manifest" BaseType="Manifest.v1_0_0.Manifest"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manifest.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>
