@@ -1,0 +1,391 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/LeakDetector.v1_0_1.json",
+    "$ref": "#/definitions/LeakDetector",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "LeakDetector": {
+            "additionalProperties": false,
+            "description": "The LeakDetector schema describes a state-based or digital-value leak detector and its properties.",
+            "longDescription": "This resource shall represent a state-based or digital-value leak detector for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "DetectorState": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Health"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The state of the leak detector.",
+                    "excerpt": "LeakDetector",
+                    "longDescription": "This property shall contain the state of the leak detector.",
+                    "readonly": true
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "LeakDetectorType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/LeakDetectorType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The type of leak detection sensor.",
+                    "longDescription": "This property shall contain the reading type of the leak detection sensor.",
+                    "readonly": true
+                },
+                "Location": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location",
+                    "description": "The location information for this leak detector.",
+                    "longDescription": "This property shall indicate the location information for this leak detector."
+                },
+                "Manufacturer": {
+                    "description": "The manufacturer of this leak detector.",
+                    "longDescription": "This property shall contain the name of the organization responsible for producing the leak detector.  This organization may be the entity from whom the leak detector is purchased, but this is not necessarily true.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Model": {
+                    "description": "The model number of the leak detector.",
+                    "longDescription": "This property shall contain the name by which the manufacturer generally refers to the leak detector.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "PartNumber": {
+                    "description": "The part number of the leak detector.",
+                    "longDescription": "This property shall contain a part number assigned by the organization that is responsible for producing or manufacturing the leak detector.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "PhysicalContext": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/PhysicalContext.json#/definitions/PhysicalContext"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The area or device to which this leak detector applies.",
+                    "excerpt": "LeakDetectorArray",
+                    "longDescription": "This property shall contain a description of the affected component or region within the equipment to which this leak detector applies.",
+                    "readonly": true
+                },
+                "PhysicalSubContext": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/PhysicalContext.json#/definitions/PhysicalSubContext"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The usage or location within a device to which this leak detector applies.",
+                    "excerpt": "LeakDetectorArray",
+                    "longDescription": "This property shall contain a description of the usage or sub-region within the equipment to which this leak detector applies.  This property generally differentiates multiple leak detectors within the same PhysicalContext instance.",
+                    "readonly": true
+                },
+                "SKU": {
+                    "description": "The SKU of the leak detector.",
+                    "longDescription": "This property shall contain the stock-keeping unit number for this leak detector.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "SensingFrequency": {
+                    "description": "The time interval between readings of the physical leak detector.",
+                    "longDescription": "This property shall contain the time interval between readings of the physical leak detector.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "SerialNumber": {
+                    "description": "The serial number of the leak detector.",
+                    "longDescription": "This property shall contain a manufacturer-allocated number that identifies the leak detector.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "SparePartNumber": {
+                    "description": "The spare part number of the leak detector.",
+                    "longDescription": "This property shall contain the spare part number of the leak detector.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "LeakDetectorArrayExcerpt": {
+            "additionalProperties": false,
+            "description": "The LeakDetector schema describes a state-based or digital-value leak detector and its properties.",
+            "excerpt": "LeakDetectorArray",
+            "longDescription": "This resource shall represent a state-based or digital-value leak detector for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "DataSourceUri": {
+                    "description": "The link to the resource that provides the data for this leak detector.",
+                    "excerptCopyOnly": true,
+                    "format": "uri-reference",
+                    "longDescription": "This property shall contain a URI to the resource that provides the source of the excerpt contained within this copy.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "DetectorState": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Health"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The state of the leak detector.",
+                    "excerpt": "LeakDetector",
+                    "longDescription": "This property shall contain the state of the leak detector.",
+                    "readonly": true
+                },
+                "PhysicalContext": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/PhysicalContext.json#/definitions/PhysicalContext"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The area or device to which this leak detector applies.",
+                    "excerpt": "LeakDetectorArray",
+                    "longDescription": "This property shall contain a description of the affected component or region within the equipment to which this leak detector applies.",
+                    "readonly": true
+                },
+                "PhysicalSubContext": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/PhysicalContext.json#/definitions/PhysicalSubContext"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The usage or location within a device to which this leak detector applies.",
+                    "excerpt": "LeakDetectorArray",
+                    "longDescription": "This property shall contain a description of the usage or sub-region within the equipment to which this leak detector applies.  This property generally differentiates multiple leak detectors within the same PhysicalContext instance.",
+                    "readonly": true
+                }
+            },
+            "type": "object"
+        },
+        "LeakDetectorExcerpt": {
+            "additionalProperties": false,
+            "description": "The LeakDetector schema describes a state-based or digital-value leak detector and its properties.",
+            "excerpt": "LeakDetector",
+            "longDescription": "This resource shall represent a state-based or digital-value leak detector for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "DataSourceUri": {
+                    "description": "The link to the resource that provides the data for this leak detector.",
+                    "excerptCopyOnly": true,
+                    "format": "uri-reference",
+                    "longDescription": "This property shall contain a URI to the resource that provides the source of the excerpt contained within this copy.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "DetectorState": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Health"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The state of the leak detector.",
+                    "excerpt": "LeakDetector",
+                    "longDescription": "This property shall contain the state of the leak detector.",
+                    "readonly": true
+                }
+            },
+            "type": "object"
+        },
+        "LeakDetectorType": {
+            "enum": [
+                "Moisture",
+                "FloatSwitch"
+            ],
+            "enumDescriptions": {
+                "FloatSwitch": "A float switch.",
+                "Moisture": "A moisture sensor."
+            },
+            "type": "string"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2023.1",
+    "title": "#LeakDetector.v1_0_1.LeakDetector"
+}
