@@ -1,0 +1,391 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/HostInterface.v1_3_1.json",
+    "$ref": "#/definitions/HostInterface",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource.",
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
+        },
+        "AuthenticationMode": {
+            "enum": [
+                "AuthNone",
+                "BasicAuth",
+                "RedfishSessionAuth",
+                "OemAuth"
+            ],
+            "enumDescriptions": {
+                "AuthNone": "Requests without any sort of authentication are allowed.",
+                "BasicAuth": "Requests using HTTP Basic authentication are allowed.",
+                "OemAuth": "Requests using OEM authentication mechanisms are allowed.",
+                "RedfishSessionAuth": "Requests using Redfish session authentication are allowed."
+            },
+            "type": "string"
+        },
+        "CredentialBootstrapping": {
+            "additionalProperties": false,
+            "description": "The credential bootstrapping settings for this interface.",
+            "longDescription": "This type shall contain settings for the Redfish Host Interface Specification-defined 'credential bootstrapping via IPMI commands' feature for this interface.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "EnableAfterReset": {
+                    "description": "An indication of whether credential bootstrapping is enabled after a reset for this interface.",
+                    "longDescription": "This property shall indicate whether credential bootstrapping is enabled after a reset for this interface.  If `true`, services shall set the Enabled property to `true` after a reset of the host or the service.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                },
+                "Enabled": {
+                    "description": "An indication of whether credential bootstrapping is enabled for this interface.",
+                    "longDescription": "This property shall indicate whether credential bootstrapping is enabled for this interface.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                },
+                "RoleId": {
+                    "description": "The role used for the bootstrap account created for this interface.",
+                    "longDescription": "This property shall contain the Id property of the role resource that is used for the bootstrap account created for this interface.",
+                    "readonly": false,
+                    "type": "string",
+                    "versionAdded": "v1_3_0"
+                }
+            },
+            "type": "object"
+        },
+        "HostInterface": {
+            "additionalProperties": false,
+            "description": "The properties associated with a Redfish host interface.  A Redfish host interface is a connection between host software and a Redfish service.",
+            "longDescription": "This resource shall represent a Redfish host interface as part of the Redfish Specification.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource.",
+                    "versionAdded": "v1_1_0"
+                },
+                "AuthNoneRoleId": {
+                    "description": "The role when no authentication on this interface is used.",
+                    "longDescription": "This property shall contain the Id property of the Role resource that is used when no authentication on this interface is performed.  This property shall be absent if `AuthNone` is not supported by the service for the AuthenticationModes property.",
+                    "readonly": false,
+                    "type": "string",
+                    "versionAdded": "v1_2_0"
+                },
+                "AuthenticationModes": {
+                    "description": "The authentication modes available on this interface.",
+                    "items": {
+                        "$ref": "#/definitions/AuthenticationMode"
+                    },
+                    "longDescription": "This property shall contain an array consisting of the authentication modes allowed on this interface.",
+                    "readonly": false,
+                    "type": "array"
+                },
+                "CredentialBootstrapping": {
+                    "$ref": "#/definitions/CredentialBootstrapping",
+                    "description": "The credential bootstrapping settings for this interface.",
+                    "longDescription": "This property shall contain settings for the Redfish Host Interface Specification-defined 'credential bootstrapping via IPMI commands' feature for this interface.  This property shall be absent if credential bootstrapping is not supported by the service.",
+                    "versionAdded": "v1_3_0"
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "ExternallyAccessible": {
+                    "description": "An indication of whether external entities can access this interface.  External entities are non-host entities.  For example, if the host and manager are connected through a switch and the switch also exposes an external port on the system, external clients can also use the interface, and this property value is `true`.",
+                    "longDescription": "This property shall indicate whether external entities can access this interface.  External entities are non-host entities.  For example, if the host and manager are connected through a switch and the switch also exposes an external port on the system, external clients can also use the interface, and this property value is `true`.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "FirmwareAuthEnabled": {
+                    "deprecated": "This property has been deprecated in favor of newer methods of negotiating credentials.",
+                    "description": "An indication of whether this firmware authentication is enabled for this interface.",
+                    "longDescription": "This property shall indicate whether firmware authentication is enabled for this interface.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionDeprecated": "v1_3_0"
+                },
+                "FirmwareAuthRoleId": {
+                    "deprecated": "This property has been deprecated in favor of newer methods of negotiating credentials.",
+                    "description": "The Redfish role used for firmware authentication on this interface.",
+                    "longDescription": "This property shall contain the Id property of the Role resource that is configured for firmware authentication on this interface.",
+                    "readonly": false,
+                    "type": "string",
+                    "versionDeprecated": "v1_3_0"
+                },
+                "HostEthernetInterfaces": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EthernetInterfaceCollection.json#/definitions/EthernetInterfaceCollection",
+                    "description": "A link to the collection of network interface controllers or cards (NICs) that a computer system uses to communicate with this host interface.",
+                    "longDescription": "This property shall contain a link to a resource collection of type EthernetInterfaceCollection that computer systems use as the host interface to this manager.",
+                    "readonly": true
+                },
+                "HostInterfaceType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/HostInterfaceType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The host interface type for this interface.",
+                    "longDescription": "This property shall contain the host interface type for this interface.",
+                    "readonly": true
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "InterfaceEnabled": {
+                    "description": "An indication of whether this interface is enabled.",
+                    "longDescription": "This property shall indicate whether this interface is enabled.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "KernelAuthEnabled": {
+                    "deprecated": "This property has been deprecated in favor of newer methods of negotiating credentials.",
+                    "description": "An indication of whether this kernel authentication is enabled for this interface.",
+                    "longDescription": "This property shall indicate whether kernel authentication is enabled for this interface.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionDeprecated": "v1_3_0"
+                },
+                "KernelAuthRoleId": {
+                    "deprecated": "This property has been deprecated in favor of newer methods of negotiating credentials.",
+                    "description": "The Redfish role used for kernel authentication on this interface.",
+                    "longDescription": "This property shall contain the Id property of the Role resource that is configured for kernel authentication on this interface.",
+                    "readonly": false,
+                    "type": "string",
+                    "versionDeprecated": "v1_3_0"
+                },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
+                },
+                "ManagerEthernetInterface": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.json#/definitions/EthernetInterface",
+                    "description": "A link to a single network interface controllers or cards (NIC) that this manager uses for network communication with this host interface.",
+                    "longDescription": "This property shall contain a link to a resource of type EthernetInterface that represents the network interface that this manager uses as the host interface.",
+                    "readonly": true
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "NetworkProtocol": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ManagerNetworkProtocol.json#/definitions/ManagerNetworkProtocol",
+                    "description": "A link to the network services and their settings that the manager controls.  In this property, clients find configuration options for the network and network services.",
+                    "longDescription": "This property shall contain a link to a resource of type ManagerNetworkProtocol that represents the network services for this manager.",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "HostInterfaceType": {
+            "enum": [
+                "NetworkHostInterface"
+            ],
+            "enumDescriptions": {
+                "NetworkHostInterface": "This interface is a network host interface."
+            },
+            "type": "string"
+        },
+        "Links": {
+            "additionalProperties": false,
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AuthNoneRole": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Role.json#/definitions/Role",
+                    "description": "The link to the Redfish role that contains the privileges on this host interface when no authentication is performed.",
+                    "longDescription": "This property shall contain a link to a resource of type Role, and should link to the resource identified by property AuthNoneRoleId.  This property shall be absent if `AuthNone` is not supported by the service for the AuthenticationModes property.",
+                    "readonly": true,
+                    "versionAdded": "v1_2_0"
+                },
+                "ComputerSystems": {
+                    "description": "An array of links to the computer systems connected to this host interface.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.json#/definitions/ComputerSystem"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type ComputerSystem that are connected to this host interface.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "ComputerSystems@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "CredentialBootstrappingRole": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Role.json#/definitions/Role",
+                    "description": "The link to the role that contains the privileges for the bootstrap account created for this interface.",
+                    "longDescription": "This property shall contain a link to a resource of type Role, and should link to the resource identified by the RoleId property within CredentialBootstrapping.  This property shall be absent if the Redfish Host Interface Specification-defined 'credential bootstrapping via IPMI commands' feature is not supported by the service.",
+                    "readonly": true,
+                    "versionAdded": "v1_3_0"
+                },
+                "FirmwareAuthRole": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Role.json#/definitions/Role",
+                    "deprecated": "This property has been deprecated in favor of newer methods of negotiating credentials.",
+                    "description": "The link to the Redfish role that has firmware authentication privileges on this host interface.",
+                    "longDescription": "This property shall contain a link to a resource of type Role, and should link to the resource identified by property FirmwareAuthRoleId.",
+                    "readonly": true,
+                    "versionDeprecated": "v1_3_0"
+                },
+                "KernelAuthRole": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Role.json#/definitions/Role",
+                    "deprecated": "This property has been deprecated in favor of newer methods of negotiating credentials.",
+                    "description": "The link to the Redfish role defining privileges for this host interface when using kernel authentication.",
+                    "longDescription": "This property shall contain a link to a resource of type Role, and should link to the resource identified by property KernelAuthRoleId.",
+                    "readonly": true,
+                    "versionDeprecated": "v1_3_0"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2020.3",
+    "title": "#HostInterface.v1_3_1.HostInterface"
+}

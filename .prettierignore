@@ -1,1 +1,2 @@
-static/redfish
+redfish-core/schema/dmtf
+redfish-core/schema/oem
