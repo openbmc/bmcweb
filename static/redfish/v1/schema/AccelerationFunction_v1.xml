@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  AccelerationFunction v1.0.4                                         -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Endpoint_v1.xml">
+    <edmx:Include Namespace="Endpoint"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/PCIeFunction_v1.xml">
+    <edmx:Include Namespace="PCIeFunction"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccelerationFunction">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="AccelerationFunction" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The AccelerationFunction schema describes an acceleration function that a processor implements.  This can include functions such as audio processing, compression, encryption, packet inspection, packet switching, scheduling, or video processing."/>
+        <Annotation Term="OData.LongDescription" String="This Resource shall represent the acceleration function that a processor implements in a Redfish implementation.  This can include functions such as audio processing, compression, encryption, packet inspection, packet switching, scheduling, or video processing."/>
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/Processors/{ProcessorId}/AccelerationFunctions/{AccelerationFunctionId}</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Processors/{ProcessorId}/AccelerationFunctions/{AccelerationFunctionId}</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Processors/{ProcessorId}/AccelerationFunctions/{AccelerationFunctionId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Processors/{ProcessorId}/AccelerationFunctions/{AccelerationFunctionId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Processors/{ProcessorId}/AccelerationFunctions/{AccelerationFunctionId}</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccelerationFunction.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2018.3"/>
+
+      <EntityType Name="AccelerationFunction" BaseType="AccelerationFunction.AccelerationFunction">
+        <Property Name="Status" Type="Resource.Status" Nullable="false">
+          <Annotation Term="OData.Description" String="The status and health of the Resource and its subordinate or dependent Resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the Resource."/>
+        </Property>
+        <Property Name="UUID" Type="Resource.UUID">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The UUID for this acceleration function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a UUID for the acceleration function.  RFC4122 describes methods that can create the value.  The value should be considered to be opaque.  Client software should only treat the overall value as a UUID and should not interpret any subfields within the UUID."/>
+        </Property>
+        <Property Name="FpgaReconfigurationSlots" Type="Collection(Edm.String)" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of the reconfiguration slot identifiers of the FPGA that this acceleration function occupies."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of the FPGA reconfiguration slot identifiers that this acceleration function occupies."/>
+        </Property>
+        <Property Name="AccelerationFunctionType" Type="AccelerationFunction.v1_0_0.AccelerationFunctionType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The acceleration function type."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the string that identifies the acceleration function type."/>
+        </Property>
+        <Property Name="Manufacturer" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The acceleration function code manufacturer."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a string that identifies the manufacturer of the acceleration function."/>
+        </Property>
+        <Property Name="Version" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The acceleration function version."/>
+          <Annotation Term="OData.LongDescription" String="This property shall describe the acceleration function version."/>
+        </Property>
+        <Property Name="PowerWatts" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The acceleration function power consumption, in watt units."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total acceleration function power consumption, in watt units."/>
+          <Annotation Term="Measures.Unit" String="W"/>
+        </Property>
+        <Property Name="Links" Type="AccelerationFunction.v1_0_0.Links" Nullable="false">
+          <Annotation Term="OData.Description" String="The links to other Resources that are related to this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain links to Resources that are related to but are not contained by, or subordinate to, this Resource."/>
+        </Property>
+        <Property Name="Actions" Type="AccelerationFunction.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Links" BaseType="Resource.Links">
+        <Annotation Term="OData.Description" String="The links to other Resources that are related to this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to Resources that are related to but are not contained by, or subordinate to, this Resource."/>
+        <NavigationProperty Name="Endpoints" Type="Collection(Endpoint.Endpoint)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the endpoints that connect to this acceleration function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to Resources of the Endpoint type that are associated with this acceleration function."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="PCIeFunctions" Type="Collection(PCIeFunction.PCIeFunction)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the PCIeFunctions associated with this acceleration function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links of the PCIeFunction type that represent the PCIe functions associated with this acceleration function."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
+        <Property Name="Oem" Type="AccelerationFunction.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
+      </ComplexType>
+
+      <EnumType Name="AccelerationFunctionType">
+        <Member Name="Encryption">
+          <Annotation Term="OData.Description" String="An encryption function."/>
+        </Member>
+        <Member Name="Compression">
+          <Annotation Term="OData.Description" String="A compression function."/>
+        </Member>
+        <Member Name="PacketInspection">
+          <Annotation Term="OData.Description" String="A packet inspection function."/>
+        </Member>
+        <Member Name="PacketSwitch">
+          <Annotation Term="OData.Description" String="A packet switch function."/>
+        </Member>
+        <Member Name="Scheduler">
+          <Annotation Term="OData.Description" String="A scheduler function."/>
+        </Member>
+        <Member Name="AudioProcessing">
+          <Annotation Term="OData.Description" String="An audio processing function."/>
+        </Member>
+        <Member Name="VideoProcessing">
+          <Annotation Term="OData.Description" String="A video processing function."/>
+        </Member>
+        <Member Name="OEM">
+          <Annotation Term="OData.Description" String="An OEM-defined acceleration function."/>
+        </Member>
+      </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccelerationFunction.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="AccelerationFunction" BaseType="AccelerationFunction.v1_0_0.AccelerationFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccelerationFunction.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="AccelerationFunction" BaseType="AccelerationFunction.v1_0_1.AccelerationFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccelerationFunction.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="AccelerationFunction" BaseType="AccelerationFunction.v1_0_2.AccelerationFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccelerationFunction.v1_0_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="AccelerationFunction" BaseType="AccelerationFunction.v1_0_3.AccelerationFunction"/>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

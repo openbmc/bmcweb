@@ -313,7 +313,7 @@ summary(
     section: 'Directories',
 )
 
-install_subdir('static', install_dir: 'share/www', strip_directory: true)
+subdir('static')
 
 # Config subdirectory
 

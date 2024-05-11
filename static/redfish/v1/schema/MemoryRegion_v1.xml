@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  MemoryRegion v1.0.1                                                 -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/MemoryChunks_v1.xml">
+    <edmx:Include Namespace="MemoryChunks"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryRegion">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="MemoryRegion" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The schema definition of a memory region and its configuration."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent memory region in a Redfish implementation."/>
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="true"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="true"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/Chassis/{ChassisId}/PCIeDevices/{PCIeDeviceId}/CXLLogicalDevices/{CXLLogicalDeviceId}/MemoryRegions/{MemoryRegionId}</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryRegion.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.2"/>
+
+      <EntityType Name="MemoryRegion" BaseType="MemoryRegion.MemoryRegion">
+        <Property Name="RegionType" Type="MemoryRegion.v1_0_0.RegionType" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The type of memory region."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of memory region."/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+        <Property Name="RegionNumber" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The memory region number."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the memory region number."/>
+        </Property>
+        <Property Name="BlockSizeMiB" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The memory region block size in mebibytes (MiB)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the memory region block size in mebibytes (MiB).  The region size, base offset, all extent sizes, and all extent base offsets shall be aligned to this block size."/>
+          <Annotation Term="Measures.Unit" String="MiBy"/>
+        </Property>
+        <Property Name="RegionSizeMiB" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The size of the memory region in mebibytes (MiB)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the size of the memory region in mebibytes (MiB)."/>
+          <Annotation Term="Measures.Unit" String="MiBy"/>
+        </Property>
+        <Property Name="RegionBaseOffsetMiB" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The offset of the memory region in the device address range in mebibytes (MiB)."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall contain the offset of the memory region in the device address range in mebibytes (MiB)."/>
+          <Annotation Term="Measures.Unit" String="MiBy"/>
+        </Property>
+        <Property Name="ShareableRegion" Type="Edm.Boolean" DefaultValue="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether this memory region can be shared across multiple hosts."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this memory region can be shared across multiple hosts as defined in the 'Flags' field of 'Device Scoped Memory Affinity Structure' defined in the Coherent Device Attribute Table (CDAT) Specification."/>
+        </Property>
+        <Property Name="NonVolatileRegion" Type="Edm.Boolean" DefaultValue="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether this memory region represents non-volatile memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this memory region represents non-volatile memory as defined in the 'Flags' field of 'Device Scoped Memory Affinity Structure' defined in the Coherent Device Attribute Table (CDAT) Specification."/>
+        </Property>
+        <Property Name="HardwareManagedCoherencyRegion" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether the device manages the cache coherency across hosts for this memory region."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the device manages the cache coherency across hosts and thereby ensures that each host has a consistent view of this memory region content as defined in the 'Flags' field of 'Device Scoped Memory Affinity Structure' defined in the Coherent Device Attribute Table (CDAT) Specification."/>
+        </Property>
+        <Property Name="SanitizeOnRelease" Type="Edm.Boolean" DefaultValue="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether the capacity released from this memory region will be sanitized before it is made available to any host."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the device has been configured such that capacity released from this memory region will be sanitized before it is made available to any host."/>
+        </Property>
+        <Property Name="ExtentsCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of extents defined for this memory region."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of extents defined for this memory region."/>
+        </Property>
+        <Property Name="MemoryExtents" Type="Collection(MemoryRegion.v1_0_0.MemoryExtent)">
+          <Annotation Term="OData.Description" String="The set of memory extents defined for this memory region."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the set of memory extents defining address ranges available for an access in dynamic capacity memory regions."/>
+        </Property>
+        <Property Name="MemoryChunks" Type="Collection(MemoryRegion.v1_0_0.MemoryChunk)">
+          <Annotation Term="OData.Description" String="The set of memory chunks providing capacity for this memory region."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the set of memory chunks providing capacity for this memory region."/>
+        </Property>
+        <Property Name="Status" Type="Resource.Status" Nullable="false">
+          <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+        </Property>
+        <Property Name="Actions" Type="MemoryRegion.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="MemoryExtent">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="Definition of memory extent identifying an available address range in the memory region."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the definition of a memory extent identifying an available address range in the dynamic capacity memory region."/>
+        <Property Name="ExtentOffsetMiB" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Offset of the memory extent within the memory region in mebibytes (MiB)."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be the offset of the memory extent within the memory region in mebibytes (MiB)."/>
+          <Annotation Term="Measures.Unit" String="MiBy"/>
+        </Property>
+        <Property Name="ExtentSizeMiB" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Size of the memory extent in mebibytes (MiB)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the size of the memory extent in MiB."/>
+          <Annotation Term="Measures.Unit" String="MiBy"/>
+        </Property>
+        <Property Name="Tag" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The user-assigned tag of this memory extent."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an opaque context attached to each extent to track usage of each extent or map extent to specific processes, transactions, or workloads on the host."/>
+        </Property>
+        <Property Name="SequenceNumber" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The memory extent sequence number."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the sequence number instructing host on the relative order the extents have to be placed in the host adjacent virtual address space."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="MemoryChunk">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="Definition of memory chunk providing capacity for memory region."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the definition of a memory chunk providing capacity for memory region."/>
+        <Property Name="ChunkOffsetMiB" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Offset of the memory chunk within the memory region in mebibytes (MiB)."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be the offset of the memory chunk within the memory region in mebibytes (MiB)."/>
+          <Annotation Term="Measures.Unit" String="MiBy"/>
+        </Property>
+        <NavigationProperty Name="ChunkLink" Type="MemoryChunks.MemoryChunks" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the memory chunk providing capacity to the memory region."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type MemoryChunks that provides capacity to the memory region."/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="MemoryRegion.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
+      </ComplexType>
+
+      <EnumType Name="RegionType">
+        <Member Name="Static">
+          <Annotation Term="OData.Description" String="Static memory region.  The whole address range is always covered by memory."/>
+        </Member>
+        <Member Name="Dynamic">
+          <Annotation Term="OData.Description" String="Dynamic memory region.  The address range coverage may be changed in the runtime."/>
+        </Member>
+      </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryRegion.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the spelling of the RegionBaseOffsetMiB property.  It was also created to correct various typographical errors."/>
+      <EntityType Name="MemoryRegion" BaseType="MemoryRegion.v1_0_0.MemoryRegion"/>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>
