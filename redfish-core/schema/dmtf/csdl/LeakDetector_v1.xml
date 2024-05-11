@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  LeakDetector v1.0.1                                                 -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/PhysicalContext_v1.xml">
+    <edmx:Include Namespace="PhysicalContext"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Control_v1.xml">
+    <edmx:Include Namespace="Control"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Redundancy_v1.xml">
+    <edmx:Include Namespace="Redundancy"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LeakDetector">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="LeakDetector" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The LeakDetector schema describes a state-based or digital-value leak detector and its properties."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent a state-based or digital-value leak detector for a Redfish implementation."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/Chassis/{ChassisId}/ThermalSubsystem/LeakDetection/LeakDetectors/{LeakDetectorId}</String>
+            <String>/redfish/v1/ThermalEquipment/CDUs/{CoolingUnitId}/LeakDetection/LeakDetectors/{LeakDetectorId}</String>
+            <String>/redfish/v1/ThermalEquipment/ImmersionUnits/{CoolingUnitId}/LeakDetection/LeakDetectors/{LeakDetectorId}</String>
+            <String>/redfish/v1/ThermalEquipment/HeatExchangers/{CoolingUnitId}/LeakDetection/LeakDetectors/{LeakDetectorId}</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LeakDetector.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.1"/>
+
+      <EntityType Name="LeakDetector" BaseType="LeakDetector.LeakDetector">
+        <Property Name="LeakDetectorType" Type="LeakDetector.v1_0_0.LeakDetectorType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The type of leak detection sensor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the reading type of the leak detection sensor."/>
+        </Property>
+        <Property Name="DataSourceUri" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the resource that provides the data for this leak detector."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a URI to the resource that provides the source of the excerpt contained within this copy."/>
+          <Annotation Term="OData.IsURL"/>
+          <Annotation Term="Redfish.ExcerptCopyOnly"/>
+        </Property>
+        <Property Name="Status" Type="Resource.Status" Nullable="false">
+          <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+        </Property>
+        <Property Name="DetectorState" Type="Resource.Health">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The state of the leak detector."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the state of the leak detector."/>
+          <Annotation Term="Redfish.Excerpt"/>
+        </Property>
+        <Property Name="PhysicalContext" Type="PhysicalContext.PhysicalContext">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The area or device to which this leak detector applies."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a description of the affected component or region within the equipment to which this leak detector applies."/>
+          <Annotation Term="Redfish.Excerpt" String="Array"/>
+        </Property>
+        <Property Name="PhysicalSubContext" Type="PhysicalContext.PhysicalSubContext">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The usage or location within a device to which this leak detector applies."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a description of the usage or sub-region within the equipment to which this leak detector applies.  This property generally differentiates multiple leak detectors within the same PhysicalContext instance."/>
+          <Annotation Term="Redfish.Excerpt" String="Array"/>
+        </Property>
+        <Property Name="Location" Type="Resource.Location" Nullable="false">
+          <Annotation Term="OData.Description" String="The location information for this leak detector."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the location information for this leak detector."/>
+        </Property>
+        <Property Name="SensingFrequency" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The time interval between readings of the physical leak detector."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the time interval between readings of the physical leak detector."/>
+        </Property>
+        <Property Name="Manufacturer" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The manufacturer of this leak detector."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name of the organization responsible for producing the leak detector.  This organization may be the entity from whom the leak detector is purchased, but this is not necessarily true."/>
+        </Property>
+        <Property Name="Model" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The model number of the leak detector."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name by which the manufacturer generally refers to the leak detector."/>
+        </Property>
+        <Property Name="SKU" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The SKU of the leak detector."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the stock-keeping unit number for this leak detector."/>
+        </Property>
+        <Property Name="SerialNumber" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The serial number of the leak detector."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a manufacturer-allocated number that identifies the leak detector."/>
+        </Property>
+        <Property Name="PartNumber" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The part number of the leak detector."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a part number assigned by the organization that is responsible for producing or manufacturing the leak detector."/>
+        </Property>
+        <Property Name="SparePartNumber" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The spare part number of the leak detector."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the spare part number of the leak detector."/>
+        </Property>
+        <Property Name="Actions" Type="LeakDetector.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="LeakDetector.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
+      </ComplexType>
+
+      <EnumType Name="LeakDetectorType">
+        <Member Name="Moisture">
+          <Annotation Term="OData.Description" String="A moisture sensor."/>
+        </Member>
+        <Member Name="FloatSwitch">
+          <Annotation Term="OData.Description" String="A float switch."/>
+        </Member>
+      </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LeakDetector.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="LeakDetector" BaseType="LeakDetector.v1_0_0.LeakDetector"/>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

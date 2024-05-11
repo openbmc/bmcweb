@@ -1,0 +1,345 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Container.v1_0_0.json",
+    "$ref": "#/definitions/Container",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "#Container.Reset": {
+                    "$ref": "#/definitions/Reset"
+                },
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "Container": {
+            "additionalProperties": false,
+            "description": "The Container schema represents an instance of a container that is running on a computer system.",
+            "longDescription": "This resource shall represent an instance of a container that is running on a computer system.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "EthernetInterfaces": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EthernetInterfaceCollection.json#/definitions/EthernetInterfaceCollection",
+                    "description": "The link to the collection of Ethernet interfaces associated with this container.",
+                    "longDescription": "This property shall contain a link to a resource collection of type EthernetInterfaceCollection.",
+                    "readonly": true
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Limits": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Limits"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The resource limits allocated to this container.",
+                    "longDescription": "This property shall contain the resource limits allocated to this container."
+                },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
+                },
+                "MountPoints": {
+                    "description": "The file system mount points configured for this container.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/MountPoint"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain the file system mount points configured for this container.",
+                    "type": "array"
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "ProgrammaticId": {
+                    "description": "The programmatic identifier for this container.",
+                    "longDescription": "This property shall contain the programmatic identifier for this container.  This is typically a hash string that represents the running instance of this container.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "StartTime": {
+                    "description": "The date and time when the container started running.",
+                    "format": "date-time",
+                    "longDescription": "This property shall indicate the date and time when the container started running.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "Limits": {
+            "additionalProperties": false,
+            "description": "The resource limits allocated to a container.",
+            "longDescription": "This type shall contain the resource limits allocated to a container.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "CPUCount": {
+                    "description": "The number of processors available to this container.",
+                    "longDescription": "This property shall contain the number of processors available to this container.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "MemoryBytes": {
+                    "description": "The amount of memory available to this container in bytes.",
+                    "longDescription": "This property shall contain the amount of memory available to this container in bytes.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "By"
+                }
+            },
+            "type": "object"
+        },
+        "Links": {
+            "additionalProperties": false,
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "ContainerImage": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ContainerImage.json#/definitions/ContainerImage",
+                    "description": "The link to the container image for this container.",
+                    "longDescription": "This property shall contain a link to a resource of type ContainerImage that represents the container image for this container.",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                }
+            },
+            "type": "object"
+        },
+        "MountPoint": {
+            "additionalProperties": false,
+            "description": "A file system mount point configured for a container.",
+            "longDescription": "This type shall contain a file system mount point configured for a container.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Destination": {
+                    "description": "The file system path in the container that is provided as the mount point to access the files and folders contained in the source path.",
+                    "longDescription": "This property shall contain the file system path in the container that is provided as the mount point to access the files and folders specified by the Source property.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Source": {
+                    "description": "The file system path from the hosting system that is provided to this container.",
+                    "longDescription": "This property shall contain the file system path from the hosting system that is provided to this container.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "Reset": {
+            "additionalProperties": false,
+            "description": "This action resets the container.",
+            "longDescription": "This action shall reset the container.",
+            "parameters": {
+                "ResetType": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/ResetType",
+                    "description": "The type of reset.",
+                    "longDescription": "This parameter shall contain the type of reset.  `GracefulRestart` and `ForceRestart` shall indicate requests to restart the container.  `GracefulShutdown` and `ForceOff` shall indicate requests to stop or disable the container.  `On` and `ForceOn` shall indicate requests to start or enable the container.  The service can accept a request without the parameter and shall perform a `GracefulRestart`."
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2023.2",
+    "title": "#Container.v1_0_0.Container"
+}

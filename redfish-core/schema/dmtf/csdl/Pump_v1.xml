@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  Pump v1.0.1                                                         -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Chassis_v1.xml">
+    <edmx:Include Namespace="Chassis"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/PhysicalContext_v1.xml">
+    <edmx:Include Namespace="PhysicalContext"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Redundancy_v1.xml">
+    <edmx:Include Namespace="Redundancy"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Sensor_v1.xml">
+    <edmx:Include Namespace="Sensor"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Assembly_v1.xml">
+    <edmx:Include Namespace="Assembly"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/CoolingLoop_v1.xml">
+    <edmx:Include Namespace="CoolingLoop"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/FilterCollection_v1.xml">
+    <edmx:Include Namespace="FilterCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Control_v1.xml">
+    <edmx:Include Namespace="Control"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Pump">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="Pump" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The Pump schema describes a pump unit for a cooling system or similar device."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent the management properties for monitoring and management of pumps for a Redfish implementation."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="true"/>
+            <Annotation Term="OData.Description" String="Any writable properties can be updated."/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/ThermalEquipment/CDUs/{CoolingUnitId}/Pumps/{PumpId}</String>
+            <String>/redfish/v1/ThermalEquipment/ImmersionUnits/{CoolingUnitId}/Pumps/{PumpId}</String>
+            <String>/redfish/v1/ThermalEquipment/HeatExchangers/{CoolingUnitId}/Pumps/{PumpId}</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/ThermalSubsystem/Pumps/{PumpId}</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Pump.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.1"/>
+
+      <EntityType Name="Pump" BaseType="Pump.Pump">
+        <Property Name="PhysicalContext" Type="PhysicalContext.PhysicalContext" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The area or device associated with this pump."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a description of the affected device or region within the chassis with which this pump is associated."/>
+        </Property>
+        <Property Name="Status" Type="Resource.Status" Nullable="false">
+          <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+        </Property>
+        <Property Name="UserLabel" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="A user-assigned label."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a user-assigned label used to identify this resource.  If a value has not been assigned by a user, the value of this property shall be an empty string."/>
+        </Property>
+        <Property Name="PumpType" Type="Pump.v1_0_0.PumpType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The type of pump."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of pump represented by this resource."/>
+        </Property>
+        <Property Name="Manufacturer" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The manufacturer of this pump."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name of the organization responsible for producing the pump.  This organization may be the entity from whom the pump is purchased, but this is not necessarily true."/>
+        </Property>
+        <Property Name="Model" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The model number for this pump."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the model information as defined by the manufacturer for this pump."/>
+        </Property>
+        <Property Name="SerialNumber" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The serial number for this pump."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the serial number as defined by the manufacturer for this pump."/>
+        </Property>
+        <Property Name="PartNumber" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The part number for this pump."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the part number as defined by the manufacturer for this pump."/>
+        </Property>
+        <Property Name="SparePartNumber" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The spare part number for this pump."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the spare or replacement part number as defined by the manufacturer for this pump."/>
+        </Property>
+        <Property Name="Version" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The hardware version of this equipment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the hardware version of this equipment as determined by the vendor or supplier."/>
+        </Property>
+        <Property Name="FirmwareVersion" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The firmware version of this equipment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a string describing the firmware version of this equipment as provided by the manufacturer."/>
+        </Property>
+        <Property Name="ProductionDate" Type="Edm.DateTimeOffset">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The production or manufacturing date of this equipment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date of production or manufacture for this equipment."/>
+        </Property>
+        <Property Name="AssetTag" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The user-assigned asset tag for this equipment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the user-assigned asset tag, which is an identifying string that tracks the equipment for inventory purposes."/>
+        </Property>
+        <Property Name="Location" Type="Resource.Location" Nullable="false">
+          <Annotation Term="OData.Description" String="The location of the pump."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the location information of this pump."/>
+        </Property>
+        <Property Name="LocationIndicatorActive" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indicator allowing an operator to physically locate this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the state of the indicator used to physically identify or locate this resource."/>
+        </Property>
+        <Property Name="ServiceHours" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The hours of service this pump has provided."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of hours of service that the pump has been in operation."/>
+        </Property>
+        <NavigationProperty Name="PumpSpeedPercent" Type="Sensor.Sensor">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="Redfish.ExcerptCopy" String="Pump"/>
+          <Annotation Term="OData.Description" String="The pump speed (%)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the current speed, in percent units, of this pump.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Percent`."/>
+        </NavigationProperty>
+        <NavigationProperty Name="Assembly" Type="Assembly.Assembly" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the assembly associated with this pump."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Assembly."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="Filters" Type="FilterCollection.FilterCollection" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A link to a collection of filters."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type FilterCollection that contains a set of filters."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+
+        <Property Name="Actions" Type="Pump.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="Pump.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
+      </ComplexType>
+
+      <EnumType Name="PumpType">
+        <Member Name="Liquid">
+          <Annotation Term="OData.Description" String="A water or liquid pump."/>
+        </Member>
+        <Member Name="Compressor">
+          <Annotation Term="OData.Description" String="A compressor."/>
+        </Member>
+      </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Pump.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Pump" BaseType="Pump.v1_0_0.Pump"/>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>
