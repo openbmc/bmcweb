@@ -133,6 +133,9 @@ include_list = [
     "UpdateService",
     "VirtualMedia",
     "VirtualMediaCollection",
+]
+
+csdl_schema_names = [
     "odata",
     "odata-v4",
     "redfish-error",
@@ -249,9 +252,6 @@ for zip_file in zip_ref.infolist():
     elif zip_file.filename.startswith("json-schema/"):
         filename = os.path.basename(zip_file.filename)
         filenamesplit = filename.split(".")
-        # exclude schemas again to save flash space
-        if filenamesplit[0] not in include_list:
-            continue
         json_schema_files[filenamesplit[0]].append(filename)
     elif zip_file.filename.startswith("openapi/"):
         pass
@@ -350,6 +350,11 @@ for schema, version in json_schema_files.items():
     with open(os.path.join(schemadir, schema + ".json"), "wb") as schema_file:
         schema_file.write(zip_ref.read(zip_filepath).replace(b"\r\n", b"\n"))
 
+included_json_schema_files = [
+    filename for filename in json_schema_files if filename in include_list
+]
+included_json_schema_files += oem_schema_names
+included_json_schema_files += csdl_schema_names
 with open(os.path.join(cpp_path, "schemas.hpp"), "w") as hpp_file:
     hpp_file.write(
         "#pragma once\n"
@@ -362,34 +367,27 @@ with open(os.path.join(cpp_path, "schemas.hpp"), "w") as hpp_file:
         "{{\n"
         "    constexpr std::array<std::string_view,{SIZE}> schemas {{\n".format(
             WARNING=WARNING,
-            SIZE=len(json_schema_files) + len(oem_schema_names),
+            SIZE=len(included_json_schema_files),
         )
     )
-    for schema_file in json_schema_files:
-        hpp_file.write('        "{}",\n'.format(schema_file))
-
-    for schema_file in oem_schema_names:
+    for schema_file in included_json_schema_files:
         hpp_file.write('        "{}",\n'.format(schema_file))
 
     hpp_file.write("    };\n}\n")
+
+with open(os.path.join(static_path, "meson.build"), "w") as meson_file:
+    meson_file.write('install_data(\'$metadata/index.xml\', install_dir: \'share/www/redfish/v1/$metadata\')\n'.format(schema_file))
+    for schema_file in included_json_schema_files:
+        if schema_file in csdl_schema_names:
+            continue
+        meson_file.write('install_data(\'schema/{}_v1.xml\', install_dir: \'share/www/redfish/v1/schema/\')\n'.format(schema_file))
+        # TODO, this file needs renamed?  Needs triage
+        if schema_file == "OpenBMCAccountService":
+            schema_file = "OemAccountService"
+        meson_file.write('install_data(\'JsonSchemas/{0}/{0}.json\', install_dir: \'share/www/redfish/v1/JsonSchemas/{0}\')\n'.format(schema_file))
 
 zip_ref.close()
 
 generate_schema_enums.main()
 generate_top_collections()
 
-# Now delete the xml schema files we aren't supporting
-if os.path.exists(schema_path):
-    files = [
-        os.path.join(schema_path, f)
-        for f in os.listdir(schema_path)
-        if not any([f.startswith(prefix) for prefix in skip_prefixes])
-    ]
-    for filename in files:
-        # filename will include the absolute path
-        filenamesplit = filename.split("/")
-        name = filenamesplit.pop()
-        namesplit = name.split("_")
-        if namesplit[0] not in include_list:
-            print("excluding schema: " + filename)
-            os.remove(filename)

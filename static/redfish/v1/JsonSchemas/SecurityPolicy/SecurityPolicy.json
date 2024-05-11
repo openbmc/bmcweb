@@ -1,0 +1,568 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/SecurityPolicy.v1_0_1.json",
+    "$ref": "#/definitions/SecurityPolicy",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "SPDMAlgorithmSet": {
+            "additionalProperties": false,
+            "description": "The SPDM algorithm settings.",
+            "longDescription": "This object shall contain SPDM algorithm settings.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AEAD": {
+                    "description": "The AEAD algorithms.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of AEAD algorithms.  The allowable values for this property shall be the AEAD algorithm names found in the 'AlgSupported' field of the 'AEAD structure' table in DSP0274, `ALL`, and `NONE`.  An array containing one element with the value of `ALL` or an empty array shall indicate all AEAD algorithms.  An array containing one element with a value of `NONE` shall indicate no AEAD algorithms.",
+                    "readonly": false,
+                    "type": "array"
+                },
+                "BaseAsym": {
+                    "description": "The asymmetric signature algorithms.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of asymmetric signature algorithms.  The allowable values for this property shall be the asymmetric key signature algorithm names found in the 'BaseAsymAlgo' field of the 'NEGOTIATE_ALGORITHMS' request message in DSP0274, `ALL`, and `NONE`.  An array containing one element with the value of `ALL` or an empty array shall indicate all asymmetric signature algorithms.  An array containing one element with a value of `NONE` shall indicate no asymmetric signature algorithms.",
+                    "readonly": false,
+                    "type": "array"
+                },
+                "BaseHash": {
+                    "description": "The hash algorithms.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of hash algorithms.  The allowable values for this property shall be the hash algorithm names found in the 'BaseHashAlgo' field of the 'NEGOTIATE_ALGORITHMS' request message in DSP0274, `ALL`, and `NONE`.  An array containing one element with the value of `ALL` or an empty array shall indicate all hash algorithms.  An array containing one element with a value of `NONE` shall indicate no hash algorithms.",
+                    "readonly": false,
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        },
+        "SPDMParameterSet": {
+            "additionalProperties": false,
+            "description": "The SPDM policy settings.",
+            "longDescription": "This object shall contain SPDM policy settings.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Algorithms": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/SPDMAlgorithmSet"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The SPDM algorithms.",
+                    "longDescription": "This property shall contain the SPDM algorithms."
+                },
+                "Versions": {
+                    "description": "The SPDM versions.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of SPDM versions.  An array containing one element with the value of `ALL` or an empty array shall indicate all versions.  An array containing one element with a value of `NONE` shall indicate no versions.",
+                    "pattern": "^\\d+\\.\\d+$|^NONE$|^ALL$",
+                    "readonly": false,
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        },
+        "SPDMPolicy": {
+            "additionalProperties": false,
+            "description": "SPDM policy settings.",
+            "longDescription": "This object shall contain SPDM policy settings.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AllowExtendedAlgorithms": {
+                    "description": "An indication of whether SPDM extended algorithms are allowed.",
+                    "longDescription": "This property shall indicate whether SPDM extended algorithms as defined in DSP0274 are allowed.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "Allowed": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/SPDMParameterSet"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The SPDM policy settings that are allowed, such as the allowable SPDM versions and algorithms.",
+                    "longDescription": "This property shall contain the SPDM policy settings that are allowed, such as the allowable SPDM versions and algorithms."
+                },
+                "Denied": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/SPDMParameterSet"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The SPDM policy settings that are prohibited, such as the prohibited SPDM versions and algorithms.",
+                    "longDescription": "This property shall contain the SPDM policy settings that are prohibited, such as the prohibited SPDM versions and algorithms."
+                },
+                "Enabled": {
+                    "description": "An indication of whether SPDM communication with devices is enabled.",
+                    "longDescription": "This property shall indicate whether SPDM communication with devices as defined in DSP0274 is enabled.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "RevokedCertificates": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The revoked SPDM device certificates.",
+                    "longDescription": "This property shall contain a link to a resource collection of type CertificateCollection that represents the set of revoked SPDM device certificates.  Certificates in this collection may contain leaf certificates, partial certificate chains, or complete certificate chains, where a partial certificate chain is a chain containing only CA certificates.  If `VerifyCertificate` contains the value `true` and if an SPDM endpoint verifies successfully against a partial chain or exactly matches a leaf certificate, that SPDM endpoint shall fail authentication.",
+                    "readonly": true
+                },
+                "SecureSessionEnabled": {
+                    "description": "An indication of whether SPDM secure sessions with devices is enabled.",
+                    "longDescription": "This property shall indicate whether SPDM secure sessions with devices as defined in DSP0274 is enabled.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "TrustedCertificates": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The trusted SPDM device certificates.",
+                    "longDescription": "This property shall contain a link to a resource collection of type CertificateCollection that represents the set of trusted SPDM device certificates.  Certificates in this collection may contain leaf certificates, partial certificate chains, or complete certificate chains, where a partial certificate chain is a chain containing only CA certificates.  If `VerifyCertificate` contains the value `true` and if an SPDM endpoint verifies successfully against a partial chain or exactly matches a leaf certificate, that SPDM endpoint shall be considered verified and other authentications checks are performed.",
+                    "readonly": true
+                },
+                "VerifyCertificate": {
+                    "description": "An indication of whether the manager will verify the certificate of the SPDM endpoint.",
+                    "longDescription": "This property shall indicate whether the manager will verify the certificate of the SPDM endpoint.  If `true`, the manager shall verify the device certificate with the certificates found in the collections referenced by the `RevokedCertificates` and `TrustedCertificates` properties.  If `false`, the manager shall not perform verification of the endpoint certificate.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "SecurityPolicy": {
+            "additionalProperties": false,
+            "description": "The SecurityPolicy resource provides a central point to configure the security policy of a manager.",
+            "longDescription": "This resource shall represent configurable security-related policies managed by a manager.  All security parameters in other resources that are controlled by the manager shall follow the related settings in this security policy.  For example, an outbound TLS connection established per an EventDestination resource will follow the values of the properties in the TLS property.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "OverrideParentManager": {
+                    "description": "Override the security policy of the parent manager.",
+                    "longDescription": "This property shall indicate whether this security policy overrides the security policy of the managers referenced by the ManagedBy property within the Links property of the Manager resource for this security policy.  If this property is absent, the value shall be assumed to be `false`.",
+                    "readonly": false,
+                    "type": "boolean"
+                },
+                "SPDM": {
+                    "$ref": "#/definitions/SPDMPolicy",
+                    "description": "The SPDM policy.",
+                    "longDescription": "This property shall contain the policy requirements for SPDM communication and usage."
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                },
+                "TLS": {
+                    "$ref": "#/definitions/TLSCommunication",
+                    "description": "The TLS policy.",
+                    "longDescription": "This property shall contain the policy requirements for TLS communication and usage."
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "TLSAlgorithmSet": {
+            "additionalProperties": false,
+            "description": "The TLS algorithm settings.",
+            "longDescription": "This object shall contain TLS algorithm settings.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "CipherSuites": {
+                    "description": "The TLS cipher suites.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of TLS cipher suites.  The allowable values for this property shall be the TLS cipher suites listed in 'CipherSuites' defined in, but not limited to, RFC4346, RFC5246, or RFC8446, `ALL`, and `NONE`.  An array containing one element with the value of `ALL` or an empty array shall indicate all TLS cipher suites.  An array containing one element with a value of `NONE` shall indicate no TLS cipher suites.",
+                    "readonly": false,
+                    "type": "array"
+                },
+                "SignatureAlgorithms": {
+                    "description": "The TLS signature algorithms.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of TLS signature algorithms.  The allowable values for this property shall be the TLS signature algorithms listed in 'SignatureScheme' or the concatenation of 'SignatureAlgorithm', '_', and 'HashAlgorithm' defined in, but not limited to, RFC4346, RFC5246, or RFC8446, `ALL`, and `NONE`.  An array containing one element with the value of `ALL` or an empty array shall indicate all TLS signature algorithms.  An array containing one element with a value of `NONE` shall indicate no TLS signature algorithms.",
+                    "readonly": false,
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        },
+        "TLSCommunication": {
+            "additionalProperties": false,
+            "description": "The TLS client and server policies.",
+            "longDescription": "This property shall contain the policy requirements for TLS communication and usage for a TLS client and server.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Client": {
+                    "$ref": "#/definitions/TLSPolicy",
+                    "description": "The TLS policy.",
+                    "longDescription": "This property shall contain the policy requirements and usage for TLS connections where the manager acts as a TLS client."
+                },
+                "Server": {
+                    "$ref": "#/definitions/TLSPolicy",
+                    "description": "The TLS policy.",
+                    "longDescription": "This property shall contain the policy requirements and usage for TLS connections where the manager acts as a TLS server."
+                }
+            },
+            "type": "object"
+        },
+        "TLSParameterSet": {
+            "additionalProperties": false,
+            "description": "The TLS policy settings.",
+            "longDescription": "This object shall contain TLS policy settings.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Algorithms": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/TLSAlgorithmSet"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The TLS algorithms.",
+                    "longDescription": "This property shall contain the TLS algorithms."
+                },
+                "Versions": {
+                    "description": "The TLS versions.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of TLS versions.  An array containing one element with the value of `ALL` or an empty array shall indicate all versions.  An array containing one element with a value of `NONE` shall indicate no versions.",
+                    "pattern": "^\\d+\\.\\d+$|^NONE$|^ALL$",
+                    "readonly": false,
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        },
+        "TLSPolicy": {
+            "additionalProperties": false,
+            "description": "TLS policy settings.",
+            "longDescription": "This object shall contain TLS policy settings.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Allowed": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/TLSParameterSet"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The TLS policy settings that are allowed, such as the allowable TLS versions and algorithms.",
+                    "longDescription": "This property shall contain the TLS policy settings that are allowed, such as the allowable TLS versions and algorithms.  If a value is missing for the same property in the 'Allowed' and 'Denied' object, the missing value shall behave as if the value is present in the same property under the 'Denied' object.  If a value conflicts for the same property between the 'Allowed' and 'Denied' object, the value of the same property in the 'Denied' object shall take precedence.  A Redfish service can resolve or prevent conflicts at time of request as well."
+                },
+                "Denied": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/TLSParameterSet"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The TLS policy settings that are prohibited, such as the prohibited TLS versions and algorithms.",
+                    "longDescription": "This property shall contain the TLS policy settings that are prohibited, such as the prohibited TLS versions and algorithms.  If a value is missing for the same property in the 'Allowed' and 'Denied' object, the missing value shall behave as if the value is present in the same property under the 'Denied' object.  If a value conflicts for the same property between the 'Allowed' and 'Denied' object, the value of the same property in the 'Denied' object shall take precedence.  A Redfish service can resolve or prevent conflicts at time of request as well."
+                },
+                "RevokedCertificates": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The revoked TLS server certificates.",
+                    "longDescription": "This property shall contain a link to a resource collection of type CertificateCollection that represents the set of revoked TLS certificates.  Certificates in this collection may contain leaf certificates, partial certificate chains, or complete certificate chains, where a partial certificate chain is a chain containing only CA certificates.  If `VerifyCertificate` contains the value `true` and if a TLS endpoint verifies successfully against a partial chain or exactly matches a leaf certificate, that TLS endpoint shall fail authentication.",
+                    "readonly": true
+                },
+                "TrustedCertificates": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The trusted TLS server certificates.",
+                    "longDescription": "This property shall contain a link to a resource collection of type CertificateCollection that represents the set of trusted TLS certificates.  Certificates in this collection may contain leaf certificates, partial certificate chains, or complete certificate chains, where a partial certificate chain is a chain containing only CA certificates.  If `VerifyCertificate` contains the value `true` and if a TLS endpoint verifies successfully against a partial chain or exactly matches a leaf certificate, that TLS endpoint shall be considered verified and other authentications checks are performed.",
+                    "readonly": true
+                },
+                "VerifyCertificate": {
+                    "description": "An indication of whether the manager will verify the certificate of the remote TLS endpoint.",
+                    "longDescription": "This property shall indicate whether the manager will verify the certificate of the remote endpoint in a TLS connection.  If `true`, the manager shall verify the remote endpoint certificate with the certificates found in the collections referenced by the `RevokedCertificates` and `TrustedCertificates` properties.  If `false` or not present, the manager shall not perform verification of the endpoint certificate.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2022.2",
+    "title": "#SecurityPolicy.v1_0_1.SecurityPolicy"
+}

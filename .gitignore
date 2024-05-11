@@ -3,6 +3,8 @@
 *.crt
 *.key
 
+scripts/certs/
+
 # Visual Studio
 .vscode/
 

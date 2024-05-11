@@ -1,0 +1,535 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Battery.v1_2_2.json",
+    "$ref": "#/definitions/Battery",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "#Battery.Calibrate": {
+                    "$ref": "#/definitions/Calibrate"
+                },
+                "#Battery.Reset": {
+                    "$ref": "#/definitions/Reset"
+                },
+                "#Battery.SelfTest": {
+                    "$ref": "#/definitions/SelfTest"
+                },
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "Battery": {
+            "additionalProperties": false,
+            "description": "The Battery schema describes a battery unit, such as those used to provide systems with power during a power-loss event.  It also describes the location, such as a slot, socket, or bay, where a unit can be installed by populating a resource instance with an absent state if a unit is not present.",
+            "longDescription": "This resource shall represent a battery for a Redfish implementation.  It may also represent a location, such as a slot, socket, or bay, where a unit may be installed if the State property within the Status property contains `Absent`.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "Assembly": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Assembly.json#/definitions/Assembly",
+                    "description": "The link to the assembly associated with this battery.",
+                    "longDescription": "This property shall contain a link to a resource of type Assembly.",
+                    "readonly": true
+                },
+                "CapacityActualAmpHours": {
+                    "description": "The actual maximum capacity of this battery in amp-hour units.",
+                    "longDescription": "This property shall contain the actual maximum capacity of this battery in amp-hour units.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "A.h"
+                },
+                "CapacityActualWattHours": {
+                    "description": "The actual maximum capacity of this battery in watt-hour units.",
+                    "longDescription": "This property shall contain the actual maximum capacity of this battery in watt-hour units.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "W.h"
+                },
+                "CapacityRatedAmpHours": {
+                    "description": "The rated maximum capacity of this battery in amp-hour units.",
+                    "longDescription": "This property shall contain the rated maximum capacity of this battery in amp-hour units.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "A.h"
+                },
+                "CapacityRatedWattHours": {
+                    "description": "The rated maximum capacity of this battery in watt-hour units.",
+                    "longDescription": "This property shall contain the rated maximum capacity of this battery in watt-hour units.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "W.h"
+                },
+                "ChargeState": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ChargeState"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The charge state of this battery.",
+                    "longDescription": "This property shall contain the charge state of this battery.",
+                    "readonly": true
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "FirmwareVersion": {
+                    "description": "The firmware version for this battery.",
+                    "longDescription": "This property shall contain the firmware version as defined by the manufacturer for this battery.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "HotPluggable": {
+                    "description": "An indication of whether this device can be inserted or removed while the equipment is in operation.",
+                    "longDescription": "This property shall indicate whether the device can be inserted or removed while the underlying equipment otherwise remains in its current operational state.  Devices indicated as hot-pluggable shall allow the device to become operable without altering the operational state of the underlying equipment.  Devices that cannot be inserted or removed from equipment in operation, or devices that cannot become operable without affecting the operational state of that equipment, shall be indicated as not hot-pluggable.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
+                    "versionAdded": "v1_1_0"
+                },
+                "Location": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location",
+                    "description": "The location of the battery.",
+                    "longDescription": "This property shall contain the location information of this battery."
+                },
+                "LocationIndicatorActive": {
+                    "description": "An indicator allowing an operator to physically locate this resource.",
+                    "longDescription": "This property shall contain the state of the indicator used to physically identify or locate this resource.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "Manufacturer": {
+                    "description": "The manufacturer of this battery.",
+                    "longDescription": "This property shall contain the name of the organization responsible for producing the battery.  This organization may be the entity from whom the battery is purchased, but this is not necessarily true.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "MaxChargeRateAmps": {
+                    "description": "The maximum charge rate of this battery in amp units.",
+                    "longDescription": "This property shall contain the maximum charge rate of this battery in amp units.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "A"
+                },
+                "MaxChargeVoltage": {
+                    "description": "The maximum charge voltage of this battery.",
+                    "longDescription": "This property shall contain the maximum charge voltage of this battery.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "V"
+                },
+                "MaxDischargeRateAmps": {
+                    "description": "The maximum discharge rate of this battery in amp units.",
+                    "longDescription": "This property shall contain the maximum discharge rate of this battery in amp units.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "A"
+                },
+                "Metrics": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/BatteryMetrics.json#/definitions/BatteryMetrics",
+                    "description": "The link to the battery metrics resource associated with this battery.",
+                    "longDescription": "This property shall contain a link to a resource of type BatteryMetrics.",
+                    "readonly": true
+                },
+                "Model": {
+                    "description": "The model number for this battery.",
+                    "longDescription": "This property shall contain the model information as defined by the manufacturer for this battery.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "PartNumber": {
+                    "description": "The part number for this battery.",
+                    "longDescription": "This property shall contain the part number as defined by the manufacturer for this battery.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "ProductionDate": {
+                    "description": "The production or manufacturing date of this battery.",
+                    "format": "date-time",
+                    "longDescription": "This property shall contain the date of production or manufacture for this battery.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Replaceable": {
+                    "description": "An indication of whether this component can be independently replaced as allowed by the vendor's replacement policy.",
+                    "longDescription": "This property shall indicate whether this component can be independently replaced as allowed by the vendor's replacement policy.  A value of `false` indicates the component needs to be replaced by policy as part of another component.  If the `LocationType` property of this component contains `Embedded`, this property shall contain `false`.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0"
+                },
+                "SerialNumber": {
+                    "description": "The serial number for this battery.",
+                    "longDescription": "This property shall contain the serial number as defined by the manufacturer for this battery.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "SparePartNumber": {
+                    "description": "The spare part number for this battery.",
+                    "longDescription": "This property shall contain the spare or replacement part number as defined by the manufacturer for this battery.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "StateOfHealthPercent": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorExcerpt",
+                    "description": "The state of health (percent) of this battery.",
+                    "excerptCopy": "SensorExcerpt",
+                    "longDescription": "This property shall contain the state of health, in percent units, of this battery.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Percent`."
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                },
+                "Version": {
+                    "description": "The hardware version of this battery.",
+                    "longDescription": "This property shall contain the hardware version of this battery as determined by the vendor or supplier.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "Calibrate": {
+            "additionalProperties": false,
+            "description": "This action performs a self-calibration, or learn cycle, of the battery.",
+            "longDescription": "This action shall perform a self-calibration, or learn cycle, of the battery.",
+            "parameters": {},
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "ChargeState": {
+            "enum": [
+                "Idle",
+                "Charging",
+                "Discharging"
+            ],
+            "enumDescriptions": {
+                "Charging": "The battery is charging.",
+                "Discharging": "The battery is discharging.",
+                "Idle": "The battery is idle."
+            },
+            "enumLongDescriptions": {
+                "Charging": "This value shall indicate the battery is charging and energy is entering the battery.",
+                "Discharging": "This value shall indicate the battery is discharging and energy is leaving the battery.",
+                "Idle": "This value shall indicate the battery is idle and energy is not entering or leaving the battery.  Small amounts of energy may enter or leave the battery while in this state if the battery is regulating itself."
+            },
+            "type": "string"
+        },
+        "Links": {
+            "additionalProperties": false,
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Memory": {
+                    "description": "An array of links to the memory devices to which this battery provides power during a power-loss event.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Memory.json#/definitions/Memory"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Memory that represent the memory devices to which this battery provides power during a power-loss event, such as battery-backed NVDIMMs.  This property shall not be present if the battery powers the containing chassis as a whole rather than individual components in a chassis.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_1_0"
+                },
+                "Memory@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                },
+                "StorageControllers": {
+                    "description": "An array of links to the storage controllers to which this battery provides power during a power-loss event.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/StorageController.json#/definitions/StorageController"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type StorageController that represent the storage controllers to which this battery provides power during a power-loss event, such as battery-backed RAID controllers.  This property shall not be present if the battery powers the containing chassis as a whole rather than individual components in a chassis.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_1_0"
+                },
+                "StorageControllers@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "Reset": {
+            "additionalProperties": false,
+            "description": "This action resets the battery.",
+            "longDescription": "This action shall reset the battery.",
+            "parameters": {
+                "ResetType": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/ResetType",
+                    "description": "The type of reset.",
+                    "longDescription": "This parameter shall contain the type of reset.  The service can accept a request without the parameter and shall perform a `GracefulRestart`."
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "SelfTest": {
+            "additionalProperties": false,
+            "description": "This action performs a self-test of the battery.",
+            "longDescription": "This action shall perform a self-test of the battery.",
+            "parameters": {},
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2022.2",
+    "title": "#Battery.v1_2_2.Battery"
+}
