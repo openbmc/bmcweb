@@ -47,8 +47,12 @@ cpp_path = os.path.realpath(
 )
 
 
-schema_path = os.path.join(SCRIPT_DIR, "..", "redfish-core", "schema", "dmtf", "csdl")
-json_schema_path = os.path.join(SCRIPT_DIR, "..", "redfish-core", "schema", "dmtf", "json-schema")
+schema_path = os.path.join(
+    SCRIPT_DIR, "..", "redfish-core", "schema", "dmtf", "csdl"
+)
+json_schema_path = os.path.join(
+    SCRIPT_DIR, "..", "redfish-core", "schema", "dmtf", "json-schema"
+)
 metadata_index_path = os.path.join(static_path, "$metadata", "index.xml")
 
 zipBytesIO = BytesIO(r.content)
@@ -151,13 +155,17 @@ with open(metadata_index_path, "w") as metadata_index:
         ' Version="4.0">\n'
     )
 
-    schema_static_dir = os.path.join(SCRIPT_DIR, "..", "static", "redfish", "v1", "schema")
+    schema_static_dir = os.path.join(
+        SCRIPT_DIR, "..", "static", "redfish", "v1", "schema"
+    )
     for filename in sorted(os.listdir(schema_static_dir), key=SchemaVersion):
         metadata_index.write(
             '    <edmx:Reference Uri="/redfish/v1/schema/' + filename + '">\n'
         )
 
-        xml_root = ET.parse(os.path.join(schema_static_dir, filename)).getroot()
+        xml_root = ET.parse(
+            os.path.join(schema_static_dir, filename)
+        ).getroot()
         edmx = "{http://docs.oasis-open.org/odata/ns/edmx}"
         edm = "{http://docs.oasis-open.org/odata/ns/edm}"
         for edmx_child in xml_root:
@@ -201,7 +209,9 @@ for schema, version in json_schema_files.items():
 
 with open(os.path.join(cpp_path, "schemas.hpp"), "w") as hpp_file:
     schemas = []
-    for root, dirs, files in os.walk(os.path.join(SCRIPT_DIR, "..", "static", "redfish", "v1", "schema")):
+    for root, dirs, files in os.walk(
+        os.path.join(SCRIPT_DIR, "..", "static", "redfish", "v1", "schema")
+    ):
         for csdl_file in sorted(files, key=SchemaVersion):
             if csdl_file.endswith(".xml"):
                 schemas.append(csdl_file.replace("_v1.xml", ""))

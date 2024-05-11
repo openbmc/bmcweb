@@ -35,8 +35,11 @@ EDM = "{http://docs.oasis-open.org/odata/ns/edm}"
 
 seen_paths = set()
 
+
 def resolve_filename(xml_file):
-    for root, dirs, files in os.walk(os.path.join(SCRIPT_DIR, "..", "redfish-core", "schema")):
+    for root, dirs, files in os.walk(
+        os.path.join(SCRIPT_DIR, "..", "redfish-core", "schema")
+    ):
         for csdl_file in files:
             if csdl_file == xml_file:
                 return os.path.join(root, csdl_file)
