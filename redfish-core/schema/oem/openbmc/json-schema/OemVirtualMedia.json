@@ -26,10 +26,7 @@
                     "description": "Indicates endpoint socket name and location.",
                     "longDescription": "The value of this property shall be a structure ring indicating location and name of the socket used to communicate with nbd server.",
                     "readonly": true,
-                    "type": [
-                        "string",
-                        "null"
-                    ]
+                    "type": ["string", "null"]
                 }
             },
             "type": "object"
