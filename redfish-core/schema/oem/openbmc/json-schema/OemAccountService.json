@@ -60,46 +60,31 @@
                     "description": "Indicates whether BasicAuth authorization is enabled.",
                     "longDescription": "The value of this property shall be a boolean indicating whether BasicAuth authorization is enabled.",
                     "readonly": false,
-                    "type": [
-                        "boolean",
-                        "null"
-                    ]
+                    "type": ["boolean", "null"]
                 },
                 "Cookie": {
                     "description": "Indicates whether Cookie authorization is enabled.",
                     "longDescription": "The value of this property shall be a boolean indicating whether Cookie authorization is enabled.",
                     "readonly": false,
-                    "type": [
-                        "boolean",
-                        "null"
-                    ]
+                    "type": ["boolean", "null"]
                 },
                 "SessionToken": {
                     "description": "Indicates whether SessionToken authorization is enabled.",
                     "longDescription": "The value of this property shall be a boolean indicating whether SessionToken authorization is enabled.",
                     "readonly": false,
-                    "type": [
-                        "boolean",
-                        "null"
-                    ]
+                    "type": ["boolean", "null"]
                 },
                 "TLS": {
                     "description": "Indicates whether TLS authorization is enabled.",
                     "longDescription": "The value of this property shall be a boolean indicating whether TLS authorization is enabled.",
                     "readonly": false,
-                    "type": [
-                        "boolean",
-                        "null"
-                    ]
+                    "type": ["boolean", "null"]
                 },
                 "XToken": {
                     "description": "Indicates whether XToken authorization is enabled.",
                     "longDescription": "The value of this property shall be a boolean indicating whether XToken authorization is enabled.",
                     "readonly": false,
-                    "type": [
-                        "boolean",
-                        "null"
-                    ]
+                    "type": ["boolean", "null"]
                 }
             },
             "type": "object"
