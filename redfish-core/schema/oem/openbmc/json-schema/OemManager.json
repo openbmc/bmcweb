@@ -52,10 +52,7 @@
                 "Profile": {
                     "description": "Current thermal profile.",
                     "longDescription": "Current thermal profile.",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
+                    "type": ["string", "null"]
                 },
                 "StepwiseControllers": {
                     "anyOf": [
@@ -115,10 +112,7 @@
                 "Inputs": {
                     "description": "Input sensors to the PID controller.",
                     "items": {
-                        "type": [
-                            "string",
-                            "null"
-                        ]
+                        "type": ["string", "null"]
                     },
                     "longDescription": "Input sensors to the PID controller.",
                     "type": "array"
@@ -141,10 +135,7 @@
                 "Outputs": {
                     "description": "Output sensors to the PID controller.",
                     "items": {
-                        "type": [
-                            "string",
-                            "null"
-                        ]
+                        "type": ["string", "null"]
                     },
                     "longDescription": "Output sensors to the PID controller.",
                     "type": "array"
@@ -370,10 +361,7 @@
                 "Inputs": {
                     "description": "Input sensors to the PID controller.",
                     "items": {
-                        "type": [
-                            "string",
-                            "null"
-                        ]
+                        "type": ["string", "null"]
                     },
                     "longDescription": "Input sensors to the PID controller.",
                     "type": "array"
@@ -477,18 +465,12 @@
                 "Direction": {
                     "description": "Direction that the stepwise controller applies.",
                     "longDescription": "Direction that the stepwise controller applies. Options include Ceiling and Floor.",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
+                    "type": ["string", "null"]
                 },
                 "Inputs": {
                     "description": "Input sensors to the Stepwise controller.",
                     "items": {
-                        "type": [
-                            "string",
-                            "null"
-                        ]
+                        "type": ["string", "null"]
                     },
                     "longDescription": "Input sensors to the Stepwise controller.",
                     "type": "array"
