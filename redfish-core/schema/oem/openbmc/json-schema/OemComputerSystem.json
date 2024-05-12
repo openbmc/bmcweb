@@ -138,55 +138,37 @@
                     "description": "An indicator allowing an operator to run LED lamp test.",
                     "longDescription": "This property shall contain the state of lamp state function for this resource.",
                     "readonly": false,
-                    "type": [
-                        "boolean",
-                        "null"
-                    ]
+                    "type": ["boolean", "null"]
                 },
                 "PartitionSystemAttentionIndicator": {
                     "description": "An indicator allowing an operator to operate partition system attention.",
                     "longDescription": "This property shall contain the state of the partition system attention of this resource.",
                     "readonly": false,
-                    "type": [
-                        "boolean",
-                        "null"
-                    ]
+                    "type": ["boolean", "null"]
                 },
                 "PlatformSystemAttentionIndicator": {
                     "description": "An indicator allowing an operator to operate platform system attention.",
                     "longDescription": "This property shall contain the state of the platform system attention of this resource.",
                     "readonly": false,
-                    "type": [
-                        "boolean",
-                        "null"
-                    ]
+                    "type": ["boolean", "null"]
                 },
                 "PCIeTopologyRefresh": {
                     "description": "An indication of topology information is ready.",
                     "longDescription": "This property when set to 'true' refreshes the topology information. The application which uses this should set it to 'false' when a refresh occurs.",
                     "readonly": true,
-                    "type": [
-                        "boolean",
-                        "null"
-                    ]
+                    "type": ["boolean", "null"]
                 },
                 "SavePCIeTopologyInfo": {
                     "description": "An indication of PEL topology information is saved.",
                     "longDescription": "This property when set to 'true' saves the topology information. The information is saved in the form of a PEL(Error Log).",
                     "readonly": true,
-                    "type": [
-                        "boolean",
-                        "null"
-                    ]
+                    "type": ["boolean", "null"]
                 },
                 "EnabledPanelFunctions": {
                     "description": "Enabled Panel functions",
                     "longDescription": "This property shall contain the list of enabled panel functions.",
                     "readonly": true,
-                    "type": [
-                        "array",
-                        "null"
-                    ]
+                    "type": ["array", "null"]
                 },
                 "ChapData": {
                     "$ref": "#/definitions/ChapData",
@@ -197,10 +179,7 @@
                     "description": "An indication of whether safe mode is active.",
                     "longDescription": "The value of this property shall indicate if safe mode is active.",
                     "readonly": true,
-                    "type": [
-                        "boolean",
-                        "null"
-                    ]
+                    "type": ["boolean", "null"]
                 }
             },
             "type": "object"
@@ -228,18 +207,12 @@
                 "ChapName": {
                     "description": "A user selected name associated with each of the chap secret password.",
                     "longDescription": "This property shall contain ChapName that is a user selected name associated with each of the chap secret password.",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
+                    "type": ["string", "null"]
                 },
                 "ChapSecret": {
                     "description": "An encrypted secret password transferred to the Host for the respective ChapName.",
                     "longDescription": "This property shall contain ChapSecret that is an encrypted secret password transferred to the Host for the respective ChapName.",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
+                    "type": ["string", "null"]
                 }
             },
             "type": "object"

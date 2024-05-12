@@ -61,46 +61,35 @@
                     "description": "The expiration date of the ACF file.",
                     "longDescription": "The expiration date of the ACF file, if the expiration date has been from the BMC then the ACF is not valid.",
                     "readonly": true,
-                    "type": [
-                        "string",
-                        "null"
-                    ],
+                    "type": ["string", "null"],
                     "versionAdded": "v1_0_0"
                 },
                 "WarningLongDatedExpiration": {
                     "description": "This property is set to true if there is a long dated expiration.",
                     "longDescription": "This property is set to true if the expiration date on the ACF exceeds 30 days from the BMC date.",
                     "readonly": true,
-                    "type": [
-                        "boolean",
-                        "null"
-                    ],
+                    "type": ["boolean", "null"],
                     "versionAdded": "v1_0_0"
                 },
                 "ACFInstalled": {
                     "description": "This property is set to true if the ACF is installed.",
                     "longDescription": "This property indicates if the ACF is installed or not.",
                     "readonly": true,
-                    "type": [
-                        "boolean"
-                    ],
+                    "type": ["boolean"],
                     "versionAdded": "v1_0_0"
                 },
                 "AllowUnauthACFUpload": {
                     "description": "This property shall indicate if unauthorized users shall be allowed to upload ACFs.",
                     "longDescription": "This property indicates if unauthorized users are allowed to upload ACFs or not.  When this property is true, users are allowed to upload ACFs regardless of their authentication status, regardless of their Role, and regardless of the time window created by Operator Panel function 74.",
                     "readonly": false,
-                    "type": [
-                        "boolean"
-                    ],
+                    "type": ["boolean"],
                     "versionAdded": "v1_0_0"
                 }
             },
             "type": "object"
-            }
+        }
     },
     "owningEntity": "OpenBMC",
     "release": "1.0",
     "title": "#OemManagerAccount"
 }
-

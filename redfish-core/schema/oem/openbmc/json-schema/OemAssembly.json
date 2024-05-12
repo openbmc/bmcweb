@@ -26,10 +26,7 @@
                     "description": "An indication of whether the system is prepared for an assembly to be removed.",
                     "longDescription": "This property shall indicate whether the system is ready for the assembly to be changed.  Setting the value to `true` shall cause the service to perform appropriate actions to allow the assembly to be removed.  Setting the value to `false` shall cause the service to perform appropriate actions to allow the assembly to be installed.",
                     "readonly": false,
-                    "type": [
-                        "boolean",
-                        "null"
-                    ],
+                    "type": ["boolean", "null"],
                     "versionAdded": "v1_0_0"
                 }
             },

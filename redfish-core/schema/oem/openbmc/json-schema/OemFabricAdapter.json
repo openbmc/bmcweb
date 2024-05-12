@@ -1,4 +1,3 @@
-
 {
     "$id": "http://redfish.dmtf.org/schemas/v1/OemFabricAdapter.json",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",

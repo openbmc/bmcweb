@@ -55,26 +55,17 @@
                 "AbortReason": {
                     "description": "Reason oem for message",
                     "longDescription": "An extra property for Message to provide more information to the user",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
+                    "type": ["string", "null"]
                 },
                 "AdditionalData": {
                     "description": "Reason oem for message",
                     "longDescription": "An extra property for Message to provide more information to the user",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
+                    "type": ["string", "null"]
                 },
                 "EventId": {
                     "description": "Reason oem for message",
                     "longDescription": "An extra property for Message to provide more information to the user",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
+                    "type": ["string", "null"]
                 }
             },
             "type": "object"
