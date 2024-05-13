@@ -39,6 +39,30 @@
       },
       "revId": "8c69f10b2351e3857605ddc46156e1ac9df6e5d7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8885b0c4_64d5e567",
+        "filename": "static/redfish/v1/JsonSchemas/AccountService/AccountService.json",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-13T15:22:40Z",
+      "side": 1,
+      "message": "They should be relative.  Fixed.",
+      "parentUuid": "36f77d88_74fadeec",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 9
+      },
+      "revId": "8c69f10b2351e3857605ddc46156e1ac9df6e5d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
