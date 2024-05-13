@@ -256,12 +256,13 @@ void getAssemblyPresence(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     nlohmann::json& assemblyData = assemblyArray.at(assemblyIndex);
 
     assemblyData["Status"]["State"] = "Enabled";
+    assemblyData["Oem"]["OpenBMC"]["ReadyToRemove"] = false;
 
     sdbusplus::asio::getProperty<bool>(
         *crow::connections::systemBus, serviceName, assembly,
         "xyz.openbmc_project.Inventory.Item", "Present",
-        [asyncResp, assemblyIndex](const boost::system::error_code& ec,
-                                   const bool value) {
+        [asyncResp, assemblyIndex,
+         assembly](const boost::system::error_code& ec, const bool value) {
         if (ec)
         {
             BMCWEB_LOG_ERROR("DBUS response error: {}", ec.value());
@@ -274,6 +275,19 @@ void getAssemblyPresence(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             nlohmann::json& array = asyncResp->res.jsonValue["Assemblies"];
             nlohmann::json& data = array.at(assemblyIndex);
             data["Status"]["State"] = "Absent";
+
+            std::string fru =
+                sdbusplus::message::object_path(assembly).filename();
+            // Special handling for LCD and base panel CM.
+            if (fru == "panel0" || fru == "panel1")
+            {
+                data["Oem"]["OpenBMC"]["@odata.type"] =
+                    "#OemAssembly.v1_0_0.Assembly";
+
+                // if panel is not present, implies it is already removed or can
+                // be placed.
+                data["Oem"]["OpenBMC"]["ReadyToRemove"] = !value;
+            }
         }
     });
 }
@@ -686,6 +700,42 @@ inline void setAssemblyLocationIndicators(
                 "tod_battery")
             {
                 doBatteryCM(asyncResp, assembly, readytoremove.value());
+            }
+
+            // Special handling for LCD and base panel. This is required to
+            // support concurrent maintenance for base and LCD panel.
+            else if (sdbusplus::message::object_path(assembly).filename() ==
+                         "panel0" ||
+                     sdbusplus::message::object_path(assembly).filename() ==
+                         "panel1")
+            {
+                // Based on the status of readytoremove flag, inventory data
+                // like CCIN and present property needs to be updated for this
+                // FRU.
+                // readytoremove as true implies FRU has been prepared for
+                // removal. Set action as "deleteFRUVPD". This is the api
+                // exposed by vpd-manager to clear CCIN and set present
+                // property as false for the FRU.
+                // readytoremove as false implies FRU has been replaced. Set
+                // action as "CollectFRUVPD". This is the api exposed by
+                // vpd-manager to recollect vpd for a given FRU.
+                std::string action = (readytoremove.value()) ? "deleteFRUVPD"
+                                                             : "CollectFRUVPD";
+
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp, action](const boost::system::error_code& ec) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_ERROR(
+                            "Call to Manager failed for action:{} with error:{}",
+                            action, ec.value());
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                },
+                    "com.ibm.VPD.Manager", "/com/ibm/VPD/Manager",
+                    "com.ibm.VPD.Manager", action,
+                    sdbusplus::message::object_path(assembly));
             }
             else
             {
