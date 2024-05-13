@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7078228b_d3bbbf8f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-05-13T12:38:03Z",
+      "side": 1,
+      "message": "The couple of symlinks I looked at all seem to be referencing hard-coded path /home/ed. That doesn\u0027t seem correct to me. I would expect it to be relative to the git clone path.",
+      "revId": "8c69f10b2351e3857605ddc46156e1ac9df6e5d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36f77d88_74fadeec",
+        "filename": "static/redfish/v1/JsonSchemas/AccountService/AccountService.json",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-05-13T12:38:03Z",
+      "side": 1,
+      "message": "Should the symlink be relative path or be referencing $HOME or ~?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 9
+      },
+      "revId": "8c69f10b2351e3857605ddc46156e1ac9df6e5d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
