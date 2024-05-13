@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  OperatingSystem v1.0.1                                              -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/SoftwareInventory_v1.xml">
+    <edmx:Include Namespace="SoftwareInventory"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/ApplicationCollection_v1.xml">
+    <edmx:Include Namespace="ApplicationCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/ContainerImageCollection_v1.xml">
+    <edmx:Include Namespace="ContainerImageCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/ContainerImage_v1.xml">
+    <edmx:Include Namespace="ContainerImage"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/ContainerCollection_v1.xml">
+    <edmx:Include Namespace="ContainerCollection"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OperatingSystem">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="OperatingSystem" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The OperatingSystem schema represents the operating system and software running on a computer system."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent the operating system and software running on a computer system."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/OperatingSystem</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/OperatingSystem</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/OperatingSystem</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OperatingSystem.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.2"/>
+
+      <EntityType Name="OperatingSystem" BaseType="OperatingSystem.OperatingSystem">
+        <Property Name="Status" Type="Resource.Status" Nullable="false">
+          <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+        </Property>
+        <Property Name="Type" Type="OperatingSystem.v1_0_0.OperatingSystemTypes">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The type of operating system."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type for this operating system."/>
+        </Property>
+        <Property Name="UptimeSeconds" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The wall-clock time this operating system has been running in seconds."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the wall-clock time this operating system has been running in seconds."/>
+        </Property>
+        <Property Name="Kernel" Type="OperatingSystem.v1_0_0.Kernel">
+          <Annotation Term="OData.Description" String="The kernel information for this operating system."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the kernel information for this operating system."/>
+        </Property>
+        <Property Name="VirtualMachineEngines" Type="Collection(OperatingSystem.v1_0_0.VirtualMachineEngine)">
+          <Annotation Term="OData.Description" String="The virtual machine engines running in this operating system."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the virtual machine engines running in this operating system."/>
+        </Property>
+        <Property Name="ContainerEngines" Type="Collection(OperatingSystem.v1_0_0.ContainerEngine)">
+          <Annotation Term="OData.Description" String="The container engines running in this operating system."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the container engines running in this operating system."/>
+        </Property>
+        <NavigationProperty Name="Applications" Type="ApplicationCollection.ApplicationCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the collection of applications running under this operating system."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type ApplicationCollection that represent the applications running under this operating system."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="ContainerImages" Type="ContainerImageCollection.ContainerImageCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the collection of container images available to container engines on this operating system."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type ContainerImageCollection that represent the container images available to container engines on this operating system."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="Containers" Type="ContainerCollection.ContainerCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the collection of containers running under this operating system."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type ContainerCollection that represent the containers running under this operating system."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <Property Name="Links" Type="OperatingSystem.v1_0_0.Links" Nullable="false">
+          <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+        </Property>
+        <Property Name="Actions" Type="OperatingSystem.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <EnumType Name="OperatingSystemTypes">
+        <Member Name="Linux">
+          <Annotation Term="OData.Description" String="Linux."/>
+        </Member>
+        <Member Name="Windows">
+          <Annotation Term="OData.Description" String="Microsoft Windows."/>
+        </Member>
+        <Member Name="Solaris">
+          <Annotation Term="OData.Description" String="Oracle Solaris."/>
+        </Member>
+        <Member Name="HPUX">
+          <Annotation Term="OData.Description" String="HPE HP-UX."/>
+        </Member>
+        <Member Name="AIX">
+          <Annotation Term="OData.Description" String="IBM AIX."/>
+        </Member>
+        <Member Name="BSD">
+          <Annotation Term="OData.Description" String="Berkeley Software Distribution."/>
+        </Member>
+        <Member Name="macOS">
+          <Annotation Term="OData.Description" String="Apple macOS."/>
+        </Member>
+        <Member Name="IBMi">
+          <Annotation Term="OData.Description" String="IBM i."/>
+        </Member>
+        <Member Name="Hypervisor">
+          <Annotation Term="OData.Description" String="A bare-metal hypervisor."/>
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="Kernel">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The kernel information for an operating system."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the kernel information for an operating system."/>
+        <Property Name="Name" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The name of the kernel."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name of the kernel.  For strict POSIX operating systems, the value shall contain the output of `uname -s`.  For Microsoft Windows, the value shall contain the string name from the output of `ver`, from Command Prompt, prior to the first square brace (`[`), which is typically `Microsoft Windows`."/>
+        </Property>
+        <Property Name="Release" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The release of the kernel."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the release of the kernel.  For strict POSIX operating systems, the value shall contain the output of `uname -r`.  For Microsoft Windows, the value shall contain the decimal-delimited version from the output of `ver`, from Command Prompt, within the square braces (`[` and `]`), following the regular expression `^\d+\.\d+\.\d+\.\d+$`."/>
+        </Property>
+        <Property Name="Version" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The version of the kernel."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the version of the kernel.  For strict POSIX operating systems, the value shall contain the output of `uname -v`."/>
+        </Property>
+        <Property Name="Machine" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The machine hardware name of the kernel."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the machine hardware name of the kernel.  For strict POSIX operating systems, the value shall contain the output of `uname -m`."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="VirtualMachineEngine">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="A virtual machine engine running in an operating system."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain a virtual machine engine running in an operating system."/>
+        <Property Name="Type" Type="OperatingSystem.v1_0_0.VirtualMachineEngineTypes">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The type of virtual machine engine."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type for this virtual machine engine."/>
+        </Property>
+        <Property Name="Version" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The version of this virtual machine engine."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the version of this virtual machine engine."/>
+        </Property>
+        <Property Name="SupportedImageTypes" Type="Collection(OperatingSystem.v1_0_0.VirtualMachineImageTypes)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The supported image types for this container engine."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the supported image types for this container engine."/>
+        </Property>
+        <Property Name="ManagementURIs" Type="Collection(Edm.String)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The URIs to manage this virtual machine engine."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of URIs to management interfaces for this virtual machine engine.  This is typically a web UI or API provided by the virtual machine engine."/>
+          <Annotation Term="OData.IsURL"/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="VirtualMachineEngineTypes">
+        <Member Name="VMwareESX">
+          <Annotation Term="OData.Description" String="VMware ESX or ESXi."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the virtual machine engine is VMware ESX or ESXi."/>
+        </Member>
+        <Member Name="HyperV">
+          <Annotation Term="OData.Description" String="Microsoft Hyper-V."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the virtual machine engine is Microsoft Hyper-V."/>
+        </Member>
+        <Member Name="Xen">
+          <Annotation Term="OData.Description" String="Xen."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the virtual machine engine is Xen."/>
+        </Member>
+        <Member Name="KVM">
+          <Annotation Term="OData.Description" String="KVM (Kernel-based Virtual Machine)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the virtual machine engine is Linux KVM (Kernel-based Virtual Machine)."/>
+        </Member>
+        <Member Name="QEMU">
+          <Annotation Term="OData.Description" String="QEMU (Quick Emulator)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the virtual machine engine is QEMU (Quick Emulator).  If QEMU is acting as a frontend for another virtual machine engine, such as Xen or KVM, VirtualMachineEngines should contain additional entries to represent the backend virtual machine engines."/>
+        </Member>
+        <Member Name="VirtualBox">
+          <Annotation Term="OData.Description" String="Oracle VM VirtualBox."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the virtual machine engine is Oracle VM VirtualBox.  If VirtualBox is acting as a frontend for another virtual machine engine, such as HyperV, VirtualMachineEngines should contain additional entries to represent the backend virtual machine engines."/>
+        </Member>
+        <Member Name="PowerVM">
+          <Annotation Term="OData.Description" String="IBM PowerVM."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the virtual machine engine is IBM PowerVM."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="VirtualMachineImageTypes">
+        <Member Name="Raw">
+          <Annotation Term="OData.Description" String="Raw disk image."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a raw disk image."/>
+        </Member>
+        <Member Name="OVF">
+          <Annotation Term="OData.Description" String="OVF (Open Virtualization Format)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a DSP0243-defined OVF (Open Virtualization Format) image."/>
+        </Member>
+        <Member Name="OVA">
+          <Annotation Term="OData.Description" String="OVA (Open Virtual Appliance)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a DSP0243-defined OVA (Open Virtual Appliance) image."/>
+        </Member>
+        <Member Name="VHD">
+          <Annotation Term="OData.Description" String="VHD (Virtual Hard Disk)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a Microsoft Open Specification Promise-defined VHD (Virtual Hard Disk) image."/>
+        </Member>
+        <Member Name="VMDK">
+          <Annotation Term="OData.Description" String="VMDK (Virtual Machine Disk)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a VMware-defined VMDK (Virtual Machine Disk) image."/>
+        </Member>
+        <Member Name="VDI">
+          <Annotation Term="OData.Description" String="VDI (Virtual Disk Image)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate an Oracle VM VirtualBox-defined VDI (Virtual Disk Image)."/>
+        </Member>
+        <Member Name="QCOW">
+          <Annotation Term="OData.Description" String="QCOW (QEMU Copy-on-Write)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a QEMU-defined QCOW (QEMU Copy-on-Write) image."/>
+        </Member>
+        <Member Name="QCOW2">
+          <Annotation Term="OData.Description" String="QCOW2 (QEMU Copy-on-Write version 2)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a QEMU-defined QCOW2 (QEMU Copy-on-Write version 2) image."/>
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="ContainerEngine">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="A container engine running in an operating system."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain a container engine running in an operating system."/>
+        <Property Name="Type" Type="OperatingSystem.v1_0_0.ContainerEngineTypes">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The type of container engine."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type for this container engine."/>
+        </Property>
+        <Property Name="Version" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The version of this container engine."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the version of this container engine."/>
+        </Property>
+        <Property Name="SupportedImageTypes" Type="Collection(ContainerImage.ImageTypes)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The supported image types for this container engine."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the supported image types for this container engine."/>
+        </Property>
+        <Property Name="ManagementURIs" Type="Collection(Edm.String)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The URIs to manage this container engine."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of URIs to management interfaces for this container engine.  This is typically a web UI or API provided by the container engine."/>
+          <Annotation Term="OData.IsURL"/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="ContainerEngineTypes">
+        <Member Name="Docker">
+          <Annotation Term="OData.Description" String="Docker."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the container engine is Docker."/>
+        </Member>
+        <Member Name="containerd">
+          <Annotation Term="OData.Description" String="containerd."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the container engine is containerd."/>
+        </Member>
+        <Member Name="CRIO">
+          <Annotation Term="OData.Description" String="CRI-O."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the container engine is CRI-O."/>
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="Links" BaseType="Resource.Links">
+        <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+        <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+        <NavigationProperty Name="SoftwareImage" Type="SoftwareInventory.SoftwareInventory" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the software image for this operating system."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type SoftwareInventory that represents the software image from which this operating system runs."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="OperatingSystem.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OperatingSystem.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="OperatingSystem" BaseType="OperatingSystem.v1_0_0.OperatingSystem"/>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

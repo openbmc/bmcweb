@@ -1,0 +1,260 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/LicenseService.v1_1_1.json",
+    "$ref": "#/definitions/LicenseService",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "#LicenseService.Install": {
+                    "$ref": "#/definitions/Install"
+                },
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "Install": {
+            "additionalProperties": false,
+            "description": "This action installs one or more licenses from a remote file.",
+            "longDescription": "This action shall install one or more licenses from a remote file.  The service may update an existing License resource.  The `Location` header in the response shall contain the URI of the new or updated License resource.",
+            "parameters": {
+                "AuthorizedDevices": {
+                    "description": "An array of links to the devices to be authorized by the license.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                    },
+                    "longDescription": "This parameter shall contain an array of links to the devices to be authorized by the license.  Clients can provide this parameter when installing a license to apply the license to specific devices.  If not provided when installing a license, the service may determine the devices to which the license applies.  This parameter shall not be present if the AuthorizationScope property contains the value `Service`.",
+                    "type": "array",
+                    "versionAdded": "v1_1_0"
+                },
+                "LicenseFileURI": {
+                    "description": "The URI of the license file to install.",
+                    "format": "uri-reference",
+                    "longDescription": "This parameter shall contain an RFC3986-defined URI that links to a file that the license service retrieves to install the license in that file.  This URI should contain a scheme that describes the transfer protocol.  If the TransferProtocol parameter is absent or not supported, and a transfer protocol is not specified by a scheme contained within this URI, the service shall use HTTP to get the file.",
+                    "requiredParameter": true,
+                    "type": "string"
+                },
+                "Password": {
+                    "description": "The password to access the URI specified by the LicenseFileURI parameter.",
+                    "longDescription": "This parameter shall represent the password to access the URI specified by the LicenseFileURI parameter.",
+                    "type": "string"
+                },
+                "TargetServices": {
+                    "description": "An array of links to the managers where the license will be installed.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Manager.json#/definitions/Manager"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Manager that represent the services where the license will be installed, such as remote Redfish services.  This parameter shall only be present in aggregators when the AuthorizationScope property contains `Service` or `Capacity`.",
+                    "type": "array",
+                    "versionAdded": "v1_1_0"
+                },
+                "TransferProtocol": {
+                    "$ref": "#/definitions/TransferProtocolType",
+                    "description": "The network protocol that the license service uses to retrieve the license file located at the URI provided in LicenseFileURI.  This parameter is ignored if the URI provided in LicenseFileURI contains a scheme.",
+                    "longDescription": "This parameter shall contain the network protocol that the license service shall use to retrieve the license file located at the LicenseFileURI.  Services should ignore this parameter if the URI provided in LicenseFileURI contains a scheme.  If this parameter is not provided or supported, and if a transfer protocol is not specified by a scheme contained within this URI, the service shall use HTTP to retrieve the file."
+                },
+                "Username": {
+                    "description": "The user name to access the URI specified by the LicenseFileURI parameter.",
+                    "longDescription": "This parameter shall represent the user name to access the URI specified by the LicenseFileURI parameter.",
+                    "type": "string"
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "LicenseService": {
+            "additionalProperties": false,
+            "description": "The LicenseService schema describes the license service and the properties for the service itself with a link to the collection of licenses.  The license service also provides methods for installing licenses in a Redfish service.",
+            "longDescription": "This resource shall represent a license service and the properties that affect the service itself for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "LicenseExpirationWarningDays": {
+                    "description": "The number of days prior to a license expiration that a warning message is sent.  A value of zero indicates no warning message is sent.",
+                    "longDescription": "This property shall contain the number of days prior to a license expiration that the service shall send the `DaysBeforeExpiration` message from the License Message Registry at least once.  A value of zero shall indicate that no warning messages are sent prior to license expiration.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "Licenses": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/LicenseCollection.json#/definitions/LicenseCollection"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The link to the collection of licenses.",
+                    "longDescription": "This property shall contain a link to a resource collection of type LicenseCollection.  When installing a license with a POST operation to this collection, the service may update an existing License resource instead of creating a new resource.  In these cases, the service shall respond with the HTTP `200 OK` status code or HTTP `204 No Content` status code and the `Location` header in the response shall contain the URI of the updated License resource.",
+                    "readonly": true
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "ServiceEnabled": {
+                    "description": "An indication of whether this service is enabled.",
+                    "longDescription": "This property shall indicate whether this service is enabled.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "TransferProtocolType": {
+            "enum": [
+                "CIFS",
+                "FTP",
+                "SFTP",
+                "HTTP",
+                "HTTPS",
+                "SCP",
+                "TFTP",
+                "OEM",
+                "NFS"
+            ],
+            "enumDescriptions": {
+                "CIFS": "Common Internet File System (CIFS).",
+                "FTP": "File Transfer Protocol (FTP).",
+                "HTTP": "Hypertext Transfer Protocol (HTTP).",
+                "HTTPS": "Hypertext Transfer Protocol Secure (HTTPS).",
+                "NFS": "Network File System (NFS).",
+                "OEM": "A manufacturer-defined protocol.",
+                "SCP": "Secure Copy Protocol (SCP).",
+                "SFTP": "Secure File Transfer Protocol (SFTP).",
+                "TFTP": "Trivial File Transfer Protocol (TFTP)."
+            },
+            "type": "string"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2022.3",
+    "title": "#LicenseService.v1_1_1.LicenseService"
+}

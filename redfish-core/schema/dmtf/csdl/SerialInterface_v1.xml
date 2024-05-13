@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  SerialInterface v1.2.0                                              -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SerialInterface">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="SerialInterface" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The SerialInterface schema describes an asynchronous serial interface, such as an RS-232 interface, available to a system or device."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent a serial interface as part of the Redfish Specification."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="true"/>
+            <Annotation Term="OData.Description" String="Serial interfaces can be updated to enable or disable them or change their configuration."/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/Managers/{ManagerId}/SerialInterfaces/{SerialInterfaceId}</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SerialInterface.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="1.0"/>
+
+      <EntityType Name="SerialInterface" BaseType="SerialInterface.SerialInterface">
+        <Property Name="InterfaceEnabled" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether this interface is enabled."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this interface is enabled."/>
+        </Property>
+        <Property Name="SignalType" Type="SerialInterface.v1_0_0.SignalType" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The type of signal used for the communication connection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of serial signaling in use for the serial connection."/>
+        </Property>
+        <Property Name="BitRate" Type="SerialInterface.v1_0_0.BitRate" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The receive and transmit rate of data flow, typically in bits per second (bit/s), over the serial connection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the transmit and receive speed of the serial connection."/>
+        </Property>
+        <Property Name="Parity" Type="SerialInterface.v1_0_0.Parity" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The type of parity used by the sender and receiver to detect errors over the serial connection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate parity information for a serial connection."/>
+        </Property>
+        <Property Name="DataBits" Type="SerialInterface.v1_0_0.DataBits" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The number of data bits that follow the start bit over the serial connection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate number of data bits for the serial connection."/>
+        </Property>
+        <Property Name="StopBits" Type="SerialInterface.v1_0_0.StopBits" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The period of time before the next start bit is transmitted."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the stop bits for the serial connection."/>
+        </Property>
+        <Property Name="FlowControl" Type="SerialInterface.v1_0_0.FlowControl" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The type of flow control, if any, that is imposed on the serial connection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the flow control mechanism for the serial connection."/>
+        </Property>
+        <Property Name="ConnectorType" Type="SerialInterface.v1_0_0.ConnectorType" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The type of connector used for this interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the type of physical connector used for this serial connection."/>
+        </Property>
+        <Property Name="PinOut" Type="SerialInterface.v1_0_0.PinOut">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The physical pinout configuration for a serial connector."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the physical pinout for the serial connector."/>
+        </Property>
+      </EntityType>
+
+      <EnumType Name="SignalType">
+        <Member Name="Rs232">
+          <Annotation Term="OData.Description" String="The serial interface follows RS232."/>
+        </Member>
+        <Member Name="Rs485">
+          <Annotation Term="OData.Description" String="The serial interface follows RS485."/>
+        </Member>
+      </EnumType>
+
+      <TypeDefinition Name="BitRate" UnderlyingType="Edm.String">
+        <Annotation Term="Redfish.Enumeration">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Member" String="1200"/>
+              <Annotation Term="OData.Description" String="A bit rate of 1200 bit/s."/>
+            </Record>
+            <Record>
+              <PropertyValue Property="Member" String="2400"/>
+              <Annotation Term="OData.Description" String="A bit rate of 2400 bit/s."/>
+            </Record>
+            <Record>
+              <PropertyValue Property="Member" String="4800"/>
+              <Annotation Term="OData.Description" String="A bit rate of 4800 bit/s."/>
+            </Record>
+            <Record>
+              <PropertyValue Property="Member" String="9600"/>
+              <Annotation Term="OData.Description" String="A bit rate of 9600 bit/s."/>
+            </Record>
+            <Record>
+              <PropertyValue Property="Member" String="19200"/>
+              <Annotation Term="OData.Description" String="A bit rate of 19200 bit/s."/>
+            </Record>
+            <Record>
+              <PropertyValue Property="Member" String="38400"/>
+              <Annotation Term="OData.Description" String="A bit rate of 38400 bit/s."/>
+            </Record>
+            <Record>
+              <PropertyValue Property="Member" String="57600"/>
+              <Annotation Term="OData.Description" String="A bit rate of 57600 bit/s."/>
+            </Record>
+            <Record>
+              <PropertyValue Property="Member" String="115200"/>
+              <Annotation Term="OData.Description" String="A bit rate of 115200 bit/s."/>
+            </Record>
+            <Record>
+              <PropertyValue Property="Member" String="230400"/>
+              <Annotation Term="OData.Description" String="A bit rate of 230400 bit/s."/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </TypeDefinition>
+
+      <EnumType Name="Parity">
+        <Member Name="None">
+          <Annotation Term="OData.Description" String="No parity bit."/>
+        </Member>
+        <Member Name="Even">
+          <Annotation Term="OData.Description" String="An even parity bit."/>
+        </Member>
+        <Member Name="Odd">
+          <Annotation Term="OData.Description" String="An odd parity bit."/>
+        </Member>
+        <Member Name="Mark">
+          <Annotation Term="OData.Description" String="A mark parity bit."/>
+        </Member>
+        <Member Name="Space">
+          <Annotation Term="OData.Description" String="A space parity bit."/>
+        </Member>
+      </EnumType>
+
+      <TypeDefinition Name="DataBits" UnderlyingType="Edm.String">
+        <Annotation Term="Redfish.Enumeration">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Member" String="5"/>
+              <Annotation Term="OData.Description" String="Five bits of data following the start bit."/>
+            </Record>
+            <Record>
+              <PropertyValue Property="Member" String="6"/>
+              <Annotation Term="OData.Description" String="Six bits of data following the start bit."/>
+            </Record>
+            <Record>
+              <PropertyValue Property="Member" String="7"/>
+              <Annotation Term="OData.Description" String="Seven bits of data following the start bit."/>
+            </Record>
+            <Record>
+              <PropertyValue Property="Member" String="8"/>
+              <Annotation Term="OData.Description" String="Eight bits of data following the start bit."/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </TypeDefinition>
+
+      <TypeDefinition Name="StopBits" UnderlyingType="Edm.String">
+        <Annotation Term="Redfish.Enumeration">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Member" String="1"/>
+              <Annotation Term="OData.Description" String="One stop bit following the data bits."/>
+            </Record>
+            <Record>
+              <PropertyValue Property="Member" String="2"/>
+              <Annotation Term="OData.Description" String="Two stop bits following the data bits."/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </TypeDefinition>
+
+      <EnumType Name="FlowControl">
+        <Member Name="None">
+          <Annotation Term="OData.Description" String="No flow control imposed."/>
+        </Member>
+        <Member Name="Software">
+          <Annotation Term="OData.Description" String="XON/XOFF in-band flow control imposed."/>
+        </Member>
+        <Member Name="Hardware">
+          <Annotation Term="OData.Description" String="Out-of-band flow control imposed."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="PinOut">
+        <Member Name="Cisco">
+          <Annotation Term="OData.Description" String="The Cisco pinout configuration."/>
+        </Member>
+        <Member Name="Cyclades">
+          <Annotation Term="OData.Description" String="The Cyclades pinout configuration."/>
+        </Member>
+        <Member Name="Digi">
+          <Annotation Term="OData.Description" String="The Digi pinout configuration."/>
+        </Member>
+      </EnumType>
+
+      <TypeDefinition Name="ConnectorType" UnderlyingType="Edm.String">
+        <Annotation Term="Redfish.Enumeration">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Member" String="RJ45"/>
+              <Annotation Term="OData.Description" String="An RJ45 connector."/>
+            </Record>
+            <Record>
+              <PropertyValue Property="Member" String="RJ11"/>
+              <Annotation Term="OData.Description" String="An RJ11 connector."/>
+            </Record>
+            <Record>
+              <PropertyValue Property="Member" String="DB9 Female"/>
+              <Annotation Term="OData.Description" String="A DB9 Female connector."/>
+            </Record>
+            <Record>
+              <PropertyValue Property="Member" String="DB9 Male"/>
+              <Annotation Term="OData.Description" String="A DB9 Male connector."/>
+            </Record>
+            <Record>
+              <PropertyValue Property="Member" String="DB25 Female"/>
+              <Annotation Term="OData.Description" String="A DB25 Female connector."/>
+            </Record>
+            <Record>
+              <PropertyValue Property="Member" String="DB25 Male"/>
+              <Annotation Term="OData.Description" String="A DB25 Male connector."/>
+            </Record>
+            <Record>
+              <PropertyValue Property="Member" String="USB"/>
+              <Annotation Term="OData.Description" String="A USB connector."/>
+            </Record>
+            <Record>
+              <PropertyValue Property="Member" String="mUSB"/>
+              <Annotation Term="OData.Description" String="A mUSB connector."/>
+            </Record>
+            <Record>
+              <PropertyValue Property="Member" String="uUSB"/>
+              <Annotation Term="OData.Description" String="A uUSB connector."/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </TypeDefinition>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SerialInterface.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated."/>
+      <EntityType Name="SerialInterface" BaseType="SerialInterface.v1_0_0.SerialInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SerialInterface.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated."/>
+      <EntityType Name="SerialInterface" BaseType="SerialInterface.v1_0_2.SerialInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SerialInterface.v1_0_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the ConnectorType enumerated values to match original publication."/>
+      <EntityType Name="SerialInterface" BaseType="SerialInterface.v1_0_3.SerialInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SerialInterface.v1_0_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add descriptions to various enumerated values."/>
+      <EntityType Name="SerialInterface" BaseType="SerialInterface.v1_0_4.SerialInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SerialInterface.v1_0_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="SerialInterface" BaseType="SerialInterface.v1_0_5.SerialInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SerialInterface.v1_0_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="SerialInterface" BaseType="SerialInterface.v1_0_6.SerialInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SerialInterface.v1_0_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="SerialInterface" BaseType="SerialInterface.v1_0_7.SerialInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SerialInterface.v1_0_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="SerialInterface" BaseType="SerialInterface.v1_0_8.SerialInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SerialInterface.v1_0_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="SerialInterface" BaseType="SerialInterface.v1_0_9.SerialInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SerialInterface.v1_0_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="SerialInterface" BaseType="SerialInterface.v1_0_10.SerialInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SerialInterface.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2017.1"/>
+
+      <EntityType Name="SerialInterface" BaseType="SerialInterface.v1_0_3.SerialInterface">
+        <Property Name="Actions" Type="SerialInterface.v1_1_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="SerialInterface.v1_1_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SerialInterface.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the ConnectorType enumerated values to match original publication."/>
+      <EntityType Name="SerialInterface" BaseType="SerialInterface.v1_1_0.SerialInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SerialInterface.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add descriptions to various enumerated values."/>
+      <EntityType Name="SerialInterface" BaseType="SerialInterface.v1_1_1.SerialInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SerialInterface.v1_1_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="SerialInterface" BaseType="SerialInterface.v1_1_2.SerialInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SerialInterface.v1_1_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="SerialInterface" BaseType="SerialInterface.v1_1_3.SerialInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SerialInterface.v1_1_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="SerialInterface" BaseType="SerialInterface.v1_1_4.SerialInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SerialInterface.v1_1_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="SerialInterface" BaseType="SerialInterface.v1_1_5.SerialInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SerialInterface.v1_1_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="SerialInterface" BaseType="SerialInterface.v1_1_6.SerialInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SerialInterface.v1_1_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="SerialInterface" BaseType="SerialInterface.v1_1_7.SerialInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SerialInterface.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2023.2"/>
+
+      <EntityType Name="SerialInterface" BaseType="SerialInterface.v1_1_8.SerialInterface">
+        <Property Name="Links" Type="SerialInterface.v1_2_0.Links" Nullable="false">
+          <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Links" BaseType="Resource.Links">
+        <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+        <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+      </ComplexType>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>
