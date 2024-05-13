@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c815969_791bccaf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-13T15:23:29Z",
+      "side": 1,
+      "message": "Yep, that was unintentional.  I was trying to script some things for making sure we only got the selected symlinks, and messed it up.  I\u0027ve fixed the patchset to be correct now.",
+      "parentUuid": "7078228b_d3bbbf8f",
+      "revId": "8c69f10b2351e3857605ddc46156e1ac9df6e5d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36f77d88_74fadeec",
