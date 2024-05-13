@@ -1,0 +1,288 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/EndpointGroup.v1_3_3.json",
+    "$ref": "#/definitions/EndpointGroup",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource.",
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
+        },
+        "EndpointGroup": {
+            "additionalProperties": false,
+            "description": "The EndpointGroup schema describes a group of endpoints that are managed as a unit.",
+            "longDescription": "This resource shall represent a group of endpoints that are managed as a unit for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "AccessState": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/EndpointGroup.json#/definitions/AccessState"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "deprecated": "This property has been deprecated in favor of the AccessState property in the connection resource.",
+                    "description": "The access state for this group.",
+                    "longDescription": "The value of this property shall contain the access state for all associated resources in this endpoint group.",
+                    "readonly": false,
+                    "versionDeprecated": "v1_3_0"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource.",
+                    "versionAdded": "v1_1_0"
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Endpoints": {
+                    "deprecated": "This property has been deprecated in favor of the Endpoints property within Links.",
+                    "description": "The endpoints in this endpoint group.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Endpoint.json#/definitions/Endpoint"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Endpoint that represent the endpoints that are in this endpoint group.",
+                    "readonly": false,
+                    "type": "array",
+                    "versionDeprecated": "v1_3_0"
+                },
+                "Endpoints@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "GroupType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/GroupType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The endpoint group type.",
+                    "longDescription": "The value of this property shall contain the endpoint group type.  If this endpoint group represents a SCSI target group, the value of this property shall contain `Server` or `Target`.",
+                    "readonly": false
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Identifier": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Identifier",
+                    "description": "The durable name for the endpoint group.",
+                    "longDescription": "This property shall contain the durable name for the endpoint group."
+                },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "Preferred": {
+                    "deprecated": "This property has been deprecated in favor of the AccessState property in the connection resource.",
+                    "description": "An indication if access to the resources through the endpoint group is preferred.",
+                    "longDescription": "The value of this property shall indicate if access to the resources through the endpoint group is preferred over access through other endpoints.  The default value for this property is `false`.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionDeprecated": "v1_2_0"
+                },
+                "TargetEndpointGroupIdentifier": {
+                    "description": "The SCSI-defined identifier for this group.",
+                    "longDescription": "The value of this property shall contain a SCSI-defined identifier for this group that corresponds to the TARGET PORT GROUP field in the REPORT TARGET PORT GROUPS response and the TARGET PORT GROUP field in an INQUIRY VPD page 85 response, type 5h identifier.  See the INCITS SAM-5 specification.  This property may not be present if the endpoint group does not represent a SCSI target group.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "GroupType": {
+            "enum": [
+                "Client",
+                "Server",
+                "Initiator",
+                "Target"
+            ],
+            "enumDeprecated": {
+                "Client": "This value has been deprecated in favor of `Initiator`.",
+                "Server": "This value has been deprecated in favor of `Target`."
+            },
+            "enumDescriptions": {
+                "Client": "The group contains the client (initiator) endpoints.",
+                "Initiator": "The group contains the initiator endpoints.",
+                "Server": "The group contains the server (target) endpoints.",
+                "Target": "The group contains the target endpoints."
+            },
+            "enumLongDescriptions": {
+                "Client": "This value shall indicate that the endpoint group contains client (initiator) endpoints.  If the associated endpoints contain the EntityRole property, the EntityRole property shall contain the value `Initiator` or `Both`.",
+                "Initiator": "This value shall indicate that the endpoint group contains initiator endpoints.  If the associated endpoints contain the EntityRole property, the EntityRole property shall contain the value `Initiator` or `Both`.",
+                "Server": "This value shall indicate that the endpoint group contains server (target) endpoints.  If the associated endpoints contain the EntityRole property, the EntityRole property shall contain the value `Target` or `Both`.",
+                "Target": "This value shall indicate that the endpoint group contains target endpoints.  If the associated endpoints contain the EntityRole property, the EntityRole property shall contain the value `Target` or `Both`."
+            },
+            "enumVersionAdded": {
+                "Initiator": "v1_3_0",
+                "Target": "v1_3_0"
+            },
+            "enumVersionDeprecated": {
+                "Client": "v1_3_0",
+                "Server": "v1_3_0"
+            },
+            "type": "string"
+        },
+        "Links": {
+            "additionalProperties": false,
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Connections": {
+                    "description": "The connections to which this endpoint group belongs.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Connection.json#/definitions/Connection"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Connection that represent the connections to which this endpoint group belongs.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_3_0"
+                },
+                "Connections@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Endpoints": {
+                    "description": "The endpoints in this endpoint group.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Endpoint.json#/definitions/Endpoint"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Endpoint that represent the endpoints that are in this endpoint group.",
+                    "readonly": false,
+                    "type": "array",
+                    "versionAdded": "v1_3_0"
+                },
+                "Endpoints@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2020.3",
+    "title": "#EndpointGroup.v1_3_3.EndpointGroup"
+}
