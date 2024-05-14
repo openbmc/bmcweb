@@ -290,6 +290,13 @@ inline void getLocationCode(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            const std::string& property) {
         if (ec1)
         {
+            if (ec1.value() == EBADR)
+            {
+                // Don't always have PCIeSlot location codes
+                BMCWEB_LOG_DEBUG("No slot location code found");
+                return;
+            }
+
             BMCWEB_LOG_ERROR(
                 "Can't get location code property for PCIeSlot, Error:{}",
                 ec1.value());
