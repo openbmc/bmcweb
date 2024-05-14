@@ -33,6 +33,23 @@
       "message": "include string",
       "revId": "7fee088b4733c12c7799de597918219c5afaad7a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59f7977a_e6b774cc",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-14T20:07:17Z",
+      "side": 1,
+      "message": "I think DEBUG or INFO here..",
+      "revId": "7fee088b4733c12c7799de597918219c5afaad7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
