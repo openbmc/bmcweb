@@ -277,10 +277,10 @@ inline void handleServiceRootGetImpl(
 
     protocolFeatures["ExpandQuery"]["ExpandAll"] =
         bmcwebInsecureEnableQueryParams;
-    // This is the maximum level defined in ServiceRoot.v1_13_0.json
+    // This is the maximum level is defined by us
     if (bmcwebInsecureEnableQueryParams)
     {
-        protocolFeatures["ExpandQuery"]["MaxLevels"] = 6;
+        protocolFeatures["ExpandQuery"]["MaxLevels"] = 3;
     }
     protocolFeatures["ExpandQuery"]["Levels"] = bmcwebInsecureEnableQueryParams;
     protocolFeatures["ExpandQuery"]["Links"] = bmcwebInsecureEnableQueryParams;
