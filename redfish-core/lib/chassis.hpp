@@ -196,8 +196,7 @@ inline void handleChassisCollectionGet(
     asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Chassis";
     asyncResp->res.jsonValue["Name"] = "Chassis Collection";
 
-    constexpr std::array<std::string_view, 2> interfaces{
-        "xyz.openbmc_project.Inventory.Item.Board",
+    constexpr std::array<std::string_view, 1> interfaces{
         "xyz.openbmc_project.Inventory.Item.Chassis"};
     collection_util::getCollectionMembers(
         asyncResp, boost::urls::url("/redfish/v1/Chassis"), interfaces,
@@ -680,8 +679,7 @@ inline void
     {
         return;
     }
-    constexpr std::array<std::string_view, 2> interfaces = {
-        "xyz.openbmc_project.Inventory.Item.Board",
+    constexpr std::array<std::string_view, 1> interfaces = {
         "xyz.openbmc_project.Inventory.Item.Chassis"};
 
     dbus::utility::getSubTree(
@@ -732,8 +730,7 @@ inline void
             "299 - \"IndicatorLED is deprecated. Use LocationIndicatorActive instead.\"");
     }
 
-    constexpr std::array<std::string_view, 2> interfaces = {
-        "xyz.openbmc_project.Inventory.Item.Board",
+    constexpr std::array<std::string_view, 1> interfaces = {
         "xyz.openbmc_project.Inventory.Item.Chassis"};
 
     const std::string& chassisId = param;
