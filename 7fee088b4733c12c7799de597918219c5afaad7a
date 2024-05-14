@@ -54,6 +54,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0afc9596_7ef7898e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-14T21:22:32Z",
+      "side": 1,
+      "message": "Let start by getting some documentation in the commit message that recognizes that pcie_slots.hpp is:\n\nNot included anywhere\nNot initialized anywhere.  RequestRoutesPCIeSlots is not called in the codebase: https://github.com/search?q\u003drepo%3Aopenbmc%2Fbmcweb+requestRoutesPCIeSlots\u0026type\u003dcode\n\nWhich means this is dead code, and there\u0027s no way that the tests that claim to be run were run on this codebase.  I\u0027m assuming they were run on a fork, which is fine, but we need to be honest about what we want here.  As far as this codebase is concerned, this is dead code that had to be reverted shortly after it was merged, and has never worked as designed, and nobody followed up to fix the issues with it.\n\nLets get the intent written down in the patchset for what we want to accomplish with this review, before we spend a lot of time diving into the specifics of the code.  Redfish has deprecated this schema in leiu of PCIeDevice, which we also implement, so in terms of this patch I\u0027m unclear what we\u0027re trying to accomplish.\n\n\nOnce that\u0027s written down, we can start having a discussion around what we want to happen.",
+      "revId": "7fee088b4733c12c7799de597918219c5afaad7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6f257717_e283f758",
         "filename": "redfish-core/lib/pcie_slots.hpp",
         "patchSetId": 19
