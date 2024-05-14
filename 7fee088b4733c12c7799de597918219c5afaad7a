@@ -18,6 +18,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "af0ebea3_616b8ecf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-14T21:03:44Z",
+      "side": 1,
+      "message": "This isn\u0027t in https://github.com/openbmc/bmcweb/blob/master/Redfish.md  which I think is best",
+      "revId": "7fee088b4733c12c7799de597918219c5afaad7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6f257717_e283f758",
