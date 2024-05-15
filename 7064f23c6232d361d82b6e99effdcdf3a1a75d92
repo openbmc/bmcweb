@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8f50a57_15caed99",
+        "filename": "config/bmcweb_config.h.in",
+        "patchSetId": 8
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-15T20:26:02Z",
+      "side": 1,
+      "message": "Can you get rid of the clang-format off now and the nolint?",
+      "revId": "7064f23c6232d361d82b6e99effdcdf3a1a75d92",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d79270df_85f29afe",
+        "filename": "config/meson.build",
+        "patchSetId": 8
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-15T20:26:02Z",
+      "side": 1,
+      "message": "why the space at the end here but at the beginning on the others?",
+      "range": {
+        "startLine": 57,
+        "startChar": 45,
+        "endLine": 57,
+        "endChar": 46
+      },
+      "revId": "7064f23c6232d361d82b6e99effdcdf3a1a75d92",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
