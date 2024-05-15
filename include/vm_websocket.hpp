@@ -609,9 +609,10 @@ inline void requestRoutes(App& app)
                 return;
             }
 
-            boost::asio::buffer_copy(handler->inputBuffer->prepare(data.size()),
-                                     boost::asio::buffer(data));
-            handler->inputBuffer->commit(data.size());
+            size_t copied = boost::asio::buffer_copy(
+                handler->inputBuffer->prepare(data.size()),
+                boost::asio::buffer(data));
+            handler->inputBuffer->commit(copied);
             handler->doWrite();
         });
     }
