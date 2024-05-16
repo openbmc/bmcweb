@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef7870fc_036bc040",
+        "filename": "config/bmcweb_config.h.in",
+        "patchSetId": 8
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-16T15:59:47Z",
+      "side": 1,
+      "message": "Looks like no.  Clang still tries to format the generated file.",
+      "parentUuid": "a5ce6cf8_78586810",
+      "revId": "7064f23c6232d361d82b6e99effdcdf3a1a75d92",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d79270df_85f29afe",
