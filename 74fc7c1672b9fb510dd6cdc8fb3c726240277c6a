@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0625f59d_00ffe4be",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1167,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-16T23:48:19Z",
+      "side": 1,
+      "message": "Should we be more discerning than this?  ie, should we check that enabled \u003d\u003d false, roleId !\u003d the existing roleId, or locked \u003d\u003d true?",
+      "revId": "74fc7c1672b9fb510dd6cdc8fb3c726240277c6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
