@@ -1115,10 +1115,6 @@ inline void updateUserProperties(
             }
             else
             {
-                // Remove existing sessions of the user when password changed
-                persistent_data::SessionStore::getInstance()
-                    .removeSessionsByUsernameExceptSession(username,
-                                                           sessionUniqueId);
                 messages::success(asyncResp->res);
             }
         }
@@ -1168,6 +1164,10 @@ inline void updateUserProperties(
             patchAccountTypes(*accountTypes, asyncResp, dbusObjectPath,
                               userSelf);
         }
+        // Remove existing sessions of the user when password, enabled, roleId,
+        // locked, or accountTypes changed
+        persistent_data::SessionStore::getInstance()
+            .removeSessionsByUsernameExceptSession(username, sessionUniqueId);
     });
 }
 
