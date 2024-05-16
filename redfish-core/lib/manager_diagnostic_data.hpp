@@ -228,16 +228,25 @@ inline void managerGetServiceRootUptime(
  */
 inline void handleManagerDiagnosticDataGet(
     crow::App& app, const crow::Request& req,
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& managerId)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
+
+    if (managerId != BMCWEB_REDFISH_MANAGER_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "Manager", managerId);
+        return;
+    }
+
     asyncResp->res.jsonValue["@odata.type"] =
         "#ManagerDiagnosticData.v1_2_0.ManagerDiagnosticData";
     asyncResp->res.jsonValue["@odata.id"] =
-        "/redfish/v1/Managers/bmc/ManagerDiagnosticData";
+        boost::urls::format("/redfish/v1/Managers/{}/ManagerDiagnosticData",
+                            BMCWEB_REDFISH_MANAGER_URI_NAME);
     asyncResp->res.jsonValue["Id"] = "ManagerDiagnosticData";
     asyncResp->res.jsonValue["Name"] = "Manager Diagnostic Data";
 
@@ -249,7 +258,7 @@ inline void handleManagerDiagnosticDataGet(
 
 inline void requestRoutesManagerDiagnosticData(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/ManagerDiagnosticData")
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/ManagerDiagnosticData")
         .privileges(redfish::privileges::getManagerDiagnosticData)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleManagerDiagnosticDataGet, std::ref(app)));
