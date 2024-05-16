@@ -421,6 +421,7 @@ inline void
 {
     if (ec)
     {
+        BMCWEB_LOG_ERROR("DBus getAllProperties error: {}", ec.message());
         conn.close("Internal Error");
         return;
     }
@@ -433,6 +434,7 @@ inline void
 
     if (!success)
     {
+        BMCWEB_LOG_ERROR("Failed to unpack properties");
         conn.close("Internal Error");
         return;
     }
@@ -462,14 +464,20 @@ inline void onOpen(crow::websocket::Connection& conn)
 {
     BMCWEB_LOG_DEBUG("nbd-proxy.onopen({})", logPtr(&conn));
 
-    sdbusplus::message::object_path path(
-        "/xyz/openbmc_project/VirtualMedia/nbd");
+    if (conn.url().segments().size() < 2)
+    {
+        BMCWEB_LOG_ERROR("Invalid path - \"{}\"", conn.url().path());
+        conn.close("Internal error");
+        return;
+    }
 
-    path /= std::to_string(0);
+    std::string index = conn.url().segments().back();
+    std::string path =
+        std::format("/xyz/openbmc_project/VirtualMedia/Proxy/Slot_{}", index);
 
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, "xyz.openbmc_project.VirtualMedia", path,
-        "xyz.openbmc_project.VirtualMedia",
+        "xyz.openbmc_project.VirtualMedia.MountPoint",
         [&conn, path](const boost::system::error_code& ec,
                       const dbus::utility::DBusPropertiesMap& propertiesList) {
         afterGetSocket(conn, path, ec, propertiesList);
