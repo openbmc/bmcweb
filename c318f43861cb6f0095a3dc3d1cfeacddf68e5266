@@ -309,6 +309,30 @@
       },
       "revId": "c318f43861cb6f0095a3dc3d1cfeacddf68e5266",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5e282bb_2bd208e8",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1118,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-16T20:03:41Z",
+      "side": 1,
+      "message": "\u003e I think this should be done for more than just user\u0027s password \n\u003e \n\nAgreed, but lets try to keep this review focused on what\u0027s in the patchset, and contained to the point where we can get it reviewed/tested/on master without having to boil the ocean.\n\nYou\u0027re 1000% right that this doesn\u0027t completely get us fully to what owasp says, but I certainly think it gets us closer.",
+      "parentUuid": "d39ec9b3_c8c5e61c",
+      "range": {
+        "startLine": 1118,
+        "startChar": 46,
+        "endLine": 1118,
+        "endChar": 54
+      },
+      "revId": "c318f43861cb6f0095a3dc3d1cfeacddf68e5266",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
