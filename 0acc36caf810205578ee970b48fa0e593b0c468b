@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60c0e827_32ee3739",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2024-05-16T18:35:20Z",
+      "side": 1,
+      "message": "Looks good to me, except I think we should not delete the current session (the one changing the password).\n\nI have no concern for LDAP users because we cannot successful change LDAP user passwords from here.\n\nThis solution seems complete from the point of view of a BMC whose only interface allowed to change password is provided by exactly one BMCWeb server.\nHowever, the password can be changed from other (non-BMCWeb) vectors such as BMC command shell access (namely the `passwd` command or `login` with the password change dialog) or via `ipmitool user set password`.  For example, if someone logs into BMCWeb and SSH into the BMC command shell using account  X, then:\n1. Password change from the command shell will not log out any BMCWeb sessions.\n2. Password change from BMCWeb will not log out any command shell sessions.\nI am okay with that limitation.",
+      "revId": "0acc36caf810205578ee970b48fa0e593b0c468b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
