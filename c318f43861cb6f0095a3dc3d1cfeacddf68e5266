@@ -96,6 +96,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce82ac53_30a869a0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2024-05-16T18:49:39Z",
+      "side": 1,
+      "message": "One scenario this will help is:\n1. BMC user suspects their password is compromised or disclosed to an adversary.\n2. BMC user changes their password.\n\nWithout this fix, changing the password may prevent future login by an adversary, but does not remove any of that adversary\u0027s current sessions.  This is needed especially if the user is no an admin (and therefor cannot inspect or remove sessions).  With this fix, changing the password will simultaneously log off adversaries and prevent them from logging in again (with the same password).",
+      "parentUuid": "de565b84_2ada3025",
+      "range": {
+        "startLine": 10,
+        "startChar": 42,
+        "endLine": 10,
+        "endChar": 68
+      },
+      "revId": "c318f43861cb6f0095a3dc3d1cfeacddf68e5266",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "417efcfd_3f61b544",
