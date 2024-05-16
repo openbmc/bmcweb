@@ -1183,7 +1183,8 @@ inline void handleHypervisorSystemGet(
         asyncResp->res.jsonValue["SystemType"] = "OS";
         nlohmann::json::array_t managedBy;
         nlohmann::json::object_t manager;
-        manager["@odata.id"] = "/redfish/v1/Managers/bmc";
+        manager["@odata.id"] = boost::urls::format(
+            "/redfish/v1/Managers/{}", BMCWEB_REDFISH_MANAGER_URI_NAME);
         managedBy.emplace_back(std::move(manager));
         asyncResp->res.jsonValue["Links"]["ManagedBy"] = std::move(managedBy);
         asyncResp->res.jsonValue["EthernetInterfaces"]["@odata.id"] =

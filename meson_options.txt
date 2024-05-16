@@ -128,6 +128,28 @@ option(
 )
 
 option(
+    'redfish-manager-uri-name',
+    type: 'string',
+    value: 'bmc',
+    description: '''The static Redfish Manager ID representing the BMC
+                    instance. This option will appear in the Redfish tree at
+                    /redfish/v1/Managers/<redfish-manager-uri-name>.
+                    Defaults to \'bmc\' which resolves to
+                    /redfish/v1/Managers/bmc'''
+)
+
+option(
+    'redfish-system-uri-name',
+    type: 'string',
+    value: 'system',
+    description: '''The static Redfish System ID representing the host
+                    instance. This option will appear in the Redfish tree at
+                    /redfish/v1/Systems/<redfish-system-uri-name>.
+                    Defaults to \'system\' which resolves to
+                    /redfish/v1/Systems/system'''
+)
+
+option(
     'bmcweb-logging',
     type: 'combo',
     choices : [ 'disabled', 'enabled', 'debug', 'info', 'warning', 'error', 'critical' ],

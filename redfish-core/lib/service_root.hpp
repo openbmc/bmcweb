@@ -267,7 +267,8 @@ inline void handleServiceRootGetImpl(
             "/redfish/v1/LicenseService";
     }
     asyncResp->res.jsonValue["Links"]["ManagerProvidingService"]["@odata.id"] =
-        "/redfish/v1/Managers/bmc";
+        boost::urls::format("/redfish/v1/Managers/{}",
+                            BMCWEB_REDFISH_MANAGER_URI_NAME);
 
     nlohmann::json& protocolFeatures =
         asyncResp->res.jsonValue["ProtocolFeaturesSupported"];

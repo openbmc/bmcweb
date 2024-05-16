@@ -1065,7 +1065,8 @@ inline static void
     {
         nlohmann::json& relatedItem = asyncResp->res.jsonValue["RelatedItem"];
         nlohmann::json::object_t item;
-        item["@odata.id"] = "/redfish/v1/Managers/bmc";
+        item["@odata.id"] = boost::urls::format(
+            "/redfish/v1/Managers/{}", BMCWEB_REDFISH_MANAGER_URI_NAME);
         relatedItem.emplace_back(std::move(item));
         asyncResp->res.jsonValue["RelatedItem@odata.count"] =
             relatedItem.size();
@@ -1074,7 +1075,8 @@ inline static void
     {
         nlohmann::json& relatedItem = asyncResp->res.jsonValue["RelatedItem"];
         nlohmann::json::object_t item;
-        item["@odata.id"] = "/redfish/v1/Systems/system/Bios";
+        item["@odata.id"] = std::format("/redfish/v1/Systems/{}/Bios",
+                                        BMCWEB_REDFISH_SYSTEM_URI_NAME);
         relatedItem.emplace_back(std::move(item));
         asyncResp->res.jsonValue["RelatedItem@odata.count"] =
             relatedItem.size();

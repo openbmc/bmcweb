@@ -122,7 +122,7 @@ static inline void handlePCIeDeviceCollectionGet(
                                    systemName);
         return;
     }
-    if (systemName != "system")
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
     {
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
                                    systemName);
@@ -134,8 +134,8 @@ static inline void handlePCIeDeviceCollectionGet(
                              "PCIeDeviceCollection.json>; rel=describedby");
     asyncResp->res.jsonValue["@odata.type"] =
         "#PCIeDeviceCollection.PCIeDeviceCollection";
-    asyncResp->res.jsonValue["@odata.id"] =
-        "/redfish/v1/Systems/system/PCIeDevices";
+    asyncResp->res.jsonValue["@odata.id"] = std::format(
+        "/redfish/v1/Systems/{}/PCIeDevices", BMCWEB_REDFISH_SYSTEM_URI_NAME);
     asyncResp->res.jsonValue["Name"] = "PCIe Device Collection";
     asyncResp->res.jsonValue["Description"] = "Collection of PCIe Devices";
 
@@ -591,8 +591,8 @@ inline void addPCIeDeviceProperties(
 
     asyncResp->res.jsonValue["PCIeFunctions"]["@odata.id"] =
         boost::urls::format(
-            "/redfish/v1/Systems/system/PCIeDevices/{}/PCIeFunctions",
-            pcieDeviceId);
+            "/redfish/v1/Systems/{}/PCIeDevices/{}/PCIeFunctions",
+            BMCWEB_REDFISH_SYSTEM_URI_NAME, pcieDeviceId);
 }
 
 inline void getPCIeDeviceProperties(
@@ -628,8 +628,9 @@ inline void addPCIeDeviceCommonProperties(
         boost::beast::http::field::link,
         "</redfish/v1/JsonSchemas/PCIeDevice/PCIeDevice.json>; rel=describedby");
     asyncResp->res.jsonValue["@odata.type"] = "#PCIeDevice.v1_9_0.PCIeDevice";
-    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
-        "/redfish/v1/Systems/system/PCIeDevices/{}", pcieDeviceId);
+    asyncResp->res.jsonValue["@odata.id"] =
+        boost::urls::format("/redfish/v1/Systems/{}/PCIeDevices/{}",
+                            BMCWEB_REDFISH_SYSTEM_URI_NAME, pcieDeviceId);
     asyncResp->res.jsonValue["Name"] = "PCIe Device";
     asyncResp->res.jsonValue["Id"] = pcieDeviceId;
     asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
@@ -668,7 +669,7 @@ inline void
                                    systemName);
         return;
     }
-    if (systemName != "system")
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
     {
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
                                    systemName);
@@ -829,8 +830,9 @@ inline void addPCIeFunctionList(
 
         nlohmann::json::object_t pcieFunction;
         pcieFunction["@odata.id"] = boost::urls::format(
-            "/redfish/v1/Systems/system/PCIeDevices/{}/PCIeFunctions/{}",
-            pcieDeviceId, std::to_string(functionNum));
+            "/redfish/v1/Systems/{}/PCIeDevices/{}/PCIeFunctions/{}",
+            BMCWEB_REDFISH_SYSTEM_URI_NAME, pcieDeviceId,
+            std::to_string(functionNum));
         pcieFunctionList.emplace_back(std::move(pcieFunction));
     }
     res.jsonValue["PCIeFunctions@odata.count"] = pcieFunctionList.size();
@@ -863,8 +865,8 @@ inline void handlePCIeFunctionCollectionGet(
         asyncResp->res.jsonValue["@odata.type"] =
             "#PCIeFunctionCollection.PCIeFunctionCollection";
         asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
-            "/redfish/v1/Systems/system/PCIeDevices/{}/PCIeFunctions",
-            pcieDeviceId);
+            "/redfish/v1/Systems/{}/PCIeDevices/{}/PCIeFunctions",
+            BMCWEB_REDFISH_SYSTEM_URI_NAME, pcieDeviceId);
         asyncResp->res.jsonValue["Name"] = "PCIe Function Collection";
         asyncResp->res.jsonValue["Description"] =
             "Collection of PCIe Functions for PCIe Device " + pcieDeviceId;
@@ -976,13 +978,15 @@ inline void addPCIeFunctionCommonProperties(crow::Response& resp,
         "</redfish/v1/JsonSchemas/PCIeFunction/PCIeFunction.json>; rel=describedby");
     resp.jsonValue["@odata.type"] = "#PCIeFunction.v1_2_3.PCIeFunction";
     resp.jsonValue["@odata.id"] = boost::urls::format(
-        "/redfish/v1/Systems/system/PCIeDevices/{}/PCIeFunctions/{}",
-        pcieDeviceId, std::to_string(pcieFunctionId));
+        "/redfish/v1/Systems/{}/PCIeDevices/{}/PCIeFunctions/{}",
+        BMCWEB_REDFISH_SYSTEM_URI_NAME, pcieDeviceId,
+        std::to_string(pcieFunctionId));
     resp.jsonValue["Name"] = "PCIe Function";
     resp.jsonValue["Id"] = std::to_string(pcieFunctionId);
     resp.jsonValue["FunctionId"] = pcieFunctionId;
-    resp.jsonValue["Links"]["PCIeDevice"]["@odata.id"] = boost::urls::format(
-        "/redfish/v1/Systems/system/PCIeDevices/{}", pcieDeviceId);
+    resp.jsonValue["Links"]["PCIeDevice"]["@odata.id"] =
+        boost::urls::format("/redfish/v1/Systems/{}/PCIeDevices/{}",
+                            BMCWEB_REDFISH_SYSTEM_URI_NAME, pcieDeviceId);
 }
 
 inline void
@@ -1003,7 +1007,7 @@ inline void
                                    systemName);
         return;
     }
-    if (systemName != "system")
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
     {
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
                                    systemName);
