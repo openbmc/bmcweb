@@ -1113,6 +1113,9 @@ inline void updateUserProperties(
             }
             else
             {
+                // Remove existing sessions of the user when password changed
+                persistent_data::SessionStore::getInstance()
+                    .removeSessionsByUsername(username);
                 messages::success(asyncResp->res);
             }
         }
