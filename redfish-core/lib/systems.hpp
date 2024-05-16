@@ -2781,7 +2781,8 @@ inline void handleComputerSystemCollectionGet(
     }
     asyncResp->res.jsonValue["Members@odata.count"] = 1;
     nlohmann::json::object_t system;
-    system["@odata.id"] = "/redfish/v1/Systems/system";
+    system["@odata.id"] = std::format("/redfish/v1/Systems/{}",
+                                      BMCWEB_REDFISH_SYSTEM_URI_NAME);
     ifaceArray.emplace_back(std::move(system));
     sdbusplus::asio::getProperty<std::string>(
         *crow::connections::systemBus, "xyz.openbmc_project.Settings",
@@ -2847,7 +2848,7 @@ inline void handleComputerSystemResetActionPost(
     {
         return;
     }
-    if (systemName != "system")
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
     {
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
                                    systemName);
@@ -3005,7 +3006,7 @@ inline void
         return;
     }
 
-    if (systemName != "system")
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
     {
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
                                    systemName);
@@ -3023,27 +3024,31 @@ inline void
     asyncResp->res.jsonValue["ProcessorSummary"]["Count"] = 0;
     asyncResp->res.jsonValue["MemorySummary"]["TotalSystemMemoryGiB"] =
         double(0);
-    asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system";
+    asyncResp->res.jsonValue["@odata.id"] =
+        std::format("/redfish/v1/Systems/{}", BMCWEB_REDFISH_SYSTEM_URI_NAME);
 
-    asyncResp->res.jsonValue["Processors"]["@odata.id"] =
-        "/redfish/v1/Systems/system/Processors";
-    asyncResp->res.jsonValue["Memory"]["@odata.id"] =
-        "/redfish/v1/Systems/system/Memory";
-    asyncResp->res.jsonValue["Storage"]["@odata.id"] =
-        "/redfish/v1/Systems/system/Storage";
+    asyncResp->res.jsonValue["Processors"]["@odata.id"] = std::format(
+        "/redfish/v1/Systems/{}/Processors", BMCWEB_REDFISH_SYSTEM_URI_NAME);
+    asyncResp->res.jsonValue["Memory"]["@odata.id"] = std::format(
+        "/redfish/v1/Systems/{}/Memory", BMCWEB_REDFISH_SYSTEM_URI_NAME);
+    asyncResp->res.jsonValue["Storage"]["@odata.id"] = std::format(
+        "/redfish/v1/Systems/{}/Storage", BMCWEB_REDFISH_SYSTEM_URI_NAME);
     asyncResp->res.jsonValue["FabricAdapters"]["@odata.id"] =
-        "/redfish/v1/Systems/system/FabricAdapters";
+        std::format("/redfish/v1/Systems/{}/FabricAdapters",
+                    BMCWEB_REDFISH_SYSTEM_URI_NAME);
 
     asyncResp->res.jsonValue["Actions"]["#ComputerSystem.Reset"]["target"] =
-        "/redfish/v1/Systems/system/Actions/ComputerSystem.Reset";
+        std::format("/redfish/v1/Systems/{}/Actions/ComputerSystem.Reset",
+                    BMCWEB_REDFISH_SYSTEM_URI_NAME);
     asyncResp->res
         .jsonValue["Actions"]["#ComputerSystem.Reset"]["@Redfish.ActionInfo"] =
-        "/redfish/v1/Systems/system/ResetActionInfo";
+        std::format("/redfish/v1/Systems/{}/ResetActionInfo",
+                    BMCWEB_REDFISH_SYSTEM_URI_NAME);
 
-    asyncResp->res.jsonValue["LogServices"]["@odata.id"] =
-        "/redfish/v1/Systems/system/LogServices";
-    asyncResp->res.jsonValue["Bios"]["@odata.id"] =
-        "/redfish/v1/Systems/system/Bios";
+    asyncResp->res.jsonValue["LogServices"]["@odata.id"] = std::format(
+        "/redfish/v1/Systems/{}/LogServices", BMCWEB_REDFISH_SYSTEM_URI_NAME);
+    asyncResp->res.jsonValue["Bios"]["@odata.id"] = std::format(
+        "/redfish/v1/Systems/{}/Bios", BMCWEB_REDFISH_SYSTEM_URI_NAME);
 
     nlohmann::json::array_t managedBy;
     nlohmann::json& manager = managedBy.emplace_back();
@@ -3123,7 +3128,7 @@ inline void handleComputerSystemPatch(
                                    systemName);
         return;
     }
-    if (systemName != "system")
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
     {
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
                                    systemName);
@@ -3379,7 +3384,7 @@ inline void handleSystemCollectionResetActionGet(
         return;
     }
 
-    if (systemName != "system")
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
     {
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
                                    systemName);
@@ -3391,7 +3396,8 @@ inline void handleSystemCollectionResetActionGet(
         "</redfish/v1/JsonSchemas/ActionInfo/ActionInfo.json>; rel=describedby");
 
     asyncResp->res.jsonValue["@odata.id"] =
-        "/redfish/v1/Systems/system/ResetActionInfo";
+        std::format("/redfish/v1/Systems/{}/ResetActionInfo",
+                    BMCWEB_REDFISH_SYSTEM_URI_NAME);
     asyncResp->res.jsonValue["@odata.type"] = "#ActionInfo.v1_1_2.ActionInfo";
     asyncResp->res.jsonValue["Name"] = "Reset Action Info";
     asyncResp->res.jsonValue["Id"] = "ResetActionInfo";

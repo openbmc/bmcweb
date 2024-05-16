@@ -2016,7 +2016,8 @@ inline void requestRoutesManager(App& app)
 
             nlohmann::json::array_t managerForServers;
             nlohmann::json::object_t manager;
-            manager["@odata.id"] = "/redfish/v1/Systems/system";
+            manager["@odata.id"] = std::format("/redfish/v1/Systems/{}",
+                                               BMCWEB_REDFISH_SYSTEM_URI_NAME);
             managerForServers.emplace_back(std::move(manager));
 
             asyncResp->res.jsonValue["Links"]["ManagerForServers"] =

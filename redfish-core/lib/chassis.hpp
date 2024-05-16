@@ -76,8 +76,9 @@ inline void getStorageLink(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             }
 
             nlohmann::json::object_t storage;
-            storage["@odata.id"] = boost::urls::format(
-                "/redfish/v1/Systems/system/Storage/{}", id);
+            storage["@odata.id"] =
+                boost::urls::format("/redfish/v1/Systems/{}/Storage/{}",
+                                    BMCWEB_REDFISH_SYSTEM_URI_NAME, id);
             storages.emplace_back(std::move(storage));
         }
         asyncResp->res.jsonValue["Links"]["Storage@odata.count"] =
@@ -431,7 +432,8 @@ inline void handleDecoratorAssetProperties(
 
     nlohmann::json::array_t computerSystems;
     nlohmann::json::object_t system;
-    system["@odata.id"] = "/redfish/v1/Systems/system";
+    system["@odata.id"] = std::format("/redfish/v1/Systems/{}",
+                                      BMCWEB_REDFISH_SYSTEM_URI_NAME);
     computerSystems.emplace_back(std::move(system));
     asyncResp->res.jsonValue["Links"]["ComputerSystems"] =
         std::move(computerSystems);
