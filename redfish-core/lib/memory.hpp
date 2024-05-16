@@ -33,16 +33,15 @@
 #include <sdbusplus/unpack_properties.hpp>
 
 #include <array>
+#include <cstdint>
+#include <functional>
+#include <memory>
+#include <string>
 #include <string_view>
+#include <vector>
 
 namespace redfish
 {
-
-// Interfaces which provide information about Memory
-constexpr std::array<std::string_view, 3> memInterfaces = {
-    "xyz.openbmc_project.Inventory.Item.Dimm",
-    "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition",
-    "xyz.openbmc_project.Association.Definitions"};
 
 inline std::string translateMemoryTypeToRedfish(const std::string& memoryType)
 {
@@ -714,12 +713,11 @@ inline void getDimmPartitionData(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
     );
 }
 
-template <typename Handler>
 inline void
-    handleDimmObject(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                     const std::string& dimmId, Handler&& handler,
-                     const boost::system::error_code& ec,
-                     const dbus::utility::MapperGetSubTreeResponse& subtree)
+    handleGetDimmData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      const std::string& dimmId,
+                      const boost::system::error_code& ec,
+                      const dbus::utility::MapperGetSubTreeResponse& subtree)
 {
     if (ec)
     {
@@ -727,10 +725,13 @@ inline void
         messages::internalError(asyncResp->res);
         return;
     }
+
+    bool found = false;
     for (const auto& [objectPath, serviceMap] : subtree)
     {
         // Ignore any objects which don't end with our desired dimm name
-        if (!boost::ends_with(objectPath, dimmId))
+        sdbusplus::message::object_path path(objectPath);
+        if (path.filename() != dimmId)
         {
             continue;
         }
@@ -738,128 +739,81 @@ inline void
         // Filter out objects that don't have the DIMM-specific
         // interfaces to make sure we can return 404 on non-CPUs
         // (e.g. /redfish/../Memory/cpu0)
-        for (const auto& [serviceName, interfaceList] : serviceMap)
-        {
-            if (std::ranges::find_first_of(interfaceList, memInterfaces) !=
-                std::end(interfaceList))
-            {
-                // Memory the first object which does match our dimm name and
-                // required interfaces, and potentially ignore any other
-                // matching objects. Assume all interfaces we want to process
-                // must be on the same object path.
-
-                handler(asyncResp, dimmId, objectPath, serviceMap);
-                return;
-            }
-        }
-    }
-    messages::resourceNotFound(asyncResp->res, "Memory", dimmId);
-}
-
-/**
- * Find the D-Bus object representing the requested DIMM, and call the
- * handler with the results. If matching object is not found, add 404 error to
- * response and don't call the handler.
- *
- * @param[in,out]   resp            Async HTTP response.
- * @param[in]       dimmId          Redfish Dimm Id.
- * @param[in]       handler         Callback to continue processing request upon
- *                                  successfully finding object.
- */
-template <typename Handler>
-inline void getDimmObject(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                          const std::string& dimmId, Handler&& handler)
-{
-    BMCWEB_LOG_DEBUG("Get available system memory resources.");
-
-    // GetSubTree on all interfaces which provide info about a Memory
-    dbus::utility::getSubTree(
-        "/xyz/openbmc_project/inventory", 0, memInterfaces,
-        [asyncResp, dimmId, handler = std::forward<Handler>(handler)](
-            const boost::system::error_code& ec,
-            const dbus::utility::MapperGetSubTreeResponse& subtree) {
-        handleDimmObject(asyncResp, dimmId, handler, ec, subtree);
-    });
-}
-
-inline void getDimmData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                        const std::string& dimmId,
-                        const std::string& objectPath,
-                        const dbus::utility::MapperServiceMap& serviceMap)
-{
-    for (const auto& [serviceName, interfaceList] : serviceMap)
-    {
         bool dimmInterface = false;
         bool partitionInterface = false;
         bool associationInterface = false;
-        for (const auto& interface : interfaceList)
+        for (const auto& [serviceName, interfaceList] : serviceMap)
         {
-            if (interface == "xyz.openbmc_project.Inventory.Item.Dimm")
+            for (const auto& interface : interfaceList)
             {
-                dimmInterface = true;
-                getDimmDataByService(asyncResp, dimmId, serviceName,
-                                     objectPath);
+                if (interface == "xyz.openbmc_project.Inventory.Item.Dimm")
+                {
+                    found = true;
+                    dimmInterface = true;
+                    getDimmDataByService(asyncResp, dimmId, serviceName,
+                                         objectPath);
+                }
+                else if (
+                    interface ==
+                    "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition")
+                {
+                    partitionInterface = true;
+                }
+                else if (interface ==
+                         "xyz.openbmc_project.Association.Definitions")
+                {
+                    associationInterface = true;
+                }
             }
-            else if (
-                interface ==
-                "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition")
-            {
-                partitionInterface = true;
-            }
-            else if (interface == "xyz.openbmc_project.Association.Definitions")
-            {
-                associationInterface = true;
-            }
-        }
 
-        if (dimmInterface && partitionInterface)
-        {
-            // partitions are separate as there can be multiple per device,
-            // i.e. /xyz/openbmc_project/Inventory/Item/Dimm1/Partition1
-            // /xyz/openbmc_project/Inventory/Item/Dimm1/Partition2
-            getDimmPartitionData(asyncResp, serviceName, objectPath);
-        }
-        else if (dimmInterface && associationInterface)
-        {
-            getLocationIndicatorActive(asyncResp, objectPath);
+            if (dimmInterface && partitionInterface)
+            {
+                // partitions are separate as there can be multiple
+                // per
+                // device, i.e.
+                // /xyz/openbmc_project/Inventory/Item/Dimm1/Partition1
+                // /xyz/openbmc_project/Inventory/Item/Dimm1/Partition2
+                getDimmPartitionData(asyncResp, serviceName, objectPath);
+            }
+
+            if (dimmInterface && associationInterface)
+            {
+                getLocationIndicatorActive(asyncResp, objectPath);
+            }
         }
     }
+    // Object not found
+    if (!found)
+    {
+        messages::resourceNotFound(asyncResp->res, "Memory", dimmId);
+        return;
+    }
+    // Set @odata only if object is found
+    asyncResp->res.jsonValue["@odata.type"] = "#Memory.v1_12_0.Memory";
+    asyncResp->res.jsonValue["@odata.id"] =
+        boost::urls::format("/redfish/v1/Systems/system/Memory/{}", dimmId);
 }
 
-inline void setDimmData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                        const dbus::utility::MapperServiceMap& serviceMap,
-                        const std::string& objectPath,
-                        bool locationIndicatorActive)
+inline void getDimmData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const std::string& dimmId)
 {
-    for (const auto& [serviceName, interfaceList] : serviceMap)
-    {
-        bool dimmInterface = false;
-        bool associationInterface = false;
-        for (const auto& interface : interfaceList)
-        {
-            if (interface == "xyz.openbmc_project.Inventory.Item.Dimm")
-            {
-                dimmInterface = true;
-            }
-            else if (interface == "xyz.openbmc_project.Association.Definitions")
-            {
-                associationInterface = true;
-            }
-        }
+    BMCWEB_LOG_DEBUG("Get available system dimm resources.");
+    // GetSubTree on all interfaces which provide info about a Memory
+    constexpr std::array<std::string_view, 3> interfaces = {
+        "xyz.openbmc_project.Inventory.Item.Dimm",
+        "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition",
+        "xyz.openbmc_project.Association.Definitions"};
 
-        if (dimmInterface && associationInterface)
-        {
-            setLocationIndicatorActive(asyncResp, objectPath,
-                                       locationIndicatorActive);
-        }
-    }
+    dbus::utility::getSubTree(
+        "/xyz/openbmc_project/inventory", 0, interfaces,
+        std::bind_front(handleGetDimmData, asyncResp, dimmId));
 }
 
 inline void
-    handleSetDimmObject(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                        const std::string& dimmId, bool locationIndicatorActive,
-                        const boost::system::error_code& ec,
-                        const dbus::utility::MapperGetSubTreeResponse& subtree)
+    handleSetDimmData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      const std::string& dimmId, bool locationIndicatorActive,
+                      const boost::system::error_code& ec,
+                      const dbus::utility::MapperGetSubTreeResponse& subtree)
 {
     if (ec)
     {
@@ -870,7 +824,8 @@ inline void
     for (const auto& [objectPath, serviceMap] : subtree)
     {
         // Ignore any objects which don't end with our desired dimm name
-        if (!boost::ends_with(objectPath, dimmId))
+        sdbusplus::message::object_path path(objectPath);
+        if (path.filename() != dimmId)
         {
             continue;
         }
@@ -878,19 +833,31 @@ inline void
         // Filter out objects that don't have the DIMM-specific
         // interfaces to make sure we can return 404 on non-CPUs
         // (e.g. /redfish/../Memory/cpu0)
-        constexpr std::array<const char*, 1> dimmInterfaces = {
-            "xyz.openbmc_project.Inventory.Item.Dimm"};
+        bool dimmInterface = false;
+        bool associationInterface = false;
         for (const auto& [serviceName, interfaceList] : serviceMap)
         {
-            if (std::ranges::find_first_of(interfaceList, dimmInterfaces) !=
-                std::end(interfaceList))
+            for (const auto& interface : interfaceList)
             {
-                // Memory the first object which does match our dimm name and
-                // required interfaces, and potentially ignore any other
-                // matching objects. Assume all interfaces we want to process
-                // must be on the same object path.
-                setDimmData(asyncResp, serviceMap, objectPath,
-                            locationIndicatorActive);
+                if (interface == "xyz.openbmc_project.Inventory.Item.Dimm")
+                {
+                    dimmInterface = true;
+                }
+                else if (interface ==
+                         "xyz.openbmc_project.Association.Definitions")
+                {
+                    associationInterface = true;
+                }
+            }
+
+            if (dimmInterface && associationInterface)
+            {
+                // Memory the first object which does match our dimm
+                // name and required interfaces, and potentially ignore
+                // any other matching objects. Assume all interfaces we
+                // want to process must be on the same object path.
+                setLocationIndicatorActive(asyncResp, objectPath,
+                                           locationIndicatorActive);
                 return;
             }
         }
@@ -903,21 +870,80 @@ inline void
  * handler with the results. If matching object is not found, add 404 error to
  * response and don't call the handler.
  *
- * @param[in,out]   resp                              Async HTTP response.
+ * @param[in,out]   asyncResp                         Async HTTP response.
  * @param[in]       dimmId                            Redfish Dimm Id.
  * @param[in]       locationIndicatorActive           Value of the property
  */
-inline void setDimmObject(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                          const std::string& dimmId,
-                          bool locationIndicatorActive)
+inline void setDimmData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const std::string& dimmId, bool locationIndicatorActive)
 {
     // GetSubTree on all interfaces which provide info about a Memory
     constexpr std::array<std::string_view, 2> interfaces = {
         "xyz.openbmc_project.Inventory.Item.Dimm",
         "xyz.openbmc_project.Association.Definitions"};
+
     dbus::utility::getSubTree("/xyz/openbmc_project/inventory", 0, interfaces,
-                              std::bind_front(handleSetDimmObject, asyncResp,
+                              std::bind_front(handleSetDimmData, asyncResp,
                                               dimmId, locationIndicatorActive));
+}
+
+inline void
+    handleMemoryPatch(App& app, const crow::Request& req,
+                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      const std::string& systemName, const std::string& dimmId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    if (systemName != "system")
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+
+    std::optional<bool> locationIndicatorActive;
+    if (!json_util::readJsonPatch(req, asyncResp->res,
+                                  "LocationIndicatorActive",
+                                  locationIndicatorActive))
+    {
+        return;
+    }
+
+    if (locationIndicatorActive)
+    {
+        setDimmData(asyncResp, dimmId, *locationIndicatorActive);
+    }
+}
+
+inline void handleMemoryGet(App& app, const crow::Request& req,
+                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& systemName,
+                            const std::string& dimmId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    if constexpr (bmcwebEnableMultiHost)
+    {
+        // Option currently returns no systems.  TBD
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+
+    if (systemName != "system")
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+
+    getDimmData(asyncResp, dimmId);
 }
 
 inline void requestRoutesMemoryCollection(App& app)
@@ -971,55 +997,12 @@ inline void requestRoutesMemory(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Memory/<str>/")
         .privileges(redfish::privileges::getMemory)
         .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& systemName, const std::string& dimmId) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-        {
-            return;
-        }
+            std::bind_front(handleMemoryGet, std::ref(app)));
 
-        if constexpr (bmcwebEnableMultiHost)
-        {
-            // Option currently returns no systems.  TBD
-            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                       systemName);
-            return;
-        }
-
-        if (systemName != "system")
-        {
-            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                       systemName);
-            return;
-        }
-
-        asyncResp->res.jsonValue["@odata.type"] = "#Memory.v1_12_0.Memory";
-        asyncResp->res.jsonValue["@odata.id"] =
-            boost::urls::format("/redfish/v1/Systems/system/Memory/{}", dimmId);
-
-        getDimmObject(asyncResp, dimmId, getDimmData);
-    });
-
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Memory/<str>/")
-        .privileges({{"Login"}})
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Memory/<str>/")
+        .privileges(redfish::privileges::patchMemory)
         .methods(boost::beast::http::verb::patch)(
-            [](const crow::Request& req,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const std::string& dimmId) {
-        std::optional<bool> locationIndicatorActive;
-        if (!json_util::readJsonPatch(req, asyncResp->res,
-                                      "LocationIndicatorActive",
-                                      locationIndicatorActive))
-        {
-            return;
-        }
-
-        if (locationIndicatorActive)
-        {
-            setDimmObject(asyncResp, dimmId, *locationIndicatorActive);
-        }
-    });
+            std::bind_front(handleMemoryPatch, std::ref(app)));
 }
 
 } // namespace redfish
