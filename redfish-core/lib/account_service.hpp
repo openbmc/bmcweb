@@ -1073,16 +1073,18 @@ inline void updateUserProperties(
     const std::optional<std::string>& password,
     const std::optional<bool>& enabled,
     const std::optional<std::string>& roleId, const std::optional<bool>& locked,
-    std::optional<std::vector<std::string>> accountTypes, bool userSelf)
+    std::optional<std::vector<std::string>> accountTypes, bool userSelf,
+    const std::string& sessionUniqueId)
 {
     sdbusplus::message::object_path tempObjPath(rootUserDbusPath);
     tempObjPath /= username;
     std::string dbusObjectPath(tempObjPath);
 
     dbus::utility::checkDbusPathExists(
-        dbusObjectPath, [dbusObjectPath, username, password, roleId, enabled,
-                         locked, accountTypes(std::move(accountTypes)),
-                         userSelf, asyncResp{std::move(asyncResp)}](int rc) {
+        dbusObjectPath,
+        [dbusObjectPath, username, password, roleId, enabled, locked,
+         accountTypes(std::move(accountTypes)), userSelf, sessionUniqueId,
+         asyncResp{std::move(asyncResp)}](int rc) {
         if (rc <= 0)
         {
             messages::resourceNotFound(asyncResp->res, "ManagerAccount",
@@ -1113,6 +1115,10 @@ inline void updateUserProperties(
             }
             else
             {
+                // Remove existing sessions of the user when password changed
+                persistent_data::SessionStore::getInstance()
+                    .removeSessionsByUsernameExceptSession(username,
+                                                           sessionUniqueId);
                 messages::success(asyncResp->res);
             }
         }
@@ -2040,6 +2046,7 @@ inline void
     }
 
     bool userSelf = (username == req.session->username);
+    std::string sessionUniqueId = req.session->uniqueId;
 
     Privileges effectiveUserPrivileges =
         redfish::getUserPrivileges(*req.session);
@@ -2082,13 +2089,14 @@ inline void
     if (!newUserName || (newUserName.value() == username))
     {
         updateUserProperties(asyncResp, username, password, enabled, roleId,
-                             locked, accountTypes, userSelf);
+                             locked, accountTypes, userSelf, sessionUniqueId);
         return;
     }
     crow::connections::systemBus->async_method_call(
         [asyncResp, username, password(std::move(password)),
          roleId(std::move(roleId)), enabled, newUser{std::string(*newUserName)},
-         locked, userSelf, accountTypes(std::move(accountTypes))](
+         locked, userSelf, sessionUniqueId,
+         accountTypes(std::move(accountTypes))](
             const boost::system::error_code& ec, sdbusplus::message_t& m) {
         if (ec)
         {
@@ -2098,7 +2106,7 @@ inline void
         }
 
         updateUserProperties(asyncResp, newUser, password, enabled, roleId,
-                             locked, accountTypes, userSelf);
+                             locked, accountTypes, userSelf, sessionUniqueId);
     },
         "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
         "xyz.openbmc_project.User.Manager", "RenameUser", username,

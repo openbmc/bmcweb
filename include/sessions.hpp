@@ -316,6 +316,21 @@ class SessionStore
         });
     }
 
+    void removeSessionsByUsernameExceptSession(
+        std::string_view username, std::string_view keepSessionUniqueId)
+    {
+        std::erase_if(authTokens,
+                      [username, keepSessionUniqueId](const auto& value) {
+            if (value.second == nullptr)
+            {
+                return false;
+            }
+
+            return value.second->username == username &&
+                   value.second->uniqueId != keepSessionUniqueId;
+        });
+    }
+
     void updateAuthMethodsConfig(const AuthConfigMethods& config)
     {
         bool isTLSchanged = (authMethodsConfig.tls != config.tls);
