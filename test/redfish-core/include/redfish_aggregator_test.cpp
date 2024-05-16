@@ -329,7 +329,7 @@ void populateCollectionResponse(crow::Response& resp)
       "@odata.type": "#ComputerSystemCollection.ComputerSystemCollection",
       "Members": [
         {
-          "@odata.id": "/redfish/v1/Systems/system"
+          "@odata.id": std::format("/redfish/v1/Systems/{}", BMCWEB_REDFISH_SYSTEM_URI_NAME)
         }
       ],
       "Members@odata.count": 1,
@@ -380,7 +380,9 @@ TEST(processCollectionResponse, localOnly)
     for (auto& member : asyncResp->res.jsonValue["Members"])
     {
         // There should only be one member
-        EXPECT_EQ(member["@odata.id"], "/redfish/v1/Systems/system");
+        EXPECT_EQ(member["@odata.id"],
+                  std::format("/redfish/v1/Systems/{}",
+                              BMCWEB_REDFISH_SYSTEM_URI_NAME));
     }
 }
 
@@ -424,7 +426,8 @@ TEST(processCollectionResponse, bothExist)
     bool foundSat = false;
     for (const auto& member : asyncResp->res.jsonValue["Members"])
     {
-        if (member["@odata.id"] == "/redfish/v1/Systems/system")
+        if (member["@odata.id"] == std::format("/redfish/v1/Systems/{}",
+                                               BMCWEB_REDFISH_SYSTEM_URI_NAME))
         {
             foundLocal = true;
         }
@@ -456,7 +459,9 @@ TEST(processCollectionResponse, satelliteWrongContentHeader)
     EXPECT_EQ(asyncResp->res.jsonValue["Members@odata.count"], 1);
     for (auto& member : asyncResp->res.jsonValue["Members"])
     {
-        EXPECT_EQ(member["@odata.id"], "/redfish/v1/Systems/system");
+        EXPECT_EQ(member["@odata.id"],
+                  std::format("/redfish/v1/Systems/{}",
+                              BMCWEB_REDFISH_SYSTEM_URI_NAME));
     }
 }
 
