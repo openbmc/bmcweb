@@ -93,6 +93,30 @@
       },
       "revId": "c318f43861cb6f0095a3dc3d1cfeacddf68e5266",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "909d4db7_3e6c0d83",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1118,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-16T16:36:11Z",
+      "side": 1,
+      "message": "\u003e I think GUI can pop up a warning before allowing change password and set expectation that change password looses current session and expected to re-login with new password.\n\nFrom a user experience, this is worse than what we have.  Yes, an admin user should be able to change its password, we just SHOULDN\u0027T invalidate the session this password was changed from, to keep the user experience.\n\n\n\u003e removing all user session of that user whose password is changed looks cleaner way.\n\nIn terms of code or in terms of what the user sees?\n\n\u003e otherwise bmc still have that one session which was created with old password.\n\nWhy is this a problem?  That session clearly has the new password, because it\u0027s the one that changed it.",
+      "parentUuid": "9a9f322e_5a8853ff",
+      "range": {
+        "startLine": 1118,
+        "startChar": 46,
+        "endLine": 1118,
+        "endChar": 54
+      },
+      "revId": "c318f43861cb6f0095a3dc3d1cfeacddf68e5266",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
