@@ -45,6 +45,30 @@
       },
       "revId": "c318f43861cb6f0095a3dc3d1cfeacddf68e5266",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2dd6777_56079a84",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1118,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-05-16T16:30:42Z",
+      "side": 1,
+      "message": "suppose if BMC has admin user, I think it should be able to update its own password, I think we can\u0027t add check there.\n\nI think GUI can pop up a warning before allowing change password and set expectation that change password looses current session and expected to re-login with new password.",
+      "parentUuid": "417efcfd_3f61b544",
+      "range": {
+        "startLine": 1118,
+        "startChar": 46,
+        "endLine": 1118,
+        "endChar": 54
+      },
+      "revId": "c318f43861cb6f0095a3dc3d1cfeacddf68e5266",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
