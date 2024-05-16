@@ -18,6 +18,7 @@ parser.add_argument(
     "--username", help="Username to connect with", default="root"
 )
 parser.add_argument("--password", help="Password to use", default="0penBmc")
+parser.add_argument("--verify", default=True, help="Verify TLS certificates")
 
 args = parser.parse_args()
 
@@ -27,7 +28,7 @@ def requests_get(url):
         resp = requests.get(
             url=url,
             cert=args.cert,
-            verify=False,
+            verify=args.verify,
             headers={"Cache-Control": "no-cache"},
             timeout=5,
         )
