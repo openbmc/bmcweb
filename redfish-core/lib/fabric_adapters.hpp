@@ -273,7 +273,7 @@ inline void
                                    systemName);
         return;
     }
-    if (systemName != "system")
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
     {
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
                                    systemName);
@@ -300,7 +300,7 @@ inline void handleFabricAdapterCollectionGet(
                                    systemName);
         return;
     }
-    if (systemName != "system")
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
     {
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
                                    systemName);
@@ -320,7 +320,8 @@ inline void handleFabricAdapterCollectionGet(
         "xyz.openbmc_project.Inventory.Item.FabricAdapter"};
     collection_util::getCollectionMembers(
         asyncResp,
-        boost::urls::url("/redfish/v1/Systems/system/FabricAdapters"),
+        boost::urls::format("/redfish/v1/Systems/{}/FabricAdapters",
+                            BMCWEB_REDFISH_SYSTEM_URI_NAME),
         interfaces, "/xyz/openbmc_project/inventory");
 }
 
@@ -340,7 +341,7 @@ inline void handleFabricAdapterCollectionHead(
                                    systemName);
         return;
     }
-    if (systemName != "system")
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
     {
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
                                    systemName);
@@ -398,7 +399,7 @@ inline void
                                    systemName);
         return;
     }
-    if (systemName != "system")
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
     {
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
                                    systemName);

@@ -90,7 +90,7 @@ def generateCertCsr(
         "OrganizationalUnit": "",
         "State": "CA",
         "CertificateCollection": {
-            "@odata.id": "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates",
+            "@odata.id": "/redfish/v1/Managers/<str>/NetworkProtocol/HTTPS/Certificates",
         },
         "AlternativeNames": [
             commonName,
@@ -327,7 +327,7 @@ def main():
         "CertificateString": caCertDump.decode(),
         "CertificateType": "PEM",
     }
-    caCertPath = "/redfish/v1/Managers/bmc/Truststore/Certificates"
+    caCertPath = "/redfish/v1/Managers/<str>/Truststore/Certificates"
     replaceCertPath = "/redfish/v1/CertificateService/Actions/"
     replaceCertPath += "CertificateService.ReplaceCertificate"
     print("Attempting to install CA certificate to BMC.")
@@ -359,7 +359,7 @@ def main():
     serverCertJSON = {
         "CertificateString": serverKeyDumpStr + serverCertDumpStr,
         "CertificateUri": {
-            "@odata.id": "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/1",
+            "@odata.id": "/redfish/v1/Managers/<str>/NetworkProtocol/HTTPS/Certificates/1",
         },
         "CertificateType": "PEM",
     }
