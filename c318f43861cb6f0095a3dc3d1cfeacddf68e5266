@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f04480c7_71bc154f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-16T16:05:01Z",
+      "side": 1,
+      "message": "Can we quote the owasp session management document in this somewhere?  https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html\n\nJust saying \"this is a security concern\" doesn\u0027t really document what the concern is.",
+      "range": {
+        "startLine": 10,
+        "startChar": 42,
+        "endLine": 10,
+        "endChar": 68
+      },
+      "revId": "c318f43861cb6f0095a3dc3d1cfeacddf68e5266",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "417efcfd_3f61b544",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1118,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-16T16:05:01Z",
+      "side": 1,
+      "message": "For a user changing their own password this is going to cause things like the webui to fail.  Could we add a check to verify that the user password being changed wasn\u0027t THIS user?  Alternatively, we could remove all but the session currently being used.  If it\u0027s this user, obviously they already have the password, so removing it doesn\u0027t accomplish anything from a security perspective.",
+      "range": {
+        "startLine": 1118,
+        "startChar": 46,
+        "endLine": 1118,
+        "endChar": 54
+      },
+      "revId": "c318f43861cb6f0095a3dc3d1cfeacddf68e5266",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
