@@ -31,59 +31,51 @@ enum class EncodingType
     Base64,
 };
 
-class HttpBody::value_type
+struct DuplicatableFileHandle
 {
     boost::beast::file_posix fileHandle;
+
+    DuplicatableFileHandle() = default;
+    DuplicatableFileHandle(DuplicatableFileHandle&&) = default;
+    // Overload copy constructor, because posix doesn't have dup(), but linux
+    // does
+    DuplicatableFileHandle(const DuplicatableFileHandle& other)
+    {
+        fileHandle.native_handle(dup(other.fileHandle.native_handle()));
+    }
+    DuplicatableFileHandle& operator=(const DuplicatableFileHandle& other)
+    {
+        if (this == &other)
+        {
+            return *this;
+        }
+        fileHandle.native_handle(dup(other.fileHandle.native_handle()));
+        return *this;
+    }
+    DuplicatableFileHandle& operator=(DuplicatableFileHandle&& other) = default;
+    ~DuplicatableFileHandle() = default;
+};
+
+class HttpBody::value_type
+{
+    DuplicatableFileHandle fileHandle;
     std::optional<size_t> fileSize;
     std::string strBody;
 
   public:
-    EncodingType encodingType = EncodingType::Raw;
-
-    ~value_type() = default;
     value_type() = default;
-    explicit value_type(EncodingType enc) : encodingType(enc) {}
-    explicit value_type(std::string_view str) : strBody(str) {}
+    explicit value_type(std::string_view s) : strBody(s) {}
+    explicit value_type(EncodingType e) : encodingType(e) {}
+    value_type(value_type&&) = default;
+    value_type(const value_type&) = default;
+    value_type& operator=(value_type&&) = default;
+    value_type& operator=(const value_type&) = default;
 
-    value_type(value_type&& other) noexcept :
-        fileHandle(std::move(other.fileHandle)), fileSize(other.fileSize),
-        strBody(std::move(other.strBody)), encodingType(other.encodingType)
-    {}
-
-    value_type& operator=(value_type&& other) noexcept
-    {
-        fileHandle = std::move(other.fileHandle);
-        fileSize = other.fileSize;
-        strBody = std::move(other.strBody);
-        encodingType = other.encodingType;
-
-        return *this;
-    }
-
-    // Overload copy constructor, because posix doesn't have dup(), but linux
-    // does
-    value_type(const value_type& other) :
-        fileSize(other.fileSize), strBody(other.strBody),
-        encodingType(other.encodingType)
-    {
-        fileHandle.native_handle(dup(other.fileHandle.native_handle()));
-    }
-
-    value_type& operator=(const value_type& other)
-    {
-        if (this != &other)
-        {
-            fileSize = other.fileSize;
-            strBody = other.strBody;
-            encodingType = other.encodingType;
-            fileHandle.native_handle(dup(other.fileHandle.native_handle()));
-        }
-        return *this;
-    }
+    EncodingType encodingType = EncodingType::Raw;
 
     const boost::beast::file_posix& file()
     {
-        return fileHandle;
+        return fileHandle.fileHandle;
     }
 
     std::string& str()
@@ -98,7 +90,7 @@ class HttpBody::value_type
 
     std::optional<size_t> payloadSize() const
     {
-        if (!fileHandle.is_open())
+        if (!fileHandle.fileHandle.is_open())
         {
             return strBody.size();
         }
@@ -116,7 +108,7 @@ class HttpBody::value_type
     {
         strBody.clear();
         strBody.shrink_to_fit();
-        fileHandle = boost::beast::file_posix();
+        fileHandle.fileHandle = boost::beast::file_posix();
         fileSize = std::nullopt;
         encodingType = EncodingType::Raw;
     }
@@ -124,13 +116,13 @@ class HttpBody::value_type
     void open(const char* path, boost::beast::file_mode mode,
               boost::system::error_code& ec)
     {
-        fileHandle.open(path, mode, ec);
+        fileHandle.fileHandle.open(path, mode, ec);
         if (ec)
         {
             return;
         }
         boost::system::error_code ec2;
-        uint64_t size = fileHandle.size(ec2);
+        uint64_t size = fileHandle.fileHandle.size(ec2);
         if (!ec2)
         {
             BMCWEB_LOG_INFO("File size was {} bytes", size);
@@ -141,7 +133,7 @@ class HttpBody::value_type
             BMCWEB_LOG_WARNING("Failed to read file size on {}", path);
         }
 
-        int fadvise = posix_fadvise(fileHandle.native_handle(), 0, 0,
+        int fadvise = posix_fadvise(fileHandle.fileHandle.native_handle(), 0, 0,
                                     POSIX_FADV_SEQUENTIAL);
         if (fadvise != 0)
         {
@@ -152,10 +144,10 @@ class HttpBody::value_type
 
     void setFd(int fd, boost::system::error_code& ec)
     {
-        fileHandle.native_handle(fd);
+        fileHandle.fileHandle.native_handle(fd);
 
         boost::system::error_code ec2;
-        uint64_t size = fileHandle.size(ec2);
+        uint64_t size = fileHandle.fileHandle.size(ec2);
         if (!ec2)
         {
             if (size != 0 && size < std::numeric_limits<size_t>::max())
