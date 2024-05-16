@@ -166,7 +166,8 @@ inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     asyncResp->res.jsonValue["@odata.type"] =
         "#ManagerNetworkProtocol.v1_5_0.ManagerNetworkProtocol";
     asyncResp->res.jsonValue["@odata.id"] =
-        "/redfish/v1/Managers/bmc/NetworkProtocol";
+        boost::urls::format("/redfish/v1/Managers/{}/NetworkProtocol",
+                            BMCWEB_REDFISH_MANAGER_URI_NAME);
     asyncResp->res.jsonValue["Id"] = "NetworkProtocol";
     asyncResp->res.jsonValue["Name"] = "Manager Network Protocol";
     asyncResp->res.jsonValue["Description"] = "Manager Network Service";
@@ -231,7 +232,9 @@ inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                                          effectiveUserPrivileges))
     {
         asyncResp->res.jsonValue["HTTPS"]["Certificates"]["@odata.id"] =
-            "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates";
+            boost::urls::format(
+                "/redfish/v1/Managers/{}/NetworkProtocol/HTTPS/Certificates",
+                BMCWEB_REDFISH_MANAGER_URI_NAME);
     }
 
     getPortStatusAndPath(std::span(networkProtocolToDbus),

@@ -249,8 +249,8 @@ static void
             if (objPath.parent_path() == certs::httpsObjectPath)
             {
                 certURL = boost::urls::format(
-                    "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/{}",
-                    certId);
+                    "/redfish/v1/Managers/{}/NetworkProtocol/HTTPS/Certificates/{}",
+                    BMCWEB_REDFISH_MANAGER_URI_NAME, certId);
             }
             else if (objPath.parent_path() == certs::ldapObjectPath)
             {
@@ -260,8 +260,8 @@ static void
             else if (objPath.parent_path() == certs::authorityObjectPath)
             {
                 certURL = boost::urls::format(
-                    "/redfish/v1/Managers/bmc/Truststore/Certificates/{}",
-                    certId);
+                    "/redfish/v1/Managers/{}/Truststore/Certificates/{}",
+                    BMCWEB_REDFISH_MANAGER_URI_NAME, certId);
             }
             else
             {
@@ -672,8 +672,9 @@ inline void
 
     std::string objectPath;
     std::string service;
-    if (certURI.starts_with(
-            "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates"))
+    if (certURI.starts_with(std::format(
+            "/redfish/v1/Managers/{}/NetworkProtocol/HTTPS/Certificates",
+            BMCWEB_REDFISH_MANAGER_URI_NAME)))
     {
         objectPath = certs::httpsObjectPath;
         service = certs::httpsServiceName;
@@ -709,8 +710,9 @@ inline void
     }
 
     // validate KeyUsage supporting only 1 type based on URL
-    if (certURI.starts_with(
-            "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates"))
+    if (certURI.starts_with(std::format(
+            "/redfish/v1/Managers/{}/NetworkProtocol/HTTPS/Certificates",
+            BMCWEB_REDFISH_MANAGER_URI_NAME)))
     {
         if (optKeyUsage->empty())
         {
@@ -878,8 +880,9 @@ inline void handleHTTPSCertificateCollectionGet(
         return;
     }
 
-    asyncResp->res.jsonValue["@odata.id"] =
-        "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates";
+    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Managers/{}/NetworkProtocol/HTTPS/Certificates",
+        BMCWEB_REDFISH_MANAGER_URI_NAME);
     asyncResp->res.jsonValue["@odata.type"] =
         "#CertificateCollection.CertificateCollection";
     asyncResp->res.jsonValue["Name"] = "HTTPS Certificates Collection";
@@ -929,8 +932,8 @@ inline void handleHTTPSCertificateCollectionPost(
         sdbusplus::message::object_path path(objectPath);
         std::string certId = path.filename();
         const boost::urls::url certURL = boost::urls::format(
-            "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/{}",
-            certId);
+            "/redfish/v1/Managers/{}/NetworkProtocol/HTTPS/Certificates/{}",
+            BMCWEB_REDFISH_MANAGER_URI_NAME, certId);
         getCertificateProperties(asyncResp, objectPath, certs::httpsServiceName,
                                  certId, certURL, "HTTPS Certificate");
         BMCWEB_LOG_DEBUG("HTTPS certificate install file={}",
@@ -951,7 +954,8 @@ inline void handleHTTPSCertificateGet(
 
     BMCWEB_LOG_DEBUG("HTTPS Certificate ID={}", id);
     const boost::urls::url certURL = boost::urls::format(
-        "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/{}", id);
+        "/redfish/v1/Managers/{}/NetworkProtocol/HTTPS/Certificates/{}",
+        BMCWEB_REDFISH_MANAGER_URI_NAME, id);
     std::string objPath =
         sdbusplus::message::object_path(certs::httpsObjectPath) / id;
     getCertificateProperties(asyncResp, objPath, certs::httpsServiceName, id,
@@ -1112,7 +1116,8 @@ inline void handleTrustStoreCertificateCollectionGet(
     }
 
     asyncResp->res.jsonValue["@odata.id"] =
-        "/redfish/v1/Managers/bmc/Truststore/Certificates/";
+        boost::urls::format("/redfish/v1/Managers/{}/Truststore/Certificates/",
+                            BMCWEB_REDFISH_MANAGER_URI_NAME);
     asyncResp->res.jsonValue["@odata.type"] =
         "#CertificateCollection.CertificateCollection";
     asyncResp->res.jsonValue["Name"] = "TrustStore Certificates Collection";
@@ -1156,7 +1161,8 @@ inline void handleTrustStoreCertificateCollectionPost(
         sdbusplus::message::object_path path(objectPath);
         std::string certId = path.filename();
         const boost::urls::url certURL = boost::urls::format(
-            "/redfish/v1/Managers/bmc/Truststore/Certificates/{}", certId);
+            "/redfish/v1/Managers/{}/Truststore/Certificates/{}",
+            BMCWEB_REDFISH_MANAGER_URI_NAME, certId);
         getCertificateProperties(asyncResp, objectPath,
                                  certs::authorityServiceName, certId, certURL,
                                  "TrustStore Certificate");
@@ -1178,7 +1184,8 @@ inline void handleTrustStoreCertificateGet(
 
     BMCWEB_LOG_DEBUG("Truststore Certificate ID={}", id);
     const boost::urls::url certURL = boost::urls::format(
-        "/redfish/v1/Managers/bmc/Truststore/Certificates/{}", id);
+        "/redfish/v1/Managers/{}/Truststore/Certificates/{}",
+        BMCWEB_REDFISH_MANAGER_URI_NAME, id);
     std::string objPath =
         sdbusplus::message::object_path(certs::authorityObjectPath) / id;
     getCertificateProperties(asyncResp, objPath, certs::authorityServiceName,
