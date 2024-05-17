@@ -10,6 +10,9 @@
 #include <string>
 #include <string_view>
 #include <utility>
+
+#include <fcntl.h>
+
 namespace crow
 {
 
@@ -170,17 +173,21 @@ struct Response
         // This code is a throw-free equivalent to
         // beast::http::message::prepare_payload
         std::optional<uint64_t> pSize = response.body().payloadSize();
-        if (!pSize)
-        {
-            return;
-        }
+
         using http::status;
         using http::status_class;
         using http::to_status_class;
         bool is1XXReturn = to_status_class(result()) ==
                            status_class::informational;
-        if (*pSize > 0 && (is1XXReturn || result() == status::no_content ||
-                           result() == status::not_modified))
+        if (!pSize)
+        {
+            response.chunked(true);
+            return;
+        }
+        response.content_length(*pSize);
+
+        if (is1XXReturn || result() == status::no_content ||
+            result() == status::not_modified)
         {
             BMCWEB_LOG_CRITICAL("{} Response content provided but code was "
                                 "no-content or not_modified, which aren't "
@@ -189,7 +196,6 @@ struct Response
             response.content_length(0);
             return;
         }
-        response.content_length(*pSize);
     }
 
     void clear()
@@ -299,6 +305,12 @@ struct Response
     bool openFd(int fd, bmcweb::EncodingType enc = bmcweb::EncodingType::Raw)
     {
         boost::beast::error_code ec;
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-vararg)
+        int retval = fcntl(fd, F_SETFL, fcntl(fd, F_GETFL) | O_NONBLOCK);
+        if (retval == -1)
+        {
+            BMCWEB_LOG_ERROR("Setting O_NONBLOCK failed");
+        }
         response.body().encodingType = enc;
         response.body().setFd(fd, ec);
         if (ec)
