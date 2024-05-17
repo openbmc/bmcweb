@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abc26638_127644eb",
+        "filename": "static/redfish/v1/JsonSchemas/AccountService/AccountService.json",
+        "patchSetId": 7
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-17T19:24:59Z",
+      "side": 1,
+      "message": "This gets updated when scripts/update_schemas.py is ran?",
+      "range": {
+        "startLine": 1,
+        "startChar": 67,
+        "endLine": 1,
+        "endChar": 74
+      },
+      "revId": "3b5cf785dfba98dae9a550f22abb0f9f2eb4d231",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
