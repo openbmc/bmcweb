@@ -43,6 +43,7 @@
 #include <boost/container/flat_map.hpp>
 #include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
+#include <generated/enums/computer_system.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/message.hpp>
 #include <sdbusplus/unpack_properties.hpp>
@@ -1519,43 +1520,111 @@ inline void getProvisioningStatus(std::shared_ptr<bmcweb::AsyncResp> asyncResp)
 #endif
 
 /**
- * @brief Translate the PowerMode to a response message.
+ * @brief Translate the PowerMode string to enum value
  *
- * @param[in] asyncResp  Shared pointer for generating response message.
- * @param[in] modeValue  PowerMode value to be translated
+ * @param[in]  modeString PowerMode string to be translated
  *
- * @return None.
+ * @return PowerMode enum
  */
-inline void
-    translatePowerMode(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                       const std::string& modeValue)
+inline computer_system::PowerMode
+    translatePowerModeString(const std::string& modeString)
 {
-    if (modeValue == "xyz.openbmc_project.Control.Power.Mode.PowerMode.Static")
+    using PowerMode = computer_system::PowerMode;
+
+    if (modeString == "xyz.openbmc_project.Control.Power.Mode.PowerMode.Static")
     {
-        asyncResp->res.jsonValue["PowerMode"] = "Static";
+        return PowerMode::Static;
     }
-    else if (
-        modeValue ==
+    if (modeString ==
         "xyz.openbmc_project.Control.Power.Mode.PowerMode.MaximumPerformance")
     {
-        asyncResp->res.jsonValue["PowerMode"] = "MaximumPerformance";
+        return PowerMode::MaximumPerformance;
     }
-    else if (modeValue ==
-             "xyz.openbmc_project.Control.Power.Mode.PowerMode.PowerSaving")
+    if (modeString ==
+        "xyz.openbmc_project.Control.Power.Mode.PowerMode.PowerSaving")
     {
-        asyncResp->res.jsonValue["PowerMode"] = "PowerSaving";
+        return PowerMode::PowerSaving;
     }
-    else if (modeValue ==
-             "xyz.openbmc_project.Control.Power.Mode.PowerMode.OEM")
+    if (modeString ==
+        "xyz.openbmc_project.Control.Power.Mode.PowerMode.BalancedPerformance")
     {
-        asyncResp->res.jsonValue["PowerMode"] = "OEM";
+        return PowerMode::BalancedPerformance;
+    }
+    if (modeString ==
+        "xyz.openbmc_project.Control.Power.Mode.PowerMode.EfficiencyFavorPerformance")
+    {
+        return PowerMode::EfficiencyFavorPerformance;
+    }
+    if (modeString ==
+        "xyz.openbmc_project.Control.Power.Mode.PowerMode.EfficiencyFavorPower")
+    {
+        return PowerMode::EfficiencyFavorPower;
+    }
+    if (modeString == "xyz.openbmc_project.Control.Power.Mode.PowerMode.OEM")
+    {
+        return PowerMode::OEM;
+    }
+    // Any other values would be invalid
+    BMCWEB_LOG_ERROR("PowerMode value was not valid: {}", modeString);
+    return PowerMode::Invalid;
+}
+
+inline void
+    afterGetPowerMode(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      const boost::system::error_code& ec,
+                      const dbus::utility::DBusPropertiesMap& properties)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("DBUS response error on PowerMode GetAll: {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    std::string powerMode;
+    const std::vector<std::string>* allowedModes = nullptr;
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), properties, "PowerMode", powerMode,
+        "AllowedPowerModes", allowedModes);
+
+    if (!success)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    nlohmann::json::array_t modeList;
+    if (allowedModes == nullptr)
+    {
+        modeList.emplace_back("Static");
+        modeList.emplace_back("MaximumPerformance");
+        modeList.emplace_back("PowerSaving");
     }
     else
     {
-        // Any other values would be invalid
-        BMCWEB_LOG_DEBUG("PowerMode value was not valid: {}", modeValue);
-        messages::internalError(asyncResp->res);
+        for (const auto& aMode : *allowedModes)
+        {
+            computer_system::PowerMode modeValue =
+                translatePowerModeString(aMode);
+            if (modeValue == computer_system::PowerMode::Invalid)
+            {
+                messages::internalError(asyncResp->res);
+                continue;
+            }
+            modeList.emplace_back(modeValue);
+        }
     }
+    asyncResp->res.jsonValue["PowerMode@Redfish.AllowableValues"] = modeList;
+
+    BMCWEB_LOG_DEBUG("Current power mode: {}", powerMode);
+    const computer_system::PowerMode modeValue =
+        translatePowerModeString(powerMode);
+    if (modeValue == computer_system::PowerMode::Invalid)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    asyncResp->res.jsonValue["PowerMode"] = modeValue;
 }
 
 /**
@@ -1614,25 +1683,14 @@ inline void getPowerMode(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
             messages::internalError(asyncResp->res);
             return;
         }
-        // Valid Power Mode object found, now read the current value
-        sdbusplus::asio::getProperty<std::string>(
+
+        // Valid Power Mode object found, now read the mode properties
+        sdbusplus::asio::getAllProperties(
             *crow::connections::systemBus, service, path,
-            "xyz.openbmc_project.Control.Power.Mode", "PowerMode",
+            "xyz.openbmc_project.Control.Power.Mode",
             [asyncResp](const boost::system::error_code& ec2,
-                        const std::string& pmode) {
-            if (ec2)
-            {
-                BMCWEB_LOG_ERROR("DBUS response error on PowerMode Get: {}",
-                                 ec2);
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            asyncResp->res.jsonValue["PowerMode@Redfish.AllowableValues"] = {
-                "Static", "MaximumPerformance", "PowerSaving"};
-
-            BMCWEB_LOG_DEBUG("Current power mode: {}", pmode);
-            translatePowerMode(asyncResp, pmode);
+                        const dbus::utility::DBusPropertiesMap& properties) {
+            afterGetPowerMode(asyncResp, ec2, properties);
         });
     });
 }
@@ -1642,32 +1700,48 @@ inline void getPowerMode(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
  * name associated with that string
  *
  * @param[in] asyncResp   Shared pointer for generating response message.
- * @param[in] modeString  String representing the desired PowerMode
+ * @param[in] modeValue   String representing the desired PowerMode
  *
  * @return PowerMode value or empty string if mode is not valid
  */
 inline std::string
     validatePowerMode(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                      const std::string& modeString)
+                      const nlohmann::json& modeValue)
 {
+    using PowerMode = computer_system::PowerMode;
     std::string mode;
 
-    if (modeString == "Static")
+    if (modeValue == PowerMode::Static)
     {
         mode = "xyz.openbmc_project.Control.Power.Mode.PowerMode.Static";
     }
-    else if (modeString == "MaximumPerformance")
+    else if (modeValue == PowerMode::MaximumPerformance)
     {
         mode =
             "xyz.openbmc_project.Control.Power.Mode.PowerMode.MaximumPerformance";
     }
-    else if (modeString == "PowerSaving")
+    else if (modeValue == PowerMode::PowerSaving)
     {
         mode = "xyz.openbmc_project.Control.Power.Mode.PowerMode.PowerSaving";
     }
+    else if (modeValue == PowerMode::BalancedPerformance)
+    {
+        mode =
+            "xyz.openbmc_project.Control.Power.Mode.PowerMode.BalancedPerformance";
+    }
+    else if (modeValue == PowerMode::EfficiencyFavorPerformance)
+    {
+        mode =
+            "xyz.openbmc_project.Control.Power.Mode.PowerMode.EfficiencyFavorPerformance";
+    }
+    else if (modeValue == PowerMode::EfficiencyFavorPower)
+    {
+        mode =
+            "xyz.openbmc_project.Control.Power.Mode.PowerMode.EfficiencyFavorPower";
+    }
     else
     {
-        messages::propertyValueNotInList(asyncResp->res, modeString,
+        messages::propertyValueNotInList(asyncResp->res, modeValue.dump(),
                                          "PowerMode");
     }
     return mode;
@@ -2834,7 +2908,7 @@ inline void
         boost::beast::http::field::link,
         "</redfish/v1/JsonSchemas/ComputerSystem/ComputerSystem.json>; rel=describedby");
     asyncResp->res.jsonValue["@odata.type"] =
-        "#ComputerSystem.v1_16_0.ComputerSystem";
+        "#ComputerSystem.v1_22_0.ComputerSystem";
     asyncResp->res.jsonValue["Name"] = "system";
     asyncResp->res.jsonValue["Id"] = "system";
     asyncResp->res.jsonValue["SystemType"] = "Physical";
