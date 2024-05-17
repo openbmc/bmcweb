@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c32348f_f3596b8d",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-17T23:26:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c353bc3_f1d7fc81",
+      "revId": "7279b70019bfae5cc84d2bed97f8e83b551052d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "79fc737b_ff0c97fe",
@@ -88,6 +106,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "194d58fd_4a4d05d7",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 783,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-17T23:26:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f2e2a01_448ce4f4",
+      "range": {
+        "startLine": 783,
+        "startChar": 0,
+        "endLine": 783,
+        "endChar": 2
+      },
+      "revId": "7279b70019bfae5cc84d2bed97f8e83b551052d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "61ae8aae_10c2124d",
@@ -105,6 +147,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6087042_93b62ced",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 786,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-17T23:26:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61ae8aae_10c2124d",
+      "revId": "7279b70019bfae5cc84d2bed97f8e83b551052d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b167589b_ccb359ba",
@@ -118,6 +178,30 @@
       "writtenOn": "2024-04-30T03:06:39Z",
       "side": 1,
       "message": "Same as above.",
+      "range": {
+        "startLine": 811,
+        "startChar": 0,
+        "endLine": 811,
+        "endChar": 2
+      },
+      "revId": "7279b70019bfae5cc84d2bed97f8e83b551052d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69f6ae14_7cdc7751",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 811,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-17T23:26:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b167589b_ccb359ba",
       "range": {
         "startLine": 811,
         "startChar": 0,
@@ -151,6 +235,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b3af36a_3d074cb9",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 821,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-17T23:26:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d1fb559_a5dfa0af",
+      "range": {
+        "startLine": 806,
+        "startChar": 6,
+        "endLine": 821,
+        "endChar": 8
+      },
+      "revId": "7279b70019bfae5cc84d2bed97f8e83b551052d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb6264f2_6395428c",
@@ -174,6 +282,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f46b8b0_0878793f",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 825,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-17T23:26:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb6264f2_6395428c",
+      "range": {
+        "startLine": 825,
+        "startChar": 0,
+        "endLine": 825,
+        "endChar": 5
+      },
+      "revId": "7279b70019bfae5cc84d2bed97f8e83b551052d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6e0b97e_ab6cd7d6",
@@ -187,6 +319,30 @@
       "writtenOn": "2024-04-30T03:06:39Z",
       "side": 1,
       "message": "Please wrap this in an RAII class (take a look at something like TemporaryFile in the unit tests for inspiration) so that we\u0027re not having to chase down close() calls in all the exit paths.",
+      "range": {
+        "startLine": 840,
+        "startChar": 13,
+        "endLine": 840,
+        "endChar": 25
+      },
+      "revId": "7279b70019bfae5cc84d2bed97f8e83b551052d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1307d991_c4e83600",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 840,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-17T23:26:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6e0b97e_ab6cd7d6",
       "range": {
         "startLine": 840,
         "startChar": 13,
@@ -239,6 +395,48 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "63fcf784_ef10dd86",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 848,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-17T23:26:35Z",
+      "side": 1,
+      "message": "Even in the existing code we follow the same technique. I suppose this is an optimization we can handle as part of a separate patch.",
+      "parentUuid": "183b9690_63f71458",
+      "range": {
+        "startLine": 847,
+        "startChar": 1,
+        "endLine": 848,
+        "endChar": 40
+      },
+      "revId": "7279b70019bfae5cc84d2bed97f8e83b551052d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba1c3c67_b53c738a",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 848,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-17T23:26:35Z",
+      "side": 1,
+      "message": "I made this change to handle following warning, hence i converted the unsigned int to int through static_cast.\n\nerror: comparison of integer expressions of different signedness: \u0027ssize_t\u0027 {aka \u0027long int\u0027} and \u0027std::basic_string_view\u003cchar\u003e::size_type\u0027 {aka \u0027long unsigned int\u0027} [-Werror\u003dsign-compare]",
+      "parentUuid": "0520d6e4_72799169",
+      "revId": "7279b70019bfae5cc84d2bed97f8e83b551052d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "27ad9749_ac26e306",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 1
@@ -250,6 +448,24 @@
       "writtenOn": "2024-04-30T03:06:39Z",
       "side": 1,
       "message": "Missing close for fd.",
+      "revId": "7279b70019bfae5cc84d2bed97f8e83b551052d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1e8fd5f_639a7d92",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 851,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-17T23:26:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27ad9749_ac26e306",
       "revId": "7279b70019bfae5cc84d2bed97f8e83b551052d5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -267,6 +483,30 @@
       "writtenOn": "2024-04-30T03:06:39Z",
       "side": 1,
       "message": "Please handle your errors.  If you\u0027re intentionally ignoring the return code here, leave a comment describing why.",
+      "range": {
+        "startLine": 854,
+        "startChar": 4,
+        "endLine": 854,
+        "endChar": 9
+      },
+      "revId": "7279b70019bfae5cc84d2bed97f8e83b551052d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44dc9279_cd7f87f9",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-17T23:26:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6692546_1a529ddf",
       "range": {
         "startLine": 854,
         "startChar": 4,
@@ -300,6 +540,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8f1f774_f54f1e38",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 856,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-17T23:26:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45653be9_0e1f49ac",
+      "range": {
+        "startLine": 856,
+        "startChar": 9,
+        "endLine": 856,
+        "endChar": 12
+      },
+      "revId": "7279b70019bfae5cc84d2bed97f8e83b551052d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da115f92_e5f5a185",
@@ -323,6 +587,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5a665b2_ec60809b",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 859,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-17T23:26:35Z",
+      "side": 1,
+      "message": "Changed to parse as URLs instead.\nFYI: I am extracting the swid from Redfish URLs as we its being done here -\n\nhttps://grok.openbmc.org/xref/openbmc/bmcweb/redfish-core/lib/update_service.hpp?r\u003d62598e31\u0026fi\u003dsoftwareInterfaceAdded#981",
+      "parentUuid": "da115f92_e5f5a185",
+      "range": {
+        "startLine": 859,
+        "startChar": 0,
+        "endLine": 859,
+        "endChar": 2
+      },
+      "revId": "7279b70019bfae5cc84d2bed97f8e83b551052d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1e5fcb1a_c7402646",
@@ -336,6 +624,30 @@
       "writtenOn": "2024-04-30T03:06:39Z",
       "side": 1,
       "message": "\u003d std::move(targetSet)\n\n(Static analyzers will complain about this being a copy).",
+      "range": {
+        "startLine": 874,
+        "startChar": 9,
+        "endLine": 874,
+        "endChar": 18
+      },
+      "revId": "7279b70019bfae5cc84d2bed97f8e83b551052d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1afe65e_4878668f",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 874,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-17T23:26:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e5fcb1a_c7402646",
       "range": {
         "startLine": 874,
         "startChar": 9,
