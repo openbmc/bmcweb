@@ -16,6 +16,24 @@
       "message": "doing string searching is a generalized antipattern.  Can we instead do something like\n```\nif (conn.url().segments().size() \u003c 2){\n   close(\"internal error\");\n   return;\n}\nstd::string index \u003d conn.url().segments()[conn.url().segments().size() - 1];\n\nstd::string path \u003d std::format(\"/xyz/openbmc_project/VirtualMedia/Proxy/{}\", index);\n```",
       "revId": "73ff9f92c42d55fa0bcbbfc024233850f6de2376",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b9cd07d_94ff108e",
+        "filename": "include/vm_websocket.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 1001555
+      },
+      "writtenOn": "2024-05-17T09:57:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95beb96a_b4a3c12a",
+      "revId": "73ff9f92c42d55fa0bcbbfc024233850f6de2376",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
