@@ -220,11 +220,19 @@ class HttpBody::writer
             return ret;
         }
         size_t readReq = std::min(fileReadBuf.size(), maxSize);
-        size_t read = body.file().read(fileReadBuf.data(), readReq, ec);
-        if (ec)
+        BMCWEB_LOG_INFO("Reading {}", readReq);
+        boost::system::error_code readEc;
+        size_t read = body.file().read(fileReadBuf.data(), readReq, readEc);
+        if (readEc)
         {
-            BMCWEB_LOG_CRITICAL("Failed to read from file");
-            return boost::none;
+            if (readEc != boost::system::errc::operation_would_block &&
+                readEc != boost::system::errc::resource_unavailable_try_again)
+            {
+                BMCWEB_LOG_CRITICAL("Failed to read from file {}",
+                                    readEc.message());
+                ec = readEc;
+                return boost::none;
+            }
         }
 
         std::string_view chunkView(fileReadBuf.data(), read);
