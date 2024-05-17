@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3abc3f37_b29ad493",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-17T19:14:23Z",
+      "side": 1,
+      "message": "Just to be clear, the validator passed when you changed the system/manager ids?",
+      "revId": "dd2f04945310aec1a5f24a56a9d5e4c1c7c5a9eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b51128b_037f70df",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-17T19:14:23Z",
+      "side": 1,
+      "message": "Looks good to me. Couple minor things. Thanks for doing this!",
+      "revId": "dd2f04945310aec1a5f24a56a9d5e4c1c7c5a9eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22dda949_2eeeb703",
+        "filename": "meson_options.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-17T19:14:23Z",
+      "side": 1,
+      "message": "Redfish calls this the Manager ID. \nMaybe something like below reads a little better:\n\n\"The static Redfish Manager ID representing the BMC instance. \nThis option will appear in the Redfish tree at /redfish/v1/Managers/\u003credfish-manager-uri-name\u003e. \nDefaults to \\\u0027bmc\\\u0027 which resolves to /redfish/v1/Managers/bmc.\"",
+      "revId": "dd2f04945310aec1a5f24a56a9d5e4c1c7c5a9eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "faaa5713_18bf1a8a",
+        "filename": "meson_options.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-17T19:14:23Z",
+      "side": 1,
+      "message": "kick to next line?",
+      "range": {
+        "startLine": 144,
+        "startChar": 75,
+        "endLine": 144,
+        "endChar": 82
+      },
+      "revId": "dd2f04945310aec1a5f24a56a9d5e4c1c7c5a9eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4fd9528c_b104ee57",
+        "filename": "meson_options.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-17T19:14:23Z",
+      "side": 1,
+      "message": "Capitalize D? \nMaybe something like above?\n\nThe static Redfish System ID representing the host system instance\nThis option will appear in the Redfish tree at /redfish/v1/Systems/\u003credfish-system-uri-name\u003e.",
+      "range": {
+        "startLine": 146,
+        "startChar": 20,
+        "endLine": 146,
+        "endChar": 21
+      },
+      "revId": "dd2f04945310aec1a5f24a56a9d5e4c1c7c5a9eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9933e36_dd5769e2",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-17T19:14:23Z",
+      "side": 1,
+      "message": "#include \u003cboost/url/format.hpp\u003e here and other places.",
+      "revId": "dd2f04945310aec1a5f24a56a9d5e4c1c7c5a9eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
