@@ -1,6 +1,46 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "619e449f_ea37f112",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-17T14:59:42Z",
+      "side": 1,
+      "message": "Have you read all the original discussions and agreements made on that review?",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 56
+      },
+      "revId": "a2bbcd3d1bd4cc6782b23fc20765c728722bc67a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0ea1228_ae3cdc69",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-17T14:59:42Z",
+      "side": 1,
+      "message": "Please read and understand the existing way we handle multiple items in a collection.  Some of this is documented in DBUS_USAGE.md  Collections are generally built by walking objects of the correct type, then parsing the leaf node, and using that within the URI.  This is such a common pattern that we have the getCollectionMembers method specifically for this purpose.\n\nDoing this gives users the ability to set their own URI strings to within the limits of redfish, without bmcweb having to take an opinion on naming.  This is an important design consideration that needs added.",
+      "revId": "a2bbcd3d1bd4cc6782b23fc20765c728722bc67a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "b4d70b14_a8a0634b",
@@ -14,6 +54,23 @@
       "writtenOn": "2024-05-17T14:31:35Z",
       "side": 1,
       "message": "Please read and understand the coding standard.  You\u0027ve done a number of things that we\u0027ve found to be anti patterns, the most important of which is creating very long lambdas by taking existing code and wrapping it in a lambda.  Rather than that, generally we would recommend taking the code in question and putting it in a normal method.\n\nIt looks like you don\u0027t have a CLA set up, so take a look at the docs folder on how to set that up.",
+      "revId": "a2bbcd3d1bd4cc6782b23fc20765c728722bc67a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c018795_d01dffd2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-17T14:59:42Z",
+      "side": 1,
+      "message": "Please run your patch through CI;  There are several failures.\n\nAlso, this is very likely to conflict with my patch here https://gerrit.openbmc.org/c/openbmc/bmcweb/+/71484;  We\u0027ll deal with that as it comes up, but just be aware of it.",
       "revId": "a2bbcd3d1bd4cc6782b23fc20765c728722bc67a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
