@@ -1,0 +1,20 @@
+<!--
+Example from Redfish and OData whitepaper.
+
+https://www.dmtf.org/sites/default/files/standards/documents/DSP2052_1.0.0.pdf
+-->
+<edmx:Edmx xmlns:edms="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+  <edmx:Reference Uri="http://contoso.org/schemas/ExternalSchema.xml">
+    <edmx:Include Namespace="ExternalNamespace"/>
+    <edmx:Include Namespace="Other.Namespace"/>
+  </edmx:Reference>
+  <edmx:DataServices>
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MyNewNamespace">
+      <ComplexType Name="MyDataType">
+        <Property Name="MyProperty" Type="ExternalNamespace.ReferencedDataType"/>
+        <Property Name="MyProperty2" Type="Other.Namespace.OtherDataType"/>
+        <Property Name="MyProperty3" Type="Edm.Int64"/>
+      </ComplexType>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>
