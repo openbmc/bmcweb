@@ -25,6 +25,7 @@
 #include "managers.hpp"
 #include "memory.hpp"
 #include "message_registries.hpp"
+#include "metadata.hpp"
 #include "metric_report.hpp"
 #include "metric_report_definition.hpp"
 #include "network_protocol.hpp"
@@ -55,6 +56,8 @@ namespace redfish
 
 RedfishService::RedfishService(App& app)
 {
+    requestRoutesMetadata(app);
+
     requestAccountServiceRoutes(app);
 #ifdef BMCWEB_ENABLE_REDFISH_AGGREGATION
     requestRoutesAggregationService(app);
