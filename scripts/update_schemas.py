@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import os
 import shutil
-import xml.etree.ElementTree as ET
 import zipfile
 from collections import OrderedDict, defaultdict
 from io import BytesIO
@@ -53,7 +52,6 @@ schema_path = os.path.join(
 json_schema_path = os.path.join(
     SCRIPT_DIR, "..", "redfish-core", "schema", "dmtf", "json-schema"
 )
-metadata_index_path = os.path.join(static_path, "$metadata", "index.xml")
 
 zipBytesIO = BytesIO(r.content)
 zip_ref = zipfile.ZipFile(zipBytesIO)
@@ -106,10 +104,6 @@ if os.path.exists(json_schema_path):
             os.remove(f)
         else:
             shutil.rmtree(f)
-try:
-    os.remove(metadata_index_path)
-except FileNotFoundError:
-    pass
 
 if not os.path.exists(schema_path):
     os.makedirs(schema_path)
@@ -146,63 +140,6 @@ for csdl_file in csdl_filenames:
         content = zip_ref.read(os.path.join("csdl", csdl_file))
         content = content.replace(b"\r\n", b"\n")
         schema_out.write(content)
-
-with open(metadata_index_path, "w") as metadata_index:
-    metadata_index.write('<?xml version="1.0" encoding="UTF-8"?>\n')
-    metadata_index.write(
-        "<edmx:Edmx xmlns:edmx="
-        '"http://docs.oasis-open.org/odata/ns/edmx"'
-        ' Version="4.0">\n'
-    )
-
-    schema_static_dir = os.path.join(
-        SCRIPT_DIR, "..", "static", "redfish", "v1", "schema"
-    )
-    for filename in sorted(os.listdir(schema_static_dir), key=SchemaVersion):
-        if not filename.endswith(".xml"):
-            continue
-
-        metadata_index.write(
-            '    <edmx:Reference Uri="/redfish/v1/schema/' + filename + '">\n'
-        )
-
-        xml_root = ET.parse(
-            os.path.join(schema_static_dir, filename)
-        ).getroot()
-        edmx = "{http://docs.oasis-open.org/odata/ns/edmx}"
-        edm = "{http://docs.oasis-open.org/odata/ns/edm}"
-        for edmx_child in xml_root:
-            if edmx_child.tag == edmx + "DataServices":
-                for data_child in edmx_child:
-                    if data_child.tag == edm + "Schema":
-                        namespace = data_child.attrib["Namespace"]
-                        if namespace.startswith("RedfishExtensions"):
-                            metadata_index.write(
-                                '        <edmx:Include Namespace="'
-                                + namespace
-                                + '"  Alias="Redfish"/>\n'
-                            )
-
-                        else:
-                            metadata_index.write(
-                                '        <edmx:Include Namespace="'
-                                + namespace
-                                + '"/>\n'
-                            )
-        metadata_index.write("    </edmx:Reference>\n")
-
-    metadata_index.write(
-        "    <edmx:DataServices>\n"
-        "        <Schema "
-        'xmlns="http://docs.oasis-open.org/odata/ns/edm" '
-        'Namespace="Service">\n'
-        '            <EntityContainer Name="Service" '
-        'Extends="ServiceRoot.v1_0_0.ServiceContainer"/>\n'
-        "        </Schema>\n"
-        "    </edmx:DataServices>\n"
-    )
-    metadata_index.write("</edmx:Edmx>\n")
-
 
 for schema, version in json_schema_files.items():
     zip_filepath = os.path.join("json-schema", version[0])
