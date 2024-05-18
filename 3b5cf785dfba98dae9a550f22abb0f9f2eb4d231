@@ -22,6 +22,30 @@
       },
       "revId": "3b5cf785dfba98dae9a550f22abb0f9f2eb4d231",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "566d080c_b022cb1a",
+        "filename": "static/redfish/v1/JsonSchemas/AccountService/AccountService.json",
+        "patchSetId": 7
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-18T01:27:37Z",
+      "side": 1,
+      "message": "nope.  the hope is that people can update these in their patchsets.  if you need a new schema. you just symlink it here, and the rest just works.",
+      "parentUuid": "abc26638_127644eb",
+      "range": {
+        "startLine": 1,
+        "startChar": 67,
+        "endLine": 1,
+        "endChar": 74
+      },
+      "revId": "3b5cf785dfba98dae9a550f22abb0f9f2eb4d231",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
