@@ -3,6 +3,7 @@
 #include "bmcweb_config.h"
 
 #include "app.hpp"
+#include "credential_pipe.hpp"
 #include "dbus_monitor.hpp"
 #include "dbus_singleton.hpp"
 #include "event_service_manager.hpp"
@@ -104,6 +105,21 @@ int run()
     }
 
     bmcweb::registerUserRemovedSignal();
+
+    BMCWEB_ROUTE(app, "/testpipe")
+        .methods(boost::beast::http::verb::get)(
+            [&io](const crow::Request& /*req*/,
+                  const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+        std::shared_ptr<CredentialsPipe> pipe =
+            std::make_shared<CredentialsPipe>(*io);
+        pipe->asyncWrite(std::string("Fakeuser"), std::string("fakepassword"),
+                         [pipe](const boost::system::error_code& /*ec*/,
+                                size_t /*byteswritten*/) {
+            BMCWEB_LOG_DEBUG("Password write done");
+        });
+        asyncResp->res.openFd(pipe->releaseFd());
+        BMCWEB_LOG_DEBUG("Released FD");
+    });
 
     app.run();
     io->run();
