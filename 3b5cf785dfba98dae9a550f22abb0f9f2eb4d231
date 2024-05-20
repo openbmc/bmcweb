@@ -70,6 +70,30 @@
       },
       "revId": "3b5cf785dfba98dae9a550f22abb0f9f2eb4d231",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33fe4122_71e1e62a",
+        "filename": "static/redfish/v1/JsonSchemas/AccountService/AccountService.json",
+        "patchSetId": 7
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-20T22:06:08Z",
+      "side": 1,
+      "message": "We didn\u0027t document the old way and folks figured it out, so idk.  I\u0027m somewhat hoping to get all this stuff organized, so we can have a more holistic documentation in OEM_SCHEMAS.md and have a path for folks to upstream OEM implementations if they want to, and schema installation is one thing holding us back from that (all systems have to ship all schemas today).  I suspect the \"symlink into the folder\" is just a stepping stone along the path to getting there.\n\nIf you want documentation, I can write some, but I really wouldn\u0027t expect that anyone read it.",
+      "parentUuid": "056872f7_b85bcbed",
+      "range": {
+        "startLine": 1,
+        "startChar": 67,
+        "endLine": 1,
+        "endChar": 74
+      },
+      "revId": "3b5cf785dfba98dae9a550f22abb0f9f2eb4d231",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
