@@ -18,7 +18,6 @@
 #include "app.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
-#include "openbmc_dbus_rest.hpp"
 #include "query.hpp"
 #include "redfish_util.hpp"
 #include "registries/privilege_registry.hpp"

@@ -22,7 +22,6 @@
 #include "generated/enums/drive.hpp"
 #include "generated/enums/protocol.hpp"
 #include "human_sort.hpp"
-#include "openbmc_dbus_rest.hpp"
 #include "query.hpp"
 #include "redfish_util.hpp"
 #include "registries/privilege_registry.hpp"
