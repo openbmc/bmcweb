@@ -2332,10 +2332,10 @@ inline void
                     const char* type = arg->Attribute("type");
                     if (name != nullptr && type != nullptr)
                     {
-                        argsArray.push_back({
-                            {"name", name},
-                            {"type", type},
-                        });
+                        nlohmann::json::object_t params;
+                        params["name"] = name;
+                        params["type"] = type;
+                        argsArray.push_back(std::move(params));
                     }
                     arg = arg->NextSiblingElement("arg");
                 }

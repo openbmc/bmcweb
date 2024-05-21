@@ -21,8 +21,11 @@
 #include "registries/privilege_registry.hpp"
 
 #include <boost/url/format.hpp>
+#include <nlohmann/json.hpp>
 #include <sdbusplus/asio/property.hpp>
 
+#include <optional>
+#include <string_view>
 #include <variant>
 namespace redfish
 {
@@ -44,27 +47,34 @@ inline std::string getRoleFromPrivileges(std::string_view priv)
     return "";
 }
 
-inline bool getAssignedPrivFromRole(std::string_view role,
-                                    nlohmann::json& privArray)
+inline std::optional<nlohmann::json::array_t>
+    getAssignedPrivFromRole(std::string_view role)
 {
+    nlohmann::json::array_t privArray;
     if (role == "Administrator")
     {
-        privArray = {"Login", "ConfigureManager", "ConfigureUsers",
-                     "ConfigureSelf", "ConfigureComponents"};
+        privArray.emplace_back("Login");
+        privArray.emplace_back("ConfigureManager");
+        privArray.emplace_back("ConfigureUsers");
+        privArray.emplace_back("ConfigureSelf");
+        privArray.emplace_back("ConfigureComponents");
     }
     else if (role == "Operator")
     {
-        privArray = {"Login", "ConfigureSelf", "ConfigureComponents"};
+        privArray.emplace_back("Login");
+        privArray.emplace_back("ConfigureSelf");
+        privArray.emplace_back("ConfigureComponents");
     }
     else if (role == "ReadOnly")
     {
-        privArray = {"Login", "ConfigureSelf"};
+        privArray.emplace_back("Login");
+        privArray.emplace_back("ConfigureSelf");
     }
     else
     {
-        return false;
+        return std::nullopt;
     }
-    return true;
+    return privArray;
 }
 
 inline void requestRoutesRoles(App& app)
@@ -79,8 +89,10 @@ inline void requestRoutesRoles(App& app)
         {
             return;
         }
-        nlohmann::json privArray = nlohmann::json::array();
-        if (!getAssignedPrivFromRole(roleId, privArray))
+
+        std::optional<nlohmann::json::array_t> privArray =
+            getAssignedPrivFromRole(roleId);
+        if (!privArray)
         {
             messages::resourceNotFound(asyncResp->res, "Role", roleId);
 
@@ -96,7 +108,7 @@ inline void requestRoutesRoles(App& app)
         asyncResp->res.jsonValue["RoleId"] = roleId;
         asyncResp->res.jsonValue["@odata.id"] =
             boost::urls::format("/redfish/v1/AccountService/Roles/{}", roleId);
-        asyncResp->res.jsonValue["AssignedPrivileges"] = std::move(privArray);
+        asyncResp->res.jsonValue["AssignedPrivileges"] = std::move(*privArray);
     });
 }
 
