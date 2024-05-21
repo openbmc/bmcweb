@@ -92,7 +92,7 @@ class ConnectionImpl : public Connection
         boost::beast::http::async_write_header(
             adaptor, serial,
             std::bind_front(&ConnectionImpl::sendSSEHeaderCallback, this,
-                            shared_from_this(), req));
+                            shared_from_this(), req.copy()));
     }
 
     void close(const std::string_view msg) override
