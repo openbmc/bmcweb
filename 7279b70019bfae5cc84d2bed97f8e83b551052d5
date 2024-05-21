@@ -437,6 +437,48 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7c1ed242_6bbb28d8",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 848,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-21T01:34:17Z",
+      "side": 1,
+      "message": "Right, so you should cast to the type being returned to ssize_t, not to int.",
+      "parentUuid": "ba1c3c67_b53c738a",
+      "revId": "7279b70019bfae5cc84d2bed97f8e83b551052d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1eab31c7_f629bf20",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 848,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-21T01:34:17Z",
+      "side": 1,
+      "message": "What is the timeframe you suspect you\u0027ll be able to write that optimization patch if I let it push to a later patchset?",
+      "parentUuid": "63fcf784_ef10dd86",
+      "range": {
+        "startLine": 847,
+        "startChar": 1,
+        "endLine": 848,
+        "endChar": 40
+      },
+      "revId": "7279b70019bfae5cc84d2bed97f8e83b551052d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "27ad9749_ac26e306",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 1
