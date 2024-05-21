@@ -338,6 +338,20 @@ class SessionStore
         });
     }
 
+    void removeSessionsByUsernameExceptSession(
+        std::string_view username, const std::shared_ptr<UserSession>& session)
+    {
+        std::erase_if(authTokens, [username, session](const auto& value) {
+            if (value.second == nullptr)
+            {
+                return false;
+            }
+
+            return value.second->username == username &&
+                   value.second->uniqueId != session->uniqueId;
+        });
+    }
+
     void updateAuthMethodsConfig(const AuthConfigMethods& config)
     {
         bool isTLSchanged = (authMethodsConfig.tls != config.tls);
