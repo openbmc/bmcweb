@@ -185,6 +185,7 @@ add_project_arguments(
             '-DBOOST_URL_NO_SOURCE_LOCATION',
             '-DBOOST_SPIRIT_X3_NO_RTTI',
             '-DJSON_NOEXCEPTION',
+            '-DJSON_NO_IO',
             '-DOPENSSL_NO_FILENAMES',
             '-DSDBUSPLUS_DISABLE_BOOST_COROUTINES',
         ],

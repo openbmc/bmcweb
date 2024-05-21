@@ -659,7 +659,9 @@ class EventServiceManager
             BMCWEB_LOG_DEBUG("Old eventService config not exist");
             return;
         }
-        auto jsonData = nlohmann::json::parse(eventConfigFile, nullptr, false);
+        std::string str((std::istreambuf_iterator<char>(eventConfigFile)),
+                        std::istreambuf_iterator<char>());
+        auto jsonData = nlohmann::json::parse(str, nullptr, false);
         if (jsonData.is_discarded())
         {
             BMCWEB_LOG_ERROR("Old eventService config parse error.");

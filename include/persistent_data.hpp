@@ -53,8 +53,10 @@ class ConfigFile
         uint64_t fileRevision = 0;
         if (persistentFile.is_open())
         {
+            std::string str((std::istreambuf_iterator<char>(persistentFile)),
+                            std::istreambuf_iterator<char>());
             // call with exceptions disabled
-            auto data = nlohmann::json::parse(persistentFile, nullptr, false);
+            auto data = nlohmann::json::parse(str, nullptr, false);
             if (data.is_discarded())
             {
                 BMCWEB_LOG_ERROR("Error parsing persistent data in json file.");
@@ -206,7 +208,14 @@ class ConfigFile
 
     void writeData()
     {
-        std::ofstream persistentFile(filename);
+        boost::beast::file_posix persistentFile;
+        boost::system::error_code ec;
+        persistentFile.open(filename, boost::beast::file_mode::write, ec);
+        if (ec)
+        {
+            BMCWEB_LOG_CRITICAL("Unable to store persistent data to file");
+            return;
+        }
 
         // set the permission of the file to 640
         std::filesystem::perms permission =
@@ -305,7 +314,13 @@ class ConfigFile
 
             subscriptions.emplace_back(std::move(subscription));
         }
-        persistentFile << data;
+        std::string dump = nlohmann::json(data).dump(
+            -1, ' ', true, nlohmann::json::error_handler_t::replace);
+        persistentFile.write(dump.data(), dump.size(), ec);
+        if (ec)
+        {
+            BMCWEB_LOG_CRITICAL("Failed to log persistent File");
+        }
     }
 
     std::string systemUuid;
