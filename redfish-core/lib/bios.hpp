@@ -40,10 +40,9 @@ inline void
     asyncResp->res.jsonValue["Name"] = "BIOS Configuration";
     asyncResp->res.jsonValue["Description"] = "BIOS Configuration Service";
     asyncResp->res.jsonValue["Id"] = "BIOS";
-    asyncResp->res.jsonValue["Actions"]["#Bios.ResetBios"] = {
-        {"target",
-         std::format("/redfish/v1/Systems/{}/Bios/Actions/Bios.ResetBios",
-                     BMCWEB_REDFISH_SYSTEM_URI_NAME)}};
+    asyncResp->res.jsonValue["Actions"]["#Bios.ResetBios"]["target"] =
+        std::format("/redfish/v1/Systems/{}/Bios/Actions/Bios.ResetBios",
+                    BMCWEB_REDFISH_SYSTEM_URI_NAME);
 
     // Get the ActiveSoftwareImage and SoftwareImages
     sw_util::populateSoftwareInformation(asyncResp, sw_util::biosPurpose, "",
