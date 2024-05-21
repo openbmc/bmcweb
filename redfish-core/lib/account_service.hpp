@@ -39,6 +39,7 @@
 #include <ranges>
 #include <string>
 #include <string_view>
+#include <utility>
 #include <vector>
 
 namespace redfish
@@ -1908,9 +1909,12 @@ inline void
                             return;
                         }
                         asyncResp->res.jsonValue["Locked"] = *userLocked;
+                        nlohmann::json::array_t allowed;
+                        // can only unlock accounts
+                        allowed.emplace_back("false");
                         asyncResp->res
-                            .jsonValue["Locked@Redfish.AllowableValues"] = {
-                            "false"}; // can only unlock accounts
+                            .jsonValue["Locked@Redfish.AllowableValues"] =
+                            std::move(allowed);
                     }
                     else if (property.first == "UserPrivilege")
                     {
