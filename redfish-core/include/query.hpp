@@ -106,7 +106,7 @@ inline bool handleIfMatch(crow::App& app, const crow::Request& req,
     // a full copy to restart it.
     getReqAsyncResp->res.setCompleteRequestHandler(std::bind_front(
         afterIfMatchRequest, std::ref(app), asyncResp,
-        std::make_shared<crow::Request>(req), std::move(ifMatch)));
+        std::make_shared<crow::Request>(req.copy()), std::move(ifMatch)));
 
     app.handle(getReq, getReqAsyncResp);
     return false;
