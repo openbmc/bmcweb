@@ -53,8 +53,10 @@ class ConfigFile
         uint64_t fileRevision = 0;
         if (persistentFile.is_open())
         {
+            std::string str((std::istreambuf_iterator<char>(persistentFile)),
+                            std::istreambuf_iterator<char>());
             // call with exceptions disabled
-            auto data = nlohmann::json::parse(persistentFile, nullptr, false);
+            auto data = nlohmann::json::parse(str, nullptr, false);
             if (data.is_discarded())
             {
                 BMCWEB_LOG_ERROR("Error parsing persistent data in json file.");
@@ -283,7 +285,10 @@ class ConfigFile
 
             subscriptions.emplace_back(std::move(subscription));
         }
-        persistentFile << data;
+        std::string dumped =
+            nlohmann::json(std::move(data))
+                .dump(4, ' ', true, nlohmann::json::error_handler_t::replace);
+        persistentFile << dumped;
     }
 
     std::string systemUuid;
