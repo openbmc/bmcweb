@@ -37,6 +37,18 @@ constexpr const char* trustStorePath = "/etc/ssl/certs/authority";
 constexpr const char* x509Comment = "Generated from OpenBMC service";
 static EVP_PKEY* createEcKey();
 
+// Mozilla intermediate cipher suites v5.7
+// Sourced from: https://ssl-config.mozilla.org/guidelines/5.7.json
+constexpr const char* mozillaIntermediate = "ECDHE-ECDSA-AES128-GCM-SHA256:"
+                                            "ECDHE-RSA-AES128-GCM-SHA256:"
+                                            "ECDHE-ECDSA-AES256-GCM-SHA384:"
+                                            "ECDHE-RSA-AES256-GCM-SHA384:"
+                                            "ECDHE-ECDSA-CHACHA20-POLY1305:"
+                                            "ECDHE-RSA-CHACHA20-POLY1305:"
+                                            "DHE-RSA-AES128-GCM-SHA256:"
+                                            "DHE-RSA-AES256-GCM-SHA384:"
+                                            "DHE-RSA-CHACHA20-POLY1305";
+
 // Trust chain related errors.`
 inline bool isTrustChainError(int errnum)
 {
@@ -498,20 +510,8 @@ inline bool getSslContext(boost::asio::ssl::context& mSslContext,
     // There is a pull request to add this.  Once this is included in an asio
     // drop, use the right way
     // http://stackoverflow.com/questions/18929049/boost-asio-with-ecdsa-certificate-issue
-    if (SSL_CTX_set_ecdh_auto(mSslContext->native_handle(), 1) != 1)
+    if (SSL_CTX_set_ecdh_auto(mSslContext.native_handle(), 1) != 1)
     {}
-
-    // Mozilla intermediate cipher suites v5.7
-    // Sourced from: https://ssl-config.mozilla.org/guidelines/5.7.json
-    const char* mozillaIntermediate = "ECDHE-ECDSA-AES128-GCM-SHA256:"
-                                      "ECDHE-RSA-AES128-GCM-SHA256:"
-                                      "ECDHE-ECDSA-AES256-GCM-SHA384:"
-                                      "ECDHE-RSA-AES256-GCM-SHA384:"
-                                      "ECDHE-ECDSA-CHACHA20-POLY1305:"
-                                      "ECDHE-RSA-CHACHA20-POLY1305:"
-                                      "DHE-RSA-AES128-GCM-SHA256:"
-                                      "DHE-RSA-AES256-GCM-SHA384:"
-                                      "DHE-RSA-CHACHA20-POLY1305";
 
     if (SSL_CTX_set_cipher_list(mSslContext.native_handle(),
                                 mozillaIntermediate) != 1)
@@ -610,19 +610,8 @@ inline std::optional<boost::asio::ssl::context>
         return std::nullopt;
     }
 
-    // All cipher suites are set as per OWASP datasheet.
-    // https://cheatsheetseries.owasp.org/cheatsheets/TLS_Cipher_String_Cheat_Sheet.html
-    constexpr const char* sslCiphers = "ECDHE-ECDSA-AES128-GCM-SHA256:"
-                                       "ECDHE-RSA-AES128-GCM-SHA256:"
-                                       "ECDHE-ECDSA-AES256-GCM-SHA384:"
-                                       "ECDHE-RSA-AES256-GCM-SHA384:"
-                                       "ECDHE-ECDSA-CHACHA20-POLY1305:"
-                                       "ECDHE-RSA-CHACHA20-POLY1305:"
-                                       "DHE-RSA-AES128-GCM-SHA256:"
-                                       "DHE-RSA-AES256-GCM-SHA384:"
-                                       "DHE-RSA-CHACHA20-POLY1305";
-
-    if (SSL_CTX_set_cipher_list(sslCtx.native_handle(), sslCiphers) != 1)
+    if (SSL_CTX_set_cipher_list(sslCtx.native_handle(), mozillaIntermediate) !=
+        1)
     {
         BMCWEB_LOG_ERROR("SSL_CTX_set_cipher_list failed");
         return std::nullopt;
