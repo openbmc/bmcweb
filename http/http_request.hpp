@@ -24,6 +24,8 @@ struct Request
   private:
     boost::urls::url urlBase;
 
+    Request(const Request& other) = default;
+
   public:
     boost::asio::io_context* ioService = nullptr;
     boost::asio::ip::address ipAddress;
@@ -44,12 +46,16 @@ struct Request
 
     Request() = default;
 
-    Request(const Request& other) = default;
     Request(Request&& other) = default;
 
-    Request& operator=(const Request&) = default;
+    Request& operator=(const Request&) = delete;
     Request& operator=(Request&&) = default;
     ~Request() = default;
+
+    Request copy() const
+    {
+        return {*this};
+    }
 
     void addHeader(std::string_view key, std::string_view value)
     {
