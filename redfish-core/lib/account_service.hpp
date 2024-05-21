@@ -2258,7 +2258,8 @@ inline void
     crow::connections::systemBus->async_method_call(
         [asyncResp, username, password(std::move(password)),
          roleId(std::move(roleId)), enabled, newUser{std::string(*newUserName)},
-         locked, userSelf, req, accountTypes(std::move(accountTypes))](
+         locked, userSelf, session = req.session,
+         accountTypes(std::move(accountTypes))](
             const boost::system::error_code& ec, sdbusplus::message_t& m) {
             if (ec)
             {
@@ -2268,7 +2269,7 @@ inline void
             }
 
             updateUserProperties(asyncResp, newUser, password, enabled, roleId,
-                                 locked, accountTypes, userSelf, req.session);
+                                 locked, accountTypes, userSelf, session);
         },
         "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
         "xyz.openbmc_project.User.Manager", "RenameUser", username,
