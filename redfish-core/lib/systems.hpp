@@ -942,11 +942,19 @@ inline void
 
         BMCWEB_LOG_DEBUG("Boot mode: {}", bootModeStr);
 
+        nlohmann::json::array_t allowed;
+        allowed.emplace_back("None");
+        allowed.emplace_back("Pxe");
+        allowed.emplace_back("Hdd");
+        allowed.emplace_back("Cd");
+        allowed.emplace_back("Diags");
+        allowed.emplace_back("BiosSetup");
+        allowed.emplace_back("Usb");
+
         asyncResp->res
             .jsonValue["Boot"]
-                      ["BootSourceOverrideTarget@Redfish.AllowableValues"] = {
-            "None", "Pxe", "Hdd", "Cd", "Diags", "BiosSetup", "Usb"};
-
+                      ["BootSourceOverrideTarget@Redfish.AllowableValues"] =
+            std::move(allowed);
         if (bootModeStr !=
             "xyz.openbmc_project.Control.Boot.Mode.Modes.Regular")
         {
@@ -1245,9 +1253,12 @@ inline void
         // "AutomaticRetryConfig" can be 3 values, Disabled, RetryAlways,
         // and RetryAttempts. OpenBMC only supports Disabled and
         // RetryAttempts.
+        nlohmann::json::array_t allowed;
+        allowed.emplace_back("Disabled");
+        allowed.emplace_back("RetryAttempts");
         asyncResp->res
             .jsonValue["Boot"]["AutomaticRetryConfig@Redfish.AllowableValues"] =
-            {"Disabled", "RetryAttempts"};
+            std::move(allowed);
     });
 }
 

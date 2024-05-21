@@ -243,9 +243,8 @@ inline void
     asyncResp->res.jsonValue["Name"] = "ConfigFiles";
 
     asyncResp->res.jsonValue["Members"] = std::move(pathObjList);
-    asyncResp->res.jsonValue["Actions"]["#IBMConfigFiles.DeleteAll"] = {
-        {"target",
-         "/ibm/v1/Host/ConfigFiles/Actions/IBMConfigFiles.DeleteAll"}};
+    asyncResp->res.jsonValue["Actions"]["#IBMConfigFiles.DeleteAll"]["target"] =
+        "/ibm/v1/Host/ConfigFiles/Actions/IBMConfigFiles.DeleteAll";
 }
 
 inline void
