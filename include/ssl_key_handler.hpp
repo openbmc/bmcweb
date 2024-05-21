@@ -612,10 +612,8 @@ inline std::optional<boost::asio::ssl::context>
                                        "ECDHE-ECDSA-CHACHA20-POLY1305:"
                                        "ECDHE-RSA-CHACHA20-POLY1305:"
                                        "DHE-RSA-AES128-GCM-SHA256:"
-                                       "DHE-RSA-AES256-GCM-SHA384"
-                                       "TLS_AES_128_GCM_SHA256:"
-                                       "TLS_AES_256_GCM_SHA384:"
-                                       "TLS_CHACHA20_POLY1305_SHA256";
+                                       "DHE-RSA-AES256-GCM-SHA384:"
+                                       "DHE-RSA-CHACHA20-POLY1305";
 
     if (SSL_CTX_set_cipher_list(sslCtx.native_handle(), sslCiphers) != 1)
     {
