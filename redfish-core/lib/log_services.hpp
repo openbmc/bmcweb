@@ -1420,12 +1420,11 @@ inline void requestRoutesEventLogService(App& app)
         asyncResp->res.jsonValue["Entries"]["@odata.id"] =
             std::format("/redfish/v1/Systems/{}/LogServices/EventLog/Entries",
                         BMCWEB_REDFISH_SYSTEM_URI_NAME);
-        asyncResp->res.jsonValue["Actions"]["#LogService.ClearLog"] = {
+        asyncResp->res.jsonValue["Actions"]["#LogService.ClearLog"]["target"]
 
-            {"target",
-             std::format(
-                 "/redfish/v1/Systems/{}/LogServices/EventLog/Actions/LogService.ClearLog",
-                 BMCWEB_REDFISH_SYSTEM_URI_NAME)}};
+            = std::format(
+                "/redfish/v1/Systems/{}/LogServices/EventLog/Actions/LogService.ClearLog",
+                BMCWEB_REDFISH_SYSTEM_URI_NAME);
     });
 }
 
@@ -3989,11 +3988,10 @@ inline void requestRoutesPostCodesLogService(App& app)
         asyncResp->res.jsonValue["DateTimeLocalOffset"] =
             redfishDateTimeOffset.second;
 
-        asyncResp->res.jsonValue["Actions"]["#LogService.ClearLog"] = {
-            {"target",
-             std::format(
-                 "/redfish/v1/Systems/{}/LogServices/PostCodes/Actions/LogService.ClearLog",
-                 BMCWEB_REDFISH_SYSTEM_URI_NAME)}};
+        asyncResp->res.jsonValue["Actions"]["#LogService.ClearLog"]
+                                ["target"] = std::format(
+            "/redfish/v1/Systems/{}/LogServices/PostCodes/Actions/LogService.ClearLog",
+            BMCWEB_REDFISH_SYSTEM_URI_NAME);
     });
 }
 
