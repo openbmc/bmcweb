@@ -15,9 +15,9 @@
 #include <nlohmann/json.hpp>
 
 #include <chrono>
+#include <cstddef>
 #include <cstdint>
 #include <filesystem>
-#include <fstream>
 #include <memory>
 #include <optional>
 #include <string>
@@ -60,12 +60,28 @@ class ConfigFile
     // this application for the moment
     void readData()
     {
-        std::ifstream persistentFile(filename);
+        boost::beast::file_posix persistentFile;
+        boost::system::error_code ec;
+        persistentFile.open(filename, boost::beast::file_mode::read, ec);
         uint64_t fileRevision = 0;
-        if (persistentFile.is_open())
+        if (!ec)
         {
+            size_t size = persistentFile.size(ec);
+            if (ec)
+            {
+                BMCWEB_LOG_CRITICAL("Can't get filesize");
+                return;
+            }
+            std::string str;
+            str.resize(size, '\0');
+            persistentFile.read(str.data(), str.size(), ec);
+            if (ec)
+            {
+                BMCWEB_LOG_CRITICAL("Failed to read file");
+                return;
+            }
             // call with exceptions disabled
-            auto data = nlohmann::json::parse(persistentFile, nullptr, false);
+            auto data = nlohmann::json::parse(str, nullptr, false);
             if (data.is_discarded())
             {
                 BMCWEB_LOG_ERROR("Error parsing persistent data in json file.");
