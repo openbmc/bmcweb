@@ -1,0 +1,285 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01b44a92_33b2d1f7",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 735,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-21T02:00:04Z",
+      "side": 1,
+      "message": "Looks like the above block of code was grabbed from here.  Can we avoid duplicating this logic please, and just make the old path call the method you broke out?",
+      "range": {
+        "startLine": 717,
+        "startChar": 0,
+        "endLine": 735,
+        "endChar": 5
+      },
+      "revId": "a8995d2e77c59731c544a957af897cf7a9fc4c8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f8e83ac_b559ae81",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-21T02:00:04Z",
+      "side": 1,
+      "message": "We broke this method out to handle parsing, but it looks like we left the old code for checking /redfish/v1/Managers/bmc in place?  Should that be lifted into this new method?",
+      "range": {
+        "startLine": 755,
+        "startChar": 16,
+        "endLine": 755,
+        "endChar": 19
+      },
+      "revId": "a8995d2e77c59731c544a957af897cf7a9fc4c8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1d9fec9_f4b7c4b0",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-21T02:00:04Z",
+      "side": 1,
+      "message": "As a general rule we shouldn\u0027t be using starts_with (as is noted in common_errors.md).  I suspect in this case we want something like \n\nstd::string firmwareId;\nif (!readUrlSegments(*url, \"redfish\", \"v1\", \"UpdateService\", \"FirmwareInventory\", std::ref(firmwareId))){\n   return false;\n}\n\nThen we\u0027ll have to pass out the firmware id.",
+      "revId": "a8995d2e77c59731c544a957af897cf7a9fc4c8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd66f8b4_29dd7ff8",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-21T02:00:04Z",
+      "side": 1,
+      "message": "The old code accepted Managers/bmc as a target.  Do we have confidence that Redfish specifies accepting these with FirmwareInventory as the target?  Do we have examples anywhere we can link in the commit message?\n\nAt the very least, we should support the old way of using the bmc as the target, even if it\u0027s wrong.  We don\u0027t want to break working code.",
+      "revId": "a8995d2e77c59731c544a957af897cf7a9fc4c8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c8aad22_4d99ad77",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 918,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-21T02:00:04Z",
+      "side": 1,
+      "message": "Please don\u0027t capture req in an async lambda, especially by value.  You probably want to create your task::Payload object here, which avoids making a copy of the whole request, and only copies the values that are needed.",
+      "range": {
+        "startLine": 918,
+        "startChar": 20,
+        "endLine": 918,
+        "endChar": 23
+      },
+      "revId": "a8995d2e77c59731c544a957af897cf7a9fc4c8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2e7cc93_899f12d4",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 924,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-21T02:00:04Z",
+      "side": 1,
+      "message": "Are we sure this works?  This is going to call close() on the fd after we start the update, presumably we just gave that fd to dbus?",
+      "range": {
+        "startLine": 924,
+        "startChar": 51,
+        "endLine": 924,
+        "endChar": 56
+      },
+      "revId": "a8995d2e77c59731c544a957af897cf7a9fc4c8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30a2df9c_c2c01f7c",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 936,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-21T02:00:04Z",
+      "side": 1,
+      "message": "follow the Naming convention please",
+      "range": {
+        "startLine": 936,
+        "startChar": 10,
+        "endLine": 936,
+        "endChar": 22
+      },
+      "revId": "a8995d2e77c59731c544a957af897cf7a9fc4c8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9aba22e5_097af1d1",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 969,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-21T02:00:04Z",
+      "side": 1,
+      "message": "Insert returns a bool that will tell you whether or not the key already existed.  Use that for this condition instead to avoid duplicating the lookup.",
+      "range": {
+        "startLine": 969,
+        "startChar": 0,
+        "endLine": 969,
+        "endChar": 58
+      },
+      "revId": "a8995d2e77c59731c544a957af897cf7a9fc4c8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "185a33df_06bed9b3",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 983,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-21T02:00:04Z",
+      "side": 1,
+      "message": "operator[] creates if the key doesn\u0027t exist.  Presumably here you want find()",
+      "range": {
+        "startLine": 983,
+        "startChar": 64,
+        "endLine": 983,
+        "endChar": 70
+      },
+      "revId": "a8995d2e77c59731c544a957af897cf7a9fc4c8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48f1e4fb_61f5275d",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 989,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-21T02:00:04Z",
+      "side": 1,
+      "message": "I\u0027m not quite following this, you\u0027re looking for the path associated with the ObjectManager?  Presumably you want something associated with the software version itself?",
+      "range": {
+        "startLine": 989,
+        "startChar": 12,
+        "endLine": 989,
+        "endChar": 76
+      },
+      "revId": "a8995d2e77c59731c544a957af897cf7a9fc4c8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad8e6849_ab316649",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1013,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-21T02:00:04Z",
+      "side": 1,
+      "message": "I don\u0027t see any shared ownership here.  Any reason this needs to be a shared_ptr?",
+      "range": {
+        "startLine": 1013,
+        "startChar": 22,
+        "endLine": 1013,
+        "endChar": 33
+      },
+      "revId": "a8995d2e77c59731c544a957af897cf7a9fc4c8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "746d29bf_9048b7b0",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1027,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-21T02:00:04Z",
+      "side": 1,
+      "message": "Can we wrap this in your class please?",
+      "range": {
+        "startLine": 1027,
+        "startChar": 0,
+        "endLine": 1027,
+        "endChar": 44
+      },
+      "revId": "a8995d2e77c59731c544a957af897cf7a9fc4c8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1dbdd7b_e3bb3044",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1039,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-21T02:00:04Z",
+      "side": 1,
+      "message": "I think we want depth 1 here?",
+      "revId": "a8995d2e77c59731c544a957af897cf7a9fc4c8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
