@@ -981,17 +981,19 @@ class EventServiceManager
 
     void deleteSseSubscription(const crow::sse_socket::Connection& thisConn)
     {
-        for (const auto& it : subscriptionsMap)
+        for (auto it = subscriptionsMap.begin(); it != subscriptionsMap.end();)
         {
-            std::shared_ptr<Subscription> entry = it.second;
+            std::shared_ptr<Subscription> entry = it->second;
             bool entryIsThisConn = entry->matchSseId(thisConn);
             if (entryIsThisConn)
             {
                 persistent_data::EventServiceStore::getInstance()
                     .subscriptionsConfigMap.erase(
-                        it.second->getSubscriptionId());
+                        it->second->getSubscriptionId());
+                it = subscriptionsMap.erase(it);
                 return;
             }
+            it++;
         }
     }
 
