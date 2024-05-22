@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5d0dfd2_6fa50c0d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-22T19:59:38Z",
+      "side": 1,
+      "message": "Seems reasonable to me. Is there anyone who reported this that can test?",
+      "revId": "bcbf59cf0bde6041637970c2645fb7e281e3d8fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
