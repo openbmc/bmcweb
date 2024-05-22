@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc846c13_eea6f1f1",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 625,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-05-22T16:28:28Z",
+      "side": 1,
+      "message": "how does this work with deadline timer?. I assume this loop will be closed on timer expiry.",
+      "revId": "ce57d9991a2fd3fef72500c92c6feca15df2243d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f7d93d6_9d4364ff",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-05-22T16:28:28Z",
+      "side": 1,
+      "message": "in dump offload case , we have maximum size limit check. In the case of unix socket are we relaying on deadline timer to report error?",
+      "revId": "ce57d9991a2fd3fef72500c92c6feca15df2243d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
