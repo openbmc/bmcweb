@@ -2609,7 +2609,8 @@ inline void requestRoutesDBusCELogEntryCollection(App& app)
                 // and continue.
                 if (id == nullptr || eventId == nullptr ||
                     severity == nullptr || timestamp == nullptr ||
-                    updateTimestamp == nullptr)
+                    updateTimestamp == nullptr || hidden == nullptr ||
+                    subsystem == nullptr)
                 {
                     continue;
                 }
