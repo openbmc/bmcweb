@@ -51,6 +51,24 @@
       "parentUuid": "7310a825_f9c623ea",
       "revId": "bc03823c4a69043025b5c313a82648ecf07c93ac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59284d7b_eacd0f23",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-22T20:00:17Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "57762af0_f474a7e4",
+      "revId": "bc03823c4a69043025b5c313a82648ecf07c93ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
