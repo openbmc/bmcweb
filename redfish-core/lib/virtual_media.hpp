@@ -25,9 +25,9 @@
 #include "registries/privilege_registry.hpp"
 #include "utils/json_utils.hpp"
 
-#include <boost/process/async_pipe.hpp>
 #include <boost/url/format.hpp>
 #include <boost/url/url_view.hpp>
+#include <boost/url/url_view_base.hpp>
 
 #include <array>
 #include <ranges>
@@ -367,7 +367,7 @@ enum class TransferProtocol
  *
  */
 inline std::optional<TransferProtocol>
-    getTransferProtocolFromUri(boost::urls::url_view imageUri)
+    getTransferProtocolFromUri(const boost::urls::url_view_base& imageUri)
 {
     std::string_view scheme = imageUri.scheme();
     if (scheme == "smb")
@@ -469,7 +469,7 @@ inline void doMountVmLegacy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         // Open pipe
         secretPipe = std::make_shared<CredentialsPipe>(
             crow::connections::systemBus->get_io_context());
-        fd = secretPipe->fd();
+        fd = secretPipe->releaseFd();
 
         // Pass secret over pipe
         secretPipe->asyncWrite(

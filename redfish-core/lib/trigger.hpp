@@ -9,6 +9,7 @@
 #include "utility.hpp"
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
+#include "utils/json_utils.hpp"
 #include "utils/telemetry_utils.hpp"
 #include "utils/time_utils.hpp"
 
@@ -543,7 +544,7 @@ inline bool parseMetricProperties(crow::Response& res, Context& ctx)
     size_t uriIdx = 0;
     for (const std::string& uriStr : *ctx.metricProperties)
     {
-        boost::system::result<boost::urls::url_view> uri =
+        boost::system::result<boost::urls::url> uri =
             boost::urls::parse_relative_ref(uriStr);
         if (!uri)
         {

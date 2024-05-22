@@ -1,8 +1,9 @@
 #pragma once
 
+#include "logging.hpp"
+
 #include <openssl/rand.h>
 
-#include <iostream>
 #include <limits>
 #include <string>
 
@@ -17,7 +18,7 @@ struct OpenSSLGenerator
         int rc = RAND_bytes(&index, sizeof(index));
         if (rc != opensslSuccess)
         {
-            std::cerr << "Cannot get random number\n";
+            BMCWEB_LOG_ERROR("Cannot get random number");
             err = true;
         }
 

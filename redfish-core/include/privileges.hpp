@@ -21,7 +21,6 @@
 #include <boost/beast/http/verb.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/container/vector.hpp>
-#include <boost/move/algo/move.hpp>
 
 #include <array>
 #include <bitset>
@@ -45,7 +44,7 @@ enum class PrivilegeType
 };
 
 /** @brief A fixed array of compile time privileges  */
-constexpr std::array<const char*, 5> basePrivileges{
+constexpr std::array<std::string_view, 5> basePrivileges{
     "Login", "ConfigureManager", "ConfigureComponents", "ConfigureSelf",
     "ConfigureUsers"};
 
@@ -60,7 +59,7 @@ constexpr const size_t maxPrivilegeCount = 32;
  * "hostconsole" user group. This privilege is required to access the host
  * console.
  */
-static const std::array<std::string, maxPrivilegeCount> privilegeNames{
+static const std::array<std::string_view, maxPrivilegeCount> privilegeNames{
     "Login",
     "ConfigureManager",
     "ConfigureComponents",
@@ -107,7 +106,7 @@ class Privileges
         {
             if (!setSinglePrivilege(privilege))
             {
-                BMCWEB_LOG_CRITICAL("Unable to set privilege {}in constructor",
+                BMCWEB_LOG_CRITICAL("Unable to set privilege {} in constructor",
                                     privilege);
             }
         }

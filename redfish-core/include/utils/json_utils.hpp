@@ -90,6 +90,14 @@ template <typename Type, std::size_t size>
 struct IsStdArray<std::array<Type, size>> : std::true_type
 {};
 
+template <typename Type>
+struct IsVariant : std::false_type
+{};
+
+template <typename... Types>
+struct IsVariant<std::variant<Types...>> : std::true_type
+{};
+
 enum class UnpackErrorCode
 {
     success,
@@ -98,20 +106,9 @@ enum class UnpackErrorCode
 };
 
 template <typename ToType, typename FromType>
-bool checkRange(const FromType& from, std::string_view key)
+bool checkRange(const FromType& from [[maybe_unused]],
+                std::string_view key [[maybe_unused]])
 {
-    if (from > std::numeric_limits<ToType>::max())
-    {
-        BMCWEB_LOG_DEBUG("Value for key {} was greater than max: {}", key,
-                         __PRETTY_FUNCTION__);
-        return false;
-    }
-    if (from < std::numeric_limits<ToType>::lowest())
-    {
-        BMCWEB_LOG_DEBUG("Value for key {} was less than min: {}", key,
-                         __PRETTY_FUNCTION__);
-        return false;
-    }
     if constexpr (std::is_floating_point_v<ToType>)
     {
         if (std::isnan(from))
@@ -120,8 +117,51 @@ bool checkRange(const FromType& from, std::string_view key)
             return false;
         }
     }
+    if constexpr (std::numeric_limits<ToType>::max() <
+                  std::numeric_limits<FromType>::max())
+    {
+        if (from > std::numeric_limits<ToType>::max())
+        {
+            BMCWEB_LOG_DEBUG("Value for key {} was greater than max {}", key,
+                             std::numeric_limits<FromType>::max());
+            return false;
+        }
+    }
+    if constexpr (std::numeric_limits<ToType>::lowest() >
+                  std::numeric_limits<FromType>::lowest())
+    {
+        if (from < std::numeric_limits<ToType>::lowest())
+        {
+            BMCWEB_LOG_DEBUG("Value for key {} was less than min {}", key,
+                             std::numeric_limits<FromType>::lowest());
+            return false;
+        }
+    }
 
     return true;
+}
+
+template <typename Type>
+UnpackErrorCode unpackValueWithErrorCode(nlohmann::json& jsonValue,
+                                         std::string_view key, Type& value);
+
+template <std::size_t Index = 0, typename... Args>
+UnpackErrorCode unpackValueVariant(nlohmann::json& j, std::string_view key,
+                                   std::variant<Args...>& v)
+{
+    if constexpr (Index < std::variant_size_v<std::variant<Args...>>)
+    {
+        std::variant_alternative_t<Index, std::variant<Args...>> type;
+        UnpackErrorCode unpack = unpackValueWithErrorCode(j, key, type);
+        if (unpack == UnpackErrorCode::success)
+        {
+            v = std::move(type);
+            return unpack;
+        }
+
+        return unpackValueVariant<Index + 1, Args...>(j, key, v);
+    }
+    return UnpackErrorCode::invalidType;
 }
 
 template <typename Type>
@@ -188,6 +228,13 @@ UnpackErrorCode unpackValueWithErrorCode(nlohmann::json& jsonValue,
     {
         value = std::move(jsonValue);
     }
+    else if constexpr (std::is_same_v<std::nullptr_t, Type>)
+    {
+        if (!jsonValue.is_null())
+        {
+            return UnpackErrorCode::invalidType;
+        }
+    }
     else
     {
         using JsonType = std::add_const_t<std::add_pointer_t<Type>>;
@@ -250,6 +297,22 @@ bool unpackValue(nlohmann::json& jsonValue, std::string_view key,
             ret = unpackValue<typename Type::value_type>(val.value(), key, res,
                                                          value.back()) &&
                   ret;
+        }
+    }
+    else if constexpr (IsVariant<Type>::value)
+    {
+        UnpackErrorCode ec = unpackValueVariant(jsonValue, key, value);
+        if (ec != UnpackErrorCode::success)
+        {
+            if (ec == UnpackErrorCode::invalidType)
+            {
+                messages::propertyValueTypeError(res, jsonValue, key);
+            }
+            else if (ec == UnpackErrorCode::outOfRange)
+            {
+                messages::propertyValueNotInList(res, jsonValue, key);
+            }
+            return false;
         }
     }
     else
@@ -341,6 +404,17 @@ using UnpackVariant = std::variant<
     double*,
     std::string*,
     nlohmann::json*,
+    nlohmann::json::object_t*,
+    std::variant<std::string, std::nullptr_t>*,
+    std::variant<uint8_t, std::nullptr_t>*,
+    std::variant<int16_t, std::nullptr_t>*,
+    std::variant<uint16_t, std::nullptr_t>*,
+    std::variant<int32_t, std::nullptr_t>*,
+    std::variant<uint32_t, std::nullptr_t>*,
+    std::variant<int64_t, std::nullptr_t>*,
+    std::variant<uint64_t, std::nullptr_t>*,
+    std::variant<double, std::nullptr_t>*,
+    std::variant<bool, std::nullptr_t>*,
     std::vector<uint8_t>*,
     std::vector<uint16_t>*,
     std::vector<int16_t>*,
@@ -352,6 +426,7 @@ using UnpackVariant = std::variant<
     std::vector<double>*,
     std::vector<std::string>*,
     std::vector<nlohmann::json>*,
+    std::vector<nlohmann::json::object_t>*,
     std::optional<uint8_t>*,
     std::optional<uint16_t>*,
     std::optional<int16_t>*,
@@ -363,6 +438,7 @@ using UnpackVariant = std::variant<
     std::optional<double>*,
     std::optional<std::string>*,
     std::optional<nlohmann::json>*,
+    std::optional<nlohmann::json::object_t>*,
     std::optional<std::vector<uint8_t>>*,
     std::optional<std::vector<uint16_t>>*,
     std::optional<std::vector<int16_t>>*,
@@ -373,7 +449,20 @@ using UnpackVariant = std::variant<
     //std::optional<std::vector<bool>>*,
     std::optional<std::vector<double>>*,
     std::optional<std::vector<std::string>>*,
-    std::optional<std::vector<nlohmann::json>>*
+    std::optional<std::vector<nlohmann::json>>*,
+    std::optional<std::vector<nlohmann::json::object_t>>*,
+    std::optional<std::variant<std::string, std::nullptr_t>>*,
+    std::optional<std::variant<uint8_t, std::nullptr_t>>*,
+    std::optional<std::variant<int16_t, std::nullptr_t>>*,
+    std::optional<std::variant<uint16_t, std::nullptr_t>>*,
+    std::optional<std::variant<int32_t, std::nullptr_t>>*,
+    std::optional<std::variant<uint32_t, std::nullptr_t>>*,
+    std::optional<std::variant<int64_t, std::nullptr_t>>*,
+    std::optional<std::variant<uint64_t, std::nullptr_t>>*,
+    std::optional<std::variant<double, std::nullptr_t>>*,
+    std::optional<std::variant<bool, std::nullptr_t>>*,
+    std::optional<std::vector<std::variant<nlohmann::json::object_t, std::nullptr_t>>>*,
+    std::optional<std::variant<nlohmann::json::object_t, std::nullptr_t>>*
 >;
 // clang-format on
 
@@ -385,18 +474,14 @@ struct PerUnpack
 };
 
 inline bool readJsonHelper(nlohmann::json& jsonRequest, crow::Response& res,
-                           std::span<PerUnpack> toUnpack)
+                           std::span<PerUnpack> toUnpack);
+
+inline bool readJsonHelperObject(nlohmann::json::object_t& obj,
+                                 crow::Response& res,
+                                 std::span<PerUnpack> toUnpack)
 {
     bool result = true;
-    nlohmann::json::object_t* obj =
-        jsonRequest.get_ptr<nlohmann::json::object_t*>();
-    if (obj == nullptr)
-    {
-        BMCWEB_LOG_DEBUG("Json value is not an object");
-        messages::unrecognizedRequestBody(res);
-        return false;
-    }
-    for (auto& item : *obj)
+    for (auto& item : obj)
     {
         size_t unpackIndex = 0;
         for (; unpackIndex < toUnpack.size(); unpackIndex++)
@@ -489,6 +574,20 @@ inline bool readJsonHelper(nlohmann::json& jsonRequest, crow::Response& res,
     return result;
 }
 
+inline bool readJsonHelper(nlohmann::json& jsonRequest, crow::Response& res,
+                           std::span<PerUnpack> toUnpack)
+{
+    nlohmann::json::object_t* obj =
+        jsonRequest.get_ptr<nlohmann::json::object_t*>();
+    if (obj == nullptr)
+    {
+        BMCWEB_LOG_DEBUG("Json value is not an object");
+        messages::unrecognizedRequestBody(res);
+        return false;
+    }
+    return readJsonHelperObject(*obj, res, toUnpack);
+}
+
 inline void packVariant(std::span<PerUnpack> /*toPack*/) {}
 
 template <typename FirstType, typename... UnpackTypes>
@@ -506,16 +605,33 @@ void packVariant(std::span<PerUnpack> toPack, std::string_view key,
 }
 
 template <typename FirstType, typename... UnpackTypes>
-bool readJson(nlohmann::json& jsonRequest, crow::Response& res,
-              std::string_view key, FirstType&& first, UnpackTypes&&... in)
+bool readJsonObject(nlohmann::json::object_t& jsonRequest, crow::Response& res,
+                    std::string_view key, FirstType&& first,
+                    UnpackTypes&&... in)
 {
     const std::size_t n = sizeof...(UnpackTypes) + 2;
     std::array<PerUnpack, n / 2> toUnpack2;
     packVariant(toUnpack2, key, first, std::forward<UnpackTypes&&>(in)...);
-    return readJsonHelper(jsonRequest, res, toUnpack2);
+    return readJsonHelperObject(jsonRequest, res, toUnpack2);
 }
 
-inline std::optional<nlohmann::json>
+template <typename FirstType, typename... UnpackTypes>
+bool readJson(nlohmann::json& jsonRequest, crow::Response& res,
+              std::string_view key, FirstType&& first, UnpackTypes&&... in)
+{
+    nlohmann::json::object_t* obj =
+        jsonRequest.get_ptr<nlohmann::json::object_t*>();
+    if (obj == nullptr)
+    {
+        BMCWEB_LOG_DEBUG("Json value is not an object");
+        messages::unrecognizedRequestBody(res);
+        return false;
+    }
+    return readJsonObject(*obj, res, key, std::forward<FirstType>(first),
+                          std::forward<UnpackTypes&&>(in)...);
+}
+
+inline std::optional<nlohmann::json::object_t>
     readJsonPatchHelper(const crow::Request& req, crow::Response& res)
 {
     nlohmann::json jsonRequest;
@@ -545,20 +661,27 @@ inline std::optional<nlohmann::json>
         return std::nullopt;
     }
 
-    return {std::move(jsonRequest)};
+    return {std::move(*object)};
 }
 
 template <typename... UnpackTypes>
 bool readJsonPatch(const crow::Request& req, crow::Response& res,
                    std::string_view key, UnpackTypes&&... in)
 {
-    std::optional<nlohmann::json> jsonRequest = readJsonPatchHelper(req, res);
+    std::optional<nlohmann::json::object_t> jsonRequest =
+        readJsonPatchHelper(req, res);
     if (!jsonRequest)
     {
         return false;
     }
+    if (jsonRequest->empty())
+    {
+        messages::emptyJSON(res);
+        return false;
+    }
 
-    return readJson(*jsonRequest, res, key, std::forward<UnpackTypes&&>(in)...);
+    return readJsonObject(*jsonRequest, res, key,
+                          std::forward<UnpackTypes&&>(in)...);
 }
 
 template <typename... UnpackTypes>
@@ -571,7 +694,16 @@ bool readJsonAction(const crow::Request& req, crow::Response& res,
         BMCWEB_LOG_DEBUG("Json value not readable");
         return false;
     }
-    return readJson(jsonRequest, res, key, std::forward<UnpackTypes&&>(in)...);
+    nlohmann::json::object_t* object =
+        jsonRequest.get_ptr<nlohmann::json::object_t*>();
+    if (object == nullptr)
+    {
+        BMCWEB_LOG_DEBUG("Json value is empty");
+        messages::emptyJSON(res);
+        return false;
+    }
+    return readJsonObject(*object, res, key,
+                          std::forward<UnpackTypes&&>(in)...);
 }
 
 // Determines if two json objects are less, based on the presence of the

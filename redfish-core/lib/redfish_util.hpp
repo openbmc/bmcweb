@@ -14,7 +14,6 @@
 // limitations under the License.
 */
 #pragma once
-#ifndef BMCWEB_ENABLE_REDFISH_ONE_CHASSIS
 
 #include "async_resp.hpp"
 #include "dbus_utility.hpp"
@@ -256,4 +255,3 @@ void getPortNumber(const std::string& socketPath, CallbackFunc&& callback)
 }
 
 } // namespace redfish
-#endif

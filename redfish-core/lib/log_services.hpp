@@ -28,7 +28,9 @@
 #include "registries/openbmc_message_registry.hpp"
 #include "registries/privilege_registry.hpp"
 #include "task.hpp"
+#include "task_messages.hpp"
 #include "utils/dbus_utils.hpp"
+#include "utils/json_utils.hpp"
 #include "utils/time_utils.hpp"
 
 #include <systemd/sd-id128.h>
@@ -125,9 +127,8 @@ inline std::string getDumpPath(std::string_view dumpType)
     return dbusDumpPath;
 }
 
-inline static int getJournalMetadata(sd_journal* journal,
-                                     std::string_view field,
-                                     std::string_view& contents)
+inline int getJournalMetadata(sd_journal* journal, std::string_view field,
+                              std::string_view& contents)
 {
     const char* data = nullptr;
     size_t length = 0;
@@ -147,9 +148,8 @@ inline static int getJournalMetadata(sd_journal* journal,
     return ret;
 }
 
-inline static int getJournalMetadata(sd_journal* journal,
-                                     std::string_view field, const int& base,
-                                     long int& contents)
+inline int getJournalMetadata(sd_journal* journal, std::string_view field,
+                              const int& base, long int& contents)
 {
     int ret = 0;
     std::string_view metadata;
@@ -163,8 +163,7 @@ inline static int getJournalMetadata(sd_journal* journal,
     return ret;
 }
 
-inline static bool getEntryTimestamp(sd_journal* journal,
-                                     std::string& entryTimestamp)
+inline bool getEntryTimestamp(sd_journal* journal, std::string& entryTimestamp)
 {
     int ret = 0;
     uint64_t timestamp = 0;
@@ -178,8 +177,8 @@ inline static bool getEntryTimestamp(sd_journal* journal,
     return true;
 }
 
-inline static bool getUniqueEntryID(sd_journal* journal, std::string& entryID,
-                                    const bool firstEntry = true)
+inline bool getUniqueEntryID(sd_journal* journal, std::string& entryID,
+                             const bool firstEntry = true)
 {
     int ret = 0;
     static sd_id128_t prevBootID{};
@@ -271,7 +270,7 @@ static bool getUniqueEntryID(const std::string& logEntry, std::string& entryID,
 }
 
 // Entry is formed like "BootID_timestamp" or "BootID_timestamp_index"
-inline static bool
+inline bool
     getTimestampFromID(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                        const std::string& entryID, sd_id128_t& bootID,
                        uint64_t& timestamp, uint64_t& index)
@@ -1498,7 +1497,7 @@ inline void clearDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     });
 }
 
-inline static void
+inline void
     parseCrashdumpParameters(const dbus::utility::DBusPropertiesMap& params,
                              std::string& filename, std::string& timestamp,
                              std::string& logfile)
@@ -3356,8 +3355,8 @@ inline bool getHostLoggerEntries(
     return true;
 }
 
-inline void fillHostLoggerEntryJson(const std::string& logEntryID,
-                                    const std::string& msg,
+inline void fillHostLoggerEntryJson(std::string_view logEntryID,
+                                    std::string_view msg,
                                     nlohmann::json::object_t& logEntryJson)
 {
     // Fill in the log entry with the gathered data.
@@ -3526,14 +3525,13 @@ inline void requestRoutesSystemHostLoggerLogEntry(App& app)
                                        systemName);
             return;
         }
-        const std::string& targetID = param;
+        std::string_view targetID = param;
 
         uint64_t idInt = 0;
 
-        auto [ptr, ec] = std::from_chars(&*targetID.begin(), &*targetID.end(),
+        auto [ptr, ec] = std::from_chars(targetID.begin(), targetID.end(),
                                          idInt);
-        if (ec == std::errc::invalid_argument ||
-            ec == std::errc::result_out_of_range)
+        if (ec != std::errc{} || ptr != targetID.end())
         {
             messages::resourceNotFound(asyncResp->res, "LogEntry", param);
             return;
@@ -3738,9 +3736,17 @@ static int
     bmcJournalLogEntryJson["Id"] = bmcJournalLogEntryID;
     bmcJournalLogEntryJson["Message"] = std::move(message);
     bmcJournalLogEntryJson["EntryType"] = "Oem";
-    bmcJournalLogEntryJson["Severity"] = severity <= 2   ? "Critical"
-                                         : severity <= 4 ? "Warning"
-                                                         : "OK";
+    log_entry::EventSeverity severityEnum = log_entry::EventSeverity::OK;
+    if (severity <= 2)
+    {
+        severityEnum = log_entry::EventSeverity::Critical;
+    }
+    else if (severity <= 4)
+    {
+        severityEnum = log_entry::EventSeverity::Warning;
+    }
+
+    bmcJournalLogEntryJson["Severity"] = severityEnum;
     bmcJournalLogEntryJson["OemRecordFormat"] = "BMC Journal Entry";
     bmcJournalLogEntryJson["Created"] = std::move(entryTimeStr);
     return 0;
@@ -5216,31 +5222,38 @@ inline void requestRoutesPostCodesClear(App& app)
  *
  * @return bool true if the parsing is successful, false the parsing fails
  */
-inline static bool parsePostCode(const std::string& postCodeID,
-                                 uint64_t& currentValue, uint16_t& index)
+inline bool parsePostCode(std::string_view postCodeID, uint64_t& currentValue,
+                          uint16_t& index)
 {
     std::vector<std::string> split;
     bmcweb::split(split, postCodeID, '-');
-    if (split.size() != 2 || split[0].length() < 2 || split[0].front() != 'B')
+    if (split.size() != 2)
+    {
+        return false;
+    }
+    std::string_view postCodeNumber = split[0];
+    if (postCodeNumber.size() < 2)
+    {
+        return false;
+    }
+    if (postCodeNumber[0] != 'B')
+    {
+        return false;
+    }
+    postCodeNumber.remove_prefix(1);
+    auto [ptrIndex, ecIndex] = std::from_chars(postCodeNumber.begin(),
+                                               postCodeNumber.end(), index);
+    if (ptrIndex != postCodeNumber.end() || ecIndex != std::errc())
     {
         return false;
     }
 
-    auto start = std::next(split[0].begin());
-    auto end = split[0].end();
-    auto [ptrIndex, ecIndex] = std::from_chars(&*start, &*end, index);
+    std::string_view postCodeIndex = split[1];
 
-    if (ptrIndex != &*end || ecIndex != std::errc())
-    {
-        return false;
-    }
+    auto [ptrValue, ecValue] = std::from_chars(
+        postCodeIndex.begin(), postCodeIndex.end(), currentValue);
 
-    start = split[1].begin();
-    end = split[1].end();
-
-    auto [ptrValue, ecValue] = std::from_chars(&*start, &*end, currentValue);
-
-    return ptrValue == &*end && ecValue == std::errc();
+    return ptrValue == postCodeIndex.end() && ecValue == std::errc();
 }
 
 static bool fillPostCodeEntry(
@@ -5253,7 +5266,11 @@ static bool fillPostCodeEntry(
     // Get the Message from the MessageRegistry
     const registries::Message* message =
         registries::getMessage("OpenBMC.0.2.BIOSPOSTCode");
-
+    if (message == nullptr)
+    {
+        BMCWEB_LOG_ERROR("Couldn't find known message?");
+        return false;
+    }
     uint64_t currentCodeIndex = 0;
     uint64_t firstCodeTimeUs = 0;
     for (const std::pair<uint64_t, std::tuple<uint64_t, std::vector<uint8_t>>>&

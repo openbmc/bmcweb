@@ -1,6 +1,7 @@
 #pragma once
 
 #include "authentication.hpp"
+#include "boost_formatters.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "http_utility.hpp"
@@ -10,7 +11,6 @@
 #include "utils/hex_utils.hpp"
 
 #include <boost/beast/http/message.hpp>
-#include <boost/beast/http/string_body.hpp>
 #include <nlohmann/json.hpp>
 
 #include <array>

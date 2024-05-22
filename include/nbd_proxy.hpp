@@ -20,7 +20,6 @@
 #include "websocket.hpp"
 
 #include <boost/asio/local/stream_protocol.hpp>
-#include <boost/asio/write.hpp>
 #include <boost/beast/core/buffers_to_string.hpp>
 #include <boost/container/flat_map.hpp>
 
@@ -63,8 +62,13 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
         boost::system::error_code ec;
         peerSocket.close(ec);
 
-        BMCWEB_LOG_DEBUG("std::remove({})", socketId);
-        std::remove(socketId.c_str());
+        BMCWEB_LOG_DEBUG("std::filesystem::remove({})", socketId);
+        std::error_code ec2;
+        std::filesystem::remove(socketId.c_str(), ec2);
+        if (ec2)
+        {
+            BMCWEB_LOG_DEBUG("Failed to remove file, ignoring");
+        }
 
         crow::connections::systemBus->async_method_call(
             dbus::utility::logError, "xyz.openbmc_project.VirtualMedia", path,
@@ -125,9 +129,9 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
 
     void send(std::string_view buffer, std::function<void()>&& onDone)
     {
-        boost::asio::buffer_copy(ws2uxBuf.prepare(buffer.size()),
-                                 boost::asio::buffer(buffer));
-        ws2uxBuf.commit(buffer.size());
+        size_t copied = boost::asio::buffer_copy(
+            ws2uxBuf.prepare(buffer.size()), boost::asio::buffer(buffer));
+        ws2uxBuf.commit(copied);
 
         doWrite(std::move(onDone));
     }

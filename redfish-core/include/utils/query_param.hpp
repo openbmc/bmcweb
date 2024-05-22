@@ -6,6 +6,7 @@
 #include "error_messages.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
+#include "json_formatters.hpp"
 #include "logging.hpp"
 #include "str_utility.hpp"
 
@@ -180,7 +181,10 @@ struct Query
     std::optional<size_t> top = std::nullopt;
 
     // Select
-    SelectTrie selectTrie = {};
+    // Unclear how to make this use structured initialization without this.
+    // Might be a tidy bug?  Ignore for now
+    // NOLINTNEXTLINE(readability-redundant-member-init)
+    SelectTrie selectTrie{};
 };
 
 // The struct defines how resource handlers in redfish-core/lib/ can handle
@@ -202,7 +206,7 @@ struct QueryCapabilities
 // handlers so that handlers don't need to query again.
 inline Query delegate(const QueryCapabilities& queryCapabilities, Query& query)
 {
-    Query delegated;
+    Query delegated{};
     // delegate only
     if (query.isOnly && queryCapabilities.canDelegateOnly)
     {
@@ -380,7 +384,7 @@ inline std::optional<Query> parseParameters(boost::urls::params_view urlParams,
                                             crow::Response& res,
                                             std::string_view url)
 {
-    Query ret;
+    Query ret{};
     for (const boost::urls::params_view::value_type& it : urlParams)
     {
         if (it.key == "only")
@@ -514,7 +518,8 @@ inline bool processOnly(crow::App& app, crow::Response& res,
     // TODO(Ed) copy request headers?
     // newReq.session = req.session;
     std::error_code ec;
-    crow::Request newReq({boost::beast::http::verb::get, *url, 11}, ec);
+    auto newReq = std::make_shared<crow::Request>(
+        crow::Request::Body{boost::beast::http::verb::get, *url, 11}, ec);
     if (ec)
     {
         messages::internalError(res);
@@ -526,7 +531,6 @@ inline bool processOnly(crow::App& app, crow::Response& res,
     BMCWEB_LOG_DEBUG("setting completion handler on {}",
                      logPtr(&asyncResp->res));
     asyncResp->res.setCompleteRequestHandler(std::move(completionHandler));
-    asyncResp->res.setIsAliveHelper(res.releaseIsAliveHelper());
     app.handle(newReq, asyncResp);
     return true;
 }
@@ -536,7 +540,7 @@ struct ExpandNode
     nlohmann::json::json_pointer location;
     std::string uri;
 
-    inline bool operator==(const ExpandNode& other) const
+    bool operator==(const ExpandNode& other) const
     {
         return location == other.location && uri == other.uri;
     }
@@ -713,29 +717,21 @@ inline std::optional<std::string> formatQueryForExpand(const Query& query)
         return "";
     }
     std::string str = "?$expand=";
-    bool queryTypeExpected = false;
     switch (query.expandType)
     {
-        case ExpandType::None:
-            return "";
         case ExpandType::Links:
-            queryTypeExpected = true;
             str += '~';
             break;
         case ExpandType::NotLinks:
-            queryTypeExpected = true;
             str += '.';
             break;
         case ExpandType::Both:
-            queryTypeExpected = true;
             str += '*';
             break;
+        case ExpandType::None:
+            return "";
         default:
             return std::nullopt;
-    }
-    if (!queryTypeExpected)
-    {
-        return std::nullopt;
     }
     str += "($levels=";
     str += std::to_string(query.expandLevel - 1);
@@ -874,8 +870,10 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
             const std::string subQuery = node.uri + *queryStr;
             BMCWEB_LOG_DEBUG("URL of subquery:  {}", subQuery);
             std::error_code ec;
-            crow::Request newReq({boost::beast::http::verb::get, subQuery, 11},
-                                 ec);
+            auto newReq = std::make_shared<crow::Request>(
+                crow::Request::Body{boost::beast::http::verb::get, subQuery,
+                                    11},
+                ec);
             if (ec)
             {
                 messages::internalError(finalRes->res);

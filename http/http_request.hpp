@@ -1,16 +1,14 @@
 #pragma once
 
-#include "common.hpp"
+#include "http_body.hpp"
 #include "sessions.hpp"
 
 #include <boost/asio/io_context.hpp>
 #include <boost/asio/ip/address.hpp>
 #include <boost/beast/http/message.hpp>
-#include <boost/beast/http/string_body.hpp>
 #include <boost/beast/websocket.hpp>
 #include <boost/url/url.hpp>
 
-#include <memory>
 #include <string>
 #include <string_view>
 #include <system_error>
@@ -20,26 +18,22 @@ namespace crow
 
 struct Request
 {
-    using http_request_body =
-        boost::beast::http::request<boost::beast::http::string_body>;
-    std::shared_ptr<http_request_body> reqPtr;
-    http_request_body& req;
+    using Body = boost::beast::http::request<bmcweb::HttpBody>;
+    Body req;
 
   private:
-    boost::urls::url urlBase{};
+    boost::urls::url urlBase;
 
   public:
     bool isSecure{false};
 
-    boost::asio::io_context* ioService{};
-    boost::asio::ip::address ipAddress{};
+    boost::asio::io_context* ioService = nullptr;
+    boost::asio::ip::address ipAddress;
 
     std::shared_ptr<persistent_data::UserSession> session;
 
-    std::string userRole{};
-    Request(http_request_body reqIn, std::error_code& ec) :
-        reqPtr(std::make_shared<http_request_body>(std::move(reqIn))),
-        req(*reqPtr)
+    std::string userRole;
+    Request(Body reqIn, std::error_code& ec) : req(std::move(reqIn))
     {
         if (!setUrlInfo())
         {
@@ -47,39 +41,46 @@ struct Request
         }
     }
 
-    Request(std::string_view bodyIn, std::error_code& /*ec*/) :
-        reqPtr(
-            std::make_shared<http_request_body>(http_request_body({}, bodyIn))),
-        req(*reqPtr)
+    Request(std::string_view bodyIn, std::error_code& /*ec*/) : req({}, bodyIn)
     {}
 
-    Request() : reqPtr(std::make_shared<http_request_body>()), req(*reqPtr) {}
+    Request() = default;
 
-    Request(const Request& other) noexcept :
-        reqPtr(other.reqPtr), req(*reqPtr), urlBase(other.urlBase),
-        isSecure(other.isSecure), ioService(other.ioService),
-        ipAddress(other.ipAddress), session(other.session),
-        userRole(other.userRole)
-    {
-        setUrlInfo();
-    }
+    Request(const Request& other) = default;
+    Request(Request&& other) = default;
 
-    Request(Request&& other) noexcept :
-        reqPtr(std::move(other.reqPtr)), req(*reqPtr),
-        urlBase(std::move(other.urlBase)), isSecure(other.isSecure),
-        ioService(other.ioService), ipAddress(std::move(other.ipAddress)),
-        session(std::move(other.session)), userRole(std::move(other.userRole))
-    {
-        setUrlInfo();
-    }
-
-    Request& operator=(const Request&) = delete;
-    Request& operator=(const Request&&) = delete;
+    Request& operator=(const Request&) = default;
+    Request& operator=(Request&&) = default;
     ~Request() = default;
+
+    void addHeader(std::string_view key, std::string_view value)
+    {
+        req.insert(key, value);
+    }
+
+    void addHeader(boost::beast::http::field key, std::string_view value)
+    {
+        req.insert(key, value);
+    }
+
+    void clear()
+    {
+        req.clear();
+        urlBase.clear();
+        isSecure = false;
+        ioService = nullptr;
+        ipAddress = boost::asio::ip::address();
+        session = nullptr;
+        userRole = "";
+    }
 
     boost::beast::http::verb method() const
     {
         return req.method();
+    }
+    void method(boost::beast::http::verb verb)
+    {
+        req.method(verb);
     }
 
     std::string_view getHeaderValue(std::string_view key) const
@@ -90,6 +91,11 @@ struct Request
     std::string_view getHeaderValue(boost::beast::http::field key) const
     {
         return req[key];
+    }
+
+    void clearHeader(boost::beast::http::field key)
+    {
+        req.erase(key);
     }
 
     std::string_view methodString() const
@@ -114,7 +120,7 @@ struct Request
 
     const std::string& body() const
     {
-        return req.body();
+        return req.body().str();
     }
 
     bool target(std::string_view target)

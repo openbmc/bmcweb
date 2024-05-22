@@ -1,17 +1,15 @@
 #pragma once
 #include "async_resp.hpp"
+#include "http_body.hpp"
 #include "http_request.hpp"
 
 #include <boost/asio/buffer.hpp>
 #include <boost/beast/core/multi_buffer.hpp>
 #include <boost/beast/websocket.hpp>
+#include <boost/beast/websocket/ssl.hpp>
 
 #include <array>
 #include <functional>
-
-#ifdef BMCWEB_ENABLE_SSL
-#include <boost/beast/websocket/ssl.hpp>
-#endif
 
 namespace crow
 {
@@ -91,7 +89,8 @@ class ConnectionImpl : public Connection
         BMCWEB_LOG_DEBUG("starting connection {}", logPtr(this));
 
         using bf = boost::beast::http::field;
-        std::string protocolHeader = req.req[bf::sec_websocket_protocol];
+        std::string protocolHeader{
+            req.getHeaderValue(bf::sec_websocket_protocol)};
 
         ws.set_option(boost::beast::websocket::stream_base::decorator(
             [session{session},
@@ -128,8 +127,7 @@ class ConnectionImpl : public Connection
         }));
 
         // Make a pointer to keep the req alive while we accept it.
-        using Body =
-            boost::beast::http::request<boost::beast::http::string_body>;
+        using Body = boost::beast::http::request<bmcweb::HttpBody>;
         std::unique_ptr<Body> mobile = std::make_unique<Body>(req.req);
         Body* ptr = mobile.get();
         // Perform the websocket upgrade
@@ -216,8 +214,8 @@ class ConnectionImpl : public Connection
     }
 
     void acceptDone(const std::shared_ptr<Connection>& /*self*/,
-                    const std::unique_ptr<boost::beast::http::request<
-                        boost::beast::http::string_body>>& /*req*/,
+                    const std::unique_ptr<
+                        boost::beast::http::request<bmcweb::HttpBody>>& /*req*/,
                     const boost::system::error_code& ec)
     {
         if (ec)

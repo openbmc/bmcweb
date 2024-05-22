@@ -273,7 +273,7 @@ if not nghttp2.found()
     'ENABLE_STATIC_LIB': true
   })
   nghttp2_ex = cmake.subproject('nghttp2', options: opt_var)
-  nghttp2 = nghttp2_ex.dependency('nghttp2')
+  nghttp2 = nghttp2_ex.dependency('nghttp2_static')
 endif
 bmcweb_dependencies += nghttp2
 
@@ -294,6 +294,7 @@ tinyxml = dependency(
     'tinyxml2',
     include_type: 'system',
     version: '>=9.0.0',
+    default_options: ['tests=false'],
 )
 if not tinyxml.found()
     tinyxml_proj = subproject('tinyxml2', required: true)
@@ -324,8 +325,10 @@ else
   cmake = import('cmake')
   opt = cmake.subproject_options()
   opt.add_cmake_defines({
-    'BOOST_INCLUDE_LIBRARIES': 'asio;beast;callable_traits;headers;process;type_index;url;uuid'
+    'BOOST_INCLUDE_LIBRARIES': 'asio;beast;callable_traits;headers;process;type_index;url;uuid',
+    'BUILD_SHARED_LIBS': 'OFF',
   })
+
   boost = cmake.subproject('boost', required: true, options: opt)
   boost_asio = boost.dependency('boost_asio').as_system()
   boost_beast = boost.dependency('boost_beast').as_system()
@@ -348,7 +351,7 @@ else
 endif
 
 if get_option('tests').allowed()
-  gtest = dependency('gtest', main: true, disabler: true, required : false)
+  gtest = dependency('gtest', main: true, version: '>=1.14.0', disabler: true, required : false)
   gmock = dependency('gmock', required : false)
   if not gtest.found() and get_option('tests').allowed()
     gtest_proj = subproject('gtest', required: true)
@@ -380,10 +383,15 @@ bmcweb_dependencies += conf_h_dep
 fs = import('fs')
 
 srcfiles_bmcweb = files(
+  # Begin large files, should be at the beginning
+  'redfish-core/src/redfish.cpp',
+  'src/webserver_run.cpp',
+  # end large files
+
   'redfish-core/src/error_messages.cpp',
   'redfish-core/src/registries.cpp',
-  'redfish-core/src/utils/time_utils.cpp',
   'redfish-core/src/utils/json_utils.cpp',
+  'redfish-core/src/utils/time_utils.cpp',
   'src/boost_asio_ssl.cpp',
   'src/boost_asio.cpp',
   'src/boost_beast.cpp',
@@ -413,12 +421,16 @@ executable(
 
 srcfiles_unittest = files(
   'test/http/crow_getroutes_test.cpp',
+  'test/http/http2_connection_test.cpp',
   'test/http/http_connection_test.cpp',
   'test/http/router_test.cpp',
+  'test/http/parsing_test.cpp',
   'test/http/http_response_test.cpp',
   'test/http/utility_test.cpp',
   'test/http/verb_test.cpp',
+  'test/http/server_sent_event_test.cpp',
   'test/http/mutual_tls_meta.cpp',
+  'test/http/http_body_test.cpp',
   'test/include/dbus_utility_test.cpp',
   'test/include/google/google_service_root_test.cpp',
   'test/include/json_html_serializer.cpp',

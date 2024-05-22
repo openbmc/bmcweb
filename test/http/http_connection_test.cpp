@@ -18,7 +18,7 @@ namespace crow
 struct FakeHandler
 {
     static void
-        handleUpgrade(Request& /*req*/,
+        handleUpgrade(const std::shared_ptr<Request>& /*req*/,
                       const std::shared_ptr<bmcweb::AsyncResp>& /*asyncResp*/,
                       boost::beast::test::stream&& /*adaptor*/)
     {
@@ -26,16 +26,16 @@ struct FakeHandler
         EXPECT_FALSE(true);
     }
 
-    void handle(Request& req,
+    void handle(const std::shared_ptr<Request>& req,
                 const std::shared_ptr<bmcweb::AsyncResp>& /*asyncResp*/)
     {
-        EXPECT_EQ(req.method(), boost::beast::http::verb::get);
-        EXPECT_EQ(req.target(), "/");
-        EXPECT_EQ(req.getHeaderValue(boost::beast::http::field::host),
+        EXPECT_EQ(req->method(), boost::beast::http::verb::get);
+        EXPECT_EQ(req->target(), "/");
+        EXPECT_EQ(req->getHeaderValue(boost::beast::http::field::host),
                   "openbmc_project.xyz");
-        EXPECT_FALSE(req.keepAlive());
-        EXPECT_EQ(req.version(), 11);
-        EXPECT_EQ(req.body(), "");
+        EXPECT_FALSE(req->keepAlive());
+        EXPECT_EQ(req->version(), 11);
+        EXPECT_EQ(req->body(), "");
 
         called = true;
     }
@@ -79,17 +79,9 @@ TEST(http_connection, RequestPropogates)
         "HTTP/1.1 200 OK\r\n"
         "Connection: close\r\n"
         "Strict-Transport-Security: max-age=31536000; includeSubdomains\r\n"
-        "X-Frame-Options: DENY\r\n"
         "Pragma: no-cache\r\n"
         "Cache-Control: no-store, max-age=0\r\n"
         "X-Content-Type-Options: nosniff\r\n"
-        "Referrer-Policy: no-referrer\r\n"
-        "Permissions-Policy: accelerometer=(),ambient-light-sensor=(),autoplay=(),battery=(),camera=(),display-capture=(),document-domain=(),encrypted-media=(),fullscreen=(),gamepad=(),geolocation=(),gyroscope=(),layout-animations=(self),legacy-image-formats=(self),magnetometer=(),microphone=(),midi=(),oversized-images=(self),payment=(),picture-in-picture=(),publickey-credentials-get=(),speaker-selection=(),sync-xhr=(self),unoptimized-images=(self),unsized-media=(self),usb=(),screen-wak-lock=(),web-share=(),xr-spatial-tracking=()\r\n"
-        "X-Permitted-Cross-Domain-Policies: none\r\n"
-        "Cross-Origin-Embedder-Policy: require-corp\r\n"
-        "Cross-Origin-Opener-Policy: same-origin\r\n"
-        "Cross-Origin-Resource-Policy: same-origin\r\n"
-        "Content-Security-Policy: default-src 'none'; img-src 'self' data:; font-src 'self'; style-src 'self'; script-src 'self'; connect-src 'self' wss:; form-action 'none'; frame-ancestors 'none'; object-src 'none'; base-uri 'none'\r\n"
         "Date: TestTime\r\n"
         "Content-Length: 0\r\n\r\n";
     EXPECT_EQ(outStr, expected);

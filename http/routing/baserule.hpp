@@ -5,7 +5,8 @@
 #include "privileges.hpp"
 #include "verb.hpp"
 
-#include <boost/beast/ssl/ssl_stream.hpp>
+#include <boost/asio/ip/tcp.hpp>
+#include <boost/asio/ssl/stream.hpp>
 
 #include <memory>
 #include <string>
@@ -37,7 +38,6 @@ class BaseRule
     virtual void handle(const Request& /*req*/,
                         const std::shared_ptr<bmcweb::AsyncResp>&,
                         const std::vector<std::string>&) = 0;
-#ifndef BMCWEB_ENABLE_SSL
     virtual void
         handleUpgrade(const Request& /*req*/,
                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -45,15 +45,14 @@ class BaseRule
     {
         asyncResp->res.result(boost::beast::http::status::not_found);
     }
-#else
+
     virtual void handleUpgrade(
         const Request& /*req*/,
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-        boost::beast::ssl_stream<boost::asio::ip::tcp::socket>&& /*adaptor*/)
+        boost::asio::ssl::stream<boost::asio::ip::tcp::socket>&& /*adaptor*/)
     {
         asyncResp->res.result(boost::beast::http::status::not_found);
     }
-#endif
 
     size_t getMethods() const
     {

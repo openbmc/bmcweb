@@ -16,6 +16,7 @@
 #pragma once
 
 #include "async_resolve.hpp"
+#include "http_body.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
 #include "ssl_key_handler.hpp"
@@ -27,25 +28,22 @@
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/ssl/context.hpp>
 #include <boost/asio/ssl/error.hpp>
+#include <boost/asio/ssl/stream.hpp>
 #include <boost/asio/steady_timer.hpp>
-#include <boost/beast/core/flat_buffer.hpp>
 #include <boost/beast/core/flat_static_buffer.hpp>
 #include <boost/beast/http/message.hpp>
+#include <boost/beast/http/message_generator.hpp>
 #include <boost/beast/http/parser.hpp>
 #include <boost/beast/http/read.hpp>
-#include <boost/beast/http/string_body.hpp>
 #include <boost/beast/http/write.hpp>
-#include <boost/beast/ssl/ssl_stream.hpp>
-#include <boost/beast/version.hpp>
 #include <boost/container/devector.hpp>
 #include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
 #include <boost/url/url.hpp>
-#include <boost/url/url_view.hpp>
+#include <boost/url/url_view_base.hpp>
 
 #include <cstdlib>
 #include <functional>
-#include <iostream>
 #include <memory>
 #include <queue>
 #include <string>
@@ -117,10 +115,10 @@ struct ConnectionPolicy
 
 struct PendingRequest
 {
-    boost::beast::http::request<boost::beast::http::string_body> req;
+    boost::beast::http::request<bmcweb::HttpBody> req;
     std::function<void(bool, uint32_t, Response&)> callback;
     PendingRequest(
-        boost::beast::http::request<boost::beast::http::string_body>&& reqIn,
+        boost::beast::http::request<bmcweb::HttpBody>&& reqIn,
         const std::function<void(bool, uint32_t, Response&)>& callbackIn) :
         req(std::move(reqIn)),
         callback(callbackIn)
@@ -139,8 +137,8 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     uint32_t connId;
 
     // Data buffers
-    http::request<http::string_body> req;
-    using parser_type = http::response_parser<http::string_body>;
+    http::request<bmcweb::HttpBody> req;
+    using parser_type = http::response_parser<bmcweb::HttpBody>;
     std::optional<parser_type> parser;
     boost::beast::flat_static_buffer<httpReadBufferSize> buffer;
     Response res;
@@ -158,7 +156,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     Resolver resolver;
 
     boost::asio::ip::tcp::socket conn;
-    std::optional<boost::beast::ssl_stream<boost::asio::ip::tcp::socket&>>
+    std::optional<boost::asio::ssl::stream<boost::asio::ip::tcp::socket&>>
         sslConn;
 
     boost::asio::steady_timer timer;
@@ -279,19 +277,19 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         // Set a timeout on the operation
         timer.expires_after(std::chrono::seconds(30));
         timer.async_wait(std::bind_front(onTimeout, weak_from_this()));
-
+        boost::beast::http::message_generator messageGenerator(std::move(req));
         // Send the HTTP request to the remote host
         if (sslConn)
         {
-            boost::beast::http::async_write(
-                *sslConn, req,
+            boost::beast::async_write(
+                *sslConn, std::move(messageGenerator),
                 std::bind_front(&ConnectionInfo::afterWrite, this,
                                 shared_from_this()));
         }
         else
         {
-            boost::beast::http::async_write(
-                conn, req,
+            boost::beast::async_write(
+                conn, std::move(messageGenerator),
                 std::bind_front(&ConnectionInfo::afterWrite, this,
                                 shared_from_this()));
         }
@@ -376,7 +374,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         {
             return;
         }
-        BMCWEB_LOG_DEBUG("recvMessage() data: {}", parser->get().body());
+        BMCWEB_LOG_DEBUG("recvMessage() data: {}", parser->get().body().str());
 
         unsigned int respCode = parser->get().result_int();
         BMCWEB_LOG_DEBUG("recvMessage() Header Response Code: {}", respCode);
@@ -637,7 +635,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     explicit ConnectionInfo(
         boost::asio::io_context& iocIn, const std::string& idIn,
         const std::shared_ptr<ConnectionPolicy>& connPolicyIn,
-        boost::urls::url_view hostIn, unsigned int connIdIn) :
+        const boost::urls::url_view_base& hostIn, unsigned int connIdIn) :
         subId(idIn),
         connPolicy(connPolicyIn), host(hostIn), connId(connIdIn), ioc(iocIn),
         resolver(iocIn), conn(iocIn), timer(iocIn)
@@ -669,7 +667,7 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
             return;
         }
 
-        auto nextReq = requestQueue.front();
+        PendingRequest& nextReq = requestQueue.front();
         conn.req = std::move(nextReq.req);
         conn.callback = std::move(nextReq.callback);
 
@@ -728,18 +726,18 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
         }
     }
 
-    void sendData(std::string&& data, boost::urls::url_view destUri,
+    void sendData(std::string&& data, const boost::urls::url_view_base& destUri,
                   const boost::beast::http::fields& httpHeader,
                   const boost::beast::http::verb verb,
                   const std::function<void(Response&)>& resHandler)
     {
         // Construct the request to be sent
-        boost::beast::http::request<boost::beast::http::string_body> thisReq(
+        boost::beast::http::request<bmcweb::HttpBody> thisReq(
             verb, destUri.encoded_target(), 11, "", httpHeader);
         thisReq.set(boost::beast::http::field::host,
                     destUri.encoded_host_address());
         thisReq.keep_alive(true);
-        thisReq.body() = std::move(data);
+        thisReq.body().str() = std::move(data);
         thisReq.prepare_payload();
         auto cb = std::bind_front(&ConnectionPool::afterSendData,
                                   weak_from_this(), resHandler);
@@ -836,7 +834,7 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
     explicit ConnectionPool(
         boost::asio::io_context& iocIn, const std::string& idIn,
         const std::shared_ptr<ConnectionPolicy>& connPolicyIn,
-        boost::urls::url_view destIPIn) :
+        const boost::urls::url_view_base& destIPIn) :
         ioc(iocIn),
         id(idIn), connPolicy(connPolicyIn), destIP(destIPIn)
     {
@@ -879,7 +877,7 @@ class HttpClient
 
     // Send a request to destIP where additional processing of the
     // result is not required
-    void sendData(std::string&& data, boost::urls::url_view destUri,
+    void sendData(std::string&& data, const boost::urls::url_view_base& destUri,
                   const boost::beast::http::fields& httpHeader,
                   const boost::beast::http::verb verb)
     {
@@ -889,7 +887,8 @@ class HttpClient
 
     // Send request to destIP and use the provided callback to
     // handle the response
-    void sendDataWithCallback(std::string&& data, boost::urls::url_view destUrl,
+    void sendDataWithCallback(std::string&& data,
+                              const boost::urls::url_view_base& destUrl,
                               const boost::beast::http::fields& httpHeader,
                               const boost::beast::http::verb verb,
                               const std::function<void(Response&)>& resHandler)

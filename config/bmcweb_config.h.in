@@ -4,9 +4,6 @@
 #include <cstddef>
 
 // clang-format off
-constexpr const int bmcwebInsecureDisableXssPrevention =
-    @BMCWEB_INSECURE_DISABLE_XSS_PREVENTION@;
-
 constexpr const bool bmcwebInsecureEnableQueryParams = @BMCWEB_INSECURE_ENABLE_QUERY_PARAMS@ == 1;
 
 constexpr const size_t bmcwebHttpReqBodyLimitMb = @BMCWEB_HTTP_REQ_BODY_LIMIT_MB@;
@@ -24,6 +21,8 @@ constexpr const bool bmcwebEnableLicense = @BMCWEB_ENABLE_REDFISH_LICENSE@ == 1;
 constexpr const bool bmcwebEnableMultiHost = @BMCWEB_ENABLE_MULTI_HOST@ == 1;
 
 constexpr const bool bmcwebEnableHTTP2 = @BMCWEB_ENABLE_HTTP2@ == 1;
+
+constexpr const bool bmcwebEnableTLS = @BMCWEB_ENABLE_TLS@ == 1;
 
 constexpr const bool bmcwebMTLSCommonNameParsingMeta = @BMCWEB_ENABLE_MTLS_COMMON_NAME_PARSING_META@ == 1;
 // clang-format on

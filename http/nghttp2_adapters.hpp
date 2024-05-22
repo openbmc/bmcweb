@@ -11,7 +11,12 @@ extern "C"
 
 /* This file contains RAII compatible adapters for nghttp2 structures.  They
  * attempt to be as close to a direct call as possible, while keeping the RAII
- * lifetime safety for the various classes.*/
+ * lifetime safety for the various classes.  Because of this, they use the same
+ * naming as nghttp2, so ignore naming violations.
+ */
+
+// NOLINTBEGIN(readability-identifier-naming,
+// readability-make-member-function-const)
 
 struct nghttp2_session;
 
@@ -84,6 +89,13 @@ struct nghttp2_session_callbacks
             ptr, afterSendFrame);
     }
 
+    void setOnDataChunkRecvCallback(
+        nghttp2_on_data_chunk_recv_callback afterDataChunkRecv)
+    {
+        nghttp2_session_callbacks_set_on_data_chunk_recv_callback(
+            ptr, afterDataChunkRecv);
+    }
+
   private:
     nghttp2_session_callbacks* get()
     {
@@ -135,9 +147,11 @@ struct nghttp2_session
         return nghttp2_session_mem_recv(ptr, buffer.data(), buffer.size());
     }
 
-    ssize_t send()
+    std::span<const uint8_t> memSend()
     {
-        return nghttp2_session_send(ptr);
+        const uint8_t* bytes = nullptr;
+        ssize_t size = nghttp2_session_mem_send(ptr, &bytes);
+        return {bytes, static_cast<size_t>(size)};
     }
 
     int submitResponse(int32_t streamId, std::span<const nghttp2_nv> headers,
@@ -150,3 +164,44 @@ struct nghttp2_session
   private:
     nghttp2_session* ptr = nullptr;
 };
+
+struct nghttp2_hd_inflater_ex
+{
+    nghttp2_hd_inflater* ptr = nullptr;
+
+  public:
+    nghttp2_hd_inflater_ex()
+    {
+        if (nghttp2_hd_inflate_new(&ptr) != 0)
+        {
+            BMCWEB_LOG_ERROR("nghttp2_hd_inflater_new failed");
+        }
+    }
+
+    ssize_t hd2(nghttp2_nv* nvOut, int* inflateFlags, const uint8_t* in,
+                size_t inlen, int inFinal)
+    {
+        return nghttp2_hd_inflate_hd2(ptr, nvOut, inflateFlags, in, inlen,
+                                      inFinal);
+    }
+
+    int endHeaders()
+    {
+        return nghttp2_hd_inflate_end_headers(ptr);
+    }
+
+    nghttp2_hd_inflater_ex(const nghttp2_hd_inflater_ex&) = delete;
+    nghttp2_hd_inflater_ex& operator=(const nghttp2_hd_inflater_ex&) = delete;
+    nghttp2_hd_inflater_ex& operator=(nghttp2_hd_inflater_ex&&) = delete;
+    nghttp2_hd_inflater_ex(nghttp2_hd_inflater_ex&& other) = delete;
+
+    ~nghttp2_hd_inflater_ex()
+    {
+        if (ptr != nullptr)
+        {
+            nghttp2_hd_inflate_del(ptr);
+        }
+    }
+};
+// NOLINTEND(readability-identifier-naming,
+// readability-make-member-function-const)

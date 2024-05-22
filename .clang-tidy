@@ -26,6 +26,7 @@ bugprone-misplaced-operator-in-strlen-in-alloc,
 bugprone-misplaced-pointer-arithmetic-in-alloc,
 bugprone-misplaced-widening-cast,
 bugprone-move-forwarding-reference,
+bugprone-multi-level-implicit-pointer-conversion,
 bugprone-multiple-statement-macro,
 bugprone-narrowing-conversions,
 bugprone-no-escape,
@@ -283,6 +284,7 @@ performance-type-promotion-in-math-fn,
 performance-unnecessary-copy-initialization,
 performance-unnecessary-value-param,
 readability-avoid-const-params-in-decls,
+readability-avoid-nested-conditional-operator,
 readability-braces-around-statements,
 readability-const-return-type,
 readability-container-contains,
@@ -307,6 +309,7 @@ readability-redundant-access-specifiers,
 readability-redundant-control-flow,
 readability-redundant-declaration,
 readability-redundant-function-ptr-dereference,
+readability-redundant-inline-specifier,
 readability-redundant-member-init,
 readability-redundant-preprocessor,
 readability-redundant-smartptr-get,
@@ -333,4 +336,5 @@ CheckOptions:
   - { key: readability-identifier-naming.FunctionIgnoredRegexp,  value: (BMCWEB_LOG_DEBUG|BMCWEB_LOG_INFO|BMCWEB_LOG_WARNING|BMCWEB_LOG_ERROR|BMCWEB_LOG_CRITICAL) }
   - { key: readability-identifier-naming.StructIgnoredRegexp,  value: (BMCWEB_LOG_DEBUG|BMCWEB_LOG_INFO|BMCWEB_LOG_WARNING|BMCWEB_LOG_ERROR|BMCWEB_LOG_CRITICAL) }
   - { key: cppcoreguidelines-macro-usage.AllowedRegexp, value: DEBUG*|NLOHMANN_JSON_SERIALIZE_ENUM }
-  - { key: performance-unnecessary-value-param.AllowedTypes, value: ((segments_view)|(url_view)) }
+  - { key: cppcoreguidelines-rvalue-reference-param-not-moved.IgnoreUnnamedParams, value: true }
+  - { key: misc-include-cleaner.IgnoreHeaders, value: ((nlohmann/json_fwd.hpp)|(boost/.*/src.hpp)|(boost/.*/detail/.*)|(nlohmann/detail/.*)|(stdio.h)|(ranges)|(bits/.*)|(boost/system/error_code.hpp)) }

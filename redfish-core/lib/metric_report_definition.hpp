@@ -8,6 +8,7 @@
 #include "sensors.hpp"
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
+#include "utils/json_utils.hpp"
 #include "utils/telemetry_utils.hpp"
 #include "utils/time_utils.hpp"
 
@@ -658,7 +659,7 @@ inline bool getChassisSensorNodeFromMetrics(
 class AddReport
 {
   public:
-    AddReport(AddReportArgs argsIn,
+    AddReport(AddReportArgs&& argsIn,
               const std::shared_ptr<bmcweb::AsyncResp>& asyncRespIn) :
         asyncResp(asyncRespIn),
         args(std::move(argsIn))
@@ -769,7 +770,7 @@ class AddReport
   private:
     std::shared_ptr<bmcweb::AsyncResp> asyncResp;
     AddReportArgs args;
-    boost::container::flat_map<std::string, std::string> uriToDbus{};
+    boost::container::flat_map<std::string, std::string> uriToDbus;
 };
 
 class UpdateMetrics
@@ -887,7 +888,7 @@ class UpdateMetrics
 
     const std::shared_ptr<bmcweb::AsyncResp> asyncResp;
     std::vector<std::vector<std::string>> readingParamsUris;
-    ReadingParameters readingParams{};
+    ReadingParameters readingParams;
 };
 
 inline void

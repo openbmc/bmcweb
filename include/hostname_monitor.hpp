@@ -1,5 +1,4 @@
 #pragma once
-#ifdef BMCWEB_ENABLE_SSL
 #include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "include/dbus_utility.hpp"
@@ -28,7 +27,12 @@ inline void installCertificate(const std::filesystem::path& certPath)
 
         BMCWEB_LOG_INFO("Replace HTTPs Certificate Success, "
                         "remove temporary certificate file..");
-        remove(certPath.c_str());
+        std::error_code ec2;
+        std::filesystem::remove(certPath.c_str(), ec2);
+        if (ec2)
+        {
+            BMCWEB_LOG_ERROR("Failed to remove certificate");
+        }
     },
         "xyz.openbmc_project.Certs.Manager.Server.Https",
         "/xyz/openbmc_project/certs/server/https/1",
@@ -143,4 +147,3 @@ inline void registerHostnameSignal()
 }
 } // namespace hostname_monitor
 } // namespace crow
-#endif

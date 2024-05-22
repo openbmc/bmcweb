@@ -19,13 +19,17 @@
 
 #include "app.hpp"
 #include "dbus_utility.hpp"
+#include "error_messages.hpp"
+#include "generated/enums/update_service.hpp"
 #include "multipart_parser.hpp"
 #include "ossl_random.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "task.hpp"
+#include "task_messages.hpp"
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
+#include "utils/json_utils.hpp"
 #include "utils/sw_utils.hpp"
 
 #include <boost/algorithm/string/case_conv.hpp>
@@ -62,14 +66,15 @@ static bool fwUpdateInProgress = false;
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static std::unique_ptr<boost::asio::steady_timer> fwAvailableTimer;
 
-inline static void cleanUp()
+inline void cleanUp()
 {
     fwUpdateInProgress = false;
     fwUpdateMatcher = nullptr;
     fwUpdateErrorMatcher = nullptr;
 }
-inline static void activateImage(const std::string& objPath,
-                                 const std::string& service)
+
+inline void activateImage(const std::string& objPath,
+                          const std::string& service)
 {
     BMCWEB_LOG_DEBUG("Activate image for {} {}", objPath, service);
     sdbusplus::asio::setProperty(
@@ -512,6 +517,12 @@ static void monitorForSoftwareAvailable(
         return;
     }
 
+    if (req.ioService == nullptr)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
     fwAvailableTimer =
         std::make_unique<boost::asio::steady_timer>(*req.ioService);
 
@@ -746,6 +757,7 @@ inline void setApplyTime(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
 inline void
     updateMultipartContext(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const crow::Request& req,
                            const MultipartParser& parser)
 {
     const std::string* uploadData = nullptr;
@@ -823,6 +835,9 @@ inline void
 
     setApplyTime(asyncResp, *applyTime);
 
+    // Setup callback for when new software detected
+    monitorForSoftwareAvailable(asyncResp, req, "/redfish/v1/UpdateService");
+
     uploadImageFile(asyncResp->res, *uploadData);
 }
 
@@ -852,9 +867,6 @@ inline void
     {
         MultipartParser parser;
 
-        // Setup callback for when new software detected
-        monitorForSoftwareAvailable(asyncResp, req, url);
-
         ParserError ec = parser.parse(req);
         if (ec != ParserError::PARSER_SUCCESS)
         {
@@ -864,7 +876,8 @@ inline void
             messages::internalError(asyncResp->res);
             return;
         }
-        updateMultipartContext(asyncResp, parser);
+
+        updateMultipartContext(asyncResp, req, parser);
     }
     else
     {

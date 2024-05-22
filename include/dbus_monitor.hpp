@@ -164,11 +164,6 @@ inline void requestRoutes(App& app)
         {
             interfaceCount = 1;
         }
-        // Reserve our matches upfront.  For each path there is 1 for
-        // interfacesAdded, and InterfaceCount number for
-        // PropertiesChanged
-        thisSession.matches.reserve(thisSession.matches.size() +
-                                    paths->size() * (1U + interfaceCount));
 
         // These regexes derived on the rules here:
         // https://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-names

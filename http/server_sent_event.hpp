@@ -1,27 +1,24 @@
 #pragma once
-#include "dbus_singleton.hpp"
+#include "http_body.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
 
 #include <boost/asio/buffer.hpp>
 #include <boost/asio/steady_timer.hpp>
 #include <boost/beast/core/multi_buffer.hpp>
-#include <boost/beast/http/buffer_body.hpp>
 #include <boost/beast/websocket.hpp>
 
 #include <array>
+#include <cstddef>
 #include <functional>
-
-#ifdef BMCWEB_ENABLE_SSL
-#include <boost/beast/websocket/ssl.hpp>
-#endif
+#include <optional>
 
 namespace crow
 {
 
 namespace sse_socket
 {
-struct Connection : std::enable_shared_from_this<Connection>
+struct Connection : public std::enable_shared_from_this<Connection>
 {
   public:
     Connection() = default;
@@ -45,8 +42,11 @@ class ConnectionImpl : public Connection
                    std::function<void(Connection&)> openHandlerIn,
                    std::function<void(Connection&)> closeHandlerIn) :
         adaptor(std::move(adaptorIn)),
-        timer(ioc), openHandler(std::move(openHandlerIn)),
+        timer(static_cast<boost::asio::io_context&>(
+            adaptor.get_executor().context())),
+        openHandler(std::move(openHandlerIn)),
         closeHandler(std::move(closeHandlerIn))
+
     {
         BMCWEB_LOG_DEBUG("SseConnectionImpl: SSE constructor {}", logPtr(this));
     }
@@ -75,10 +75,12 @@ class ConnectionImpl : public Connection
             return;
         }
         openHandler(*this);
+        sendSSEHeader();
     }
 
     void close(const std::string_view msg) override
     {
+        BMCWEB_LOG_DEBUG("Closing connection with reason {}", msg);
         // send notification to handler for cleanup
         if (closeHandler)
         {
@@ -91,13 +93,10 @@ class ConnectionImpl : public Connection
     void sendSSEHeader()
     {
         BMCWEB_LOG_DEBUG("Starting SSE connection");
-        using BodyType = boost::beast::http::buffer_body;
-        boost::beast::http::response<BodyType> res(
-            boost::beast::http::status::ok, 11, BodyType{});
+
         res.set(boost::beast::http::field::content_type, "text/event-stream");
-        res.body().more = true;
         boost::beast::http::response_serializer<BodyType>& serial =
-            serializer.emplace(std::move(res));
+            serializer.emplace(res);
 
         boost::beast::http::async_write_header(
             adaptor, serial,
@@ -118,19 +117,17 @@ class ConnectionImpl : public Connection
         }
         BMCWEB_LOG_DEBUG("SSE header sent - Connection established");
 
-        serializer.reset();
-
         // SSE stream header sent, So let us setup monitor.
         // Any read data on this stream will be error in case of SSE.
-
-        adaptor.async_wait(boost::asio::ip::tcp::socket::wait_error,
-                           std::bind_front(&ConnectionImpl::afterReadError,
-                                           this, shared_from_this()));
+        adaptor.async_read_some(boost::asio::buffer(buffer),
+                                std::bind_front(&ConnectionImpl::afterReadError,
+                                                this, shared_from_this()));
     }
 
     void afterReadError(const std::shared_ptr<Connection>& /*self*/,
-                        const boost::system::error_code& ec)
+                        const boost::system::error_code& ec, size_t bytesRead)
     {
+        BMCWEB_LOG_DEBUG("Read {}", bytesRead);
         if (ec == boost::asio::error::operation_aborted)
         {
             return;
@@ -160,18 +157,13 @@ class ConnectionImpl : public Connection
         adaptor.async_write_some(
             inputBuffer.data(),
             std::bind_front(&ConnectionImpl::doWriteCallback, this,
-                            weak_from_this()));
+                            shared_from_this()));
     }
 
-    void doWriteCallback(const std::weak_ptr<Connection>& weak,
+    void doWriteCallback(const std::shared_ptr<Connection>& /*self*/,
                          const boost::beast::error_code& ec,
                          size_t bytesTransferred)
     {
-        auto self = weak.lock();
-        if (self == nullptr)
-        {
-            return;
-        }
         timer.cancel();
         doingWrite = false;
         inputBuffer.consume(bytesTransferred);
@@ -210,6 +202,13 @@ class ConnectionImpl : public Connection
 
     void dataFormat(std::string_view id, std::string_view msg)
     {
+        constexpr size_t bufferLimit = 10485760U; // 10MB
+        if (id.size() + msg.size() + inputBuffer.size() >= bufferLimit)
+        {
+            BMCWEB_LOG_ERROR("SSE Buffer overflow while waiting for client");
+            close("Buffer overflow");
+            return;
+        }
         std::string rawData;
         if (!id.empty())
         {
@@ -229,9 +228,9 @@ class ConnectionImpl : public Connection
         }
         rawData += "\n\n";
 
-        boost::asio::buffer_copy(inputBuffer.prepare(rawData.size()),
-                                 boost::asio::buffer(rawData));
-        inputBuffer.commit(rawData.size());
+        size_t copied = boost::asio::buffer_copy(
+            inputBuffer.prepare(rawData.size()), boost::asio::buffer(rawData));
+        inputBuffer.commit(copied);
     }
 
     void startTimeout()
@@ -255,7 +254,7 @@ class ConnectionImpl : public Connection
 
         if (ec == boost::asio::error::operation_aborted)
         {
-            BMCWEB_LOG_DEBUG("operation aborted");
+            BMCWEB_LOG_DEBUG("Timer operation aborted");
             // Canceled wait means the path succeeded.
             return;
         }
@@ -264,22 +263,21 @@ class ConnectionImpl : public Connection
             BMCWEB_LOG_CRITICAL("{} timer failed {}", logPtr(self.get()), ec);
         }
 
-        BMCWEB_LOG_WARNING("{}Connection timed out, closing",
+        BMCWEB_LOG_WARNING("{} Connection timed out, closing",
                            logPtr(self.get()));
 
         self->close("closing connection");
     }
 
   private:
-    Adaptor adaptor;
-
+    std::array<char, 1> buffer{};
     boost::beast::multi_buffer inputBuffer;
 
-    std::optional<boost::beast::http::response_serializer<
-        boost::beast::http::buffer_body>>
-        serializer;
-    boost::asio::io_context& ioc =
-        crow::connections::systemBus->get_io_context();
+    Adaptor adaptor;
+
+    using BodyType = bmcweb::HttpBody;
+    boost::beast::http::response<BodyType> res;
+    std::optional<boost::beast::http::response_serializer<BodyType>> serializer;
     boost::asio::steady_timer timer;
     bool doingWrite = false;
 

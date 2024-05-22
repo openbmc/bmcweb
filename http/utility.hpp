@@ -8,6 +8,7 @@
 #include <boost/url/parse.hpp>
 #include <boost/url/url.hpp>
 #include <boost/url/url_view.hpp>
+#include <boost/url/url_view_base.hpp>
 #include <nlohmann/json.hpp>
 
 #include <array>
@@ -31,27 +32,10 @@ namespace crow
 namespace utility
 {
 
-enum class TypeCode : uint8_t
-{
-    Unspecified = 0,
-    String = 1,
-    Path = 2,
-    Max = 3,
-};
-
-// Remove when we have c++23
-template <typename E>
-constexpr typename std::underlying_type<E>::type toUnderlying(E e) noexcept
-{
-    return static_cast<typename std::underlying_type<E>::type>(e);
-}
-
-constexpr inline uint64_t getParameterTag(std::string_view url)
+constexpr uint64_t getParameterTag(std::string_view url)
 {
     uint64_t tagValue = 0;
     size_t urlSegmentIndex = std::string_view::npos;
-
-    size_t paramIndex = 0;
 
     for (size_t urlIndex = 0; urlIndex < url.size(); urlIndex++)
     {
@@ -73,25 +57,14 @@ constexpr inline uint64_t getParameterTag(std::string_view url)
             std::string_view tag = url.substr(urlSegmentIndex,
                                               urlIndex + 1 - urlSegmentIndex);
 
-            // Note, this is a really lame way to do std::pow(6, paramIndex)
-            // std::pow doesn't work in constexpr in clang.
-            // Ideally in the future we'd move this to use a power of 2 packing
-            // (probably 8 instead of 6) so that these just become bit shifts
-            uint64_t insertIndex = 1;
-            for (size_t unused = 0; unused < paramIndex; unused++)
-            {
-                insertIndex *= 3;
-            }
-
             if (tag == "<str>" || tag == "<string>")
             {
-                tagValue += insertIndex * toUnderlying(TypeCode::String);
+                tagValue++;
             }
             if (tag == "<path>")
             {
-                tagValue += insertIndex * toUnderlying(TypeCode::Path);
+                tagValue++;
             }
-            paramIndex++;
             urlSegmentIndex = std::string_view::npos;
         }
     }
@@ -101,18 +74,6 @@ constexpr inline uint64_t getParameterTag(std::string_view url)
     }
     return tagValue;
 }
-
-constexpr size_t numArgsFromTag(int tag)
-{
-    size_t ret = 0;
-    while (tag > 0)
-    {
-        // Move to the next tag by removing the bottom bits from the number
-        tag /= toUnderlying(TypeCode::Max);
-        ret++;
-    }
-    return ret;
-};
 
 class Base64Encoder
 {
@@ -438,18 +399,18 @@ class UrlSegmentMatcherVisitor
     std::string_view segment;
 };
 
-inline bool readUrlSegments(boost::urls::url_view url,
-                            std::initializer_list<UrlSegment>&& segments)
+inline bool readUrlSegments(const boost::urls::url_view_base& url,
+                            std::initializer_list<UrlSegment> segments)
 {
-    boost::urls::segments_view urlSegments = url.segments();
+    const boost::urls::segments_view& urlSegments = url.segments();
 
     if (!urlSegments.is_absolute())
     {
         return false;
     }
 
-    boost::urls::segments_view::iterator it = urlSegments.begin();
-    boost::urls::segments_view::iterator end = urlSegments.end();
+    boost::urls::segments_view::const_iterator it = urlSegments.begin();
+    boost::urls::segments_view::const_iterator end = urlSegments.end();
 
     for (const auto& segment : segments)
     {
@@ -482,16 +443,17 @@ inline bool readUrlSegments(boost::urls::url_view url,
 } // namespace details
 
 template <typename... Args>
-inline bool readUrlSegments(boost::urls::url_view url, Args&&... args)
+inline bool readUrlSegments(const boost::urls::url_view_base& url,
+                            Args&&... args)
 {
     return details::readUrlSegments(url, {std::forward<Args>(args)...});
 }
 
-inline boost::urls::url replaceUrlSegment(boost::urls::url_view urlView,
-                                          const uint replaceLoc,
-                                          std::string_view newSegment)
+inline boost::urls::url
+    replaceUrlSegment(const boost::urls::url_view_base& urlView,
+                      const uint replaceLoc, std::string_view newSegment)
 {
-    boost::urls::segments_view urlSegments = urlView.segments();
+    const boost::urls::segments_view& urlSegments = urlView.segments();
     boost::urls::url url("/");
 
     if (!urlSegments.is_absolute())
@@ -573,22 +535,11 @@ inline void setPortDefaults(boost::urls::url& url)
 
 namespace nlohmann
 {
-template <>
-struct adl_serializer<boost::urls::url>
-{
-    // nlohmann requires a specific casing to look these up in adl
-    // NOLINTNEXTLINE(readability-identifier-naming)
-    static void to_json(json& j, const boost::urls::url& url)
-    {
-        j = url.buffer();
-    }
-};
-
-template <>
-struct adl_serializer<boost::urls::url_view>
+template <std::derived_from<boost::urls::url_view_base> URL>
+struct adl_serializer<URL>
 {
     // NOLINTNEXTLINE(readability-identifier-naming)
-    static void to_json(json& j, boost::urls::url_view url)
+    static void to_json(json& j, const URL& url)
     {
         j = url.buffer();
     }

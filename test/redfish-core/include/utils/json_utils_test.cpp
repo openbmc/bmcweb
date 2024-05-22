@@ -5,10 +5,12 @@
 #include <boost/beast/http/status.hpp>
 #include <nlohmann/json.hpp>
 
+#include <cstddef>
 #include <cstdint>
 #include <optional>
 #include <string>
 #include <system_error>
+#include <variant>
 #include <vector>
 
 #include <gmock/gmock.h> // IWYU pragma: keep
@@ -46,6 +48,54 @@ TEST(ReadJson, ValidElementsReturnsTrueResponseOkValuesUnpackedCorrectly)
     EXPECT_EQ(integer, 1);
     EXPECT_EQ(str, "hello");
     EXPECT_THAT(vec, ElementsAre(1, 2, 3));
+}
+
+TEST(ReadJson, ValidObjectElementsReturnsTrueResponseOkValuesUnpackedCorrectly)
+{
+    crow::Response res;
+    nlohmann::json::object_t jsonRequest;
+    jsonRequest["integer"] = 1;
+    jsonRequest["string"] = "hello";
+    jsonRequest["vector"] = std::vector<uint64_t>{1, 2, 3};
+
+    int64_t integer = 0;
+    std::string str;
+    std::vector<uint64_t> vec;
+    ASSERT_TRUE(readJsonObject(jsonRequest, res, "integer", integer, "string",
+                               str, "vector", vec));
+    EXPECT_EQ(res.result(), boost::beast::http::status::ok);
+    EXPECT_THAT(res.jsonValue, IsEmpty());
+
+    EXPECT_EQ(integer, 1);
+    EXPECT_EQ(str, "hello");
+    EXPECT_THAT(vec, ElementsAre(1, 2, 3));
+}
+
+TEST(ReadJson, VariantValueUnpackedNull)
+{
+    crow::Response res;
+    nlohmann::json jsonRequest = {{"nullval", nullptr}};
+
+    std::variant<std::string, std::nullptr_t> str;
+
+    ASSERT_TRUE(readJson(jsonRequest, res, "nullval", str));
+    EXPECT_EQ(res.result(), boost::beast::http::status::ok);
+
+    EXPECT_TRUE(std::holds_alternative<std::nullptr_t>(str));
+}
+
+TEST(ReadJson, VariantValueUnpackedValue)
+{
+    crow::Response res;
+    nlohmann::json jsonRequest = {{"stringval", "mystring"}};
+
+    std::variant<std::string, std::nullptr_t> str;
+
+    ASSERT_TRUE(readJson(jsonRequest, res, "stringval", str));
+    EXPECT_EQ(res.result(), boost::beast::http::status::ok);
+
+    ASSERT_TRUE(std::holds_alternative<std::string>(str));
+    EXPECT_EQ(std::get<std::string>(str), "mystring");
 }
 
 TEST(readJson, ExtraElementsReturnsFalseReponseIsBadRequest)
@@ -275,7 +325,7 @@ TEST(ReadJsonPatch, ValidElementsReturnsTrueResponseOkValuesUnpackedCorrectly)
     crow::Request req("{\"integer\": 1}", ec);
 
     // Ignore errors intentionally
-    req.req.set(boost::beast::http::field::content_type, "application/json");
+    req.addHeader(boost::beast::http::field::content_type, "application/json");
 
     int64_t integer = 0;
     ASSERT_TRUE(readJsonPatch(req, res, "integer", integer));
@@ -302,7 +352,7 @@ TEST(ReadJsonPatch, OdataIgnored)
     crow::Response res;
     std::error_code ec;
     crow::Request req(R"({"@odata.etag": "etag", "integer": 1})", ec);
-    req.req.set(boost::beast::http::field::content_type, "application/json");
+    req.addHeader(boost::beast::http::field::content_type, "application/json");
     // Ignore errors intentionally
 
     std::optional<int64_t> integer = 0;
@@ -330,7 +380,7 @@ TEST(ReadJsonAction, ValidElementsReturnsTrueResponseOkValuesUnpackedCorrectly)
     crow::Response res;
     std::error_code ec;
     crow::Request req("{\"integer\": 1}", ec);
-    req.req.set(boost::beast::http::field::content_type, "application/json");
+    req.addHeader(boost::beast::http::field::content_type, "application/json");
     // Ignore errors intentionally
 
     int64_t integer = 0;
@@ -345,7 +395,7 @@ TEST(ReadJsonAction, EmptyObjectReturnsTrueResponseOk)
     crow::Response res;
     std::error_code ec;
     crow::Request req({"{}"}, ec);
-    req.req.set(boost::beast::http::field::content_type, "application/json");
+    req.addHeader(boost::beast::http::field::content_type, "application/json");
     // Ignore errors intentionally
 
     std::optional<int64_t> integer = 0;

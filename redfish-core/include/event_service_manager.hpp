@@ -26,12 +26,14 @@
 #include "str_utility.hpp"
 #include "utility.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/time_utils.hpp"
 
 #include <sys/inotify.h>
 
 #include <boost/asio/io_context.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/url/format.hpp>
+#include <boost/url/url_view_base.hpp>
 #include <sdbusplus/bus/match.hpp>
 
 #include <algorithm>
@@ -355,7 +357,8 @@ class Subscription : public persistent_data::UserSubscription
     Subscription(Subscription&&) = delete;
     Subscription& operator=(Subscription&&) = delete;
 
-    Subscription(boost::urls::url_view url, boost::asio::io_context& ioc) :
+    Subscription(const boost::urls::url_view_base& url,
+                 boost::asio::io_context& ioc) :
         policy(std::make_shared<crow::ConnectionPolicy>())
     {
         destinationUrl = url;
@@ -537,6 +540,11 @@ class Subscription : public persistent_data::UserSubscription
     void updateRetryConfig(uint32_t retryAttempts,
                            uint32_t retryTimeoutInterval)
     {
+        if (policy == nullptr)
+        {
+            BMCWEB_LOG_DEBUG("Retry policy was nullptr, ignoring set");
+            return;
+        }
         policy->maxRetryAttempts = retryAttempts;
         policy->retryIntervalSecs = std::chrono::seconds(retryTimeoutInterval);
     }
@@ -764,8 +772,17 @@ class EventServiceManager
             }
 
             persistent_data::getConfig().writeData();
-            std::remove(eventServiceFile);
-            BMCWEB_LOG_DEBUG("Remove old eventservice config");
+            std::error_code ec;
+            std::filesystem::remove(eventServiceFile, ec);
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG(
+                    "Failed to remove old event service file.  Ignoring");
+            }
+            else
+            {
+                BMCWEB_LOG_DEBUG("Remove old eventservice config");
+            }
         }
     }
 
