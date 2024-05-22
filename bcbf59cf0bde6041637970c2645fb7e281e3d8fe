@@ -16,6 +16,24 @@
       "message": "Seems reasonable to me. Is there anyone who reported this that can test?",
       "revId": "bcbf59cf0bde6041637970c2645fb7e281e3d8fe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bcb9c32f_f90331a8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-22T20:07:44Z",
+      "side": 1,
+      "message": "There\u0027s not a set of steps that can consistently reproduce it, as it involves creating/destroying multiple SSE connections in parallel, and is dependent on how the stack looks at the time you delete the session.  Redfish protocol validator does pass (at least, as much as it did before) so the SSE path isn\u0027t broken, but it passed before with this failure.",
+      "parentUuid": "b5d0dfd2_6fa50c0d",
+      "revId": "bcbf59cf0bde6041637970c2645fb7e281e3d8fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
