@@ -28,6 +28,7 @@
 #include "registries/privilege_registry.hpp"
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
+#include "utils/name_utils.hpp"
 
 #include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
@@ -656,7 +657,8 @@ inline void afterGetSubtreeSystemsStorageDrive(
     asyncResp->res.jsonValue["@odata.type"] = "#Drive.v1_7_0.Drive";
     asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
         "/redfish/v1/Systems/system/Storage/1/Drives/{}", driveId);
-    asyncResp->res.jsonValue["Name"] = driveId;
+    name_util::getPrettyName(asyncResp, path, drive->second,
+                             "/Name"_json_pointer);
     asyncResp->res.jsonValue["Id"] = driveId;
 
     if (connectionNames.size() != 1)

@@ -26,6 +26,7 @@
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/name_utils.hpp"
 
 #include <boost/container/flat_map.hpp>
 #include <boost/system/error_code.hpp>
@@ -875,6 +876,8 @@ inline void getProcessorObject(const std::shared_ptr<bmcweb::AsyncResp>& resp,
                     // process must be on the same object path.
 
                     handler(objectPath, serviceMap);
+                    name_util::getPrettyName(resp, objectPath, serviceMap,
+                                             "/Name"_json_pointer);
                     return;
                 }
             }
