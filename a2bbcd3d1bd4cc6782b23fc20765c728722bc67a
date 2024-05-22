@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1b6bd79f_d34ba1d5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-22T16:50:25Z",
+      "side": 1,
+      "message": "I just wanted to make sure you had the context on past attempts;  There wasn\u0027t anything specific i was eluding to.",
+      "parentUuid": "2b43cb76_3789b234",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 56
+      },
+      "revId": "a2bbcd3d1bd4cc6782b23fc20765c728722bc67a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e0ea1228_ae3cdc69",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -79,6 +103,24 @@
       "side": 1,
       "message": "I understand, I made the wrong assumption here. I will change this, so the intended design is met. \nHowever, the current implementation is not using the getCollectionMembers method, instead we are hardcoding the member URI \"/redfish/v1/Systems/system\". If I would  use getCollectionMembers, currently the only reliable way to get multiple hosts is via the xyz.openbmc_project.State.Host interface, which for single host would return the leaf node \"host0\". This in turn, would end up naming the member URI on single host \"/redfish/v1/Systems/host0\". Should I consider this breaking the single host implementation?",
       "parentUuid": "e0ea1228_ae3cdc69",
+      "revId": "a2bbcd3d1bd4cc6782b23fc20765c728722bc67a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58acb5df_d92b861b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-22T16:50:25Z",
+      "side": 1,
+      "message": "\u003e currently the only reliable way to get multiple hosts\n\nRight, we need to make it reliable to get hosts from DBus as a prerequisite for this patch.",
+      "parentUuid": "37d69d5f_7768dd7e",
       "revId": "a2bbcd3d1bd4cc6782b23fc20765c728722bc67a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -149,6 +191,42 @@
       "side": 1,
       "message": "Hello Ed, thank you for your reply. I will take care of it! \n\nAs for the CLA, I had trouble adding my company mail address to my gerrit account, which probably will resolve the issue. Who can I contact to help me with my account settings? It probably is due to the fact that I changed my github handle a few months ago, however my old handle is still occupying the mail address in gerrit, thus blocking my new handle to use that mail address.",
       "parentUuid": "b4d70b14_a8a0634b",
+      "revId": "a2bbcd3d1bd4cc6782b23fc20765c728722bc67a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5410c07_f2606931",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-22T16:50:25Z",
+      "side": 1,
+      "message": "Ideally you should be running it locally on your machine before you push, so you don\u0027t have to wait for jenkins, and you can fix the failures faster.",
+      "parentUuid": "b928905d_bf78bc44",
+      "revId": "a2bbcd3d1bd4cc6782b23fc20765c728722bc67a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c3f6936_d7b14e7e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-22T16:50:25Z",
+      "side": 1,
+      "message": "You work for 9elements, correct?  It looks like your admins are\nAlexander Hansen\nArthur Heymans\nMarvin Drees\nPatrick Rudolph\nPatrik Tesarik",
+      "parentUuid": "c3e226ad_89ca25c3",
       "revId": "a2bbcd3d1bd4cc6782b23fc20765c728722bc67a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
