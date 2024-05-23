@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d073593_3d97fc41",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-23T02:36:58Z",
+      "side": 1,
+      "message": "can you code golf this a little?\n\nthis check is duplicated between the branches.",
+      "range": {
+        "startLine": 765,
+        "startChar": 16,
+        "endLine": 765,
+        "endChar": 23
+      },
+      "revId": "79d93ab1e37376b49fcdd16fe71f6ae31dfce654",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d266687_c662ef97",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 777,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-23T02:36:58Z",
+      "side": 1,
+      "message": "Split into multiple branches to make this readable.",
+      "range": {
+        "startLine": 772,
+        "startChar": 0,
+        "endLine": 777,
+        "endChar": 74
+      },
+      "revId": "79d93ab1e37376b49fcdd16fe71f6ae31dfce654",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df7c4356_c8a73a42",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 963,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-23T02:36:58Z",
+      "side": 1,
+      "message": "You\u0027ve decoded this url twice in your flow.  On line 777, your call has already parsed out the ID of the uri, you need to just push that inyour your vector instead of the full URI, then you avoid having to do this conversion, which as written a url object isn\u0027t required to have back().",
+      "range": {
+        "startLine": 963,
+        "startChar": 0,
+        "endLine": 963,
+        "endChar": 59
+      },
+      "revId": "79d93ab1e37376b49fcdd16fe71f6ae31dfce654",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
