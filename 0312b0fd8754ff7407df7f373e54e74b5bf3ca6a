@@ -71,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a18670d5_aa79f30a",
+        "filename": "redfish-core/lib/roles.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-23T22:51:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "975ba37d_afad1828",
+      "revId": "0312b0fd8754ff7407df7f373e54e74b5bf3ca6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de6cb678_7899c025",
@@ -119,6 +137,30 @@
       "writtenOn": "2024-05-22T15:21:57Z",
       "side": 1,
       "message": "Shouldn\u0027t this be returning std::make_optional(std::move(privArray)) since privArray is a stack variable?",
+      "range": {
+        "startLine": 74,
+        "startChar": 4,
+        "endLine": 74,
+        "endChar": 21
+      },
+      "revId": "0312b0fd8754ff7407df7f373e54e74b5bf3ca6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cccd3de3_5e359c5c",
+        "filename": "redfish-core/lib/roles.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-23T22:51:12Z",
+      "side": 1,
+      "message": "Yep, that\u0027s fair.  Changed.",
+      "parentUuid": "f5a40b5f_c06f3e87",
       "range": {
         "startLine": 74,
         "startChar": 4,
