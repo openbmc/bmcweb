@@ -477,6 +477,48 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "288c3f24_3fb173cf",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 848,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-23T01:54:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c1ed242_6bbb28d8",
+      "revId": "7279b70019bfae5cc84d2bed97f8e83b551052d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3ac66ac_3271a6f9",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 848,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-23T01:54:50Z",
+      "side": 1,
+      "message": "I can start working on it after we are done with this patch, but i will need help with ideas on how to do it since the input here is a string_view so i am not sure how we can discard the already read portions of it to avoid double copy.",
+      "parentUuid": "1eab31c7_f629bf20",
+      "range": {
+        "startLine": 847,
+        "startChar": 1,
+        "endLine": 848,
+        "endChar": 40
+      },
+      "revId": "7279b70019bfae5cc84d2bed97f8e83b551052d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "27ad9749_ac26e306",

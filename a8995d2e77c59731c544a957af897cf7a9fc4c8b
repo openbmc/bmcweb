@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "593eb42b_49cc7af7",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 735,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-23T01:54:50Z",
+      "side": 1,
+      "message": "The values being set in new method are different since they are specific to Update interface ApplyTime values.",
+      "parentUuid": "01b44a92_33b2d1f7",
+      "range": {
+        "startLine": 717,
+        "startChar": 0,
+        "endLine": 735,
+        "endChar": 5
+      },
+      "revId": "a8995d2e77c59731c544a957af897cf7a9fc4c8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5f8e83ac_b559ae81",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 18
@@ -37,6 +61,30 @@
       "writtenOn": "2024-05-21T02:00:04Z",
       "side": 1,
       "message": "We broke this method out to handle parsing, but it looks like we left the old code for checking /redfish/v1/Managers/bmc in place?  Should that be lifted into this new method?",
+      "range": {
+        "startLine": 755,
+        "startChar": 16,
+        "endLine": 755,
+        "endChar": 19
+      },
+      "revId": "a8995d2e77c59731c544a957af897cf7a9fc4c8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5511b293_48979e23",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-23T01:54:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f8e83ac_b559ae81",
       "range": {
         "startLine": 755,
         "startChar": 16,
@@ -64,6 +112,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8eda4e71_87e3bf87",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-23T01:54:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d1d9fec9_f4b7c4b0",
+      "revId": "a8995d2e77c59731c544a957af897cf7a9fc4c8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dd66f8b4_29dd7ff8",
@@ -83,6 +149,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d8e41121_7a034bd5",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-23T01:54:50Z",
+      "side": 1,
+      "message": "I couldn\u0027t find any examples in the Redfish UpdateService white paper but schema description says both software inventory instance or their related items are valid, so both seems to be allowed.\nAs per Mike perhaps both are valid https://redfishforum.com/post/4052/thread. I think using FirmwareInventory as the target seems like a better option as they seem to have a direct relation to update process. Please let me know your thoughts?",
+      "parentUuid": "dd66f8b4_29dd7ff8",
+      "revId": "a8995d2e77c59731c544a957af897cf7a9fc4c8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3c8aad22_4d99ad77",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 18
@@ -94,6 +178,30 @@
       "writtenOn": "2024-05-21T02:00:04Z",
       "side": 1,
       "message": "Please don\u0027t capture req in an async lambda, especially by value.  You probably want to create your task::Payload object here, which avoids making a copy of the whole request, and only copies the values that are needed.",
+      "range": {
+        "startLine": 918,
+        "startChar": 20,
+        "endLine": 918,
+        "endChar": 23
+      },
+      "revId": "a8995d2e77c59731c544a957af897cf7a9fc4c8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70ea8221_6f3daad1",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 918,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-23T01:54:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c8aad22_4d99ad77",
       "range": {
         "startLine": 918,
         "startChar": 20,
@@ -129,6 +237,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bcab2ed8_dea1cfa6",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 924,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-23T01:54:50Z",
+      "side": 1,
+      "message": "Yes, it has been working. Probably, you are referring to passing the memfd to the handleStartUpdate call so we don\u0027t loose reference until callback returns?",
+      "parentUuid": "f2e7cc93_899f12d4",
+      "range": {
+        "startLine": 924,
+        "startChar": 51,
+        "endLine": 924,
+        "endChar": 56
+      },
+      "revId": "a8995d2e77c59731c544a957af897cf7a9fc4c8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "30a2df9c_c2c01f7c",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 18
@@ -140,6 +272,30 @@
       "writtenOn": "2024-05-21T02:00:04Z",
       "side": 1,
       "message": "follow the Naming convention please",
+      "range": {
+        "startLine": 936,
+        "startChar": 10,
+        "endLine": 936,
+        "endChar": 22
+      },
+      "revId": "a8995d2e77c59731c544a957af897cf7a9fc4c8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c29536b_7533cab7",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 936,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-23T01:54:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30a2df9c_c2c01f7c",
       "range": {
         "startLine": 936,
         "startChar": 10,
@@ -173,6 +329,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f5745d0_4fb2dfa2",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 969,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-23T01:54:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9aba22e5_097af1d1",
+      "range": {
+        "startLine": 969,
+        "startChar": 0,
+        "endLine": 969,
+        "endChar": 58
+      },
+      "revId": "a8995d2e77c59731c544a957af897cf7a9fc4c8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "185a33df_06bed9b3",
@@ -186,6 +366,30 @@
       "writtenOn": "2024-05-21T02:00:04Z",
       "side": 1,
       "message": "operator[] creates if the key doesn\u0027t exist.  Presumably here you want find()",
+      "range": {
+        "startLine": 983,
+        "startChar": 64,
+        "endLine": 983,
+        "endChar": 70
+      },
+      "revId": "a8995d2e77c59731c544a957af897cf7a9fc4c8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f61d0e9_ba28db35",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 983,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-23T01:54:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "185a33df_06bed9b3",
       "range": {
         "startLine": 983,
         "startChar": 64,
@@ -221,6 +425,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3a5f06e4_1598ba6d",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 989,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-23T01:54:50Z",
+      "side": 1,
+      "message": "I am looking for the StartUpdate interface somewhere on \"/xyz/openbmc_project/software\" which is associated with swObjectPath (i.e. the Software Version Object Path).",
+      "parentUuid": "48f1e4fb_61f5275d",
+      "range": {
+        "startLine": 989,
+        "startChar": 12,
+        "endLine": 989,
+        "endChar": 76
+      },
+      "revId": "a8995d2e77c59731c544a957af897cf7a9fc4c8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ad8e6849_ab316649",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 18
@@ -232,6 +460,30 @@
       "writtenOn": "2024-05-21T02:00:04Z",
       "side": 1,
       "message": "I don\u0027t see any shared ownership here.  Any reason this needs to be a shared_ptr?",
+      "range": {
+        "startLine": 1013,
+        "startChar": 22,
+        "endLine": 1013,
+        "endChar": 33
+      },
+      "revId": "a8995d2e77c59731c544a957af897cf7a9fc4c8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bcb6c22_d7b515bf",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1013,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-23T01:54:50Z",
+      "side": 1,
+      "message": "I tried making this a unqiue_pointer and passing it the call stack using std::move but i am hitting assertion for memfd not being not copy constructible issue. My understanding is that this happens because of how lambda captures the resulting closure object. For example, i had tried this -\n\ninline void\n    getSwInfo(const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp,\n              const crow::Request\u0026 req,\n              std::unique_ptr\u003cMemoryFileDescriptor\u003e memfd,\n              const std::string\u0026 applyTime,\n              const std::vector\u003cboost::urls::url\u003e\u0026 targets)\n              const boost::system::error_code\u0026 ec,\n              const dbus::utility::MapperGetSubTreePathsResponse\u0026 subtree)\n{\n   ...\n}\n\nauto memfd \u003d std::make_unique\u003cMemoryFileDescriptor\u003e(\"update-image\");\n...\ndbus::utility::getSubTreePaths(\n        \"/xyz/openbmc_project/software\", 1, interfaces,\n        [asyncResp, req, memfd\u003dstd::move(memfd), applyTimeNewVal,\n         targets](const boost::system::error_code\u0026 ec,\n                  const dbus::utility::MapperGetSubTreePathsResponse\u0026 subtree) {\n        getSwInfo(asyncResp, req, std::move(memfd), applyTimeNewVal, targets, ec, subtree);",
+      "parentUuid": "ad8e6849_ab316649",
       "range": {
         "startLine": 1013,
         "startChar": 22,
@@ -265,6 +517,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2b401ad_9792838c",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1027,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-23T01:54:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "746d29bf_9048b7b0",
+      "range": {
+        "startLine": 1027,
+        "startChar": 0,
+        "endLine": 1027,
+        "endChar": 44
+      },
+      "revId": "a8995d2e77c59731c544a957af897cf7a9fc4c8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d1dbdd7b_e3bb3044",
@@ -278,6 +554,24 @@
       "writtenOn": "2024-05-21T02:00:04Z",
       "side": 1,
       "message": "I think we want depth 1 here?",
+      "revId": "a8995d2e77c59731c544a957af897cf7a9fc4c8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d24bce3_cf37feae",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1039,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-23T01:54:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d1dbdd7b_e3bb3044",
       "revId": "a8995d2e77c59731c544a957af897cf7a9fc4c8b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
