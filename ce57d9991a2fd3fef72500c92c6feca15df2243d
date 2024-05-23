@@ -199,6 +199,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d3b33f1a_4b383a02",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-23T16:35:20Z",
+      "side": 1,
+      "message": "Said another way, the worst a lack of a timeout could cause here is to fail the request, which would\u0027ve already failed anyway under a timeout.  It\u0027s maybe not ideal (although for large payloads, I don\u0027t know what an appropriate timeout would be), but it\u0027s not a security issue.",
+      "parentUuid": "d2eb6b31_94065a43",
+      "revId": "ce57d9991a2fd3fef72500c92c6feca15df2243d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6f7d93d6_9d4364ff",
         "filename": "http/http_response.hpp",
         "patchSetId": 4
