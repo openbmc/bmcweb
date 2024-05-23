@@ -108,6 +108,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9abe08c_d2a9c3b1",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 625,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-23T14:37:02Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "9909fb41_cb52333e",
+      "revId": "ce57d9991a2fd3fef72500c92c6feca15df2243d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6905ccc3_8d62a0d9",
@@ -121,6 +139,24 @@
       "writtenOn": "2024-05-23T09:53:04Z",
       "side": 1,
       "message": "how are we handling connection termination from client side? Either we should read the stream or register waitForerror call back. Otherwise the loop will continue forever right?",
+      "revId": "ce57d9991a2fd3fef72500c92c6feca15df2243d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c78014bf_6bfc836c",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-23T14:37:02Z",
+      "side": 1,
+      "message": "\u003e how are we handling connection termination from client side? \n\nIf the client disconnects, the write will fail, with an error indicating that the connection is closed.\n\n\u003e Either we should read the stream or register waitForerror call back. Otherwise the loop will continue forever right?\n\nI don\u0027t think so?  The next time this loop gets any data, it will try to write it to the socket, and see that the socket it closed, right?",
+      "parentUuid": "6905ccc3_8d62a0d9",
       "revId": "ce57d9991a2fd3fef72500c92c6feca15df2243d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
