@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d2fcfcf4_7cd61968",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 625,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-05-23T04:32:05Z",
+      "side": 1,
+      "message": "I was thinking about the response time deadline we have in bmcweb. Now a demon can make a request to wait indefinitely. But it is also a feature for the system dump use case where we have data in hundreds of MBs. But I assume that the deadline timer will trigger to stop such writes, because these enums are not in play for that huge data writes. So I am thinking about a solution where the indefinite loop due to absence of data should be avoided at the same time stop deadline timer from triggering when huge data transfer is taking place.",
+      "parentUuid": "7fd3947a_e6c13700",
+      "revId": "ce57d9991a2fd3fef72500c92c6feca15df2243d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6f7d93d6_9d4364ff",
         "filename": "http/http_response.hpp",
         "patchSetId": 4
