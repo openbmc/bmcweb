@@ -215,6 +215,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "93c4b090_2257004a",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-05-23T18:04:15Z",
+      "side": 1,
+      "message": "True, the patch looks fine for me.",
+      "parentUuid": "d3b33f1a_4b383a02",
+      "revId": "ce57d9991a2fd3fef72500c92c6feca15df2243d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6f7d93d6_9d4364ff",
