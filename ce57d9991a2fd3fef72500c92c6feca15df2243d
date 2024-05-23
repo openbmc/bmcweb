@@ -110,6 +110,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6905ccc3_8d62a0d9",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-05-23T09:53:04Z",
+      "side": 1,
+      "message": "how are we handling connection termination from client side? Either we should read the stream or register waitForerror call back. Otherwise the loop will continue forever right?",
+      "revId": "ce57d9991a2fd3fef72500c92c6feca15df2243d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6f7d93d6_9d4364ff",
         "filename": "http/http_response.hpp",
         "patchSetId": 4
