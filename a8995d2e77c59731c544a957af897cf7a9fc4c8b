@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f4e5413_bcbd28d9",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 735,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-23T02:31:24Z",
+      "side": 1,
+      "message": "Understood.  FIne as is.",
+      "parentUuid": "593eb42b_49cc7af7",
+      "range": {
+        "startLine": 717,
+        "startChar": 0,
+        "endLine": 735,
+        "endChar": 5
+      },
+      "revId": "a8995d2e77c59731c544a957af897cf7a9fc4c8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5f8e83ac_b559ae81",
@@ -167,6 +191,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e5348ad1_7e51999f",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-23T02:31:24Z",
+      "side": 1,
+      "message": "\u003e I couldn\u0027t find any examples in the Redfish UpdateService white paper but schema description says both software inventory instance or their related items are valid, so both seems to be allowed.\n\nCan you link that in your commit message?\n\n\u003e As per Mike perhaps both are valid https://redfishforum.com/post/4052/thread. I think using FirmwareInventory as the target seems like a better option as they seem to have a direct relation to update process. Please let me know your thoughts?\n\nGeez, ok, so either is valid.  That\u0027s not very intuitive, and I suspect at some point we\u0027ll have to support the \"point to device\" variant.\n\nCan we at least get the old /redfish/v1/Managers/\u003cbmc\u003e supported through this so when we transition we don\u0027t break existing users?",
+      "parentUuid": "d8e41121_7a034bd5",
+      "revId": "a8995d2e77c59731c544a957af897cf7a9fc4c8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3c8aad22_4d99ad77",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 18
@@ -249,6 +291,30 @@
       "side": 1,
       "message": "Yes, it has been working. Probably, you are referring to passing the memfd to the handleStartUpdate call so we don\u0027t loose reference until callback returns?",
       "parentUuid": "f2e7cc93_899f12d4",
+      "range": {
+        "startLine": 924,
+        "startChar": 51,
+        "endLine": 924,
+        "endChar": 56
+      },
+      "revId": "a8995d2e77c59731c544a957af897cf7a9fc4c8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33e9a50a_bb6c09c2",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 924,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-23T02:31:24Z",
+      "side": 1,
+      "message": "I\u0027m referring to the fact that close is going to be called on this, but dbus must be calling dup() somewhere internally.\n\nACK.",
+      "parentUuid": "bcab2ed8_dea1cfa6",
       "range": {
         "startLine": 924,
         "startChar": 51,
@@ -447,6 +513,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fdaeaa8c_0af8b87f",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 989,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-23T02:31:24Z",
+      "side": 1,
+      "message": "gotcha.",
+      "parentUuid": "3a5f06e4_1598ba6d",
+      "range": {
+        "startLine": 989,
+        "startChar": 12,
+        "endLine": 989,
+        "endChar": 76
+      },
+      "revId": "a8995d2e77c59731c544a957af897cf7a9fc4c8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ad8e6849_ab316649",
@@ -484,6 +574,30 @@
       "side": 1,
       "message": "I tried making this a unqiue_pointer and passing it the call stack using std::move but i am hitting assertion for memfd not being not copy constructible issue. My understanding is that this happens because of how lambda captures the resulting closure object. For example, i had tried this -\n\ninline void\n    getSwInfo(const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp,\n              const crow::Request\u0026 req,\n              std::unique_ptr\u003cMemoryFileDescriptor\u003e memfd,\n              const std::string\u0026 applyTime,\n              const std::vector\u003cboost::urls::url\u003e\u0026 targets)\n              const boost::system::error_code\u0026 ec,\n              const dbus::utility::MapperGetSubTreePathsResponse\u0026 subtree)\n{\n   ...\n}\n\nauto memfd \u003d std::make_unique\u003cMemoryFileDescriptor\u003e(\"update-image\");\n...\ndbus::utility::getSubTreePaths(\n        \"/xyz/openbmc_project/software\", 1, interfaces,\n        [asyncResp, req, memfd\u003dstd::move(memfd), applyTimeNewVal,\n         targets](const boost::system::error_code\u0026 ec,\n                  const dbus::utility::MapperGetSubTreePathsResponse\u0026 subtree) {\n        getSwInfo(asyncResp, req, std::move(memfd), applyTimeNewVal, targets, ec, subtree);",
       "parentUuid": "ad8e6849_ab316649",
+      "range": {
+        "startLine": 1013,
+        "startChar": 22,
+        "endLine": 1013,
+        "endChar": 33
+      },
+      "revId": "a8995d2e77c59731c544a957af897cf7a9fc4c8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f77d811_b6bb1d6f",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1013,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-23T02:31:24Z",
+      "side": 1,
+      "message": "\u003e I tried making this a unqiue_pointer and passing it the call stack using std::move but i am hitting assertion for memfd not being not copy constructible issue.\n\nI would expect that this could just be passed by value with std::move(), but sure, unqiue_ptr works.\n\n\u003e My understanding is that this happens because of how lambda captures the resulting closure object. For example, i had tried this -\n\u003e \n\u003e inline void\n\u003e     getSwInfo(const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp,\n\u003e               const crow::Request\u0026 req,\n\u003e               std::unique_ptr\u003cMemoryFileDescriptor\u003e memfd,\n\u003e               const std::string\u0026 applyTime,\n\u003e               const std::vector\u003cboost::urls::url\u003e\u0026 targets)\n\u003e               const boost::system::error_code\u0026 ec,\n\u003e               const dbus::utility::MapperGetSubTreePathsResponse\u0026 subtree)\n\u003e {\n\u003e    ...\n\u003e }\n\u003e \n\u003e auto memfd \u003d std::make_unique\u003cMemoryFileDescriptor\u003e(\"update-image\");\n\u003e ...\n\u003e dbus::utility::getSubTreePaths(\n\u003e         \"/xyz/openbmc_project/software\", 1, interfaces,\n\u003e         [asyncResp, req, memfd\u003dstd::move(memfd), applyTimeNewVal,\n\u003e          targets](const boost::system::error_code\u0026 ec,\n\u003e                   const dbus::utility::MapperGetSubTreePathsResponse\u0026 subtree) {\n\u003e         getSwInfo(asyncResp, req, std::move(memfd), applyTimeNewVal, targets, ec, subtree);\n\nconst dbus::utility::MapperGetSubTreePathsResponse\u0026 subtree) \u003cADD the keyword mutable right here\u003e\n\n\nlambdas pass by const values by default.  you need the word mutable to make it pass by non-const value, so you can do a std::move()",
+      "parentUuid": "4bcb6c22_d7b515bf",
       "range": {
         "startLine": 1013,
         "startChar": 22,
