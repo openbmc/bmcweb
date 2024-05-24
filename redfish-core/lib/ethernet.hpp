@@ -29,11 +29,13 @@
 #include <boost/url/format.hpp>
 
 #include <array>
+#include <cstddef>
 #include <memory>
 #include <optional>
 #include <ranges>
 #include <regex>
 #include <string_view>
+#include <variant>
 #include <vector>
 
 namespace redfish
@@ -1077,7 +1079,7 @@ void getEthernetIfaceData(const std::string& ethifaceId,
         [ethifaceId{std::string{ethifaceId}},
          callback = std::forward<CallbackFunc>(callback)](
             const boost::system::error_code& ec,
-            const dbus::utility::ManagedObjectType& resp) {
+            const dbus::utility::ManagedObjectType& resp) mutable {
         EthernetInterfaceData ethData{};
         std::vector<IPv4AddressData> ipv4Data;
         std::vector<IPv6AddressData> ipv6Data;
@@ -1474,13 +1476,6 @@ inline void handleIPv4StaticPatch(
     const std::vector<IPv4AddressData>& ipv4Data,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (input.empty())
-    {
-        messages::propertyValueTypeError(asyncResp->res, input,
-                                         "IPv4StaticAddresses");
-        return;
-    }
-
     unsigned entryIdx = 1;
     // Find the first static IP address currently active on the NIC and
     // match it to the first JSON element in the IPv4StaticAddresses array.
@@ -1490,6 +1485,7 @@ inline void handleIPv4StaticPatch(
         getNextStaticIpEntry(ipv4Data.cbegin(), ipv4Data.cend());
 
     bool gatewayValueAssigned{};
+    bool preserveGateway{};
     std::string activePath{};
     std::string activeGateway{};
     if (!ethData.defaultGateway.empty() && ethData.defaultGateway != "0.0.0.0")
@@ -1516,7 +1512,7 @@ inline void handleIPv4StaticPatch(
                 deleteIPAddress(ifaceId, nicIpEntry->id, asyncResp);
                 nicIpEntry = getNextStaticIpEntry(++nicIpEntry,
                                                   ipv4Data.cend());
-                if (!gatewayValueAssigned && (nicIpEntry == ipv4Data.cend()))
+                if (!preserveGateway && (nicIpEntry == ipv4Data.cend()))
                 {
                     // All entries have been processed, and this last has
                     // requested the IP address be deleted. No prior entry
@@ -1540,11 +1536,11 @@ inline void handleIPv4StaticPatch(
             std::optional<std::string> subnetMask;
             std::optional<std::string> gateway;
 
-            if (!json_util::readJson(thisJson, asyncResp->res, "Address",
-                                     address, "SubnetMask", subnetMask,
-                                     "Gateway", gateway))
+            if (!json_util::readJsonObject(*obj, asyncResp->res, "Address",
+                                           address, "Gateway", gateway,
+                                           "SubnetMask", subnetMask))
             {
-                messages::propertyValueFormatError(asyncResp->res, thisJson,
+                messages::propertyValueFormatError(asyncResp->res, *obj,
                                                    pathString);
                 return;
             }
@@ -1653,11 +1649,13 @@ inline void handleIPv4StaticPatch(
                                          *gateway, asyncResp);
                 nicIpEntry = getNextStaticIpEntry(++nicIpEntry,
                                                   ipv4Data.cend());
+                preserveGateway = true;
             }
             else
             {
                 createIPv4(ifaceId, prefixLength, *gateway, *address,
                            asyncResp);
+                preserveGateway = true;
             }
             entryIdx++;
         }
@@ -1668,6 +1666,7 @@ inline void handleIPv4StaticPatch(
             {
                 nicIpEntry = getNextStaticIpEntry(++nicIpEntry,
                                                   ipv4Data.cend());
+                preserveGateway = true;
                 entryIdx++;
             }
             else
@@ -2243,7 +2242,9 @@ inline void requestEthernetInterfacesRoutes(App& app)
         std::optional<std::string> fqdn;
         std::optional<std::string> macAddress;
         std::optional<std::string> ipv6DefaultGateway;
-        std::optional<nlohmann::json::array_t> ipv4StaticAddresses;
+        std::optional<
+            std::vector<std::variant<nlohmann::json::object_t, std::nullptr_t>>>
+            ipv4StaticAddresses;
         std::optional<nlohmann::json::array_t> ipv6StaticAddresses;
         std::optional<nlohmann::json::array_t> ipv6StaticDefaultGateways;
         std::optional<std::vector<std::string>> staticNameServers;
@@ -2318,7 +2319,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 const bool& success, const EthernetInterfaceData& ethData,
                 const std::vector<IPv4AddressData>& ipv4Data,
                 const std::vector<IPv6AddressData>& ipv6Data,
-                const std::vector<StaticGatewayData>& ipv6GatewayData) {
+                const std::vector<StaticGatewayData>& ipv6GatewayData) mutable {
             if (!success)
             {
                 // ... otherwise return error
