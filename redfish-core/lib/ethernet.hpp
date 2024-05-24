@@ -1518,6 +1518,7 @@ inline void handleIPv4StaticPatch(
         getNextStaticIpEntry(ipv4Data.cbegin(), ipv4Data.cend());
 
     bool gatewayValueAssigned{};
+    bool preserveGateway{};
     std::string activePath{};
     std::string activeGateway{};
     if (!ethData.defaultGateway.empty() && ethData.defaultGateway != "0.0.0.0")
@@ -1544,7 +1545,7 @@ inline void handleIPv4StaticPatch(
                 deleteIPAddress(ifaceId, nicIpEntry->id, asyncResp);
                 nicIpEntry = getNextStaticIpEntry(++nicIpEntry,
                                                   ipv4Data.cend());
-                if (!gatewayValueAssigned && (nicIpEntry == ipv4Data.cend()))
+                if (!preserveGateway && (nicIpEntry == ipv4Data.cend()))
                 {
                     // All entries have been processed, and this last has
                     // requested the IP address be deleted. No prior entry
@@ -1681,11 +1682,13 @@ inline void handleIPv4StaticPatch(
                                          *gateway, asyncResp);
                 nicIpEntry = getNextStaticIpEntry(++nicIpEntry,
                                                   ipv4Data.cend());
+                preserveGateway = true;
             }
             else
             {
                 createIPv4(ifaceId, prefixLength, *gateway, *address,
                            asyncResp);
+                preserveGateway = true;
             }
             entryIdx++;
         }
@@ -1696,6 +1699,7 @@ inline void handleIPv4StaticPatch(
             {
                 nicIpEntry = getNextStaticIpEntry(++nicIpEntry,
                                                   ipv4Data.cend());
+                preserveGateway = true;
                 entryIdx++;
             }
             else
