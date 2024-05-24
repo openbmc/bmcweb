@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "59ab3740_b0fb5ad9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 26
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-24T16:37:31Z",
+      "side": 1,
+      "message": "Addressed \u0026 replied to comments, please check.",
+      "revId": "a0161a4bf1d8e28adaf0f40d420056b4cfc36b55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5c96d4d9_76a5d15e",
@@ -14,6 +31,30 @@
       "writtenOn": "2024-05-24T15:39:39Z",
       "side": 1,
       "message": "lets code golf this a little to make it easier to read:\n```\nif (crow::utility::readUrlSegments(*url, \"redfish\", \"v1\", \"Managers\",\n                                    BMCWEB_REDFISH_MANAGER_URI_NAME))\n{\n    return std::make_optional(std::string(BMCWEB_REDFISH_MANAGER_URI_NAME));\n}\nif constexpr (!BMCWEB_REDFISH_UPDATESERVICE_USE_DBUS)\n{\n    return std::nullopt;\n}\nstd::string firmwareId;\nif (!crow::utility::readUrlSegments(\n        *url, \"redfish\", \"v1\", \"UpdateService\", \"FirmwareInventory\",\n        std::ref(firmwareId)))\n{\n    return std::nullopt;\n}\n\nreturn std::make_optional(firmwareId);\n\n```",
+      "range": {
+        "startLine": 769,
+        "startChar": 0,
+        "endLine": 784,
+        "endChar": 76
+      },
+      "revId": "a0161a4bf1d8e28adaf0f40d420056b4cfc36b55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c5c81cb_f2b28008",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 784,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-24T16:37:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c96d4d9_76a5d15e",
       "range": {
         "startLine": 769,
         "startChar": 0,

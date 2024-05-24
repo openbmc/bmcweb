@@ -207,6 +207,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1aedbbc_6c7bd91d",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-24T16:37:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5348ad1_7e51999f",
+      "revId": "a8995d2e77c59731c544a957af897cf7a9fc4c8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3c8aad22_4d99ad77",
@@ -598,6 +616,30 @@
       "side": 1,
       "message": "\u003e I tried making this a unqiue_pointer and passing it the call stack using std::move but i am hitting assertion for memfd not being not copy constructible issue.\n\nI would expect that this could just be passed by value with std::move(), but sure, unqiue_ptr works.\n\n\u003e My understanding is that this happens because of how lambda captures the resulting closure object. For example, i had tried this -\n\u003e \n\u003e inline void\n\u003e     getSwInfo(const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp,\n\u003e               const crow::Request\u0026 req,\n\u003e               std::unique_ptr\u003cMemoryFileDescriptor\u003e memfd,\n\u003e               const std::string\u0026 applyTime,\n\u003e               const std::vector\u003cboost::urls::url\u003e\u0026 targets)\n\u003e               const boost::system::error_code\u0026 ec,\n\u003e               const dbus::utility::MapperGetSubTreePathsResponse\u0026 subtree)\n\u003e {\n\u003e    ...\n\u003e }\n\u003e \n\u003e auto memfd \u003d std::make_unique\u003cMemoryFileDescriptor\u003e(\"update-image\");\n\u003e ...\n\u003e dbus::utility::getSubTreePaths(\n\u003e         \"/xyz/openbmc_project/software\", 1, interfaces,\n\u003e         [asyncResp, req, memfd\u003dstd::move(memfd), applyTimeNewVal,\n\u003e          targets](const boost::system::error_code\u0026 ec,\n\u003e                   const dbus::utility::MapperGetSubTreePathsResponse\u0026 subtree) {\n\u003e         getSwInfo(asyncResp, req, std::move(memfd), applyTimeNewVal, targets, ec, subtree);\n\nconst dbus::utility::MapperGetSubTreePathsResponse\u0026 subtree) \u003cADD the keyword mutable right here\u003e\n\n\nlambdas pass by const values by default.  you need the word mutable to make it pass by non-const value, so you can do a std::move()",
       "parentUuid": "4bcb6c22_d7b515bf",
+      "range": {
+        "startLine": 1013,
+        "startChar": 22,
+        "endLine": 1013,
+        "endChar": 33
+      },
+      "revId": "a8995d2e77c59731c544a957af897cf7a9fc4c8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "289f7043_3e66011f",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1013,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-24T16:37:31Z",
+      "side": 1,
+      "message": "I tried changing the memfd to pass by value with std::move(), but i noticing use after free issue in warnings, which seems like a valid issue? So, i am thinking i need to move this back to a shared_ptr. I am also noticing a similar issue use after move issue for payload?\n\n../redfish-core/lib/update_service.hpp:903:69: error: the parameter \u0027memfd\u0027 is copied for each invocation but only used as a const reference; consider making it a const reference [performance-unnecessary-value-param,-warnings-as-errors]\n  903 |                         task::Payload payload, MemoryFileDescriptor memfd,\n      |                                                                     ^\n      |                                                const               \u0026\n../redfish-core/lib/update_service.hpp:912:38: error: std::move of the const variable \u0027payload\u0027 has no effect; remove std::move() or make the variable non-const [performance-move-const-arg,-warnings-as-errors]\n  912 |         handleStartUpdate(asyncResp, std::move(payload), objectPath, ec1,\n      |                                      ^~~~~~~~~~       ~\n../redfish-core/lib/update_service.hpp:1010:43: error: \u0027payload\u0027 used after it was moved [bugprone-use-after-move,-warnings-as-errors]\n 1010 |             [asyncResp, payload(std::move(payload)), memfd \u003d std::move(memfd),\n      |                                           ^\n../redfish-core/lib/update_service.hpp:1010:25: note: move occurred here\n 1010 |             [asyncResp, payload(std::move(payload)), memfd \u003d std::move(memfd),",
+      "parentUuid": "1f77d811_b6bb1d6f",
       "range": {
         "startLine": 1013,
         "startChar": 22,

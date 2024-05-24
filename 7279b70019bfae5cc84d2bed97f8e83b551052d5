@@ -567,6 +567,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f92f5017_5c15e714",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 848,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-24T16:37:31Z",
+      "side": 1,
+      "message": "Sure, in a new patch i can start with basic solution and we can iterate over it in feedback.",
+      "parentUuid": "1feda995_1f87d3b9",
+      "range": {
+        "startLine": 847,
+        "startChar": 1,
+        "endLine": 848,
+        "endChar": 40
+      },
+      "revId": "7279b70019bfae5cc84d2bed97f8e83b551052d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "27ad9749_ac26e306",

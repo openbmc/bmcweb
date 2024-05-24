@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "78aebe8e_246af8d2",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-24T16:37:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d073593_3d97fc41",
+      "range": {
+        "startLine": 765,
+        "startChar": 16,
+        "endLine": 765,
+        "endChar": 23
+      },
+      "revId": "79d93ab1e37376b49fcdd16fe71f6ae31dfce654",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8d266687_c662ef97",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31b8ed03_c99fefa5",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 777,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-24T16:37:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d266687_c662ef97",
+      "range": {
+        "startLine": 772,
+        "startChar": 0,
+        "endLine": 777,
+        "endChar": 74
+      },
+      "revId": "79d93ab1e37376b49fcdd16fe71f6ae31dfce654",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df7c4356_c8a73a42",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-05-23T02:36:58Z",
       "side": 1,
       "message": "You\u0027ve decoded this url twice in your flow.  On line 777, your call has already parsed out the ID of the uri, you need to just push that inyour your vector instead of the full URI, then you avoid having to do this conversion, which as written a url object isn\u0027t required to have back().",
+      "range": {
+        "startLine": 963,
+        "startChar": 0,
+        "endLine": 963,
+        "endChar": 59
+      },
+      "revId": "79d93ab1e37376b49fcdd16fe71f6ae31dfce654",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "860b6f5c_8cc5162d",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 963,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-24T16:37:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df7c4356_c8a73a42",
       "range": {
         "startLine": 963,
         "startChar": 0,
