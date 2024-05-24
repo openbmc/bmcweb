@@ -16,6 +16,24 @@
       "message": "This points to several commits which is good, but doesn\u0027t answer the question of what this is changing in terms of path handling.\n\nLets start by getting added to the commit message:\n1. An example dbus interface that works, and produces the expected output.\n2. An example that doesn\u0027t work, what it produces instead, and why we believe that this other association is correct, and how it\u0027s different than the original.\n\nI looked at one of the commits, the meta-ibm layer looks like it hardcoded a bunch of Phosphor-inventory-manager associations that look incorrect to me.\n\n/xyz/openbmc_project/inventory/system/chassis/motherboard/dasd_backplane/panel1\n\nThe motherboard does not \"contain\" a backplane.  The chassis contains both the backplane and the front panel.\n\nThe \"system\" is contained within the chassis, not the other way around.\n\nThis looks like a case of the associations getting added incorrectly, and given the extreme complexity of the config file, I really can\u0027t help you debug it more than that.  Looking at the code, it looks like the association is getting added to the parent object, instead of the object itself, and that\u0027s why using subtree instead of object fixes the bug?\n\nThat subtree call is also doing a depth lookup based on path, not associations, so even if the paths were correct, it flies in opposition to: https://github.com/openbmc/technical-oversight-forum/issues/6\n\nThe code as written looks like it will have the problem of adding ALL objects to the ContainedBy, not just those that are at the next depth level.  For example\n\nChassis -\u003e baseboard -\u003e Add in card\n\n\nChassis Contained by would return ONLY the baseboard\nAdd in card Contained by would return ONLY the add in card\n\nAs written, this code would return the Baseboard and the Add in card under the chassis. which isn\u0027t really correct to the standard.",
       "revId": "dd5d6cc238b7066d4949cfe7b2927b7d0b3a60a2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd269a3b_04bdf13e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-05-24T20:02:23Z",
+      "side": 1,
+      "message": "Ok, I agree that https://gerrit.openbmc.org/c/openbmc/openbmc/+/70372 has the incorrect associations (e.g. between chassis \u0026 connector4 etc) with `containing`.\nSo that json file would need to be fixed.\n\nI mis-read the goal of https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60914 to get the other nested chassis....\nThanks",
+      "parentUuid": "f1916271_0a2e494d",
+      "revId": "dd5d6cc238b7066d4949cfe7b2927b7d0b3a60a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
