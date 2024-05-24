@@ -63,6 +63,29 @@
       },
       "revId": "a0161a4bf1d8e28adaf0f40d420056b4cfc36b55",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5c1afd3_0e73c2da",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 1010,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-24T17:33:16Z",
+      "side": 1,
+      "message": "ok, I understand now;  The shared ownership is happening here, where each loop gets its own copy of the payload.\n\nYes, shared_ptr is reasonable in this case.",
+      "range": {
+        "startLine": 1010,
+        "startChar": 42,
+        "endLine": 1010,
+        "endChar": 49
+      },
+      "revId": "a0161a4bf1d8e28adaf0f40d420056b4cfc36b55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
