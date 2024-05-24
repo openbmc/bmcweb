@@ -676,6 +676,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2d4d1520_d52e3472",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1013,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-24T18:53:51Z",
+      "side": 1,
+      "message": "NVM about the path; see my other comment, I understand why we\u0027re hitting these issues.",
+      "parentUuid": "2d3be49d_cb7fc797",
+      "range": {
+        "startLine": 1013,
+        "startChar": 22,
+        "endLine": 1013,
+        "endChar": 33
+      },
+      "revId": "a8995d2e77c59731c544a957af897cf7a9fc4c8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "746d29bf_9048b7b0",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 18
