@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbfd152e_66d1545e",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1555,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-24T19:18:32Z",
+      "side": 1,
+      "message": "We seem to be amassing a lot of conditions for this;  I wonder if it would be better to put it after the loop, on line 1714, that way we can be sure we\u0027re only clearing it once?\n\nWe could have the variable be \"clearGateway\"\n\nand we\u0027d just set it in the conditions where it needs set, rather than having \"when to set\" and \"when to ignore\" condition?\n\nIt\u0027s possible I\"m over thinking this. Feel free to tell me I\u0027m wrong, and I\u0027ll believe you.",
+      "revId": "0f5b8fe439beef5df983a8a6fde41e111a02c6d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
