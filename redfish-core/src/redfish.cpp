@@ -208,7 +208,9 @@ RedfishService::RedfishService(App& app)
     requestRoutesSystemHostLoggerCollection(app);
     requestRoutesSystemHostLoggerLogEntry(app);
 #endif
-
+#ifdef BMCWEB_ENABLE_HW_ISOLATION
+    requestRoutesSystemHardwareIsolationLogService(app);
+#endif
     requestRoutesMessageRegistryFileCollection(app);
     requestRoutesMessageRegistryFile(app);
     requestRoutesMessageRegistry(app);
