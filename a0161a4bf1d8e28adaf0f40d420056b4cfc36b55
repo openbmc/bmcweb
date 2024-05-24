@@ -86,6 +86,30 @@
       },
       "revId": "a0161a4bf1d8e28adaf0f40d420056b4cfc36b55",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8156201f_20b38366",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 1010,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-24T18:34:22Z",
+      "side": 1,
+      "message": "I thought we talked about getting this new API working for a single target, then change it to work with multiple targets later?  Your testing mentioned in the commit message also implies that we haven\u0027t attempted multiple targets yet, and the existing task system won\u0027t be able to support multiple tasks in flight, because like we talked about on discord, you can\u0027t return multiple \"tasks\" in a single HTTP response, so we\u0027ll need some sort of SubTask implementations for this to work properly.  That\u0027s more than I think we should put in one commit, so lets just simplify this for now down to a single target allowed and get it on master so we can unblock the other things adding your new API.\n\nThat\u0027s the core reason we\u0027re getting warnings about shared usage when we do this.  We\u0027re making unintentional copies for each task.\n\n\nOnce we\u0027re through the hard part, we can regroup and figure out how to implement a subtask system if we need it.",
+      "parentUuid": "c5c1afd3_0e73c2da",
+      "range": {
+        "startLine": 1010,
+        "startChar": 42,
+        "endLine": 1010,
+        "endChar": 49
+      },
+      "revId": "a0161a4bf1d8e28adaf0f40d420056b4cfc36b55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
