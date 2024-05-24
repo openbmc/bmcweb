@@ -52,6 +52,24 @@
       "parentUuid": "dd269a3b_04bdf13e",
       "revId": "dd5d6cc238b7066d4949cfe7b2927b7d0b3a60a2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48c72300_58583f85",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-24T21:14:46Z",
+      "side": 1,
+      "message": "Sorry, I linked the wrong decision:\nhttps://github.com/openbmc/technical-oversight-forum/issues/18\n\n\u003e Ok, I agree that https://gerrit.openbmc.org/c/openbmc/openbmc/+/70372 has the incorrect associations.\n\n\n\u003e So perhaps, should we rethink to use getSubTree() to get the contained resources as you may suggested?\n\nIf I were you, I would start by getting some example \"fake\" EM configs set up, and start looking at the current behavior in the system that was developed against entity-manager.  I know you\u0027ve decided to not use entity-manager, and you have your own reasons for that, which are fine, but you\u0027re modifying code that was built to EM behavior, so we need to make sure we don\u0027t regress that, and we can\u0027t just be arbitrarily changing things in a way that might break other people without understanding the differences, and understanding what the intent is of the interface.",
+      "parentUuid": "e42b6c84_963f140e",
+      "revId": "dd5d6cc238b7066d4949cfe7b2927b7d0b3a60a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
