@@ -18,6 +18,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5457e1d6_0db3bd4c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 31
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-27T23:58:19Z",
+      "side": 1,
+      "message": "Replied to your comment. Thanks",
+      "revId": "908fab5e3f8f3d081cf90f8150db01f6e289f154",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ccec5545_ec2a1731",
@@ -31,6 +48,30 @@
       "writtenOn": "2024-05-26T19:43:32Z",
       "side": 1,
       "message": "For \"this bmc\" is the name always going to match the redfish name?\n\nIs there code that always adds a path to the effect of \n\n/xyz/openbmc_project/update/bmc\n\n\nI suspect we should be writing a fixed known path here that we always know represents \"this bmc\" rather than writing the redfish URL path?",
+      "range": {
+        "startLine": 775,
+        "startChar": 46,
+        "endLine": 775,
+        "endChar": 77
+      },
+      "revId": "908fab5e3f8f3d081cf90f8150db01f6e289f154",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a44391be_d3e8e0c2",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-05-27T23:58:19Z",
+      "side": 1,
+      "message": "In processUpdateRequest(), we map the BMCWEB_REDFISH_MANAGER_URI_NAME to the DBus path /xyz/openbmc_project/software/bmc, as shown in code below. So, we are using fixed known path.\n\n        startUpdate(asyncResp, std::move(payload), memfd, applyTimeNewVal,\n                    \"/xyz/openbmc_project/software/bmc\",\n                    \"xyz.openbmc_project.Software.Manager\");",
+      "parentUuid": "ccec5545_ec2a1731",
       "range": {
         "startLine": 775,
         "startChar": 46,
