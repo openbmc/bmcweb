@@ -107,6 +107,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b911ed8_cf8da4ab",
+        "filename": "redfish-core/lib/roles.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-28T21:36:50Z",
+      "side": 1,
+      "message": "Reverted back to 2.  Bad rebase.",
+      "parentUuid": "4c2e4e6b_e5a682c5",
+      "revId": "0312b0fd8754ff7407df7f373e54e74b5bf3ca6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de6cb678_7899c025",
@@ -156,6 +174,24 @@
       "side": 1,
       "message": "patchset 2 had this change",
       "parentUuid": "2cc825a4_bdb1a97d",
+      "revId": "0312b0fd8754ff7407df7f373e54e74b5bf3ca6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72dea7b1_3bba7002",
+        "filename": "redfish-core/lib/roles.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-28T21:36:50Z",
+      "side": 1,
+      "message": "Reverted back to 2.",
+      "parentUuid": "e696565f_2c97e74f",
       "revId": "0312b0fd8754ff7407df7f373e54e74b5bf3ca6a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
