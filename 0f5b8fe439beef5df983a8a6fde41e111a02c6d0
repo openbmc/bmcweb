@@ -18,6 +18,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "200172b6_606bc900",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2024-05-28T15:28:13Z",
+      "side": 1,
+      "message": "I won\u0027t say you\u0027re wrong Ed.... 😊\nIt was worth another look.\nSee below, I think this should be applied as is.",
+      "revId": "0f5b8fe439beef5df983a8a6fde41e111a02c6d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bbfd152e_66d1545e",
@@ -31,6 +48,24 @@
       "writtenOn": "2024-05-24T19:18:32Z",
       "side": 1,
       "message": "We seem to be amassing a lot of conditions for this;  I wonder if it would be better to put it after the loop, on line 1714, that way we can be sure we\u0027re only clearing it once?\n\nWe could have the variable be \"clearGateway\"\n\nand we\u0027d just set it in the conditions where it needs set, rather than having \"when to set\" and \"when to ignore\" condition?\n\nIt\u0027s possible I\"m over thinking this. Feel free to tell me I\u0027m wrong, and I\u0027ll believe you.",
+      "revId": "0f5b8fe439beef5df983a8a6fde41e111a02c6d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4594d066_2d44d10b",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1555,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2024-05-28T15:28:13Z",
+      "side": 1,
+      "message": "I reviewed this and it may be best to leave this as is.\n\nThe JSON input may have more action entries than there are static IPv4 addresses, as discovered by getEthernetInterfaceData.\n\nIt\u0027s possible that the incoming JSON could have 4 \u0027null\u0027 actions being applied to only 3 active static addresses. The code as is will delete all 3 static addresses, then remove the GW, and finally send an error for the extra \u0027null\u0027 action.\n\nIf the GW update is left until after the \u0027for\u0027 loop, the addresses will be removed, but the GW will remain, due to the early \u0027return\u0027.\n\nLeaving the code as is leaves the v4 addresses in the expected state despite the malformed PATCH.",
+      "parentUuid": "bbfd152e_66d1545e",
       "revId": "0f5b8fe439beef5df983a8a6fde41e111a02c6d0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
