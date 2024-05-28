@@ -91,6 +91,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4c2e4e6b_e5a682c5",
+        "filename": "redfish-core/lib/roles.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-28T20:36:30Z",
+      "side": 1,
+      "message": "#include \u003cnlohmann/json.hpp\u003e\n\npatchset 2 had this change",
+      "parentUuid": "a18670d5_aa79f30a",
+      "revId": "0312b0fd8754ff7407df7f373e54e74b5bf3ca6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "de6cb678_7899c025",
         "filename": "redfish-core/lib/roles.hpp",
         "patchSetId": 1
@@ -120,6 +138,24 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "de6cb678_7899c025",
+      "revId": "0312b0fd8754ff7407df7f373e54e74b5bf3ca6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e696565f_2c97e74f",
+        "filename": "redfish-core/lib/roles.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-28T20:36:30Z",
+      "side": 1,
+      "message": "patchset 2 had this change",
+      "parentUuid": "2cc825a4_bdb1a97d",
       "revId": "0312b0fd8754ff7407df7f373e54e74b5bf3ca6a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
