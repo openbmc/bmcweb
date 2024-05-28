@@ -583,15 +583,6 @@ class Connection :
                 return;
             }
 
-            std::string_view expect =
-                parser->get()[boost::beast::http::field::expect];
-            if (bmcweb::asciiIEquals(expect, "100-continue"))
-            {
-                res.result(boost::beast::http::status::continue_);
-                doWrite();
-                return;
-            }
-
             if constexpr (!std::is_same_v<Adaptor, boost::beast::test::stream>)
             {
 #ifndef BMCWEB_INSECURE_DISABLE_AUTHX
@@ -599,6 +590,15 @@ class Connection :
                 userSession = crow::authentication::authenticate(
                     ip, res, method, parser->get().base(), mtlsSession);
 #endif // BMCWEB_INSECURE_DISABLE_AUTHX
+            }
+
+            std::string_view expect =
+                parser->get()[boost::beast::http::field::expect];
+            if (bmcweb::asciiIEquals(expect, "100-continue"))
+            {
+                res.result(boost::beast::http::status::continue_);
+                doWrite();
+                return;
             }
 
             if (!handleContentLengthError())
