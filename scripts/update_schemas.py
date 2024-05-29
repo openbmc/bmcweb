@@ -150,10 +150,10 @@ for schema, version in json_schema_files.items():
 with open(os.path.join(cpp_path, "schemas.hpp"), "w") as hpp_file:
     schemas = []
     for root, dirs, files in os.walk(
-        os.path.join(SCRIPT_DIR, "..", "static", "redfish", "v1", "schema")
+        os.path.join(SCRIPT_DIR, "..", "redfish-core", "schema", "dmtf", "installed")
     ):
         for csdl_file in sorted(files, key=SchemaVersion):
-            if csdl_file.endswith(".xml"):
+            if csdl_file.endswith("_v1.xml"):
                 schemas.append(csdl_file.replace("_v1.xml", ""))
     hpp_file.write(
         "#pragma once\n"
