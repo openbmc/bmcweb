@@ -1,0 +1,309 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/OperatingConfig.v1_0_2.json",
+    "$ref": "#/definitions/OperatingConfig",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "BaseSpeedPrioritySettings": {
+            "additionalProperties": false,
+            "description": "The clock speed for a set of cores.",
+            "longDescription": "This type shall specify the clock speed for a set of cores.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "BaseSpeedMHz": {
+                    "description": "The clock speed to configure the set of cores in MHz.",
+                    "longDescription": "This property shall contain the clock speed to configure the set of cores in MHz.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "MHz"
+                },
+                "CoreCount": {
+                    "description": "The number of cores to configure with a specified speed.",
+                    "longDescription": "This property shall contain the number of cores to configure with the speed specified by the BaseSpeedMHz property.  The sum of all CoreCount properties shall equal the value of the TotalAvailableCoreCount property.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "CoreIDs": {
+                    "description": "The identifier of the cores to configure with the specified speed.",
+                    "items": {
+                        "type": [
+                            "integer",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array identifying the cores to configure with the speed specified by the BaseSpeedMHz property.  The length of the array shall equal the value of the CoreCount property.",
+                    "readonly": true,
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "OperatingConfig": {
+            "additionalProperties": false,
+            "description": "The OperatingConfig schema specifies a configuration that can be used when the processor is operational.",
+            "longDescription": "This resource shall represent an operational configuration for a processor in the Redfish Specification.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "BaseSpeedMHz": {
+                    "description": "The base (nominal) clock speed of the processor in MHz.",
+                    "longDescription": "This property shall contain the base (nominal) clock speed of the processor in MHz.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "MHz"
+                },
+                "BaseSpeedPrioritySettings": {
+                    "description": "The clock speed for sets of cores when the configuration is operational.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/BaseSpeedPrioritySettings"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of objects that specify the clock speed for sets of cores when the configuration is operational.",
+                    "type": "array"
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "MaxJunctionTemperatureCelsius": {
+                    "description": "The maximum temperature of the junction in degrees Celsius.",
+                    "longDescription": "This property shall contain the maximum temperature of the junction in degrees Celsius.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "Cel"
+                },
+                "MaxSpeedMHz": {
+                    "description": "The maximum clock speed to which the processor can be configured in MHz.",
+                    "longDescription": "This property shall contain the maximum clock speed to which the processor can be configured in MHz.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "MHz"
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "TDPWatts": {
+                    "description": "The thermal design point of the processor in watts.",
+                    "longDescription": "This property shall contain the thermal design point of the processor in watts.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "W"
+                },
+                "TotalAvailableCoreCount": {
+                    "description": "The number of cores in the processor that can be configured.",
+                    "longDescription": "This property shall contain the number of cores in the processor that can be configured.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "TurboProfile": {
+                    "description": "The turbo profiles for the processor.  A turbo profile is the maximum turbo clock speed as a function of the number of active cores.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/TurboProfileDatapoint"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "The property shall contain an array of objects that specify the turbo profile for a set of active cores.",
+                    "type": "array"
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "TurboProfileDatapoint": {
+            "additionalProperties": false,
+            "description": "The turbo profile for a set of active cores.",
+            "longDescription": "This type shall specify the turbo profile for a set of active cores.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "ActiveCoreCount": {
+                    "description": "The number of active cores to be configured with the specified maximum clock speed.",
+                    "longDescription": "This property shall contain the number of cores to be configured with the maximum turbo clock speed.  The value shall be less than or equal the TotalAvailableCoreCount property.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "MaxSpeedMHz": {
+                    "description": "The maximum turbo clock speed that correspond to the number of active cores in MHz.",
+                    "longDescription": "This property shall contain the maximum turbo clock speed that correspond to the number of active cores in MHz.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "MHz"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2020.2",
+    "title": "#OperatingConfig.v1_0_2.OperatingConfig"
+}

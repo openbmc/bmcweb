@@ -1,0 +1,440 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/PCIeFunction.v1_5_0.json",
+    "$ref": "#/definitions/PCIeFunction",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource.",
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
+        },
+        "DeviceClass": {
+            "enum": [
+                "UnclassifiedDevice",
+                "MassStorageController",
+                "NetworkController",
+                "DisplayController",
+                "MultimediaController",
+                "MemoryController",
+                "Bridge",
+                "CommunicationController",
+                "GenericSystemPeripheral",
+                "InputDeviceController",
+                "DockingStation",
+                "Processor",
+                "SerialBusController",
+                "WirelessController",
+                "IntelligentController",
+                "SatelliteCommunicationsController",
+                "EncryptionController",
+                "SignalProcessingController",
+                "ProcessingAccelerators",
+                "NonEssentialInstrumentation",
+                "Coprocessor",
+                "UnassignedClass",
+                "Other"
+            ],
+            "enumDescriptions": {
+                "Bridge": "A bridge.",
+                "CommunicationController": "A communication controller.",
+                "Coprocessor": "A coprocessor.",
+                "DisplayController": "A display controller.",
+                "DockingStation": "A docking station.",
+                "EncryptionController": "An encryption controller.",
+                "GenericSystemPeripheral": "A generic system peripheral.",
+                "InputDeviceController": "An input device controller.",
+                "IntelligentController": "An intelligent controller.",
+                "MassStorageController": "A mass storage controller.",
+                "MemoryController": "A memory controller.",
+                "MultimediaController": "A multimedia controller.",
+                "NetworkController": "A network controller.",
+                "NonEssentialInstrumentation": "A non-essential instrumentation.",
+                "Other": "Other class.  The function Class Code needs to be verified.",
+                "ProcessingAccelerators": "A processing accelerators.",
+                "Processor": "A processor.",
+                "SatelliteCommunicationsController": "A satellite communications controller.",
+                "SerialBusController": "A serial bus controller.",
+                "SignalProcessingController": "A signal processing controller.",
+                "UnassignedClass": "An unassigned class.",
+                "UnclassifiedDevice": "An unclassified device.",
+                "WirelessController": "A wireless controller."
+            },
+            "type": "string"
+        },
+        "FunctionProtocol": {
+            "enum": [
+                "PCIe",
+                "CXL"
+            ],
+            "enumDescriptions": {
+                "CXL": "A PCIe function supporting CXL extensions.",
+                "PCIe": "A standard PCIe function."
+            },
+            "type": "string"
+        },
+        "FunctionType": {
+            "enum": [
+                "Physical",
+                "Virtual"
+            ],
+            "enumDescriptions": {
+                "Physical": "A physical PCIe function.",
+                "Virtual": "A virtual PCIe function."
+            },
+            "type": "string"
+        },
+        "Links": {
+            "additionalProperties": false,
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "CXLLogicalDevice": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/CXLLogicalDevice.json#/definitions/CXLLogicalDevice"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The link to the CXL logical device to which this function is assigned.",
+                    "longDescription": "This property shall contain a link to a resource of type CXLLogicalDevice that represents the CXL logical device to which this PCIe function is assigned.",
+                    "readonly": true,
+                    "versionAdded": "v1_5_0"
+                },
+                "Drives": {
+                    "description": "An array of links to the drives that this PCIe function produces.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Drive.json#/definitions/Drive"
+                    },
+                    "longDescription": "This property shall contain an arrays of links to resources of type Drive that represent the drives associated with this PCIe function.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "Drives@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "EthernetInterfaces": {
+                    "description": "An array of links to the Ethernet interfaces that this PCIe function produces.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.json#/definitions/EthernetInterface"
+                    },
+                    "longDescription": "This property shall contain an arrays of links to resources of type EthernetInterface that represent the network interfaces associated with this PCIe function.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "EthernetInterfaces@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "MemoryDomains": {
+                    "description": "An array of links to the memory domains that the PCIe function produces.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/MemoryDomain.json#/definitions/MemoryDomain"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type MemoryDomain that represents the memory domains associated with this PCIe function.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_5_0"
+                },
+                "MemoryDomains@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "NetworkDeviceFunctions": {
+                    "description": "An array of links to the network device functions that the PCIe function produces.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkDeviceFunction.json#/definitions/NetworkDeviceFunction"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type NetworkDeviceFunction that represents the network device functions associated with this PCIe function.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_2_0"
+                },
+                "NetworkDeviceFunctions@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                },
+                "PCIeDevice": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PCIeDevice.json#/definitions/PCIeDevice",
+                    "description": "The link to the PCIe device on which this function resides.",
+                    "longDescription": "This property shall contain a link to a resource of type PCIeDevice that represents the PCIe devices on which this function resides.",
+                    "readonly": true
+                },
+                "Processor": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Processor.json#/definitions/Processor"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The link to a processor that is hosted on this PCIe function.",
+                    "longDescription": "This property shall link to a resource of type Processor that represents the processor that is hosted on this PCIe function.",
+                    "readonly": true,
+                    "versionAdded": "v1_4_0"
+                },
+                "StorageControllers": {
+                    "description": "An array of links to the storage controllers that this PCIe function produces.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Storage.json#/definitions/StorageController"
+                    },
+                    "longDescription": "This property shall contain an arrays of links to referenceable members of type StorageController that represent the storage controllers associated with this PCIe function.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "StorageControllers@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "PCIeFunction": {
+            "additionalProperties": false,
+            "description": "The PCIeFunction schema describes the properties of a PCIe function that is attached to a system.",
+            "longDescription": "This resource shall represent a PCIe function in a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource.",
+                    "versionAdded": "v1_1_0"
+                },
+                "ClassCode": {
+                    "description": "The Class Code of this PCIe function.",
+                    "longDescription": "This property shall contain the PCI Class Code, Subclass, and Programming Interface of the PCIe device function in the order listed.",
+                    "pattern": "^0[xX]([0-9A-Fa-f]{2}){3}$",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "DeviceClass": {
+                    "$ref": "#/definitions/DeviceClass",
+                    "description": "The class for this PCIe function.",
+                    "longDescription": "This property shall contain the device class of the PCIe device function, such as storage, network, or memory.",
+                    "readonly": true
+                },
+                "DeviceId": {
+                    "description": "The Device ID of this PCIe function.",
+                    "longDescription": "This property shall contain the PCI Device ID of the PCIe device function with the most significant byte shown first.",
+                    "pattern": "^0[xX]([0-9A-Fa-f]{2}){2}$",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Enabled": {
+                    "description": "An indication of whether this PCIe device function is enabled.",
+                    "longDescription": "The value of this property shall indicate if this PCIe device function is enabled.",
+                    "readonly": false,
+                    "type": "boolean",
+                    "versionAdded": "v1_3_0"
+                },
+                "FunctionId": {
+                    "description": "The PCIe function number.",
+                    "longDescription": "This property shall contain the PCIe function number within a given PCIe device.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "FunctionProtocol": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/FunctionProtocol"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The PCIe function protocol.",
+                    "longDescription": "This property shall contain the protocol supported by this PCIe function.",
+                    "readonly": true,
+                    "versionAdded": "v1_5_0"
+                },
+                "FunctionType": {
+                    "$ref": "#/definitions/FunctionType",
+                    "description": "The type of the PCIe function.",
+                    "longDescription": "This property shall contain the function type of the PCIe device function such as physical or virtual.",
+                    "readonly": true
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "RevisionId": {
+                    "description": "The Revision ID of this PCIe function.",
+                    "longDescription": "This property shall contain the PCI Revision ID of the PCIe device function.",
+                    "pattern": "^0[xX]([0-9A-Fa-f]{2}){1}$",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                },
+                "SubsystemId": {
+                    "description": "The Subsystem ID of this PCIe function.",
+                    "longDescription": "This property shall contain the PCI Subsystem ID of the PCIe device function with the most significant byte shown first.",
+                    "pattern": "^0[xX]([0-9A-Fa-f]{2}){2}$",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "SubsystemVendorId": {
+                    "description": "The Subsystem Vendor ID of this PCIe function.",
+                    "longDescription": "This property shall contain the PCI Subsystem Vendor ID of the PCIe device function with the most significant byte shown first.",
+                    "pattern": "^0[xX]([0-9A-Fa-f]{2}){2}$",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "VendorId": {
+                    "description": "The Vendor ID of this PCIe function.",
+                    "longDescription": "This property shall contain the PCI Vendor ID of the PCIe device function with the most significant byte shown first.",
+                    "pattern": "^0[xX]([0-9A-Fa-f]{2}){2}$",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2022.3",
+    "title": "#PCIeFunction.v1_5_0.PCIeFunction"
+}

@@ -1,0 +1,806 @@
+{
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "DurableNameFormat": {
+            "enum": [
+                "NAA",
+                "iQN",
+                "FC_WWN",
+                "UUID",
+                "EUI",
+                "NQN",
+                "NSID"
+            ],
+            "enumDescriptions": {
+                "EUI": "IEEE-defined 64-bit Extended Unique Identifier.",
+                "FC_WWN": "Fibre Channel World Wide Name.",
+                "NAA": "Name Address Authority Format.",
+                "NQN": "NVMe Qualified Name.",
+                "NSID": "NVM Namespace Identifier.",
+                "UUID": "Universally Unique Identifier.",
+                "iQN": "iSCSI Qualified Name."
+            },
+            "enumLongDescriptions": {
+                "EUI": "This durable name shall be the hexadecimal representation of the IEEE-defined 64-bit Extended Unique Identifier as defined in the IEEE's Guidelines for 64-bit Global Identifier (EUI-64) Specification.",
+                "FC_WWN": "This durable name shall be a hexadecimal representation of the World Wide Name format as defined in the T11 Fibre Channel Physical and Signaling Interface Specification.",
+                "NAA": "This durable name shall be a hexadecimal representation of the Name Address Authority structure as defined in the T11 Fibre Channel - Framing and Signaling - 3 (FC-FS-3) specification.",
+                "NQN": "This durable name shall be in the NVMe Qualified Name format as defined in the NVN Express over Fabric Specification.",
+                "NSID": "This durable name shall be in the NVM Namespace Identifier format as defined in the NVN Express Specification.",
+                "UUID": "This durable name shall be the hexadecimal representation of the Universal Unique Identifier as defined in the Internation Telecom Union's OSI networking and system aspects - Naming, Addressing and Registration Specification.",
+                "iQN": "This durable name shall be in the iSCSI Qualified Name format as defined in RFC 3720 and RFC 3721."
+            },
+            "type": "string"
+        },
+        "Health": {
+            "enum": [
+                "OK",
+                "Warning",
+                "Critical"
+            ],
+            "enumDescriptions": {
+                "Critical": "A critical condition exists that requires immediate attention.",
+                "OK": "Normal.",
+                "Warning": "A condition exists that requires attention."
+            },
+            "type": "string"
+        },
+        "Identifier": {
+            "additionalProperties": false,
+            "description": "This type describes any additional identifiers for a resource.",
+            "longDescription": "This type shall contain any additional identifiers of a resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "DurableName": {
+                    "description": "This indicates the world wide, persistent name of the resource.",
+                    "longDescription": "This property shall contain the world wide unique identifier for the resource. The string shall be in the format described by the value of the Identifier.DurableNameFormat property.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "DurableNameFormat": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/DurableNameFormat"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "This represents the format of the DurableName property.",
+                    "longDescription": "This property shall represent the format of the DurableName property.",
+                    "readonly": true
+                }
+            },
+            "type": "object"
+        },
+        "IndicatorLED": {
+            "deprecated": "This definition has been moved to the unversioned namespace so that external references can pick up changes over time.",
+            "enum": [
+                "Lit",
+                "Blinking",
+                "Off"
+            ],
+            "enumDescriptions": {
+                "Blinking": "The Indicator LED is blinking.",
+                "Lit": "The Indicator LED is lit.",
+                "Off": "The Indicator LED is off."
+            },
+            "enumLongDescriptions": {
+                "Blinking": "This value shall represent the Indicator LED is in a blinking state where the LED is being turned on and off in repetition.  If this value is not supported by the service, the service shall reject PATCH or PUT requests containing this value by returning HTTP 400 (Bad Request).",
+                "Lit": "This value shall represent the Indicator LED is in a solid on state.  If this value is not supported by the service, the service shall reject PATCH or PUT requests containing this value by returning HTTP 400 (Bad Request).",
+                "Off": "This value shall represent the Indicator LED is in a solid off state.  If this value is not supported by the service, the service shall reject PATCH or PUT requests containing this value by returning HTTP 400 (Bad Request)."
+            },
+            "type": "string"
+        },
+        "Location": {
+            "additionalProperties": false,
+            "description": "This type describes the location of a resource.",
+            "longDescription": "This type shall describe the location of a resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Info": {
+                    "deprecated": "This property has been Deprecated in favor of new properties defined in Resource.v1_3_0.Location and Resource.v1_5_0.Location.",
+                    "description": "This indicates the location of the resource.",
+                    "longDescription": "This property shall represent the location of the resource.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "InfoFormat": {
+                    "deprecated": "This property has been Deprecated in favor of new properties defined in Resource.v1_3_0.Location and Resource.v1_5_0.Location.",
+                    "description": "This represents the format of the Info property.",
+                    "longDescription": "This property shall represent the format of the Info property.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "Oem extension object.",
+                    "longDescription": "This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification."
+                },
+                "Placement": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Placement"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "A place within the addressed location.",
+                    "longDescription": "The value shall be a place within the addressed location."
+                },
+                "PostalAddress": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/PostalAddress"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Postal address of the addressed resource.",
+                    "longDescription": "The value shall be a postal address of the resource."
+                }
+            },
+            "type": "object"
+        },
+        "Placement": {
+            "additionalProperties": false,
+            "description": "The placement within the addressed location.",
+            "longDescription": "The value shall describe a location within a resource.  Examples include a shelf in a rack.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Rack": {
+                    "description": "Name of a rack location within a row.",
+                    "longDescription": "The value shall be the name of the rack within a row.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "RackOffset": {
+                    "description": "Vertical location of the item in terms of RackOffsetUnits.",
+                    "longDescription": "Vertical location of the item in the rack. Rack offset units shall be measured from bottom to top starting with 0.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "RackOffsetUnits": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/RackUnits"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The type of Rack Units in use.",
+                    "longDescription": "The value shall be a RackUnit enumeration literal indicating the type of rack units in use.",
+                    "readonly": false
+                },
+                "Row": {
+                    "description": "Name of row.",
+                    "longDescription": "The value shall be the name of the row.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "PostalAddress": {
+            "additionalProperties": false,
+            "description": "The PostalAddress for a resource.",
+            "longDescription": "Instances shall describe a postal address for a resource. For more information see RFC5139. Depending on use, the instance may represent a past, current, or future location.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AdditionalCode": {
+                    "description": "Additional code.",
+                    "longDescription": "The value shall conform the requirements of the ADDCODE field as defined in RFC5139.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Building": {
+                    "description": "Name of the building.",
+                    "longDescription": "The value shall conform the requirements of the BLD field as defined in RFC5139.  The value shall be name a building used to locate the resource.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "City": {
+                    "description": "City, township, or shi (JP).",
+                    "longDescription": "The value shall conform the requirements of the A3 field as defined in RFC5139.  It is used to name a city, township, or shi (JP).",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Community": {
+                    "description": "Postal community name.",
+                    "longDescription": "The value shall conform the requirements of the PCN field as defined in RFC5139.  The value shall be a postal community name.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Country": {
+                    "description": "Country.",
+                    "longDescription": "The value shall conform the requirements of the Country field as defined in RFC5139.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "District": {
+                    "description": "A county, parish, gun (JP), or  district (IN).",
+                    "longDescription": "The value shall conform the requirements of the A2 field as defined in RFC5139.  It is used to name a county, parish, gun (JP), or  district (IN).",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Division": {
+                    "description": "City division, borough, dity district, ward, chou (JP).",
+                    "longDescription": "The value shall conform the requirements of the A4 field as defined in RFC5139.  It is used to name a city division, borough, dity district, ward, chou (JP).",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Floor": {
+                    "description": "Floor.",
+                    "longDescription": "The value shall conform the requirements of the FLR field as defined in RFC5139.  It is used to provide a floor designation.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "GPSCoords": {
+                    "deprecated": "This property has been Deprecated in favor of Location.v1_6_0.Longitude and Location.v1_6_0.Latitude",
+                    "description": "The GPS coordinates of the part.",
+                    "longDescription": "The value shall conform the requirements of the ADDCODE field as defined in RFC5139. The value shall be the GPS coordinates of the location. If furnished, this shall be expressed in the format '[-][nn]n.nnnnnn, [-][nn]n.nnnnn', i.e. two numbers, either positive or negative, with six decimal places of precision, comma-separated.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "HouseNumber": {
+                    "description": "Numeric portion of house number.",
+                    "longDescription": "The value shall conform the requirements of the HNO field as defined in RFC5139.  It is the numeric portion of the house number.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "HouseNumberSuffix": {
+                    "description": "House number suffix.",
+                    "longDescription": "The value shall conform the requirements of the HNS field as defined in RFC5139.  It is used to provide a suffix to a house number, (F, B, 1/2).",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Landmark": {
+                    "description": "Landmark.",
+                    "longDescription": "The value shall conform the requirements of the LMK field as defined in RFC5139.  It is used to identify a landmark or vanity address.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "LeadingStreetDirection": {
+                    "description": "A leading street direction.",
+                    "longDescription": "The value shall conform the requirements of the PRD field as defined in RFC5139.  It is used to name a leading street direction, (N, W, SE).",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Location": {
+                    "deprecated": "This property has been Deprecated in favor of the property AdditionalInfo found in the 1.7.0 definition of PostalAddress.",
+                    "description": "Room designation or other additional info.",
+                    "longDescription": "The value shall conform the requirements of the LOC field as defined in RFC5139.  It is used to provide additional information.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Name": {
+                    "description": "Name.",
+                    "longDescription": "The value shall conform the requirements of the NAM field as defined in RFC5139.  It is used to name the occupant.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Neighborhood": {
+                    "description": "Neighborhood or block.",
+                    "longDescription": "The value shall conform the requirements of the A5 field as defined in RFC5139.  It is used to name a neighborhood or block.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "POBox": {
+                    "description": "Post office box (P.O. box).",
+                    "longDescription": "The value shall conform the requirements of the POBOX field as defined in RFC5139.  The value shall be a Post office box (P.O. box).",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "PlaceType": {
+                    "description": "A description of the type of place that is addressed.",
+                    "longDescription": "The value shall conform the requirements of the PLC field as defined in RFC5139.  Examples include: office, residence,...).",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "PostalCode": {
+                    "description": "Postal code (or zip code).",
+                    "longDescription": "The value shall conform the requirements of the PC field as defined in RFC5139. The value shall be a Postal code (or zip code).",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Road": {
+                    "description": "A primary road or street.",
+                    "longDescription": "The value shall conform the requirements of the RD field as defined in RFC5139.  The value designates a primary road or street.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "RoadBranch": {
+                    "description": "Road branch.",
+                    "longDescription": "The value shall conform the requirements of the RDBR field as defined in RFC5139.  The value shall be a Post office box (P.O. box)road branch.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "RoadPostModifier": {
+                    "description": "Road post-modifier.",
+                    "longDescription": "The value shall conform the requirements of the POM field as defined in RFC5139.  (Extended).",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "RoadPreModifier": {
+                    "description": "Road pre-modifier.",
+                    "longDescription": "The value shall conform the requirements of the PRM field as defined in RFC5139.  (Old, New).",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "RoadSection": {
+                    "description": "Road Section.",
+                    "longDescription": "The value shall conform the requirements of the RDSEC field as defined in RFC5139.  The value shall be a road section.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "RoadSubBranch": {
+                    "description": "Road sub branch.",
+                    "longDescription": "The value shall conform the requirements of the RDSUBBR field as defined in RFC5139.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Room": {
+                    "description": "Name or number of the room.",
+                    "longDescription": "The value shall conform the requirements of the ROOM field as defined in RFC5139.  The value shall be a name or number of a room used to locate the resource within the unit.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Seat": {
+                    "description": "Seat (desk, cubicle, workstation).",
+                    "longDescription": "The value shall conform the requirements of the SEAT field as defined in RFC5139.  The value shall be a name or number of a Seat (desk, cubicle, workstation).",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Street": {
+                    "description": "Street name.",
+                    "longDescription": "The value shall conform the requirements of the A6 field as defined in RFC5139.  It is used to name a street.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "StreetSuffix": {
+                    "description": "Avenue, Platz, Street, Circle.",
+                    "longDescription": "The value shall conform the requirements of the STS field as defined in RFC5139.  It is used to name a  street suffix.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Territory": {
+                    "description": "A top-level subdivision within a country.",
+                    "longDescription": "The value shall conform the requirements of the A1 field as defined in RFC5139 when used to name a territory, state, region, province, or prefecture within a country.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "TrailingStreetSuffix": {
+                    "description": "A trailing street suffix.",
+                    "longDescription": "The value shall conform the requirements of the POD field as defined in RFC5139.  It is used to name a trailing street suffix.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Unit": {
+                    "description": "Name or number of the unit (apartment, suite).",
+                    "longDescription": "The value shall conform the requirements of the UNIT field as defined in RFC5139.  The value shall be a name or number of a unit (apartment, suite) used to locate the resource.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "PowerState": {
+            "deprecated": "This definition has been moved to the unversioned namespace so that external references can pick up changes over time.",
+            "enum": [
+                "On",
+                "Off",
+                "PoweringOn",
+                "PoweringOff"
+            ],
+            "enumDescriptions": {
+                "Off": "The state is powered Off.",
+                "On": "The state is powered On.",
+                "PoweringOff": "A temporary state between On and Off.",
+                "PoweringOn": "A temporary state between Off and On."
+            },
+            "type": "string"
+        },
+        "RackUnits": {
+            "description": "Defines a rack unit.",
+            "enum": [
+                "OpenU",
+                "EIA_310"
+            ],
+            "enumDescriptions": {
+                "EIA_310": "Defines a rack unit as being equal to 1.75 in (44.45 mm).",
+                "OpenU": "Defines a rack unit as being equal to 48 mm (1.89 in)."
+            },
+            "enumLongDescriptions": {
+                "EIA_310": "Rack units shall be specified as defined by the EIA-310 standard.",
+                "OpenU": "Rack units shall be specifie3d in terms of the Open Compute Open Rack specification."
+            },
+            "longDescription": "Enumeration literals shall name the type of rack units in use.",
+            "type": "string"
+        },
+        "ReferenceableMember": {
+            "additionalProperties": false,
+            "description": "This is the base type for addressable members of an array.",
+            "longDescription": "Array members can be referenced using the value returned in the @odata.id property which may or may not be a dereferenceable URL. The @odata.id of this entity shall be the location of this element within an Item.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
+                },
+                "MemberId": {
+                    "description": "This is the identifier for the member within the collection.",
+                    "longDescription": "The value of this string shall uniquely identify the member within the collection.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.",
+                    "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
+                }
+            },
+            "required": [
+                "MemberId",
+                "@odata.id"
+            ],
+            "type": "object"
+        },
+        "ResetType": {
+            "enum": [
+                "On",
+                "ForceOff",
+                "GracefulShutdown",
+                "GracefulRestart",
+                "ForceRestart",
+                "Nmi",
+                "ForceOn",
+                "PushPowerButton",
+                "PowerCycle"
+            ],
+            "enumDescriptions": {
+                "ForceOff": "Turn the unit off immediately (non-graceful shutdown).",
+                "ForceOn": "Turn the unit on immediately.",
+                "ForceRestart": "Perform an immediate (non-graceful) shutdown, followed by a restart.",
+                "GracefulRestart": "Perform a graceful shutdown followed by a restart of the system.",
+                "GracefulShutdown": "Perform a graceful shutdown and power off.",
+                "Nmi": "Generate a Diagnostic Interrupt (usually an NMI on x86 systems) to cease normal operations, perform diagnostic actions and typically halt the system.",
+                "On": "Turn the unit on.",
+                "PowerCycle": "Perform a power cycle of the unit.",
+                "PushPowerButton": "Simulate the pressing of the physical power button on this unit."
+            },
+            "type": "string"
+        },
+        "Resource": {
+            "additionalProperties": false,
+            "description": "This is the base type for resources and referenceable members.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/type"
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.",
+                    "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
+                }
+            },
+            "required": [
+                "Id",
+                "Name",
+                "@odata.id",
+                "@odata.type"
+            ],
+            "type": "object"
+        },
+        "ResourceCollection": {
+            "additionalProperties": false,
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/type"
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.",
+                    "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
+                }
+            },
+            "required": [
+                "Name",
+                "@odata.id",
+                "@odata.type"
+            ],
+            "type": "object"
+        },
+        "State": {
+            "enum": [
+                "Enabled",
+                "Disabled",
+                "StandbyOffline",
+                "StandbySpare",
+                "InTest",
+                "Starting",
+                "Absent",
+                "UnavailableOffline",
+                "Deferring",
+                "Quiesced",
+                "Updating"
+            ],
+            "enumDescriptions": {
+                "Absent": "This function or resource is not present or not detected.",
+                "Deferring": "The element will not process any commands but will queue new requests.",
+                "Disabled": "This function or resource has been disabled.",
+                "Enabled": "This function or resource has been enabled.",
+                "InTest": "This function or resource is undergoing testing.",
+                "Quiesced": "The element is enabled but only processes a restricted set of commands.",
+                "StandbyOffline": "This function or resource is enabled, but awaiting an external action to activate it.",
+                "StandbySpare": "This function or resource is part of a redundancy set and is awaiting a failover or other external action to activate it.",
+                "Starting": "This function or resource is starting.",
+                "UnavailableOffline": "This function or resource is present but cannot be used.",
+                "Updating": "The element is updating and may be unavailable or degraded."
+            },
+            "type": "string"
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#Resource.v1_4_3"
+}

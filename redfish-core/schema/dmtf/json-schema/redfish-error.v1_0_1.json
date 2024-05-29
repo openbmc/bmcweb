@@ -1,0 +1,58 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/redfish-error.v1_0_1.json",
+    "$ref": "#/definitions/RedfishError",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2019 Distributed Management Task Force, Inc. (DMTF). For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "RedfishError": {
+            "additionalProperties": false,
+            "description": "The error payload from a Redfish Service.",
+            "longDescription": "The Redfish Specification-described type shall contain an error payload from a Redfish Service.",
+            "properties": {
+                "error": {
+                    "$ref": "#/definitions/RedfishErrorContents",
+                    "description": "The properties that describe an error from a Redfish Service.",
+                    "longDescription": "This property, as described by the Redfish Specification, shall contain properties that describe an error from a Redfish Service."
+                }
+            },
+            "required": [
+                "error"
+            ],
+            "type": "object"
+        },
+        "RedfishErrorContents": {
+            "additionalProperties": false,
+            "description": "The properties that describe an error from a Redfish Service.",
+            "longDescription": "The Redfish Specification-described type shall contain properties that describe an error from a Redfish Service.",
+            "properties": {
+                "code": {
+                    "description": "A string indicating a specific MessageId from a Message Registry.",
+                    "longDescription": "This property shall contain a string indicating a specific MessageId from a Message Registry.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "message": {
+                    "description": "A human-readable error message corresponding to the message in a Message Registry.",
+                    "longDescription": "This property shall contain a human-readable error message corresponding to the message in a Message Registry.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "@Message.ExtendedInfo": {
+                    "description": "An array of messages describing one or more error messages.",
+                    "longDescription": "This property shall be an array of message objects describing one or more error messages.",
+                    "type": "array",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Message.json#/definitions/Message"
+                    }
+                }
+            },
+            "required": [
+                "code",
+                "message"
+            ],
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "redfish-error.v1_0_1"
+}

@@ -1,0 +1,35 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/ComponentIntegrity.json",
+    "$ref": "#/definitions/ComponentIntegrity",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "ComponentIntegrity": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ComponentIntegrity.v1_0_4.json#/definitions/ComponentIntegrity"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ComponentIntegrity.v1_1_4.json#/definitions/ComponentIntegrity"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ComponentIntegrity.v1_2_3.json#/definitions/ComponentIntegrity"
+                }
+            ],
+            "deletable": false,
+            "description": "The `ComponentIntegrity` resource provides critical and pertinent security information about a specific device, system, software element, or other managed entity.",
+            "insertable": false,
+            "longDescription": "This resource shall represent critical and pertinent security information about a specific device, system, software element, or other managed entity.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/ComponentIntegrity/{ComponentIntegrityId}"
+            ]
+        }
+    },
+    "language": "en",
+    "owningEntity": "DMTF",
+    "title": "#ComponentIntegrity.ComponentIntegrity"
+}

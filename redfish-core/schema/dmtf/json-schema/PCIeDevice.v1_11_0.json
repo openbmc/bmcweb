@@ -1,0 +1,786 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/PCIeDevice.v1_11_0.json",
+    "$ref": "#/definitions/PCIeDevice",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource.",
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
+        },
+        "CXLDevice": {
+            "additionalProperties": false,
+            "description": "The CXL-specific properties of a PCIe device.",
+            "longDescription": "This type shall contain CXL-specific properties of a PCIe device.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "DeviceType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/CXLDeviceType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The CXL device type.",
+                    "longDescription": "This property shall contain the CXL device type.",
+                    "readonly": true,
+                    "versionAdded": "v1_11_0"
+                },
+                "EgressPortCongestionSupport": {
+                    "description": "Indicates whether the CXL device supports egress port congestion management.",
+                    "longDescription": "This property shall indicate whether the CXL device supports the CXL Specification-defined 'Egress Port Congestion' mechanism.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_11_0"
+                },
+                "MaxNumberLogicalDevices": {
+                    "description": "The maximum number of logical devices supported by this CXL device.",
+                    "longDescription": "This property shall contain the maximum number of logical devices supported by this CXL device.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "versionAdded": "v1_11_0"
+                },
+                "ThroughputReductionSupport": {
+                    "description": "Indicates whether the CXL device supports throughput reduction.",
+                    "longDescription": "This property shall indicate whether the CXL device supports the CXL Specification-defined 'Throughput Reduction' mechanism.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_11_0"
+                },
+                "Timestamp": {
+                    "description": "The timestamp set on the CXL device.",
+                    "format": "date-time",
+                    "longDescription": "This property shall contain the timestamp set on the CXL device.",
+                    "readonly": false,
+                    "type": "string",
+                    "versionAdded": "v1_11_0"
+                }
+            },
+            "type": "object"
+        },
+        "CXLDeviceType": {
+            "enum": [
+                "Type1",
+                "Type2",
+                "Type3"
+            ],
+            "enumDescriptions": {
+                "Type1": "A CXL Type 1 device.",
+                "Type2": "A CXL Type 2 device.",
+                "Type3": "A CXL Type 3 device."
+            },
+            "enumLongDescriptions": {
+                "Type1": "This value shall indicate a CXL Specification-defined Type 1 device.",
+                "Type2": "This value shall indicate a CXL Specification-defined Type 2 device.",
+                "Type3": "This value shall indicate a CXL Specification-defined Type 3 device."
+            },
+            "type": "string"
+        },
+        "DeviceType": {
+            "enum": [
+                "SingleFunction",
+                "MultiFunction",
+                "Simulated",
+                "Retimer"
+            ],
+            "enumDescriptions": {
+                "MultiFunction": "A multi-function PCIe device.",
+                "Retimer": "A PCIe retimer device.",
+                "Simulated": "A PCIe device that is not currently physically present, but is being simulated by the PCIe infrastructure.",
+                "SingleFunction": "A single-function PCIe device."
+            },
+            "enumVersionAdded": {
+                "Retimer": "v1_10_0"
+            },
+            "type": "string"
+        },
+        "LaneSplittingType": {
+            "enum": [
+                "None",
+                "Bridged",
+                "Bifurcated"
+            ],
+            "enumDescriptions": {
+                "Bifurcated": "The slot is bifurcated to split the lanes with associated devices.",
+                "Bridged": "The slot has a bridge to share the lanes with associated devices.",
+                "None": "The slot has no lane splitting."
+            },
+            "type": "string"
+        },
+        "Links": {
+            "additionalProperties": false,
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Chassis": {
+                    "description": "An array of links to the chassis in which the PCIe device is contained.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.json#/definitions/Chassis"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Chassis that represent the physical containers associated with this resource.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "Chassis@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                },
+                "PCIeFunctions": {
+                    "deprecated": "This property has been deprecated in favor of the PCIeFunctions property in the root that provides a link to a resource collection.",
+                    "description": "An array of links to PCIe functions exposed by this device.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/PCIeFunction.json#/definitions/PCIeFunction"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type PCIeFunction that represent the PCIe functions this device exposes.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionDeprecated": "v1_4_0"
+                },
+                "PCIeFunctions@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Switch": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Switch.json#/definitions/Switch"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The link to a switch that is associated with this PCIe device.",
+                    "longDescription": "This property shall contain a link to a resource of type Switch that is associated with this PCIe device.",
+                    "readonly": true,
+                    "versionAdded": "v1_10_0"
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "PCIeDevice": {
+            "additionalProperties": false,
+            "description": "The PCIeDevice schema describes the properties of a PCIe device that is attached to a system.",
+            "longDescription": "This resource shall represent a PCIe device in a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "The actions property shall contain the available actions for this resource.",
+                    "versionAdded": "v1_1_0"
+                },
+                "Assembly": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Assembly.json#/definitions/Assembly",
+                    "description": "The link to the assembly associated with this PCIe device.",
+                    "longDescription": "This property shall contain a link to a resource of type Assembly.",
+                    "readonly": true,
+                    "versionAdded": "v1_2_0"
+                },
+                "AssetTag": {
+                    "description": "The user-assigned asset tag for this PCIe device.",
+                    "longDescription": "This property shall contain an identifying string that tracks the PCIe device for inventory purposes.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "CXLDevice": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/CXLDevice"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The CXL-specific properties of this PCIe device.",
+                    "longDescription": "This property shall contain CXL-specific properties of this PCIe device.",
+                    "versionAdded": "v1_11_0"
+                },
+                "CXLLogicalDevices": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CXLLogicalDeviceCollection.json#/definitions/CXLLogicalDeviceCollection",
+                    "description": "The link to the collection of CXL logical devices within this PCIe device.",
+                    "longDescription": "This property shall contain a link to a resource collection of type CXLLogicalDeviceCollection.",
+                    "readonly": true,
+                    "versionAdded": "v1_11_0"
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "DeviceType": {
+                    "$ref": "#/definitions/DeviceType",
+                    "description": "The device type for this PCIe device.",
+                    "longDescription": "This property shall contain the device type of the PCIe device such as `SingleFunction` or `MultiFunction`.",
+                    "readonly": true
+                },
+                "EnvironmentMetrics": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EnvironmentMetrics.json#/definitions/EnvironmentMetrics",
+                    "description": "The link to the environment metrics for this PCIe device.",
+                    "longDescription": "This property shall contain a link to a resource of type EnvironmentMetrics that specifies the environment metrics for this PCIe device.",
+                    "readonly": true,
+                    "versionAdded": "v1_7_0"
+                },
+                "FirmwareVersion": {
+                    "description": "The version of firmware for this PCIe device.",
+                    "longDescription": "This property shall contain the firmware version of the PCIe device.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
+                },
+                "Manufacturer": {
+                    "description": "The manufacturer of this PCIe device.",
+                    "longDescription": "This property shall contain the name of the organization responsible for producing the PCIe device.  This organization may be the entity from whom the PCIe device is purchased, but this is not necessarily true.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Model": {
+                    "description": "The model number for the PCIe device.",
+                    "longDescription": "This property shall contain the name by which the manufacturer generally refers to the PCIe device.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "PCIeFunctions": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PCIeFunctionCollection.json#/definitions/PCIeFunctionCollection",
+                    "description": "The link to the collection of PCIe functions associated with this PCIe device.",
+                    "longDescription": "This property shall contain a link to a Resource Collection of type PCIeFunctionCollection.  This property should not be present if DeviceType contains `Retimer`.",
+                    "readonly": true,
+                    "versionAdded": "v1_4_0"
+                },
+                "PCIeInterface": {
+                    "$ref": "#/definitions/PCIeInterface",
+                    "description": "The PCIe interface details for this PCIe device.",
+                    "longDescription": "This property shall contain details for the PCIe interface that connects this PCIe device to its host or upstream switch.",
+                    "versionAdded": "v1_3_0"
+                },
+                "PartNumber": {
+                    "description": "The part number for this PCIe device.",
+                    "longDescription": "This property shall contain a part number assigned by the organization that is responsible for producing or manufacturing the PCIe device.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "ReadyToRemove": {
+                    "description": "An indication of whether the PCIe device is prepared by the system for removal.",
+                    "longDescription": "This property shall indicate whether the PCIe device is ready for removal.  Setting the value to `true` shall cause the service to perform appropriate actions to quiesce the device.  A task may spawn while the device is quiescing.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_7_0"
+                },
+                "SKU": {
+                    "description": "The SKU for this PCIe device.",
+                    "longDescription": "This property shall contain the stock-keeping unit number for this PCIe device.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "SerialNumber": {
+                    "description": "The serial number for this PCIe device.",
+                    "longDescription": "This property shall contain a manufacturer-allocated number that identifies the PCIe device.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Slot": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Slot"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Information about the slot for this PCIe device.",
+                    "longDescription": "This property shall contain information about the PCIe slot for this PCIe device.",
+                    "versionAdded": "v1_9_0"
+                },
+                "SparePartNumber": {
+                    "description": "The spare part number of the PCIe device.",
+                    "longDescription": "This property shall contain the spare part number of the PCIe device.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_6_0"
+                },
+                "StagedVersion": {
+                    "description": "The staged firmware version for this PCIe device, but is not yet active.",
+                    "longDescription": "This property shall contain the staged firmware version for this PCIe device, but is not yet active.",
+                    "readonly": true,
+                    "type": "string",
+                    "versionAdded": "v1_11_0"
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                },
+                "UUID": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/UUID"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The UUID for this PCIe device.",
+                    "longDescription": "This property shall contain the universal unique identifier number for this PCIe device.",
+                    "readonly": true,
+                    "versionAdded": "v1_5_0"
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "PCIeErrors": {
+            "additionalProperties": false,
+            "description": "The PCIe errors associated with this device.",
+            "longDescription": "This property shall contain properties that describe the PCIe errors associated with this device.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "CorrectableErrorCount": {
+                    "description": "The total number of the PCIe correctable errors for this device.",
+                    "longDescription": "This property shall contain the total number of the PCIe correctable errors for this device.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_8_0"
+                },
+                "FatalErrorCount": {
+                    "description": "The total number of the PCIe fatal errors for this device.",
+                    "longDescription": "This property shall contain the total number of the PCIe fatal errors for this device.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_8_0"
+                },
+                "L0ToRecoveryCount": {
+                    "description": "The total number of times the PCIe link states transitioned from L0 to the recovery state for this device.",
+                    "longDescription": "This property shall contain the total number of times the PCIe link transitioned from L0 to the recovery state for this device.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_8_0"
+                },
+                "NAKReceivedCount": {
+                    "description": "The total number of NAKs issued on the PCIe link by the receiver.",
+                    "longDescription": "This property shall contain the total number of NAKs issued on the PCIe link by the receiver.  A NAK is issued by the receiver when it detects that a TLP from this device was missed.  This could be because this device did not transmit it, or because the receiver could not properly decode the packet.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_8_0"
+                },
+                "NAKSentCount": {
+                    "description": "The total number of NAKs issued on the PCIe link by this device.",
+                    "longDescription": "This property shall contain the total number of NAKs issued on the PCIe link by this device.  A NAK is issued by the device when it detects that a TLP from the receiver was missed.  This could be because the receiver did not transmit it, or because this device could not properly decode the packet.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_8_0"
+                },
+                "NonFatalErrorCount": {
+                    "description": "The total number of the PCIe non-fatal errors for this device.",
+                    "longDescription": "This property shall contain the total number of the PCIe non-fatal errors for this device.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_8_0"
+                },
+                "ReplayCount": {
+                    "description": "The total number of the PCIe replays issued by this device.",
+                    "longDescription": "This property shall contain the total number of the replays issued on the PCIe link by this device.  A replay is a retransmission of a TLP and occurs because the ACK timer is expired, which means that the receiver did not send the ACK or this device did not properly decode the ACK.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_8_0"
+                },
+                "ReplayRolloverCount": {
+                    "description": "The total number of the PCIe replay rollovers issued by this device.",
+                    "longDescription": "This property shall contain the total number of the replay rollovers issued on the PCIe link by this device.  A replay rollover occurs when consecutive replays failed to resolve the errors on the link, which means that this device forced the link into the recovery state.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_8_0"
+                }
+            },
+            "type": "object"
+        },
+        "PCIeInterface": {
+            "additionalProperties": false,
+            "description": "Properties that describe a PCIe interface.",
+            "longDescription": "This type shall contain the definition for a PCIe interface for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "LanesInUse": {
+                    "description": "The number of PCIe lanes in use by this device.",
+                    "longDescription": "This property shall contain the number of PCIe lanes in use by this device, which shall be equal to or less than the MaxLanes property value.",
+                    "maximum": 32,
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                },
+                "MaxLanes": {
+                    "description": "The number of PCIe lanes supported by this device.",
+                    "longDescription": "This property shall contain the maximum number of PCIe lanes supported by this device.",
+                    "maximum": 32,
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                },
+                "MaxPCIeType": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/PCIeDevice.json#/definitions/PCIeTypes"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The highest version of the PCIe specification supported by this device.",
+                    "longDescription": "This property shall contain the maximum PCIe specification that this device supports.",
+                    "readonly": true,
+                    "versionAdded": "v1_3_0"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements.",
+                    "versionAdded": "v1_3_0"
+                },
+                "PCIeType": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/PCIeDevice.json#/definitions/PCIeTypes"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The version of the PCIe specification in use by this device.",
+                    "longDescription": "This property shall contain the negotiated PCIe interface version in use by this device.",
+                    "readonly": true,
+                    "versionAdded": "v1_3_0"
+                }
+            },
+            "type": "object"
+        },
+        "Slot": {
+            "additionalProperties": false,
+            "description": "The PCIe slot associated with a PCIe device.",
+            "longDescription": "This object shall contain properties that describe the PCIe slot associated with a PCIe device.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "LaneSplitting": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/LaneSplittingType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The lane splitting strategy used in the PCIe slot.",
+                    "longDescription": "This property shall contain lane splitting information of the associated PCIe slot.",
+                    "readonly": true,
+                    "versionAdded": "v1_9_0"
+                },
+                "Lanes": {
+                    "description": "The number of PCIe lanes supported by this slot.",
+                    "longDescription": "This property shall contain the maximum number of PCIe lanes supported by the slot.",
+                    "maximum": 32,
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_9_0"
+                },
+                "Location": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location",
+                    "description": "The location of the PCIe slot.",
+                    "longDescription": "This property shall contain part location information, including a ServiceLabel property, of the associated PCIe slot.",
+                    "versionAdded": "v1_9_0"
+                },
+                "PCIeType": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/PCIeDevice.json#/definitions/PCIeTypes"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The PCIe specification this slot supports.",
+                    "longDescription": "This property shall contain the maximum PCIe specification that this slot supports.",
+                    "readonly": true,
+                    "versionAdded": "v1_9_0"
+                },
+                "SlotType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/SlotType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The PCIe slot type.",
+                    "longDescription": "This property shall contain the PCIe slot type.",
+                    "readonly": true,
+                    "versionAdded": "v1_9_0"
+                }
+            },
+            "type": "object"
+        },
+        "SlotType": {
+            "enum": [
+                "FullLength",
+                "HalfLength",
+                "LowProfile",
+                "Mini",
+                "M2",
+                "OEM",
+                "OCP3Small",
+                "OCP3Large",
+                "U2"
+            ],
+            "enumDescriptions": {
+                "FullLength": "Full-Length PCIe slot.",
+                "HalfLength": "Half-Length PCIe slot.",
+                "LowProfile": "Low-Profile or Slim PCIe slot.",
+                "M2": "PCIe M.2 slot.",
+                "Mini": "Mini PCIe slot.",
+                "OCP3Large": "Open Compute Project 3.0 large form factor slot.",
+                "OCP3Small": "Open Compute Project 3.0 small form factor slot.",
+                "OEM": "An OEM-specific slot.",
+                "U2": "U.2 / SFF-8639 slot or bay."
+            },
+            "type": "string"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2022.3",
+    "title": "#PCIeDevice.v1_11_0.PCIeDevice"
+}

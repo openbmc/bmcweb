@@ -1,0 +1,29 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/OutboundConnection.json",
+    "$ref": "#/definitions/OutboundConnection",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "OutboundConnection": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/OutboundConnection.v1_0_2.json#/definitions/OutboundConnection"
+                }
+            ],
+            "deletable": true,
+            "description": "The `OutboundConnection` schema defines how the Redfish service connects to a remote client over a WebSocket connection.  This allows a service behind a firewall to establish a connection to a remote client outside of the firewall.",
+            "insertable": false,
+            "longDescription": "This resource shall represent the connection configuration necessary to connect to a remote client.  Services shall initiate the outbound connection over a WebSocket defined in the 'Outbound connections' clause of the Redfish Specification.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/AccountService/OutboundConnections/{OutboundConnectionId}"
+            ]
+        }
+    },
+    "language": "en",
+    "owningEntity": "DMTF",
+    "title": "#OutboundConnection.OutboundConnection"
+}

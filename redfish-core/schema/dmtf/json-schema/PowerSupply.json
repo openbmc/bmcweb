@@ -1,0 +1,51 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/PowerSupply.json",
+    "$ref": "#/definitions/PowerSupply",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "PowerSupply": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PowerSupply.v1_0_5.json#/definitions/PowerSupply"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PowerSupply.v1_1_4.json#/definitions/PowerSupply"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PowerSupply.v1_2_4.json#/definitions/PowerSupply"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PowerSupply.v1_3_4.json#/definitions/PowerSupply"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PowerSupply.v1_4_4.json#/definitions/PowerSupply"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PowerSupply.v1_5_4.json#/definitions/PowerSupply"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PowerSupply.v1_6_0.json#/definitions/PowerSupply"
+                }
+            ],
+            "deletable": false,
+            "description": "The `PowerSupply` schema describes a power supply unit.  It also describes the location, such as a slot, socket, or bay, where a unit can be installed, by populating a resource instance with an absent state if a unit is not present.",
+            "insertable": false,
+            "longDescription": "This resource shall represent a power supply unit for a Redfish implementation.  It may also represent a location, such as a slot, socket, or bay, where a unit may be installed, but the `State` property within the `Status` property contains `Absent`.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/Chassis/{ChassisId}/PowerSubsystem/PowerSupplies/{PowerSupplyId}",
+                "/redfish/v1/PowerEquipment/PowerShelves/{PowerDistributionId}/PowerSupplies/{PowerSupplyId}"
+            ],
+            "urisDeprecated": [
+                "/redfish/v1/PowerEquipment/PowerShelves/{PowerDistributionId}/PowerSupplies/{PowerSupplyId}"
+            ]
+        }
+    },
+    "language": "en",
+    "owningEntity": "DMTF",
+    "title": "#PowerSupply.PowerSupply"
+}

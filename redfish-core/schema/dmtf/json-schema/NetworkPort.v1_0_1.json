@@ -1,0 +1,365 @@
+{
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema.v1_2_0.json",
+    "title": "#NetworkPort.v1_0_1.NetworkPort",
+    "$ref": "#/definitions/NetworkPort",
+    "definitions": {
+        "FlowControl": {
+            "type": "string",
+            "enum": [
+                "None",
+                "TX",
+                "RX",
+                "TX_RX"
+            ],
+            "enumDescriptions": {
+                "None": "No IEEE 802.3x flow control is enabled on this port.",
+                "TX": "IEEE 802.3x flow control may be initiated by this station.",
+                "RX": "IEEE 802.3x flow control may be initiated by the link partner.",
+                "TX_RX": "IEEE 802.3x flow control may be initiated by this station or the link partner."
+            }
+        },
+        "LinkNetworkTechnology": {
+            "type": "string",
+            "enum": [
+                "Ethernet",
+                "InfiniBand",
+                "FibreChannel"
+            ],
+            "enumDescriptions": {
+                "Ethernet": "The port is capable of connecting to an Ethernet network.",
+                "InfiniBand": "The port is capable of connecting to an InfiniBand network.",
+                "FibreChannel": "The port is capable of connecting to a Fibre Channel network."
+            }
+        },
+        "LinkStatus": {
+            "type": "string",
+            "enum": [
+                "Down",
+                "Up"
+            ],
+            "enumDescriptions": {
+                "Down": "The port is enabled but link is down.",
+                "Up": "The port is enabled and link is good (up)."
+            }
+        },
+        "NetDevFuncMaxBWAlloc": {
+            "type": "object",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "type": [
+                        "array",
+                        "boolean",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ],
+                    "description": "This property shall specify a valid odata or Redfish property."
+                }
+            },
+            "additionalProperties": true,
+            "properties": {
+                "MaxBWAllocPercent": {
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "readonly": false,
+                    "description": "The maximum bandwidth allocation percentage allocated to the corresponding network device function instance.",
+                    "longDescription": "The value of this property shall be the maximum bandwidth percentage allocation for the associated network device function."
+                },
+                "NetworkDeviceFunction": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkDeviceFunction.json#/definitions/NetworkDeviceFunction",
+                    "readonly": true,
+                    "description": "Contains the members of this collection."
+                }
+            },
+            "description": "A maximum bandwidth allocation percentage for a Network Device Functions associated a port.",
+            "longDescription": "This type shall describe a maximum bandwidth percentage allocation for a network device function associated with a port."
+        },
+        "NetDevFuncMinBWAlloc": {
+            "type": "object",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "type": [
+                        "array",
+                        "boolean",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ],
+                    "description": "This property shall specify a valid odata or Redfish property."
+                }
+            },
+            "additionalProperties": true,
+            "properties": {
+                "MinBWAllocPercent": {
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "readonly": false,
+                    "description": "The minimum bandwidth allocation percentage allocated to the corresponding network device function instance.",
+                    "longDescription": "The value of this property shall be the minimum bandwidth percentage allocation for the associated network device function.  The sum total of all minimum percentages shall not exceed 100."
+                },
+                "NetworkDeviceFunction": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkDeviceFunction.json#/definitions/NetworkDeviceFunction",
+                    "readonly": true,
+                    "description": "Contains the members of this collection."
+                }
+            },
+            "description": "A minimum bandwidth allocation percentage for a Network Device Functions associated a port.",
+            "longDescription": "This type shall describe a minimum bandwidth percentage allocation for a network device function associated with a port."
+        },
+        "SupportedEthernetCapabilities": {
+            "type": "string",
+            "enum": [
+                "WakeOnLAN",
+                "EEE"
+            ],
+            "enumDescriptions": {
+                "WakeOnLAN": "Wake on LAN (WoL) is supported on this port.",
+                "EEE": "IEEE 802.3az Energy Efficient Ethernet (EEE) is supported on this port."
+            }
+        },
+        "SupportedLinkCapabilities": {
+            "type": "object",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "type": [
+                        "array",
+                        "boolean",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ],
+                    "description": "This property shall specify a valid odata or Redfish property."
+                }
+            },
+            "additionalProperties": true,
+            "properties": {
+                "LinkNetworkTechnology": {
+                    "anyOf": [
+                        {"$ref": "#/definitions/LinkNetworkTechnology"},
+                        {"type": "null"}
+                    ],
+                    "readonly": true,
+                    "description": "The self-described link network technology capabilities of this port.",
+                    "longDescription": "The value of this property shall be a network technology capability of this port."
+                },
+                "LinkSpeedMbps": {
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "readonly": true,
+                    "description": "The speed of the link in Mbps when this link network technology is active.",
+                    "longDescription": "The value of this property shall be the speed of the link in megabits per second (Mbps) for this port when this link network technology is active."
+                }
+            },
+            "description": "The self-described link capabilities of an assocaited port.",
+            "longDescription": "This type shall describe the static capabilities of an associated port, irrespective of transient conditions such as cabling, interface module presence, or remote link parter status or configuration."
+        },
+        "NetworkPort": {
+            "type": "object",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "type": [
+                        "array",
+                        "boolean",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ],
+                    "description": "This property shall specify a valid odata or Redfish property."
+                }
+            },
+            "additionalProperties": false,
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.4.0.0.json#/definitions/context"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.4.0.0.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.4.0.0.json#/definitions/type"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.",
+                    "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Description": {
+                    "anyOf": [
+                        {"$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"},
+                        {"type": "null"}
+                    ],
+                    "readonly": true
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Status": {
+                    "anyOf": [
+                        {"$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status"},
+                        {"type": "null"}
+                    ]
+                },
+                "PhysicalPortNumber": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "readonly": true,
+                    "description": "The physical port number label for this port.",
+                    "longDescription": "The value of this property shall be the physical port number on the network adapter hardware that this Network Port corresponds to.  This value should match a value visible on the hardware.  When HostPortEnabled and ManagementPortEnabled are both \"false\", the port shall not establish physical link."
+                },
+                "LinkStatus": {
+                    "anyOf": [
+                        {"$ref": "#/definitions/LinkStatus"},
+                        {"type": "null"}
+                    ],
+                    "readonly": true,
+                    "description": "The status of the link between this port and its link partner.",
+                    "longDescription": "The value of this property shall be the link status between this port and its link partner."
+                },
+                "SupportedLinkCapabilities": {
+                    "type": "array",
+                    "items": {
+                        "anyOf": [
+                            {"$ref": "#/definitions/SupportedLinkCapabilities"},
+                            {"type": "null"}
+                        ]
+                    },
+                    "description": "The self-described link capabilities of this port.",
+                    "longDescription": "This object shall describe the static capabilities of the port, irrespective of transient conditions such as cabling, interface module presence, or remote link parter status or configuration."
+                },
+                "ActiveLinkTechnology": {
+                    "anyOf": [
+                        {"$ref": "#/definitions/LinkNetworkTechnology"},
+                        {"type": "null"}
+                    ],
+                    "readonly": false,
+                    "description": "Network Port Active Link Technology.",
+                    "longDescription": "The value of this property shall be the configured link technology of this port."
+                },
+                "SupportedEthernetCapabilities": {
+                    "type": "array",
+                    "items": {
+                        "anyOf": [
+                            {"$ref": "#/definitions/SupportedEthernetCapabilities"},
+                            {"type": "null"}
+                        ]
+                    },
+                    "readonly": true,
+                    "description": "The set of Ethernet capabilities that this port supports.",
+                    "longDescription": "The value of this property shall be an array of zero or more Ethernet capabilities supported by this port."
+                },
+                "NetDevFuncMinBWAlloc": {
+                    "type": "array",
+                    "items": {
+                        "anyOf": [
+                            {"$ref": "#/definitions/NetDevFuncMinBWAlloc"},
+                            {"type": "null"}
+                        ]
+                    },
+                    "description": "The array of minimum bandwidth allocation percentages for the Network Device Functions associated with this port.",
+                    "longDescription": "The value of this property shall be an array of minimum bandwidth percentage allocations for each of the network device functions associated with this port."
+                },
+                "NetDevFuncMaxBWAlloc": {
+                    "type": "array",
+                    "items": {
+                        "anyOf": [
+                            {"$ref": "#/definitions/NetDevFuncMaxBWAlloc"},
+                            {"type": "null"}
+                        ]
+                    },
+                    "description": "The array of maximum bandwidth allocation percentages for the Network Device Functions associated with this port.",
+                    "longDescription": "The value of this property shall be an array of maximum bandwidth allocation percentages for the Network Device Functions associated with this port."
+                },
+                "AssociatedNetworkAddresses": {
+                    "type": "array",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "readonly": true,
+                    "description": "The array of configured network addresses (MAC or WWN) that are associated with this Network Port, including the programmed address of the lowest numbered Network Device Function, the configured but not active address if applicable, the address for hardware port teaming, or other network addresses.",
+                    "longDescription": "The value of this property shall be an array of configured network addresses that are associated with this network port, including the programmed address of the lowest numbered network device function, the configured but not active address if applicable, the address for hardware port teaming, or other network addresses."
+                },
+                "EEEEnabled": {
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "readonly": false,
+                    "description": "Whether IEEE 802.3az Energy Efficient Ethernet (EEE) is enabled for this network port.",
+                    "longDescription": "The value of this property shall be a boolean indicating whether IEEE 802.3az Energy Efficient Ethernet (EEE) is enabled for this network port."
+                },
+                "WakeOnLANEnabled": {
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "readonly": false,
+                    "description": "Whether Wake on LAN (WoL) is enabled for this network port.",
+                    "longDescription": "The value of this property shall be a boolean indicating whether Wake on LAN (WoL) is enabled for this network port."
+                },
+                "PortMaximumMTU": {
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "readonly": true,
+                    "description": "The largest maximum transmission unit (MTU) that can be configured for this network port.",
+                    "longDescription": "The value of this property shall be the largest maximum transmission unit (MTU) that can be configured for this network port."
+                },
+                "FlowControlStatus": {
+                    "anyOf": [
+                        {"$ref": "#/definitions/FlowControl"},
+                        {"type": "null"}
+                    ],
+                    "readonly": true,
+                    "description": "The 802.3x flow control behavior negotiated with the link partner for this network port (Ethernet-only).",
+                    "longDescription": "The value of this property shall be the 802.3x flow control behavior negotiated with the link partner for this network port (Ethernet-only)."
+                },
+                "FlowControlConfiguration": {
+                    "anyOf": [
+                        {"$ref": "#/definitions/FlowControl"},
+                        {"type": "null"}
+                    ],
+                    "readonly": false,
+                    "description": "The locally configured 802.3x flow control setting for this network port.",
+                    "longDescription": "The value of this property shall be the locally configured 802.3x flow control setting for this network port."
+                },
+                "SignalDetected": {
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "readonly": true,
+                    "description": "Whether or not the port has detected enough signal on enough lanes to establish link.",
+                    "longDescription": "The value of this property shall be a boolean indicating whether the port has detected enough signal on enough lanes to establish link."
+                }
+            },
+            "required": [
+                "Id",
+                "Name"
+            ],
+            "description": "A Network Port represents a discrete physical port capable of connecting to a network.",
+            "longDescription": "A Network Port represents a discrete physical port capable of connecting to a network."
+        }
+    },
+    "copyright": "Copyright 2014-2017 Distributed Management Task Force, Inc. (DMTF). For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright"
+}

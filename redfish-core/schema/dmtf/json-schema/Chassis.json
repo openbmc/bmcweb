@@ -1,0 +1,104 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Chassis.json",
+    "$ref": "#/definitions/Chassis",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Chassis": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_0_17.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_1_18.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_2_16.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_3_16.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_4_15.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_5_14.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_6_12.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_7_12.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_8_11.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_9_11.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_10_9.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_11_9.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_12_8.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_13_7.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_14_6.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_15_6.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_16_5.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_17_5.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_18_5.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_19_5.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_20_4.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_21_4.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_22_3.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_23_2.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_24_2.json#/definitions/Chassis"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_25_1.json#/definitions/Chassis"
+                }
+            ],
+            "deletable": true,
+            "description": "The `Chassis` schema represents the physical components of a system.  This resource represents the sheet-metal confined spaces and logical zones such as racks, enclosures, chassis and all other containers.  Subsystems, such as sensors, that operate outside of a system's data plane are linked either directly or indirectly through this resource.  A subsystem that operates outside of a system's data plane are not accessible to software that runs on the system.  It also describes the location, such as a slot, socket, or bay, where a unit can be installed, by populating a resource instance with an absent state if a unit is not present.",
+            "insertable": false,
+            "longDescription": "This resource shall represent a chassis or other physical enclosure for a Redfish implementation.  It may also represent a location, such as a slot, socket, or bay, where a unit may be installed, but the `State` property within the `Status` property contains `Absent`.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/Chassis/{ChassisId}"
+            ]
+        }
+    },
+    "language": "en",
+    "owningEntity": "DMTF",
+    "title": "#Chassis.Chassis"
+}
