@@ -229,6 +229,24 @@
       "parentUuid": "c3e226ad_89ca25c3",
       "revId": "a2bbcd3d1bd4cc6782b23fc20765c728722bc67a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65802191_4406e531",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-05-29T13:18:55Z",
+      "side": 1,
+      "message": "Looks like a gerrit bug, so it would need to be resolved by someone with access to the gerrit database. I\u0027m not sure what i could do about it.\n\nIf his old github handle does not exist, and the only login for that account is via github, then the login is not possible and the account may be inaccessible. It makes sense for that account to be deleted then, or to at least release the email from it.\n\nWho has access to these gerrit internals to kindly help resolve this issue?",
+      "parentUuid": "8c3f6936_d7b14e7e",
+      "revId": "a2bbcd3d1bd4cc6782b23fc20765c728722bc67a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
