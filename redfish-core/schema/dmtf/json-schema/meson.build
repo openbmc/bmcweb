@@ -1,0 +1,1 @@
+install_data('AccelerationFunction.v1_0_4.json', install_dir: 'share/www/redfish/v1/JsonSchema/AccelerationFunction')

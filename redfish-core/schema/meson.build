@@ -1,0 +1,2 @@
+subdir('dmtf')
+subdir('oem')
