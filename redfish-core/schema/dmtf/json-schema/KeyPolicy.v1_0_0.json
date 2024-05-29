@@ -1,0 +1,391 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/KeyPolicy.v1_0_0.json",
+    "$ref": "#/definitions/KeyPolicy",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "KeyPolicy": {
+            "additionalProperties": false,
+            "description": "The KeyPolicy schema describes settings for how keys are allowed to be used for accessing devices or services.",
+            "longDescription": "This resource shall represent a key policy for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "IsDefault": {
+                    "description": "Indicates if this is the default key policy.",
+                    "longDescription": "This property shall indicate if this key policy is the policy applied when no other policies are specified.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "KeyPolicyType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/KeyPolicyType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The type of key policy.",
+                    "longDescription": "This property shall contain the type of key policy.",
+                    "readonly": true
+                },
+                "NVMeoF": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/NVMeoF"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "NVMe-oF specific properties.",
+                    "longDescription": "This property shall contain NVMe-oF specific properties for this key policy.  This property shall be present if KeyPolicyType contains the value `NVMeoF`."
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "requiredOnCreate": [
+                "KeyPolicyType"
+            ],
+            "type": "object"
+        },
+        "KeyPolicyType": {
+            "enum": [
+                "NVMeoF"
+            ],
+            "enumDescriptions": {
+                "NVMeoF": "An NVMe-oF key policy."
+            },
+            "enumLongDescriptions": {
+                "NVMeoF": "This value shall indicate the key policy is for an NVMe-oF key."
+            },
+            "type": "string"
+        },
+        "NVMeoF": {
+            "additionalProperties": false,
+            "description": "NVMe-oF specific properties.",
+            "longDescription": "This type shall contain NVMe-oF specific properties for a key policy.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "CipherSuiteAllowList": {
+                    "description": "The cipher suites that this key policy allows.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/NVMeoFCipherSuiteType"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain the cipher suites that this key policy allows.  The absence of the property shall indicate any cipher suite is allowed.  An empty list shall indicate no cipher suites are allowed.",
+                    "readonly": false,
+                    "type": "array"
+                },
+                "DHGroupAllowList": {
+                    "description": "The Diffie-Hellman (DH) groups that this key policy allows.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/NVMeoFDHGroupType"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain the Diffie-Hellman (DH) groups that this key policy allows.  The absence of the property shall indicate any DH group is allowed.  An empty list shall indicate no DH groups are allowed.",
+                    "readonly": false,
+                    "type": "array"
+                },
+                "OEMSecurityProtocolAllowList": {
+                    "description": "The OEM security protocols that this key policy allows.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain the OEM-defined security protocols that this key policy allows.  NVMe-oF channels are restricted to OEM-defined security protocols in this list.  An empty list shall indicate no security protocols are allowed.  This property shall be present if SecurityProtocolAllowList contains `OEM`.",
+                    "readonly": false,
+                    "type": "array"
+                },
+                "SecureHashAllowList": {
+                    "description": "The secure hash algorithms that this key policy allows.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/NVMeoFSecureHashType"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain the secure hash algorithms that this key policy allows.  The absence of the property shall indicate any secure hash algorithm is allowed.  An empty list shall indicate no secure hash algorithms are allowed.",
+                    "readonly": false,
+                    "type": "array"
+                },
+                "SecurityProtocolAllowList": {
+                    "description": "The security protocols that this key policy allows.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/NVMeoFSecurityProtocolType"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain the security protocols that this key policy allows.  NVMe-oF channels are restricted to security protocols in this list.  The absence of the property shall indicate any security protocol is allowed.  An empty list shall indicate no security protocols are allowed.",
+                    "readonly": false,
+                    "type": "array"
+                },
+                "SecurityTransportAllowList": {
+                    "description": "The security transports that this key policy allows.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/NVMeoFSecurityTransportType"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain the security transports that this key policy allows.  The absence of the property shall indicate any security transport is allowed.  An empty list shall indicate no security transports are allowed.",
+                    "readonly": false,
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        },
+        "NVMeoFCipherSuiteType": {
+            "description": "The NVMe cipher suites that a key is allowed to use.",
+            "enum": [
+                "TLS_AES_128_GCM_SHA256",
+                "TLS_AES_256_GCM_SHA384"
+            ],
+            "enumDescriptions": {
+                "TLS_AES_128_GCM_SHA256": "TLS_AES_128_GCM_SHA256.",
+                "TLS_AES_256_GCM_SHA384": "TLS_AES_256_GCM_SHA384."
+            },
+            "enumLongDescriptions": {
+                "TLS_AES_128_GCM_SHA256": "This value shall indicate TLS_AES_128_GCM_SHA256 as defined by the 'Mandatory and Recommended Cipher Suites' clause in the NVMe TCP Transport Specification.",
+                "TLS_AES_256_GCM_SHA384": "This value shall indicate TLS_AES_256_GCM_SHA384 as defined by the 'Mandatory and Recommended Cipher Suites' clause in the NVMe TCP Transport Specification."
+            },
+            "longDescription": "This enumeration shall list the NVMe cipher suites that a key is allowed to use.",
+            "type": "string"
+        },
+        "NVMeoFDHGroupType": {
+            "description": "The NVMe Diffie-Hellman (DH) groups that a key is allowed to use.",
+            "enum": [
+                "FFDHE2048",
+                "FFDHE3072",
+                "FFDHE4096",
+                "FFDHE6144",
+                "FFDHE8192"
+            ],
+            "enumDescriptions": {
+                "FFDHE2048": "2048-bit Diffie-Hellman (DH) group.",
+                "FFDHE3072": "3072-bit Diffie-Hellman (DH) group.",
+                "FFDHE4096": "4096-bit Diffie-Hellman (DH) group.",
+                "FFDHE6144": "6144-bit Diffie-Hellman (DH) group.",
+                "FFDHE8192": "8192-bit Diffie-Hellman (DH) group."
+            },
+            "enumLongDescriptions": {
+                "FFDHE2048": "This value shall indicate the 2048-bit Diffie-Hellman (DH) group as defined by the 'DH-HMAC-CHAP Diffie-Hellman group identifiers' figure in the NVMe Base Specification.",
+                "FFDHE3072": "This value shall indicate the 3072-bit Diffie-Hellman (DH) group as defined by the 'DH-HMAC-CHAP Diffie-Hellman group identifiers' figure in the NVMe Base Specification.",
+                "FFDHE4096": "This value shall indicate the 4096-bit Diffie-Hellman (DH) group as defined by the 'DH-HMAC-CHAP Diffie-Hellman group identifiers' figure in the NVMe Base Specification.",
+                "FFDHE6144": "This value shall indicate the 2048-bit Diffie-Hellman (DH) group as defined by the 'DH-HMAC-CHAP Diffie-Hellman group identifiers' figure in the NVMe Base Specification.",
+                "FFDHE8192": "This value shall indicate the 8192-bit Diffie-Hellman (DH) group as defined by the 'DH-HMAC-CHAP Diffie-Hellman group identifiers' figure in the NVMe Base Specification."
+            },
+            "longDescription": "This enumeration shall list the Diffie-Hellman (DH) groups that a key is allowed to use.",
+            "type": "string"
+        },
+        "NVMeoFSecureHashType": {
+            "description": "The NVMe secure hash algorithms that a key is allowed to use.",
+            "enum": [
+                "SHA256",
+                "SHA384",
+                "SHA512"
+            ],
+            "enumDescriptions": {
+                "SHA256": "SHA-256.",
+                "SHA384": "SHA-384.",
+                "SHA512": "SHA-512."
+            },
+            "enumLongDescriptions": {
+                "SHA256": "This value shall indicate the SHA-256 hash function as defined by the 'DH-HMAC-CHAP hash function identifiers' figure in the NVMe Base Specification.",
+                "SHA384": "This value shall indicate the SHA-384 hash function as defined by the 'DH-HMAC-CHAP hash function identifiers' figure in the NVMe Base Specification.",
+                "SHA512": "This value shall indicate the SHA-512 hash function as defined by the 'DH-HMAC-CHAP hash function identifiers' figure in the NVMe Base Specification."
+            },
+            "longDescription": "This enumeration shall list the NVMe secure hash algorithms that a key is allowed to use.",
+            "type": "string"
+        },
+        "NVMeoFSecurityProtocolType": {
+            "description": "The NVMe security protocols that a key is allowed to use.",
+            "enum": [
+                "DHHC",
+                "TLS_PSK",
+                "OEM"
+            ],
+            "enumDescriptions": {
+                "DHHC": "Diffie-Hellman Hashed Message Authentication Code Challenge Handshake Authentication Protocol (DH-HMAC-CHAP).",
+                "OEM": "OEM.",
+                "TLS_PSK": "Transport Layer Security Pre-Shared Key (TLS PSK)."
+            },
+            "enumLongDescriptions": {
+                "DHHC": "This value shall indicate the Diffie-Hellman Hashed Message Authentication Code Challenge Handshake Authentication Protocol (DH-HMAC-CHAP) as defined by the NVMe Base Specification.",
+                "OEM": "This value shall indicate an OEM-defined security protocol.  The OEMSecurityProtocolAllowList property shall contain the specific OEM protocol.",
+                "TLS_PSK": "This value shall indicate Transport Layer Security Pre-Shared Key (TLS PSK) as defined by the NVMe TCP Transport Specification."
+            },
+            "longDescription": "This enumeration shall list the NVMe security protocols that a key is allowed to use.",
+            "type": "string"
+        },
+        "NVMeoFSecurityTransportType": {
+            "description": "The NVMe security transports that a key is allowed to use.",
+            "enum": [
+                "TLSv2",
+                "TLSv3"
+            ],
+            "enumDescriptions": {
+                "TLSv2": "Transport Layer Security (TLS) v2.",
+                "TLSv3": "Transport Layer Security (TLS) v3."
+            },
+            "enumLongDescriptions": {
+                "TLSv2": "This value shall indicate Transport Layer Security (TLS) v2 as defined by the 'Transport Specific Address Subtype Definition for NVMe/TCP Transport' figure in the NVMe TCP Transport Specification.",
+                "TLSv3": "This value shall indicate Transport Layer Security (TLS) v3 as defined by the 'Transport Specific Address Subtype Definition for NVMe/TCP Transport' figure in the NVMe TCP Transport Specification."
+            },
+            "longDescription": "This enumeration shall list the NVMe security transports that a key is allowed to use.",
+            "type": "string"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2021.2",
+    "title": "#KeyPolicy.v1_0_0.KeyPolicy"
+}

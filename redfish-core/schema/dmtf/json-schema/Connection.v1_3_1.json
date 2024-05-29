@@ -1,0 +1,747 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Connection.v1_3_1.json",
+    "$ref": "#/definitions/Connection",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "AccessCapability": {
+            "enum": [
+                "Read",
+                "Write"
+            ],
+            "enumDescriptions": {
+                "Read": "Endpoints are allowed to perform reads from the specified resource.",
+                "Write": "Endpoints are allowed to perform writes to the specified resource."
+            },
+            "type": "string"
+        },
+        "AccessState": {
+            "description": "Describes the options for the access characteristics of a resource.",
+            "enum": [
+                "Optimized",
+                "NonOptimized",
+                "Standby",
+                "Unavailable",
+                "Transitioning"
+            ],
+            "enumDescriptions": {
+                "NonOptimized": "The resource is in an active and non-optimized state.",
+                "Optimized": "The resource is in an active and optimized state.",
+                "Standby": "The resource is in a standby state.",
+                "Transitioning": "The resource is transitioning to a new state.",
+                "Unavailable": "The resource is in an unavailable state."
+            },
+            "enumLongDescriptions": {
+                "NonOptimized": "This value shall indicate the resource is in an active and non-optimized state.",
+                "Optimized": "This value shall indicate the resource is in an active and optimized state.",
+                "Standby": "This value shall indicate the resource is in a standby state.",
+                "Transitioning": "This value shall indicate the resource is transitioning to a new state.",
+                "Unavailable": "This value shall indicate the resource is in an unavailable state."
+            },
+            "longDescription": "This type shall describe the access to the associated resource in this connection.",
+            "type": "string"
+        },
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "CHAPConnectionKey": {
+            "additionalProperties": false,
+            "description": "The CHAP-specific permission key information for a connection.",
+            "longDescription": "This object shall contain the CHAP-specific permission key information for a connection.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "CHAPPassword": {
+                    "description": "The password for CHAP authentication.  The value is `null` in responses.",
+                    "longDescription": "This property shall contain the password for CHAP authentication.  The value shall be `null` in responses.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0",
+                    "writeOnly": true
+                },
+                "CHAPUsername": {
+                    "description": "The username for CHAP authentication.",
+                    "longDescription": "This property shall contain the username for CHAP authentication.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0"
+                },
+                "InitiatorCHAPPassword": {
+                    "description": "The initiator shared secret for mutual (2-way) CHAP authentication.  The value is `null` in responses.",
+                    "longDescription": "This property shall contain the initiator shared secret for mutual (2-way) CHAP authentication.  The value shall be `null` in responses.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0",
+                    "writeOnly": true
+                },
+                "InitiatorCHAPUsername": {
+                    "description": "The initiator username for mutual (2-way) CHAP authentication.",
+                    "longDescription": "This property shall contain the initiator username for mutual (2-way) CHAP authentication.  For example, this would be the initiator iQN in iSCSI environments.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0"
+                },
+                "TargetCHAPPassword": {
+                    "description": "The target shared secret for mutual (2-way) CHAP authentication.  The value is `null` in responses.",
+                    "longDescription": "This property shall contain the target shared secret for mutual (2-way) CHAP authentication.  The value shall be `null` in responses.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0",
+                    "writeOnly": true
+                }
+            },
+            "type": "object"
+        },
+        "Connection": {
+            "additionalProperties": false,
+            "description": "The Connection schema describes the access permissions that endpoints, or groups of endpoints, have with other resources in the service.",
+            "longDescription": "This resource shall represent information about a connection in the Redfish Specification.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "ConnectionKeys": {
+                    "$ref": "#/definitions/ConnectionKey",
+                    "description": "The permission keys required to access the specified resources for this connection.",
+                    "longDescription": "This property shall contain the permission keys required to access the specified resources for this connection.  Some fabrics require permission checks on transactions from authorized initiators.",
+                    "versionAdded": "v1_1_0"
+                },
+                "ConnectionType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ConnectionType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The type of resources this connection specifies.",
+                    "longDescription": "This property shall contain the type of resources this connection specifies.",
+                    "readonly": true
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
+                },
+                "MemoryChunkInfo": {
+                    "description": "The set of memory chunks and access capabilities specified for this connection.",
+                    "items": {
+                        "$ref": "#/definitions/MemoryChunkInfo"
+                    },
+                    "longDescription": "This property shall contain the set of memory chunks and access capabilities specified for this connection.",
+                    "type": "array",
+                    "versionAdded": "v1_1_0"
+                },
+                "MemoryRegionInfo": {
+                    "description": "The set of memory regions and access capabilities specified for this connection.",
+                    "items": {
+                        "$ref": "#/definitions/MemoryRegionInfo"
+                    },
+                    "longDescription": "This property shall contain the set of memory regions and access capabilities specified for this connection.",
+                    "type": "array",
+                    "versionAdded": "v1_3_0"
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                },
+                "VolumeInfo": {
+                    "description": "The set of volumes and access capabilities specified for this connection.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/VolumeInfo"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain the set of volumes and access capabilities specified for this connection.",
+                    "type": "array"
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "ConnectionKey": {
+            "additionalProperties": false,
+            "description": "The permission key information required to access the target resources for a connection.",
+            "longDescription": "This type shall contain the permission key information required to access the target resources for a connection.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "CHAP": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/CHAPConnectionKey"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The CHAP-specific permission key information for this connection.",
+                    "longDescription": "This property shall contain the CHAP-specific permission key information for this connection.  This property shall not be present if DHCHAP is present.",
+                    "versionAdded": "v1_2_0"
+                },
+                "DHCHAP": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/DHCHAPKey"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The DHCHAP-specific permission key information for this connection.",
+                    "longDescription": "This property shall contain the DHCHAP-specific permission key information for this connection.  This property shall not be present if CHAP is present.",
+                    "versionAdded": "v1_2_0"
+                },
+                "GenZ": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/GenZConnectionKey"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The Gen-Z-specific permission key information for this connection.",
+                    "longDescription": "This property shall contain the Gen-Z-specific permission key information for this connection.",
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
+        },
+        "ConnectionType": {
+            "enum": [
+                "Storage",
+                "Memory"
+            ],
+            "enumDescriptions": {
+                "Memory": "A connection to memory-related resources.",
+                "Storage": "A connection to storage-related resources, such as volumes."
+            },
+            "type": "string"
+        },
+        "DHCHAPKey": {
+            "additionalProperties": false,
+            "description": "The DHCHAP-specific permission key information for this connection.",
+            "longDescription": "This property shall contain the DHCHAP-specific permission key information for this connection.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "LocalDHCHAPAuthSecret": {
+                    "description": "The local DHCHAP authentication secret.  The value is `null` in responses.",
+                    "longDescription": "This property shall contain the local DHCHAP authentication secret.  The value shall be `null` in responses.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0",
+                    "writeOnly": true
+                },
+                "PeerDHCHAPAuthSecret": {
+                    "description": "The peer DHCHAP authentication secret.  The value is `null` in responses.",
+                    "longDescription": "This property shall contain the peer DHCHAP authentication secret.  The value shall be `null` in responses.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0",
+                    "writeOnly": true
+                }
+            },
+            "type": "object"
+        },
+        "GenZConnectionKey": {
+            "additionalProperties": false,
+            "description": "The Gen-Z-specific permission key information for a connection.",
+            "longDescription": "This type shall contain the Gen-Z-specific permission key information for a connection.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AccessKey": {
+                    "description": "The Access Key for this connection.",
+                    "longDescription": "This property shall contain the Gen-Z Core Specification-defined Access Key for this connection.",
+                    "pattern": "^0[xX]([a-fA-F]|[0-9]){2}$",
+                    "readonly": false,
+                    "type": "string",
+                    "versionAdded": "v1_1_0"
+                },
+                "RKeyDomainCheckingEnabled": {
+                    "description": "Indicates whether Region Key domain checking is enabled for this connection.",
+                    "longDescription": "This property shall indicate whether Region Key domain checking is enabled for this connection.",
+                    "readonly": false,
+                    "type": "boolean",
+                    "versionAdded": "v1_1_0"
+                },
+                "RKeyReadOnlyKey": {
+                    "description": "The read-only Region Key for this connection.",
+                    "longDescription": "This property shall contain the Gen-Z Core Specification-defined read-only Region Key for this connection.",
+                    "pattern": "^0[xX](([a-fA-F]|[0-9]){2}){4}$",
+                    "readonly": false,
+                    "type": "string",
+                    "versionAdded": "v1_1_0"
+                },
+                "RKeyReadWriteKey": {
+                    "description": "The read-write Region Key for this connection.",
+                    "longDescription": "This property shall contain the Gen-Z Core Specification-defined read-write Region Key for this connection.",
+                    "pattern": "^0[xX](([a-fA-F]|[0-9]){2}){4}$",
+                    "readonly": false,
+                    "type": "string",
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
+        },
+        "Links": {
+            "additionalProperties": false,
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "InitiatorEndpointGroups": {
+                    "description": "An array of links to the initiator endpoint groups that are associated with this connection.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/EndpointGroup.json#/definitions/EndpointGroup"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type EndpointGroup that are the initiator endpoint groups associated with this connection.  If the referenced endpoint groups contain the GroupType property, the GroupType property shall contain the value `Initiator` or `Client`.  This property shall not be present if InitiatorEndpoints is present.",
+                    "readonly": false,
+                    "type": "array"
+                },
+                "InitiatorEndpointGroups@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "InitiatorEndpoints": {
+                    "description": "An array of links to the initiator endpoints that are associated with this connection.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Endpoint.json#/definitions/Endpoint"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Endpoint that are the initiator endpoints associated with this connection.  If the referenced endpoints contain the EntityRole property, the EntityRole property shall contain the value `Initiator` or `Both`.  This property shall not be present if InitiatorEndpointGroups is present.",
+                    "readonly": false,
+                    "type": "array"
+                },
+                "InitiatorEndpoints@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                },
+                "TargetEndpointGroups": {
+                    "description": "An array of links to the target endpoint groups that are associated with this connection.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/EndpointGroup.json#/definitions/EndpointGroup"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type EndpointGroup that are the target endpoint groups associated with this connection.  If the referenced endpoint groups contain the GroupType property, the GroupType property shall contain the value `Target` or `Server`.  This property shall not be present if TargetEndpoints is present.",
+                    "readonly": false,
+                    "type": "array"
+                },
+                "TargetEndpointGroups@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "TargetEndpoints": {
+                    "description": "An array of links to the target endpoints that are associated with this connection.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Endpoint.json#/definitions/Endpoint"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Endpoint that are the target endpoints associated with this connection.  If the referenced endpoints contain the EntityRole property, the EntityRole property shall contain the value `Target` or `Both`.  This property shall not be present if TargetEndpointGroups is present.",
+                    "readonly": false,
+                    "type": "array"
+                },
+                "TargetEndpoints@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                }
+            },
+            "type": "object"
+        },
+        "MemoryChunkInfo": {
+            "additionalProperties": false,
+            "description": "The combination of permissions and memory chunk information.",
+            "longDescription": "This type shall contain the combination of permissions and memory chunk information.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AccessCapabilities": {
+                    "description": "Supported I/O access capabilities.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/AccessCapability"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "Each entry shall specify a current memory access capability.",
+                    "readonly": false,
+                    "type": "array",
+                    "versionAdded": "v1_1_0"
+                },
+                "AccessState": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/AccessState"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The access state for this connection.",
+                    "longDescription": "The value of this property shall contain the access state for the associated resource in this connection.",
+                    "readonly": false,
+                    "versionAdded": "v1_1_0"
+                },
+                "MemoryChunk": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/MemoryChunks.json#/definitions/MemoryChunks"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The specified memory chunk.",
+                    "longDescription": "This property shall contain a link to a resource of type MemoryChunk.  The endpoints referenced by the InitiatorEndpoints or InitiatorEndpointGroups properties shall be given access to this memory chunk as described by this object.  If TargetEndpoints or TargetEndpointGroups is present, the referenced initiator endpoints shall be required to access the referenced memory chunk through one of the referenced target endpoints.",
+                    "readonly": false,
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
+        },
+        "MemoryRegionInfo": {
+            "additionalProperties": false,
+            "description": "The combination of permissions and memory region information.",
+            "longDescription": "This type shall contain the combination of permissions and memory region information.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AccessCapabilities": {
+                    "description": "Supported I/O access capabilities.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/AccessCapability"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "Each entry shall specify a current memory access capability.",
+                    "readonly": false,
+                    "type": "array",
+                    "versionAdded": "v1_3_0"
+                },
+                "AccessState": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/AccessState"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The access state for this connection.",
+                    "longDescription": "The value of this property shall contain the access state for the associated resource in this connection.",
+                    "readonly": false,
+                    "versionAdded": "v1_3_0"
+                },
+                "MemoryRegion": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/MemoryRegion.json#/definitions/MemoryRegion"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The specified memory region.",
+                    "longDescription": "This property shall contain a link to a resource of type MemoryRegion.  The endpoints referenced by the InitiatorEndpoints or InitiatorEndpointGroups properties shall be given access to this memory region as described by this object.  If TargetEndpoints or TargetEndpointGroups is present, the referenced initiator endpoints shall be required to access the referenced memory region through one of the referenced target endpoints.",
+                    "readonly": false,
+                    "versionAdded": "v1_3_0"
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "VolumeInfo": {
+            "additionalProperties": false,
+            "description": "The combination of permissions and volume information.",
+            "longDescription": "This type shall contain the combination of permissions and volume information.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AccessCapabilities": {
+                    "description": "Supported I/O access capabilities.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/AccessCapability"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "Each entry shall specify a current storage access capability.",
+                    "readonly": false,
+                    "type": "array"
+                },
+                "AccessState": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/AccessState"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The access state for this connection.",
+                    "longDescription": "The value of this property shall contain the access state for the associated resource in this connection.",
+                    "readonly": false
+                },
+                "LUN": {
+                    "description": "The initiator-visible logical unit number (LUN) assigned to this volume.",
+                    "longDescription": "This property shall contain the initiator-visible logical unit number (LUN) assigned to this volume for initiators referenced by the InitiatorEndpoints or InitiatorEndpointGroups properties.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0"
+                },
+                "Volume": {
+                    "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/Volume.json#/definitions/Volume",
+                    "description": "The specified volume.",
+                    "longDescription": "This property shall contain a link to a resource of type Volume.  The endpoints referenced by the InitiatorEndpoints or InitiatorEndpointGroups properties shall be given access to this volume as described by this object.  If TargetEndpoints or TargetEndpointGroups is present, the referenced initiator endpoints shall be required to access the referenced volume through one of the referenced target endpoints.",
+                    "readonly": false
+                }
+            },
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2023.2",
+    "title": "#Connection.v1_3_1.Connection"
+}

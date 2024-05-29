@@ -1,0 +1,598 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/ManagerDiagnosticData.v1_2_0.json",
+    "$ref": "#/definitions/ManagerDiagnosticData",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "#ManagerDiagnosticData.ResetMetrics": {
+                    "$ref": "#/definitions/ResetMetrics"
+                },
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "BootTimeStatistics": {
+            "additionalProperties": false,
+            "description": "The boot time statistics of a manager.",
+            "longDescription": "This object shall contain the boot time statistics of a manager.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "FirmwareTimeSeconds": {
+                    "description": "The number of seconds the manager spent in the firmware stage.",
+                    "longDescription": "This property shall contain the number of seconds the manager spent in the firmware stage.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "InitrdTimeSeconds": {
+                    "description": "The number of seconds the manager spent in the initrd boot stage.",
+                    "longDescription": "This property shall contain the number of seconds the manager spent in the initrd boot stage.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "KernelTimeSeconds": {
+                    "description": "The number of seconds the manager spent in the kernel stage.",
+                    "longDescription": "This property shall contain the number of seconds the manager spent in the kernel stage.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "LoaderTimeSeconds": {
+                    "description": "The number of seconds the manager spent in the loader stage.",
+                    "longDescription": "This property shall contain the number of seconds the manager spent in the loader stage.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "UserSpaceTimeSeconds": {
+                    "description": "The number of seconds the manager spent in the user space boot stage.",
+                    "longDescription": "This property shall contain the number of seconds the manager spent in the user space boot stage.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "I2CBusStatistics": {
+            "additionalProperties": false,
+            "description": "The statistics of an I2C bus.",
+            "longDescription": "This object shall contain statistics of an I2C bus.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "BusErrorCount": {
+                    "description": "The number of bus errors on this I2C bus.",
+                    "longDescription": "This property shall contain the number of bus errors on this I2C bus.  Bus errors include, but are not limited to, an SDA rising or falling edge while SCL is high or a stuck bus signal.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "I2CBusName": {
+                    "description": "The name of the I2C bus.",
+                    "longDescription": "This property shall contain the name of the I2C bus.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "NACKCount": {
+                    "description": "The number of NACKs on this I2C bus.",
+                    "longDescription": "This property shall contain the number of NACKs on this I2C bus.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "TotalTransactionCount": {
+                    "description": "The total number of transactions on this I2C bus.",
+                    "longDescription": "This property shall contain the total number of transactions on this I2C bus.  The count shall include the number of I2C transactions initiated by the manager and the number of I2C transactions where the manager is the target device.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "ManagerDiagnosticData": {
+            "additionalProperties": false,
+            "description": "The ManagerDiagnosticData schema defines internal diagnostic data for a manager.  It contains information that might be used by vendors to collect debug information about the manager.  Clients should not make decisions for raising alerts, creating service events, or other actions based on information in this resource.",
+            "longDescription": "This resource shall represent internal diagnostic data for a manager for a Redfish implementation.  Clients should not make decisions for raising alerts, creating service events, or other actions based on information in this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "The actions property shall contain the available actions for this resource."
+                },
+                "BootTimeStatistics": {
+                    "$ref": "#/definitions/BootTimeStatistics",
+                    "description": "The boot time statistics of the manager.",
+                    "longDescription": "This property shall contain the boot time statistics of the manager."
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "FreeStorageSpaceKiB": {
+                    "description": "The available storage space on this manager in kibibytes (KiB).",
+                    "longDescription": "This property shall contain the available storage space on this manager in kibibytes (KiB).",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "KiBy"
+                },
+                "I2CBuses": {
+                    "description": "The statistics of the I2C buses.",
+                    "items": {
+                        "$ref": "#/definitions/I2CBusStatistics"
+                    },
+                    "longDescription": "This property shall contain the statistics of the I2C buses.  Services may subdivide a physical bus into multiple entries in this property based on how the manager tracks bus segments, virtual buses from a controller, and other segmentation capabilities.",
+                    "type": "array"
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "MemoryECCStatistics": {
+                    "$ref": "#/definitions/MemoryECCStatistics",
+                    "description": "The memory ECC statistics of the manager.",
+                    "longDescription": "This property shall contain the memory ECC statistics of the manager."
+                },
+                "MemoryStatistics": {
+                    "$ref": "#/definitions/MemoryStatistics",
+                    "description": "The memory statistics of the manager.",
+                    "longDescription": "This property shall contain the memory statistics of the manager."
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "ProcessorStatistics": {
+                    "$ref": "#/definitions/ProcessorStatistics",
+                    "description": "The processor statistics of the manager.",
+                    "longDescription": "This property shall contain the processor statistics of the manager."
+                },
+                "ServiceRootUptimeSeconds": {
+                    "description": "The wall-clock time the service root hosted by this manager has been running in seconds.",
+                    "longDescription": "This property shall contain the wall-clock time the service root hosted by this manager has been running in seconds.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0"
+                },
+                "TopProcesses": {
+                    "description": "The statistics of the top processes of this manager.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ProcessStatistics"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain the statistics of the top processes of this manager.",
+                    "type": "array"
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "MemoryECCStatistics": {
+            "additionalProperties": false,
+            "description": "The memory ECC statistics of a manager.",
+            "longDescription": "This object shall contain the memory ECC statistics of a manager.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "CorrectableECCErrorCount": {
+                    "description": "The number of the correctable errors since reset.",
+                    "longDescription": "This property shall contain the number of correctable errors since reset.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "UncorrectableECCErrorCount": {
+                    "description": "The number of the uncorrectable errors since reset.",
+                    "longDescription": "This property shall contain the number of uncorrectable errors since reset.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "MemoryStatistics": {
+            "additionalProperties": false,
+            "description": "The memory statistics of a manager.",
+            "longDescription": "This object shall contain the memory statistics of a manager.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AvailableBytes": {
+                    "description": "The amount of memory available in bytes for starting new processes without swapping.",
+                    "longDescription": "This property shall contain the amount of memory available in bytes for starting new processes without swapping.  This includes free memory and reclaimable cache and buffers.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "By"
+                },
+                "BuffersAndCacheBytes": {
+                    "description": "The amount of memory used in bytes by kernel buffers, page caches, and slabs.",
+                    "longDescription": "This property shall contain the amount of memory used in bytes by kernel buffers, page caches, and slabs.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "By"
+                },
+                "FreeBytes": {
+                    "description": "The amount of free memory in bytes.",
+                    "longDescription": "This property shall contain the amount of free memory in bytes.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "By"
+                },
+                "SharedBytes": {
+                    "description": "The amount of shared memory in bytes.",
+                    "longDescription": "This property shall contain the amount of shared memory in bytes.  This includes things such as memory consumed by temporary filesystems.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "By"
+                },
+                "TotalBytes": {
+                    "description": "The total amount of memory in bytes.",
+                    "longDescription": "This property shall contain the total amount of memory in bytes.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "By"
+                },
+                "UsedBytes": {
+                    "description": "The amount of used memory in bytes.",
+                    "longDescription": "This property shall contain the amount of used memory in bytes.  This value is calculated as TotalBytes minus FreeBytes minus BuffersAndCacheBytes.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "By"
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "ProcessStatistics": {
+            "additionalProperties": false,
+            "description": "The statistics of a process running on a manager.",
+            "longDescription": "This object shall contain the statistics of a process running on a manager.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "CommandLine": {
+                    "description": "The command line of this process.",
+                    "longDescription": "This property shall contain the command line with parameters of this process.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "KernelTimeSeconds": {
+                    "description": "The number of seconds this process executed in kernel space.",
+                    "longDescription": "This property shall contain the number of seconds this process executed in kernel space.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "ResidentSetSizeBytes": {
+                    "description": "The resident set size of this process in bytes.",
+                    "longDescription": "This property shall contain the resident set size of this process in bytes, which is the amount of memory allocated to the process and is in RAM.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "By"
+                },
+                "RestartAfterFailureCount": {
+                    "description": "The number of times this process has restarted unexpectedly.",
+                    "longDescription": "This property shall contain the number of times this process has restarted unexpectedly, such as due to unintentional failures, restarts, or shutdowns, with the same command line including arguments.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "RestartCount": {
+                    "description": "The number of times this process has restarted.",
+                    "longDescription": "This property shall contain the number of times this process has restarted with the same command line including arguments.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "UptimeSeconds": {
+                    "description": "The wall-clock time this process has been running in seconds.",
+                    "longDescription": "This property shall contain the wall-clock time this process has been running in seconds.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "UserTimeSeconds": {
+                    "description": "The number of seconds this process executed in user space.",
+                    "longDescription": "This property shall contain the number of seconds this process executed in user space.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "ProcessorStatistics": {
+            "additionalProperties": false,
+            "description": "The processor statistics of a manager.",
+            "longDescription": "This object shall contain the processor statistics of a manager.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "KernelPercent": {
+                    "description": "The percentage of CPU time spent in kernel mode.",
+                    "longDescription": "This property shall contain the percentage of CPU time spent in kernel mode.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "%"
+                },
+                "UserPercent": {
+                    "description": "The percentage of CPU time spent in user mode.",
+                    "longDescription": "This property shall contain the percentage of CPU time spent in user mode.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "%"
+                }
+            },
+            "type": "object"
+        },
+        "ResetMetrics": {
+            "additionalProperties": false,
+            "description": "Resets time intervals or counted values of the diagnostic data for this manager.",
+            "longDescription": "This action shall reset any time intervals or counted values of the diagnostic data for this manager.",
+            "parameters": {},
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2022.3",
+    "title": "#ManagerDiagnosticData.v1_2_0.ManagerDiagnosticData"
+}

@@ -1,0 +1,96 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Port.json",
+    "$ref": "#/definitions/Port",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Port": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Port.v1_0_12.json#/definitions/Port"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Port.v1_1_9.json#/definitions/Port"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Port.v1_2_9.json#/definitions/Port"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Port.v1_3_7.json#/definitions/Port"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Port.v1_4_6.json#/definitions/Port"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Port.v1_5_5.json#/definitions/Port"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Port.v1_6_5.json#/definitions/Port"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Port.v1_7_3.json#/definitions/Port"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Port.v1_8_3.json#/definitions/Port"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Port.v1_9_3.json#/definitions/Port"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Port.v1_10_2.json#/definitions/Port"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Port.v1_11_1.json#/definitions/Port"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Port.v1_12_0.json#/definitions/Port"
+                }
+            ],
+            "deletable": false,
+            "description": "The `Port` schema contains properties that describe a port of a switch, controller, chassis, or any other device that could be connected to another entity.",
+            "insertable": false,
+            "longDescription": "This resource contains a simple port for a Redfish implementation.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/Fabrics/{FabricId}/Switches/{SwitchId}/Ports/{PortId}",
+                "/redfish/v1/Systems/{ComputerSystemId}/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Ports/{PortId}",
+                "/redfish/v1/Systems/{ComputerSystemId}/Storage/{StorageId}/Controllers/{StorageControllerId}/Ports/{PortId}",
+                "/redfish/v1/Systems/{ComputerSystemId}/FabricAdapters/{FabricAdapterId}/Ports/{PortId}",
+                "/redfish/v1/Systems/{ComputerSystemId}/GraphicsControllers/{ControllerId}/Ports/{PortId}",
+                "/redfish/v1/Systems/{ComputerSystemId}/USBControllers/{ControllerId}/Ports/{PortId}",
+                "/redfish/v1/Systems/{ComputerSystemId}/Processors/{ProcessorId}/Ports/{PortId}",
+                "/redfish/v1/Chassis/{ChassisId}/MediaControllers/{MediaControllerId}/Ports/{PortId}",
+                "/redfish/v1/Chassis/{ChassisId}/FabricAdapters/{FabricAdapterId}/Ports/{PortId}",
+                "/redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/Ports/{PortId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Ports/{PortId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/Controllers/{StorageControllerId}/Ports/{PortId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Processors/{ProcessorId}/Ports/{PortId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Ports/{PortId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/Controllers/{StorageControllerId}/Ports/{PortId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/FabricAdapters/{FabricAdapterId}/Ports/{PortId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/GraphicsControllers/{ControllerId}/Ports/{PortId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/USBControllers/{ControllerId}/Ports/{PortId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Processors/{ProcessorId}/Ports/{PortId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Ports/{PortId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/Controllers/{StorageControllerId}/Ports/{PortId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Processors/{ProcessorId}/Ports/{PortId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Ports/{PortId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/Controllers/{StorageControllerId}/Ports/{PortId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/FabricAdapters/{FabricAdapterId}/Ports/{PortId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/GraphicsControllers/{ControllerId}/Ports/{PortId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/USBControllers/{ControllerId}/Ports/{PortId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Processors/{ProcessorId}/Ports/{PortId}",
+                "/redfish/v1/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Ports/{PortId}",
+                "/redfish/v1/Storage/{StorageId}/Controllers/{StorageControllerId}/Ports/{PortId}",
+                "/redfish/v1/Managers/{ManagerId}/USBPorts/{PortId}",
+                "/redfish/v1/Managers/{ManagerId}/DedicatedNetworkPorts/{PortId}"
+            ]
+        }
+    },
+    "language": "en",
+    "owningEntity": "DMTF",
+    "title": "#Port.Port"
+}

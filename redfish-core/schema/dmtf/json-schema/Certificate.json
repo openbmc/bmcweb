@@ -1,0 +1,192 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Certificate.json",
+    "$ref": "#/definitions/Certificate",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Certificate": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Certificate.v1_0_7.json#/definitions/Certificate"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Certificate.v1_1_6.json#/definitions/Certificate"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Certificate.v1_2_6.json#/definitions/Certificate"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Certificate.v1_3_3.json#/definitions/Certificate"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Certificate.v1_4_3.json#/definitions/Certificate"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Certificate.v1_5_3.json#/definitions/Certificate"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Certificate.v1_6_2.json#/definitions/Certificate"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Certificate.v1_7_2.json#/definitions/Certificate"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Certificate.v1_8_2.json#/definitions/Certificate"
+                }
+            ],
+            "deletable": true,
+            "description": "The `Certificate` schema describes a certificate that proves the identity of a component, account, or service.",
+            "insertable": false,
+            "longDescription": "This resource shall represent a certificate for a Redfish implementation.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/AccountService/Accounts/{ManagerAccountId}/Certificates/{CertificateId}",
+                "/redfish/v1/AccountService/ActiveDirectory/Certificates/{CertificateId}",
+                "/redfish/v1/AccountService/LDAP/Certificates/{CertificateId}",
+                "/redfish/v1/AccountService/ExternalAccountProviders/{ExternalAccountProviderId}/Certificates/{CertificateId}",
+                "/redfish/v1/AccountService/MultiFactorAuth/ClientCertificate/Certificates/{CertificateId}",
+                "/redfish/v1/AccountService/MultiFactorAuth/SecurID/Certificates/{CertificateId}",
+                "/redfish/v1/Managers/{ManagerId}/RemoteAccountService/Accounts/{ManagerAccountId}/Certificates/{CertificateId}",
+                "/redfish/v1/Managers/{ManagerId}/RemoteAccountService/ActiveDirectory/Certificates/{CertificateId}",
+                "/redfish/v1/Managers/{ManagerId}/RemoteAccountService/LDAP/Certificates/{CertificateId}",
+                "/redfish/v1/Managers/{ManagerId}/RemoteAccountService/ExternalAccountProviders/{ExternalAccountProviderId}/Certificates/{CertificateId}",
+                "/redfish/v1/Managers/{ManagerId}/RemoteAccountService/MultiFactorAuth/ClientCertificate/Certificates/{CertificateId}",
+                "/redfish/v1/Managers/{ManagerId}/RemoteAccountService/MultiFactorAuth/SecurID/Certificates/{CertificateId}",
+                "/redfish/v1/Managers/{ManagerId}/NetworkProtocol/HTTPS/Certificates/{CertificateId}",
+                "/redfish/v1/Systems/{ComputerSystemId}/Boot/Certificates/{CertificateId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Boot/Certificates/{CertificateId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Boot/Certificates/{CertificateId}",
+                "/redfish/v1/Systems/{ComputerSystemId}/SecureBoot/SecureBootDatabases/{DatabaseId}/Certificates/{CertificateId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/SecureBoot/SecureBootDatabases/{DatabaseId}/Certificates/{CertificateId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/SecureBoot/SecureBootDatabases/{DatabaseId}/Certificates/{CertificateId}",
+                "/redfish/v1/EventService/Subscriptions/{EventDestinationId}/Certificates/{CertificateId}",
+                "/redfish/v1/EventService/Subscriptions/{EventDestinationId}/ClientCertificates/{CertificateId}",
+                "/redfish/v1/Systems/{ComputerSystemId}/Certificates/{CertificateId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Certificates/{CertificateId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Certificates/{CertificateId}",
+                "/redfish/v1/Systems/{ComputerSystemId}/Memory/{MemoryId}/Certificates/{CertificateId}",
+                "/redfish/v1/Chassis/{ChassisId}/Memory/{MemoryId}/Certificates/{CertificateId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Memory/{MemoryId}/Certificates/{CertificateId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Memory/{MemoryId}/Certificates/{CertificateId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Memory/{MemoryId}/Certificates/{CertificateId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Memory/{MemoryId}/Certificates/{CertificateId}",
+                "/redfish/v1/Systems/{ComputerSystemId}/Processors/{ProcessorId}/Certificates/{CertificateId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Processors/{ProcessorId}/Certificates/{CertificateId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Processors/{ProcessorId}/Certificates/{CertificateId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Processors/{ProcessorId}/Certificates/{CertificateId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Processors/{ProcessorId}/Certificates/{CertificateId}",
+                "/redfish/v1/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Certificates/{CertificateId}",
+                "/redfish/v1/Systems/{ComputerSystemId}/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Certificates/{CertificateId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Certificates/{CertificateId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Certificates/{CertificateId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Certificates/{CertificateId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Certificates/{CertificateId}",
+                "/redfish/v1/Storage/{StorageId}/Controllers/{StorageControllerId}/Certificates/{CertificateId}",
+                "/redfish/v1/Systems/{ComputerSystemId}/Storage/{StorageId}/Controllers/{StorageControllerId}/Certificates/{CertificateId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/Controllers/{StorageControllerId}/Certificates/{CertificateId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/Controllers/{StorageControllerId}/Certificates/{CertificateId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/Controllers/{StorageControllerId}/Certificates/{CertificateId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/Controllers/{StorageControllerId}/Certificates/{CertificateId}",
+                "/redfish/v1/Fabrics/{FabricId}/Switches/{SwitchId}/Certificates/{CertificateId}",
+                "/redfish/v1/Chassis/{ChassisId}/Certificates/{CertificateId}",
+                "/redfish/v1/Systems/{ComputerSystemId}/Storage/{StorageId}/Drives/{DriveId}/Certificates/{CertificateId}",
+                "/redfish/v1/Chassis/{ChassisId}/Drives/{DriveId}/Certificates/{CertificateId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/Drives/{DriveId}/Certificates/{CertificateId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Drives/{DriveId}/Certificates/{CertificateId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/Drives/{DriveId}/Certificates/{CertificateId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/Drives/{DriveId}/Certificates/{CertificateId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Drives/{DriveId}/Certificates/{CertificateId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/Drives/{DriveId}/Certificates/{CertificateId}",
+                "/redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/Certificates/{CertificateId}",
+                "/redfish/v1/Systems/{ComputerSystemId}/VirtualMedia/{VirtualMediaId}/Certificates/{CertificateId}",
+                "/redfish/v1/Systems/{ComputerSystemId}/VirtualMedia/{VirtualMediaId}/ClientCertificates/{CertificateId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/VirtualMedia/{VirtualMediaId}/Certificates/{CertificateId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/VirtualMedia/{VirtualMediaId}/ClientCertificates/{CertificateId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/VirtualMedia/{VirtualMediaId}/Certificates/{CertificateId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/VirtualMedia/{VirtualMediaId}/ClientCertificates/{CertificateId}",
+                "/redfish/v1/UpdateService/RemoteServerCertificates/{CertificateId}",
+                "/redfish/v1/UpdateService/ClientCertificates/{CertificateId}",
+                "/redfish/v1/Managers/{ManagerId}/Certificates/{CertificateId}",
+                "/redfish/v1/Systems/{ComputerSystemId}/KeyManagement/KMIPCertificates/{CertificateId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/KeyManagement/KMIPCertificates/{CertificateId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/KeyManagement/KMIPCertificates/{CertificateId}",
+                "/redfish/v1/Managers/{ManagerId}/SecurityPolicy/SPDM/TrustedCertificates/{CertificateId}",
+                "/redfish/v1/Managers/{ManagerId}/SecurityPolicy/SPDM/RevokedCertificates/{CertificateId}",
+                "/redfish/v1/Managers/{ManagerId}/SecurityPolicy/TLS/Client/TrustedCertificates/{CertificateId}",
+                "/redfish/v1/Managers/{ManagerId}/SecurityPolicy/TLS/Client/RevokedCertificates/{CertificateId}",
+                "/redfish/v1/Managers/{ManagerId}/SecurityPolicy/TLS/Server/TrustedCertificates/{CertificateId}",
+                "/redfish/v1/Managers/{ManagerId}/SecurityPolicy/TLS/Server/RevokedCertificates/{CertificateId}",
+                "/redfish/v1/Chassis/{ChassisId}/TrustedComponents/{TrustedComponentId}/Certificates/{CertificateId}",
+                "/redfish/v1/AccountService/OutboundConnections/{OutboundConnectionId}/Certificates/{CertificateId}",
+                "/redfish/v1/AccountService/OutboundConnections/{OutboundConnectionId}/ClientCertificates/{CertificateId}",
+                "/redfish/v1/Chassis/{ChassisId}/PowerSubsystem/PowerSupplies/{PowerSupplyId}/Certificates/{CertificateId}"
+            ]
+        },
+        "CertificateType": {
+            "enum": [
+                "PEM",
+                "PEMchain",
+                "PKCS7"
+            ],
+            "enumDescriptions": {
+                "PEM": "A Privacy Enhanced Mail (PEM)-encoded single certificate.",
+                "PEMchain": "A Privacy Enhanced Mail (PEM)-encoded certificate chain.",
+                "PKCS7": "A Privacy Enhanced Mail (PEM)-encoded PKCS7 certificate."
+            },
+            "enumLongDescriptions": {
+                "PEM": "This value shall indicate the format of the certificate shall contain a Privacy Enhanced Mail (PEM)-encoded string, containing RFC5280-defined structures, representing a single certificate.",
+                "PEMchain": "This value shall indicate the format of the certificate shall contain a Privacy Enhanced Mail (PEM)-encoded string, containing RFC5280-defined structures, representing a certificate chain.",
+                "PKCS7": "The format of the certificate shall contain a Privacy Enhanced Mail (PEM)-encoded string, containing RFC5280-defined and RFC2315-defined structures.  The service can discard additional certificates or other data in the structure."
+            },
+            "enumVersionAdded": {
+                "PEMchain": "v1_4_0"
+            },
+            "type": "string"
+        },
+        "KeyUsage": {
+            "description": "The usages of a key contained within a certificate.",
+            "enum": [
+                "DigitalSignature",
+                "NonRepudiation",
+                "KeyEncipherment",
+                "DataEncipherment",
+                "KeyAgreement",
+                "KeyCertSign",
+                "CRLSigning",
+                "EncipherOnly",
+                "DecipherOnly",
+                "ServerAuthentication",
+                "ClientAuthentication",
+                "CodeSigning",
+                "EmailProtection",
+                "Timestamping",
+                "OCSPSigning"
+            ],
+            "enumDescriptions": {
+                "CRLSigning": "Verifies signatures on certificate revocation lists (CRLs).",
+                "ClientAuthentication": "TLS WWW client authentication.",
+                "CodeSigning": "Signs downloadable executable code.",
+                "DataEncipherment": "Directly enciphers raw user data without an intermediate symmetric cipher.",
+                "DecipherOnly": "Deciphers data while performing a key agreement.",
+                "DigitalSignature": "Verifies digital signatures, other than signatures on certificates and CRLs.",
+                "EmailProtection": "Email protection.",
+                "EncipherOnly": "Enciphers data while performing a key agreement.",
+                "KeyAgreement": "Key agreement.",
+                "KeyCertSign": "Verifies signatures on public key certificates.",
+                "KeyEncipherment": "Enciphers private or secret keys.",
+                "NonRepudiation": "Verifies digital signatures, other than signatures on certificates and CRLs, and provides a non-repudiation service that protects against the signing entity falsely denying some action.",
+                "OCSPSigning": "Signs OCSP responses.",
+                "ServerAuthentication": "TLS WWW server authentication.",
+                "Timestamping": "Binds the hash of an object to a time."
+            },
+            "longDescription": "This type shall describe the usages of a key within a certificate, as specified by the 'Key Usage' and 'Extended Key Usage' definitions in RFC5280.",
+            "type": "string"
+        }
+    },
+    "language": "en",
+    "owningEntity": "DMTF",
+    "title": "#Certificate.Certificate"
+}

@@ -1,0 +1,798 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Storage.v1_10_0.json",
+    "$ref": "#/definitions/Storage",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "#Storage.SetEncryptionKey": {
+                    "$ref": "#/definitions/SetEncryptionKey"
+                },
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "CacheSummary": {
+            "additionalProperties": false,
+            "description": "This type describes the cache memory of the storage controller in general detail.",
+            "longDescription": "This type shall contain properties that describe the cache memory for a storage controller.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "PersistentCacheSizeMiB": {
+                    "description": "The portion of the cache memory that is persistent, measured in MiB.",
+                    "longDescription": "This property shall contain the amount of cache memory that is persistent as measured in mebibytes.  This size shall be less than or equal to the TotalCacheSizeMiB.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "MiBy",
+                    "versionAdded": "v1_5_0"
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource.",
+                    "versionAdded": "v1_5_0"
+                },
+                "TotalCacheSizeMiB": {
+                    "description": "The total configured cache memory, measured in MiB.",
+                    "longDescription": "This property shall contain the amount of configured cache memory as measured in mebibytes.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "MiBy",
+                    "versionAdded": "v1_5_0"
+                }
+            },
+            "required": [
+                "TotalCacheSizeMiB"
+            ],
+            "type": "object"
+        },
+        "Links": {
+            "additionalProperties": false,
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Enclosures": {
+                    "description": "An array of links to the chassis to which this storage subsystem is attached.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.json#/definitions/Chassis"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Chassis that represent the physical containers attached to this resource.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "Enclosures@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                },
+                "SimpleStorage": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/SimpleStorage.json#/definitions/SimpleStorage",
+                    "description": "The link to the simple storage instance that corresponds to this storage.",
+                    "longDescription": "This property shall contain a link to a resource of type SimpleStorage that represents the same storage subsystem as this resource.",
+                    "readonly": true,
+                    "versionAdded": "v1_9_0"
+                },
+                "StorageServices": {
+                    "description": "An array of links to the storage services that connect to this storage subsystem.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/StorageService.json#/definitions/StorageService"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type StorageService with which this storage subsystem is associated.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_9_0"
+                },
+                "StorageServices@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "Rates": {
+            "additionalProperties": false,
+            "description": "This type describes the various controller rates used for processes such as volume rebuild or consistency checks.",
+            "longDescription": "This type shall contain all the rate settings available on the controller.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "ConsistencyCheckRatePercent": {
+                    "description": "The percentage of controller resources used for performing a data consistency check on volumes.",
+                    "longDescription": "This property shall contain the percentage of controller resources used for checking data consistency on volumes.",
+                    "maximum": 100,
+                    "minimum": 0,
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_7_0"
+                },
+                "RebuildRatePercent": {
+                    "description": "The percentage of controller resources used for rebuilding/repairing volumes.",
+                    "longDescription": "This property shall contain the percentage of controller resources used for rebuilding volumes.",
+                    "maximum": 100,
+                    "minimum": 0,
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_7_0"
+                },
+                "TransformationRatePercent": {
+                    "description": "The percentage of controller resources used for transforming volumes from one configuration to another.",
+                    "longDescription": "This property shall contain the percentage of controller resources used for transforming volumes.",
+                    "maximum": 100,
+                    "minimum": 0,
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_7_0"
+                }
+            },
+            "type": "object"
+        },
+        "SetEncryptionKey": {
+            "additionalProperties": false,
+            "description": "This action sets the encryption key for the storage subsystem.",
+            "longDescription": "This action shall set the encryption key for the storage subsystem.",
+            "parameters": {
+                "EncryptionKey": {
+                    "description": "The encryption key to set on the storage subsystem.",
+                    "longDescription": "This parameter shall contain the encryption key to set on the storage subsystem.",
+                    "requiredParameter": true,
+                    "type": "string"
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "Storage": {
+            "additionalProperties": false,
+            "description": "The Storage schema defines a storage subsystem and its respective properties.  A storage subsystem represents a set of physical or virtual storage controllers and the resources, such as volumes, that can be accessed from that subsystem.",
+            "longDescription": "This resource shall represent a storage subsystem in the Redfish Specification.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "ConsistencyGroups": {
+                    "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/ConsistencyGroupCollection.json#/definitions/ConsistencyGroupCollection",
+                    "description": "The consistency groups, each of which contains a set of volumes that are treated by an application or set of applications as a single resource, that are managed by this storage subsystem.",
+                    "longDescription": "This property shall contain a link to a resource collection of type ConsistencyGroupCollection.  The property shall be used when groups of volumes are treated as a single resource by an application or set of applications.",
+                    "readonly": true,
+                    "versionAdded": "v1_8_0"
+                },
+                "Controllers": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/StorageControllerCollection.json#/definitions/StorageControllerCollection",
+                    "description": "The set of controllers instantiated by this storage subsystem.",
+                    "longDescription": "This property shall contain a link to a resource collection of type StorageControllerCollection that contains the set of storage controllers allocated to this storage subsystem.",
+                    "readonly": true,
+                    "versionAdded": "v1_9_0"
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Drives": {
+                    "description": "The set of drives attached to the storage controllers that this resource represents.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Drive.json#/definitions/Drive"
+                    },
+                    "longDescription": "This property shall contain a set of the drives attached to the storage controllers that this resource represents.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "Drives@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "EndpointGroups": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EndpointGroupCollection.json#/definitions/EndpointGroupCollection",
+                    "description": "All of the endpoint groups, each of which contains a set of endpoints that are used for a common purpose such as an ACL or logical identification, that belong to this storage subsystem.",
+                    "longDescription": "This property shall contain a link to a resource collection of type EndpointGroupCollection.  This property shall be implemented when atomic control is needed to perform mapping, masking and zoning operations.",
+                    "readonly": true,
+                    "versionAdded": "v1_8_0"
+                },
+                "FileSystems": {
+                    "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/FileSystemCollection.json#/definitions/FileSystemCollection",
+                    "description": "All file systems that are allocated by this storage subsystem.",
+                    "longDescription": "This property shall contain a link to a resource collection of type FileSystemCollection.  This property shall be used when file systems are shared or exported by the storage subsystem.",
+                    "readonly": true,
+                    "versionAdded": "v1_8_0"
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Identifiers": {
+                    "description": "The durable names for the storage subsystem.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Identifier"
+                    },
+                    "longDescription": "This property shall contain a list of all known durable names for the storage subsystem.",
+                    "type": "array",
+                    "versionAdded": "v1_9_0"
+                },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "Redundancy": {
+                    "autoExpand": true,
+                    "description": "Redundancy information for the storage subsystem.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Redundancy.json#/definitions/Redundancy"
+                    },
+                    "longDescription": "This property shall contain redundancy information for the storage subsystem.",
+                    "type": "array"
+                },
+                "Redundancy@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                },
+                "StorageControllers": {
+                    "autoExpand": true,
+                    "description": "The set of storage controllers that this resource represents.",
+                    "items": {
+                        "$ref": "#/definitions/StorageController"
+                    },
+                    "longDescription": "This property shall contain a set of the storage controllers that this resource represents.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "StorageControllers@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "StorageGroups": {
+                    "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/StorageGroupCollection.json#/definitions/StorageGroupCollection",
+                    "description": "All of the storage groups, each of which contains a set of volumes and endpoints that are managed as a group for mapping and masking, that belong to this storage subsystem.",
+                    "longDescription": "This property shall contain a link to a resource collection of type StorageGroupsCollection.  This property shall be used when implementing mapping and masking.",
+                    "readonly": true,
+                    "versionAdded": "v1_8_0"
+                },
+                "StoragePools": {
+                    "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/StoragePoolCollection.json#/definitions/StoragePoolCollection",
+                    "description": "The set of all storage pools that are allocated by this storage subsystem.  A storage pool is the set of storage capacity that can be used to produce volumes or other storage pools.",
+                    "longDescription": "This property shall contain a link to a resource collection of type StoragePoolCollection.  This property shall be used when an abstraction of media, rather than references to individual media, are used as the storage data source.",
+                    "readonly": true,
+                    "versionAdded": "v1_8_0"
+                },
+                "Volumes": {
+                    "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/VolumeCollection.json#/definitions/VolumeCollection",
+                    "description": "The set of volumes that the storage controllers produce.",
+                    "longDescription": "This property shall contain a link to a resource collection of type VolumeCollection.",
+                    "readonly": true
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "StorageController": {
+            "additionalProperties": false,
+            "description": "The StorageController schema describes a storage controller and its properties.  A storage controller represents a physical or virtual storage device that produces volumes.",
+            "longDescription": "This resource shall represent a resource that represents a storage controller in the Redfish Specification.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/StorageControllerActions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource.",
+                    "versionAdded": "v1_2_0"
+                },
+                "Assembly": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Assembly.json#/definitions/Assembly",
+                    "description": "The link to the assembly associated with this storage controller.",
+                    "longDescription": "This property shall contain a link to a resource of type Assembly.",
+                    "readonly": true,
+                    "versionAdded": "v1_4_0"
+                },
+                "AssetTag": {
+                    "description": "The user-assigned asset tag for this storage controller.",
+                    "longDescription": "This property shall track the storage controller for inventory purposes.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "CacheSummary": {
+                    "$ref": "#/definitions/CacheSummary",
+                    "description": "The cache memory of the storage controller in general detail.",
+                    "longDescription": "This property shall contain properties that describe the cache memory for this resource.",
+                    "versionAdded": "v1_5_0"
+                },
+                "Certificates": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
+                    "description": "The link to a collection of certificates for device identity and attestation.",
+                    "longDescription": "This property shall contain a link to a resource collection of type CertificateCollection that contains certificates for device identity and attestation.",
+                    "readonly": true,
+                    "versionAdded": "v1_10_0"
+                },
+                "ControllerRates": {
+                    "$ref": "#/definitions/Rates",
+                    "description": "This property describes the various controller rates used for processes such as volume rebuild or consistency checks.",
+                    "longDescription": "This object shall contain all the rate settings available on the controller.",
+                    "versionAdded": "v1_7_0"
+                },
+                "FirmwareVersion": {
+                    "description": "The firmware version of this storage controller.",
+                    "longDescription": "This property shall contain the firmware version as defined by the manufacturer for the associated storage controller.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Identifiers": {
+                    "description": "The durable names for the storage controller.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Identifier"
+                    },
+                    "longDescription": "This property shall contain a list of all known durable names for the associated storage controller.",
+                    "type": "array"
+                },
+                "Links": {
+                    "$ref": "#/definitions/StorageControllerLinks",
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
+                    "versionAdded": "v1_1_0"
+                },
+                "Location": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location",
+                    "description": "The location of the storage controller.",
+                    "longDescription": "This property shall contain location information of the associated storage controller.",
+                    "versionAdded": "v1_4_0"
+                },
+                "Manufacturer": {
+                    "description": "The manufacturer of this storage controller.",
+                    "longDescription": "This property shall contain the name of the organization responsible for producing the storage controller.  This organization might be the entity from which the storage controller is purchased, but this is not necessarily true.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Measurements": {
+                    "description": "An array of DSP0274-defined measurement blocks.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/SoftwareInventory.json#/definitions/MeasurementBlock"
+                    },
+                    "longDescription": "This property shall contain an array of DSP0274-defined measurement blocks.",
+                    "type": "array",
+                    "versionAdded": "v1_10_0"
+                },
+                "MemberId": {
+                    "description": "The identifier for the member within the collection.",
+                    "longDescription": "This property shall uniquely identify the member within the collection.  For services supporting Redfish v1.6 or higher, this value shall contain the zero-based array index.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "Model": {
+                    "description": "The model number for the storage controller.",
+                    "longDescription": "This property shall contain the name by which the manufacturer generally refers to the storage controller.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Name": {
+                    "description": "The name of the storage controller.",
+                    "longDescription": "This property shall contain the name of the storage controller.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "PCIeInterface": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PCIeDevice.json#/definitions/PCIeInterface",
+                    "description": "The PCIe interface details for this controller.",
+                    "longDescription": "This property shall contain details on the PCIe interface that connects this PCIe-based controller to its host.",
+                    "versionAdded": "v1_5_0"
+                },
+                "PartNumber": {
+                    "description": "The part number for this storage controller.",
+                    "longDescription": "This property shall contain a part number assigned by the organization that is responsible for producing or manufacturing the storage controller.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Ports": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PortCollection.json#/definitions/PortCollection",
+                    "description": "The link to the collection of ports that exist on the storage controller.",
+                    "longDescription": "This property shall contain a link to a resource collection of type PortCollection.",
+                    "readonly": true,
+                    "versionAdded": "v1_7_0"
+                },
+                "SKU": {
+                    "description": "The SKU for this storage controller.",
+                    "longDescription": "This property shall contain the stock-keeping unit number for this storage storage controller.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "SerialNumber": {
+                    "description": "The serial number for this storage controller.",
+                    "longDescription": "This property shall contain a manufacturer-allocated number that identifies the storage controller.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "SpeedGbps": {
+                    "description": "The maximum speed of the storage controller's device interface.",
+                    "longDescription": "This property shall represent the maximum supported speed of the storage bus interface, in Gbit/s.  The specified interface connects the controller to the storage devices, not the controller to a host.  For example, SAS bus not PCIe host bus.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "Gbit/s"
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                },
+                "SupportedControllerProtocols": {
+                    "description": "The supported set of protocols for communicating to this storage controller.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Protocol.json#/definitions/Protocol"
+                    },
+                    "longDescription": "This property shall contain the supported set of protocols for communicating to this storage controller.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "SupportedDeviceProtocols": {
+                    "description": "The protocols that the storage controller can use to communicate with attached devices.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Protocol.json#/definitions/Protocol"
+                    },
+                    "longDescription": "This property shall contain the set of protocols this storage controller can use to communicate with attached devices.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "SupportedRAIDTypes": {
+                    "description": "The set of RAID types supported by the storage controller.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/Volume.json#/definitions/RAIDType"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of all the RAID types supported by this controller.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_6_0"
+                }
+            },
+            "required": [
+                "@odata.id",
+                "MemberId"
+            ],
+            "type": "object"
+        },
+        "StorageControllerActions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/StorageControllerOemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource.",
+                    "versionAdded": "v1_2_0"
+                }
+            },
+            "type": "object"
+        },
+        "StorageControllerLinks": {
+            "additionalProperties": false,
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Endpoints": {
+                    "description": "An array of links to the endpoints that connect to this controller.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Endpoint.json#/definitions/Endpoint"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Endpoint with which this controller is associated.",
+                    "type": "array",
+                    "versionAdded": "v1_1_0"
+                },
+                "Endpoints@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                },
+                "PCIeFunctions": {
+                    "description": "An array of links to the PCIe functions that the storage controller produces.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/PCIeFunction.json#/definitions/PCIeFunction"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type PCIeFunction that represents the PCIe functions associated with this resource.",
+                    "type": "array",
+                    "versionAdded": "v1_7_0"
+                },
+                "PCIeFunctions@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "StorageServices": {
+                    "deprecated": "This property has been deprecated in favor of StorageServices within the Links property at the root level.",
+                    "description": "An array of links to the storage services that connect to this controller.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/StorageService.json#/definitions/StorageService"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type StorageService with which this controller is associated.",
+                    "type": "array",
+                    "versionAdded": "v1_4_0",
+                    "versionDeprecated": "v1_9_0"
+                },
+                "StorageServices@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                }
+            },
+            "type": "object"
+        },
+        "StorageControllerOemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2020.4",
+    "title": "#Storage.v1_10_0.Storage"
+}

@@ -1,0 +1,207 @@
+{
+    "$ref": "#/definitions/MessageRegistryFile",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "This property contains the available OEM specific actions for this resource.",
+                    "longDescription": "This property shall contain any additional OEM actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "Location": {
+            "additionalProperties": false,
+            "description": "Location information for a schema file.",
+            "longDescription": "This type shall define Location information for a schema file.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "ArchiveFile": {
+                    "description": "If the schema is hosted on the service in an archive file, this is the name of the file within the archive.",
+                    "longDescription": "The value of this property shall be the file name of the individual schema file within the archive file specified by the ArchiveUri property. The file name shall conform to the syntax specified in the Redfish specification.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "ArchiveUri": {
+                    "description": "If the schema is hosted on the service in an archive file, this is the link to the archive file.",
+                    "format": "uri",
+                    "longDescription": "The value of this property shall be a URI co-located with the Redfish service that specifies the location of the schema file.  This property shall only be used for archive files (zip or other formats).  The value of ArchiveFile shall have the file name of the individual schema file within the archive file.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "Language": {
+                    "description": "The language code for the file the schema is in.",
+                    "longDescription": "The value of this property shall be a string consisting of an RFC5646 language code or the string 'default'.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "PublicationUri": {
+                    "description": "Link to publicly available (canonical) URI for schema.",
+                    "format": "uri",
+                    "longDescription": "The value of this property shall be a URI not co-located with the Redfish service that specifies the canonical location of the schema file.  This property shall only be used for individual schema files.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "Uri": {
+                    "description": "Link to locally available URI for schema.",
+                    "format": "uri",
+                    "longDescription": "The value of this property shall be a URI co-located with the Redfish service that specifies the location of the schema file.  This property shall only be used for individual schema files.  The file name portion of the URI shall conform to the syntax specified in the Redfish specification.",
+                    "readonly": true,
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "MessageRegistryFile": {
+            "additionalProperties": false,
+            "description": "This is the schema definition for the Schema File locator resource.",
+            "longDescription": "This resource shall be used to represent the Schema File locator resource for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "The Actions property shall contain the available actions for this resource."
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Languages": {
+                    "description": "Language codes for the schemas available.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "longDescription": "The value of this property shall be a string consisting of an RFC 5646 language code.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "Location": {
+                    "description": "Location information for this registry file.",
+                    "items": {
+                        "$ref": "#/definitions/Location"
+                    },
+                    "longDescription": "This property shall contain the location information for this registry file.",
+                    "type": "array"
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.",
+                    "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
+                },
+                "Registry": {
+                    "description": "The Registry Name, Major, and Minor version.  This Registry can reference any type of Registry, such as a Message Registry, Privilege Registry, or Attribute Registry.",
+                    "longDescription": "The value of this property shall be the value of the Registry Name, Major, and Minor version.  This Registry may reference any type of Registry, such as a Message Registry, Privilege Registry, or Attribute Registry.",
+                    "readonly": true,
+                    "type": "string"
+                }
+            },
+            "required": [
+                "Languages",
+                "Registry",
+                "Location",
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM specific actions for this resource.",
+            "longDescription": "This type shall contain any additional OEM actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#MessageRegistryFile.v1_1_1.MessageRegistryFile"
+}

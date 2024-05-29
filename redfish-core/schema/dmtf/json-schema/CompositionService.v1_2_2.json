@@ -1,0 +1,351 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/CompositionService.v1_2_2.json",
+    "$ref": "#/definitions/CompositionService",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "#CompositionService.Compose": {
+                    "$ref": "#/definitions/Compose"
+                },
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "Compose": {
+            "actionResponse": {
+                "$ref": "#/definitions/ComposeResponse"
+            },
+            "additionalProperties": false,
+            "description": "This action performs a set of operations specified by a manifest.",
+            "longDescription": "This action shall perform a set of operations specified by a manifest.  Services shall not apply any part of the manifest unless all operations specified by the manifest are successful.",
+            "parameters": {
+                "Manifest": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Manifest.json#/definitions/Manifest",
+                    "description": "The manifest containing the compose operation request.",
+                    "longDescription": "This parameter shall contain the manifest containing the compose operation request.  This parameter shall be required if RequestFormat contains the value `Manifest`."
+                },
+                "RequestFormat": {
+                    "$ref": "#/definitions/ComposeRequestFormat",
+                    "description": "The format of the request.",
+                    "longDescription": "This parameter shall contain the format of the request.",
+                    "requiredParameter": true
+                },
+                "RequestType": {
+                    "$ref": "#/definitions/ComposeRequestType",
+                    "description": "The type of request.",
+                    "longDescription": "This parameter shall contain the type of request.",
+                    "requiredParameter": true
+                },
+                "ReservationId": {
+                    "description": "The identifier of the composition reservation if applying a reservation.  The value for this parameter is obtained from the response of a Compose action where the RequestType parameter contains the value `PreviewReserve`.",
+                    "longDescription": "This parameter shall contain the value of the Id property of the CompositionReservation resource for applying a reservation.",
+                    "type": "string"
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_2_0"
+        },
+        "ComposeRequestFormat": {
+            "enum": [
+                "Manifest"
+            ],
+            "enumDescriptions": {
+                "Manifest": "The request body contains a manifest."
+            },
+            "enumLongDescriptions": {
+                "Manifest": "This value shall indicate that the request contains a manifest as defined by the Redfish Manifest schema."
+            },
+            "type": "string"
+        },
+        "ComposeRequestType": {
+            "enum": [
+                "Preview",
+                "PreviewReserve",
+                "Apply"
+            ],
+            "enumDescriptions": {
+                "Apply": "Perform the requested operations specified by the manifest and modify resources as needed.",
+                "Preview": "Preview the outcome of the operations specified by the manifest.",
+                "PreviewReserve": "Preview the outcome of the operations specified by the manifest and reserve resources."
+            },
+            "enumLongDescriptions": {
+                "Apply": "This value shall indicate that the request is to apply the requested operations specified by the manifest and modify resources as needed.",
+                "Preview": "This value shall indicate that the request is to preview the outcome of the operations specified by the manifest to show what the service will do based on the contents of the request, and not affect any resources within the service.",
+                "PreviewReserve": "This value shall indicate that the request is to preview the outcome of the operations specified by the manifest to show what the service will do based on the contents of the request.  Resources that would have been affected by this request shall be marked as reserved but otherwise shall not be affected."
+            },
+            "type": "string"
+        },
+        "ComposeResponse": {
+            "additionalProperties": false,
+            "description": "The response body for the Compose action.",
+            "longDescription": "This type shall contain the properties found in the response body for the Compose action.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Manifest": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Manifest.json#/definitions/Manifest",
+                    "description": "The manifest containing the compose operation response.",
+                    "longDescription": "This property shall contain the manifest containing the compose operation response.  This property shall be required if RequestFormat contains the value `Manifest`.",
+                    "versionAdded": "v1_2_0"
+                },
+                "RequestFormat": {
+                    "$ref": "#/definitions/ComposeRequestFormat",
+                    "description": "The format of the request.",
+                    "longDescription": "This property shall contain the format of the request.",
+                    "readonly": true,
+                    "versionAdded": "v1_2_0"
+                },
+                "RequestType": {
+                    "$ref": "#/definitions/ComposeRequestType",
+                    "description": "The type of request.",
+                    "longDescription": "This property shall contain the type of request.",
+                    "readonly": true,
+                    "versionAdded": "v1_2_0"
+                },
+                "ReservationId": {
+                    "description": "The identifier of the composition reservation that was created.",
+                    "longDescription": "This property shall contain the value of the Id property of the CompositionReservation resource that was created.  This property shall be required if RequestType contains the value `PreviewReserve`.",
+                    "readonly": true,
+                    "type": "string",
+                    "versionAdded": "v1_2_0"
+                }
+            },
+            "required": [
+                "RequestFormat",
+                "RequestType"
+            ],
+            "type": "object"
+        },
+        "CompositionService": {
+            "additionalProperties": false,
+            "description": "The CompositionService schema describes a composition service and its properties and links to the resources available for composition.",
+            "longDescription": "This resource shall represent the composition service and its properties for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "ActivePool": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ResourceBlockCollection.json#/definitions/ResourceBlockCollection",
+                    "description": "The link to the collection of resource blocks within the active pool.  Resource blocks in the active pool are contributing to at least one composed resource as a result of a composition request.",
+                    "longDescription": "This property shall contain a link to a resource collection of type ResourceBlockCollection.  The members of this collection shall represent the resource blocks in the active pool.  Services shall filter members of this collection based on the requesting client.",
+                    "readonly": true,
+                    "versionAdded": "v1_2_0"
+                },
+                "AllowOverprovisioning": {
+                    "description": "An indication of whether this service is allowed to overprovision a composition relative to the composition request.",
+                    "longDescription": "This property shall indicate whether this service is allowed to overprovision a composition relative to the composition request.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "AllowZoneAffinity": {
+                    "description": "An indication of whether a client can request that a specific resource zone fulfill a composition request.",
+                    "longDescription": "This property shall indicate whether a client can request that a specific resource zone fulfill a composition request.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "CompositionReservations": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CompositionReservationCollection.json#/definitions/CompositionReservationCollection",
+                    "description": "The link to the collection of reservations with the composition reservation collection.",
+                    "longDescription": "This property shall contain a link to a resource collection of type CompositionReservationCollection.  The members of this collection shall contain links to reserved resource blocks and the related document that caused the reservations.  Services shall filter members of this collection based on the requesting client.",
+                    "readonly": true,
+                    "versionAdded": "v1_2_0"
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "FreePool": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ResourceBlockCollection.json#/definitions/ResourceBlockCollection",
+                    "description": "The link to the collection of resource blocks within the free pool.  Resource blocks in the free pool are not contributing to any composed resources.",
+                    "longDescription": "This property shall contain a link to a resource collection of type ResourceBlockCollection.  The members of this collection shall represent the resource blocks in the free pool.  Services shall filter members of this collection based on the requesting client.",
+                    "readonly": true,
+                    "versionAdded": "v1_2_0"
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "ReservationDuration": {
+                    "description": "The length of time a composition reservation is held before the service deletes the reservation and marks any related resource blocks as no longer reserved.",
+                    "longDescription": "This property shall contain the length of time a composition reservation is held before the service deletes the reservation and marks any related resource blocks as no longer reserved.",
+                    "pattern": "^P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?$",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0"
+                },
+                "ResourceBlocks": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ResourceBlockCollection.json#/definitions/ResourceBlockCollection",
+                    "description": "The resource blocks available on the service.",
+                    "longDescription": "This property shall contain a link to a resource collection of type ResourceBlockCollection.",
+                    "readonly": true
+                },
+                "ResourceZones": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ZoneCollection.json#/definitions/ZoneCollection",
+                    "description": "The resource zones available on the service.",
+                    "longDescription": "This property shall contain a link to a resource collection of type ZoneCollection.",
+                    "readonly": true
+                },
+                "ServiceEnabled": {
+                    "description": "An indication of whether this service is enabled.",
+                    "longDescription": "This property shall indicate whether this service is enabled.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2021.1",
+    "title": "#CompositionService.v1_2_2.CompositionService"
+}

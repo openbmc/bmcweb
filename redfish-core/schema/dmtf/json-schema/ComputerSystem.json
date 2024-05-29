@@ -1,0 +1,143 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.json",
+    "$ref": "#/definitions/ComputerSystem",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "BootSource": {
+            "enum": [
+                "None",
+                "Pxe",
+                "Floppy",
+                "Cd",
+                "Usb",
+                "Hdd",
+                "BiosSetup",
+                "Utilities",
+                "Diags",
+                "UefiShell",
+                "UefiTarget",
+                "SDCard",
+                "UefiHttp",
+                "RemoteDrive",
+                "UefiBootNext",
+                "Recovery"
+            ],
+            "enumDescriptions": {
+                "BiosSetup": "Boot to the BIOS setup utility.",
+                "Cd": "Boot from the CD or DVD.",
+                "Diags": "Boot to the manufacturer's diagnostics program.",
+                "Floppy": "Boot from the floppy disk drive.",
+                "Hdd": "Boot from a hard drive.",
+                "None": "Boot from the normal boot device.",
+                "Pxe": "Boot from the Pre-boot eXecution Environment (PXE).",
+                "Recovery": "Boot to a system-designated recovery process or image.",
+                "RemoteDrive": "Boot from a remote drive, such as an iSCSI target.",
+                "SDCard": "Boot from an SD card.",
+                "UefiBootNext": "Boot to the UEFI device that the `BootNext` property specifies.",
+                "UefiHttp": "Boot from a UEFI HTTP network location.",
+                "UefiShell": "Boot to the UEFI Shell.",
+                "UefiTarget": "Boot to the UEFI device specified in the `UefiTargetBootSourceOverride` property.",
+                "Usb": "Boot from a system BIOS-specified USB device.",
+                "Utilities": "Boot to the manufacturer's utilities program or programs."
+            },
+            "enumVersionAdded": {
+                "Recovery": "v1_19_0",
+                "RemoteDrive": "v1_2_0",
+                "SDCard": "v1_1_0",
+                "UefiBootNext": "v1_5_0",
+                "UefiHttp": "v1_1_0"
+            },
+            "type": "string"
+        },
+        "ComputerSystem": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_0_22.json#/definitions/ComputerSystem"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_1_20.json#/definitions/ComputerSystem"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_2_19.json#/definitions/ComputerSystem"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_3_18.json#/definitions/ComputerSystem"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_4_17.json#/definitions/ComputerSystem"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_5_16.json#/definitions/ComputerSystem"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_6_14.json#/definitions/ComputerSystem"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_7_13.json#/definitions/ComputerSystem"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_8_12.json#/definitions/ComputerSystem"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_9_12.json#/definitions/ComputerSystem"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_10_11.json#/definitions/ComputerSystem"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_11_10.json#/definitions/ComputerSystem"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_12_9.json#/definitions/ComputerSystem"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_13_8.json#/definitions/ComputerSystem"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_14_7.json#/definitions/ComputerSystem"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_15_6.json#/definitions/ComputerSystem"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_16_7.json#/definitions/ComputerSystem"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_17_6.json#/definitions/ComputerSystem"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_18_5.json#/definitions/ComputerSystem"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_19_5.json#/definitions/ComputerSystem"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_20_4.json#/definitions/ComputerSystem"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_21_2.json#/definitions/ComputerSystem"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_22_1.json#/definitions/ComputerSystem"
+                }
+            ],
+            "deletable": true,
+            "description": "The `ComputerSystem` schema represents a computer or system instance and the software-visible resources, or items within the data plane, such as memory, CPU, and other devices that it can access.  Details of those resources or subsystems are also linked through this resource.",
+            "insertable": false,
+            "longDescription": "This resource shall represent a computing system in the Redfish Specification.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/Systems/{ComputerSystemId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}"
+            ]
+        }
+    },
+    "language": "en",
+    "owningEntity": "DMTF",
+    "title": "#ComputerSystem.ComputerSystem"
+}

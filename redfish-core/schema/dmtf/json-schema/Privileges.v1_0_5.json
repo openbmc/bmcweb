@@ -1,0 +1,9 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Privileges.v1_0_5.json",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {},
+    "owningEntity": "DMTF",
+    "release": "1.0",
+    "title": "#Privileges.v1_0_5"
+}

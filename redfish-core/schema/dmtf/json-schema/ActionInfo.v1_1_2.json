@@ -1,0 +1,195 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/ActionInfo.v1_1_2.json",
+    "$ref": "#/definitions/ActionInfo",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "ActionInfo": {
+            "additionalProperties": false,
+            "description": "The ActionInfo schema defines the supported parameters and other information for a Redfish action.  Supported parameters can differ among vendors and even among Resource instances.  This data can ensure that action requests from applications contain supported parameters.",
+            "longDescription": "This Resource shall represent the supported parameters and other information for a Redfish action on a target within a Redfish implementation.  Supported parameters can differ among vendors and even among Resource instances.  This data can ensure that action requests from applications contain supported parameters.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "Parameters": {
+                    "description": "The list of parameters included in the specified Redfish action.",
+                    "items": {
+                        "$ref": "#/definitions/Parameters"
+                    },
+                    "longDescription": "This property shall list the parameters included in the specified Redfish action for this Resource.",
+                    "type": "array"
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "ParameterTypes": {
+            "enum": [
+                "Boolean",
+                "Number",
+                "NumberArray",
+                "String",
+                "StringArray",
+                "Object",
+                "ObjectArray"
+            ],
+            "enumDescriptions": {
+                "Boolean": "A boolean.",
+                "Number": "A number.",
+                "NumberArray": "An array of numbers.",
+                "Object": "An embedded JSON object.",
+                "ObjectArray": "An array of JSON objects.",
+                "String": "A string.",
+                "StringArray": "An array of strings."
+            },
+            "type": "string"
+        },
+        "Parameters": {
+            "additionalProperties": false,
+            "description": "The information about a parameter included in a Redfish action for this Resource.",
+            "longDescription": "This property shall contain information about a parameter included in a Redfish Action for this Resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AllowableValues": {
+                    "description": "The allowable values for this parameter as applied to this action target.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall indicate the allowable values for this parameter as applied to this action target.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "DataType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ParameterTypes"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The JSON property type for this parameter.",
+                    "longDescription": "This property shall contain the JSON property type for this parameter.",
+                    "readonly": true
+                },
+                "MaximumValue": {
+                    "description": "The maximum supported value for this parameter.",
+                    "longDescription": "This integer or number property shall contain the maximum value that this service supports.  This property shall not be present for non-integer or number parameters.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "MinimumValue": {
+                    "description": "The minimum supported value for this parameter.",
+                    "longDescription": "This integer or number property shall contain the minimum value that this service supports.  This property shall not be present for parameters that are of types other than integer or number.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "Name": {
+                    "description": "The name of the parameter for this action.",
+                    "longDescription": "This property shall contain the name of the parameter included in a Redfish action.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "ObjectDataType": {
+                    "description": "The data type of an object-based parameter.",
+                    "longDescription": "This property shall describe the entity type definition in `@odata.type` format for the parameter.  This property shall be required for parameters with a data type of `Object` or `ObjectArray`, and shall not be present for parameters with other data types.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Required": {
+                    "description": "An indication of whether the parameter is required to complete this action.",
+                    "longDescription": "This property shall indicate whether the parameter is required to complete this action.",
+                    "readonly": true,
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "Name"
+            ],
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2018.2",
+    "title": "#ActionInfo.v1_1_2.ActionInfo"
+}

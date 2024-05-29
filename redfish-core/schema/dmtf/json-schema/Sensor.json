@@ -1,0 +1,461 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Sensor.json",
+    "$ref": "#/definitions/Sensor",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "ElectricalContext": {
+            "enum": [
+                "Line1",
+                "Line2",
+                "Line3",
+                "Neutral",
+                "LineToLine",
+                "Line1ToLine2",
+                "Line2ToLine3",
+                "Line3ToLine1",
+                "LineToNeutral",
+                "Line1ToNeutral",
+                "Line2ToNeutral",
+                "Line3ToNeutral",
+                "Line1ToNeutralAndL1L2",
+                "Line2ToNeutralAndL1L2",
+                "Line2ToNeutralAndL2L3",
+                "Line3ToNeutralAndL3L1",
+                "Total"
+            ],
+            "enumDescriptions": {
+                "Line1": "The circuits that share the L1 current-carrying conductor.",
+                "Line1ToLine2": "The circuit formed by L1 and L2 current-carrying conductors.",
+                "Line1ToNeutral": "The circuit formed by L1 and neutral current-carrying conductors.",
+                "Line1ToNeutralAndL1L2": "The circuit formed by L1, L2, and neutral current-carrying conductors.",
+                "Line2": "The circuits that share the L2 current-carrying conductor.",
+                "Line2ToLine3": "The circuit formed by L2 and L3 current-carrying conductors.",
+                "Line2ToNeutral": "The circuit formed by L2 and neutral current-carrying conductors.",
+                "Line2ToNeutralAndL1L2": "The circuit formed by L1, L2, and Neutral current-carrying conductors.",
+                "Line2ToNeutralAndL2L3": "The circuits formed by L2, L3, and neutral current-carrying conductors.",
+                "Line3": "The circuits that share the L3 current-carrying conductor.",
+                "Line3ToLine1": "The circuit formed by L3 and L1 current-carrying conductors.",
+                "Line3ToNeutral": "The circuit formed by L3 and neutral current-carrying conductors.",
+                "Line3ToNeutralAndL3L1": "The circuit formed by L3, L1, and neutral current-carrying conductors.",
+                "LineToLine": "The circuit formed by two current-carrying conductors.",
+                "LineToNeutral": "The circuit formed by a line and neutral current-carrying conductor.",
+                "Neutral": "The grounded current-carrying return circuit of current-carrying conductors.",
+                "Total": "The circuit formed by all current-carrying conductors."
+            },
+            "enumLongDescriptions": {
+                "Line1": "This value shall represent a circuit that shares the L1 current-carrying conductor, such as circuits with phase wiring types of Two-phase / 3-Wire or 4-Wire, or Three-phase / 4-Wire or 5-Wire.",
+                "Line1ToLine2": "This value shall represent a circuit formed by L1 and L2 current-carrying conductors, such as circuits with phase wiring types of Two-phase / 3-Wire or 4-Wire, or Three-phase / 4-Wire or 5-Wire.",
+                "Line1ToNeutral": "This value shall represent a circuit formed by L1 and neutral current-carrying conductors, such as circuits with phase wiring types of Single-phase / 3-Wire, Two-phase / 3-Wire or 4-Wire, or Three-phase / 4-Wire or 5-Wire.",
+                "Line1ToNeutralAndL1L2": "This value shall represent a circuit formed by L1, L2, and neutral current-carrying conductors, such as circuits with phase wiring types of Two-phase/ 4-Wire or Three-phase / 5-Wire.",
+                "Line2": "This value shall represent a circuit that shares the L2 current-carrying conductor, such as circuits with phase wiring types of Two-phase / 4-Wire or Three-phase / 4-Wire or 5-Wire.",
+                "Line2ToLine3": "This value shall represent a circuit formed by L2 and L3 current-carrying conductors, such as circuits with phase wiring types of Three-phase / 4-Wire or 5-Wire.",
+                "Line2ToNeutral": "This value shall represent a circuit formed by L2 and neutral current-carrying conductors, such as circuits with phase wiring types of Two-phase / 4-Wire or Three-phase / 5-Wire.",
+                "Line2ToNeutralAndL1L2": "This value shall represent a circuit formed by L1, L2, and neutral current-carrying conductors, such as circuits with phase wiring types of Two-phase/ 4-Wire or Three-phase / 5-Wire.",
+                "Line2ToNeutralAndL2L3": "This value shall represent a circuit formed by L2, L3, and neutral current-carrying conductors, such as circuits with a phase wiring type of Three-phase / 5-Wire.",
+                "Line3": "This value shall represent a circuit that shares the L3 current-carrying conductor, such as circuits with phase wiring types of Three-phase / 4-Wire or 5-Wire.",
+                "Line3ToLine1": "This value shall represent a circuit formed by L3 and L1 current-carrying conductors, such as circuits with phase wiring types of Three-phase / 4-Wire or 5-Wire.",
+                "Line3ToNeutral": "This value shall represent a circuit formed by L3 and neutral current-carrying conductors, such as circuits with a phase wiring type of Three-phase / 5-Wire.",
+                "Line3ToNeutralAndL3L1": "This value shall represent a circuit formed by L3, L1, and neutral current-carrying conductors, such as circuits with a phase wiring type of Three-phase / 5-Wire.",
+                "LineToLine": "This value shall represent a circuit formed by two current-carrying conductors, such as circuits with phase wiring types of Two-phase / 3-Wire or 4-Wire, or Three-phase / 4-Wire or 5-Wire.",
+                "LineToNeutral": "This value shall represent a circuit formed by a line and neutral current-carrying conductor, such as circuits with phase wiring types of Single-phase / 3-Wire, Two-phase / 4-Wire, or Three-phase / 4-Wire or 5-Wire.",
+                "Neutral": "This value shall represent the grounded current-carrying return circuit of current-carrying conductors, such as circuits with phase wiring types of Single-phase / 3-Wire, Two-phase / 4-Wire, or Three-phase / 5-Wire.",
+                "Total": "This value shall represent the circuits formed by all current-carrying conductors for any phase wiring type."
+            },
+            "type": "string"
+        },
+        "Sensor": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_0_11.json#/definitions/Sensor"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_1_7.json#/definitions/Sensor"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_2_5.json#/definitions/Sensor"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_3_5.json#/definitions/Sensor"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_4_4.json#/definitions/Sensor"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_5_3.json#/definitions/Sensor"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_6_3.json#/definitions/Sensor"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_7_2.json#/definitions/Sensor"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_8_2.json#/definitions/Sensor"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_9_0.json#/definitions/Sensor"
+                }
+            ],
+            "deletable": false,
+            "description": "The `Sensor` schema describes a sensor and its properties.",
+            "insertable": false,
+            "longDescription": "This resource shall represent a sensor for a Redfish implementation.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/Chassis/{ChassisId}/Sensors/{SensorId}",
+                "/redfish/v1/PowerEquipment/RackPDUs/{PowerDistributionId}/Sensors/{SensorId}",
+                "/redfish/v1/PowerEquipment/FloorPDUs/{PowerDistributionId}/Sensors/{SensorId}",
+                "/redfish/v1/PowerEquipment/Switchgear/{PowerDistributionId}/Sensors/{SensorId}",
+                "/redfish/v1/PowerEquipment/TransferSwitches/{PowerDistributionId}/Sensors/{SensorId}",
+                "/redfish/v1/PowerEquipment/PowerShelves/{PowerDistributionId}/Sensors/{SensorId}"
+            ],
+            "urisDeprecated": [
+                "/redfish/v1/PowerEquipment/RackPDUs/{PowerDistributionId}/Sensors/{SensorId}",
+                "/redfish/v1/PowerEquipment/FloorPDUs/{PowerDistributionId}/Sensors/{SensorId}",
+                "/redfish/v1/PowerEquipment/Switchgear/{PowerDistributionId}/Sensors/{SensorId}",
+                "/redfish/v1/PowerEquipment/TransferSwitches/{PowerDistributionId}/Sensors/{SensorId}",
+                "/redfish/v1/PowerEquipment/PowerShelves/{PowerDistributionId}/Sensors/{SensorId}"
+            ]
+        },
+        "SensorArrayExcerpt": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_0_11.json#/definitions/SensorArrayExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_1_7.json#/definitions/SensorArrayExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_2_5.json#/definitions/SensorArrayExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_3_5.json#/definitions/SensorArrayExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_4_4.json#/definitions/SensorArrayExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_5_3.json#/definitions/SensorArrayExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_6_3.json#/definitions/SensorArrayExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_7_2.json#/definitions/SensorArrayExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_8_2.json#/definitions/SensorArrayExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_9_0.json#/definitions/SensorArrayExcerpt"
+                }
+            ]
+        },
+        "SensorCurrentExcerpt": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_1_7.json#/definitions/SensorCurrentExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_2_5.json#/definitions/SensorCurrentExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_3_5.json#/definitions/SensorCurrentExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_4_4.json#/definitions/SensorCurrentExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_5_3.json#/definitions/SensorCurrentExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_6_3.json#/definitions/SensorCurrentExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_7_2.json#/definitions/SensorCurrentExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_8_2.json#/definitions/SensorCurrentExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_9_0.json#/definitions/SensorCurrentExcerpt"
+                }
+            ]
+        },
+        "SensorEnergykWhExcerpt": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_0_11.json#/definitions/SensorEnergykWhExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_1_7.json#/definitions/SensorEnergykWhExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_2_5.json#/definitions/SensorEnergykWhExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_3_5.json#/definitions/SensorEnergykWhExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_4_4.json#/definitions/SensorEnergykWhExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_5_3.json#/definitions/SensorEnergykWhExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_6_3.json#/definitions/SensorEnergykWhExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_7_2.json#/definitions/SensorEnergykWhExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_8_2.json#/definitions/SensorEnergykWhExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_9_0.json#/definitions/SensorEnergykWhExcerpt"
+                }
+            ]
+        },
+        "SensorExcerpt": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_0_11.json#/definitions/SensorExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_1_7.json#/definitions/SensorExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_2_5.json#/definitions/SensorExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_3_5.json#/definitions/SensorExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_4_4.json#/definitions/SensorExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_5_3.json#/definitions/SensorExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_6_3.json#/definitions/SensorExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_7_2.json#/definitions/SensorExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_8_2.json#/definitions/SensorExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_9_0.json#/definitions/SensorExcerpt"
+                }
+            ]
+        },
+        "SensorFanArrayExcerpt": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_0_11.json#/definitions/SensorFanArrayExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_1_7.json#/definitions/SensorFanArrayExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_2_5.json#/definitions/SensorFanArrayExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_3_5.json#/definitions/SensorFanArrayExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_4_4.json#/definitions/SensorFanArrayExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_5_3.json#/definitions/SensorFanArrayExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_6_3.json#/definitions/SensorFanArrayExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_7_2.json#/definitions/SensorFanArrayExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_8_2.json#/definitions/SensorFanArrayExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_9_0.json#/definitions/SensorFanArrayExcerpt"
+                }
+            ]
+        },
+        "SensorFanExcerpt": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_2_5.json#/definitions/SensorFanExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_3_5.json#/definitions/SensorFanExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_4_4.json#/definitions/SensorFanExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_5_3.json#/definitions/SensorFanExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_6_3.json#/definitions/SensorFanExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_7_2.json#/definitions/SensorFanExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_8_2.json#/definitions/SensorFanExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_9_0.json#/definitions/SensorFanExcerpt"
+                }
+            ]
+        },
+        "SensorPowerArrayExcerpt": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_0_11.json#/definitions/SensorPowerArrayExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_1_7.json#/definitions/SensorPowerArrayExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_2_5.json#/definitions/SensorPowerArrayExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_3_5.json#/definitions/SensorPowerArrayExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_4_4.json#/definitions/SensorPowerArrayExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_5_3.json#/definitions/SensorPowerArrayExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_6_3.json#/definitions/SensorPowerArrayExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_7_2.json#/definitions/SensorPowerArrayExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_8_2.json#/definitions/SensorPowerArrayExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_9_0.json#/definitions/SensorPowerArrayExcerpt"
+                }
+            ]
+        },
+        "SensorPowerExcerpt": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_0_11.json#/definitions/SensorPowerExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_1_7.json#/definitions/SensorPowerExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_2_5.json#/definitions/SensorPowerExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_3_5.json#/definitions/SensorPowerExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_4_4.json#/definitions/SensorPowerExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_5_3.json#/definitions/SensorPowerExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_6_3.json#/definitions/SensorPowerExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_7_2.json#/definitions/SensorPowerExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_8_2.json#/definitions/SensorPowerExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_9_0.json#/definitions/SensorPowerExcerpt"
+                }
+            ]
+        },
+        "SensorPumpExcerpt": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_2_5.json#/definitions/SensorPumpExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_3_5.json#/definitions/SensorPumpExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_4_4.json#/definitions/SensorPumpExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_5_3.json#/definitions/SensorPumpExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_6_3.json#/definitions/SensorPumpExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_7_2.json#/definitions/SensorPumpExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_8_2.json#/definitions/SensorPumpExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_9_0.json#/definitions/SensorPumpExcerpt"
+                }
+            ]
+        },
+        "SensorVoltageExcerpt": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_1_7.json#/definitions/SensorVoltageExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_2_5.json#/definitions/SensorVoltageExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_3_5.json#/definitions/SensorVoltageExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_4_4.json#/definitions/SensorVoltageExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_5_3.json#/definitions/SensorVoltageExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_6_3.json#/definitions/SensorVoltageExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_7_2.json#/definitions/SensorVoltageExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_8_2.json#/definitions/SensorVoltageExcerpt"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_9_0.json#/definitions/SensorVoltageExcerpt"
+                }
+            ]
+        },
+        "VoltageType": {
+            "enum": [
+                "AC",
+                "DC"
+            ],
+            "enumDescriptions": {
+                "AC": "Alternating current.",
+                "DC": "Direct current."
+            },
+            "type": "string"
+        }
+    },
+    "language": "en",
+    "owningEntity": "DMTF",
+    "title": "#Sensor.Sensor"
+}
