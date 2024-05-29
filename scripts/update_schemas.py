@@ -83,32 +83,17 @@ class SchemaVersion:
         return self.version_pieces < other.version_pieces
 
 
-# Remove the old files
-skip_prefixes = ["Oem", "OpenBMC"]
-if os.path.exists(schema_path):
-    files = [
-        os.path.join(schema_path, f)
-        for f in os.listdir(schema_path)
-        if not any([f.startswith(prefix) for prefix in skip_prefixes])
-    ]
-    for f in files:
-        os.remove(f)
-if os.path.exists(json_schema_path):
-    files = [
-        os.path.join(json_schema_path, f)
-        for f in os.listdir(json_schema_path)
-        if not any([f.startswith(prefix) for prefix in skip_prefixes])
-    ]
-    for f in files:
-        if os.path.isfile(f):
-            os.remove(f)
-        else:
-            shutil.rmtree(f)
+for f in os.listdir(schema_path):
+    if f != "meson.build":
+        os.remove(os.path.join(schema_path, f))
+for f in os.listdir(json_schema_path):
+    filename = os.path.join(json_schema_path, f)
+    if os.path.isdir(f):
+        shutil.rmtree(filename)
+    else:
+        if f != "meson.build":
+            os.remove(filename)
 
-if not os.path.exists(schema_path):
-    os.makedirs(schema_path)
-if not os.path.exists(json_schema_path):
-    os.makedirs(json_schema_path)
 
 csdl_filenames = []
 json_schema_files = defaultdict(list)
@@ -150,10 +135,12 @@ for schema, version in json_schema_files.items():
 with open(os.path.join(cpp_path, "schemas.hpp"), "w") as hpp_file:
     schemas = []
     for root, dirs, files in os.walk(
-        os.path.join(SCRIPT_DIR, "..", "static", "redfish", "v1", "schema")
+        os.path.join(
+            SCRIPT_DIR, "..", "redfish-core", "schema", "dmtf", "installed"
+        )
     ):
         for csdl_file in sorted(files, key=SchemaVersion):
-            if csdl_file.endswith(".xml"):
+            if csdl_file.endswith("_v1.xml"):
                 schemas.append(csdl_file.replace("_v1.xml", ""))
     hpp_file.write(
         "#pragma once\n"
