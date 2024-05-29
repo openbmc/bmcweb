@@ -13,6 +13,22 @@ enum class CollectionFunction{
     Summation,
 };
 
+enum class CollectionFunction{
+    Invalid,
+    Average,
+    Maximum,
+    Minimum,
+    Summation,
+};
+
+NLOHMANN_JSON_SERIALIZE_ENUM(CollectionFunction, {
+    {CollectionFunction::Invalid, "Invalid"},
+    {CollectionFunction::Average, "Average"},
+    {CollectionFunction::Maximum, "Maximum"},
+    {CollectionFunction::Minimum, "Minimum"},
+    {CollectionFunction::Summation, "Summation"},
+});
+
 NLOHMANN_JSON_SERIALIZE_ENUM(CollectionFunction, {
     {CollectionFunction::Invalid, "Invalid"},
     {CollectionFunction::Average, "Average"},

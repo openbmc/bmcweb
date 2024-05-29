@@ -16,6 +16,28 @@ enum class ClearingType{
     SameOriginOfCondition,
 };
 
+enum class ParamType{
+    Invalid,
+    string,
+    number,
+};
+
+enum class ClearingType{
+    Invalid,
+    SameOriginOfCondition,
+};
+
+NLOHMANN_JSON_SERIALIZE_ENUM(ParamType, {
+    {ParamType::Invalid, "Invalid"},
+    {ParamType::string, "string"},
+    {ParamType::number, "number"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(ClearingType, {
+    {ClearingType::Invalid, "Invalid"},
+    {ClearingType::SameOriginOfCondition, "SameOriginOfCondition"},
+});
+
 NLOHMANN_JSON_SERIALIZE_ENUM(ParamType, {
     {ParamType::Invalid, "Invalid"},
     {ParamType::string, "string"},

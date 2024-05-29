@@ -11,6 +11,18 @@ enum class ReadingUnits{
     Percent,
 };
 
+enum class ReadingUnits{
+    Invalid,
+    RPM,
+    Percent,
+};
+
+NLOHMANN_JSON_SERIALIZE_ENUM(ReadingUnits, {
+    {ReadingUnits::Invalid, "Invalid"},
+    {ReadingUnits::RPM, "RPM"},
+    {ReadingUnits::Percent, "Percent"},
+});
+
 NLOHMANN_JSON_SERIALIZE_ENUM(ReadingUnits, {
     {ReadingUnits::Invalid, "Invalid"},
     {ReadingUnits::RPM, "RPM"},
