@@ -315,8 +315,9 @@ summary(
 
 install_subdir('static', install_dir: 'share/www', strip_directory: true, follow_symlinks: true)
 
-# Config subdirectory
+subdir('redfish-core')
 
+# Config subdirectory
 subdir('config')
 bmcweb_dependencies += conf_h_dep
 
