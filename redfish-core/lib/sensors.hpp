@@ -373,8 +373,9 @@ void getObjectsWithConnection(
     dbus::utility::getSubTree(
         path, 2, interfaces,
         [callback = std::forward<Callback>(callback), sensorsAsyncResp,
-         sensorNames](const boost::system::error_code& ec,
-                      const dbus::utility::MapperGetSubTreeResponse& subtree) {
+         sensorNames](
+            const boost::system::error_code& ec,
+            const dbus::utility::MapperGetSubTreeResponse& subtree) mutable {
         // Response handler for parsing objects subtree
         BMCWEB_LOG_DEBUG("getObjectsWithConnection resp_handler enter");
         if (ec)
@@ -437,7 +438,7 @@ void getConnections(std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
         [callback = std::forward<Callback>(callback)](
             const std::set<std::string>& connections,
             const std::set<std::pair<std::string, std::string>>&
-            /*objectsWithConnection*/) { callback(connections); };
+            /*objectsWithConnection*/) mutable { callback(connections); };
     getObjectsWithConnection(sensorsAsyncResp, sensorNames,
                              std::move(objectsWithConnectionCb));
 }
@@ -1488,7 +1489,7 @@ static void getInventoryItemsData(
             [sensorsAsyncResp, inventoryItems, invConnections,
              callback = std::forward<Callback>(callback), invConnectionsIndex](
                 const boost::system::error_code& ec,
-                const dbus::utility::ManagedObjectType& resp) {
+                const dbus::utility::ManagedObjectType& resp) mutable {
             BMCWEB_LOG_DEBUG("getInventoryItemsData respHandler enter");
             if (ec)
             {
@@ -1545,7 +1546,7 @@ static void getInventoryItemsData(
  * @param callback Callback to invoke when connections have been obtained.
  */
 template <typename Callback>
-static void getInventoryItemsConnections(
+void getInventoryItemsConnections(
     const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
     const std::shared_ptr<std::vector<InventoryItem>>& inventoryItems,
     Callback&& callback)
@@ -1565,7 +1566,7 @@ static void getInventoryItemsConnections(
         [callback = std::forward<Callback>(callback), sensorsAsyncResp,
          inventoryItems](
             const boost::system::error_code& ec,
-            const dbus::utility::MapperGetSubTreeResponse& subtree) {
+            const dbus::utility::MapperGetSubTreeResponse& subtree) mutable {
         // Response handler for parsing output from GetSubTree
         BMCWEB_LOG_DEBUG("getInventoryItemsConnections respHandler enter");
         if (ec)
@@ -1640,7 +1641,7 @@ static void getInventoryItemAssociations(
         "xyz.openbmc_project.ObjectMapper", path,
         [callback = std::forward<Callback>(callback), sensorsAsyncResp,
          sensorNames](const boost::system::error_code& ec,
-                      const dbus::utility::ManagedObjectType& resp) {
+                      const dbus::utility::ManagedObjectType& resp) mutable {
         BMCWEB_LOG_DEBUG("getInventoryItemAssociations respHandler enter");
         if (ec)
         {
@@ -1807,8 +1808,9 @@ void getInventoryLedData(
         // Response handler for Get State property
         auto respHandler =
             [sensorsAsyncResp, inventoryItems, ledConnections, ledPath,
-             callback = std::forward<Callback>(callback), ledConnectionsIndex](
-                const boost::system::error_code& ec, const std::string& state) {
+             callback = std::forward<Callback>(callback),
+             ledConnectionsIndex](const boost::system::error_code& ec,
+                                  const std::string& state) mutable {
             BMCWEB_LOG_DEBUG("getInventoryLedData respHandler enter");
             if (ec)
             {
@@ -1901,7 +1903,7 @@ void getInventoryLeds(
         [callback = std::forward<Callback>(callback), sensorsAsyncResp,
          inventoryItems](
             const boost::system::error_code& ec,
-            const dbus::utility::MapperGetSubTreeResponse& subtree) {
+            const dbus::utility::MapperGetSubTreeResponse& subtree) mutable {
         // Response handler for parsing output from GetSubTree
         BMCWEB_LOG_DEBUG("getInventoryLeds respHandler enter");
         if (ec)
@@ -1990,7 +1992,7 @@ void getPowerSupplyAttributesData(
     auto respHandler = [sensorsAsyncResp, inventoryItems,
                         callback = std::forward<Callback>(callback)](
                            const boost::system::error_code& ec,
-                           const uint32_t value) {
+                           const uint32_t value) mutable {
         BMCWEB_LOG_DEBUG("getPowerSupplyAttributesData respHandler enter");
         if (ec)
         {
@@ -2073,7 +2075,7 @@ void getPowerSupplyAttributes(
         [callback = std::forward<Callback>(callback), sensorsAsyncResp,
          inventoryItems](
             const boost::system::error_code& ec,
-            const dbus::utility::MapperGetSubTreeResponse& subtree) {
+            const dbus::utility::MapperGetSubTreeResponse& subtree) mutable {
         // Response handler for parsing output from GetSubTree
         BMCWEB_LOG_DEBUG("getPowerSupplyAttributes respHandler enter");
         if (ec)
@@ -2147,27 +2149,29 @@ void getPowerSupplyAttributes(
  * @param callback Callback to invoke when inventory items have been obtained.
  */
 template <typename Callback>
-static void
-    getInventoryItems(std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
-                      const std::shared_ptr<std::set<std::string>> sensorNames,
-                      Callback&& callback)
+void getInventoryItems(std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
+                       const std::shared_ptr<std::set<std::string>> sensorNames,
+                       Callback&& callback)
 {
     BMCWEB_LOG_DEBUG("getInventoryItems enter");
     auto getInventoryItemAssociationsCb =
         [sensorsAsyncResp, callback = std::forward<Callback>(callback)](
-            std::shared_ptr<std::vector<InventoryItem>> inventoryItems) {
+            std::shared_ptr<std::vector<InventoryItem>>
+                inventoryItems) mutable {
         BMCWEB_LOG_DEBUG("getInventoryItemAssociationsCb enter");
         auto getInventoryItemsConnectionsCb =
             [sensorsAsyncResp, inventoryItems,
-             callback = std::forward<const Callback>(callback)](
-                std::shared_ptr<std::set<std::string>> invConnections) {
+             callback = std::forward<Callback>(callback)](
+                std::shared_ptr<std::set<std::string>> invConnections) mutable {
             BMCWEB_LOG_DEBUG("getInventoryItemsConnectionsCb enter");
-            auto getInventoryItemsDataCb = [sensorsAsyncResp, inventoryItems,
-                                            callback{std::move(callback)}]() {
+            auto getInventoryItemsDataCb =
+                [sensorsAsyncResp, inventoryItems,
+                 callback = std::forward<Callback>(callback)]() mutable {
                 BMCWEB_LOG_DEBUG("getInventoryItemsDataCb enter");
 
-                auto getInventoryLedsCb = [sensorsAsyncResp, inventoryItems,
-                                           callback{std::move(callback)}]() {
+                auto getInventoryLedsCb =
+                    [sensorsAsyncResp, inventoryItems,
+                     callback = std::forward<Callback>(callback)]() mutable {
                     BMCWEB_LOG_DEBUG("getInventoryLedsCb enter");
                     // Find Power Supply Attributes and get the data
                     getPowerSupplyAttributes(sensorsAsyncResp, inventoryItems,
@@ -2531,13 +2535,14 @@ inline void
     processSensorList(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
                       const std::shared_ptr<std::set<std::string>>& sensorNames)
 {
-    auto getConnectionCb = [sensorsAsyncResp, sensorNames](
-                               const std::set<std::string>& connections) {
+    auto getConnectionCb =
+        [sensorsAsyncResp,
+         sensorNames](const std::set<std::string>& connections) mutable {
         BMCWEB_LOG_DEBUG("getConnectionCb enter");
         auto getInventoryItemsCb =
             [sensorsAsyncResp, sensorNames,
              connections](const std::shared_ptr<std::vector<InventoryItem>>&
-                              inventoryItems) {
+                              inventoryItems) mutable {
             BMCWEB_LOG_DEBUG("getInventoryItemsCb enter");
             // Get sensor data and store results in JSON
             getSensorData(sensorsAsyncResp, sensorNames, connections,
