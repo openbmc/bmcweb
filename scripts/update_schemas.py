@@ -11,17 +11,6 @@ from generate_schema_collections import generate_top_collections
 
 VERSION = "DSP8010_2024.1"
 
-WARNING = """/****************************************************************
- *                 READ THIS WARNING FIRST
- * This is an auto-generated header which contains definitions
- * for Redfish DMTF defined schemas.
- * DO NOT modify this registry outside of running the
- * update_schemas.py script.  The definitions contained within
- * this file are owned by DMTF.  Any modifications to these files
- * should be first pushed to the relevant registry in the DMTF
- * github organization.
- ***************************************************************/"""
-
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 
 proxies = {"https": os.environ.get("https_proxy", None)}
@@ -35,22 +24,13 @@ r = requests.get(
 
 r.raise_for_status()
 
+redfish_core_path = os.path.join(SCRIPT_DIR, "..", "redfish-core")
 
-static_path = os.path.realpath(
-    os.path.join(SCRIPT_DIR, "..", "static", "redfish", "v1")
-)
+cpp_path = os.path.realpath(os.path.join(redfish_core_path, "include"))
 
-
-cpp_path = os.path.realpath(
-    os.path.join(SCRIPT_DIR, "..", "redfish-core", "include")
-)
-
-
-schema_path = os.path.join(
-    SCRIPT_DIR, "..", "redfish-core", "schema", "dmtf", "csdl"
-)
+schema_path = os.path.join(redfish_core_path, "schema", "dmtf", "csdl")
 json_schema_path = os.path.join(
-    SCRIPT_DIR, "..", "redfish-core", "schema", "dmtf", "json-schema"
+    redfish_core_path, "schema", "dmtf", "json-schema"
 )
 
 zipBytesIO = BytesIO(r.content)
@@ -83,32 +63,11 @@ class SchemaVersion:
         return self.version_pieces < other.version_pieces
 
 
-# Remove the old files
-skip_prefixes = ["Oem", "OpenBMC"]
-if os.path.exists(schema_path):
-    files = [
-        os.path.join(schema_path, f)
-        for f in os.listdir(schema_path)
-        if not any([f.startswith(prefix) for prefix in skip_prefixes])
-    ]
-    for f in files:
-        os.remove(f)
-if os.path.exists(json_schema_path):
-    files = [
-        os.path.join(json_schema_path, f)
-        for f in os.listdir(json_schema_path)
-        if not any([f.startswith(prefix) for prefix in skip_prefixes])
-    ]
-    for f in files:
-        if os.path.isfile(f):
-            os.remove(f)
-        else:
-            shutil.rmtree(f)
+shutil.rmtree(schema_path)
+os.makedirs(schema_path)
 
-if not os.path.exists(schema_path):
-    os.makedirs(schema_path)
-if not os.path.exists(json_schema_path):
-    os.makedirs(json_schema_path)
+shutil.rmtree(json_schema_path)
+os.makedirs(json_schema_path)
 
 csdl_filenames = []
 json_schema_files = defaultdict(list)
@@ -141,38 +100,16 @@ for csdl_file in csdl_filenames:
         content = content.replace(b"\r\n", b"\n")
         schema_out.write(content)
 
-for schema, version in json_schema_files.items():
-    zip_filepath = os.path.join("json-schema", version[0])
+for schema, versions in json_schema_files.items():
+    for version in versions:
+        zip_filepath = os.path.join("json-schema", version)
 
-    with open(os.path.join(json_schema_path, version[0]), "wb") as schema_file:
-        schema_file.write(zip_ref.read(zip_filepath).replace(b"\r\n", b"\n"))
-
-with open(os.path.join(cpp_path, "schemas.hpp"), "w") as hpp_file:
-    schemas = []
-    for root, dirs, files in os.walk(
-        os.path.join(SCRIPT_DIR, "..", "static", "redfish", "v1", "schema")
-    ):
-        for csdl_file in sorted(files, key=SchemaVersion):
-            if csdl_file.endswith(".xml"):
-                schemas.append(csdl_file.replace("_v1.xml", ""))
-    hpp_file.write(
-        "#pragma once\n"
-        "{WARNING}\n"
-        "// clang-format off\n"
-        "#include <array>\n"
-        "#include <string_view>\n"
-        "\n"
-        "namespace redfish\n"
-        "{{\n"
-        "    constexpr std::array<std::string_view,{SIZE}> schemas {{\n".format(
-            WARNING=WARNING,
-            SIZE=len(schemas),
-        )
-    )
-    for schema in schemas:
-        hpp_file.write('        "{}",\n'.format(schema))
-
-    hpp_file.write("    };\n}\n")
+        with open(
+            os.path.join(json_schema_path, version), "wb"
+        ) as schema_file:
+            schema_file.write(
+                zip_ref.read(zip_filepath).replace(b"\r\n", b"\n")
+            )
 
 zip_ref.close()
 

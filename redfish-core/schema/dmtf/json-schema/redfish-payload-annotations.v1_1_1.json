@@ -1,0 +1,149 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/redfish-payload-annotations.v1_1_1.json",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "properties": {
+        "@Redfish.ActionInfo": {
+            "description": "The term can be applied to an action to specify a URI to an ActionInfo resource that describes the parameters supported by this instance of the action.",
+            "type": "string",
+            "format": "uri-reference",
+            "readonly": true
+        },
+        "@Redfish.Settings": {
+            "description": "The link to the settings resource that represents the settings to apply to this resource.",
+            "$ref": "http://redfish.dmtf.org/schemas/v1/Settings.json#/definitions/Settings"
+        },
+        "@Redfish.SettingsApplyTime": {
+            "description": "The configuration settings for when the values in the settings object are applied to a resource.",
+            "$ref": "http://redfish.dmtf.org/schemas/v1/Settings.json#/definitions/PreferredApplyTime"
+        },
+        "@Redfish.OperationApplyTime": {
+            "description": "The requested apply time from a client when performing a create, delete, or action operation.",
+            "$ref": "http://redfish.dmtf.org/schemas/v1/Settings.json#/definitions/OperationApplyTime"
+        },
+        "@Redfish.OperationApplyTimeSupport": {
+            "description": "An indication of whether a client can request an apply time for a create, delete, or action operation of a resource through the OperationApplyTime term.",
+            "$ref": "http://redfish.dmtf.org/schemas/v1/Settings.json#/definitions/OperationApplyTimeSupport"
+        },
+        "@Redfish.MaintenanceWindow": {
+            "description": "The maintenance window configuration for a resource for when to apply settings or operations.",
+            "$ref": "http://redfish.dmtf.org/schemas/v1/Settings.json#/definitions/MaintenanceWindow"
+        },
+        "@Redfish.CollectionCapabilities": {
+            "description": "The link to the resource that represents the POST capabilities of a collection.",
+            "$ref": "http://redfish.dmtf.org/schemas/v1/CollectionCapabilities.json#/definitions/CollectionCapabilities"
+        },
+        "@Redfish.RequestedCount": {
+            "type": "integer",
+            "description": "The term is used by a client to specify a request for a quantity of items."
+        },
+        "@Redfish.RequestedCountRequired": {
+            "type": "boolean",
+            "readonly": true,
+            "description": "The term specifies that a client is required to provide the @Redfish.RequestedCount term as part of the payload to specify a quantity of items."
+        },
+        "@Redfish.AllowOverprovisioning": {
+            "type": "boolean",
+            "description": "The term specifies that a client allows the service to provide more resources than requested, which includes, but is not limited to, a larger quantity of items, larger capacity, and faster devices.",
+            "longDescription": "The term shall specify that a client allows the service to provide more resources than requested, which includes, but is not limited to, a larger quantity of items, larger capacity, and faster devices.  If not specified by the client, the service shall treat this as `false`."
+        },
+        "@Redfish.ZoneAffinity": {
+            "type": "string",
+            "description": "The term specifies that a client requests that the service fulfills a request with resources available within a specific zone resource.  The term value is the Id property of the zone resource.",
+            "longDescription": "The term shall specify that a client requests that the service fulfills a request with resources available in a specific zone resource.  The term value shall contain the Id property of the zone resource.  This term shall only be at the root level of the request payload."
+        },
+        "@Redfish.ResourceBlockLimits": {
+            "description": "The term specifies the allowable quantities of types of resource blocks for a composition request.",
+            "$ref": "http://redfish.dmtf.org/schemas/v1/ResourceBlock.json#/definitions/ResourceBlockLimits"
+        },
+        "@Redfish.SupportedCertificates": {
+            "description": "The term specifies the supported certificate formats for a given certificate collection.",
+            "type": "array",
+            "items": {
+                "$ref": "http://redfish.dmtf.org/schemas/v1/Certificate.json#/definitions/CertificateType"
+            },
+            "readonly": true
+        },
+        "@odata.context": {
+            "type": "string",
+            "format": "uri-reference",
+            "readonly": true,
+            "description": "The OData description of a payload.",
+            "longDescription": "The value of this property shall be the context URL that describes the resource according to OData-Protocol and shall be of the form defined in the Redfish specification."
+        },
+        "@odata.id": {
+            "type": "string",
+            "format": "uri-reference",
+            "readonly": true,
+            "description": "The unique identifier for a resource.",
+            "longDescription": "The value of this property shall be the unique identifier for the resource and it shall be of the form defined in the Redfish specification."
+        },
+        "@odata.type": {
+            "type": "string",
+            "readonly": true,
+            "description": "The type of a resource.",
+            "longDescription": "The value of this property shall be a URI fragment that specifies the type of the resource and it shall be of the form defined in the Redfish specification."
+        },
+        "@odata.etag": {
+            "type": "string",
+            "readonly": true,
+            "description": "The current ETag of the resource.",
+            "longDescription": "The value of this property shall be a string that is defined by the ETag HTTP header definition in RFC7232."
+        }
+    },
+    "patternProperties": {
+        "^([a-zA-Z_][a-zA-Z0-9_]*)?@Redfish.AllowableValues$": {
+            "description": "The set of allowable values for an action parameter or property.",
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "readonly": true
+        },
+        "^([a-zA-Z_][a-zA-Z0-9_]*)?@Redfish.RequiredOnCreate$": {
+            "description": "The term specifies that a property is required to be specified in the body of a POST request to create the resource.",
+            "type": "boolean",
+            "readonly": true
+        },
+        "^([a-zA-Z_][a-zA-Z0-9_]*)?@Redfish.SetOnlyOnCreate$": {
+            "description": "The term specifies that a property can only be set when a client creates an instance of a resource through POST.",
+            "type": "boolean",
+            "readonly": true
+        },
+        "^([a-zA-Z_][a-zA-Z0-9_]*)?@Redfish.OptionalOnCreate$": {
+            "description": "The term specifies that a property can be set when a client creates an instance of a resource through POST.",
+            "type": "boolean",
+            "readonly": true
+        },
+        "^([a-zA-Z_][a-zA-Z0-9_]*)?@Redfish.UpdatableAfterCreate$": {
+            "description": "The term specifies that a property can be set by a client that uses PATCH after it creates an instance of a resource through POST.",
+            "type": "boolean",
+            "readonly": true
+        },
+        "^([a-zA-Z_][a-zA-Z0-9_]*)?@Redfish.Deprecated$": {
+            "description": "The term shall be applied to a property or value to specify that the property or value is deprecated.  The string value should explain the deprecation, including new property or properties or value to use.  The property or value can be supported in new and existing implementations, but usage in new implementations is discouraged.  Deprecated properties and values are likely to be removed in a future major version of the schema.",
+            "type": "string",
+            "readonly": true
+        },
+        "^([a-zA-Z_][a-zA-Z0-9_]*)?@Message.ExtendedInfo$": {
+            "description": "The ExtendedInfo annotation can be applied to any object or property to provide additional information about the item.",
+            "type": "array",
+            "items": {
+                "$ref": "http://redfish.dmtf.org/schemas/v1/Message.json#/definitions/Message"
+            }
+        },
+        "^([a-zA-Z_][a-zA-Z0-9_]*)?@odata.count$": {
+            "type": "integer",
+            "readonly": true,
+            "description": "The number of items in a collection.",
+            "longDescription": "The value of this property shall be an integer representing the number of items in a collection."
+        },
+        "^([a-zA-Z_][a-zA-Z0-9_]*)?@odata.nextLink$": {
+            "type": "string",
+            "format": "uri-reference",
+            "readonly": true,
+            "description": "The URI to the resource containing the next set of partial members.",
+            "longDescription": "The value of this property shall be a URI to a resource, with the same @odata.type, containing the next set of partial members."
+        }
+    }
+}

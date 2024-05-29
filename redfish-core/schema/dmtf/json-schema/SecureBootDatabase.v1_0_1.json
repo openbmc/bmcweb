@@ -1,0 +1,199 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/SecureBootDatabase.v1_0_1.json",
+    "$ref": "#/definitions/SecureBootDatabase",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "#SecureBootDatabase.ResetKeys": {
+                    "$ref": "#/definitions/ResetKeys"
+                },
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "ResetKeys": {
+            "additionalProperties": false,
+            "description": "This action is used to reset the UEFI Secure Boot keys of this database.",
+            "longDescription": "This action shall perform a reset of this UEFI Secure Boot key database.  The `ResetAllKeysToDefault` value shall reset this UEFI Secure Boot key database to the default values.  The `DeleteAllKeys` value shall delete the content of this UEFI Secure Boot key database.",
+            "parameters": {
+                "ResetKeysType": {
+                    "$ref": "#/definitions/ResetKeysType",
+                    "description": "The type of reset or delete to perform on this UEFI Secure Boot database.",
+                    "longDescription": "This parameter shall specify the type of reset or delete to perform on this UEFI Secure Boot database.",
+                    "requiredParameter": true
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "ResetKeysType": {
+            "enum": [
+                "ResetAllKeysToDefault",
+                "DeleteAllKeys"
+            ],
+            "enumDescriptions": {
+                "DeleteAllKeys": "Delete the content of this UEFI Secure Boot key database.",
+                "ResetAllKeysToDefault": "Reset the content of this UEFI Secure Boot key database to the default values."
+            },
+            "type": "string"
+        },
+        "SecureBootDatabase": {
+            "additionalProperties": false,
+            "description": "The SecureBootDatabase schema describes a UEFI Secure Boot database used to store certificates or hashes.",
+            "longDescription": "This resource shall be used to represent a UEFI Secure Boot database for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "Certificates": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
+                    "description": "A link to the collection of certificates contained in this UEFI Secure Boot database.",
+                    "longDescription": "The value of this property shall be a link to a resource collection of type CertificateCollection.",
+                    "readonly": true
+                },
+                "DatabaseId": {
+                    "description": "This property contains the name of the UEFI Secure Boot database.",
+                    "longDescription": "This property shall contain the name of the UEFI Secure Boot database.  This property shall contain the same value as the Id property.  The value shall be one of the UEFI-defined Secure Boot databases: `PK`, `KEK` `db`, `dbx`, `dbr`, `dbt`, `PKDefault`, `KEKDefault`, `dbDefault`, `dbxDefault`, `dbrDefault`, or `dbtDefault`.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "Signatures": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/SignatureCollection.json#/definitions/SignatureCollection",
+                    "description": "A link to the collection of signatures contained in this UEFI Secure Boot database.",
+                    "longDescription": "The value of this property shall be a link to a resource collection of type SignatureCollection.",
+                    "readonly": true
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2020.1",
+    "title": "#SecureBootDatabase.v1_0_1.SecureBootDatabase"
+}

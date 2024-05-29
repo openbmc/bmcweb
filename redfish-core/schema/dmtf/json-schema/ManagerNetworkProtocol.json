@@ -1,0 +1,59 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/ManagerNetworkProtocol.json",
+    "$ref": "#/definitions/ManagerNetworkProtocol",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "ManagerNetworkProtocol": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ManagerNetworkProtocol.v1_0_11.json#/definitions/ManagerNetworkProtocol"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ManagerNetworkProtocol.v1_1_8.json#/definitions/ManagerNetworkProtocol"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ManagerNetworkProtocol.v1_2_7.json#/definitions/ManagerNetworkProtocol"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ManagerNetworkProtocol.v1_3_6.json#/definitions/ManagerNetworkProtocol"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ManagerNetworkProtocol.v1_4_6.json#/definitions/ManagerNetworkProtocol"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ManagerNetworkProtocol.v1_5_6.json#/definitions/ManagerNetworkProtocol"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ManagerNetworkProtocol.v1_6_5.json#/definitions/ManagerNetworkProtocol"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ManagerNetworkProtocol.v1_7_3.json#/definitions/ManagerNetworkProtocol"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ManagerNetworkProtocol.v1_8_4.json#/definitions/ManagerNetworkProtocol"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ManagerNetworkProtocol.v1_9_3.json#/definitions/ManagerNetworkProtocol"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ManagerNetworkProtocol.v1_10_1.json#/definitions/ManagerNetworkProtocol"
+                }
+            ],
+            "deletable": false,
+            "description": "The network service settings for the manager.",
+            "insertable": false,
+            "longDescription": "This resource shall represent the network service settings for the manager.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/Managers/{ManagerId}/NetworkProtocol"
+            ]
+        }
+    },
+    "language": "en",
+    "owningEntity": "DMTF",
+    "title": "#ManagerNetworkProtocol.ManagerNetworkProtocol"
+}

@@ -1,0 +1,74 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.json",
+    "$ref": "#/definitions/EthernetInterface",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "EthernetInterface": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.v1_0_16.json#/definitions/EthernetInterface"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.v1_1_14.json#/definitions/EthernetInterface"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.v1_2_13.json#/definitions/EthernetInterface"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.v1_3_12.json#/definitions/EthernetInterface"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.v1_4_11.json#/definitions/EthernetInterface"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.v1_5_9.json#/definitions/EthernetInterface"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.v1_6_7.json#/definitions/EthernetInterface"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.v1_7_3.json#/definitions/EthernetInterface"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.v1_8_3.json#/definitions/EthernetInterface"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.v1_9_3.json#/definitions/EthernetInterface"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.v1_10_2.json#/definitions/EthernetInterface"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.v1_11_2.json#/definitions/EthernetInterface"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.v1_12_1.json#/definitions/EthernetInterface"
+                }
+            ],
+            "deletable": true,
+            "description": "The `EthernetInterface` schema represents a single, logical Ethernet interface or network interface controller (NIC).",
+            "insertable": false,
+            "longDescription": "This resource contains NIC resources as part of the Redfish Specification.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/Managers/{ManagerId}/EthernetInterfaces/{EthernetInterfaceId}",
+                "/redfish/v1/Systems/{ComputerSystemId}/EthernetInterfaces/{EthernetInterfaceId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/EthernetInterfaces/{EthernetInterfaceId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/EthernetInterfaces/{EthernetInterfaceId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/EthernetInterfaces/{EthernetInterfaceId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/EthernetInterfaces/{EthernetInterfaceId}",
+                "/redfish/v1/Systems/{ComputerSystemId}/OperatingSystem/Containers/EthernetInterfaces/{EthernetInterfaceId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/OperatingSystem/Containers/EthernetInterfaces/{EthernetInterfaceId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/OperatingSystem/Containers/EthernetInterfaces/{EthernetInterfaceId}",
+                "/redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/NetworkDeviceFunctions/{NetworkDeviceFunctionId}/EthernetInterfaces/{EthernetInterfaceId}"
+            ]
+        }
+    },
+    "language": "en",
+    "owningEntity": "DMTF",
+    "title": "#EthernetInterface.EthernetInterface"
+}

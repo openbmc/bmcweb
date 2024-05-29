@@ -1,0 +1,374 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/OutboundConnection.v1_0_0.json",
+    "$ref": "#/definitions/OutboundConnection",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "AuthenticationType": {
+            "enum": [
+                "MTLS",
+                "JWT",
+                "None",
+                "OEM"
+            ],
+            "enumDescriptions": {
+                "JWT": "JSON Web Token.",
+                "MTLS": "Mutual TLS.",
+                "None": "No authentication.",
+                "OEM": "OEM-specific."
+            },
+            "enumLongDescriptions": {
+                "JWT": "This value shall indicate an RFC7519-defined JSON Web Token (JWT) is specified in one of the HTTP headers in the PreUpgradeHTTPHeaders property.  This is typically encoded in the `Authorization` header with the scheme `Bearer`.",
+                "MTLS": "This value shall indicate the service will exchange and verify certificates during TLS handshaking when establishing the outbound connecting.",
+                "None": "This value shall indicate the service does not provide any authentication information to the remote client.",
+                "OEM": "This value shall indicate an OEM-specific authentication mechanism."
+            },
+            "type": "string"
+        },
+        "HTTPHeaderProperty": {
+            "additionalProperties": false,
+            "description": "The HTTP header value is the property value.  The header name is the property name.",
+            "longDescription": "This type shall contain the HTTP header name and value to add to the Redfish responses over the WebSocket.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                },
+                "^[^:\\\\s]+$": {
+                    "type": "string"
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "Links": {
+            "additionalProperties": false,
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                },
+                "Session": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Session.json#/definitions/Session"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The link to the session for this outbound connection.",
+                    "longDescription": "This property shall contain the link to a resource of type Session that represents the active connection for this outbound connection.",
+                    "readonly": true
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "OutboundConnection": {
+            "additionalProperties": false,
+            "description": "The OutboundConnection schema defines how the Redfish service connects to a remote client over a WebSocket connection.  This allows a service behind a firewall to establish a connection to a remote client outside of the firewall.",
+            "longDescription": "This resource shall represent the connection configuration necessary to connect to a remote client.  Services shall initiate the outbound connection over a WebSocket defined in the 'Outbound connections' clause of the Redfish Specification.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "Authentication": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/AuthenticationType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The authentication mechanism for the WebSocket connection.",
+                    "longDescription": "This property shall contain the authentication mechanism for the WebSocket connection.",
+                    "readonly": true
+                },
+                "Certificates": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
+                    "description": "The link to a collection of server certificates for the remote client referenced by the EndpointURI property.",
+                    "longDescription": "This property shall contain a link to a resource collection of type CertificateCollection that represents the server certificates for the remote client referenced by the EndpointURI property.  If the Authentication property contains `MTLS`, the service shall compare the certificates in this collection with the certificate obtained during handshaking with the WebSocket service to verify the identify of the remote client prior to completing the connection.  If the remote client cannot be verified, the service shall not complete the connection.  Regardless of the contents of this collection, services may perform additional verification based on other factors, such as the configuration of the SecurityPolicy resource.",
+                    "readonly": true
+                },
+                "ClientCertificates": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
+                    "description": "The link to a collection of client identity certificates provided to the remote client referenced by the EndpointURI property.",
+                    "longDescription": "This property shall contain a link to a resource collection of type CertificateCollection that represents the client identity certificates for the service.  If the Authentication property contains `MTLS`, these certificates are provided to the remote client referenced by the EndpointURI property as part of TLS handshaking.",
+                    "readonly": true
+                },
+                "ConnectionEnabled": {
+                    "description": "Indicates if the outbound connection is enabled.",
+                    "longDescription": "This property shall indicate if the outbound connection is enabled.  If `true`, the service shall attempt to establish an outbound connection to the remote client specified by the EndpointURI property.  If `false`, the service shall not attempt to establish a connection to the remote client and close the connection if one is already established.  When a connection is established, the service shall create a Session resource to represent the active connection.  When a connection is closed, the service shall delete the connection's respective Session resource.  If the client does not provide this property, the service shall default this value to `true`.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "EndpointURI": {
+                    "description": "The URI of the WebSocket connection to the remote client.",
+                    "format": "uri-reference",
+                    "longDescription": "This property shall contain the WebSocket URI to the external web service of the remote client.  The value shall follow the URI format defined in RFC6455.  Services shall reject URIs that do not contain the scheme `wss`.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "PreUpgradeHTTPHeaders": {
+                    "$ref": "#/definitions/HTTPHeaderProperty",
+                    "description": "The HTTP headers to send to the remote client during the initial connection prior to the WebSocket upgrade.  This property is an empty object in responses.",
+                    "longDescription": "This property shall contain a object consisting of the names and values of HTTP headers to send to the remote client during the initial connection prior to the WebSocket upgrade.  This property shall be an empty object in responses."
+                },
+                "RetryPolicy": {
+                    "$ref": "#/definitions/RetryPolicyType",
+                    "description": "The retry policy for this outbound connection.",
+                    "longDescription": "This property shall contain the retry policy for this outbound connection.  If not specified by the client in the create request, the service shall assume ConnectionRetryPolicy contains `None`."
+                },
+                "Roles": {
+                    "description": "The Redfish roles that contain the privileges of the remote client for the outbound connection.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain the Redfish roles that contain the privileges of the remote client for the outbound connection.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                },
+                "WebSocketPingIntervalMinutes": {
+                    "description": "Interval for sending the WebSocket ping opcode in minutes.  The value `0` indicates the ping opcode is not sent.",
+                    "longDescription": "This property shall contain the interval for the service to send the WebSocket ping opcode to the remote client in minutes.  If `0`, the service shall not send the WebSocket ping opcode to the remote client.",
+                    "maximum": 65535,
+                    "minimum": 0,
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "requiredOnCreate": [
+                "Authentication",
+                "EndpointURI",
+                "Roles",
+                "WebSocketPingIntervalMinutes"
+            ],
+            "type": "object"
+        },
+        "OutboundConnectionRetryPolicyType": {
+            "enum": [
+                "None",
+                "RetryForever",
+                "RetryCount"
+            ],
+            "enumDescriptions": {
+                "None": "No retries.",
+                "RetryCount": "Retry until a maximum count is reached.",
+                "RetryForever": "Retry forever."
+            },
+            "enumLongDescriptions": {
+                "None": "This value shall indicate the service will not attempt to re-establish the outbound connection if the connection is dropped or not established.  If the connection is dropped or not established, the service shall set the ConnectionEnabled property to `false`.",
+                "RetryCount": "This value shall indicate the service will attempt to re-establish the outbound connection at the interval specified by the RetryIntervalMinutes property until the number of retries reaches the count specified by the RetryCount property.  If the limit is reached, the service shall set the ConnectionEnabled property to `false`.  If a connection is established, the service shall reset the count.",
+                "RetryForever": "This value shall indicate the service will attempt to re-establish the outbound connection at the interval specified by the RetryIntervalMinutes property regardless of the number of retries."
+            },
+            "type": "string"
+        },
+        "RetryPolicyType": {
+            "additionalProperties": false,
+            "description": "The retry policy for an outbound connection.",
+            "longDescription": "This type shall contain the retry policy for an outbound connection.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "ConnectionRetryPolicy": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/OutboundConnectionRetryPolicyType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The type of retry policy for this outbound connection.",
+                    "longDescription": "This property shall contain the type of retry policy for this outbound connection.",
+                    "readonly": true
+                },
+                "RetryCount": {
+                    "description": "The number of retries to attempt if the retry policy specifies a maximum number of retries.",
+                    "longDescription": "This property shall contain the number of retries to attempt if the retry policy specifies a maximum number of retries.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "RetryIntervalMinutes": {
+                    "description": "The retry interval in minutes.",
+                    "longDescription": "This property shall contain the interval for the service to retry connecting to remote client in minutes.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2023.2",
+    "title": "#OutboundConnection.v1_0_0.OutboundConnection"
+}

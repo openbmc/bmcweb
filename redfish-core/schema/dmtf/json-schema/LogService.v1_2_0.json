@@ -1,0 +1,474 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/LogService.v1_2_0.json",
+    "$ref": "#/definitions/LogService",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this Resource.",
+            "longDescription": "This type shall contain the available actions for this Resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "#LogService.ClearLog": {
+                    "$ref": "#/definitions/ClearLog"
+                },
+                "#LogService.CollectDiagnosticData": {
+                    "$ref": "#/definitions/CollectDiagnosticData"
+                },
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this Resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource."
+                }
+            },
+            "type": "object"
+        },
+        "ClearLog": {
+            "additionalProperties": false,
+            "description": "The action to clear the log for this Log Service.",
+            "longDescription": "This action shall delete all entries found in the Entries collection for this Log Service.",
+            "parameters": {},
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "CollectDiagnosticData": {
+            "additionalProperties": false,
+            "description": "The action to collect the diagnostic data for the given type.",
+            "longDescription": "This action shall collect the diagnostic data for the given type.  The `Location` header in the response shall contain a URI to a resource of type LogEntry that contains the diagnostic data.",
+            "parameters": {
+                "DiagnosticDataType": {
+                    "$ref": "#/definitions/LogDiagnosticDataTypes",
+                    "description": "The type of diagnostic data to collect.",
+                    "longDescription": "This parameter shall contain the type of diagnostic data to collect.",
+                    "requiredParameter": true
+                },
+                "OEMDiagnosticDataType": {
+                    "description": "The OEM-defined type of diagnostic data to collect.",
+                    "longDescription": "This parameter shall contain the OEM-defined type of diagnostic data to collect.  This parameter shall be required if DiagnosticDataType is `OEM`.",
+                    "type": "string"
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_2_0"
+        },
+        "LogDiagnosticDataTypes": {
+            "enum": [
+                "Manager",
+                "PreOS",
+                "OS",
+                "OEM"
+            ],
+            "enumDescriptions": {
+                "Manager": "Manager diagnostic data.",
+                "OEM": "OEM diagnostic data.",
+                "OS": "Operating system (OS) diagnostic data.",
+                "PreOS": "Pre-OS diagnostic data."
+            },
+            "type": "string"
+        },
+        "LogEntryTypes": {
+            "enum": [
+                "Event",
+                "SEL",
+                "Multiple",
+                "OEM"
+            ],
+            "enumDescriptions": {
+                "Event": "The log contains Redfish-defined messages.",
+                "Multiple": "The log contains multiple log entry types and, therefore, the Log Service cannot guarantee a single entry type.",
+                "OEM": "The log contains entries in an OEM-defined format.",
+                "SEL": "The log contains legacy IPMI System Event Log (SEL) entries."
+            },
+            "type": "string"
+        },
+        "LogService": {
+            "additionalProperties": false,
+            "description": "The LogService schema contains properties for monitoring and configuring a Log Service.",
+            "longDescription": "This Resource shall represent a Log Service for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this Resource.",
+                    "longDescription": "This property shall contain the available actions for this Resource."
+                },
+                "DateTime": {
+                    "description": "The current date and time, with UTC offset, that the Log Service uses to set or read time.",
+                    "format": "date-time",
+                    "longDescription": "This property shall represent the current DateTime value, with UTC offset, in Redfish Timestamp format that the Log Service uses to set or read time.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "DateTimeLocalOffset": {
+                    "description": "The UTC offset that the current DateTime property value contains in the `+HH:MM` format.",
+                    "longDescription": "This property shall represent the UTC offset that the current DateTime property value contains.",
+                    "pattern": "^([-+][0-1][0-9]:[0-5][0-9])$",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Entries": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/LogEntryCollection.json#/definitions/LogEntryCollection",
+                    "description": "The link to the log entry collection.",
+                    "longDescription": "This property shall contain a link to a Resource Collection of type LogEntryCollection.",
+                    "readonly": true
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "LogEntryType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/LogEntryTypes"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The format of the log entries.",
+                    "longDescription": "This property shall represent the EntryType of all LogEntry Resources contained in the Entries collection.  If the service cannot determine or guarantee a single EntryType for all LogEntry Resources, this property's value shall be `Multiple`.",
+                    "readonly": true,
+                    "versionAdded": "v1_1_0"
+                },
+                "MaxNumberOfRecords": {
+                    "description": "The maximum number of log entries that this service can have.",
+                    "longDescription": "This property shall contain the maximum number of LogEntry Resources in the Entries collection for this service.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": "integer"
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "OverWritePolicy": {
+                    "$ref": "#/definitions/OverWritePolicy",
+                    "description": "The overwrite policy for this service that takes place when the log is full.",
+                    "longDescription": "This property shall indicate the policy of the Log Service when the MaxNumberOfRecords has been reached.",
+                    "readonly": true
+                },
+                "ServiceEnabled": {
+                    "description": "An indication of whether this service is enabled.",
+                    "longDescription": "This property shall indicate whether this service is enabled.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the Resource and its subordinate or dependent Resources.",
+                    "longDescription": "This property shall contain any status or health properties of the Resource."
+                },
+                "SyslogFilters": {
+                    "description": "A list of syslog message filters to be logged locally.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/SyslogFilter"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall describe all desired syslog messages to be logged locally.  If this property contains an empty array, all messages shall be logged.",
+                    "type": "array",
+                    "versionAdded": "v1_2_0"
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this Resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "OverWritePolicy": {
+            "enum": [
+                "Unknown",
+                "WrapsWhenFull",
+                "NeverOverWrites"
+            ],
+            "enumDescriptions": {
+                "NeverOverWrites": "When full, new entries to the log are discarded.",
+                "Unknown": "The overwrite policy is not known or is undefined.",
+                "WrapsWhenFull": "When full, new entries to the log overwrite earlier entries."
+            },
+            "type": "string"
+        },
+        "SyslogFacility": {
+            "description": "The syslog facility code is an enumeration of program types.",
+            "enum": [
+                "Kern",
+                "User",
+                "Mail",
+                "Daemon",
+                "Auth",
+                "Syslog",
+                "LPR",
+                "News",
+                "UUCP",
+                "Cron",
+                "Authpriv",
+                "FTP",
+                "NTP",
+                "Security",
+                "Console",
+                "SolarisCron",
+                "Local0",
+                "Local1",
+                "Local2",
+                "Local3",
+                "Local4",
+                "Local5",
+                "Local6",
+                "Local7"
+            ],
+            "enumDescriptions": {
+                "Auth": "Security/authentication messages.",
+                "Authpriv": "Security/authentication messages.",
+                "Console": "Log alert.",
+                "Cron": "Clock daemon.",
+                "Daemon": "System daemons.",
+                "FTP": "FTP daemon.",
+                "Kern": "Kernel messages.",
+                "LPR": "Line printer subsystem.",
+                "Local0": "Locally used facility 0.",
+                "Local1": "Locally used facility 1.",
+                "Local2": "Locally used facility 2.",
+                "Local3": "Locally used facility 3.",
+                "Local4": "Locally used facility 4.",
+                "Local5": "Locally used facility 5.",
+                "Local6": "Locally used facility 6.",
+                "Local7": "Locally used facility 7.",
+                "Mail": "Mail system.",
+                "NTP": "NTP subsystem.",
+                "News": "Network news subsystem.",
+                "Security": "Log audit.",
+                "SolarisCron": "Scheduling daemon.",
+                "Syslog": "Messages generated internally by syslogd.",
+                "UUCP": "UUCP subsystem.",
+                "User": "User-level messages."
+            },
+            "longDescription": "This type shall specify the syslog facility codes as program types.  Facility values are described in the RFC5424.",
+            "type": "string"
+        },
+        "SyslogFilter": {
+            "additionalProperties": false,
+            "description": "A syslog filter.",
+            "longDescription": "This type shall contain the filter for a syslog message.  The filter shall describe the desired syslog message to be enabled locally.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "LogFacilities": {
+                    "description": "The types of programs that can log messages.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/SyslogFacility"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain the types of programs that can log messages.  If this property contains an empty array or is absent, all facilities shall be indicated.",
+                    "readonly": false,
+                    "type": "array",
+                    "versionAdded": "v1_2_0"
+                },
+                "LowestSeverity": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/SyslogSeverity"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The lowest severity level message that will be logged.",
+                    "longDescription": "This property shall contain the lowest syslog severity level that will be logged.  The service shall log all messages equal to or greater than the value in this property.  The value `All` shall indicate all severities.",
+                    "readonly": false,
+                    "versionAdded": "v1_2_0"
+                }
+            },
+            "type": "object"
+        },
+        "SyslogSeverity": {
+            "description": "The syslog severity is an application-specific rating used to describe the urgency of the message.",
+            "enum": [
+                "Emergency",
+                "Alert",
+                "Critical",
+                "Error",
+                "Warning",
+                "Notice",
+                "Informational",
+                "Debug",
+                "All"
+            ],
+            "enumDescriptions": {
+                "Alert": "A condition that should be corrected immediately, such as a corrupted system database.",
+                "All": "A message of any severity.",
+                "Critical": "Hard device errors.",
+                "Debug": "Messages that contain information normally of use only when debugging a program.",
+                "Emergency": "A panic condition.",
+                "Error": "An Error.",
+                "Informational": "Informational only.",
+                "Notice": "Conditions that are not error conditions, but that may require special handling.",
+                "Warning": "A Warning."
+            },
+            "longDescription": "This type shall specify the syslog severity levels as an application-specific rating used to describe the urgency of the message.  `Emergency` should be reserved for messages indicating the system is unusable and `Debug` should only be used when debugging a program.  Severity values are described in RFC5424.",
+            "type": "string"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2020.3",
+    "title": "#LogService.v1_2_0.LogService"
+}

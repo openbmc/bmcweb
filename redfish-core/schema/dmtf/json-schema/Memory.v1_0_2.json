@@ -1,0 +1,925 @@
+{
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema.v1_2_0.json",
+    "title": "#Memory.v1_0_2.Memory",
+    "$ref": "#/definitions/Memory",
+    "definitions": {
+        "DisablePassphrase": {
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "type": [
+                        "array",
+                        "boolean",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ],
+                    "description": "This property shall specify a valid odata or Redfish property."
+                }
+            },
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "title": {
+                    "type": "string",
+                    "description": "Friendly action name"
+                },
+                "target": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Link to invoke action"
+                }
+            },
+            "description": "Disable passphrase for given regions.",
+            "longDescription": "This action shall disaple the need for passphrases on the supplied region provided the supplied passphrase matches that of the region."
+        },
+        "SecureEraseUnit": {
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "type": [
+                        "array",
+                        "boolean",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ],
+                    "description": "This property shall specify a valid odata or Redfish property."
+                }
+            },
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "title": {
+                    "type": "string",
+                    "description": "Friendly action name"
+                },
+                "target": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Link to invoke action"
+                }
+            },
+            "description": "This defines the action for securely erasing given regions.",
+            "longDescription": "This action shall securely erase the supplied region provided the supplied passphrase matches that of the given region."
+        },
+        "SetPassphrase": {
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "type": [
+                        "array",
+                        "boolean",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ],
+                    "description": "This property shall specify a valid odata or Redfish property."
+                }
+            },
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "title": {
+                    "type": "string",
+                    "description": "Friendly action name"
+                },
+                "target": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Link to invoke action"
+                }
+            },
+            "description": "Set passphrase for the given regions.",
+            "longDescription": "This action shall apply the supplied passphrase to the supplied region."
+        },
+        "UnlockUnit": {
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "type": [
+                        "array",
+                        "boolean",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ],
+                    "description": "This property shall specify a valid odata or Redfish property."
+                }
+            },
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "title": {
+                    "type": "string",
+                    "description": "Friendly action name"
+                },
+                "target": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Link to invoke action"
+                }
+            },
+            "description": "This defines the action for unlocking given regions.",
+            "longDescription": "This action shall apply the supplied passphrase to the supplied region for the purpose of unlocking the given regions."
+        },
+        "BaseModuleType": {
+            "type": "string",
+            "enum": [
+                "RDIMM",
+                "UDIMM",
+                "SO_DIMM",
+                "LRDIMM",
+                "Mini_RDIMM",
+                "Mini_UDIMM",
+                "SO_RDIMM_72b",
+                "SO_UDIMM_72b",
+                "SO_DIMM_16b",
+                "SO_DIMM_32b"
+            ],
+            "enumDescriptions": {
+                "RDIMM": "Registered DIMM.",
+                "UDIMM": "UDIMM.",
+                "SO_DIMM": "SO_DIMM.",
+                "LRDIMM": "Load Reduced.",
+                "Mini_RDIMM": "Mini_RDIMM.",
+                "Mini_UDIMM": "Mini_UDIMM.",
+                "SO_RDIMM_72b": "SO_RDIMM_72b.",
+                "SO_UDIMM_72b": "SO_UDIMM_72b.",
+                "SO_DIMM_16b": "SO_DIMM_16b.",
+                "SO_DIMM_32b": "SO_DIMM_32b."
+            }
+        },
+        "ErrorCorrection": {
+            "type": "string",
+            "enum": [
+                "NoECC",
+                "SingleBitECC",
+                "MultiBitECC",
+                "AddressParity"
+            ],
+            "enumDescriptions": {
+                "NoECC": "No ECC available.",
+                "SingleBitECC": "Single bit Data error can be corrected by ECC.",
+                "MultiBitECC": "Multi-bit Data errors can be corrected by ECC.",
+                "AddressParity": "Address Parity errors can be corrected."
+            }
+        },
+        "MemoryClassification": {
+            "type": "string",
+            "enum": [
+                "Volatile",
+                "ByteAccessiblePersistent",
+                "Block"
+            ],
+            "enumDescriptions": {
+                "Volatile": "Volatile memory.",
+                "ByteAccessiblePersistent": "Byte accessible persistent memory.",
+                "Block": "Block accesible memory."
+            }
+        },
+        "MemoryDeviceType": {
+            "type": "string",
+            "enum": [
+                "DDR",
+                "DDR2",
+                "DDR3",
+                "DDR4",
+                "DDR4_SDRAM",
+                "DDR4E_SDRAM",
+                "LPDDR4_SDRAM",
+                "DDR3_SDRAM",
+                "LPDDR3_SDRAM",
+                "DDR2_SDRAM",
+                "DDR2_SDRAM_FB_DIMM",
+                "DDR2_SDRAM_FB_DIMM_PROBE",
+                "DDR_SGRAM",
+                "DDR_SDRAM",
+                "ROM",
+                "SDRAM",
+                "EDO",
+                "FastPageMode",
+                "PipelinedNibble"
+            ],
+            "enumDescriptions": {
+                "DDR": "DDR.",
+                "DDR2": "DDR2.",
+                "DDR3": "DDR3.",
+                "DDR4": "DDR4.",
+                "DDR4_SDRAM": "DDR4 SDRAM.",
+                "DDR4E_SDRAM": "DDR4E SDRAM.",
+                "LPDDR4_SDRAM": "LPDDR4 SDRAM.",
+                "DDR3_SDRAM": "DDR3 SDRAM.",
+                "LPDDR3_SDRAM": "LPDDR3 SDRAM.",
+                "DDR2_SDRAM": "DDR2 SDRAM.",
+                "DDR2_SDRAM_FB_DIMM": "DDR2 SDRAM FB_DIMM.",
+                "DDR2_SDRAM_FB_DIMM_PROBE": "DDR2 SDRAM FB_DIMM PROBE.",
+                "DDR_SGRAM": "DDR SGRAM.",
+                "DDR_SDRAM": "DDR SDRAM.",
+                "ROM": "ROM.",
+                "SDRAM": "SDRAM.",
+                "EDO": "EDO.",
+                "FastPageMode": "Fast Page Mode.",
+                "PipelinedNibble": "Pipelined Nibble."
+            }
+        },
+        "MemoryLocation": {
+            "type": "object",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "type": [
+                        "array",
+                        "boolean",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ],
+                    "description": "This property shall specify a valid odata or Redfish property."
+                }
+            },
+            "additionalProperties": false,
+            "properties": {
+                "Socket": {
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "readonly": true,
+                    "description": "Socket number in which Memory is connected.",
+                    "longDescription": "Socket number in which Memory is connected."
+                },
+                "MemoryController": {
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "readonly": true,
+                    "description": "Memory controller number in which Memory is connected.",
+                    "longDescription": "Memory controller number in which Memory is connected."
+                },
+                "Channel": {
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "readonly": true,
+                    "description": "Channel number in which Memory is connected.",
+                    "longDescription": "Channel number in which Memory is connected."
+                },
+                "Slot": {
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "readonly": true,
+                    "description": "Slot number in which Memory is connected.",
+                    "longDescription": "Slot number in which Memory is connected."
+                }
+            },
+            "description": "Memory connection information to sockets and memory controllers.",
+            "longDescription": "This type shall contain properties which describe the Memory connection information to sockets and memory controllers."
+        },
+        "MemoryMedia": {
+            "type": "string",
+            "enum": [
+                "DRAM",
+                "NAND",
+                "Proprietary"
+            ],
+            "enumDescriptions": {
+                "DRAM": "DRAM media.",
+                "NAND": "NAND media.",
+                "Proprietary": "Proprietary media."
+            }
+        },
+        "MemoryType": {
+            "type": "string",
+            "enum": [
+                "DRAM",
+                "NVDIMM_N",
+                "NVDIMM_F",
+                "NVDIMM_P"
+            ],
+            "enumDescriptions": {
+                "DRAM": "The memory module is composed of volatile memory.",
+                "NVDIMM_N": "The memory module is composed of volatile memory backed by non-volatile memory.",
+                "NVDIMM_F": "The memory module is composed of non-volatile memory.",
+                "NVDIMM_P": "The memory module is composed of a combination of non-volatile and volatile memory."
+            },
+            "enumLongDescriptions": {
+                "DRAM": "This memory type shall represent volatile DRAM.",
+                "NVDIMM_N": "This memory type shall represent NVDIMM_N as defined by JEDEC.",
+                "NVDIMM_F": "This memory type shall represent NVDIMM_F as defined by JEDEC.",
+                "NVDIMM_P": "This memory type shall represent NVDIMM_P as defined by JEDEC."
+            }
+        },
+        "OperatingMemoryModes": {
+            "type": "string",
+            "enum": [
+                "Volatile",
+                "PMEM",
+                "Block"
+            ],
+            "enumDescriptions": {
+                "Volatile": "Volatile memory.",
+                "PMEM": "Persistent memory, byte accesible through system address space.",
+                "Block": "Block accessible system memory."
+            }
+        },
+        "PowerManagementPolicy": {
+            "type": "object",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "type": [
+                        "array",
+                        "boolean",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ],
+                    "description": "This property shall specify a valid odata or Redfish property."
+                }
+            },
+            "additionalProperties": false,
+            "properties": {
+                "PolicyEnabled": {
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "readonly": true,
+                    "description": "Power management policy enabled status.",
+                    "longDescription": "Power management policy enabled status."
+                },
+                "MaxTDPMilliWatts": {
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "mW",
+                    "readonly": true,
+                    "description": "Maximum TDP in milli watts.",
+                    "longDescription": "Maximum TDP in milli watts."
+                },
+                "PeakPowerBudgetMilliWatts": {
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "mW",
+                    "readonly": true,
+                    "description": "Peak power budget in milli watts.",
+                    "longDescription": "Peak power budget in milli watts."
+                },
+                "AveragePowerBudgetMilliWatts": {
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "mW",
+                    "readonly": true,
+                    "description": "Average power budget in milli watts.",
+                    "longDescription": "Average power budget in milli watts."
+                }
+            },
+            "description": "Power management policy information.",
+            "longDescription": "This type shall contain properties which describe the power management policy for the current resource."
+        },
+        "RegionSet": {
+            "type": "object",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "type": [
+                        "array",
+                        "boolean",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ],
+                    "description": "This property shall specify a valid odata or Redfish property."
+                }
+            },
+            "additionalProperties": false,
+            "properties": {
+                "RegionId": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "readonly": true,
+                    "description": "Unique region ID representing a specific region within the Memory.",
+                    "longDescription": "Unique region ID representing a specific region within the Memory."
+                },
+                "MemoryClassification": {
+                    "anyOf": [
+                        {"$ref": "#/definitions/MemoryClassification"},
+                        {"type": "null"}
+                    ],
+                    "readonly": true,
+                    "description": "Classification of memory occupied by the given memory region.",
+                    "longDescription": "Classification of memory occupied by the given memory region."
+                },
+                "OffsetMiB": {
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "MiBy",
+                    "readonly": true,
+                    "description": "Offset with in the Memory that corresponds to the starting of this memory region in MiB.",
+                    "longDescription": "Offset with in the Memory that corresponds to the starting of this memory region in MiB."
+                },
+                "SizeMiB": {
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "MiBy",
+                    "readonly": true,
+                    "description": "Size of this memory region in MiB.",
+                    "longDescription": "Size of this memory region in MiB."
+                },
+                "PassphraseState": {
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "readonly": true,
+                    "description": "State of the passphrase for this region.",
+                    "longDescription": "State of the passphrase for this region."
+                }
+            },
+            "description": "Memory region information within a Memory entity.",
+            "longDescription": "This type shall describe the memory region information within a Memory entity."
+        },
+        "SecurityCapabilities": {
+            "type": "object",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "type": [
+                        "array",
+                        "boolean",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ],
+                    "description": "This property shall specify a valid odata or Redfish property."
+                }
+            },
+            "additionalProperties": false,
+            "properties": {
+                "PassphraseCapable": {
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "readonly": true,
+                    "description": "Memory passphrase set capability.",
+                    "longDescription": "Memory passphrase set capability."
+                },
+                "MaxPassphraseCount": {
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "readonly": true,
+                    "description": "Maximum number of passphrases supported for this Memory.",
+                    "longDescription": "Maximum number of passphrases supported for this Memory."
+                },
+                "SecurityStates": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/SecurityStates"
+                    },
+                    "readonly": true,
+                    "description": "Security states supported by the Memory.",
+                    "longDescription": "Security states supported by the Memory."
+                }
+            },
+            "description": "This type contains security capabilities of a Memory entity.",
+            "longDescription": "This type shall contain properties which describe the security capabilities of a Memory entity."
+        },
+        "SecurityStates": {
+            "type": "string",
+            "enum": [
+                "Enabled",
+                "Disabled",
+                "Unlocked",
+                "Locked",
+                "Frozen",
+                "Passphraselimit"
+            ],
+            "enumDescriptions": {
+                "Enabled": "Secure mode is enabled.",
+                "Disabled": "Secure mode is disabled.",
+                "Unlocked": "Secure mode is enabled and access to the data is unlocked.",
+                "Locked": "Secure mode is enabled and access to the data is locked.",
+                "Frozen": "Secure state is frozen and can not be modified until reset.",
+                "Passphraselimit": "Number of attempts to unlock the Memory exceeded limit."
+            }
+        },
+        "Memory": {
+            "type": "object",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "type": [
+                        "array",
+                        "boolean",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ],
+                    "description": "This property shall specify a valid odata or Redfish property."
+                }
+            },
+            "additionalProperties": false,
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.4.0.0.json#/definitions/context"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.4.0.0.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.4.0.0.json#/definitions/type"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.",
+                    "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Description": {
+                    "anyOf": [
+                        {"$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"},
+                        {"type": "null"}
+                    ],
+                    "readonly": true
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "MemoryType": {
+                    "anyOf": [
+                        {"$ref": "#/definitions/MemoryType"},
+                        {"type": "null"}
+                    ],
+                    "readonly": true,
+                    "description": "The type of Memory.",
+                    "longDescription": "The value of this property shall be the type of Memory represented by this resource."
+                },
+                "MemoryDeviceType": {
+                    "anyOf": [
+                        {"$ref": "#/definitions/MemoryDeviceType"},
+                        {"type": "null"}
+                    ],
+                    "readonly": true,
+                    "description": "Type details of the Memory.",
+                    "longDescription": "The value of this property shall be the Memory Device Type as defined by SMBIOS."
+                },
+                "BaseModuleType": {
+                    "anyOf": [
+                        {"$ref": "#/definitions/BaseModuleType"},
+                        {"type": "null"}
+                    ],
+                    "readonly": true,
+                    "description": "The base module type of Memory.",
+                    "longDescription": "The value of this property shall be the base module type of Memory."
+                },
+                "MemoryMedia": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/MemoryMedia"
+                    },
+                    "readonly": true,
+                    "description": "Media of this Memory.",
+                    "longDescription": "The value of this property shall be the media types of this Memory."
+                },
+                "CapacityMiB": {
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "MiBy",
+                    "readonly": true,
+                    "description": "Memory Capacity in MiB.",
+                    "longDescription": "The value of this property shall be the Memory capacity in MiB."
+                },
+                "DataWidthBits": {
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "readonly": true,
+                    "description": "Data Width in bits.",
+                    "longDescription": "The value of this property shall be the data width in bits."
+                },
+                "BusWidthBits": {
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "readonly": true,
+                    "description": "Bus Width in bits.",
+                    "longDescription": "The value of this property shall be the bus width in bits."
+                },
+                "Manufacturer": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "readonly": true,
+                    "description": "The Memory manufacturer.",
+                    "longDescription": "This property shall contain a string which identifies the manufacturer of the Memory."
+                },
+                "SerialNumber": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "readonly": true,
+                    "description": "The product serial number of this device.",
+                    "longDescription": "This property shall indicate the serial number as provided by the manufacturer of this Memory."
+                },
+                "PartNumber": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "readonly": true,
+                    "description": "The product part number of this device.",
+                    "longDescription": "This property shall indicate the part number as provided by the manufacturer of this Memory."
+                },
+                "AllowedSpeedsMHz": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    },
+                    "readonly": true,
+                    "description": "Speed bins supported by this Memory.",
+                    "longDescription": "The value of this property shall be the speed supported by this Memory."
+                },
+                "FirmwareRevision": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "readonly": true,
+                    "description": "Revision of firmware on the Memory controller.",
+                    "longDescription": "The value of this property shall be the revision of firmware on the Memory controller."
+                },
+                "FirmwareApiVersion": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "readonly": true,
+                    "description": "Version of API supported by the firmware.",
+                    "longDescription": "The value of this property shall be the version of API supported by the firmware."
+                },
+                "FunctionClasses": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "readonly": true,
+                    "description": "Function Classes by the Memory.",
+                    "longDescription": "The value of this property shall be the function classes by the Memory."
+                },
+                "VendorID": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "readonly": true,
+                    "description": "Vendor ID.",
+                    "longDescription": "The value of this property shall be the vendor ID of the Memory."
+                },
+                "DeviceID": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "readonly": true,
+                    "description": "Device ID.",
+                    "longDescription": "The value of this property shall be the device ID of the Memory."
+                },
+                "SubsystemVendorID": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "readonly": true,
+                    "description": "SubSystem Vendor ID.",
+                    "longDescription": "The value of this property shall be the subsystem Vendor ID of the Memory."
+                },
+                "SubsystemDeviceID": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "readonly": true,
+                    "description": "Subsystem Device ID.",
+                    "longDescription": "The value of this property shall be the subsystem Device ID of the Memory."
+                },
+                "MaxTDPMilliWatts": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    },
+                    "readonly": true,
+                    "description": "Maximum TDPs in milli Watts.",
+                    "longDescription": "The value of this property shall be the maximum power budgets supported by the Memory in milli Watts."
+                },
+                "SecurityCapabilities": {
+                    "$ref": "#/definitions/SecurityCapabilities",
+                    "description": "This object contains security capabilities of the Memory.",
+                    "longDescription": "This object shall contain properties which describe the security capabilities of the Memory."
+                },
+                "SpareDeviceCount": {
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "readonly": true,
+                    "description": "Number of unused spare devices available in the Memory.",
+                    "longDescription": "The value of this property shall be the number of unused spare devices available in the Memory. If memory devices fails, the spare device could be used."
+                },
+                "RankCount": {
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "readonly": true,
+                    "description": "Number of ranks available in the Memory.",
+                    "longDescription": "The value of this property shall be number of ranks available in the Memory. The ranks could be used for spare or interleave."
+                },
+                "DeviceLocator": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "readonly": true,
+                    "description": "Location of the Memory in the platform.",
+                    "longDescription": "The value of this property shall be location of the Memory in the platform, typically marked in the silk screen."
+                },
+                "MemoryLocation": {
+                    "$ref": "#/definitions/MemoryLocation",
+                    "description": "Memory connection information to sockets and memory controllers.",
+                    "longDescription": "This object shall contain properties which describe the Memory connection information to sockets and memory controllers."
+                },
+                "ErrorCorrection": {
+                    "anyOf": [
+                        {"$ref": "#/definitions/ErrorCorrection"},
+                        {"type": "null"}
+                    ],
+                    "readonly": true,
+                    "description": "Error correction scheme supported for this memory.",
+                    "longDescription": "The value of this property shall be the error correction scheme supported for this memory."
+                },
+                "OperatingSpeedMhz": {
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "readonly": true,
+                    "description": "Operating speed of Memory in MHz.",
+                    "longDescription": "The value of this property shall be the operating speed of Memory in MHz."
+                },
+                "VolatileRegionSizeLimitMiB": {
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "readonly": true,
+                    "description": "Total size of volatile regions in MiB.",
+                    "longDescription": "The value of this property shall be the total size of volatile regions in MiB."
+                },
+                "PersistentRegionSizeLimitMiB": {
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "readonly": true,
+                    "description": "Total size of persistent regions in MiB.",
+                    "longDescription": "The value of this property shall be the total size of persistent regions in MiB."
+                },
+                "Regions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/RegionSet"
+                    },
+                    "description": "Memory regions information within the Memory.",
+                    "longDescription": "The value of this property shall be the memory region information within the Memory."
+                },
+                "OperatingMemoryModes": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/OperatingMemoryModes"
+                    },
+                    "readonly": true,
+                    "description": "Memory modes supported by the Memory.",
+                    "longDescription": "The value of this property shall be the memory modes supported by the Memory."
+                },
+                "PowerManagementPolicy": {
+                    "$ref": "#/definitions/PowerManagementPolicy",
+                    "description": "Power management policy information.",
+                    "longDescription": "This object shall contain properties which describe the power management policy for the current resource."
+                },
+                "IsSpareDeviceEnabled": {
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "readonly": true,
+                    "description": "Spare device enabled status.",
+                    "longDescription": "The value of this property shall be true if a spare device is enabled for this Memory."
+                },
+                "IsRankSpareEnabled": {
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "readonly": true,
+                    "description": "Rank spare enabled status.",
+                    "longDescription": "The value of this property shall be true if a rank spare is enabled for this Memory."
+                },
+                "Actions": {
+                    "type": "object",
+                    "patternProperties": {
+                        "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                            "type": [
+                                "array",
+                                "boolean",
+                                "number",
+                                "null",
+                                "object",
+                                "string"
+                            ],
+                            "description": "This property shall specify a valid odata or Redfish property."
+                        }
+                    },
+                    "additionalProperties": false,
+                    "properties": {
+                        "Oem": {
+                            "type": "object",
+                            "patternProperties": {
+                                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                                    "type": [
+                                        "array",
+                                        "boolean",
+                                        "number",
+                                        "null",
+                                        "object",
+                                        "string"
+                                    ],
+                                    "description": "This property shall specify a valid odata or Redfish property."
+                                }
+                            },
+                            "additionalProperties": true,
+                            "properties": {},
+                            "description": "The available OEM specific actions for this resource.",
+                            "longDescription": "This type shall contain any additional OEM actions for this resource."
+                        },
+                        "#Memory.DisablePassphrase": {
+                            "$ref": "#/definitions/DisablePassphrase"
+                        },
+                        "#Memory.SecureEraseUnit": {
+                            "$ref": "#/definitions/SecureEraseUnit"
+                        },
+                        "#Memory.SetPassphrase": {
+                            "$ref": "#/definitions/SetPassphrase"
+                        },
+                        "#Memory.UnlockUnit": {
+                            "$ref": "#/definitions/UnlockUnit"
+                        }
+                    },
+                    "description": "The available actions for this resource.",
+                    "longDescription": "The Actions property shall contain the available actions for this resource."
+                },
+                "Metrics": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MemoryMetrics.json#/definitions/MemoryMetrics",
+                    "readonly": true,
+                    "description": "A reference to the Metrics associated with this Memory.",
+                    "longDescription": "A reference to the Metrics associated with this Memory."
+                }
+            },
+            "required": [
+                "Id",
+                "Name"
+            ],
+            "description": "This is the schema definition for definition of a Memory and its configuration.",
+            "longDescription": "This resource shall be used to represent the Memory in a Redfish implementation."
+        }
+    },
+    "copyright": "Copyright 2014-2017 Distributed Management Task Force, Inc. (DMTF). For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright"
+}

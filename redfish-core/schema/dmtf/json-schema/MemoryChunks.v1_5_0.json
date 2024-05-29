@@ -1,0 +1,397 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/MemoryChunks.v1_5_0.json",
+    "$ref": "#/definitions/MemoryChunks",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource.",
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
+        },
+        "AddressRangeType": {
+            "enum": [
+                "Volatile",
+                "PMEM",
+                "Block"
+            ],
+            "enumDescriptions": {
+                "Block": "Block accessible memory.",
+                "PMEM": "Byte accessible persistent memory.",
+                "Volatile": "Volatile memory."
+            },
+            "type": "string"
+        },
+        "InterleaveSet": {
+            "additionalProperties": false,
+            "description": "This an interleave set for a memory chunk.",
+            "longDescription": "This type shall describe an interleave set of which the memory chunk is a part.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Memory": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef",
+                    "description": "Describes a memory device of the interleave set.",
+                    "longDescription": "This property shall contain the memory device to which these settings apply.",
+                    "readonly": true
+                },
+                "MemoryLevel": {
+                    "description": "Level of the interleave set for multi-level tiered memory.",
+                    "longDescription": "This property shall contain the level of this interleave set for multi-level tiered memory.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "OffsetMiB": {
+                    "description": "Offset within the DIMM that corresponds to the start of this memory region, measured in mebibytes (MiB).",
+                    "longDescription": "This property shall contain the offset within the DIMM that corresponds to the start of this memory region, with units in MiB.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "MiBy"
+                },
+                "RegionId": {
+                    "description": "DIMM region identifier.",
+                    "longDescription": "This property shall contain the DIMM region identifier.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "SizeMiB": {
+                    "description": "Size of this memory region measured in mebibytes (MiB).",
+                    "longDescription": "This property shall contain the size of this memory region, with units in MiB.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "MiBy"
+                }
+            },
+            "type": "object"
+        },
+        "Links": {
+            "additionalProperties": false,
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "CXLLogicalDevices": {
+                    "description": "An array of links to the CXL logical devices associated with this memory chunk.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/CXLLogicalDevice.json#/definitions/CXLLogicalDevice"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type CXLLogicalDevice that represent the CXL logical devices associated with this memory chunk.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_5_0"
+                },
+                "CXLLogicalDevices@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Endpoints": {
+                    "description": "An array of links to the endpoints that connect to this memory chunk.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Endpoint.json#/definitions/Endpoint"
+                    },
+                    "longDescription": "This property shall contain a link to the resources of type Endpoint with which this memory chunk is associated.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_3_0"
+                },
+                "Endpoints@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                }
+            },
+            "type": "object"
+        },
+        "MediaLocation": {
+            "enum": [
+                "Local",
+                "Remote",
+                "Mixed"
+            ],
+            "enumDescriptions": {
+                "Local": "The memory chunk was created using local media.",
+                "Mixed": "The memory chunk was created using both local media and remote media accessible through a fabric.",
+                "Remote": "The memory chunk was created using remote media accessible through a fabric."
+            },
+            "type": "string"
+        },
+        "MemoryChunks": {
+            "additionalProperties": false,
+            "description": "The schema definition of a memory chunk and its configuration.",
+            "longDescription": "This resource shall represent memory chunks and interleave sets in a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource.",
+                    "versionAdded": "v1_1_0"
+                },
+                "AddressRangeOffsetMiB": {
+                    "description": "Offset of the memory chunk in the address range in MiB.",
+                    "longDescription": "The value of this property shall be the offset of the memory chunk in the address range in MiB.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "MiBy",
+                    "versionAdded": "v1_3_0"
+                },
+                "AddressRangeType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/AddressRangeType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Memory type of this memory chunk.",
+                    "longDescription": "This property shall contain the type of memory chunk.",
+                    "readonly": true
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "DisplayName": {
+                    "description": "A user-configurable string to name the memory chunk.",
+                    "longDescription": "This property shall contain a user-configurable string to name the memory chunk.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "InterleaveSets": {
+                    "description": "The interleave sets for the memory chunk.",
+                    "items": {
+                        "$ref": "#/definitions/InterleaveSet"
+                    },
+                    "longDescription": "These properties shall represent the interleave sets for the memory chunk.  If not specified by the client during a create operation, the memory chunk shall be created across all available memory within the memory domain.",
+                    "type": "array"
+                },
+                "IsMirrorEnabled": {
+                    "description": "An indication of whether memory mirroring is enabled for this memory chunk.",
+                    "longDescription": "This property shall indicate whether memory mirroring is enabled for this memory chunk.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "IsSpare": {
+                    "description": "An indication of whether sparing is enabled for this memory chunk.",
+                    "longDescription": "This property shall indicate whether sparing is enabled for this memory chunk.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by or subordinate to this resource.",
+                    "versionAdded": "v1_3_0"
+                },
+                "MediaLocation": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/MediaLocation"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The location of the memory media for this memory chunk.",
+                    "longDescription": "This property shall contain the location of the memory media for this memory chunk.",
+                    "readonly": false,
+                    "versionAdded": "v1_5_0"
+                },
+                "MemoryChunkSizeMiB": {
+                    "description": "Size of the memory chunk measured in mebibytes (MiB).",
+                    "longDescription": "This property shall contain the size of the memory chunk in MiB.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "MiBy"
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "RequestedOperationalState": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/OperationalState"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The requested operational state of this memory chunk.",
+                    "longDescription": "This property shall contain the requested operational state of this memory chunk.",
+                    "readonly": false,
+                    "versionAdded": "v1_5_0"
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource.",
+                    "versionAdded": "v1_2_0"
+                }
+            },
+            "required": [
+                "AddressRangeType",
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "OperationalState": {
+            "enum": [
+                "Online",
+                "Offline"
+            ],
+            "enumDescriptions": {
+                "Offline": "Memory chunk cannot be used.  Consumers of this memory chunk should perform cleanup operations as needed to prepare for the removal of this memory chunk.",
+                "Online": "Memory chunk can be used."
+            },
+            "type": "string"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2022.3",
+    "title": "#MemoryChunks.v1_5_0.MemoryChunks"
+}
