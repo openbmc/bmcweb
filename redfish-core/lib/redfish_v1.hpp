@@ -6,7 +6,6 @@
 #include "http_response.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
-#include "schemas.hpp"
 #include "utility.hpp"
 
 #include <boost/url/format.hpp>
@@ -86,15 +85,32 @@ inline void
     json["Name"] = "JsonSchemaFile Collection";
     json["Description"] = "Collection of JsonSchemaFiles";
     nlohmann::json::array_t members;
-    for (std::string_view schema : schemas)
+
+    std::error_code ec;
+    std::filesystem::directory_iterator dirList(
+        "/usr/share/www/redfish/v1/JsonSchemas", ec);
+    if (ec)
     {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    for (const std::filesystem::path& file : dirList)
+    {
+        std::string filename = file.filename();
+        std::vector<std::string> split;
+        bmcweb::split(split, filename, '.');
+        if (split.empty())
+        {
+            continue;
+        }
         nlohmann::json::object_t member;
         member["@odata.id"] = boost::urls::format("/redfish/v1/JsonSchemas/{}",
-                                                  schema);
+                                                  split[0]);
         members.emplace_back(std::move(member));
     }
+
+    json["Members@odata.count"] = members.size();
     json["Members"] = std::move(members);
-    json["Members@odata.count"] = schemas.size();
 }
 
 inline void jsonSchemaGet(App& app, const crow::Request& req,
@@ -106,40 +122,97 @@ inline void jsonSchemaGet(App& app, const crow::Request& req,
         return;
     }
 
-    if (std::ranges::find(schemas, schema) == schemas.end())
+    std::error_code ec;
+    std::filesystem::directory_iterator dirList(
+        "/usr/share/www/redfish/v1/JsonSchemas", ec);
+    if (ec)
+    {
+        messages::resourceNotFound(asyncResp->res, "JsonSchemaFile", schema);
+        return;
+    }
+    for (const std::filesystem::path& file : dirList)
+    {
+        std::string filename = file.filename();
+        std::vector<std::string> split;
+        bmcweb::split(split, filename, '.');
+        if (split.empty())
+        {
+            continue;
+        }
+        BMCWEB_LOG_DEBUG("Checking {}", split[0]);
+        if (split[0] != schema)
+        {
+            continue;
+        }
+
+        nlohmann::json& json = asyncResp->res.jsonValue;
+        json["@odata.id"] = boost::urls::format("/redfish/v1/JsonSchemas/{}",
+                                                schema);
+        json["@odata.type"] = "#JsonSchemaFile.v1_0_2.JsonSchemaFile";
+        json["Name"] = schema + " Schema File";
+        json["Description"] = schema + " Schema File Location";
+        json["Id"] = schema;
+        std::string schemaName = std::format("#{}.{}", schema, schema);
+        json["Schema"] = std::move(schemaName);
+        constexpr std::array<std::string_view, 1> languages{"en"};
+        json["Languages"] = languages;
+        json["Languages@odata.count"] = languages.size();
+
+        nlohmann::json::array_t locationArray;
+        nlohmann::json::object_t locationEntry;
+        locationEntry["Language"] = "en";
+
+        locationEntry["PublicationUri"] = boost::urls::format(
+            "http://redfish.dmtf.org/schemas/v1/{}", filename);
+        locationEntry["Uri"] = boost::urls::format(
+            "/redfish/v1/JsonSchemas/{}/{}", schema, filename);
+
+        locationArray.emplace_back(locationEntry);
+
+        json["Location"] = std::move(locationArray);
+        json["Location@odata.count"] = 1;
+        return;
+    }
+    messages::resourceNotFound(asyncResp->res, "JsonSchemaFile", schema);
+}
+
+inline void
+    jsonSchemaGetFile(const crow::Request& /*req*/,
+                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      const std::string& schema, const std::string& schemaFile)
+{
+    // Sanity check the filename
+    if (schemaFile.find_first_not_of(
+            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-.") !=
+        std::string::npos)
+    {
+        messages::resourceNotFound(asyncResp->res, "JsonSchemaFile", schema);
+        return;
+    }
+    // Schema path should look like /redfish/v1/JsonSchemas/Foo/Foo.x.json
+    // Make sure the two paths match.
+    if (!schemaFile.starts_with(schema))
+    {
+        messages::resourceNotFound(asyncResp->res, "JsonSchemaFile", schema);
+        return;
+    }
+    std::filesystem::path filepath("/usr/share/www/redfish/v1/JsonSchemas");
+    filepath /= schemaFile;
+    if (filepath.is_relative())
     {
         messages::resourceNotFound(asyncResp->res, "JsonSchemaFile", schema);
         return;
     }
 
-    nlohmann::json& json = asyncResp->res.jsonValue;
-    json["@odata.id"] = boost::urls::format("/redfish/v1/JsonSchemas/{}",
-                                            schema);
-    json["@odata.type"] = "#JsonSchemaFile.v1_0_2.JsonSchemaFile";
-    json["Name"] = schema + " Schema File";
-    json["Description"] = schema + " Schema File Location";
-    json["Id"] = schema;
-    std::string schemaName = "#";
-    schemaName += schema;
-    schemaName += ".";
-    schemaName += schema;
-    json["Schema"] = std::move(schemaName);
-    constexpr std::array<std::string_view, 1> languages{"en"};
-    json["Languages"] = languages;
-    json["Languages@odata.count"] = languages.size();
+    if (!asyncResp->res.openFile(filepath))
+    {
+        BMCWEB_LOG_DEBUG("failed to read file");
+        asyncResp->res.result(
+            boost::beast::http::status::internal_server_error);
+        return;
+    }
 
-    nlohmann::json::array_t locationArray;
-    nlohmann::json::object_t locationEntry;
-    locationEntry["Language"] = "en";
-    locationEntry["PublicationUri"] = "http://redfish.dmtf.org/schemas/v1/" +
-                                      schema + ".json";
-    locationEntry["Uri"] = boost::urls::format(
-        "/redfish/v1/JsonSchemas/{}/{}", schema, std::string(schema) + ".json");
-
-    locationArray.emplace_back(locationEntry);
-
-    json["Location"] = std::move(locationArray);
-    json["Location@odata.count"] = 1;
+    messages::resourceNotFound(asyncResp->res, "JsonSchemaFile", schema);
 }
 
 inline void requestRoutesRedfish(App& app)
@@ -147,6 +220,10 @@ inline void requestRoutesRedfish(App& app)
     BMCWEB_ROUTE(app, "/redfish/")
         .methods(boost::beast::http::verb::get)(
             std::bind_front(redfishGet, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/JsonSchemas/<str>/<str>")
+        .privileges(redfish::privileges::getJsonSchemaFile)
+        .methods(boost::beast::http::verb::get)(jsonSchemaGetFile);
 
     BMCWEB_ROUTE(app, "/redfish/v1/JsonSchemas/<str>/")
         .privileges(redfish::privileges::getJsonSchemaFileCollection)
