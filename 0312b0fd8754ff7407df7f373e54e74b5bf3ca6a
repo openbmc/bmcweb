@@ -245,6 +245,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a6fbaa5e_b209243a",
+        "filename": "redfish-core/lib/roles.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-05-29T13:52:40Z",
+      "side": 1,
+      "message": "I\u0027m not seeing this change in current patch set #4.",
+      "parentUuid": "cccd3de3_5e359c5c",
+      "range": {
+        "startLine": 74,
+        "startChar": 4,
+        "endLine": 74,
+        "endChar": 21
+      },
+      "revId": "0312b0fd8754ff7407df7f373e54e74b5bf3ca6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9220407c_928817fa",
         "filename": "redfish-core/lib/roles.hpp",
         "patchSetId": 1
