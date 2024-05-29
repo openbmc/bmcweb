@@ -11,6 +11,18 @@ enum class OverWritePolicy{
     Oldest,
 };
 
+enum class OverWritePolicy{
+    Invalid,
+    Manual,
+    Oldest,
+};
+
+NLOHMANN_JSON_SERIALIZE_ENUM(OverWritePolicy, {
+    {OverWritePolicy::Invalid, "Invalid"},
+    {OverWritePolicy::Manual, "Manual"},
+    {OverWritePolicy::Oldest, "Oldest"},
+});
+
 NLOHMANN_JSON_SERIALIZE_ENUM(OverWritePolicy, {
     {OverWritePolicy::Invalid, "Invalid"},
     {OverWritePolicy::Manual, "Manual"},

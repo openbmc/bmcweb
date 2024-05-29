@@ -18,6 +18,32 @@ enum class SessionTypes{
     OutboundConnection,
 };
 
+enum class SessionTypes{
+    Invalid,
+    HostConsole,
+    ManagerConsole,
+    IPMI,
+    KVMIP,
+    OEM,
+    Redfish,
+    VirtualMedia,
+    WebUI,
+    OutboundConnection,
+};
+
+NLOHMANN_JSON_SERIALIZE_ENUM(SessionTypes, {
+    {SessionTypes::Invalid, "Invalid"},
+    {SessionTypes::HostConsole, "HostConsole"},
+    {SessionTypes::ManagerConsole, "ManagerConsole"},
+    {SessionTypes::IPMI, "IPMI"},
+    {SessionTypes::KVMIP, "KVMIP"},
+    {SessionTypes::OEM, "OEM"},
+    {SessionTypes::Redfish, "Redfish"},
+    {SessionTypes::VirtualMedia, "VirtualMedia"},
+    {SessionTypes::WebUI, "WebUI"},
+    {SessionTypes::OutboundConnection, "OutboundConnection"},
+});
+
 NLOHMANN_JSON_SERIALIZE_ENUM(SessionTypes, {
     {SessionTypes::Invalid, "Invalid"},
     {SessionTypes::HostConsole, "HostConsole"},
