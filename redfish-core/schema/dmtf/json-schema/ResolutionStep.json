@@ -1,0 +1,19 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/ResolutionStep.json",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "ResolutionStep": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ResolutionStep.v1_0_1.json#/definitions/ResolutionStep"
+                }
+            ],
+            "description": "This type describes a recommended step of the service-defined resolution.",
+            "longDescription": "This type shall describe a recommended step of the service-defined resolution.  The set of recommended steps are used to resolve the cause of a log entry, an event, a condition, or an error message."
+        }
+    },
+    "language": "en",
+    "owningEntity": "DMTF",
+    "title": "#ResolutionStep"
+}

@@ -1,0 +1,50 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Session.json",
+    "$ref": "#/definitions/Session",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Session": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Session.v1_0_10.json#/definitions/Session"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Session.v1_1_7.json#/definitions/Session"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Session.v1_2_6.json#/definitions/Session"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Session.v1_3_5.json#/definitions/Session"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Session.v1_4_4.json#/definitions/Session"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Session.v1_5_4.json#/definitions/Session"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Session.v1_6_3.json#/definitions/Session"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Session.v1_7_2.json#/definitions/Session"
+                }
+            ],
+            "deletable": true,
+            "description": "The `Session` resource describes a single connection (session) between a client and a Redfish service instance.",
+            "insertable": false,
+            "longDescription": "This resource shall represent a session for a Redfish implementation.",
+            "updatable": false,
+            "uris": [
+                "/redfish/v1/SessionService/Sessions/{SessionId}"
+            ]
+        }
+    },
+    "language": "en",
+    "owningEntity": "DMTF",
+    "title": "#Session.Session"
+}

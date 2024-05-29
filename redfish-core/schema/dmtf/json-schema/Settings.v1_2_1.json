@@ -1,0 +1,259 @@
+{
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "ApplyTime": {
+            "enum": [
+                "Immediate",
+                "OnReset",
+                "AtMaintenanceWindowStart",
+                "InMaintenanceWindowOnReset"
+            ],
+            "enumDescriptions": {
+                "AtMaintenanceWindowStart": "Apply during a maintenance window as specified by an administrator.",
+                "Immediate": "Apply immediately.",
+                "InMaintenanceWindowOnReset": "Apply after a reset but within maintenance window as specified by an adminstrator.",
+                "OnReset": "Apply on a reset."
+            },
+            "enumLongDescriptions": {
+                "AtMaintenanceWindowStart": "This ApplyTime value shall be used to indicate the values within the Settings resource are applied during the maintenance window specified by the MaintenanceWindowStartTime and MaintenanceWindowDurationInSeconds properties.  A service may perform resets during this maintenance window.",
+                "Immediate": "This ApplyTime value shall be used to indicate the values within the Settings resource are applied immediately.",
+                "InMaintenanceWindowOnReset": "This ApplyTime value shall be used to indicate the values within the Settings resource are applied during the maintenance window specified by the MaintenanceWindowStartTime and MaintenanceWindowDurationInSeconds properties, and if a reset occurs within the maintenance window.",
+                "OnReset": "This ApplyTime value shall be used to indicate the values within the Settings resource are applied when the system or service is reset."
+            },
+            "type": "string"
+        },
+        "MaintenanceWindow": {
+            "additionalProperties": false,
+            "description": "This object indicates if a given resource has a maintenance window assignment for applying settings or operations.",
+            "longDescription": "This object shall indicate if a given resource has a maintenance window assignment for applying settings or operations.  Other resources may reference this object in order to convey a common control surface for the configuration of the maintenance window.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "MaintenanceWindowDurationInSeconds": {
+                    "description": "The value of this property as specified by client indicates the expiry time of maintenance window in seconds.",
+                    "longDescription": "The value of this property shall indicate the end of the maintenance window as the number of seconds after the time specified by the MaintenanceWindowStartTime property.",
+                    "minimum": 0,
+                    "readonly": false,
+                    "type": "integer",
+                    "units": "s"
+                },
+                "MaintenanceWindowStartTime": {
+                    "description": "The value of this property as specified by client to indicate the start time of a maintenance window.",
+                    "format": "date-time",
+                    "longDescription": "The value of this property shall indicate the date and time as to when the service is allowed to start applying the requested settings or operation as part of a maintenance window.",
+                    "readonly": false,
+                    "type": "string"
+                }
+            },
+            "required": [
+                "MaintenanceWindowStartTime",
+                "MaintenanceWindowDurationInSeconds"
+            ],
+            "type": "object"
+        },
+        "OperationApplyTime": {
+            "enum": [
+                "Immediate",
+                "OnReset",
+                "AtMaintenanceWindowStart",
+                "InMaintenanceWindowOnReset"
+            ],
+            "enumDescriptions": {
+                "AtMaintenanceWindowStart": "Apply the requested operation during a maintenance window as specified by an administrator.",
+                "Immediate": "Apply the requested operation immediately.",
+                "InMaintenanceWindowOnReset": "Apply the requested operation after a reset but within maintenance window as specified by an adminstrator.",
+                "OnReset": "Apply the requested operation on a reset."
+            },
+            "enumLongDescriptions": {
+                "AtMaintenanceWindowStart": "This OperationApplyTime value shall be used to indicate the requested Create, Delete, or Action operation is applied during the maintenance window specified by the MaintenanceWindowStartTime and MaintenanceWindowDurationInSeconds properties.  A service may perform resets during this maintenance window.",
+                "Immediate": "This OperationApplyTime value shall be used to indicate the requested Create, Delete, or Action operation is applied immediately.",
+                "InMaintenanceWindowOnReset": "This OperationApplyTime value shall be used to indicate the requested Create, Delete, or Action operation is applied during the maintenance window specified by the MaintenanceWindowStartTime and MaintenanceWindowDurationInSeconds properties, and if a reset occurs within the maintenance window.",
+                "OnReset": "This OperationApplyTime value shall be used to indicate the requested Create, Delete, or Action operation is applied when the system or service is reset."
+            },
+            "type": "string"
+        },
+        "OperationApplyTimeSupport": {
+            "additionalProperties": false,
+            "description": "This object indicates if a client is allowed to request for a specific apply time of a Create, Delete, or Action operation of a given resource.",
+            "longDescription": "This object shall specify the support a service has for a client to request a specific apply time of a Create, Delete, or Action operation of a given resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "MaintenanceWindowDurationInSeconds": {
+                    "description": "The value of this property as specified by client indicates the expiry time of maintenance window in seconds.",
+                    "longDescription": "The value of this property shall be the same as the MaintenanceWindowDurationInSeconds property found in the MaintenanceWindow structure on the MaintenanceWindowResource.  This property shall be required if the SupportedValues property contains AtMaintenanceWindowStart or InMaintenanceWindowOnReset.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": "integer",
+                    "units": "s"
+                },
+                "MaintenanceWindowResource": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/idRef",
+                    "description": "The value of this property is used to indicate the location of the maintenance window settings.",
+                    "longDescription": "The value of this property shall be a reference to a resource that contains the @Redfish.MaintenanceWindow property which governs this resource.  This property shall be required if the SupportedValues property contains AtMaintenanceWindowStart or InMaintenanceWindowOnReset.",
+                    "readonly": true
+                },
+                "MaintenanceWindowStartTime": {
+                    "description": "The value of this property as specified by client to indicate the start time of a maintenance window.",
+                    "format": "date-time",
+                    "longDescription": "The value of this property shall be the same as the MaintenanceWindowStartTime property found in the MaintenanceWindow structure on the MaintenanceWindowResource.  This property shall be required if the SupportedValues property contains AtMaintenanceWindowStart or InMaintenanceWindowOnReset.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "SupportedValues": {
+                    "description": "This property indicates the types of apply times the client is allowed request when performing a Create, Delete, or Action operation.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Settings.json#/definitions/OperationApplyTime"
+                    },
+                    "longDescription": "The value of this property shall indicate the types of apply times the client is allowed request when performing a Create, Delete, or Action operation.",
+                    "readonly": true,
+                    "type": "array"
+                }
+            },
+            "required": [
+                "SupportedValues"
+            ],
+            "type": "object"
+        },
+        "PreferredApplyTime": {
+            "additionalProperties": false,
+            "description": "This object indicates when the future configuration (i.e. Settings resource) should be applied.",
+            "longDescription": "This object shall be specified by client in a request to indicate its preference on when to apply the values in this Settings resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "ApplyTime": {
+                    "$ref": "#/definitions/ApplyTime",
+                    "description": "This property indicates when the future configuration (i.e. Settings resource) should be applied.",
+                    "longDescription": "The value of this property shall indicate the preference on to when to apply the values in this Settings resource.",
+                    "readonly": false
+                },
+                "MaintenanceWindowDurationInSeconds": {
+                    "description": "The value of this property as specified by client indicates the expiry time of maintenance window in seconds.",
+                    "longDescription": "The value of this property shall indicate the end of the maintenance window as the number of seconds after the time specified by the MaintenanceWindowStartTime property.  This property shall be required if the ApplyTime property is specified as AtMaintenanceWindowStart or InMaintenanceWindowOnReset.",
+                    "minimum": 0,
+                    "readonly": false,
+                    "type": "integer",
+                    "units": "s"
+                },
+                "MaintenanceWindowStartTime": {
+                    "description": "The value of this property as specified by client to indicate the start time of a maintenance window.",
+                    "format": "date-time",
+                    "longDescription": "The value of this property shall indicate the date and time as to when the service is allowed to start applying the future configuration as part of a maintenance window.  This property shall be required if the ApplyTime property is specified as AtMaintenanceWindowStart or InMaintenanceWindowOnReset.",
+                    "readonly": false,
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "Settings": {
+            "additionalProperties": false,
+            "description": "This type describes the settings of a resouce.",
+            "longDescription": "This type shall describe any attributes of a resouce.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "ETag": {
+                    "description": "The ETag of the resource to which the settings were applied, after the application.",
+                    "longDescription": "The value of this property shall be the ETag of the resource to which the settings were applied, after the application.  This is here so that the client can check it against the ETag of the current resource to see if any other changes have also happened to the resource.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "MaintenanceWindowResource": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/idRef",
+                    "description": "The value of this property is used to indicate the location of the maintenance window settings.",
+                    "longDescription": "The value of this property shall be a reference to a resource that contains the @Redfish.MaintenanceWindow property which governs this resource.  This property should be supported if the SupportedApplyTimes property contains AtMaintenanceWindowStart or InMaintenanceWindowOnReset.",
+                    "readonly": true
+                },
+                "Messages": {
+                    "description": "This is an array of messages associated with the task.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Message.json#/definitions/Message"
+                    },
+                    "longDescription": "The value of this property shall be an array of messages associated with the task.",
+                    "type": "array"
+                },
+                "SettingsObject": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/idRef",
+                    "description": "Reference to the resource the client may PUT/PATCH to in order to change this resource.",
+                    "longDescription": "The value of this property shall be the URI of the resource to which a client must do a PUT or PATCH in order to modify this resource.",
+                    "readonly": true
+                },
+                "SupportedApplyTimes": {
+                    "description": "This property indicates when a Settings resource can be applied.",
+                    "items": {
+                        "$ref": "#/definitions/ApplyTime"
+                    },
+                    "longDescription": "A service shall advertise its applytime capabilities using this property as to when a Setting resource can be applied.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "Time": {
+                    "description": "Indicates the time the settings were applied.",
+                    "format": "date-time",
+                    "longDescription": "The value of this property shall indicate the time that the settings object was applied to the resource.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "title": "#Settings.v1_2_1"
+}

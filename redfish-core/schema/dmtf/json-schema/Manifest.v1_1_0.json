@@ -1,0 +1,246 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Manifest.v1_1_0.json",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Expand": {
+            "enum": [
+                "None",
+                "All",
+                "Relevant"
+            ],
+            "enumDescriptions": {
+                "All": "Expand all subordinate references.",
+                "None": "Do not expand any references.",
+                "Relevant": "Expand relevant subordinate references.  Relevant references are those that are tied to a constrained composition request, such as a request for a quantity of processors."
+            },
+            "enumLongDescriptions": {
+                "All": "This value shall indicate that all subordinate references in the manifest response will be expanded.",
+                "None": "This value shall indicate that references in the manifest response will not be expanded.",
+                "Relevant": "This value shall indicate that relevant subordinate references in the manifest response will be expanded."
+            },
+            "type": "string"
+        },
+        "Manifest": {
+            "additionalProperties": false,
+            "description": "This type describes a manifest containing a set of requests to be fulfilled.  The manifest contains a set of stanzas, where each stanza describes a single request.",
+            "longDescription": "This type shall describe a manifest containing a set of requests to be fulfilled.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Description": {
+                    "description": "The description of this manifest.",
+                    "longDescription": "This property shall contain the description of this manifest.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Expand": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Expand"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The expansion control for references in manifest responses, similar to the `$expand=.` query parameter.",
+                    "longDescription": "This property shall contain the expansion control for references in manifest responses.",
+                    "readonly": false
+                },
+                "Stanzas": {
+                    "description": "An array of stanzas that describe the requests specified by this manifest.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/Stanza"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of stanzas that describe the requests specified by this manifest.",
+                    "type": "array"
+                },
+                "Timestamp": {
+                    "description": "The date and time when the manifest was created.",
+                    "format": "date-time",
+                    "longDescription": "This property shall contain the date and time when the manifest was created.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "Request": {
+            "additionalProperties": true,
+            "description": "The content of the request for the stanza.",
+            "longDescription": "This type shall describe the request details of a stanza within a manifest.  Its contents vary depending on the value of the StanzaType property of the stanza.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "Response": {
+            "additionalProperties": true,
+            "description": "The content of the response for the stanza.",
+            "longDescription": "This type shall describe the response details of a stanza within a manifest.  Its contents vary depending on the value of the StanzaType property of the stanza.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "Stanza": {
+            "additionalProperties": false,
+            "description": "A stanza contains properties that describe a request to be fulfilled within a manifest.",
+            "longDescription": "This type shall contain properties that describe a request to be fulfilled within a manifest.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "OEMStanzaType": {
+                    "description": "The OEM-defined type of stanza.",
+                    "longDescription": "This property shall contain the OEM-defined type of stanza.  This property shall be present if StanzaType is `OEM`.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Request": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Request"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The request details for the stanza.",
+                    "longDescription": "This property shall contain the request details for the stanza and the contents vary based depending on the value of the StanzaType property."
+                },
+                "Response": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Response"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The response details for the stanza.",
+                    "longDescription": "This property shall contain the response details for the stanza and the contents vary based depending on the value of the StanzaType property."
+                },
+                "StanzaId": {
+                    "description": "The identifier of the stanza.  This is a unique identifier specified by the client and is not used by the service.",
+                    "longDescription": "This property shall contain the identifier of the stanza.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "StanzaType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/StanzaType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The type of stanza.",
+                    "longDescription": "This property shall contain the type of stanza.",
+                    "readonly": false
+                }
+            },
+            "type": "object"
+        },
+        "StanzaType": {
+            "enum": [
+                "ComposeSystem",
+                "DecomposeSystem",
+                "ComposeResource",
+                "DecomposeResource",
+                "OEM",
+                "RegisterResourceBlock"
+            ],
+            "enumDescriptions": {
+                "ComposeResource": "A stanza that describes the desired end state for a composed resource block.  The resources consumed by the composed resource block are moved to the active pool.",
+                "ComposeSystem": "A stanza that describes the desired end state for computer system composition operation.  The resources consumed by the composed computer system are moved to the active pool.",
+                "DecomposeResource": "A stanza that references a composed resource block to decompose and return resources to the free pool.",
+                "DecomposeSystem": "A stanza that references a computer system to decompose and return resources to the free pool.",
+                "OEM": "A stanza that describes an OEM-specific request.",
+                "RegisterResourceBlock": "A stanza that references a resource, such as a computer system, in order to create a resource block that references the resource and add it to the free pool."
+            },
+            "enumLongDescriptions": {
+                "ComposeResource": "This value shall indicate a stanza that describes a composed resource block.  The resource blocks assigned to the composed resource block shall be moved to the active pool.  The Request property of the stanza shall contain a resource of type ResourceBlock that represents the composition request.  The Response property of the stanza shall contain a resource of type ResourceBlock that represents the composed resource block or a Redfish Specification-defined error response.",
+                "ComposeSystem": "This value shall indicate a stanza that describes the specific, constrained, or mixed resources required to compose a computer system.  The resource blocks assigned to the computer system shall be moved to the active pool.  The Request property of the stanza shall contain a resource of type ComputerSystem that represents the composition request.  The Response property of the stanza shall contain a resource of type ComputerSystem that represents the composed system or a Redfish Specification-defined error response.",
+                "DecomposeResource": "This value shall indicate a stanza that references a composed resource block to decompose and return the resource blocks to the free pool that are no longer contributing to composed resources.  The Request property of the stanza shall be a reference object as defined by the 'Reference properties' clause of the Redfish Specification containing a reference to the resource of type ResourceBlock to decompose.  The Response property of the stanza shall contain a resource of type ResourceBlock that represents the decomposed resource block or a Redfish Specification-defined error response.",
+                "DecomposeSystem": "This value shall indicate a stanza that references a computer system to decompose and return the resource blocks to the free pool that are no longer contributing to composed resources.  The Request property of the stanza shall be a Redfish Specification-defined reference object containing a reference to the resource of type ComputerSystem to decompose.  The Response property of the stanza shall contain a resource of type ComputerSystem that represents the decomposed system or a Redfish Specification-defined error response.",
+                "OEM": "This value shall indicate a stanza that describes an OEM-specific request.  The OEMStanzaType property shall contain the specific OEM stanza type.",
+                "RegisterResourceBlock": "This value shall indicate a stanza that references a resource to create a resource block that references the resource and add it to the free pool.  The Request property of the stanza shall contain a resource of type ResourceBlock that represents the registration request.  The Response property of the stanza shall contain a resource of type ResourceBlock that represents the composed system or a Redfish Specification-defined error response."
+            },
+            "enumVersionAdded": {
+                "RegisterResourceBlock": "v1_1_0"
+            },
+            "type": "string"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2022.1",
+    "title": "#Manifest.v1_1_0"
+}

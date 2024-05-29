@@ -1,0 +1,86 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Manager.json",
+    "$ref": "#/definitions/Manager",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Manager": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Manager.v1_0_18.json#/definitions/Manager"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Manager.v1_1_16.json#/definitions/Manager"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Manager.v1_2_16.json#/definitions/Manager"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Manager.v1_3_15.json#/definitions/Manager"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Manager.v1_4_12.json#/definitions/Manager"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Manager.v1_5_11.json#/definitions/Manager"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Manager.v1_6_8.json#/definitions/Manager"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Manager.v1_7_8.json#/definitions/Manager"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Manager.v1_8_7.json#/definitions/Manager"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Manager.v1_9_6.json#/definitions/Manager"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Manager.v1_10_5.json#/definitions/Manager"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Manager.v1_11_4.json#/definitions/Manager"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Manager.v1_12_3.json#/definitions/Manager"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Manager.v1_13_2.json#/definitions/Manager"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Manager.v1_14_2.json#/definitions/Manager"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Manager.v1_15_2.json#/definitions/Manager"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Manager.v1_16_2.json#/definitions/Manager"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Manager.v1_17_2.json#/definitions/Manager"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Manager.v1_18_2.json#/definitions/Manager"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Manager.v1_19_1.json#/definitions/Manager"
+                }
+            ],
+            "deletable": false,
+            "description": "In Redfish, a manager is a systems management entity that can implement or provide access to a Redfish service.  Examples of managers are BMCs (baseboard management controllers), enclosure managers, management controllers, and other subsystems that are assigned manageability functions.  An implementation can have multiple managers, which might be directly accessible through a Redfish-defined interface.",
+            "insertable": false,
+            "longDescription": "This resource shall represent a management subsystem for a Redfish implementation.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/Managers/{ManagerId}"
+            ]
+        }
+    },
+    "language": "en",
+    "owningEntity": "DMTF",
+    "title": "#Manager.Manager"
+}

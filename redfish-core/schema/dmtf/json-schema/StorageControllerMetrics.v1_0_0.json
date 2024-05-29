@@ -1,0 +1,462 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/StorageControllerMetrics.v1_0_0.json",
+    "$ref": "#/definitions/StorageControllerMetrics",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "EGCriticalWarningSummary": {
+            "additionalProperties": false,
+            "description": "The Endurance Group critical warnings summary.",
+            "longDescription": "The object shall contain the NVMe-defined 'Endurance Group Critical Warning Summary'.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "NamespacesInReadOnlyMode": {
+                    "description": "An indication of whether namespaces in one or more Endurance Groups are in read-only mode not as a result of a change in the write protection state of a namespace.",
+                    "longDescription": "This property shall indicates whether namespaces in one or more Endurance Groups are in read-only mode not as a result of a change in the write protection state of a namespace.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "ReliabilityDegraded": {
+                    "description": "An indication of whether the reliability of one or more Endurance Groups is degraded due to significant media related errors or any internal error that degrades the NVM subsystem reliability.",
+                    "longDescription": "This property shall indicate whether the reliability of one or more Endurance Groups is degraded due to significant media related errors or any internal error that degrades the NVM subsystem reliability.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "SpareCapacityUnderThreshold": {
+                    "description": "An indication of whether the available spare capacity of one or more Endurance Groups is below the threshold.",
+                    "longDescription": "This property shall indicate whether the available spare capacity of one or more Endurance Groups is below the threshold.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "NVMeSMARTMetrics": {
+            "additionalProperties": false,
+            "description": "The NVMe SMART metrics.",
+            "longDescription": "This object shall contain the NVMe SMART metrics as defined by the NVMe SMART/Health Information log page.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AvailableSparePercent": {
+                    "description": "The normalized percentage of the remaining spare capacity available.",
+                    "longDescription": "This property shall contain the NVMe-defined 'Available Spare', which represents the normalized percentage of the remaining spare capacity available.",
+                    "maximum": 100,
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "%"
+                },
+                "AvailableSpareThresholdPercent": {
+                    "description": "The available spare threshold as a normalized percentage.",
+                    "longDescription": "This property shall contan the NVMe-defined 'Available Spare Threshold'.  When the available spare falls below this value, an asynchronous event completion may occur.",
+                    "maximum": 100,
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "%"
+                },
+                "CompositeTemperatureCelsius": {
+                    "description": "The composite temperature in degrees Celsius for this storage controller.",
+                    "longDescription": "This property shall contain the composite temperature in degrees Celsius for this storage controller.  Services shall derive this value from the NVMe-defined 'Composite Temperature', which represents a composite temperature in degrees Kelvin of the controller and namespaces associated with that controller.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "Cel"
+                },
+                "ControllerBusyTimeMinutes": {
+                    "description": "The total time the controller is busy with I/O commands in minutes.",
+                    "longDescription": "This property shall contain the NVMe-defined 'Controller Busy Time', which represents the total time the controller is busy with I/O commands in minutes.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "CriticalCompositeTempTimeMinutes": {
+                    "description": "The amount of time in minutes that the controller is operational and the composite temperature is greater than or equal to the critical composite temperature threshold.",
+                    "longDescription": "This property shall contain the NVMe-defined 'Critical Composite Temperature Time', which represents the amount of time in minutes that the controller is operational and the composite temperature is greater than or equal to the critical composite temperature threshold.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "CriticalWarnings": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/StorageController.json#/definitions/NVMeSMARTCriticalWarnings",
+                    "description": "The NVMe SMART critical warnings.",
+                    "longDescription": "The property shall contain the NVMe-defined 'Critical Warning'."
+                },
+                "DataUnitsRead": {
+                    "description": "The number of 512 byte data units the host has read from the controller as part of processing a SMART Data Units Read Command in units of one thousand.",
+                    "longDescription": "This property shall contain the NVMe-defined 'Data Units Read', which represents the number of 512 byte data units the host has read from the controller as part of processing a SMART Data Units Read Command in units of one thousand.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "DataUnitsWritten": {
+                    "description": "The number of 512 byte data units the host has written to the controller as part of processing a User Data Out Command in units of one thousand.",
+                    "longDescription": "This property shall contain the NVMe-defined 'Data Units Written', which represents the number of 512 byte data units the host has written to the controller as part of processing a User Data Out Command in units of one thousand.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "EGCriticalWarningSummary": {
+                    "$ref": "#/definitions/EGCriticalWarningSummary",
+                    "description": "The Endurance Group critical warnings summary.",
+                    "longDescription": "The property shall contain the NVMe-defined 'Endurance Group Critical Warning Summary'."
+                },
+                "HostReadCommands": {
+                    "description": "The number of SMART Host Read Commands completed by the controller.",
+                    "longDescription": "This property shall contain the NVMe-defined 'Host Read Commands', which represents the number of SMART Host Read Commands completed by the controller.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "HostWriteCommands": {
+                    "description": "The number of User Data Out Commands completed by the controller.",
+                    "longDescription": "This property shall contain the NVMe-defined 'Host Write Commands', which represents the number of User Data Out Commands completed by the controller.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "MediaAndDataIntegrityErrors": {
+                    "description": "The number of occurrences where the controller detected an unrecovered data integrity error.",
+                    "longDescription": "This property shall contain the NVMe-defined 'Media and Data Integrity Errors', which represents the number of occurrences where the controller detected an unrecovered data integrity error.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "NumberOfErrorInformationLogEntries": {
+                    "description": "The number of error information log entries over the life of the controller.",
+                    "longDescription": "This property shall contain the NVMe-defined 'Number of Error Information Log Entries', which represents the number of error information log entries over the life of the controller.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "PercentageUsed": {
+                    "description": "The percentage of the NVM subsystem life used.",
+                    "longDescription": "This property shall contain the NVMe-defined 'Percentage Used', which represents a vendor specific estimate of the percentage of the NVM subsystem life used based on the actual usage and the manufacturer's prediction of NVM life.  A value of `100` indicates that the estimated endurance of the NVM in the NVM subsystem has been consumed, but may not indicate an NVM subsystem failure.  The value is allowed to exceed `100`.  Percentages greater than `254` shall be represented as `255`.",
+                    "maximum": 255,
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "%"
+                },
+                "PowerCycles": {
+                    "description": "The number of power cycles.",
+                    "longDescription": "This property shall contain the NVMe-defined 'Power Cycles', which represents the number of power cycles.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "PowerOnHours": {
+                    "description": "The number of power-on hours.",
+                    "longDescription": "This property shall contain the NVMe-defined 'Power On Hours', which represents the number of power-on hours.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "TemperatureSensorsCelsius": {
+                    "description": "The temperature sensor readings in degrees Celsius for this storage controller.",
+                    "items": {
+                        "type": [
+                            "number",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of temperature sensor readings in degrees Celsius for this storage controller.  Services shall derive each array member from the NVMe-defined 'Temperature Sensor' values, which represent a temperature sensor reading in degrees Kelvin.",
+                    "readonly": true,
+                    "type": "array",
+                    "units": "Cel"
+                },
+                "ThermalMgmtTemp1TotalTimeSeconds": {
+                    "description": "The number of seconds the controller transitioned to lower power states or performed vendor-specific thermal management actions while minimizing the impact on performance in order to attempt to reduce the composite temperature.",
+                    "longDescription": "This property shall contain the NVMe-defined 'Total Time For Thermal Management Temperature 1', which represents the number of seconds the controller transitioned to lower power states or performed vendor-specific thermal management actions while minimizing the impact on performance in order to attempt to reduce the composite temperature.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "ThermalMgmtTemp1TransitionCount": {
+                    "description": "The number of times the controller transitioned to lower power states or performed vendor-specific thermal management actions while minimizing the impact on performance in order to attempt to reduce the composite temperature.",
+                    "longDescription": "This property shall contain the NVMe-defined 'Thermal Management Temperature 1 Transition Count', which represents the number of times the controller transitioned to lower power states or performed vendor-specific thermal management actions while minimizing the impact on performance in order to attempt to reduce the composite temperature.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "ThermalMgmtTemp2TotalTimeSeconds": {
+                    "description": "The number of seconds the controller transitioned to lower power states or performed vendor-specific thermal management actions regardless of the impact on performance in order to attempt to reduce the composite temperature.",
+                    "longDescription": "This property shall contain the NVMe-defined 'Total Time For Thermal Management Temperature 2', which represents the number of seconds the controller transitioned to lower power states or performed vendor-specific thermal management actions regardless of the impact on performance in order to attempt to reduce the composite temperature.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "ThermalMgmtTemp2TransitionCount": {
+                    "description": "The number of times the controller transitioned to lower power states or performed vendor-specific thermal management actions regardless of the impact on performance in order to attempt to reduce the composite temperature.",
+                    "longDescription": "This property shall contain the NVMe-defined 'Thermal Management Temperature 2 Transition Count', which represents the number of times the controller transitioned to lower power states or performed vendor-specific thermal management actions regardless of the impact on performance in order to attempt to reduce the composite temperature.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "UnsafeShutdowns": {
+                    "description": "The number of unsafe shutdowns.",
+                    "longDescription": "This property shall contain the NVMe-defined 'Unsafe Shutdowns', which represents the number of times when the controller does not report it is safe to power down prior to loss of main power.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "WarningCompositeTempTimeMinutes": {
+                    "description": "The amount of time in minutes that the controller is operational and the composite temperature is greater than or equal to the warning composite temperature threshold.",
+                    "longDescription": "This property shall contain the NVMe-defined 'Warning Composite Temperature Time', which represents the amount of time in minutes that the controller is operational and the composite temperature is greater than or equal to the warning composite temperature threshold.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "StorageControllerMetrics": {
+            "additionalProperties": false,
+            "description": "The usage and health statistics for a storage controller.",
+            "longDescription": "The StorageControllerMetrics schema shall contain the usage and health statistics for a storage controller in a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "CorrectableECCErrorCount": {
+                    "description": "The number of the correctable errors for the lifetime of the memory of the storage controller.",
+                    "longDescription": "This property shall contain the number of the correctable errors for the lifetime of memory of the storage controller.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "CorrectableParityErrorCount": {
+                    "description": "The number of the correctable parity errors for the lifetime of the memory of the storage controller.",
+                    "longDescription": "This property shall contain the number of the correctable errors for the lifetime of memory of the storage controller.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "NVMeSMART": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/StorageControllerMetrics.json#/definitions/NVMeSMARTMetrics",
+                    "description": "The NVMe SMART metrics for this storage controller.",
+                    "longDescription": "This property shall contain the NVMe SMART metrics for this storage controller as defined by the NVMe SMART/Health Information log page.  This property shall only be present for NVMe storage controllers."
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "StateChangeCount": {
+                    "description": "The number of state changes for this storage controller.",
+                    "longDescription": "This property shall contain the number of times the State property within the Status property of the parent StorageController resource changed.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "UncorrectableECCErrorCount": {
+                    "description": "The number of the uncorrectable errors for the lifetime of the memory of the storage controller.",
+                    "longDescription": "This property shall contain the number of the uncorrectable errors for the lifetime of memory of the storage controller.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "UncorrectableParityErrorCount": {
+                    "description": "The number of the uncorrectable parity errors for the lifetime of the memory of the storage controller.",
+                    "longDescription": "This property shall contain the number of the uncorrectable errors for the lifetime of memory of the storage controller.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2023.1",
+    "title": "#StorageControllerMetrics.v1_0_0.StorageControllerMetrics"
+}

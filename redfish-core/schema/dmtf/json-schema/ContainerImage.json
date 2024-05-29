@@ -1,0 +1,49 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/ContainerImage.json",
+    "$ref": "#/definitions/ContainerImage",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "ContainerImage": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ContainerImage.v1_0_1.json#/definitions/ContainerImage"
+                }
+            ],
+            "deletable": false,
+            "description": "The `ContainerImage` schema represents a container image available to a computer system.",
+            "insertable": false,
+            "longDescription": "This resource shall represent a container image available to a computer system.",
+            "updatable": false,
+            "uris": [
+                "/redfish/v1/Systems/{ComputerSystemId}/OperatingSystem/ContainerImages/{ContainerImageId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/OperatingSystem/ContainerImages/{ContainerImageId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/OperatingSystem/ContainerImages/{ContainerImageId}"
+            ]
+        },
+        "ImageTypes": {
+            "enum": [
+                "DockerV1",
+                "DockerV2",
+                "OCI"
+            ],
+            "enumDescriptions": {
+                "DockerV1": "Docker V1.",
+                "DockerV2": "Docker V2.",
+                "OCI": "OCI (Open Container Initiative)."
+            },
+            "enumLongDescriptions": {
+                "DockerV1": "This value shall indicate a Docker Image Specification Version 1-defined Docker image.",
+                "DockerV2": "This value shall indicate a Docker Image Manifest Version 2-defined Docker image.",
+                "OCI": "This value shall indicate an Open Container Specification-defined OCI (Open Container Initiative) image."
+            },
+            "type": "string"
+        }
+    },
+    "language": "en",
+    "owningEntity": "DMTF",
+    "title": "#ContainerImage.ContainerImage"
+}

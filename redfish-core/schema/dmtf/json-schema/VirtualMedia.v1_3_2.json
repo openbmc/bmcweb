@@ -1,0 +1,416 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/VirtualMedia.v1_3_2.json",
+    "$ref": "#/definitions/VirtualMedia",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this Resource.",
+            "longDescription": "This type shall contain the available actions for this Resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "#VirtualMedia.EjectMedia": {
+                    "$ref": "#/definitions/EjectMedia"
+                },
+                "#VirtualMedia.InsertMedia": {
+                    "$ref": "#/definitions/InsertMedia"
+                },
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this Resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource.",
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
+        },
+        "ConnectedVia": {
+            "enum": [
+                "NotConnected",
+                "URI",
+                "Applet",
+                "Oem"
+            ],
+            "enumDescriptions": {
+                "Applet": "Connected to a client application.",
+                "NotConnected": "No current connection.",
+                "Oem": "Connected through an OEM-defined method.",
+                "URI": "Connected to a URI location."
+            },
+            "type": "string"
+        },
+        "EjectMedia": {
+            "additionalProperties": false,
+            "description": "This action detaches remote media from virtual media.",
+            "longDescription": "This action shall detach the remote media from the virtual media.  At the completion of the operation, inserted shall be set to `false` and the image name shall be cleared.",
+            "parameters": {},
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_2_0"
+        },
+        "InsertMedia": {
+            "additionalProperties": false,
+            "description": "This action attaches remote media to virtual media.",
+            "longDescription": "This action shall attach remote media to virtual media.",
+            "parameters": {
+                "Image": {
+                    "description": "The URI of the remote media to attach to the virtual media.",
+                    "longDescription": "This parameter shall specify the URI of the remote media to be attached to the virtual media.",
+                    "requiredParameter": true,
+                    "type": "string"
+                },
+                "Inserted": {
+                    "description": "An indication of whether the image is treated as inserted upon completion of the action.  The default is `true`.",
+                    "longDescription": "This parameter shall indicate whether the image is treated as inserted upon completion of the action.  If the client does not provide this parameter, the service shall default this value to `true`.",
+                    "type": "boolean"
+                },
+                "Password": {
+                    "description": "The password to access the Image parameter-specified URI.",
+                    "longDescription": "This parameter shall represent the password to access the Image parameter-specified URI.",
+                    "type": "string",
+                    "versionAdded": "v1_3_0"
+                },
+                "TransferMethod": {
+                    "$ref": "#/definitions/TransferMethod",
+                    "description": "The transfer method to use with the Image.",
+                    "longDescription": "This parameter shall describe how the image transfer occurs.",
+                    "versionAdded": "v1_3_0"
+                },
+                "TransferProtocolType": {
+                    "$ref": "#/definitions/TransferProtocolType",
+                    "description": "The network protocol to use with the image.",
+                    "longDescription": "This parameter shall represent the network protocol to use with the specified image URI.",
+                    "versionAdded": "v1_3_0"
+                },
+                "UserName": {
+                    "description": "The user name to access the Image parameter-specified URI.",
+                    "longDescription": "This parameter shall contain the user name to access the Image parameter-specified URI.",
+                    "type": "string",
+                    "versionAdded": "v1_3_0"
+                },
+                "WriteProtected": {
+                    "description": "An indication of whether the remote media is treated as write-protected.  The default is `true`.",
+                    "longDescription": "This parameter shall indicate whether the remote media is treated as write-protected.  If the client does not provide this parameter, the service shall default this value to `true`.",
+                    "type": "boolean"
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_2_0"
+        },
+        "MediaType": {
+            "enum": [
+                "CD",
+                "Floppy",
+                "USBStick",
+                "DVD"
+            ],
+            "enumDescriptions": {
+                "CD": "A CD-ROM format (ISO) image.",
+                "DVD": "A DVD-ROM format image.",
+                "Floppy": "A floppy disk image.",
+                "USBStick": "An emulation of a USB storage device."
+            },
+            "type": "string"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this Resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "TransferMethod": {
+            "enum": [
+                "Stream",
+                "Upload"
+            ],
+            "enumDescriptions": {
+                "Stream": "Stream image file data from the source URI.",
+                "Upload": "Upload the entire image file from the source URI to the service."
+            },
+            "type": "string"
+        },
+        "TransferProtocolType": {
+            "enum": [
+                "CIFS",
+                "FTP",
+                "SFTP",
+                "HTTP",
+                "HTTPS",
+                "NFS",
+                "SCP",
+                "TFTP",
+                "OEM"
+            ],
+            "enumDescriptions": {
+                "CIFS": "Common Internet File System (CIFS).",
+                "FTP": "File Transfer Protocol (FTP).",
+                "HTTP": "Hypertext Transfer Protocol (HTTP).",
+                "HTTPS": "Hypertext Transfer Protocol Secure (HTTPS).",
+                "NFS": "Network File System (NFS).",
+                "OEM": "A manufacturer-defined protocol.",
+                "SCP": "Secure Copy Protocol (SCP).",
+                "SFTP": "Secure File Transfer Protocol (SFTP).",
+                "TFTP": "Trivial File Transfer Protocol (TFTP)."
+            },
+            "type": "string"
+        },
+        "VirtualMedia": {
+            "additionalProperties": false,
+            "description": "The VirtualMedia schema contains properties related to the monitor and control of an instance of virtual media, such as a remote CD, DVD, or USB device.  A manager for a system or device provides virtual media functionality.",
+            "longDescription": "This Resource shall represent a virtual media service for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this Resource.",
+                    "longDescription": "This property shall contain the available actions for this Resource.",
+                    "versionAdded": "v1_1_0"
+                },
+                "ConnectedVia": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ConnectedVia"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The current virtual media connection method.",
+                    "longDescription": "This property shall contain the current connection method from a client to the virtual media that this Resource represents.",
+                    "readonly": true
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Image": {
+                    "description": "The URI of the location of the selected image.",
+                    "format": "uri-reference",
+                    "longDescription": "This property shall contain an URI.  A null value indicated no image connection.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "ImageName": {
+                    "description": "The current image name.",
+                    "longDescription": "This property shall contain the name of the image.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Inserted": {
+                    "description": "An indication of whether virtual media is inserted into the virtual device.",
+                    "longDescription": "This property shall indicate whether media is present in the virtual media device.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "MediaTypes": {
+                    "description": "The media types supported as virtual media.",
+                    "items": {
+                        "$ref": "#/definitions/MediaType"
+                    },
+                    "longDescription": "The values of this array shall be the supported media types for this connection.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "Password": {
+                    "description": "The password to access the Image parameter-specified URI.  This property is null in responses.",
+                    "longDescription": "This parameter shall represent the password to access the Image parameter-specified URI.  The value shall be null in responses.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                },
+                "TransferMethod": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/TransferMethod"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The transfer method to use with the Image.",
+                    "longDescription": "This parameter shall describe how the image transfer occurs.",
+                    "readonly": false,
+                    "versionAdded": "v1_3_0"
+                },
+                "TransferProtocolType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/TransferProtocolType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The network protocol to use with the image.",
+                    "longDescription": "This parameter shall represent the network protocol to use with the specified image URI.",
+                    "readonly": false,
+                    "versionAdded": "v1_3_0"
+                },
+                "UserName": {
+                    "description": "The user name to access the Image parameter-specified URI.",
+                    "longDescription": "This parameter shall represent the user name to access the Image parameter-specified URI.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                },
+                "WriteProtected": {
+                    "description": "An indication of whether the media is write-protected.",
+                    "longDescription": "This property shall indicate whether the remote device media prevents writing to that media.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2018.3",
+    "title": "#VirtualMedia.v1_3_2.VirtualMedia"
+}

@@ -1,0 +1,103 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Settings.json",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "MaintenanceWindow": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Settings.v1_2_8.json#/definitions/MaintenanceWindow"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Settings.v1_3_6.json#/definitions/MaintenanceWindow"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Settings.v1_4_0.json#/definitions/MaintenanceWindow"
+                }
+            ]
+        },
+        "OperationApplyTime": {
+            "enum": [
+                "Immediate",
+                "OnReset",
+                "AtMaintenanceWindowStart",
+                "InMaintenanceWindowOnReset",
+                "OnStartUpdateRequest",
+                "OnTargetReset"
+            ],
+            "enumDescriptions": {
+                "AtMaintenanceWindowStart": "The requested operation is applied within the administrator-specified maintenance window.",
+                "Immediate": "The requested operation is applied immediately.  This value might result in an immediate host reset, manager reset, or other side effects.",
+                "InMaintenanceWindowOnReset": "The requested operation is applied after a reset but within the administrator-specified maintenance window.",
+                "OnReset": "The requested operation is applied on a reset.",
+                "OnStartUpdateRequest": "The requested operation is applied when the `StartUpdate` action of the update service is invoked.",
+                "OnTargetReset": "The requested operation is applied when the target is reset.  Targets include devices, services, and systems."
+            },
+            "enumLongDescriptions": {
+                "AtMaintenanceWindowStart": "This value shall indicate the requested create, delete, or action operation is applied during the maintenance window that the `MaintenanceWindowStartTime` and `MaintenanceWindowDurationInSeconds` properties specify.  A service can complete resets during this maintenance window.",
+                "Immediate": "This value shall indicate the requested create, delete, or action operation is applied immediately.  This value may result in an immediate host reset, manager reset, or other side effects.",
+                "InMaintenanceWindowOnReset": "This value shall indicate the requested create, delete, or action operation is applied during the maintenance window that the `MaintenanceWindowStartTime` and `MaintenanceWindowDurationInSeconds` properties specify, and if a reset occurs within the maintenance window.",
+                "OnReset": "This value shall indicate the requested create, delete, or action operation is applied when the system or service is reset.",
+                "OnStartUpdateRequest": "This value shall indicate the requested create, delete, or action operation is applied when the `StartUpdate` action of the update service is invoked.",
+                "OnTargetReset": "This value shall indicate the requested create, delete, or action operation is applied when the target is reset."
+            },
+            "enumVersionAdded": {
+                "OnStartUpdateRequest": "v1_3_0",
+                "OnTargetReset": "v1_4_0"
+            },
+            "type": "string",
+            "versionAdded": "v1_2_0"
+        },
+        "OperationApplyTimeSupport": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Settings.v1_2_8.json#/definitions/OperationApplyTimeSupport"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Settings.v1_3_6.json#/definitions/OperationApplyTimeSupport"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Settings.v1_4_0.json#/definitions/OperationApplyTimeSupport"
+                }
+            ]
+        },
+        "PreferredApplyTime": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Settings.v1_1_8.json#/definitions/PreferredApplyTime"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Settings.v1_2_8.json#/definitions/PreferredApplyTime"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Settings.v1_3_6.json#/definitions/PreferredApplyTime"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Settings.v1_4_0.json#/definitions/PreferredApplyTime"
+                }
+            ]
+        },
+        "Settings": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Settings.v1_0_8.json#/definitions/Settings"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Settings.v1_1_8.json#/definitions/Settings"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Settings.v1_2_8.json#/definitions/Settings"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Settings.v1_3_6.json#/definitions/Settings"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Settings.v1_4_0.json#/definitions/Settings"
+                }
+            ]
+        }
+    },
+    "language": "en",
+    "owningEntity": "DMTF",
+    "title": "#Settings"
+}

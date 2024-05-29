@@ -1,0 +1,797 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/ManagerNetworkProtocol.v1_7_0.json",
+    "$ref": "#/definitions/ManagerNetworkProtocol",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this Resource.",
+            "longDescription": "This type shall contain the available actions for this Resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this Resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource.",
+                    "versionAdded": "v1_2_0"
+                }
+            },
+            "type": "object"
+        },
+        "EngineId": {
+            "additionalProperties": false,
+            "description": "The engine ID.",
+            "longDescription": "This object shall contain the RFC3411-defined engine ID.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "ArchitectureId": {
+                    "description": "The architecture identifier.",
+                    "longDescription": "This property shall contain the architecture identifier as described in item 3 of the snmpEngineID syntax of RFC3411.  The full RFC3411-defined snmpEngineID is form from the concatenation of the value in the PrivateEnterpriseId property and the value in this property.  If the most significant bit in PrivateEnterpriseId is set to zero, this property shall not be present.",
+                    "pattern": "^([A-Fa-f0-9]{2} ){0,27}[A-Fa-f0-9]{2}$",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_6_0"
+                },
+                "EnterpriseSpecificMethod": {
+                    "description": "The enterprise specific method.",
+                    "longDescription": "This property shall contain the enterprise specific method as described in item 2 of the snmpEngineID syntax of RFC3411.  The full RFC3411-defined snmpEngineID is form from the concatenation of the value in the PrivateEnterpriseId property and the value in this property.  If the most significant bit in PrivateEnterpriseId is set to one, this property shall not be present.",
+                    "pattern": "^([A-Fa-f0-9]{2} ){7}[A-Fa-f0-9]{2}$",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_0"
+                },
+                "PrivateEnterpriseId": {
+                    "description": "The private enterprise ID.",
+                    "longDescription": "This property shall contain an RFC3411-defined private enterprise ID.",
+                    "pattern": "^([A-Fa-f0-9]{2} ){3}[A-Fa-f0-9]{2}$",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_0"
+                }
+            },
+            "type": "object"
+        },
+        "HTTPSProtocol": {
+            "additionalProperties": false,
+            "description": "The settings for a network protocol associated with a manager.",
+            "longDescription": "This type shall describe information about a protocol setting for a manager.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Certificates": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
+                    "description": "The link to a collection of certificates used for HTTPS by this manager.",
+                    "longDescription": "This property shall contain a link to a Resource Collection of type CertificateCollection.",
+                    "readonly": true,
+                    "versionAdded": "v1_4_0"
+                },
+                "Port": {
+                    "description": "The protocol port.",
+                    "longDescription": "This property shall contain the port assigned to the protocol.",
+                    "minimum": 0,
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "ProtocolEnabled": {
+                    "description": "An indication of whether the protocol is enabled.",
+                    "longDescription": "This property shall indicate whether the protocol is enabled.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "ManagerNetworkProtocol": {
+            "additionalProperties": false,
+            "description": "The network service settings for the manager.",
+            "longDescription": "This Resource shall represent the network service settings for the manager.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this Resource.",
+                    "longDescription": "The actions property shall contain the available actions for this Resource.",
+                    "versionAdded": "v1_2_0"
+                },
+                "DHCP": {
+                    "$ref": "#/definitions/Protocol",
+                    "description": "The settings for this manager's DHCPv4 protocol support.",
+                    "longDescription": "This object shall contain the DHCPv4 protocol settings for the manager.",
+                    "versionAdded": "v1_1_0"
+                },
+                "DHCPv6": {
+                    "$ref": "#/definitions/Protocol",
+                    "description": "The settings for this manager's DHCPv6 protocol support.",
+                    "longDescription": "This object shall contain the DHCPv6 protocol settings for the manager.",
+                    "versionAdded": "v1_3_0"
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "FQDN": {
+                    "description": "The fully qualified domain name for the manager obtained by DNS including the host name and top-level domain name.",
+                    "longDescription": "This property shall contain the fully qualified domain name for the manager.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "HTTP": {
+                    "$ref": "#/definitions/Protocol",
+                    "description": "The settings for this manager's HTTP protocol support.",
+                    "longDescription": "This object shall contain the HTTP protocol settings for the manager.  The default Port property value should be `80` for compatibility with established client implementations."
+                },
+                "HTTPS": {
+                    "$ref": "#/definitions/HTTPSProtocol",
+                    "description": "The settings for this manager's HTTPS protocol support.",
+                    "longDescription": "This object shall contain the HTTPS/SSL protocol settings for this manager.  The default Port property value should be `443` for compatibility with established client implementations."
+                },
+                "HostName": {
+                    "description": "The DNS host name of this manager, without any domain information.",
+                    "longDescription": "This property shall contain the host name without any domain information.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "IPMI": {
+                    "$ref": "#/definitions/Protocol",
+                    "description": "The settings for this manager's IPMI-over-LAN protocol support.",
+                    "longDescription": "This object shall contain the IPMI over LAN protocol settings for the manager.  The default Port property value should be `623` for compatibility with established client implementations."
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "KVMIP": {
+                    "$ref": "#/definitions/Protocol",
+                    "description": "The settings for this manager's KVM-IP protocol support that apply to all system instances controlled by this manager.",
+                    "longDescription": "This object shall contain the KVM-IP (Keyboard, Video, Mouse over IP) protocol settings for the manager.  If multiple systems are supported by this manager, these properties, if present, apply to all instances of KVMIP controlled by this manager."
+                },
+                "NTP": {
+                    "$ref": "#/definitions/NTPProtocol",
+                    "description": "The settings for this manager's NTP protocol support.",
+                    "longDescription": "This object shall contain the NTP protocol settings for the manager.",
+                    "versionAdded": "v1_2_0"
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "RDP": {
+                    "$ref": "#/definitions/Protocol",
+                    "description": "The settings for this manager's Remote Desktop Protocol support.",
+                    "longDescription": "This object shall contain the Remote Desktop Protocol settings for the manager.",
+                    "versionAdded": "v1_3_0"
+                },
+                "RFB": {
+                    "$ref": "#/definitions/Protocol",
+                    "description": "The settings for this manager's Remote Frame Buffer protocol support, which can support VNC.",
+                    "longDescription": "This object shall contain the Remote Frame Buffer protocol settings for the manager.",
+                    "versionAdded": "v1_3_0"
+                },
+                "SNMP": {
+                    "$ref": "#/definitions/SNMPProtocol",
+                    "description": "The settings for this manager's SNMP support.",
+                    "longDescription": "This object shall contain the SNMP protocol settings for this manager.  The default Port property value should be `161` for compatibility with established client implementations."
+                },
+                "SSDP": {
+                    "$ref": "#/definitions/SSDProtocol",
+                    "description": "The settings for this manager's SSDP support.",
+                    "longDescription": "This object shall contain the SSDP protocol settings for this manager.  Simple Service Discovery Protocol (SSDP) is for network discovery of devices supporting the Redfish Service.  The default Port property value should be `1900` for compatibility with established client implementations."
+                },
+                "SSH": {
+                    "$ref": "#/definitions/Protocol",
+                    "description": "The settings for this manager's Secure Shell (SSH) protocol support.",
+                    "longDescription": "This object shall contain the Secure Shell (SSH) protocol settings for the manager.  The default value should be 22 for compatibility with established client implementations."
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the Resource and its subordinate or dependent Resources.",
+                    "longDescription": "This property shall contain any status or health properties of the Resource."
+                },
+                "Telnet": {
+                    "$ref": "#/definitions/Protocol",
+                    "description": "The settings for this manager's Telnet protocol support.",
+                    "longDescription": "This object shall contain the Telnet protocol settings for this manager.  The default Port property value should be `23` for compatibility with established client implementations."
+                },
+                "VirtualMedia": {
+                    "$ref": "#/definitions/Protocol",
+                    "description": "The settings for this manager's virtual media support that apply to all system instances controlled by this manager.",
+                    "longDescription": "This object shall contain the virtual media protocol settings for this manager.  The Port property shall contain the TCP port assigned for Virtual Media usage.  If multiple systems are supported by this manager, these properties, if present, apply to all instances of virtual media controlled by this manager."
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "NTPProtocol": {
+            "additionalProperties": false,
+            "description": "The settings for a network protocol associated with a manager.",
+            "longDescription": "This type shall describe information about a protocol setting for a manager.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "NTPServers": {
+                    "description": "Indicates to which NTP servers this manager is subscribed.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain all the NTP servers for which this manager is using to obtain time.",
+                    "readonly": false,
+                    "type": "array",
+                    "versionAdded": "v1_2_0"
+                },
+                "Port": {
+                    "description": "The protocol port.",
+                    "longDescription": "This property shall contain the port assigned to the protocol.",
+                    "minimum": 0,
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "ProtocolEnabled": {
+                    "description": "An indication of whether the protocol is enabled.",
+                    "longDescription": "This property shall indicate whether the protocol is enabled.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "NotifyIPv6Scope": {
+            "enum": [
+                "Link",
+                "Site",
+                "Organization"
+            ],
+            "enumDescriptions": {
+                "Link": "SSDP NOTIFY messages are sent to addresses in the IPv6 local link scope.",
+                "Organization": "SSDP NOTIFY messages are sent to addresses in the IPv6 local organization scope.",
+                "Site": "SSDP NOTIFY messages are sent to addresses in the IPv6 local site scope."
+            },
+            "type": "string"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this Resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "Protocol": {
+            "additionalProperties": false,
+            "description": "The settings for a network protocol associated with a manager.",
+            "longDescription": "This type shall describe information about a protocol setting for a manager.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Port": {
+                    "description": "The protocol port.",
+                    "longDescription": "This property shall contain the port assigned to the protocol.",
+                    "minimum": 0,
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "ProtocolEnabled": {
+                    "description": "An indication of whether the protocol is enabled.",
+                    "longDescription": "This property shall indicate whether the protocol is enabled.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "SNMPAuthenticationProtocols": {
+            "enum": [
+                "Account",
+                "CommunityString",
+                "HMAC_MD5",
+                "HMAC_SHA96",
+                "HMAC128_SHA224",
+                "HMAC192_SHA256",
+                "HMAC256_SHA384",
+                "HMAC384_SHA512"
+            ],
+            "enumDescriptions": {
+                "Account": "Authentication is determined by account settings.",
+                "CommunityString": "SNMP community string authentication.",
+                "HMAC128_SHA224": "HMAC-128-SHA-224 authentication.",
+                "HMAC192_SHA256": "HMAC-192-SHA-256 authentication.",
+                "HMAC256_SHA384": "HMAC-256-SHA-384 authentication.",
+                "HMAC384_SHA512": "HMAC-384-SHA-512 authentication.",
+                "HMAC_MD5": "HMAC-MD5-96 authentication.",
+                "HMAC_SHA96": "HMAC-SHA-96 authentication."
+            },
+            "enumLongDescriptions": {
+                "Account": "This value shall indicate authentication for SNMPv3 access is determined based on the corresponding account settings.",
+                "CommunityString": "This value shall indicate authentication uses SNMP community strings.",
+                "HMAC128_SHA224": "This value shall indicate authentication for SNMPv3 access conforms to the RFC7860-defined usmHMAC128SHA224AuthProtocol.",
+                "HMAC192_SHA256": "This value shall indicate authentication for SNMPv3 access conforms to the RFC7860-defined usmHMAC192SHA256AuthProtocol.",
+                "HMAC256_SHA384": "This value shall indicate authentication for SNMPv3 access conforms to the RFC7860-defined usmHMAC256SHA384AuthProtocol.",
+                "HMAC384_SHA512": "This value shall indicate authentication for SNMPv3 access conforms to the RFC7860-defined usmHMAC384SHA512AuthProtocol.",
+                "HMAC_MD5": "This value shall indicate authentication for SNMPv3 access conforms to the RFC3414-defined HMAC-MD5-96 authentication protocol.",
+                "HMAC_SHA96": "This value shall indicate authentication for SNMPv3 access conforms to the RFC3414-defined HMAC-SHA-96 authentication protocol."
+            },
+            "enumVersionAdded": {
+                "HMAC128_SHA224": "v1_7_0",
+                "HMAC192_SHA256": "v1_7_0",
+                "HMAC256_SHA384": "v1_7_0",
+                "HMAC384_SHA512": "v1_7_0"
+            },
+            "type": "string"
+        },
+        "SNMPCommunity": {
+            "additionalProperties": false,
+            "description": "An SNMP community strings.",
+            "longDescription": "This object shall contain an SNMP community string used to access an SNMP manager.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AccessMode": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/SNMPCommunityAccessMode"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The access level of the SNMP community.",
+                    "longDescription": "This property shall contain the access/privilege level of the SNMP community used to access an SNMP manager.",
+                    "readonly": false,
+                    "versionAdded": "v1_5_0"
+                },
+                "CommunityString": {
+                    "description": "The SNMP community string.",
+                    "longDescription": "This property shall contain the SNMP community string used for accessing an SNMP service on this manager.  If HideCommunityStrings is `true`, this value shall be `null` in responses.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_0"
+                },
+                "Name": {
+                    "description": "The name of the SNMP community.",
+                    "longDescription": "This property shall contain a display name describing the SNMP community.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_0"
+                }
+            },
+            "type": "object"
+        },
+        "SNMPCommunityAccessMode": {
+            "enum": [
+                "Full",
+                "Limited"
+            ],
+            "enumDescriptions": {
+                "Full": "READ-WRITE access mode.",
+                "Limited": "READ-ONLY access mode."
+            },
+            "enumLongDescriptions": {
+                "Full": "This value shall indicate the RFC1157-defined READ-WRITE access mode.",
+                "Limited": "This value shall indicate the RFC1157-defined READ-ONLY access mode."
+            },
+            "type": "string"
+        },
+        "SNMPEncryptionProtocols": {
+            "enum": [
+                "None",
+                "Account",
+                "CBC_DES",
+                "CFB128_AES128"
+            ],
+            "enumDescriptions": {
+                "Account": "Encryption is determined by account settings.",
+                "CBC_DES": "CBC-DES encryption.",
+                "CFB128_AES128": "CFB128-AES-128 encryption.",
+                "None": "No encryption."
+            },
+            "enumLongDescriptions": {
+                "Account": "This value shall indicate encryption is determined based on the corresponding account settings.",
+                "CBC_DES": "This value shall indicate encryption conforms to the RFC3414-defined CBC-DES encryption protocol.",
+                "CFB128_AES128": "This value shall indicate encryption conforms to the RFC3414-defined CFB128-AES-128 encryption protocol.",
+                "None": "This value shall indicate there is no encryption."
+            },
+            "type": "string"
+        },
+        "SNMPProtocol": {
+            "additionalProperties": false,
+            "description": "The settings for a network protocol associated with a manager.",
+            "longDescription": "This type shall describe information about a protocol setting for a manager.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AuthenticationProtocol": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/SNMPAuthenticationProtocols"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The authentication protocol used for SNMP access to this manager.",
+                    "longDescription": "This property shall contain the SNMP authentication protocol used to access this manager.  When the property contains the value `Account`, the SNMP settings in each manager account are used for authentication.",
+                    "readonly": false,
+                    "versionAdded": "v1_5_0"
+                },
+                "CommunityAccessMode": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/SNMPCommunityAccessMode"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The access level of the SNMP community.",
+                    "longDescription": "This property shall contain the access/privilege level of the SNMP community used to access an SNMP manager.",
+                    "readonly": false,
+                    "versionAdded": "v1_5_0"
+                },
+                "CommunityStrings": {
+                    "description": "The SNMP community strings.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/SNMPCommunity"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of the SNMP community strings used to access an SNMP manager.",
+                    "type": "array",
+                    "versionAdded": "v1_5_0"
+                },
+                "EnableSNMPv1": {
+                    "description": "Indicates if access via SNMPv1 is enabled.",
+                    "longDescription": "This property shall indicate if access to the SNMP service on this manager using the SNMPv1 protocol is enabled.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_0"
+                },
+                "EnableSNMPv2c": {
+                    "description": "Indicates if access via SNMPv2c is enabled.",
+                    "longDescription": "This property shall indicate if access to the SNMP service on this manager using the SNMPv2c protocol is enabled.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_0"
+                },
+                "EnableSNMPv3": {
+                    "description": "Indicates if access via SNMPv3 is enabled.",
+                    "longDescription": "This property shall indicate if access to the SNMP service on this manager using the SNMPv3 protocol is enabled.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_0"
+                },
+                "EncryptionProtocol": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/SNMPEncryptionProtocols"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The encryption protocol used for SNMPv3 access to this manager.",
+                    "longDescription": "This property shall contain the SNMPv3 encryption protocol used to access this manager, unless AuthenticationProtocol contains the value `Account`.",
+                    "readonly": false,
+                    "versionAdded": "v1_5_0"
+                },
+                "EngineId": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/EngineId"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The engine ID.",
+                    "longDescription": "This property shall contain the RFC3411-defined engine ID.",
+                    "versionAdded": "v1_5_0"
+                },
+                "HideCommunityStrings": {
+                    "description": "Indicates if the community strings should be hidden.",
+                    "longDescription": "This property shall indicate if the community strings should be hidden in responses.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_0"
+                },
+                "Port": {
+                    "description": "The protocol port.",
+                    "longDescription": "This property shall contain the port assigned to the protocol.",
+                    "minimum": 0,
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "ProtocolEnabled": {
+                    "description": "An indication of whether the protocol is enabled.",
+                    "longDescription": "This property shall indicate whether the protocol is enabled.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "SSDProtocol": {
+            "additionalProperties": false,
+            "description": "The settings for a network protocol associated with a manager.",
+            "longDescription": "This type shall describe information about a protocol setting for a manager.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "NotifyIPv6Scope": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/NotifyIPv6Scope"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The IPv6 scope for multicast NOTIFY messages for SSDP.",
+                    "longDescription": "This property shall contain the IPv6 scope for multicast NOTIFY messages.  The valid enumerations are a subset of the available IPv6 scope types.",
+                    "readonly": false
+                },
+                "NotifyMulticastIntervalSeconds": {
+                    "description": "The time interval, in seconds, between transmissions of the multicast NOTIFY ALIVE message from this service for SSDP.",
+                    "longDescription": "This property shall contain the time interval, in seconds, between transmissions of the multicast NOTIFY ALIVE message.  A setting of 0 seconds shall disable this functionality.  The recommended value is 600 seconds.",
+                    "minimum": 0,
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "s"
+                },
+                "NotifyTTL": {
+                    "description": "The time-to-live hop count for SSDP multicast NOTIFY messages.",
+                    "longDescription": "This property shall contain the time-to-live hop count used for multicast NOTIFY messages.  The recommended value is 2.",
+                    "minimum": 1,
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "Port": {
+                    "description": "The protocol port.",
+                    "longDescription": "This property shall contain the port assigned to the protocol.",
+                    "minimum": 0,
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "ProtocolEnabled": {
+                    "description": "An indication of whether the protocol is enabled.",
+                    "longDescription": "This property shall indicate whether the protocol is enabled.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2020.4",
+    "title": "#ManagerNetworkProtocol.v1_7_0.ManagerNetworkProtocol"
+}

@@ -1,0 +1,383 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/CoolingUnit.v1_1_1.json",
+    "$ref": "#/definitions/CoolingUnit",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "CoolingEquipmentType": {
+            "enum": [
+                "CDU",
+                "HeatExchanger",
+                "ImmersionUnit"
+            ],
+            "enumDescriptions": {
+                "CDU": "A coolant distribution unit (CDU).",
+                "HeatExchanger": "A heat exchanger.",
+                "ImmersionUnit": "An immersion cooling unit."
+            },
+            "type": "string"
+        },
+        "CoolingUnit": {
+            "additionalProperties": false,
+            "description": "This is the schema definition for a cooling system component or unit, such as a coolant distribution unit (CDU) or a heat exchanger.",
+            "longDescription": "This resource shall represent a cooling system component or unit for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "Assembly": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Assembly.json#/definitions/Assembly",
+                    "description": "The link to the assembly associated with this cooling unit.",
+                    "longDescription": "This property shall contain a link to a resource of type Assembly.",
+                    "readonly": true
+                },
+                "AssetTag": {
+                    "description": "The user-assigned asset tag for this equipment.",
+                    "longDescription": "This property shall contain the user-assigned asset tag, which is an identifying string that tracks the equipment for inventory purposes.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Coolant": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CoolingLoop.json#/definitions/Coolant",
+                    "description": "Details about the coolant used in this unit.",
+                    "longDescription": "This property shall contain details regarding the coolant contained or used by this unit."
+                },
+                "CoolantConnectorRedundancy": {
+                    "description": "The redundancy information for the coolant connectors in this cooling unit.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Redundancy.json#/definitions/RedundantGroup"
+                    },
+                    "longDescription": "This property shall contain redundancy information for the set of coolant connectors attached to this equipment.  The values of the RedundancyGroup array shall reference resources of type CoolantConnector.",
+                    "type": "array",
+                    "versionAdded": "v1_1_0"
+                },
+                "CoolingCapacityWatts": {
+                    "description": "The cooling capacity (W) of this equipment.",
+                    "longDescription": "This property shall contain the manufacturer-provided cooling capacity, in watt units, of this equipment.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "EnvironmentMetrics": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EnvironmentMetrics.json#/definitions/EnvironmentMetrics",
+                    "description": "The link to the environment metrics for this equipment.",
+                    "longDescription": "This property shall contain a link to a resource of type EnvironmentMetrics that specifies the environment metrics for this equipment.",
+                    "readonly": true
+                },
+                "EquipmentType": {
+                    "$ref": "#/definitions/CoolingEquipmentType",
+                    "description": "The type of equipment this resource represents.",
+                    "longDescription": "This property shall contain the type of equipment this resource represents.",
+                    "readonly": true
+                },
+                "FilterRedundancy": {
+                    "description": "The redundancy information for the groups of filters in this unit.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Redundancy.json#/definitions/RedundantGroup"
+                    },
+                    "longDescription": "This property shall contain redundancy information for the groups of filters in this unit.",
+                    "type": "array"
+                },
+                "Filters": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/FilterCollection.json#/definitions/FilterCollection",
+                    "description": "A link to the filters for this equipment.",
+                    "longDescription": "This property shall contain a link to a resource collection of type FilterCollection that contains the filter information for this equipment.",
+                    "readonly": true
+                },
+                "FirmwareVersion": {
+                    "description": "The firmware version of this equipment.",
+                    "longDescription": "This property shall contain a string describing the firmware version of this equipment as provided by the manufacturer.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "LeakDetection": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/LeakDetection.json#/definitions/LeakDetection",
+                    "description": "A link to the leak detection components associated with this equipment.",
+                    "longDescription": "This property shall contain a link to a resource of type LeakDetection that contains the leak detection component information for this equipment.",
+                    "readonly": true
+                },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
+                },
+                "Location": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location",
+                    "description": "The location of the equipment.",
+                    "longDescription": "This property shall contain the location information of the associated equipment."
+                },
+                "Manufacturer": {
+                    "description": "The manufacturer of this equipment.",
+                    "longDescription": "This property shall contain the name of the organization responsible for producing the equipment.  This organization may be the entity from which the equipment is purchased, but this is not necessarily true.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Model": {
+                    "description": "The product model number of this equipment.",
+                    "longDescription": "This property shall contain the manufacturer-provided model information of this equipment.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "PartNumber": {
+                    "description": "The part number for this equipment.",
+                    "longDescription": "This property shall contain the manufacturer-provided part number for the equipment.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "PrimaryCoolantConnectors": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CoolantConnectorCollection.json#/definitions/CoolantConnectorCollection",
+                    "description": "A link to the primary coolant connectors for this equipment.",
+                    "longDescription": "This property shall contain a link to a resource collection of type CoolantConnectorCollection that contains the primary coolant connectors for this equipment.",
+                    "readonly": true
+                },
+                "ProductionDate": {
+                    "description": "The production or manufacturing date of this equipment.",
+                    "format": "date-time",
+                    "longDescription": "This property shall contain the date of production or manufacture for this equipment.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "PumpRedundancy": {
+                    "description": "The redundancy information for the groups of pumps in this unit.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Redundancy.json#/definitions/RedundantGroup"
+                    },
+                    "longDescription": "This property shall contain redundancy information for the groups of pumps in this unit.",
+                    "type": "array"
+                },
+                "Pumps": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PumpCollection.json#/definitions/PumpCollection",
+                    "description": "A link to the pumps for this equipment.",
+                    "longDescription": "This property shall contain a link to a resource collection of type PumpCollection that contains the pump information for this equipment.",
+                    "readonly": true
+                },
+                "Reservoirs": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ReservoirCollection.json#/definitions/ReservoirCollection",
+                    "description": "A link to the reservoirs for this equipment.",
+                    "longDescription": "This property shall contain a link to a resource collection of type ReservoirCollection that contains the reservoir information for this equipment.",
+                    "readonly": true
+                },
+                "SecondaryCoolantConnectors": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CoolantConnectorCollection.json#/definitions/CoolantConnectorCollection",
+                    "description": "A link to the secondary coolant connectors for this equipment.",
+                    "longDescription": "This property shall contain a link to a resource collection of type CoolantConnectorCollection that contains the secondary coolant connectors for this equipment.",
+                    "readonly": true
+                },
+                "SerialNumber": {
+                    "description": "The serial number for this equipment.",
+                    "longDescription": "This property shall contain a manufacturer-allocated number that identifies the equipment.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                },
+                "UserLabel": {
+                    "description": "A user-assigned label.",
+                    "longDescription": "This property shall contain a user-assigned label used to identify this resource.  If a value has not been assigned by a user, the value of this property shall be an empty string.",
+                    "readonly": false,
+                    "type": "string"
+                },
+                "Version": {
+                    "description": "The hardware version of this equipment.",
+                    "longDescription": "This property shall contain the hardware version of this equipment as determined by the vendor or supplier.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "EquipmentType",
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "Links": {
+            "additionalProperties": false,
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Chassis": {
+                    "description": "An array of links to the chassis that contain this equipment.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.json#/definitions/Chassis"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Chassis that represent the physical containers that contain this equipment.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "Chassis@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Facility": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Facility.json#/definitions/Facility",
+                    "description": "A link to the facility that contains this equipment.",
+                    "longDescription": "This property shall contain a link to a resource of type Facility that represents the facility that contains this equipment.",
+                    "readonly": true
+                },
+                "ManagedBy": {
+                    "description": "An array of links to the managers responsible for managing this equipment.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Manager.json#/definitions/Manager"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Manager that represent the managers that manage this equipment.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "ManagedBy@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2023.2",
+    "title": "#CoolingUnit.v1_1_1.CoolingUnit"
+}

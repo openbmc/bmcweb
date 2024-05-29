@@ -1,0 +1,443 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/CoolingLoop.v1_0_2.json",
+    "$ref": "#/definitions/CoolingLoop",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "Coolant": {
+            "additionalProperties": false,
+            "description": "This type describes coolant.",
+            "longDescription": "This type shall describe the coolant used with a device.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AdditiveName": {
+                    "description": "The name of the additive.",
+                    "longDescription": "This property shall contain the name of the additive contained in the coolant.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "AdditivePercent": {
+                    "description": "The percent additives contained in the coolant.",
+                    "longDescription": "This property shall contain the percent of additives, `0` to `100`, by volume, contained in the coolant mixture.",
+                    "maximum": 100,
+                    "minimum": 0,
+                    "readonly": false,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "%"
+                },
+                "CoolantType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/CoolantType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The type of coolant.",
+                    "longDescription": "This property shall contain the type of coolant used by this resource.",
+                    "readonly": false
+                },
+                "DensityKgPerCubicMeter": {
+                    "description": "The density (kg/m^3) of the coolant.",
+                    "longDescription": "This property shall contain the density of the coolant, in kilograms per cubic meter units, as measured at room temperature (20-25 degrees C) and atmospheric pressure.",
+                    "readonly": false,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "kg/m3"
+                },
+                "RatedServiceHours": {
+                    "description": "The rated hours of service life for this coolant.",
+                    "longDescription": "This property shall contain the number of hours of service that the coolant is rated to provide before servicing or replacement is necessary.",
+                    "readonly": false,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "ServiceHours": {
+                    "description": "The hours of service this coolant has provided.",
+                    "longDescription": "This property shall contain the number of hours of service that the coolant has provided.",
+                    "readonly": false,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "ServicedDate": {
+                    "description": "The date the coolant was last serviced.",
+                    "format": "date-time",
+                    "longDescription": "This property shall contain the date the coolant was last serviced or tested for quality.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "SpecificHeatkJoulesPerKgK": {
+                    "description": "The specific heat capacity (kJ/(kg*K)) of the coolant.",
+                    "longDescription": "This property shall contain the specific heat capacity of the coolant, in kilojoules per kilogram per degree kelvin units, as measured at room temperature (20-25 degrees C) and atmospheric pressure.",
+                    "readonly": false,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "kJ/kg/K"
+                }
+            },
+            "type": "object"
+        },
+        "CoolantType": {
+            "enum": [
+                "Water",
+                "Hydrocarbon",
+                "Fluorocarbon",
+                "Dielectric"
+            ],
+            "enumDescriptions": {
+                "Dielectric": "Dielectric fluid.",
+                "Fluorocarbon": "Fluorocarbon-based.",
+                "Hydrocarbon": "Hydrocarbon-based.",
+                "Water": "Water or glycol mixture, including additives."
+            },
+            "type": "string"
+        },
+        "CoolingLoop": {
+            "additionalProperties": false,
+            "description": "This schema describes a cooling loop.  A cooling loop might be any coolant-carrying vessel, such as facility-level pipework, an immersion cooling tank, or a manifold.  A loop might describe its connectors and instrumentation but does not generally include active cooling components or subsystems.",
+            "longDescription": "This resource shall represent a cooling loop for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "ConsumingEquipmentNames": {
+                    "description": "An array of names of downstream devices that receive coolant from this cooling loop.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of user-assigned identifying strings that describe downstream devices that receive coolant from this cooling loop.",
+                    "readonly": false,
+                    "type": "array"
+                },
+                "Coolant": {
+                    "$ref": "#/definitions/Coolant",
+                    "description": "The coolant details for this cooling loop.",
+                    "longDescription": "This property shall contain the details about the coolant contained in this cooling loop."
+                },
+                "CoolantLevelPercent": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The coolant capacity filled (percent).",
+                    "excerptCopy": "SensorExcerpt",
+                    "longDescription": "This property shall contain the amount of coolant capacity, in percent units, filled in this cooling loop.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Percent`.  Services that support this property shall also return the CoolantLevelStatus property.",
+                    "readonly": true
+                },
+                "CoolantLevelStatus": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Health"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The status of the coolant level in this cooling loop.",
+                    "longDescription": "This property shall indicate the status of the coolant level in this cooling loop.",
+                    "readonly": true
+                },
+                "CoolantQuality": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Health"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The quality of the coolant.",
+                    "longDescription": "This property shall indicate the quality of the coolant contained in this cooling loop.",
+                    "readonly": true
+                },
+                "CoolingManagerURI": {
+                    "description": "The link to the application that manages the cooling loop.",
+                    "format": "uri-reference",
+                    "longDescription": "This property shall contain a URI to the application or device that provides administration or management of the cooling loop associated with this interface.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
+                },
+                "LocationIndicatorActive": {
+                    "description": "An indicator allowing an operator to physically locate this resource.",
+                    "longDescription": "This property shall contain the state of the indicator used to physically identify or locate this resource.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "PrimaryCoolantConnectors": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CoolantConnectorCollection.json#/definitions/CoolantConnectorCollection",
+                    "description": "A link to the primary coolant connectors for this equipment.",
+                    "longDescription": "This property shall contain a link to a resource collection of type CoolantConnectorCollection that contains the primary coolant connectors for this equipment.",
+                    "readonly": true
+                },
+                "RatedFlowLitersPerMinute": {
+                    "description": "The rated liquid flow (L/min) for this cooling loop.",
+                    "longDescription": "This property shall contain the rated liquid flow, in liters per minute units, for this cooling loop.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "L/min"
+                },
+                "RatedPressurekPa": {
+                    "description": "The rated pressure (kPa) for this cooling loop.",
+                    "longDescription": "This property shall contain the rated maximum pressure, in kilopascal units, for this cooling loop.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "kPa"
+                },
+                "SecondaryCoolantConnectors": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CoolantConnectorCollection.json#/definitions/CoolantConnectorCollection",
+                    "description": "A link to the secondary coolant connectors for this equipment.",
+                    "longDescription": "This property shall contain a link to a resource collection of type CoolantConnectorCollection that contains the secondary coolant connectors for this equipment.",
+                    "readonly": true
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                },
+                "SupplyEquipmentNames": {
+                    "description": "An array of names of upstream devices that supply coolant to this cooling loop.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of user-assigned identifying strings that describe upstream devices that supply coolant to this cooling loop.",
+                    "readonly": false,
+                    "type": "array"
+                },
+                "UserLabel": {
+                    "description": "A user-assigned label.",
+                    "longDescription": "This property shall contain a user-assigned label used to identify this resource.  If a value has not been assigned by a user, the value of this property shall be an empty string.",
+                    "readonly": false,
+                    "type": "string"
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "Links": {
+            "additionalProperties": false,
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Chassis": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.json#/definitions/Chassis"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "A link to the chassis that contains this equipment.",
+                    "longDescription": "This property shall contain a link to resources of type Chassis that represent the physical container that contains this resource.",
+                    "readonly": true
+                },
+                "Facility": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Facility.json#/definitions/Facility",
+                    "description": "A link to the facility that contains this equipment.",
+                    "longDescription": "This property shall contain a link to a resource of type Facility that represents the facility that contains this equipment.",
+                    "readonly": true
+                },
+                "ManagedBy": {
+                    "description": "An array of links to the managers responsible for managing this equipment.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Manager.json#/definitions/Manager"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Manager that represent the managers that manage this equipment.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "ManagedBy@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2023.1",
+    "title": "#CoolingLoop.v1_0_2.CoolingLoop"
+}

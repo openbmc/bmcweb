@@ -1,0 +1,51 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Privileges.json",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "PrivilegeType": {
+            "enum": [
+                "Login",
+                "ConfigureManager",
+                "ConfigureUsers",
+                "ConfigureSelf",
+                "ConfigureComponents",
+                "NoAuth",
+                "ConfigureCompositionInfrastructure",
+                "AdministrateSystems",
+                "OperateSystems",
+                "AdministrateStorage",
+                "OperateStorageBackup"
+            ],
+            "enumDescriptions": {
+                "AdministrateStorage": "Administrator for storage subsystems and storage systems found in the storage collection and storage system collection respectively.",
+                "AdministrateSystems": "Administrator for systems found in the systems collection.  Able to manage boot configuration, keys, and certificates for systems.",
+                "ConfigureComponents": "Can configure components that this service manages.",
+                "ConfigureCompositionInfrastructure": "Can view and configure composition service resources.",
+                "ConfigureManager": "Can configure managers.",
+                "ConfigureSelf": "Can change the password for the current user account, log out of their own sessions, and perform operations on resources they created.  Services will need to be aware of resource ownership to map this privilege to an operation from a particular user.",
+                "ConfigureUsers": "Can configure users and their accounts.",
+                "Login": "Can log in to the service and read resources.",
+                "NoAuth": "Authentication is not required.",
+                "OperateStorageBackup": "Operator for storage backup functionality for storage subsystems and storage systems found in the storage collection and storage system collection respectively.",
+                "OperateSystems": "Operator for systems found in the systems collection.  Able to perform resets and configure interfaces."
+            },
+            "enumLongDescriptions": {
+                "ConfigureCompositionInfrastructure": "This value shall be used to indicate the user can view and configure composition service resources without matching the `Client` property in the `ResourceBlock` or `CompositionReservation` resources.",
+                "NoAuth": "This value shall be used to indicate an operation does not require authentication.  This privilege shall not be used in Redfish roles."
+            },
+            "enumVersionAdded": {
+                "AdministrateStorage": "2022.2",
+                "AdministrateSystems": "2022.2",
+                "ConfigureCompositionInfrastructure": "2021.1",
+                "NoAuth": "2019.3",
+                "OperateStorageBackup": "2022.2",
+                "OperateSystems": "2022.2"
+            },
+            "type": "string"
+        }
+    },
+    "language": "en",
+    "owningEntity": "DMTF",
+    "title": "#Privileges"
+}

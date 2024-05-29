@@ -1,0 +1,1285 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/NetworkDeviceFunction.v1_9_1.json",
+    "$ref": "#/definitions/NetworkDeviceFunction",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource.",
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
+        },
+        "AuthenticationMethod": {
+            "enum": [
+                "None",
+                "CHAP",
+                "MutualCHAP"
+            ],
+            "enumDescriptions": {
+                "CHAP": "iSCSI Challenge Handshake Authentication Protocol (CHAP) authentication is used.",
+                "MutualCHAP": "iSCSI Mutual Challenge Handshake Authentication Protocol (CHAP) authentication is used.",
+                "None": "No iSCSI authentication is used."
+            },
+            "type": "string"
+        },
+        "BootMode": {
+            "enum": [
+                "Disabled",
+                "PXE",
+                "iSCSI",
+                "FibreChannel",
+                "FibreChannelOverEthernet",
+                "HTTP"
+            ],
+            "enumDescriptions": {
+                "Disabled": "Do not indicate to UEFI/BIOS that this device is bootable.",
+                "FibreChannel": "Boot this device by using the embedded Fibre Channel support and configuration.  Only applicable if the NetDevFuncType is `FibreChannel`.",
+                "FibreChannelOverEthernet": "Boot this device by using the embedded Fibre Channel over Ethernet (FCoE) boot support and configuration.  Only applicable if the NetDevFuncType is `FibreChannelOverEthernet`.",
+                "HTTP": "Boot this device by using the embedded HTTP/HTTPS support.  Only applicable if the NetDevFuncType is `Ethernet`.",
+                "PXE": "Boot this device by using the embedded PXE support.  Only applicable if the NetDevFuncType is `Ethernet` or `InfiniBand`.",
+                "iSCSI": "Boot this device by using the embedded iSCSI boot support and configuration.  Only applicable if the NetDevFuncType is `iSCSI` or `Ethernet`."
+            },
+            "enumVersionAdded": {
+                "HTTP": "v1_9_0"
+            },
+            "type": "string"
+        },
+        "BootTargets": {
+            "additionalProperties": false,
+            "description": "A Fibre Channel boot target configured for a network device function.",
+            "longDescription": "This type shall describe a Fibre Channel boot target configured for a network device function.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "BootPriority": {
+                    "description": "The relative priority for this entry in the boot targets array.",
+                    "longDescription": "This property shall contain the relative priority for this entry in the boot targets array.  Lower numbers shall represent higher priority, with zero being the highest priority.  The BootPriority shall be unique for all entries of the BootTargets array.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "LUNID": {
+                    "description": "The logical unit number (LUN) ID from which to boot on the device to which the corresponding WWPN refers.",
+                    "longDescription": "This property shall contain the logical unit number (LUN) ID from which to boot on the device to which the corresponding WWPN refers.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "WWPN": {
+                    "description": "The World Wide Port Name (WWPN) from which to boot.",
+                    "longDescription": "This property shall contain World Wide Port Name (WWPN) from which to boot.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "DataDirection": {
+            "enum": [
+                "None",
+                "Ingress",
+                "Egress"
+            ],
+            "enumDescriptions": {
+                "Egress": "Indicates that this limit is enforced on packets and bytes transmitted by the network device function.",
+                "Ingress": "Indicates that this limit is enforced on packets and bytes received by the network device function.",
+                "None": "Indicates that this limit not enforced."
+            },
+            "type": "string"
+        },
+        "Ethernet": {
+            "additionalProperties": false,
+            "description": "This type describes Ethernet capabilities, status, and configuration for a network device function.",
+            "longDescription": "This type shall describe the Ethernet capabilities, status, and configuration values for a network device function.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "EthernetInterfaces": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/EthernetInterfaceCollection.json#/definitions/EthernetInterfaceCollection"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The Ethernet interface collection that represents all the Ethernet Interfaces on this network device function.",
+                    "longDescription": "This property shall contain a link to a collection of type EthernetInterfaceCollection that represent the Ethernet interfaces present on this network device function.  This property shall not be present if this network device function is not referenced by a NetworkInterface resource.",
+                    "readonly": true,
+                    "versionAdded": "v1_7_0"
+                },
+                "MACAddress": {
+                    "description": "The currently configured MAC address.",
+                    "longDescription": "This property shall contain the effective current MAC address of this network device function.  If an assignable MAC address is not supported, this is a read-only alias of the PermanentMACAddress.",
+                    "pattern": "^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "MTUSize": {
+                    "description": "The maximum transmission unit (MTU) configured for this network device function.",
+                    "longDescription": "The maximum transmission unit (MTU) configured for this network device function.  This value serves as a default for the OS driver when booting.  The value only takes effect on boot.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "MTUSizeMaximum": {
+                    "description": "The largest maximum transmission unit (MTU) size supported for this network device function.",
+                    "longDescription": "This property shall contain the largest maximum transmission unit (MTU) size supported for this network device function.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_0"
+                },
+                "PermanentMACAddress": {
+                    "description": "The permanent MAC address assigned to this function.",
+                    "longDescription": "This property shall contain the permanent MAC Address of this function.  Typically, this value is programmed during manufacturing.  This address is not assignable.",
+                    "pattern": "^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "VLAN": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/VLanNetworkInterface.json#/definitions/VLAN",
+                    "description": "The VLAN information for this interface.  If this network interface supports more than one VLAN, this property is not present.",
+                    "longDescription": "This property shall contain the VLAN for this interface.  If this interface supports more than one VLAN, the VLAN property shall not be present and the VLANs property shall be present instead.",
+                    "versionAdded": "v1_3_0"
+                },
+                "VLANs": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/VLanNetworkInterfaceCollection.json#/definitions/VLanNetworkInterfaceCollection",
+                    "deprecated": "This property has been deprecated in favor of representing multiple VLANs as EthernetInterface resources.",
+                    "description": "The link to a collection of VLANs.  This property is used only if the interface supports more than one VLAN.",
+                    "longDescription": "This property shall contain a link to a resource collection of type VLanNetworkInterfaceCollection.  If this property is used, the VLANEnabled and VLANId property shall not be used.",
+                    "readonly": true,
+                    "versionAdded": "v1_3_0",
+                    "versionDeprecated": "v1_7_0"
+                }
+            },
+            "type": "object"
+        },
+        "FibreChannel": {
+            "additionalProperties": false,
+            "description": "This type describes Fibre Channel capabilities, status, and configuration for a network device function.",
+            "longDescription": "This type shall describe the Fibre Channel capabilities, status, and configuration values for a network device function.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AllowFIPVLANDiscovery": {
+                    "description": "An indication of whether the FCoE Initialization Protocol (FIP) populates the FCoE VLAN ID.",
+                    "longDescription": "For FCoE connections, this boolean property shall indicate whether the FIP VLAN Discovery Protocol determines the FCoE VLAN ID selected by the network device function for the FCoE connection.  If `true` and the FIP VLAN discovery succeeds, the FCoEActiveVLANId property shall reflect the FCoE VLAN ID to use for all FCoE traffic.  If `false` or if the FIP VLAN Discovery protocol fails, the FCoELocalVLANId shall be used for all FCoE traffic and the FCoEActiveVLANId shall reflect the FCoELocalVLANId.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "BootTargets": {
+                    "description": "An array of Fibre Channel boot targets configured for this network device function.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/BootTargets"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of Fibre Channel boot targets configured for this network device function.",
+                    "type": "array"
+                },
+                "FCoEActiveVLANId": {
+                    "description": "The active FCoE VLAN ID.",
+                    "longDescription": "For FCoE connections, this property shall contain `null` or a VLAN ID currently being used for FCoE traffic.  When the FCoE link is down this value shall be `null`.  When the FCoE link is up this value shall be either the FCoELocalVLANId property or a VLAN discovered through the FIP protocol.",
+                    "maximum": 4094,
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "FCoELocalVLANId": {
+                    "description": "The locally configured FCoE VLAN ID.",
+                    "longDescription": "For FCoE connections, this property shall contain the VLAN ID configured locally by setting this property.  This value shall be used for FCoE traffic to this network device function during boot unless AllowFIPVLANDiscovery is `true` and a valid FCoE VLAN ID is found through the FIP VLAN Discovery Protocol.",
+                    "maximum": 4094,
+                    "minimum": 0,
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "FibreChannelId": {
+                    "description": "The Fibre Channel ID that the switch assigns for this interface.",
+                    "longDescription": "This property shall indicate the Fibre Channel ID that the switch assigns for this interface.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                },
+                "PermanentWWNN": {
+                    "description": "The permanent World Wide Node Name (WWNN) address assigned to this function.",
+                    "longDescription": "This property shall contain the permanent World Wide Node Name (WWNN) of this function.  Typically, this value is programmed during manufacturing.  This address is not assignable.",
+                    "pattern": "^([0-9A-Fa-f]{2}[:-]){7}([0-9A-Fa-f]{2})$",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "PermanentWWPN": {
+                    "description": "The permanent World Wide Port Name (WWPN) address assigned to this function.",
+                    "longDescription": "This property shall contain the permanent World Wide Port Name (WWPN) of this function.  Typically, this value is programmed during manufacturing.  This address is not assignable.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "WWNN": {
+                    "description": "The currently configured World Wide Node Name (WWNN) address of this function.",
+                    "longDescription": "This property shall contain the effective current World Wide Node Name (WWNN) of this function.  If an assignable WWNN is not supported, this is a read-only alias of the permanent WWNN.",
+                    "pattern": "^([0-9A-Fa-f]{2}[:-]){7}([0-9A-Fa-f]{2})$",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "WWNSource": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/WWNSource"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The configuration source of the World Wide Names (WWN) for this World Wide Node Name (WWNN) and World Wide Port Name (WWPN) connection.",
+                    "longDescription": "This property shall contain the configuration source of the World Wide Name (WWN) for this World Wide Node Name (WWNN) and World Wide Port Name (WWPN) connection.",
+                    "readonly": false
+                },
+                "WWPN": {
+                    "description": "The currently configured World Wide Port Name (WWPN) address of this function.",
+                    "longDescription": "This property shall contain the effective current World Wide Port Name (WWPN) of this function.  If an assignable WWPN is not supported, this is a read-only alias of the permanent WWPN.",
+                    "pattern": "^([0-9A-Fa-f]{2}[:-]){7}([0-9A-Fa-f]{2})$",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "HTTPBoot": {
+            "additionalProperties": false,
+            "description": "The HTTP and HTTPS boot capabilities, status, and configuration for a network device function.",
+            "longDescription": "This type shall describe the HTTP and HTTPS boot capabilities, status, and configuration values for a network device function.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "BootMediaURI": {
+                    "description": "The URI of the boot media loaded with this network device function.",
+                    "format": "uri-reference",
+                    "longDescription": "This property shall contain the URI of the boot media loaded with this network device function.  An empty string shall indicate no boot media is configured.  All other values shall begin with `http://` or `https://`.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_9_0"
+                }
+            },
+            "type": "object"
+        },
+        "IPAddressType": {
+            "enum": [
+                "IPv4",
+                "IPv6"
+            ],
+            "enumDescriptions": {
+                "IPv4": "IPv4 addressing is used for all IP-fields in this object.",
+                "IPv6": "IPv6 addressing is used for all IP-fields in this object."
+            },
+            "type": "string"
+        },
+        "InfiniBand": {
+            "additionalProperties": false,
+            "description": "This type describes InfiniBand capabilities, status, and configuration of a network device function.",
+            "longDescription": "This type shall describe the InfiniBand capabilities, status, and configuration values for a network device function.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "MTUSize": {
+                    "description": "The maximum transmission unit (MTU) configured for this network device function.",
+                    "longDescription": "The maximum transmission unit (MTU) configured for this network device function.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_0"
+                },
+                "NodeGUID": {
+                    "description": "This is the currently configured node GUID of the network device function.",
+                    "longDescription": "This property shall contain the effective current node GUID of this virtual port of this network device function.  If an assignable node GUID is not supported, this is a read-only alias of the PermanentNodeGUID.",
+                    "pattern": "^([0-9A-Fa-f]{4}[:-]){3}([0-9A-Fa-f]{4})$",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_0"
+                },
+                "PermanentNodeGUID": {
+                    "description": "The permanent node GUID assigned to this network device function.",
+                    "longDescription": "This property shall contain the permanent node GUID of this network device function.  Typically, this value is programmed during manufacturing.  This address is not assignable.",
+                    "pattern": "^([0-9A-Fa-f]{4}[:-]){3}([0-9A-Fa-f]{4})$",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_0"
+                },
+                "PermanentPortGUID": {
+                    "description": "The permanent port GUID assigned to this network device function.",
+                    "longDescription": "This property shall contain the permanent port GUID of this network device function.  Typically, this value is programmed during manufacturing.  This address is not assignable.",
+                    "pattern": "^([0-9A-Fa-f]{4}[:-]){3}([0-9A-Fa-f]{4})$",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_0"
+                },
+                "PermanentSystemGUID": {
+                    "description": "The permanent system GUID assigned to this network device function.",
+                    "longDescription": "This property shall contain the permanent system GUID of this network device function.  Typically, this value is programmed during manufacturing.  This address is not assignable.",
+                    "pattern": "^([0-9A-Fa-f]{4}[:-]){3}([0-9A-Fa-f]{4})$",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_0"
+                },
+                "PortGUID": {
+                    "description": "The currently configured port GUID of the network device function.",
+                    "longDescription": "This property shall contain the effective current virtual port GUID of this network device function.  If an assignable port GUID is not supported, this is a read-only alias of the PermanentPortGUID.",
+                    "pattern": "^([0-9A-Fa-f]{4}[:-]){3}([0-9A-Fa-f]{4})$",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_0"
+                },
+                "SupportedMTUSizes": {
+                    "description": "The maximum transmission unit (MTU) sizes supported for this network device function.",
+                    "items": {
+                        "type": [
+                            "integer",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of the maximum transmission unit (MTU) sizes supported for this network device function.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_5_0"
+                },
+                "SystemGUID": {
+                    "description": "This is the currently configured system GUID of the network device function.",
+                    "longDescription": "This property shall contain the effective current system GUID of this virtual port of this network device function.  If an assignable system GUID is not supported, this is a read-only alias of the PermanentSystemGUID.",
+                    "pattern": "^([0-9A-Fa-f]{4}[:-]){3}([0-9A-Fa-f]{4})$",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_0"
+                }
+            },
+            "type": "object"
+        },
+        "Limit": {
+            "additionalProperties": false,
+            "description": "This type describes the packet and byte limit of a network device function.",
+            "longDescription": "This type shall describe a single array element of the packet and byte limits of a network device function.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "BurstBytesPerSecond": {
+                    "description": "The maximum number of bytes per second in a burst for this network device function.",
+                    "longDescription": "This property shall contain the maximum number of bytes per second in a burst allowed for this network device function.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_7_0"
+                },
+                "BurstPacketsPerSecond": {
+                    "description": "The maximum number of packets per second in a burst for this network device function.",
+                    "longDescription": "This property shall contain the maximum number of packets per second in a burst allowed for this network device function.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_7_0"
+                },
+                "Direction": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/DataDirection"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Indicates the direction of the data to which this limit applies.",
+                    "longDescription": "This property shall indicate the direction of the data to which this limit applies for this network device function.",
+                    "readonly": false,
+                    "versionAdded": "v1_7_0"
+                },
+                "SustainedBytesPerSecond": {
+                    "description": "The maximum number of sustained bytes per second for this network device function.",
+                    "longDescription": "This property shall contain the maximum number of sustained bytes per second allowed for this network device function.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_7_0"
+                },
+                "SustainedPacketsPerSecond": {
+                    "description": "The maximum number of sustained packets per second for this network device function.",
+                    "longDescription": "This property shall contain the maximum number of sustained packets per second allowed for this network device function.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_7_0"
+                }
+            },
+            "type": "object"
+        },
+        "Links": {
+            "additionalProperties": false,
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Endpoints": {
+                    "description": "An array of links to endpoints associated with this network device function.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Endpoint.json#/definitions/Endpoint"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Endpoint that are associated with this network device function.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_2_0"
+                },
+                "Endpoints@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "EthernetInterface": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.json#/definitions/EthernetInterface",
+                    "deprecated": "This property has been deprecated in favor of EthernetInterfaces as each NetworkDeviceFunction could have more than one EthernetInterface.",
+                    "description": "The link to a virtual Ethernet interface that was created when one of the network device function VLANs is represented as a virtual NIC for the purpose of showing the IP address associated with that VLAN.",
+                    "longDescription": "This property shall contain a link to a resource of type EthernetInterface that represents a virtual interface that was created when one of the network device function VLANs is represented as a virtual NIC for the purpose of showing the IP address associated with that VLAN.  The EthernetInterfaceType property of that resource shall contain the value `Virtual`.",
+                    "versionAdded": "v1_4_0",
+                    "versionDeprecated": "v1_7_0"
+                },
+                "EthernetInterfaces": {
+                    "description": "The links to Ethernet interfaces that were created when one of the network device function VLANs is represented as a virtual NIC for the purpose of showing the IP address associated with that VLAN.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.json#/definitions/EthernetInterface"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type EthernetInterface that represent the virtual interfaces that were created when one of the network device function VLANs is represented as a virtual NIC for the purpose of showing the IP address associated with that VLAN.",
+                    "type": "array",
+                    "versionAdded": "v1_7_0"
+                },
+                "EthernetInterfaces@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                },
+                "OffloadProcessors": {
+                    "description": "The processors that perform offload computation for this network function, such as with a SmartNIC.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Processor.json#/definitions/Processor"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Processor that represent the processors that performs offload computation for this network function, such as with a SmartNIC.  This property shall not be present if OffloadSystem is present.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_7_0"
+                },
+                "OffloadProcessors@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "OffloadSystem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.json#/definitions/ComputerSystem",
+                    "description": "The system that performs offload computation for this network function, such as with a SmartNIC.",
+                    "longDescription": "This property shall contain a link to a resource of type ComputerSystem that represents the system that performs offload computation for this network function, such as with a SmartNIC.  The SystemType property contained in the referenced ComputerSystem resource should contain the value `DPU`.  This property shall not be present if OffloadProcessors is present.",
+                    "readonly": true,
+                    "versionAdded": "v1_7_0"
+                },
+                "PCIeFunction": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PCIeFunction.json#/definitions/PCIeFunction",
+                    "description": "The link to the PCIe function associated with this network device function.",
+                    "longDescription": "This property shall contain a link to a resource of type PCIeFunction that represents the PCIe function associated with this network device function.",
+                    "readonly": true
+                },
+                "PhysicalNetworkPortAssignment": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Port.json#/definitions/Port",
+                    "description": "The physical port to which this network device function is currently assigned.",
+                    "longDescription": "This property shall contain a link to a resource of type Port to which this network device function is currently assigned.  This value shall be one of the AssignablePhysicalPorts array members.",
+                    "versionAdded": "v1_5_0"
+                },
+                "PhysicalPortAssignment": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkPort.json#/definitions/NetworkPort",
+                    "deprecated": "This property has been deprecated in favor of the PhysicalNetworkPortAssignment property.",
+                    "description": "The physical port to which this network device function is currently assigned.",
+                    "longDescription": "This property shall contain a link to a resource of type NetworkPort to which this network device function is currently assigned.  This value shall be one of the AssignablePhysicalPorts array members.",
+                    "versionAdded": "v1_3_0",
+                    "versionDeprecated": "v1_5_0"
+                }
+            },
+            "type": "object"
+        },
+        "NetworkDeviceFunction": {
+            "additionalProperties": false,
+            "description": "The NetworkDeviceFunction schema represents a logical interface that a network adapter exposes.",
+            "longDescription": "This resource shall represent a logical interface that a network adapter exposes in a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource.",
+                    "versionAdded": "v1_1_0"
+                },
+                "AllowDeny": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/AllowDenyCollection.json#/definitions/AllowDenyCollection",
+                    "description": "The link to the collection of allow and deny permissions for packets leaving and arriving to this network device function.",
+                    "longDescription": "This property shall contain a link to a resource collection of type AllowDenyCollection that contains the permissions for packets leaving and arriving to this network device function.",
+                    "readonly": true,
+                    "versionAdded": "v1_7_0"
+                },
+                "AssignablePhysicalNetworkPorts": {
+                    "description": "An array of physical ports to which this network device function can be assigned.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Port.json#/definitions/Port"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Port that are the physical ports to which this network device function can be assigned.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_5_0"
+                },
+                "AssignablePhysicalNetworkPorts@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "AssignablePhysicalPorts": {
+                    "deprecated": "This property has been deprecated in favor of the AssignablePhysicalNetworkPorts property.",
+                    "description": "An array of physical ports to which this network device function can be assigned.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkPort.json#/definitions/NetworkPort"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type NetworkPort that are the physical ports to which this network device function can be assigned.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionDeprecated": "v1_5_0"
+                },
+                "AssignablePhysicalPorts@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "BootMode": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/BootMode"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The boot mode configured for this network device function.",
+                    "longDescription": "This property shall contain the boot mode configured for this network device function.  If the value is not `Disabled`, this network device function shall be configured for boot by using the specified technology.",
+                    "readonly": false
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "DeviceEnabled": {
+                    "description": "An indication of whether the network device function is enabled.",
+                    "longDescription": "This property shall indicate whether the network device function is enabled.  The operating system shall not enumerate or see disabled network device functions.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "Ethernet": {
+                    "$ref": "#/definitions/Ethernet",
+                    "description": "The Ethernet capabilities, status, and configuration values for this network device function.",
+                    "longDescription": "This property shall contain Ethernet capabilities, status, and configuration values for this network device function."
+                },
+                "FibreChannel": {
+                    "$ref": "#/definitions/FibreChannel",
+                    "description": "The Fibre Channel capabilities, status, and configuration values for this network device function.",
+                    "longDescription": "This property shall contain Fibre Channel capabilities, status, and configuration values for this network device function."
+                },
+                "HTTPBoot": {
+                    "$ref": "#/definitions/HTTPBoot",
+                    "description": "The HTTP and HTTPS boot capabilities, status, and configuration values for this network device function.",
+                    "longDescription": "This property shall contain HTTP and HTTPS boot capabilities, status, and configuration values for this network device function.",
+                    "versionAdded": "v1_9_0"
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "InfiniBand": {
+                    "$ref": "#/definitions/InfiniBand",
+                    "description": "The InfiniBand capabilities, status, and configuration values for this network device function.",
+                    "longDescription": "This property shall contain InfiniBand capabilities, status, and configuration values for this network device function.",
+                    "versionAdded": "v1_5_0"
+                },
+                "Limits": {
+                    "description": "The byte and packet limits for this network device function.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/Limit"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of byte and packet limits for this network device function.",
+                    "type": "array",
+                    "versionAdded": "v1_7_0"
+                },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
+                },
+                "MaxVirtualFunctions": {
+                    "description": "The number of virtual functions that are available for this network device function.",
+                    "longDescription": "This property shall contain the number of virtual functions that are available for this network device function.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "Metrics": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkDeviceFunctionMetrics.json#/definitions/NetworkDeviceFunctionMetrics"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The link to the metrics associated with this network function.",
+                    "longDescription": "This property shall contain a link to a resource of type NetworkDeviceFunctionMetrics that contains the metrics associated with this network function.",
+                    "readonly": true,
+                    "versionAdded": "v1_6_0"
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "NetDevFuncCapabilities": {
+                    "description": "An array of capabilities for this network device function.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/NetworkDeviceTechnology"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of capabilities for this network device function.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "NetDevFuncType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/NetworkDeviceTechnology"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The configured capability of this network device function.",
+                    "longDescription": "This property shall contain the configured capability of this network device function.",
+                    "readonly": false
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "PhysicalNetworkPortAssignment": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Port.json#/definitions/Port",
+                    "deprecated": "This property has been deprecated in favor of PhysicalNetworkPortAssignment within Links to avoid loops on expand.",
+                    "description": "The physical port to which this network device function is currently assigned.",
+                    "longDescription": "This property shall contain a link to a resource of type Port that is the physical port to which this network device function is currently assigned.  This value shall be one of the AssignablePhysicalNetworkPorts array members.",
+                    "readonly": true,
+                    "versionAdded": "v1_5_0",
+                    "versionDeprecated": "v1_8_0"
+                },
+                "PhysicalPortAssignment": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkPort.json#/definitions/NetworkPort",
+                    "deprecated": "This property has been deprecated and moved to the Links property to avoid loops on expand.",
+                    "description": "The physical port to which this network device function is currently assigned.",
+                    "longDescription": "This property shall contain a link to a resource of type NetworkPort that is the physical port to which this network device function is currently assigned.  This value shall be one of the AssignablePhysicalPorts array members.",
+                    "readonly": true,
+                    "versionDeprecated": "v1_3_0"
+                },
+                "SAVIEnabled": {
+                    "description": "Indicates if Source Address Validation Improvement (SAVI) is enabled for this network device function.",
+                    "longDescription": "This property shall indicate if the RFC7039-defined Source Address Validation Improvement (SAVI) is enabled for this network device function.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_7_0"
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                },
+                "VirtualFunctionsEnabled": {
+                    "description": "An indication of whether single root input/output virtualization (SR-IOV) virtual functions are enabled for this network device function.",
+                    "longDescription": "This property shall indicate whether single root input/output virtualization (SR-IOV) virtual functions are enabled for this network device function.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "iSCSIBoot": {
+                    "$ref": "#/definitions/iSCSIBoot",
+                    "description": "The iSCSI boot capabilities, status, and configuration values for this network device function.",
+                    "longDescription": "This property shall contain iSCSI boot capabilities, status, and configuration values for this network device function."
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "NetworkDeviceTechnology": {
+            "enum": [
+                "Disabled",
+                "Ethernet",
+                "FibreChannel",
+                "iSCSI",
+                "FibreChannelOverEthernet",
+                "InfiniBand"
+            ],
+            "enumDescriptions": {
+                "Disabled": "Neither enumerated nor visible to the operating system.",
+                "Ethernet": "Appears to the operating system as an Ethernet device.",
+                "FibreChannel": "Appears to the operating system as a Fibre Channel device.",
+                "FibreChannelOverEthernet": "Appears to the operating system as an FCoE device.",
+                "InfiniBand": "Appears to the operating system as an InfiniBand device.",
+                "iSCSI": "Appears to the operating system as an iSCSI device."
+            },
+            "enumVersionAdded": {
+                "InfiniBand": "v1_5_0"
+            },
+            "type": "string"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "WWNSource": {
+            "enum": [
+                "ConfiguredLocally",
+                "ProvidedByFabric"
+            ],
+            "enumDescriptions": {
+                "ConfiguredLocally": "The set of FC/FCoE boot targets was applied locally through API or UI.",
+                "ProvidedByFabric": "The set of FC/FCoE boot targets was applied by the Fibre Channel fabric."
+            },
+            "type": "string"
+        },
+        "iSCSIBoot": {
+            "additionalProperties": false,
+            "description": "The iSCSI boot capabilities, status, and configuration for a network device function.",
+            "longDescription": "This type shall describe the iSCSI boot capabilities, status, and configuration values for a network device function.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AuthenticationMethod": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/AuthenticationMethod"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The iSCSI boot authentication method for this network device function.",
+                    "longDescription": "This property shall contain the iSCSI boot authentication method for this network device function.",
+                    "readonly": false
+                },
+                "CHAPSecret": {
+                    "description": "The shared secret for CHAP authentication.",
+                    "longDescription": "This property shall contain the shared secret for CHAP authentication.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "CHAPUsername": {
+                    "description": "The user name for CHAP authentication.",
+                    "longDescription": "This property shall contain the user name for CHAP authentication.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "IPAddressType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/IPAddressType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The type of IP address being populated in the iSCSIBoot IP address fields.",
+                    "longDescription": "This property shall contain the type of IP address being populated in the iSCSIBoot IP address fields.  Mixing IPv6 and IPv4 addresses on the same network device function shall not be permissible.",
+                    "readonly": false
+                },
+                "IPMaskDNSViaDHCP": {
+                    "description": "An indication of whether the iSCSI boot initiator uses DHCP to obtain the initiator name, IP address, and netmask.",
+                    "longDescription": "This property shall indicate whether the iSCSI boot initiator uses DHCP to obtain the initiator name, IP address, and netmask.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "InitiatorDefaultGateway": {
+                    "description": "The IPv6 or IPv4 iSCSI boot default gateway.",
+                    "longDescription": "This property shall contain the IPv6 or IPv4 iSCSI boot default gateway.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "InitiatorIPAddress": {
+                    "description": "The IPv6 or IPv4 address of the iSCSI initiator.",
+                    "longDescription": "This property shall contain the IPv6 or IPv4 address of the iSCSI boot initiator.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "InitiatorName": {
+                    "description": "The iSCSI initiator name.",
+                    "longDescription": "This property shall contain the iSCSI boot initiator name.  This property should match formats defined in RFC3720 or RFC3721.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "InitiatorNetmask": {
+                    "description": "The IPv6 or IPv4 netmask of the iSCSI boot initiator.",
+                    "longDescription": "This property shall contain the IPv6 or IPv4 netmask of the iSCSI boot initiator.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "MutualCHAPSecret": {
+                    "description": "The CHAP secret for two-way CHAP authentication.",
+                    "longDescription": "This property shall contain the CHAP secret for two-way CHAP authentication.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "MutualCHAPUsername": {
+                    "description": "The CHAP user name for two-way CHAP authentication.",
+                    "longDescription": "This property shall contain the CHAP user name for two-way CHAP authentication.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "PrimaryDNS": {
+                    "description": "The IPv6 or IPv4 address of the primary DNS server for the iSCSI boot initiator.",
+                    "longDescription": "This property shall contain the IPv6 or IPv4 address of the primary DNS server for the iSCSI boot initiator.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "PrimaryLUN": {
+                    "description": "The logical unit number (LUN) for the primary iSCSI boot target.",
+                    "longDescription": "This property shall contain the logical unit number (LUN) for the primary iSCSI boot target.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "PrimaryTargetIPAddress": {
+                    "description": "The IPv4 or IPv6 address for the primary iSCSI boot target.",
+                    "longDescription": "This property shall contain the IPv4 or IPv6 address for the primary iSCSI boot target.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "PrimaryTargetName": {
+                    "description": "The name of the iSCSI primary boot target.",
+                    "longDescription": "This property shall contain the name of the primary iSCSI boot target.  This property should match formats defined in RFC3720 or RFC3721.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "PrimaryTargetTCPPort": {
+                    "description": "The TCP port for the primary iSCSI boot target.",
+                    "longDescription": "This property shall contain the TCP port for the primary iSCSI boot target.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "PrimaryVLANEnable": {
+                    "description": "An indication of whether the primary VLAN is enabled.",
+                    "longDescription": "This property shall indicate whether this VLAN is enabled for the primary iSCSI boot target.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "PrimaryVLANId": {
+                    "description": "The 802.1q VLAN ID to use for iSCSI boot from the primary target.",
+                    "longDescription": "This property shall contain the 802.1q VLAN ID to use for iSCSI boot from the primary target.  This VLAN ID is only used if PrimaryVLANEnable is true.",
+                    "maximum": 4094,
+                    "minimum": 0,
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "RouterAdvertisementEnabled": {
+                    "description": "An indication of whether IPv6 router advertisement is enabled for the iSCSI boot target.",
+                    "longDescription": "This property shall indicate whether IPv6 router advertisement is enabled for the iSCSI boot target.  This setting shall apply to only IPv6 configurations.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "SecondaryDNS": {
+                    "description": "The IPv6 or IPv4 address of the secondary DNS server for the iSCSI boot initiator.",
+                    "longDescription": "This property shall contain the IPv6 or IPv4 address of the secondary DNS server for the iSCSI boot initiator.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "SecondaryLUN": {
+                    "description": "The logical unit number (LUN) for the secondary iSCSI boot target.",
+                    "longDescription": "This property shall contain the logical unit number (LUN) for the secondary iSCSI boot target.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "SecondaryTargetIPAddress": {
+                    "description": "The IPv4 or IPv6 address for the secondary iSCSI boot target.",
+                    "longDescription": "This property shall contain the IPv4 or IPv6 address for the secondary iSCSI boot target.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "SecondaryTargetName": {
+                    "description": "The name of the iSCSI secondary boot target.",
+                    "longDescription": "This property shall contain the name of the secondary iSCSI boot target.  This property should match formats defined in RFC3720 or RFC3721.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "SecondaryTargetTCPPort": {
+                    "description": "The TCP port for the secondary iSCSI boot target.",
+                    "longDescription": "This property shall contain the TCP port for the secondary iSCSI boot target.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "SecondaryVLANEnable": {
+                    "description": "An indication of whether the secondary VLAN is enabled.",
+                    "longDescription": "This property shall indicate whether this VLAN is enabled for the secondary iSCSI boot target.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "SecondaryVLANId": {
+                    "description": "The 802.1q VLAN ID to use for iSCSI boot from the secondary target.",
+                    "longDescription": "This property shall contain the 802.1q VLAN ID to use for iSCSI boot from the secondary target.  This VLAN ID is only used if SecondaryVLANEnable is `true`.",
+                    "maximum": 4094,
+                    "minimum": 0,
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "TargetInfoViaDHCP": {
+                    "description": "An indication of whether the iSCSI boot target name, LUN, IP address, and netmask should be obtained from DHCP.",
+                    "longDescription": "This property shall indicate whether the iSCSI boot target name, LUN, IP address, and netmask should be obtained from DHCP.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2022.2",
+    "title": "#NetworkDeviceFunction.v1_9_1.NetworkDeviceFunction"
+}

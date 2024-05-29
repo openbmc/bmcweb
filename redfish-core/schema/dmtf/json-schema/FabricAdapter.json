@@ -1,0 +1,47 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/FabricAdapter.json",
+    "$ref": "#/definitions/FabricAdapter",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "FabricAdapter": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/FabricAdapter.v1_0_3.json#/definitions/FabricAdapter"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/FabricAdapter.v1_1_3.json#/definitions/FabricAdapter"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/FabricAdapter.v1_2_3.json#/definitions/FabricAdapter"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/FabricAdapter.v1_3_3.json#/definitions/FabricAdapter"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/FabricAdapter.v1_4_3.json#/definitions/FabricAdapter"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/FabricAdapter.v1_5_3.json#/definitions/FabricAdapter"
+                }
+            ],
+            "deletable": false,
+            "description": "A fabric adapter represents the physical fabric adapter capable of connecting to an interconnect fabric.  Examples include, but are not limited to, Ethernet, NVMe over Fabrics, Gen-Z, and SAS fabric adapters.",
+            "insertable": false,
+            "longDescription": "This resource shall represent a physical fabric adapter capable of connecting to an interconnect fabric.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/Systems/{ComputerSystemId}/FabricAdapters/{FabricAdapterId}",
+                "/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/FabricAdapters/{FabricAdapterId}",
+                "/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/FabricAdapters/{FabricAdapterId}",
+                "/redfish/v1/Chassis/{ChassisId}/FabricAdapters/{FabricAdapterId}"
+            ]
+        }
+    },
+    "language": "en",
+    "owningEntity": "DMTF",
+    "title": "#FabricAdapter.FabricAdapter"
+}

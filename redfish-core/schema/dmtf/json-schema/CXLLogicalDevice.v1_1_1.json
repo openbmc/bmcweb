@@ -1,0 +1,361 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/CXLLogicalDevice.v1_1_1.json",
+    "$ref": "#/definitions/CXLLogicalDevice",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "CXLLogicalDevice": {
+            "additionalProperties": false,
+            "description": "The schema definition for the CXLLogicalDevice resource.  It represents the properties of a CXL logical device within a PCIe device.",
+            "longDescription": "This resource shall represent a CXL logical device that is a part of a PCIe device.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Identifiers": {
+                    "description": "The durable names for the CXL logical device.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Identifier"
+                    },
+                    "longDescription": "This property shall contain a list of all known durable names for the associated CXL logical device.",
+                    "type": "array"
+                },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
+                },
+                "Log": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/LogService.json#/definitions/LogService",
+                    "description": "The link to the log service associated with this CXL logical device.",
+                    "longDescription": "This property shall contain a link to a resource of type LogService.",
+                    "readonly": true
+                },
+                "MemoryRegions": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MemoryRegionCollection.json#/definitions/MemoryRegionCollection",
+                    "description": "The link to the collection of memory regions associated with this CXL logical device.",
+                    "longDescription": "This property shall contain a link to a resource collection of type MemoryRegionCollection that represents the memory regions associated with this CXL logical device.",
+                    "readonly": true,
+                    "versionAdded": "v1_1_0"
+                },
+                "MemorySizeMiB": {
+                    "description": "The memory region size defined in this CXL logical device.",
+                    "longDescription": "This property shall contain the memory region size defined in this CXL logical device in mebibytes (MiB).",
+                    "readonly": true,
+                    "type": "integer",
+                    "units": "MiBy"
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "QoS": {
+                    "$ref": "#/definitions/QoS",
+                    "description": "The quality of service configuration for this CXL logical device.",
+                    "longDescription": "This property shall contain the quality of service configuration for this CXL logical device."
+                },
+                "QoSTelemetryCapabilities": {
+                    "$ref": "#/definitions/QoSTelemetryCapabilities",
+                    "description": "The quality of service telemetry capabilities for this CXL logical device.",
+                    "longDescription": "This property shall contain the quality of service telemetry capabilities for this CXL logical device."
+                },
+                "SemanticsSupported": {
+                    "description": "The semantics supported by this CXL logical device.",
+                    "items": {
+                        "$ref": "#/definitions/CXLSemantic"
+                    },
+                    "longDescription": "This property shall contain the CXL Specification-defined semantics that are supported by this CXL logical device.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "CXLSemantic": {
+            "enum": [
+                "CXLio",
+                "CXLcache",
+                "CXLmem"
+            ],
+            "enumDescriptions": {
+                "CXLcache": "CXL caching protocol semantic.",
+                "CXLio": "CXL I/O semantic.",
+                "CXLmem": "CXL memory access semantic."
+            },
+            "enumLongDescriptions": {
+                "CXLcache": "This value shall indicate the device conforms with the CXL Specification-defined 'CXL.cache' semantic.",
+                "CXLio": "This value shall indicate the device conforms with the CXL Specification-defined 'CXL.io' semantic.",
+                "CXLmem": "This value shall indicate the device conforms with the CXL Specification-defined 'CXL.mem' semantic."
+            },
+            "type": "string"
+        },
+        "Links": {
+            "additionalProperties": false,
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Endpoints": {
+                    "description": "An array of links to the endpoints associated with this CXL logical device.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Endpoint.json#/definitions/Endpoint"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Endpoint that represent the endpoints associated with this CXL logical device.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "Endpoints@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "MemoryChunks": {
+                    "description": "An array of links to the memory chunks owned by this CXL logical device.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/MemoryChunks.json#/definitions/MemoryChunks"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type MemoryChunks that represent the memory chunks owned by this CXL logical device.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "MemoryChunks@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "MemoryDomains": {
+                    "description": "An array of links to the memory domains associated with this CXL logical device.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/MemoryDomain.json#/definitions/MemoryDomain"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type MemoryDomain that represent the memory domains associated with this CXL logical device.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "MemoryDomains@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                },
+                "PCIeFunctions": {
+                    "description": "An array of links to the PCIe functions assigned to this CXL logical device.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/PCIeFunction.json#/definitions/PCIeFunction"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type PCIeFunction that represent the PCIe functions assigned to this CXL logical device.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "PCIeFunctions@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "QoS": {
+            "additionalProperties": false,
+            "description": "The quality of service properties for this CXL logical device.",
+            "longDescription": "This type shall contain the quality of service properties of this CXL logical device.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AllocatedBandwidth": {
+                    "description": "The bandwidth allocated for this CXL logical device in multiples of 256.",
+                    "longDescription": "This property shall contain the bandwidth allocated for this CXL logical device in multiples of 256.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "LimitPercent": {
+                    "description": "The bandwidth limit to this CXL logical device as a percentage.",
+                    "longDescription": "This property shall contain the bandwidth limit, `0` to `100`, for this CXL logical device as a percentage.",
+                    "maximum": 100,
+                    "minimum": 0,
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "%"
+                }
+            },
+            "type": "object"
+        },
+        "QoSTelemetryCapabilities": {
+            "additionalProperties": false,
+            "description": "The quality of service telemetry capabilities for a CXL logical device.",
+            "longDescription": "This type shall contain the quality of service telemetry capabilities for a CXL logical device.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "EgressPortBackpressureSupported": {
+                    "description": "Indicates whether the device supports the CXL Specification-defined 'Egress Port Backpressure' mechanism.",
+                    "longDescription": "This property shall indicate whether the device supports the CXL Specification-defined 'Egress Port Backpressure' mechanism.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "TemporaryThroughputReductionSupported": {
+                    "description": "Indicates whether the device supports the CXL Specification-defined 'Temporary Throughput Reduction' mechanism.",
+                    "longDescription": "This property shall indicate whether the device supports the CXL Specification-defined 'Temporary Throughput Reduction' mechanism.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2023.2",
+    "title": "#CXLLogicalDevice.v1_1_1.CXLLogicalDevice"
+}
