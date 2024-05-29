@@ -247,6 +247,24 @@
       "parentUuid": "8c3f6936_d7b14e7e",
       "revId": "a2bbcd3d1bd4cc6782b23fc20765c728722bc67a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f24fa18_c5d5f783",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2024-05-29T18:25:33Z",
+      "side": 1,
+      "message": "I can help remove the old email from the gerrit database if needed although it looks like you just added the new email to https://gerrit.openbmc.org/admin/groups/28c6457ee3c81a1c4b54a07d8fe4b5f3eff9778e,members which works just as well.",
+      "parentUuid": "65802191_4406e531",
+      "revId": "a2bbcd3d1bd4cc6782b23fc20765c728722bc67a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
