@@ -1,0 +1,483 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/NetworkDeviceFunctionMetrics.v1_1_2.json",
+    "$ref": "#/definitions/NetworkDeviceFunctionMetrics",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "Ethernet": {
+            "additionalProperties": false,
+            "description": "The network function metrics for an Ethernet interface.",
+            "longDescription": "This type shall describe the Ethernet-related network function metrics.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "NumOffloadedIPv4Conns": {
+                    "description": "The total number of offloaded TCP/IPv4 connections.",
+                    "longDescription": "This property shall contain the total number of offloaded TCP/IPv4 connections.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "NumOffloadedIPv6Conns": {
+                    "description": "The total number of offloaded TCP/IPv6 connections.",
+                    "longDescription": "This property shall contain the total number of offloaded TCP/IPv6 connections.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "FibreChannel": {
+            "additionalProperties": false,
+            "description": "The network function metrics for a Fibre Channel interface.",
+            "longDescription": "This type shall describe the Fibre Channel-related network function metrics.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "PortLoginAccepts": {
+                    "description": "The total number of port login (PLOGI) accept (ACC) responses.",
+                    "longDescription": "This property shall contain the total number of PLOGI ACC responses received by this Fibre Channel function.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "PortLoginRejects": {
+                    "description": "The total number of port login (PLOGI) reject (RJT) responses.",
+                    "longDescription": "This property shall contain the total number of PLOGI RJT responses received by this Fibre Channel function.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "PortLoginRequests": {
+                    "description": "The total number of port login (PLOGI) requests transmitted.",
+                    "longDescription": "This property shall contain the total number of PLOGI requests sent by this function.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "RXCongestionFPINs": {
+                    "description": "The total number of Congestion Fabric Performance Impact Notifications (FPINs) received.",
+                    "longDescription": "This property shall contain the total number of Congestion FPINs received by this Fibre Channel function.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "RXDeliveryFPINs": {
+                    "description": "The total number of Delivery Fabric Performance Impact Notifications (FPINs) received.",
+                    "longDescription": "This property shall contain the total number of Delivery FPINs received by this Fibre Channel function.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "RXExchanges": {
+                    "description": "The total number of Fibre Channel exchanges received.",
+                    "longDescription": "This property shall contain the total number of Fibre Channel exchanges received.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "RXLinkIntegrityFPINs": {
+                    "description": "The total number of Link Integrity Fabric Performance Impact Notifications (FPINs) received.",
+                    "longDescription": "This property shall contain the total number of Link Integrity FPINs received by this Fibre Channel function.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "RXPeerCongestionFPINs": {
+                    "description": "The total number of Peer Congestion Fabric Performance Impact Notifications (FPINs) received.",
+                    "longDescription": "This property shall contain the total number of Peer Congestion FPINs received by this Fibre Channel function.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "RXSequences": {
+                    "description": "The total number of Fibre Channel sequences received.",
+                    "longDescription": "This property shall contain the total number of Fibre Channel sequences received.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "TXCongestionFPINs": {
+                    "description": "The total number of Congestion Fabric Performance Impact Notifications (FPINs) sent.",
+                    "longDescription": "This property shall contain the total number of Congestion FPINs sent by this Fibre Channel function.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "TXDeliveryFPINs": {
+                    "description": "The total number of Delivery Fabric Performance Impact Notifications (FPINs) sent.",
+                    "longDescription": "This property shall contain the total number of Delivery FPINs sent by this Fibre Channel function.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "TXExchanges": {
+                    "description": "The total number of Fibre Channel exchanges transmitted.",
+                    "longDescription": "This property shall contain the total number of Fibre Channel exchanges transmitted.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "TXLinkIntegrityFPINs": {
+                    "description": "The total number of Link Integrity Fabric Performance Impact Notifications (FPINs) sent.",
+                    "longDescription": "This property shall contain the total number of Link Integrity FPINs sent by this Fibre Channel function.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "TXPeerCongestionFPINs": {
+                    "description": "The total number of Peer Congestion Fabric Performance Impact Notifications (FPINs) sent.",
+                    "longDescription": "This property shall contain the total number of Peer Congestion FPINs sent by this Fibre Channel function.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "TXSequences": {
+                    "description": "The total number of Fibre Channel sequences transmitted.",
+                    "longDescription": "This property shall contain the total number of Fibre Channel sequences transmitted.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
+        },
+        "NetworkDeviceFunctionMetrics": {
+            "additionalProperties": false,
+            "description": "The NetworkDeviceFunctionMetrics schema contains usage and health statistics for a network function of a network adapter.",
+            "longDescription": "This resource shall represent the network metrics for a single network function of a network adapter in a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Ethernet": {
+                    "$ref": "#/definitions/Ethernet",
+                    "description": "The network function metrics specific to Ethernet adapters.",
+                    "longDescription": "This property shall contain network function metrics specific to Ethernet adapters."
+                },
+                "FibreChannel": {
+                    "$ref": "#/definitions/FibreChannel",
+                    "description": "The network function metrics specific to Fibre Channel adapters.",
+                    "longDescription": "This property shall contain network function metrics specific to Fibre Channel adapters.",
+                    "versionAdded": "v1_1_0"
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "RXAvgQueueDepthPercent": {
+                    "description": "The average RX queue depth as the percentage.",
+                    "longDescription": "This property shall contain the average RX queue depth as a percentage, typically `0` to `100`.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "%"
+                },
+                "RXBytes": {
+                    "description": "The total number of bytes received on a network function.",
+                    "longDescription": "This property shall contain the total number of bytes received on a network function, inclusive of all protocol overhead.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "By"
+                },
+                "RXFrames": {
+                    "description": "The total number of frames received on a network function.",
+                    "longDescription": "This property shall contain the total number of frames received on a network function.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "RXMulticastFrames": {
+                    "description": "The total number of good multicast frames received on a network function since reset.",
+                    "longDescription": "This property shall contain the total number of good multicast frames received on a network function since reset, including host and remote management passthrough traffic.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "RXQueuesEmpty": {
+                    "description": "Whether nothing is in a network function's RX queues to DMA.",
+                    "longDescription": "This property shall indicate whether nothing is in a network function's RX queues to DMA.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "RXQueuesFull": {
+                    "description": "The number of RX queues that are full.",
+                    "longDescription": "This property shall contain the number of RX queues that are full.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "RXUnicastFrames": {
+                    "description": "The total number of good unicast frames received on a network function since reset.",
+                    "longDescription": "This property shall contain the total number of good unicast frames received on a network function since reset.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "TXAvgQueueDepthPercent": {
+                    "description": "The average TX queue depth as the percentage.",
+                    "longDescription": "This property shall contain the average TX queue depth as a percentage, typically `0` to `100`.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "%"
+                },
+                "TXBytes": {
+                    "description": "The total number of bytes sent on a network function.",
+                    "longDescription": "This property shall contain the total number of bytes sent on a network function, inclusive of all protocol overhead.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "By"
+                },
+                "TXFrames": {
+                    "description": "The total number of frames sent on a network function.",
+                    "longDescription": "This property shall contain the total number of frames sent on a network function.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "TXMulticastFrames": {
+                    "description": "The total number of good multicast frames transmitted on a network function since reset.",
+                    "longDescription": "This property shall contain the total number of good multicast frames transmitted on a network function since reset, including host and remote management passthrough traffic.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "TXQueuesEmpty": {
+                    "description": "Whether all TX queues for a network function are empty.",
+                    "longDescription": "This property shall indicate whether all TX queues for a network function are empty.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "TXQueuesFull": {
+                    "description": "The number of TX queues that are full.",
+                    "longDescription": "This property shall contain the number of TX queues that are full.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "TXUnicastFrames": {
+                    "description": "The total number of good unicast frames transmitted on a network function since reset.",
+                    "longDescription": "This property shall contain the total number of good unicast frames transmitted on a network function since reset, including host and remote management passthrough traffic.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2021.2",
+    "title": "#NetworkDeviceFunctionMetrics.v1_1_2.NetworkDeviceFunctionMetrics"
+}

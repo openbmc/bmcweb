@@ -1,0 +1,56 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Switch.json",
+    "$ref": "#/definitions/Switch",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Switch": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Switch.v1_0_10.json#/definitions/Switch"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Switch.v1_1_8.json#/definitions/Switch"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Switch.v1_2_5.json#/definitions/Switch"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Switch.v1_3_5.json#/definitions/Switch"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Switch.v1_4_4.json#/definitions/Switch"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Switch.v1_5_4.json#/definitions/Switch"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Switch.v1_6_2.json#/definitions/Switch"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Switch.v1_7_3.json#/definitions/Switch"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Switch.v1_8_3.json#/definitions/Switch"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Switch.v1_9_3.json#/definitions/Switch"
+                }
+            ],
+            "deletable": false,
+            "description": "The `Switch` schema contains properties that describe a fabric switch.",
+            "insertable": false,
+            "longDescription": "This resource contains a switch for a Redfish implementation.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/Fabrics/{FabricId}/Switches/{SwitchId}"
+            ]
+        }
+    },
+    "language": "en",
+    "owningEntity": "DMTF",
+    "title": "#Switch.Switch"
+}

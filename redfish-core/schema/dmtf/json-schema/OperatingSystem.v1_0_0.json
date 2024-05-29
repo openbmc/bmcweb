@@ -1,0 +1,563 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/OperatingSystem.v1_0_0.json",
+    "$ref": "#/definitions/OperatingSystem",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "ContainerEngine": {
+            "additionalProperties": false,
+            "description": "A container engine running in an operating system.",
+            "longDescription": "This type shall contain a container engine running in an operating system.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "ManagementURIs": {
+                    "description": "The URIs to manage this container engine.",
+                    "format": "uri-reference",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of URIs to management interfaces for this container engine.  This is typically a web UI or API provided by the container engine.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "SupportedImageTypes": {
+                    "description": "The supported image types for this container engine.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "http://redfish.dmtf.org/schemas/v1/ContainerImage.json#/definitions/ImageTypes"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain the supported image types for this container engine.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "Type": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ContainerEngineTypes"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The type of container engine.",
+                    "longDescription": "This property shall contain the type for this container engine.",
+                    "readonly": true
+                },
+                "Version": {
+                    "description": "The version of this container engine.",
+                    "longDescription": "This property shall contain the version of this container engine.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "ContainerEngineTypes": {
+            "enum": [
+                "Docker",
+                "containerd",
+                "CRIO"
+            ],
+            "enumDescriptions": {
+                "CRIO": "CRI-O .",
+                "Docker": "Docker.",
+                "containerd": "containerd."
+            },
+            "enumLongDescriptions": {
+                "CRIO": "This value shall indicate the container engine is CRI-O.",
+                "Docker": "This value shall indicate the container engine is Docker.",
+                "containerd": "This value shall indicate the container engine is containerd."
+            },
+            "type": "string"
+        },
+        "Kernel": {
+            "additionalProperties": false,
+            "description": "The kernel information for an operating system.",
+            "longDescription": "This type shall contain the kernel information for an operating system.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Machine": {
+                    "description": "The machine hardware name of the kernel.",
+                    "longDescription": "This property shall contain the machine hardware name of the kernel.  For strict POSIX operating systems, the value shall contain the output of `uname -m`.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Name": {
+                    "description": "The name of the kernel.",
+                    "longDescription": "This property shall contain the name of the kernel.  For strict POSIX operating systems, the value shall contain the output of `uname -s`.  For Microsoft Windows, the value shall contain the string name from the output of `ver`, prior to the first square brace (`[`), which is typically `Microsoft Windows`.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Release": {
+                    "description": "The release of the kernel.",
+                    "longDescription": "This property shall contain the release of the kernel.  For strict POSIX operating systems, the value shall contain the output of `uname -r`.  For Microsoft Windows, the value shall contain the decimal-delimited version from the output of `ver` within the square braces (`[` and `]`), following the regular expression `^\\d+\\.\\d+\\.\\d+\\.\\d+$`.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Version": {
+                    "description": "The version of the kernel.",
+                    "longDescription": "This property shall contain the version of the kernel.  For strict POSIX operating systems, the value shall contain the output of `uname -v`.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "Links": {
+            "additionalProperties": false,
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                },
+                "SoftwareImage": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/SoftwareInventory.json#/definitions/SoftwareInventory",
+                    "description": "The link to the software image for this operating system.",
+                    "longDescription": "This property shall contain a link to a resource of type SoftwareInventory that represents the software image from which this operating system runs.",
+                    "readonly": true
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "OperatingSystem": {
+            "additionalProperties": false,
+            "description": "The OperatingSystem schema represents the operating system and software running on a computer system.",
+            "longDescription": "This resource shall represent the operating system and software running on a computer system.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "Applications": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ApplicationCollection.json#/definitions/ApplicationCollection",
+                    "description": "The link to the collection of applications running under this operating system.",
+                    "longDescription": "This property shall contain a link to a resource collection of type ApplicationCollection that represent the applications running under this operating system.",
+                    "readonly": true
+                },
+                "ContainerEngines": {
+                    "description": "The container engines running in this operating system.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ContainerEngine"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain the container engines running in this operating system.",
+                    "type": "array"
+                },
+                "ContainerImages": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ContainerImageCollection.json#/definitions/ContainerImageCollection",
+                    "description": "The link to the collection of container images available to container engines on this operating system.",
+                    "longDescription": "This property shall contain a link to a resource collection of type ContainerImageCollection that represent the container images available to container engines on this operating system.",
+                    "readonly": true
+                },
+                "Containers": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ContainerCollection.json#/definitions/ContainerCollection",
+                    "description": "The link to the collection of containers running under this operating system.",
+                    "longDescription": "This property shall contain a link to a resource collection of type ContainerCollection that represent the containers running under this operating system.",
+                    "readonly": true
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Kernel": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Kernel"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The kernel information for this operating system.",
+                    "longDescription": "This property shall contain the kernel information for this operating system."
+                },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                },
+                "Type": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/OperatingSystemTypes"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The type of operating system.",
+                    "longDescription": "This property shall contain the type for this operating system.",
+                    "readonly": true
+                },
+                "UptimeSeconds": {
+                    "description": "The wall-clock time this operating system has been running in seconds.",
+                    "longDescription": "This property shall contain the wall-clock time this operating system has been running in seconds.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "VirtualMachineEngines": {
+                    "description": "The virtual machine engines running in this operating system.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/VirtualMachineEngine"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain the virtual machine engines running in this operating system.",
+                    "type": "array"
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "OperatingSystemTypes": {
+            "enum": [
+                "Linux",
+                "Windows",
+                "Solaris",
+                "HPUX",
+                "AIX",
+                "BSD",
+                "macOS",
+                "IBMi",
+                "Hypervisor"
+            ],
+            "enumDescriptions": {
+                "AIX": "IBM AIX.",
+                "BSD": "Berkeley Software Distribution.",
+                "HPUX": "HPE HP-UX.",
+                "Hypervisor": "A bare metal hypervisor.",
+                "IBMi": "IBM i.",
+                "Linux": "Linux.",
+                "Solaris": "Oracle Solaris.",
+                "Windows": "Microsoft Windows.",
+                "macOS": "Apple macOS."
+            },
+            "type": "string"
+        },
+        "VirtualMachineEngine": {
+            "additionalProperties": false,
+            "description": "A virtual machine engine running in an operating system.",
+            "longDescription": "This type shall contain a virtual machine engine running in an operating system.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "ManagementURIs": {
+                    "description": "The URIs to manage this virtual machine engine.",
+                    "format": "uri-reference",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of URIs to management interfaces for this virtual machine engine.  This is typically a web UI or API provided by the virtual machine engine.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "SupportedImageTypes": {
+                    "description": "The supported image types for this container engine.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/VirtualMachineImageTypes"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain the supported image types for this container engine.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "Type": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/VirtualMachineEngineTypes"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The type of virtual machine engine.",
+                    "longDescription": "This property shall contain the type for this virtual machine engine.",
+                    "readonly": true
+                },
+                "Version": {
+                    "description": "The version of this virtual machine engine.",
+                    "longDescription": "This property shall contain the version of this virtual machine engine.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "VirtualMachineEngineTypes": {
+            "enum": [
+                "VMwareESX",
+                "HyperV",
+                "Xen",
+                "KVM",
+                "QEMU",
+                "VirtualBox",
+                "PowerVM"
+            ],
+            "enumDescriptions": {
+                "HyperV": "Microsoft Hyper-V.",
+                "KVM": "KVM (Kernel-based Virtual Machine).",
+                "PowerVM": "IBM PowerVM.",
+                "QEMU": "QEMU (Quick Emulator).",
+                "VMwareESX": "VMware ESX or ESXi.",
+                "VirtualBox": "Oracle VM VirtualBox.",
+                "Xen": "Xen."
+            },
+            "enumLongDescriptions": {
+                "HyperV": "This value shall indicate the virtual machine engine is Microsoft Hyper-V.",
+                "KVM": "This value shall indicate the virtual machine engine is Linux KVM (Kernel-based Virtual Machine).",
+                "PowerVM": "This value shall indicate the virtual machine engine is IBM PowerVM.",
+                "QEMU": "This value shall indicate the virtual machine engine is QEMU (Quick Emulator).  If QEMU is acting as a frontend for another virtual machine engine, such as Xen or KVM, VirtualMachineEngines should contain additional entries to represent the backend virtual machine engines.",
+                "VMwareESX": "This value shall indicate the virtual machine engine is VMware ESX or ESXi.",
+                "VirtualBox": "This value shall indicate the virtual machine engine is Oracle VM VirtualBox.  If VirtualBox is acting as a frontend for another virtual machine engine, such as HyperV, VirtualMachineEngines should contain additional entries to represent the backend virtual machine engines.",
+                "Xen": "This value shall indicate the virtual machine engine is Xen."
+            },
+            "type": "string"
+        },
+        "VirtualMachineImageTypes": {
+            "enum": [
+                "Raw",
+                "OVF",
+                "OVA",
+                "VHD",
+                "VMDK",
+                "VDI",
+                "QCOW",
+                "QCOW2"
+            ],
+            "enumDescriptions": {
+                "OVA": "OVA (Open Virtual Appliance).",
+                "OVF": "OVF (Open Virtualization Format).",
+                "QCOW": "QCOW (QEMU Copy-on-Write).",
+                "QCOW2": "QCOW2 (QEMU Copy-on-Write version 2).",
+                "Raw": "Raw disk image.",
+                "VDI": "VDI (Virtual Disk Image).",
+                "VHD": "VHD (Virtual Hard Disk).",
+                "VMDK": "VMDK (Virtual Machine Disk)."
+            },
+            "enumLongDescriptions": {
+                "OVA": "This value shall indicate a DSP0243-defined OVA (Open Virtual Appliance) image.",
+                "OVF": "This value shall indicate a DSP0243-defined OVF (Open Virtualization Format) image.",
+                "QCOW": "This value shall indicate a QEMU-defined QCOW (QEMU Copy-on-Write) image.",
+                "QCOW2": "This value shall indicate a QEMU-defined QCOW2 (QEMU Copy-on-Write version 2) image.",
+                "Raw": "This value shall indicate a raw disk image.",
+                "VDI": "This value shall indicate an Oracle VM VirtualBox-defined VDI (Virtual Disk Image).",
+                "VHD": "This value shall indicate a Microsoft Open Specification Promise-defined VHD (Virtual Hard Disk) image.",
+                "VMDK": "This value shall indicate a VMware-defined VMDK (Virtual Machine Disk) image."
+            },
+            "type": "string"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2023.2",
+    "title": "#OperatingSystem.v1_0_0.OperatingSystem"
+}

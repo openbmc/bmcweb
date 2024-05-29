@@ -1,0 +1,505 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Cable.v1_2_0.json",
+    "$ref": "#/definitions/Cable",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "Cable": {
+            "additionalProperties": true,
+            "description": "The Cable schema contains properties that describe a cable connecting endpoints of a chassis, port, or any other cable-compatible endpoint.",
+            "longDescription": "This resource contains a simple cable for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "Assembly": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Assembly.json#/definitions/Assembly",
+                    "description": "The link to the assembly associated with this cable.",
+                    "longDescription": "This property shall contain a link to a resource of type Assembly.",
+                    "readonly": true
+                },
+                "AssetTag": {
+                    "description": "The user-assigned asset tag for this cable.",
+                    "longDescription": "This property shall track the cable for inventory purposes.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "CableClass": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/CableClass"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The identifier for the downstream resource.",
+                    "longDescription": "The property shall contain the cable class for this cable.",
+                    "readonly": false
+                },
+                "CableStatus": {
+                    "$ref": "#/definitions/CableStatus",
+                    "description": "The user-reported status of this resource.",
+                    "longDescription": "This property shall contain the user-reported status of this resource.",
+                    "readonly": false
+                },
+                "CableType": {
+                    "description": "The type of this cable.",
+                    "longDescription": "This property shall contain a user-defined type for this cable.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "DownstreamConnectorTypes": {
+                    "description": "The connector types this cable supports.",
+                    "items": {
+                        "$ref": "#/definitions/ConnectorType"
+                    },
+                    "longDescription": "The property shall contain an array of connector types this cable supports.",
+                    "readonly": false,
+                    "type": "array"
+                },
+                "DownstreamName": {
+                    "description": "The identifier for the downstream resource.",
+                    "longDescription": "This property shall contain any identifier for a downstream resource.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "LengthMeters": {
+                    "description": "The length of the cable in meters.",
+                    "longDescription": "This property shall contain the length of the cable in meters.",
+                    "readonly": false,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
+                },
+                "Location": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location",
+                    "description": "The location of the assembly.",
+                    "longDescription": "This property shall contain location information of the associated assembly."
+                },
+                "Manufacturer": {
+                    "description": "The manufacturer of this cable.",
+                    "longDescription": "This property shall contain the name of the organization responsible for producing the cable.  This organization might be the entity from whom the cable is purchased, but this is not necessarily true.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Model": {
+                    "description": "The model number of the cable.",
+                    "longDescription": "This property shall contain the name by which the manufacturer generally refers to the cable.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "PartNumber": {
+                    "description": "The part number for this cable.",
+                    "longDescription": "This property shall contain the part number assigned by the organization that is responsible for producing or manufacturing the cable.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "SKU": {
+                    "description": "The SKU for this cable.",
+                    "longDescription": "This property shall contain the stock-keeping unit (SKU) number for this cable.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "SerialNumber": {
+                    "description": "The serial number for this cable.",
+                    "longDescription": "This property shall contain the manufacturer-allocated number that identifies the cable.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                },
+                "UpstreamConnectorTypes": {
+                    "description": "The connector types this cable supports.",
+                    "items": {
+                        "$ref": "#/definitions/ConnectorType"
+                    },
+                    "longDescription": "The property shall contain an array of connector types this cable supports.",
+                    "readonly": false,
+                    "type": "array"
+                },
+                "UpstreamName": {
+                    "description": "The identifier for the downstream resource.",
+                    "longDescription": "This property shall contain any identifier for an upstream resource.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "UserDescription": {
+                    "description": "The description of this cable.",
+                    "longDescription": "This property shall contain a user-defined description for this cable.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "UserLabel": {
+                    "description": "A user-assigned label.",
+                    "longDescription": "This property shall contain a user-assigned label used to identify this resource.  If a value has not been assigned by a user, the value of this property shall be an empty string.",
+                    "readonly": false,
+                    "type": "string",
+                    "versionAdded": "v1_1_0"
+                },
+                "Vendor": {
+                    "description": "The manufacturer of this cable.",
+                    "longDescription": "This property shall contain the name of the company that provides the final product that includes this cable.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "CableClass": {
+            "enum": [
+                "Power",
+                "Network",
+                "Storage",
+                "Fan",
+                "PCIe",
+                "USB",
+                "Video",
+                "Fabric",
+                "Serial",
+                "General"
+            ],
+            "enumDescriptions": {
+                "Fabric": "This cable is used for connecting to a fabric.",
+                "Fan": "This cable is used for connecting to a fan system.",
+                "General": "This cable is used for providing general connectivity.",
+                "Network": "This cable is used for connecting to a networking system.",
+                "PCIe": "This cable is used for connecting to a PCIe endpoint.",
+                "Power": "This cable is used for connecting to a power system.",
+                "Serial": "This cable is used for connecting to a serial endpoint.",
+                "Storage": "This cable is used for connecting to a storage system.",
+                "USB": "This cable is used for connecting to a USB endpoint.",
+                "Video": "This cable is used for connecting to a video system."
+            },
+            "type": "string"
+        },
+        "CableStatus": {
+            "enum": [
+                "Normal",
+                "Degraded",
+                "Failed",
+                "Testing",
+                "Disabled",
+                "SetByService"
+            ],
+            "enumDescriptions": {
+                "Degraded": "The cable is degraded.",
+                "Disabled": "The cable is disabled.",
+                "Failed": "The cable has failed.",
+                "Normal": "The cable is operating normally.",
+                "SetByService": "The cable status is set by the service.",
+                "Testing": "The cable is under test."
+            },
+            "enumLongDescriptions": {
+                "Degraded": "This value shall indicate the cable is degraded.  The State property in Status shall contain the value `Enabled` and The Health property in Status shall contain the value `Warning`.",
+                "Disabled": "This value shall indicate the cable is disabled.  The State property in Status shall contain the value `Disabled`.",
+                "Failed": "This value shall indicate the cable has failed.  The State property in Status shall contain the value `Enabled` and The Health property in Status shall contain the value `Critical`.",
+                "Normal": "This value shall indicate the cable is operating normally.  The State property in Status shall contain the value `Enabled` and The Health property in Status shall contain the value `OK`.",
+                "SetByService": "This value shall indicate the status for the cable is not defined by the user.  If implemented, the service shall determine the value of the State and Health properties in Status.",
+                "Testing": "This value shall indicate the cable is under test.  The State property in Status shall contain the value `InTest`."
+            },
+            "type": "string"
+        },
+        "ConnectorType": {
+            "enum": [
+                "ACPower",
+                "DB9",
+                "DCPower",
+                "DisplayPort",
+                "HDMI",
+                "ICI",
+                "IPASS",
+                "PCIe",
+                "Proprietary",
+                "RJ45",
+                "SATA",
+                "SCSI",
+                "SlimSAS",
+                "SFP",
+                "SFPPlus",
+                "USBA",
+                "USBC",
+                "QSFP",
+                "CDFP",
+                "OSFP"
+            ],
+            "enumDescriptions": {
+                "ACPower": "This cable connects to a AC power connector.",
+                "CDFP": "This cable connects to a CDFP connector.",
+                "DB9": "This cable connects to a DB9 connector.",
+                "DCPower": "This cable connects to a DC power connector.",
+                "DisplayPort": "This cable connects to a DisplayPort power connector.",
+                "HDMI": "This cable connects to an HDMI connector.",
+                "ICI": "This cable connects to an ICI connector.",
+                "IPASS": "This cable connects to an IPASS connector.",
+                "OSFP": "This cable connects to a OSFP connector.",
+                "PCIe": "This cable connects to a PCIe connector.",
+                "Proprietary": "This cable connects to a proprietary connector.",
+                "QSFP": "This cable connects to a QSFP connector.",
+                "RJ45": "This cable connects to an RJ45 connector.",
+                "SATA": "This cable connects to a SATA connector.",
+                "SCSI": "This cable connects to a SCSI connector.",
+                "SFP": "This cable connects to a SFP connector.",
+                "SFPPlus": "This cable connects to a SFPPlus connector.",
+                "SlimSAS": "This cable connects to a SlimSAS connector.",
+                "USBA": "This cable connects to a USB-A connector.",
+                "USBC": "This cable connects to a USB-C connector."
+            },
+            "enumVersionAdded": {
+                "CDFP": "v1_2_0",
+                "OSFP": "v1_2_0"
+            },
+            "type": "string"
+        },
+        "Links": {
+            "additionalProperties": false,
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "DownstreamChassis": {
+                    "description": "An array of links to the downstream chassis connected to this cable.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.json#/definitions/Chassis"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Chassis that represent the physical downstream containers connected to this cable.",
+                    "readonly": false,
+                    "type": "array"
+                },
+                "DownstreamChassis@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "DownstreamPorts": {
+                    "description": "An array of links to the downstream ports connected to this cable.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Port.json#/definitions/Port"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Port that represent the physical downstream connections connected to this cable.",
+                    "readonly": false,
+                    "type": "array"
+                },
+                "DownstreamPorts@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "DownstreamResources": {
+                    "description": "An array of links to the downstream resources connected to this cable.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Resource"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources that represent the physical downstream connections connected to this cable.  Even if the resource is already referenced in another property within Links, such as DownstreamPorts or DownstreamChassis, it shall also be referenced in this property.",
+                    "readonly": false,
+                    "type": "array"
+                },
+                "DownstreamResources@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                },
+                "UpstreamChassis": {
+                    "description": "An array of links to the upstream chassis connected to this cable.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.json#/definitions/Chassis"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Chassis that represent the physical upstream containers connected to this cable.",
+                    "readonly": false,
+                    "type": "array"
+                },
+                "UpstreamChassis@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "UpstreamPorts": {
+                    "description": "An array of links to the upstream ports connected to this cable.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Port.json#/definitions/Port"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Port that represent the physical upstream connections connected to this cable.",
+                    "readonly": false,
+                    "type": "array"
+                },
+                "UpstreamPorts@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "UpstreamResources": {
+                    "description": "An array of links to the upstream resources connected to this cable.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Resource"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources that represent the physical upstream connections connected to this cable.  Even if the resource is already referenced in another property within Links, such as UpstreamPorts or UpstreamChassis, it shall also be referenced in this property.",
+                    "readonly": false,
+                    "type": "array"
+                },
+                "UpstreamResources@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2021.4",
+    "title": "#Cable.v1_2_0.Cable"
+}

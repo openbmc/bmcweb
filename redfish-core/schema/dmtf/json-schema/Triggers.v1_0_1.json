@@ -1,0 +1,520 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Triggers.v1_0_1.json",
+    "$ref": "#/definitions/Triggers",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "This property contains the available OEM specific actions for this resource.",
+                    "longDescription": "This property shall contain any additional OEM actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "DirectionOfCrossingEnum": {
+            "description": "The direction of crossing which corresponds to a trigger.",
+            "enum": [
+                "Increasing",
+                "Decreasing"
+            ],
+            "enumDescriptions": {
+                "Decreasing": "A trigger occurs when the metric value crosses the trigger value while decreasing.",
+                "Increasing": "A trigger occurs when the metric value crosses the trigger value while increasing."
+            },
+            "longDescription": "The value shall indicate the direction of crossing which corresponds to a trigger.",
+            "type": "string"
+        },
+        "DiscreteTrigger": {
+            "additionalProperties": false,
+            "description": "The characteristics of the discrete trigger.",
+            "longDescription": "This object shall contain the characteristics of the discrete trigger.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "DwellTime": {
+                    "description": "This time the trigger occurance persists before a trigger event has occurred.",
+                    "longDescription": "This property shall contain the time that a trigger occurance persists before the MetricAction is performed.",
+                    "pattern": "-?P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Name": {
+                    "description": "The name of trigger.",
+                    "longDescription": "This property shall contain a name for the trigger.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Severity": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Health"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "This property contains the value of the Severity property in the Event message.",
+                    "longDescription": "The value of this property shall be used for the Severity property in the Event message.",
+                    "readonly": false
+                },
+                "Value": {
+                    "description": "The value of the discrete metric that constitutes a trigger occurance.",
+                    "longDescription": "This property shall contain the value discrete metric that constitutes a trigger event.  The DwellTimeMilliSeconds shall be measured from this point in time.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "DiscreteTriggerConditionEnum": {
+            "description": "Specifies the condition, in relationship to the discrete trigger values, which constitutes a trigger.",
+            "enum": [
+                "Specified",
+                "Changed"
+            ],
+            "enumDescriptions": {
+                "Changed": "A discrete trigger occures whenever the value of the metric changes.",
+                "Specified": "A discrete trigger occurs when the value of the metric becomes one of the values listed in the DiscreteTriggers property."
+            },
+            "longDescription": "The value shall specify the condition, in relationship to the discrete trigger values, which constitutes a trigger.",
+            "type": "string"
+        },
+        "MetricTypeEnum": {
+            "description": "Specifies the type of metric for which the trigger is configured.",
+            "enum": [
+                "Numeric",
+                "Discrete"
+            ],
+            "enumDescriptions": {
+                "Discrete": "The trigger is for a discrete sensor.",
+                "Numeric": "The trigger is for numeric sensor."
+            },
+            "longDescription": "The value shall specify the type of metric for which the trigger is configured.",
+            "type": "string"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM specific actions for this resource.",
+            "longDescription": "This type shall contain any additional OEM actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "Threshold": {
+            "additionalProperties": false,
+            "description": "A threshold definition for a sensor.",
+            "longDescription": "This type shall contain the properties for an individual threshold for this sensor.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Activation": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ThresholdActivation"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The direction of crossing that activates this threshold.",
+                    "longDescription": "This property shall indicate the direction of crossing of the Reading value for this Sensor that triggers the threshold.",
+                    "readonly": false
+                },
+                "DwellTime": {
+                    "description": "The time interval over which the sensor reading must have passed through this Threshold value before the threshold is considered to be violated.",
+                    "longDescription": "This property shall indicate the time interval over which the sensor reading must have passed through this Threshold value before the threshold is considered to be violated.",
+                    "pattern": "-?P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Reading": {
+                    "description": "The threshold value.",
+                    "longDescription": "This property shall indicate the Reading value of this Sensor that triggers the threshold.  The units of this property shall follow the same units as the property described by MetricProperties.",
+                    "readonly": false,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "ThresholdActivation": {
+            "enum": [
+                "Increasing",
+                "Decreasing",
+                "Either"
+            ],
+            "enumDescriptions": {
+                "Decreasing": "Value decreases below the threshold.",
+                "Either": "Value crosses the threshold in either direction.",
+                "Increasing": "Value increases above the threshold."
+            },
+            "enumLongDescriptions": {
+                "Decreasing": "This threshold is activated when the value of Reading changes from a value higher than the threshold to a value lower than the threshold.",
+                "Either": "This threshold is activated when either the Increasing or Decreasing conditions are met.",
+                "Increasing": "This threshold is activated when the value of Reading changes from a value lower than the threshold to a value higher than the threshold."
+            },
+            "type": "string"
+        },
+        "Thresholds": {
+            "additionalProperties": false,
+            "description": "The set of thresholds defined for a sensor.",
+            "longDescription": "This structure shall contain a set of thresholds defined for a sensor.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "LowerCritical": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Threshold"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Below normal range and requires attention.",
+                    "longDescription": "The value of this property shall indicate the Reading is below the normal range and may require attention.  The units shall be the same units as the Reading."
+                },
+                "LowerWarning": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Threshold"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Below normal range.",
+                    "longDescription": "The value of this property shall indicate the Reading is below the normal range.  The units shall be the same units as the Reading."
+                },
+                "UpperCritical": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Threshold"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Above normal range and requires attention.",
+                    "longDescription": "The value of this property shall indicate the Reading is above the normal range and may require attention.  The units shall be the same units as the Reading."
+                },
+                "UpperWarning": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Threshold"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Above normal range.",
+                    "longDescription": "The value of this property shall indicate the Reading is above the normal range.  The units shall be the same units as the Reading."
+                }
+            },
+            "type": "object"
+        },
+        "TriggerActionEnum": {
+            "description": "Specifies the actions to perform when a trigger occurs.",
+            "enum": [
+                "LogToLogService",
+                "RedfishEvent"
+            ],
+            "enumDescriptions": {
+                "LogToLogService": "Upon a trigger, record in a log.",
+                "RedfishEvent": "Upon a trigger, send a Redfish Event message of type Event."
+            },
+            "enumLongDescriptions": {
+                "LogToLogService": "When a trigger condition is met, the service shall log the occurrence of the condition to the log indicated by the LogService property in the TelemetryService resource.",
+                "RedfishEvent": "When a trigger condition is met, the service shall produce a Redfish Event of type Event to matching subscribers indicated in the EventSubscription collection found on the EventService."
+            },
+            "longDescription": "The value shall specify the actions to perform when a trigger occurs.",
+            "type": "string"
+        },
+        "Triggers": {
+            "additionalProperties": false,
+            "description": "Triggers which apply to a list of metrics.",
+            "longDescription": "This resource shall specify triggers, which apply to a list of metrics.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "The Actions property shall contain the available actions for this resource."
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "DiscreteTriggerCondition": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/DiscreteTriggerConditionEnum"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Specifies the conditions when a discrete metric triggers.",
+                    "longDescription": "The value of this property shall specify the conditions when a discrete metric triggers.",
+                    "readonly": true
+                },
+                "DiscreteTriggers": {
+                    "description": "List of discrete triggers.",
+                    "items": {
+                        "$ref": "#/definitions/DiscreteTrigger"
+                    },
+                    "longDescription": "This property shall contains a list of value to which a metric reading will be compared.  This property shall be present when the DiscreteTriggerCondition property has a value of 'Specified'.",
+                    "type": "array"
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "MetricProperties": {
+                    "description": "A list of URIs with wildcards and property identifiers for which this trigger is defined. If a URI has wildcards, the wildcards are substituted as specified in the Wildcards array property.",
+                    "format": "uri",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This array property shall contain a list of URIs with wildcards and property identifiers for which this trigger is defined. Each wildcard in the URI shall be delimited by a set of curly braces. Each wildcard shall be substituted as specified by the corresponding entry in the Wildcard array property.  Once an URI with wildcards has had its wildcards fully substituted, it shall reference a resource property for which the metric definition applies. The property identifiers portion of the URI shall follow JSON fragment notation rules defined by RFC6901.",
+                    "readonly": false,
+                    "type": "array"
+                },
+                "MetricType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/MetricTypeEnum"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The type of trigger.",
+                    "longDescription": "The value of this property shall specific the type of trigger.",
+                    "readonly": true
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "NumericThresholds": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Thresholds"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Specifies the thresholds when a numeric metric triggers.",
+                    "longDescription": "This property shall contain list of thresholds to which a numeric metric value shall be compared."
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.",
+                    "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "This property describes the status and health of the resource and its children.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                },
+                "TriggerActions": {
+                    "description": "This property specifies the actions to perform when the trigger occurs.",
+                    "items": {
+                        "$ref": "#/definitions/TriggerActionEnum"
+                    },
+                    "longDescription": "The value of this property shall specify the actions to perform when the trigger occurs.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "Wildcards": {
+                    "description": "A list of wildcards and their substitution values to be applied to the entries in the MetricProperties array property.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/Wildcard"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "The property shall contain a list of wildcards and their replacement strings, which are applied to the MetricProperties array property. Each wildcard shall have a corresponding entry in this array property.",
+                    "type": "array"
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "Wildcard": {
+            "additionalProperties": false,
+            "description": "Contains a wildcard and its substitution values.",
+            "longDescription": "This property shall contain a wildcard and its substitution values.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Name": {
+                    "description": "The string used as a wildcard.",
+                    "longDescription": "This property shall contain the string used as a wildcard.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Values": {
+                    "description": "An array of values to substitute for the wildcard.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain the list of values to susubstitute for the wildcard.",
+                    "readonly": true,
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2018.2",
+    "title": "#Triggers.v1_0_1.Triggers"
+}

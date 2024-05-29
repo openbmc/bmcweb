@@ -1,0 +1,34 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/CoolingUnit.json",
+    "$ref": "#/definitions/CoolingUnit",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "CoolingUnit": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CoolingUnit.v1_0_2.json#/definitions/CoolingUnit"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CoolingUnit.v1_1_2.json#/definitions/CoolingUnit"
+                }
+            ],
+            "deletable": false,
+            "description": "The `CoolingUnit` schema contains the definition for a cooling system component or unit, such as a coolant distribution unit (CDU) or a heat exchanger.",
+            "insertable": false,
+            "longDescription": "This resource shall represent a cooling system component or unit for a Redfish implementation.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/ThermalEquipment/CDUs/{CoolingUnitId}",
+                "/redfish/v1/ThermalEquipment/ImmersionUnits/{CoolingUnitId}",
+                "/redfish/v1/ThermalEquipment/HeatExchangers/{CoolingUnitId}"
+            ]
+        }
+    },
+    "language": "en",
+    "owningEntity": "DMTF",
+    "title": "#CoolingUnit.CoolingUnit"
+}

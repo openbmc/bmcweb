@@ -1,0 +1,472 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/License.v1_1_2.json",
+    "$ref": "#/definitions/License",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "AuthorizationScope": {
+            "description": "The authorization scope of the license.",
+            "enum": [
+                "Device",
+                "Capacity",
+                "Service"
+            ],
+            "enumDescriptions": {
+                "Capacity": "The license authorizes functionality to a number of devices, but not restricted to specific device instances.",
+                "Device": "The license authorizes functionality for specific device instances.",
+                "Service": "The license authorizes functionality to a service."
+            },
+            "enumLongDescriptions": {
+                "Capacity": "This value shall indicate the license authorizes functionality for one or more device instances limited to a maximum number of devices specified by the value of the MaxAuthorizedDevices property.  In an aggregator, the aggregating service shall represent the applicable services in the TargetServices property in the Links property.",
+                "Device": "This value shall indicate the license authorizes functionality for one or more specific device instances, listed as values of the AuthorizedDevices property.",
+                "Service": "This value shall indicate the license authorizes product-level or service-level functionality for a service.  This may include hardware or software features not tied to a specific device or subsystem.  License resources using this value shall not include the AuthorizedDevices nor the MaxAuthorizedDevices properties.  In an aggregator, the aggregating service shall represent the applicable services in the TargetServices property in the Links property."
+            },
+            "longDescription": "This property shall describe the authorization scope for this license.",
+            "type": "string"
+        },
+        "ContactInfo": {
+            "additionalProperties": false,
+            "description": "Contact information for this license.",
+            "longDescription": "This object shall contain contact information for an individual or organization responsible for this license.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "ContactName": {
+                    "description": "Name of this contact.",
+                    "longDescription": "This property shall contain the name of a person or organization to contact for information about this license.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "EmailAddress": {
+                    "description": "Email address for this contact.",
+                    "longDescription": "This property shall contain the email address for a person or organization to contact for information about this license.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "PhoneNumber": {
+                    "description": "Phone number for this contact.",
+                    "longDescription": "This property shall contain the phone number for a person or organization to contact for information about this license.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "License": {
+            "additionalProperties": false,
+            "description": "The License schema describes a license for a feature.",
+            "longDescription": "This resource shall represent a license for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "AuthorizationScope": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/AuthorizationScope"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The authorization scope of the license.",
+                    "longDescription": "This property shall contain the authorization scope of the license.",
+                    "readonly": true
+                },
+                "Contact": {
+                    "$ref": "#/definitions/ContactInfo",
+                    "description": "The contact of the license.",
+                    "longDescription": "This property shall contain an object containing information about the contact of the license."
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "DownloadURI": {
+                    "description": "The URI from which to download the license file.",
+                    "format": "uri-reference",
+                    "longDescription": "This property shall contain the URI from which to download the license file, using the Redfish protocol and authentication methods.  The service provides this URI for the download of the OEM-specific binary file of license data.  An HTTP GET from this URI shall return a response payload of MIME type `application/octet-stream`.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "EntitlementId": {
+                    "description": "The entitlement identifier for this license.",
+                    "longDescription": "This property shall contain the entitlement identifier for this license, used to display a license key, partial license key, or other value used to identify or differentiate license instances.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "ExpirationDate": {
+                    "description": "The date and time when the license expires.",
+                    "format": "date-time",
+                    "longDescription": "This property shall contain the date and time when the license expires.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "GracePeriodDays": {
+                    "description": "The grace days of this license.",
+                    "longDescription": "The value of this property shall contain the number of days that the license is still usable after the date and time specified by the ExpirationDate property.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "InstallDate": {
+                    "description": "The date and time when the license was installed.",
+                    "format": "date-time",
+                    "longDescription": "This property shall contain the date and time when the license was installed.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "LicenseInfoURI": {
+                    "description": "The URI at which more information about this license can be obtained.",
+                    "format": "uri-reference",
+                    "longDescription": "This property shall contain the URI at which to provide more information about the license.  The information provided at the URI is intended to be general product-related and not tied to a specific user, customer, or license instance.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "LicenseOrigin": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/LicenseOrigin"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "This indicates the origin of the license.",
+                    "longDescription": "This property shall contain the origin for the license.",
+                    "readonly": true
+                },
+                "LicenseString": {
+                    "description": "The Base64-encoded string of the license.",
+                    "longDescription": "This property shall contain the Base64-encoded string of the license.  This property shall not appear in response payloads.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "LicenseType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/LicenseType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The type of the license.",
+                    "longDescription": "This property shall contain the type for the license.",
+                    "readonly": true
+                },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
+                },
+                "Manufacturer": {
+                    "description": "The manufacturer or producer of this license.",
+                    "longDescription": "This property shall represent the name of the manufacturer or producer of this license.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "MaxAuthorizedDevices": {
+                    "description": "The maximum number of devices authorized by the license.",
+                    "longDescription": "This property shall contain the maximum number of devices that are authorized by the license.  This property shall only be present if the AuthorizationScope property contains the value `Capacity`.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "PartNumber": {
+                    "description": "The part number for this license.",
+                    "longDescription": "This property shall contain the manufacturer-provided part number for the license.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "RemainingDuration": {
+                    "description": "The remaining usage duration before the license expires.",
+                    "longDescription": "This property shall contain the remaining usage duration before the license expires.  This property shall only be present for licenses that are based on usage time.",
+                    "pattern": "^P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?$",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "RemainingUseCount": {
+                    "description": "The remaining usage count before the license expires.",
+                    "longDescription": "This property shall contain the remaining usage count before the license expires.  This property shall only be present for licenses that are based on usage count.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "Removable": {
+                    "description": "An indication of whether the license is removable.",
+                    "longDescription": "This property shall indicate whether a user can remove the license with an HTTP DELETE operation.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "SKU": {
+                    "description": "The SKU for this license.",
+                    "longDescription": "This property shall contain the SKU number for this license.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "SerialNumber": {
+                    "description": "The serial number for this license.",
+                    "longDescription": "This property shall contain a manufacturer-allocated number that identifies the license.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status of the license.",
+                    "longDescription": "This property shall contain the status of license."
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "requiredOnCreate": [
+                "LicenseString"
+            ],
+            "type": "object"
+        },
+        "LicenseOrigin": {
+            "enum": [
+                "BuiltIn",
+                "Installed"
+            ],
+            "enumDescriptions": {
+                "BuiltIn": "A license was provided with the product.",
+                "Installed": "A license installed by user."
+            },
+            "type": "string"
+        },
+        "LicenseType": {
+            "enum": [
+                "Production",
+                "Prototype",
+                "Trial"
+            ],
+            "enumDescriptions": {
+                "Production": "A license for use in production environments.",
+                "Prototype": "A prototype version of license.",
+                "Trial": "A trial license."
+            },
+            "enumLongDescriptions": {
+                "Production": "This value shall indicate a license purchased or obtained for use in production environments.",
+                "Prototype": "This value shall indicate a license that is designed for development or internal use.",
+                "Trial": "This value shall indicate a trial version of a license."
+            },
+            "type": "string"
+        },
+        "Links": {
+            "additionalProperties": false,
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AuthorizedDevices": {
+                    "description": "An array of links to the devices authorized by the license.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                    },
+                    "longDescription": "This property shall contain an array of links to the devices that are authorized by the license.  Clients can provide this property when installing a license to apply the license to specific devices.  If not provided when installing a license, the service may determine the devices to which the license applies.  This property shall not be present if the AuthorizationScope property contains the value `Service`.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "AuthorizedDevices@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                },
+                "TargetServices": {
+                    "description": "An array of links to the managers where the license is installed.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Manager.json#/definitions/Manager"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Manager that represent the services where the license is installed, such as remote Redfish services.  This property shall only be present in aggregators when the AuthorizationScope property contains `Service` or `Capacity`.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_1_0"
+                },
+                "TargetServices@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2022.3",
+    "title": "#License.v1_1_2.License"
+}

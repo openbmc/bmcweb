@@ -1,0 +1,337 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Circuit.json",
+    "$ref": "#/definitions/Circuit",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "BreakerStates": {
+            "enum": [
+                "Normal",
+                "Tripped",
+                "Off"
+            ],
+            "enumDescriptions": {
+                "Normal": "The breaker is powered on.",
+                "Off": "The breaker is off.",
+                "Tripped": "The breaker has been tripped."
+            },
+            "type": "string"
+        },
+        "Circuit": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Circuit.v1_0_5.json#/definitions/Circuit"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Circuit.v1_1_4.json#/definitions/Circuit"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Circuit.v1_2_3.json#/definitions/Circuit"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Circuit.v1_3_3.json#/definitions/Circuit"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Circuit.v1_4_3.json#/definitions/Circuit"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Circuit.v1_5_2.json#/definitions/Circuit"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Circuit.v1_6_2.json#/definitions/Circuit"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Circuit.v1_7_2.json#/definitions/Circuit"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Circuit.v1_8_0.json#/definitions/Circuit"
+                }
+            ],
+            "deletable": false,
+            "description": "This `Circuit` schema contains the definition for an electrical circuit.",
+            "insertable": false,
+            "longDescription": "This resource shall be used to represent an electrical circuit for a Redfish implementation.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/PowerEquipment/RackPDUs/{PowerDistributionId}/Mains/{CircuitId}",
+                "/redfish/v1/PowerEquipment/RackPDUs/{PowerDistributionId}/Branches/{CircuitId}",
+                "/redfish/v1/PowerEquipment/FloorPDUs/{PowerDistributionId}/Mains/{CircuitId}",
+                "/redfish/v1/PowerEquipment/FloorPDUs/{PowerDistributionId}/Branches/{CircuitId}",
+                "/redfish/v1/PowerEquipment/FloorPDUs/{PowerDistributionId}/Subfeeds/{CircuitId}",
+                "/redfish/v1/PowerEquipment/TransferSwitches/{PowerDistributionId}/Mains/{CircuitId}",
+                "/redfish/v1/PowerEquipment/TransferSwitches/{PowerDistributionId}/Branches/{CircuitId}",
+                "/redfish/v1/PowerEquipment/TransferSwitches/{PowerDistributionId}/Feeders/{CircuitId}",
+                "/redfish/v1/PowerEquipment/PowerShelves/{PowerDistributionId}/Mains/{CircuitId}",
+                "/redfish/v1/PowerEquipment/PowerShelves/{PowerDistributionId}/Branches/{CircuitId}",
+                "/redfish/v1/PowerEquipment/Switchgear/{PowerDistributionId}/Mains/{CircuitId}",
+                "/redfish/v1/PowerEquipment/Switchgear/{PowerDistributionId}/Subfeeds/{CircuitId}",
+                "/redfish/v1/PowerEquipment/Switchgear/{PowerDistributionId}/Feeders/{CircuitId}",
+                "/redfish/v1/PowerEquipment/Switchgear/{PowerDistributionId}/Branches/{CircuitId}",
+                "/redfish/v1/PowerEquipment/ElectricalBuses/{PowerDistributionId}/Mains/{CircuitId}",
+                "/redfish/v1/PowerEquipment/ElectricalBuses/{PowerDistributionId}/Branches/{CircuitId}"
+            ]
+        },
+        "NominalVoltageType": {
+            "enum": [
+                "AC100To127V",
+                "AC100To240V",
+                "AC100To277V",
+                "AC120V",
+                "AC200To240V",
+                "AC200To277V",
+                "AC208V",
+                "AC230V",
+                "AC240V",
+                "AC240AndDC380V",
+                "AC277V",
+                "AC277AndDC380V",
+                "AC400V",
+                "AC480V",
+                "DC48V",
+                "DC240V",
+                "DC380V",
+                "DCNeg48V",
+                "DC16V",
+                "DC12V",
+                "DC9V",
+                "DC5V",
+                "DC3_3V",
+                "DC1_8V"
+            ],
+            "enumDescriptions": {
+                "AC100To127V": "AC 100-127V nominal.",
+                "AC100To240V": "AC 100-240V nominal.",
+                "AC100To277V": "AC 100-277V nominal.",
+                "AC120V": "AC 120V nominal.",
+                "AC200To240V": "AC 200-240V nominal.",
+                "AC200To277V": "AC 200-277V nominal.",
+                "AC208V": "AC 208V nominal.",
+                "AC230V": "AC 230V nominal.",
+                "AC240AndDC380V": "AC 200-240V and DC 380V.",
+                "AC240V": "AC 240V nominal.",
+                "AC277AndDC380V": "AC 200-277V and DC 380V.",
+                "AC277V": "AC 277V nominal.",
+                "AC400V": "AC 400V or 415V nominal.",
+                "AC480V": "AC 480V nominal.",
+                "DC12V": "DC 12V nominal.",
+                "DC16V": "DC 16V nominal.",
+                "DC1_8V": "DC 1.8V nominal.",
+                "DC240V": "DC 240V nominal.",
+                "DC380V": "High-voltage DC (380V).",
+                "DC3_3V": "DC 3.3V nominal.",
+                "DC48V": "DC 48V nominal.",
+                "DC5V": "DC 5V nominal.",
+                "DC9V": "DC 9V nominal.",
+                "DCNeg48V": "-48V DC."
+            },
+            "enumLongDescriptions": {
+                "AC100To127V": "This value shall indicate the device supports a nominal voltage in the complete range of 100-127VAC.  Range values are generally used to describe support on device inputs or inlets.",
+                "AC100To240V": "This value shall indicate the device supports a nominal voltage in the complete range of 100-240VAC.  Range values are generally used to describe support on device inputs or inlets.",
+                "AC100To277V": "This value shall indicate the device supports a nominal voltage in the complete range of 100-277VAC.  Range values are generally used to describe support on device inputs or inlets.",
+                "AC120V": "This value shall indicate the device supports a nominal voltage of 120VAC.  Specific values are generally used to describe support on device outputs or outlets.",
+                "AC200To240V": "This value shall indicate the device supports a nominal voltage in the complete range of 200-240VAC.  Range values are generally used to describe support on device inputs or inlets.",
+                "AC200To277V": "This value shall indicate the device supports a nominal voltage in the complete range of 200-277VAC.  Range values are generally used to describe support on device inputs or inlets.",
+                "AC208V": "This value shall indicate the device supports a nominal voltage of 208VAC.  Specific AC voltage values are generally used to describe support on device outputs or outlets.",
+                "AC230V": "This value shall indicate the device supports a nominal voltage of 230AC.  Specific AC voltage values are generally used to describe support on device outputs or outlets.",
+                "AC240AndDC380V": "This value shall indicate the device supports a nominal voltage in the complete range of 200-240VAC or a value of 380VDC.  Range values are generally used to describe support on device inputs or inlets.",
+                "AC240V": "This value shall indicate the device supports a nominal voltage of 240VAC.  Specific AC voltage values are generally used to describe support on device outputs or outlets.",
+                "AC277AndDC380V": "This value shall indicate the device supports a nominal voltage in the complete range of 200-277VAC or a value of 380VDC.  Range values are generally used to describe support on device inputs or inlets.",
+                "AC277V": "This value shall indicate the device supports a nominal voltage of 277VAC.  Specific AC high-voltage values may be used to describe support on device inputs or outputs.",
+                "AC400V": "This value shall indicate the device supports a nominal voltage of 400VAC or 415VAC.  Specific AC high-voltage values may be used to describe support on device inputs or outputs.",
+                "AC480V": "This value shall indicate the device supports a nominal voltage of 480VAC.  Specific AC high-voltage values may be used to describe support on device inputs or outputs.",
+                "DC12V": "This value shall indicate the device supports a nominal voltage of 12VDC.",
+                "DC16V": "This value shall indicate the device supports a nominal voltage of 16VDC.",
+                "DC1_8V": "This value shall indicate the device supports a nominal voltage of 1.8VDC.",
+                "DC240V": "This value shall indicate the device supports a nominal voltage of 240VDC.",
+                "DC380V": "This value shall indicate the device supports a nominal voltage of 380VDC.",
+                "DC3_3V": "This value shall indicate the device supports a nominal voltage of 3.3VDC.",
+                "DC48V": "This value shall indicate the device supports a nominal voltage of 48VDC.",
+                "DC5V": "This value shall indicate the device supports a nominal voltage of 5VDC.",
+                "DC9V": "This value shall indicate the device supports a nominal voltage of 9VDC.",
+                "DCNeg48V": "This value shall indicate the device supports a nominal voltage of -48VDC."
+            },
+            "enumVersionAdded": {
+                "AC100To127V": "v1_6_0",
+                "DC12V": "v1_7_0",
+                "DC16V": "v1_7_0",
+                "DC1_8V": "v1_7_0",
+                "DC3_3V": "v1_7_0",
+                "DC48V": "v1_2_0",
+                "DC5V": "v1_7_0",
+                "DC9V": "v1_7_0"
+            },
+            "type": "string"
+        },
+        "PhaseWiringType": {
+            "enum": [
+                "OnePhase3Wire",
+                "TwoPhase3Wire",
+                "OneOrTwoPhase3Wire",
+                "TwoPhase4Wire",
+                "ThreePhase4Wire",
+                "ThreePhase5Wire"
+            ],
+            "enumDescriptions": {
+                "OneOrTwoPhase3Wire": "Single or Two-Phase / 3-Wire (Line1, Line2 or Neutral, Protective Earth).",
+                "OnePhase3Wire": "Single-phase / 3-Wire (Line1, Neutral, Protective Earth).",
+                "ThreePhase4Wire": "Three-phase / 4-Wire (Line1, Line2, Line3, Protective Earth).",
+                "ThreePhase5Wire": "Three-phase / 5-Wire (Line1, Line2, Line3, Neutral, Protective Earth).",
+                "TwoPhase3Wire": "Two-phase / 3-Wire (Line1, Line2, Protective Earth).",
+                "TwoPhase4Wire": "Two-phase / 4-Wire (Line1, Line2, Neutral, Protective Earth)."
+            },
+            "enumLongDescriptions": {
+                "OneOrTwoPhase3Wire": "This value shall represent a Single or Two-Phase / 3-Wire (Line1, Line2 or Neutral, Protective Earth) wiring.  This value shall be used when both phase configurations are supported.  This is most common where detachable cordsets are used.",
+                "OnePhase3Wire": "This value shall represent a Single-phase / 3-Wire (Line1, Neutral, Protective Earth) wiring.",
+                "ThreePhase4Wire": "This value shall represent a Three-phase / 4-Wire (Line1, Line2, Line3, Protective Earth) wiring.",
+                "ThreePhase5Wire": "This value shall represent a Three-phase / 5-Wire (Line1, Line2, Line3, Neutral, Protective Earth) wiring.",
+                "TwoPhase3Wire": "This value shall represent a Two-phase / 3-Wire (Line1, Line2, Protective Earth) wiring.",
+                "TwoPhase4Wire": "This value shall represent a Two-phase / 4-Wire (Line1, Line2, Neutral, Protective Earth) wiring."
+            },
+            "type": "string"
+        },
+        "PlugType": {
+            "enum": [
+                "NEMA_5_15P",
+                "NEMA_L5_15P",
+                "NEMA_5_20P",
+                "NEMA_L5_20P",
+                "NEMA_L5_30P",
+                "NEMA_6_15P",
+                "NEMA_L6_15P",
+                "NEMA_6_20P",
+                "NEMA_L6_20P",
+                "NEMA_L6_30P",
+                "NEMA_L14_20P",
+                "NEMA_L14_30P",
+                "NEMA_L15_20P",
+                "NEMA_L15_30P",
+                "NEMA_L21_20P",
+                "NEMA_L21_30P",
+                "NEMA_L22_20P",
+                "NEMA_L22_30P",
+                "California_CS8265",
+                "California_CS8365",
+                "IEC_60320_C14",
+                "IEC_60320_C20",
+                "IEC_60309_316P6",
+                "IEC_60309_332P6",
+                "IEC_60309_363P6",
+                "IEC_60309_516P6",
+                "IEC_60309_532P6",
+                "IEC_60309_563P6",
+                "IEC_60309_460P9",
+                "IEC_60309_560P9",
+                "Field_208V_3P4W_60A",
+                "Field_400V_3P5W_32A"
+            ],
+            "enumDescriptions": {
+                "California_CS8265": "California Standard CS8265 (Single-phase 250V; 50A; 2P3W).",
+                "California_CS8365": "California Standard CS8365 (Three-phase 250V; 50A; 3P4W).",
+                "Field_208V_3P4W_60A": "Field-wired; Three-phase 200-250V; 60A; 3P4W.",
+                "Field_400V_3P5W_32A": "Field-wired; Three-phase 200-240/346-415V; 32A; 3P5W.",
+                "IEC_60309_316P6": "IEC 60309 316P6 (Single-phase 200-250V; 16A; 1P3W; Blue, 6-hour).",
+                "IEC_60309_332P6": "IEC 60309 332P6 (Single-phase 200-250V; 32A; 1P3W; Blue, 6-hour).",
+                "IEC_60309_363P6": "IEC 60309 363P6 (Single-phase 200-250V; 63A; 1P3W; Blue, 6-hour).",
+                "IEC_60309_460P9": "IEC 60309 460P9 (Three-phase 200-250V; 60A; 3P4W; Blue; 9-hour).",
+                "IEC_60309_516P6": "IEC 60309 516P6 (Three-phase 200-240/346-415V; 16A; 3P5W; Red; 6-hour).",
+                "IEC_60309_532P6": "IEC 60309 532P6 (Three-phase 200-240/346-415V; 32A; 3P5W; Red; 6-hour).",
+                "IEC_60309_560P9": "IEC 60309 560P9 (Three-phase 120-144/208-250V; 60A; 3P5W; Blue; 9-hour).",
+                "IEC_60309_563P6": "IEC 60309 563P6 (Three-phase 200-240/346-415V; 63A; 3P5W; Red; 6-hour).",
+                "IEC_60320_C14": "IEC C14 (Single-phase 250V; 10A; 1P3W).",
+                "IEC_60320_C20": "IEC C20 (Single-phase 250V; 16A; 1P3W).",
+                "NEMA_5_15P": "NEMA 5-15P (Single-phase 125V; 15A; 1P3W).",
+                "NEMA_5_20P": "NEMA 5-20P (Single-phase 125V; 20A; 1P3W).",
+                "NEMA_6_15P": "NEMA 6-15P (Single-phase 250V; 15A; 2P3W).",
+                "NEMA_6_20P": "NEMA 6-20P (Single-phase 250V; 20A; 2P3W).",
+                "NEMA_L14_20P": "NEMA L14-20P (Split-phase 125/250V; 20A; 2P4W).",
+                "NEMA_L14_30P": "NEMA L14-30P (Split-phase 125/250V; 30A; 2P4W).",
+                "NEMA_L15_20P": "NEMA L15-20P (Three-phase 250V; 20A; 3P4W).",
+                "NEMA_L15_30P": "NEMA L15-30P (Three-phase 250V; 30A; 3P4W).",
+                "NEMA_L21_20P": "NEMA L21-20P (Three-phase 120/208V; 20A; 3P5W).",
+                "NEMA_L21_30P": "NEMA L21-30P (Three-phase 120/208V; 30A; 3P5W).",
+                "NEMA_L22_20P": "NEMA L22-20P (Three-phase 277/480V; 20A; 3P5W).",
+                "NEMA_L22_30P": "NEMA L22-30P (Three-phase 277/480V; 30A; 3P5W).",
+                "NEMA_L5_15P": "NEMA L5-15P (Single-phase 125V; 15A; 1P3W).",
+                "NEMA_L5_20P": "NEMA L5-20P (Single-phase 125V; 20A; 1P3W).",
+                "NEMA_L5_30P": "NEMA L5-30P (Single-phase 125V; 30A; 1P3W).",
+                "NEMA_L6_15P": "NEMA L6-15P (Single-phase 250V; 15A; 2P3W).",
+                "NEMA_L6_20P": "NEMA L6-20P (Single-phase 250V; 20A; 2P3W).",
+                "NEMA_L6_30P": "NEMA L6-30P (Single-phase 250V; 30A; 2P3W)."
+            },
+            "enumLongDescriptions": {
+                "California_CS8265": "This value shall represent a plug that matches the 'California Standard' CS8265 style plug (Three-phase 250V; 50A; 3P4W).",
+                "California_CS8365": "This value shall represent a plug that matches the 'California Standard' CS8365 style plug (Three-phase 250V; 50A; 3P4W).",
+                "Field_208V_3P4W_60A": "This value shall represent field-wired input that is three-phase 200-250V; 60A; 3P4W.",
+                "Field_400V_3P5W_32A": "This value shall represent field-wired input that is three-phase 200-240/346-415V; 32A; 3P5W.",
+                "IEC_60309_316P6": "This value shall represent a plug that matches the IEC 60309 316P6 plug (Single-phase 200-250V; 16A; 1P3W; Blue, 6-hour).",
+                "IEC_60309_332P6": "This value shall represent a plug that matches the IEC 60309 332P6 plug (Single-phase 200-250V; 32A; 1P3W; Blue, 6-hour).",
+                "IEC_60309_363P6": "This value shall represent a plug that matches the IEC 60309 363P6 plug (Single-phase 200-250V; 63A; 1P3W; Blue, 6-hour).",
+                "IEC_60309_460P9": "This value shall represent a plug that matches the IEC 60309 460P9 plug (Three-phase 200-250V; 60A; 3P4W; Blue; 9-hour).",
+                "IEC_60309_516P6": "This value shall represent a plug that matches the IEC 60309 516P6 plug (Three-phase 200-240/346-415V; 16A; 3P5W; Red; 6-hour).",
+                "IEC_60309_532P6": "This value shall represent a plug that matches the IEC 60309 plug 532P6 (Three-phase 200-240/346-415V; 32A; 3P5W; Red; 6-hour).",
+                "IEC_60309_560P9": "This value shall represent a plug that matches the IEC 60309 plug 560P9 (Three-phase 120-144/208-250V; 60A; 3P5W; Blue; 9-hour).",
+                "IEC_60309_563P6": "This value shall represent a plug that matches the IEC 60309 563P6 plug (Three-phase 200-240/346-415V; 63A; 3P5W; Red; 6-hour).",
+                "IEC_60320_C14": "This value shall represent a plug that matches the IEC 60320 specified C14 input (Single-phase 250V; 10A; 1P3W).",
+                "IEC_60320_C20": "This value shall represent a plug that matches the IEC 60320 specified C20 input (Single-phase 250V; 16A; 1P3W).",
+                "NEMA_5_15P": "This value shall represent a plug that matches the NEMA specified 5-15 straight (non-locking) plug (Single-phase 125V; 15A; 1P3W).",
+                "NEMA_5_20P": "This value shall represent a plug that matches the NEMA specified 5-20 straight (non-locking) plug that exhibits a T-slot (Single-phase 125V; 20A; 1P3W).",
+                "NEMA_6_15P": "This value shall represent a plug that matches the NEMA specified 6-15 straight (non-locking) plug (Single-phase 250V; 15A; 2P3W).",
+                "NEMA_6_20P": "This value shall represent a plug that matches the NEMA specified 6-20 straight (non-locking) plug (Single-phase 250V; 20A; 2P3W).",
+                "NEMA_L14_20P": "This value shall represent a plug that matches the NEMA specified locking L14-20 plug (Split-phase 125/250V; 20A; 2P4W).",
+                "NEMA_L14_30P": "This value shall represent a plug that matches the NEMA specified locking L14-30 plug (Split-phase 125/250V; 30A; 2P4W).",
+                "NEMA_L15_20P": "This value shall represent a plug that matches the NEMA specified locking L15-20 plug (Three-phase 250V; 20A; 3P4W).",
+                "NEMA_L15_30P": "This value shall represent a plug that matches the NEMA specified locking L15-30 plug (Three-phase 250V; 30A; 3P4W).",
+                "NEMA_L21_20P": "This value shall represent a plug that matches the NEMA specified locking L21-20 plug (Three-phase 120/208V; 20A; 3P5W).",
+                "NEMA_L21_30P": "This value shall represent a plug that matches the NEMA specified locking L21-30 plug (Three-phase 120/208V; 30A; 3P5W).",
+                "NEMA_L22_20P": "This value shall represent a plug that matches the NEMA specified locking L22-20 plug (Three-phase 277/480V; 20A; 3P5W).",
+                "NEMA_L22_30P": "This value shall represent a plug that matches the NEMA specified locking L22-30 plug (Three-phase 277/480V; 30A; 3P5W).",
+                "NEMA_L5_15P": "This value shall represent a plug that matches the NEMA specified locking L5-15 plug (Single-phase 125V; 15A; 1P3W).",
+                "NEMA_L5_20P": "This value shall represent a plug that matches the NEMA specified locking L5-20 plug (Single-phase 125V; 20A; 1P3W).",
+                "NEMA_L5_30P": "This value shall represent a plug that matches the NEMA specified locking L5-30 plug (Single-phase 125V; 30A; 1P3W).",
+                "NEMA_L6_15P": "This value shall represent a plug that matches the NEMA specified locking L6-15 plug (Single-phase 250V; 15A; 2P3W).",
+                "NEMA_L6_20P": "This value shall represent a plug that matches the NEMA specified locking L6-20 plug (Single-phase 250V; 20A; 2P3W).",
+                "NEMA_L6_30P": "This value shall represent a plug that matches the NEMA specified locking L6-30 plug (Single-phase 250V; 30A; 2P3W)."
+            },
+            "type": "string"
+        },
+        "PowerRestorePolicyTypes": {
+            "description": "The enumerations of `PowerRestorePolicyTypes` specify the choice of power state when power is applied.",
+            "enum": [
+                "AlwaysOn",
+                "AlwaysOff",
+                "LastState"
+            ],
+            "enumDescriptions": {
+                "AlwaysOff": "Always remain powered off when external power is applied.",
+                "AlwaysOn": "Always power on when external power is applied.",
+                "LastState": "Return to the last power state (on or off) when external power is applied."
+            },
+            "type": "string"
+        },
+        "PowerState": {
+            "enum": [
+                "On",
+                "Off",
+                "PowerCycle"
+            ],
+            "enumDescriptions": {
+                "Off": "Power off.",
+                "On": "Power on.",
+                "PowerCycle": "Power cycle."
+            },
+            "enumLongDescriptions": {
+                "PowerCycle": "This value shall indicate the resource will transition to a power off state, then transition to a power on state.  Upon successful completion, the `PowerState` property, if supported, shall contain the value `On`."
+            },
+            "enumVersionAdded": {
+                "PowerCycle": "v1_5_0"
+            },
+            "type": "string"
+        }
+    },
+    "language": "en",
+    "owningEntity": "DMTF",
+    "title": "#Circuit.Circuit"
+}

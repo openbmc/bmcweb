@@ -1,0 +1,37 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/CoolantConnector.json",
+    "$ref": "#/definitions/CoolantConnector",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "CoolantConnector": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CoolantConnector.v1_0_2.json#/definitions/CoolantConnector"
+                }
+            ],
+            "deletable": false,
+            "description": "The `CoolantConnector` schema describes a liquid coolant connector, including any associated instrumentation.",
+            "insertable": false,
+            "longDescription": "This resource shall represent a coolant connector for a Redfish implementation.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/Chassis/{ChassisId}/ThermalSubsystem/CoolantConnectors/{CoolantConnectorId}",
+                "/redfish/v1/ThermalEquipment/CoolingLoops/{CoolingUnitId}/PrimaryCoolantConnectors/{CoolantConnectorId}",
+                "/redfish/v1/ThermalEquipment/CoolingLoops/{CoolingUnitId}/SecondaryCoolantConnectors/{CoolantConnectorId}",
+                "/redfish/v1/ThermalEquipment/CDUs/{CoolingUnitId}/PrimaryCoolantConnectors/{CoolantConnectorId}",
+                "/redfish/v1/ThermalEquipment/CDUs/{CoolingUnitId}/SecondaryCoolantConnectors/{CoolantConnectorId}",
+                "/redfish/v1/ThermalEquipment/ImmersionUnits/{CoolingUnitId}/PrimaryCoolantConnectors/{CoolantConnectorId}",
+                "/redfish/v1/ThermalEquipment/ImmersionUnits/{CoolingUnitId}/SecondaryCoolantConnectors/{CoolantConnectorId}",
+                "/redfish/v1/ThermalEquipment/HeatExchangers/{CoolingUnitId}/PrimaryCoolantConnectors/{CoolantConnectorId}",
+                "/redfish/v1/ThermalEquipment/HeatExchangers/{CoolingUnitId}/SecondaryCoolantConnectors/{CoolantConnectorId}"
+            ]
+        }
+    },
+    "language": "en",
+    "owningEntity": "DMTF",
+    "title": "#CoolantConnector.CoolantConnector"
+}

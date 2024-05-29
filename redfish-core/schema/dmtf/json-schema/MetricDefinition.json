@@ -1,0 +1,38 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/MetricDefinition.json",
+    "$ref": "#/definitions/MetricDefinition",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "MetricDefinition": {
+            "anyOf": [
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MetricDefinition.v1_0_12.json#/definitions/MetricDefinition"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MetricDefinition.v1_1_7.json#/definitions/MetricDefinition"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MetricDefinition.v1_2_5.json#/definitions/MetricDefinition"
+                },
+                {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MetricDefinition.v1_3_4.json#/definitions/MetricDefinition"
+                }
+            ],
+            "deletable": true,
+            "description": "The `MetricDefinition` schema describes the metadata information for a metric.",
+            "insertable": false,
+            "longDescription": "This resource shall contain the metadata information for a metric in a Redfish implementation.",
+            "updatable": true,
+            "uris": [
+                "/redfish/v1/TelemetryService/MetricDefinitions/{MetricDefinitionId}"
+            ]
+        }
+    },
+    "language": "en",
+    "owningEntity": "DMTF",
+    "title": "#MetricDefinition.MetricDefinition"
+}
