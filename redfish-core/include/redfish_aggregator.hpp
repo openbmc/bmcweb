@@ -15,7 +15,7 @@ namespace redfish
 {
 
 constexpr unsigned int aggregatorReadBodyLimit = 50 * 1024 * 1024; // 50MB
-
+constexpr const std::string_view RemotePrefix = "Remote_";
 enum class Result
 {
     LocalHandle,
@@ -416,15 +416,6 @@ class RedfishAggregator
                     BMCWEB_LOG_DEBUG("Found Satellite Controller at {}",
                                      objectPath.first.str);
 
-                    if (!satelliteInfo.empty())
-                    {
-                        BMCWEB_LOG_ERROR(
-                            "Redfish Aggregation only supports one satellite!");
-                        BMCWEB_LOG_DEBUG("Clearing all satellite data");
-                        satelliteInfo.clear();
-                        return;
-                    }
-
                     // For now assume there will only be one satellite config.
                     // Assign it the name/prefix "5B247A"
                     addSatelliteConfig("5B247A", interface.second,
@@ -433,19 +424,53 @@ class RedfishAggregator
             }
         }
     }
+    template <typename T>
+    static inline bool setPort(boost::urls::url& url, T port)
+    {
+        if constexpr (std::is_same_v<T, bool>)
+        {
+            BMCWEB_LOG_ERROR("Trying to set a boolean as a port number");
+            return false;
+        }
+        if constexpr (std::is_arithmetic_v<T>)
+        {
+            BMCWEB_LOG_DEBUG("Setting port to {}", port);
+            uint16_t portNum = static_cast<uint16_t>(port);
+            if (portNum > std::numeric_limits<uint16_t>::max())
+            {
+                BMCWEB_LOG_ERROR("Port value out of range");
+                return false;
+            }
+            url.set_port(std::to_string(portNum));
+            return true;
+        }
+        BMCWEB_LOG_ERROR("Trying to set port with unknown type");
+        return false;
+    }
 
     // Parse the properties of a satellite config object and add the
     // configuration if the properties are valid
     static void addSatelliteConfig(
-        const std::string& name,
+        const std::string& defaultname,
         const dbus::utility::DBusPropertiesMap& properties,
         std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
     {
         boost::urls::url url;
-
+        std::string name = defaultname;
         for (const auto& prop : properties)
         {
-            if (prop.first == "Hostname")
+            if (prop.first == "Name")
+            {
+                const std::string* propVal =
+                    std::get_if<std::string>(&prop.second);
+                if (propVal == nullptr)
+                {
+                    BMCWEB_LOG_ERROR("Invalid Name value");
+                    return;
+                }
+                name = *propVal;
+            }
+            else if (prop.first == "Hostname")
             {
                 const std::string* propVal =
                     std::get_if<std::string>(&prop.second);
@@ -459,19 +484,12 @@ class RedfishAggregator
 
             else if (prop.first == "Port")
             {
-                const uint64_t* propVal = std::get_if<uint64_t>(&prop.second);
-                if (propVal == nullptr)
+                if (!std::visit(
+                        [&url](auto&& arg) { return setPort(url, arg); },
+                        prop.second))
                 {
-                    BMCWEB_LOG_ERROR("Invalid Port value");
                     return;
                 }
-
-                if (*propVal > std::numeric_limits<uint16_t>::max())
-                {
-                    BMCWEB_LOG_ERROR("Port value out of range");
-                    return;
-                }
-                url.set_port(std::to_string(static_cast<uint16_t>(*propVal)));
             }
 
             else if (prop.first == "AuthType")
@@ -486,14 +504,21 @@ class RedfishAggregator
 
                 // For now assume authentication not required to communicate
                 // with the satellite BMC
-                if (*propVal != "None")
+                if (*propVal == "None")
+                {
+                    url.set_scheme("http");
+                }
+                else if (*propVal == "MTLS")
+                {
+                    url.set_scheme("https");
+                }
+                else
                 {
                     BMCWEB_LOG_ERROR(
-                        "Unsupported AuthType value: {}, only \"none\" is supported",
+                        "Unsupported AuthType value: {} , only \"none\" \"MTLS\" is supported",
                         *propVal);
                     return;
                 }
-                url.set_scheme("http");
             }
         } // Finished reading properties
 
@@ -563,6 +588,7 @@ class RedfishAggregator
         // Create a copy of thisReq so we we can still locally process the req
         std::error_code ec;
         auto localReq = std::make_shared<crow::Request>(thisReq.req, ec);
+        localReq->addHeader("X-Forwarded-For", "bmcweb");
         if (ec)
         {
             BMCWEB_LOG_ERROR("Failed to create copy of request");
@@ -586,7 +612,7 @@ class RedfishAggregator
         // Determine if the resource ID begins with a known prefix
         for (const auto& satellite : satelliteInfo)
         {
-            std::string targetPrefix = satellite.first;
+            std::string targetPrefix = RemotePrefix.data() + satellite.first;
             targetPrefix += "_";
             if (memberName.starts_with(targetPrefix))
             {
@@ -594,8 +620,9 @@ class RedfishAggregator
 
                 // Remove the known prefix from the request's URI and
                 // then forward to the associated satellite BMC
-                getInstance().forwardRequest(req, asyncResp, satellite.first,
-                                             satelliteInfo);
+                getInstance().forwardRequest(
+                    req, asyncResp, RemotePrefix.data() + satellite.first,
+                    satelliteInfo);
                 return;
             }
         }
@@ -704,12 +731,14 @@ class RedfishAggregator
         const std::string& prefix,
         const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
     {
-        const auto& sat = satelliteInfo.find(prefix);
+        const auto& sat =
+            satelliteInfo.find(prefix.substr(RemotePrefix.length()));
         if (sat == satelliteInfo.end())
         {
             // Realistically this shouldn't get called since we perform an
             // earlier check to make sure the prefix exists
-            BMCWEB_LOG_ERROR("Unrecognized satellite prefix \"{}\"", prefix);
+            BMCWEB_LOG_ERROR("Unrecognized satellite prefix \"{}\"",
+                             prefix.substr(RemotePrefix.length()));
             return;
         }
 
@@ -749,8 +778,9 @@ class RedfishAggregator
     {
         for (const auto& sat : satelliteInfo)
         {
-            std::function<void(crow::Response&)> cb = std::bind_front(
-                processCollectionResponse, sat.first, asyncResp);
+            std::function<void(crow::Response&)> cb =
+                std::bind_front(processCollectionResponse,
+                                RemotePrefix.data() + sat.first, asyncResp);
 
             boost::urls::url url(sat.second);
             url.set_path(thisReq.url().path());
@@ -773,8 +803,9 @@ class RedfishAggregator
     {
         for (const auto& sat : satelliteInfo)
         {
-            std::function<void(crow::Response&)> cb = std::bind_front(
-                processContainsSubordinateResponse, sat.first, asyncResp);
+            std::function<void(crow::Response&)> cb =
+                std::bind_front(processContainsSubordinateResponse,
+                                RemotePrefix.data() + sat.first, asyncResp);
 
             // will ignore an expanded resource in the response if that resource
             // is not already supported by the aggregating BMC
@@ -915,9 +946,10 @@ class RedfishAggregator
         if ((resp.result() == boost::beast::http::status::too_many_requests) ||
             (resp.result() == boost::beast::http::status::bad_gateway))
         {
+            BMCWEB_LOG_DEBUG("Connection to satellite \"{}\" failed", prefix);
             return;
         }
-
+        BMCWEB_LOG_DEBUG("Connection to satellite \"{}\" succeded", prefix);
         if (resp.resultInt() != 200)
         {
             BMCWEB_LOG_DEBUG(
@@ -1188,7 +1220,20 @@ class RedfishAggregator
         using crow::utility::OrMorePaths;
         using crow::utility::readUrlSegments;
         boost::urls::url_view url = thisReq.url();
-
+        BMCWEB_LOG_DEBUG("Checking if aggregation is required for {}",
+                         thisReq.target().data());
+        // keeping forwarded for bmcweb right now. This is sufficient for fully
+        //  connected bmc topology for mutual aggression and deduplication.
+        // The property can be enhanced to support for different bmc topologies
+        // in future.
+        auto forwardedHeader = thisReq.getHeaderValue("X-Forwarded-For");
+        if (!forwardedHeader.empty() && forwardedHeader == "bmcweb")
+        {
+            BMCWEB_LOG_DEBUG(
+                "Already handled reqest, skipping remote aggregation");
+            return Result::LocalHandle;
+        }
+        BMCWEB_LOG_DEBUG("Begin aggregation");
         // We don't need to aggregate JsonSchemas due to potential issues such
         // as version mismatches between aggregator and satellite BMCs.  For
         // now assume that the aggregator has all the schemas and versions that
@@ -1231,7 +1276,7 @@ class RedfishAggregator
                 // satellites due to
                 // /redfish/v1/AggregationService/AggregationSources/5B247A
                 // being a local resource describing the satellite
-                if (collectionItem.starts_with("5B247A_"))
+                if (collectionItem.starts_with(RemotePrefix))
                 {
                     BMCWEB_LOG_DEBUG("Need to forward a request");
 
