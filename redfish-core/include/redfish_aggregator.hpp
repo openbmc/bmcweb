@@ -12,6 +12,7 @@
 #include "io_context_singleton.hpp"
 #include "logging.hpp"
 #include "parsing.hpp"
+#include "persistent_data.hpp"
 #include "ssl_key_handler.hpp"
 #include "utility.hpp"
 #include "utils/collection.hpp"
@@ -36,6 +37,7 @@
 #include <chrono>
 #include <cstddef>
 #include <cstdint>
+#include <format>
 #include <functional>
 #include <limits>
 #include <memory>
@@ -581,6 +583,12 @@ class RedfishAggregator
                          result.first->second.encoded_host_and_port());
     }
 
+    // Via header value identifying this bmcweb instance (RFC 9110 7.6.3)
+    static std::string viaValue()
+    {
+        return std::format("1.1 {}", persistent_data::getConfig().systemUuid);
+    }
+
     enum AggregationType
     {
         Collection,
@@ -609,20 +617,17 @@ class RedfishAggregator
             }
         }
 
-        std::error_code ec;
-        // Create a filtered copy of the request
         auto localReq =
             std::make_shared<crow::Request>(createNewRequest(thisReq));
-        if (ec)
+        // Append this instance to any existing Via chain (RFC 9110 7.6.3) so
+        // that loops in multi level aggregation can be detected.
+        std::string via(thisReq.getHeaderValue(boost::beast::http::field::via));
+        if (!via.empty())
         {
-            BMCWEB_LOG_ERROR("Failed to create copy of request");
-            if (aggType == AggregationType::Resource)
-            {
-                messages::internalError(asyncResp->res);
-            }
-            return;
+            via += ", ";
         }
-
+        via += viaValue();
+        localReq->addHeader(boost::beast::http::field::via, via);
         boost::urls::url& urlNew = localReq->url();
         if (aggType == AggregationType::Collection)
         {
@@ -1324,6 +1329,14 @@ class RedfishAggregator
         using crow::utility::readUrlSegments;
         boost::urls::url_view url = thisReq.url();
 
+        std::string_view viaHeader =
+            thisReq.getHeaderValue(boost::beast::http::field::via);
+        if (viaHeader.find(viaValue()) != std::string_view::npos)
+        {
+            BMCWEB_LOG_DEBUG(
+                "Already handled request, skipping remote aggregation");
+            return Result::LocalHandle;
+        }
         // We don't need to aggregate JsonSchemas due to potential issues such
         // as version mismatches between aggregator and satellite BMCs.  For
         // now assume that the aggregator has all the schemas and versions that
