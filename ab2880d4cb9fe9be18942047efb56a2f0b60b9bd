@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dbd8381d_9b4b91fe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-30T23:27:31Z",
+      "side": 1,
+      "message": "I would say we should actively try to avoid that requirement if at all possible;  Syncronizing header names seems like a pain, although could be doable now that",
+      "parentUuid": "eaf91bb7_68bb55b3",
+      "range": {
+        "startLine": 9,
+        "startChar": 55,
+        "endLine": 10,
+        "endChar": 43
+      },
+      "revId": "ab2880d4cb9fe9be18942047efb56a2f0b60b9bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b510d528_b6e5dfb8",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 3
@@ -37,6 +61,30 @@
       "writtenOn": "2024-05-30T16:40:51Z",
       "side": 1,
       "message": "Your commit points out this breaks multi-level aggregation such as A aggregates B and B aggregates C.  I don\u0027t think we should break that functionality regardless of how widespread its use currently is.  Better to get it right the first time.\n\nCould we instead add a custom header to the aggregation request object which contains the identifiers of the BMCs that have been aggregated so far?  Those identifiers could be something like the `SCHEME://HOST:PORT` key used by the `connectionPools` in our internal `HttpClient`.\n\nAnother option is to use the aggregation prefix as the identifier.  That will require implementing generating aggregation prefixes.  Right now it\u0027s just hardcoded to always be `5B247A_`.  That\u0027ll likely need to be implemented regardless as part of enabling mutual aggregation.  It\u0027s not as useful if there can only be two BMCs in the entire system.\n\nThe flow would look something like this:\n\n1. Add the `SCHEME://HOST:PORT` of the aggregator\n2. Retrieve the satellite configs\n3. If the Satellite `SCHEME://HOST:PORT` is NOT in the header then add it and proceed with aggregation and forward the request\n4. Else don\u0027t forward the request since we\u0027ve already queried that satellite elsewhere in the chain.",
+      "range": {
+        "startLine": 1193,
+        "startChar": 0,
+        "endLine": 1200,
+        "endChar": 9
+      },
+      "revId": "ab2880d4cb9fe9be18942047efb56a2f0b60b9bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6c0b472_be1fb9ac",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1200,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-30T23:27:31Z",
+      "side": 1,
+      "message": "I don\u0027t know if HOST:port works, because an aggregator might be accessing through a different host/port than the BMC thinks it\u0027s on.  We had a similar problem with trying to enforce the Location header. But maybe we could do something with UUID?  Send a header like \"aggregated from\" and the UUID.  If we ever see a UUID in the list that we\u0027re aggregating the satellite of, or see our own UUID in the list, refuse to aggregate?",
+      "parentUuid": "b510d528_b6e5dfb8",
       "range": {
         "startLine": 1193,
         "startChar": 0,
