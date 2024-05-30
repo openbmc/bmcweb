@@ -609,20 +609,9 @@ class RedfishAggregator
             }
         }
 
-        std::error_code ec;
-        // Create a filtered copy of the request
         auto localReq =
             std::make_shared<crow::Request>(createNewRequest(thisReq));
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("Failed to create copy of request");
-            if (aggType == AggregationType::Resource)
-            {
-                messages::internalError(asyncResp->res);
-            }
-            return;
-        }
-
+        localReq->addHeader("X-Forwarded-For", "bmcweb");
         boost::urls::url& urlNew = localReq->url();
         if (aggType == AggregationType::Collection)
         {
@@ -1324,6 +1313,14 @@ class RedfishAggregator
         using crow::utility::readUrlSegments;
         boost::urls::url_view url = thisReq.url();
 
+        std::string_view forwardedHeader =
+            thisReq.getHeaderValue("X-Forwarded-For");
+        if (forwardedHeader == "bmcweb")
+        {
+            BMCWEB_LOG_DEBUG(
+                "Already handled request, skipping remote aggregation");
+            return Result::LocalHandle;
+        }
         // We don't need to aggregate JsonSchemas due to potential issues such
         // as version mismatches between aggregator and satellite BMCs.  For
         // now assume that the aggregator has all the schemas and versions that
