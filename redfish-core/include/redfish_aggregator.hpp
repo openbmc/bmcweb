@@ -12,6 +12,7 @@
 #include "io_context_singleton.hpp"
 #include "logging.hpp"
 #include "parsing.hpp"
+#include "persistent_data.hpp"
 #include "ssl_key_handler.hpp"
 #include "utility.hpp"
 #include "utils/collection.hpp"
@@ -36,6 +37,7 @@
 #include <chrono>
 #include <cstddef>
 #include <cstdint>
+#include <format>
 #include <functional>
 #include <limits>
 #include <memory>
@@ -581,6 +583,12 @@ class RedfishAggregator
                          result.first->second.encoded_host_and_port());
     }
 
+    // Via header value identifying this bmcweb instance (RFC 9110 7.6.3)
+    static std::string viaValue()
+    {
+        return std::format("1.1 {}", persistent_data::getConfig().systemUuid);
+    }
+
     enum AggregationType
     {
         Collection,
@@ -609,20 +617,17 @@ class RedfishAggregator
             }
         }
 
-        std::error_code ec;
-        // Create a filtered copy of the request
         auto localReq =
             std::make_shared<crow::Request>(createNewRequest(thisReq));
-        if (ec)
+        // Append this instance to any existing Via chain (RFC 9110 7.6.3) so
+        // that loops in multi level aggregation can be detected.
+        std::string via(thisReq.getHeaderValue(boost::beast::http::field::via));
+        if (!via.empty())
         {
-            BMCWEB_LOG_ERROR("Failed to create copy of request");
-            if (aggType == AggregationType::Resource)
-            {
-                messages::internalError(asyncResp->res);
-            }
-            return;
+            via += ", ";
         }
-
+        via += viaValue();
+        localReq->addHeader(boost::beast::http::field::via, via);
         boost::urls::url& urlNew = localReq->url();
         if (aggType == AggregationType::Collection)
         {
@@ -741,7 +746,11 @@ class RedfishAggregator
             return;
         }
 
-        const boost::urls::segments_view urlSegments = thisReq.url().segments();
+        // thisReq.url() returns a url_view by value.  segments_view keeps a
+        // reference into that url_view, so it must not be a temporary that
+        // dies before the iterators below are used.
+        const boost::urls::url_view reqUrl = thisReq.url();
+        const boost::urls::segments_view urlSegments = reqUrl.segments();
         boost::urls::url currentUrl("/");
         boost::urls::segments_view::const_iterator it = urlSegments.begin();
         boost::urls::segments_view::const_iterator end = urlSegments.end();
@@ -1324,6 +1333,21 @@ class RedfishAggregator
         using crow::utility::readUrlSegments;
         boost::urls::url_view url = thisReq.url();
 
+        std::string_view viaHeader =
+            thisReq.getHeaderValue(boost::beast::http::field::via);
+        if (viaHeader.contains(viaValue()))
+        {
+            // This request has already been handled by this BMC and has looped
+            // back to it.  Skip both remote aggregation and local handling so
+            // the data of this BMC is not collected (and returned) a second
+            // time.  The upstream aggregator already has our local data and
+            // ignores non-200 responses when merging.
+            BMCWEB_LOG_DEBUG(
+                "Request looped back to this BMC, skipping aggregation and local handling");
+            messages::resourceNotFound(asyncResp->res, "",
+                                       std::string(url.path()));
+            return Result::NoLocalHandle;
+        }
         // We don't need to aggregate JsonSchemas due to potential issues such
         // as version mismatches between aggregator and satellite BMCs.  For
         // now assume that the aggregator has all the schemas and versions that
