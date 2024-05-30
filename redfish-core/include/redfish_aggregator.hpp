@@ -450,15 +450,8 @@ class RedfishAggregator
                     BMCWEB_LOG_DEBUG("Found Satellite Controller at {}",
                                      objectPath.first.str);
 
-                    if (!satelliteInfo.empty())
-                    {
-                        BMCWEB_LOG_ERROR(
-                            "Redfish Aggregation only supports one satellite!");
-                        BMCWEB_LOG_DEBUG("Clearing all satellite data");
-                        satelliteInfo.clear();
-                        return;
-                    }
-
+                    // For now assume there will only be one satellite config.
+                    // Assign it the name/prefix "5B247A"
                     addSatelliteConfig(interface.second, satelliteInfo);
                 }
             }
@@ -473,7 +466,6 @@ class RedfishAggregator
     {
         boost::urls::url url;
         std::string prefix;
-
         for (const auto& prop : properties)
         {
             if (prop.first == "Hostname")
@@ -517,14 +509,21 @@ class RedfishAggregator
 
                 // For now assume authentication not required to communicate
                 // with the satellite BMC
-                if (*propVal != "None")
+                if (*propVal == "None")
+                {
+                    url.set_scheme("http");
+                }
+                else if (*propVal == "MTLS")
+                {
+                    url.set_scheme("https");
+                }
+                else
                 {
                     BMCWEB_LOG_ERROR(
-                        "Unsupported AuthType value: {}, only \"none\" is supported",
+                        R"(Unsupported AuthType value: {} , only "none" "MTLS" is supported)",
                         *propVal);
                     return;
                 }
-                url.set_scheme("http");
             }
             else if (prop.first == "Name")
             {
@@ -608,20 +607,8 @@ class RedfishAggregator
             }
         }
 
-        std::error_code ec;
-        // Create a filtered copy of the request
-        auto localReq =
-            std::make_shared<crow::Request>(createNewRequest(thisReq));
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("Failed to create copy of request");
-            if (aggType == AggregationType::Resource)
-            {
-                messages::internalError(asyncResp->res);
-            }
-            return;
-        }
-
+        auto localReq = std::make_shared<crow::Request>(thisReq.copy());
+        localReq->addHeader("X-Forwarded-For", "bmcweb");
         boost::urls::url& urlNew = localReq->url();
         if (aggType == AggregationType::Collection)
         {
@@ -1040,9 +1027,10 @@ class RedfishAggregator
         if ((resp.result() == boost::beast::http::status::too_many_requests) ||
             (resp.result() == boost::beast::http::status::bad_gateway))
         {
+            BMCWEB_LOG_DEBUG("Connection to satellite \"{}\" failed", prefix);
             return;
         }
-
+        BMCWEB_LOG_DEBUG("Connection to satellite \"{}\" succeded", prefix);
         if (resp.resultInt() != 200)
         {
             BMCWEB_LOG_DEBUG(
@@ -1312,7 +1300,20 @@ class RedfishAggregator
         using crow::utility::OrMorePaths;
         using crow::utility::readUrlSegments;
         boost::urls::url_view url = thisReq.url();
-
+        BMCWEB_LOG_DEBUG("Checking if aggregation is required for {}",
+                         thisReq.target().data());
+        // keeping forwarded for bmcweb right now. This is sufficient for fully
+        //  connected bmc topology for mutual aggression and deduplication.
+        // The property can be enhanced to support for different bmc topologies
+        // in future.
+        auto forwardedHeader = thisReq.getHeaderValue("X-Forwarded-For");
+        if (!forwardedHeader.empty() && forwardedHeader == "bmcweb")
+        {
+            BMCWEB_LOG_DEBUG(
+                "Already handled reqest, skipping remote aggregation");
+            return Result::LocalHandle;
+        }
+        BMCWEB_LOG_DEBUG("Begin aggregation");
         // We don't need to aggregate JsonSchemas due to potential issues such
         // as version mismatches between aggregator and satellite BMCs.  For
         // now assume that the aggregator has all the schemas and versions that
