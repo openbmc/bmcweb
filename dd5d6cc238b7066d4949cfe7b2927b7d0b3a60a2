@@ -70,6 +70,24 @@
       "parentUuid": "e42b6c84_963f140e",
       "revId": "dd5d6cc238b7066d4949cfe7b2927b7d0b3a60a2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06001fcf_a3b7bbad",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-05-30T17:57:37Z",
+      "side": 1,
+      "message": "Besides the example to make working, it looks like the implementation of https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60914 seems improper in bmcweb.\n\nThe design https://gerrit.openbmc.org/c/openbmc/docs/+/54205 seems to show Items (not necessarily only Chassis item) that are contained by Chassis.\n\nHowever,  https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60914 is implementing sub-chassis under Chassis, as it assumes the containing resources are under Chassis without checking the contained items a Chassis.\n https://github.com/openbmc/bmcweb/blob/de0c960c4262169ea92a4b852dd5ebbe3810bf00/redfish-core/lib/chassis.hpp#L279\n\n```\n        link[\"@odata.id\"] \u003d boost::urls::format(\"/redfish/v1/Chassis/{}\",\n                                                downstreamChassis);\n```\n\nSince the code is assuming the associated resources are chassis, its result is shown as chassis\n```\n    /redfish/v1/Chassis/\u003csubchassis\u003e/\n```\n\nAs the result, by following the design https://gerrit.openbmc.org/c/openbmc/openbmc/+/70372 \u0026 https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/58441/3/yaml/xyz/openbmc_project/Inventory/Item.interface.yaml, https://gerrit.openbmc.org/c/openbmc/openbmc/+/70372 adds the resources between chassis and other items with associations (containing/contained_by).\n\nIf so, https://gerrit.openbmc.org/c/openbmc/bmcweb/+/6091 implementation will result in the improper consequences, i.e. the contained resources are shown as chassis item in redfish api.  This will cause the redfish service validator failures for p10bmc.\n\n----\nI think there are a few directions to go.\n1) Revert https://gerrit.openbmc.org/c/openbmc/bmcweb/+/6091 as it does not fully handle the use of the associations only for sub-chassis.\n\n2) Fix https://gerrit.openbmc.org/c/openbmc/bmcweb/+/6091 to limit the implementation only between the chassis.  If so, use `getAssociatedSubTreePaths()` to search only sub-chassis.\n\n3) Ideally, translate all associated endpoints to the appropriate resources. For example, a connector is also contained in a chassis, map the connector as `/redish/v1/Cables/dp0_connector1` (may not be acurate, but it may be something like that) rather than showing it as `/redfish/v1/Chassis/dp0_connector1` (in today\u0027s code).  I think this approach may become complex and difficult.",
+      "parentUuid": "48c72300_58583f85",
+      "revId": "dd5d6cc238b7066d4949cfe7b2927b7d0b3a60a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
