@@ -864,8 +864,9 @@ inline void getProcessorObject(const std::shared_ptr<bmcweb::AsyncResp>& resp,
             // Filter out objects that don't have the CPU-specific
             // interfaces to make sure we can return 404 on non-CPUs
             // (e.g. /redfish/../Processors/dimm0)
-            for (const auto& [serviceName, interfaceList] : serviceMap)
+            for (const auto& serviceEntry : serviceMap)
             {
+                const auto& interfaceList = serviceEntry.second;
                 if (std::ranges::find_first_of(interfaceList,
                                                processorInterfaces) !=
                     std::end(interfaceList))
@@ -876,7 +877,9 @@ inline void getProcessorObject(const std::shared_ptr<bmcweb::AsyncResp>& resp,
                     // process must be on the same object path.
 
                     handler(objectPath, serviceMap);
-                    name_util::getPrettyName(resp, objectPath, serviceMap,
+                    const dbus::utility::MapperServiceMap& serviceMatch = {
+                        serviceEntry};
+                    name_util::getPrettyName(resp, objectPath, serviceMatch,
                                              "/Name"_json_pointer);
                     return;
                 }
