@@ -426,13 +426,26 @@ class RedfishAggregator
   private:
     crow::HttpClient client;
 
-    // Dummy callback used by the Constructor so that it can report the number
+    // callback used by the Constructor to report the number
     // of satellite configs when the class is first created
-    static void constructorCallback(
+    // Fills default aggregationSources with satellite information
+    void constructorCallback(
         const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
     {
         BMCWEB_LOG_DEBUG("There were {} satellite configs found at startup",
                          std::to_string(satelliteInfo.size()));
+        // Update aggregationSources with satellite information
+        for (const auto& [name, url] : satelliteInfo)
+        {
+            AggregationSource source;
+            source.url = url;
+            // Enhancement can be added to fetch username and password
+            // from some secure sources. Currently satellite configuration
+            // supports only NONE and MTLS
+            source.username = "";
+            source.password = "";
+            aggregationSources[name] = std::move(source);
+        }
     }
 
     // Search D-Bus objects for satellite config objects and add their
@@ -450,16 +463,6 @@ class RedfishAggregator
                 {
                     BMCWEB_LOG_DEBUG("Found Satellite Controller at {}",
                                      objectPath.first.str);
-
-                    if (!satelliteInfo.empty())
-                    {
-                        BMCWEB_LOG_ERROR(
-                            "Redfish Aggregation only supports one satellite!");
-                        BMCWEB_LOG_DEBUG("Clearing all satellite data");
-                        satelliteInfo.clear();
-                        return;
-                    }
-
                     addSatelliteConfig(interface.second, satelliteInfo);
                 }
             }
@@ -505,7 +508,6 @@ class RedfishAggregator
                 }
                 url.set_port(std::to_string(static_cast<uint16_t>(*propVal)));
             }
-
             else if (prop.first == "AuthType")
             {
                 const std::string* propVal =
@@ -515,17 +517,21 @@ class RedfishAggregator
                     BMCWEB_LOG_ERROR("Invalid AuthType value");
                     return;
                 }
-
-                // For now assume authentication not required to communicate
-                // with the satellite BMC
-                if (*propVal != "None")
+                if (*propVal == "None")
+                {
+                    url.set_scheme("http");
+                }
+                else if (*propVal == "MTLS")
+                {
+                    url.set_scheme("https");
+                }
+                else
                 {
                     BMCWEB_LOG_ERROR(
-                        "Unsupported AuthType value: {}, only \"none\" is supported",
+                        R"(Unsupported AuthType value: {} , only "None" and "MTLS" are supported)",
                         *propVal);
                     return;
                 }
-                url.set_scheme("http");
             }
             else if (prop.first == "Name")
             {
@@ -609,20 +615,8 @@ class RedfishAggregator
             }
         }
 
-        std::error_code ec;
-        // Create a filtered copy of the request
-        auto localReq =
-            std::make_shared<crow::Request>(createNewRequest(thisReq));
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("Failed to create copy of request");
-            if (aggType == AggregationType::Resource)
-            {
-                messages::internalError(asyncResp->res);
-            }
-            return;
-        }
-
+        auto localReq = std::make_shared<crow::Request>(thisReq.copy());
+        localReq->addHeader("X-Forwarded-For", "bmcweb");
         boost::urls::url& urlNew = localReq->url();
         if (aggType == AggregationType::Collection)
         {
@@ -884,7 +878,8 @@ class RedfishAggregator
         client(getIoContext(),
                std::make_shared<crow::ConnectionPolicy>(getAggregationPolicy()))
     {
-        getSatelliteConfigs(constructorCallback);
+        getSatelliteConfigs(
+            std::bind_front(&RedfishAggregator::constructorCallback, this));
     }
     RedfishAggregator(const RedfishAggregator&) = delete;
     RedfishAggregator& operator=(const RedfishAggregator&) = delete;
@@ -1323,6 +1318,13 @@ class RedfishAggregator
         using crow::utility::readUrlSegments;
         boost::urls::url_view url = thisReq.url();
 
+        auto forwardedHeader = thisReq.getHeaderValue("X-Forwarded-For");
+        if (!forwardedHeader.empty() && forwardedHeader == "bmcweb")
+        {
+            BMCWEB_LOG_DEBUG(
+                "Already handled request, skipping remote aggregation");
+            return Result::LocalHandle;
+        }
         // We don't need to aggregate JsonSchemas due to potential issues such
         // as version mismatches between aggregator and satellite BMCs.  For
         // now assume that the aggregator has all the schemas and versions that
