@@ -112,6 +112,19 @@ TEST(UpdateService, ParseHTTPSPostitive)
         EXPECT_EQ(ret->encoded_path(), "/");
         EXPECT_EQ(ret->scheme(), "https");
     }
+    {
+        // Both protocol and schema on url without path
+        std::optional<boost::urls::url> ret =
+            parseSimpleUpdateUrl("https://[2001:db8::1]", "HTTPS", res);
+        ASSERT_TRUE(ret);
+        if (!ret)
+        {
+            return;
+        }
+        EXPECT_EQ(ret->encoded_host_and_port(), "[2001:db8::1]");
+        EXPECT_EQ(ret->encoded_path(), "/");
+        EXPECT_EQ(ret->scheme(), "https");
+    }
 }
 
 TEST(UpdateService, ParseTFTPNegative)
