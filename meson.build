@@ -407,6 +407,7 @@ srcfiles_unittest = files(
     'test/redfish-core/lib/system_test.cpp',
     'test/redfish-core/lib/thermal_subsystem_test.cpp',
     'test/redfish-core/lib/update_service_test.cpp',
+    'test/redfish-core/src/redfish_test.cpp',
 )
 
 if (get_option('tests').allowed())
