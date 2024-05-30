@@ -87,6 +87,10 @@ struct Request
     {
         return req[key];
     }
+    bool hasHeader(std::string_view key) const
+    {
+        return req.find(key) != req.end();
+    }
 
     std::string_view getHeaderValue(boost::beast::http::field key) const
     {

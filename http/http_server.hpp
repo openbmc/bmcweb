@@ -30,8 +30,7 @@ class Server
     Server(Handler* handlerIn, boost::asio::ip::tcp::acceptor&& acceptorIn,
            std::shared_ptr<boost::asio::ssl::context> adaptorCtxIn,
            std::shared_ptr<boost::asio::io_context> io) :
-        ioService(std::move(io)),
-        acceptor(std::move(acceptorIn)),
+        ioService(std::move(io)), acceptor(std::move(acceptorIn)),
         signals(*ioService, SIGINT, SIGTERM, SIGHUP), handler(handlerIn),
         adaptorCtx(std::move(adaptorCtxIn))
     {}
@@ -78,27 +77,9 @@ class Server
         {
             return;
         }
-        namespace fs = std::filesystem;
-        // Cleanup older certificate file existing in the system
-        fs::path oldCert = "/home/root/server.pem";
-        if (fs::exists(oldCert))
-        {
-            fs::remove("/home/root/server.pem");
-        }
-        fs::path certPath = "/etc/ssl/certs/https/";
-        // if path does not exist create the path so that
-        // self signed certificate can be created in the
-        // path
-        if (!fs::exists(certPath))
-        {
-            fs::create_directories(certPath);
-        }
-        fs::path certFile = certPath / "server.pem";
-        BMCWEB_LOG_INFO("Building SSL Context file={}", certFile.string());
-        std::string sslPemFile(certFile);
-        ensuressl::ensureOpensslKeyPresentAndValid(sslPemFile);
-        std::shared_ptr<boost::asio::ssl::context> sslContext =
-            ensuressl::getSslContext(sslPemFile);
+        std::string sslPemFile = ensuressl::ensureCertificate("server.pem",
+                                                              "testhost");
+        auto sslContext = ensuressl::getSslContext(sslPemFile);
         adaptorCtx = sslContext;
         handler->ssl(std::move(sslContext));
     }

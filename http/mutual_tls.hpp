@@ -20,6 +20,8 @@ inline std::shared_ptr<persistent_data::UserSession>
     verifyMtlsUser(const boost::asio::ip::address& clientIp,
                    boost::asio::ssl::verify_context& ctx)
 {
+    BMCWEB_LOG_DEBUG("Verifying mutual TLS user");
+
     // do nothing if TLS is disabled
     if (!persistent_data::SessionStore::getInstance()
              .getAuthMethodsConfig()
@@ -92,7 +94,7 @@ inline std::shared_ptr<persistent_data::UserSession>
         return nullptr;
     }
     sslUser.resize(lastChar);
-
+    BMCWEB_LOG_DEBUG("Tls Username {}", sslUser);
     // Meta Inc. CommonName parsing
     if constexpr (BMCWEB_MUTUAL_TLS_COMMON_NAME_PARSING == "meta")
     {

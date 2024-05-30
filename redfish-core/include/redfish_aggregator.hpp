@@ -563,6 +563,7 @@ class RedfishAggregator
         // Create a copy of thisReq so we we can still locally process the req
         std::error_code ec;
         auto localReq = std::make_shared<crow::Request>(thisReq.req, ec);
+        localReq->addHeader("redfish_aggregation", "true");
         if (ec)
         {
             BMCWEB_LOG_ERROR("Failed to create copy of request");
@@ -847,7 +848,8 @@ class RedfishAggregator
             else
             {
                 BMCWEB_LOG_DEBUG(
-                    "No satellite BMCs detected.  Redfish Aggregation not enabled");
+                    "No satellite BMCs detected.  Redfish Aggregation not
+                    enabled");
             }
             handler(ec, satelliteInfo);
         });
@@ -1188,7 +1190,14 @@ class RedfishAggregator
         using crow::utility::OrMorePaths;
         using crow::utility::readUrlSegments;
         boost::urls::url_view url = thisReq.url();
-
+        BMCWEB_LOG_DEBUG("Checking if aggregation is required for {}",
+                         thisReq.target().data());
+        if (thisReq.hasHeader("redfish_aggregation") &&
+            thisReq.getHeaderValue("redfish_aggregation") == "true")
+        {
+            BMCWEB_LOG_DEBUG("Already aggregating, skipping");
+            return Result::LocalHandle;
+        }
         // We don't need to aggregate JsonSchemas due to potential issues such
         // as version mismatches between aggregator and satellite BMCs.  For
         // now assume that the aggregator has all the schemas and versions that
