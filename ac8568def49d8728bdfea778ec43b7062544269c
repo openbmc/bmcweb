@@ -52,6 +52,24 @@
       "parentUuid": "30ff5138_e3c1656b",
       "revId": "ac8568def49d8728bdfea778ec43b7062544269c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a201f5e1_88de011c",
+        "filename": "scripts/hostlogger_test.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-05-30T16:12:28Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "dd03a0ac_a516bca8",
+      "revId": "ac8568def49d8728bdfea778ec43b7062544269c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
