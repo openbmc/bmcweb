@@ -91,6 +91,29 @@
       },
       "revId": "42b97d3dfed9bcfdc784fb03496d571982a8743b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fe7bb76_e602359b",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-30T14:25:52Z",
+      "side": 1,
+      "message": "Can we use a more standard header here?  THere\u0027s a number of X-Forwarded-{For, Host, Prefix} that are used to denote that these were forwarded by a proxy.  I suspect we don\u0027t need to invent another.\n\nIn the case where we are inventing another we need to make it:\n1. OpenBMC specific (OpenBMC doesn\u0027t own the name \"redfish\", DMTF does).\n2. Follow Http header naming conventions.",
+      "range": {
+        "startLine": 566,
+        "startChar": 29,
+        "endLine": 566,
+        "endChar": 48
+      },
+      "revId": "42b97d3dfed9bcfdc784fb03496d571982a8743b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
