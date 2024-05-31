@@ -115,6 +115,30 @@
       },
       "revId": "f578bb9e7136d9bca817ac2b870b1119e07d7209",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "236e5730_8bfc57d1",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 2970,
+      "author": {
+        "id": 1000559
+      },
+      "writtenOn": "2024-05-31T20:03:44Z",
+      "side": 1,
+      "message": "@SrinivasaRao in Ed\u0027s scenario both  /redfish/v1/Chassis1 and  /redfish/v1/Chassis2 are valid path, get /redfish/v1/Chassis1/Sensors/Sensor2 will think chassis is valid and call \"doSensorGet\" with chassisId\u003d1 and sensorId\u003d2 with valid chassisPath\n\nHave you tested this scenario and confirmed it is working as expected, i.e. /redfish/v1/Chassis1/Sensors/Sensor2 should return NotFound",
+      "parentUuid": "5441a19d_cc08dfd4",
+      "range": {
+        "startLine": 2970,
+        "startChar": 28,
+        "endLine": 2970,
+        "endChar": 47
+      },
+      "revId": "f578bb9e7136d9bca817ac2b870b1119e07d7209",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
