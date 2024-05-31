@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a75ce3ef_66a962b0",
+        "filename": "test/redfish-core/src/redfish_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-31T18:57:05Z",
+      "side": 1,
+      "message": "Yes, although debatably it should be in test/redfish-core/include/redfish_test.cpp, because that\u0027s the equivalent of where redfish.hpp lives.\n\nI will make that change.\n\nAs a side note, we should really think about doing what the rest of the project has been doing, and put the include, source, and test file all together in one directory.  Our directory structure hasn\u0027t really benefitted us in complexity.",
+      "parentUuid": "18ec80a3_4b6d0ce3",
+      "revId": "badfb6c4c3359289b065c5fc656a23a5700f2b73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bb5d3536_cb5a9ad8",
         "filename": "test/redfish-core/src/redfish_test.cpp",
         "patchSetId": 2
@@ -31,6 +49,24 @@
       "writtenOn": "2024-05-31T18:35:23Z",
       "side": 1,
       "message": "I don\u0027t see this used but memory is",
+      "revId": "badfb6c4c3359289b065c5fc656a23a5700f2b73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4590b71_5952fc94",
+        "filename": "test/redfish-core/src/redfish_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-31T18:57:05Z",
+      "side": 1,
+      "message": "Will fix in next revision.",
+      "parentUuid": "bb5d3536_cb5a9ad8",
       "revId": "badfb6c4c3359289b065c5fc656a23a5700f2b73",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
