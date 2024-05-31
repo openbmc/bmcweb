@@ -141,6 +141,30 @@
       },
       "revId": "ab2880d4cb9fe9be18942047efb56a2f0b60b9bd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "244c1ef8_013adf22",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1200,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-31T00:44:51Z",
+      "side": 1,
+      "message": "\u003e UUID could work.  We previously discussed using that as the seed for generating aggregation prefixes.\n\u003e \n\u003e We\u0027ll need to warn the satellites as well though of all BMCs that the message is getting forwarded to.  Consider this setup:\n\u003e \n\u003e * A aggregates B \u0026 C\n\u003e * B aggregates A \u0026 C\n\u003e * C aggregates A \u0026 B\n\u003e \n\u003e Let\u0027s say we query A for `/redfish/v1/Chassis`.  That\u0027s a top level collection so A also needs to forward that request to B and C.  In that request we only include the UUID of A.\n\u003e \n\u003e B aggregates A \u0026 C.  B would think it needs to forward the request to C since the only UUID in the header is for A (who just sent the request).  Likewise, C would forward the request to B and ignore A.\n\u003e \n\u003e The end result is the resources from B and C get included twice in the overall response in some form or fashion.\n\u003e ```\n\u003e Query -\u003e A -\u003e B -\u003e C\n\u003e           \\\n\u003e            -\u003e C -\u003e B\n\u003e ```\n\u003e \n\n\nUg...... the above made my brain hurt, but makes sense.  To support that kind of cluster topology we almost have to attach \"resource created by\" type metadata to every request.\n\n\u003e If the original forwarded request from A contained the UUID for A as well as the ones for the destinations then B and C would not make redundant forwards since they know that \"something\" has already aggregated one of the BMCs they\u0027re aggregating.\n\u003e \n\u003e For that to work each BMC will have to know the UUIDs of the BMCs they\u0027re aggregating in addition to their own.  I can think of two ways to make that happen:\n\u003e \n\u003e 1. Each BMC makes an initial query to retrieve the UUID and decide if it should proceed with the actual aggregation.\n\u003e 2. We let the BMCs cache their satellite configs and as part of that they retrieve the UUIDs from the satellites before normal operation actually begins.\n\nArguably we should be caching the sattelite UUID already, so I suspect this would be fine.\n\nAlternatively, maybe at startup, each aggregator builds that little map in memory, so that when it makes requests we can pick a path?  IDK;  We should really get multiple satellites working first.",
+      "parentUuid": "6b33b000_11720fb8",
+      "range": {
+        "startLine": 1193,
+        "startChar": 0,
+        "endLine": 1200,
+        "endChar": 9
+      },
+      "revId": "ab2880d4cb9fe9be18942047efb56a2f0b60b9bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
