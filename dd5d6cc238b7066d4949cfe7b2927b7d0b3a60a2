@@ -88,6 +88,24 @@
       "parentUuid": "48c72300_58583f85",
       "revId": "dd5d6cc238b7066d4949cfe7b2927b7d0b3a60a2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50be507a_8d94306c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-31T19:13:59Z",
+      "side": 1,
+      "message": "\u003e Besides the example to make working, it looks like the implementation of https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60914 seems improper in bmcweb.\n\nThat is certainly something you could discuss with Benjamin (not in this commit). That patch has been on master for over a year, through several releases.\n\n\u003e \n\u003e The design https://gerrit.openbmc.org/c/openbmc/docs/+/54205 seems to show Items (not necessarily only Chassis item) that are contained by Chassis.\n\u003e \n\u003e However,  https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60914 is implementing sub-chassis under Chassis, as it assumes the containing resources are under Chassis without checking the contained items a Chassis.\n\u003e  https://github.com/openbmc/bmcweb/blob/de0c960c4262169ea92a4b852dd5ebbe3810bf00/redfish-core/lib/chassis.hpp#L279\n\u003e \n\u003e ```\n\u003e         link[\"@odata.id\"] \u003d boost::urls::format(\"/redfish/v1/Chassis/{}\",\n\u003e                                                 downstreamChassis);\n\u003e ```\n\u003e \n\u003e Since the code is assuming the associated resources are chassis, its result is shown as chassis\n\u003e ```\n\u003e     /redfish/v1/Chassis/\u003csubchassis\u003e/\n\u003e ```\n\u003e \n\u003e As the result, by following the design https://gerrit.openbmc.org/c/openbmc/openbmc/+/70372 \u0026 https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/58441/3/yaml/xyz/openbmc_project/Inventory/Item.interface.yaml, https://gerrit.openbmc.org/c/openbmc/openbmc/+/70372 adds the resources between chassis and other items with associations (containing/contained_by).\n\u003e \n\u003e If so, https://gerrit.openbmc.org/c/openbmc/bmcweb/+/6091 implementation will result in the improper consequences, i.e. the contained resources are shown as chassis item in redfish api.  This will cause the redfish service validator failures for p10bmc.\n\nFrom earlier: \"If I were you, I would start by getting some example \"fake\" EM configs set up\"\n\nHave you done this yet?  We\u0027re talking in hypotheticals at this point, we need to talk in concrete \"here is a system I\u0027m trying to model\" and \"Here\u0027s the specific case that bmcweb gets wrong\".  Talking in the abstract in terms of arbitrary items and paths doesn\u0027t help here.\n\nYes, it is very possible that what got implemented doesn\u0027t match the design;  That doesn\u0027t mean that it doesn\u0027t work correctly as far as the user is concerned.\n\n\u003e \n\u003e ----\n\u003e I think there are a few directions to go.\n\u003e 1) Revert https://gerrit.openbmc.org/c/openbmc/bmcweb/+/6091 as it does not fully handle the use of the associations only for sub-chassis.\n\u003e \n\u003e 2) Fix https://gerrit.openbmc.org/c/openbmc/bmcweb/+/6091 to limit the implementation only between the chassis.  If so, use `getAssociatedSubTreePaths()` to search only sub-chassis.\n\u003e \n\u003e 3) Ideally, translate all associated endpoints to the appropriate resources. For example, a connector is also contained in a chassis, map the connector as `/redish/v1/Cables/dp0_connector1` (may not be acurate, but it may be something like that) rather than showing it as `/redfish/v1/Chassis/dp0_connector1` (in today\u0027s code).  I think this approach may become complex and difficult.\n\n#1/#2, yes, these are the options we have for literally any patch or design.\n\n#3 Connectors+cables are a completely different discussion than Chassis ContainedBy because ContainedBy is an association to a chassis.  Lets keep our discussion on contained by, until we have concrete examples where Cable overlaps.",
+      "parentUuid": "06001fcf_a3b7bbad",
+      "revId": "dd5d6cc238b7066d4949cfe7b2927b7d0b3a60a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
