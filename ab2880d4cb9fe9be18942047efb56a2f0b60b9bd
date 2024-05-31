@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2bf9764b_aacf6519",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2024-05-31T00:38:39Z",
+      "side": 1,
+      "message": "It would be a huge pain.  I\u0027m also in favor of not going down that road.\n\nI think you\u0027d hit a similar issue that arose during implementing Redfish Aggregation.  The original thought was resources on the aggregating BMC would also get an aggregation prefix: `main_`.  That meant the current URIs would change depending on if aggregation was enabled.\n\nThat was not desirable so the idea was abandoned.  If the URIs need to be consistent regardless of aggregator then I feel like we\u0027d end up having to modify URIs on the aggregating BMC.",
+      "parentUuid": "dbd8381d_9b4b91fe",
+      "range": {
+        "startLine": 9,
+        "startChar": 55,
+        "endLine": 10,
+        "endChar": 43
+      },
+      "revId": "ab2880d4cb9fe9be18942047efb56a2f0b60b9bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b510d528_b6e5dfb8",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 3
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "I don\u0027t know if HOST:port works, because an aggregator might be accessing through a different host/port than the BMC thinks it\u0027s on.  We had a similar problem with trying to enforce the Location header. But maybe we could do something with UUID?  Send a header like \"aggregated from\" and the UUID.  If we ever see a UUID in the list that we\u0027re aggregating the satellite of, or see our own UUID in the list, refuse to aggregate?",
       "parentUuid": "b510d528_b6e5dfb8",
+      "range": {
+        "startLine": 1193,
+        "startChar": 0,
+        "endLine": 1200,
+        "endChar": 9
+      },
+      "revId": "ab2880d4cb9fe9be18942047efb56a2f0b60b9bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b33b000_11720fb8",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1200,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2024-05-31T00:38:39Z",
+      "side": 1,
+      "message": "UUID could work.  We previously discussed using that as the seed for generating aggregation prefixes.\n\nWe\u0027ll need to warn the satellites as well though of all BMCs that the message is getting forwarded to.  Consider this setup:\n\n* A aggregates B \u0026 C\n* B aggregates A \u0026 C\n* C aggregates A \u0026 B\n\nLet\u0027s say we query A for `/redfish/v1/Chassis`.  That\u0027s a top level collection so A also needs to forward that request to B and C.  In that request we only include the UUID of A.\n\nB aggregates A \u0026 C.  B would think it needs to forward the request to C since the only UUID in the header is for A (who just sent the request).  Likewise, C would forward the request to B and ignore A.\n\nThe end result is the resources from B and C get included twice in the overall response in some form or fashion.\n```\nQuery -\u003e A -\u003e B -\u003e C\n          \\\n           -\u003e C -\u003e B\n```\n\nIf the original forwarded request from A contained the UUID for A as well as the ones for the destinations then B and C would not make redundant forwards since they know that \"something\" has already aggregated one of the BMCs they\u0027re aggregating.\n\nFor that to work each BMC will have to know the UUIDs of the BMCs they\u0027re aggregating in addition to their own.  I can think of two ways to make that happen:\n\n1. Each BMC makes an initial query to retrieve the UUID and decide if it should proceed with the actual aggregation.\n2. We let the BMCs cache their satellite configs and as part of that they retrieve the UUIDs from the satellites before normal operation actually begins.",
+      "parentUuid": "c6c0b472_be1fb9ac",
       "range": {
         "startLine": 1193,
         "startChar": 0,
