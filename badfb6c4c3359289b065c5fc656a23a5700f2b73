@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "65abd36f_22b2ad89",
+        "filename": "test/redfish-core/src/redfish_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-31T21:40:08Z",
+      "side": 1,
+      "message": "It\u0027d be good if someone other than you or me had bandwidth to do the directory rearranging of all the source files, but oh well, problem for another day.",
+      "parentUuid": "8280324f_85cb9d39",
+      "revId": "badfb6c4c3359289b065c5fc656a23a5700f2b73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bb5d3536_cb5a9ad8",
