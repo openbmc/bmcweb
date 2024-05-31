@@ -213,6 +213,30 @@
       },
       "revId": "ab2880d4cb9fe9be18942047efb56a2f0b60b9bd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51592508_6a65a8fc",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1200,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-05-31T21:41:54Z",
+      "side": 1,
+      "message": "\u003e Query -\u003e A -\u003e B -\u003e C\n\u003e           \\\n\u003e            -\u003e C -\u003e B\n\u003e Assuming we have uuid for BMCs available.\n\u003e Can\u0027t A decide what to put in request header to avoid this duplicates. \n\nA doesn\u0027t know which resources in a collection came from B, and which ones came from C.  Also, they\u0027re not unique URIs, the collections are merged, so there\u0027s not a single header we could use to know.\n\n\u003e 1) When we forward request to B , we add C uuid in excluding list. \n\u003e 2) Forward for C is inverse of 1.\n\u003e So this will avoid duplicate aggregation right? The extra cost is in copying request for siblings.\n\n\nI don\u0027t think it avoids it\n\nA sets As UUID forwards to B and C\nAt this point B doesn\u0027t know if it should forward to C or not, and there\u0027s no UUID to compare to in the request, because we only know B and C\n\n\n\n\nIt could be we\u0027re overcomplicating it at this point.  Do we have any designs that require loops like that?",
+      "parentUuid": "97db84d0_8831c487",
+      "range": {
+        "startLine": 1193,
+        "startChar": 0,
+        "endLine": 1200,
+        "endChar": 9
+      },
+      "revId": "ab2880d4cb9fe9be18942047efb56a2f0b60b9bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
