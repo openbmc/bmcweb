@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6a8d6a51_c9ba9900",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-05-31T04:40:44Z",
+      "side": 1,
+      "message": "I am not clear about the discussion here. I don\u0027t see any issue in making aggregation enabled in all BMCs. There is no change in the static redfish url. An external client will make usual top level request to any BMC. The bmc will have its own private list of satellite information. So it can gather and attach prefix (a unique name of satellite BMC) to urls returned from satellite. So the clients will be using same BMC for satellite resources with prefixed urls. It will works as usual. Yes we need to worry if client switches the  BMC and uses prefixed urls obtained from previous BMC. As long as we can uniquely identify BMC from prefix name, then it is just an easier implementation to test if the incoming prefix is current BMC or not before forwarding.",
+      "parentUuid": "2bf9764b_aacf6519",
+      "range": {
+        "startLine": 9,
+        "startChar": 55,
+        "endLine": 10,
+        "endChar": 43
+      },
+      "revId": "ab2880d4cb9fe9be18942047efb56a2f0b60b9bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b510d528_b6e5dfb8",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 3

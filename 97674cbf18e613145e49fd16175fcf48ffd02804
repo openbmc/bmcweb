@@ -69,6 +69,24 @@
       "message": "Why was this added?  Generally we would just do getHeaderValue(...).empty() to test for whether or not the header is present.",
       "revId": "97674cbf18e613145e49fd16175fcf48ffd02804",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e83076d0_9f012a79",
+        "filename": "http/http_request.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-05-31T04:40:44Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ed9b913c_dd0cbb27",
+      "revId": "97674cbf18e613145e49fd16175fcf48ffd02804",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
