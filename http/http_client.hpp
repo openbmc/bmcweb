@@ -468,9 +468,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
             retryCount = 0;
             return;
         }
-
         retryCount++;
-
         BMCWEB_LOG_DEBUG("Attempt retry after {} seconds. RetryCount = {}",
                          connPolicy->retryIntervalSecs.count(), retryCount);
         timer.expires_after(connPolicy->retryIntervalSecs);
@@ -706,7 +704,7 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
                 // Server is not keep-alive enabled so we need to close the
                 // connection and then start over from resolve
                 conn->doClose();
-                conn->doResolve();
+                conn->restartConnection();
             }
             return;
         }
@@ -760,7 +758,7 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
                 {
                     BMCWEB_LOG_DEBUG("Reusing existing connection {}",
                                      commonMsg);
-                    conn->doResolve();
+                    conn->restartConnection();
                 }
                 return;
             }
