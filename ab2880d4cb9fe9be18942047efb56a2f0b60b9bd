@@ -237,6 +237,30 @@
       },
       "revId": "ab2880d4cb9fe9be18942047efb56a2f0b60b9bd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a364a1b_5bc750f3",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1200,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-06-01T00:59:46Z",
+      "side": 1,
+      "message": "I did not explain it properly.\n\n```\nhandleRequest()\n{\n  \n  if this bmc is in request header\n\treturn // no need to handle as we have already seen this request\n  for( bmc b in  satellites)\n  \t{\n\t\tRequest r \u003d copy request\n\t\tr.addHeader( current bmc name)\n\t\tr.addHeader( all bmc in satellite list except b)\n\t\tforward r to b\n\t}\n  merge with local response\n  return response\n}\n\n\n```\n\nDoes not this work?\n\nEvery BMC knows its own satellite BMC\nAnd it  knows that it is going to forward the request to those satellite anyway\nSo it can add that information in the request header.\n\nNow when a Bmc process the header , it has the information about whether it saw the same request before or not. It handles the request based on that \n\nThis will avoid duplicates right?",
+      "parentUuid": "51592508_6a65a8fc",
+      "range": {
+        "startLine": 1193,
+        "startChar": 0,
+        "endLine": 1200,
+        "endChar": 9
+      },
+      "revId": "ab2880d4cb9fe9be18942047efb56a2f0b60b9bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
