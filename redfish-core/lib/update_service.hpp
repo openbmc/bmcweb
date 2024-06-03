@@ -1212,19 +1212,26 @@ inline void handleUpdateServicePatch(
     {
         return;
     }
-    BMCWEB_LOG_DEBUG("doPatch...");
-
-    std::optional<std::string> applyTime;
-    if (!json_util::readJsonPatch(
-            req, asyncResp->res,
-            "HttpPushUriOptions/HttpPushUriApplyTime/ApplyTime", applyTime))
+    if constexpr (!BMCWEB_REDFISH_UPDATESERVICE_USE_DBUS)
     {
-        return;
+        BMCWEB_LOG_DEBUG("doPatch...");
+
+        std::optional<std::string> applyTime;
+        if (!json_util::readJsonPatch(
+                req, asyncResp->res,
+                "HttpPushUriOptions/HttpPushUriApplyTime/ApplyTime", applyTime))
+        {
+            return;
+        }
+
+        if (applyTime)
+        {
+            setApplyTime(asyncResp, *applyTime);
+        }
     }
-
-    if (applyTime)
+    else
     {
-        setApplyTime(asyncResp, *applyTime);
+        messages::actionNotSupported(asyncResp->res, "Patch for Apply options");
     }
 }
 
