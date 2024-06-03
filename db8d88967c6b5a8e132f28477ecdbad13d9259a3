@@ -16,6 +16,40 @@
       "message": "FYI: https://github.com/openbmc/bmcweb/blob/master/REDFISH_CHECKLIST.md\n\nThe biggest thing i see missing immediately is documentation for your new option.",
       "revId": "db8d88967c6b5a8e132f28477ecdbad13d9259a3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa06da3b_7bccc5d9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-03T22:44:10Z",
+      "side": 1,
+      "message": "Code looks like it works.  Minor refactor requested to try to avoid some anti patterns, then updating the docs and this should be good to merge.",
+      "revId": "db8d88967c6b5a8e132f28477ecdbad13d9259a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5bafcee_07ccf50b",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-03T22:44:10Z",
+      "side": 1,
+      "message": "We\u0027ve been trying to get away from brace initialization of json objects (the final removals happened last week) because they cause binary size problems, please do something like\n\nnlohmann::json::array roles;\nroles.emplace_back(redfish::getRoleIdFromPrivilege(session.userRole));\nres.jsonValue[\"Roles\"] \u003d std::move(roles);",
+      "revId": "db8d88967c6b5a8e132f28477ecdbad13d9259a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
