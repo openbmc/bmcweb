@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7ed221e9_4d64f06f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-03T20:55:11Z",
+      "side": 1,
+      "message": "what is a \"developer test\"?\n\nPlease try to write your tested statements such that other people could run them.  I understand that this is subtle things, and that might not always be able to be cleanly documented, but lets give it a shot and see how well we can do.\n\nFWIW, I suspect that HTTP client needs more unit tests, similar to what we now have to HTTP connection.  Ideally we should be writing some of those.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 21
+      },
+      "revId": "e84f9cd15c63f3fa9841410253ba479b2659130b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ae944618_12328a46",
         "filename": "http/http_client.hpp",
         "patchSetId": 2
