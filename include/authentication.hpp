@@ -216,11 +216,18 @@ inline std::shared_ptr<persistent_data::UserSession>
 // checks if request can be forwarded without authentication
 inline bool isOnAllowlist(std::string_view url, boost::beast::http::verb method)
 {
+    // Handle the case where the router registers routes as both ending with /
+    // and not.
+    if (url.ends_with('/'))
+    {
+        url.remove_suffix(1);
+    }
     if (boost::beast::http::verb::get == method)
     {
-        if (url == "/redfish/v1" || url == "/redfish/v1/" ||
-            url == "/redfish" || url == "/redfish/" ||
-            url == "/redfish/v1/odata" || url == "/redfish/v1/odata/")
+        if ((url == "/redfish") ||          //
+            (url == "/redfish/v1") ||       //
+            (url == "/redfish/v1/odata") || //
+            (url == "/redfish/v1/$metadata"))
         {
             return true;
         }
@@ -236,9 +243,7 @@ inline bool isOnAllowlist(std::string_view url, boost::beast::http::verb method)
     if (boost::beast::http::verb::post == method)
     {
         if ((url == "/redfish/v1/SessionService/Sessions") ||
-            (url == "/redfish/v1/SessionService/Sessions/") ||
             (url == "/redfish/v1/SessionService/Sessions/Members") ||
-            (url == "/redfish/v1/SessionService/Sessions/Members/") ||
             (url == "/login"))
         {
             return true;
