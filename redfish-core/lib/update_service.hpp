@@ -1204,30 +1204,6 @@ inline void
     });
 }
 
-inline void handleUpdateServicePatch(
-    App& app, const crow::Request& req,
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
-{
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-    {
-        return;
-    }
-    BMCWEB_LOG_DEBUG("doPatch...");
-
-    std::optional<std::string> applyTime;
-    if (!json_util::readJsonPatch(
-            req, asyncResp->res,
-            "HttpPushUriOptions/HttpPushUriApplyTime/ApplyTime", applyTime))
-    {
-        return;
-    }
-
-    if (applyTime)
-    {
-        setApplyTime(asyncResp, *applyTime);
-    }
-}
-
 inline void handleUpdateServiceFirmwareInventoryCollectionGet(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
@@ -1438,11 +1414,6 @@ inline void requestRoutesUpdateService(App& app)
         .privileges(redfish::privileges::getUpdateService)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleUpdateServiceGet, std::ref(app)));
-
-    BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/")
-        .privileges(redfish::privileges::patchUpdateService)
-        .methods(boost::beast::http::verb::patch)(
-            std::bind_front(handleUpdateServicePatch, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/update/")
         .privileges(redfish::privileges::postUpdateService)
