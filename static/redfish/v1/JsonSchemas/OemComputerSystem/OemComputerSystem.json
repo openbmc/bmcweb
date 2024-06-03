@@ -192,6 +192,15 @@
                     "$ref": "#/definitions/ChapData",
                     "description": "ChapData.",
                     "longDescription": "This property shall describe ChapData."
+                },
+                "SafeMode": {
+                    "description": "An indication of whether safe mode is active.",
+                    "longDescription": "The value of this property shall indicate if safe mode is active.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
                 }
             },
             "type": "object"
