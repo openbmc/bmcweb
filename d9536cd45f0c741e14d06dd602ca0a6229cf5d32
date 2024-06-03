@@ -34,6 +34,24 @@
       "parentUuid": "0e186a91_dc5b1b35",
       "revId": "d9536cd45f0c741e14d06dd602ca0a6229cf5d32",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7dc4881_f4c02945",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-03T23:57:39Z",
+      "side": 1,
+      "message": "\u003e No, this won\u0027t impact existing systems.\n\u003e \n\u003e This change is for StartUpdate D-Bus interface to use the ApplyTime enum from existing ApplyTime interface as i was doing some conversions which didn\u0027t seemed required if i use the same enum type.\n\n\nBut setApplyTime is called from more than just the new dbus update code?\nhttps://github.com/openbmc/bmcweb/blob/20fa6a2c6cea77a4b411634dfca67eef6c8f430f/redfish-core/lib/update_service.hpp#L1241\n\nSo you\u0027re changing what\u0027s being set in that path. Maybe I\u0027m missing something?",
+      "parentUuid": "14f96948_363c41f4",
+      "revId": "d9536cd45f0c741e14d06dd602ca0a6229cf5d32",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
