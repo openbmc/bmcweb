@@ -249,8 +249,8 @@ inline int addExt(X509* cert, int nid, const char* value)
     return 0;
 }
 
-inline void generateSslCertificate(const std::string& filepath,
-                                   const std::string& cn)
+inline void generateSslCertificate(std::string_view filepath,
+                                   std::string_view cn)
 {
     FILE* pFile = nullptr;
     BMCWEB_LOG_INFO("Generating new keys");
@@ -293,7 +293,7 @@ inline void generateSslCertificate(const std::string& filepath,
             // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
             x509String* company = reinterpret_cast<x509String*>("OpenBMC");
             // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-            x509String* cnStr = reinterpret_cast<x509String*>(cn.c_str());
+            x509String* cnStr = reinterpret_cast<x509String*>(cn.data());
 
             X509_NAME_add_entry_by_txt(name, "C", MBSTRING_ASC, country, -1, -1,
                                        0);
@@ -306,7 +306,8 @@ inline void generateSslCertificate(const std::string& filepath,
 
             X509_set_version(x509, 2);
             addExt(x509, NID_basic_constraints, ("critical,CA:TRUE"));
-            addExt(x509, NID_subject_alt_name, ("DNS:" + cn).c_str());
+            addExt(x509, NID_subject_alt_name,
+                   (std::string("DNS:") + cn.data()).data());
             addExt(x509, NID_subject_key_identifier, ("hash"));
             addExt(x509, NID_authority_key_identifier, ("keyid"));
             addExt(x509, NID_key_usage, ("digitalSignature, keyEncipherment"));
@@ -316,7 +317,7 @@ inline void generateSslCertificate(const std::string& filepath,
             // Sign the certificate with our private key
             X509_sign(x509, pPrivKey, EVP_sha256());
 
-            pFile = fopen(filepath.c_str(), "wt");
+            pFile = fopen(filepath.data(), "wt");
 
             if (pFile != nullptr)
             {
@@ -327,7 +328,6 @@ inline void generateSslCertificate(const std::string& filepath,
                 fclose(pFile);
                 pFile = nullptr;
             }
-
             X509_free(x509);
         }
 
@@ -415,7 +415,8 @@ void initOpenssl()
 #endif
 }
 
-inline void ensureOpensslKeyPresentAndValid(const std::string& filepath)
+inline void ensureOpensslKeyPresentAndValid(const std::string& filepath,
+                                            std::string_view cn = "testhost")
 {
     bool pemFileValid = false;
 
@@ -424,8 +425,33 @@ inline void ensureOpensslKeyPresentAndValid(const std::string& filepath)
     if (!pemFileValid)
     {
         BMCWEB_LOG_WARNING("Error in verifying signature, regenerating");
-        generateSslCertificate(filepath, "testhost");
+        generateSslCertificate(filepath, cn);
     }
+}
+inline std::string ensureCertificate(std::string_view filename,
+                                     std::string_view cn)
+{
+    namespace fs = std::filesystem;
+    // Cleanup older certificate file existing in the system
+    std::string oldcertPath = "/home/root/" + std::string(filename);
+    fs::path oldCert = oldcertPath;
+    if (fs::exists(oldCert))
+    {
+        fs::remove(oldcertPath);
+    }
+    fs::path certPath = "/etc/ssl/certs/https/";
+    // if path does not exist create the path so that
+    // self signed certificate can be created in the
+    // path
+    if (!fs::exists(certPath))
+    {
+        fs::create_directories(certPath);
+    }
+    fs::path certFile = certPath / filename;
+    BMCWEB_LOG_INFO("Building SSL Context file= {}", certFile.string());
+    std::string sslPemFile(certFile);
+    ensuressl::ensureOpensslKeyPresentAndValid(sslPemFile, cn);
+    return sslPemFile;
 }
 
 inline int nextProtoCallback(SSL* /*unused*/, const unsigned char** data,
@@ -459,11 +485,12 @@ inline int alpnSelectProtoCallback(SSL* /*unused*/, const unsigned char** out,
 }
 
 inline std::shared_ptr<boost::asio::ssl::context>
-    getSslContext(const std::string& sslPemFile)
+    getSslContext(const std::string& sslPemFile, bool client = false)
 {
     std::shared_ptr<boost::asio::ssl::context> mSslContext =
         std::make_shared<boost::asio::ssl::context>(
-            boost::asio::ssl::context::tls_server);
+            client ? boost::asio::ssl::context::tls_client
+                   : boost::asio::ssl::context::tls_server);
     mSslContext->set_options(boost::asio::ssl::context::default_workarounds |
                              boost::asio::ssl::context::no_sslv2 |
                              boost::asio::ssl::context::no_sslv3 |
