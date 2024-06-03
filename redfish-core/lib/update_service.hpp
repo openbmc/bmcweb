@@ -999,13 +999,6 @@ inline void
                          const std::string& applyTime,
                          std::vector<std::string>& targets)
 {
-    std::string applyTimeNewVal;
-
-    if (!convertApplyTime(asyncResp->res, applyTime, applyTimeNewVal))
-    {
-        return;
-    }
-
     MemoryFileDescriptor memfd("update-image");
     if (memfd.fd == -1)
     {
@@ -1029,7 +1022,7 @@ inline void
     task::Payload payload(req);
     if (!targets.empty() && targets[0] == BMCWEB_REDFISH_MANAGER_URI_NAME)
     {
-        startUpdate(asyncResp, std::move(payload), memfd, applyTimeNewVal,
+        startUpdate(asyncResp, std::move(payload), memfd, applyTime,
                     "/xyz/openbmc_project/software/bmc",
                     "xyz.openbmc_project.Software.Manager");
     }
@@ -1040,12 +1033,12 @@ inline void
         dbus::utility::getSubTreePaths(
             "/xyz/openbmc_project/software", 1, interfaces,
             [asyncResp, payload = std::move(payload), memfd = std::move(memfd),
-             applyTimeNewVal,
+             applyTime,
              targets](const boost::system::error_code& ec,
                       const dbus::utility::MapperGetSubTreePathsResponse&
                           subtree) mutable {
             getSwInfo(asyncResp, std::move(payload), std::move(memfd),
-                      applyTimeNewVal, targets[0], ec, subtree);
+                      applyTime, targets[0], ec, subtree);
         });
     }
 }
@@ -1067,8 +1060,15 @@ inline void
 
     if constexpr (BMCWEB_REDFISH_UPDATESERVICE_USE_DBUS)
     {
+        std::string applyTimeNewVal;
+        if (!convertApplyTime(asyncResp->res, *multipart->applyTime,
+                              applyTimeNewVal))
+        {
+            return;
+        }
+
         processUpdateRequest(asyncResp, req, multipart->uploadData,
-                             *multipart->applyTime, multipart->targets);
+                             applyTimeNewVal, multipart->targets);
     }
     else
     {
@@ -1079,6 +1079,52 @@ inline void
                                     "/redfish/v1/UpdateService");
 
         uploadImageFile(asyncResp->res, multipart->uploadData);
+    }
+}
+
+inline void
+    handleApplyTimeGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                       const crow::Request& req,
+                       const boost::system::error_code& ec,
+                       const std::string& applyTime)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("error_code = {}", ec);
+        BMCWEB_LOG_ERROR("error msg = {}", ec.message());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    BMCWEB_LOG_DEBUG("ApplyTime = {}", applyTime);
+
+    // Redfish Unstructured HTTP push has been deprecated in favor of Multipart
+    // HTTP push updates, hence make changes to only support bmc updates through
+    // this flow for backwards compatibility.
+    std::vector<std::string> targets;
+    targets.emplace_back(BMCWEB_REDFISH_MANAGER_URI_NAME);
+
+    processUpdateRequest(asyncResp, req, req.body(), applyTime, targets);
+}
+
+inline void updateApplicationContext(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const crow::Request& req)
+{
+    if constexpr (BMCWEB_REDFISH_UPDATESERVICE_USE_DBUS)
+    {
+        sdbusplus::asio::getProperty<std::string>(
+            *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+            "/xyz/openbmc_project/software/apply_time",
+            "xyz.openbmc_project.Software.ApplyTime", "RequestedApplyTime",
+            std::bind_front(handleApplyTimeGet, asyncResp, req));
+    }
+    else
+    {
+        // Setup callback for when new software detected
+        monitorForSoftwareAvailable(asyncResp, req,
+                                    "/redfish/v1/UpdateService");
+
+        uploadImageFile(asyncResp->res, req.body());
     }
 }
 
@@ -1098,11 +1144,7 @@ inline void
     // multipart/form-data
     if (bmcweb::asciiIEquals(contentType, "application/octet-stream"))
     {
-        // Setup callback for when new software detected
-        monitorForSoftwareAvailable(asyncResp, req,
-                                    "/redfish/v1/UpdateService");
-
-        uploadImageFile(asyncResp->res, req.body());
+        updateApplicationContext(asyncResp, req);
     }
     else if (contentType.starts_with("multipart/form-data"))
     {
