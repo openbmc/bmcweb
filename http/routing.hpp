@@ -442,8 +442,7 @@ class Router
         }
         for (size_t method = 0; method <= maxVerbIndex; method++)
         {
-            size_t methodBit = 1 << method;
-            if ((ruleObject->methodsBitfield & methodBit) > 0U)
+            if (ruleObject->methodsBitfield.test(method))
             {
                 perMethods[method].internalAdd(rule, ruleObject);
             }
@@ -648,7 +647,8 @@ class Router
         std::vector<std::string> params = std::move(foundRoute.route.params);
 
         BMCWEB_LOG_DEBUG("Matched rule '{}' {} / {}", rule.rule,
-                         static_cast<uint32_t>(*verb), rule.getMethods());
+                         static_cast<uint32_t>(*verb),
+                         rule.getMethods().to_string());
 
         if (req->session == nullptr)
         {
