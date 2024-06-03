@@ -1098,13 +1098,11 @@ inline void
     // multipart/form-data
     if (bmcweb::asciiIEquals(contentType, "application/octet-stream"))
     {
-        // Setup callback for when new software detected
-        monitorForSoftwareAvailable(asyncResp, req,
-                                    "/redfish/v1/UpdateService");
-
-        uploadImageFile(asyncResp->res, req.body());
+        messages::actionNotSupported(asyncResp->res,
+                                     "HTTP Post for application/octet-stream");
+        return;
     }
-    else if (contentType.starts_with("multipart/form-data"))
+    if (contentType.starts_with("multipart/form-data"))
     {
         MultipartParser parser;
 
@@ -1142,8 +1140,6 @@ inline void
     asyncResp->res.jsonValue["Description"] = "Service for Software Update";
     asyncResp->res.jsonValue["Name"] = "Update Service";
 
-    asyncResp->res.jsonValue["HttpPushUri"] =
-        "/redfish/v1/UpdateService/update";
     asyncResp->res.jsonValue["MultipartHttpPushUri"] =
         "/redfish/v1/UpdateService/update";
 
@@ -1212,20 +1208,7 @@ inline void handleUpdateServicePatch(
     {
         return;
     }
-    BMCWEB_LOG_DEBUG("doPatch...");
-
-    std::optional<std::string> applyTime;
-    if (!json_util::readJsonPatch(
-            req, asyncResp->res,
-            "HttpPushUriOptions/HttpPushUriApplyTime/ApplyTime", applyTime))
-    {
-        return;
-    }
-
-    if (applyTime)
-    {
-        setApplyTime(asyncResp, *applyTime);
-    }
+    messages::actionNotSupported(asyncResp->res, "Patch for Apply options");
 }
 
 inline void handleUpdateServiceFirmwareInventoryCollectionGet(
