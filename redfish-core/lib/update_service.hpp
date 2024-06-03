@@ -707,12 +707,12 @@ inline bool convertApplyTime(crow::Response& res, const std::string& applyTime,
     if (applyTime == "Immediate")
     {
         applyTimeNewVal =
-            "xyz.openbmc_project.Software.Update.ApplyTimes.Immediate";
+            "xyz.openbmc_project.Software.ApplyTime.RequestedApplyTimes.Immediate";
     }
     else if (applyTime == "OnReset")
     {
         applyTimeNewVal =
-            "xyz.openbmc_project.Software.Update.ApplyTimes.OnReset";
+            "xyz.openbmc_project.Software.ApplyTime.RequestedApplyTimes.OnReset";
     }
     else
     {
@@ -729,22 +729,8 @@ inline void setApplyTime(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const std::string& applyTime)
 {
     std::string applyTimeNewVal;
-    if (applyTime == "Immediate")
+    if (!convertApplyTime(asyncResp->res, applyTime, applyTimeNewVal))
     {
-        applyTimeNewVal =
-            "xyz.openbmc_project.Software.ApplyTime.RequestedApplyTimes.Immediate";
-    }
-    else if (applyTime == "OnReset")
-    {
-        applyTimeNewVal =
-            "xyz.openbmc_project.Software.ApplyTime.RequestedApplyTimes.OnReset";
-    }
-    else
-    {
-        BMCWEB_LOG_INFO(
-            "ApplyTime value is not in the list of acceptable values");
-        messages::propertyValueNotInList(asyncResp->res, applyTime,
-                                         "ApplyTime");
         return;
     }
 
