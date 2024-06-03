@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b8eedb0_d07f0431",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 857,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-03T19:22:53Z",
+      "side": 1,
+      "message": "Closing out.  This is a core issue of not using the right method.",
+      "parentUuid": "85e22506_30632685",
+      "range": {
+        "startLine": 857,
+        "startChar": 0,
+        "endLine": 857,
+        "endChar": 63
+      },
+      "revId": "5b5e2a0b87d0b6fcb0e6ea2d025a12cf0f892a22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41af3d93_5dd031cd",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-06-03T17:15:22Z",
       "side": 1,
       "message": "Can we make this two methods please?  There can be other methods for the overlap, but as is, this is setting a lot of parameters that aren\u0027t required in a client context.\n\nFor example, it\u0027s using the webserver private key as the key, not a client key.  These are different, and we need to code to comprend that.\n\nOther example, setting alpnSelectProtoCallback on a client context makes no sense.  We don\u0027t support http2, nor do we need to advertise as the client.\n\nTL; DR;  Please make these two methods, one for client, and one for server.\n\n\n\nI typed the above, then realized that getSSLClientContext already exists?  Why are we trying to overwrite it?",
+      "range": {
+        "startLine": 488,
+        "startChar": 48,
+        "endLine": 488,
+        "endChar": 68
+      },
+      "revId": "5b5e2a0b87d0b6fcb0e6ea2d025a12cf0f892a22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a505a53e_58402699",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-03T19:22:53Z",
+      "side": 1,
+      "message": "Closing out.  This is already two methods, this patchset just ignores that.  Will resolve in other thread.",
+      "parentUuid": "41af3d93_5dd031cd",
       "range": {
         "startLine": 488,
         "startChar": 48,
