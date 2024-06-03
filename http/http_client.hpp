@@ -607,24 +607,13 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         conn = boost::asio::ip::tcp::socket(ioc);
         if (ssl)
         {
-            std::optional<boost::asio::ssl::context> sslCtx =
-                ensuressl::getSSLClientContext();
-
-            if (!sslCtx)
+            auto ctx = ensuressl::getSslClientContext();
+            if (!ctx)
             {
-                BMCWEB_LOG_ERROR("prepareSSLContext failed - {}, id: {}", host,
-                                 connId);
-                // Don't retry if failure occurs while preparing SSL context
-                // such as certificate is invalid or set cipher failure or
-                // set host name failure etc... Setting conn state to
-                // sslInitFailed and connection state will be transitioned
-                // to next state depending on retry policy set by
-                // subscription.
-                state = ConnState::sslInitFailed;
                 waitAndRetry();
                 return;
             }
-            sslConn.emplace(conn, *sslCtx);
+            sslConn.emplace(conn, *ctx);
             setCipherSuiteTLSext();
         }
     }
@@ -651,7 +640,6 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
     boost::urls::url destIP;
     std::vector<std::shared_ptr<ConnectionInfo>> connections;
     boost::container::devector<PendingRequest> requestQueue;
-
     friend class HttpClient;
 
     // Configure a connections's request, callback, and retry info in
@@ -737,6 +725,7 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
         thisReq.keep_alive(true);
         thisReq.body().str() = std::move(data);
         thisReq.prepare_payload();
+
         auto cb = std::bind_front(&ConnectionPool::afterSendData,
                                   weak_from_this(), resHandler);
         // Reuse an existing connection if one is available
