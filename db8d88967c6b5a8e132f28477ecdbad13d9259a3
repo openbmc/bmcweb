@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ace9cad4_a04511b9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-03T22:41:34Z",
+      "side": 1,
+      "message": "FYI: https://github.com/openbmc/bmcweb/blob/master/REDFISH_CHECKLIST.md\n\nThe biggest thing i see missing immediately is documentation for your new option.",
+      "revId": "db8d88967c6b5a8e132f28477ecdbad13d9259a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
