@@ -16,7 +16,11 @@ class WebSocketRule : public BaseRule
     using self_t = WebSocketRule;
 
   public:
-    explicit WebSocketRule(const std::string& ruleIn) : BaseRule(ruleIn) {}
+    explicit WebSocketRule(const std::string& ruleIn) : BaseRule(ruleIn)
+    {
+        isUpgrade = true;
+        methodsBitfield = 0;
+    }
 
     void validate() override {}
 

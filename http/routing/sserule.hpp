@@ -19,7 +19,10 @@ class SseSocketRule : public BaseRule
     using self_t = SseSocketRule;
 
   public:
-    explicit SseSocketRule(const std::string& ruleIn) : BaseRule(ruleIn) {}
+    explicit SseSocketRule(const std::string& ruleIn) : BaseRule(ruleIn)
+    {
+        isUpgrade = true;
+    }
 
     void validate() override {}
 

@@ -407,31 +407,59 @@ class Router
         static_assert(NumArgs <= 5, "Max number of args supported is 5");
     }
 
+    struct PerMethod
+    {
+        std::vector<BaseRule*> rules;
+        Trie trie;
+        // rule index 0 has special meaning; preallocate it to avoid
+        // duplication.
+        PerMethod() : rules(1) {}
+    };
+
+    void internalAddToPerMethod(PerMethod& perMethod, std::string_view rule,
+                                BaseRule* ruleObject)
+    {
+        perMethod.rules.emplace_back(ruleObject);
+        perMethod.trie.add(rule,
+                           static_cast<unsigned>(perMethod.rules.size() - 1U));
+        // directory case:
+        //   request to `/about' url matches `/about/' rule
+        if (rule.size() > 2 && rule.back() == '/')
+        {
+            perMethod.trie.add(
+                rule.substr(0, rule.size() - 1),
+                static_cast<unsigned>(perMethod.rules.size() - 1));
+        }
+    }
+
     void internalAddRuleObject(const std::string& rule, BaseRule* ruleObject)
     {
         if (ruleObject == nullptr)
         {
             return;
         }
-        for (size_t method = 0, methodBit = 1; method <= methodNotAllowedIndex;
+        for (size_t method = 0, methodBit = 1; method <= maxVerbIndex;
              method++, methodBit <<= 1)
         {
             if ((ruleObject->methodsBitfield & methodBit) > 0U)
             {
-                perMethods[method].rules.emplace_back(ruleObject);
-                perMethods[method].trie.add(
-                    rule, static_cast<unsigned>(
-                              perMethods[method].rules.size() - 1U));
-                // directory case:
-                //   request to `/about' url matches `/about/' rule
-                if (rule.size() > 2 && rule.back() == '/')
-                {
-                    perMethods[method].trie.add(
-                        rule.substr(0, rule.size() - 1),
-                        static_cast<unsigned>(perMethods[method].rules.size() -
-                                              1));
-                }
+                internalAddToPerMethod(perMethods[method], rule, ruleObject);
             }
+        }
+
+        if (ruleObject->isNotFound)
+        {
+            internalAddToPerMethod(notFoundRoutes, rule, ruleObject);
+        }
+
+        if (ruleObject->isMethodNotAllowed)
+        {
+            internalAddToPerMethod(methodNotAllowedRoutes, rule, ruleObject);
+        }
+
+        if (ruleObject->isUpgrade)
+        {
+            internalAddToPerMethod(upgradeRoutes, rule, ruleObject);
         }
     }
 
@@ -468,15 +496,11 @@ class Router
         FindRoute route;
     };
 
-    FindRoute findRouteByIndex(std::string_view url, size_t index) const
+    FindRoute findRouteByPerMethod(std::string_view url,
+                                   const PerMethod& perMethod) const
     {
         FindRoute route;
-        if (index >= perMethods.size())
-        {
-            BMCWEB_LOG_CRITICAL("Bad index???");
-            return route;
-        }
-        const PerMethod& perMethod = perMethods[index];
+
         Trie::FindResult found = perMethod.trie.find(url);
         if (found.ruleIndex >= perMethod.rules.size())
         {
@@ -508,8 +532,8 @@ class Router
             // Make sure it's safe to deference the array at that index
             static_assert(maxVerbIndex <
                           std::tuple_size_v<decltype(perMethods)>);
-            FindRoute route = findRouteByIndex(req.url().encoded_path(),
-                                               perMethodIndex);
+            FindRoute route = findRouteByPerMethod(req.url().encoded_path(),
+                                                   perMethods[perMethodIndex]);
             if (route.rule == nullptr)
             {
                 continue;
@@ -533,13 +557,7 @@ class Router
                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                        Adaptor&& adaptor)
     {
-        std::optional<HttpVerb> verb = httpVerbFromBoost(req->method());
-        if (!verb || static_cast<size_t>(*verb) >= perMethods.size())
-        {
-            asyncResp->res.result(boost::beast::http::status::not_found);
-            return;
-        }
-        PerMethod& perMethod = perMethods[static_cast<size_t>(*verb)];
+        PerMethod& perMethod = upgradeRoutes;
         Trie& trie = perMethod.trie;
         std::vector<BaseRule*>& rules = perMethod.rules;
 
@@ -559,19 +577,8 @@ class Router
         }
 
         BaseRule& rule = *rules[ruleIndex];
-        size_t methods = rule.getMethods();
-        if ((methods & (1U << static_cast<size_t>(*verb))) == 0)
-        {
-            BMCWEB_LOG_DEBUG(
-                "Rule found but method mismatch: {} with {}({}) / {}",
-                req->url().encoded_path(), req->methodString(),
-                static_cast<uint32_t>(*verb), methods);
-            asyncResp->res.result(boost::beast::http::status::not_found);
-            return;
-        }
 
-        BMCWEB_LOG_DEBUG("Matched rule (upgrade) '{}' {} / {}", rule.rule,
-                         static_cast<uint32_t>(*verb), methods);
+        BMCWEB_LOG_DEBUG("Matched rule (upgrade) '{}'", rule.rule);
 
         // TODO(ed) This should be able to use std::bind_front, but it doesn't
         // appear to work with the std::move on adaptor.
@@ -600,14 +607,14 @@ class Router
             // route
             if (foundRoute.allowHeader.empty())
             {
-                foundRoute.route = findRouteByIndex(req->url().encoded_path(),
-                                                    notFoundIndex);
+                foundRoute.route = findRouteByPerMethod(
+                    req->url().encoded_path(), notFoundRoutes);
             }
             else
             {
                 // See if we have a method not allowed (405) handler
-                foundRoute.route = findRouteByIndex(req->url().encoded_path(),
-                                                    methodNotAllowedIndex);
+                foundRoute.route = findRouteByPerMethod(
+                    req->url().encoded_path(), methodNotAllowedRoutes);
             }
         }
 
@@ -678,16 +685,12 @@ class Router
     }
 
   private:
-    struct PerMethod
-    {
-        std::vector<BaseRule*> rules;
-        Trie trie;
-        // rule index 0 has special meaning; preallocate it to avoid
-        // duplication.
-        PerMethod() : rules(1) {}
-    };
+    std::array<PerMethod, static_cast<size_t>(HttpVerb::Max)> perMethods;
 
-    std::array<PerMethod, methodNotAllowedIndex + 1> perMethods;
+    PerMethod notFoundRoutes;
+    PerMethod upgradeRoutes;
+    PerMethod methodNotAllowedRoutes;
+
     std::vector<std::unique_ptr<BaseRule>> allRules;
 };
 } // namespace crow
