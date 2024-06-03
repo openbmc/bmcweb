@@ -29,7 +29,7 @@ class WebSocketRule : public BaseRule
     {
         isUpgrade = true;
         // Clear GET handler
-        methodsBitfield = 0;
+        methodsBitfield.reset();
     }
 
     void validate() override {}
