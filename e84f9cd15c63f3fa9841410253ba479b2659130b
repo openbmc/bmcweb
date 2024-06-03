@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae944618_12328a46",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-03T20:53:54Z",
+      "side": 1,
+      "message": "Wouldn\u0027t we want to wait on this until we know that we have another request coming?\n\nWe don\u0027t want to open a connection if there isn\u0027t a request in progress.",
+      "range": {
+        "startLine": 709,
+        "startChar": 0,
+        "endLine": 709,
+        "endChar": 2
+      },
+      "revId": "e84f9cd15c63f3fa9841410253ba479b2659130b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d4e2041_cda6dfa6",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-03T20:53:54Z",
+      "side": 1,
+      "message": "I suspect we need to break this down by state\n\nidle should not require a connection restart. Initialized should already have the connection started.  As written, this will break keepalive.",
+      "range": {
+        "startLine": 763,
+        "startChar": 26,
+        "endLine": 763,
+        "endChar": 43
+      },
+      "revId": "e84f9cd15c63f3fa9841410253ba479b2659130b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
