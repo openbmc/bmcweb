@@ -16,6 +16,24 @@
       "message": "Can you please link the people that changed this prior to your commit?",
       "revId": "82e25db9fc1d269ea52a8192fc5a28b37b25e708",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae413a1e_e3cdb819",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-06-03T17:18:19Z",
+      "side": 1,
+      "message": "looks like this change was there since long time could not find this commit which updates this useDomainName property with HostNameEnabled property",
+      "parentUuid": "f8da6d92_8fc0d0d8",
+      "revId": "82e25db9fc1d269ea52a8192fc5a28b37b25e708",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
