@@ -85,37 +85,9 @@ class Server
         {
             return;
         }
-        namespace fs = std::filesystem;
-        // Cleanup older certificate file existing in the system
-        fs::path oldCert = "/home/root/server.pem";
-        if (fs::exists(oldCert))
-        {
-            fs::remove("/home/root/server.pem");
-        }
-        fs::path certPath = "/etc/ssl/certs/https/";
-        // if path does not exist create the path so that
-        // self signed certificate can be created in the
-        // path
-        if (!fs::exists(certPath))
-        {
-            fs::create_directories(certPath);
-        }
-        fs::path certFile = certPath / "server.pem";
-        BMCWEB_LOG_INFO("Building SSL Context file={}", certFile.string());
-        std::string sslPemFile(certFile);
-        std::string cert =
-            ensuressl::ensureOpensslKeyPresentAndValid(sslPemFile);
-        if (cert.empty())
-        {
-            throw std::runtime_error("Failed to load string");
-        }
-        std::shared_ptr<boost::asio::ssl::context> sslContext =
-            ensuressl::getSslContext(cert);
-        if (sslContext == nullptr)
-        {
-            throw std::runtime_error("Failed to load certificate");
-        }
-        BMCWEB_LOG_DEBUG("Replaced certificate");
+
+        auto sslContext = ensuressl::getSslServerContext();
+
         adaptorCtx = sslContext;
         handler->ssl(std::move(sslContext));
     }
@@ -184,7 +156,7 @@ class Server
             if (adaptorCtx == nullptr)
             {
                 BMCWEB_LOG_CRITICAL(
-                    "Asked to lauch TLS socket but no context available");
+                    "Asked to launch TLS socket but no context available");
                 return;
             }
             connection = std::make_shared<Connection<Adaptor, Handler>>(

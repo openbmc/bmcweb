@@ -24,6 +24,8 @@ extern "C"
 #include <boost/asio/ssl/context.hpp>
 #include <boost/system/error_code.hpp>
 
+#include <filesystem>
+#include <memory>
 #include <optional>
 #include <random>
 #include <string>
@@ -479,6 +481,30 @@ inline std::string ensureOpensslKeyPresentAndValid(const std::string& filepath)
     return cert;
 }
 
+inline std::string ensureCertificate()
+{
+    namespace fs = std::filesystem;
+    // Cleanup older certificate file existing in the system
+    fs::path oldcertPath = fs::path("/home/root/server.pem");
+    std::error_code ec;
+    fs::remove(oldcertPath, ec);
+    // Ignore failure to remove;  File might not exist.
+
+    fs::path certPath = "/etc/ssl/certs/https/";
+    // if path does not exist create the path so that
+    // self signed certificate can be created in the
+    // path
+    fs::path certFile = certPath / "server.pem";
+
+    if (!fs::exists(certPath, ec))
+    {
+        fs::create_directories(certFile, ec);
+    }
+    BMCWEB_LOG_INFO("Building SSL Context file= {}", certFile.string());
+    std::string sslPemFile(certFile);
+    return ensuressl::ensureOpensslKeyPresentAndValid(sslPemFile);
+}
+
 inline int nextProtoCallback(SSL* /*unused*/, const unsigned char** data,
                              unsigned int* len, void* /*unused*/)
 {
@@ -509,51 +535,37 @@ inline int alpnSelectProtoCallback(SSL* /*unused*/, const unsigned char** out,
     return SSL_TLSEXT_ERR_OK;
 }
 
-inline std::shared_ptr<boost::asio::ssl::context>
-    getSslContext(const std::string& sslPemFile)
+inline bool getSslContext(boost::asio::ssl::context& mSslContext,
+                          const std::string& sslPemFile)
 {
-    std::shared_ptr<boost::asio::ssl::context> mSslContext =
-        std::make_shared<boost::asio::ssl::context>(
-            boost::asio::ssl::context::tls_server);
-    mSslContext->set_options(boost::asio::ssl::context::default_workarounds |
-                             boost::asio::ssl::context::no_sslv2 |
-                             boost::asio::ssl::context::no_sslv3 |
-                             boost::asio::ssl::context::single_dh_use |
-                             boost::asio::ssl::context::no_tlsv1 |
-                             boost::asio::ssl::context::no_tlsv1_1);
-
-    // BIG WARNING: This needs to stay disabled, as there will always be
-    // unauthenticated endpoints
-    // mSslContext->set_verify_mode(boost::asio::ssl::verify_peer);
-
-    SSL_CTX_set_options(mSslContext->native_handle(), SSL_OP_NO_RENEGOTIATION);
+    mSslContext.set_options(boost::asio::ssl::context::default_workarounds |
+                            boost::asio::ssl::context::no_sslv2 |
+                            boost::asio::ssl::context::no_sslv3 |
+                            boost::asio::ssl::context::single_dh_use |
+                            boost::asio::ssl::context::no_tlsv1 |
+                            boost::asio::ssl::context::no_tlsv1_1);
 
     BMCWEB_LOG_DEBUG("Using default TrustStore location: {}", trustStorePath);
-    mSslContext->add_verify_path(trustStorePath);
+    mSslContext.add_verify_path(trustStorePath);
 
-    boost::system::error_code ec;
-    boost::asio::const_buffer buf(sslPemFile.data(), sslPemFile.size());
-    mSslContext->use_certificate(buf, boost::asio::ssl::context::pem, ec);
-    if (ec)
+    if (!sslPemFile.empty())
     {
-        BMCWEB_LOG_CRITICAL("Failed to open ssl certificate");
-        return nullptr;
-    }
-    mSslContext->use_private_key(buf, boost::asio::ssl::context::pem);
-    if (ec)
-    {
-        BMCWEB_LOG_CRITICAL("Failed to open ssl pkey");
-        return nullptr;
+        boost::system::error_code ec;
+
+        boost::asio::const_buffer buf(sslPemFile.data(), sslPemFile.size());
+        mSslContext.use_certificate(buf, boost::asio::ssl::context::pem, ec);
+        if (ec)
+        {
+            return false;
+        }
+        mSslContext.use_private_key(buf, boost::asio::ssl::context::pem, ec);
+        if (ec)
+        {
+            BMCWEB_LOG_CRITICAL("Failed to open ssl pkey");
+            return false;
+        }
     }
 
-    if constexpr (BMCWEB_EXPERIMENTAL_HTTP2)
-    {
-        SSL_CTX_set_next_protos_advertised_cb(mSslContext->native_handle(),
-                                              nextProtoCallback, nullptr);
-
-        SSL_CTX_set_alpn_select_cb(mSslContext->native_handle(),
-                                   alpnSelectProtoCallback, nullptr);
-    }
     // Set up EC curves to auto (boost asio doesn't have a method for this)
     // There is a pull request to add this.  Once this is included in an asio
     // drop, use the right way
@@ -573,31 +585,57 @@ inline std::shared_ptr<boost::asio::ssl::context>
                                       "DHE-RSA-AES256-GCM-SHA384:"
                                       "DHE-RSA-CHACHA20-POLY1305";
 
-    if (SSL_CTX_set_cipher_list(mSslContext->native_handle(),
+    if (SSL_CTX_set_cipher_list(mSslContext.native_handle(),
                                 mozillaIntermediate) != 1)
     {
         BMCWEB_LOG_ERROR("Error setting cipher list");
+        return false;
     }
-    return mSslContext;
+    return true;
+}
+
+inline std::shared_ptr<boost::asio::ssl::context> getSslServerContext()
+{
+    boost::asio::ssl::context sslCtx(boost::asio::ssl::context::tls_server);
+
+    auto certFile = ensureCertificate();
+    if (!getSslContext(sslCtx, certFile))
+    {
+        BMCWEB_LOG_CRITICAL("Couldn't get server context");
+        return nullptr;
+    }
+
+    // BIG WARNING: This needs to stay disabled, as there will always be
+    // unauthenticated endpoints
+    // mSslContext->set_verify_mode(boost::asio::ssl::verify_peer);
+
+    SSL_CTX_set_options(sslCtx.native_handle(), SSL_OP_NO_RENEGOTIATION);
+
+    if constexpr (BMCWEB_EXPERIMENTAL_HTTP2)
+    {
+        SSL_CTX_set_next_protos_advertised_cb(sslCtx.native_handle(),
+                                              nextProtoCallback, nullptr);
+
+        SSL_CTX_set_alpn_select_cb(sslCtx.native_handle(),
+                                   alpnSelectProtoCallback, nullptr);
+    }
+
+    return std::make_shared<boost::asio::ssl::context>(std::move(sslCtx));
 }
 
 inline std::optional<boost::asio::ssl::context> getSSLClientContext()
 {
+    namespace fs = std::filesystem;
+
     boost::asio::ssl::context sslCtx(boost::asio::ssl::context::tls_client);
 
-    boost::system::error_code ec;
+    // NOTE, this path is temporary;  In the future it will need to change to
+    // be set per subscription.  Do not rely on this.
+    fs::path certPath = "/etc/ssl/certs/https/client.pem";
+    std::string cert = verifyOpensslKeyCert(certPath);
 
-    // Support only TLS v1.2 & v1.3
-    sslCtx.set_options(boost::asio::ssl::context::default_workarounds |
-                           boost::asio::ssl::context::no_sslv2 |
-                           boost::asio::ssl::context::no_sslv3 |
-                           boost::asio::ssl::context::single_dh_use |
-                           boost::asio::ssl::context::no_tlsv1 |
-                           boost::asio::ssl::context::no_tlsv1_1,
-                       ec);
-    if (ec)
+    if (!getSslContext(sslCtx, cert))
     {
-        BMCWEB_LOG_ERROR("SSL context set_options failed");
         return std::nullopt;
     }
 
@@ -645,7 +683,7 @@ inline std::optional<boost::asio::ssl::context> getSSLClientContext()
         return std::nullopt;
     }
 
-    return sslCtx;
+    return {std::move(sslCtx)};
 }
 
 } // namespace ensuressl
