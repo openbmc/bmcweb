@@ -995,17 +995,10 @@ inline void
 
 inline void
     processUpdateRequest(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                         const crow::Request& req, std::string_view body,
+                         task::Payload payload, std::string_view body,
                          const std::string& applyTime,
                          std::vector<std::string>& targets)
 {
-    std::string applyTimeNewVal;
-
-    if (!convertApplyTime(asyncResp->res, applyTime, applyTimeNewVal))
-    {
-        return;
-    }
-
     MemoryFileDescriptor memfd("update-image");
     if (memfd.fd == -1)
     {
@@ -1026,10 +1019,9 @@ inline void
         return;
     }
 
-    task::Payload payload(req);
     if (!targets.empty() && targets[0] == BMCWEB_REDFISH_MANAGER_URI_NAME)
     {
-        startUpdate(asyncResp, std::move(payload), memfd, applyTimeNewVal,
+        startUpdate(asyncResp, std::move(payload), memfd, applyTime,
                     "/xyz/openbmc_project/software/bmc",
                     "xyz.openbmc_project.Software.Manager");
     }
@@ -1040,12 +1032,12 @@ inline void
         dbus::utility::getSubTreePaths(
             "/xyz/openbmc_project/software", 1, interfaces,
             [asyncResp, payload = std::move(payload), memfd = std::move(memfd),
-             applyTimeNewVal,
+             applyTime,
              targets](const boost::system::error_code& ec,
                       const dbus::utility::MapperGetSubTreePathsResponse&
                           subtree) mutable {
             getSwInfo(asyncResp, std::move(payload), std::move(memfd),
-                      applyTimeNewVal, targets[0], ec, subtree);
+                      applyTime, targets[0], ec, subtree);
         });
     }
 }
@@ -1067,8 +1059,17 @@ inline void
 
     if constexpr (BMCWEB_REDFISH_UPDATESERVICE_USE_DBUS)
     {
-        processUpdateRequest(asyncResp, req, multipart->uploadData,
-                             *multipart->applyTime, multipart->targets);
+        std::string applyTimeNewVal;
+        if (!convertApplyTime(asyncResp->res, *multipart->applyTime,
+                              applyTimeNewVal))
+        {
+            return;
+        }
+        task::Payload payload(req);
+
+        processUpdateRequest(asyncResp, std::move(payload),
+                             multipart->uploadData, applyTimeNewVal,
+                             multipart->targets);
     }
     else
     {
@@ -1079,6 +1080,35 @@ inline void
                                     "/redfish/v1/UpdateService");
 
         uploadImageFile(asyncResp->res, multipart->uploadData);
+    }
+}
+
+inline void updateApplicationContext(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const crow::Request& req)
+{
+    if constexpr (BMCWEB_REDFISH_UPDATESERVICE_USE_DBUS)
+    {
+        task::Payload payload(req);
+        // Redfish Unstructured HTTP push has been deprecated in favor of
+        // Multipart HTTP push updates, hence only support bmc updates (with
+        // ApplyTime as immediate) through this flow for backwards
+        // compatibility.
+        std::vector<std::string> targets;
+        targets.emplace_back(BMCWEB_REDFISH_MANAGER_URI_NAME);
+
+        processUpdateRequest(
+            asyncResp, std::move(payload), req.body(),
+            "xyz.openbmc_project.Software.ApplyTime.RequestedApplyTimes.Immediate",
+            targets);
+    }
+    else
+    {
+        // Setup callback for when new software detected
+        monitorForSoftwareAvailable(asyncResp, req,
+                                    "/redfish/v1/UpdateService");
+
+        uploadImageFile(asyncResp->res, req.body());
     }
 }
 
@@ -1098,11 +1128,7 @@ inline void
     // multipart/form-data
     if (bmcweb::asciiIEquals(contentType, "application/octet-stream"))
     {
-        // Setup callback for when new software detected
-        monitorForSoftwareAvailable(asyncResp, req,
-                                    "/redfish/v1/UpdateService");
-
-        uploadImageFile(asyncResp->res, req.body());
+        updateApplicationContext(asyncResp, req);
     }
     if (contentType.starts_with("multipart/form-data"))
     {
