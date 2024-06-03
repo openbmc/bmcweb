@@ -607,9 +607,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         conn = boost::asio::ip::tcp::socket(ioc);
         if (ssl)
         {
-            std::optional<boost::asio::ssl::context> sslCtx =
-                ensuressl::getSSLClientContext();
-
+            auto sslCtx = ensuressl::getSslClientContext();
             if (!sslCtx)
             {
                 BMCWEB_LOG_ERROR("prepareSSLContext failed - {}, id: {}", host,
@@ -651,7 +649,6 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
     boost::urls::url destIP;
     std::vector<std::shared_ptr<ConnectionInfo>> connections;
     boost::container::devector<PendingRequest> requestQueue;
-
     friend class HttpClient;
 
     // Configure a connections's request, callback, and retry info in
@@ -737,6 +734,7 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
         thisReq.keep_alive(true);
         thisReq.body().str() = std::move(data);
         thisReq.prepare_payload();
+
         auto cb = std::bind_front(&ConnectionPool::afterSendData,
                                   weak_from_this(), resHandler);
         // Reuse an existing connection if one is available

@@ -249,8 +249,8 @@ inline int addExt(X509* cert, int nid, const char* value)
     return 0;
 }
 
-inline void generateSslCertificate(const std::string& filepath,
-                                   const std::string& cn)
+inline void generateSslCertificate(std::string_view filepath,
+                                   std::string_view cn)
 {
     FILE* pFile = nullptr;
     BMCWEB_LOG_INFO("Generating new keys");
@@ -293,7 +293,7 @@ inline void generateSslCertificate(const std::string& filepath,
             // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
             x509String* company = reinterpret_cast<x509String*>("OpenBMC");
             // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-            x509String* cnStr = reinterpret_cast<x509String*>(cn.c_str());
+            x509String* cnStr = reinterpret_cast<x509String*>(cn.data());
 
             X509_NAME_add_entry_by_txt(name, "C", MBSTRING_ASC, country, -1, -1,
                                        0);
@@ -306,7 +306,8 @@ inline void generateSslCertificate(const std::string& filepath,
 
             X509_set_version(x509, 2);
             addExt(x509, NID_basic_constraints, ("critical,CA:TRUE"));
-            addExt(x509, NID_subject_alt_name, ("DNS:" + cn).c_str());
+            addExt(x509, NID_subject_alt_name,
+                   (std::string("DNS:") + cn.data()).data());
             addExt(x509, NID_subject_key_identifier, ("hash"));
             addExt(x509, NID_authority_key_identifier, ("keyid"));
             addExt(x509, NID_key_usage, ("digitalSignature, keyEncipherment"));
@@ -316,7 +317,7 @@ inline void generateSslCertificate(const std::string& filepath,
             // Sign the certificate with our private key
             X509_sign(x509, pPrivKey, EVP_sha256());
 
-            pFile = fopen(filepath.c_str(), "wt");
+            pFile = fopen(filepath.data(), "wt");
 
             if (pFile != nullptr)
             {
@@ -327,7 +328,6 @@ inline void generateSslCertificate(const std::string& filepath,
                 fclose(pFile);
                 pFile = nullptr;
             }
-
             X509_free(x509);
         }
 
@@ -415,7 +415,8 @@ void initOpenssl()
 #endif
 }
 
-inline void ensureOpensslKeyPresentAndValid(const std::string& filepath)
+inline void ensureOpensslKeyPresentAndValid(const std::string& filepath,
+                                            std::string_view cn = "testhost")
 {
     bool pemFileValid = false;
 
@@ -424,8 +425,33 @@ inline void ensureOpensslKeyPresentAndValid(const std::string& filepath)
     if (!pemFileValid)
     {
         BMCWEB_LOG_WARNING("Error in verifying signature, regenerating");
-        generateSslCertificate(filepath, "testhost");
+        generateSslCertificate(filepath, cn);
     }
+}
+inline std::string ensureCertificate(std::string_view filename,
+                                     std::string_view cn)
+{
+    namespace fs = std::filesystem;
+    // Cleanup older certificate file existing in the system
+    std::string oldcertPath = "/home/root/" + std::string(filename);
+    fs::path oldCert = oldcertPath;
+    if (fs::exists(oldCert))
+    {
+        fs::remove(oldcertPath);
+    }
+    fs::path certPath = "/etc/ssl/certs/https/";
+    // if path does not exist create the path so that
+    // self signed certificate can be created in the
+    // path
+    if (!fs::exists(certPath))
+    {
+        fs::create_directories(certPath);
+    }
+    fs::path certFile = certPath / filename;
+    BMCWEB_LOG_INFO("Building SSL Context file= {}", certFile.string());
+    std::string sslPemFile(certFile);
+    ensuressl::ensureOpensslKeyPresentAndValid(sslPemFile, cn);
+    return sslPemFile;
 }
 
 inline int nextProtoCallback(SSL* /*unused*/, const unsigned char** data,
@@ -459,11 +485,12 @@ inline int alpnSelectProtoCallback(SSL* /*unused*/, const unsigned char** out,
 }
 
 inline std::shared_ptr<boost::asio::ssl::context>
-    getSslContext(const std::string& sslPemFile)
+    getSslContext(const std::string& sslPemFile, bool client = false)
 {
     std::shared_ptr<boost::asio::ssl::context> mSslContext =
         std::make_shared<boost::asio::ssl::context>(
-            boost::asio::ssl::context::tls_server);
+            client ? boost::asio::ssl::context::tls_client
+                   : boost::asio::ssl::context::tls_server);
     mSslContext->set_options(boost::asio::ssl::context::default_workarounds |
                              boost::asio::ssl::context::no_sslv2 |
                              boost::asio::ssl::context::no_sslv3 |
@@ -471,35 +498,23 @@ inline std::shared_ptr<boost::asio::ssl::context>
                              boost::asio::ssl::context::no_tlsv1 |
                              boost::asio::ssl::context::no_tlsv1_1);
 
-    // BIG WARNING: This needs to stay disabled, as there will always be
-    // unauthenticated endpoints
-    // mSslContext->set_verify_mode(boost::asio::ssl::verify_peer);
-
-    SSL_CTX_set_options(mSslContext->native_handle(), SSL_OP_NO_RENEGOTIATION);
-
     BMCWEB_LOG_DEBUG("Using default TrustStore location: {}", trustStorePath);
     mSslContext->add_verify_path(trustStorePath);
 
-    mSslContext->use_certificate_file(sslPemFile,
-                                      boost::asio::ssl::context::pem);
-    mSslContext->use_private_key_file(sslPemFile,
-                                      boost::asio::ssl::context::pem);
-
-    if constexpr (BMCWEB_EXPERIMENTAL_HTTP2)
+    if (!sslPemFile.empty())
     {
-        SSL_CTX_set_next_protos_advertised_cb(mSslContext->native_handle(),
-                                              nextProtoCallback, nullptr);
-
-        SSL_CTX_set_alpn_select_cb(mSslContext->native_handle(),
-                                   alpnSelectProtoCallback, nullptr);
+        mSslContext->use_certificate_file(sslPemFile,
+                                          boost::asio::ssl::context::pem);
+        mSslContext->use_private_key_file(sslPemFile,
+                                          boost::asio::ssl::context::pem);
     }
+
     // Set up EC curves to auto (boost asio doesn't have a method for this)
     // There is a pull request to add this.  Once this is included in an asio
     // drop, use the right way
     // http://stackoverflow.com/questions/18929049/boost-asio-with-ecdsa-certificate-issue
     if (SSL_CTX_set_ecdh_auto(mSslContext->native_handle(), 1) != 1)
     {}
-
     // Mozilla intermediate cipher suites v5.7
     // Sourced from: https://ssl-config.mozilla.org/guidelines/5.7.json
     const char* mozillaIntermediate = "ECDHE-ECDSA-AES128-GCM-SHA256:"
@@ -519,62 +534,62 @@ inline std::shared_ptr<boost::asio::ssl::context>
     }
     return mSslContext;
 }
-
-inline std::optional<boost::asio::ssl::context> getSSLClientContext()
+inline std::shared_ptr<boost::asio::ssl::context> getSslServerContext()
 {
-    boost::asio::ssl::context sslCtx(boost::asio::ssl::context::tls_client);
-
-    boost::system::error_code ec;
-
-    // Support only TLS v1.2 & v1.3
-    sslCtx.set_options(boost::asio::ssl::context::default_workarounds |
-                           boost::asio::ssl::context::no_sslv2 |
-                           boost::asio::ssl::context::no_sslv3 |
-                           boost::asio::ssl::context::single_dh_use |
-                           boost::asio::ssl::context::no_tlsv1 |
-                           boost::asio::ssl::context::no_tlsv1_1,
-                       ec);
-    if (ec)
+    auto certFile = ensureCertificate("server.pem", "testhost");
+    auto sslCtx = getSslContext(certFile);
+    if (!sslCtx)
     {
-        BMCWEB_LOG_ERROR("SSL context set_options failed");
-        return std::nullopt;
+        return sslCtx;
+    }
+    // BIG WARNING: This needs to stay disabled, as there will always be
+    // unauthenticated endpoints
+    // mSslContext->set_verify_mode(boost::asio::ssl::verify_peer);
+
+    SSL_CTX_set_options(sslCtx->native_handle(), SSL_OP_NO_RENEGOTIATION);
+
+    if constexpr (BMCWEB_EXPERIMENTAL_HTTP2)
+    {
+        SSL_CTX_set_next_protos_advertised_cb(sslCtx->native_handle(),
+                                              nextProtoCallback, nullptr);
+
+        SSL_CTX_set_alpn_select_cb(sslCtx->native_handle(),
+                                   alpnSelectProtoCallback, nullptr);
     }
 
+    return sslCtx;
+}
+inline std::shared_ptr<boost::asio::ssl::context> getSslClientContext()
+{
+    namespace fs = std::filesystem;
+    fs::path certPath = "/etc/ssl/certs/https/client.pem";
+    std::string sslPemFile(certPath);
+    if (!fs::exists(certPath))
+    {
+        sslPemFile.clear();
+    }
+
+    auto sslCtx = getSslContext(sslPemFile, true);
+    if (!sslCtx)
+    {
+        return sslCtx;
+    }
     // Add a directory containing certificate authority files to be used
     // for performing verification.
-    sslCtx.set_default_verify_paths(ec);
+    boost::system::error_code ec{};
+    sslCtx->set_default_verify_paths(ec);
     if (ec)
     {
         BMCWEB_LOG_ERROR("SSL context set_default_verify failed");
-        return std::nullopt;
+        return nullptr;
     }
 
     // Verify the remote server's certificate
-    sslCtx.set_verify_mode(boost::asio::ssl::verify_peer, ec);
+    sslCtx->set_verify_mode(boost::asio::ssl::verify_peer, ec);
     if (ec)
     {
         BMCWEB_LOG_ERROR("SSL context set_verify_mode failed");
-        return std::nullopt;
-    }
-
-    // All cipher suites are set as per OWASP datasheet.
-    // https://cheatsheetseries.owasp.org/cheatsheets/TLS_Cipher_String_Cheat_Sheet.html
-    constexpr const char* sslCiphers = "ECDHE-ECDSA-AES128-GCM-SHA256:"
-                                       "ECDHE-RSA-AES128-GCM-SHA256:"
-                                       "ECDHE-ECDSA-AES256-GCM-SHA384:"
-                                       "ECDHE-RSA-AES256-GCM-SHA384:"
-                                       "ECDHE-ECDSA-CHACHA20-POLY1305:"
-                                       "ECDHE-RSA-CHACHA20-POLY1305:"
-                                       "DHE-RSA-AES128-GCM-SHA256:"
-                                       "DHE-RSA-AES256-GCM-SHA384"
-                                       "TLS_AES_128_GCM_SHA256:"
-                                       "TLS_AES_256_GCM_SHA384:"
-                                       "TLS_CHACHA20_POLY1305_SHA256";
-
-    if (SSL_CTX_set_cipher_list(sslCtx.native_handle(), sslCiphers) != 1)
-    {
-        BMCWEB_LOG_ERROR("SSL_CTX_set_cipher_list failed");
-        return std::nullopt;
+        return nullptr;
     }
 
     return sslCtx;
