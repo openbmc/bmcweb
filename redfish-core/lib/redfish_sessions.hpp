@@ -15,6 +15,7 @@
 */
 #pragma once
 
+#include "account_service.hpp"
 #include "app.hpp"
 #include "error_messages.hpp"
 #include "http/utility.hpp"
@@ -33,9 +34,12 @@ inline void fillSessionObject(crow::Response& res,
 {
     res.jsonValue["Id"] = session.uniqueId;
     res.jsonValue["UserName"] = session.username;
+    nlohmann::json::array_t roles;
+    roles.emplace_back(redfish::getRoleIdFromPrivilege(session.userRole));
+    res.jsonValue["Roles"] = std::move(roles);
     res.jsonValue["@odata.id"] = boost::urls::format(
         "/redfish/v1/SessionService/Sessions/{}", session.uniqueId);
-    res.jsonValue["@odata.type"] = "#Session.v1_5_0.Session";
+    res.jsonValue["@odata.type"] = "#Session.v1_7_0.Session";
     res.jsonValue["Name"] = "User Session";
     res.jsonValue["Description"] = "Manager User Session";
     res.jsonValue["ClientOriginIPAddress"] = session.clientIp;

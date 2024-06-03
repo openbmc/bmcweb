@@ -728,6 +728,7 @@ other.
 
 - ClientOriginIPAddress
 - Description
+- Roles
 - UserName
 
 ### /redfish/v1/Systems/
