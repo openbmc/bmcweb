@@ -54,7 +54,7 @@ class BaseRule
         asyncResp->res.result(boost::beast::http::status::not_found);
     }
 
-    size_t getMethods() const
+    auto getMethods() const
     {
         return methodsBitfield;
     }
@@ -78,10 +78,8 @@ class BaseRule
         return false;
     }
 
-    size_t methodsBitfield{1 << static_cast<size_t>(HttpVerb::Get)};
-    static_assert(std::numeric_limits<decltype(methodsBitfield)>::digits >
-                      static_cast<int>(HttpVerb::Max),
-                  "Not enough bits to store bitfield");
+    std::bitset<static_cast<size_t>(HttpVerb::Max)> methodsBitfield{
+        1 << static_cast<size_t>(HttpVerb::Get)};
 
     bool isNotFound = false;
     bool isMethodNotAllowed = false;

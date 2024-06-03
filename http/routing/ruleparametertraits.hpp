@@ -37,7 +37,8 @@ struct RuleParameterTraits
         std::optional<HttpVerb> verb = httpVerbFromBoost(method);
         if (verb)
         {
-            self->methodsBitfield = 1U << static_cast<size_t>(*verb);
+            self->methodsBitfield.reset();
+            self->methodsBitfield.set(static_cast<size_t>(*verb));
         }
         return *self;
     }
@@ -50,7 +51,7 @@ struct RuleParameterTraits
         std::optional<HttpVerb> verb = httpVerbFromBoost(method);
         if (verb)
         {
-            self->methodsBitfield |= 1U << static_cast<size_t>(*verb);
+            self->methodsBitfield.set(static_cast<size_t>(*verb));
         }
         return *self;
     }
@@ -59,7 +60,7 @@ struct RuleParameterTraits
     {
         self_t* self = static_cast<self_t*>(this);
         self->isNotFound = true;
-        self->methodsBitfield = 0;
+        self->methodsBitfield.reset();
         return *self;
     }
 
@@ -67,7 +68,7 @@ struct RuleParameterTraits
     {
         self_t* self = static_cast<self_t*>(this);
         self->isMethodNotAllowed = true;
-        self->methodsBitfield = 0;
+        self->methodsBitfield.reset();
         return *self;
     }
 
