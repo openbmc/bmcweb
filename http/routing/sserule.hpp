@@ -19,7 +19,12 @@ class SseSocketRule : public BaseRule
     using self_t = SseSocketRule;
 
   public:
-    explicit SseSocketRule(const std::string& ruleIn) : BaseRule(ruleIn) {}
+    explicit SseSocketRule(const std::string& ruleIn) : BaseRule(ruleIn)
+    {
+        isUpgrade = true;
+        // Clear GET handler
+        methodsBitfield = 0;
+    }
 
     void validate() override {}
 
@@ -27,6 +32,8 @@ class SseSocketRule : public BaseRule
                 const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 const std::vector<std::string>& /*params*/) override
     {
+        BMCWEB_LOG_ERROR(
+            "Handle called on websocket rule.  This should never happen");
         asyncResp->res.result(boost::beast::http::status::not_found);
     }
 

@@ -58,14 +58,16 @@ struct RuleParameterTraits
     self_t& notFound()
     {
         self_t* self = static_cast<self_t*>(this);
-        self->methodsBitfield = 1U << notFoundIndex;
+        self->isNotFound = true;
+        self->methodsBitfield = 0;
         return *self;
     }
 
     self_t& methodNotAllowed()
     {
         self_t* self = static_cast<self_t*>(this);
-        self->methodsBitfield = 1U << methodNotAllowedIndex;
+        self->isMethodNotAllowed = true;
+        self->methodsBitfield = 0;
         return *self;
     }
 
