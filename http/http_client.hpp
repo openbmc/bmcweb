@@ -607,9 +607,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         conn = boost::asio::ip::tcp::socket(ioc);
         if (ssl)
         {
-            std::optional<boost::asio::ssl::context> sslCtx =
-                ensuressl::getSSLClientContext();
-
+            auto sslCtx = ensuressl::getSslClientContext();
             if (!sslCtx)
             {
                 BMCWEB_LOG_ERROR("prepareSSLContext failed - {}, id: {}", host,
