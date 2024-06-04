@@ -52,6 +52,41 @@
       "parentUuid": "ae413a1e_e3cdb819",
       "revId": "82e25db9fc1d269ea52a8192fc5a28b37b25e708",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ecfcf62_d6b48172",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-06-04T17:07:42Z",
+      "side": 1,
+      "message": "So before 63390, this code looked like \njsonResponse[\"DHCPv4\"][\"UseDomainName\"] \u003d ethData.hostNameEnabled;\njsonResponse[\"DHCPv6\"][\"UseDomainName\"] \u003d ethData.hostNameEnabled;\nhttps://github.com/openbmc/bmcweb/commit/e4588158c0ccc2b3b7af459b262e8eaefaf8f985\n\nYou keep digging, past https://github.com/openbmc/bmcweb/commit/1f8c7b5d6a679a38b82261060310b876079d0f8b \n\nand you arrive at \nhttps://github.com/openbmc/bmcweb/commit/2a133282e3a841e317d1fd0215ccb4dbe6e5cb0e\n\nI added Manoj. I also added Johnathan since he had a major rewrite/feature addition in the history.",
+      "parentUuid": "0adf1ffb_fdcecb03",
+      "revId": "82e25db9fc1d269ea52a8192fc5a28b37b25e708",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e24365d_845dbf8a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-06-04T17:07:42Z",
+      "side": 1,
+      "message": "This appears to match the PATCH of this property \nhttps://github.com/openbmc/bmcweb/blob/20fa6a2c6cea77a4b411634dfca67eef6c8f430f/redfish-core/lib/ethernet.hpp#L1474\n\nhttps://github.com/openbmc/bmcweb/blob/20fa6a2c6cea77a4b411634dfca67eef6c8f430f/redfish-core/lib/ethernet.hpp#L1371\n\nHere is ethData.domainv4Enabled being read\nhttps://github.com/openbmc/bmcweb/blob/20fa6a2c6cea77a4b411634dfca67eef6c8f430f/redfish-core/lib/ethernet.hpp#L421",
+      "revId": "82e25db9fc1d269ea52a8192fc5a28b37b25e708",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
