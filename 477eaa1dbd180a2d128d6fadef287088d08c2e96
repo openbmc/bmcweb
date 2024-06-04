@@ -160,6 +160,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f6adfdd4_8fd7816b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-04T05:30:37Z",
+      "side": 1,
+      "message": "no, bmcweb for server certificates picks them up without dropping connections or requiring a restart.  I’d expect similar here.\n\ntake a look at how bmcweb handles HUP and it will make more sense.",
+      "parentUuid": "6fa0157a_d7f44262",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 53
+      },
+      "revId": "477eaa1dbd180a2d128d6fadef287088d08c2e96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c5e7724e_2df3d066",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -195,6 +219,30 @@
       "side": 1,
       "message": "Ran manual test execution by the developer to test aggregation using MTLS certificate",
       "parentUuid": "c5e7724e_2df3d066",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 14
+      },
+      "revId": "477eaa1dbd180a2d128d6fadef287088d08c2e96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38b8ec1f_c3f6e1ec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-04T05:30:37Z",
+      "side": 1,
+      "message": "right, so give some details about what you did manually.  just putting “developer test” doesn’t help someone to replicate your results",
+      "parentUuid": "a3af4b81_61e655dc",
       "range": {
         "startLine": 39,
         "startChar": 0,
