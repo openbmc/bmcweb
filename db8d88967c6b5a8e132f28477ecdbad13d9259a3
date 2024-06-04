@@ -175,6 +175,24 @@
       "parentUuid": "279bfdbc_294fbbf3",
       "revId": "db8d88967c6b5a8e132f28477ecdbad13d9259a3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf10d436_d04f60cf",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-04T22:28:38Z",
+      "side": 1,
+      "message": "Start a new thread on discord and ping me (I forget your username there, or I would just do it) and I can give you the brain dump version.  TL; DR, webui has to log into websockets, so it needs to use cookies.  Redfish explicitly disallows cookies, so we invented a different URI.\n\nAlso, /login existed as an api before Redfish in the old phosphor-rest stuff, so we keep it for compatibility.",
+      "parentUuid": "50e2e95f_46b9b9d6",
+      "revId": "db8d88967c6b5a8e132f28477ecdbad13d9259a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
