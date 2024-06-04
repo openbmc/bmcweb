@@ -211,6 +211,24 @@
       "parentUuid": "bf10d436_d04f60cf",
       "revId": "db8d88967c6b5a8e132f28477ecdbad13d9259a3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21f9d3f4_66809fbb",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-04T23:07:30Z",
+      "side": 1,
+      "message": "Gotcha.  gerrit is not really the place for having this kind of discussion. so if you figure out somewhere that works for you, feel free to ask the question here.",
+      "parentUuid": "ea25b782_9f0277ff",
+      "revId": "db8d88967c6b5a8e132f28477ecdbad13d9259a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
