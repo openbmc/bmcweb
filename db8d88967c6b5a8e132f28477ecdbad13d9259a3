@@ -53,6 +53,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "500c1c6a_38a93e89",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-04T05:28:24Z",
+      "side": 1,
+      "message": "BTW, thank you very much for following through on trying to improve this behavior and upstream the patch.  I really do appreciate it when folks do that after a documented anti-pattern or bug, rather than just maneuvering around it.\n\nIf you have trouble making the changes I asked for, or don\u0027t have time, let me know, and I\u0027m happy to just make them.",
+      "revId": "db8d88967c6b5a8e132f28477ecdbad13d9259a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c5bafcee_07ccf50b",
