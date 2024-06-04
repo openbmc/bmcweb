@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fe66c772_520a2e28",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-04T23:26:23Z",
+      "side": 1,
+      "message": "Right, so lets get the commit message updated and the \"Redfish has\ndeprecated\" part removed, because in the normative documents, it hasn\u0027t been deprecated yet.  Maybe we wish it was, but bmcweb is the wrong forum for that request.",
+      "parentUuid": "bf919754_5a3e001d",
+      "range": {
+        "startLine": 9,
+        "startChar": 59,
+        "endLine": 10,
+        "endChar": 37
+      },
+      "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fc8a8e6a_e67ca86e",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 3
@@ -192,6 +216,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f8a784f1_32a574f8",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1106,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-04T23:26:23Z",
+      "side": 1,
+      "message": "I should\u0027ve left the comment on the right line where the copy was made, I\u0027ll do that now.",
+      "parentUuid": "e7eb00e8_cbac8147",
+      "range": {
+        "startLine": 1106,
+        "startChar": 36,
+        "endLine": 1106,
+        "endChar": 39
+      },
+      "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6b903acc_82983f9a",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 3
@@ -244,6 +292,24 @@
       "side": 1,
       "message": "\u003e If I\u0027m reading this code correctly, we\u0027re getting the \"when do we apply\" setting just so we can then pump it back into the backend to fulfill the dbus interface, because it doesn\u0027t handle the \"no apply time provided\" case.  \n\nFor Unstructured Updates, ApplyTime comes as per of patch request followed by a Push for Image, so there are 2 different requests.\n\n\u003e This amounts to business logic that should be done in the updater daemon itself, not in bmcweb.  I suspect we need to get another enum added for this use case for an apply time of \"Default\", \"Use existing\", or \"use last\".  Clearly the existing updater daemon can do this already, because we don\u0027t have code in bmcweb to get the apply time, so adding it in bmcweb isn\u0027t the right design choice here.\n\nBMCWeb is already setting this in phosphor-settings for a patch request, thats the existing code https://grok.openbmc.org/xref/openbmc/bmcweb/redfish-core/lib/update_service.hpp?r\u003dde0c960c#751. But since there is no standard D-Bus interface in old flow, Updater daemon makes the get call for it. So, same thing i am doing in BMCWeb now.\n\n\u003e \n\u003e FWIW, this as implemented also causes a hard dependency on phosphor-settings, which I don\u0027t know if all implementations take.",
       "parentUuid": "6b903acc_82983f9a",
+      "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87c41fd2_a9fc2853",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1119,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-04T23:26:23Z",
+      "side": 1,
+      "message": "\u003e For Unstructured Updates, ApplyTime comes as per of patch request followed by a Push for Image, so there are 2 different requests.\n\nRight, I understand.\n\n\n\u003e Updater daemon makes the get call for it. So, same thing i am doing in BMCWeb now.\n\nThis sentence perfectly exemplifies the problem: You\u0027ve moved business logic that was previously in the updater daemon into bmcweb.  Please don\u0027t do that, updater daemon needs to own that behavior.  Bmcweb should make the request to update, with as much information as it has, then be done with it.  If the updater daemon wants to internally go get the SettingsD setting, it can do that as part of its flow.  The reason it does that flow is not because there was no dbus method call interface for it.  FWIW, that interface even predates bmcweb.\n\n\nAsking a different way, if I wanted to implement this same flow in IPMI, or another user-facing API, how would i do it without duplicating the \"Get the current setting\" code?  This is why the logic needs to go in the update daemon.",
+      "parentUuid": "30c78236_31bb806a",
       "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
