@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d17ec3ee_b90ddf6f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2024-06-04T01:40:41Z",
+      "side": 1,
+      "message": "\u003e Yes we need to worry if client switches the BMC and uses prefixed urls obtained from previous BMC. As long as we can uniquely identify BMC from prefix name, then it is just an easier implementation to test if the incoming prefix is current BMC or not before forwarding.\n\nYes, this scenario is the one I\u0027m saying we shouldn\u0027t support.  From the client\u0027s perspective querying a different BMC should be treated as if it\u0027s querying a completely new system.\n\nConsider a simple system where A aggregates B and B aggregates A.  Let\u0027s say each machine has two `Chassis` resources.  A has `Main` and `ExampleA`.  B has `Main` and `ExampleB`.\n\nIf support is added for multiple satellite BMCs then the aggregation prefix would likely become something like `{aggregation_prefix}_{Satellite_uuid}_`.  Right now it\u0027s just `{aggregation_prefix}_` which is `5B247A_`.\n\nHere\u0027s what you\u0027d see when querying Machine A\n```\n~# curl -s {MACH_A_IP}/redfish/v1/Chassis\n{\n  \"@odata.id\": \"/redfish/v1/Chassis\",\n  \"@odata.type\": \"#ChassisCollection.ChassisCollection\",\n  \"Members\": [\n    {\n      \"@odata.id\": \"/redfish/v1/Chassis/Main\"\n    },\n    {\n      \"@odata.id\": \"/redfish/v1/Chassis/ExampleA\"\n    },\n    {\n      \"@odata.id\": \"/redfish/v1/Chassis/{aggregation_prefix}_{B_uuid}_Main\"\n    },\n    {\n      \"@odata.id\": \"/redfish/v1/Chassis/{aggregation_prefix}_{B_uuid}_ExampleB\"\n    }\n  ],\n  \"Members@odata.count\": 4,\n  \"Name\": \"Chassis Collection\"\n}\n```\n\nHere\u0027s what you\u0027d see when querying Machine B\n```\n~# curl -s {MACH_B_IP}/redfish/v1/Chassis\n{\n  \"@odata.id\": \"/redfish/v1/Chassis\",\n  \"@odata.type\": \"#ChassisCollection.ChassisCollection\",\n  \"Members\": [\n    {\n      \"@odata.id\": \"/redfish/v1/Chassis/Main\"\n    },\n    {\n      \"@odata.id\": \"/redfish/v1/Chassis/ExampleB\"\n    },\n    {\n      \"@odata.id\": \"/redfish/v1/Chassis/{aggregation_prefix}_{A_uuid}_Main\"\n    },\n    {\n      \"@odata.id\": \"/redfish/v1/Chassis/{aggregation_prefix}_{A_uuid}_ExampleA\"\n    },\n  ],\n  \"Members@odata.count\": 4,\n  \"Name\": \"Chassis Collection\"\n}\n```\n\nYou get the same resources but they have different URIs depending on which BMC is queried.  I think that should be fine.  Things start getting really gross if instead you want the URIs to match regardless of which BMC was queried.\n\nBMCWeb at its core has to handle requests differently depending on whether or not it\u0027s meant for a satellite BMC.  That\u0027s denoted by the `{aggregation_prefix}_` in the URI.  That also guarantees that there will be a difference in the URIs of local resources vs aggregated resources.",
+      "parentUuid": "6a8d6a51_c9ba9900",
+      "range": {
+        "startLine": 9,
+        "startChar": 55,
+        "endLine": 10,
+        "endChar": 43
+      },
+      "revId": "ab2880d4cb9fe9be18942047efb56a2f0b60b9bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b510d528_b6e5dfb8",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 3
@@ -253,6 +277,53 @@
       "side": 1,
       "message": "I did not explain it properly.\n\n```\nhandleRequest()\n{\n  \n  if this bmc is in request header\n\treturn // no need to handle as we have already seen this request\n  for( bmc b in  satellites)\n  \t{\n\t\tRequest r \u003d copy request\n\t\tr.addHeader( current bmc name)\n\t\tr.addHeader( all bmc in satellite list except b)\n\t\tforward r to b\n\t}\n  merge with local response\n  return response\n}\n\n\n```\n\nDoes not this work?\n\nEvery BMC knows its own satellite BMC\nAnd it  knows that it is going to forward the request to those satellite anyway\nSo it can add that information in the request header.\n\nNow when a Bmc process the header , it has the information about whether it saw the same request before or not. It handles the request based on that \n\nThis will avoid duplicates right?",
       "parentUuid": "51592508_6a65a8fc",
+      "range": {
+        "startLine": 1193,
+        "startChar": 0,
+        "endLine": 1200,
+        "endChar": 9
+      },
+      "revId": "ab2880d4cb9fe9be18942047efb56a2f0b60b9bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db234341_11fb95aa",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1200,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2024-06-04T01:40:41Z",
+      "side": 1,
+      "message": "Splitting this off from https://gerrit.openbmc.org/c/openbmc/bmcweb/+/71685/comment/b510d528_b6e5dfb8/ to prevent that thread from become any more overloaded.\n\nThe concern about double counting can get particularly heinous if you have aggregation chains added to the mix.\n\n* A aggregates B \u0026 C\n* B aggregates D\n* C aggregates D\n\nIf you query `/redfish/v1/Chassis` on Machine A then fetching the information would look like this\n```\nA -\u003e B -\u003e D\n \\\n  -\u003e C -\u003e D\n```\n\nIn that case we\u0027ll duplicate D.  The proposed approach from the earlier thread won\u0027t help.  A has no idea that B and C are both aggregating D so it can\u0027t warn them in advance.\n\nAfter A forwards to B and C then those two paths occur in a vacuum.  B has no idea that C is aggregating D and C has no idea that B is aggregating D.\n\nMachine A would have to be able to recognize that these are duplicate resources\n* `/redfish/v1/Chassis/5B247A_{Buuid}_{Duuid}_ChassisId`\n* `/redfish/v1/Chassis/5B247A_{Cuuid}_{Duuid}_ChassisId`\n\nMachine A does not know that D exists so there is not a way for it to know that the `{Duuid}_` portion of the URIs comes from aggregation instead of being part of the actual ChassisId itself.\n\nMaybe that this point we just say something like \"Mutual Aggregation is only supported at the topmost level.  Don\u0027t create loops.\"?\n\nThe other option is the aggregator has to build a full topology and determine all the UUIDs beyond just the ones specified in its satellite configs.  That\u0027d be a lot of effort though to implement something that there may not be a need for.",
+      "range": {
+        "startLine": 1195,
+        "startChar": 8,
+        "endLine": 1200,
+        "endChar": 9
+      },
+      "revId": "ab2880d4cb9fe9be18942047efb56a2f0b60b9bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aef0e508_39ca7d62",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1200,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2024-06-04T01:40:41Z",
+      "side": 1,
+      "message": "\u003e Ug...... the above made my brain hurt, but makes sense. \n:D\n\n\u003e A sets As UUID forwards to B and C\n\u003e At this point B doesn\u0027t know if it should forward to C or not, and there\u0027s no UUID to compare to in the request, because we only know B and C\n\nI think Abhilash and I are saying the same thing at this point.  That\u0027s why I think the answer is the cache the satellite configs including their UUIDs.  That way A can also include the UUIDs for B and C in that initial request it forwards.\n\nB will likewise know the UUIDs of A and C.  When B receives that fowarded request from A then B will want to forward it to A and C since it aggregates both.  However, B likewise knows the UUIDs of A and C.  Their UUIDs will be in the header so it won\u0027t attempt to aggregate and it will just return normally.  The same thing would happen with C and we avoid duplicates.\n\nThere\u0027s another case that that may be of concern.  I\u0027m splitting it off as a separate comment.\n\n\u003e We should really get multiple satellites working first.\n+100.  Right now all we can really do anyway is a ring of A -\u003e B -\u003e A.  Enabling multiple satellite will require changing the aggregation prefix and considerations about caching the satellite configs.\n\nSome of these mutual aggregation questions will become a bit more clear when you can setup an actual topology instead of using my crude drawings.",
+      "parentUuid": "8a364a1b_5bc750f3",
       "range": {
         "startLine": 1193,
         "startChar": 0,
