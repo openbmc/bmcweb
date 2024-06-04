@@ -435,6 +435,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0b9ff44e_fc1022b5",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 855,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-04T06:04:26Z",
+      "side": 1,
+      "message": "\u003e Dont we create a default self signed certificate with some CN?\n\nthe CN for the server cert is \"TestHost\" and is only used because if you don\u0027t have a server cert, no client can connect.  For client auth, we should just not use a client cert if one isn\u0027t available;  Client certs are not required, only server certs.\n\n\u003e Are we open for a meson variable for this?\n\nI fear that you\u0027re not understanding how mutual TLS provisioning works;\n\nMutually trusted entity creates a private key, and a certificate authority.\n\nEither with a CSR from the BMC, or with a newly made private, CA (off BMC) creates and signs a certificate for mutual authentication.  Certificate will include the common name (username) that the BMC is authorized to use.\n\nCA gives cert, or cert+private key to BMC\n\nBMC connects using cert.\n\nAt no point does this involve the BMC itself deciding on its username, the CA decides that.",
+      "parentUuid": "75194ccf_ab70bb60",
+      "range": {
+        "startLine": 855,
+        "startChar": 62,
+        "endLine": 855,
+        "endChar": 68
+      },
+      "revId": "477eaa1dbd180a2d128d6fadef287088d08c2e96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d58c970a_579d5e32",
         "filename": "include/ssl_key_handler.hpp",
         "patchSetId": 2
