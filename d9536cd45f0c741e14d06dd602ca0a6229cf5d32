@@ -106,6 +106,24 @@
       "parentUuid": "1b87961a_83531258",
       "revId": "d9536cd45f0c741e14d06dd602ca0a6229cf5d32",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "413719c2_736f868f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-06-04T19:56:15Z",
+      "side": 1,
+      "message": "The backend code which supported older enum was never changed and the code to support new enum was added as part of new daemon patch (which i shared above). The backend supports both the flows.\n\nIn this BMCWeb patch i am changing the D-Bus interface to use old enum (xyz.openbmc_project.Software.ApplyTime.RequestedApplyTimes.*) instead of new enum (xyz.openbmc_project.Software.Update.ApplyTimes.*) based on this D-Bus interface change https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/71734. I have just refactored the enum conversion code to convertApplyTime and used it in both the places.",
+      "parentUuid": "f0607c9a_f00f702d",
+      "revId": "d9536cd45f0c741e14d06dd602ca0a6229cf5d32",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
