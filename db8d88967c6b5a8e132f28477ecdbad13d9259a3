@@ -121,6 +121,24 @@
       "parentUuid": "c5bafcee_07ccf50b",
       "revId": "db8d88967c6b5a8e132f28477ecdbad13d9259a3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46122333_82696747",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-04T15:11:43Z",
+      "side": 1,
+      "message": "\u003e \u003e We\u0027ve been trying to get away from brace initialization of json objects (the final removals happened last week) because they cause binary size problems, please do something like\n\u003e \u003e \n\u003e \u003e nlohmann::json::array roles;\n\u003e \u003e roles.emplace_back(redfish::getRoleIdFromPrivilege(session.userRole));\n\u003e \u003e res.jsonValue[\"Roles\"] \u003d std::move(roles);\n\u003e \n\u003e This is not the bright future they\u0027re promising us at CppCon! Needing to replace concise, \"purely functional\" and idiomatic line with a sequence of imperative actions with explicit life-time tracking in year 2024 is a bad surprise!\n\n\nIf we\u0027re being pedantic, it was technically two lines before 😊\n\n\u003e \n\u003e I was curious and tried building few simple examples and while I see some difference in the size of a stripped binary the cost seems to be one time only, I tried spreading calls like `jobj[\"Key3\"] \u003d { \"Value3.1\", \"Value3.2\" };` and `jobj[\"Key4\"] \u003d { \"Value4.1\", \"Value4.2\", \"Value4.3\" };` over several translation units (even though it shouldn\u0027t matter with LTO) and it looks like at least for a vector of strings all the constructors are shared (something like `nlohmann::json_abi_v3_11_3::basic_json\u003cstd::map, std::vector, std::__cxx11::basic_string\u003cchar, std::char_traits\u003cchar\u003e, std::allocator\u003cchar\u003e \u003e, bool, long long, unsigned long long, double, std::allocator, nlohmann::json_abi_v3_11_3::adl_serializer, std::vector\u003cunsigned char, std::allocator\u003cunsigned char\u003e \u003e, void\u003e::basic_json(std::initializer_list\u003cnlohmann::json_abi_v3_11_3::detail::json_ref\u003cnlohmann::json_abi_v3_11_3::basic_json\u003cstd::map, std::vector, std::__cxx11::basic_string\u003cchar, std::char_traits\u003cchar\u003e, std::allocator\u003cchar\u003e \u003e, bool, long long, unsigned long long, double, std::allocator, nlohmann::json_abi_v3_11_3::adl_serializer, std::vector\u003cunsigned char, std::allocator\u003cunsigned char\u003e \u003e, void\u003e \u003e \u003e, bool, nlohmann::json_abi_v3_11_3::detail::value_t)`).\n\nThis is all great things to look at, and probably more depth than I\u0027ve gone into here.  Generally I make binary size changes by making once change, then the other and measure which version provides smaller code.  I don\u0027t go too deep into what causes the binary size changes.\n\nInterestingly in this case, patchset 1 to patchset 2 actually increases the binary size.....  I need to go understand that.\n\nThe biggest improvement was for things like \n\njsonValue \u003d {{\n   {\"Foo\", {\"bar\", \"but\"}},\n   {\"Baz\", \"biz\"}\n}};\n\n\nWhere it was non trivial to decode what the intent was in the brace construction,  caused binary size problems, and caused some parameters to override others.  It is quite possible we\u0027ve gone too far, but it\u0027s a lot easier to just say \"no brace initialization\".\n\n\u003e \n\u003e `git log -S \u0027] \u003d {\u0027` allowed me to find your commit in question, 613dabea03cd2f5cb999be37aaf539280c63ea7a . The 4 kB savings seem to about match my tests, but if you\u0027re not doing that for space savings then why, speed?\n\u003e Not that it\u0027s important now that\u0027s the decision has been made, I\u0027m just curious what real advantage is there in the code that requires extra manual type specification, emplace_back and std::move... (I understand the rationale behind changing `zone[\"Chassis\"] \u003d {{\"@odata.id\", \"/redfish/v1/Chassis/\" + chassis}};` to `zone[\"Chassis\"][\"@odata.id\"] \u003d \"/redfish/v1/Chassis/\" + chassis;` but that\u0027s another case.",
+      "parentUuid": "0305b39d_22744a16",
+      "revId": "db8d88967c6b5a8e132f28477ecdbad13d9259a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
