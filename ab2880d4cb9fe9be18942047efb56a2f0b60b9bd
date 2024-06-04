@@ -332,6 +332,54 @@
       },
       "revId": "ab2880d4cb9fe9be18942047efb56a2f0b60b9bd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a29cd7b_d817648a",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1200,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-04T16:31:45Z",
+      "side": 1,
+      "message": "\u003e Mutual Aggregation is only supported at the topmost level. Don\u0027t create loops.\n\n\nyep.  Lets just make this statement.",
+      "parentUuid": "db234341_11fb95aa",
+      "range": {
+        "startLine": 1195,
+        "startChar": 8,
+        "endLine": 1200,
+        "endChar": 9
+      },
+      "revId": "ab2880d4cb9fe9be18942047efb56a2f0b60b9bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ec6856e_f4a08a72",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1200,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-04T16:31:45Z",
+      "side": 1,
+      "message": "If you two understand it, I\u0027m happy to trust with whatever you two come up with, so I\u0027m more or less going to check out here.  Ping me if you want my input on anything, but I\u0027ll just trust that you guys have a solution that works.",
+      "parentUuid": "aef0e508_39ca7d62",
+      "range": {
+        "startLine": 1193,
+        "startChar": 0,
+        "endLine": 1200,
+        "endChar": 9
+      },
+      "revId": "ab2880d4cb9fe9be18942047efb56a2f0b60b9bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
