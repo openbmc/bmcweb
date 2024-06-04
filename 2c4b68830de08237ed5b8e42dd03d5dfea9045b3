@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "640dd13f_3212a98d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-06-04T00:45:32Z",
+      "side": 1,
+      "message": "https://www.dmtf.org/sites/default/files/standards/documents/DSP2062_1.0.1.pdf\n\n3.1.3 Unstructured HTTP push update (deprecated)\nNote: Due to the vendor-specific details of this operation, this method has been deprecated in favor of multipart\nHTTP push updates.\n\nAlso, Multipart HTTP Push was recommended by Michael Raineri as well https://redfishforum.com/thread/1031/updateservice-send-option-target-imagepost?page\u003d1\u0026scrollTo\u003d3939",
+      "parentUuid": "c81a52d8_ae5da89b",
+      "range": {
+        "startLine": 9,
+        "startChar": 59,
+        "endLine": 10,
+        "endChar": 37
+      },
+      "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fc8a8e6a_e67ca86e",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 3
