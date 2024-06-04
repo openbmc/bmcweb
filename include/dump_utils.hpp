@@ -47,27 +47,8 @@ inline void getValidDumpEntryForAttachment(
                  "Dump", "Entries", std::ref(entryID), "attachment"))
     {
         entriesPath = "/redfish/v1/Systems/system/LogServices/Dump/Entries/";
-
-        // All these types system,resource,sbe,hwdump and host boot dumps are
-        // currently being listed under
-        // /Systems/system/LogServices/Dump/Entries/ redfish path. To
-        // differentiate between the two, the dump entries would be listed as
-        // System_<id> and Resource_<id> for the respective dumps. Hence the
-        // dump id and type are being extracted here from the above format.
-
-        std::size_t pos = entryID.find_first_of('_');
-        if (pos == std::string::npos || (pos + 1) >= entryID.length())
-        {
-            // Requested ID is invalid
-            messages::invalidObject(
-                asyncResp->res,
-                boost::urls::format(
-                    "/redfish/v1/Systems/system/LogServices/Dump/Entries/{}",
-                    entryID));
-            return;
-        }
-        dumpType = boost::algorithm::to_lower_copy(entryID.substr(0, pos));
-        dumpId = entryID.substr(pos + 1);
+        dumpType = "System";
+        dumpId = entryID;
     }
 
     if (dumpType.empty() || entryID.empty())
