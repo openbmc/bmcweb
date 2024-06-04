@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bf919754_5a3e001d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-06-04T22:47:23Z",
+      "side": 1,
+      "message": "\u003e Please link the above in your commit message so we at least have some background. \n\u003e \n\nSure, added it.\n\n\u003e There\u0027s a subtlety here that\u0027s unfortunate.  The document you linked was:\n\u003e Document Class: Informational\n\u003e \n\u003e You\u0027ll notice this is different than DSP0266 or DSP8010, which has:\n\u003e Document Class: Normative\n\u003e \n\u003e The DMTF folks can explain the difference to you better than I can, but essentially one boils down to \"suggestions\", the other is the actual enforcing specification.  Considering that both were authored by DMTF, you might want to bring this to their attention so that if their intention was truly to deprecate that path, they can actually do so (and thus make another protocol breaking change so we can rev to Redfish 2.0 😊)\n\u003e \n\u003e What I suspect is that this path is really \"discouraged\" because there\u0027s a better path available, which I agree with, but there\u0027s clients that use the existing path, and we\u0027ve supported it for a very long time, so for better or worse it needs to work.\n\nSure, thats why i have added details to the description stating that the Unstructured path is being supported for BMC upgrades only since we already support them at the moment. For any other upgrades, Multipart form based upgrades is the way to go.",
+      "parentUuid": "9058715c_7b28c0a8",
+      "range": {
+        "startLine": 9,
+        "startChar": 59,
+        "endLine": 10,
+        "endChar": 37
+      },
+      "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fc8a8e6a_e67ca86e",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 3
@@ -85,6 +109,30 @@
       "writtenOn": "2024-06-04T00:26:07Z",
       "side": 1,
       "message": "nit: if you\u0027re going to make this two lines anyway, just use push_back, or in the ideal case, modify processUpdateRequest to accept a std::span\u003cstd::string\u003e and then here we can just use an array\u003cstd::string, 1\u003e.",
+      "range": {
+        "startLine": 1103,
+        "startChar": 0,
+        "endLine": 1104,
+        "endChar": 53
+      },
+      "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4438af0_de857e87",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1104,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-06-04T22:47:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc8a8e6a_e67ca86e",
       "range": {
         "startLine": 1103,
         "startChar": 0,
@@ -108,6 +156,30 @@
       "writtenOn": "2024-06-04T00:26:07Z",
       "side": 1,
       "message": "This is inadvertently making two copies of the request object payload, both of which we tend to avoid because of lifetime problems (if the connection closes while the request is in progress, the request object is destroyed).\n\nGenerally we will parse out the parameters we need, and pass those through.",
+      "range": {
+        "startLine": 1106,
+        "startChar": 36,
+        "endLine": 1106,
+        "endChar": 39
+      },
+      "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7eb00e8_cbac8147",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1106,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-06-04T22:47:23Z",
+      "side": 1,
+      "message": "I can understand the issue related to lifetime of req, but i am passing this by const reference -\n\nconst crow::Request\u0026 req\n\nHow does it make two copies of the req object?",
+      "parentUuid": "ede3178c_d82a5510",
       "range": {
         "startLine": 1106,
         "startChar": 36,
@@ -154,6 +226,24 @@
         "endLine": 1119,
         "endChar": 62
       },
+      "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30c78236_31bb806a",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1119,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-06-04T22:47:23Z",
+      "side": 1,
+      "message": "\u003e If I\u0027m reading this code correctly, we\u0027re getting the \"when do we apply\" setting just so we can then pump it back into the backend to fulfill the dbus interface, because it doesn\u0027t handle the \"no apply time provided\" case.  \n\nFor Unstructured Updates, ApplyTime comes as per of patch request followed by a Push for Image, so there are 2 different requests.\n\n\u003e This amounts to business logic that should be done in the updater daemon itself, not in bmcweb.  I suspect we need to get another enum added for this use case for an apply time of \"Default\", \"Use existing\", or \"use last\".  Clearly the existing updater daemon can do this already, because we don\u0027t have code in bmcweb to get the apply time, so adding it in bmcweb isn\u0027t the right design choice here.\n\nBMCWeb is already setting this in phosphor-settings for a patch request, thats the existing code https://grok.openbmc.org/xref/openbmc/bmcweb/redfish-core/lib/update_service.hpp?r\u003dde0c960c#751. But since there is no standard D-Bus interface in old flow, Updater daemon makes the get call for it. So, same thing i am doing in BMCWeb now.\n\n\u003e \n\u003e FWIW, this as implemented also causes a hard dependency on phosphor-settings, which I don\u0027t know if all implementations take.",
+      "parentUuid": "6b903acc_82983f9a",
       "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
