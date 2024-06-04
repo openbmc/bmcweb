@@ -112,6 +112,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c5e7724e_2df3d066",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-04T00:50:20Z",
+      "side": 1,
+      "message": "What is a \"developer test\"",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 14
+      },
+      "revId": "477eaa1dbd180a2d128d6fadef287088d08c2e96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1cf0249c_dc5b05c7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-04T00:50:20Z",
+      "side": 1,
+      "message": "Describe this better than \"worked well\" please.\n\nWere you testing against bmcweb as an aggregation source, or something else?\nWhat was your aggregation topology like?\ndid you run the service validator?\ndid you load a bad (untrusted) certificate and verify the connection was rejected, and we returned the correct error code?\nDid you test AggregationSource returned the correct data?",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 47
+      },
+      "revId": "477eaa1dbd180a2d128d6fadef287088d08c2e96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d2e3afa9_a81a6e9d",
         "filename": "http/http_client.hpp",
         "patchSetId": 2
