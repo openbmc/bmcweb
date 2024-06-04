@@ -184,6 +184,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2b82bdec_1b150014",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-06-04T07:24:35Z",
+      "side": 1,
+      "message": "How? I could see loadCertificate called from startAsyncWaitForSignal , which is triggered by tls property changes. Here we are cancelling acceptor. Aren\u0027t we supposed to call doAccept again? or are you saying that async_accept will take care of this?\n\nI think I can use same logic here too. Only issue is how do we get to know about certificate change? In both server and client certificate case I don\u0027t see any monitoring happening for certificate file update. Am I missing something here?",
+      "parentUuid": "f6adfdd4_8fd7816b",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 53
+      },
+      "revId": "477eaa1dbd180a2d128d6fadef287088d08c2e96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c5e7724e_2df3d066",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -243,6 +267,30 @@
       "side": 1,
       "message": "right, so give some details about what you did manually.  just putting “developer test” doesn’t help someone to replicate your results",
       "parentUuid": "a3af4b81_61e655dc",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 14
+      },
+      "revId": "477eaa1dbd180a2d128d6fadef287088d08c2e96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdcbebef_8aa3fe5f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-06-04T07:24:35Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "38b8ec1f_c3f6e1ec",
       "range": {
         "startLine": 39,
         "startChar": 0,
