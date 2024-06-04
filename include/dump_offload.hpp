@@ -370,26 +370,9 @@ inline void requestRoutes(App& app)
             conn.close();
             return;
         }
-        std::string dumpEntry =
-            url.substr(pos1 + startDelimiter.length(),
-                       pos2 - pos1 - startDelimiter.length());
-
-        // System and Resource dump entries are currently being
-        // listed under /Systems/system/LogServices/Dump/Entries/
-        // redfish path. To differentiate between the two, the dump
-        // entries would be listed as System_<id> and Resource_<id> for
-        // the respective dumps. Hence the dump id and type are being
-        // extracted here from the above format.
-        std::string dumpId;
-        std::string dumpType;
-        std::size_t idPos = dumpEntry.rfind('_');
-
-        if (idPos != std::string::npos)
-        {
-            dumpType =
-                boost::algorithm::to_lower_copy(dumpEntry.substr(0, idPos));
-            dumpId = dumpEntry.substr(idPos + 1);
-        }
+        std::string dumpId = url.substr(pos1 + startDelimiter.length(),
+                                        pos2 - pos1 - startDelimiter.length());
+        std::string dumpType = "system";
 
         boost::asio::io_context* ioCon = conn.getIoContext();
 
