@@ -232,6 +232,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0a6dbba2_6fb349b5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-04T16:01:54Z",
+      "side": 1,
+      "message": "note, canceling the acceptor is just because the first connection is constructed before the accept call.  Arguably we could organize that code better so the cancel isn\u0027t required, but canceling was the easiest thing.",
+      "parentUuid": "2c65804e_2961cf80",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 53
+      },
+      "revId": "477eaa1dbd180a2d128d6fadef287088d08c2e96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c5e7724e_2df3d066",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
