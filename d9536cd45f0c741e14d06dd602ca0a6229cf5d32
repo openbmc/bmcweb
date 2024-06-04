@@ -52,6 +52,24 @@
       "parentUuid": "14f96948_363c41f4",
       "revId": "d9536cd45f0c741e14d06dd602ca0a6229cf5d32",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "148ab369_e199e54d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-04T00:30:04Z",
+      "side": 1,
+      "message": "Ok, I see what\u0027s going on, we\u0027ve changed the new flow, the old flow looks like it has the same enums.\n\nGiven that the old code was tested and working, is there a patch required that\u0027s moving the backend to this new enum?  Can you link it?",
+      "parentUuid": "e7dc4881_f4c02945",
+      "revId": "d9536cd45f0c741e14d06dd602ca0a6229cf5d32",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
