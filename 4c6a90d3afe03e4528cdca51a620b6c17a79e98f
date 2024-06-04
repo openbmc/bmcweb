@@ -46,6 +46,30 @@
       },
       "revId": "4c6a90d3afe03e4528cdca51a620b6c17a79e98f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab3e849d_b4d753c3",
+        "filename": "include/authentication.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-06-04T16:55:39Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f5e38393_63fca694",
+      "range": {
+        "startLine": 227,
+        "startChar": 43,
+        "endLine": 227,
+        "endChar": 46
+      },
+      "revId": "4c6a90d3afe03e4528cdca51a620b6c17a79e98f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
