@@ -3,6 +3,69 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b5519002_37641281",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-04T00:47:55Z",
+      "side": 1,
+      "message": "lets just remove this from the commit message;  Mutual TLS itself as implemented here doesn\u0027t identify the bmc as a special user.  Some future implementation that adds multiple root certificates might, but lets push that to a later time.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 71
+      },
+      "revId": "477eaa1dbd180a2d128d6fadef287088d08c2e96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c0dbe5e_1c52a7d9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-04T00:47:55Z",
+      "side": 1,
+      "message": "Hardcoded \"root\" user implies that users will be using the root user, which defeats your earlier point about identifying the bmc as a special user.  The common name in the Certificate should determine the user, and because we don\u0027t have control of the certificate signing (only a CA has that) we can just take whatever user was signed by the CA when the client certificate is configured.\n\nWe should not generate a self-signed client cert.  There\u0027s no point, as it won\u0027t be trusted by any implementation given there\u0027s no public CA, as you point out.  If strong mtls verification is not enabled, no client cert is the same as an untrusted client cert.",
+      "revId": "477eaa1dbd180a2d128d6fadef287088d08c2e96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ed8c3ad_32a6bc28",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-04T00:47:55Z",
+      "side": 1,
+      "message": "How?  With the goal of not making this patch huge, I\u0027m happy to push this to another patch, but we need some kind of indication of how you expect this to work.  Right now, simply self signing a certificate can\u0027t prove that we\u0027ve implemented mtls correctly.\n\nIf you tested this by provisioning certificates by hand, say that.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 59
+      },
+      "revId": "477eaa1dbd180a2d128d6fadef287088d08c2e96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9f3f3c1d_07658014",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -20,6 +83,92 @@
         "endLine": 35,
         "endChar": 22
       },
+      "revId": "477eaa1dbd180a2d128d6fadef287088d08c2e96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1441d877_fc088596",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-04T00:47:55Z",
+      "side": 1,
+      "message": "now that we\u0027re not generating it at connection time, if the client tls certificate is updated, how is it picked up?  I suspect this optimization causes new connections to be created with the old certificate when it\u0027s updated.",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 53
+      },
+      "revId": "477eaa1dbd180a2d128d6fadef287088d08c2e96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2e3afa9_a81a6e9d",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-04T00:47:55Z",
+      "side": 1,
+      "message": "why weak_ptr here?",
+      "range": {
+        "startLine": 161,
+        "startChar": 9,
+        "endLine": 161,
+        "endChar": 17
+      },
+      "revId": "477eaa1dbd180a2d128d6fadef287088d08c2e96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7a7f8b9_ab8b9e3f",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-04T00:47:55Z",
+      "side": 1,
+      "message": "We shouldn\u0027t try to lock the context if we\u0027re not in ssl mode.",
+      "range": {
+        "startLine": 609,
+        "startChar": 0,
+        "endLine": 609,
+        "endChar": 33
+      },
+      "revId": "477eaa1dbd180a2d128d6fadef287088d08c2e96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c693259_ae6b63d8",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 727,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-04T00:47:55Z",
+      "side": 1,
+      "message": "unrelated whitespace change.",
       "revId": "477eaa1dbd180a2d128d6fadef287088d08c2e96",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
