@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bb10685_ba2172b0",
+        "filename": "http/routing/sserule.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-04T18:08:04Z",
+      "side": 1,
+      "message": "Yeah, that seems like a good change.  I can make it.",
+      "parentUuid": "d5f64162_c0c3fcbf",
+      "revId": "43e1c00a9c957759eb051bdee87eba50540dd095",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "718c5dbb_30e92c70",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-06-04T16:57:07Z",
       "side": 1,
       "message": "Same question here",
+      "revId": "43e1c00a9c957759eb051bdee87eba50540dd095",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9457ebd_b545866a",
+        "filename": "http/routing/websocketrule.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-04T18:08:04Z",
+      "side": 1,
+      "message": "changed",
+      "parentUuid": "718c5dbb_30e92c70",
       "revId": "43e1c00a9c957759eb051bdee87eba50540dd095",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
