@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c81a52d8_ae5da89b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-04T00:26:07Z",
+      "side": 1,
+      "message": "I didn\u0027t know this was the case and I see no deprecation of the property in question in the public releases.\n\nhttps://github.com/DMTF/Redfish-Publications/blob/5b217908b5378b24e4f390c063427d7a707cd308/csdl/UpdateService_v1.xml#L375\n\nSomething I\u0027m missing?",
+      "range": {
+        "startLine": 9,
+        "startChar": 59,
+        "endLine": 10,
+        "endChar": 37
+      },
+      "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc8a8e6a_e67ca86e",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1104,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-04T00:26:07Z",
+      "side": 1,
+      "message": "nit: if you\u0027re going to make this two lines anyway, just use push_back, or in the ideal case, modify processUpdateRequest to accept a std::span\u003cstd::string\u003e and then here we can just use an array\u003cstd::string, 1\u003e.",
+      "range": {
+        "startLine": 1103,
+        "startChar": 0,
+        "endLine": 1104,
+        "endChar": 53
+      },
+      "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ede3178c_d82a5510",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1106,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-04T00:26:07Z",
+      "side": 1,
+      "message": "This is inadvertently making two copies of the request object payload, both of which we tend to avoid because of lifetime problems (if the connection closes while the request is in progress, the request object is destroyed).\n\nGenerally we will parse out the parameters we need, and pass those through.",
+      "range": {
+        "startLine": 1106,
+        "startChar": 36,
+        "endLine": 1106,
+        "endChar": 39
+      },
+      "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b903acc_82983f9a",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1119,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-04T00:26:07Z",
+      "side": 1,
+      "message": "If I\u0027m reading this code correctly, we\u0027re getting the \"when do we apply\" setting just so we can then pump it back into the backend to fulfill the dbus interface, because it doesn\u0027t handle the \"no apply time provided\" case.  This amounts to business logic that should be done in the updater daemon itself, not in bmcweb.  I suspect we need to get another enum added for this use case for an apply time of \"Default\", \"Use existing\", or \"use last\".  Clearly the existing updater daemon can do this already, because we don\u0027t have code in bmcweb to get the apply time, so adding it in bmcweb isn\u0027t the right design choice here.\n\nFWIW, this as implemented also causes a hard dependency on phosphor-settings, which I don\u0027t know if all implementations take.",
+      "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
