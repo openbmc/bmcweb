@@ -85,6 +85,29 @@
       "message": "If I\u0027m reading this code correctly, we\u0027re getting the \"when do we apply\" setting just so we can then pump it back into the backend to fulfill the dbus interface, because it doesn\u0027t handle the \"no apply time provided\" case.  This amounts to business logic that should be done in the updater daemon itself, not in bmcweb.  I suspect we need to get another enum added for this use case for an apply time of \"Default\", \"Use existing\", or \"use last\".  Clearly the existing updater daemon can do this already, because we don\u0027t have code in bmcweb to get the apply time, so adding it in bmcweb isn\u0027t the right design choice here.\n\nFWIW, this as implemented also causes a hard dependency on phosphor-settings, which I don\u0027t know if all implementations take.",
       "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11c6c18b_3e3eb630",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1119,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-04T00:33:25Z",
+      "side": 1,
+      "message": "This is also another request copy.\n\nFWIW, I\u0027m trying to make these copies more obvious in the future:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/71547",
+      "range": {
+        "startLine": 1119,
+        "startChar": 59,
+        "endLine": 1119,
+        "endChar": 62
+      },
+      "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
