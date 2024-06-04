@@ -728,7 +728,6 @@ other.
 
 - ClientOriginIPAddress
 - Description
-- Oem
 - UserName
 
 ### /redfish/v1/Systems/
