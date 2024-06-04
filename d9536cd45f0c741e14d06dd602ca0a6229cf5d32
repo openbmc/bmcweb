@@ -88,6 +88,24 @@
       "parentUuid": "148ab369_e199e54d",
       "revId": "d9536cd45f0c741e14d06dd602ca0a6229cf5d32",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0607c9a_f00f702d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-04T01:08:22Z",
+      "side": 1,
+      "message": "What I mean is that we have code where we had tested the existing enum, and it worked, which meant the backend accepted it.  In this patch we\u0027re changing the enum, so one of three things is true:\n1. We never tested the previous patch (which is honestly fine if that\u0027s true, this is new code).\n2. We wrote a code change to change the enum in the backend (which I don\u0027t see in the patch that you linked.  That looks like just the initial implementation, maybe it was in between two patches on that series?)\n3. The backend supported both enum namespaces somehow and either enum works.\n\n\nI thought it was #2, but maybe not?",
+      "parentUuid": "1b87961a_83531258",
+      "revId": "d9536cd45f0c741e14d06dd602ca0a6229cf5d32",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
