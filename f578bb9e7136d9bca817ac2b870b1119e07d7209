@@ -70,6 +70,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fc561dd_5dd08aa5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001810
+      },
+      "writtenOn": "2024-06-04T21:40:00Z",
+      "side": 1,
+      "message": "Responded for review comment. Please review and approve",
+      "revId": "f578bb9e7136d9bca817ac2b870b1119e07d7209",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5ee9a84a_e5569930",
@@ -131,6 +148,30 @@
       "side": 1,
       "message": "@SrinivasaRao in Ed\u0027s scenario both  /redfish/v1/Chassis1 and  /redfish/v1/Chassis2 are valid path, get /redfish/v1/Chassis1/Sensors/Sensor2 will think chassis is valid and call \"doSensorGet\" with chassisId\u003d1 and sensorId\u003d2 with valid chassisPath\n\nHave you tested this scenario and confirmed it is working as expected, i.e. /redfish/v1/Chassis1/Sensors/Sensor2 should return NotFound",
       "parentUuid": "5441a19d_cc08dfd4",
+      "range": {
+        "startLine": 2970,
+        "startChar": 28,
+        "endLine": 2970,
+        "endChar": 47
+      },
+      "revId": "f578bb9e7136d9bca817ac2b870b1119e07d7209",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa8d4893_b8ad7a3e",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 2970,
+      "author": {
+        "id": 1001810
+      },
+      "writtenOn": "2024-06-04T21:40:00Z",
+      "side": 1,
+      "message": "Yes it is tested.\nChassis is unique to the system.\nIf suppose Chassis1 and Chassis2 both are valid...but as I tested, Chassis1 or Chassis2  is considered as valid based on the system and not both are valid on the same board.\nSo chassis is valid and having one valid entity only...So, when /Chassis/\u003cChassis_ID\u003e/Sensors/\u003cSensor_Name\u003e  is given from redfish postman tool, it is checking for valid chassis. Once this check is done then it is checking valid sensors in respective chassis.\nSensor Validity is checked in \"DoSensorGet\" specific to either Chassis1 or Chassis2.",
+      "parentUuid": "236e5730_8bfc57d1",
       "range": {
         "startLine": 2970,
         "startChar": 28,
