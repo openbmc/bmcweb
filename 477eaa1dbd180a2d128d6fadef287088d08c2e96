@@ -256,6 +256,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "de8371d9_41c8d7bc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-04T17:14:35Z",
+      "side": 1,
+      "message": "Actually, for the client case, I think it also needs to include some variation of the client certificate (hash or something) in the clientKey, so that we differentiate connections with the right cert with ones that have the wrong cert.\n\nWhen we change a certificate, that client key will change, which will cause a new connection to be opened instead of reusing the old, and we\u0027ll get a new connection.  In this way we will also be able to support per-subscription keys.",
+      "parentUuid": "0a6dbba2_6fb349b5",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 53
+      },
+      "revId": "477eaa1dbd180a2d128d6fadef287088d08c2e96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c5e7724e_2df3d066",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
