@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a65e2e22_f28260ae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-06-04T20:16:28Z",
+      "side": 1,
+      "message": "Seems reasonable to me.",
+      "revId": "82eadbcb21f93dc5060e9f2aec21c6755f1dd957",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00b32a83_d98b4db4",
+        "filename": "http/routing.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-06-04T20:16:28Z",
+      "side": 1,
+      "message": "include string_view",
+      "revId": "82eadbcb21f93dc5060e9f2aec21c6755f1dd957",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
