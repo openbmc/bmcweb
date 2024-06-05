@@ -2,12 +2,8 @@
 
 #include "logging.hpp"
 
-extern "C"
-{
-#include <openssl/rand.h>
-}
-
 #include <limits>
+#include <random>
 #include <string>
 
 namespace bmcweb
@@ -15,18 +11,7 @@ namespace bmcweb
 
 struct OpenSSLGenerator
 {
-    uint8_t operator()()
-    {
-        uint8_t index = 0;
-        int rc = RAND_bytes(&index, sizeof(index));
-        if (rc != opensslSuccess)
-        {
-            BMCWEB_LOG_ERROR("Cannot get random number");
-            err = true;
-        }
-
-        return index;
-    }
+    uint8_t operator()();
 
     static constexpr uint8_t max()
     {
@@ -52,5 +37,7 @@ struct OpenSSLGenerator
 };
 
 std::string getRandomUUID();
+
+std::string getRandomIdOfLength(size_t length);
 
 } // namespace bmcweb
