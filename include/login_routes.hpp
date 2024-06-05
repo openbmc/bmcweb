@@ -172,9 +172,13 @@ inline void handleLogin(const crow::Request& req,
             asyncResp->res.addHeader(boost::beast::http::field::set_cookie,
                                      "SESSION=" + session->sessionToken +
                                          "; SameSite=Strict; Secure; HttpOnly");
+            asyncResp->res.addHeader("Location",
+                                     "/redfish/v1/SessionService/Sessions/" +
+                                         session->uniqueId);
 
             // if content type is json, assume json token
             asyncResp->res.jsonValue["token"] = session->sessionToken;
+            asyncResp->res.jsonValue["Id"] = session->uniqueId;
         }
     }
     else
