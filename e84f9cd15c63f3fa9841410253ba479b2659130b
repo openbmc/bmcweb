@@ -73,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c31b5874_9be975de",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-06-05T03:47:24Z",
+      "side": 1,
+      "message": "Aren\u0027t we assuming too much about the beast internal implementation? Do you know exactly what happens if we call connect on previously connected sockets and do new ssl handshake etc?",
+      "parentUuid": "99b1e577_a4d6f3cc",
+      "range": {
+        "startLine": 709,
+        "startChar": 0,
+        "endLine": 709,
+        "endChar": 2
+      },
+      "revId": "e84f9cd15c63f3fa9841410253ba479b2659130b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4d4e2041_cda6dfa6",
         "filename": "http/http_client.hpp",
         "patchSetId": 2
