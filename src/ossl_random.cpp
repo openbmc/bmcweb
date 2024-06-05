@@ -2,6 +2,7 @@
 
 extern "C"
 {
+#include <openssl/crypto.h>
 #include <openssl/rand.h>
 }
 
@@ -60,4 +61,22 @@ std::string getRandomIdOfLength(size_t length)
     }
     return token;
 }
+
+bool constantTimeStringCompare(std::string_view a, std::string_view b)
+{
+    // Important note, this function is ONLY constant time if the two input
+    // sizes are the same
+    if (a.size() != b.size())
+    {
+        return false;
+    }
+    return CRYPTO_memcmp(a.data(), b.data(), a.size()) == 0;
+}
+
+bool ConstantTimeCompare::operator()(std::string_view a,
+                                     std::string_view b) const
+{
+    return constantTimeStringCompare(a, b);
+}
+
 } // namespace bmcweb
