@@ -87,6 +87,23 @@
       "message": "This appears to match the PATCH of this property \nhttps://github.com/openbmc/bmcweb/blob/20fa6a2c6cea77a4b411634dfca67eef6c8f430f/redfish-core/lib/ethernet.hpp#L1474\n\nhttps://github.com/openbmc/bmcweb/blob/20fa6a2c6cea77a4b411634dfca67eef6c8f430f/redfish-core/lib/ethernet.hpp#L1371\n\nHere is ethData.domainv4Enabled being read\nhttps://github.com/openbmc/bmcweb/blob/20fa6a2c6cea77a4b411634dfca67eef6c8f430f/redfish-core/lib/ethernet.hpp#L421",
       "revId": "82e25db9fc1d269ea52a8192fc5a28b37b25e708",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db90625a_3cf781ad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2024-06-05T18:07:48Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "82e25db9fc1d269ea52a8192fc5a28b37b25e708",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
