@@ -670,6 +670,30 @@
       },
       "revId": "477eaa1dbd180a2d128d6fadef287088d08c2e96",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b934ecd5_82f13959",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-06-05T07:27:10Z",
+      "side": 1,
+      "message": "most of the code are same. Will refactor the code to have a reusable part and serve/client specific parts.",
+      "parentUuid": "d58c970a_579d5e32",
+      "range": {
+        "startLine": 550,
+        "startChar": 48,
+        "endLine": 550,
+        "endChar": 67
+      },
+      "revId": "477eaa1dbd180a2d128d6fadef287088d08c2e96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
