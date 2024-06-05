@@ -470,8 +470,7 @@ class SessionStore
     ~SessionStore() = default;
 
     std::unordered_map<std::string, std::shared_ptr<UserSession>,
-                       std::hash<std::string>,
-                       crow::utility::ConstantTimeCompare>
+                       std::hash<std::string>, bmcweb::ConstantTimeCompare>
         authTokens;
 
     std::chrono::time_point<std::chrono::steady_clock> lastTimeoutUpdate;
