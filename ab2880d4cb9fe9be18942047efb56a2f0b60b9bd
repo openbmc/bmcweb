@@ -404,6 +404,30 @@
       },
       "revId": "ab2880d4cb9fe9be18942047efb56a2f0b60b9bd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "157dae68_8e615303",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1200,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-06-05T04:46:02Z",
+      "side": 1,
+      "message": "A aggregates B \u0026 C\nB aggregates D\nC aggregates D\n\nYes this case is tricky to solve. we need following strategy for it \n1) we have global topology information available to all BMC,\n2) create a routing path for each satellite bmc add it to the header of satellite request. \n3) satellite uses the routing path for its aggregation.\n\nThis will also bring capabilities to aggregate/forward to BMC that are the part of the connected graph, which need not be always adjacent to the BMC. \n\nOr \n\nImplement a duplicate removal algorithm on the response before merging. \n\nQuestion is do we really need to support such topology? What is the need for such complicated BMC topology. \n\nJust a support for mutual aggregation and linear aggregation will do the job for all our practical use cases.",
+      "parentUuid": "6a29cd7b_d817648a",
+      "range": {
+        "startLine": 1195,
+        "startChar": 8,
+        "endLine": 1200,
+        "endChar": 9
+      },
+      "revId": "ab2880d4cb9fe9be18942047efb56a2f0b60b9bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
