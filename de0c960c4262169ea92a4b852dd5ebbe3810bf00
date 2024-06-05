@@ -46,6 +46,30 @@
       },
       "revId": "de0c960c4262169ea92a4b852dd5ebbe3810bf00",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99d14d15_bb7ec5d1",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-05T23:00:26Z",
+      "side": 0,
+      "message": "I don\u0027t understand your answer.  loadCertificate now calls ensureCertificate, not getSSLClientContext",
+      "parentUuid": "316a9589_1646c388",
+      "range": {
+        "startLine": 611,
+        "startChar": 27,
+        "endLine": 611,
+        "endChar": 46
+      },
+      "revId": "de0c960c4262169ea92a4b852dd5ebbe3810bf00",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
