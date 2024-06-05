@@ -12,6 +12,7 @@
 #include <csignal>
 #include <optional>
 #include <random>
+#include <string>
 
 namespace persistent_data
 {
@@ -184,50 +185,17 @@ class SessionStore
         PersistenceType persistence = PersistenceType::TIMEOUT,
         bool isConfigureSelfOnly = false)
     {
-        // TODO(ed) find a secure way to not generate session identifiers if
-        // persistence is set to SINGLE_REQUEST
-        static constexpr std::array<char, 62> alphanum = {
-            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C',
-            'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
-            'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c',
-            'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
-            'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
-
-        std::string sessionToken;
-        sessionToken.resize(sessionTokenSize, '0');
-        std::uniform_int_distribution<size_t> dist(0, alphanum.size() - 1);
-
-        bmcweb::OpenSSLGenerator gen;
-
-        for (char& sessionChar : sessionToken)
-        {
-            sessionChar = alphanum[dist(gen)];
-            if (gen.error())
-            {
-                return nullptr;
-            }
-        }
         // Only need csrf tokens for cookie based auth, token doesn't matter
-        std::string csrfToken;
-        csrfToken.resize(sessionTokenSize, '0');
-        for (char& csrfChar : csrfToken)
-        {
-            csrfChar = alphanum[dist(gen)];
-            if (gen.error())
-            {
-                return nullptr;
-            }
-        }
+        std::string sessionToken =
+            bmcweb::getRandomIdOfLength(sessionTokenSize);
+        std::string csrfToken = bmcweb::getRandomIdOfLength(sessionTokenSize);
+        std::string uniqueId = bmcweb::getRandomIdOfLength(10);
 
-        std::string uniqueId;
-        uniqueId.resize(10, '0');
-        for (char& uidChar : uniqueId)
+        //
+        if (sessionToken.empty() || csrfToken.empty() || uniqueId.empty())
         {
-            uidChar = alphanum[dist(gen)];
-            if (gen.error())
-            {
-                return nullptr;
-            }
+            BMCWEB_LOG_ERROR("Failed to generate session tokens");
+            return nullptr;
         }
 
         auto session = std::make_shared<UserSession>(
