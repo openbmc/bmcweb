@@ -86,6 +86,7 @@ if (cxx.get_id() == 'clang')
         '-Wno-unused-macros',
         '-Wno-covered-switch-default',
         '-Wno-disabled-macro-expansion',
+        '-Wno-unneeded-internal-declaration',
         language: 'cpp',
     )
 endif
@@ -331,10 +332,8 @@ bmcweb_dependencies += conf_h_dep
 fs = import('fs')
 
 srcfiles_bmcweb = files(
-    # end large files
-
+    'http/mutual_tls.cpp',
     'redfish-core/src/error_messages.cpp',
-    # Begin large files, should be at the beginning
     'redfish-core/src/filter_expr_executor.cpp',
     'redfish-core/src/filter_expr_printer.cpp',
     'redfish-core/src/redfish.cpp',
@@ -348,6 +347,7 @@ srcfiles_bmcweb = files(
     'src/dbus_singleton.cpp',
     'src/json_html_serializer.cpp',
     'src/ossl_random.cpp',
+    'src/ssl_key_handler.cpp',
     'src/webserver_run.cpp',
 )
 

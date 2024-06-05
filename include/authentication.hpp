@@ -171,8 +171,8 @@ inline std::shared_ptr<persistent_data::UserSession>
                     return nullptr;
                 }
                 // Reject if csrf token not available
-                if (!crow::utility::constantTimeStringCompare(
-                        csrf, sessionOut->csrfToken))
+                if (!bmcweb::constantTimeStringCompare(csrf,
+                                                       sessionOut->csrfToken))
                 {
                     return nullptr;
                 }
