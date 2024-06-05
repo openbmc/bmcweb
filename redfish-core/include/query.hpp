@@ -153,7 +153,7 @@ inline bool handleIfMatch(crow::App& app, const crow::Request& req,
 
     if constexpr (BMCWEB_REDFISH_AGGREGATION)
     {
-        needToCallHandlers = RedfishAggregator::beginAggregation(
+        needToCallHandlers = RedfishAggregator::getInstance().beginAggregation(
                                  req, asyncResp) == Result::LocalHandle;
 
         // If the request should be forwarded to a satellite BMC then we don't
