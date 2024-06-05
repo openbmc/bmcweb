@@ -99,8 +99,8 @@ class ConnectionImpl : public Connection
                 {
                     // use protocol for csrf checking
                     if (session->cookieAuth &&
-                        !crow::utility::constantTimeStringCompare(
-                            protocolHeader, session->csrfToken))
+                        !bmcweb::constantTimeStringCompare(protocolHeader,
+                                                           session->csrfToken))
                     {
                         BMCWEB_LOG_ERROR("Websocket CSRF error");
                         m.result(boost::beast::http::status::unauthorized);
