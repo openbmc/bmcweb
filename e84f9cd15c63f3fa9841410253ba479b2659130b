@@ -169,6 +169,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6795b4e7_12e57526",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-06-05T10:18:46Z",
+      "side": 1,
+      "message": "I guess the state should be closed not idle right?\nkeep-alive false mean we should not reuse the channel.",
+      "parentUuid": "31beb324_33afe100",
+      "range": {
+        "startLine": 709,
+        "startChar": 0,
+        "endLine": 709,
+        "endChar": 2
+      },
+      "revId": "e84f9cd15c63f3fa9841410253ba479b2659130b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4d4e2041_cda6dfa6",
         "filename": "http/http_client.hpp",
         "patchSetId": 2
@@ -228,6 +252,30 @@
       "side": 1,
       "message": "I think it\u0027s different?  But I\"m not positive.",
       "parentUuid": "854479d3_adc756ea",
+      "range": {
+        "startLine": 763,
+        "startChar": 26,
+        "endLine": 763,
+        "endChar": 43
+      },
+      "revId": "e84f9cd15c63f3fa9841410253ba479b2659130b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ec21df2_f3a41135",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-06-05T10:18:46Z",
+      "side": 1,
+      "message": "doResolve start from resolve -\u003econnect-\u003ehandshake-\u003e ....\nrestartConnection start from newsocket-\u003eresolve-\u003econnect-\u003ehanshake-\u003e...\nI don\u0027t see what difference old code would have made.\n\nAre you suggesting that we should handle the initialized condition differently from closed?\n\nThen what would be the initialized condition handler?\nI don\u0027t see any state between initialized and resolveInProgress. So we can safely assume that if it is not closed then resolve is not yet started. \nstarting from restartConnection and doResolve does not make much difference right?",
+      "parentUuid": "142576eb_9be41e95",
       "range": {
         "startLine": 763,
         "startChar": 26,
