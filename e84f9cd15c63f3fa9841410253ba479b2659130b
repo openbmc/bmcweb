@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ef5d78f6_c82f10f3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-05T04:15:23Z",
+      "side": 1,
+      "message": "Right, but manual execution of WHAT test?",
+      "parentUuid": "1b763126_a746d89b",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 21
+      },
+      "revId": "e84f9cd15c63f3fa9841410253ba479b2659130b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ae944618_12328a46",
         "filename": "http/http_client.hpp",
         "patchSetId": 2
@@ -121,6 +145,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "31beb324_33afe100",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-05T04:15:23Z",
+      "side": 1,
+      "message": "I don\u0027t know that;  I wouldn\u0027t expect we should do it.\n\nWhat I wonder is if we\u0027d be better off just deleting this line entirely, set the state to idle, and let the connection reconnect on the next attempt.",
+      "parentUuid": "c31b5874_9be975de",
+      "range": {
+        "startLine": 709,
+        "startChar": 0,
+        "endLine": 709,
+        "endChar": 2
+      },
+      "revId": "e84f9cd15c63f3fa9841410253ba479b2659130b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4d4e2041_cda6dfa6",
         "filename": "http/http_client.hpp",
         "patchSetId": 2
@@ -156,6 +204,30 @@
       "side": 1,
       "message": "Doesn\u0027t it apply to previous code as well(when we use doResolve)?",
       "parentUuid": "4d4e2041_cda6dfa6",
+      "range": {
+        "startLine": 763,
+        "startChar": 26,
+        "endLine": 763,
+        "endChar": 43
+      },
+      "revId": "e84f9cd15c63f3fa9841410253ba479b2659130b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "142576eb_9be41e95",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-05T04:15:23Z",
+      "side": 1,
+      "message": "I think it\u0027s different?  But I\"m not positive.",
+      "parentUuid": "854479d3_adc756ea",
       "range": {
         "startLine": 763,
         "startChar": 26,
