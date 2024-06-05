@@ -16,6 +16,23 @@
       "message": "Reading the official standard https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.20.1.html#http-header-authentication-requirements I see only one place mentioning cookies at all, and it says `Shall` there, not RFC 2119 specified `SHALL` so I\u0027m not 100 % what it means. Apparently redfish protocol and service validators either do not consider that a violation or do not test as apparently bmcweb authenticates all the regular HTTP verbs with cookies currently.\n\nBut the standard doesn\u0027t say that cookies can not be used for non HTTP purposes, so I can imagine setting a cookie via the regular Sessions POST reply _in addition_ to the standard `X-Auth-Token` and requiring all the HTTP requests to have that header while cookie would work for WebSocket. That probably wouldn\u0027t contradict the standard wording.",
       "revId": "b66ade0a3945f51f57dbc7481363060454df7acf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41c4d756_fd79844b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-05T21:17:41Z",
+      "side": 1,
+      "message": "A couple problems with this.\n\n1. This is the legacy login from the phosphor-rest stuff.  We can\u0027t add fields to it without breaking clients.\n2. There isn\u0027t really a standard that governs this API (which relates to #1) which you\u0027ll note, there was no place where the behavior of this was documented outside of code.\n\n\n3. We\u0027re mixing concerns here.  This is the generic \"could apply to any service in bmcweb\" login.  Redfish might not even be enabled if this URL is used.  We can\u0027t be posting redfish-specific stuff to it.\n\n\n\nI would much rather we make adjustments to SessionService, and get it to work the way the UI needs.  As a starting point, on the SessionService POST if we supported an OEM parameter of\n\n{\n    \"Oem\": {\n                \"OpenBMC\": {\n                    LoginContext: \"Webui\",\n                }\n           }\n}\n\n\n\nWe could make the SessionCollection detect that and send back the Cookie, without effecting anything else, and \"technically\" not breaking the redfish spec\n\n\nAlternatively, a query param for something like ?openbmc_is_webui appended to the URL might be more generic, if the UI ever gets used on a non bmcweb based server.",
+      "revId": "b66ade0a3945f51f57dbc7481363060454df7acf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
