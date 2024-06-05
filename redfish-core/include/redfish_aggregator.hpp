@@ -539,9 +539,9 @@ class RedfishAggregator
         Resource,
     };
 
-    static void
-        startAggregation(AggregationType aggType, const crow::Request& thisReq,
-                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    void startAggregation(
+        AggregationType aggType, const crow::Request& thisReq,
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) const
     {
         if (thisReq.method() != boost::beast::http::verb::get)
         {
@@ -812,22 +812,29 @@ class RedfishAggregator
         return handler;
     }
 
+    // Aggregation sources from AggregationCollection
+    std::unordered_map<std::string, boost::urls::url> currentAggregationSources;
+
     // Polls D-Bus to get all available satellite config information
     // Expects a handler which interacts with the returned configs
-    static void getSatelliteConfigs(
+    void getSatelliteConfigs(
         std::function<
             void(const boost::system::error_code&,
                  const std::unordered_map<std::string, boost::urls::url>&)>
-            handler)
+            handler) const
     {
         BMCWEB_LOG_DEBUG("Gathering satellite configs");
+
+        std::unordered_map<std::string, boost::urls::url> satelliteInfo(
+            currentAggregationSources);
+
         sdbusplus::message::object_path path("/xyz/openbmc_project/inventory");
         dbus::utility::getManagedObjects(
             "xyz.openbmc_project.EntityManager", path,
-            [handler{std::move(handler)}](
+            [handler{std::move(handler)},
+             satelliteInfo = std::move(satelliteInfo)](
                 const boost::system::error_code& ec,
-                const dbus::utility::ManagedObjectType& objects) {
-            std::unordered_map<std::string, boost::urls::url> satelliteInfo;
+                const dbus::utility::ManagedObjectType& objects) mutable {
             if (ec)
             {
                 BMCWEB_LOG_ERROR("DBUS response error {}, {}", ec.value(),
@@ -1184,9 +1191,8 @@ class RedfishAggregator
     // Entry point to Redfish Aggregation
     // Returns Result stating whether or not we still need to locally handle the
     // request
-    static Result
-        beginAggregation(const crow::Request& thisReq,
-                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    Result beginAggregation(const crow::Request& thisReq,
+                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
     {
         using crow::utility::OrMorePaths;
         using crow::utility::readUrlSegments;
