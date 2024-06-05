@@ -122,6 +122,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e566c6a4_608240cf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-06-05T04:13:07Z",
+      "side": 1,
+      "message": "I did not get it.\nWhat happens suppose client switches from Machine A to Machine B and uses the url obtained from Machine A to Machine B.\n### case 1\n   Use url /redfish/v1/Chassis/Main \n   ##### Desired result:\n   It get the details of machine B in response. Client cannot expect machine A data here, as he made the switch explicitly.\n   ##### Implementable?\n   \n   Yes it is implementable. I don\u0027t see why it will not work. \n\n### case 2\n   Use url /redfish/v1/Chassis/{aggregation_prefix}_{B_uuid}_Main\n   ##### Desired result\n   \n   Bmc can parse the uuid and recognise that it is directed to itself. So it can return the local response instead of forwarding.\n   \n   ##### Implementable?\n   \n   I don\u0027t see any problem in achieving it. Prerequisite for it is to have a dictionary of uuid to bmc mapping.",
+      "parentUuid": "d17ec3ee_b90ddf6f",
+      "range": {
+        "startLine": 9,
+        "startChar": 55,
+        "endLine": 10,
+        "endChar": 43
+      },
+      "revId": "ab2880d4cb9fe9be18942047efb56a2f0b60b9bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b510d528_b6e5dfb8",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 3
