@@ -2,11 +2,6 @@
 
 #include "bmcweb_config.h"
 
-extern "C"
-{
-#include <openssl/crypto.h>
-}
-
 #include <boost/callable_traits.hpp>
 #include <boost/url/parse.hpp>
 #include <boost/url/url.hpp>
@@ -312,25 +307,6 @@ inline bool base64Decode(std::string_view input, std::string& output)
 
     return true;
 }
-
-inline bool constantTimeStringCompare(std::string_view a, std::string_view b)
-{
-    // Important note, this function is ONLY constant time if the two input
-    // sizes are the same
-    if (a.size() != b.size())
-    {
-        return false;
-    }
-    return CRYPTO_memcmp(a.data(), b.data(), a.size()) == 0;
-}
-
-struct ConstantTimeCompare
-{
-    bool operator()(std::string_view a, std::string_view b) const
-    {
-        return constantTimeStringCompare(a, b);
-    }
-};
 
 namespace details
 {

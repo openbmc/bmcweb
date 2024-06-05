@@ -6,8 +6,7 @@
 
 extern "C"
 {
-#include <openssl/crypto.h>
-#include <openssl/ssl.h>
+#include <openssl/x509_vfy.h>
 }
 
 #include <boost/asio/ip/address.hpp>
