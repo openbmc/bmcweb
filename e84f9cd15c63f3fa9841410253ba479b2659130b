@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "99b1e577_a4d6f3cc",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-06-05T03:43:56Z",
+      "side": 1,
+      "message": "May be, but this was the logic already present. We are anyway restarting the connection from doResolve(which will open a new connection anyway) previously. This patch just made sure that it is done properly.",
+      "parentUuid": "ae944618_12328a46",
+      "range": {
+        "startLine": 709,
+        "startChar": 0,
+        "endLine": 709,
+        "endChar": 2
+      },
+      "revId": "e84f9cd15c63f3fa9841410253ba479b2659130b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4d4e2041_cda6dfa6",
         "filename": "http/http_client.hpp",
         "patchSetId": 2
@@ -60,6 +84,30 @@
       "writtenOn": "2024-06-03T20:53:54Z",
       "side": 1,
       "message": "I suspect we need to break this down by state\n\nidle should not require a connection restart. Initialized should already have the connection started.  As written, this will break keepalive.",
+      "range": {
+        "startLine": 763,
+        "startChar": 26,
+        "endLine": 763,
+        "endChar": 43
+      },
+      "revId": "e84f9cd15c63f3fa9841410253ba479b2659130b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "854479d3_adc756ea",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-06-05T03:43:56Z",
+      "side": 1,
+      "message": "Doesn\u0027t it apply to previous code as well(when we use doResolve)?",
+      "parentUuid": "4d4e2041_cda6dfa6",
       "range": {
         "startLine": 763,
         "startChar": 26,
