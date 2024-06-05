@@ -487,9 +487,7 @@ class HTTP2Connection :
         {
             BMCWEB_LOG_DEBUG("create stream for id {}", frame.hd.stream_id);
 
-            Http2StreamData& stream = streams[frame.hd.stream_id];
-            // http2 is by definition always tls
-            stream.req->isSecure = true;
+            streams.emplace(frame.hd.stream_id, Http2StreamData());
         }
         return 0;
     }
