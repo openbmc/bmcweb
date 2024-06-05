@@ -51,6 +51,24 @@
       "parentUuid": "41c4d756_fd79844b",
       "revId": "b66ade0a3945f51f57dbc7481363060454df7acf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63217488_55fc3ea9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-05T22:12:11Z",
+      "side": 1,
+      "message": "\u003e \u003e 1. This is the legacy login from the phosphor-rest stuff.  We can\u0027t add fields to it without breaking clients.\n\u003e \n\u003e Aren\u0027t clients supposed to ignore unknown fields? At least my testing with current webui-vue shows it\u0027s fine with this change.\n\nIn redfish.... yes, that policy is in the standard.  The API you\u0027re editing isn\u0027t Redfish though.  Yes, webui-vue obviously works for it, because it consumes Redfish so it\u0027s been coded to that \"ignore extra keys\" standard.  Not all applications using /login are that lucky.\n\n\u003e \n\u003e \u003e 2. There isn\u0027t really a standard that governs this API (which relates to #1) which you\u0027ll note, there was no place where the behavior of this was documented outside of code.\n\u003e \n\u003e Yes, so I didn\u0027t change any documentation in this commit.\n\u003e \n\u003e \u003e 3. We\u0027re mixing concerns here.  This is the generic \"could apply to any service in bmcweb\" login.  Redfish might not even be enabled if this URL is used.  We can\u0027t be posting redfish-specific stuff to it.\n\u003e \n\u003e Oh, I wasn\u0027t aware a usecase like this exists.\n\u003e \n\u003e \u003e I would much rather we make adjustments to SessionService, and get it to work the way the UI needs.  As a starting point, on the SessionService POST if we supported an OEM parameter of\n\u003e \u003e \n\u003e \u003e {\n\u003e \u003e     \"Oem\": {\n\u003e \u003e                 \"OpenBMC\": {\n\u003e \u003e                     LoginContext: \"Webui\",\n\u003e \u003e                 }\n\u003e \u003e            }\n\u003e \u003e }\n\u003e \u003e \n\u003e \u003e \n\u003e \u003e \n\u003e \u003e We could make the SessionCollection detect that and send back the Cookie, without effecting anything else, and \"technically\" not breaking the redfish spec\n\u003e \n\u003e Sounds like a solid idea, do you want me to try implementing it?\n\n.......  So long as you don\u0027t yell at me if I ask you to switch to something else in the user-facing api later, yeah, lets see if we can make it work.\nMy primary concerns are:\n1. Compliant Redfish applications shouldn\u0027t be able to see that we\u0027re breaking the standard here.\n2. The UI should ideally still be able to execute the non-websocket functions if the Redfish server doesn\u0027t support cookies.\n\nGiven those, I\u0027m starting to lean toward query param, but I think the \"how we trigger it\" is less important than how we actually implement the behavior once we know it\u0027s the webui.\n\n\u003e \n\u003e \u003e Alternatively, a query param for something like ?openbmc_is_webui appended to the URL might be more generic, if the UI ever gets used on a non bmcweb based server.\n\u003e \n\u003e Do you consider making UI just always use `X-Auth-Token` header to match the standard and to allow interoperability with other Redfish servers out of the box without tricks?\n\nOf course we did..... You think we did all this craziness just for fun???? 😂\n\n\n\u003e And that Oem parameter passed by the UI will be ignored by those other servers but bmcweb can add that cookie and still require `X-Auth-Token` for normal HTTP actions while the cookie will get used for WebSocket?\n\nWe talked about splitting up and doing X-token for Redfish, and Cookies for websockets.  I recall the thinking was that Cookies (as implemented at least) where slightly more secure, because they require a CSRF cookie as well as the session token, and the CSRF token is never made available to javascript, so if there were a javascript vulnerability that let you export the session ID, you still couldn\u0027t log in.\n\nWhether or not that was worth the effort is debatable, but we\u0027re here now.",
+      "parentUuid": "5e1eeceb_4ea74554",
+      "revId": "b66ade0a3945f51f57dbc7481363060454df7acf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
