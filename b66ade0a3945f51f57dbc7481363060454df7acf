@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b996bdea_ed19e548",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000936
+      },
+      "writtenOn": "2024-06-05T20:58:54Z",
+      "side": 1,
+      "message": "Reading the official standard https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.20.1.html#http-header-authentication-requirements I see only one place mentioning cookies at all, and it says `Shall` there, not RFC 2119 specified `SHALL` so I\u0027m not 100 % what it means. Apparently redfish protocol and service validators either do not consider that a violation or do not test as apparently bmcweb authenticates all the regular HTTP verbs with cookies currently.\n\nBut the standard doesn\u0027t say that cookies can not be used for non HTTP purposes, so I can imagine setting a cookie via the regular Sessions POST reply _in addition_ to the standard `X-Auth-Token` and requiring all the HTTP requests to have that header while cookie would work for WebSocket. That probably wouldn\u0027t contradict the standard wording.",
+      "revId": "b66ade0a3945f51f57dbc7481363060454df7acf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
