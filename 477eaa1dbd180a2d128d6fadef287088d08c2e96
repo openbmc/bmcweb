@@ -579,6 +579,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9e5687a7_fe6e7dfa",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 855,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-06-05T07:09:47Z",
+      "side": 1,
+      "message": "I did exactly what you described in my testing. \nMy question was not around how MTLS works.\nMTLS is the property of both server and client. Even if client provides certificates, it is up to the server to decide on if MTLS should be enabled or not. \nIn our case we have use cases for http clients to talk to non MTLS servers. Whether a server is MTLS enabled or not is not decided by the http_client. \n\nSo rather than giving a runtime configuration to decide on usage of client certificate,I thought it is better to assume that there is a client.pem always available in specified dir. Bmc can always override the certificate by installing a CA signed entity certificate with same name.  My implementation is done based on that.\n\nSince we have self signed client certificate now , we wanted to decide on what should be the CN for it. This CN can be one of the bmcuser name which already has some privileges , which will be helpful in developer testing for aggregation. \n\nSo I was asking should we hardcode the CN or take it from compiler generated variable?\n\nI am ok with not having default certificate generation. But that make some more checks in code to see if certificate available or client_MTLS feature flag enabled etc.",
+      "parentUuid": "0b9ff44e_fc1022b5",
+      "range": {
+        "startLine": 855,
+        "startChar": 62,
+        "endLine": 855,
+        "endChar": 68
+      },
+      "revId": "477eaa1dbd180a2d128d6fadef287088d08c2e96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d58c970a_579d5e32",
         "filename": "include/ssl_key_handler.hpp",
         "patchSetId": 2
