@@ -25,8 +25,6 @@ struct Request
     boost::urls::url urlBase;
 
   public:
-    bool isSecure{false};
-
     boost::asio::io_context* ioService = nullptr;
     boost::asio::ip::address ipAddress;
 
@@ -67,7 +65,6 @@ struct Request
     {
         req.clear();
         urlBase.clear();
-        isSecure = false;
         ioService = nullptr;
         ipAddress = boost::asio::ip::address();
         session = nullptr;
