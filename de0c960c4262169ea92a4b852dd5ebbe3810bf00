@@ -22,6 +22,30 @@
       },
       "revId": "de0c960c4262169ea92a4b852dd5ebbe3810bf00",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "316a9589_1646c388",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-06-05T07:24:49Z",
+      "side": 0,
+      "message": "It is done below in loadCertificate.",
+      "parentUuid": "aad5fbe9_9e3c67d4",
+      "range": {
+        "startLine": 611,
+        "startChar": 27,
+        "endLine": 611,
+        "endChar": 46
+      },
+      "revId": "de0c960c4262169ea92a4b852dd5ebbe3810bf00",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
