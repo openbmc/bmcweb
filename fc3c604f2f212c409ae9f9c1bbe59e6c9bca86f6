@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a19afd3_63f76c0c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-05T16:54:47Z",
+      "side": 1,
+      "message": "As always, happy to discuss if people see issues here, but I haven\u0027t seen a lot of interest in SSE upstream recently, so I don\u0027t really expect anyone to see any further reviews on this, and I\u0027d like to get the protocol validator passing again.",
+      "revId": "fc3c604f2f212c409ae9f9c1bbe59e6c9bca86f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
