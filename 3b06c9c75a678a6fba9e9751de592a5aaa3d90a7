@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "60c46a59_a9151871",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-06T21:22:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f09dbedc_968d4a3f",
+      "range": {
+        "startLine": 573,
+        "startChar": 7,
+        "endLine": 573,
+        "endChar": 21
+      },
+      "revId": "3b06c9c75a678a6fba9e9751de592a5aaa3d90a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0b1a936c_2521a2fc",
@@ -41,6 +65,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fb7c86f_bde765b5",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-06T21:22:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1a936c_2521a2fc",
+      "revId": "3b06c9c75a678a6fba9e9751de592a5aaa3d90a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e8cc9a80_e32317de",
@@ -54,6 +96,24 @@
       "writtenOn": "2024-06-06T21:10:59Z",
       "side": 1,
       "message": "#include \u003cboost/system/error_code.hpp\u003e",
+      "revId": "3b06c9c75a678a6fba9e9751de592a5aaa3d90a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78dcb22e_4d5ecff2",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 620,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-06T21:22:28Z",
+      "side": 1,
+      "message": "Added in prior commit.",
+      "parentUuid": "e8cc9a80_e32317de",
       "revId": "3b06c9c75a678a6fba9e9751de592a5aaa3d90a7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
