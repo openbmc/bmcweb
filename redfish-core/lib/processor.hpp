@@ -1124,6 +1124,10 @@ inline void afterGetCpuCoreDataByService(
                 asyncResp->res.jsonValue["Status"]["Health"] = "Critical";
             }
         }
+#ifdef BMCWEB_ENABLE_HW_ISOLATION
+        // Check for the hardware status event
+        hw_isolation_utils::getHwIsolationStatus(asyncResp, objPath);
+#endif // end of BMCWEB_ENABLE_HW_ISOLATION
     }
 }
 

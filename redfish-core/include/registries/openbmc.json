@@ -459,6 +459,15 @@
             "Resolution": "None.",
             "Severity": "Critical"
         },
+        "HardwareIsolationReason": {
+            "Description": "Indicates the condition that affects the health of this resource.",
+            "Message": "The reason for the resource isolation: %1",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "Critical"
+        },
         "IPMIWatchdog": {
             "Description": "Indicates that there is a host watchdog event.",
             "Message": "Host Watchdog Event: %1",
