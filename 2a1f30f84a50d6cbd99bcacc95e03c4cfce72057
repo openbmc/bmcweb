@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e8b6e4a_545a4950",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-06T16:49:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7c4e5b9_60831a95",
+      "range": {
+        "startLine": 610,
+        "startChar": 12,
+        "endLine": 610,
+        "endChar": 16
+      },
+      "revId": "2a1f30f84a50d6cbd99bcacc95e03c4cfce72057",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f275451b_eac13506",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-06-06T16:47:59Z",
       "side": 1,
       "message": "This functiond doesn\u0027t seem like the right one to be calling for client certs.  If a client cert doesn\u0027t exist, we don\u0027t want to create one.  You might want to instead call verifyOpensslKeyCert?",
+      "range": {
+        "startLine": 419,
+        "startChar": 44,
+        "endLine": 419,
+        "endChar": 76
+      },
+      "revId": "2a1f30f84a50d6cbd99bcacc95e03c4cfce72057",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca03bf90_b911f479",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-06T16:49:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f275451b_eac13506",
       "range": {
         "startLine": 419,
         "startChar": 44,
@@ -87,6 +135,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "be3e5e72_12d2439c",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-06T16:49:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "378f236a_10aff213",
+      "range": {
+        "startLine": 438,
+        "startChar": 8,
+        "endLine": 438,
+        "endChar": 18
+      },
+      "revId": "2a1f30f84a50d6cbd99bcacc95e03c4cfce72057",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e31a93cc_8ddd0c65",
@@ -100,6 +172,30 @@
       "writtenOn": "2024-06-06T16:47:59Z",
       "side": 1,
       "message": "Why is this needed?",
+      "range": {
+        "startLine": 504,
+        "startChar": 0,
+        "endLine": 504,
+        "endChar": 28
+      },
+      "revId": "2a1f30f84a50d6cbd99bcacc95e03c4cfce72057",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fdef4ec_bfbfcd42",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-06T16:49:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e31a93cc_8ddd0c65",
       "range": {
         "startLine": 504,
         "startChar": 0,
@@ -127,6 +223,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c22b506e_0a41dc1b",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-06T16:49:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86210c7c_86e246fa",
+      "revId": "2a1f30f84a50d6cbd99bcacc95e03c4cfce72057",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f14021a9_fe1d8b9a",
@@ -140,6 +254,24 @@
       "writtenOn": "2024-06-06T16:47:59Z",
       "side": 1,
       "message": "This looks like it was changed from a full path to a partial path?",
+      "revId": "2a1f30f84a50d6cbd99bcacc95e03c4cfce72057",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2bd76c7_30b5d985",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-06T16:49:12Z",
+      "side": 1,
+      "message": "I see, path was constructed in the function.  New code now goes back to fixed path.",
+      "parentUuid": "f14021a9_fe1d8b9a",
       "revId": "2a1f30f84a50d6cbd99bcacc95e03c4cfce72057",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
