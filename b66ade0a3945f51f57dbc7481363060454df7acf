@@ -105,6 +105,23 @@
       "parentUuid": "7cf32467_0fdf1139",
       "revId": "b66ade0a3945f51f57dbc7481363060454df7acf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46c43383_18c2bbc9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000936
+      },
+      "writtenOn": "2024-06-06T14:52:18Z",
+      "side": 1,
+      "message": "\"If the action request contains unsupported parameters, the service shall ignore the unsupported parameters or return the HTTP 400 Bad Request status code.\"\n\nOK, so it is allowed to do either so we can not just send it. While \"Shall ignore unknown or unsupported query parameters that do not begin with $\" and then it gives explicit instructions about OEM query parameters. So parameter it is.",
+      "revId": "b66ade0a3945f51f57dbc7481363060454df7acf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
