@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a79e5efb_35dd61dd",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1001286
+      },
+      "writtenOn": "2024-06-06T09:44:02Z",
+      "side": 1,
+      "message": "cleanup with goto will reduce number of frees.\nhttps://www.kernel.org/doc/html/v4.19/process/coding-style.html#centralized-exiting-of-functions\n\nor deleters like this\nhttps://gist.github.com/meshell/876f1e01c7e72994b126",
+      "range": {
+        "startLine": 74,
+        "startChar": 1,
+        "endLine": 75,
+        "endChar": 35
+      },
+      "revId": "05e179b355f7558d125ca066804424322a917ca0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82c275e8_51e00b91",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1001286
+      },
+      "writtenOn": "2024-06-06T09:44:02Z",
+      "side": 1,
+      "message": "inverted if can be used to reduce nesting\nif(file \u003d\u003d nullptr){\n    return certValid;\n}\n// rest of things that are currently being done inside if.",
+      "range": {
+        "startLine": 117,
+        "startChar": 1,
+        "endLine": 120,
+        "endChar": 9
+      },
+      "revId": "05e179b355f7558d125ca066804424322a917ca0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a59ad954_4faac86f",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1001286
+      },
+      "writtenOn": "2024-06-06T09:44:02Z",
+      "side": 1,
+      "message": "another place to make use of inverted if",
+      "range": {
+        "startLine": 121,
+        "startChar": 1,
+        "endLine": 122,
+        "endChar": 9
+      },
+      "revId": "05e179b355f7558d125ca066804424322a917ca0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc6ccfff_3bb3d9ad",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1001286
+      },
+      "writtenOn": "2024-06-06T09:44:02Z",
+      "side": 1,
+      "message": "Is there any reason for having second macro version check for free later here rather than inside #else #endif block. I see this is only valid in #else #endif block only. So why not free it there itself?",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 200,
+        "endChar": 6
+      },
+      "revId": "05e179b355f7558d125ca066804424322a917ca0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
