@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "25510084_5baaa851",
+        "filename": "http/http_server.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-06T21:21:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7a21058_7a4be55b",
+      "revId": "97dc7b5f2b8e4fa7e76a2900ba96118c5dccd5cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7e2848ae_162d5db1",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-06-06T21:13:44Z",
       "side": 1,
       "message": "can you use something other than a single character variable here and below?",
+      "range": {
+        "startLine": 329,
+        "startChar": 16,
+        "endLine": 329,
+        "endChar": 17
+      },
+      "revId": "97dc7b5f2b8e4fa7e76a2900ba96118c5dccd5cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85600273_130e65a1",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-06T21:21:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e2848ae_162d5db1",
       "range": {
         "startLine": 329,
         "startChar": 16,
@@ -64,6 +106,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a703476_45125bd1",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-06T21:21:10Z",
+      "side": 1,
+      "message": "Changed to INFO.",
+      "parentUuid": "a78551df_e773f199",
+      "range": {
+        "startLine": 351,
+        "startChar": 12,
+        "endLine": 351,
+        "endChar": 28
+      },
+      "revId": "97dc7b5f2b8e4fa7e76a2900ba96118c5dccd5cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d800a024_a5704e51",
@@ -77,6 +143,24 @@
       "writtenOn": "2024-06-06T21:13:44Z",
       "side": 1,
       "message": "#include \u003cboost/system/error_code.hpp\u003e",
+      "revId": "97dc7b5f2b8e4fa7e76a2900ba96118c5dccd5cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b561eab1_1abf491d",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-06T21:21:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d800a024_a5704e51",
       "revId": "97dc7b5f2b8e4fa7e76a2900ba96118c5dccd5cf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
