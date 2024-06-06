@@ -118,6 +118,30 @@
       },
       "revId": "de0c960c4262169ea92a4b852dd5ebbe3810bf00",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3599f80_34392bec",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-06-06T14:14:29Z",
+      "side": 0,
+      "message": "Modified code to use clientContext",
+      "parentUuid": "97cd3793_078ed3a6",
+      "range": {
+        "startLine": 611,
+        "startChar": 27,
+        "endLine": 611,
+        "endChar": 46
+      },
+      "revId": "de0c960c4262169ea92a4b852dd5ebbe3810bf00",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e66d6e41_a7b5728e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-06-06T14:14:29Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "493a5599_b35a1dd0",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 71
+      },
+      "revId": "477eaa1dbd180a2d128d6fadef287088d08c2e96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "98406b19_08e9642b",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -162,6 +186,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c87ff529_c8d8beb8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-06-06T14:14:29Z",
+      "side": 1,
+      "message": "There is no self signed certificate for client. Assumption is that the CA certified client.pem should have valid CN if that is to be used for aggregation session.\nProvisioning flow will take care of it. Http_client need not have any business here",
+      "parentUuid": "3c0dbe5e_1c52a7d9",
+      "revId": "477eaa1dbd180a2d128d6fadef287088d08c2e96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9ed8c3ad_32a6bc28",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -173,6 +215,30 @@
       "writtenOn": "2024-06-04T00:47:55Z",
       "side": 1,
       "message": "How?  With the goal of not making this patch huge, I\u0027m happy to push this to another patch, but we need some kind of indication of how you expect this to work.  Right now, simply self signing a certificate can\u0027t prove that we\u0027ve implemented mtls correctly.\n\nIf you tested this by provisioning certificates by hand, say that.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 59
+      },
+      "revId": "477eaa1dbd180a2d128d6fadef287088d08c2e96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a142737_725f0734",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-06-06T14:14:29Z",
+      "side": 1,
+      "message": "I have added the detailed testing step in the commit. Yes did a manual certificate provisioning done . I mean copied CA certified entity certificates in /etc/ssl/certs/https folder . And placed corresponding root CA in /etc/ssl/certs/authority folder. \n\nTested various scenarios",
+      "parentUuid": "9ed8c3ad_32a6bc28",
       "range": {
         "startLine": 24,
         "startChar": 0,
@@ -373,6 +439,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "778ab3ad_3d574418",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-06-06T14:14:29Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "9f3f3c1d_07658014",
+      "range": {
+        "startLine": 35,
+        "startChar": 12,
+        "endLine": 35,
+        "endChar": 22
+      },
+      "revId": "477eaa1dbd180a2d128d6fadef287088d08c2e96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8fa8af3_0153604c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-06-06T14:14:29Z",
+      "side": 1,
+      "message": "Are you suggesting that we need to disconnect all keep_alive connection created, if there is a certificate change? Now I have modified the code to pick latest client certificate whenever a new connection is made. Caching the ssl context logic is removed",
+      "parentUuid": "de8371d9_41c8d7bc",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 53
+      },
+      "revId": "477eaa1dbd180a2d128d6fadef287088d08c2e96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c5e7724e_2df3d066",
@@ -505,6 +619,30 @@
       "side": 1,
       "message": "please update test results here",
       "parentUuid": "1cf0249c_dc5b05c7",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 47
+      },
+      "revId": "477eaa1dbd180a2d128d6fadef287088d08c2e96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84ca94dc_8afe4195",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-06-06T14:14:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7063889_c2e0b6a8",
       "range": {
         "startLine": 42,
         "startChar": 0,
@@ -659,6 +797,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cc34de43_aefedb44",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-06-06T14:14:29Z",
+      "side": 1,
+      "message": "moved back to previous implementation",
+      "parentUuid": "edde5ba2_b7299420",
+      "range": {
+        "startLine": 609,
+        "startChar": 0,
+        "endLine": 609,
+        "endChar": 33
+      },
+      "revId": "477eaa1dbd180a2d128d6fadef287088d08c2e96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3c693259_ae6b63d8",
         "filename": "http/http_client.hpp",
         "patchSetId": 2
@@ -670,6 +832,24 @@
       "writtenOn": "2024-06-04T00:47:55Z",
       "side": 1,
       "message": "unrelated whitespace change.",
+      "revId": "477eaa1dbd180a2d128d6fadef287088d08c2e96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41f432f9_36409046",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 727,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-06-06T14:14:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c693259_ae6b63d8",
       "revId": "477eaa1dbd180a2d128d6fadef287088d08c2e96",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -735,6 +915,30 @@
       "side": 1,
       "message": "Right, which isn\u0027t really correct to the system.",
       "parentUuid": "2f6dbce2_fa9b8798",
+      "range": {
+        "startLine": 854,
+        "startChar": 62,
+        "endLine": 854,
+        "endChar": 74
+      },
+      "revId": "477eaa1dbd180a2d128d6fadef287088d08c2e96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d8188f8_5349326e",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-06-06T14:14:29Z",
+      "side": 1,
+      "message": "check the new implementation. Removed the self signed certificate creation for client",
+      "parentUuid": "3b9523d3_47dcd2b6",
       "range": {
         "startLine": 854,
         "startChar": 62,
@@ -997,6 +1201,30 @@
       "side": 1,
       "message": "most of the code are same. Will refactor the code to have a reusable part and serve/client specific parts.",
       "parentUuid": "d58c970a_579d5e32",
+      "range": {
+        "startLine": 550,
+        "startChar": 48,
+        "endLine": 550,
+        "endChar": 67
+      },
+      "revId": "477eaa1dbd180a2d128d6fadef287088d08c2e96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "538fdb97_a861dfb7",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-06-06T14:14:29Z",
+      "side": 1,
+      "message": "refactored the code. please review",
+      "parentUuid": "b934ecd5_82f13959",
       "range": {
         "startLine": 550,
         "startChar": 48,
