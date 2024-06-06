@@ -87,6 +87,24 @@
       "parentUuid": "63217488_55fc3ea9",
       "revId": "b66ade0a3945f51f57dbc7481363060454df7acf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "801599ef_ed2d11e0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-06T14:30:57Z",
+      "side": 1,
+      "message": "\u003e \u003e \u003e Sounds like a solid idea, do you want me to try implementing it?\n\u003e \u003e \n\u003e \u003e .......  So long as you don\u0027t yell at me if I ask you to switch to something else in the user-facing api later, yeah, lets see if we can make it work.\n\u003e \u003e My primary concerns are:\n\u003e \u003e 1. Compliant Redfish applications shouldn\u0027t be able to see that we\u0027re breaking the standard here.\n\u003e \u003e 2. The UI should ideally still be able to execute the non-websocket functions if the Redfish server doesn\u0027t support cookies.\n\u003e \u003e \n\u003e \u003e Given those, I\u0027m starting to lean toward query param, but I think the \"how we trigger it\" is less important than how we actually implement the behavior once we know it\u0027s the webui.\n\u003e \n\u003e OK, I\u0027m on it, prototyping looks good so far, I hope to share the PoC in the coming days.\n\u003e \n\u003e So is it technically legal for the front end to send extra Oem parameter in a POST request? \n\nSo long as we add an appropriate schema for it, we can add whatever we need to in OEM.\n\n\n\u003e If yes, that looks like a more Redfish-y way than a URL query argument (and a query parameter feels odd for a POST request anyway). I expect other Redfish servers to just ignore that special request and webui should just deal with having to use `X-Auth-Token` without a cookie.\n\nThat\u0027s the thing, most other redfish servers won\u0027t ignore the extra fields (because they can\u0027t really in the standard) Before support is added, bmcweb will even return an error on the extra field, the\u0027s kind of why I was leaning toward a query param (I think) the spec says to ignore extra query params.\n\nThinking about it more, we could maybe also do the XHR check that we use for the unathorized header?\n\nhttps://github.com/openbmc/bmcweb/blob/de9ad764973364a19f50bee6c3032fdacc1f51f1/include/forward_unauthorized.hpp#L44",
+      "parentUuid": "7cf32467_0fdf1139",
+      "revId": "b66ade0a3945f51f57dbc7481363060454df7acf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
