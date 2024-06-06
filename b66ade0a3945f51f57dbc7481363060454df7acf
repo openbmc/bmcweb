@@ -69,6 +69,24 @@
       "parentUuid": "5e1eeceb_4ea74554",
       "revId": "b66ade0a3945f51f57dbc7481363060454df7acf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7cf32467_0fdf1139",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000936
+      },
+      "writtenOn": "2024-06-06T14:25:14Z",
+      "side": 1,
+      "message": "\u003e \u003e Sounds like a solid idea, do you want me to try implementing it?\n\u003e \n\u003e .......  So long as you don\u0027t yell at me if I ask you to switch to something else in the user-facing api later, yeah, lets see if we can make it work.\n\u003e My primary concerns are:\n\u003e 1. Compliant Redfish applications shouldn\u0027t be able to see that we\u0027re breaking the standard here.\n\u003e 2. The UI should ideally still be able to execute the non-websocket functions if the Redfish server doesn\u0027t support cookies.\n\u003e \n\u003e Given those, I\u0027m starting to lean toward query param, but I think the \"how we trigger it\" is less important than how we actually implement the behavior once we know it\u0027s the webui.\n\nOK, I\u0027m on it, prototyping looks good so far, I hope to share the PoC in the coming days.\n\nSo is it technically legal for the front end to send extra Oem parameter in a POST request? If yes, that looks like a more Redfish-y way than a URL query argument (and a query parameter feels odd for a POST request anyway). I expect other Redfish servers to just ignore that special request and webui should just deal with having to use `X-Auth-Token` without a cookie.",
+      "parentUuid": "63217488_55fc3ea9",
+      "revId": "b66ade0a3945f51f57dbc7481363060454df7acf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
