@@ -94,6 +94,30 @@
       },
       "revId": "de0c960c4262169ea92a4b852dd5ebbe3810bf00",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97cd3793_078ed3a6",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-06T05:33:54Z",
+      "side": 0,
+      "message": "I see ensuressl::getSslContext being called, but not getSSLClientContext",
+      "parentUuid": "310d34da_843d8b1d",
+      "range": {
+        "startLine": 611,
+        "startChar": 27,
+        "endLine": 611,
+        "endChar": 46
+      },
+      "revId": "de0c960c4262169ea92a4b852dd5ebbe3810bf00",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
