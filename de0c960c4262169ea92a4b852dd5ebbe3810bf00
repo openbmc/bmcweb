@@ -142,6 +142,29 @@
       },
       "revId": "de0c960c4262169ea92a4b852dd5ebbe3810bf00",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80d155a8_2e24bd0f",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-06T16:47:59Z",
+      "side": 0,
+      "message": "Why were these removed?  This list is different than the other one, so you\u0027ve changed behavior without documenting it.\n\nFWIW, I do have patches in review to make these the same, but we need to be explicit about doing it, rather than just doing it in a refactor.",
+      "range": {
+        "startLine": 560,
+        "startChar": 0,
+        "endLine": 572,
+        "endChar": 70
+      },
+      "revId": "de0c960c4262169ea92a4b852dd5ebbe3810bf00",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
