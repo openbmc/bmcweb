@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2d114894_ab4a4b1a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2024-06-06T10:05:02Z",
+      "side": 1,
+      "message": "Sorry for late response, Jakub is no longer working in the project and this patch has gone off my radar somehow. Those messages have been added to standard in version 2023.3 [1]. I see though that the messages differ a bit from what he have now implemented, so we\u0027ll need to readjust this patch and the telemetry service code so that it meets the standard.\n\n[1] https://www.dmtf.org/sites/default/files/standards/documents/DSP8011_2023.3.zip",
+      "parentUuid": "0af88814_9c8b1f31",
+      "revId": "1b9806c77e7f2a0e7e8b89dbadc5fad380716667",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1730b355_b151c439",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
