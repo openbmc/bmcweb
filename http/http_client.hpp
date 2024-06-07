@@ -69,7 +69,6 @@ enum class ConnState
     handshakeFailed,
     sendInProgress,
     sendFailed,
-    recvInProgress,
     recvFailed,
     idle,
     closed,
@@ -227,6 +226,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         }
         state = ConnState::connected;
         sendMessage();
+        recvMessage();
     }
 
     void doSslHandshake()
@@ -266,6 +266,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         BMCWEB_LOG_DEBUG("SSL Handshake successful - id: {}", connId);
         state = ConnState::connected;
         sendMessage();
+        recvMessage();
     }
 
     void sendMessage()
@@ -314,20 +315,17 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         BMCWEB_LOG_DEBUG("sendMessage() bytes transferred: {}",
                          bytesTransferred);
 
-        recvMessage();
+        // Start the timer waiting for a response to be received.
+        timer.expires_after(std::chrono::seconds(30));
+        timer.async_wait(std::bind_front(onTimeout, weak_from_this()));
     }
 
     void recvMessage()
     {
-        state = ConnState::recvInProgress;
-
         parser_type& thisParser = parser.emplace(std::piecewise_construct,
                                                  std::make_tuple());
 
         thisParser.body_limit(connPolicy->requestByteLimit);
-
-        timer.expires_after(std::chrono::seconds(30));
-        timer.async_wait(std::bind_front(onTimeout, weak_from_this()));
 
         // Receive the HTTP response
         if (sslConn)
@@ -348,17 +346,20 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
 
     void afterRead(const std::shared_ptr<ConnectionInfo>& /*self*/,
                    const boost::beast::error_code& ec,
-                   const std::size_t& bytesTransferred)
+                   std::size_t bytesTransferred)
     {
         // The operation already timed out.  We don't want do continue down
         // this branch
-        if (ec && ec == boost::asio::error::operation_aborted)
+        if (ec == boost::asio::error::operation_aborted)
         {
+            BMCWEB_LOG_DEBUG("Read aborted.  Timeout?");
             return;
         }
 
         timer.cancel();
-        if (ec && ec != boost::asio::ssl::error::stream_truncated)
+        // Some webservers shut down the stream uncleanly.  Ignore those errors.
+        if (ec && ec != boost::asio::ssl::error::stream_truncated &&
+            ec != boost::beast::http::error::end_of_stream)
         {
             BMCWEB_LOG_ERROR("recvMessage() failed: {} from {}", ec.message(),
                              host);
@@ -412,8 +413,17 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         // Copy the response into a Response object so that it can be
         // processed by the callback function.
         res.response = parser->release();
-        callback(parser->keep_alive(), connId, res);
+        if (!callback)
+        {
+            BMCWEB_LOG_ERROR(
+                "Http client lifecycle error.  Callback was null?");
+        }
+        else
+        {
+            callback(parser->keep_alive(), connId, res);
+        }
         res.clear();
+        recvMessage();
     }
 
     static void onTimeout(const std::weak_ptr<ConnectionInfo>& weakSelf,
@@ -421,8 +431,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     {
         if (ec == boost::asio::error::operation_aborted)
         {
-            BMCWEB_LOG_DEBUG(
-                "async_wait failed since the operation is aborted");
+            BMCWEB_LOG_DEBUG("Timer canceled, continuing");
             return;
         }
         if (ec)
@@ -460,7 +469,14 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
             // We want to return a 502 to indicate there was an error with
             // the external server
             res.result(boost::beast::http::status::bad_gateway);
-            callback(false, connId, res);
+            if (!callback)
+            {
+                BMCWEB_LOG_CRITICAL("No callback available????");
+            }
+            else
+            {
+                callback(false, connId, res);
+            }
             res.clear();
 
             // Reset the retrycount to zero so that client can try
@@ -474,20 +490,19 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         BMCWEB_LOG_DEBUG("Attempt retry after {} seconds. RetryCount = {}",
                          connPolicy->retryIntervalSecs.count(), retryCount);
         timer.expires_after(connPolicy->retryIntervalSecs);
-        timer.async_wait(std::bind_front(&ConnectionInfo::onTimerDone, this,
-                                         shared_from_this()));
+        timer.async_wait(std::bind_front(&ConnectionInfo::onRetryTimerDone,
+                                         this, shared_from_this()));
     }
 
-    void onTimerDone(const std::shared_ptr<ConnectionInfo>& /*self*/,
-                     const boost::system::error_code& ec)
+    void onRetryTimerDone(const std::shared_ptr<ConnectionInfo>& /*self*/,
+                          const boost::system::error_code& ec)
     {
         if (ec == boost::asio::error::operation_aborted)
         {
-            BMCWEB_LOG_DEBUG(
-                "async_wait failed since the operation is aborted{}",
-                ec.message());
+            BMCWEB_LOG_DEBUG("Retry timer was canceled {}", ec.message());
+            return;
         }
-        else if (ec)
+        if (ec)
         {
             BMCWEB_LOG_ERROR("async_wait failed: {}", ec.message());
             // Ignore the error and continue the retry loop to attempt
@@ -791,6 +806,11 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
             BMCWEB_LOG_ERROR("{} request queue full.  Dropping request.", id);
             Response dummyRes;
             dummyRes.result(boost::beast::http::status::too_many_requests);
+            if (!resHandler)
+            {
+                BMCWEB_LOG_CRITICAL("ResHandler was invalid");
+                return;
+            }
             resHandler(dummyRes);
         }
     }
@@ -800,6 +820,11 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
                               const std::function<void(Response&)>& resHandler,
                               bool keepAlive, uint32_t connId, Response& res)
     {
+        if (!resHandler)
+        {
+            BMCWEB_LOG_CRITICAL("Bad function call.  Should never happen");
+            return;
+        }
         // Allow provided callback to perform additional processing of the
         // request
         resHandler(res);

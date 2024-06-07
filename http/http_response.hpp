@@ -258,7 +258,8 @@ struct Response
 
     std::function<void(Response&)> releaseCompleteRequestHandler()
     {
-        BMCWEB_LOG_DEBUG("{} releasing completion handler{}", logPtr(this),
+        BMCWEB_LOG_DEBUG("{} releasing completion handler was valid: {}",
+                         logPtr(this),
                          static_cast<bool>(completeRequestHandler));
         std::function<void(Response&)> ret = completeRequestHandler;
         completeRequestHandler = nullptr;
