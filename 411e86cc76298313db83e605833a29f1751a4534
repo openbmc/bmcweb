@@ -146,6 +146,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "18a84a90_3aaa1142",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-07T21:55:37Z",
+      "side": 1,
+      "message": "I\u0027m having a tough time understanding the above.  Have we inspected peci-pcie (or talked to the maintainers) to verify this change doesn\u0027t break it for the unavailable case?  Previously in code it was using *lanesInUse \u003d\u003d 0 to denote unavailable, and this change is proposing we change the definition.  We can\u0027t just break working code without discussion.\n\nHave we linked the backend change in the commit message that updates this behavior?",
+      "parentUuid": "83ffc836_a2dde7c9",
+      "revId": "411e86cc76298313db83e605833a29f1751a4534",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "683974aa_9d062c79",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
