@@ -92,6 +92,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1f3ba6a9_a6d2bcae",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2024-06-07T07:25:19Z",
+      "side": 1,
+      "message": "If keeping this patch open is an inconvenience then You can abandon it. We\u0027re having the exact copy of this change in our internal repos, so we\u0027re not losing any work here.",
+      "parentUuid": "848ef753_f5350965",
+      "revId": "1b9806c77e7f2a0e7e8b89dbadc5fad380716667",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1730b355_b151c439",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
