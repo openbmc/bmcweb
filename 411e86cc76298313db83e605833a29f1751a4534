@@ -164,6 +164,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "82f92ff8_4aacb308",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-06-07T23:19:42Z",
+      "side": 1,
+      "message": "Previously, PDI\u0027s default value (upstream) is 0 to denote as unavailable.\nHowever, it was failing to represent the case of \"available and its value of 0\". (how can show the value of 0 as available?)\n\nThat forces the downstream to modify PDI so that its default as \"-1\" (as int64_t), checking whether it is \"-1\", and and we\u0027ve used it.\n\nNow, PDI has corrected so that its default value (i.e. unavailable) as \"maxint\" (with \"size_t\"). So, code would need to adapt it -- i.e. make it NULL when its dbus value is \"maxint\".\n\nOtherwise, the current code would show a big value (\"maxint\") as valid/available rather than \"unavailable\".  \n\nThis commit is to follow the current PDI correctly.",
+      "parentUuid": "18a84a90_3aaa1142",
+      "revId": "411e86cc76298313db83e605833a29f1751a4534",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "683974aa_9d062c79",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -509,6 +527,30 @@
       "side": 1,
       "message": "I submitted a PDI description update  - https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/70056",
       "parentUuid": "96046929_b77ed7fa",
+      "range": {
+        "startLine": 484,
+        "startChar": 56,
+        "endLine": 485,
+        "endChar": 44
+      },
+      "revId": "411e86cc76298313db83e605833a29f1751a4534",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b3553b7_f14a2aa6",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-06-07T23:19:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1869e89a_03f94e42",
       "range": {
         "startLine": 484,
         "startChar": 56,
