@@ -193,6 +193,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5cbd29b7_9f372579",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-07T15:12:01Z",
+      "side": 1,
+      "message": "Correct.",
+      "parentUuid": "6795b4e7_12e57526",
+      "range": {
+        "startLine": 709,
+        "startChar": 0,
+        "endLine": 709,
+        "endChar": 2
+      },
+      "revId": "e84f9cd15c63f3fa9841410253ba479b2659130b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4d4e2041_cda6dfa6",
         "filename": "http/http_client.hpp",
         "patchSetId": 2
@@ -276,6 +300,30 @@
       "side": 1,
       "message": "doResolve start from resolve -\u003econnect-\u003ehandshake-\u003e ....\nrestartConnection start from newsocket-\u003eresolve-\u003econnect-\u003ehanshake-\u003e...\nI don\u0027t see what difference old code would have made.\n\nAre you suggesting that we should handle the initialized condition differently from closed?\n\nThen what would be the initialized condition handler?\nI don\u0027t see any state between initialized and resolveInProgress. So we can safely assume that if it is not closed then resolve is not yet started. \nstarting from restartConnection and doResolve does not make much difference right?",
       "parentUuid": "142576eb_9be41e95",
+      "range": {
+        "startLine": 763,
+        "startChar": 26,
+        "endLine": 763,
+        "endChar": 43
+      },
+      "revId": "e84f9cd15c63f3fa9841410253ba479b2659130b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb0beb7c_70d52a5b",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-07T15:12:01Z",
+      "side": 1,
+      "message": "\u003e doResolve start from resolve -\u003econnect-\u003ehandshake-\u003e ....\n\u003e restartConnection start from newsocket-\u003eresolve-\u003econnect-\u003ehanshake-\u003e...\n\u003e I don\u0027t see what difference old code would have made.\n\u003e \n\u003e Are you suggesting that we should handle the initialized condition differently from closed?\n\nYou\u0027re right, this is similar to what was previously there, but I don\u0027t think what was there was correct in all cases.\n\nBut I guess this is ok.\n\n\u003e \n\u003e Then what would be the initialized condition handler?\n\u003e I don\u0027t see any state between initialized and resolveInProgress. So we can safely assume that if it is not closed then resolve is not yet started. \n\u003e starting from restartConnection and doResolve does not make much difference right?\n\nMy overall thought is that the connection objects should destroy themselves on timeout, similar to how the HTTP connection works.  I haven\u0027t had a change to really test the below, but I think it\u0027s a lot simpler if a connection doesn\u0027t try to restart.  It would\u0027ve avoided this bug you see here.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/56711\n\n\nWith that said, this patchset is fine.",
+      "parentUuid": "0ec21df2_f3a41135",
       "range": {
         "startLine": 763,
         "startChar": 26,
