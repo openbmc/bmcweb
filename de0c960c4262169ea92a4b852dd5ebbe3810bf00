@@ -144,6 +144,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "752bc386_cf021d6e",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-06-07T11:57:40Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "f3599f80_34392bec",
+      "range": {
+        "startLine": 611,
+        "startChar": 27,
+        "endLine": 611,
+        "endChar": 46
+      },
+      "revId": "de0c960c4262169ea92a4b852dd5ebbe3810bf00",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "80d155a8_2e24bd0f",
