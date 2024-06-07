@@ -111,6 +111,7 @@ if (cxx.get_id() == 'gcc')
         '-Wshadow',
         '-Wno-psabi',
         '-Wno-attributes',
+        '-fno-omit-frame-pointer',
         language: 'cpp',
     )
 endif
