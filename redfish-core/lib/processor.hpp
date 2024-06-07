@@ -1075,6 +1075,7 @@ inline void afterGetCpuCoreDataByService(
 
         bool present = true;
         bool functional = true;
+        bool available = true;
 
         for (const auto& [interface, properties] : interfaces)
         {
@@ -1111,18 +1112,37 @@ inline void afterGetCpuCoreDataByService(
                     }
                 }
             }
+            else if (interface ==
+                     "xyz.openbmc_project.State.Decorator.Availability")
+            {
+                for (const auto& [propName, propValue] : properties)
+                {
+                    if (propName == "Available")
+                    {
+                        const bool* value = std::get_if<bool>(&propValue);
+                        if (value == nullptr)
+                        {
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        available = *value;
+                    }
+                }
+            }
         }
 
-        if (!present)
+        if (!available)
+        {
+            asyncResp->res.jsonValue["Status"]["State"] = "UnavailableOffline";
+        }
+        else if (!present)
         {
             asyncResp->res.jsonValue["Status"]["State"] = "Absent";
         }
-        else
+
+        if (!functional)
         {
-            if (!functional)
-            {
-                asyncResp->res.jsonValue["Status"]["Health"] = "Critical";
-            }
+            asyncResp->res.jsonValue["Status"]["Health"] = "Critical";
         }
 #ifdef BMCWEB_ENABLE_HW_ISOLATION
         // Check for the hardware status event
