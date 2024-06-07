@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "748be95b_19ba6925",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-06-07T21:25:55Z",
+      "side": 1,
+      "message": "Addressed and replied to comments. Thanks",
+      "revId": "daf489ab4f803d9fcd0eab4fcd7dd91377bc925e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "092ce161_f4e55231",
@@ -14,6 +31,30 @@
       "writtenOn": "2024-06-04T23:26:23Z",
       "side": 1,
       "message": "This is where you\u0027re making the copy.",
+      "range": {
+        "startLine": 1119,
+        "startChar": 59,
+        "endLine": 1119,
+        "endChar": 62
+      },
+      "revId": "daf489ab4f803d9fcd0eab4fcd7dd91377bc925e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3990f0b9_09913e78",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1119,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-06-07T21:25:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "092ce161_f4e55231",
       "range": {
         "startLine": 1119,
         "startChar": 59,

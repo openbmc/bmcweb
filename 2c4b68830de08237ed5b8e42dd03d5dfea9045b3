@@ -120,6 +120,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d42a70ae_b2d4767d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-06-07T21:25:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe66c772_520a2e28",
+      "range": {
+        "startLine": 9,
+        "startChar": 59,
+        "endLine": 10,
+        "endChar": 37
+      },
+      "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fc8a8e6a_e67ca86e",
@@ -238,6 +262,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b62f151_87eaf035",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1106,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-06-07T21:25:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8a784f1_32a574f8",
+      "range": {
+        "startLine": 1106,
+        "startChar": 36,
+        "endLine": 1106,
+        "endChar": 39
+      },
+      "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6b903acc_82983f9a",
@@ -310,6 +358,48 @@
       "side": 1,
       "message": "\u003e For Unstructured Updates, ApplyTime comes as per of patch request followed by a Push for Image, so there are 2 different requests.\n\nRight, I understand.\n\n\n\u003e Updater daemon makes the get call for it. So, same thing i am doing in BMCWeb now.\n\nThis sentence perfectly exemplifies the problem: You\u0027ve moved business logic that was previously in the updater daemon into bmcweb.  Please don\u0027t do that, updater daemon needs to own that behavior.  Bmcweb should make the request to update, with as much information as it has, then be done with it.  If the updater daemon wants to internally go get the SettingsD setting, it can do that as part of its flow.  The reason it does that flow is not because there was no dbus method call interface for it.  FWIW, that interface even predates bmcweb.\n\n\nAsking a different way, if I wanted to implement this same flow in IPMI, or another user-facing API, how would i do it without duplicating the \"Get the current setting\" code?  This is why the logic needs to go in the update daemon.",
       "parentUuid": "30c78236_31bb806a",
+      "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4d2fa3f_fbdea9af",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1119,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-06-07T21:25:55Z",
+      "side": 1,
+      "message": "Looks like there is lot of history on phosphor-settingsd; why, where it was used.\n\nSure, so achieve what we want we need to inform the CodeUpdater Daemon to use the default setting, so i have raised this PR to make changes to the D-Bus interface. https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/71868\n\nOnce, that change goes through i can incorporate it into this patch.",
+      "parentUuid": "87c41fd2_a9fc2853",
+      "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "312b8cc3_2b106ff4",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1119,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-06-07T21:25:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11c6c18b_3e3eb630",
+      "range": {
+        "startLine": 1119,
+        "startChar": 59,
+        "endLine": 1119,
+        "endChar": 62
+      },
       "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
