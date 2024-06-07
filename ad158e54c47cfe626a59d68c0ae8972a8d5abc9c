@@ -16,6 +16,24 @@
       "message": "Just waiting on the prior commit to get reviewed.",
       "revId": "ad158e54c47cfe626a59d68c0ae8972a8d5abc9c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5eab5f2a_01fa397b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-06-07T16:19:50Z",
+      "side": 1,
+      "message": "I went through the code. The changes are done to return optional for clientContext and shared_ptr for servercontext. Then we don\u0027t have any change in http_client. I was thinking on same line. I am ok with the change.",
+      "parentUuid": "d43ac07f_35e7ed37",
+      "revId": "ad158e54c47cfe626a59d68c0ae8972a8d5abc9c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
