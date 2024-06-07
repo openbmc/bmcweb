@@ -128,6 +128,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "83ffc836_a2dde7c9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-06-07T21:43:06Z",
+      "side": 1,
+      "message": "We don\u0027t use peci-pcie.  (I also do not know how to deal with it as of now).\n\nIt turns out that it is testable using the existing upstream p10bmc obmc-phosphor-image build on QEMU.\n\nIt will show the default lanesInUse value (i.e. maxint) like\n\n```\n$ curl -k -X GET https://${bmc}/redfish/v1/Systems/system/PCIeDevices/pcie_card11\n{\n  \"@odata.id\": \"/redfish/v1/Systems/system/PCIeDevices/pcie_card11\",\n  \"@odata.type\": \"#PCIeDevice.v1_9_0.PCIeDevice\",\n  \"Id\": \"pcie_card11\",\n....\n  \"PCIeInterface\": {\n    \"LanesInUse\": 4294967295\n  },\n...\n}%\n```\n\nThis will cause Redfish Service Validator failure\n```\n1 err.Edm.Int64 errors in /redfish/v1/Systems/system/PCIeDevices/pcie_card11\n1 failProp errors in /redfish/v1/Systems/system/PCIeDevices/pcie_card11\n1 fails errors in /redfish/v1/Systems/system/PCIeDevices/pcie_card11\n\nERROR - LanesInUse: Value out of assigned max range, 4294967295 \u003e 32\n```\n\nWith this fix, it is successful.\n\n\n----\nSo, I don\u0027t think the other backend change is required to get this commit to merge.\nCan we accept this?\n\n---\n\nBTW, we\u0027re currently working on downstream PLDM to modify LanesInUse.\n(However, this does not alter this bmcweb change)",
+      "parentUuid": "e5bc4bca_c9431bfa",
+      "revId": "411e86cc76298313db83e605833a29f1751a4534",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "683974aa_9d062c79",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
