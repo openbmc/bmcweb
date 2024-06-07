@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ab835181_2102724f",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1001286
+      },
+      "writtenOn": "2024-06-07T16:22:39Z",
+      "side": 1,
+      "message": "ok, I will raise a review request with these changes once this patch is merged.",
+      "parentUuid": "e048bc94_9a5df9bd",
+      "range": {
+        "startLine": 117,
+        "startChar": 1,
+        "endLine": 120,
+        "endChar": 9
+      },
+      "revId": "05e179b355f7558d125ca066804424322a917ca0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a59ad954_4faac86f",
         "filename": "src/ssl_key_handler.cpp",
         "patchSetId": 4
