@@ -16,6 +16,57 @@
       "message": "Looks good to me.",
       "revId": "926d7d7c2242f944be7d084f41d3cc1b7c5114e4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9b5f8db_2167b5e7",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-06-07T13:57:17Z",
+      "side": 1,
+      "message": "include string",
+      "revId": "926d7d7c2242f944be7d084f41d3cc1b7c5114e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb154ac3_1c2de4a2",
+        "filename": "src/ossl_random.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-06-07T13:57:17Z",
+      "side": 1,
+      "message": "include array",
+      "revId": "926d7d7c2242f944be7d084f41d3cc1b7c5114e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32b52f35_e664348c",
+        "filename": "src/ossl_random.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-06-07T13:57:17Z",
+      "side": 1,
+      "message": "#include \u003crandom\u003e",
+      "revId": "926d7d7c2242f944be7d084f41d3cc1b7c5114e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
