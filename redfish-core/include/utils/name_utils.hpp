@@ -37,7 +37,11 @@ inline void getPrettyName(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     // Ensure we only got one service back
     if (services.size() != 1)
     {
-        BMCWEB_LOG_ERROR("Invalid Service Size  {}", services.size());
+        BMCWEB_LOG_ERROR("Invalid Service Size {}", services.size());
+        for (const auto& service : services)
+        {
+            BMCWEB_LOG_ERROR("Invalid Service Name: {}", service.first);
+        }
         if (asyncResp)
         {
             messages::internalError(asyncResp->res);
