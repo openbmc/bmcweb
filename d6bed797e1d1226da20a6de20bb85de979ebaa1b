@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "914c59f1_8144efb2",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-08T04:47:43Z",
+      "side": 1,
+      "message": "We should, but I was trying to make the minimum changes to this to get loading from ram to work.\n\nI agree, we should have RAII classes (or something of that sort), but I think that would be in a refactor of this file.",
+      "parentUuid": "83a17264_bf393432",
+      "revId": "d6bed797e1d1226da20a6de20bb85de979ebaa1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f4175735_ff38101b",
         "filename": "include/ssl_key_handler.hpp",
         "patchSetId": 25
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "74b65487_dca4e61a",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-08T04:47:43Z",
+      "side": 1,
+      "message": "The file generation is only 5 lines of code, I can just promote it up a level  Seems like a good idea.",
+      "parentUuid": "f4175735_ff38101b",
+      "revId": "d6bed797e1d1226da20a6de20bb85de979ebaa1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0945f24e_9747212b",
         "filename": "include/ssl_key_handler.hpp",
         "patchSetId": 25
@@ -48,6 +84,24 @@
       "writtenOn": "2024-06-08T04:38:41Z",
       "side": 1,
       "message": "can we change the arg name to reflect what it contains. I believe it has certificate string now not file name",
+      "revId": "d6bed797e1d1226da20a6de20bb85de979ebaa1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79450f46_5b93433a",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-08T04:47:43Z",
+      "side": 1,
+      "message": "ACk.  Good idea.",
+      "parentUuid": "0945f24e_9747212b",
       "revId": "d6bed797e1d1226da20a6de20bb85de979ebaa1b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
