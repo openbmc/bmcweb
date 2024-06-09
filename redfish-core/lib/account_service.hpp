@@ -1257,6 +1257,45 @@ inline void handleAccountServiceClientCertificatesGet(
     getClientCertificates(asyncResp, "/Members"_json_pointer);
 }
 
+using account_service::CertificateMappingAttribute;
+using persistent_data::MTLSCommonNameParseMode;
+inline CertificateMappingAttribute
+    getCertificateMapping(MTLSCommonNameParseMode parse)
+{
+    switch (parse)
+    {
+        case MTLSCommonNameParseMode::CommonName:
+        {
+            return CertificateMappingAttribute::CommonName;
+        }
+        break;
+        case MTLSCommonNameParseMode::Whole:
+        {
+            return CertificateMappingAttribute::Whole;
+        }
+        break;
+        case MTLSCommonNameParseMode::UserPrincipalName:
+        {
+            return CertificateMappingAttribute::UserPrincipalName;
+        }
+        break;
+
+        case MTLSCommonNameParseMode::Meta:
+        {
+            if constexpr (BMCWEB_META_TLS_COMMON_NAME_PARSING)
+            {
+                return CertificateMappingAttribute::CommonName;
+            }
+        }
+        break;
+        default:
+        {
+            return CertificateMappingAttribute::Invalid;
+        }
+        break;
+    }
+}
+
 inline void
     handleAccountServiceGet(App& app, const crow::Request& req,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
@@ -1301,8 +1340,19 @@ inline void
     nlohmann::json::object_t clientCertificate;
     clientCertificate["Enabled"] = authMethodsConfig.tls;
     clientCertificate["RespondToUnauthenticatedClients"] = true;
-    clientCertificate["CertificateMappingAttribute"] =
-        account_service::CertificateMappingAttribute::CommonName;
+
+    using account_service::CertificateMappingAttribute;
+
+    CertificateMappingAttribute mapping =
+        getCertificateMapping(authMethodsConfig.mTLSCommonNameParsingMode);
+    if (mapping == CertificateMappingAttribute::Invalid)
+    {
+        messages::internalError(asyncResp->res);
+    }
+    else
+    {
+        clientCertificate["CertificateMappingAttribute"] = mapping;
+    }
     nlohmann::json::object_t certificates;
     certificates["@odata.id"] =
         "/redfish/v1/AccountService/MultiFactorAuth/ClientCertificate/Certificates";
@@ -1400,6 +1450,24 @@ inline void
     getLDAPConfigData("ActiveDirectory", callback);
 }
 
+inline void
+    handleCertificateMappingAttributePatch(crow::Response& res,
+                                           const std::string& certMapAttribute)
+{
+    MTLSCommonNameParseMode parseMode =
+        persistent_data::getMTLSCommonNameParseMode(certMapAttribute);
+    if (parseMode == MTLSCommonNameParseMode::Invalid)
+    {
+        messages::propertyValueNotInList(res, "CertificateMappingAttribute",
+                                         certMapAttribute);
+        return;
+    }
+
+    persistent_data::AuthConfigMethods& authMethodsConfig =
+        persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
+    authMethodsConfig.mTLSCommonNameParsingMode = parseMode;
+}
+
 inline void handleAccountServicePatch(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
@@ -1413,9 +1481,11 @@ inline void handleAccountServicePatch(
     std::optional<uint8_t> minPasswordLength;
     std::optional<uint16_t> maxPasswordLength;
     LdapPatchParams ldapObject;
+    std::optional<std::string> certificateMappingAttribute;
     LdapPatchParams activeDirectoryObject;
     AuthMethods auth;
     std::optional<std::string> httpBasicAuth;
+
     // clang-format off
     if (!json_util::readJsonPatch(
             req, asyncResp->res,
@@ -1430,6 +1500,7 @@ inline void handleAccountServicePatch(
             "ActiveDirectory/RemoteRoleMapping", activeDirectoryObject.remoteRoleMapData,
             "ActiveDirectory/ServiceAddresses", activeDirectoryObject.serviceAddressList,
             "ActiveDirectory/ServiceEnabled", activeDirectoryObject.serviceEnabled,
+            "MultiFactorAuth/ClientCertificate/CertificateMappingAttribute", certificateMappingAttribute,
             "LDAP/Authentication/AuthenticationType", ldapObject.authType,
             "LDAP/Authentication/Password", ldapObject.password,
             "LDAP/Authentication/Username", ldapObject.userName,
@@ -1467,6 +1538,12 @@ inline void handleAccountServicePatch(
             messages::propertyValueNotInList(asyncResp->res, "HttpBasicAuth",
                                              *httpBasicAuth);
         }
+    }
+
+    if (certificateMappingAttribute)
+    {
+        handleCertificateMappingAttributePatch(asyncResp->res,
+                                               *certificateMappingAttribute);
     }
 
     if (minPasswordLength)
