@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c70e0771_6588de95",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1284,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-09T19:03:04Z",
+      "side": 1,
+      "message": "@Marco, Need your input here.  Can Meta propose adding an OEM method to AccountService in DMTF?  It would likely look very similar to how LogEntry OEM is enabled, with a com.facebook OEM schema added to be able to enable this mode.\n\nThe existing standard didn\u0027t account for OEM-specified parsing mechanisms.",
+      "revId": "786d2a96f09ae7e496d2fd2f0e3fb856761a1857",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
