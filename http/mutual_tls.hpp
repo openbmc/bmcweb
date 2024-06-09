@@ -16,6 +16,38 @@ extern "C"
 #include <memory>
 #include <span>
 
+inline std::string getUsernameFromCommonName(std::string_view commonName)
+{
+    const persistent_data::AuthConfigMethods& authMethodsConfig =
+        persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
+    switch (authMethodsConfig.mTLSCommonNameParsingMode)
+    {
+        case persistent_data::MTLSCommonNameParseMode::Invalid:
+        case persistent_data::MTLSCommonNameParseMode::Whole:
+        case persistent_data::MTLSCommonNameParseMode::UserPrincipalName:
+        {
+            // Not yet supported
+            return "";
+        }
+        case persistent_data::MTLSCommonNameParseMode::CommonName:
+        {
+            return std::string{commonName};
+        }
+        case persistent_data::MTLSCommonNameParseMode::Meta:
+        {
+            // Meta Inc. CommonName parsing
+            std::optional<std::string_view> sslUserMeta =
+                mtlsMetaParseSslUser(commonName);
+            if (!sslUserMeta)
+            {
+                return "";
+            }
+            return std::string{*sslUserMeta};
+        }
+    }
+    return "";
+}
+
 inline std::shared_ptr<persistent_data::UserSession>
     verifyMtlsUser(const boost::asio::ip::address& clientIp,
                    boost::asio::ssl::verify_context& ctx)
@@ -71,38 +103,26 @@ inline std::shared_ptr<persistent_data::UserSession>
         return nullptr;
     }
 
-    std::string sslUser;
+    std::string commonName;
     // Extract username contained in CommonName
-    sslUser.resize(256, '\0');
+    commonName.resize(256, '\0');
 
-    int status = X509_NAME_get_text_by_NID(X509_get_subject_name(peerCert),
-                                           NID_commonName, sslUser.data(),
-                                           static_cast<int>(sslUser.size()));
-
-    if (status == -1)
+    int length = X509_NAME_get_text_by_NID(X509_get_subject_name(peerCert),
+                                           NID_commonName, commonName.data(),
+                                           static_cast<int>(commonName.size()));
+    if (length <= 0)
     {
-        BMCWEB_LOG_DEBUG("TLS cannot get username to create session");
+        BMCWEB_LOG_DEBUG("TLS cannot get common name to create session");
         return nullptr;
     }
 
-    size_t lastChar = sslUser.find('\0');
-    if (lastChar == std::string::npos || lastChar == 0)
+    commonName.resize(static_cast<size_t>(length));
+    std::string sslUser = getUsernameFromCommonName(commonName);
+    if (sslUser.empty())
     {
-        BMCWEB_LOG_DEBUG("Invalid TLS user name");
+        BMCWEB_LOG_WARNING("Failed to get user from common name {}",
+                           commonName);
         return nullptr;
-    }
-    sslUser.resize(lastChar);
-
-    // Meta Inc. CommonName parsing
-    if constexpr (BMCWEB_MUTUAL_TLS_COMMON_NAME_PARSING == "meta")
-    {
-        std::optional<std::string_view> sslUserMeta =
-            mtlsMetaParseSslUser(sslUser);
-        if (!sslUserMeta)
-        {
-            return nullptr;
-        }
-        sslUser = *sslUserMeta;
     }
 
     std::string unsupportedClientId;
