@@ -134,6 +134,49 @@ struct UserSession
     }
 };
 
+enum class MTLSCommonNameParseMode
+{
+    Invalid = 0,
+    // This section approximately matches Redfish AccountService
+    // CertificateMappingAttribute,  plus bmcweb defined OEM ones.
+    // Note, IDs in this enum must be maintained between versions, as they are
+    // persisted to disk
+    Whole = 1,
+    CommonName = 2,
+    UserPrincipalName = 3,
+
+    // Intentional gap for future DMTF-defined enums
+
+    // OEM parsing modes for various OEMs
+    Meta = 100,
+};
+
+inline MTLSCommonNameParseMode getMTLSCommonNameParseMode(std::string_view name)
+{
+    if (name == "CommonName")
+    {
+        return MTLSCommonNameParseMode::CommonName;
+    }
+    if (name == "Whole")
+    {
+        // Not yet supported
+        // return MTLSCommonNameParseMode::Whole;
+    }
+    if (name == "UserPrincipalName")
+    {
+        // Not yet supported
+        // return MTLSCommonNameParseMode::UserPrincipalName;
+    }
+    if constexpr (BMCWEB_META_TLS_COMMON_NAME_PARSING)
+    {
+        if (name == "Meta")
+        {
+            return MTLSCommonNameParseMode::Meta;
+        }
+    }
+    return MTLSCommonNameParseMode::Invalid;
+}
+
 struct AuthConfigMethods
 {
     bool basic = BMCWEB_BASIC_AUTH;
@@ -142,35 +185,56 @@ struct AuthConfigMethods
     bool cookie = BMCWEB_COOKIE_AUTH;
     bool tls = BMCWEB_MUTUAL_TLS_AUTH;
 
+    MTLSCommonNameParseMode mTLSCommonNameParsingMode =
+        getMTLSCommonNameParseMode(
+            BMCWEB_MUTUAL_TLS_COMMON_NAME_PARSING_DEFAULT);
+
     void fromJson(const nlohmann::json::object_t& j)
     {
         for (const auto& element : j)
         {
             const bool* value = element.second.get_ptr<const bool*>();
-            if (value == nullptr)
+            if (value != nullptr)
             {
-                continue;
+                if (element.first == "XToken")
+                {
+                    xtoken = *value;
+                }
+                else if (element.first == "Cookie")
+                {
+                    cookie = *value;
+                }
+                else if (element.first == "SessionToken")
+                {
+                    sessionToken = *value;
+                }
+                else if (element.first == "BasicAuth")
+                {
+                    basic = *value;
+                }
+                else if (element.first == "TLS")
+                {
+                    tls = *value;
+                }
             }
-
-            if (element.first == "XToken")
+            const uint64_t* intValue =
+                element.second.get_ptr<const uint64_t*>();
+            if (intValue != nullptr)
             {
-                xtoken = *value;
-            }
-            else if (element.first == "Cookie")
-            {
-                cookie = *value;
-            }
-            else if (element.first == "SessionToken")
-            {
-                sessionToken = *value;
-            }
-            else if (element.first == "BasicAuth")
-            {
-                basic = *value;
-            }
-            else if (element.first == "TLS")
-            {
-                tls = *value;
+                if (element.first == "MTLSCommonNameParseMode")
+                {
+                    if (*intValue <= 2 || *intValue == 100)
+                    {
+                        mTLSCommonNameParsingMode =
+                            static_cast<MTLSCommonNameParseMode>(*intValue);
+                    }
+                    else
+                    {
+                        BMCWEB_LOG_ERROR(
+                            "Json value of {} was out of range of the enum.  Ignoring",
+                            *intValue);
+                    }
+                }
             }
         }
     }

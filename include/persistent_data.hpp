@@ -214,7 +214,8 @@ class ConfigFile
             std::filesystem::perms::owner_write |
             std::filesystem::perms::group_read;
         std::filesystem::permissions(filename, permission);
-        const auto& c = SessionStore::getInstance().getAuthMethodsConfig();
+        const AuthConfigMethods& c =
+            SessionStore::getInstance().getAuthMethodsConfig();
         const auto& eventServiceConfig =
             EventServiceStore::getInstance().getEventServiceConfig();
         nlohmann::json::object_t data;
@@ -225,6 +226,8 @@ class ConfigFile
         authConfig["SessionToken"] = c.sessionToken;
         authConfig["BasicAuth"] = c.basic;
         authConfig["TLS"] = c.tls;
+        authConfig["TLSCommonNameParseMode"] =
+            static_cast<int>(c.mTLSCommonNameParsingMode);
 
         nlohmann::json& eventserviceConfig = data["eventservice_config"];
         eventserviceConfig["ServiceEnabled"] = eventServiceConfig.enabled;
