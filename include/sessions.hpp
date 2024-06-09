@@ -134,6 +134,19 @@ struct UserSession
     }
 };
 
+enum class MTLSCommonNameParseMode
+{
+    // This section approximately matches Redfish AccountService.
+    // CertificateMappingAttribute.  See definitions in
+    // Note, IDs in this enum must be maintained between versions.
+    Whole = 0,
+    CommonName = 1,
+    UserPrincipalName = 2,
+
+    // OEM parsing modes for various OEMs
+    Meta = 100,
+};
+
 struct AuthConfigMethods
 {
     bool basic = BMCWEB_BASIC_AUTH;
@@ -142,35 +155,55 @@ struct AuthConfigMethods
     bool cookie = BMCWEB_COOKIE_AUTH;
     bool tls = BMCWEB_MUTUAL_TLS_AUTH;
 
+    MTLSCommonNameParseMode mTLSCommonNameParsingMode =
+        MTLSCommonNameParseMode::CommonName;
+
     void fromJson(const nlohmann::json::object_t& j)
     {
         for (const auto& element : j)
         {
             const bool* value = element.second.get_ptr<const bool*>();
-            if (value == nullptr)
+            if (value != nullptr)
             {
-                continue;
+                if (element.first == "XToken")
+                {
+                    xtoken = *value;
+                }
+                else if (element.first == "Cookie")
+                {
+                    cookie = *value;
+                }
+                else if (element.first == "SessionToken")
+                {
+                    sessionToken = *value;
+                }
+                else if (element.first == "BasicAuth")
+                {
+                    basic = *value;
+                }
+                else if (element.first == "TLS")
+                {
+                    tls = *value;
+                }
             }
-
-            if (element.first == "XToken")
+            const uint64_t* intValue =
+                element.second.get_ptr<const uint64_t*>();
+            if (intValue != nullptr)
             {
-                xtoken = *value;
-            }
-            else if (element.first == "Cookie")
-            {
-                cookie = *value;
-            }
-            else if (element.first == "SessionToken")
-            {
-                sessionToken = *value;
-            }
-            else if (element.first == "BasicAuth")
-            {
-                basic = *value;
-            }
-            else if (element.first == "TLS")
-            {
-                tls = *value;
+                if (element.first == "MTLSCommonNameParseMode")
+                {
+                    if (*intValue <= 2 || *intValue == 100)
+                    {
+                        mTLSCommonNameParsingMode =
+                            static_cast<MTLSCommonNameParseMode>(*intValue);
+                    }
+                    else
+                    {
+                        BMCWEB_LOG_ERROR(
+                            "Json value of {} was out of range of the enum.  Ignoring",
+                            *intValue);
+                    }
+                }
             }
         }
     }
