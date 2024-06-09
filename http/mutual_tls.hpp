@@ -94,7 +94,11 @@ inline std::shared_ptr<persistent_data::UserSession>
     sslUser.resize(lastChar);
 
     // Meta Inc. CommonName parsing
-    if constexpr (BMCWEB_MUTUAL_TLS_COMMON_NAME_PARSING == "meta")
+    const persistent_data::AuthConfigMethods& authMethodsConfig =
+        persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
+
+    if (authMethodsConfig.mTLSCommonNameParsingMode ==
+        persistent_data::MTLSCommonNameParseMode::Meta)
     {
         std::optional<std::string_view> sslUserMeta =
             mtlsMetaParseSslUser(sslUser);
