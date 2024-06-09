@@ -71,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfd340b4_ae497784",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-09T16:13:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74b65487_dca4e61a",
+      "revId": "d6bed797e1d1226da20a6de20bb85de979ebaa1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0945f24e_9747212b",
@@ -102,6 +120,24 @@
       "side": 1,
       "message": "ACk.  Good idea.",
       "parentUuid": "0945f24e_9747212b",
+      "revId": "d6bed797e1d1226da20a6de20bb85de979ebaa1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30b0a698_431382b3",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-09T16:13:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79450f46_5b93433a",
       "revId": "d6bed797e1d1226da20a6de20bb85de979ebaa1b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
