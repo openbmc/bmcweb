@@ -96,6 +96,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "aef8a5d1_3479e105",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-10T17:31:56Z",
+      "side": 1,
+      "message": "This is a long way of saying \"Yes, I agree, this commit isn\u0027t the place\".\n\nLets get an implementation that posts a Null to the property like we do elsewhere, and we can look at things holistically later.",
+      "parentUuid": "b443dae5_5d4afe72",
+      "range": {
+        "startLine": 12,
+        "startChar": 1,
+        "endLine": 12,
+        "endChar": 52
+      },
+      "revId": "19614de068a73bae7c04d210187a0131c92dc83c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "93da08dd_7bdac855",
