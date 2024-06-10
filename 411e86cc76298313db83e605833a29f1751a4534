@@ -200,6 +200,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "862b4677_88fc77ae",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-06-10T13:06:57Z",
+      "side": 1,
+      "message": "Let me recall your questions. \n\nAm I getting these questions correctly?\nIf not, please help me to get your questions again.\n\n1)\n\u003eHave we inspected peci-pcie (or talked to the maintainers) to verify this change doesn\u0027t break it for the unavailable case? Previously in code it was using *lanesInUse \u003d\u003d 0 to denote unavailable,\n\nI don\u0027t know about peci-pcie.  I\u0027ll try to find the owner of peci-pcie and add them as the reviewers.\n\nHowever, the change of this commit is to fix bmcweb code which does not handle correctly to what PDI provides (i.e. default value - i.e. that represents \"unavailable\").  \n\nIt was 0 before and thus bmcweb code filtered out in case \"*lanesInUse \u003d\u003d 0\".  Now, it is changed to \"maxint\" and thus bmcweb has to change to \"*lanesInUse \u003d\u003d maxint\".  \n\nOtherwise, all of the bmcweb exploiters will fail in case the backend uses PDI defaults.\n\nIf peci-pcie may produce \"*lanesInuse \u003d 0\" to represent \"unavailable\" (although I don\u0027t see any references of lanesInUse peci-pcie),  PDI, peci-pcie, or any backends (who generate it) have to change.\nI don\u0027t think it is necessarily bmcweb job to examine all of the backends, as long as bmcweb follows what PDI says for this regard.\n\n\n2) \n\u003eHave we linked the backend change in the commit message that updates this behavior?\n\nThe example output that I show is from the current openbmc / p10bmc backend which already produces the default value of lanesInUse (due to PDI) in case it is unavailable.\n\n```\nhttps://github.com/openbmc/openbmc\n\n. setup p10bmc\n```",
+      "parentUuid": "ffcf7b82_d2c08949",
+      "revId": "411e86cc76298313db83e605833a29f1751a4534",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "683974aa_9d062c79",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1

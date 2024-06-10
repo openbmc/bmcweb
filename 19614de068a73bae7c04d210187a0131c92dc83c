@@ -22,6 +22,23 @@
       },
       "revId": "19614de068a73bae7c04d210187a0131c92dc83c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93da08dd_7bdac855",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-06-10T13:06:57Z",
+      "side": 1,
+      "message": "Jason,\nCould you review this change?\nThe default value of `lanesInUse` is changed from 0 to maxint (in PDI), and thus this commit is also trying to handle it.",
+      "revId": "19614de068a73bae7c04d210187a0131c92dc83c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
