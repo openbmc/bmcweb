@@ -216,6 +216,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d636058_15b03a0d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-10T14:42:10Z",
+      "side": 1,
+      "message": "\u003e I don\u0027t think it is necessarily bmcweb job to examine all of the backends, as long as bmcweb follows what PDI says for this regard.\n\nIt is bmcwebs job to not break working code.  When adding new interfaces, we can generally do that by inspection;  When changing the definition of something that was previously tested and worked, we need at least some indication that we\u0027re not going to break things.\n\n\nThank you for including Jason, I suspect this can merge now.",
+      "parentUuid": "862b4677_88fc77ae",
+      "revId": "411e86cc76298313db83e605833a29f1751a4534",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "683974aa_9d062c79",
