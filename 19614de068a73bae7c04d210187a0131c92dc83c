@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7a29923_3c63df3e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-06-10T16:41:41Z",
+      "side": 1,
+      "message": "I am good with null.\n\nhttps://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.20.0.html\n\"9.5 Common data types\n...\nnull value, which the service uses when it is unable to determine the property\u0027s value due to an error or other temporary condition\"\n\nIf a service doesn\u0027t support this, they also get null, but we have that problem elsewhere. Don\u0027t support the manufacturer on the CPU, it is an empty string.\n\nThis was discussed on https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/53650/7/yaml/xyz/openbmc_project/Inventory/Item/PCIeDevice.interface.yaml \n\nWe almost need these split into more optional interfaces.. but I feel this commit isn\u0027t the place",
+      "parentUuid": "5ba40948_c61ae31f",
+      "range": {
+        "startLine": 12,
+        "startChar": 1,
+        "endLine": 12,
+        "endChar": 52
+      },
+      "revId": "19614de068a73bae7c04d210187a0131c92dc83c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "93da08dd_7bdac855",
