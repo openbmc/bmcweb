@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a627cce2_6afb4349",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-10T14:45:00Z",
+      "side": 1,
+      "message": "I think that\u0027s the last comment on this patch?  If so, can you +1 so we can get both your and my patches on master?",
+      "parentUuid": "db38c5c2_fc22cd7e",
+      "revId": "d6bed797e1d1226da20a6de20bb85de979ebaa1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f4175735_ff38101b",
