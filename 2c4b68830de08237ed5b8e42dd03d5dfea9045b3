@@ -456,6 +456,24 @@
       "parentUuid": "228e687e_310af78d",
       "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09c663af_27cd269b",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1119,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-06-10T22:57:12Z",
+      "side": 1,
+      "message": "Having an apply time is not a redfish-ism and not what I\u0027m taking issue with. \n\nFor one Redfish case, the apply time comes as a separate operation before we even know _what_ we are updating. The previous implementation stashed this apply time into settingsd.  Asking the update daemon to go to settingsd to get the previously stashed (by bmcweb) value _is_ pushing a Redfish-ism into all the implementation daemons and what I\u0027m taking issue with.\n\nI don\u0027t think the previous implementation of having the [single] update daemon go to settingsd was ever appropriate, but now that we have a design that allows N different daemons, we _shouldnt_ replicate this everywhere.  The \"business logic\" only ever existed because of Redfish-specific semantics.",
+      "parentUuid": "49ca9bec_c0c969ab",
+      "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
