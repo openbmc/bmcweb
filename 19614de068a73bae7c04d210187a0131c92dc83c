@@ -39,6 +39,23 @@
       "message": "Jason,\nCould you review this change?\nThe default value of `lanesInUse` is changed from 0 to maxint (in PDI), and thus this commit is also trying to handle it.",
       "revId": "19614de068a73bae7c04d210187a0131c92dc83c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c261543c_2435f885",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2024-06-10T13:48:15Z",
+      "side": 1,
+      "message": "`peci-pcie` doesn\u0027t currently change the value of `LanesInUse`, so it must populate with the PDI default value.  This looks okay to me.",
+      "revId": "19614de068a73bae7c04d210187a0131c92dc83c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
