@@ -438,6 +438,24 @@
       "parentUuid": "1adfc102_121dfbe2",
       "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49ca9bec_c0c969ab",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1119,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-10T22:27:28Z",
+      "side": 1,
+      "message": "Maybe I\u0027m not following, but the idea of \"I want to apply updates immediately\" versus \"I want to apply updates on next reboot\" doesn\u0027t really seem like a Redfishism.  I would expect IPMI to have similar commands, or for daemons on dbus to want to have a similar global setting without having to specify it per-update.\n\n\n\nFWIW, if this is a design point we want to tackle, I think it makes sense to tackle it as a separate item to getting the existing filesystem interfaces ported to DBus.  Today the existing daemon owns this logic, so I\u0027d assume it\u0027s trivial to keep the old behavior?  If we think we\u0027ll eventually drop it, maybe just a new method call that omits the \"apply immediately\" parameter rather than trying to add the new enum, that way when we drop it we just drop one method call?",
+      "parentUuid": "228e687e_310af78d",
+      "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
