@@ -88,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8bce69fc_ee36ce10",
+        "filename": "src/ossl_random.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-06-10T03:39:54Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "3d48ea22_fc171e54",
+      "revId": "926d7d7c2242f944be7d084f41d3cc1b7c5114e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb154ac3_1c2de4a2",
