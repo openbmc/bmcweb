@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "b443dae5_5d4afe72",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-10T17:30:20Z",
+      "side": 1,
+      "message": "\u003e We almost need these split into more optional interfaces.\n\nPatrick seems against that for PDI based interfaces, but I haven\u0027t really seen a generic way to differentiate \"not currently available\" from \"not supported\" in PDI.\n\nEM just omits properties if they\u0027re not supported, which arguably breaks the idea of a hardened DBus interface, but in the way bmcweb reads dbus, does seem to solve the problem.",
+      "parentUuid": "e7a29923_3c63df3e",
+      "range": {
+        "startLine": 12,
+        "startChar": 1,
+        "endLine": 12,
+        "endChar": 52
+      },
+      "revId": "19614de068a73bae7c04d210187a0131c92dc83c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "93da08dd_7bdac855",
