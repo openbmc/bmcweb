@@ -420,6 +420,24 @@
       "parentUuid": "e4d2fa3f_fbdea9af",
       "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "228e687e_310af78d",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1119,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-06-10T22:15:57Z",
+      "side": 1,
+      "message": "Ed, I strongly agree with your original suggestion.\n\n\u003e If I\u0027m reading this code correctly, we\u0027re getting the \"when do we apply\" setting just so we can then pump it back into the backend to fulfill the dbus interface, because it doesn\u0027t handle the \"no apply time provided\" case\n\nThis means that we have to make _every_ daemon support this business logic because of some Redfish-ism.  We should not.",
+      "parentUuid": "1adfc102_121dfbe2",
+      "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
