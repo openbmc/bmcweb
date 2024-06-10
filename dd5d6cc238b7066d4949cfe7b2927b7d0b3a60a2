@@ -106,6 +106,23 @@
       "parentUuid": "06001fcf_a3b7bbad",
       "revId": "dd5d6cc238b7066d4949cfe7b2927b7d0b3a60a2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b94bb5d8_1f02c417",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-06-10T14:15:37Z",
+      "side": 1,
+      "message": "Benjamin, Zhenwei, Jie Yang,\n\nPlease take a look at this commit.\n\nYour previous commit - https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60914 for  `getChassisContains()` \u0026 `getChassisContainedBy()` is showing the sub-chassis, using `getAssociationEndPoints()` with the associations `containing/contained_by`.\n\nHowever, if the same associations are used for the other than chassis, it may also fail by showing the other than sub-chassis as `/redfish/v1/Chassis/chassis/\u003cother-rsrc\u003e/`.\n\nFor example, https://gerrit.openbmc.org/c/openbmc/openbmc/+/70372 adds the non-chassis resources via the associations. \n\nAs the result, we are getting this \n```\n % curl -k -X GET https://${bmc}/redfish/v1/Chassis/chassis\n {\n ...\n   \"Contains\": [\n      {\n        \"@odata.id\": \"/redfish/v1/Chassis/pcieslot0\"\n      },\n      {\n        \"@odata.id\": \"/redfish/v1/Chassis/pcieslot1\"\n      },\n   ...\n\n }\n```\n   \nI think this needs to be fixed by checking the end-points whether they are `Chassis` or not.\nThis commit is to do it by using `getAssociatedSubTreePaths()`.\n\nPlease review and provide your inputs.",
+      "revId": "dd5d6cc238b7066d4949cfe7b2927b7d0b3a60a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
