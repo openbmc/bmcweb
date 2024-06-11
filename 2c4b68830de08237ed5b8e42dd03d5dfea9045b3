@@ -564,6 +564,24 @@
       "parentUuid": "276b9beb_bd9c1634",
       "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb1c60aa_ad105f6a",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1119,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2024-06-11T20:23:20Z",
+      "side": 1,
+      "message": "I\u0027m struggling a bit to context switch all this in. The redfish API has a HttpPushUriApplyTime object with an ApplyTime property. The expectation is that it\u0027s system wide and applied to all code updates. We\u0027re saying we don\u0027t want to support that anymore because the new code update Redfish API includes the ApplyTime with the image and people should just use that?",
+      "parentUuid": "f29f80ce_1a63ca91",
+      "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
