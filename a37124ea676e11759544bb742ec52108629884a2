@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2294979e_0a17d6b5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-11T15:36:30Z",
+      "side": 1,
+      "message": "What is an \"ObjectMapper state\" object?\n\nA xyz.openbmc_project.State.Host object?\n\nxyz.openbmc_project.State.Host works fine for power control, which is all this implements, but doesn\u0027t really work beyond that.  For a case that immediately breaks this, look at post codes.  We very likely wouldn\u0027t answer the question \"Does this host have post code support\" by looking up the power state parameter.\n\n\u003e System discovery via the inventory seems to be problematic\n\nI think the answer here is to fix system discovery via inventory, not try to invent another one.  I don\u0027t see that scaling beyond this patch.",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 72
+      },
+      "revId": "a37124ea676e11759544bb742ec52108629884a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c8b3c0f_8e685512",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-11T15:36:30Z",
+      "side": 1,
+      "message": "Not true.",
+      "range": {
+        "startLine": 36,
+        "startChar": 10,
+        "endLine": 36,
+        "endChar": 62
+      },
+      "revId": "a37124ea676e11759544bb742ec52108629884a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da9fbd7f_ba878c33",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-11T15:36:30Z",
+      "side": 1,
+      "message": "For systems generated from DBus, this really should be coming from dbus.  The option flag that existed was only for when bmcweb is selecting the name.",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 16
+      },
+      "revId": "a37124ea676e11759544bb742ec52108629884a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba326ae2_5fb319ef",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-11T15:36:30Z",
+      "side": 1,
+      "message": "What if I wanted to name my system\n\nredfish_1_system\n\n\nThat wouldn\u0027t be possible, which is why we try to get URI names from dbus when we can, keeping bmcweb out of the loop.  Please take a look at the getCollectionMembers method.  Ideally we\u0027d be able to use that as is for the computer system collection, or something very similar.",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 44
+      },
+      "revId": "a37124ea676e11759544bb742ec52108629884a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0fd1277e_c47e0cfe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-11T15:36:30Z",
+      "side": 1,
+      "message": "I see lots of URIS in this result that haven\u0027t been changed to handle multi-system in this patch, so it\u0027s surprising that Redfish service validator is passing, and I have no idea how redfish is giving the correct result.  In this code, I would expect most of the sub URLs to 404.\n\nI would expect that in this patch, sub URLs that haven\u0027t been moved over to the new system,\n/redfish/v1/Systems/\u003cstr\u003e/LogServices for example, would be omitted from the response.\n\nIt\u0027s also possible there\u0027s a bug in service validator.  Can you post your passing report somewhere, or take a look and determine if you in fact found a bug in service validator?",
+      "revId": "a37124ea676e11759544bb742ec52108629884a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80138d27_e3bbbc52",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-11T15:36:30Z",
+      "side": 1,
+      "message": "Lots of coding standard violations here.  You might want to familiarize yourself with COMMON_ERRORS.md, as well as \nhttps://github.com/openbmc/docs/blob/857060209ef5e3bef0fe5b5e6dd40cf1b55a8c20/anti-patterns.md?plain\u003d1#L1",
+      "revId": "a37124ea676e11759544bb742ec52108629884a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
