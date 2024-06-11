@@ -1527,7 +1527,8 @@ static LogParseError
 
     std::vector<std::string_view> messageArgs(logEntryIter,
                                               logEntryFields.end());
-    messageArgs.resize(message->numberOfArgs);
+    std::erase_if(messageArgs,
+                  [](const auto& messageArg) { return messageArg.empty(); });
 
     std::string msg = redfish::registries::fillMessageArgs(messageArgs,
                                                            message->message);
