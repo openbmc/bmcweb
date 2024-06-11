@@ -267,15 +267,22 @@ inline int addExt(X509* cert, int nid, const char* value)
 }
 
 // Writes a certificate to a path, ignoring errors
-inline void writeCertificateToFile(const std::string& filepath,
+inline void writeCertificateToFile(const std::filesystem::path& certFile,
                                    const std::string& certificate)
 {
+    std::filesystem::path certDir =
+        std::filesystem::path(certFile).parent_path();
+
     boost::system::error_code ec;
+    // Intentionally ignore errors.  Path might already exist.
+    std::filesystem::create_directories(certDir, ec);
+
+    boost::system::error_code ecWrite;
     boost::beast::file_posix file;
-    file.open(filepath.c_str(), boost::beast::file_mode::write, ec);
+    file.open(certFile.c_str(), boost::beast::file_mode::write, ecWrite);
     if (!ec)
     {
-        file.write(certificate.data(), certificate.size(), ec);
+        file.write(certificate.data(), certificate.size(), ecWrite);
         // ignore result
     }
 }
@@ -490,18 +497,9 @@ inline std::string ensureCertificate()
     fs::remove(oldcertPath, ec);
     // Ignore failure to remove;  File might not exist.
 
-    fs::path certPath = "/etc/ssl/certs/https/";
-    // if path does not exist create the path so that
-    // self signed certificate can be created in the
-    // path
-    fs::path certFile = certPath / "server.pem";
+    std::filesystem::path sslPemFile("/etc/ssl/certs/https/server.pem");
+    BMCWEB_LOG_INFO("Building SSL Context file= {}", sslPemFile.string());
 
-    if (!fs::exists(certPath, ec))
-    {
-        fs::create_directories(certPath, ec);
-    }
-    BMCWEB_LOG_INFO("Building SSL Context file= {}", certFile.string());
-    std::string sslPemFile(certFile);
     return ensuressl::ensureOpensslKeyPresentAndValid(sslPemFile);
 }
 
