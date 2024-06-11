@@ -95,6 +95,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2bc6a42c_2e7b80f2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-11T15:48:40Z",
+      "side": 1,
+      "message": "Ah, now I see my confusion.  It says here that it followed TESTING.md, but that we\u0027re ignoring the failing result.\n\nSystems with multihost enabled currently pass.  For features that are ready for master, we should not regress from passing to failing.\n\nFeel free to use the existing option flag to shut off the paths to any URLs that don\u0027t currently pass when in multihost mode, but considering we haven\u0027t written multi-host specific tests yet, redfish-service-validator is the best tool we have for finding failures and I would expect it to pass.",
+      "range": {
+        "startLine": 57,
+        "startChar": 37,
+        "endLine": 58,
+        "endChar": 14
+      },
+      "revId": "a37124ea676e11759544bb742ec52108629884a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0f20e768_0d52d9d7",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
