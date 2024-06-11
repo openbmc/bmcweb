@@ -528,6 +528,24 @@
       "parentUuid": "42d2881d_124fe5e4",
       "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "276b9beb_bd9c1634",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1119,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-06-11T18:26:21Z",
+      "side": 1,
+      "message": "\u003e I\u0027ll let Andrew defend the feature itself.  I suspect the property could be removed from bmcweb entirely with no impact to any existing users.  Doing that would solve our problem here in a tidy way.\n\nCan we take away the support for an existing Redfish flow, how would we know we don\u0027t break any existing users for this?\n\nThat was my intention to add the Unstructured Update flow only for phosphor-bmc-code-mgmt for backwards compatibility and rest for everything else to use the Multipart-form based flow. @Patrick, since this would be only for BMC updates so it would only exist in phoshor-bmc-code-mgmt and not in every CodeUpdater daemon.",
+      "parentUuid": "d7d632c6_d979b43e",
+      "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
