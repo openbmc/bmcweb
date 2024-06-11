@@ -95,6 +95,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0f20e768_0d52d9d7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-11T15:42:00Z",
+      "side": 1,
+      "message": "Then omit the failing URLs when we\u0027re on a system index \u003e 1.  This is what was talked about in the past, and I think gives the best result.\n\nThe code as it exists passes the tests.  We shouldn\u0027t regress from passing to failing.",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 44
+      },
+      "revId": "a37124ea676e11759544bb742ec52108629884a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0fd1277e_c47e0cfe",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
