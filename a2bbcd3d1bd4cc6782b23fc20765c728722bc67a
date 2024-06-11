@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1252eaf2_1ec8e20c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-06-11T13:12:02Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "1b6bd79f_d34ba1d5",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 56
+      },
+      "revId": "a2bbcd3d1bd4cc6782b23fc20765c728722bc67a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e0ea1228_ae3cdc69",
@@ -121,6 +145,24 @@
       "side": 1,
       "message": "\u003e currently the only reliable way to get multiple hosts\n\nRight, we need to make it reliable to get hosts from DBus as a prerequisite for this patch.",
       "parentUuid": "37d69d5f_7768dd7e",
+      "revId": "a2bbcd3d1bd4cc6782b23fc20765c728722bc67a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f50dec7a_aea9e240",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-06-11T13:12:02Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "58acb5df_d92b861b",
       "revId": "a2bbcd3d1bd4cc6782b23fc20765c728722bc67a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -263,6 +305,24 @@
       "side": 1,
       "message": "I can help remove the old email from the gerrit database if needed although it looks like you just added the new email to https://gerrit.openbmc.org/admin/groups/28c6457ee3c81a1c4b54a07d8fe4b5f3eff9778e,members which works just as well.",
       "parentUuid": "65802191_4406e531",
+      "revId": "a2bbcd3d1bd4cc6782b23fc20765c728722bc67a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0fbd2e70_cd42a7a1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-06-11T13:12:02Z",
+      "side": 1,
+      "message": "Hi Andrew, although I am now verified for CI and technically everything works just fine, I would prefer to signoff my commits wiht my company mail address in the future. This currently does fail at the point I try to push my commit with a signoff that is not assigned to my account. It would be great if you could help me fix this! My old handle was olekatpyle. Is there anything else you need to know?",
+      "parentUuid": "0f24fa18_c5d5f783",
       "revId": "a2bbcd3d1bd4cc6782b23fc20765c728722bc67a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
