@@ -498,7 +498,7 @@ inline std::string ensureCertificate()
 
     if (!fs::exists(certPath, ec))
     {
-        fs::create_directories(certFile, ec);
+        fs::create_directories(certPath, ec);
     }
     BMCWEB_LOG_INFO("Building SSL Context file= {}", certFile.string());
     std::string sslPemFile(certFile);
