@@ -492,6 +492,24 @@
       "parentUuid": "09c663af_27cd269b",
       "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42d2881d_124fe5e4",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1119,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-06-11T16:29:47Z",
+      "side": 1,
+      "message": "My skim of the codebase, it seems like other than bmcweb the only place that this gets set is through an OEM PLDM command from IBM.  It appears that all that command does is reset the value back to OnReset [which is the default in meta-phosphor already], so it seems like the only purpose of this is to ensure bmcweb hadn\u0027t set a different value previously.",
+      "parentUuid": "695cc86c_6d7011de",
+      "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
