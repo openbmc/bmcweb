@@ -474,6 +474,24 @@
       "parentUuid": "49ca9bec_c0c969ab",
       "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "695cc86c_6d7011de",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1119,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-11T01:21:14Z",
+      "side": 1,
+      "message": "Adding Andrew to this one here;  I realized aside from not wanting business logic in bmcweb, I didn\u0027t design this and am not really prepared to defend the settingsd based implementation.  If we dropped the PATCH feature entirely (which I only think worked on a subset of systems anyway?), or only allowed it on an update request, I suspect very few implementations would even have known it was there.",
+      "parentUuid": "09c663af_27cd269b",
+      "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
