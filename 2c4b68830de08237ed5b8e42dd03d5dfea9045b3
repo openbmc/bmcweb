@@ -546,6 +546,24 @@
       "parentUuid": "d7d632c6_d979b43e",
       "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f29f80ce_1a63ca91",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1119,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-11T18:43:02Z",
+      "side": 1,
+      "message": "\u003e how would we know we don\u0027t break any existing users for this?\n\nWe don\u0027t, and normally I\u0027d try to keep backward compatibility with all flows, but I\u0027m trying to propose a path forward under the assumption that usage of this parameter is very rare (only IBM).  Maybe that assumption is faulty, but lets talk about that.  In the Redfish plugfests for firmware update, I don\u0027t think we saw anyone actually used this \"set the update time as a patch\" and most didn\u0027t implement it, which is why I\u0027m considering just removing the flow, documenting that it\u0027s gone.",
+      "parentUuid": "276b9beb_bd9c1634",
+      "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
