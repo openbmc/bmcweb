@@ -1323,6 +1323,8 @@ inline void handleUpdateServiceFirmwareInventoryGet(
 
                 found = true;
                 sw_util::getSwStatus(asyncResp, swId, obj.second[0].first);
+                sw_util::getSwMinimumVersion(asyncResp, swId,
+                                             obj.second[0].first);
                 getSoftwareVersion(asyncResp, obj.second[0].first, obj.first,
                                    *swId);
             }
