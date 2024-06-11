@@ -1137,6 +1137,7 @@ other.
 #### SoftwareInventory
 
 - Description
+- LowestSupportedVersion
 - `RelatedItem@odata.count`
 - RelatedItem
 - Status
