@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3bf8b01_9bc20291",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-06-11T15:07:10Z",
+      "side": 1,
+      "message": "we don\u0027t use so can\u0027t help with testing",
+      "revId": "68ed5894a98f4153507e03f8583de943958a16fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "439c8ef8_6ad2fa54",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1643,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-06-11T15:07:10Z",
+      "side": 1,
+      "message": "Looking at what was there before \nif (boost::algorithm::ends_with(obj.first.str, chassis)) \nThis appears correct",
+      "revId": "68ed5894a98f4153507e03f8583de943958a16fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
