@@ -197,12 +197,7 @@ inline std::shared_ptr<persistent_data::UserSession>
             return sp;
         }
         // TODO: change this to not switch to cookie auth
-        res.addHeader(boost::beast::http::field::set_cookie,
-                      "XSRF-TOKEN=" + sp->csrfToken +
-                          "; SameSite=Strict; Secure");
-        res.addHeader(boost::beast::http::field::set_cookie,
-                      "SESSION=" + sp->sessionToken +
-                          "; SameSite=Strict; Secure; HttpOnly");
+        persistent_data::setSessionCookies(res, *sp);
         res.addHeader(boost::beast::http::field::set_cookie,
                       "IsAuthenticated=true; Secure");
         BMCWEB_LOG_DEBUG(

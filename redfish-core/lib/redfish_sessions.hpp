@@ -125,6 +125,11 @@ inline void
         }
     }
 
+    if (session->cookieAuth)
+    {
+        persistent_data::clearSessionCookies(asyncResp->res);
+    }
+
     persistent_data::SessionStore::getInstance().removeSession(session);
     messages::success(asyncResp->res);
 }
@@ -243,6 +248,14 @@ inline void handleSessionCollectionPost(
     {
         messages::internalError(asyncResp->res);
         return;
+    }
+
+    // When session is created by webui-vue give it session cookies as a
+    // non-standard Redfish extension. This is needed for authentication for
+    // WebSockets-based functionality.
+    if (!req.getHeaderValue("X-Requested-With").empty())
+    {
+        persistent_data::setSessionCookies(asyncResp->res, *session);
     }
 
     asyncResp->res.addHeader("X-Auth-Token", session->sessionToken);
