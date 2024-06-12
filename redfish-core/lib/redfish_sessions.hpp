@@ -125,6 +125,16 @@ inline void
         }
     }
 
+    if (session->cookieAuth)
+    {
+        asyncResp->res.addHeader("Set-Cookie",
+                                 "SESSION="
+                                 "; SameSite=Strict; Secure; HttpOnly; "
+                                 "expires=Thu, 01 Jan 1970 00:00:00 GMT");
+        asyncResp->res.addHeader("Clear-Site-Data",
+                                 R"("cache","cookies","storage")");
+    }
+
     persistent_data::SessionStore::getInstance().removeSession(session);
     messages::success(asyncResp->res);
 }
@@ -245,7 +255,21 @@ inline void handleSessionCollectionPost(
         return;
     }
 
-    asyncResp->res.addHeader("X-Auth-Token", session->sessionToken);
+    if (req.url().params().contains("OEM-OpenBMC-CookieAuth"))
+    {
+        asyncResp->res.addHeader(boost::beast::http::field::set_cookie,
+                                 "XSRF-TOKEN=" + session->csrfToken +
+                                     "; Path=/; SameSite=Strict; Secure");
+        asyncResp->res.addHeader(
+            boost::beast::http::field::set_cookie,
+            "SESSION=" + session->sessionToken +
+                "; Path=/; SameSite=Strict; Secure; HttpOnly");
+    }
+    else
+    {
+        asyncResp->res.addHeader("X-Auth-Token", session->sessionToken);
+    }
+
     asyncResp->res.addHeader(
         "Location", "/redfish/v1/SessionService/Sessions/" + session->uniqueId);
     asyncResp->res.result(boost::beast::http::status::created);

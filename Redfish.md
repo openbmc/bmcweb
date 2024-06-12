@@ -716,6 +716,10 @@ other.
 
 ### /redfish/v1/SessionService/Sessions/
 
+POST request accepts OEM-OpenBMC-CookieAuth URL query parameter to switch to
+Cookie-based authentication for this Session instead of the standard
+X-Auth-Token mechanism.
+
 #### SessionCollection
 
 - Description
