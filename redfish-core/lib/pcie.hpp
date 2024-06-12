@@ -247,7 +247,7 @@ inline void addPCIeSlotProperties(
     std::string generation;
     size_t lanes = 0;
     std::string slotType;
-    std::string linkStatus;
+    const std::string* linkStatus = nullptr;
 
     bool success = sdbusplus::unpackPropertiesNoThrow(
         dbus_utils::UnpackErrorPrinter(), pcieSlotProperties, "Generation",
@@ -299,9 +299,9 @@ inline void addPCIeSlotProperties(
         res.jsonValue["Slot"]["SlotType"] = *redfishSlotType;
     }
 
-    if (!linkStatus.empty())
+    if (linkStatus != nullptr && !linkStatus->empty())
     {
-        fillPcieDeviceStatus(res, linkStatus);
+        fillPcieDeviceStatus(res, *linkStatus);
     }
 }
 
