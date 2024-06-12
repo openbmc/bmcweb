@@ -582,6 +582,24 @@
       "parentUuid": "f29f80ce_1a63ca91",
       "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6e3cb7b_1cb5efc6",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1119,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-06-12T21:14:03Z",
+      "side": 1,
+      "message": "Yes and my understanding is that @Ed suspects that this property can be removed from BMCWeb without any impact to existing users.",
+      "parentUuid": "eb1c60aa_ad105f6a",
+      "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
