@@ -140,6 +140,23 @@
       "parentUuid": "46c43383_18c2bbc9",
       "revId": "b66ade0a3945f51f57dbc7481363060454df7acf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b04c78b_587d0794",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000936
+      },
+      "writtenOn": "2024-06-12T20:11:37Z",
+      "side": 1,
+      "message": "Yoshie, can you please check this doesn\u0027t break TLS client certificates auth as you originally added it?",
+      "revId": "b66ade0a3945f51f57dbc7481363060454df7acf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ],
   "submitRequirementResults": []
