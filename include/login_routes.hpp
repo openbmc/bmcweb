@@ -2,6 +2,7 @@
 
 #include "app.hpp"
 #include "audit_events.hpp"
+#include "cookies.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "multipart_parser.hpp"
@@ -171,12 +172,7 @@ inline void handleLogin(const crow::Request& req,
                                    persistent_data::PersistenceType::TIMEOUT,
                                    isConfigureSelfOnly);
 
-            asyncResp->res.addHeader(boost::beast::http::field::set_cookie,
-                                     "XSRF-TOKEN=" + session->csrfToken +
-                                         "; SameSite=Strict; Secure");
-            asyncResp->res.addHeader(boost::beast::http::field::set_cookie,
-                                     "SESSION=" + session->sessionToken +
-                                         "; SameSite=Strict; Secure; HttpOnly");
+            bmcweb::setSessionCookies(asyncResp->res, *session);
 
             // if content type is json, assume json token
             asyncResp->res.jsonValue["token"] = session->sessionToken;
@@ -204,10 +200,7 @@ inline void handleLogout(const crow::Request& req,
         asyncResp->res.jsonValue["message"] = "200 OK";
         asyncResp->res.jsonValue["status"] = "ok";
 
-        asyncResp->res.addHeader("Set-Cookie",
-                                 "SESSION="
-                                 "; SameSite=Strict; Secure; HttpOnly; "
-                                 "expires=Thu, 01 Jan 1970 00:00:00 GMT");
+        bmcweb::clearSessionCookies(asyncResp->res);
         persistent_data::SessionStore::getInstance().removeSession(session);
     }
 }
