@@ -196,7 +196,7 @@ inline void
                      const std::string& fabricAdapterPath)
 {
     const std::string pcieDeviceName =
-        sdbusplus::message::object_path(fabricAdapterPath).filename();
+        pcie_util::buildPCIeUniquePath(fabricAdapterPath);
 
     if (pcieDeviceName.empty())
     {
