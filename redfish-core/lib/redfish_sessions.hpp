@@ -18,6 +18,7 @@
 #include "account_service.hpp"
 #include "app.hpp"
 #include "error_messages.hpp"
+#include "cookies.hpp"
 #include "http/utility.hpp"
 #include "persistent_data.hpp"
 #include "query.hpp"
@@ -123,6 +124,11 @@ inline void
             messages::insufficientPrivilege(asyncResp->res);
             return;
         }
+    }
+
+    if (session->cookieAuth)
+    {
+        bmcweb::clearSessionCookies(asyncResp->res);
     }
 
     persistent_data::SessionStore::getInstance().removeSession(session);
@@ -245,7 +251,18 @@ inline void handleSessionCollectionPost(
         return;
     }
 
-    asyncResp->res.addHeader("X-Auth-Token", session->sessionToken);
+    // When session is created by webui-vue give it session cookies as a
+    // non-standard Redfish extension. This is needed for authentication for
+    // WebSockets-based functionality.
+    if (!req.getHeaderValue("X-Requested-With").empty())
+    {
+        bmcweb::setSessionCookies(asyncResp->res, *session);
+    }
+    else
+    {
+        asyncResp->res.addHeader("X-Auth-Token", session->sessionToken);
+    }
+
     asyncResp->res.addHeader(
         "Location", "/redfish/v1/SessionService/Sessions/" + session->uniqueId);
     asyncResp->res.result(boost::beast::http::status::created);
