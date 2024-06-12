@@ -256,7 +256,6 @@ void getAssemblyPresence(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     nlohmann::json& assemblyData = assemblyArray.at(assemblyIndex);
 
     assemblyData["Status"]["State"] = "Enabled";
-    assemblyData["Oem"]["OpenBMC"]["ReadyToRemove"] = false;
 
     sdbusplus::asio::getProperty<bool>(
         *crow::connections::systemBus, serviceName, assembly,
