@@ -353,6 +353,24 @@
       "parentUuid": "2853fa46_ff553c5c",
       "revId": "28469f01ac391a2fde542d8ff6ce393a09c580cf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b599335e_05ff05aa",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1000936
+      },
+      "writtenOn": "2024-06-13T16:35:55Z",
+      "side": 1,
+      "message": "\u003e \u003e If we know our client is special and asks for our special sauce why send the standard header? Also, it contains the token that\u0027s supposed to be secret from JS code if we claim the non-standard cookie auth is done for additional security\n\u003e \n\u003e Lets be clear, cookie auth is done for websocket support.  I\u0027m not prepared to justify the claim that it\u0027s more secure the X-auth-token.\n\nWhy do we need the cookie auth in addition to the subprotocol token auth for WS? What\u0027s the threat you have in mind here? That JS will get injected code somehow and that code would steal and exfiltrate the temporary token but then since it\u0027s not able to read the SESSION cookie the WS won\u0027t be accessible to the outside processes? But in fact it will be accessible to the other tabs in the same web browser because CORS isn\u0027t applied to web sockets. But then you say the SESSION cookie will be removed on logout and /then/ the WS will no longer be accessible? Sounds far-fetched, guess that\u0027s not what you think about.\n\nAnd if you say we need cookie auth only for websockets then why websocket needs to be protected any more seriously than all the standard API calls (if they were using just the standard X-Auth-Token)?\n\n\u003e\u003e the SESSION HttpOnly cookie provides but here we would be giving injected JS an opportunity to catch it.\n\u003e \n\u003e My opinion here isn\u0027t terribly strong.  If you want to keep the code as is, all good.\n\nMy impression so far is that if Redfish members think X-Auth-Token is secure enough for the web browser clients and HttpOnly is an overkill then OpenBMC probably shouldn\u0027t complicate the matters too much and get rid of cookie auth altogether, and websocket checking the same X-Auth-Token on upgrade path (passed as subprotocol string) is as secure as the rest of the API, I\u0027m yet to see any difference. I might be very wrong here, far from being an expert in web technologies.",
+      "parentUuid": "12049e40_f6ff519a",
+      "revId": "28469f01ac391a2fde542d8ff6ce393a09c580cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
