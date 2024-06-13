@@ -91,6 +91,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "290f5c46_aae66430",
+        "filename": "Redfish.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1000936
+      },
+      "writtenOn": "2024-06-13T16:58:42Z",
+      "side": 1,
+      "message": "\u003e I\u0027m happy to have it documented, just not in this spot.\n\nGot it, thanks for the clarification.",
+      "parentUuid": "3a04fa79_95d799d9",
+      "range": {
+        "startLine": 719,
+        "startChar": 0,
+        "endLine": 721,
+        "endChar": 23
+      },
+      "revId": "28469f01ac391a2fde542d8ff6ce393a09c580cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1e5e02b8_86526aa5",
         "filename": "redfish-core/lib/redfish_sessions.hpp",
         "patchSetId": 2
@@ -150,6 +174,30 @@
       "side": 1,
       "message": "bmcweb already makes use of the \"X-Requested-With\" header to determine if the login is coming from a browser.  If we used that as our \"we should return cookies\" decision instead of the query param, we\u0027d avoid duplicating things.",
       "parentUuid": "8d16b616_a6fee2aa",
+      "range": {
+        "startLine": 258,
+        "startChar": 0,
+        "endLine": 258,
+        "endChar": 2
+      },
+      "revId": "28469f01ac391a2fde542d8ff6ce393a09c580cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "465d0a9f_3ba48067",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1000936
+      },
+      "writtenOn": "2024-06-13T16:58:42Z",
+      "side": 1,
+      "message": "\u003e bmcweb already makes use of the \"X-Requested-With\" header to determine if the login is coming from a browser.  If we used that as our \"we should return cookies\" decision instead of the query param, we\u0027d avoid duplicating things.\n\nBut we want any Web browser based Redfish frontend to work nicely with bmcweb, not just webui-vue, so this can\u0027t be a good trigger to enable non-standard behaviour, I guess?",
+      "parentUuid": "57ed1a67_04c8fe41",
       "range": {
         "startLine": 258,
         "startChar": 0,
@@ -292,6 +340,30 @@
       "side": 1,
       "message": "\u003e I thought about that but also thought that you might want to get rid of /login altogether when the standard Redfish reaches feature parity.\n\nHaving this in its own method won\u0027t take away from that goal when it comes.\n\nThe reality is also that /login at most will at most be wrapped in an option flag.  Its existed for too long and too many things rely on it to remove the code entirely.\n\n\u003e \n\u003e As to the other path, the MTLS one, it also sets `IsAuthenticated` cookie and never checks it or does anything else with it. I wonder if it was added in mistake.\n\nIsAuthenticated was used by the UI for cases where we had things like mTLS that would authenticate without Javascript, but we still needed to inform javascript \"hey, you\u0027re already logged in, don\u0027t post the login screen\".\n\nwebui-vue broke this path, and we haven\u0027t fixed it.  Lets keep IsAuthenticated for now just to be consistent between the auth paths, and at some point we\u0027ll have to look at getting mtls auth working on webui-vue.\n\n\u003e \n\u003e But even if /login is removed then it\u0027d still be two and two is more than one, so DRY tells us a helper should be created instead, sure, agreed.\n\nThank you.",
       "parentUuid": "f90bd4b5_10f5bf03",
+      "range": {
+        "startLine": 260,
+        "startChar": 0,
+        "endLine": 266,
+        "endChar": 63
+      },
+      "revId": "28469f01ac391a2fde542d8ff6ce393a09c580cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77706970_2bf24eb9",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000936
+      },
+      "writtenOn": "2024-06-13T16:58:42Z",
+      "side": 1,
+      "message": "\u003e \u003e \n\u003e \u003e As to the other path, the MTLS one, it also sets `IsAuthenticated` cookie and never checks it or does anything else with it. I wonder if it was added in mistake.\n\u003e \n\u003e IsAuthenticated was used by the UI for cases where we had things like mTLS that would authenticate without Javascript, but we still needed to inform javascript \"hey, you\u0027re already logged in, don\u0027t post the login screen\".\n\nI do not see how this can make any sense as that IsAuthenticated cookie is always set along with XSRF-Token cookie (which is /not/ HttpOnly) so the frontend can always assume it\u0027s currently logged in if it has XSRF-Token and always know that it\u0027s not logged in when it doesn\u0027t have it. This token is needed anyway for WS.\n \n\u003e webui-vue broke this path\n\nThe logic behind it seems flawed so no wonder it ended up being fragile.\n\nInstead webui-vue should just try loading any page it\u0027s asked for, no matter if it thinks it\u0027s logged in or not, best case, mtls works and it gets the page and the cookie in response, worst case, it gets 401 and knows it needs to redirect to login page.\n\nThis shouldn\u0027t require any additional cookies AFAICT. Or am I missing some essential deal breaking detail here?",
+      "parentUuid": "ad31282b_bede12c2",
       "range": {
         "startLine": 260,
         "startChar": 0,
