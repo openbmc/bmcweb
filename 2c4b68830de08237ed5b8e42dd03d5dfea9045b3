@@ -600,6 +600,24 @@
       "parentUuid": "eb1c60aa_ad105f6a",
       "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c911e096_cd0c4f03",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1119,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2024-06-13T18:36:47Z",
+      "side": 1,
+      "message": "I think it\u0027s reasonable to update the clients that perform code update to usie this new Redfish API that contains the ApplyTime setting within that call. The reason the ApplyTime call was used widespread at IBM it\u0027s because the GUI sets the ApplyTime to Immediate as part of the update process so we always call to set ApplyTime back to OnReset in case a GUI update had been previously run. The GUI code can also be updated to call this new interface and avoid setting the separate property to Immediate if it hasn\u0027t already.",
+      "parentUuid": "a6e3cb7b_1cb5efc6",
+      "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
