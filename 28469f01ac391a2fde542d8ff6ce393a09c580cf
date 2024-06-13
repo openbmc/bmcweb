@@ -467,6 +467,24 @@
       "parentUuid": "12049e40_f6ff519a",
       "revId": "28469f01ac391a2fde542d8ff6ce393a09c580cf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1436e9c6_18ca6196",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-13T19:01:31Z",
+      "side": 1,
+      "message": "\u003e \u003e \u003e If we know our client is special and asks for our special sauce why send the standard header? Also, it contains the token that\u0027s supposed to be secret from JS code if we claim the non-standard cookie auth is done for additional security\n\u003e \u003e \n\u003e \u003e Lets be clear, cookie auth is done for websocket support.  I\u0027m not prepared to justify the claim that it\u0027s more secure the X-auth-token.\n\u003e \n\u003e Why do we need the cookie auth in addition to the subprotocol token auth for WS?\n\u003e What\u0027s the threat you have in mind here? That JS will get injected code somehow and that code would steal and exfiltrate the temporary token but then since it\u0027s not able to read the SESSION cookie the WS won\u0027t be accessible to the outside processes? But in fact it will be accessible to the other tabs in the same web browser because CORS isn\u0027t applied to web sockets. But then you say the SESSION cookie will be removed on logout and /then/ the WS will no longer be accessible? Sounds far-fetched, guess that\u0027s not what you think about.\n\n\nIf you\u0027re looking for history, this code review isn\u0027t the right place to discuss (although I\u0027m happy to have that conversation).  Keep in mind, I wasn\u0027t a part of the subprotocol addition, so the context of that is hopefully captured in commit messages.\n\nI know you have strong opinions on various communication forums, so I\u0027ll leave it up to you which OpenBMC forum you want to start the above discussion (I\u0027m available on all of the active openbmc ones).\n\n\nIn the context of this commit, I\u0027ve written down the change I\u0027d like to see, and also said I\u0027m not that tied to it if I don\u0027t see it.  We can close this discussion whether or not you want to make the change, and honestly either way is fine.\n\n\u003e \n\u003e And if you say we need cookie auth only for websockets then why websocket needs to be protected any more seriously than all the standard API calls (if they were using just the standard X-Auth-Token)?\n\u003e \n\u003e \u003e\u003e the SESSION HttpOnly cookie provides but here we would be giving injected JS an opportunity to catch it.\n\u003e \u003e \n\u003e \u003e My opinion here isn\u0027t terribly strong.  If you want to keep the code as is, all good.\n\u003e \n\u003e My impression so far is that if Redfish members think X-Auth-Token is secure enough for the web browser clients and HttpOnly is an overkill then OpenBMC probably shouldn\u0027t complicate the matters too much and get rid of cookie auth altogether, and websocket checking the same X-Auth-Token on upgrade path (passed as subprotocol string) is as secure as the rest of the API, I\u0027m yet to see any difference. I might be very wrong here, far from being an expert in web technologies.\n\nYou can also rephrase \"get rid of X\" as \"break existing clients that use X\", which we try to avoid in the ecosystem if we can.\n\nPeoples opinions on this stuff are wide and varied;  bmcweb tries to support as many opinions in one codebase as we can securely, which is why we currently support 5 different ways to authenticate, and also why they\u0027re all selectable at build time AND runtime.\n\nIf you don\u0027t want to use cookie auth, there\u0027s a meson config for that already and a way to disable it at runtime.  websockets from a browser will not function if you disable cookie auth but that\u0027s not a bmcweb problem, that\u0027s a webui-vue problem, so if you want to discuss that in that context (not in this patch), we can.\n\n\u003e My impression so far is that if Redfish members\n\nConsidering I am a DMTF Redfish member......   I\u0027m not really sure how to take this 😊\n\nWe\u0027re discussing protocol specifics that go beyond Redfish, so while I certainly value Redfish forums opinion, it\u0027s kind of irrelevant.  Their opinion applies to the Redfish protocol (for which we have full support).  bmcweb implements Redfish and \"more\", so there are cases where Redfish itself isn\u0027t sufficient, or hasn\u0027t caught up to us (mutual TLS being a good example of something we implemented YEARS ago, and Redfish is just now catching up on).",
+      "parentUuid": "b599335e_05ff05aa",
+      "revId": "28469f01ac391a2fde542d8ff6ce393a09c580cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
