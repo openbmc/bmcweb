@@ -210,6 +210,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5e6b2d5a_0d2a96ac",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-13T19:18:42Z",
+      "side": 1,
+      "message": "\u003e But we want any Web browser based Redfish frontend to work nicely with bmcweb\n\nMaybe, but even if that\u0027s our goal, that\u0027s why we\u0027re using a common header, not some bmcweb/openbmc specific one.  In theory now we can detect any browser, not just webui-vue.\n\nAlso, FWIW, browsers aren\u0027t how most consume Redfish, nor are any browser specifics called out in the protocol, so to say we want this to work with \"any web browser\" is a stretch.  We have lots of anti xss headers turned on, it\u0027s not like you can have a static page just redirect bmcweb and work (maybe it does?).\n\nFWIW, in the Redfish ecosystem, even DMTF had trouble for calls to make a \"generic UI\" to the point where it\u0027s still being worked.",
+      "parentUuid": "465d0a9f_3ba48067",
+      "range": {
+        "startLine": 258,
+        "startChar": 0,
+        "endLine": 258,
+        "endChar": 2
+      },
+      "revId": "28469f01ac391a2fde542d8ff6ce393a09c580cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "33c965a2_d974f699",
         "filename": "redfish-core/lib/redfish_sessions.hpp",
         "patchSetId": 2
@@ -305,6 +329,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ba0fbb1c_98ea10c9",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-13T19:18:42Z",
+      "side": 1,
+      "message": "\u003e \u003e https://github.com/openbmc/bmcweb/blob/00a0fe4e361efcdeb600f3a2e88b746fa18b9715/include/login_routes.hpp#L174\n\u003e \u003e \n\u003e \u003e Does not include any mention of the keyword \"Path\", this is why I\u0027m confused.\n\u003e \n\u003e https://www.rfc-editor.org/rfc/rfc6265#section-5.3 point 7 for this case says \"set the cookie\u0027s path to the default-path of the request-uri\" and https://www.rfc-editor.org/rfc/rfc6265#section-5.1.4 tells how to compute the default path. Basically, it was a \"happy coincidence\" that `/login` defaults to `/` for the Path, if it was `/openbmc/login` then the cookies would have been set to `Path\u003d/openbmc` and not work at all for `/redfish/v1` endpoints.\n\nThe above text would be perfect to put in your commit message about why you changed it to now return path where it didn\u0027t previously.  In your reading, should we be returning Path\u003d/ on all the other set-cookie calls?  I suspect things like mtls cookies would be broken if you first requested a path that wasn\u0027t root because we don\u0027t set path.  (doesn\u0027t have to be in this patch).\n\n\u003e \n\u003e \u003e I\u0027m assuming you tried without Path being set, and it didn\u0027t work?  Some mention of this in your commit message would be good, so we can note why it\u0027s different.\n\u003e \n\u003e Sure, how else would a person without much clue about web technologies learn about it if not by getting puzzling results :)\n\u003e But then after reading the docs and seeing what the deal is about I just assumed it\u0027s common knowledge for cookie users so not something worth mentioning.\n\n\nPutting that, or some variation of \"I tried the simple thing and it didn\u0027t work because XYZ, so I read RFCXXX and now it works\" helps me to not have to go look up the various standards to figure out what you did and why (which takes effort that when reviewing 10s of patches a day, I don\u0027t really have time for).\n\nLets get the commit message updated with the details and close this out.",
+      "parentUuid": "3e4527c1_d5288a4c",
+      "range": {
+        "startLine": 262,
+        "startChar": 40,
+        "endLine": 262,
+        "endChar": 46
+      },
+      "revId": "28469f01ac391a2fde542d8ff6ce393a09c580cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "81d19c47_05a5c783",
         "filename": "redfish-core/lib/redfish_sessions.hpp",
         "patchSetId": 2
@@ -388,6 +436,30 @@
       "side": 1,
       "message": "\u003e \u003e \n\u003e \u003e As to the other path, the MTLS one, it also sets `IsAuthenticated` cookie and never checks it or does anything else with it. I wonder if it was added in mistake.\n\u003e \n\u003e IsAuthenticated was used by the UI for cases where we had things like mTLS that would authenticate without Javascript, but we still needed to inform javascript \"hey, you\u0027re already logged in, don\u0027t post the login screen\".\n\nI do not see how this can make any sense as that IsAuthenticated cookie is always set along with XSRF-Token cookie (which is /not/ HttpOnly) so the frontend can always assume it\u0027s currently logged in if it has XSRF-Token and always know that it\u0027s not logged in when it doesn\u0027t have it. This token is needed anyway for WS.\n \n\u003e webui-vue broke this path\n\nThe logic behind it seems flawed so no wonder it ended up being fragile.\n\nInstead webui-vue should just try loading any page it\u0027s asked for, no matter if it thinks it\u0027s logged in or not, best case, mtls works and it gets the page and the cookie in response, worst case, it gets 401 and knows it needs to redirect to login page.\n\nThis shouldn\u0027t require any additional cookies AFAICT. Or am I missing some essential deal breaking detail here?",
       "parentUuid": "ad31282b_bede12c2",
+      "range": {
+        "startLine": 260,
+        "startChar": 0,
+        "endLine": 266,
+        "endChar": 63
+      },
+      "revId": "28469f01ac391a2fde542d8ff6ce393a09c580cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3bcf8f27_9f7290d0",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-13T19:18:42Z",
+      "side": 1,
+      "message": "\u003e \u003e \u003e \n\u003e \u003e \u003e As to the other path, the MTLS one, it also sets `IsAuthenticated` cookie and never checks it or does anything else with it. I wonder if it was added in mistake.\n\u003e \u003e \n\u003e \u003e IsAuthenticated was used by the UI for cases where we had things like mTLS that would authenticate without Javascript, but we still needed to inform javascript \"hey, you\u0027re already logged in, don\u0027t post the login screen\".\n\u003e \n\u003e I do not see how this can make any sense as that IsAuthenticated cookie is always set along with XSRF-Token cookie (which is /not/ HttpOnly) so the frontend can always assume it\u0027s currently logged in if it has XSRF-Token and always know that it\u0027s not logged in when it doesn\u0027t have it. This token is needed anyway for WS.\n\nI\u0027m happy to explain the above to you, but not in the context of of a code review comment.  Lets keep this thread focused on the change I asked for, which is refactoring this to use common code where we can.\n\n\u003e  \n\u003e \u003e webui-vue broke this path\n\u003e \n\u003e The logic behind it seems flawed so no wonder it ended up being fragile.\n\nIt worked fine for the whole lifecycle of phosphor-webui;  It\u0027s not about it being fragile, it\u0027s about webui-vue completely ignoring the feature when they did a \"replacement\" UI.\n\nSome historical reading if you\u0027re curious.\nhttps://lore.kernel.org/openbmc/OF91B43372.8E81A7D9-ON002585EA.0056113C-002585EA.0060099C@notes.na.collabserv.com/\n\n\u003e \n\u003e Instead webui-vue should just try loading any page it\u0027s asked for, no matter if it thinks it\u0027s logged in or not, best case, mtls works and it gets the page and the cookie in response, worst case, it gets 401 and knows it needs to redirect to login page.\n\u003e \n\u003e This shouldn\u0027t require any additional cookies AFAICT. Or am I missing some essential deal breaking detail here?\n\nI believe the original theory is that if we\u0027re authenticating via MTLS, we didn\u0027t want any session token to even exist (because its existence could in theory be used as a chain of the attack) so we\u0027re better off returning a non-secret.\n\nObviously the current code doesn\u0027t live up to that intent, (I\u0027m not sure if it did previously and we just broke it at some point in a refactor), but that intent makes sense to me.  If we ever get around to doing webui-mtls auth in the future, we\u0027ll have to look at this again.",
+      "parentUuid": "77706970_2bf24eb9",
       "range": {
         "startLine": 260,
         "startChar": 0,
