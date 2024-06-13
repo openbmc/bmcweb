@@ -281,6 +281,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3e4527c1_d5288a4c",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1000936
+      },
+      "writtenOn": "2024-06-13T17:15:06Z",
+      "side": 1,
+      "message": "\u003e https://github.com/openbmc/bmcweb/blob/00a0fe4e361efcdeb600f3a2e88b746fa18b9715/include/login_routes.hpp#L174\n\u003e \n\u003e Does not include any mention of the keyword \"Path\", this is why I\u0027m confused.\n\nhttps://www.rfc-editor.org/rfc/rfc6265#section-5.3 point 7 for this case says \"set the cookie\u0027s path to the default-path of the request-uri\" and https://www.rfc-editor.org/rfc/rfc6265#section-5.1.4 tells how to compute the default path. Basically, it was a \"happy coincidence\" that `/login` defaults to `/` for the Path, if it was `/openbmc/login` then the cookies would have been set to `Path\u003d/openbmc` and not work at all for `/redfish/v1` endpoints.\n\n\u003e I\u0027m assuming you tried without Path being set, and it didn\u0027t work?  Some mention of this in your commit message would be good, so we can note why it\u0027s different.\n\nSure, how else would a person without much clue about web technologies learn about it if not by getting puzzling results :) But then after reading the docs and seeing what the deal is about I just assumed it\u0027s common knowledge for cookie users so not something worth mentioning.",
+      "parentUuid": "5d678523_89f6910e",
+      "range": {
+        "startLine": 262,
+        "startChar": 40,
+        "endLine": 262,
+        "endChar": 46
+      },
+      "revId": "28469f01ac391a2fde542d8ff6ce393a09c580cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "81d19c47_05a5c783",
         "filename": "redfish-core/lib/redfish_sessions.hpp",
         "patchSetId": 2
