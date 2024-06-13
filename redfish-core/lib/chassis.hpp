@@ -820,8 +820,8 @@ inline void
             objectPath = "/xyz/openbmc_project/state/chassis0";
         }
 
-        setDbusProperty(asyncResp, processName, objectPath, interfaceName,
-                        destProperty, "ResetType", propertyValue);
+        setDbusProperty(asyncResp, "ResetType", processName, objectPath,
+                        interfaceName, destProperty, propertyValue);
     });
 }
 
