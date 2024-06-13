@@ -354,26 +354,63 @@ inline void
     getSwUpdatableStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const std::shared_ptr<std::string>& swId)
 {
-    dbus::utility::getAssociationEndPoints(
-        "/xyz/openbmc_project/software/updateable",
-        [asyncResp, swId](const boost::system::error_code& ec,
-                          const dbus::utility::MapperEndPoints& objPaths) {
-        if (ec)
-        {
-            BMCWEB_LOG_DEBUG(" error_code = {} error msg =  {}", ec,
-                             ec.message());
-            // System can exist with no updateable software,
-            // so don't throw error here.
-            return;
-        }
-        std::string reqSwObjPath = "/xyz/openbmc_project/software/" + *swId;
-
-        if (std::ranges::find(objPaths, reqSwObjPath) != objPaths.end())
-        {
+    if constexpr (BMCWEB_REDFISH_UPDATESERVICE_USE_DBUS)
+    {
+        std::string swObjectPath = "/xyz/openbmc_project/software/" + *swId +
+                                   "/software_version";
+        // sdbusplus::message::object_path swObjectPath =
+        // "/xyz/openbmc_project/software/" / *swId / "software_version";
+        constexpr std::array<std::string_view, 1> interfaces = {
+            "xyz.openbmc_project.Software.Update"};
+        dbus::utility::getAssociatedSubTree(
+            sdbusplus::message::object_path(swObjectPath),
+            sdbusplus::message::object_path("/xyz/openbmc_project/software"), 0,
+            interfaces,
+            [asyncResp](
+                const boost::system::error_code& ec,
+                const dbus::utility::MapperGetSubTreeResponse& subtree) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG(" error_code = {} error msg =  {}", ec,
+                                 ec.message());
+                // System can exist with no updateable software,
+                // so don't throw error here.
+                return;
+            }
+            if (subtree.empty())
+            {
+                BMCWEB_LOG_DEBUG("No updateable software found");
+                // System can exist with no updateable software,
+                // so don't throw error here.
+                return;
+            }
             asyncResp->res.jsonValue["Updateable"] = true;
             return;
-        }
-    });
+        });
+    }
+    else
+    {
+        dbus::utility::getAssociationEndPoints(
+            "/xyz/openbmc_project/software/updateable",
+            [asyncResp, swId](const boost::system::error_code& ec,
+                              const dbus::utility::MapperEndPoints& objPaths) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG(" error_code = {} error msg =  {}", ec,
+                                 ec.message());
+                // System can exist with no updateable software,
+                // so don't throw error here.
+                return;
+            }
+            std::string reqSwObjPath = "/xyz/openbmc_project/software/" + *swId;
+
+            if (std::ranges::find(objPaths, reqSwObjPath) != objPaths.end())
+            {
+                asyncResp->res.jsonValue["Updateable"] = true;
+                return;
+            }
+        });
+    }
 }
 
 } // namespace sw_util
