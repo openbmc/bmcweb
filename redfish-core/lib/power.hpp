@@ -58,7 +58,7 @@ inline void afterGetPowerCapEnable(
                     sdbusplus::message::object_path(
                         "/xyz/openbmc_project/control/host0/power_cap"),
                     "xyz.openbmc_project.Control.Power.Cap", "PowerCap",
-                    "PowerControl", valueToSet);
+                    valueToSet, "PowerControl");
 }
 
 inline void afterGetChassisPath(

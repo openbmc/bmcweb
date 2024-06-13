@@ -370,8 +370,8 @@ inline void
                     }
 
                     setDbusProperty(asyncResp, service, objectPath, interface,
-                                    "StaticNTPServers", "NTP/NTPServers/",
-                                    currentNtpServers);
+                                    "StaticNTPServers", currentNtpServers,
+                                    "NTP/NTPServers/");
                 }
             }
         }
@@ -403,11 +403,11 @@ inline void
                 setDbusProperty(
                     asyncResp, entry.second.begin()->first, entry.first,
                     "xyz.openbmc_project.Control.Service.Attributes", "Running",
-                    "IPMI/ProtocolEnabled", protocolEnabled);
+                    protocolEnabled, "IPMI/ProtocolEnabled");
                 setDbusProperty(
                     asyncResp, entry.second.begin()->first, entry.first,
                     "xyz.openbmc_project.Control.Service.Attributes", "Enabled",
-                    "IPMI/ProtocolEnabled", protocolEnabled);
+                    protocolEnabled, "IPMI/ProtocolEnabled");
             }
         }
     });

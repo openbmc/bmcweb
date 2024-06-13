@@ -1061,7 +1061,7 @@ inline void patchAppliedOperatingConfig(
     setDbusProperty(
         resp, *controlService, cpuObjectPath,
         "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig",
-        "AppliedConfig", "AppliedOperatingConfig", configPath);
+        "AppliedConfig", configPath, "AppliedOperatingConfig");
 }
 
 inline void

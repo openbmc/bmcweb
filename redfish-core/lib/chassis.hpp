@@ -821,7 +821,7 @@ inline void
         }
 
         setDbusProperty(asyncResp, processName, objectPath, interfaceName,
-                        destProperty, "ResetType", propertyValue);
+                        destProperty, propertyValue, "ResetType");
     });
 }
 
