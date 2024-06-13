@@ -575,6 +575,24 @@
       "parentUuid": "1436e9c6_18ca6196",
       "revId": "28469f01ac391a2fde542d8ff6ce393a09c580cf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f07b01e_2a001e54",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-13T20:11:37Z",
+      "side": 1,
+      "message": "\u003e So if you just agreed to relax the security requirements for WS a bit and allow authenticating with the subprotocol alone (without cookies) that would seem like a viable way forward of converting webui-vue to standard auth.\n\nFWIW, it\u0027s done using cookies because it reduces the amount of code that\u0027s presented to an unathenticated attacker, which reduces the possibility of an unauthenticated attack being found.  Subprotocol runs a lot more code before it can decide a connection is unauthenticated, and all that code is specific to websockets (so harder to test). while I\u0027d like to believe that code is bug and race condition free, not executing it at all is easier.",
+      "parentUuid": "9db60740_ac441f31",
+      "revId": "28469f01ac391a2fde542d8ff6ce393a09c580cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
