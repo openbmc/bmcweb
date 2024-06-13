@@ -2744,8 +2744,8 @@ inline void setSensorsOverride(
                 }
                 setDbusProperty(sensorAsyncResp->asyncResp, item.second,
                                 item.first, "xyz.openbmc_project.Sensor.Value",
-                                "Value", propertyValueNameStr,
-                                iterator->second.first);
+                                "Value", iterator->second.first,
+                                propertyValueNameStr);
             }
         };
         // Get object with connection for the given sensor name

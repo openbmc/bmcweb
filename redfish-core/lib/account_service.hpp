@@ -265,7 +265,7 @@ inline void
     }
     setDbusProperty(asyncResp, "xyz.openbmc_project.User.Manager",
                     dbusObjectPath, "xyz.openbmc_project.User.Attributes",
-                    "UserGroups", "AccountTypes", updatedUserGroups);
+                    "UserGroups", updatedUserGroups, "AccountTypes");
 }
 
 inline void userErrorMessageHandler(
@@ -431,8 +431,8 @@ inline void handleRoleMapPatch(
                         asyncResp, ldapDbusService, roleMapObjData[index].first,
                         "xyz.openbmc_project.User.PrivilegeMapperEntry",
                         "GroupName",
-                        std::format("RemoteRoleMapping/{}/RemoteGroup", index),
-                        *remoteGroup);
+                        *remoteGroup,
+                        std::format("RemoteRoleMapping/{}/RemoteGroup", index));
                 }
 
                 // If "LocalRole" info is provided
@@ -442,8 +442,8 @@ inline void handleRoleMapPatch(
                         asyncResp, ldapDbusService, roleMapObjData[index].first,
                         "xyz.openbmc_project.User.PrivilegeMapperEntry",
                         "Privilege",
-                        std::format("RemoteRoleMapping/{}/LocalRole", index),
-                        *localRole);
+                        *localRole,
+                        std::format("RemoteRoleMapping/{}/LocalRole", index));
                 }
             }
             // Create a new RoleMapping Object.
@@ -690,8 +690,8 @@ inline void handleServiceAddressPatch(
 {
     setDbusProperty(asyncResp, ldapDbusService, ldapConfigObject,
                     ldapConfigInterface, "LDAPServerURI",
-                    ldapServerElementName + "/ServiceAddress",
-                    serviceAddressList.front());
+                    serviceAddressList.front(),
+                    ldapServerElementName + "/ServiceAddress");
 }
 /**
  * @brief updates the LDAP Bind DN and updates the
@@ -710,8 +710,8 @@ inline void
 {
     setDbusProperty(asyncResp, ldapDbusService, ldapConfigObject,
                     ldapConfigInterface, "LDAPBindDN",
-                    ldapServerElementName + "/Authentication/Username",
-                    username);
+                    username,
+                    ldapServerElementName + "/Authentication/Username");
 }
 
 /**
@@ -730,8 +730,8 @@ inline void
 {
     setDbusProperty(asyncResp, ldapDbusService, ldapConfigObject,
                     ldapConfigInterface, "LDAPBindDNPassword",
-                    ldapServerElementName + "/Authentication/Password",
-                    password);
+                    password,
+                    ldapServerElementName + "/Authentication/Password");
 }
 
 /**
@@ -751,9 +751,9 @@ inline void
 {
     setDbusProperty(asyncResp, ldapDbusService, ldapConfigObject,
                     ldapConfigInterface, "LDAPBaseDN",
+                    baseDNList.front(),
                     ldapServerElementName +
-                        "/LDAPService/SearchSettings/BaseDistinguishedNames",
-                    baseDNList.front());
+                        "/LDAPService/SearchSettings/BaseDistinguishedNames");
 }
 /**
  * @brief updates the LDAP user name attribute and updates the
@@ -772,9 +772,9 @@ inline void
 {
     setDbusProperty(asyncResp, ldapDbusService, ldapConfigObject,
                     ldapConfigInterface, "UserNameAttribute",
+                    userNameAttribute,
                     ldapServerElementName +
-                        "LDAPService/SearchSettings/UsernameAttribute",
-                    userNameAttribute);
+                        "LDAPService/SearchSettings/UsernameAttribute");
 }
 /**
  * @brief updates the LDAP group attribute and updates the
@@ -793,9 +793,9 @@ inline void handleGroupNameAttrPatch(
 {
     setDbusProperty(asyncResp, ldapDbusService, ldapConfigObject,
                     ldapConfigInterface, "GroupNameAttribute",
+                    groupsAttribute
                     ldapServerElementName +
-                        "/LDAPService/SearchSettings/GroupsAttribute",
-                    groupsAttribute);
+                        "/LDAPService/SearchSettings/GroupsAttribute");
 }
 /**
  * @brief updates the LDAP service enable and updates the
@@ -813,7 +813,7 @@ inline void handleServiceEnablePatch(
 {
     setDbusProperty(asyncResp, ldapDbusService, ldapConfigObject,
                     ldapEnableInterface, "Enabled",
-                    ldapServerElementName + "/ServiceEnabled", serviceEnabled);
+                    serviceEnabled, ldapServerElementName + "/ServiceEnabled");
 }
 
 struct AuthMethods
@@ -1127,7 +1127,7 @@ inline void updateUserProperties(
             setDbusProperty(asyncResp, "xyz.openbmc_project.User.Manager",
                             dbusObjectPath,
                             "xyz.openbmc_project.User.Attributes",
-                            "UserEnabled", "Enabled", *enabled);
+                            "UserEnabled", *enabled, "Enabled");
         }
 
         if (roleId)
@@ -1142,7 +1142,7 @@ inline void updateUserProperties(
             setDbusProperty(asyncResp, "xyz.openbmc_project.User.Manager",
                             dbusObjectPath,
                             "xyz.openbmc_project.User.Attributes",
-                            "UserPrivilege", "RoleId", priv);
+                            "UserPrivilege", priv, "RoleId");
         }
 
         if (locked)
@@ -1159,7 +1159,7 @@ inline void updateUserProperties(
             setDbusProperty(asyncResp, "xyz.openbmc_project.User.Manager",
                             dbusObjectPath,
                             "xyz.openbmc_project.User.Attributes",
-                            "UserLockedForFailedAttempt", "Locked", *locked);
+                            "UserLockedForFailedAttempt", *locked, "Locked");
         }
 
         if (accountTypes)
@@ -1475,7 +1475,7 @@ inline void handleAccountServicePatch(
             asyncResp, "xyz.openbmc_project.User.Manager",
             sdbusplus::message::object_path("/xyz/openbmc_project/user"),
             "xyz.openbmc_project.User.AccountPolicy", "MinPasswordLength",
-            "MinPasswordLength", *minPasswordLength);
+            *minPasswordLength, "MinPasswordLength");
     }
 
     if (maxPasswordLength)
@@ -1495,7 +1495,7 @@ inline void handleAccountServicePatch(
             asyncResp, "xyz.openbmc_project.User.Manager",
             sdbusplus::message::object_path("/xyz/openbmc_project/user"),
             "xyz.openbmc_project.User.AccountPolicy", "AccountUnlockTimeout",
-            "AccountLockoutDuration", *unlockTimeout);
+            *unlockTimeout, "AccountLockoutDuration");
     }
     if (lockoutThreshold)
     {
@@ -1503,8 +1503,8 @@ inline void handleAccountServicePatch(
             asyncResp, "xyz.openbmc_project.User.Manager",
             sdbusplus::message::object_path("/xyz/openbmc_project/user"),
             "xyz.openbmc_project.User.AccountPolicy",
-            "MaxLoginAttemptBeforeLockout", "AccountLockoutThreshold",
-            *lockoutThreshold);
+            "MaxLoginAttemptBeforeLockout", *lockoutThreshold,
+            "AccountLockoutThreshold");
     }
 }
 

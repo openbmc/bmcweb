@@ -52,8 +52,8 @@ void setDbusProperty(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                      std::string_view processName,
                      const sdbusplus::message::object_path& path,
                      std::string_view interface, std::string_view dbusProperty,
-                     std::string_view redfishPropertyName,
-                     const PropertyType& prop)
+                     const PropertyType& prop,
+                     std::string_view redfishPropertyName)
 {
     std::string processNameStr(processName);
     std::string interfaceStr(interface);

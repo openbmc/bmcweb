@@ -2105,7 +2105,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
         setDbusProperty(asyncResp, "xyz.openbmc_project.Logging",
                         "/xyz/openbmc_project/logging/entry/" + entryId,
                         "xyz.openbmc_project.Logging.Entry", "Resolved",
-                        "Resolved", *resolved);
+                        *resolved, "Resolved");
     });
 
     BMCWEB_ROUTE(

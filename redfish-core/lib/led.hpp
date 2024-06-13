@@ -142,8 +142,8 @@ inline void
             asyncResp, "xyz.openbmc_project.LED.GroupManager",
             sdbusplus::message::object_path(
                 "/xyz/openbmc_project/led/groups/enclosure_identify"),
-            "xyz.openbmc_project.Led.Group", "Asserted", "IndicatorLED",
-            ledBlinkng);
+            "xyz.openbmc_project.Led.Group", "Asserted", ledBlinkng,
+            "IndicatorLED");
     });
 }
 
@@ -233,7 +233,7 @@ inline void setSystemLocationIndicatorActive(
                 sdbusplus::message::object_path(
                     "/xyz/openbmc_project/led/groups/enclosure_identify"),
                 "xyz.openbmc_project.Led.Group", "Asserted",
-                "LocationIndicatorActive", ledState);
+                ledState, "LocationIndicatorActive");
         }
     });
 }
