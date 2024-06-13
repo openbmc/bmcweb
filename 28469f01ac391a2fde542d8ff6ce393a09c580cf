@@ -557,6 +557,24 @@
       "parentUuid": "b599335e_05ff05aa",
       "revId": "28469f01ac391a2fde542d8ff6ce393a09c580cf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9db60740_ac441f31",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1000936
+      },
+      "writtenOn": "2024-06-13T19:22:57Z",
+      "side": 1,
+      "message": "\u003e I know you have strong opinions on various communication forums, so I\u0027ll leave it up to you which OpenBMC forum you want to start the above discussion (I\u0027m available on all of the active openbmc ones).\n\nOK, I\u0027ll try to re-start this discussion on the mailing list.\n\n\u003e In the context of this commit, I\u0027ve written down the change I\u0027d like to see, and also said I\u0027m not that tied to it if I don\u0027t see it.  We can close this discussion whether or not you want to make the change, and honestly either way is fine.\n\nWhen making a decision I like to come to consensus with all experienced parties involved. Here I think I still have a point but if it doesn\u0027t sound convincing to you then either the point is bad or I haven\u0027t yet succeeded explaining it to you.\n\n\u003e You can also rephrase \"get rid of X\" as \"break existing clients that use X\", which we try to avoid in the ecosystem if we can.\n\nNo existing clients count on cookie auth being available via the standard Redfish Session creating method. So if you just agreed to relax the security requirements for WS a bit and allow authenticating with the subprotocol alone (without cookies) that would seem like a viable way forward of converting webui-vue to standard auth.",
+      "parentUuid": "1436e9c6_18ca6196",
+      "revId": "28469f01ac391a2fde542d8ff6ce393a09c580cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
