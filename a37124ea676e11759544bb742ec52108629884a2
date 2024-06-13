@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cd02e20e_f8d8f9f0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-06-13T16:35:44Z",
+      "side": 1,
+      "message": "Sorry for the vague expression, but yes I mean xyz.openbmc_project.State.Host. In general, the only reason we are looking at the state paths currently is to retrieve a valid index of existing hosts, that we can use to validate the requested systemName and later construct our dbus object_paths with the found index. I.e \"/xyz/openbmc_project/control/host+index/auto_reboot\".\n\n\nIn general, I agree on system discovery via dbus being fixed in order to use for expample getCollectionMembers from collection_util instead of having a custom solution is the correct way of doing this, but that requires a good discussion on how to achieve it and probably some time to be adapted. I am very open for that, what do you suggest on how to start the discussion properly? @Patrick Williams what are your thoughts on this topic?\n\nAs of now, this implementation tries to be a working starting point for multi-host platforms.",
+      "parentUuid": "2294979e_0a17d6b5",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 72
+      },
+      "revId": "a37124ea676e11759544bb742ec52108629884a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1c8b3c0f_8e685512",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -37,6 +61,30 @@
       "writtenOn": "2024-06-11T15:36:30Z",
       "side": 1,
       "message": "Not true.",
+      "range": {
+        "startLine": 36,
+        "startChar": 10,
+        "endLine": 36,
+        "endChar": 62
+      },
+      "revId": "a37124ea676e11759544bb742ec52108629884a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84abf34c_4bab7052",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-06-13T16:35:44Z",
+      "side": 1,
+      "message": "Oh I see my error, I read the date the european way which ends up being read as 9th January. Thinking about it, that would be a rather specific date to remove an option flag.",
+      "parentUuid": "1c8b3c0f_8e685512",
       "range": {
         "startLine": 36,
         "startChar": 10,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6ea77715_2c9bc459",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-06-13T16:35:44Z",
+      "side": 1,
+      "message": "Could you elaborate this?",
+      "parentUuid": "da9fbd7f_ba878c33",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 16
+      },
+      "revId": "a37124ea676e11759544bb742ec52108629884a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ba326ae2_5fb319ef",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -95,6 +167,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0cf1015d_3e5ecfde",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-06-13T16:35:44Z",
+      "side": 1,
+      "message": "I don\u0027t see why that wouldn\u0027t be possible. This implementation doesn\u0027t care about what the set uri name is. Using your example, a user on multi-host would request via uri /redfish/v1/Systems/redfish_1_system1 to get the resources of host 1 and /redfish/v1/Systems/redfish_1_system2 to get to the resources of host 2. \nShould this behavior be changed?",
+      "parentUuid": "ba326ae2_5fb319ef",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 44
+      },
+      "revId": "a37124ea676e11759544bb742ec52108629884a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2bc6a42c_2e7b80f2",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -106,6 +202,30 @@
       "writtenOn": "2024-06-11T15:48:40Z",
       "side": 1,
       "message": "Ah, now I see my confusion.  It says here that it followed TESTING.md, but that we\u0027re ignoring the failing result.\n\nSystems with multihost enabled currently pass.  For features that are ready for master, we should not regress from passing to failing.\n\nFeel free to use the existing option flag to shut off the paths to any URLs that don\u0027t currently pass when in multihost mode, but considering we haven\u0027t written multi-host specific tests yet, redfish-service-validator is the best tool we have for finding failures and I would expect it to pass.",
+      "range": {
+        "startLine": 57,
+        "startChar": 37,
+        "endLine": 58,
+        "endChar": 14
+      },
+      "revId": "a37124ea676e11759544bb742ec52108629884a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90374439_4f5d3a64",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-06-13T16:35:44Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2bc6a42c_2e7b80f2",
       "range": {
         "startLine": 57,
         "startChar": 37,
@@ -141,6 +261,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f796894f_fb911709",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-06-13T16:35:44Z",
+      "side": 1,
+      "message": "If I understand correctly, for future testing I should run the validator with the --payload flag and only test routes I know will succeed and for as long as the other headers haven\u0027t been adapted?",
+      "parentUuid": "0f20e768_0d52d9d7",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 44
+      },
+      "revId": "a37124ea676e11759544bb742ec52108629884a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0fd1277e_c47e0cfe",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -152,6 +296,24 @@
       "writtenOn": "2024-06-11T15:36:30Z",
       "side": 1,
       "message": "I see lots of URIS in this result that haven\u0027t been changed to handle multi-system in this patch, so it\u0027s surprising that Redfish service validator is passing, and I have no idea how redfish is giving the correct result.  In this code, I would expect most of the sub URLs to 404.\n\nI would expect that in this patch, sub URLs that haven\u0027t been moved over to the new system,\n/redfish/v1/Systems/\u003cstr\u003e/LogServices for example, would be omitted from the response.\n\nIt\u0027s also possible there\u0027s a bug in service validator.  Can you post your passing report somewhere, or take a look and determine if you in fact found a bug in service validator?",
+      "revId": "a37124ea676e11759544bb742ec52108629884a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83218260_e5956b3c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-06-13T16:35:44Z",
+      "side": 1,
+      "message": "As mentioned above, redfish validator fails for yv4. The confusion might come from patchset 2, where I stated that rf validator succeeded on yv4. This however was more likely due to the implementation of getComputerSystemIndex.",
+      "parentUuid": "0fd1277e_c47e0cfe",
       "revId": "a37124ea676e11759544bb742ec52108629884a2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -198,6 +360,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d00dca0e_33be51cf",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-06-13T16:35:44Z",
+      "side": 1,
+      "message": "As I see it, there is a naming convention for dbus object_paths including indices. That is why we try to find out the index of the requested system in order to construct the correct object_paths in later operations.",
+      "parentUuid": "3790d213_e143e5fb",
+      "range": {
+        "startLine": 146,
+        "startChar": 39,
+        "endLine": 146,
+        "endChar": 58
+      },
+      "revId": "a37124ea676e11759544bb742ec52108629884a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8f804802_1ff14441",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 3
@@ -221,6 +407,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7e698a2e_b13a4302",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-06-13T16:35:44Z",
+      "side": 1,
+      "message": "I guess you are referring to imprecise string matching? This is true if we look at the line isolated, but looking at the function as a whole, we end up matching precisely I would think.",
+      "parentUuid": "8f804802_1ff14441",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 63
+      },
+      "revId": "a37124ea676e11759544bb742ec52108629884a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7d03abd7_c25aacde",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 3
@@ -232,6 +442,30 @@
       "writtenOn": "2024-06-11T15:40:06Z",
       "side": 1,
       "message": "Why does this route through getComputerSystemIndex if we then ignore the result?",
+      "range": {
+        "startLine": 3732,
+        "startChar": 47,
+        "endLine": 3732,
+        "endChar": 66
+      },
+      "revId": "a37124ea676e11759544bb742ec52108629884a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83a46c10_d91438fa",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 3732,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-06-13T16:35:44Z",
+      "side": 1,
+      "message": "This was a mistake from my side, the index needs to be used when constructing the object_path.",
+      "parentUuid": "7d03abd7_c25aacde",
       "range": {
         "startLine": 3732,
         "startChar": 47,
