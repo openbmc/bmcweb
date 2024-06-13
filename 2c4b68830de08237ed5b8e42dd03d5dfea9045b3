@@ -636,6 +636,24 @@
       "parentUuid": "c911e096_cd0c4f03",
       "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c73e7a9_26df350a",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1119,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-06-13T22:32:18Z",
+      "side": 1,
+      "message": "So, i am assuming with this one the Redfish Unstructured HTTP Post update will be removed from clients and they will switch to Multipart-form HTTP Post update instead. Please correct me if my understanding is wrong.",
+      "parentUuid": "06616bca_719c8cf4",
+      "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
