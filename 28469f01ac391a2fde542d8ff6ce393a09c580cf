@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3a04fa79_95d799d9",
+        "filename": "Redfish.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-13T16:07:17Z",
+      "side": 1,
+      "message": "\u003e \u003e I\u0027d rather this be documented in code, especially given we don\u0027t really document the specification correct path.  Technically this is \"redfish\" documentation, so it\u0027s a little confusing we only document the \"wrong\" parts.\n\u003e \n\u003e This document is meant to give OpenBMC-specific information about Redfish implementation and serve as a quick reference for what\u0027s supported and what\u0027s not, right?\n\nCorrect, but what we\u0027ve implemented here is outside the \"redfish\" specification.\n\nMy main thinking here is that API implementers look to this documentation for \"which parts of the Redfish spec does bmcweb implement\".  Considering this isn\u0027t in the redfish spec, and we don\u0027t document the redfish-official parts that we do implement, it makes it read like we only support OEM.\n\nIf this document were flushed out with the specification behavior, and this was just a minor note at the bottom, I\u0027d feel differently.\n\nI\u0027m happy to have it documented, just not in this spot.\n\n\u003e I\u0027d say documenting all OEM specifics in it seems to be more useful compared to code comments here and there. Code comments are mostly useful to those working on this code and nearby while Redfish.md is suppposed to be useful to API consumers too, right?\n\nThat\u0027s the key, API consumers shouldn\u0027t be using this interface.  This is intended only for webui-vue;  If we want to document this flow in webui-vue, we could do that, but I don\u0027t want API implementers looking at this documentation and expecting that this is something we allow.\n\nHopefully that makes sense.\n\n\u003e \n\u003e If you sure it\u0027d be more helpful to move this comment to the code, no problem, it\u0027s just that the rationale isn\u0027t obvious to me, probably I\u0027m missing the intent behind Redfish.md.",
+      "parentUuid": "11e06cfb_051a0574",
+      "range": {
+        "startLine": 719,
+        "startChar": 0,
+        "endLine": 721,
+        "endChar": 23
+      },
+      "revId": "28469f01ac391a2fde542d8ff6ce393a09c580cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1e5e02b8_86526aa5",
         "filename": "redfish-core/lib/redfish_sessions.hpp",
         "patchSetId": 2
@@ -102,6 +126,30 @@
       "side": 1,
       "message": "I\u0027m afraid I do not follow, I didn\u0027t add any other (than the regular OpenBMC cookies) header anywhere...",
       "parentUuid": "1e5e02b8_86526aa5",
+      "range": {
+        "startLine": 258,
+        "startChar": 0,
+        "endLine": 258,
+        "endChar": 2
+      },
+      "revId": "28469f01ac391a2fde542d8ff6ce393a09c580cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57ed1a67_04c8fe41",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-13T16:07:17Z",
+      "side": 1,
+      "message": "bmcweb already makes use of the \"X-Requested-With\" header to determine if the login is coming from a browser.  If we used that as our \"we should return cookies\" decision instead of the query param, we\u0027d avoid duplicating things.",
+      "parentUuid": "8d16b616_a6fee2aa",
       "range": {
         "startLine": 258,
         "startChar": 0,
@@ -161,6 +209,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5d678523_89f6910e",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-13T16:07:17Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/bmcweb/blob/00a0fe4e361efcdeb600f3a2e88b746fa18b9715/include/login_routes.hpp#L174\n\nDoes not include any mention of the keyword \"Path\", this is why I\u0027m confused.\n\nI\u0027m assuming you tried without Path being set, and it didn\u0027t work?  Some mention of this in your commit message would be good, so we can note why it\u0027s different.",
+      "parentUuid": "ebd5543f_30c9e567",
+      "range": {
+        "startLine": 262,
+        "startChar": 40,
+        "endLine": 262,
+        "endChar": 46
+      },
+      "revId": "28469f01ac391a2fde542d8ff6ce393a09c580cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "81d19c47_05a5c783",
         "filename": "redfish-core/lib/redfish_sessions.hpp",
         "patchSetId": 2
@@ -208,6 +280,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ad31282b_bede12c2",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-13T16:07:17Z",
+      "side": 1,
+      "message": "\u003e I thought about that but also thought that you might want to get rid of /login altogether when the standard Redfish reaches feature parity.\n\nHaving this in its own method won\u0027t take away from that goal when it comes.\n\nThe reality is also that /login at most will at most be wrapped in an option flag.  Its existed for too long and too many things rely on it to remove the code entirely.\n\n\u003e \n\u003e As to the other path, the MTLS one, it also sets `IsAuthenticated` cookie and never checks it or does anything else with it. I wonder if it was added in mistake.\n\nIsAuthenticated was used by the UI for cases where we had things like mTLS that would authenticate without Javascript, but we still needed to inform javascript \"hey, you\u0027re already logged in, don\u0027t post the login screen\".\n\nwebui-vue broke this path, and we haven\u0027t fixed it.  Lets keep IsAuthenticated for now just to be consistent between the auth paths, and at some point we\u0027ll have to look at getting mtls auth working on webui-vue.\n\n\u003e \n\u003e But even if /login is removed then it\u0027d still be two and two is more than one, so DRY tells us a helper should be created instead, sure, agreed.\n\nThank you.",
+      "parentUuid": "f90bd4b5_10f5bf03",
+      "range": {
+        "startLine": 260,
+        "startChar": 0,
+        "endLine": 266,
+        "endChar": 63
+      },
+      "revId": "28469f01ac391a2fde542d8ff6ce393a09c580cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c78b1df2_fe31627f",
         "filename": "redfish-core/lib/redfish_sessions.hpp",
         "patchSetId": 2
@@ -237,6 +333,24 @@
       "side": 1,
       "message": "\u003e We should add this header in either path.\n\nWhy? If we know our client is special and asks for our special sauce why send the standard header? Also, it contains the token that\u0027s supposed to be secret from JS code if we claim the non-standard cookie auth is done for additional security the SESSION HttpOnly cookie provides but here we would be giving injected JS an opportunity to catch it.",
       "parentUuid": "c78b1df2_fe31627f",
+      "revId": "28469f01ac391a2fde542d8ff6ce393a09c580cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12049e40_f6ff519a",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-13T16:07:17Z",
+      "side": 1,
+      "message": "\u003e \u003e We should add this header in either path.\n\u003e \n\u003e Why? \n\nIn a word, consistency.  The special header is only additive, so even if we got in some strange scenario where the special header is being used, but the client was expecting x-auth, it would function.\n\nAlso, a more minor thing, if we keep the X-auth-token, we\u0027re technically still \"redfish correct\" in our response to the POST.\n\n\u003e If we know our client is special and asks for our special sauce why send the standard header? Also, it contains the token that\u0027s supposed to be secret from JS code if we claim the non-standard cookie auth is done for additional security\n\nLets be clear, cookie auth is done for websocket support.  I\u0027m not prepared to justify the claim that it\u0027s more secure the X-auth-token.\n\n\u003e the SESSION HttpOnly cookie provides but here we would be giving injected JS an opportunity to catch it.\n\nMy opinion here isn\u0027t terribly strong.  If you want to keep the code as is, all good.",
+      "parentUuid": "2853fa46_ff553c5c",
       "revId": "28469f01ac391a2fde542d8ff6ce393a09c580cf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
