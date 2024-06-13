@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1c52c0c8_f629b1ed",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-13T18:04:48Z",
+      "side": 1,
+      "message": "\u003e Sorry for the vague expression, but yes I mean xyz.openbmc_project.State.Host. In general, the only reason we are looking at the state paths currently is to retrieve a valid index of existing hosts, that we can use to validate the requested systemName and later construct our dbus object_paths with the found index. I.e \"/xyz/openbmc_project/control/host+index/auto_reboot\".\n\nYep, I understand.\n\n\u003e \n\u003e \n\u003e In general, I agree on system discovery via dbus being fixed in order to use for expample getCollectionMembers from collection_util instead of having a custom solution is the correct way of doing this, but that requires a good discussion on how to achieve it and probably some time to be adapted. I am very open for that, what do you suggest on how to start the discussion properly? @Patrick Williams what are your thoughts on this topic?\n\nProbably start by looking up the last couple times we\u0027ve talked about exactly this 😊. I believe the last discussion was on the mailing list.  There\u0027s also several discussions on gerrit.\n\n\u003e \n\u003e As of now, this implementation tries to be a working starting point for multi-host platforms.\n\nCool, in that case please mark it WIP if you don\u0027t intend this patch to be merged.  It helps to keep things organized.",
+      "parentUuid": "cd02e20e_f8d8f9f0",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 72
+      },
+      "revId": "a37124ea676e11759544bb742ec52108629884a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1c8b3c0f_8e685512",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "Oh I see my error, I read the date the european way which ends up being read as 9th January. Thinking about it, that would be a rather specific date to remove an option flag.",
       "parentUuid": "1c8b3c0f_8e685512",
+      "range": {
+        "startLine": 36,
+        "startChar": 10,
+        "endLine": 36,
+        "endChar": 62
+      },
+      "revId": "a37124ea676e11759544bb742ec52108629884a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d0de3aa_cdcd8986",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-13T18:04:48Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "84abf34c_4bab7052",
       "range": {
         "startLine": 36,
         "startChar": 10,
@@ -144,6 +192,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7b86f0dd_b9136cc2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-13T18:04:48Z",
+      "side": 1,
+      "message": "reading the getCollectionMembers code can answer your question a lot better than I can.  ComputerSystemCollection should ideally use that same helper method to generate the URI the exact same way we handle it for other collections.\n\nThe overall intent is that in the end I don\u0027t want bmcweb in charge of naming things.  We already get it wrong in the case of \"system\" and \"bmc\", which is why we have to configure it.",
+      "parentUuid": "6ea77715_2c9bc459",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 16
+      },
+      "revId": "a37124ea676e11759544bb742ec52108629884a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ba326ae2_5fb319ef",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -179,6 +251,30 @@
       "side": 1,
       "message": "I don\u0027t see why that wouldn\u0027t be possible. This implementation doesn\u0027t care about what the set uri name is. Using your example, a user on multi-host would request via uri /redfish/v1/Systems/redfish_1_system1 to get the resources of host 1 and /redfish/v1/Systems/redfish_1_system2 to get to the resources of host 2. \nShould this behavior be changed?",
       "parentUuid": "ba326ae2_5fb319ef",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 44
+      },
+      "revId": "a37124ea676e11759544bb742ec52108629884a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "785c9f95_224e9daf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-13T18:04:48Z",
+      "side": 1,
+      "message": "\" the index is appended to it:\" could be rephrased as \"the index is appended to the end of it\" so in this model I wouldn\u0027t be able to add a system index in the middle.",
+      "parentUuid": "0cf1015d_3e5ecfde",
       "range": {
         "startLine": 45,
         "startChar": 0,
@@ -285,6 +381,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a44bb03d_905d4d2f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-13T18:04:48Z",
+      "side": 1,
+      "message": "Redfish is a hypermedia tree.  The agreement we had in the past was that URIs that had been ported to multihost would be returned, and URIs that hadn\u0027t been ported to multihost would be omitted from the hypermedia tree so that:\nA. tests will pass.\nB. It\u0027s very obvious to a user which URIs should be expected to work on a multihost system.",
+      "parentUuid": "f796894f_fb911709",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 44
+      },
+      "revId": "a37124ea676e11759544bb742ec52108629884a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0fd1277e_c47e0cfe",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -314,6 +434,24 @@
       "side": 1,
       "message": "As mentioned above, redfish validator fails for yv4. The confusion might come from patchset 2, where I stated that rf validator succeeded on yv4. This however was more likely due to the implementation of getComputerSystemIndex.",
       "parentUuid": "0fd1277e_c47e0cfe",
+      "revId": "a37124ea676e11759544bb742ec52108629884a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c6ef110_43b9b351",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-13T18:04:48Z",
+      "side": 1,
+      "message": "ACK",
+      "parentUuid": "83218260_e5956b3c",
       "revId": "a37124ea676e11759544bb742ec52108629884a2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -384,6 +522,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8df108ac_858f11c9",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-13T18:04:48Z",
+      "side": 1,
+      "message": "Yep, lets close this out in the other thread;  We have a mechanism for handling dbus collections -\u003e redfish.  We should be following it.",
+      "parentUuid": "d00dca0e_33be51cf",
+      "range": {
+        "startLine": 146,
+        "startChar": 39,
+        "endLine": 146,
+        "endChar": 58
+      },
+      "revId": "a37124ea676e11759544bb742ec52108629884a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8f804802_1ff14441",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 3
@@ -424,6 +586,53 @@
         "startChar": 0,
         "endLine": 149,
         "endChar": 63
+      },
+      "revId": "a37124ea676e11759544bb742ec52108629884a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c819979_48c9f0f0",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-13T18:04:48Z",
+      "side": 1,
+      "message": "That\u0027s one thing, using exceptions for non exceptional paths (line 181) is another, non trivial lambdas (line 161) is a third.\n\nI just assumed that you hadn\u0027t read that yet.",
+      "parentUuid": "7e698a2e_b13a4302",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 63
+      },
+      "revId": "a37124ea676e11759544bb742ec52108629884a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45ec2b5e_f003bcdc",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-13T18:04:48Z",
+      "side": 1,
+      "message": "\"0 +\"\n\n?",
+      "range": {
+        "startLine": 179,
+        "startChar": 30,
+        "endLine": 179,
+        "endChar": 34
       },
       "revId": "a37124ea676e11759544bb742ec52108629884a2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
