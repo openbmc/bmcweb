@@ -725,7 +725,7 @@ inline void updateIPv4DefaultGateway(
         sdbusplus::message::object_path("/xyz/openbmc_project/network") /
             ifaceId,
         "xyz.openbmc_project.Network.EthernetInterface", "DefaultGateway",
-        "Gateway", gateway);
+        gateway, "Gateway");
 }
 
 /**
@@ -1236,7 +1236,7 @@ inline void
         asyncResp, "xyz.openbmc_project.Network",
         sdbusplus::message::object_path("/xyz/openbmc_project/network/config"),
         "xyz.openbmc_project.Network.SystemConfiguration", "HostName",
-        "HostName", hostname);
+        hostname, "HostName");
 }
 
 inline void
@@ -1247,7 +1247,7 @@ inline void
     objPath /= ifaceId;
     setDbusProperty(asyncResp, "xyz.openbmc_project.Network", objPath,
                     "xyz.openbmc_project.Network.EthernetInterface", "MTU",
-                    "MTUSize", mtuSize);
+                    mtuSize, "MTUSize");
 }
 
 inline void
@@ -1260,8 +1260,8 @@ inline void
         asyncResp, "xyz.openbmc_project.Network",
         sdbusplus::message::object_path("/xyz/openbmc_project/network") /
             ifaceId,
-        "xyz.openbmc_project.Network.EthernetInterface", "DomainName", "FQDN",
-        vectorDomainname);
+        "xyz.openbmc_project.Network.EthernetInterface", "DomainName", vectorDomainname,
+        "FQDN");
 }
 
 inline bool isHostnameValid(const std::string& hostname)
@@ -1332,8 +1332,8 @@ inline void
         asyncResp, "xyz.openbmc_project.Network",
         sdbusplus::message::object_path("/xyz/openbmc_project/network") /
             ifaceId,
-        "xyz.openbmc_project.Network.MACAddress", "MACAddress", "MACAddress",
-        macAddress);
+        "xyz.openbmc_project.Network.MACAddress", "MACAddress", macAddress,
+        "MACAddress");
 }
 
 inline void setDHCPEnabled(const std::string& ifaceId,
@@ -1346,8 +1346,8 @@ inline void setDHCPEnabled(const std::string& ifaceId,
         asyncResp, "xyz.openbmc_project.Network",
         sdbusplus::message::object_path("/xyz/openbmc_project/network") /
             ifaceId,
-        "xyz.openbmc_project.Network.EthernetInterface", propertyName, "DHCPv4",
-        dhcp);
+        "xyz.openbmc_project.Network.EthernetInterface", propertyName, dhcp,
+        "DHCPv4");
 }
 
 enum class NetworkType
@@ -1378,7 +1378,7 @@ inline void setDHCPConfig(const std::string& propertyName, const bool& value,
 
     setDbusProperty(asyncResp, "xyz.openbmc_project.Network", path,
                     "xyz.openbmc_project.Network.DHCPConfiguration",
-                    propertyName, redfishPropertyName, value);
+                    propertyName, value, redfishPropertyName);
 }
 
 inline void handleSLAACAutoConfigPatch(
@@ -1390,8 +1390,8 @@ inline void handleSLAACAutoConfigPatch(
     setDbusProperty(asyncResp, "xyz.openbmc_project.Network", path,
                     "xyz.openbmc_project.Network.EthernetInterface",
                     "IPv6AcceptRA",
-                    "StatelessAddressAutoConfig/IPv6AutoConfigEnabled",
-                    ipv6AutoConfigEnabled);
+                    ipv6AutoConfigEnabled,
+                    "StatelessAddressAutoConfig/IPv6AutoConfigEnabled");
 }
 
 inline void handleDHCPPatch(const std::string& ifaceId,
@@ -1724,7 +1724,7 @@ inline void handleStaticNameServersPatch(
         sdbusplus::message::object_path("/xyz/openbmc_project/network") /
             ifaceId,
         "xyz.openbmc_project.Network.EthernetInterface", "StaticNameServers",
-        "StaticNameServers", updatedStaticNameServers);
+        updatedStaticNameServers, "StaticNameServers");
 }
 
 inline void handleIPv6StaticAddressesPatch(
@@ -2408,8 +2408,8 @@ inline void requestEthernetInterfacesRoutes(App& app)
                                     "/xyz/openbmc_project/network") /
                                     ifaceId,
                                 "xyz.openbmc_project.Network.EthernetInterface",
-                                "NICEnabled", "InterfaceEnabled",
-                                *interfaceEnabled);
+                                "NICEnabled", *interfaceEnabled,
+                                "InterfaceEnabled");
             }
 
             if (mtuSize)
