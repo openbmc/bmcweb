@@ -540,9 +540,16 @@ inline std::optional<boost::asio::ssl::context> getSSLClientContext()
         return std::nullopt;
     }
 
+    // Currently remote server's certificate verfication fails for
+    // HMC provided self-signed certificates,
+    // so skip remote server's certificate verfication.
+
+    // TODO: certificate verfication can be enabled after supporting
+    // HMC-BMC connection certificate flows on both HMC and BMC.
+
     // Add a directory containing certificate authority files to be used
     // for performing verification.
-    sslCtx.set_default_verify_paths(ec);
+    /* sslCtx.set_default_verify_paths(ec);
     if (ec)
     {
         BMCWEB_LOG_ERROR("SSL context set_default_verify failed");
@@ -555,7 +562,7 @@ inline std::optional<boost::asio::ssl::context> getSSLClientContext()
     {
         BMCWEB_LOG_ERROR("SSL context set_verify_mode failed");
         return std::nullopt;
-    }
+    } */
 
     // All cipher suites are set as per OWASP datasheet.
     // https://cheatsheetseries.owasp.org/cheatsheets/TLS_Cipher_String_Cheat_Sheet.html
