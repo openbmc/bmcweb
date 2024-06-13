@@ -144,6 +144,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "96ada8aa_ec801e2a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-06-13T11:29:32Z",
+      "side": 1,
+      "message": "In order to implement a generic solution, we should first support multiple satellite capabilities and an uuid assignment scheme for the BMCs for proper request forwarding and duplicate removals. So keeping it as WIP till dependencies are solved.",
+      "revId": "ab2880d4cb9fe9be18942047efb56a2f0b60b9bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b510d528_b6e5dfb8",
