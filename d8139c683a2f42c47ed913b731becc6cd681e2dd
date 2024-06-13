@@ -39,6 +39,30 @@
       },
       "revId": "d8139c683a2f42c47ed913b731becc6cd681e2dd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7e17600_64034ff2",
+        "filename": "include/login_routes.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-13T22:17:01Z",
+      "side": 1,
+      "message": "\u003e webui-vue counts on Local Storage to preserve information about the user-selected UI language and whether to show all timestamps in UTC or local timezone. It looks like clearing that on logout is a regression UX-wise.\n\nAt the time I wrote that, I\u0027m not sure I knew about the impact (I basically had never used webui-vue at that point).\n\nI know Gunnar has had concerns about this as well for some IBM proxy, so the tradeoffs we have to consider are:\n1. Do we care if we pass the OWASP test suite.\n2. Do we want user-language to persist (in the browser)\n\nWe should look into best practices in OWASP, and get to the bottom of why the harness requires seeing this flag.  That\u0027ll probably lead to one of a couple outcomes:\n1. We\u0027ll have to store the users timezone in redfish\n2. We\u0027ll revert this patch, and leave persistent storage alone, and have documentation about why we don\u0027t pass venom\n3. decide we don\u0027t care about venom, and just ignore it.\n\n\u003e Also, clearing cache might introduce latency for certain pages and elements and it\u0027s not clear how it helps with security anyhow.\n\nThis is us trying to pass the owasp test harness, so if you don\u0027t think it helps with security, I\u0027d recommend following their process for changing their recommendations.  They\u0027re HTTP security experts, so I imagine they can validate whether or not this header helps with security.\n\nThe test atom for this is here:\n\nhttps://github.com/oshp/oshp-validator/blob/0c6a88ee1948d8bed76ff70bf49fa371e52d601c/tests_suite.yml#L74\n\nIf a future version of the validator now passes without this header being present, then this is moot, and we can remove it.",
+      "parentUuid": "b02cbfe6_98904396",
+      "range": {
+        "startLine": 238,
+        "startChar": 1,
+        "endLine": 240,
+        "endChar": 1
+      },
+      "revId": "d8139c683a2f42c47ed913b731becc6cd681e2dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
