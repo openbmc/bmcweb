@@ -49,6 +49,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "33c965a2_d974f699",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-13T15:01:39Z",
+      "side": 1,
+      "message": "Why are we setting path here?  The issue is more that this is different than the other calls, which might be fine, but we should put it in its own commit so we can document why we\u0027re doing it.",
+      "range": {
+        "startLine": 262,
+        "startChar": 40,
+        "endLine": 262,
+        "endChar": 46
+      },
+      "revId": "28469f01ac391a2fde542d8ff6ce393a09c580cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81d19c47_05a5c783",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-13T15:01:39Z",
+      "side": 1,
+      "message": "Can we wrap this in a method please?  I see this same located two other places already, and it would be nice to be able to modify them in one spot.",
+      "range": {
+        "startLine": 260,
+        "startChar": 0,
+        "endLine": 266,
+        "endChar": 63
+      },
+      "revId": "28469f01ac391a2fde542d8ff6ce393a09c580cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c78b1df2_fe31627f",
         "filename": "redfish-core/lib/redfish_sessions.hpp",
         "patchSetId": 2
