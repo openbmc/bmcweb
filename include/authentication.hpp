@@ -216,6 +216,12 @@ inline std::shared_ptr<persistent_data::UserSession>
 // checks if request can be forwarded without authentication
 inline bool isOnAllowlist(std::string_view url, boost::beast::http::verb method)
 {
+    // Handle the case where the router registers routes as both ending with /
+    // and not.
+    if (url.ends_with('/') && url != "/")
+    {
+        url.remove_suffix(1);
+    }
     if (boost::beast::http::verb::get == method)
     {
         if (url == "/redfish/v1" || url == "/redfish/v1/" ||
