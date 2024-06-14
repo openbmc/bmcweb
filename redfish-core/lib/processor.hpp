@@ -1059,9 +1059,9 @@ inline void patchAppliedOperatingConfig(
 
     // Set the property, with handler to check error responses
     setDbusProperty(
-        resp, *controlService, cpuObjectPath,
+        resp, "AppliedOperatingConfig", *controlService, cpuObjectPath,
         "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig",
-        "AppliedConfig", "AppliedOperatingConfig", configPath);
+        "AppliedConfig", configPath);
 }
 
 inline void

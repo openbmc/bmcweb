@@ -734,11 +734,11 @@ inline void setApplyTime(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         return;
     }
 
-    setDbusProperty(asyncResp, "xyz.openbmc_project.Settings",
+    setDbusProperty(asyncResp, "ApplyTime", "xyz.openbmc_project.Settings",
                     sdbusplus::message::object_path(
                         "/xyz/openbmc_project/software/apply_time"),
                     "xyz.openbmc_project.Software.ApplyTime",
-                    "RequestedApplyTime", "ApplyTime", applyTimeNewVal);
+                    "RequestedApplyTime", applyTimeNewVal);
 }
 
 struct MultiPartUpdateParameters

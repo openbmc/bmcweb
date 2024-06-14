@@ -54,11 +54,12 @@ inline void afterGetPowerCapEnable(
         return;
     }
 
-    setDbusProperty(sensorsAsyncResp->asyncResp, "xyz.openbmc_project.Settings",
+    setDbusProperty(sensorsAsyncResp->asyncResp, "PowerControl",
+                    "xyz.openbmc_project.Settings",
                     sdbusplus::message::object_path(
                         "/xyz/openbmc_project/control/host0/power_cap"),
                     "xyz.openbmc_project.Control.Power.Cap", "PowerCap",
-                    "PowerControl", valueToSet);
+                    valueToSet);
 }
 
 inline void afterGetChassisPath(

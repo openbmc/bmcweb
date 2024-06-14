@@ -1278,10 +1278,11 @@ inline void setAutomaticRetryAttempts(
 {
     BMCWEB_LOG_DEBUG("Set Automatic Retry Attempts.");
     setDbusProperty(
-        asyncResp, "xyz.openbmc_project.State.Host",
+        asyncResp, "Boot/AutomaticRetryAttempts",
+        "xyz.openbmc_project.State.Host",
         sdbusplus::message::object_path("/xyz/openbmc_project/state/host0"),
         "xyz.openbmc_project.Control.Boot.RebootAttempts", "RetryAttempts",
-        "Boot/AutomaticRetryAttempts", retryAttempts);
+        retryAttempts);
 }
 
 inline computer_system::PowerRestorePolicyTypes
@@ -1532,9 +1533,9 @@ inline void setTrustedModuleRequiredToBoot(
         }
 
         // Valid TPM Enable object found, now setting the value
-        setDbusProperty(asyncResp, serv, path,
-                        "xyz.openbmc_project.Control.TPM.Policy", "TPMEnable",
-                        "Boot/TrustedModuleRequiredToBoot", tpmRequired);
+        setDbusProperty(asyncResp, "Boot/TrustedModuleRequiredToBoot", serv,
+                        path, "xyz.openbmc_project.Control.TPM.Policy",
+                        "TPMEnable", tpmRequired);
     });
 }
 
@@ -1579,11 +1580,12 @@ inline void setBootType(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     // Act on validated parameters
     BMCWEB_LOG_DEBUG("DBUS boot type: {}", bootTypeStr);
 
-    setDbusProperty(asyncResp, "xyz.openbmc_project.Settings",
+    setDbusProperty(asyncResp, "Boot/BootSourceOverrideMode",
+                    "xyz.openbmc_project.Settings",
                     sdbusplus::message::object_path(
                         "/xyz/openbmc_project/control/host0/boot"),
                     "xyz.openbmc_project.Control.Boot.Type", "BootType",
-                    "Boot/BootSourceOverrideMode", bootTypeStr);
+                    bootTypeStr);
 }
 
 /**
@@ -1634,11 +1636,12 @@ inline void setBootEnable(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     // Act on validated parameters
     BMCWEB_LOG_DEBUG("DBUS boot override enable: {}", bootOverrideEnable);
 
-    setDbusProperty(asyncResp, "xyz.openbmc_project.Settings",
+    setDbusProperty(asyncResp, "Boot/BootSourceOverrideEnabled",
+                    "xyz.openbmc_project.Settings",
                     sdbusplus::message::object_path(
                         "/xyz/openbmc_project/control/host0/boot"),
                     "xyz.openbmc_project.Object.Enable", "Enabled",
-                    "Boot/BootSourceOverrideEnabled", bootOverrideEnable);
+                    bootOverrideEnable);
 
     if (!bootOverrideEnable)
     {
@@ -1650,11 +1653,12 @@ inline void setBootEnable(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     BMCWEB_LOG_DEBUG("DBUS boot override persistent: {}",
                      bootOverridePersistent);
 
-    setDbusProperty(asyncResp, "xyz.openbmc_project.Settings",
+    setDbusProperty(asyncResp, "Boot/BootSourceOverrideEnabled",
+                    "xyz.openbmc_project.Settings",
                     sdbusplus::message::object_path(
                         "/xyz/openbmc_project/control/host0/boot/one_time"),
                     "xyz.openbmc_project.Object.Enable", "Enabled",
-                    "Boot/BootSourceOverrideEnabled", !bootOverridePersistent);
+                    !bootOverridePersistent);
 }
 
 /**
@@ -1695,16 +1699,18 @@ inline void
     BMCWEB_LOG_DEBUG("DBUS boot source: {}", bootSourceStr);
     BMCWEB_LOG_DEBUG("DBUS boot mode: {}", bootModeStr);
 
-    setDbusProperty(asyncResp, "xyz.openbmc_project.Settings",
+    setDbusProperty(asyncResp, "Boot/BootSourceOverrideTarget",
+                    "xyz.openbmc_project.Settings",
                     sdbusplus::message::object_path(
                         "/xyz/openbmc_project/control/host0/boot"),
                     "xyz.openbmc_project.Control.Boot.Source", "BootSource",
-                    "Boot/BootSourceOverrideTarget", bootSourceStr);
-    setDbusProperty(asyncResp, "xyz.openbmc_project.Settings",
+                    bootSourceStr);
+    setDbusProperty(asyncResp, "Boot/BootSourceOverrideTarget",
+                    "xyz.openbmc_project.Settings",
                     sdbusplus::message::object_path(
                         "/xyz/openbmc_project/control/host0/boot"),
                     "xyz.openbmc_project.Control.Boot.Mode", "BootMode",
-                    "Boot/BootSourceOverrideTarget", bootModeStr);
+                    bootModeStr);
 }
 
 /**
@@ -1786,9 +1792,9 @@ inline void setAssetTag(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             return;
         }
 
-        setDbusProperty(asyncResp, service, path,
+        setDbusProperty(asyncResp, "AssetTag", service, path,
                         "xyz.openbmc_project.Inventory.Decorator.AssetTag",
-                        "AssetTag", "AssetTag", assetTag);
+                        "AssetTag", assetTag);
     });
 }
 
@@ -1841,11 +1847,12 @@ inline void
         return;
     }
 
-    setDbusProperty(asyncResp, "xyz.openbmc_project.Settings",
+    setDbusProperty(asyncResp, "Boot/StopBootOnFault",
+                    "xyz.openbmc_project.Settings",
                     sdbusplus::message::object_path(
                         "/xyz/openbmc_project/logging/settings"),
                     "xyz.openbmc_project.Logging.Settings", "QuiesceOnHwError",
-                    "Boot/StopBootOnFault", *stopBootEnabled);
+                    *stopBootEnabled);
 }
 
 /**
@@ -1882,12 +1889,12 @@ inline void
         return;
     }
 
-    setDbusProperty(asyncResp, "xyz.openbmc_project.Settings",
+    setDbusProperty(asyncResp, "Boot/AutomaticRetryConfig",
+                    "xyz.openbmc_project.Settings",
                     sdbusplus::message::object_path(
                         "/xyz/openbmc_project/control/host0/auto_reboot"),
                     "xyz.openbmc_project.Control.Boot.RebootPolicy",
-                    "AutoReboot", "Boot/AutomaticRetryConfig",
-                    autoRebootEnabled);
+                    "AutoReboot", autoRebootEnabled);
 }
 
 inline std::string dbusPowerRestorePolicyFromRedfish(std::string_view policy)
@@ -1931,11 +1938,11 @@ inline void
     }
 
     setDbusProperty(
-        asyncResp, "xyz.openbmc_project.Settings",
+        asyncResp, "PowerRestorePolicy", "xyz.openbmc_project.Settings",
         sdbusplus::message::object_path(
             "/xyz/openbmc_project/control/host0/power_restore_policy"),
         "xyz.openbmc_project.Control.Power.RestorePolicy", "PowerRestorePolicy",
-        "PowerRestorePolicy", powerRestorePolicy);
+        powerRestorePolicy);
 }
 
 /**
@@ -2304,9 +2311,9 @@ inline void setPowerMode(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         BMCWEB_LOG_DEBUG("Setting power mode({}) -> {}", powerMode, path);
 
         // Set the Power Mode property
-        setDbusProperty(asyncResp, service, path,
+        setDbusProperty(asyncResp, "PowerMode", service, path,
                         "xyz.openbmc_project.Control.Power.Mode", "PowerMode",
-                        "PowerMode", powerMode);
+                        powerMode);
     });
 }
 
@@ -2464,20 +2471,22 @@ inline void
             return;
         }
 
-        setDbusProperty(asyncResp, "xyz.openbmc_project.Watchdog",
+        setDbusProperty(asyncResp, "HostWatchdogTimer/TimeoutAction",
+                        "xyz.openbmc_project.Watchdog",
                         sdbusplus::message::object_path(
                             "/xyz/openbmc_project/watchdog/host0"),
                         "xyz.openbmc_project.State.Watchdog", "ExpireAction",
-                        "HostWatchdogTimer/TimeoutAction", wdtTimeOutActStr);
+                        wdtTimeOutActStr);
     }
 
     if (wdtEnable)
     {
-        setDbusProperty(asyncResp, "xyz.openbmc_project.Watchdog",
+        setDbusProperty(asyncResp, "HostWatchdogTimer/FunctionEnabled",
+                        "xyz.openbmc_project.Watchdog",
                         sdbusplus::message::object_path(
                             "/xyz/openbmc_project/watchdog/host0"),
                         "xyz.openbmc_project.State.Watchdog", "Enabled",
-                        "HostWatchdogTimer/FunctionEnabled", *wdtEnable);
+                        *wdtEnable);
     }
 }
 
@@ -2708,45 +2717,41 @@ inline void
 
         if (ipsEnable)
         {
-            setDbusProperty(asyncResp, service, path,
+            setDbusProperty(asyncResp, "IdlePowerSaver/Enabled", service, path,
                             "xyz.openbmc_project.Control.Power.IdlePowerSaver",
-                            "Enabled", "IdlePowerSaver/Enabled", *ipsEnable);
+                            "Enabled", *ipsEnable);
         }
         if (ipsEnterUtil)
         {
-            setDbusProperty(asyncResp, service, path,
+            setDbusProperty(asyncResp, "IdlePowerSaver/EnterUtilizationPercent",
+                            service, path,
                             "xyz.openbmc_project.Control.Power.IdlePowerSaver",
-                            "EnterUtilizationPercent",
-                            "IdlePowerSaver/EnterUtilizationPercent",
-                            *ipsEnterUtil);
+                            "EnterUtilizationPercent", *ipsEnterUtil);
         }
         if (ipsEnterTime)
         {
             // Convert from seconds into milliseconds for DBus
             const uint64_t timeMilliseconds = *ipsEnterTime * 1000;
-            setDbusProperty(asyncResp, service, path,
+            setDbusProperty(asyncResp, "IdlePowerSaver/EnterDwellTimeSeconds",
+                            service, path,
                             "xyz.openbmc_project.Control.Power.IdlePowerSaver",
-                            "EnterDwellTime",
-                            "IdlePowerSaver/EnterDwellTimeSeconds",
-                            timeMilliseconds);
+                            "EnterDwellTime", timeMilliseconds);
         }
         if (ipsExitUtil)
         {
-            setDbusProperty(asyncResp, service, path,
+            setDbusProperty(asyncResp, "IdlePowerSaver/ExitUtilizationPercent",
+                            service, path,
                             "xyz.openbmc_project.Control.Power.IdlePowerSaver",
-                            "ExitUtilizationPercent",
-                            "IdlePowerSaver/ExitUtilizationPercent",
-                            *ipsExitUtil);
+                            "ExitUtilizationPercent", *ipsExitUtil);
         }
         if (ipsExitTime)
         {
             // Convert from seconds into milliseconds for DBus
             const uint64_t timeMilliseconds = *ipsExitTime * 1000;
-            setDbusProperty(asyncResp, service, path,
+            setDbusProperty(asyncResp, "IdlePowerSaver/ExitDwellTimeSeconds",
+                            service, path,
                             "xyz.openbmc_project.Control.Power.IdlePowerSaver",
-                            "ExitDwellTime",
-                            "IdlePowerSaver/ExitDwellTimeSeconds",
-                            timeMilliseconds);
+                            "ExitDwellTime", timeMilliseconds);
         }
     });
 
@@ -2927,16 +2932,16 @@ inline void handleComputerSystemResetActionPost(
 
     if (hostCommand)
     {
-        setDbusProperty(asyncResp, "xyz.openbmc_project.State.Host",
+        setDbusProperty(asyncResp, "Reset", "xyz.openbmc_project.State.Host",
                         statePath / "host0", "xyz.openbmc_project.State.Host",
-                        "RequestedHostTransition", "Reset", command);
+                        "RequestedHostTransition", command);
     }
     else
     {
-        setDbusProperty(asyncResp, "xyz.openbmc_project.State.Chassis",
+        setDbusProperty(asyncResp, "Reset", "xyz.openbmc_project.State.Chassis",
                         statePath / "chassis0",
                         "xyz.openbmc_project.State.Chassis",
-                        "RequestedPowerTransition", "Reset", command);
+                        "RequestedPowerTransition", command);
     }
 }
 
