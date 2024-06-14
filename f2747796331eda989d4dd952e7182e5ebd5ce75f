@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8628201_579669ca",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-14T18:45:11Z",
+      "side": 1,
+      "message": "We have a dedicated dbus path type.  We should use it for apis like this.",
+      "range": {
+        "startLine": 33,
+        "startChar": 7,
+        "endLine": 33,
+        "endChar": 18
+      },
+      "revId": "f2747796331eda989d4dd952e7182e5ebd5ce75f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7912a478_d27bdbea",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-14T18:45:11Z",
+      "side": 1,
+      "message": "You\u0027re doing pointer comparisons here;  It\u0027s very likely this isn\u0027t doing what you think you\u0027re doing.\n\nProbably what you want to do is to change bmcPurpose and biosPurpose to constexpr string_view, then you can compare std::string to std::string_view directly.",
+      "range": {
+        "startLine": 35,
+        "startChar": 41,
+        "endLine": 35,
+        "endChar": 69
+      },
+      "revId": "f2747796331eda989d4dd952e7182e5ebd5ce75f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfb482ab_a4b9ed4e",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-14T18:45:11Z",
+      "side": 1,
+      "message": "This looks wrong for swType \u003d\u003d biosPurpose",
+      "range": {
+        "startLine": 39,
+        "startChar": 32,
+        "endLine": 39,
+        "endChar": 76
+      },
+      "revId": "f2747796331eda989d4dd952e7182e5ebd5ce75f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1149017e_5e5ad4e9",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-14T18:45:11Z",
+      "side": 1,
+      "message": "nit, more clear to do\n\nreturn \"\";\n\nI suspect clang will flag the same.",
+      "range": {
+        "startLine": 48,
+        "startChar": 15,
+        "endLine": 48,
+        "endChar": 28
+      },
+      "revId": "f2747796331eda989d4dd952e7182e5ebd5ce75f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
