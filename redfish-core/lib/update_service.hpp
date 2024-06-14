@@ -574,61 +574,6 @@ inline void doHttpsUpdate(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                                           url.buffer());
 }
 
-inline void doTftpUpdate(const crow::Request& req,
-                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                         const boost::urls::url_view_base& url)
-{
-    if (!BMCWEB_INSECURE_TFTP_UPDATE)
-    {
-        messages::actionParameterNotSupported(asyncResp->res, "ImageURI",
-                                              url.buffer());
-        return;
-    }
-
-    std::string path(url.encoded_path());
-    if (path.size() < 2)
-    {
-        messages::actionParameterNotSupported(asyncResp->res, "ImageURI",
-                                              url.buffer());
-        return;
-    }
-    // TFTP expects a path without a /
-    path.erase(0, 1);
-    std::string host(url.encoded_host_and_port());
-    BMCWEB_LOG_DEBUG("Server: {} File: {}", host, path);
-
-    // Setup callback for when new software detected
-    // Give TFTP 10 minutes to complete
-    monitorForSoftwareAvailable(
-        asyncResp, req,
-        "/redfish/v1/UpdateService/Actions/UpdateService.SimpleUpdate", 600);
-
-    // TFTP can take up to 10 minutes depending on image size and
-    // connection speed. Return to caller as soon as the TFTP operation
-    // has been started. The callback above will ensure the activate
-    // is started once the download has completed
-    redfish::messages::success(asyncResp->res);
-
-    // Call TFTP service
-    crow::connections::systemBus->async_method_call(
-        [](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            // messages::internalError(asyncResp->res);
-            cleanUp();
-            BMCWEB_LOG_DEBUG("error_code = {}", ec);
-            BMCWEB_LOG_DEBUG("error msg = {}", ec.message());
-        }
-        else
-        {
-            BMCWEB_LOG_DEBUG("Call to DownloaViaTFTP Success");
-        }
-    },
-        "xyz.openbmc_project.Software.Download",
-        "/xyz/openbmc_project/software", "xyz.openbmc_project.Common.TFTP",
-        "DownloadViaTFTP", path, host);
-}
-
 inline void handleUpdateServiceSimpleUpdateAction(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
@@ -662,11 +607,7 @@ inline void handleUpdateServiceSimpleUpdateAction(
     {
         return;
     }
-    if (url->scheme() == "tftp")
-    {
-        doTftpUpdate(req, asyncResp, *url);
-    }
-    else if (url->scheme() == "https")
+    if (url->scheme() == "https")
     {
         doHttpsUpdate(asyncResp, *url);
     }
