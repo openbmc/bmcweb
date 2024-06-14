@@ -721,11 +721,11 @@ inline void updateIPv4DefaultGateway(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     setDbusProperty(
-        asyncResp, "xyz.openbmc_project.Network",
+        asyncResp, "Gateway", "xyz.openbmc_project.Network",
         sdbusplus::message::object_path("/xyz/openbmc_project/network") /
             ifaceId,
         "xyz.openbmc_project.Network.EthernetInterface", "DefaultGateway",
-        "Gateway", gateway);
+        gateway);
 }
 
 /**
@@ -1233,10 +1233,10 @@ inline void
         return;
     }
     setDbusProperty(
-        asyncResp, "xyz.openbmc_project.Network",
+        asyncResp, "HostName", "xyz.openbmc_project.Network",
         sdbusplus::message::object_path("/xyz/openbmc_project/network/config"),
         "xyz.openbmc_project.Network.SystemConfiguration", "HostName",
-        "HostName", hostname);
+        hostname);
 }
 
 inline void
@@ -1245,9 +1245,9 @@ inline void
 {
     sdbusplus::message::object_path objPath("/xyz/openbmc_project/network");
     objPath /= ifaceId;
-    setDbusProperty(asyncResp, "xyz.openbmc_project.Network", objPath,
-                    "xyz.openbmc_project.Network.EthernetInterface", "MTU",
-                    "MTUSize", mtuSize);
+    setDbusProperty(asyncResp, "MTUSize", "xyz.openbmc_project.Network",
+                    objPath, "xyz.openbmc_project.Network.EthernetInterface",
+                    "MTU", mtuSize);
 }
 
 inline void
@@ -1257,10 +1257,10 @@ inline void
 {
     std::vector<std::string> vectorDomainname = {domainname};
     setDbusProperty(
-        asyncResp, "xyz.openbmc_project.Network",
+        asyncResp, "FQDN", "xyz.openbmc_project.Network",
         sdbusplus::message::object_path("/xyz/openbmc_project/network") /
             ifaceId,
-        "xyz.openbmc_project.Network.EthernetInterface", "DomainName", "FQDN",
+        "xyz.openbmc_project.Network.EthernetInterface", "DomainName",
         vectorDomainname);
 }
 
@@ -1329,11 +1329,10 @@ inline void
                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     setDbusProperty(
-        asyncResp, "xyz.openbmc_project.Network",
+        asyncResp, "MACAddress", "xyz.openbmc_project.Network",
         sdbusplus::message::object_path("/xyz/openbmc_project/network") /
             ifaceId,
-        "xyz.openbmc_project.Network.MACAddress", "MACAddress", "MACAddress",
-        macAddress);
+        "xyz.openbmc_project.Network.MACAddress", "MACAddress", macAddress);
 }
 
 inline void setDHCPEnabled(const std::string& ifaceId,
@@ -1343,11 +1342,10 @@ inline void setDHCPEnabled(const std::string& ifaceId,
 {
     const std::string dhcp = getDhcpEnabledEnumeration(v4Value, v6Value);
     setDbusProperty(
-        asyncResp, "xyz.openbmc_project.Network",
+        asyncResp, "DHCPv4", "xyz.openbmc_project.Network",
         sdbusplus::message::object_path("/xyz/openbmc_project/network") /
             ifaceId,
-        "xyz.openbmc_project.Network.EthernetInterface", propertyName, "DHCPv4",
-        dhcp);
+        "xyz.openbmc_project.Network.EthernetInterface", propertyName, dhcp);
 }
 
 enum class NetworkType
@@ -1376,9 +1374,9 @@ inline void setDHCPConfig(const std::string& propertyName, const bool& value,
         redfishPropertyName = "DHCPv6";
     }
 
-    setDbusProperty(asyncResp, "xyz.openbmc_project.Network", path,
-                    "xyz.openbmc_project.Network.DHCPConfiguration",
-                    propertyName, redfishPropertyName, value);
+    setDbusProperty(
+        asyncResp, redfishPropertyName, "xyz.openbmc_project.Network", path,
+        "xyz.openbmc_project.Network.DHCPConfiguration", propertyName, value);
 }
 
 inline void handleSLAACAutoConfigPatch(
@@ -1387,11 +1385,11 @@ inline void handleSLAACAutoConfigPatch(
 {
     sdbusplus::message::object_path path("/xyz/openbmc_project/network");
     path /= ifaceId;
-    setDbusProperty(asyncResp, "xyz.openbmc_project.Network", path,
-                    "xyz.openbmc_project.Network.EthernetInterface",
-                    "IPv6AcceptRA",
+    setDbusProperty(asyncResp,
                     "StatelessAddressAutoConfig/IPv6AutoConfigEnabled",
-                    ipv6AutoConfigEnabled);
+                    "xyz.openbmc_project.Network", path,
+                    "xyz.openbmc_project.Network.EthernetInterface",
+                    "IPv6AcceptRA", ipv6AutoConfigEnabled);
 }
 
 inline void handleDHCPPatch(const std::string& ifaceId,
@@ -1720,11 +1718,11 @@ inline void handleStaticNameServersPatch(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     setDbusProperty(
-        asyncResp, "xyz.openbmc_project.Network",
+        asyncResp, "StaticNameServers", "xyz.openbmc_project.Network",
         sdbusplus::message::object_path("/xyz/openbmc_project/network") /
             ifaceId,
         "xyz.openbmc_project.Network.EthernetInterface", "StaticNameServers",
-        "StaticNameServers", updatedStaticNameServers);
+        updatedStaticNameServers);
 }
 
 inline void handleIPv6StaticAddressesPatch(
@@ -2403,13 +2401,13 @@ inline void requestEthernetInterfacesRoutes(App& app)
 
             if (interfaceEnabled)
             {
-                setDbusProperty(asyncResp, "xyz.openbmc_project.Network",
+                setDbusProperty(asyncResp, "InterfaceEnabled",
+                                "xyz.openbmc_project.Network",
                                 sdbusplus::message::object_path(
                                     "/xyz/openbmc_project/network") /
                                     ifaceId,
                                 "xyz.openbmc_project.Network.EthernetInterface",
-                                "NICEnabled", "InterfaceEnabled",
-                                *interfaceEnabled);
+                                "NICEnabled", *interfaceEnabled);
             }
 
             if (mtuSize)
