@@ -87,6 +87,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f741534c_55ab8b4f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001810
+      },
+      "writtenOn": "2024-06-14T06:02:23Z",
+      "side": 1,
+      "message": "Replied. Please review and approve.",
+      "revId": "f578bb9e7136d9bca817ac2b870b1119e07d7209",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5ee9a84a_e5569930",
@@ -196,6 +213,30 @@
       "side": 1,
       "message": "On some system, both Chassis1 and Chassis2 can be valid path, it needs to work correctly also.",
       "parentUuid": "fa8d4893_b8ad7a3e",
+      "range": {
+        "startLine": 2970,
+        "startChar": 28,
+        "endLine": 2970,
+        "endChar": 47
+      },
+      "revId": "f578bb9e7136d9bca817ac2b870b1119e07d7209",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12ababd7_cf2016a6",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 2970,
+      "author": {
+        "id": 1001810
+      },
+      "writtenOn": "2024-06-14T06:02:23Z",
+      "side": 1,
+      "message": "Yes..in that case also it will work. Since it is based on user input that is supplied in redfish postman tool. For example, if user supplied https://\u003cBMC_IP\u003e/redfish/v1/Chassis/\u003cChassisID1\u003e/Sensors/\u003cSensor1\u003e.Then , first api \"requestRoutesSensor\" is called which is based on app(user postman tool input) and will directly going call handleSensorGet, where validity of ChassisID(Chassis1 or Chassis2) is checked and once ChassisID is valid, then it is going to check for DoSensorGet (will get the valid sensors for that particular chassis). from the async call \n redfish::chassis_utils::getValidChassisPath(asyncResp, chassisId,\n        std::bind_front(doSensorGet, asyncResp, chassisId, sensorId)); \n        \nboth getValidChassisPath and doSensorGet are handled together.",
+      "parentUuid": "d65e8457_2de6f32e",
       "range": {
         "startLine": 2970,
         "startChar": 28,
