@@ -2742,9 +2742,9 @@ inline void setSensorsOverride(
                     messages::internalError(sensorAsyncResp->asyncResp->res);
                     return;
                 }
-                setDbusProperty(sensorAsyncResp->asyncResp, item.second,
-                                item.first, "xyz.openbmc_project.Sensor.Value",
-                                "Value", propertyValueNameStr,
+                setDbusProperty(sensorAsyncResp->asyncResp,
+                                propertyValueNameStr, item.second, item.first,
+                                "xyz.openbmc_project.Sensor.Value", "Value",
                                 iterator->second.first);
             }
         };
