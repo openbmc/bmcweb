@@ -16,7 +16,6 @@ feature_options = [
     'insecure-enable-redfish-query',
     'insecure-ignore-content-type',
     'insecure-push-style-notification',
-    'insecure-tftp-update',
     'kvm',
     'meta-tls-common-name-parsing',
     'mutual-tls-auth',
