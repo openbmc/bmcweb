@@ -287,7 +287,7 @@ inline void handleServiceRootGetImpl(
         BMCWEB_INSECURE_ENABLE_REDFISH_QUERY;
     protocolFeatures["ExpandQuery"]["NoLinks"] =
         BMCWEB_INSECURE_ENABLE_REDFISH_QUERY;
-    protocolFeatures["FilterQuery"] = false;
+    protocolFeatures["FilterQuery"] = BMCWEB_INSECURE_ENABLE_REDFISH_QUERY;
     protocolFeatures["OnlyMemberQuery"] = true;
     protocolFeatures["SelectQuery"] = true;
     protocolFeatures["DeepOperations"]["DeepPOST"] = false;

@@ -72,6 +72,7 @@ if (cxx.get_id() == 'clang')
         '-Wformat=2',
         '-Wno-c++98-compat-pedantic',
         '-Wno-c++98-compat',
+        '-Wno-c++20-extensions',
         '-Wno-documentation-unknown-command',
         '-Wno-documentation',
         '-Wno-exit-time-destructors',
@@ -337,6 +338,7 @@ srcfiles_bmcweb = files(
 
     'redfish-core/src/error_messages.cpp',
     # Begin large files, should be at the beginning
+    'redfish-core/src/filter_expr_executor.cpp',
     'redfish-core/src/filter_expr_printer.cpp',
     'redfish-core/src/redfish.cpp',
     'redfish-core/src/registries.cpp',
@@ -399,6 +401,7 @@ srcfiles_unittest = files(
     'test/include/ssl_key_handler_test.cpp',
     'test/include/str_utility_test.cpp',
     'test/redfish-core/include/privileges_test.cpp',
+    'test/redfish-core/include/filter_expr_executor_test.cpp',
     'test/redfish-core/include/filter_expr_parser_test.cpp',
     'test/redfish-core/include/redfish_aggregator_test.cpp',
     'test/redfish-core/include/registries_test.cpp',
