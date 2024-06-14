@@ -30,6 +30,25 @@ constexpr const char* biosPurpose =
 constexpr const char* bmcPurpose =
     "xyz.openbmc_project.Software.Version.VersionPurpose.BMC";
 
+inline std::string getFunctionalSoftwarePath(const std::string& swType)
+{
+    if (swType.c_str() == biosPurpose || swType.c_str() == bmcPurpose)
+    {
+        if constexpr (BMCWEB_REDFISH_UPDATESERVICE_USE_DBUS)
+        {
+            return std::string("/xyz/openbmc_project/software/bmc/functional");
+        }
+        else
+        {
+            return std::string("/xyz/openbmc_project/software/functional");
+        }
+    }
+    else
+    {
+        return std::string();
+    }
+}
+
 /**
  * @brief Populate the running software version and image links
  *
@@ -48,13 +67,19 @@ inline void populateSoftwareInformation(
     const std::string& swVersionPurpose,
     const std::string& activeVersionPropName, const bool populateLinkToImages)
 {
+    std::string swPath = getFunctionalSoftwarePath(swVersionPurpose);
+    if (swPath.empty())
+    {
+        BMCWEB_LOG_ERROR("Invalid software type");
+        messages::internalError(asyncResp->res);
+        return;
+    }
     // Used later to determine running (known on Redfish as active) Sw images
     dbus::utility::getAssociationEndPoints(
-        "/xyz/openbmc_project/software/functional",
-        [asyncResp, swVersionPurpose, activeVersionPropName,
-         populateLinkToImages](
-            const boost::system::error_code& ec,
-            const dbus::utility::MapperEndPoints& functionalSw) {
+        swPath, [asyncResp, swVersionPurpose, activeVersionPropName,
+                 populateLinkToImages](
+                    const boost::system::error_code& ec,
+                    const dbus::utility::MapperEndPoints& functionalSw) {
         BMCWEB_LOG_DEBUG("populateSoftwareInformation enter");
         if (ec)
         {
