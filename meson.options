@@ -351,14 +351,6 @@ option(
 )
 
 option(
-    'insecure-tftp-update',
-    type: 'feature',
-    value: 'disabled',
-    description: '''Enable TFTP based firmware update transactions through
-                    Redfish UpdateService.   SimpleUpdate.''',
-)
-
-option(
     'insecure-ignore-content-type',
     type: 'feature',
     value: 'disabled',
