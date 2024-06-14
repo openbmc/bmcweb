@@ -143,6 +143,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "48fefd75_153533d7",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 2978,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-14T18:51:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec5d2364_57005509",
+      "range": {
+        "startLine": 2978,
+        "startChar": 12,
+        "endLine": 2978,
+        "endChar": 22
+      },
+      "revId": "c1ce1a77f6228af30742c334aad8d1b7d895ee0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cd72fd5a_3a2016f7",
@@ -214,6 +238,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4a179ac_1784bb2a",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 2986,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-14T18:51:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f22b017_3e8938db",
+      "revId": "c1ce1a77f6228af30742c334aad8d1b7d895ee0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "19b0f683_0ee21c83",
@@ -263,6 +305,24 @@
       "side": 1,
       "message": "Changed back to handleSensorGet and another function name changed to handleChassisNameGet. Thanks",
       "parentUuid": "19b0f683_0ee21c83",
+      "revId": "c1ce1a77f6228af30742c334aad8d1b7d895ee0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83a0a794_e97c40b2",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 2995,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-14T18:51:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d64add7_303df06f",
       "revId": "c1ce1a77f6228af30742c334aad8d1b7d895ee0b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -328,6 +388,30 @@
       "side": 1,
       "message": "Fixed. Thanks",
       "parentUuid": "3e381aca_81963dae",
+      "range": {
+        "startLine": 3005,
+        "startChar": 7,
+        "endLine": 3005,
+        "endChar": 12
+      },
+      "revId": "c1ce1a77f6228af30742c334aad8d1b7d895ee0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b79e0c4_2d286996",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 3005,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-14T18:51:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef363a3c_7d510edb",
       "range": {
         "startLine": 3005,
         "startChar": 7,
