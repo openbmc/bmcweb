@@ -13,6 +13,7 @@
 
 #include <algorithm>
 #include <array>
+#include <optional>
 #include <ranges>
 #include <string>
 #include <string_view>
@@ -29,6 +30,42 @@ constexpr const char* biosPurpose =
 /* @brief String that indicates a BMC software instance */
 constexpr const char* bmcPurpose =
     "xyz.openbmc_project.Software.Version.VersionPurpose.BMC";
+
+inline std::optional<sdbusplus::message::object_path>
+    getFunctionalSoftwarePath(const std::string& swType)
+{
+    if (swType == bmcPurpose)
+    {
+        if constexpr (BMCWEB_REDFISH_UPDATESERVICE_USE_DBUS)
+        {
+            return sdbusplus::message::object_path(
+                "/xyz/openbmc_project/software/bmc/functional");
+        }
+        else
+        {
+            return sdbusplus::message::object_path(
+                "/xyz/openbmc_project/software/functional");
+        }
+    }
+    else if (swType == biosPurpose)
+    {
+        if constexpr (BMCWEB_REDFISH_UPDATESERVICE_USE_DBUS)
+        {
+            return sdbusplus::message::object_path(
+                "/xyz/openbmc_project/software/bios/functional");
+        }
+        else
+        {
+            return sdbusplus::message::object_path(
+                "/xyz/openbmc_project/software/functional");
+        }
+    }
+    else
+    {
+        BMCWEB_LOG_ERROR("No valid software path");
+        return std::nullopt;
+    }
+}
 
 /**
  * @brief Populate the running software version and image links
@@ -48,9 +85,16 @@ inline void populateSoftwareInformation(
     const std::string& swVersionPurpose,
     const std::string& activeVersionPropName, const bool populateLinkToImages)
 {
+    auto swPath = getFunctionalSoftwarePath(swVersionPurpose);
+    if (!swPath)
+    {
+        BMCWEB_LOG_ERROR("Invalid software type");
+        messages::internalError(asyncResp->res);
+        return;
+    }
     // Used later to determine running (known on Redfish as active) Sw images
     dbus::utility::getAssociationEndPoints(
-        "/xyz/openbmc_project/software/functional",
+        swPath.value().str,
         [asyncResp, swVersionPurpose, activeVersionPropName,
          populateLinkToImages](
             const boost::system::error_code& ec,
