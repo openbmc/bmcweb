@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2015161_b4d42f66",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001810
+      },
+      "writtenOn": "2024-06-14T20:54:44Z",
+      "side": 1,
+      "message": "Modified the code. There is not much difference in timing with this call.",
+      "parentUuid": "08abef35_64f01078",
+      "revId": "66bfcc4ea3368dc6343b94e346caa851a3564ee8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "39ffac81_6b7eca35",
@@ -220,6 +238,30 @@
       "side": 1,
       "message": "👍",
       "parentUuid": "cc43e0c9_f32750fd",
+      "range": {
+        "startLine": 243,
+        "startChar": 26,
+        "endLine": 244,
+        "endChar": 72
+      },
+      "revId": "66bfcc4ea3368dc6343b94e346caa851a3564ee8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10cb9e55_7f9220c1",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1001810
+      },
+      "writtenOn": "2024-06-14T20:54:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8ced6e0_a8d7a3a8",
       "range": {
         "startLine": 243,
         "startChar": 26,
