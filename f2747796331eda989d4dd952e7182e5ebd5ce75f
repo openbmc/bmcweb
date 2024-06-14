@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "03eae77f_6193c3d6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-14T18:46:04Z",
+      "side": 1,
+      "message": "Tested?",
+      "revId": "f2747796331eda989d4dd952e7182e5ebd5ce75f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a8628201_579669ca",
         "filename": "redfish-core/include/utils/sw_utils.hpp",
         "patchSetId": 1
