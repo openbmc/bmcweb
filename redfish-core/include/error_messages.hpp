@@ -949,6 +949,17 @@ nlohmann::json queryCombinationInvalid();
 void queryCombinationInvalid(crow::Response& res);
 
 /**
+ * @brief Formats EventBufferExceeded message into JSON
+ * Message body: "Indicates undelivered events may have been lost due to a lack
+ * of buffer space in the service."
+ *
+ *
+ * @returns Message QueryCombinationInvalid formatted to JSON */
+nlohmann::json eventBufferExceeded();
+
+void eventBufferExceeded(crow::Response& res);
+
+/**
  * @brief Formats InsufficientPrivilege message into JSON
  * Message body: "There are insufficient privileges for the account or
  * credentials associated with the current session to perform the requested
