@@ -88,7 +88,7 @@ struct ValueVisitor
 {
     using result_type = std::variant<std::monostate, double, int64_t,
                                      std::string, DateTimeString>;
-    nlohmann::json& body;
+    const nlohmann::json& body;
     result_type operator()(double n);
     result_type operator()(int64_t x);
     result_type operator()(const filter_ast::UnquotedString& x);
@@ -151,7 +151,7 @@ ValueVisitor::result_type
 
 struct ApplyFilter
 {
-    nlohmann::json& body;
+    const nlohmann::json& body;
     const filter_ast::LogicalAnd& filter;
     using result_type = bool;
     bool operator()(const filter_ast::LogicalNot& x);
@@ -370,9 +370,16 @@ bool ApplyFilter::matches()
 
 } // namespace
 
+bool memberMatches(const nlohmann::json& member,
+                   const filter_ast::LogicalAnd& filterParam)
+{
+    ApplyFilter filterApplier(member, filterParam);
+    return filterApplier.matches();
+}
+
 // Applies a filter expression to a member array
-bool applyFilter(nlohmann::json& body,
-                 const filter_ast::LogicalAnd& filterParam)
+bool applyFilterToCollection(nlohmann::json& body,
+                             const filter_ast::LogicalAnd& filterParam)
 {
     using nlohmann::json;
 
@@ -399,8 +406,7 @@ bool applyFilter(nlohmann::json& body,
     size_t index = 0;
     while (it != memberArr->end())
     {
-        ApplyFilter filterApplier(*it, filterParam);
-        if (!filterApplier.matches())
+        if (!memberMatches(*it, filterParam))
         {
             BMCWEB_LOG_DEBUG("Removing item at index {}", index);
             it = memberArr->erase(it);

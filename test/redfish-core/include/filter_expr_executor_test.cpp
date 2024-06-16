@@ -19,7 +19,7 @@ static void filterTrue(std::string_view filterExpr, nlohmann::json json)
         return;
     }
     EXPECT_EQ(json["Members"].size(), 1);
-    EXPECT_TRUE(applyFilter(json, *ast));
+    EXPECT_TRUE(applyFilterToCollection(json, *ast));
     EXPECT_EQ(json["Members"].size(), 1);
 }
 
@@ -32,7 +32,7 @@ static void filterFalse(std::string_view filterExpr, nlohmann::json json)
         return;
     }
     EXPECT_EQ(json["Members"].size(), 1);
-    EXPECT_TRUE(applyFilter(json, *ast));
+    EXPECT_TRUE(applyFilterToCollection(json, *ast));
     EXPECT_EQ(json["Members"].size(), 0);
 }
 

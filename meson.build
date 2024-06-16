@@ -262,34 +262,30 @@ if boost.found()
 else
     cmake = import('cmake')
     opt = cmake.subproject_options()
+    boost_libs = [
+        'asio',
+        'beast',
+        'circular_buffer',
+        'callable_traits',
+        'headers',
+        'process',
+        'type_index',
+        'url',
+        'uuid',
+        'spirit',
+    ]
     opt.add_cmake_defines(
         {
-            'BOOST_INCLUDE_LIBRARIES': 'asio;beast;callable_traits;headers;process;type_index;url;uuid;spirit',
+            'BOOST_INCLUDE_LIBRARIES': ';'.join(boost_libs),
             'BUILD_SHARED_LIBS': 'OFF',
         },
     )
 
     boost = cmake.subproject('boost', required: true, options: opt)
-    boost_asio = boost.dependency('boost_asio').as_system()
-    boost_beast = boost.dependency('boost_beast').as_system()
-    boost_callable_traits = boost.dependency('boost_callable_traits').as_system()
-    boost_headers = boost.dependency('boost_headers').as_system()
-    boost_process = boost.dependency('boost_process').as_system()
-    boost_type_index = boost.dependency('boost_type_index').as_system()
-    boost_url = boost.dependency('boost_url').as_system()
-    boost_uuid = boost.dependency('boost_uuid').as_system()
-    boost_spirit = boost.dependency('boost_spirit').as_system()
-    bmcweb_dependencies += [
-        boost_asio,
-        boost_beast,
-        boost_callable_traits,
-        boost_headers,
-        boost_process,
-        boost_type_index,
-        boost_url,
-        boost_uuid,
-        boost_spirit,
-    ]
+    foreach boost_lib : boost_libs
+        boost_lib_instance = boost.dependency('boost_' + boost_lib).as_system()
+        bmcweb_dependencies += [boost_lib_instance]
+    endforeach
 endif
 
 if get_option('tests').allowed()

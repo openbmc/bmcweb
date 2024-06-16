@@ -663,7 +663,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
         }
 
         std::string id =
-            EventServiceManager::getInstance().addSubscription(subValue);
+            EventServiceManager::getInstance().addPushSubscription(subValue);
         if (id.empty())
         {
             messages::internalError(asyncResp->res);
