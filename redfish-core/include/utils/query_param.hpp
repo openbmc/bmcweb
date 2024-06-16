@@ -1070,7 +1070,7 @@ inline void
 
     if (query.filter)
     {
-        applyFilter(intermediateResponse.jsonValue, *query.filter);
+        applyFilterToCollection(intermediateResponse.jsonValue, *query.filter);
     }
 
     // According to Redfish Spec Section 7.3.1, $select is the last parameter to
