@@ -213,59 +213,49 @@ struct TaskData : std::enable_shared_from_this<TaskData>
         // "Killed" = taskRemoved
         // "Exception" = taskCompletedWarning
         // "Cancelled" = taskCancelled
+        nlohmann::json event;
         if (state == "Starting")
         {
-            redfish::EventServiceManager::getInstance().sendEvent(
-                redfish::messages::taskResumed(std::to_string(index)), origin,
-                resType);
+            event =
+
+                redfish::messages::taskResumed(std::to_string(index));
         }
         else if (state == "Running")
         {
-            redfish::EventServiceManager::getInstance().sendEvent(
-                redfish::messages::taskStarted(std::to_string(index)), origin,
-                resType);
+            event = redfish::messages::taskStarted(std::to_string(index));
         }
         else if ((state == "Suspended") || (state == "Interrupted") ||
                  (state == "Pending"))
         {
-            redfish::EventServiceManager::getInstance().sendEvent(
-                redfish::messages::taskPaused(std::to_string(index)), origin,
-                resType);
+            event = redfish::messages::taskPaused(std::to_string(index));
         }
         else if (state == "Stopping")
         {
-            redfish::EventServiceManager::getInstance().sendEvent(
-                redfish::messages::taskAborted(std::to_string(index)), origin,
-                resType);
+            event = redfish::messages::taskAborted(std::to_string(index));
         }
         else if (state == "Completed")
         {
-            redfish::EventServiceManager::getInstance().sendEvent(
-                redfish::messages::taskCompletedOK(std::to_string(index)),
-                origin, resType);
+            event = redfish::messages::taskCompletedOK(std::to_string(index));
         }
         else if (state == "Killed")
         {
-            redfish::EventServiceManager::getInstance().sendEvent(
-                redfish::messages::taskRemoved(std::to_string(index)), origin,
-                resType);
+            event = redfish::messages::taskRemoved(std::to_string(index));
         }
         else if (state == "Exception")
         {
-            redfish::EventServiceManager::getInstance().sendEvent(
-                redfish::messages::taskCompletedWarning(std::to_string(index)),
-                origin, resType);
+            event =
+                redfish::messages::taskCompletedWarning(std::to_string(index));
         }
         else if (state == "Cancelled")
         {
-            redfish::EventServiceManager::getInstance().sendEvent(
-                redfish::messages::taskCancelled(std::to_string(index)), origin,
-                resType);
+            event = redfish::messages::taskCancelled(std::to_string(index));
         }
         else
         {
             BMCWEB_LOG_INFO("sendTaskEvent: No events to send");
         }
+        redfish::EventServiceManager::getInstance().sendEvent(event, origin,
+                                                              resType);
     }
 
     void startTimer(const std::chrono::seconds& timeout)
