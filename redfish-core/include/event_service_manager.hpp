@@ -1038,8 +1038,8 @@ class EventServiceManager
         return true;
     }
 
-    void sendEvent(nlohmann::json eventMessage, const std::string& origin,
-                   const std::string& resType)
+    void sendEvent(nlohmann::json eventMessage, std::string_view origin,
+                   std::string_view resType)
     {
         if (!serviceEnabled || (noOfEventLogSubscribers == 0U))
         {

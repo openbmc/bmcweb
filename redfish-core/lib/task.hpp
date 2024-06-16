@@ -199,9 +199,6 @@ struct TaskData : std::enable_shared_from_this<TaskData>
 
     static void sendTaskEvent(std::string_view state, size_t index)
     {
-        std::string origin = "/redfish/v1/TaskService/Tasks/" +
-                             std::to_string(index);
-        std::string resType = "Task";
         // TaskState enums which should send out an event are:
         // "Starting" = taskResumed
         // "Running" = taskStarted
@@ -213,60 +210,50 @@ struct TaskData : std::enable_shared_from_this<TaskData>
         // "Killed" = taskRemoved
         // "Exception" = taskCompletedWarning
         // "Cancelled" = taskCancelled
+        nlohmann::json event;
+        std::string indexStr = std::to_string(index);
         if (state == "Starting")
         {
-            redfish::EventServiceManager::getInstance().sendEvent(
-                redfish::messages::taskResumed(std::to_string(index)), origin,
-                resType);
+            event = redfish::messages::taskResumed(indexStr);
         }
         else if (state == "Running")
         {
-            redfish::EventServiceManager::getInstance().sendEvent(
-                redfish::messages::taskStarted(std::to_string(index)), origin,
-                resType);
+            event = redfish::messages::taskStarted(indexStr);
         }
         else if ((state == "Suspended") || (state == "Interrupted") ||
                  (state == "Pending"))
         {
-            redfish::EventServiceManager::getInstance().sendEvent(
-                redfish::messages::taskPaused(std::to_string(index)), origin,
-                resType);
+            event = redfish::messages::taskPaused(indexStr);
         }
         else if (state == "Stopping")
         {
-            redfish::EventServiceManager::getInstance().sendEvent(
-                redfish::messages::taskAborted(std::to_string(index), "None",
-                                               "None", "None"),
-                origin, resType);
+            event = redfish::messages::taskAborted(indexStr);
         }
         else if (state == "Completed")
         {
-            redfish::EventServiceManager::getInstance().sendEvent(
-                redfish::messages::taskCompletedOK(std::to_string(index)),
-                origin, resType);
+            event = redfish::messages::taskCompletedOK(indexStr);
         }
         else if (state == "Killed")
         {
-            redfish::EventServiceManager::getInstance().sendEvent(
-                redfish::messages::taskRemoved(std::to_string(index)), origin,
-                resType);
+            event = redfish::messages::taskRemoved(indexStr);
         }
         else if (state == "Exception")
         {
-            redfish::EventServiceManager::getInstance().sendEvent(
-                redfish::messages::taskCompletedWarning(std::to_string(index)),
-                origin, resType);
+            event = redfish::messages::taskCompletedWarning(indexStr);
         }
         else if (state == "Cancelled")
         {
-            redfish::EventServiceManager::getInstance().sendEvent(
-                redfish::messages::taskCancelled(std::to_string(index)), origin,
-                resType);
+            event = redfish::messages::taskCancelled(indexStr);
         }
         else
         {
             BMCWEB_LOG_INFO("sendTaskEvent: No events to send");
+            return;
         }
+        boost::urls::url origin =
+            boost::urls::format("/redfish/v1/TaskService/Tasks/{}", index);
+        EventServiceManager::getInstance().sendEvent(event, origin.buffer(),
+                                                     "Task");
     }
 
     void startTimer(const std::chrono::seconds& timeout)
