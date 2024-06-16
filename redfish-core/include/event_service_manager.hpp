@@ -31,6 +31,7 @@
 #include <sys/inotify.h>
 
 #include <boost/asio/io_context.hpp>
+#include <boost/circular_buffer.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/url/format.hpp>
 #include <boost/url/url_view_base.hpp>
@@ -217,7 +218,7 @@ inline int formatEventLogEntry(const std::string& logEntryID,
                                const std::span<std::string_view> messageArgs,
                                std::string timestamp,
                                const std::string& customText,
-                               nlohmann::json& logEntryJson)
+                               nlohmann::json::object_t& logEntryJson)
 {
     // Get the Message from the MessageRegistry
     const registries::Message* message = registries::formatMessage(messageID);
@@ -292,7 +293,6 @@ class Subscription : public persistent_data::UserSubscription
             return false;
         }
 
-        // A connection pool will be created if one does not already exist
         if (client)
         {
             client->sendData(std::move(msg), destinationUrl, httpHeaders,
@@ -338,7 +338,7 @@ class Subscription : public persistent_data::UserSubscription
     void filterAndSendEventLogs(
         const std::vector<EventLogObjectsType>& eventRecords)
     {
-        nlohmann::json logEntryArray;
+        nlohmann::json::array_t logEntryArray;
         for (const EventLogObjectsType& logEntry : eventRecords)
         {
             const std::string& idStr = std::get<0>(logEntry);
@@ -373,8 +373,7 @@ class Subscription : public persistent_data::UserSubscription
             std::vector<std::string_view> messageArgsView(messageArgs.begin(),
                                                           messageArgs.end());
 
-            logEntryArray.push_back({});
-            nlohmann::json& bmcLogEntry = logEntryArray.back();
+            nlohmann::json::object_t bmcLogEntry;
             if (event_log::formatEventLogEntry(idStr, messageID,
                                                messageArgsView, timestamp,
                                                customText, bmcLogEntry) != 0)
@@ -382,6 +381,7 @@ class Subscription : public persistent_data::UserSubscription
                 BMCWEB_LOG_DEBUG("Read eventLog entry failed");
                 continue;
             }
+            logEntryArray.emplace_back(std::move(bmcLogEntry));
         }
 
         if (logEntryArray.empty())
@@ -394,7 +394,7 @@ class Subscription : public persistent_data::UserSubscription
         msg["@odata.type"] = "#Event.v1_4_0.Event";
         msg["Id"] = std::to_string(eventSeqNum);
         msg["Name"] = "Event Log";
-        msg["Events"] = logEntryArray;
+        msg["Events"] = std::move(logEntryArray);
         std::string strMsg = msg.dump(2, ' ', true,
                                       nlohmann::json::error_handler_t::replace);
         sendEvent(std::move(strMsg));
@@ -515,6 +515,15 @@ class EventServiceManager
         subscriptionsMap;
 
     uint64_t eventId{1};
+
+    struct Event
+    {
+        std::string id;
+        nlohmann::json message;
+    };
+
+    constexpr static size_t maxMessages = 200;
+    boost::circular_buffer<Event> messages{maxMessages};
 
     boost::asio::io_context& ioc;
 
@@ -796,8 +805,8 @@ class EventServiceManager
         return subValue;
     }
 
-    std::string addSubscription(const std::shared_ptr<Subscription>& subValue,
-                                const bool updateFile = true)
+    std::string
+        addSubscriptionInternal(const std::shared_ptr<Subscription>& subValue)
     {
         std::uniform_int_distribution<uint32_t> dist(0);
         bmcweb::OpenSSLGenerator gen;
@@ -846,11 +855,6 @@ class EventServiceManager
 
         updateNoOfSubscribersCount();
 
-        if (updateFile)
-        {
-            updateSubscriptionData();
-        }
-
         if constexpr (!BMCWEB_REDFISH_DBUS_LOG)
         {
             if (redfishLogFilePosition != 0)
@@ -863,6 +867,51 @@ class EventServiceManager
 
         // Set Subscription ID for back trace
         subValue->setSubscriptionId(id);
+
+        return id;
+    }
+
+    std::string
+        addSSESubscription(const std::shared_ptr<Subscription>& subValue,
+                           std::string_view lastEventId)
+    {
+        std::string id = addSubscriptionInternal(subValue);
+
+        if (!lastEventId.empty())
+        {
+            BMCWEB_LOG_INFO("Attempting to find message for last id {}",
+                            lastEventId);
+            boost::circular_buffer<Event>::iterator lastEvent =
+                std::find_if(messages.begin(), messages.end(),
+                             [&lastEventId](const Event& event) {
+                return event.id == lastEventId;
+            });
+            // Can't find a matching ID
+            if (lastEvent == messages.end())
+            {
+                nlohmann::json msg = messages::eventBufferExceeded();
+                subValue->sendEvent(msg);
+            }
+            else
+            {
+                // Skip the last even the user already has
+                lastEvent++;
+                for (boost::circular_buffer<Event>::iterator event = lastEvent;
+                     lastEvent != messages.end(); lastEvent++)
+                {
+                    subValue->sendEvent(event->message);
+                }
+            }
+        }
+        return id;
+    }
+
+    std::string
+        addPushSubscription(const std::shared_ptr<Subscription>& subValue)
+    {
+        std::string id = addSubscriptionInternal(subValue);
+
+        updateSubscriptionData();
         return id;
     }
 
@@ -947,12 +996,11 @@ class EventServiceManager
     void sendEvent(nlohmann::json eventMessage, std::string_view origin,
                    std::string_view resType)
     {
-        if (!serviceEnabled || (noOfEventLogSubscribers == 0U))
+        if (messages.size() >= messages.capacity())
         {
-            BMCWEB_LOG_DEBUG("EventService disabled or no Subscriptions.");
-            return;
+            messages.pop_front();
         }
-        nlohmann::json eventRecord = nlohmann::json::array();
+        messages.push_back(Event(std::to_string(eventId), eventMessage));
 
         eventMessage["EventId"] = eventId;
         // MemberId is 0 : since we are sending one event record.
@@ -961,6 +1009,7 @@ class EventServiceManager
             redfish::time_utils::getDateTimeOffsetNow().first;
         eventMessage["OriginOfCondition"] = origin;
 
+        nlohmann::json::array_t eventRecord;
         eventRecord.emplace_back(std::move(eventMessage));
 
         for (const auto& it : subscriptionsMap)
