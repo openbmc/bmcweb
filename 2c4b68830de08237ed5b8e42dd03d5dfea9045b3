@@ -654,6 +654,24 @@
       "parentUuid": "06616bca_719c8cf4",
       "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c985de2f_aada23f9",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1119,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-16T02:02:34Z",
+      "side": 1,
+      "message": "I was under the assumption that we would keep simple update, but just remove the ApplyTime parameter, defaulting all ApplyTime simple updates to \"now\"",
+      "parentUuid": "1c73e7a9_26df350a",
+      "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
