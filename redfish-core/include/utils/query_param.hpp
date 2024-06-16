@@ -853,6 +853,7 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
         {
             return;
         }
+
         nlohmann::json& finalObj = finalRes->res.jsonValue[locationToPlace];
         finalObj = std::move(res.jsonValue);
     }
