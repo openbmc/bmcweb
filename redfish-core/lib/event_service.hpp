@@ -611,8 +611,11 @@ inline void requestRoutesEventDestinationCollection(App& app)
             }
         }
 
-        std::string id =
-            EventServiceManager::getInstance().addSubscription(subValue);
+        // Last event id not supported for Push event service yet
+        std::string_view lastEventId;
+
+        std::string id = EventServiceManager::getInstance().addSubscription(
+            subValue, lastEventId);
         if (id.empty())
         {
             messages::internalError(asyncResp->res);

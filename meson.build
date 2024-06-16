@@ -72,6 +72,7 @@ if (cxx.get_id() == 'clang')
         '-Wformat=2',
         '-Wno-c++98-compat-pedantic',
         '-Wno-c++98-compat',
+        '-Wno-c++20-extensions',
         '-Wno-documentation-unknown-command',
         '-Wno-documentation',
         '-Wno-exit-time-destructors',
@@ -258,7 +259,7 @@ else
     opt = cmake.subproject_options()
     opt.add_cmake_defines(
         {
-            'BOOST_INCLUDE_LIBRARIES': 'asio;beast;callable_traits;headers;process;type_index;url;uuid;spirit',
+            'BOOST_INCLUDE_LIBRARIES': 'asio;beast;circular_buffer;callable_traits;headers;process;type_index;url;uuid;spirit',
             'BUILD_SHARED_LIBS': 'OFF',
         },
     )
@@ -266,6 +267,7 @@ else
     boost = cmake.subproject('boost', required: true, options: opt)
     boost_asio = boost.dependency('boost_asio').as_system()
     boost_beast = boost.dependency('boost_beast').as_system()
+    boost_circular_buffer = boost.dependency('boost_circular_buffer').as_system()
     boost_callable_traits = boost.dependency('boost_callable_traits').as_system()
     boost_headers = boost.dependency('boost_headers').as_system()
     boost_process = boost.dependency('boost_process').as_system()
@@ -277,6 +279,7 @@ else
         boost_asio,
         boost_beast,
         boost_callable_traits,
+        boost_circular_buffer,
         boost_headers,
         boost_process,
         boost_type_index,
