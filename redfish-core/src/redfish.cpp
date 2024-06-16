@@ -29,6 +29,7 @@
 #include "metric_report.hpp"
 #include "metric_report_definition.hpp"
 #include "network_protocol.hpp"
+#include "odata.hpp"
 #include "pcie.hpp"
 #include "pcie_slots.hpp"
 #include "power.hpp"
@@ -57,6 +58,7 @@ namespace redfish
 RedfishService::RedfishService(App& app)
 {
     requestRoutesMetadata(app);
+    requestRoutesOdata(app);
 
     requestAccountServiceRoutes(app);
     if constexpr (BMCWEB_REDFISH_AGGREGATION)
