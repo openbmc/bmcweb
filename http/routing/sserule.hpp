@@ -38,7 +38,7 @@ class SseSocketRule : public BaseRule
             boost::beast::http::status::internal_server_error);
     }
 
-    void handleUpgrade(const Request& /*req*/,
+    void handleUpgrade(const Request& req,
                        const std::shared_ptr<bmcweb::AsyncResp>& /*asyncResp*/,
                        boost::asio::ip::tcp::socket&& adaptor) override
     {
@@ -47,9 +47,9 @@ class SseSocketRule : public BaseRule
             myConnection = std::make_shared<
                 crow::sse_socket::ConnectionImpl<boost::asio::ip::tcp::socket>>(
                 std::move(adaptor), openHandler, closeHandler);
-        myConnection->start();
+        myConnection->start(req);
     }
-    void handleUpgrade(const Request& /*req*/,
+    void handleUpgrade(const Request& req,
                        const std::shared_ptr<bmcweb::AsyncResp>& /*asyncResp*/,
                        boost::asio::ssl::stream<boost::asio::ip::tcp::socket>&&
                            adaptor) override
@@ -59,7 +59,7 @@ class SseSocketRule : public BaseRule
             myConnection = std::make_shared<crow::sse_socket::ConnectionImpl<
                 boost::asio::ssl::stream<boost::asio::ip::tcp::socket>>>(
                 std::move(adaptor), openHandler, closeHandler);
-        myConnection->start();
+        myConnection->start(req);
     }
 
     template <typename Func>
@@ -77,7 +77,8 @@ class SseSocketRule : public BaseRule
     }
 
   private:
-    std::function<void(crow::sse_socket::Connection&)> openHandler;
+    std::function<void(crow::sse_socket::Connection&, const crow::Request&)>
+        openHandler;
     std::function<void(crow::sse_socket::Connection&)> closeHandler;
 };
 
