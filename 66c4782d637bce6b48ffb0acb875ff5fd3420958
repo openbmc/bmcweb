@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "438985ee_2b50eb84",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-06-17T21:33:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "894ff129_12b892b6",
+      "revId": "66c4782d637bce6b48ffb0acb875ff5fd3420958",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "992e6a2e_c2cca3b5",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-06-14T18:48:23Z",
       "side": 1,
       "message": "Looks like this is the right code, but it\u0027s commented out?",
+      "range": {
+        "startLine": 361,
+        "startChar": 0,
+        "endLine": 362,
+        "endChar": 73
+      },
+      "revId": "66c4782d637bce6b48ffb0acb875ff5fd3420958",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39066753_1c7a99f9",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-06-17T21:33:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "992e6a2e_c2cca3b5",
       "range": {
         "startLine": 361,
         "startChar": 0,
@@ -64,6 +106,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7be4c8c2_fb25188d",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-06-17T21:33:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d34824e7_bdd5eab0",
+      "range": {
+        "startLine": 369,
+        "startChar": 0,
+        "endLine": 389,
+        "endChar": 11
+      },
+      "revId": "66c4782d637bce6b48ffb0acb875ff5fd3420958",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e107ecde_e4865162",
@@ -77,6 +143,30 @@
       "writtenOn": "2024-06-14T18:48:23Z",
       "side": 1,
       "message": "non trivial lambda.",
+      "range": {
+        "startLine": 397,
+        "startChar": 0,
+        "endLine": 411,
+        "endChar": 13
+      },
+      "revId": "66c4782d637bce6b48ffb0acb875ff5fd3420958",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66a6d25b_2ed8a7c8",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-06-17T21:33:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e107ecde_e4865162",
       "range": {
         "startLine": 397,
         "startChar": 0,
