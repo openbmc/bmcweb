@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f6f6861_23bbf77d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-06-17T20:53:35Z",
+      "side": 1,
+      "message": "Seems reasonable. Let\u0027s merge at the same time it is used.",
+      "revId": "5a377a8b6af9999a67311311e033b9728be38e57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
