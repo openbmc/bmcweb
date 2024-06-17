@@ -672,6 +672,24 @@
       "parentUuid": "1c73e7a9_26df350a",
       "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25452d18_18db9358",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1119,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-06-17T17:07:41Z",
+      "side": 1,
+      "message": "\u003e I was under the assumption that we would keep simple update, but just remove the ApplyTime parameter, defaulting all ApplyTime simple updates to \"now\"\n\nThis PR is specifically for Unstructured HTTP patch and push (not Simple Update Action as its covered in the next patch in stack). The reason i removed the support for both Unstructured patch and push is based on this comment from @Adriana \"I think it\u0027s reasonable to update the clients that perform code update to usie this new Redfish API that contains the ApplyTime setting within that call. \", thats why i was asking for a clarification. But thats fine if we only want to remove patch (for ApplyOptions) and default the Unstructured Push Update to ApplyTime as \"now\". I can make that change in the next patch update.",
+      "parentUuid": "c985de2f_aada23f9",
+      "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
