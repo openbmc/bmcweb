@@ -16,6 +16,24 @@
       "message": "Is there a commit that broke this? \n\nCan you add \n\nTested: Unit tests now pass with redfish aggregation enabled.",
       "revId": "e673a134142a1369cff0cef60b096d0972d78dd2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11251a6e_6f104b18",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-17T21:06:25Z",
+      "side": 1,
+      "message": "No, it\u0027s been \"broken\" since aggregation was introduced.  I guess not that many people run the unit tests 😊\n\nAdded the tested statement to the commit message.",
+      "parentUuid": "7d8f44bd_c3230d6d",
+      "revId": "e673a134142a1369cff0cef60b096d0972d78dd2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
