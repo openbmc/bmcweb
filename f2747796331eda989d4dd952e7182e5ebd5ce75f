@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a495906_0f7f6e86",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-06-17T21:34:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03eae77f_6193c3d6",
+      "revId": "f2747796331eda989d4dd952e7182e5ebd5ce75f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a8628201_579669ca",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-06-14T18:45:11Z",
       "side": 1,
       "message": "We have a dedicated dbus path type.  We should use it for apis like this.",
+      "range": {
+        "startLine": 33,
+        "startChar": 7,
+        "endLine": 33,
+        "endChar": 18
+      },
+      "revId": "f2747796331eda989d4dd952e7182e5ebd5ce75f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "995fefb3_60f9cebb",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-06-17T21:34:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8628201_579669ca",
       "range": {
         "startLine": 33,
         "startChar": 7,
@@ -64,6 +106,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a6d042f_32bed657",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-06-17T21:34:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7912a478_d27bdbea",
+      "range": {
+        "startLine": 35,
+        "startChar": 41,
+        "endLine": 35,
+        "endChar": 69
+      },
+      "revId": "f2747796331eda989d4dd952e7182e5ebd5ce75f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bfb482ab_a4b9ed4e",
@@ -87,6 +153,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa5b2483_1a154daa",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-06-17T21:34:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bfb482ab_a4b9ed4e",
+      "range": {
+        "startLine": 39,
+        "startChar": 32,
+        "endLine": 39,
+        "endChar": 76
+      },
+      "revId": "f2747796331eda989d4dd952e7182e5ebd5ce75f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1149017e_5e5ad4e9",
@@ -100,6 +190,30 @@
       "writtenOn": "2024-06-14T18:45:11Z",
       "side": 1,
       "message": "nit, more clear to do\n\nreturn \"\";\n\nI suspect clang will flag the same.",
+      "range": {
+        "startLine": 48,
+        "startChar": 15,
+        "endLine": 48,
+        "endChar": 28
+      },
+      "revId": "f2747796331eda989d4dd952e7182e5ebd5ce75f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14a250ff_397907c3",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-06-17T21:34:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1149017e_5e5ad4e9",
       "range": {
         "startLine": 48,
         "startChar": 15,
