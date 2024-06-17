@@ -34,6 +34,24 @@
       "parentUuid": "469d2028_32bec6bd",
       "revId": "a9e7412db532fd91586fea2a77cf286128f5ffc8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e764445c_34bc628d",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1215,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-17T23:30:33Z",
+      "side": 1,
+      "message": "If we\u0027ve agreed to remove it, that\u0027s unrelated to us changing to the new dbus API.  Lets just remove it, so if it\u0027s a problem, we get an early indication of it.",
+      "parentUuid": "2e6800bd_c023aeaa",
+      "revId": "a9e7412db532fd91586fea2a77cf286128f5ffc8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
