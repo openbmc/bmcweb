@@ -244,7 +244,7 @@ def to_pascal_case(text):
 
 def main():
     dmtf_registries = (
-        ("base", "1.16.0"),
+        ("base", "1.18.0"),
         ("composition", "1.1.2"),
         ("environmental", "1.0.1"),
         ("ethernet_fabric", "1.0.1"),
