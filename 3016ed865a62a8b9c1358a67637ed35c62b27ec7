@@ -68,6 +68,24 @@
       "message": "I updated this to 1.18.1 as that looks like the latest.",
       "revId": "3016ed865a62a8b9c1358a67637ed35c62b27ec7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b653bd9_246f7c01",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-06-18T17:07:14Z",
+      "side": 1,
+      "message": "I didn\u0027t see your update before I pushed. Our changes were pretty much identical. I\u0027ll add your signed-off",
+      "parentUuid": "7079c715_d6b986d3",
+      "revId": "3016ed865a62a8b9c1358a67637ed35c62b27ec7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
