@@ -420,8 +420,8 @@ constexpr std::array registry =
     MessageEntry{
         "InsufficientStorage",
         {
-            "Indicates that the operation could not be completed due to a lack of storage or memory avaiable to the service.",
-            "Insufficent storage or memory available to complete the request.",
+            "Indicates that the operation could not be completed due to a lack of storage or memory available to the service.",
+            "Insufficient storage or memory available to complete the request.",
             "Critical",
             0,
             {},
@@ -591,7 +591,7 @@ constexpr std::array registry =
         "OperationTimeout",
         {
             "Indicates that one of the internal operations necessary to complete the request timed out.  Examples of this are when an internal service provider is unable to complete the request, such as in aggregation or RDE.",
-            "A timeout internal to the service occured as part of the request.  Partial results may have been returned.",
+            "A timeout internal to the service occurred as part of the request.  Partial results may have been returned.",
             "Warning",
             0,
             {},
