@@ -16,6 +16,29 @@
       "message": "You might want to read this.",
       "revId": "a709554a4ffbf0cd0f9eb83904212f8d31e1d2c5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50e942f8_63c4de9b",
+        "filename": "redfish-core/include/registries/base_message_registry.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 423,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-18T15:26:01Z",
+      "side": 1,
+      "message": "Looks like this was actually fixed in 18.0 base registry, if we update in update_registries.py and rerun it this will be resolved.\n\nPlease do that in a different patch than the rest of the updates.",
+      "range": {
+        "startLine": 423,
+        "startChar": 100,
+        "endLine": 423,
+        "endChar": 109
+      },
+      "revId": "a709554a4ffbf0cd0f9eb83904212f8d31e1d2c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
