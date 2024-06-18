@@ -272,7 +272,7 @@ class Trie
                     continue;
                 }
 
-                BMCWEB_LOG_CRITICAL("Cant find tag for {}", urlIn);
+                BMCWEB_LOG_CRITICAL("Can't find tag for {}", urlIn);
                 return;
             }
             std::string piece(&c, 1);
