@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c851d46_34d438f8",
+        "filename": "meson.build",
+        "patchSetId": 9
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-18T00:08:47Z",
+      "side": 1,
+      "message": "Note to reviewer, this is required because spirit x3 has recursive macros internally.",
+      "revId": "0a1715cad32701ee6b2b0b62479afb8f0417f606",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
