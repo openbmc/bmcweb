@@ -16,6 +16,24 @@
       "message": "Why do we want to get rid of this? \n\nI thought we were getting rid of TFTP, what does this have to do with that?",
       "revId": "24a7bd4fb96f60627e4722422a12ea95805d5547",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "026bcef8_e05c329a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-06-18T03:49:36Z",
+      "side": 1,
+      "message": "@Gunnar this was discussed with @Andrew, @Adriana, @Patrick \u0026 @Ed here https://gerrit.openbmc.org/c/openbmc/bmcweb/+/71743/comment/6b903acc_82983f9a/",
+      "parentUuid": "d0d24328_7233f4fb",
+      "revId": "24a7bd4fb96f60627e4722422a12ea95805d5547",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
