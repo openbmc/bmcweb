@@ -424,7 +424,7 @@ class Connection :
     {
         if (!parser)
         {
-            BMCWEB_LOG_CRITICAL("Paser was null");
+            BMCWEB_LOG_CRITICAL("Parser was null");
             return false;
         }
         const boost::optional<uint64_t> contentLength =
