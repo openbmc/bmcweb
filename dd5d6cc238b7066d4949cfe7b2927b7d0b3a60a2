@@ -194,6 +194,29 @@
       "message": "This seems reasonable to me. \nThis is moving the code to only search for \n\"xyz.openbmc_project.Inventory.Item.Chassis\" to fill out [\"Links\"][\"ContainedBy\"][\"@odata.id\"] and [\"Links\"][\"Contains\"][\"@odata.id\"] \n\n\nInitially, I didn\u0027t think that was correct but looking at https://redfish.dmtf.org/schemas/v1/Chassis.v1_25_1.json. That is what Redfish wants. An argument could be made this array of interfaces should also include  \"xyz.openbmc_project.Inventory.Item.Board\" because bmcweb is using that for a Chassis today but I really think we should move away from modeling most/all of our \"xyz.openbmc_project.Inventory.Item.Board\" as Redfish Chassis. contained_by / containing is such a generic association,they could be reused, yeah I think only looking for Redfish Chassis makes sense  \n\n                \"ContainedBy\": {\n                    \"$ref\": \"http://redfish.dmtf.org/schemas/v1/Chassis.json#/definitions/Chassis\",\n                    \"description\": \"The link to the chassis that contains this chassis.\",\n                    \"longDescription\": \"This property shall contain a link to a resource of type `Chassis` that represents the chassis that contains this chassis.\",\n                    \"readonly\": false\n                },\n                \"Contains\": {\n                    \"description\": \"An array of links to any other chassis that this chassis has in it.\",\n                    \"items\": {\n                        \"$ref\": \"http://redfish.dmtf.org/schemas/v1/Chassis.json#/definitions/Chassis\"\n                    },\n                    \"longDescription\": \"This property shall contain an array of links to resources of type `Chassis` that represent the chassis instances that this chassis contains.\",\n                    \"readonly\": false,\n                    \"type\": \"array\"\n                },",
       "revId": "dd5d6cc238b7066d4949cfe7b2927b7d0b3a60a2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ce6e26a_eca71bdc",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-18T01:26:38Z",
+      "side": 1,
+      "message": "Need Board here as well.  Dbus Board and Chassis resolve to a Redfish chassis",
+      "range": {
+        "startLine": 294,
+        "startChar": 8,
+        "endLine": 294,
+        "endChar": 51
+      },
+      "revId": "dd5d6cc238b7066d4949cfe7b2927b7d0b3a60a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
