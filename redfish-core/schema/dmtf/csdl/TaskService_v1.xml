@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  TaskService v1.2.0                                                  -->
+<!--# Redfish Schema:  TaskService v1.2.1                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -33,9 +33,10 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TaskService">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="TaskService" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The TaskService schema describes a task service that enables management of long-duration operations, includes the properties for the task service itself, and has links to the resource collection of tasks."/>
+        <Annotation Term="OData.Description" String="The `TaskService` schema describes a task service that enables management of long-duration operations, includes the properties for the task service itself, and has links to the resource collection of tasks."/>
         <Annotation Term="OData.LongDescription" String="This resource contains a task service for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -93,7 +94,7 @@
         <NavigationProperty Name="Tasks" Type="TaskCollection.TaskCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The links to the collection of tasks."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type TaskCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `TaskCollection`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -122,7 +123,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TaskService.v1_0_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the LifeCycleEventOnTaskStateChange long description."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the `LifeCycleEventOnTaskStateChange` long description."/>
       <EntityType Name="TaskService" BaseType="TaskService.v1_0_3.TaskService"/>
     </Schema>
 
@@ -146,7 +147,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TaskService.v1_0_8">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the description of LifeCycleEventOnTaskStateChange."/>
+      <Annotation Term="OData.Description" String="This version was created to update the description of `LifeCycleEventOnTaskStateChange`."/>
       <EntityType Name="TaskService" BaseType="TaskService.v1_0_7.TaskService"/>
     </Schema>
 
@@ -154,6 +155,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="TaskService" BaseType="TaskService.v1_0_8.TaskService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TaskService.v1_0_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="TaskService" BaseType="TaskService.v1_0_9.TaskService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TaskService.v1_1_0">
@@ -186,7 +193,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TaskService.v1_1_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the LifeCycleEventOnTaskStateChange long description."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the `LifeCycleEventOnTaskStateChange` long description."/>
       <EntityType Name="TaskService" BaseType="TaskService.v1_1_0.TaskService"/>
     </Schema>
 
@@ -210,7 +217,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TaskService.v1_1_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the description of LifeCycleEventOnTaskStateChange."/>
+      <Annotation Term="OData.Description" String="This version was created to update the description of `LifeCycleEventOnTaskStateChange`."/>
       <EntityType Name="TaskService" BaseType="TaskService.v1_1_4.TaskService"/>
     </Schema>
 
@@ -218,6 +225,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="TaskService" BaseType="TaskService.v1_1_5.TaskService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TaskService.v1_1_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="TaskService" BaseType="TaskService.v1_1_6.TaskService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TaskService.v1_2_0">
@@ -228,10 +241,16 @@
         <Property Name="TaskAutoDeleteTimeoutMinutes" Type="Edm.Int64" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The number of minutes after which a completed task is deleted by the service."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the number of minutes after which a completed task, where TaskState contains the value `Completed`, `Killed`, `Cancelled`, or `Exception`, is deleted by the service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of minutes after which a completed task, where `TaskState` contains the value `Completed`, `Killed`, `Cancelled`, or `Exception`, is deleted by the service."/>
           <Annotation Term="Validation.Minimum" Int="1"/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TaskService.v1_2_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="TaskService" BaseType="TaskService.v1_2_0.TaskService"/>
     </Schema>
 
   </edmx:DataServices>

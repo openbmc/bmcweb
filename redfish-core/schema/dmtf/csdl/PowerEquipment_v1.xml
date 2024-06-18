@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PowerEquipment v1.2.1                                               -->
+<!--# Redfish Schema:  PowerEquipment v1.2.2                                               -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -35,10 +35,11 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerEquipment">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="PowerEquipment" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="This is the schema definition for the set of power equipment."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent the set of power equipment for a Redfish implementation."/>
+        <Annotation Term="OData.Description" String="The `ThermalEquipment` schema represents the set of power equipment managed by a Redfish service."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent the set of power equipment for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -74,25 +75,25 @@
         <NavigationProperty Name="FloorPDUs" Type="PowerDistributionCollection.PowerDistributionCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A link to a collection of floor power distribution units."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type PowerDistributionCollection that contains a set of floor power distribution units."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `PowerDistributionCollection` that contains a set of floor power distribution units."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="RackPDUs" Type="PowerDistributionCollection.PowerDistributionCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A link to a collection of rack-level power distribution units."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type PowerDistributionCollection that contains a set of rack-level power distribution units."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `PowerDistributionCollection` that contains a set of rack-level power distribution units."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Switchgear" Type="PowerDistributionCollection.PowerDistributionCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A link to a collection of switchgear."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type PowerDistributionCollection that contains a set of switchgear."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `PowerDistributionCollection` that contains a set of switchgear."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="TransferSwitches" Type="PowerDistributionCollection.PowerDistributionCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A link to a collection of transfer switches."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type PowerDistributionCollection that contains a set of transfer switches."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `PowerDistributionCollection` that contains a set of transfer switches."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
 
@@ -112,7 +113,7 @@
         <NavigationProperty Name="ManagedBy" Type="Collection(Manager.Manager)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the managers responsible for managing this power equipment."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Manager that represent the managers that manage this power equipment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Manager` that represent the managers that manage this power equipment."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -140,6 +141,12 @@
       <EntityType Name="PowerEquipment" BaseType="PowerEquipment.v1_0_0.PowerEquipment"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerEquipment.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="PowerEquipment" BaseType="PowerEquipment.v1_0_1.PowerEquipment"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerEquipment.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
@@ -148,7 +155,7 @@
         <NavigationProperty Name="PowerShelves" Type="PowerDistributionCollection.PowerDistributionCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A link to a collection of power shelves."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type PowerDistributionCollection that contains a set of power shelves."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `PowerDistributionCollection` that contains a set of power shelves."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -160,6 +167,12 @@
       <EntityType Name="PowerEquipment" BaseType="PowerEquipment.v1_1_0.PowerEquipment"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerEquipment.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="PowerEquipment" BaseType="PowerEquipment.v1_1_1.PowerEquipment"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerEquipment.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.3"/>
@@ -168,7 +181,7 @@
         <NavigationProperty Name="ElectricalBuses" Type="PowerDistributionCollection.PowerDistributionCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to a collection of electrical buses."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type PowerDistributionCollection that contains a set of electrical bus units."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `PowerDistributionCollection` that contains a set of electrical bus units."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -178,6 +191,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="PowerEquipment" BaseType="PowerEquipment.v1_2_0.PowerEquipment"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerEquipment.v1_2_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="PowerEquipment" BaseType="PowerEquipment.v1_2_1.PowerEquipment"/>
     </Schema>
 
   </edmx:DataServices>

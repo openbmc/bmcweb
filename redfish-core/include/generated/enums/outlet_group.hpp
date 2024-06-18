@@ -12,11 +12,23 @@ enum class PowerState{
     PowerCycle,
 };
 
+enum class OutletGroupType{
+    Invalid,
+    HardwareDefined,
+    UserDefined,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(PowerState, {
     {PowerState::Invalid, "Invalid"},
     {PowerState::On, "On"},
     {PowerState::Off, "Off"},
     {PowerState::PowerCycle, "PowerCycle"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(OutletGroupType, {
+    {OutletGroupType::Invalid, "Invalid"},
+    {OutletGroupType::HardwareDefined, "HardwareDefined"},
+    {OutletGroupType::UserDefined, "UserDefined"},
 });
 
 }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Facility v1.4.1                                                     -->
+<!--# Redfish Schema:  Facility v1.4.2                                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -50,9 +50,10 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Facility">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="Facility" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The Facility schema represents the physical location containing equipment, such as a room, building, or campus."/>
+        <Annotation Term="OData.Description" String="The `Facility` schema represents the physical location containing equipment, such as a room, building, or campus."/>
         <Annotation Term="OData.LongDescription" String="This resource shall be used to represent a location containing equipment, such as a room, building, or campus, for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -101,7 +102,7 @@
         <NavigationProperty Name="PowerDomains" Type="PowerDomainCollection.PowerDomainCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Link to the power domains in this facility."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type PowerDomainCollection that contains the power domains associated with this facility."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `PowerDomainCollection` that contains the power domains associated with this facility."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="Links" Type="Facility.v1_0_0.Links" Nullable="false">
@@ -135,49 +136,49 @@
         <NavigationProperty Name="ContainedByFacility" Type="Facility.Facility" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The link to the facility that contains this facility."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Facility that represents the facility that contains this facility."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `Facility` that represents the facility that contains this facility."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="ContainsFacilities" Type="Collection(Facility.Facility)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An array of links to other facilities contained within this facility."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be an array of links to resources of type Facility that represent the facilities that this facility contains."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be an array of links to resources of type `Facility` that represent the facilities that this facility contains."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="ManagedBy" Type="Collection(Manager.Manager)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the managers responsible for managing this facility."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be an array of links to resources of type Manager that represent the managers that manager this facility."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be an array of links to resources of type `Manager` that represent the managers that manager this facility."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="ContainsChassis" Type="Collection(Chassis.Chassis)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An array of links to the outermost chassis contained within this facility."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be an array of links to resources of type Chassis that represent the outermost chassis that this facility contains.  This array shall only contain chassis instances that do not include a ContainedBy property within the Links property.  That is, only chassis instances that are not contained by another chassis."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be an array of links to resources of type `Chassis` that represent the outermost chassis that this facility contains.  This array shall only contain chassis instances that do not include a `ContainedBy` property within the `Links` property.  That is, only chassis instances that are not contained by another chassis."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="FloorPDUs" Type="Collection(PowerDistribution.PowerDistribution)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An array of links to the floor power distribution units in this facility."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be an array of links to resources of type PowerDistribution that represent the floor power distribution units in this facility."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be an array of links to resources of type `PowerDistribution` that represent the floor power distribution units in this facility."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="RackPDUs" Type="Collection(PowerDistribution.PowerDistribution)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An array of links to the rack-level power distribution units in this facility."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be an array of links to resources of type PowerDistribution that represent the rack-level power distribution units in this facility."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be an array of links to resources of type `PowerDistribution` that represent the rack-level power distribution units in this facility."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="TransferSwitches" Type="Collection(PowerDistribution.PowerDistribution)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An array of links to the transfer switches in this facility."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be an array of links to resources of type PowerDistribution that represent the transfer switches in this facility."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be an array of links to resources of type `PowerDistribution` that represent the transfer switches in this facility."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Switchgear" Type="Collection(PowerDistribution.PowerDistribution)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An array of links to the switchgear in this facility."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be an array of links to resources of type PowerDistribution that represent the switchgear in this facility."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be an array of links to resources of type `PowerDistribution` that represent the switchgear in this facility."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -211,6 +212,12 @@
       <EntityType Name="Facility" BaseType="Facility.v1_0_1.Facility"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Facility.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Facility" BaseType="Facility.v1_0_2.Facility"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Facility.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
@@ -219,13 +226,13 @@
         <NavigationProperty Name="EnvironmentMetrics" Type="EnvironmentMetrics.EnvironmentMetrics" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the environment metrics for this facility."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type EnvironmentMetrics that specifies the environment metrics for this facility."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `EnvironmentMetrics` that specifies the environment metrics for this facility."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="AmbientMetrics" Type="EnvironmentMetrics.EnvironmentMetrics" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the ambient environment metrics for this facility."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type EnvironmentMetrics that specifies the outdoor environment metrics for this facility."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `EnvironmentMetrics` that specifies the outdoor environment metrics for this facility."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -235,6 +242,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Facility" BaseType="Facility.v1_1_0.Facility"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Facility.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Facility" BaseType="Facility.v1_1_1.Facility"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Facility.v1_2_0">
@@ -247,7 +260,7 @@
         <NavigationProperty Name="PowerShelves" Type="Collection(PowerDistribution.PowerDistribution)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An array of links to the power shelves in this facility."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be an array of links to resources of type PowerDistribution that represent the power shelves in this facility."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be an array of links to resources of type `PowerDistribution` that represent the power shelves in this facility."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -257,6 +270,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Facility" BaseType="Facility.v1_2_0.Facility"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Facility.v1_2_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Facility" BaseType="Facility.v1_2_1.Facility"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Facility.v1_3_0">
@@ -269,7 +288,7 @@
         <NavigationProperty Name="ElectricalBuses" Type="Collection(PowerDistribution.PowerDistribution)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An array of links to the electrical buses in this facility."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall contain an array of links to resources of type PowerDistribution that represent the electrical buses in this facility."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall contain an array of links to resources of type `PowerDistribution` that represent the electrical buses in this facility."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -279,6 +298,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Facility" BaseType="Facility.v1_3_0.Facility"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Facility.v1_3_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Facility" BaseType="Facility.v1_3_1.Facility"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Facility.v1_4_0">
@@ -291,19 +316,19 @@
         <NavigationProperty Name="CDUs" Type="Collection(CoolingUnit.CoolingUnit)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An array of links to the coolant distribution units in this facility."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall contain an array of links to resources of type CoolingUnit that represent the coolant distribution units in this facility."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall contain an array of links to resources of type `CoolingUnit` that represent the coolant distribution units in this facility."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="ImmersionUnits" Type="Collection(CoolingUnit.CoolingUnit)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An array of links to the immersion cooling units in this facility."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall contain an array of links to resources of type CoolingUnit that represent the immersion cooling units in this facility."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall contain an array of links to resources of type `CoolingUnit` that represent the immersion cooling units in this facility."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="CoolingLoops" Type="Collection(CoolingLoop.CoolingLoop)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An array of links to the cooling loops in this facility."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall contain an array of links to resources of type CoolingLoop that represent the cooling loops in this facility."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall contain an array of links to resources of type `CoolingLoop` that represent the cooling loops in this facility."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -313,6 +338,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct terminology and improve description text.  It was also created to correct various typographical errors."/>
       <EntityType Name="Facility" BaseType="Facility.v1_4_0.Facility"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Facility.v1_4_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Facility" BaseType="Facility.v1_4_1.Facility"/>
     </Schema>
 
   </edmx:DataServices>

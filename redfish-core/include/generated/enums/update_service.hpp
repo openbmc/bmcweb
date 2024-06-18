@@ -26,6 +26,7 @@ enum class ApplyTime{
     AtMaintenanceWindowStart,
     InMaintenanceWindowOnReset,
     OnStartUpdateRequest,
+    OnTargetReset,
 };
 
 enum class SupportedUpdateImageFormatType{
@@ -59,6 +60,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ApplyTime, {
     {ApplyTime::AtMaintenanceWindowStart, "AtMaintenanceWindowStart"},
     {ApplyTime::InMaintenanceWindowOnReset, "InMaintenanceWindowOnReset"},
     {ApplyTime::OnStartUpdateRequest, "OnStartUpdateRequest"},
+    {ApplyTime::OnTargetReset, "OnTargetReset"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(SupportedUpdateImageFormatType, {

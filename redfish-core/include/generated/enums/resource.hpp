@@ -19,6 +19,7 @@ enum class State{
     Quiesced,
     Updating,
     Qualified,
+    Degraded,
 };
 
 enum class Health{
@@ -125,6 +126,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(State, {
     {State::Quiesced, "Quiesced"},
     {State::Updating, "Updating"},
     {State::Qualified, "Qualified"},
+    {State::Degraded, "Degraded"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(Health, {

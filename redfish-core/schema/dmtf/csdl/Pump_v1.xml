@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Pump v1.0.1                                                         -->
+<!--# Redfish Schema:  Pump v1.1.0                                                         -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -56,9 +56,10 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Pump">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="Pump" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The Pump schema describes a pump unit for a cooling system or similar device."/>
+        <Annotation Term="OData.Description" String="The `Pump` schema describes a pump unit for a cooling system or similar device."/>
         <Annotation Term="OData.LongDescription" String="This resource shall represent the management properties for monitoring and management of pumps for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -174,18 +175,18 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="Redfish.ExcerptCopy" String="Pump"/>
           <Annotation Term="OData.Description" String="The pump speed (%)."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the current speed, in percent units, of this pump.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Percent`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the current speed, in percent units, of this pump.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Percent`."/>
         </NavigationProperty>
         <NavigationProperty Name="Assembly" Type="Assembly.Assembly" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the assembly associated with this pump."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Assembly."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `Assembly`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Filters" Type="FilterCollection.FilterCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A link to a collection of filters."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type FilterCollection that contains a set of filters."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `FilterCollection` that contains a set of filters."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
 
@@ -225,6 +226,26 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Pump" BaseType="Pump.v1_0_0.Pump"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Pump.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Pump" BaseType="Pump.v1_0_1.Pump"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Pump.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2024.1"/>
+
+      <EntityType Name="Pump" BaseType="Pump.v1_0_2.Pump">
+        <NavigationProperty Name="SpeedControlPercent" Type="Control.Control">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="Redfish.ExcerptCopy" String="SingleLoop"/>
+          <Annotation Term="OData.Description" String="The desired pump speed (%)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the desired speed, in percent units, of this pump.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Control` with the `ControlType` property containing the value `Percent`."/>
+        </NavigationProperty>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Chassis v1.25.0                                                     -->
+<!--# Redfish Schema:  Chassis v1.25.1                                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -144,10 +144,11 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="Chassis" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The Chassis schema represents the physical components of a system.  This resource represents the sheet-metal confined spaces and logical zones such as racks, enclosures, chassis and all other containers.  Subsystems, such as sensors, that operate outside of a system's data plane are linked either directly or indirectly through this resource.  A subsystem that operates outside of a system's data plane are not accessible to software that runs on the system.  It also describes the location, such as a slot, socket, or bay, where a unit can be installed, by populating a resource instance with an absent state if a unit is not present."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall represent a chassis or other physical enclosure for a Redfish implementation.  It may also represent a location, such as a slot, socket, or bay, where a unit may be installed, but the State property within the Status property contains `Absent`."/>
+        <Annotation Term="OData.Description" String="The `Chassis` schema represents the physical components of a system.  This resource represents the sheet-metal confined spaces and logical zones such as racks, enclosures, chassis and all other containers.  Subsystems, such as sensors, that operate outside of a system's data plane are linked either directly or indirectly through this resource.  A subsystem that operates outside of a system's data plane are not accessible to software that runs on the system.  It also describes the location, such as a slot, socket, or bay, where a unit can be installed, by populating a resource instance with an absent state if a unit is not present."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent a chassis or other physical enclosure for a Redfish implementation.  It may also represent a location, such as a slot, socket, or bay, where a unit may be installed, but the `State` property within the `Status` property contains `Absent`."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -156,7 +157,7 @@
         <Annotation Term="Capabilities.UpdateRestrictions">
           <Record>
             <PropertyValue Property="Updatable" Bool="true"/>
-            <Annotation Term="OData.Description" String="Some properties, such as IndicatorLED, can be updated for a chassis."/>
+            <Annotation Term="OData.Description" String="Some properties, such as `IndicatorLED`, can be updated for a chassis."/>
           </Record>
         </Annotation>
         <Annotation Term="Capabilities.DeleteRestrictions">
@@ -173,12 +174,12 @@
       </EntityType>
 
       <Action Name="Reset" IsBound="true">
-        <Annotation Term="OData.Description" String="This action resets the chassis.  Additionally, it could reset systems or other contained resources depending on the ResetType used to invoke this action."/>
-        <Annotation Term="OData.LongDescription" String="This action shall reset the chassis.  Additionally, it may reset systems or other contained resources depending on the ResetType used to invoke this action."/>
+        <Annotation Term="OData.Description" String="This action resets the chassis.  Additionally, it could reset systems or other contained resources depending on the `ResetType` used to invoke this action."/>
+        <Annotation Term="OData.LongDescription" String="This action shall reset the chassis.  Additionally, it may reset systems or other contained resources depending on the `ResetType` used to invoke this action."/>
         <Parameter Name="Chassis" Type="Chassis.v1_0_0.Actions"/>
         <Parameter Name="ResetType" Type="Resource.ResetType">
           <Annotation Term="OData.Description" String="The type of reset."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of reset.  The service can accept a request without the parameter and complete an implementation-specific default reset.  Services should include the @Redfish.AllowableValues annotation for this parameter to ensure compatibility with clients, even when ActionInfo has been implemented."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of reset.  The service can accept a request without the parameter and complete an implementation-specific default reset.  Services should include the `@Redfish.AllowableValues` annotation for this parameter to ensure compatibility with clients, even when `ActionInfo` has been implemented."/>
         </Parameter>
       </Action>
     </Schema>
@@ -222,7 +223,7 @@
         <Property Name="AssetTag" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The user-assigned asset tag of this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an identifying string that tracks the chassis for inventory purposes.  Modifying this property may modify the AssetTag in the resource that represents the functional view of this Chassis, such as a ComputerSystem resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an identifying string that tracks the chassis for inventory purposes.  Modifying this property may modify the `AssetTag` in the resource that represents the functional view of this chassis, such as a `ComputerSystem` resource."/>
         </Property>
         <Property Name="IndicatorLED" Type="Chassis.v1_0_0.IndicatorLED">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -233,7 +234,7 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_14_0"/>
-                <PropertyValue Property="Description" String="This property has been deprecated in favor of the LocationIndicatorActive property."/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the `LocationIndicatorActive` property."/>
               </Record>
             </Collection>
           </Annotation>
@@ -253,20 +254,20 @@
         <NavigationProperty Name="LogServices" Type="LogServiceCollection.LogServiceCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the logs for this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type LogServiceCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `LogServiceCollection`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Thermal" Type="Thermal.Thermal" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the thermal properties, such as fans, cooling, and sensors, for this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Thermal that represents the thermal characteristics of this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `Thermal` that represents the thermal characteristics of this chassis."/>
           <Annotation Term="OData.AutoExpandReferences"/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_15_0"/>
-                <PropertyValue Property="Description" String="This link has been deprecated in favor of the ThermalSubsystem link property."/>
+                <PropertyValue Property="Description" String="This link has been deprecated in favor of the `ThermalSubsystem` link property."/>
               </Record>
             </Collection>
           </Annotation>
@@ -274,14 +275,14 @@
         <NavigationProperty Name="Power" Type="Power.Power" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the power properties, or power supplies, power policies, and sensors, for this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Power that represents the power characteristics of this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `Power` that represents the power characteristics of this chassis."/>
           <Annotation Term="OData.AutoExpandReferences"/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_15_0"/>
-                <PropertyValue Property="Description" String="This link has been deprecated in favor of the PowerSubsystem link property."/>
+                <PropertyValue Property="Description" String="This link has been deprecated in favor of the `PowerSubsystem` link property."/>
               </Record>
             </Collection>
           </Annotation>
@@ -294,25 +295,25 @@
         <NavigationProperty Name="ComputerSystems" Type="Collection(ComputerSystem.ComputerSystem)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the computer systems that this chassis directly and wholly contains."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type ComputerSystem with which this physical container is associated.  If a chassis also links to a computer system to which this resource also links, this chassis shall not link to that computer system."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `ComputerSystem` with which this physical container is associated.  If a chassis also links to a computer system to which this resource also links, this chassis shall not link to that computer system."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="ManagedBy" Type="Collection(Manager.Manager)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the managers responsible for managing this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Manager that manage this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Manager` that manage this chassis."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="ContainedBy" Type="Chassis.Chassis" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The link to the chassis that contains this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Chassis that represents the chassis that contains this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `Chassis` that represents the chassis that contains this chassis."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Contains" Type="Collection(Chassis.Chassis)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An array of links to any other chassis that this chassis has in it."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Chassis that represent the chassis instances that this chassis contains."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Chassis` that represent the chassis instances that this chassis contains."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="PoweredBy" Type="Collection(Resource.Item)">
@@ -325,7 +326,7 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_20_0"/>
-                <PropertyValue Property="Description" String="This property has been deprecated in favor of the PowerOutlets and PowerSupplies link properties, and details provided in the PowerSubsystem resource."/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the `PowerOutlets` and `PowerSupplies` link properties, and details provided in the `PowerSubsystem` resource."/>
               </Record>
             </Collection>
           </Annotation>
@@ -340,7 +341,7 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_20_0"/>
-                <PropertyValue Property="Description" String="This property has been deprecated in favor of the Fans link property, and details provided in the ThermalSubsystem resource."/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the `Fans` link property, and details provided in the `ThermalSubsystem` resource."/>
               </Record>
             </Collection>
           </Annotation>
@@ -489,7 +490,7 @@
       <EnumType Name="IndicatorLED">
         <Member Name="Unknown">
           <Annotation Term="OData.Description" String="The state of the indicator LED cannot be determined."/>
-          <Annotation Term="OData.LongDescription" String="This value shall represent the indicator LED is in an unknown state.  The service shall reject PATCH or PUT requests containing this value by returning the HTTP 400 (Bad Request) status code."/>
+          <Annotation Term="OData.LongDescription" String="This value shall represent the indicator LED is in an unknown state.  The service shall reject `PATCH` or `PUT` requests containing this value by returning the HTTP `400 Bad Request` status code."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -502,15 +503,15 @@
         </Member>
         <Member Name="Lit">
           <Annotation Term="OData.Description" String="The indicator LED is lit."/>
-          <Annotation Term="OData.LongDescription" String="This value shall represent the indicator LED is in a solid on state.  If the service does not support this value, it shall return the HTTP 400 (Bad Request) status code to reject PATCH or PUT requests that contain this value."/>
+          <Annotation Term="OData.LongDescription" String="This value shall represent the indicator LED is in a solid on state.  If the service does not support this value, it shall return the HTTP `400 Bad Request` status code to reject `PATCH` or `PUT` requests that contain this value."/>
         </Member>
         <Member Name="Blinking">
           <Annotation Term="OData.Description" String="The indicator LED is blinking."/>
-          <Annotation Term="OData.LongDescription" String="This value shall represent the indicator LED is in a blinking state where the LED is being turned on and off in repetition.  If the service does not support this value, it shall reject PATCH or PUT requests containing this value by returning the HTTP 400 (Bad Request) status code."/>
+          <Annotation Term="OData.LongDescription" String="This value shall represent the indicator LED is in a blinking state where the LED is being turned on and off in repetition.  If the service does not support this value, it shall reject `PATCH` or `PUT` requests containing this value by returning the HTTP `400 Bad Request` status code."/>
         </Member>
         <Member Name="Off">
           <Annotation Term="OData.Description" String="The indicator LED is off."/>
-          <Annotation Term="OData.LongDescription" String="This value shall represent the indicator LED is in a solid off state.  If the service does not support this value, it shall reject PATCH or PUT requests containing this value by returning the HTTP 400 (Bad Request) status code."/>
+          <Annotation Term="OData.LongDescription" String="This value shall represent the indicator LED is in a solid off state.  If the service does not support this value, it shall reject `PATCH` or `PUT` requests containing this value by returning the HTTP `400 Bad Request` status code."/>
         </Member>
       </EnumType>
     </Schema>
@@ -541,7 +542,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_0_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to remove the Nullable facet on NavigationProperties of the Collection type and to use Redfish.Deprecated on certain enumerated values."/>
+      <Annotation Term="OData.Description" String="This version was created to remove the nullable term on arrays of links and to add the deprecated annotation to certain enumerated values."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_0_3.Chassis"/>
     </Schema>
 
@@ -595,7 +596,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_0_13">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for ResetType."/>
+      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for `ResetType`."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_0_12.Chassis"/>
     </Schema>
 
@@ -607,14 +608,20 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_0_15">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the PowerState property to reference the common enumeration in the Resource schema."/>
+      <Annotation Term="OData.Description" String="This version was created to update the `PowerState` property to reference the common enumeration in the `Resource` schema."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_0_14.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_0_16">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to update the description for AssetTag to show there might be a tie to the AssetTag of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the `Reset` action to indicate that systems or other contained resources might reset depending on the `ResetType` used.  It was also created to update the description for `AssetTag` to show there might be a tie to the `AssetTag` of the functional resource contained in a chassis, such as a `ComputerSystem` resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_0_15.Chassis"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_0_17">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_0_16.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_1_0">
@@ -649,12 +656,12 @@
         <Property Name="IntrusionSensor" Type="Chassis.v1_1_0.IntrusionSensor">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The physical security state of the chassis, such as if hardware intrusion is detected."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the physical security state of the chassis.  If the IntrusionSensorReArm property contains `Manual`, a client may set this property to `Normal` to reset the physical security state."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the physical security state of the chassis.  If the `IntrusionSensorReArm` property contains `Manual`, a client may set this property to `Normal` to reset the physical security state."/>
         </Property>
         <Property Name="IntrusionSensorReArm" Type="Chassis.v1_1_0.IntrusionSensorReArm">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The policy that describes how the physical security state of the chassis returns to a normal state."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the policy that describes how the IntrusionSensor property returns to the `Normal` value."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the policy that describes how the `IntrusionSensor` property returns to the `Normal` value."/>
         </Property>
       </ComplexType>
 
@@ -673,11 +680,11 @@
       <EnumType Name="IntrusionSensorReArm">
         <Member Name="Manual">
           <Annotation Term="OData.Description" String="A user is required to clear the sensor to restore it to the normal state."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a user is required to set the IntrusionSensor property to `Normal` to restore the sensor to its normal state."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a user is required to set the `IntrusionSensor` property to `Normal` to restore the sensor to its normal state."/>
         </Member>
         <Member Name="Automatic">
           <Annotation Term="OData.Description" String="The sensor is automatically restored to the normal state when no security condition is detected."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the service sets the IntrusionSensor property to `Normal` when no security condition is detected."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the service sets the `IntrusionSensor` property to `Normal` when no security condition is detected."/>
         </Member>
       </EnumType>
     </Schema>
@@ -696,7 +703,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_1_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to remove the Nullable facet on NavigationProperties of the Collection type and to use Redfish.Deprecated on certain enumerated values."/>
+      <Annotation Term="OData.Description" String="This version was created to remove the nullable term on arrays of links and to add the deprecated annotation to certain enumerated values."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_1_3.Chassis"/>
     </Schema>
 
@@ -750,7 +757,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_1_13">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for ResetType."/>
+      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for `ResetType`."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_1_12.Chassis"/>
     </Schema>
 
@@ -762,20 +769,26 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_1_15">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the re-arm behavior of the PhysicalSecurity property.  It was also created to allow for multiple sensors to factor into the physical security state of the chassis.  It was also created to update the PowerState property to reference the common enumeration in the Resource schema."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the re-arm behavior of the `PhysicalSecurity` property.  It was also created to allow for multiple sensors to factor into the physical security state of the chassis.  It was also created to update the `PowerState` property to reference the common enumeration in the `Resource` schema."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_1_14.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_1_16">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag to show there might be a tie to the AssetTag of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the `Reset` action to indicate that systems or other contained resources might reset depending on the `ResetType` used.  It was also created to remove non-inclusive language.  It was also created to update the description for `AssetTag` to show there might be a tie to the `AssetTag` of the functional resource contained in a chassis, such as a `ComputerSystem` resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_1_15.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_1_17">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change IntrusionSensorReArm to be writable."/>
+      <Annotation Term="OData.Description" String="This version was created to change `IntrusionSensorReArm` to be writable."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_1_16.Chassis"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_1_18">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_1_17.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_2_0">
@@ -793,19 +806,19 @@
         <NavigationProperty Name="ManagersInChassis" Type="Collection(Manager.Manager)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the managers located in this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Manager that are in this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Manager` that are in this chassis."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Drives" Type="Collection(Drive.Drive)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the drives located in this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Drive that are in this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Drive` that are in this chassis."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Storage" Type="Collection(Storage.Storage)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the storage subsystems connected to or inside this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Storage that are connected to or contained in this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Storage` that are connected to or contained in this chassis."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -819,7 +832,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_2_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to remove the Nullable facet on NavigationProperties of the Collection type and to use Redfish.Deprecated on certain enumerated values."/>
+      <Annotation Term="OData.Description" String="This version was created to remove the nullable term on arrays of links and to add the deprecated annotation to certain enumerated values."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_2_1.Chassis"/>
     </Schema>
 
@@ -873,7 +886,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_2_11">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for ResetType."/>
+      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for `ResetType`."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_2_10.Chassis"/>
     </Schema>
 
@@ -885,20 +898,26 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_2_13">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the re-arm behavior of the PhysicalSecurity property.  It was also created to allow for multiple sensors to factor into the physical security state of the chassis.  It was also created to update the PowerState property to reference the common enumeration in the Resource schema."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the re-arm behavior of the `PhysicalSecurity` property.  It was also created to allow for multiple sensors to factor into the physical security state of the chassis.  It was also created to update the `PowerState` property to reference the common enumeration in the `Resource` schema."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_2_12.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_2_14">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag to show there might be a tie to the AssetTag of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the `Reset` action to indicate that systems or other contained resources might reset depending on the `ResetType` used.  It was also created to remove non-inclusive language.  It was also created to update the description for `AssetTag` to show there might be a tie to the `AssetTag` of the functional resource contained in a chassis, such as a `ComputerSystem` resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_2_13.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_2_15">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change IntrusionSensorReArm to be writable.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to change `IntrusionSensorReArm` to be writable.  It was also created to correct various typographical errors."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_2_14.Chassis"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_2_16">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_2_15.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_3_0">
@@ -917,7 +936,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_3_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to remove the Nullable facet on NavigationProperties of the Collection type and to use Redfish.Deprecated on certain enumerated values."/>
+      <Annotation Term="OData.Description" String="This version was created to remove the nullable term on arrays of links and to add the deprecated annotation to certain enumerated values."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_3_1.Chassis"/>
     </Schema>
 
@@ -971,7 +990,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_3_11">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for ResetType."/>
+      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for `ResetType`."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_3_10.Chassis"/>
     </Schema>
 
@@ -983,20 +1002,26 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_3_13">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the re-arm behavior of the PhysicalSecurity property.  It was also created to allow for multiple sensors to factor into the physical security state of the chassis.  It was also created to update the PowerState property to reference the common enumeration in the Resource schema."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the re-arm behavior of the `PhysicalSecurity` property.  It was also created to allow for multiple sensors to factor into the physical security state of the chassis.  It was also created to update the `PowerState` property to reference the common enumeration in the `Resource` schema."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_3_12.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_3_14">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag to show there might be a tie to the AssetTag of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the `Reset` action to indicate that systems or other contained resources might reset depending on the `ResetType` used.  It was also created to remove non-inclusive language.  It was also created to update the description for `AssetTag` to show there might be a tie to the `AssetTag` of the functional resource contained in a chassis, such as a `ComputerSystem` resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_3_13.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_3_15">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change IntrusionSensorReArm to be writable.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to change `IntrusionSensorReArm` to be writable.  It was also created to correct various typographical errors."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_3_14.Chassis"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_3_16">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_3_15.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_4_0">
@@ -1035,7 +1060,7 @@
         <NavigationProperty Name="NetworkAdapters" Type="NetworkAdapterCollection.NetworkAdapterCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of network adapters associated with this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type NetworkAdapterCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `NetworkAdapterCollection`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -1044,14 +1069,14 @@
         <NavigationProperty Name="PCIeDevices" Type="Collection(PCIeDevice.PCIeDevice)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the PCIe devices located in this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type PCIeDevice."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `PCIeDevice`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_10_0"/>
-                <PropertyValue Property="Description" String="This property has been deprecated in favor of the PCIeDevices resource collection in the root of this resource."/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the `PCIeDevices` resource collection in the root of this resource."/>
               </Record>
             </Collection>
           </Annotation>
@@ -1061,7 +1086,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_4_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to remove the Nullable facet on NavigationProperties of the Collection type and to use Redfish.Deprecated on certain enumerated values."/>
+      <Annotation Term="OData.Description" String="This version was created to remove the nullable term on arrays of links and to add the deprecated annotation to certain enumerated values."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_4_0.Chassis"/>
     </Schema>
 
@@ -1115,7 +1140,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_4_10">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for ResetType."/>
+      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for `ResetType`."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_4_9.Chassis"/>
     </Schema>
 
@@ -1127,20 +1152,26 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_4_12">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the re-arm behavior of the PhysicalSecurity property.  It was also created to allow for multiple sensors to factor into the physical security state of the chassis.  It was also created to update the PowerState property to reference the common enumeration in the Resource schema."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the re-arm behavior of the `PhysicalSecurity` property.  It was also created to allow for multiple sensors to factor into the physical security state of the chassis.  It was also created to update the `PowerState` property to reference the common enumeration in the `Resource` schema."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_4_11.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_4_13">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag to show there might be a tie to the AssetTag of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the `Reset` action to indicate that systems or other contained resources might reset depending on the `ResetType` used.  It was also created to remove non-inclusive language.  It was also created to update the description for `AssetTag` to show there might be a tie to the `AssetTag` of the functional resource contained in a chassis, such as a `ComputerSystem` resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_4_12.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_4_14">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change IntrusionSensorReArm to be writable.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to change `IntrusionSensorReArm` to be writable.  It was also created to correct various typographical errors."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_4_13.Chassis"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_4_15">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_4_14.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_5_0">
@@ -1153,7 +1184,7 @@
         <NavigationProperty Name="ResourceBlocks" Type="Collection(ResourceBlock.ResourceBlock)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the resource blocks located in this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type ResourceBlock that this chassis contains."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `ResourceBlock` that this chassis contains."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -1209,7 +1240,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_5_9">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for ResetType."/>
+      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for `ResetType`."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_5_8.Chassis"/>
     </Schema>
 
@@ -1221,20 +1252,26 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_5_11">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the re-arm behavior of the PhysicalSecurity property.  It was also created to allow for multiple sensors to factor into the physical security state of the chassis.  It was also created to update the PowerState property to reference the common enumeration in the Resource schema."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the re-arm behavior of the `PhysicalSecurity` property.  It was also created to allow for multiple sensors to factor into the physical security state of the chassis.  It was also created to update the `PowerState` property to reference the common enumeration in the `Resource` schema."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_5_10.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_5_12">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag to show there might be a tie to the AssetTag of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the `Reset` action to indicate that systems or other contained resources might reset depending on the `ResetType` used.  It was also created to remove non-inclusive language.  It was also created to update the description for `AssetTag` to show there might be a tie to the `AssetTag` of the functional resource contained in a chassis, such as a `ComputerSystem` resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_5_11.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_5_13">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change IntrusionSensorReArm to be writable.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to change `IntrusionSensorReArm` to be writable.  It was also created to correct various typographical errors."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_5_12.Chassis"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_5_14">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_5_13.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_6_0">
@@ -1246,7 +1283,7 @@
         <NavigationProperty Name="Assembly" Type="Assembly.Assembly" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the assembly associated with this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Assembly."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `Assembly`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -1290,7 +1327,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_6_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for ResetType."/>
+      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for `ResetType`."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_6_6.Chassis"/>
     </Schema>
 
@@ -1302,20 +1339,26 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_6_9">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the re-arm behavior of the PhysicalSecurity property.  It was also created to allow for multiple sensors to factor into the physical security state of the chassis.  It was also created to update the PowerState property to reference the common enumeration in the Resource schema."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the re-arm behavior of the `PhysicalSecurity` property.  It was also created to allow for multiple sensors to factor into the physical security state of the chassis.  It was also created to update the `PowerState` property to reference the common enumeration in the `Resource` schema."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_6_8.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_6_10">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag to show there might be a tie to the AssetTag of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the `Reset` action to indicate that systems or other contained resources might reset depending on the `ResetType` used.  It was also created to remove non-inclusive language.  It was also created to update the description for `AssetTag` to show there might be a tie to the `AssetTag` of the functional resource contained in a chassis, such as a `ComputerSystem` resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_6_9.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_6_11">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change IntrusionSensorReArm to be writable.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to change `IntrusionSensorReArm` to be writable.  It was also created to correct various typographical errors."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_6_10.Chassis"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_6_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_6_11.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_7_0">
@@ -1334,7 +1377,7 @@
         <NavigationProperty Name="Switches" Type="Collection(Switch.Switch)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the switches located in this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Switch that this chassis contains."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Switch` that this chassis contains."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -1378,7 +1421,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_7_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for ResetType."/>
+      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for `ResetType`."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_7_6.Chassis"/>
     </Schema>
 
@@ -1390,20 +1433,26 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_7_9">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the re-arm behavior of the PhysicalSecurity property.  It was also created to allow for multiple sensors to factor into the physical security state of the chassis.  It was also created to update the PowerState property to reference the common enumeration in the Resource schema."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the re-arm behavior of the `PhysicalSecurity` property.  It was also created to allow for multiple sensors to factor into the physical security state of the chassis.  It was also created to update the `PowerState` property to reference the common enumeration in the `Resource` schema."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_7_8.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_7_10">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag to show there might be a tie to the AssetTag of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the `Reset` action to indicate that systems or other contained resources might reset depending on the `ResetType` used.  It was also created to remove non-inclusive language.  It was also created to update the description for `AssetTag` to show there might be a tie to the `AssetTag` of the functional resource contained in a chassis, such as a `ComputerSystem` resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_7_9.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_7_11">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change IntrusionSensorReArm to be writable.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to change `IntrusionSensorReArm` to be writable.  It was also created to correct various typographical errors."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_7_10.Chassis"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_7_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_7_11.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_8_0">
@@ -1414,14 +1463,14 @@
         <NavigationProperty Name="PCIeSlots" Type="PCIeSlots.PCIeSlots" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the PCIe slot properties for this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to the resource of type PCIeSlots that represents the PCIe slot information for this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to the resource of type `PCIeSlots` that represents the PCIe slot information for this chassis."/>
           <Annotation Term="OData.AutoExpandReferences"/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_24_0"/>
-                <PropertyValue Property="Description" String="This property has been deprecated in favor of the PCIeDevices property.  The PCIeSlots schema has been deprecated in favor of the PCIeDevice schema.  Empty PCIe slots are represented by PCIeDevice resources using the `Absent` value of the State property within Status."/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the `PCIeDevices` property.  The `PCIeSlots` schema has been deprecated in favor of the `PCIeDevice` schema.  Empty PCIe slots are represented by `PCIeDevice` resources using the `Absent` value of the `State` property within `Status`."/>
               </Record>
             </Collection>
           </Annotation>
@@ -1461,7 +1510,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_8_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for ResetType."/>
+      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for `ResetType`."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_8_5.Chassis"/>
     </Schema>
 
@@ -1473,20 +1522,26 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_8_8">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the re-arm behavior of the PhysicalSecurity property.  It was also created to allow for multiple sensors to factor into the physical security state of the chassis.  It was also created to update the PowerState property to reference the common enumeration in the Resource schema."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the re-arm behavior of the `PhysicalSecurity` property.  It was also created to allow for multiple sensors to factor into the physical security state of the chassis.  It was also created to update the `PowerState` property to reference the common enumeration in the `Resource` schema."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_8_7.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_8_9">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag to show there might be a tie to the AssetTag of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the `Reset` action to indicate that systems or other contained resources might reset depending on the `ResetType` used.  It was also created to remove non-inclusive language.  It was also created to update the description for `AssetTag` to show there might be a tie to the `AssetTag` of the functional resource contained in a chassis, such as a `ComputerSystem` resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_8_8.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_8_10">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change IntrusionSensorReArm to be writable.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to change `IntrusionSensorReArm` to be writable.  It was also created to correct various typographical errors."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_8_9.Chassis"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_8_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_8_10.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_9_0">
@@ -1502,7 +1557,7 @@
         <NavigationProperty Name="Sensors" Type="SensorCollection.SensorCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of sensors located in the equipment and sub-components."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type SensorCollection that contains the sensors located in the chassis and sub-components."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `SensorCollection` that contains the sensors located in the chassis and sub-components."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -1526,7 +1581,7 @@
         <NavigationProperty Name="Processors" Type="Collection(Processor.Processor)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the processors located in this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Processor type that this chassis contains."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Processor` type that this chassis contains."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -1558,7 +1613,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_9_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for ResetType."/>
+      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for `ResetType`."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_9_4.Chassis"/>
     </Schema>
 
@@ -1570,26 +1625,32 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_9_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change the permissions of EnvironmentalClass to be read-write."/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions of `EnvironmentalClass` to be read-write."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_9_6.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_9_8">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the re-arm behavior of the PhysicalSecurity property.  It was also created to allow for multiple sensors to factor into the physical security state of the chassis.  It was also created to update the PowerState property to reference the common enumeration in the Resource schema."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the re-arm behavior of the `PhysicalSecurity` property.  It was also created to allow for multiple sensors to factor into the physical security state of the chassis.  It was also created to update the `PowerState` property to reference the common enumeration in the `Resource` schema."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_9_7.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_9_9">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag to show there might be a tie to the AssetTag of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the `Reset` action to indicate that systems or other contained resources might reset depending on the `ResetType` used.  It was also created to remove non-inclusive language.  It was also created to update the description for `AssetTag` to show there might be a tie to the `AssetTag` of the functional resource contained in a chassis, such as a `ComputerSystem` resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_9_8.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_9_10">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change IntrusionSensorReArm to be writable.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to change `IntrusionSensorReArm` to be writable.  It was also created to correct various typographical errors."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_9_9.Chassis"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_9_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_9_10.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_10_0">
@@ -1600,7 +1661,7 @@
         <NavigationProperty Name="PCIeDevices" Type="PCIeDeviceCollection.PCIeDeviceCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of PCIe devices located in this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type PCIeDeviceCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `PCIeDeviceCollection`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -1620,7 +1681,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_10_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for ResetType."/>
+      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for `ResetType`."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_10_2.Chassis"/>
     </Schema>
 
@@ -1632,26 +1693,32 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_10_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change the permissions of EnvironmentalClass to be read-write."/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions of `EnvironmentalClass` to be read-write."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_10_4.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_10_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the re-arm behavior of the PhysicalSecurity property.  It was also created to allow for multiple sensors to factor into the physical security state of the chassis.  It was also created to update the PowerState property to reference the common enumeration in the Resource schema."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the re-arm behavior of the `PhysicalSecurity` property.  It was also created to allow for multiple sensors to factor into the physical security state of the chassis.  It was also created to update the `PowerState` property to reference the common enumeration in the `Resource` schema."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_10_5.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_10_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag to show there might be a tie to the AssetTag of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the `Reset` action to indicate that systems or other contained resources might reset depending on the `ResetType` used.  It was also created to remove non-inclusive language.  It was also created to update the description for `AssetTag` to show there might be a tie to the `AssetTag` of the functional resource contained in a chassis, such as a `ComputerSystem` resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_10_6.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_10_8">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change IntrusionSensorReArm to be writable.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to change `IntrusionSensorReArm` to be writable.  It was also created to correct various typographical errors."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_10_7.Chassis"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_10_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_10_8.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_11_0">
@@ -1662,13 +1729,13 @@
         <NavigationProperty Name="MediaControllers" Type="MediaControllerCollection.MediaControllerCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of media controllers located in this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type MediaControllerCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `MediaControllerCollection`."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_20_0"/>
-                <PropertyValue Property="Description" String="This property has been deprecated in favor of FabricAdapters."/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of `FabricAdapters`."/>
               </Record>
             </Collection>
           </Annotation>
@@ -1677,13 +1744,13 @@
         <NavigationProperty Name="Memory" Type="MemoryCollection.MemoryCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of memory located in this chassis that belong to fabric-related resource pools."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type MemoryCollection that represents memory in this chassis that belong to fabric-related resource pools."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `MemoryCollection` that represents memory in this chassis that belong to fabric-related resource pools."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="MemoryDomains" Type="MemoryDomainCollection.MemoryDomainCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of memory domains located in this chassis that belong to fabric-related resource pools."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type MemoryDomainCollection that represents memory domains in this chassis that belong to fabric-related resource pools."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `MemoryDomainCollection` that represents memory domains in this chassis that belong to fabric-related resource pools."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -1692,7 +1759,7 @@
         <NavigationProperty Name="Facility" Type="Facility.Facility" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The link to the facility that contains this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to the resource of type Facility and shall represent the smallest facility that contains this chassis.  This property shall not appear in resources that include a ContainedBy property within the Links property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to the resource of type `Facility` and shall represent the smallest facility that contains this chassis.  This property shall not appear in resources that include a `ContainedBy` property within the `Links` property."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -1712,7 +1779,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_11_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for ResetType."/>
+      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for `ResetType`."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_11_2.Chassis"/>
     </Schema>
 
@@ -1724,32 +1791,37 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_11_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change the permissions of EnvironmentalClass to be read-write."/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions of `EnvironmentalClass` to be read-write."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_11_4.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_11_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the re-arm behavior of the PhysicalSecurity property.  It was also created to allow for multiple sensors to factor into the physical security state of the chassis.  It was also created to update the PowerState property to reference the common enumeration in the Resource schema.  It was also created to clarify the expected contents of the Memory and MemoryDomains collections."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the re-arm behavior of the `PhysicalSecurity` property.  It was also created to allow for multiple sensors to factor into the physical security state of the chassis.  It was also created to update the `PowerState` property to reference the common enumeration in the `Resource` schema.  It was also created to clarify the expected contents of the `Memory` and `MemoryDomains` collections."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_11_5.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_11_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag to show there might be a tie to the AssetTag of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the `Reset` action to indicate that systems or other contained resources might reset depending on the `ResetType` used.  It was also created to remove non-inclusive language.  It was also created to update the description for `AssetTag` to show there might be a tie to the `AssetTag` of the functional resource contained in a chassis, such as a `ComputerSystem` resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_11_6.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_11_8">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change IntrusionSensorReArm to be writable.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to change `IntrusionSensorReArm` to be writable.  It was also created to correct various typographical errors."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_11_7.Chassis"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_11_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_11_8.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_12_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
-      <Annotation Term="OData.Description" String="This version was created to add MaxPowerWatts and MinPowerWatts properties."/>
 
       <EntityType Name="Chassis" BaseType="Chassis.v1_11_1.Chassis">
         <Property Name="MaxPowerWatts" Type="Edm.Decimal">
@@ -1775,7 +1847,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_12_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for ResetType."/>
+      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for `ResetType`."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_12_1.Chassis"/>
     </Schema>
 
@@ -1787,39 +1859,45 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_12_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change the permissions of EnvironmentalClass to be read-write."/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions of `EnvironmentalClass` to be read-write."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_12_3.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_12_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the re-arm behavior of the PhysicalSecurity property.  It was also created to allow for multiple sensors to factor into the physical security state of the chassis.  It was also created to update the PowerState property to reference the common enumeration in the Resource schema.  It was also created to clarify the expected contents of the Memory and MemoryDomains collections."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the re-arm behavior of the `PhysicalSecurity` property.  It was also created to allow for multiple sensors to factor into the physical security state of the chassis.  It was also created to update the `PowerState` property to reference the common enumeration in the `Resource` schema.  It was also created to clarify the expected contents of the `Memory` and `MemoryDomains` collections."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_12_4.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_12_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag to show there might be a tie to the AssetTag of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the `Reset` action to indicate that systems or other contained resources might reset depending on the `ResetType` used.  It was also created to remove non-inclusive language.  It was also created to update the description for `AssetTag` to show there might be a tie to the `AssetTag` of the functional resource contained in a chassis, such as a `ComputerSystem` resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_12_5.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_12_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change IntrusionSensorReArm to be writable.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to change `IntrusionSensorReArm` to be writable.  It was also created to correct various typographical errors."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_12_6.Chassis"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_12_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_12_7.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_13_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.2"/>
-      <Annotation Term="OData.Description" String="This version was created to modify the Contains and ContainedBy properties to be writable."/>
+      <Annotation Term="OData.Description" String="This version was created to modify the `Contains` and `ContainedBy` properties to be writable."/>
 
       <EntityType Name="Chassis" BaseType="Chassis.v1_12_1.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_13_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for ResetType."/>
+      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for `ResetType`."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_13_0.Chassis"/>
     </Schema>
 
@@ -1831,42 +1909,48 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_13_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change the permissions of EnvironmentalClass to be read-write."/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions of `EnvironmentalClass` to be read-write."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_13_2.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_13_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the re-arm behavior of the PhysicalSecurity property.  It was also created to allow for multiple sensors to factor into the physical security state of the chassis.  It was also created to update the PowerState property to reference the common enumeration in the Resource schema.  It was also created to clarify the expected contents of the Memory and MemoryDomains collections."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the re-arm behavior of the `PhysicalSecurity` property.  It was also created to allow for multiple sensors to factor into the physical security state of the chassis.  It was also created to update the `PowerState` property to reference the common enumeration in the `Resource` schema.  It was also created to clarify the expected contents of the `Memory` and `MemoryDomains` collections."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_13_3.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_13_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag to show there might be a tie to the AssetTag of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the `Reset` action to indicate that systems or other contained resources might reset depending on the `ResetType` used.  It was also created to remove non-inclusive language.  It was also created to update the description for `AssetTag` to show there might be a tie to the `AssetTag` of the functional resource contained in a chassis, such as a `ComputerSystem` resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_13_4.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_13_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change IntrusionSensorReArm to be writable.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to change `IntrusionSensorReArm` to be writable.  It was also created to correct various typographical errors."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_13_5.Chassis"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_13_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_13_6.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_14_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.3"/>
-      <Annotation Term="OData.Description" String="This version was created to add LocationIndicatorActive and to deprecate IndicatorLED properties."/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate `IndicatorLED` in favor of `LocationIndicatorActive`."/>
 
       <EntityType Name="Chassis" BaseType="Chassis.v1_13_1.Chassis">
         <Property Name="LocationIndicatorActive" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An indicator allowing an operator to physically locate this resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the state of the indicator used to physically identify or locate this resource.  A write to this property shall update the value of IndicatorLED in this resource, if supported, to reflect the implementation of the locating function.  Modifying this property may modify the LocationIndicatorActive in the resource that represents the functional view of this Chassis, such as a ComputerSystem resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the state of the indicator used to physically identify or locate this resource.  A write to this property shall update the value of `IndicatorLED` in this resource, if supported, to reflect the implementation of the locating function.  Modifying this property may modify the `LocationIndicatorActive` in the resource that represents the functional view of this chassis, such as a `ComputerSystem` resource."/>
         </Property>
         <NavigationProperty Name="Drives" Type="DriveCollection.DriveCollection" Nullable="false" ContainsTarget="true">
           <Annotation Term="OData.Description" String="The link to the collection of drives within this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type DriveCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `DriveCollection`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -1880,56 +1964,61 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_14_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change the permissions of EnvironmentalClass to be read-write."/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions of `EnvironmentalClass` to be read-write."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_14_1.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_14_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the re-arm behavior of the PhysicalSecurity property.  It was also created to allow for multiple sensors to factor into the physical security state of the chassis.  It was also created to update the PowerState property to reference the common enumeration in the Resource schema.  It was also created to clarify the expected contents of the Memory and MemoryDomains collections."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the re-arm behavior of the `PhysicalSecurity` property.  It was also created to allow for multiple sensors to factor into the physical security state of the chassis.  It was also created to update the `PowerState` property to reference the common enumeration in the `Resource` schema.  It was also created to clarify the expected contents of the `Memory` and `MemoryDomains` collections."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_14_2.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_14_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag and LocationIndicatorActive to show there might be a tie to the AssetTag and LocationIndicatorActive of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the `Reset` action to indicate that systems or other contained resources might reset depending on the `ResetType` used.  It was also created to remove non-inclusive language.  It was also created to update the description for `AssetTag` and `LocationIndicatorActive` to show there might be a tie to the `AssetTag` and `LocationIndicatorActive` of the functional resource contained in a chassis, such as a `ComputerSystem` resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_14_3.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_14_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change IntrusionSensorReArm to be writable.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to change `IntrusionSensorReArm` to be writable.  It was also created to correct various typographical errors."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_14_4.Chassis"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_14_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_14_5.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_15_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
-      <Annotation Term="OData.Description" String="This version was created to add Certificates and Measurements to devices for attestation and identity management.  It was also created to add links to the PowerSubsystem, ThermalSubsystem, and EnvironmentMetrics resources."/>
 
       <EntityType Name="Chassis" BaseType="Chassis.v1_14_0.Chassis">
         <NavigationProperty Name="PowerSubsystem" Type="PowerSubsystem.PowerSubsystem" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the power subsystem properties for this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type PowerSubsystem that represents the power subsystem information for this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `PowerSubsystem` that represents the power subsystem information for this chassis."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="ThermalSubsystem" Type="ThermalSubsystem.ThermalSubsystem" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the thermal subsystem properties for this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type ThermalSubsystem that represents the thermal subsystem information for this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `ThermalSubsystem` that represents the thermal subsystem information for this chassis."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="EnvironmentMetrics" Type="EnvironmentMetrics.EnvironmentMetrics" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the environment metrics for this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type EnvironmentMetrics that specifies the environment metrics for this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `EnvironmentMetrics` that specifies the environment metrics for this chassis."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Certificates" Type="CertificateCollection.CertificateCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to a collection of certificates for device identity and attestation."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CertificateCollection that contains certificates for device identity and attestation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `CertificateCollection` that contains certificates for device identity and attestation."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="Measurements" Type="Collection(SoftwareInventory.MeasurementBlock)" Nullable="false">
@@ -1940,7 +2029,7 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_19_0"/>
-                <PropertyValue Property="Description" String="This property has been deprecated in favor of the ComponentIntegrity resource."/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the `ComponentIntegrity` resource."/>
               </Record>
             </Collection>
           </Annotation>
@@ -1956,26 +2045,32 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_15_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change the permissions of EnvironmentalClass to be read-write."/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions of `EnvironmentalClass` to be read-write."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_15_1.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_15_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the re-arm behavior of the PhysicalSecurity property.  It was also created to allow for multiple sensors to factor into the physical security state of the chassis.  It was also created to update the PowerState property to reference the common enumeration in the Resource schema.  It was also created to clarify the expected contents of the Memory and MemoryDomains collections."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the re-arm behavior of the `PhysicalSecurity` property.  It was also created to allow for multiple sensors to factor into the physical security state of the chassis.  It was also created to update the `PowerState` property to reference the common enumeration in the `Resource` schema.  It was also created to clarify the expected contents of the `Memory` and `MemoryDomains` collections."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_15_2.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_15_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag and LocationIndicatorActive to show there might be a tie to the AssetTag and LocationIndicatorActive of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the `Reset` action to indicate that systems or other contained resources might reset depending on the `ResetType` used.  It was also created to remove non-inclusive language.  It was also created to update the description for `AssetTag` and `LocationIndicatorActive` to show there might be a tie to the `AssetTag` and `LocationIndicatorActive` of the functional resource contained in a chassis, such as a `ComputerSystem` resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_15_3.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_15_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change IntrusionSensorReArm to be writable.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to change `IntrusionSensorReArm` to be writable.  It was also created to correct various typographical errors."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_15_4.Chassis"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_15_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_15_5.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_16_0">
@@ -1994,26 +2089,32 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_16_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change the permissions of EnvironmentalClass to be read-write."/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions of `EnvironmentalClass` to be read-write."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_16_0.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_16_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the re-arm behavior of the PhysicalSecurity property.  It was also created to allow for multiple sensors to factor into the physical security state of the chassis.  It was also created to update the PowerState property to reference the common enumeration in the Resource schema.  It was also created to clarify the expected contents of the Memory and MemoryDomains collections."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the re-arm behavior of the `PhysicalSecurity` property.  It was also created to allow for multiple sensors to factor into the physical security state of the chassis.  It was also created to update the `PowerState` property to reference the common enumeration in the `Resource` schema.  It was also created to clarify the expected contents of the `Memory` and `MemoryDomains` collections."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_16_1.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_16_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag and LocationIndicatorActive to show there might be a tie to the AssetTag and LocationIndicatorActive of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the `Reset` action to indicate that systems or other contained resources might reset depending on the `ResetType` used.  It was also created to remove non-inclusive language.  It was also created to update the description for `AssetTag` and `LocationIndicatorActive` to show there might be a tie to the `AssetTag` and `LocationIndicatorActive` of the functional resource contained in a chassis, such as a `ComputerSystem` resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_16_2.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_16_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change IntrusionSensorReArm to be writable.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to change `IntrusionSensorReArm` to be writable.  It was also created to correct various typographical errors."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_16_3.Chassis"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_16_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_16_4.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_17_0">
@@ -2024,7 +2125,7 @@
         <NavigationProperty Name="Controls" Type="ControlCollection.ControlCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of controls located in this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type ControlCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `ControlCollection`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -2033,7 +2134,7 @@
         <NavigationProperty Name="Cables" Type="Collection(Cable.Cable)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the cables connected to this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Cable that represent the cables connected to this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Cable` that represent the cables connected to this chassis."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -2041,26 +2142,32 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_17_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change the permissions of EnvironmentalClass to be read-write."/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions of `EnvironmentalClass` to be read-write."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_17_0.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_17_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the re-arm behavior of the PhysicalSecurity property.  It was also created to allow for multiple sensors to factor into the physical security state of the chassis.  It was also created to update the PowerState property to reference the common enumeration in the Resource schema.  It was also created to clarify the expected contents of the Memory and MemoryDomains collections."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the re-arm behavior of the `PhysicalSecurity` property.  It was also created to allow for multiple sensors to factor into the physical security state of the chassis.  It was also created to update the `PowerState` property to reference the common enumeration in the `Resource` schema.  It was also created to clarify the expected contents of the `Memory` and `MemoryDomains` collections."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_17_1.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_17_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag and LocationIndicatorActive to show there might be a tie to the AssetTag and LocationIndicatorActive of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the `Reset` action to indicate that systems or other contained resources might reset depending on the `ResetType` used.  It was also created to remove non-inclusive language.  It was also created to update the description for `AssetTag` and `LocationIndicatorActive` to show there might be a tie to the `AssetTag` and `LocationIndicatorActive` of the functional resource contained in a chassis, such as a `ComputerSystem` resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_17_2.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_17_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change IntrusionSensorReArm to be writable.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to change `IntrusionSensorReArm` to be writable.  It was also created to correct various typographical errors."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_17_3.Chassis"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_17_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_17_4.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_18_0">
@@ -2085,7 +2192,7 @@
         <NavigationProperty Name="PowerOutlets" Type="Collection(Outlet.Outlet)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An array of links to the outlets that provide power to this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Outlet that represent the outlets that provide power to this chassis.  This property shall not be present if the PoweredByParent property contains `true`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Outlet` that represent the outlets that provide power to this chassis.  This property shall not be present if the `PoweredByParent` property contains `true`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -2093,70 +2200,82 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_18_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change the permissions of EnvironmentalClass to be read-write."/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions of `EnvironmentalClass` to be read-write."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_18_0.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_18_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the re-arm behavior of the PhysicalSecurity property.  It was also created to allow for multiple sensors to factor into the physical security state of the chassis.  It was also created to update the PowerState property to reference the common enumeration in the Resource schema.  It was also created to clarify the expected contents of the Memory and MemoryDomains collections."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the re-arm behavior of the `PhysicalSecurity` property.  It was also created to allow for multiple sensors to factor into the physical security state of the chassis.  It was also created to update the `PowerState` property to reference the common enumeration in the `Resource` schema.  It was also created to clarify the expected contents of the `Memory` and `MemoryDomains` collections."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_18_1.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_18_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag and LocationIndicatorActive to show there might be a tie to the AssetTag and LocationIndicatorActive of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the `Reset` action to indicate that systems or other contained resources might reset depending on the `ResetType` used.  It was also created to remove non-inclusive language.  It was also created to update the description for `AssetTag` and `LocationIndicatorActive` to show there might be a tie to the `AssetTag` and `LocationIndicatorActive` of the functional resource contained in a chassis, such as a `ComputerSystem` resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_18_2.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_18_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change IntrusionSensorReArm to be writable.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to change `IntrusionSensorReArm` to be writable.  It was also created to correct various typographical errors."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_18_3.Chassis"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_18_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_18_4.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_19_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
-      <Annotation Term="OData.Description" String="This version was created to deprecate Measurements in favor of measurement reporting in the ComponentIntegrity resource."/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate `Measurements` in favor of measurement reporting in the `ComponentIntegrity` resource."/>
 
       <EntityType Name="Chassis" BaseType="Chassis.v1_18_0.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_19_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change the permissions of EnvironmentalClass to be read-write."/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions of `EnvironmentalClass` to be read-write."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_19_0.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_19_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the re-arm behavior of the PhysicalSecurity property.  It was also created to allow for multiple sensors to factor into the physical security state of the chassis.  It was also created to update the PowerState property to reference the common enumeration in the Resource schema.  It was also created to clarify the expected contents of the Memory and MemoryDomains collections."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the re-arm behavior of the `PhysicalSecurity` property.  It was also created to allow for multiple sensors to factor into the physical security state of the chassis.  It was also created to update the `PowerState` property to reference the common enumeration in the `Resource` schema.  It was also created to clarify the expected contents of the `Memory` and `MemoryDomains` collections."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_19_1.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_19_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag and LocationIndicatorActive to show there might be a tie to the AssetTag and LocationIndicatorActive of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the `Reset` action to indicate that systems or other contained resources might reset depending on the `ResetType` used.  It was also created to remove non-inclusive language.  It was also created to update the description for `AssetTag` and `LocationIndicatorActive` to show there might be a tie to the `AssetTag` and `LocationIndicatorActive` of the functional resource contained in a chassis, such as a `ComputerSystem` resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_19_2.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_19_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change IntrusionSensorReArm to be writable.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to change `IntrusionSensorReArm` to be writable.  It was also created to correct various typographical errors."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_19_3.Chassis"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_19_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_19_4.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_20_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.1"/>
-      <Annotation Term="OData.Description" String="This version was created to deprecate MediaControllers in favor of FabricAdapters.  It was also created to deprecate PoweredBy in favor of PowerOutlets, PowerSupplies, and details provided in the PowerSubsystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate `MediaControllers` in favor of `FabricAdapters`.  It was also created to deprecate `PoweredBy` in favor of `PowerOutlets`, `PowerSupplies`, and details provided in the `PowerSubsystem` resource."/>
 
       <EntityType Name="Chassis" BaseType="Chassis.v1_19_1.Chassis">
         <NavigationProperty Name="FabricAdapters" Type="FabricAdapterCollection.FabricAdapterCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of fabric adapters located in this chassis that provide access to fabric-related resource pools."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type FabricAdapterCollection that represents fabric adapters in this chassis that provide access to fabric-related resource pools."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `FabricAdapterCollection` that represents fabric adapters in this chassis that provide access to fabric-related resource pools."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="PoweredByParent" Type="Edm.Boolean">
@@ -2167,7 +2286,7 @@
         <Property Name="ThermalManagedByParent" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Indicates that the chassis is thermally managed by the parent chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the chassis relies on the containing chassis to provide thermal management.  The value `true` shall indicate that the chassis relies on the containing chassis to provide thermal management.  The value `false` shall indicate the chassis provides thermal management, and may provide details in a ThermalSubsystem resource, or by populating the Fans property in Links."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the chassis relies on the containing chassis to provide thermal management.  The value `true` shall indicate that the chassis relies on the containing chassis to provide thermal management.  The value `false` shall indicate the chassis provides thermal management, and may provide details in a `ThermalSubsystem` resource, or by populating the `Fans` property in Links."/>
         </Property>
         <Property Name="ThermalDirection" Type="Chassis.v1_20_0.ThermalDirection">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -2199,19 +2318,19 @@
         <NavigationProperty Name="PowerSupplies" Type="Collection(PowerSupply.PowerSupply)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the power supplies that provide power to this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type PowerSupply that represent the power supplies that provide power to this chassis.  This property shall not be present if the PoweredByParent property contains `true` or if the power supplies are contained in the PowerSubsystem resource for this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `PowerSupply` that represent the power supplies that provide power to this chassis.  This property shall not be present if the `PoweredByParent` property contains `true` or if the power supplies are contained in the `PowerSubsystem` resource for this chassis."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Fans" Type="Collection(Fan.Fan)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the fans that cool this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Fan that represent the fans that provide cooling to this chassis.  This property shall not be present if the ThermalManagedByParent property contains `true` or if the fans are contained in the ThermalSubsystem resource for this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Fan` that represent the fans that provide cooling to this chassis.  This property shall not be present if the `ThermalManagedByParent` property contains `true` or if the fans are contained in the `ThermalSubsystem` resource for this chassis."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="PowerDistribution" Type="PowerDistribution.PowerDistribution">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A link to power distribution functionality contained in this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type PowerDistribution that represents the power distribution functionality contained within this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `PowerDistribution` that represents the power distribution functionality contained within this chassis."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -2219,20 +2338,26 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_20_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the re-arm behavior of the PhysicalSecurity property.  It was also created to allow for multiple sensors to factor into the physical security state of the chassis.  It was also created to update the PowerState property to reference the common enumeration in the Resource schema.  It was also created to clarify the expected contents of the Memory, MemoryDomains, and FabricAdapters collections."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the re-arm behavior of the `PhysicalSecurity` property.  It was also created to allow for multiple sensors to factor into the physical security state of the chassis.  It was also created to update the `PowerState` property to reference the common enumeration in the `Resource` schema.  It was also created to clarify the expected contents of the `Memory`, `MemoryDomains`, and `FabricAdapters` collections."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_20_0.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_20_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag and LocationIndicatorActive to show there might be a tie to the AssetTag and LocationIndicatorActive of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the `Reset` action to indicate that systems or other contained resources might reset depending on the `ResetType` used.  It was also created to remove non-inclusive language.  It was also created to update the description for `AssetTag` and `LocationIndicatorActive` to show there might be a tie to the `AssetTag` and `LocationIndicatorActive` of the functional resource contained in a chassis, such as a `ComputerSystem` resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_20_1.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_20_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change IntrusionSensorReArm to be writable.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to change `IntrusionSensorReArm` to be writable.  It was also created to correct various typographical errors."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_20_2.Chassis"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_20_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_20_3.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_21_0">
@@ -2243,7 +2368,7 @@
         <NavigationProperty Name="TrustedComponents" Type="TrustedComponentCollection.TrustedComponentCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the trusted components in this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type TrustedComponentCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `TrustedComponentCollection`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="Version" Type="Edm.String">
@@ -2266,32 +2391,38 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_21_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the re-arm behavior of the PhysicalSecurity property.  It was also created to allow for multiple sensors to factor into the physical security state of the chassis.  It was also created to update the PowerState property to reference the common enumeration in the Resource schema.  It was also created to clarify the expected contents of the Memory, MemoryDomains, and FabricAdapters collections."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the re-arm behavior of the `PhysicalSecurity` property.  It was also created to allow for multiple sensors to factor into the physical security state of the chassis.  It was also created to update the `PowerState` property to reference the common enumeration in the `Resource` schema.  It was also created to clarify the expected contents of the `Memory`, `MemoryDomains`, and `FabricAdapters` collections."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_21_0.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_21_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag and LocationIndicatorActive to show there might be a tie to the AssetTag and LocationIndicatorActive of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the `Reset` action to indicate that systems or other contained resources might reset depending on the `ResetType` used.  It was also created to remove non-inclusive language.  It was also created to update the description for `AssetTag` and `LocationIndicatorActive` to show there might be a tie to the `AssetTag` and `LocationIndicatorActive` of the functional resource contained in a chassis, such as a `ComputerSystem` resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_21_1.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_21_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change IntrusionSensorReArm to be writable.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to change `IntrusionSensorReArm` to be writable.  It was also created to correct various typographical errors."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_21_2.Chassis"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_21_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_21_3.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_22_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.3"/>
-      <Annotation Term="OData.Description" String="This version was created to deprecate IntrusionSensorNumber in PhysicalSecurity."/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate `IntrusionSensorNumber` in `PhysicalSecurity`."/>
 
       <EntityType Name="Chassis" BaseType="Chassis.v1_21_1.Chassis">
         <NavigationProperty Name="Processors" Type="ProcessorCollection.ProcessorCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of processors located in this chassis that belong to fabric-related resource pools."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type ProcessorCollection that represents processors in this chassis that belong to fabric-related resource pools."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `ProcessorCollection` that represents processors in this chassis that belong to fabric-related resource pools."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -2299,33 +2430,40 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_22_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the Reset action to indicate that systems or other contained resources might reset depending on the ResetType used.  It was also created to remove non-inclusive language.  It was also created to update the description for AssetTag and LocationIndicatorActive to show there might be a tie to the AssetTag and LocationIndicatorActive of the functional resource contained in a chassis, such as a ComputerSystem resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to update the description for the `Reset` action to indicate that systems or other contained resources might reset depending on the `ResetType` used.  It was also created to remove non-inclusive language.  It was also created to update the description for `AssetTag` and `LocationIndicatorActive` to show there might be a tie to the `AssetTag` and `LocationIndicatorActive` of the functional resource contained in a chassis, such as a `ComputerSystem` resource."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_22_0.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_22_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change IntrusionSensorReArm to be writable.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to change `IntrusionSensorReArm` to be writable.  It was also created to correct various typographical errors."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_22_1.Chassis"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_22_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_22_2.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_23_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.1"/>
-      <Annotation Term="OData.Description" String="This version was created to add `ImmersionTank` and `HeatExchanger` to ChassisType."/>
+      <Annotation Term="OData.Description" String="This version was created to add `ImmersionTank` and `HeatExchanger` to `ChassisType`."/>
+
       <EntityType Name="Chassis" BaseType="Chassis.v1_22_0.Chassis"/>
 
       <ComplexType Name="Links" BaseType="Chassis.v1_20_0.Links">
         <NavigationProperty Name="CoolingUnits" Type="Collection(CoolingUnit.CoolingUnit)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An array of links to cooling unit functionality contained in this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type CoolingUnit that represent the cooling unit functionality contained within this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `CoolingUnit` that represent the cooling unit functionality contained within this chassis."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="ConnectedCoolingLoops" Type="Collection(CoolingLoop.CoolingLoop)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An array of links to cooling loops connected to this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type CoolingLoop that represent the cooling loops connected to this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `CoolingLoop` that represent the cooling loops connected to this chassis."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -2333,14 +2471,20 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_23_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change IntrusionSensorReArm to be writable.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to change `IntrusionSensorReArm` to be writable.  It was also created to correct various typographical errors."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_23_0.Chassis"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_23_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_23_1.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_24_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.2"/>
-      <Annotation Term="OData.Description" String="This version was created to deprecate PCIeSlots in favor of PCIeDevices."/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate `PCIeSlots` in favor of `PCIeDevices`."/>
 
       <EntityType Name="Chassis" BaseType="Chassis.v1_23_0.Chassis">
         <Property Name="Doors" Type="Chassis.v1_24_0.Doors" Nullable="false">
@@ -2387,7 +2531,7 @@
       <EnumType Name="DoorState">
         <Member Name="Locked">
           <Annotation Term="OData.Description" String="Door is closed and locked."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate that the door is both closed and locked.  In this state, the door cannot be opened unless the value of the Locked property is set to `false`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the door is both closed and locked.  In this state, the door cannot be opened unless the value of the `Locked` property is set to `false`."/>
         </Member>
         <Member Name="Closed">
           <Annotation Term="OData.Description" String="Door is closed."/>
@@ -2406,8 +2550,14 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_24_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change IntrusionSensorReArm to be writable.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to change `IntrusionSensorReArm` to be writable.  It was also created to correct various typographical errors."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_24_0.Chassis"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_24_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_24_1.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_25_0">
@@ -2428,6 +2578,12 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain an array of strings that identify the external heating or cooling equipment, such as the names of specific coolant distribution units, that provide thermal management for this chassis."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_25_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_25_0.Chassis"/>
     </Schema>
 
   </edmx:DataServices>

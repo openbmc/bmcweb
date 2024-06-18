@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  CXLLogicalDevice v1.1.1                                             -->
+<!--# Redfish Schema:  CXLLogicalDevice v1.2.0                                             -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -51,9 +51,10 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CXLLogicalDevice">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="CXLLogicalDevice" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The schema definition for the CXLLogicalDevice resource.  It represents the properties of a CXL logical device within a PCIe device."/>
+        <Annotation Term="OData.Description" String="The `CXLLogicalDevice` schema contains the properties of a CXL logical device within a PCIe device."/>
         <Annotation Term="OData.LongDescription" String="This resource shall represent a CXL logical device that is a part of a PCIe device."/>
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="Capabilities.InsertRestrictions">
@@ -122,7 +123,7 @@
         <NavigationProperty Name="Log" Type="LogService.LogService" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the log service associated with this CXL logical device."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type LogService."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `LogService`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -140,6 +141,15 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Indicates whether the device supports the CXL Specification-defined 'Temporary Throughput Reduction' mechanism."/>
           <Annotation Term="OData.LongDescription" String="This property shall indicate whether the device supports the CXL Specification-defined 'Temporary Throughput Reduction' mechanism."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_2_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of `TemporaryThroughputReductionSupported` in `PCIeDevice`."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Property>
       </ComplexType>
 
@@ -149,8 +159,11 @@
         <Annotation Term="OData.LongDescription" String="This type shall contain the quality of service properties of this CXL logical device."/>
         <Property Name="AllocatedBandwidth" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The bandwidth allocated for this CXL logical device in multiples of 256."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the bandwidth allocated for this CXL logical device in multiples of 256."/>
+          <Annotation Term="OData.Description" String="The bandwidth allocated to this CXL logical device as a percentage."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the bandwidth allocated, `0` to `100`, for this CXL logical device as a percentage."/>
+          <Annotation Term="Measures.Unit" String="%"/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Validation.Maximum" Int="100"/>
         </Property>
         <Property Name="LimitPercent" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -168,25 +181,25 @@
         <NavigationProperty Name="PCIeFunctions" Type="Collection(PCIeFunction.PCIeFunction)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the PCIe functions assigned to this CXL logical device."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type PCIeFunction that represent the PCIe functions assigned to this CXL logical device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `PCIeFunction` that represent the PCIe functions assigned to this CXL logical device."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="MemoryDomains" Type="Collection(MemoryDomain.MemoryDomain)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the memory domains associated with this CXL logical device."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type MemoryDomain that represent the memory domains associated with this CXL logical device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `MemoryDomain` that represent the memory domains associated with this CXL logical device."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="MemoryChunks" Type="Collection(MemoryChunks.MemoryChunks)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the memory chunks owned by this CXL logical device."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type MemoryChunks that represent the memory chunks owned by this CXL logical device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `MemoryChunks` that represent the memory chunks owned by this CXL logical device."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Endpoints" Type="Collection(Endpoint.Endpoint)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the endpoints associated with this CXL logical device."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Endpoint that represent the endpoints associated with this CXL logical device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Endpoint` that represent the endpoints associated with this CXL logical device."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -235,6 +248,12 @@
       <EntityType Name="CXLLogicalDevice" BaseType="CXLLogicalDevice.v1_0_1.CXLLogicalDevice"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CXLLogicalDevice.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description and add units for `AllocatedBandwidth` in `QoS`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="CXLLogicalDevice" BaseType="CXLLogicalDevice.v1_0_2.CXLLogicalDevice"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CXLLogicalDevice.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.2"/>
@@ -243,7 +262,7 @@
         <NavigationProperty Name="MemoryRegions" Type="MemoryRegionCollection.MemoryRegionCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of memory regions associated with this CXL logical device."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type MemoryRegionCollection that represents the memory regions associated with this CXL logical device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `MemoryRegionCollection` that represents the memory regions associated with this CXL logical device."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -253,6 +272,20 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="CXLLogicalDevice" BaseType="CXLLogicalDevice.v1_1_0.CXLLogicalDevice"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CXLLogicalDevice.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description and add units for `AllocatedBandwidth` in `QoS`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="CXLLogicalDevice" BaseType="CXLLogicalDevice.v1_1_1.CXLLogicalDevice"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CXLLogicalDevice.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2024.1"/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate `TemporaryThroughputReductionSupported` in favor of `TemporaryThroughputReductionSupported` in `PCIeDevice`."/>
+
+      <EntityType Name="CXLLogicalDevice" BaseType="CXLLogicalDevice.v1_1_2.CXLLogicalDevice"/>
     </Schema>
 
   </edmx:DataServices>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PowerSupplyMetrics v1.1.1                                           -->
+<!--# Redfish Schema:  PowerSupplyMetrics v1.1.2                                           -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -32,9 +32,10 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerSupplyMetrics">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="PowerSupplyMetrics" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The PowerSupplyMetrics schema contains definitions for the metrics of a power supply."/>
+        <Annotation Term="OData.Description" String="The `PowerSupplyMetrics` schema contains definitions for the metrics of a power supply."/>
         <Annotation Term="OData.LongDescription" String="This resource shall be used to represent the metrics of a power supply unit for a Redfish implementation."/>
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="Capabilities.InsertRestrictions">
@@ -78,23 +79,23 @@
         </Property>
         <NavigationProperty Name="InputVoltage" Type="Sensor.Sensor">
           <Annotation Term="OData.Description" String="The input voltage (V) for this power supply."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the input voltage, in volt units, for this power supply.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Voltage`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the input voltage, in volt units, for this power supply.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Voltage`."/>
           <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
         </NavigationProperty>
         <NavigationProperty Name="InputCurrentAmps" Type="Sensor.Sensor">
           <Annotation Term="OData.Description" String="The input current (A) for this power supply."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the input current, in ampere units, for this power supply.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Current`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the input current, in ampere units, for this power supply.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Current`."/>
           <Annotation Term="Redfish.ExcerptCopy" String="Current"/>
         </NavigationProperty>
         <NavigationProperty Name="InputPowerWatts" Type="Sensor.Sensor">
           <Annotation Term="OData.Description" String="The input power (W) for this power supply."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the input power, in watt units, for this power supply.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Power`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the input power, in watt units, for this power supply.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Power`."/>
           <Annotation Term="Redfish.ExcerptCopy" String="Power"/>
         </NavigationProperty>
         <NavigationProperty Name="EnergykWh" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy" String="EnergykWh"/>
           <Annotation Term="OData.Description" String="The energy consumption (kWh) of this unit."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the total energy, in kilowatt-hour units, for this unit that represents the `Total` ElectricalContext sensor when multiple energy sensors exist.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `EnergykWh`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total energy, in kilowatt-hour units, for this unit that represents the `Total` `ElectricalContext` sensor when multiple energy sensors exist.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `EnergykWh`."/>
         </NavigationProperty>
         <NavigationProperty Name="FrequencyHz" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy"/>
@@ -103,39 +104,39 @@
         </NavigationProperty>
         <NavigationProperty Name="OutputPowerWatts" Type="Sensor.Sensor">
           <Annotation Term="OData.Description" String="The total power output (W) for this power supply."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the total output power, in watt units, for this power supply.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Power`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total output power, in watt units, for this power supply.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Power`."/>
           <Annotation Term="Redfish.ExcerptCopy" String="Power"/>
         </NavigationProperty>
         <NavigationProperty Name="RailVoltage" Type="Collection(Sensor.Sensor)">
           <Annotation Term="OData.Description" String="The output voltages (V) for this power supply."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the output voltages, in volt units, for this power supply.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Voltage`.  The sensors shall appear in the same array order as the OutputRails property in the associated PowerSupply resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the output voltages, in volt units, for this power supply.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Voltage`.  The sensors shall appear in the same array order as the `OutputRails` property in the associated `PowerSupply` resource."/>
           <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
         </NavigationProperty>
         <NavigationProperty Name="RailCurrentAmps" Type="Collection(Sensor.Sensor)">
           <Annotation Term="OData.Description" String="The output currents (A) for this power supply."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the output currents, in ampere units, for this power supply.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Current`.  The sensors shall appear in the same array order as the OutputRails property in the associated PowerSupply resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the output currents, in ampere units, for this power supply.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Current`.  The sensors shall appear in the same array order as the `OutputRails` property in the associated `PowerSupply` resource."/>
           <Annotation Term="Redfish.ExcerptCopy" String="Current"/>
         </NavigationProperty>
         <NavigationProperty Name="RailPowerWatts" Type="Collection(Sensor.Sensor)">
           <Annotation Term="OData.Description" String="The output power readings (W) for this power supply."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the output power readings, in watt units, for this power supply.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Power`.  The sensors shall appear in the same array order as the OutputRails property in the associated PowerSupply resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the output power readings, in watt units, for this power supply.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Power`.  The sensors shall appear in the same array order as the `OutputRails` property in the associated `PowerSupply` resource."/>
           <Annotation Term="Redfish.ExcerptCopy" String="Power"/>
         </NavigationProperty>
         <NavigationProperty Name="TemperatureCelsius" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy"/>
           <Annotation Term="OData.Description" String="The temperature (C) for this power supply."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the temperature, in degree Celsius units, for this resource.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Temperature`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the temperature, in degree Celsius units, for this resource.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Temperature`."/>
         </NavigationProperty>
         <NavigationProperty Name="FanSpeedPercent" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy" String="Fan"/>
           <Annotation Term="OData.Description" String="The fan speed (percent) for this power supply."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the fan speed, in percent units, for this resource.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Percent`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the fan speed, in percent units, for this resource.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Percent`."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_1_0"/>
-                <PropertyValue Property="Description" String="This property has been deprecated in favor of FanSpeedsPercent to support multiple fans within a power supply."/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of `FanSpeedsPercent` to support multiple fans within a power supply."/>
               </Record>
             </Collection>
           </Annotation>
@@ -166,7 +167,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerSupplyMetrics.v1_0_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update descriptions to tie excerpt property definitions to a specific type of Sensor or Control.  It was also created to remove unused object definitions."/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions to tie excerpt property definitions to a specific type of `Sensor` or `Control` resource.  It was also created to remove unused object definitions."/>
       <EntityType Name="PowerSupplyMetrics" BaseType="PowerSupplyMetrics.v1_0_0.PowerSupplyMetrics"/>
     </Schema>
 
@@ -176,16 +177,22 @@
       <EntityType Name="PowerSupplyMetrics" BaseType="PowerSupplyMetrics.v1_0_1.PowerSupplyMetrics"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerSupplyMetrics.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="PowerSupplyMetrics" BaseType="PowerSupplyMetrics.v1_0_2.PowerSupplyMetrics"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerSupplyMetrics.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.1"/>
-      <Annotation Term="OData.Description" String="This version was created to deprecate FanSpeedPercent in favor of FanSpeedsPercent."/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate `FanSpeedPercent` in favor of `FanSpeedsPercent`."/>
 
       <EntityType Name="PowerSupplyMetrics" BaseType="PowerSupplyMetrics.v1_0_1.PowerSupplyMetrics">
         <NavigationProperty Name="FanSpeedsPercent" Type="Collection(Sensor.Sensor)">
           <Annotation Term="Redfish.ExcerptCopy" String="FanArray"/>
           <Annotation Term="OData.Description" String="Fan speeds (percent)."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the fan speeds, in percent units, for this resource.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Percent`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the fan speeds, in percent units, for this resource.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Percent`."/>
         </NavigationProperty>
       </EntityType>
     </Schema>
@@ -194,6 +201,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="PowerSupplyMetrics" BaseType="PowerSupplyMetrics.v1_1_0.PowerSupplyMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerSupplyMetrics.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="PowerSupplyMetrics" BaseType="PowerSupplyMetrics.v1_1_1.PowerSupplyMetrics"/>
     </Schema>
 
   </edmx:DataServices>

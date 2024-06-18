@@ -82,6 +82,13 @@ enum class FormFactor{
     OEM,
 };
 
+enum class ConfigurationLock{
+    Invalid,
+    Enabled,
+    Disabled,
+    Partial,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(MediaType, {
     {MediaType::Invalid, "Invalid"},
     {MediaType::HDD, "HDD"},
@@ -157,6 +164,13 @@ NLOHMANN_JSON_SERIALIZE_ENUM(FormFactor, {
     {FormFactor::PCIeSlotLowProfile, "PCIeSlotLowProfile"},
     {FormFactor::PCIeHalfLength, "PCIeHalfLength"},
     {FormFactor::OEM, "OEM"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(ConfigurationLock, {
+    {ConfigurationLock::Invalid, "Invalid"},
+    {ConfigurationLock::Enabled, "Enabled"},
+    {ConfigurationLock::Disabled, "Disabled"},
+    {ConfigurationLock::Partial, "Partial"},
 });
 
 }

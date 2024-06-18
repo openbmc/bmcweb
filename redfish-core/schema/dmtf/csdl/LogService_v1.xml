@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  LogService v1.6.0                                                   -->
+<!--# Redfish Schema:  LogService v1.7.0                                                   -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -33,10 +33,11 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="LogService" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The LogService schema contains properties for monitoring and configuring a log service.  When the Id property contains `DeviceLog`, the log contains device-resident log entries that follow the physical device when moved from system-to-system, and not a replication or subset of a system event log."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall represent a log service for a Redfish implementation.  When the Id property contains `DeviceLog`, the log shall contain log entries that migrate with the device."/>
+        <Annotation Term="OData.Description" String="The `LogService` schema contains properties for monitoring and configuring a log service.  When the `Id` property contains `DeviceLog`, the log contains device-resident log entries that follow the physical device when moved from system-to-system, and not a replication or subset of a system event log."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent a log service for a Redfish implementation.  When the `Id` property contains `DeviceLog`, the log shall contain log entries that migrate with the device."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -70,11 +71,11 @@
 
       <Action Name="ClearLog" IsBound="true">
         <Annotation Term="OData.Description" String="The action to clear the log for this log service."/>
-        <Annotation Term="OData.LongDescription" String="This action shall delete all entries found in the LogEntryCollection resource for this log service."/>
+        <Annotation Term="OData.LongDescription" String="This action shall delete all entries found in the `LogEntryCollection` resource for this log service."/>
         <Parameter Name="LogService" Type="LogService.v1_0_0.Actions"/>
         <Parameter Name="LogEntriesETag" Type="Edm.String">
           <Annotation Term="OData.Description" String="The ETag of the log entry collection within this log service.  If the provided ETag does not match the current ETag of the log entry collection, the request is rejected."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the ETag of the LogEntryCollection resource for this log service.  If the client-provided ETag does not match the current ETag of the LogEntryCollection resource for this log service, the service shall return the HTTP 428 (Precondition Required) status code to reject the request."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the ETag of the `LogEntryCollection` resource for this log service.  If the client-provided ETag does not match the current ETag of the `LogEntryCollection` resource for this log service, the service shall return the HTTP `428 Precondition Required` status code to reject the request."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -88,7 +89,7 @@
 
       <Action Name="CollectDiagnosticData" IsBound="true">
         <Annotation Term="OData.Description" String="The action to collect the diagnostic data for the given type.  When the diagnostic data is collected, a new log entry will be created and the additional data referenced by the new log entry will contain the diagnostic data."/>
-        <Annotation Term="OData.LongDescription" String="This action shall collect the diagnostic data for the given type.  The `Location` header in the response shall contain a URI to a resource of type LogEntry that contains the diagnostic data.  The AdditionalDataURI property in the referenced LogEntry resource shall contain the URI to download the diagnostic data."/>
+        <Annotation Term="OData.LongDescription" String="This action shall collect the diagnostic data for the given type.  The `Location` header in the response shall contain a URI to a resource of type `LogEntry` that contains the diagnostic data.  The `AdditionalDataURI` property in the referenced `LogEntry` resource shall contain the URI to download the diagnostic data."/>
         <Parameter Name="LogService" Type="LogService.v1_0_0.Actions"/>
         <Parameter Name="DiagnosticDataType" Type="LogService.v1_2_0.LogDiagnosticDataTypes" Nullable="false">
           <Annotation Term="OData.Description" String="The type of diagnostic data to collect."/>
@@ -96,7 +97,7 @@
         </Parameter>
         <Parameter Name="OEMDiagnosticDataType" Type="Edm.String">
           <Annotation Term="OData.Description" String="The OEM-defined type of diagnostic data to collect."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the OEM-defined type of diagnostic data to collect.  This parameter shall be required if DiagnosticDataType is `OEM`."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the OEM-defined type of diagnostic data to collect.  This parameter shall be required if `DiagnosticDataType` is `OEM`."/>
         </Parameter>
         <Annotation Term="Redfish.Revisions">
           <Collection>
@@ -120,8 +121,8 @@
           </Annotation>
         </Parameter>
         <Parameter Name="UserName" Type="Edm.String">
-          <Annotation Term="OData.Description" String="The user name to access the URI specified by the TargetURI parameter."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the username to access the URI specified by the TargetURI parameter."/>
+          <Annotation Term="OData.Description" String="The username to access the URI specified by the `TargetURI` parameter."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the username to access the URI specified by the `TargetURI` parameter."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -132,8 +133,8 @@
           </Annotation>
         </Parameter>
         <Parameter Name="Password" Type="Edm.String">
-          <Annotation Term="OData.Description" String="The password to access the URI specified by the TargetURI parameter."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the password to access the URI specified by the TargetURI parameter."/>
+          <Annotation Term="OData.Description" String="The password to access the URI specified by the `TargetURI` parameter."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the password to access the URI specified by the `TargetURI` parameter."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -162,8 +163,8 @@
         <Annotation Term="OData.LongDescription" String="This action shall send an existing diagnostic data to a target URI."/>
         <Parameter Name="LogService" Type="LogService.v1_0_0.Actions"/>
         <Parameter Name="AdditionalDataURI" Type="Edm.String" Nullable="false">
-          <Annotation Term="OData.Description" String="The URI of the diagnostic data to transfer to the URI specified by the TargetURI parameter."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the URI of the diagnostic data to transfer to the URI specified by the TargetURI parameter."/>
+          <Annotation Term="OData.Description" String="The URI of the diagnostic data to transfer to the URI specified by the `TargetURI` parameter."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the URI of the diagnostic data to transfer to the URI specified by the `TargetURI` parameter."/>
           <Annotation Term="OData.IsURL"/>
         </Parameter>
         <Parameter Name="TargetURI" Type="Edm.String" Nullable="false">
@@ -172,12 +173,12 @@
           <Annotation Term="OData.IsURL"/>
         </Parameter>
         <Parameter Name="UserName" Type="Edm.String">
-          <Annotation Term="OData.Description" String="The user name to access the URI specified by the TargetURI parameter."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the username to access the URI specified by the TargetURI parameter."/>
+          <Annotation Term="OData.Description" String="The username to access the URI specified by the `TargetURI` parameter."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the username to access the URI specified by the `TargetURI` parameter."/>
         </Parameter>
         <Parameter Name="Password" Type="Edm.String">
-          <Annotation Term="OData.Description" String="The password to access the URI specified by the TargetURI parameter."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the password to access the URI specified by the TargetURI parameter."/>
+          <Annotation Term="OData.Description" String="The password to access the URI specified by the `TargetURI` parameter."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the password to access the URI specified by the `TargetURI` parameter."/>
         </Parameter>
         <Parameter Name="TransferProtocol" Type="LogService.v1_6_0.TransferProtocolType">
           <Annotation Term="OData.Description" String="The network protocol that the service uses to send the diagnostic data."/>
@@ -207,13 +208,13 @@
         <Property Name="MaxNumberOfRecords" Type="Edm.Int64" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The maximum number of log entries that this service can have."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum number of LogEntry resources in the LogEntryCollection resource for this service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum number of `LogEntry` resources in the `LogEntryCollection` resource for this service."/>
           <Annotation Term="Validation.Minimum" Int="0"/>
         </Property>
         <Property Name="OverWritePolicy" Type="LogService.v1_0_0.OverWritePolicy" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The overwrite policy for this service that takes place when the log is full."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate the policy of the log service when the MaxNumberOfRecords has been reached."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the policy of the log service when the `MaxNumberOfRecords` has been reached."/>
         </Property>
         <Property Name="DateTime" Type="Edm.DateTimeOffset">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -222,14 +223,14 @@
         </Property>
         <Property Name="DateTimeLocalOffset" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The time offset from UTC that the DateTime property is in `+HH:MM` format."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the offset from UTC time that the DateTime property contains.  If both DateTime and DateTimeLocalOffset are provided in modification requests, services shall apply DateTimeLocalOffset after DateTime is applied."/>
+          <Annotation Term="OData.Description" String="The time offset from UTC that the `DateTime` property is in `+HH:MM` format."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the offset from UTC time that the `DateTime` property contains.  If both `DateTime` and `DateTimeLocalOffset` are provided in modification requests, services shall apply DateTimeLocalOffset after DateTime is applied."/>
           <Annotation Term="Validation.Pattern" String="^([-+][0-1][0-9]:[0-5][0-9])$"/>
         </Property>
         <NavigationProperty Name="Entries" Type="LogEntryCollection.LogEntryCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the log entry collection."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type LogEntryCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `LogEntryCollection`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="Actions" Type="LogService.v1_0_0.Actions" Nullable="false">
@@ -319,16 +320,21 @@
       <EntityType Name="LogService" BaseType="LogService.v1_0_8.LogService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_0_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="LogService" BaseType="LogService.v1_0_9.LogService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.3"/>
-      <Annotation Term="OData.Description" String="This version was created to add LogEntryType property."/>
 
       <EntityType Name="LogService" BaseType="LogService.v1_0_5.LogService">
         <Property Name="LogEntryType" Type="LogService.v1_1_0.LogEntryTypes">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The format of the log entries."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the value for the EntryType property of all LogEntry resources contained in the LogEntryCollection resource for this log service.  If the service cannot determine or guarantee a single EntryType value for all LogEntry resources, this property shall contain the value `Multiple`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the value for the `EntryType` property of all `LogEntry` resources contained in the `LogEntryCollection` resource for this log service.  If the service cannot determine or guarantee a single EntryType value for all `LogEntry` resources, this property shall contain the value `Multiple`."/>
         </Property>
       </EntityType>
 
@@ -383,10 +389,16 @@
       <EntityType Name="LogService" BaseType="LogService.v1_1_3.LogService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_1_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="LogService" BaseType="LogService.v1_1_4.LogService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.3"/>
-      <Annotation Term="OData.Description" String="This version was created to add local syslog support and the CollectDiagnosticData action."/>
+      <Annotation Term="OData.Description" String="This version was created to add the `CollectDiagnosticData` action."/>
 
       <EntityType Name="LogService" BaseType="LogService.v1_1_3.LogService">
         <Property Name="SyslogFilters" Type="Collection(LogService.v1_2_0.SyslogFilter)">
@@ -544,7 +556,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_2_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add behavioral descriptions to the CollectDiagnosticData action."/>
+      <Annotation Term="OData.Description" String="This version was created to add behavioral descriptions to the `CollectDiagnosticData` action."/>
       <EntityType Name="LogService" BaseType="LogService.v1_2_1.LogService"/>
     </Schema>
 
@@ -554,10 +566,16 @@
       <EntityType Name="LogService" BaseType="LogService.v1_2_2.LogService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_2_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="LogService" BaseType="LogService.v1_2_3.LogService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
-      <Annotation Term="OData.Description" String="This version was created to add the LogEntriesETag parameter to the ClearLog action."/>
+      <Annotation Term="OData.Description" String="This version was created to add the `LogEntriesETag` parameter to the `ClearLog` action."/>
 
       <EntityType Name="LogService" BaseType="LogService.v1_2_1.LogService">
         <Property Name="AutoDSTEnabled" Type="Edm.Boolean" Nullable="false">
@@ -570,7 +588,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_3_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add behavioral descriptions to the CollectDiagnosticData action."/>
+      <Annotation Term="OData.Description" String="This version was created to add behavioral descriptions to the `CollectDiagnosticData` action."/>
       <EntityType Name="LogService" BaseType="LogService.v1_3_0.LogService"/>
     </Schema>
 
@@ -578,6 +596,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions."/>
       <EntityType Name="LogService" BaseType="LogService.v1_3_1.LogService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_3_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="LogService" BaseType="LogService.v1_3_2.LogService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_4_0">
@@ -592,8 +616,8 @@
         </Property>
         <Property Name="OEMLogPurpose" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The OEM-specified purpose of the log if LogPurposes contains `OEM`."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the OEM-specified purpose of the log if LogPurposes contains `OEM`."/>
+          <Annotation Term="OData.Description" String="The OEM-specified purpose of the log if `LogPurposes` contains `OEM`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the OEM-specified purpose of the log if `LogPurposes` contains `OEM`."/>
         </Property>
         <Property Name="Persistency" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -635,10 +659,16 @@
       <EntityType Name="LogService" BaseType="LogService.v1_4_0.LogService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_4_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="LogService" BaseType="LogService.v1_4_1.LogService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.2"/>
-      <Annotation Term="OData.Description" String="This version was created to add `CXL` to LogEntryType."/>
+      <Annotation Term="OData.Description" String="This version was created to add `CXL` to `LogEntryType`."/>
 
       <EntityType Name="LogService" BaseType="LogService.v1_4_0.LogService"/>
     </Schema>
@@ -649,10 +679,16 @@
       <EntityType Name="LogService" BaseType="LogService.v1_5_0.LogService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_5_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="LogService" BaseType="LogService.v1_5_1.LogService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.3"/>
-      <Annotation Term="OData.Description" String="This version was created to add optional properties to the CollectDiagnosticData action to push diagnostic data to a remote URI.  It was also created to add the PushDiagnosticData action."/>
+      <Annotation Term="OData.Description" String="This version was created to add optional properties to the `CollectDiagnosticData` action to push diagnostic data to a remote URI.  It was also created to add the `PushDiagnosticData` action."/>
 
       <EntityType Name="LogService" BaseType="LogService.v1_5_1.LogService"/>
 
@@ -664,7 +700,7 @@
           <Annotation Term="OData.Description" String="File Transfer Protocol (FTP)."/>
         </Member>
         <Member Name="SFTP">
-          <Annotation Term="OData.Description" String="Secure File Transfer Protocol (SFTP)."/>
+          <Annotation Term="OData.Description" String="SSH File Transfer Protocol (SFTP)."/>
         </Member>
         <Member Name="HTTP">
           <Annotation Term="OData.Description" String="Hypertext Transfer Protocol (HTTP)."/>
@@ -683,6 +719,74 @@
         </Member>
         <Member Name="OEM">
           <Annotation Term="OData.Description" String="A manufacturer-defined protocol."/>
+        </Member>
+      </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_6_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for the `SFTP` value to match IETF documentation.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="LogService" BaseType="LogService.v1_6_0.LogService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_7_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2024.1"/>
+
+      <EntityType Name="LogService" BaseType="LogService.v1_6_1.LogService">
+        <Property Name="DiagnosticDataDetails" Type="Collection(LogService.v1_7_0.DiagnosticDataDetails)">
+          <Annotation Term="OData.Description" String="The detailed information for the data collected with the `CollectDiagnosticData` action."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the detailed information for the data collected with the `CollectDiagnosticData` action."/>
+        </Property>
+        <Property Name="AutoClearResolvedEntries" Type="LogService.v1_7_0.AutoClearResolvedEntries">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates if this log service automatically clears the resolved log entries."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate if this log service automatically clears the resolved log entries found in the `LogEntryCollection` resource.  If this property is not present, the value shall be assumed to be `None`."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="DiagnosticDataDetails">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The detailed information for the data collected with the `CollectDiagnosticData` action for a type of diagnostic data."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the detailed information for the data collected with the `CollectDiagnosticData` action for a type of diagnostic data."/>
+        <Property Name="DiagnosticDataType" Type="LogService.v1_2_0.LogDiagnosticDataTypes">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The type of diagnostic data to collect with the `CollectDiagnosticData` action."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of diagnostic data to collect with the `CollectDiagnosticData` action."/>
+        </Property>
+        <Property Name="OEMDiagnosticDataType" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The OEM-defined type of diagnostic data to collect with the `CollectDiagnosticData` action."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the OEM-defined type of diagnostic data to collect with the `CollectDiagnosticData` action.  This property is required if `DiagnosticDataType` is `OEM`."/>
+        </Property>
+        <Property Name="EstimatedDuration" Type="Edm.Duration">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The estimated total time required to generate the data with the `CollectDiagnosticData` action."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the estimated total time required to generate the data with the `CollectDiagnosticData` action.  This value shall not include the duration that it takes the data to transfer to a remote server."/>
+        </Property>
+        <Property Name="EstimatedSizeBytes" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The estimated size of the data collected by `CollectDiagnosticData` action."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the estimated size of the data collected by `CollectDiagnosticData` action."/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="AutoClearResolvedEntries">
+        <Member Name="ClearEventGroup">
+          <Annotation Term="OData.Description" String="Automatically clears all resolved log entries and other entries within the same `EventGroupId`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate this log service automatically clears all log entries that contain the value `true` for the `Resolved` property and other entries within the same `EventGroupId`."/>
+        </Member>
+        <Member Name="RetainCauseResolutionEntries">
+          <Annotation Term="OData.Description" String="Retains log entries of the original cause and the final resolution, but automatically clears other entries containing the intermediate results within the same `EventGroupId`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate this log service retains the entries containing the original cause and the final resolution, but automatically clears other entries containing the intermediate results within the same `EventGroupId`.  For example, the original cause of a fan failure is indicated by an entry containing the `FanFailed` message key in the `MessageId` property, followed by the entries containing `FanRemoved` and `FanInserted` message keys corresponding to user actions.  Finally, an entry showing the fan failure is repaired with `FanRestored` message key in the `MessageId` property.  In this case, the entries with `FanFailed` and `FanRestored` message keys are retained, but other entries within the same `EventGroupId` are automatically cleared."/>
+        </Member>
+        <Member Name="UpdateCauseEntry">
+          <Annotation Term="OData.Description" String="Updates log entries of the original cause, but automatically clears other entries within the same `EventGroupId`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate this log service updates the entry containing the original cause for the repaired status, but automatically clears other entries within the same `EventGroupId`.  For example, the original cause of a fan failure is indicated by an entry containing `FanFailed` message key in the `MessageId` property, followed by the entries containing `FanRemoved` and `FanInserted` message keys corresponding to user actions.  Finally, an entry showing the fan failure is repaired with `FanRestored` message key in the `MessageId` property.  In this case, the entry with `FanFailed` message key is updated to show the repaired status, such as updating the value of Resolved property to `true` and the timestamp contained by the `Modified` property, but other entries within the same `EventGroupId` are automatically cleared."/>
+        </Member>
+        <Member Name="None">
+          <Annotation Term="OData.Description" String="Do not automatically clear the resolved log entries."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate this log service does not automatically clear the resolved log entries."/>
         </Member>
       </EnumType>
     </Schema>

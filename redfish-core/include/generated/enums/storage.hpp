@@ -33,6 +33,13 @@ enum class AutoVolumeCreate{
     RAID1,
 };
 
+enum class ConfigurationLock{
+    Invalid,
+    Enabled,
+    Disabled,
+    Partial,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(ResetToDefaultsType, {
     {ResetToDefaultsType::Invalid, "Invalid"},
     {ResetToDefaultsType::ResetAll, "ResetAll"},
@@ -59,6 +66,13 @@ NLOHMANN_JSON_SERIALIZE_ENUM(AutoVolumeCreate, {
     {AutoVolumeCreate::NonRAID, "NonRAID"},
     {AutoVolumeCreate::RAID0, "RAID0"},
     {AutoVolumeCreate::RAID1, "RAID1"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(ConfigurationLock, {
+    {ConfigurationLock::Invalid, "Invalid"},
+    {ConfigurationLock::Enabled, "Enabled"},
+    {ConfigurationLock::Disabled, "Disabled"},
+    {ConfigurationLock::Partial, "Partial"},
 });
 
 }

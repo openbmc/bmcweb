@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Privileges v1.0.5                                                   -->
+<!--# Redfish Schema:  Privileges v1.0.6                                                   -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -22,6 +22,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Privileges">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EnumType Name="PrivilegeType">
         <Member Name="Login">
@@ -53,7 +54,7 @@
         </Member>
         <Member Name="ConfigureCompositionInfrastructure">
           <Annotation Term="OData.Description" String="Can view and configure composition service resources."/>
-          <Annotation Term="OData.LongDescription" String="This value shall be used to indicate the user can view and configure composition service resources without matching the Client property in the ResourceBlock or CompositionReservation resources."/>
+          <Annotation Term="OData.LongDescription" String="This value shall be used to indicate the user can view and configure composition service resources without matching the `Client` property in the `ResourceBlock` or `CompositionReservation` resources."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -115,16 +116,16 @@
       <Annotation Term="Redfish.Release" String="1.0"/>
 
       <Term Name="OemGetPrivileges" Type="Collection(Edm.String)" Nullable="false">
-        <Annotation Term="OData.Description" String="OEM HTTP GET operation privileges might be defined on a Link element to provide read privileges for the referenced resources, or on individual elements to override the privileges for that element."/>
+        <Annotation Term="OData.Description" String="OEM HTTP `GET` operation privileges might be defined on a `Link` element to provide read privileges for the referenced resources, or on individual elements to override the privileges for that element."/>
       </Term>
       <Term Name="OemPostPrivileges" Type="Collection(Edm.String)" Nullable="false">
-        <Annotation Term="OData.Description" String="OEM HTTP POST operation privileges might be defined on a Link element to provide create privileges for the referenced resources, or on individual elements to override the privileges for that element."/>
+        <Annotation Term="OData.Description" String="OEM HTTP `POST` operation privileges might be defined on a `Link` element to provide create privileges for the referenced resources, or on individual elements to override the privileges for that element."/>
       </Term>
       <Term Name="OemPatchPutPrivileges" Type="Collection(Edm.String)" Nullable="false">
-        <Annotation Term="OData.Description" String="OEM HTTP PATCH/PUT operation privileges might be defined on a Link element to provide update privileges for the referenced resources, or on individual elements to override the privileges for that element."/>
+        <Annotation Term="OData.Description" String="OEM HTTP `PATCH`/`PUT` operation privileges might be defined on a `Link` element to provide update privileges for the referenced resources, or on individual elements to override the privileges for that element."/>
       </Term>
       <Term Name="OemDeletePrivileges" Type="Collection(Edm.String)" Nullable="false">
-        <Annotation Term="OData.Description" String="OEM HTTP DELETE operation privileges might be defined on a Link element to provide update privileges for the referenced resources, or on individual elements to override the privileges for that element."/>
+        <Annotation Term="OData.Description" String="OEM HTTP `DELETE` operation privileges might be defined on a `Link` element to provide update privileges for the referenced resources, or on individual elements to override the privileges for that element."/>
       </Term>
     </Schema>
 
@@ -146,6 +147,11 @@
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Privileges.v1_0_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Privileges.v1_0_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
     </Schema>
 
   </edmx:DataServices>

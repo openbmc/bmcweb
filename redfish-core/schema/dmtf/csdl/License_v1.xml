@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  License v1.1.2                                                      -->
+<!--# Redfish Schema:  License v1.1.3                                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -32,9 +32,10 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="License">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="License" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The License schema describes a license for a feature."/>
+        <Annotation Term="OData.Description" String="The `License` schema describes a license for a feature."/>
         <Annotation Term="OData.LongDescription" String="This resource shall represent a license for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -77,7 +78,7 @@
         <Property Name="Removable" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An indication of whether the license is removable."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether a user can remove the license with an HTTP DELETE operation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether a user can remove the license with an HTTP `DELETE` operation."/>
         </Property>
         <Property Name="Manufacturer" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -121,7 +122,7 @@
         <Property Name="DownloadURI" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The URI from which to download the license file."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the URI from which to download the license file, using the Redfish protocol and authentication methods.  The service provides this URI for the download of the OEM-specific binary file of license data.  An HTTP GET from this URI shall return a response payload of MIME type `application/octet-stream`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the URI from which to download the license file, using the Redfish protocol and authentication methods.  The service provides this URI for the download of the OEM-specific binary file of license data.  An HTTP `GET` from this URI shall return a response payload of MIME type `application/octet-stream`."/>
           <Annotation Term="OData.IsURL"/>
         </Property>
         <Property Name="AuthorizationScope" Type="License.v1_0_0.AuthorizationScope">
@@ -132,12 +133,12 @@
         <Property Name="MaxAuthorizedDevices" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The maximum number of devices authorized by the license."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum number of devices that are authorized by the license.  This property shall only be present if the AuthorizationScope property contains the value `Capacity`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum number of devices that are authorized by the license.  This property shall only be present if the `AuthorizationScope` property contains the value `Capacity`."/>
         </Property>
         <Property Name="GracePeriodDays" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The grace days of this license."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall contain the number of days that the license is still usable after the date and time specified by the ExpirationDate property."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall contain the number of days that the license is still usable after the date and time specified by the `ExpirationDate` property."/>
         </Property>
         <Property Name="InstallDate" Type="Edm.DateTimeOffset">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -181,7 +182,7 @@
         <NavigationProperty Name="AuthorizedDevices" Type="Collection(Resource.Item)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the devices authorized by the license."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to the devices that are authorized by the license.  Clients can provide this property when installing a license to apply the license to specific devices.  If not provided when installing a license, the service may determine the devices to which the license applies.  This property shall not be present if the AuthorizationScope property contains the value `Service`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to the devices that are authorized by the license.  Clients can provide this property when installing a license to apply the license to specific devices.  If not provided when installing a license, the service may determine the devices to which the license applies.  This property shall not be present if the `AuthorizationScope` property contains the value `Service`."/>
         </NavigationProperty>
       </ComplexType>
 
@@ -241,15 +242,15 @@
         <Annotation Term="OData.LongDescription" String="This property shall describe the authorization scope for this license."/>
         <Member Name="Device">
           <Annotation Term="OData.Description" String="The license authorizes functionality for specific device instances."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the license authorizes functionality for one or more specific device instances, listed as values of the AuthorizedDevices property."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the license authorizes functionality for one or more specific device instances, listed as values of the `AuthorizedDevices` property."/>
         </Member>
         <Member Name="Capacity">
           <Annotation Term="OData.Description" String="The license authorizes functionality to a number of devices, but not restricted to specific device instances."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the license authorizes functionality for one or more device instances limited to a maximum number of devices specified by the value of the MaxAuthorizedDevices property.  In an aggregator, the aggregating service shall represent the applicable services in the TargetServices property in the Links property."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the license authorizes functionality for one or more device instances limited to a maximum number of devices specified by the value of the `MaxAuthorizedDevices` property.  In an aggregator, the aggregating service shall represent the applicable services in the `TargetServices` property in the `Links` property."/>
         </Member>
         <Member Name="Service">
           <Annotation Term="OData.Description" String="The license authorizes functionality to a service."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the license authorizes product-level or service-level functionality for a service.  This may include hardware or software features not tied to a specific device or subsystem.  License resources using this value shall not include the AuthorizedDevices nor the MaxAuthorizedDevices properties.  In an aggregator, the aggregating service shall represent the applicable services in the TargetServices property in the Links property."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the license authorizes product-level or service-level functionality for a service.  This may include hardware or software features not tied to a specific device or subsystem.  `License` resources using this value shall not include the `AuthorizedDevices` nor the `MaxAuthorizedDevices` properties.  In an aggregator, the aggregating service shall represent the applicable services in the `TargetServices` property in the `Links` property."/>
         </Member>
       </EnumType>
 
@@ -265,7 +266,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="License.v1_0_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the descriptions of the `Service` and `Capacity` values in AuthorizationScope to describe the usage with aggregators."/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of the `Service` and `Capacity` values in `AuthorizationScope` to describe the usage with aggregators."/>
       <EntityType Name="License" BaseType="License.v1_0_0.License"/>
     </Schema>
 
@@ -281,6 +282,12 @@
       <EntityType Name="License" BaseType="License.v1_0_2.License"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="License.v1_0_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="License" BaseType="License.v1_0_3.License"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="License.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.3"/>
@@ -291,7 +298,7 @@
         <NavigationProperty Name="TargetServices" Type="Collection(Manager.Manager)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the managers where the license is installed."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Manager that represent the services where the license is installed, such as remote Redfish services.  This property shall only be present in aggregators when the AuthorizationScope property contains `Service` or `Capacity`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Manager` that represent the services where the license is installed, such as remote Redfish services.  This property shall only be present in aggregators when the `AuthorizationScope` property contains `Service` or `Capacity`."/>
         </NavigationProperty>
       </ComplexType>
     </Schema>
@@ -306,6 +313,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="License" BaseType="License.v1_1_1.License"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="License.v1_1_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="License" BaseType="License.v1_1_2.License"/>
     </Schema>
 
   </edmx:DataServices>

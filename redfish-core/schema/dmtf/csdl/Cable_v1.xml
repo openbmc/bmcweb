@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Cable v1.2.2                                                        -->
+<!--# Redfish Schema:  Cable v1.2.3                                                        -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -38,9 +38,10 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Cable">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="Cable" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The Cable schema contains properties that describe a cable connecting endpoints of a chassis, port, or any other cable-compatible endpoint."/>
+        <Annotation Term="OData.Description" String="The `Cable` schema contains properties that describe a cable connecting endpoints of a chassis, port, or any other cable-compatible endpoint."/>
         <Annotation Term="OData.LongDescription" String="This resource contains a simple cable for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -169,7 +170,7 @@
         <NavigationProperty Name="Assembly" Type="Assembly.Assembly" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the assembly associated with this cable."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Assembly."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `Assembly`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -289,27 +290,27 @@
       <EnumType Name="CableStatus">
         <Member Name="Normal">
           <Annotation Term="OData.Description" String="The cable is operating normally."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the cable is operating normally.  The State property in Status shall contain the value `Enabled` and the Health property in Status shall contain the value `OK`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the cable is operating normally.  The `State` property in `Status` shall contain the value `Enabled` and the `Health` property in `Status` shall contain the value `OK`."/>
         </Member>
         <Member Name="Degraded">
           <Annotation Term="OData.Description" String="The cable is degraded."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the cable is degraded.  The State property in Status shall contain the value `Enabled` and the Health property in Status shall contain the value `Warning`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the cable is degraded.  The `State` property in `Status` shall contain the value `Enabled` and the `Health` property in `Status` shall contain the value `Warning`."/>
         </Member>
         <Member Name="Failed">
           <Annotation Term="OData.Description" String="The cable has failed."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the cable has failed.  The State property in Status shall contain the value `Enabled` and the Health property in Status shall contain the value `Critical`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the cable has failed.  The `State` property in `Status` shall contain the value `Enabled` and the `Health` property in `Status` shall contain the value `Critical`."/>
         </Member>
         <Member Name="Testing">
           <Annotation Term="OData.Description" String="The cable is under test."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the cable is under test.  The State property in Status shall contain the value `InTest`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the cable is under test.  The `State` property in `Status` shall contain the value `InTest`."/>
         </Member>
         <Member Name="Disabled">
           <Annotation Term="OData.Description" String="The cable is disabled."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the cable is disabled.  The State property in Status shall contain the value `Disabled`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the cable is disabled.  The `State` property in `Status` shall contain the value `Disabled`."/>
         </Member>
         <Member Name="SetByService">
           <Annotation Term="OData.Description" String="The cable status is set by the service."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the status for the cable is not defined by the user.  If implemented, the service shall determine the value of the State and Health properties in Status."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the status for the cable is not defined by the user.  If implemented, the service shall determine the value of the `State` and `Health` properties in `Status`."/>
         </Member>
       </EnumType>
 
@@ -335,37 +336,37 @@
         <NavigationProperty Name="DownstreamChassis" Type="Collection(Chassis.Chassis)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An array of links to the downstream chassis connected to this cable."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Chassis that represent the physical downstream containers connected to this cable."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Chassis` that represent the physical downstream containers connected to this cable."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="UpstreamChassis" Type="Collection(Chassis.Chassis)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An array of links to the upstream chassis connected to this cable."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Chassis that represent the physical upstream containers connected to this cable."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Chassis` that represent the physical upstream containers connected to this cable."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="DownstreamPorts" Type="Collection(Port.Port)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An array of links to the downstream ports connected to this cable."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Port that represent the physical downstream connections connected to this cable."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Port` that represent the physical downstream connections connected to this cable."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="UpstreamPorts" Type="Collection(Port.Port)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An array of links to the upstream ports connected to this cable."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Port that represent the physical upstream connections connected to this cable."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Port` that represent the physical upstream connections connected to this cable."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="DownstreamResources" Type="Collection(Resource.Resource)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An array of links to the downstream resources connected to this cable."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources that represent the physical downstream connections connected to this cable.  Even if the resource is already referenced in another property within Links, such as DownstreamPorts or DownstreamChassis, it shall also be referenced in this property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources that represent the physical downstream connections connected to this cable.  Even if the resource is already referenced in another property within `Links`, such as `DownstreamPorts` or `DownstreamChassis`, it shall also be referenced in this property."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="UpstreamResources" Type="Collection(Resource.Resource)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An array of links to the upstream resources connected to this cable."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources that represent the physical upstream connections connected to this cable.  Even if the resource is already referenced in another property within Links, such as UpstreamPorts or UpstreamChassis, it shall also be referenced in this property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources that represent the physical upstream connections connected to this cable.  Even if the resource is already referenced in another property within `Links`, such as `UpstreamPorts` or `UpstreamChassis`, it shall also be referenced in this property."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -381,6 +382,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Cable" BaseType="Cable.v1_0_1.Cable"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Cable.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Cable" BaseType="Cable.v1_0_2.Cable"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Cable.v1_1_0">
@@ -408,10 +415,16 @@
       <EntityType Name="Cable" BaseType="Cable.v1_1_1.Cable"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Cable.v1_1_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Cable" BaseType="Cable.v1_1_2.Cable"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Cable.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
-      <Annotation Term="OData.Description" String="This version was created to add `CDFP` and `OSFP` to ConnectorType."/>
+      <Annotation Term="OData.Description" String="This version was created to add `CDFP` and `OSFP` to `ConnectorType`."/>
 
       <EntityType Name="Cable" BaseType="Cable.v1_1_0.Cable"/>
     </Schema>
@@ -426,6 +439,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Cable" BaseType="Cable.v1_2_1.Cable"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Cable.v1_2_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Cable" BaseType="Cable.v1_2_2.Cable"/>
     </Schema>
 
   </edmx:DataServices>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  KeyPolicy v1.0.0                                                    -->
+<!--# Redfish Schema:  KeyPolicy v1.0.1                                                    -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -29,9 +29,10 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="KeyPolicy">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="KeyPolicy" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The KeyPolicy schema describes settings for how keys are allowed to be used for accessing devices or services."/>
+        <Annotation Term="OData.Description" String="The `KeyPolicy` schema describes settings for how keys are allowed to be used for accessing devices or services."/>
         <Annotation Term="OData.LongDescription" String="This resource shall represent a key policy for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -72,9 +73,9 @@
           <Annotation Term="OData.Description" String="Indicates if this is the default key policy."/>
           <Annotation Term="OData.LongDescription" String="This property shall indicate if this key policy is the policy applied when no other policies are specified."/>
         </Property>
-        <Property Name="NVMeoF" Type="KeyPolicy.v1_0_0.NVMeoF">
+        <Property Name="NVMeoF" Type="KeyPolicy.v1_0_0.NVMeoF" Nullable="false">
           <Annotation Term="OData.Description" String="NVMe-oF specific properties."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain NVMe-oF specific properties for this key policy.  This property shall be present if KeyPolicyType contains the value `NVMeoF`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain NVMe-oF specific properties for this key policy.  This property shall be present if `KeyPolicyType` contains the value `NVMeoF`."/>
         </Property>
         <Property Name="Actions" Type="KeyPolicy.v1_0_0.Actions" Nullable="false">
           <Annotation Term="OData.Description" String="The available actions for this resource."/>
@@ -101,7 +102,7 @@
         <Property Name="OEMSecurityProtocolAllowList" Type="Collection(Edm.String)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The OEM security protocols that this key policy allows."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the OEM-defined security protocols that this key policy allows.  NVMe-oF channels are restricted to OEM-defined security protocols in this list.  An empty list shall indicate no security protocols are allowed.  This property shall be present if SecurityProtocolAllowList contains `OEM`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the OEM-defined security protocols that this key policy allows.  NVMe-oF channels are restricted to OEM-defined security protocols in this list.  An empty list shall indicate no security protocols are allowed.  This property shall be present if `SecurityProtocolAllowList` contains `OEM`."/>
         </Property>
         <Property Name="SecureHashAllowList" Type="Collection(KeyPolicy.v1_0_0.NVMeoFSecureHashType)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -138,7 +139,7 @@
         </Member>
         <Member Name="OEM">
           <Annotation Term="OData.Description" String="OEM."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate an OEM-defined security protocol.  The OEMSecurityProtocolAllowList property shall contain the specific OEM protocol."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate an OEM-defined security protocol.  The `OEMSecurityProtocolAllowList` property shall contain the specific OEM protocol."/>
         </Member>
       </EnumType>
 
@@ -164,11 +165,11 @@
         <Annotation Term="OData.LongDescription" String="This enumeration shall list the NVMe security transports that a key is allowed to use."/>
         <Member Name="TLSv2">
           <Annotation Term="OData.Description" String="Transport Layer Security (TLS) v2."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate Transport Layer Security (TLS) v2 as defined by the 'Transport Specific Address Subtype Definition for NVMe/TCP Transport' figure in the NVMe TCP Transport Specification."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate Transport Layer Security (TLS) v2 as defined by the 'Transport Specific Address Subtype `Definition` for NVMe/TCP Transport' figure in the NVMe TCP Transport Specification."/>
         </Member>
         <Member Name="TLSv3">
           <Annotation Term="OData.Description" String="Transport Layer Security (TLS) v3."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate Transport Layer Security (TLS) v3 as defined by the 'Transport Specific Address Subtype Definition for NVMe/TCP Transport' figure in the NVMe TCP Transport Specification."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate Transport Layer Security (TLS) v3 as defined by the 'Transport Specific Address Subtype `Definition` for NVMe/TCP Transport' figure in the NVMe TCP Transport Specification."/>
         </Member>
       </EnumType>
 
@@ -225,6 +226,12 @@
         <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="KeyPolicy.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="KeyPolicy" BaseType="KeyPolicy.v1_0_0.KeyPolicy"/>
     </Schema>
 
   </edmx:DataServices>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  CoolingUnit v1.1.1                                                  -->
+<!--# Redfish Schema:  CoolingUnit v1.1.2                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -69,9 +69,10 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CoolingUnit">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="CoolingUnit" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="This is the schema definition for a cooling system component or unit, such as a coolant distribution unit (CDU) or a heat exchanger."/>
+        <Annotation Term="OData.Description" String="The `CoolingUnit` schema contains the definition for a cooling system component or unit, such as a coolant distribution unit (CDU) or a heat exchanger."/>
         <Annotation Term="OData.LongDescription" String="This resource shall represent a cooling system component or unit for a Redfish implementation."/>
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="Capabilities.InsertRestrictions">
@@ -184,49 +185,49 @@
         <NavigationProperty Name="PrimaryCoolantConnectors" Type="CoolantConnectorCollection.CoolantConnectorCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A link to the primary coolant connectors for this equipment."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CoolantConnectorCollection that contains the primary coolant connectors for this equipment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `CoolantConnectorCollection` that contains the primary coolant connectors for this equipment."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="SecondaryCoolantConnectors" Type="CoolantConnectorCollection.CoolantConnectorCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A link to the secondary coolant connectors for this equipment."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CoolantConnectorCollection that contains the secondary coolant connectors for this equipment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `CoolantConnectorCollection` that contains the secondary coolant connectors for this equipment."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="LeakDetection" Type="LeakDetection.LeakDetection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A link to the leak detection components associated with this equipment."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type LeakDetection that contains the leak detection component information for this equipment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `LeakDetection` that contains the leak detection component information for this equipment."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Pumps" Type="PumpCollection.PumpCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A link to the pumps for this equipment."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type PumpCollection that contains the pump information for this equipment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `PumpCollection` that contains the pump information for this equipment."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Filters" Type="FilterCollection.FilterCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A link to the filters for this equipment."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type FilterCollection that contains the filter information for this equipment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `FilterCollection` that contains the filter information for this equipment."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Reservoirs" Type="ReservoirCollection.ReservoirCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A link to the reservoirs for this equipment."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type ReservoirCollection that contains the reservoir information for this equipment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `ReservoirCollection` that contains the reservoir information for this equipment."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="EnvironmentMetrics" Type="EnvironmentMetrics.EnvironmentMetrics" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the environment metrics for this equipment."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type EnvironmentMetrics that specifies the environment metrics for this equipment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `EnvironmentMetrics` that specifies the environment metrics for this equipment."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Assembly" Type="Assembly.Assembly" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the assembly associated with this cooling unit."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Assembly."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `Assembly`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="Links" Type="CoolingUnit.v1_0_0.Links" Nullable="false">
@@ -245,19 +246,19 @@
         <NavigationProperty Name="Chassis" Type="Collection(Chassis.Chassis)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the chassis that contain this equipment."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Chassis that represent the physical containers that contain this equipment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Chassis` that represent the physical containers that contain this equipment."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Facility" Type="Facility.Facility" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A link to the facility that contains this equipment."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Facility that represents the facility that contains this equipment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `Facility` that represents the facility that contains this equipment."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="ManagedBy" Type="Collection(Manager.Manager)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the managers responsible for managing this equipment."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Manager that represent the managers that manage this equipment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Manager` that represent the managers that manage this equipment."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -297,6 +298,12 @@
       <EntityType Name="CoolingUnit" BaseType="CoolingUnit.v1_0_0.CoolingUnit"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CoolingUnit.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="CoolingUnit" BaseType="CoolingUnit.v1_0_1.CoolingUnit"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CoolingUnit.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.2"/>
@@ -304,7 +311,7 @@
       <EntityType Name="CoolingUnit" BaseType="CoolingUnit.v1_0_0.CoolingUnit">
         <Property Name="CoolantConnectorRedundancy" Type="Collection(Redundancy.RedundantGroup)" Nullable="false">
           <Annotation Term="OData.Description" String="The redundancy information for the coolant connectors in this cooling unit."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain redundancy information for the set of coolant connectors attached to this equipment.  The values of the RedundancyGroup array shall reference resources of type CoolantConnector."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain redundancy information for the set of coolant connectors attached to this equipment.  The values of the `RedundancyGroup` array shall reference resources of type `CoolantConnector`."/>
         </Property>
       </EntityType>
     </Schema>
@@ -313,6 +320,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct terminology and improve description text.  It was also created to correct various typographical errors."/>
       <EntityType Name="CoolingUnit" BaseType="CoolingUnit.v1_1_0.CoolingUnit"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CoolingUnit.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="CoolingUnit" BaseType="CoolingUnit.v1_1_1.CoolingUnit"/>
     </Schema>
 
   </edmx:DataServices>

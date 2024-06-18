@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  CertificateService v1.0.4                                           -->
+<!--# Redfish Schema:  CertificateService v1.0.5                                           -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -37,9 +37,10 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CertificateService">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="CertificateService" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The CertificateService schema describes a certificate service that represents the actions available to manage certificates and links to the certificates."/>
+        <Annotation Term="OData.Description" String="The `CertificateService` schema describes a certificate service that represents the actions available to manage certificates and links to the certificates."/>
         <Annotation Term="OData.LongDescription" String="This resource shall represent the certificate service properties for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -104,16 +105,16 @@
           <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of key-pair for use with signing algorithms.  The allowable values for this parameter shall be the strings in the 'Algorithm Name' field of the 'TPM_ALG_ID Constants' table within the 'Trusted Computing Group Algorithm Registry'."/>
         </Parameter>
         <Parameter Name="KeyBitLength" Type="Edm.Int64">
-          <Annotation Term="OData.Description" String="The length of the key, in bits, if needed based on the KeyPairAlgorithm parameter value."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the length of the key, in bits, if needed based on the KeyPairAlgorithm parameter value."/>
+          <Annotation Term="OData.Description" String="The length of the key, in bits, if needed based on the `KeyPairAlgorithm` parameter value."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the length of the key, in bits, if needed based on the `KeyPairAlgorithm` parameter value."/>
         </Parameter>
         <Parameter Name="KeyCurveId" Type="Edm.String">
-          <Annotation Term="OData.Description" String="The curve ID to use with the key, if needed based on the KeyPairAlgorithm parameter value."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the curve ID to use with the key, if needed based on the KeyPairAlgorithm parameter value.  The allowable values for this parameter shall be the strings in the 'Name' field of the 'TPM_ECC_CURVE Constants' table within the 'Trusted Computing Group Algorithm Registry'."/>
+          <Annotation Term="OData.Description" String="The curve ID to use with the key, if needed based on the `KeyPairAlgorithm` parameter value."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the curve ID to use with the key, if needed based on the `KeyPairAlgorithm` parameter value.  The allowable values for this parameter shall be the strings in the 'Name' field of the 'TPM_ECC_CURVE Constants' table within the 'Trusted Computing Group Algorithm Registry'."/>
         </Parameter>
         <Parameter Name="CertificateCollection" Type="CertificateCollection.CertificateCollection" Nullable="false">
           <Annotation Term="OData.Description" String="The link to the certificate collection where the certificate is installed after the certificate authority (CA) signs the certificate."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain a link to a resource collection of type CertificateCollection where the certificate is installed after the certificate authority (CA) signs the certificate."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain a link to a resource collection of type `CertificateCollection` where the certificate is installed after the certificate authority (CA) signs the certificate."/>
         </Parameter>
         <Parameter Name="KeyUsage" Type="Collection(Certificate.KeyUsage)">
           <Annotation Term="OData.Description" String="The usage of the key contained in the certificate."/>
@@ -152,7 +153,7 @@
         <Parameter Name="CertificateService" Type="CertificateService.v1_0_0.Actions"/>
         <Parameter Name="CertificateString" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Description" String="The string for the certificate."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the string of the certificate, and the format shall follow the requirements specified by the CertificateType property value.  If the certificate contains any private keys, they shall be removed from the string in responses.  If the service does not know the private key for the certificate and it is needed to use the certificate, the client shall provide the private key as part of the string in the POST request."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the string of the certificate, and the format shall follow the requirements specified by the `CertificateType` parameter value.  If the certificate contains any private keys, they shall be removed from the string in responses.  If the service does not know the private key for the certificate and it is needed to use the certificate, the client shall provide the private key as part of the string in the `POST` request."/>
         </Parameter>
         <Parameter Name="CertificateType" Type="Certificate.CertificateType" Nullable="false">
           <Annotation Term="OData.Description" String="The format of the certificate."/>
@@ -160,7 +161,7 @@
         </Parameter>
         <Parameter Name="CertificateUri" Type="Certificate.Certificate" Nullable="false">
           <Annotation Term="OData.Description" String="The link to the certificate that is being replaced."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain a link to a resource of type Certificate that is being replaced."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain a link to a resource of type `Certificate` that is being replaced."/>
         </Parameter>
       </Action>
     </Schema>
@@ -177,7 +178,7 @@
         <NavigationProperty Name="CertificateLocations" Type="CertificateLocations.CertificateLocations" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The information about the location of certificates."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type CertificateLocations."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `CertificateLocations`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -200,12 +201,12 @@
 
       <ComplexType Name="GenerateCSRResponse">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The response body for the GenerateCSR action."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the properties found in the response body for the GenerateCSR action."/>
+        <Annotation Term="OData.Description" String="The response body for the `GenerateCSR` action."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the properties found in the response body for the `GenerateCSR` action."/>
         <NavigationProperty Name="CertificateCollection" Type="CertificateCollection.CertificateCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the certificate collection where the certificate is installed."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CertificateCollection where the certificate is installed after the certificate authority (CA) has signed the certificate."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `CertificateCollection` where the certificate is installed after the certificate authority (CA) has signed the certificate."/>
           <Annotation Term="Redfish.Required"/>
         </NavigationProperty>
         <Property Name="CSRString" Type="Edm.String" Nullable="false">
@@ -225,7 +226,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CertificateService.v1_0_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the description of CertificateString.  It was also created to update descriptions that this schema defines."/>
+      <Annotation Term="OData.Description" String="This version was created to update the description of `CertificateString`.  It was also created to update descriptions that this schema defines."/>
       <EntityType Name="CertificateService" BaseType="CertificateService.v1_0_1.CertificateService"/>
     </Schema>
 
@@ -239,6 +240,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="CertificateService" BaseType="CertificateService.v1_0_3.CertificateService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CertificateService.v1_0_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="CertificateService" BaseType="CertificateService.v1_0_4.CertificateService"/>
     </Schema>
 
   </edmx:DataServices>
