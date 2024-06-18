@@ -34,6 +34,24 @@
       "parentUuid": "df7342d5_478acf7f",
       "revId": "f088e40801dfb54a794ac8d0db8eae9df5dffefb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f6bfc34_e306f9fe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-06-18T00:27:21Z",
+      "side": 1,
+      "message": "This is an insecure method for image download via tftp which was only enabled by IBM using insecure-tftp-update feature flag. I checked with @Andrew and they don\u0027t use this feature anymore https://discord.com/channels/775381525260664832/855566794994221117/1250430728945143878 and has been removed via https://gerrit.openbmc.org/c/openbmc/openbmc/+/72053.\nSince, there is no active user of tftp based updates upstream, it seems better to retire this flow rather than adding support for new DBus interface. In future, we can add support for HTTP based downloads as a new feature (not supported at the moment).",
+      "parentUuid": "10ab68af_c528a219",
+      "revId": "f088e40801dfb54a794ac8d0db8eae9df5dffefb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
