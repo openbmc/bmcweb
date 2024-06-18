@@ -3094,7 +3094,7 @@ inline void handleSystemCollectionResetActionHead(
  * @param[in]  dbusAllowedHostTran The allowed host transition on dbus
  * @param[out] allowableValues     The translated host transition(s)
  *
- * @return Emplaces correpsonding Redfish translated value(s) in
+ * @return Emplaces corresponding Redfish translated value(s) in
  * allowableValues. If translation not possible, does nothing to
  * allowableValues.
  */
