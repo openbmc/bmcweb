@@ -708,6 +708,24 @@
       "parentUuid": "c985de2f_aada23f9",
       "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ada39319_b94b5b18",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1119,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-06-18T00:17:39Z",
+      "side": 1,
+      "message": "\u003e I gotcha, lots of opinions here.  Mine are:\n\u003e 1. ApplyTime PATCH is rarely used, it can be removed.\n\nYes, already removed it in the previous patch https://gerrit.openbmc.org/c/openbmc/bmcweb/+/72150.\n\n\u003e 2. Simple update (which this patch calls unstructured), as well as \"pull\" style updates are used heavily, and should be retained, using a default ApplyTime of \"now\" because that\u0027s what\u0027s expected.\nFor Unstructured HTTP Post, i have added back the support with Default ApplyTime as Immediate. \nFor SimpleUpdate Action HTTP pull let\u0027s discuss that on https://gerrit.openbmc.org/c/openbmc/bmcweb/+/72049. Hence, resolving this comment.",
+      "parentUuid": "8e567765_48ad4abc",
+      "revId": "2c4b68830de08237ed5b8e42dd03d5dfea9045b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
