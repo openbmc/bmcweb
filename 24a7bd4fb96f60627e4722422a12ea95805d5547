@@ -70,6 +70,41 @@
       "parentUuid": "daeb8867_3fa5f040",
       "revId": "24a7bd4fb96f60627e4722422a12ea95805d5547",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a94a9e2b_39ee9df2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-06-18T22:35:34Z",
+      "side": 1,
+      "message": "\u003e It needs to be removed from the GUI\n\u003e https://github.com/openbmc/webui-vue/blob/620e6466db409f535fc3d4a2ab85dd672e3de6dd/src/store/modules/Operations/FirmwareStore.js#L127\n\n\nRaised patch: https://gerrit.openbmc.org/c/openbmc/webui-vue/+/72192\n\n\n\u003e Also should be removed from the docs/ repo \n\u003e https://github.com/openbmc/docs/blob/f167b6d2994c2bd6b3f58143e65b9ba66e9cdb19/REDFISH-cheatsheet.md?plain\u003d1#L127\n\nRaised patch: https://gerrit.openbmc.org/c/openbmc/docs/+/72193",
+      "parentUuid": "c8a792f4_db7e8ce3",
+      "revId": "24a7bd4fb96f60627e4722422a12ea95805d5547",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4561ffa_7e3bb01b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-06-18T22:35:34Z",
+      "side": 1,
+      "message": "Addressed comments. Thanks",
+      "revId": "24a7bd4fb96f60627e4722422a12ea95805d5547",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
