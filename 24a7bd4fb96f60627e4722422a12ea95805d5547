@@ -90,6 +90,29 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "234db5ce_4b5a455a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-18T23:04:24Z",
+      "side": 1,
+      "message": "This doesn\u0027t look right.  \"Patch for Apply options\" is not an action.",
+      "range": {
+        "startLine": 22,
+        "startChar": 20,
+        "endLine": 22,
+        "endChar": 88
+      },
+      "revId": "24a7bd4fb96f60627e4722422a12ea95805d5547",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "a4561ffa_7e3bb01b",
@@ -103,6 +126,46 @@
       "writtenOn": "2024-06-18T22:35:34Z",
       "side": 1,
       "message": "Addressed comments. Thanks",
+      "revId": "24a7bd4fb96f60627e4722422a12ea95805d5547",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c86cfda1_eda2afd3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-18T23:04:24Z",
+      "side": 1,
+      "message": "Needs https://gerrit.openbmc.org/c/openbmc/webui-vue/+/72192 to merge first.",
+      "revId": "24a7bd4fb96f60627e4722422a12ea95805d5547",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1154cb41_40463be6",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1207,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-18T23:04:24Z",
+      "side": 1,
+      "message": "I suspect you can just delete this whole thing, and you\u0027ll get the correct error message from the core",
+      "range": {
+        "startLine": 1207,
+        "startChar": 12,
+        "endLine": 1207,
+        "endChar": 36
+      },
       "revId": "24a7bd4fb96f60627e4722422a12ea95805d5547",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
