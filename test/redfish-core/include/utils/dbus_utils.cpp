@@ -57,12 +57,12 @@ TEST(DbusUtils, AfterPropertySetInternalError)
                         "@odata.type": "#Message.v1_1_1.Message",
                         "Message": "The request failed due to an internal service error.  The service is still operational.",
                         "MessageArgs": [],
-                        "MessageId": "Base.1.16.0.InternalError",
+                        "MessageId": "Base.1.18.1.InternalError",
                         "MessageSeverity": "Critical",
                         "Resolution": "Resubmit the request.  If the problem persists, consider resetting the service."
                         }
                     ],
-                    "code": "Base.1.16.0.InternalError",
+                    "code": "Base.1.18.1.InternalError",
                     "message": "The request failed due to an internal service error.  The service is still operational."
                     }
                 })"_json);
