@@ -34,6 +34,24 @@
       "parentUuid": "d0d24328_7233f4fb",
       "revId": "24a7bd4fb96f60627e4722422a12ea95805d5547",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "daeb8867_3fa5f040",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-06-18T13:01:14Z",
+      "side": 1,
+      "message": "It needs to be removed from the GUI \nhttps://github.com/openbmc/webui-vue/blob/620e6466db409f535fc3d4a2ab85dd672e3de6dd/src/store/modules/Operations/FirmwareStore.js#L127",
+      "parentUuid": "026bcef8_e05c329a",
+      "revId": "24a7bd4fb96f60627e4722422a12ea95805d5547",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
