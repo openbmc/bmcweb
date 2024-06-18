@@ -127,8 +127,8 @@ inline void
                 "xyz.openbmc_project.Common.Error.InvalidArgument") ==
             dbusError->name)
         {
-            messages::propertyValueIncorrect(
-                asyncResp->res, "@odata.id",
+            messages::propertyValueExternalConflict(
+                asyncResp->res, "Enabled",
                 std::to_string(static_cast<int>(enabledPropVal)));
         }
         else if (std::string_view(
@@ -261,6 +261,13 @@ inline void
             {
                 retChassisPowerStateOffRequiredError(asyncResp,
                                                      resourceObjPath);
+            }
+            else if (
+                std::string_view(
+                    "xyz.openbmc_project.Common.Error.InsufficientPermission") ==
+                dbusError->name)
+            {
+                messages::resourceCannotBeDeleted(asyncResp->res);
             }
             else
             {
