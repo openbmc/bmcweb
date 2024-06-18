@@ -18,18 +18,18 @@
 namespace redfish::registries::base
 {
 const Header header = {
-    "Copyright 2014-2023 DMTF. All rights reserved.",
-    "#MessageRegistry.v1_5_0.MessageRegistry",
-    "Base.1.16.0",
+    "Copyright 2014-2024 DMTF. All rights reserved.",
+    "#MessageRegistry.v1_6_2.MessageRegistry",
+    "Base.1.18.1",
     "Base Message Registry",
     "en",
-    "This registry defines the base messages for Redfish",
+    "This registry defines the base messages for Redfish.",
     "Base",
-    "1.16.0",
+    "1.18.1",
     "DMTF",
 };
 constexpr const char* url =
-    "https://redfish.dmtf.org/registries/Base.1.16.0.json";
+    "https://redfish.dmtf.org/registries/Base.1.18.1.json";
 
 constexpr std::array registry =
 {
@@ -48,8 +48,8 @@ constexpr std::array registry =
     MessageEntry{
         "AccountForSessionNoLongerExists",
         {
-            "Indicates that the account for the session has been removed, thus the session has been removed as well.",
-            "The account for the current session has been removed, thus the current session has been removed as well.",
+            "Indicates that the account for the session was removed, and so the session was removed as well.",
+            "The account for the current session was removed, and so the current session was removed as well.",
             "OK",
             0,
             {},
@@ -63,7 +63,7 @@ constexpr std::array registry =
             "OK",
             0,
             {},
-            "No resolution is required.",
+            "None.",
         }},
     MessageEntry{
         "AccountNotModified",
@@ -83,7 +83,7 @@ constexpr std::array registry =
             "OK",
             0,
             {},
-            "No resolution is required.",
+            "None.",
         }},
     MessageEntry{
         "ActionDeprecated",
@@ -100,14 +100,14 @@ constexpr std::array registry =
     MessageEntry{
         "ActionNotSupported",
         {
-            "Indicates that the action supplied with the POST operation is not supported by the resource.",
+            "Indicates that the action supplied with the `POST` operation is not supported by the resource.",
             "The action %1 is not supported by the resource.",
             "Critical",
             1,
             {
                 "string",
             },
-            "The action supplied cannot be resubmitted to the implementation.  Perhaps the action was invalid, the wrong resource was the target or the implementation documentation may be of assistance.",
+            "Check the Actions property in the resource for the supported actions.",
         }},
     MessageEntry{
         "ActionParameterDuplicate",
@@ -164,7 +164,7 @@ constexpr std::array registry =
     MessageEntry{
         "ActionParameterValueConflict",
         {
-            "Indicates that the requested parameter value could not be completed, because of a mismatch with other parameters or properties in the resource.",
+            "Indicates that the requested parameter value could not be completed because of a mismatch with other parameters or properties in the resource.",
             "The parameter '%1' with the requested value of '%2' does not meet the constraints of the implementation.",
             "Warning",
             2,
@@ -172,7 +172,7 @@ constexpr std::array registry =
                 "string",
                 "string",
             },
-            "No resolution is required.",
+            "None.",
         }},
     MessageEntry{
         "ActionParameterValueError",
@@ -190,8 +190,8 @@ constexpr std::array registry =
     MessageEntry{
         "ActionParameterValueFormatError",
         {
-            "Indicates that a parameter was given the correct value type but the value of that parameter was not supported.  This includes the value size or length has been exceeded.",
-            "The value '%1' for the parameter %2 in the action %3 is of a different format than the parameter can accept.",
+            "Indicates that a parameter was given the correct value type but the format of the value is not supported.",
+            "The value '%1' for the parameter %2 in the action %3 is not a format that the parameter can accept.",
             "Warning",
             3,
             {
@@ -216,10 +216,24 @@ constexpr std::array registry =
             "Choose a value from the enumeration list that the implementation can support and resubmit the request if the operation failed.",
         }},
     MessageEntry{
+        "ActionParameterValueOutOfRange",
+        {
+            "Indicates that a parameter was given the correct value type but the value of that parameter is outside the supported range.",
+            "The value '%1' for the parameter %2 in the action %3 is not in the supported range of acceptable values.",
+            "Warning",
+            3,
+            {
+                "string",
+                "string",
+                "string",
+            },
+            "Correct the value for the parameter in the request body and resubmit the request if the operation failed.",
+        }},
+    MessageEntry{
         "ActionParameterValueTypeError",
         {
             "Indicates that a parameter was given the wrong value type, such as when a number is supplied for a parameter that requires a string.",
-            "The value '%1' for the parameter %2 in the action %3 is of a different type than the parameter can accept.",
+            "The value '%1' for the parameter %2 in the action %3 is not a type that the parameter can accept.",
             "Warning",
             3,
             {
@@ -245,7 +259,7 @@ constexpr std::array registry =
     MessageEntry{
         "ArraySizeTooShort",
         {
-            "Indicates that the size of the array is under the minimum number of elements.",
+            "Indicates that the size of the array is less than the minimum number of elements.",
             "The array provided for property %1 is under the minimum size limit %2.",
             "Warning",
             2,
@@ -269,7 +283,7 @@ constexpr std::array registry =
         "ChassisPowerStateOffRequired",
         {
             "Indicates that the request requires a specified chassis to be powered off.",
-            "The Chassis with Id '%1' requires to be powered off to perform this request.",
+            "The chassis with Id '%1' is required to be powered off to perform this request.",
             "Warning",
             1,
             {
@@ -281,7 +295,7 @@ constexpr std::array registry =
         "ChassisPowerStateOnRequired",
         {
             "Indicates that the request requires a specified chassis to be powered on.",
-            "The chassis with Id '%1' requires to be powered on to perform this request.",
+            "The chassis with Id '%1' is required to be powered on to perform this request.",
             "Warning",
             1,
             {
@@ -309,12 +323,12 @@ constexpr std::array registry =
             {
                 "string",
             },
-            "Ensure that the URI contains a valid and reachable node name, protocol information and other URI components.",
+            "Ensure that the URI contains a valid and reachable node name, protocol information, and other URI components.",
         }},
     MessageEntry{
         "CreateFailedMissingReqProperties",
         {
-            "Indicates that a create was attempted on a resource but that properties that are required for the create operation were missing from the request.",
+            "Indicates that a create operation was attempted on a resource but that properties that are required for the create operation were missing from the request.",
             "The create operation failed because the required property %1 was missing from the request.",
             "Critical",
             1,
@@ -336,8 +350,8 @@ constexpr std::array registry =
     MessageEntry{
         "Created",
         {
-            "Indicates that all conditions of a successful create operation have been met.",
-            "The resource has been created successfully.",
+            "Indicates that all conditions of a successful create operation were met.",
+            "The resource was created successfully.",
             "OK",
             0,
             {},
@@ -366,7 +380,7 @@ constexpr std::array registry =
     MessageEntry{
         "EventSubscriptionLimitExceeded",
         {
-            "Indicates that a event subscription establishment has been requested but the operation failed due to the number of simultaneous connection exceeding the limit of the implementation.",
+            "Indicates that an event subscription establishment was requested but the operation failed due to the number of simultaneous connections exceeding the limit of the implementation.",
             "The event subscription failed due to the number of simultaneous subscriptions exceeding the limit of the implementation.",
             "Critical",
             0,
@@ -420,8 +434,8 @@ constexpr std::array registry =
     MessageEntry{
         "InsufficientStorage",
         {
-            "Indicates that the operation could not be completed due to a lack of storage or memory avaiable to the service.",
-            "Insufficent storage or memory available to complete the request.",
+            "Indicates that the operation could not be completed due to a lack of storage or memory available to the service.",
+            "Insufficient storage or memory available to complete the request.",
             "Critical",
             0,
             {},
@@ -464,7 +478,7 @@ constexpr std::array registry =
     MessageEntry{
         "InvalidObject",
         {
-            "Indicates that the object in question is invalid according to the implementation.  Examples include a firmware update malformed URI.",
+            "Indicates that the object in question is invalid according to the implementation.  An example is a firmware update malformed URI.",
             "The object at '%1' is invalid.",
             "Critical",
             1,
@@ -510,7 +524,7 @@ constexpr std::array registry =
     MessageEntry{
         "MaximumErrorsExceeded",
         {
-            "Indicates that sufficient errors have occurred that the reporting service cannot return them all.",
+            "Indicates that so many errors have occurred that the reporting service cannot return them all.",
             "Too many errors have occurred to report them all.",
             "Critical",
             0,
@@ -530,12 +544,12 @@ constexpr std::array registry =
     MessageEntry{
         "NetworkNameResolutionNotConfigured",
         {
-            "Indicates that network-based name resolution has not been configured on the service.",
-            "Network name resolution has not been configured on this service.",
+            "Indicates that network-based name resolution is not configured on the service.",
+            "Network name resolution is not configured on this service.",
             "Warning",
             0,
             {},
-            "Configure the network name resolution protocol support on this service, or update any URI values to include an IP address instead of a network name and resubmit the request.",
+            "Configure the network-based name resolution protocol support on this service, or update any URI values to include an IP address instead of a network name and resubmit the request.",
         }},
     MessageEntry{
         "NetworkNameResolutionNotSupported",
@@ -568,9 +582,21 @@ constexpr std::array registry =
             "Establish a session before attempting any operations.",
         }},
     MessageEntry{
+        "OneTimePasscodeSent",
+        {
+            "Indicates that a required one-time passcode was sent to the user.  The code should be provided as the `Token` property in the request to create a session.",
+            "A one-time passcode was sent to: %1.  Supply the passcode as the Token property in the request to create a session.",
+            "OK",
+            1,
+            {
+                "string",
+            },
+            "Obtain the one-time passcode sent to the delivery address and resubmit the request using the passcode as the Token property.",
+        }},
+    MessageEntry{
         "OperationFailed",
         {
-            "Indicates that one of the internal operations necessary to complete the request failed.  Examples of this are when an internal service provider is unable to complete the request, such as in aggregation or RDE.",
+            "Indicates that one of the internal operations necessary to complete the request failed.  An example of this is when an internal service provider is unable to complete the request, such as in aggregation or RDE.",
             "An error occurred internal to the service as part of the overall request.  Partial results may have been returned.",
             "Warning",
             0,
@@ -590,8 +616,8 @@ constexpr std::array registry =
     MessageEntry{
         "OperationTimeout",
         {
-            "Indicates that one of the internal operations necessary to complete the request timed out.  Examples of this are when an internal service provider is unable to complete the request, such as in aggregation or RDE.",
-            "A timeout internal to the service occured as part of the request.  Partial results may have been returned.",
+            "Indicates that one of the internal operations necessary to complete the request timed out.  An example of this is when an internal service provider is unable to complete the request, such as in aggregation or RDE.",
+            "A timeout internal to the service occurred as part of the request.  Partial results may have been returned.",
             "Warning",
             0,
             {},
@@ -600,7 +626,7 @@ constexpr std::array registry =
     MessageEntry{
         "PasswordChangeRequired",
         {
-            "Indicates that the password for the account provided must be changed before accessing the service.  The password can be changed with a PATCH to the `Password` property in the manager account resource instance.  Implementations that provide a default password for an account may require a password change prior to first access to the service.",
+            "Indicates that the password for the account provided must be changed before accessing the service.  The password can be changed with a `PATCH` to the `Password` property in the manager account resource instance.  Implementations that provide a default password for an account may require a password change prior to first access to the service.",
             "The password provided for this account must be changed before access is granted.  PATCH the Password property for this account located at the target URI '%1' to complete this process.",
             "Critical",
             1,
@@ -632,7 +658,7 @@ constexpr std::array registry =
     MessageEntry{
         "PreconditionRequired",
         {
-            "Indicates that the request did not provide the required precondition such as an `If-Match` or `If-None-Match` header, or `@odata.etag` annotations.",
+            "Indicates that the request did not provide the required precondition such as an `If-Match` or `If-None-Match` header or `@odata.etag` annotations.",
             "A precondition header or annotation is required to change this resource.",
             "Critical",
             0,
@@ -690,8 +716,8 @@ constexpr std::array registry =
     MessageEntry{
         "PropertyNotWritable",
         {
-            "Indicates that a property was given a value in the request body, but the property is a readonly property.",
-            "The property %1 is a read only property and cannot be assigned a value.",
+            "Indicates that a property was given a value in the request body, but the property is a read-only property.",
+            "The property %1 is a read-only property and cannot be assigned a value.",
             "Warning",
             1,
             {
@@ -714,7 +740,7 @@ constexpr std::array registry =
     MessageEntry{
         "PropertyValueConflict",
         {
-            "Indicates that the requested write of a property value could not be completed, because of a conflict with another property value.",
+            "Indicates that the requested write of a property value could not be completed because of a conflict with another property value.",
             "The property '%1' could not be written because its value would conflict with the value of the '%2' property.",
             "Warning",
             2,
@@ -722,7 +748,7 @@ constexpr std::array registry =
                 "string",
                 "string",
             },
-            "No resolution is required.",
+            "None.",
         }},
     MessageEntry{
         "PropertyValueDeprecated",
@@ -752,7 +778,7 @@ constexpr std::array registry =
     MessageEntry{
         "PropertyValueExternalConflict",
         {
-            "Indicates that the requested write of a property value could not be completed, due to the current state or configuration of the resource.  This can include configuration conflicts with other resources or parameters that are not exposed by this interface.",
+            "Indicates that the requested write of a property value could not be completed due to the current state or configuration of the resource.  This can include configuration conflicts with other resources or parameters that are not exposed by this interface.",
             "The property '%1' with the requested value of '%2' could not be written because the value is not available due to a configuration conflict.",
             "Warning",
             2,
@@ -760,13 +786,13 @@ constexpr std::array registry =
                 "string",
                 "string",
             },
-            "No resolution is required.",
+            "None.",
         }},
     MessageEntry{
         "PropertyValueFormatError",
         {
-            "Indicates that a property was given the correct value type but the value of that property was not supported.",
-            "The value '%1' for the property %2 is of a different format than the property can accept.",
+            "Indicates that a property was given the correct value type but the format of the value is not supported.",
+            "The value '%1' for the property %2 is not a format that the property can accept.",
             "Warning",
             2,
             {
@@ -778,7 +804,7 @@ constexpr std::array registry =
     MessageEntry{
         "PropertyValueIncorrect",
         {
-            "Indicates that the requested write of a property value could not be completed, because of an incorrect value of the property.  Examples include values that do not match a regular expression requirement or passwords that do not match the implementation constraints.",
+            "Indicates that the requested write of a property value could not be completed because of an incorrect value of the property.  Examples include values that do not match a regular expression requirement or passwords that do not match the implementation constraints.",
             "The property '%1' with the requested value of '%2' could not be written because the value does not meet the constraints of the implementation.",
             "Warning",
             2,
@@ -786,7 +812,7 @@ constexpr std::array registry =
                 "string",
                 "string",
             },
-            "No resolution is required.",
+            "None.",
         }},
     MessageEntry{
         "PropertyValueModified",
@@ -799,7 +825,7 @@ constexpr std::array registry =
                 "string",
                 "string",
             },
-            "No resolution is required.",
+            "None.",
         }},
     MessageEntry{
         "PropertyValueNotInList",
@@ -830,7 +856,7 @@ constexpr std::array registry =
     MessageEntry{
         "PropertyValueResourceConflict",
         {
-            "Indicates that the requested write of a property value could not be completed, due to the current state or configuration of another resource.",
+            "Indicates that the requested write of a property value could not be completed due to the current state or configuration of another resource.",
             "The property '%1' with the requested value of '%2' could not be written because the value conflicts with the state or configuration of the resource at '%3'.",
             "Warning",
             3,
@@ -839,13 +865,13 @@ constexpr std::array registry =
                 "string",
                 "string",
             },
-            "No resolution is required.",
+            "None.",
         }},
     MessageEntry{
         "PropertyValueTypeError",
         {
             "Indicates that a property was given the wrong value type, such as when a number is supplied for a property that requires a string.",
-            "The value '%1' for the property %2 is of a different type than the property can accept.",
+            "The value '%1' for the property %2 is not a type that the property can accept.",
             "Warning",
             2,
             {
@@ -857,7 +883,7 @@ constexpr std::array registry =
     MessageEntry{
         "QueryCombinationInvalid",
         {
-            "Indicates the request contains multiple query parameters, and that two or more of them cannot be used together.",
+            "Indicates the request contains multiple query parameters and that two or more of them cannot be used together.",
             "Two or more query parameters in the request cannot be used together.",
             "Warning",
             0,
@@ -877,7 +903,7 @@ constexpr std::array registry =
     MessageEntry{
         "QueryNotSupportedOnOperation",
         {
-            "Indicates that query is not supported with the given operation, such as when the `$expand` query is attempted with a PATCH operation.",
+            "Indicates that query is not supported with the given operation, such as when the `$expand` query is attempted with a `PATCH` operation.",
             "Querying is not supported with the requested operation.",
             "Warning",
             0,
@@ -897,7 +923,7 @@ constexpr std::array registry =
     MessageEntry{
         "QueryParameterOutOfRange",
         {
-            "Indicates that a query parameter was provided that is out of range for the given resource.  This can happen with values that are too low or beyond that possible for the supplied resource, such as when a page is requested that is beyond the last page.",
+            "Indicates that a query parameter was provided that is out of range for the given resource.  This can happen with values that are too low or that exceed what is possible for the supplied resource, such as when a page is requested that is beyond the last page.",
             "The value '%1' for the query parameter %2 is out of range %3.",
             "Warning",
             3,
@@ -906,7 +932,7 @@ constexpr std::array registry =
                 "string",
                 "string",
             },
-            "Reduce the value for the query parameter to a value that is within range, such as a start or count value that is within bounds of the number of resources in a collection or a page that is within the range of valid pages.",
+            "Reduce the value for the query parameter to a value that is within range, such as a start or count value that is within bounds of the number of resources in a collection or a page number that is within the range of valid pages.",
         }},
     MessageEntry{
         "QueryParameterUnsupported",
@@ -935,8 +961,8 @@ constexpr std::array registry =
     MessageEntry{
         "QueryParameterValueFormatError",
         {
-            "Indicates that a query parameter was given the correct value type but the value of that parameter was not supported.  This includes the value size or length has been exceeded.",
-            "The value '%1' for the parameter %2 is of a different format than the parameter can accept.",
+            "Indicates that a query parameter was given the correct value type but the format of the value is not supported.",
+            "The value '%1' for the parameter %2 is not a format that the parameter can accept.",
             "Warning",
             2,
             {
@@ -949,7 +975,7 @@ constexpr std::array registry =
         "QueryParameterValueTypeError",
         {
             "Indicates that a query parameter was given the wrong value type, such as when a number is supplied for a query parameter that requires a string.",
-            "The value '%1' for the query parameter %2 is of a different type than the parameter can accept.",
+            "The value '%1' for the query parameter %2 is not a type that the parameter can accept.",
             "Warning",
             2,
             {
@@ -961,7 +987,7 @@ constexpr std::array registry =
     MessageEntry{
         "ResetRecommended",
         {
-            "Indicates that a component reset is recommended for error recovery while unaffected applications can continue running without any effects on accuracy and performance.",
+            "Indicates that a component reset is recommended for error recovery while unaffected applications can continue running without any effect on accuracy and performance.",
             "In order to recover from errors, a component reset is recommended with the Reset action URI '%1' and ResetType '%2'.",
             "Warning",
             2,
@@ -996,7 +1022,7 @@ constexpr std::array registry =
                 "string",
                 "string",
             },
-            "Do not repeat the create operation as the resource has already been created.",
+            "Do not repeat the create operation as the resource was already created.",
         }},
     MessageEntry{
         "ResourceAtUriInUnknownFormat",
@@ -1043,7 +1069,7 @@ constexpr std::array registry =
             {
                 "string",
             },
-            "No resolution is required.",
+            "None.",
         }},
     MessageEntry{
         "ResourceDeprecated",
@@ -1060,7 +1086,7 @@ constexpr std::array registry =
     MessageEntry{
         "ResourceExhaustion",
         {
-            "Indicates that a resource could not satisfy the request due to some unavailability of resources.  An example is that available capacity has been allocated.",
+            "Indicates that a resource could not satisfy the request due to some unavailability of resources.  An example is that available capacity was allocated.",
             "The resource '%1' was unable to satisfy the request due to unavailability of resources.",
             "Critical",
             1,
@@ -1092,7 +1118,7 @@ constexpr std::array registry =
     MessageEntry{
         "ResourceMissingAtURI",
         {
-            "Indicates that the operation expected an image or other resource at the provided URI but none was found.  Examples of this are in requests that require URIs like firmware update.",
+            "Indicates that the operation expected an image or other resource at the provided URI but none was found.  Examples of this are in requests that require URIs such as firmware updates.",
             "The resource at the URI '%1' was not found.",
             "Critical",
             1,
@@ -1117,7 +1143,7 @@ constexpr std::array registry =
     MessageEntry{
         "ResourceTypeIncompatible",
         {
-            "Indicates that the resource type of the operation does not match that for the operation destination.  Examples of when this can happen include during a POST to a resource collection using the wrong resource type, an update where the `@odata.type` properties do not match, or on a major version incompatibility.",
+            "Indicates that the resource type of the operation does not match that of the operation destination.  Examples of this are a `POST` to a resource collection using the wrong resource type, an update where the `@odata.type` properties do not match, or a case of major version incompatibility.",
             "The @odata.type of the request body %1 is incompatible with the @odata.type of the resource, which is %2.",
             "Critical",
             2,
@@ -1176,7 +1202,7 @@ constexpr std::array registry =
     MessageEntry{
         "ServiceShuttingDown",
         {
-            "Indicates that the operation failed as the service is shutting down, such as when the service reboots.",
+            "Indicates that the operation failed because the service is shutting down, such as when the service reboots.",
             "The operation failed because the service is shutting down and can no longer take incoming requests.",
             "Critical",
             0,
@@ -1198,7 +1224,7 @@ constexpr std::array registry =
     MessageEntry{
         "SessionLimitExceeded",
         {
-            "Indicates that a session establishment has been requested but the operation failed due to the number of simultaneous sessions exceeding the limit of the implementation.",
+            "Indicates that a session establishment was requested but the operation failed due to the number of simultaneous sessions exceeding the limit of the implementation.",
             "The session establishment failed due to the number of simultaneous sessions exceeding the limit of the implementation.",
             "Critical",
             0,
@@ -1208,17 +1234,17 @@ constexpr std::array registry =
     MessageEntry{
         "SessionTerminated",
         {
-            "Indicates that the DELETE operation on the session resource resulted in the successful termination of the session.",
+            "Indicates that the `DELETE` operation on the session resource resulted in the successful termination of the session.",
             "The session was successfully terminated.",
             "OK",
             0,
             {},
-            "No resolution is required.",
+            "None.",
         }},
     MessageEntry{
         "SourceDoesNotSupportProtocol",
         {
-            "Indicates that while attempting to access, connect to or transfer a resource, file, or image from another location that the other end of the connection did not support the protocol.",
+            "Indicates that while attempting to access, connect to, or transfer a resource, file, or image from another location that the other end of the connection did not support the protocol.",
             "The other end of the connection at '%1' does not support the specified protocol %2.",
             "Critical",
             2,
@@ -1232,7 +1258,7 @@ constexpr std::array registry =
         "StrictAccountTypes",
         {
             "Indicates the request failed because a set of `AccountTypes` or `OEMAccountTypes` was not accepted while `StrictAccountTypes` is set to `true`.",
-            "The request was not possible to fulfill with the account types included in property '%1' and property StrictAccountTypes set to true.",
+            "The request could not be fulfilled with the account types included in property '%1' because the property StrictAccountTypes is set to true.",
             "Warning",
             1,
             {
@@ -1243,7 +1269,7 @@ constexpr std::array registry =
     MessageEntry{
         "StringValueTooLong",
         {
-            "Indicates that a string value passed to the given resource exceeded its length limit.  An example is when a shorter limit is imposed by an implementation than that allowed by the specification.",
+            "Indicates that a string value passed to the given resource was longer than the maximum allowed length.  An example is when an implementation has imposed a shorter maximum length than that allowed by the specification.",
             "The string '%1' exceeds the length limit %2.",
             "Warning",
             2,
@@ -1256,7 +1282,7 @@ constexpr std::array registry =
     MessageEntry{
         "StringValueTooShort",
         {
-            "Indicates that a string value passed to the given resource was under its minimum required length.  An example is when a higher minimum length is imposed by an implementation than that allowed by the specification.",
+            "Indicates that a string value passed to the given resource was shorter than the minimum required length.  An example is when an implementation has imposed a greater minimum length than that required by the specification.",
             "The string '%1' was under the minimum required length %2.",
             "Warning",
             2,
@@ -1269,28 +1295,28 @@ constexpr std::array registry =
     MessageEntry{
         "SubscriptionTerminated",
         {
-            "An event subscription has been terminated by the service.  No further events will be delivered.",
-            "The event subscription has been terminated.",
+            "An event subscription was terminated by the service.  No further events will be delivered.",
+            "The event subscription was terminated.",
             "OK",
             0,
             {},
-            "No resolution is required.",
+            "None.",
         }},
     MessageEntry{
         "Success",
         {
-            "Indicates that all conditions of a successful operation have been met.",
+            "Indicates that all conditions of a successful operation were met.",
             "The request completed successfully.",
             "OK",
             0,
             {},
-            "None",
+            "None.",
         }},
     MessageEntry{
         "UndeterminedFault",
         {
             "Indicates that a fault or error condition exists but the source of the fault cannot be determined or is unknown to the service.",
-            "A undetermined fault condition has been reported by '%1'.",
+            "An undetermined fault condition was reported by '%1'.",
             "Critical",
             1,
             {
@@ -1328,100 +1354,102 @@ enum class Index
     actionParameterValueError = 12,
     actionParameterValueFormatError = 13,
     actionParameterValueNotInList = 14,
-    actionParameterValueTypeError = 15,
-    arraySizeTooLong = 16,
-    arraySizeTooShort = 17,
-    authenticationTokenRequired = 18,
-    chassisPowerStateOffRequired = 19,
-    chassisPowerStateOnRequired = 20,
-    conditionInRelatedResource = 21,
-    couldNotEstablishConnection = 22,
-    createFailedMissingReqProperties = 23,
-    createLimitReachedForResource = 24,
-    created = 25,
-    emptyJSON = 26,
-    eventBufferExceeded = 27,
-    eventSubscriptionLimitExceeded = 28,
-    generalError = 29,
-    headerInvalid = 30,
-    headerMissing = 31,
-    insufficientPrivilege = 32,
-    insufficientStorage = 33,
-    internalError = 34,
-    invalidIndex = 35,
-    invalidJSON = 36,
-    invalidObject = 37,
-    invalidURI = 38,
-    licenseRequired = 39,
-    malformedJSON = 40,
-    maximumErrorsExceeded = 41,
-    missingOrMalformedPart = 42,
-    networkNameResolutionNotConfigured = 43,
-    networkNameResolutionNotSupported = 44,
-    noOperation = 45,
-    noValidSession = 46,
-    operationFailed = 47,
-    operationNotAllowed = 48,
-    operationTimeout = 49,
-    passwordChangeRequired = 50,
-    payloadTooLarge = 51,
-    preconditionFailed = 52,
-    preconditionRequired = 53,
-    propertyDeprecated = 54,
-    propertyDuplicate = 55,
-    propertyMissing = 56,
-    propertyNotUpdated = 57,
-    propertyNotWritable = 58,
-    propertyUnknown = 59,
-    propertyValueConflict = 60,
-    propertyValueDeprecated = 61,
-    propertyValueError = 62,
-    propertyValueExternalConflict = 63,
-    propertyValueFormatError = 64,
-    propertyValueIncorrect = 65,
-    propertyValueModified = 66,
-    propertyValueNotInList = 67,
-    propertyValueOutOfRange = 68,
-    propertyValueResourceConflict = 69,
-    propertyValueTypeError = 70,
-    queryCombinationInvalid = 71,
-    queryNotSupported = 72,
-    queryNotSupportedOnOperation = 73,
-    queryNotSupportedOnResource = 74,
-    queryParameterOutOfRange = 75,
-    queryParameterUnsupported = 76,
-    queryParameterValueError = 77,
-    queryParameterValueFormatError = 78,
-    queryParameterValueTypeError = 79,
-    resetRecommended = 80,
-    resetRequired = 81,
-    resourceAlreadyExists = 82,
-    resourceAtUriInUnknownFormat = 83,
-    resourceAtUriUnauthorized = 84,
-    resourceCannotBeDeleted = 85,
-    resourceCreationConflict = 86,
-    resourceDeprecated = 87,
-    resourceExhaustion = 88,
-    resourceInStandby = 89,
-    resourceInUse = 90,
-    resourceMissingAtURI = 91,
-    resourceNotFound = 92,
-    resourceTypeIncompatible = 93,
-    restrictedPrivilege = 94,
-    restrictedRole = 95,
-    serviceDisabled = 96,
-    serviceInUnknownState = 97,
-    serviceShuttingDown = 98,
-    serviceTemporarilyUnavailable = 99,
-    sessionLimitExceeded = 100,
-    sessionTerminated = 101,
-    sourceDoesNotSupportProtocol = 102,
-    strictAccountTypes = 103,
-    stringValueTooLong = 104,
-    stringValueTooShort = 105,
-    subscriptionTerminated = 106,
-    success = 107,
-    undeterminedFault = 108,
-    unrecognizedRequestBody = 109,
+    actionParameterValueOutOfRange = 15,
+    actionParameterValueTypeError = 16,
+    arraySizeTooLong = 17,
+    arraySizeTooShort = 18,
+    authenticationTokenRequired = 19,
+    chassisPowerStateOffRequired = 20,
+    chassisPowerStateOnRequired = 21,
+    conditionInRelatedResource = 22,
+    couldNotEstablishConnection = 23,
+    createFailedMissingReqProperties = 24,
+    createLimitReachedForResource = 25,
+    created = 26,
+    emptyJSON = 27,
+    eventBufferExceeded = 28,
+    eventSubscriptionLimitExceeded = 29,
+    generalError = 30,
+    headerInvalid = 31,
+    headerMissing = 32,
+    insufficientPrivilege = 33,
+    insufficientStorage = 34,
+    internalError = 35,
+    invalidIndex = 36,
+    invalidJSON = 37,
+    invalidObject = 38,
+    invalidURI = 39,
+    licenseRequired = 40,
+    malformedJSON = 41,
+    maximumErrorsExceeded = 42,
+    missingOrMalformedPart = 43,
+    networkNameResolutionNotConfigured = 44,
+    networkNameResolutionNotSupported = 45,
+    noOperation = 46,
+    noValidSession = 47,
+    oneTimePasscodeSent = 48,
+    operationFailed = 49,
+    operationNotAllowed = 50,
+    operationTimeout = 51,
+    passwordChangeRequired = 52,
+    payloadTooLarge = 53,
+    preconditionFailed = 54,
+    preconditionRequired = 55,
+    propertyDeprecated = 56,
+    propertyDuplicate = 57,
+    propertyMissing = 58,
+    propertyNotUpdated = 59,
+    propertyNotWritable = 60,
+    propertyUnknown = 61,
+    propertyValueConflict = 62,
+    propertyValueDeprecated = 63,
+    propertyValueError = 64,
+    propertyValueExternalConflict = 65,
+    propertyValueFormatError = 66,
+    propertyValueIncorrect = 67,
+    propertyValueModified = 68,
+    propertyValueNotInList = 69,
+    propertyValueOutOfRange = 70,
+    propertyValueResourceConflict = 71,
+    propertyValueTypeError = 72,
+    queryCombinationInvalid = 73,
+    queryNotSupported = 74,
+    queryNotSupportedOnOperation = 75,
+    queryNotSupportedOnResource = 76,
+    queryParameterOutOfRange = 77,
+    queryParameterUnsupported = 78,
+    queryParameterValueError = 79,
+    queryParameterValueFormatError = 80,
+    queryParameterValueTypeError = 81,
+    resetRecommended = 82,
+    resetRequired = 83,
+    resourceAlreadyExists = 84,
+    resourceAtUriInUnknownFormat = 85,
+    resourceAtUriUnauthorized = 86,
+    resourceCannotBeDeleted = 87,
+    resourceCreationConflict = 88,
+    resourceDeprecated = 89,
+    resourceExhaustion = 90,
+    resourceInStandby = 91,
+    resourceInUse = 92,
+    resourceMissingAtURI = 93,
+    resourceNotFound = 94,
+    resourceTypeIncompatible = 95,
+    restrictedPrivilege = 96,
+    restrictedRole = 97,
+    serviceDisabled = 98,
+    serviceInUnknownState = 99,
+    serviceShuttingDown = 100,
+    serviceTemporarilyUnavailable = 101,
+    sessionLimitExceeded = 102,
+    sessionTerminated = 103,
+    sourceDoesNotSupportProtocol = 104,
+    strictAccountTypes = 105,
+    stringValueTooLong = 106,
+    stringValueTooShort = 107,
+    subscriptionTerminated = 108,
+    success = 109,
+    undeterminedFault = 110,
+    unrecognizedRequestBody = 111,
 };
 } // namespace redfish::registries::base
