@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ThermalSubsystem v1.3.1                                             -->
+<!--# Redfish Schema:  ThermalSubsystem v1.3.2                                             -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -51,9 +51,10 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ThermalSubsystem">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="ThermalSubsystem" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="This ThermalSubsystem schema contains the definition for the thermal subsystem of a chassis."/>
+        <Annotation Term="OData.Description" String="The `ThermalSubsystem` schema contains the definition for the thermal subsystem of a chassis."/>
         <Annotation Term="OData.LongDescription" String="This resource shall represent a thermal subsystem for a Redfish implementation."/>
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="Capabilities.InsertRestrictions">
@@ -91,7 +92,7 @@
         <NavigationProperty Name="Fans" Type="FanCollection.FanCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of fans within this subsystem."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type FanCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `FanCollection`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="FanRedundancy" Type="Collection(Redundancy.RedundantGroup)" Nullable="false">
@@ -101,12 +102,12 @@
         <NavigationProperty Name="ThermalMetrics" Type="ThermalMetrics.ThermalMetrics" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the summary of thermal metrics for this subsystem."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type ThermalMetrics."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `ThermalMetrics`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="Actions" Type="ThermalSubsystem.v1_0_0.Actions" Nullable="false">
           <Annotation Term="OData.Description" String="The available actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
         </Property>
       </EntityType>
 
@@ -133,6 +134,12 @@
       <EntityType Name="ThermalSubsystem" BaseType="ThermalSubsystem.v1_0_0.ThermalSubsystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ThermalSubsystem.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="ThermalSubsystem" BaseType="ThermalSubsystem.v1_0_1.ThermalSubsystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ThermalSubsystem.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.3"/>
@@ -141,7 +148,7 @@
         <NavigationProperty Name="Heaters" Type="HeaterCollection.HeaterCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of heaters within this subsystem."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type HeaterCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `HeaterCollection`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -153,6 +160,12 @@
       <EntityType Name="ThermalSubsystem" BaseType="ThermalSubsystem.v1_1_0.ThermalSubsystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ThermalSubsystem.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="ThermalSubsystem" BaseType="ThermalSubsystem.v1_1_1.ThermalSubsystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ThermalSubsystem.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.1"/>
@@ -161,7 +174,7 @@
         <NavigationProperty Name="CoolantConnectors" Type="CoolantConnectorCollection.CoolantConnectorCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A link to the coolant connectors for this equipment."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CoolantConnectorCollection that contains the coolant connectors for this equipment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `CoolantConnectorCollection` that contains the coolant connectors for this equipment."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -173,6 +186,12 @@
       <EntityType Name="ThermalSubsystem" BaseType="ThermalSubsystem.v1_2_0.ThermalSubsystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ThermalSubsystem.v1_2_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="ThermalSubsystem" BaseType="ThermalSubsystem.v1_2_1.ThermalSubsystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ThermalSubsystem.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.2"/>
@@ -180,18 +199,18 @@
       <EntityType Name="ThermalSubsystem" BaseType="ThermalSubsystem.v1_2_0.ThermalSubsystem">
         <Property Name="CoolantConnectorRedundancy" Type="Collection(Redundancy.RedundantGroup)" Nullable="false">
           <Annotation Term="OData.Description" String="The redundancy information for the coolant connectors in this subsystem."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain redundancy information for the set of coolant connectors attached to this equipment.  The values of the RedundancyGroup array shall reference resources of type CoolantConnector."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain redundancy information for the set of coolant connectors attached to this equipment.  The values of the `RedundancyGroup` array shall reference resources of type `CoolantConnector`."/>
         </Property>
         <NavigationProperty Name="Pumps" Type="PumpCollection.PumpCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A link to the pumps for this equipment."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type PumpCollection that contains details for the pumps included in this equipment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `PumpCollection` that contains details for the pumps included in this equipment."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="LeakDetection" Type="LeakDetection.LeakDetection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the leak detection system within this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type LeakDetection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `LeakDetection`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -201,6 +220,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="ThermalSubsystem" BaseType="ThermalSubsystem.v1_3_0.ThermalSubsystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ThermalSubsystem.v1_3_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="ThermalSubsystem" BaseType="ThermalSubsystem.v1_3_1.ThermalSubsystem"/>
     </Schema>
 
   </edmx:DataServices>

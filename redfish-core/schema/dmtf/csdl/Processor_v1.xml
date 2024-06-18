@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Processor v1.19.0                                                   -->
+<!--# Redfish Schema:  Processor v1.20.0                                                   -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -70,6 +70,9 @@
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Memory_v1.xml">
     <edmx:Include Namespace="Memory"/>
   </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/MemoryCollection_v1.xml">
+    <edmx:Include Namespace="MemoryCollection"/>
+  </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/CertificateCollection_v1.xml">
     <edmx:Include Namespace="CertificateCollection"/>
   </edmx:Reference>
@@ -96,10 +99,11 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="Processor" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The Processor schema describes the information about a single processor that a system contains.  A processor includes both performance characteristics, clock speed, architecture, core count, and so on, and compatibility, such as the CPU ID instruction results.  It also describes the location, such as a slot, socket, or bay, where a unit can be installed, by populating a resource instance with an absent state if a unit is not present."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall represent a single processor that a system contains.  A processor includes both performance characteristics, clock speed, architecture, core count, and so on, and compatibility, such as the CPU ID instruction results.  It may also represent a location, such as a slot, socket, or bay, where a unit may be installed, but the State property within the Status property contains `Absent`."/>
+        <Annotation Term="OData.Description" String="The `Processor` schema describes the information about a single processor that a system contains.  A processor includes both performance characteristics, clock speed, architecture, core count, and so on, and compatibility, such as the CPU ID instruction results.  It also describes the location, such as a slot, socket, or bay, where a unit can be installed, by populating a resource instance with an absent state if a unit is not present."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent a single processor that a system contains.  A processor includes both performance characteristics, clock speed, architecture, core count, and so on, and compatibility, such as the CPU ID instruction results.  It may also represent a location, such as a slot, socket, or bay, where a unit may be installed, but the `State` property within the `Status` property contains `Absent`."/>
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -245,7 +249,7 @@
         <Property Name="VendorId" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The vendor identification for this processor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the vendor identification information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the ProcessorArchitecture property, the service shall encode the value as a hex-encoded string following the regular expression pattern `^0x[0-9A-Fa-f]+$` or a decimal-encoded string following the regular expression pattern `^\d+$`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the vendor identification information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the `ProcessorArchitecture` property, the service shall encode the value as a hex-encoded string following the regular expression pattern `^0x[0-9A-Fa-f]+$` or a decimal-encoded string following the regular expression pattern `^\d+$`."/>
         </Property>
         <Property Name="IdentificationRegisters" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -256,22 +260,22 @@
         <Property Name="EffectiveFamily" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The effective family for this processor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the effective family information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the ProcessorArchitecture property, the service shall encode the value as a hex-encoded string following the regular expression pattern `^0x[0-9A-Fa-f]+$` or a decimal-encoded string following the regular expression pattern `^\d+$`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the effective family information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the `ProcessorArchitecture` property, the service shall encode the value as a hex-encoded string following the regular expression pattern `^0x[0-9A-Fa-f]+$` or a decimal-encoded string following the regular expression pattern `^\d+$`."/>
         </Property>
         <Property Name="EffectiveModel" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The effective model for this processor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the effective model information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the ProcessorArchitecture property, the service shall encode the value as a hex-encoded string following the regular expression pattern `^0x[0-9A-Fa-f]+$` or a decimal-encoded string following the regular expression pattern `^\d+$`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the effective model information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the `ProcessorArchitecture` property, the service shall encode the value as a hex-encoded string following the regular expression pattern `^0x[0-9A-Fa-f]+$` or a decimal-encoded string following the regular expression pattern `^\d+$`."/>
         </Property>
         <Property Name="Step" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The step value for this processor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the step or revision information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the ProcessorArchitecture property, the service shall encode the value as a hex-encoded string following the regular expression pattern `^0x[0-9A-Fa-f]+$` or a decimal-encoded string following the regular expression pattern `^\d+$`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the step or revision information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the `ProcessorArchitecture` property, the service shall encode the value as a hex-encoded string following the regular expression pattern `^0x[0-9A-Fa-f]+$` or a decimal-encoded string following the regular expression pattern `^\d+$`."/>
         </Property>
         <Property Name="MicrocodeInfo" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The microcode information for this processor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the microcode information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the ProcessorArchitecture property, the service shall encode the value as a hex-encoded string following the regular expression pattern `^0x[0-9A-Fa-f]+$` or a decimal-encoded string following the regular expression pattern `^\d+$`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the microcode information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the `ProcessorArchitecture` property, the service shall encode the value as a hex-encoded string following the regular expression pattern `^0x[0-9A-Fa-f]+$` or a decimal-encoded string following the regular expression pattern `^\d+$`."/>
         </Property>
       </ComplexType>
 
@@ -477,7 +481,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_0_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add units annotations to the MaxSpeedMHz property.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required and integer properties are marked as integer rather than number."/>
+      <Annotation Term="OData.Description" String="This version was created to add units annotations to the `MaxSpeedMHz` property.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required and integer properties are marked as integer rather than number."/>
       <EntityType Name="Processor" BaseType="Processor.v1_0_4.Processor"/>
     </Schema>
 
@@ -501,7 +505,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_0_9">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the description of IdentificationRegisters."/>
+      <Annotation Term="OData.Description" String="This version was created to update the description of `IdentificationRegisters`."/>
       <EntityType Name="Processor" BaseType="Processor.v1_0_8.Processor"/>
     </Schema>
 
@@ -525,7 +529,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_0_13">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to clarify the encoding of the properties in ProcessorId if a given property represents raw register data."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to clarify the encoding of the properties in `ProcessorId` if a given property represents raw register data."/>
       <EntityType Name="Processor" BaseType="Processor.v1_0_12.Processor"/>
     </Schema>
 
@@ -533,6 +537,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Processor" BaseType="Processor.v1_0_13.Processor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_0_15">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_0_14.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_1_0">
@@ -556,7 +566,7 @@
         <NavigationProperty Name="Chassis" Type="Chassis.Chassis" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the chassis that contains this processor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Chassis that represents the physical container associated with this processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `Chassis` that represents the physical container associated with this processor."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -580,7 +590,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_1_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add units annotations on the MaxSpeedMHz property.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <Annotation Term="OData.Description" String="This version was created to add units annotations on the `MaxSpeedMHz` property.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
       <EntityType Name="Processor" BaseType="Processor.v1_1_0.Processor"/>
     </Schema>
 
@@ -604,7 +614,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_1_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the description of IdentificationRegisters."/>
+      <Annotation Term="OData.Description" String="This version was created to update the description of `IdentificationRegisters`."/>
       <EntityType Name="Processor" BaseType="Processor.v1_1_4.Processor"/>
     </Schema>
 
@@ -628,7 +638,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_1_9">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to clarify the encoding of the properties in ProcessorId if a given property represents raw register data."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to clarify the encoding of the properties in `ProcessorId` if a given property represents raw register data."/>
       <EntityType Name="Processor" BaseType="Processor.v1_1_8.Processor"/>
     </Schema>
 
@@ -636,6 +646,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Processor" BaseType="Processor.v1_1_9.Processor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_1_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_1_10.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_2_0">
@@ -650,7 +666,7 @@
         <NavigationProperty Name="Assembly" Type="Assembly.Assembly" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to an assembly associated with this processor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Assembly."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `Assembly`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -658,7 +674,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_2_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add units annotations on the MaxSpeedMHz property.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <Annotation Term="OData.Description" String="This version was created to add units annotations on the `MaxSpeedMHz` property.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
       <EntityType Name="Processor" BaseType="Processor.v1_2_0.Processor"/>
     </Schema>
 
@@ -682,7 +698,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_2_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the description of IdentificationRegisters."/>
+      <Annotation Term="OData.Description" String="This version was created to update the description of `IdentificationRegisters`."/>
       <EntityType Name="Processor" BaseType="Processor.v1_2_4.Processor"/>
     </Schema>
 
@@ -706,7 +722,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_2_9">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to clarify the encoding of the properties in ProcessorId if a given property represents raw register data."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to clarify the encoding of the properties in `ProcessorId` if a given property represents raw register data."/>
       <EntityType Name="Processor" BaseType="Processor.v1_2_8.Processor"/>
     </Schema>
 
@@ -714,6 +730,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Processor" BaseType="Processor.v1_2_9.Processor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_2_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_2_10.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_3_0">
@@ -724,7 +746,7 @@
         <NavigationProperty Name="SubProcessors" Type="ProcessorCollection.ProcessorCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of sub-processors associated with this processor, such as cores or threads, that are part of a processor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type ProcessorCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `ProcessorCollection`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -732,7 +754,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_3_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add units annotations on the MaxSpeedMHz property.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <Annotation Term="OData.Description" String="This version was created to add units annotations on the `MaxSpeedMHz` property.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
       <EntityType Name="Processor" BaseType="Processor.v1_3_0.Processor"/>
     </Schema>
 
@@ -756,7 +778,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_3_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the description of IdentificationRegisters."/>
+      <Annotation Term="OData.Description" String="This version was created to update the description of `IdentificationRegisters`."/>
       <EntityType Name="Processor" BaseType="Processor.v1_3_4.Processor"/>
     </Schema>
 
@@ -780,13 +802,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_3_9">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the description for SubProcessors."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for `SubProcessors`."/>
       <EntityType Name="Processor" BaseType="Processor.v1_3_8.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_3_10">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to clarify the encoding of the properties in ProcessorId if a given property represents raw register data."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to clarify the encoding of the properties in `ProcessorId` if a given property represents raw register data."/>
       <EntityType Name="Processor" BaseType="Processor.v1_3_9.Processor"/>
     </Schema>
 
@@ -796,10 +818,16 @@
       <EntityType Name="Processor" BaseType="Processor.v1_3_10.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_3_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_3_11.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.3"/>
-      <Annotation Term="OData.Description" String="This version was created to add TDPWatts and MaxTDPWatts.  It was also created to add Power architecture to ProcessorArchitecture and PowerISA to InstructionSet."/>
+      <Annotation Term="OData.Description" String="This version was created to add `Power` architecture to `ProcessorArchitecture` and `PowerISA` to `InstructionSet`."/>
 
       <EntityType Name="Processor" BaseType="Processor.v1_3_2.Processor">
         <Property Name="TDPWatts" Type="Edm.Int64">
@@ -817,7 +845,7 @@
         <NavigationProperty Name="Metrics" Type="ProcessorMetrics.ProcessorMetrics" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the metrics associated with this processor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type ProcessorMetrics that contains the metrics associated with this processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `ProcessorMetrics` that contains the metrics associated with this processor."/>
           <Annotation Term="Redfish.URISegment" String="ProcessorMetrics"/>
         </NavigationProperty>
         <Property Name="UUID" Type="Resource.UUID">
@@ -831,12 +859,12 @@
         </Property>
         <Property Name="FPGA" Type="Processor.v1_4_0.FPGA" Nullable="false">
           <Annotation Term="OData.Description" String="The properties for processors of the FPGA type."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an object containing properties for processors of type FPGA."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an object containing properties for processors of type `FPGA`."/>
         </Property>
         <NavigationProperty Name="AccelerationFunctions" Type="AccelerationFunctionCollection.AccelerationFunctionCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of acceleration functions associated with this processor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type AccelerationFunctionCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `AccelerationFunctionCollection`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -845,25 +873,25 @@
         <NavigationProperty Name="Endpoints" Type="Collection(Endpoint.Endpoint)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the endpoints that connect to this processor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Endpoint that represent endpoints associated with this processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Endpoint` that represent endpoints associated with this processor."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="ConnectedProcessors" Type="Collection(Processor.Processor)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the processors directly connected to this processor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Processor that are directly connected to this processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Processor` that are directly connected to this processor."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="PCIeDevice" Type="PCIeDevice.PCIeDevice" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the PCIe device associated with this processor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type PCIeDevice that represents the PCIe device associated with this processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `PCIeDevice` that represents the PCIe device associated with this processor."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="PCIeFunctions" Type="Collection(PCIeFunction.PCIeFunction)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the PCIeFunctions associated with this processor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type PCIeFunction that represent the PCIe functions associated with this processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `PCIeFunction` that represent the PCIe functions associated with this processor."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -1034,7 +1062,7 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_9_0"/>
-                <PropertyValue Property="Description" String="This property has been deprecated in favor of the FirmwareVersion property in the root of this resource."/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the `FirmwareVersion` property in the root of this resource."/>
               </Record>
             </Collection>
           </Annotation>
@@ -1047,7 +1075,7 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_8_0"/>
-                <PropertyValue Property="Description" String="This property has been deprecated in favor of the SystemInterface property in the root of this resource."/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the `SystemInterface` property in the root of this resource."/>
               </Record>
             </Collection>
           </Annotation>
@@ -1098,7 +1126,7 @@
         <NavigationProperty Name="AccelerationFunction" Type="AccelerationFunction.AccelerationFunction" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the acceleration function that the code programmed into a reconfiguration slot provides."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type AccelerationFunction that represents the code programmed into this reconfiguration slot."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `AccelerationFunction` that represents the code programmed into this reconfiguration slot."/>
         </NavigationProperty>
       </ComplexType>
 
@@ -1216,7 +1244,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_4_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the description of IdentificationRegisters."/>
+      <Annotation Term="OData.Description" String="This version was created to update the description of `IdentificationRegisters`."/>
       <EntityType Name="Processor" BaseType="Processor.v1_4_2.Processor"/>
     </Schema>
 
@@ -1252,13 +1280,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_4_9">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the description for SubProcessors."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for `SubProcessors`."/>
       <EntityType Name="Processor" BaseType="Processor.v1_4_8.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_4_10">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to clarify the encoding of the properties in ProcessorId if a given property represents raw register data.  It was also created to better describe the full scope of the ProcessorMemory property.  It was also created to add the URI segment annotation to Metrics."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to clarify the encoding of the properties in `ProcessorId` if a given property represents raw register data.  It was also created to better describe the full scope of the `ProcessorMemory` property.  It was also created to add the URI segment annotation to `Metrics`."/>
       <EntityType Name="Processor" BaseType="Processor.v1_4_9.Processor"/>
     </Schema>
 
@@ -1266,6 +1294,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Processor" BaseType="Processor.v1_4_10.Processor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_4_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_4_11.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_5_0">
@@ -1290,7 +1324,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_5_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the description of IdentificationRegisters."/>
+      <Annotation Term="OData.Description" String="This version was created to update the description of `IdentificationRegisters`."/>
       <EntityType Name="Processor" BaseType="Processor.v1_5_1.Processor"/>
     </Schema>
 
@@ -1326,13 +1360,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_5_8">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the description for SubProcessors."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for `SubProcessors`."/>
       <EntityType Name="Processor" BaseType="Processor.v1_5_7.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_5_9">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to clarify the encoding of the properties in ProcessorId if a given property represents raw register data.  It was also created to better describe the full scope of the ProcessorMemory property.  It was also created to add the URI segment annotation to Metrics."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to clarify the encoding of the properties in `ProcessorId` if a given property represents raw register data.  It was also created to better describe the full scope of the `ProcessorMemory` property.  It was also created to add the URI segment annotation to `Metrics`."/>
       <EntityType Name="Processor" BaseType="Processor.v1_5_8.Processor"/>
     </Schema>
 
@@ -1340,6 +1374,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Processor" BaseType="Processor.v1_5_9.Processor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_5_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_5_10.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_6_0">
@@ -1382,13 +1422,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_6_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the description for SubProcessors."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for `SubProcessors`."/>
       <EntityType Name="Processor" BaseType="Processor.v1_6_5.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_6_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to clarify the encoding of the properties in ProcessorId if a given property represents raw register data.  It was also created to better describe the full scope of the ProcessorMemory property.  It was also created to add the URI segment annotation to Metrics."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to clarify the encoding of the properties in `ProcessorId` if a given property represents raw register data.  It was also created to better describe the full scope of the `ProcessorMemory` property.  It was also created to add the URI segment annotation to `Metrics`."/>
       <EntityType Name="Processor" BaseType="Processor.v1_6_6.Processor"/>
     </Schema>
 
@@ -1398,10 +1438,15 @@
       <EntityType Name="Processor" BaseType="Processor.v1_6_7.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_6_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_6_8.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.4"/>
-      <Annotation Term="OData.Description" String="This version was created to add SerialNumber, PartNumber, FirmwareVersion, and Version properties.  It also corrected several typographical errors in descriptions."/>
 
       <EntityType Name="Processor" BaseType="Processor.v1_6_0.Processor">
         <Property Name="SerialNumber" Type="Edm.String">
@@ -1453,13 +1498,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_7_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the description for SubProcessors."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for `SubProcessors`."/>
       <EntityType Name="Processor" BaseType="Processor.v1_7_4.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_7_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to clarify the encoding of the properties in ProcessorId if a given property represents raw register data.  It was also created to better describe the full scope of the ProcessorMemory property.  It was also created to add the URI segment annotation to Metrics."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to clarify the encoding of the properties in `ProcessorId` if a given property represents raw register data.  It was also created to better describe the full scope of the `ProcessorMemory` property.  It was also created to add the URI segment annotation to `Metrics`."/>
       <EntityType Name="Processor" BaseType="Processor.v1_7_5.Processor"/>
     </Schema>
 
@@ -1469,10 +1514,16 @@
       <EntityType Name="Processor" BaseType="Processor.v1_7_6.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_7_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_7_7.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
-      <Annotation Term="OData.Description" String="This version was created to deprecate HostInterface within FPGA in favor of SystemInterface at the root of the resource.  It was also created to add OperatingSpeedMHz and MinSpeedMHz."/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate `HostInterface` within `FPGA` in favor of `SystemInterface` at the root of the resource."/>
 
       <EntityType Name="Processor" BaseType="Processor.v1_7_1.Processor">
         <Property Name="SystemInterface" Type="Processor.v1_4_0.ProcessorInterface" Nullable="false">
@@ -1514,13 +1565,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_8_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the description for SubProcessors."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for `SubProcessors`."/>
       <EntityType Name="Processor" BaseType="Processor.v1_8_3.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_8_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to clarify the encoding of the properties in ProcessorId if a given property represents raw register data.  It was also created to better describe the full scope of the ProcessorMemory property.  It was also created to add the URI segment annotation to Metrics."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to clarify the encoding of the properties in `ProcessorId` if a given property represents raw register data.  It was also created to better describe the full scope of the `ProcessorMemory` property.  It was also created to add the URI segment annotation to `Metrics`."/>
       <EntityType Name="Processor" BaseType="Processor.v1_8_4.Processor"/>
     </Schema>
 
@@ -1530,10 +1581,16 @@
       <EntityType Name="Processor" BaseType="Processor.v1_8_5.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_8_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_8_6.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_9_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.2"/>
-      <Annotation Term="OData.Description" String="This version was created to deprecate FirmwareVersion within FPGA in favor of FirmwareVersion at the root of the resource.  It also added properties to support operating configurations."/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate `FirmwareVersion` within `FPGA` in favor of `FirmwareVersion` at the root of the resource."/>
 
       <EntityType Name="Processor" BaseType="Processor.v1_8_1.Processor">
         <Property Name="TurboState" Type="Processor.v1_9_0.TurboState">
@@ -1554,13 +1611,13 @@
         <NavigationProperty Name="OperatingConfigs" Type="OperatingConfigCollection.OperatingConfigCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of operating configurations that can be applied to this processor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type OperatingConfigCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `OperatingConfigCollection`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="AppliedOperatingConfig" Type="OperatingConfig.OperatingConfig" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The link to the operating configuration that is applied to this processor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type OperatingConfig that specifies the configuration is applied to this processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `OperatingConfig` that specifies the configuration is applied to this processor."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -1598,13 +1655,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_9_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the description for SubProcessors."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for `SubProcessors`."/>
       <EntityType Name="Processor" BaseType="Processor.v1_9_2.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_9_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to clarify the encoding of the properties in ProcessorId if a given property represents raw register data.  It was also created to better describe the full scope of the ProcessorMemory property.  It was also created to add the URI segment annotation to Metrics."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to clarify the encoding of the properties in `ProcessorId` if a given property represents raw register data.  It was also created to better describe the full scope of the `ProcessorMemory` property.  It was also created to add the URI segment annotation to `Metrics`."/>
       <EntityType Name="Processor" BaseType="Processor.v1_9_3.Processor"/>
     </Schema>
 
@@ -1612,6 +1669,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Processor" BaseType="Processor.v1_9_4.Processor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_9_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_9_5.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_10_0">
@@ -1622,7 +1685,7 @@
         <Property Name="LocationIndicatorActive" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An indicator allowing an operator to physically locate this resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the state of the indicator used to physically identify or locate this resource.  A write to this property shall update the value of IndicatorLED in this resource, if supported, to reflect the implementation of the locating function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the state of the indicator used to physically identify or locate this resource.  A write to this property shall update the value of `IndicatorLED` in this resource, if supported, to reflect the implementation of the locating function."/>
         </Property>
         <Property Name="BaseSpeedMHz" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -1634,14 +1697,14 @@
         <Property Name="SpeedLimitMHz" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The clock limit of the processor in MHz."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the clock limit of the processor in MHz.  This value shall be within the range of MinSpeedMHz and MaxSpeedMHz as provided by the manufacturer of this processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the clock limit of the processor in MHz.  This value shall be within the range of `MinSpeedMHz` and `MaxSpeedMHz` as provided by the manufacturer of this processor."/>
           <Annotation Term="Validation.Minimum" Int="0"/>
           <Annotation Term="Measures.Unit" String="MHz"/>
         </Property>
         <Property Name="SpeedLocked" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="Indicates whether the clock speed of the processor is fixed at the value specified in the SpeedLimitMHz property."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the clock speed of the processor is fixed, where a value `true` shall indicate that the clock speed is fixed at the value specified in the SpeedLimitMHz property."/>
+          <Annotation Term="OData.Description" String="Indicates whether the clock speed of the processor is fixed at the value specified in the `SpeedLimitMHz` property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the clock speed of the processor is fixed, where a value `true` shall indicate that the clock speed is fixed at the value specified in the `SpeedLimitMHz` property."/>
         </Property>
       </EntityType>
 
@@ -1668,13 +1731,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_10_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the description for SubProcessors."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for `SubProcessors`."/>
       <EntityType Name="Processor" BaseType="Processor.v1_10_2.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_10_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to clarify the encoding of the properties in ProcessorId if a given property represents raw register data.  It was also created to better describe the full scope of the ProcessorMemory property.  It was also created to add the URI segment annotation to Metrics."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to clarify the encoding of the properties in `ProcessorId` if a given property represents raw register data.  It was also created to better describe the full scope of the `ProcessorMemory` property.  It was also created to add the URI segment annotation to `Metrics`."/>
       <EntityType Name="Processor" BaseType="Processor.v1_10_3.Processor"/>
     </Schema>
 
@@ -1684,10 +1747,15 @@
       <EntityType Name="Processor" BaseType="Processor.v1_10_4.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_10_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_10_5.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_11_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
-      <Annotation Term="OData.Description" String="This version was created to add Certificates, Measurements, and processor memory summary and the links to the resource type Memory associated with the processor.  It was also created to add the processor memory summary, the links to the resource type Memory associated with the processor, a link to EnvironmentMetrics, and SparePartNumber."/>
 
       <EntityType Name="Processor" BaseType="Processor.v1_10_1.Processor">
         <Property Name="MemorySummary" Type="Processor.v1_11_0.MemorySummary" Nullable="false">
@@ -1697,7 +1765,7 @@
         <NavigationProperty Name="EnvironmentMetrics" Type="EnvironmentMetrics.EnvironmentMetrics" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the environment metrics for this processor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type EnvironmentMetrics that specifies the environment metrics for this processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `EnvironmentMetrics` that specifies the environment metrics for this processor."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="SparePartNumber" Type="Edm.String">
@@ -1708,7 +1776,7 @@
         <NavigationProperty Name="Certificates" Type="CertificateCollection.CertificateCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to a collection of certificates for device identity and attestation."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CertificateCollection that contains certificates for device identity and attestation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `CertificateCollection` that contains certificates for device identity and attestation."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="Measurements" Type="Collection(SoftwareInventory.MeasurementBlock)" Nullable="false">
@@ -1719,7 +1787,7 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_14_0"/>
-                <PropertyValue Property="Description" String="This property has been deprecated in favor of the ComponentIntegrity resource."/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the `ComponentIntegrity` resource."/>
               </Record>
             </Collection>
           </Annotation>
@@ -1745,7 +1813,7 @@
         <NavigationProperty Name="Metrics" Type="MemoryMetrics.MemoryMetrics" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the memory metrics associated with all memory of this processor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type MemoryMetrics that contains the metrics associated with all memory of this processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `MemoryMetrics` that contains the metrics associated with all memory of this processor."/>
           <Annotation Term="Redfish.URISegment" String="MemorySummary/MemoryMetrics"/>
         </NavigationProperty>
       </ComplexType>
@@ -1754,7 +1822,7 @@
         <NavigationProperty Name="Memory" Type="Collection(Memory.Memory)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the memory associated with this processor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Memory that are associated with this processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Memory` that are associated with this processor."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -1768,19 +1836,19 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_11_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of TotalMemorySizeMiB."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of `TotalMemorySizeMiB`."/>
       <EntityType Name="Processor" BaseType="Processor.v1_11_1.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_11_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the description for SubProcessors."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for `SubProcessors`."/>
       <EntityType Name="Processor" BaseType="Processor.v1_11_2.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_11_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to clarify the encoding of the properties in ProcessorId if a given property represents raw register data.  It was also created to clarify that the TotalMemorySizeMiB property under MemorySummary could potentially include non-volatile memory.  It was also created to better describe the full scope of the ProcessorMemory property.  It was also created to add the URI segment annotation to Metrics."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to clarify the encoding of the properties in `ProcessorId` if a given property represents raw register data.  It was also created to clarify that the `TotalMemorySizeMiB` property under `MemorySummary` could potentially include non-volatile memory.  It was also created to better describe the full scope of the `ProcessorMemory` property.  It was also created to add the URI segment annotation to `Metrics`."/>
       <EntityType Name="Processor" BaseType="Processor.v1_11_3.Processor"/>
     </Schema>
 
@@ -1790,10 +1858,15 @@
       <EntityType Name="Processor" BaseType="Processor.v1_11_4.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_11_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_11_5.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_12_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.1"/>
-      <Annotation Term="OData.Description" String="This version was created to include the Enabled property.  It was also created to add GraphicsController to Links."/>
 
       <EntityType Name="Processor" BaseType="Processor.v1_11_0.Processor">
         <Property Name="Enabled" Type="Edm.Boolean" Nullable="false">
@@ -1807,7 +1880,7 @@
         <NavigationProperty Name="GraphicsController" Type="GraphicsController.GraphicsController">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A link to the graphics controller associated with this processor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type GraphicsController that is associated with this processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `GraphicsController` that is associated with this processor."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -1815,19 +1888,19 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_12_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of TotalMemorySizeMiB."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of `TotalMemorySizeMiB`."/>
       <EntityType Name="Processor" BaseType="Processor.v1_12_0.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_12_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the description for SubProcessors."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for `SubProcessors`."/>
       <EntityType Name="Processor" BaseType="Processor.v1_12_1.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_12_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to clarify the encoding of the properties in ProcessorId if a given property represents raw register data.  It was also created to clarify that the TotalMemorySizeMiB property under MemorySummary could potentially include non-volatile memory.  It was also created to better describe the full scope of the ProcessorMemory property.  It was also created to add the URI segment annotation to Metrics."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to clarify the encoding of the properties in `ProcessorId` if a given property represents raw register data.  It was also created to clarify that the `TotalMemorySizeMiB` property under `MemorySummary` could potentially include non-volatile memory.  It was also created to better describe the full scope of the `ProcessorMemory` property.  It was also created to add the URI segment annotation to `Metrics`."/>
       <EntityType Name="Processor" BaseType="Processor.v1_12_2.Processor"/>
     </Schema>
 
@@ -1835,6 +1908,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Processor" BaseType="Processor.v1_12_3.Processor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_12_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_12_4.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_13_0">
@@ -1846,12 +1925,12 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="Redfish.ExcerptCopy" String="Range"/>
           <Annotation Term="OData.Description" String="Range of allowed operating speeds (MHz)."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the operating speed control, measured in megahertz units, for this resource.  The value of the DataSourceUri property, if present, shall reference a resource of type Control with the ControlType property containing the value of `FrequencyMHz`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the operating speed control, measured in megahertz units, for this resource.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Control` with the `ControlType` property containing the value of `FrequencyMHz`."/>
         </NavigationProperty>
         <NavigationProperty Name="Ports" Type="PortCollection.PortCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of ports for this processor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type PortCollection.  It shall contain the interconnect and fabric ports of this processor.  It shall not contain ports for GraphicsController resources, USBController resources, or other local adapter-related types of resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `PortCollection`.  It shall contain the interconnect and fabric ports of this processor.  It shall not contain ports for `GraphicsController` resources, `USBController` resources, or other local adapter-related types of resources."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -1868,7 +1947,7 @@
         <NavigationProperty Name="NetworkDeviceFunctions" Type="Collection(NetworkDeviceFunction.NetworkDeviceFunction)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The network device functions to which this processor performs offload computation, such as with a SmartNIC."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type NetworkDeviceFunction that represent the network device functions to which this processor performs offload computation, such as with a SmartNIC."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `NetworkDeviceFunction` that represent the network device functions to which this processor performs offload computation, such as with a SmartNIC."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -1876,25 +1955,25 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_13_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update descriptions to tie excerpt property definitions to a specific type of Sensor or Control."/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions to tie excerpt property definitions to a specific type of `Sensor` or `Control` resource."/>
       <EntityType Name="Processor" BaseType="Processor.v1_13_0.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_13_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the description for SubProcessors."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for `SubProcessors`."/>
       <EntityType Name="Processor" BaseType="Processor.v1_13_1.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_13_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to allow the Ports property to contain fabric ports."/>
+      <Annotation Term="OData.Description" String="This version was created to allow the `Ports` property to contain fabric ports."/>
       <EntityType Name="Processor" BaseType="Processor.v1_13_2.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_13_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to clarify the encoding of the properties in ProcessorId if a given property represents raw register data.  It was also created to clarify that the TotalMemorySizeMiB property under MemorySummary could potentially include non-volatile memory.  It was also created to better describe the full scope of the ProcessorMemory property.  It was also created to add the URI segment annotation to Metrics."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to clarify the encoding of the properties in `ProcessorId` if a given property represents raw register data.  It was also created to clarify that the `TotalMemorySizeMiB` property under `MemorySummary` could potentially include non-volatile memory.  It was also created to better describe the full scope of the `ProcessorMemory` property.  It was also created to add the URI segment annotation to `Metrics`."/>
       <EntityType Name="Processor" BaseType="Processor.v1_13_3.Processor"/>
     </Schema>
 
@@ -1904,29 +1983,35 @@
       <EntityType Name="Processor" BaseType="Processor.v1_13_4.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_13_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_13_5.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_14_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
-      <Annotation Term="OData.Description" String="This version was created to deprecate Measurements in favor of measurement reporting in the ComponentIntegrity resource."/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate `Measurements` in favor of measurement reporting in the `ComponentIntegrity` resource."/>
 
       <EntityType Name="Processor" BaseType="Processor.v1_13_1.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_14_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the description for SubProcessors."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for `SubProcessors`."/>
       <EntityType Name="Processor" BaseType="Processor.v1_14_0.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_14_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to allow the Ports property to contain fabric ports."/>
+      <Annotation Term="OData.Description" String="This version was created to allow the `Ports` property to contain fabric ports."/>
       <EntityType Name="Processor" BaseType="Processor.v1_14_1.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_14_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to clarify the encoding of the properties in ProcessorId if a given property represents raw register data.  It was also created to clarify that the TotalMemorySizeMiB property under MemorySummary could potentially include non-volatile memory.  It was also created to better describe the full scope of the ProcessorMemory property.  It was also created to add the URI segment annotation to Metrics."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to clarify the encoding of the properties in `ProcessorId` if a given property represents raw register data.  It was also created to clarify that the `TotalMemorySizeMiB` property under `MemorySummary` could potentially include non-volatile memory.  It was also created to better describe the full scope of the `ProcessorMemory` property.  It was also created to add the URI segment annotation to `Metrics`."/>
       <EntityType Name="Processor" BaseType="Processor.v1_14_2.Processor"/>
     </Schema>
 
@@ -1934,6 +2019,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Processor" BaseType="Processor.v1_14_3.Processor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_14_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_14_4.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_15_0">
@@ -1950,13 +2041,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_15_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to allow the Ports property to contain fabric ports."/>
+      <Annotation Term="OData.Description" String="This version was created to allow the `Ports` property to contain fabric ports."/>
       <EntityType Name="Processor" BaseType="Processor.v1_15_0.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_15_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to clarify the encoding of the properties in ProcessorId if a given property represents raw register data.  It was also created to clarify that the TotalMemorySizeMiB property under MemorySummary could potentially include non-volatile memory.  It was also created to better describe the full scope of the ProcessorMemory property.  It was also created to add the URI segment annotation to Metrics."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to clarify the encoding of the properties in `ProcessorId` if a given property represents raw register data.  It was also created to clarify that the `TotalMemorySizeMiB` property under `MemorySummary` could potentially include non-volatile memory.  It was also created to better describe the full scope of the `ProcessorMemory` property.  It was also created to add the URI segment annotation to `Metrics`."/>
       <EntityType Name="Processor" BaseType="Processor.v1_15_1.Processor"/>
     </Schema>
 
@@ -1964,6 +2055,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Processor" BaseType="Processor.v1_15_2.Processor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_15_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_15_3.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_16_0">
@@ -1985,7 +2082,7 @@
         <Property Name="ThrottleCauses" Type="Collection(Processor.v1_16_0.ThrottleCause)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The causes of the processor being throttled."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the causes of the processor being throttled.  If Throttled contains `false`, this property shall contain an empty array."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the causes of the processor being throttled.  If `Throttled` contains `false`, this property shall contain an empty array."/>
         </Property>
         <Property Name="ProcessorIndex" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -1995,7 +2092,7 @@
         <Property Name="Family" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The processor family."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a string that identifies the processor family, as specified by the combination of the EffectiveFamily and EffectiveModel properties."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a string that identifies the processor family, as specified by the combination of the `EffectiveFamily` and `EffectiveModel` properties."/>
         </Property>
       </EntityType>
 
@@ -2031,13 +2128,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_16_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to allow the Ports property to contain fabric ports."/>
+      <Annotation Term="OData.Description" String="This version was created to allow the `Ports` property to contain fabric ports."/>
       <EntityType Name="Processor" BaseType="Processor.v1_16_0.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_16_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to clarify the encoding of the properties in ProcessorId if a given property represents raw register data.  It was also created to clarify that the TotalMemorySizeMiB property under MemorySummary could potentially include non-volatile memory.  It was also created to better describe the full scope of the ProcessorMemory property.  It was also created to add the URI segment annotation to Metrics."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to clarify the encoding of the properties in `ProcessorId` if a given property represents raw register data.  It was also created to clarify that the `TotalMemorySizeMiB` property under `MemorySummary` could potentially include non-volatile memory.  It was also created to better describe the full scope of the `ProcessorMemory` property.  It was also created to add the URI segment annotation to `Metrics`."/>
       <EntityType Name="Processor" BaseType="Processor.v1_16_1.Processor"/>
     </Schema>
 
@@ -2047,16 +2144,22 @@
       <EntityType Name="Processor" BaseType="Processor.v1_16_2.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_16_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_16_3.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_17_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.3"/>
-      <Annotation Term="OData.Description" String="This version was created to add `HBM2E` to MemoryType.  It was also created to add `Cache` to ProcessorMemoryType."/>
+      <Annotation Term="OData.Description" String="This version was created to add `HBM2E` to `MemoryType`.  It was also created to add `Cache` to `ProcessorMemoryType`."/>
 
       <EntityType Name="Processor" BaseType="Processor.v1_16_1.Processor">
         <Property Name="PowerState" Type="Resource.PowerState">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The current power state of the processor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the power state of the processor.  If the PowerState property in the associated Chassis resource contains the value `Off`, this property shall contain `Off`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the power state of the processor.  If the `PowerState` property in the associated `Chassis` resource contains the value `Off`, this property shall contain `Off`."/>
         </Property>
       </EntityType>
 
@@ -2064,7 +2167,7 @@
         <NavigationProperty Name="FabricAdapters" Type="Collection(FabricAdapter.FabricAdapter)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the fabric adapters that present this processor to a fabric."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type FabricAdapter that represent the fabric adapters that present this processor to a fabric."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `FabricAdapter` that represent the fabric adapters that present this processor to a fabric."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -2072,7 +2175,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_17_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to clarify the encoding of the properties in ProcessorId if a given property represents raw register data.  It was also created to clarify that the TotalMemorySizeMiB property under MemorySummary could potentially include non-volatile memory.  It was also created to better describe the full scope of the ProcessorMemory property.  It was also created to add the URI segment annotation to Metrics."/>
+      <Annotation Term="OData.Description" String="This version was created to update the schema descriptions to mention its applicability to physical locations as an absent resource.  It was also created to clarify the encoding of the properties in `ProcessorId` if a given property represents raw register data.  It was also created to clarify that the `TotalMemorySizeMiB` property under `MemorySummary` could potentially include non-volatile memory.  It was also created to better describe the full scope of the `ProcessorMemory` property.  It was also created to add the URI segment annotation to `Metrics`."/>
       <EntityType Name="Processor" BaseType="Processor.v1_17_0.Processor"/>
     </Schema>
 
@@ -2082,10 +2185,16 @@
       <EntityType Name="Processor" BaseType="Processor.v1_17_1.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_17_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_17_2.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_18_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.1"/>
-      <Annotation Term="OData.Description" String="This version was created to add `ManagementDetectedFault` to ThrottleCauses."/>
+      <Annotation Term="OData.Description" String="This version was created to add `ManagementDetectedFault` to `ThrottleCauses`."/>
 
       <EntityType Name="Processor" BaseType="Processor.v1_17_1.Processor"/>
     </Schema>
@@ -2096,12 +2205,38 @@
       <EntityType Name="Processor" BaseType="Processor.v1_18_0.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_18_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_18_1.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_19_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.3"/>
-      <Annotation Term="OData.Description" String="This version was created to add `RISC-V` to ProcessorArchitecture.  It was also created to add `RV32` and `RV64` to InstructionSet.  It was also created to add `Partition` to ProcessorType."/>
+      <Annotation Term="OData.Description" String="This version was created to add `RISC-V` to `ProcessorArchitecture`.  It was also created to add `RV32` and `RV64` to `InstructionSet`.  It was also created to add `Partition` to `ProcessorType`."/>
 
       <EntityType Name="Processor" BaseType="Processor.v1_18_1.Processor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_19_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_19_0.Processor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_20_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2024.1"/>
+
+      <EntityType Name="Processor" BaseType="Processor.v1_19_1.Processor">
+        <NavigationProperty Name="CacheMemory" Type="MemoryCollection.MemoryCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the collection of cache memory associated with this processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `MemoryCollection` that represents the cache memory of this processor."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  NetworkDeviceFunctionMetrics v1.1.2                                 -->
+<!--# Redfish Schema:  NetworkDeviceFunctionMetrics v1.2.0                                 -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -32,9 +32,10 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunctionMetrics">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="NetworkDeviceFunctionMetrics" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The NetworkDeviceFunctionMetrics schema contains usage and health statistics for a network function of a network adapter."/>
+        <Annotation Term="OData.Description" String="The `NetworkDeviceFunctionMetrics` schema contains usage and health statistics for a network function of a network adapter."/>
         <Annotation Term="OData.LongDescription" String="This resource shall represent the network metrics for a single network function of a network adapter in a Redfish implementation."/>
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="Capabilities.InsertRestrictions">
@@ -58,6 +59,20 @@
           </Collection>
         </Annotation>
       </EntityType>
+
+      <Action Name="ResetMetrics" IsBound="true">
+        <Parameter Name="NetworkDeviceFunctionMetrics" Type="NetworkDeviceFunctionMetrics.v1_0_0.Actions"/>
+        <Annotation Term="OData.Description" String="This action resets the summary metrics related to this device."/>
+        <Annotation Term="OData.LongDescription" String="This action shall reset any time intervals or counted values for this device."/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_2_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunctionMetrics.v1_0_0">
@@ -196,10 +211,15 @@
       <EntityType Name="NetworkDeviceFunctionMetrics" BaseType="NetworkDeviceFunctionMetrics.v1_0_1.NetworkDeviceFunctionMetrics"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunctionMetrics.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="NetworkDeviceFunctionMetrics" BaseType="NetworkDeviceFunctionMetrics.v1_0_2.NetworkDeviceFunctionMetrics"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunctionMetrics.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
-      <Annotation Term="OData.Description" String="This version was created to add FibreChannel function metrics."/>
 
       <EntityType Name="NetworkDeviceFunctionMetrics" BaseType="NetworkDeviceFunctionMetrics.v1_0_0.NetworkDeviceFunctionMetrics">
         <Property Name="FibreChannel" Type="NetworkDeviceFunctionMetrics.v1_1_0.FibreChannel" Nullable="false">
@@ -300,6 +320,20 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="NetworkDeviceFunctionMetrics" BaseType="NetworkDeviceFunctionMetrics.v1_1_1.NetworkDeviceFunctionMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunctionMetrics.v1_1_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="NetworkDeviceFunctionMetrics" BaseType="NetworkDeviceFunctionMetrics.v1_1_2.NetworkDeviceFunctionMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunctionMetrics.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2024.1"/>
+      <Annotation Term="OData.Description" String="This version was created to add the `ResetMetrics` action."/>
+
+      <EntityType Name="NetworkDeviceFunctionMetrics" BaseType="NetworkDeviceFunctionMetrics.v1_1_3.NetworkDeviceFunctionMetrics"/>
     </Schema>
 
   </edmx:DataServices>

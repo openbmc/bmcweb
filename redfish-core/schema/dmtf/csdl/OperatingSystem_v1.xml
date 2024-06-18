@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  OperatingSystem v1.0.1                                              -->
+<!--# Redfish Schema:  OperatingSystem v1.0.2                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -48,9 +48,10 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OperatingSystem">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="OperatingSystem" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The OperatingSystem schema represents the operating system and software running on a computer system."/>
+        <Annotation Term="OData.Description" String="The `OperatingSystem` schema represents the operating system and software running on a computer system."/>
         <Annotation Term="OData.LongDescription" String="This resource shall represent the operating system and software running on a computer system."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -111,19 +112,19 @@
         <NavigationProperty Name="Applications" Type="ApplicationCollection.ApplicationCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of applications running under this operating system."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type ApplicationCollection that represent the applications running under this operating system."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `ApplicationCollection` that represent the applications running under this operating system."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="ContainerImages" Type="ContainerImageCollection.ContainerImageCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of container images available to container engines on this operating system."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type ContainerImageCollection that represent the container images available to container engines on this operating system."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `ContainerImageCollection` that represent the container images available to container engines on this operating system."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Containers" Type="ContainerCollection.ContainerCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of containers running under this operating system."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type ContainerCollection that represent the containers running under this operating system."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `ContainerCollection` that represent the containers running under this operating system."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="Links" Type="OperatingSystem.v1_0_0.Links" Nullable="false">
@@ -333,7 +334,7 @@
         <NavigationProperty Name="SoftwareImage" Type="SoftwareInventory.SoftwareInventory" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the software image for this operating system."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type SoftwareInventory that represents the software image from which this operating system runs."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `SoftwareInventory` that represents the software image from which this operating system runs."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -359,6 +360,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="OperatingSystem" BaseType="OperatingSystem.v1_0_0.OperatingSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OperatingSystem.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="OperatingSystem" BaseType="OperatingSystem.v1_0_1.OperatingSystem"/>
     </Schema>
 
   </edmx:DataServices>

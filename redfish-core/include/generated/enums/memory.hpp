@@ -12,6 +12,7 @@ enum class MemoryType{
     NVDIMM_F,
     NVDIMM_P,
     IntelOptane,
+    Cache,
 };
 
 enum class MemoryDeviceType{
@@ -114,6 +115,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(MemoryType, {
     {MemoryType::NVDIMM_F, "NVDIMM_F"},
     {MemoryType::NVDIMM_P, "NVDIMM_P"},
     {MemoryType::IntelOptane, "IntelOptane"},
+    {MemoryType::Cache, "Cache"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(MemoryDeviceType, {

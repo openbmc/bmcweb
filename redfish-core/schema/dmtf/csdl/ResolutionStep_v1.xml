@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ResolutionStep v1.0.0                                               -->
+<!--# Redfish Schema:  ResolutionStep v1.0.1                                               -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -33,6 +33,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ResolutionStep">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <ComplexType Name="ResolutionStep" Abstract="true">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
@@ -71,7 +72,7 @@
         <Property Name="TargetComponentURI" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The target URI of the component for a resolution step."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the target URI of the component for a resolution step.  This property shall be present if the ActionURI property is not supported."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the target URI of the component for a resolution step.  This property shall be present if the `ActionURI` property is not supported."/>
           <Annotation Term="OData.IsURL"/>
         </Property>
         <Property Name="RetryIntervalSeconds" Type="Edm.Int64">
@@ -119,6 +120,12 @@
           <Annotation Term="OData.Description" String="Perform an OEM-defined resolution step."/>
         </Member>
       </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ResolutionStep.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <ComplexType Name="ResolutionStep" BaseType="ResolutionStep.v1_0_0.ResolutionStep"/>
     </Schema>
 
   </edmx:DataServices>

@@ -12,6 +12,7 @@ enum class OperationApplyTime{
     AtMaintenanceWindowStart,
     InMaintenanceWindowOnReset,
     OnStartUpdateRequest,
+    OnTargetReset,
 };
 
 enum class ApplyTime{
@@ -29,6 +30,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(OperationApplyTime, {
     {OperationApplyTime::AtMaintenanceWindowStart, "AtMaintenanceWindowStart"},
     {OperationApplyTime::InMaintenanceWindowOnReset, "InMaintenanceWindowOnReset"},
     {OperationApplyTime::OnStartUpdateRequest, "OnStartUpdateRequest"},
+    {OperationApplyTime::OnTargetReset, "OnTargetReset"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(ApplyTime, {

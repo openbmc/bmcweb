@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ManagerAccount v1.12.0                                              -->
+<!--# Redfish Schema:  ManagerAccount v1.12.1                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -42,9 +42,10 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="ManagerAccount" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The ManagerAccount schema defines the user accounts that are owned by a manager.  Changes to a manager account might affect the current Redfish service connection if this manager is responsible for the Redfish service."/>
+        <Annotation Term="OData.Description" String="The `ManagerAccount` schema defines the user accounts that are owned by a manager.  Changes to a manager account might affect the current Redfish service connection if this manager is responsible for the Redfish service."/>
         <Annotation Term="OData.LongDescription" String="This resource shall represent a user account for the manager in a Redfish implementation.  The account shall indicate the allowed access to one of more services in the manager."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -60,7 +61,7 @@
         <Annotation Term="Capabilities.DeleteRestrictions">
           <Record>
             <PropertyValue Property="Deletable" Bool="true"/>
-            <Annotation Term="OData.Description" String="Use the DELETE operation to remove manager accounts."/>
+            <Annotation Term="OData.Description" String="Use the `DELETE` operation to remove manager accounts."/>
           </Record>
         </Annotation>
         <Annotation Term="Redfish.Uris">
@@ -104,15 +105,15 @@
         </Annotation>
         <Member Name="Redfish">
           <Annotation Term="OData.Description" String="Allow access to the Redfish service."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the account is allowed to access Redfish services.  If the version of the ManagerAccount resource is lower than the schema version when another enumeration value in this list was added, the implementation may include that functionality as part of the `Redfish` value."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the account is allowed to access Redfish services.  If the version of the `ManagerAccount` resource is lower than the schema version when another enumeration value in this list was added, the implementation may include that functionality as part of the `Redfish` value."/>
         </Member>
         <Member Name="SNMP">
           <Annotation Term="OData.Description" String="Allow access to SNMP services."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate the account is allowed to access SNMP services."/>
         </Member>
         <Member Name="OEM">
-          <Annotation Term="OData.Description" String="OEM account type.  See the OEMAccountTypes property."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the account is allowed to access the services listed in the OEMAccountTypes property."/>
+          <Annotation Term="OData.Description" String="OEM account type.  See the `OEMAccountTypes` property."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the account is allowed to access the services listed in the `OEMAccountTypes` property."/>
         </Member>
         <Member Name="HostConsole">
           <Annotation Term="OData.Description" String="Allow access to the host's console, which could be connected through Telnet, SSH, or another protocol."/>
@@ -197,25 +198,25 @@
         <Property Name="Password" Type="Edm.String">
           <Annotation Term="Redfish.RequiredOnCreate"/>
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Write"/>
-          <Annotation Term="OData.Description" String="The password.  Use this property with a PATCH or PUT to write the password for the account.  This property is `null` in responses."/>
+          <Annotation Term="OData.Description" String="The password.  Use this property with a `PATCH` or `PUT` to write the password for the account.  This property is `null` in responses."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the password for this account.  The value shall be `null` in responses."/>
         </Property>
         <Property Name="UserName" Type="Edm.String" Nullable="false">
           <Annotation Term="Redfish.RequiredOnCreate"/>
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The user name for the account."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the user name for this account."/>
+          <Annotation Term="OData.Description" String="The username for the account."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the username for this account."/>
         </Property>
         <Property Name="RoleId" Type="Edm.String" Nullable="false">
           <Annotation Term="Redfish.RequiredOnCreate"/>
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The role for this account."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the RoleId of the role resource configured for this account.  The service shall reject POST, PATCH, or PUT operations that provide a RoleId that does not exist by returning the HTTP 400 (Bad Request) status code."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the `RoleId` of the role resource configured for this account.  The service shall reject `POST`, `PATCH`, or `PUT` operations that provide a `RoleId` that does not exist by returning the HTTP `400 Bad Request` status code."/>
         </Property>
         <Property Name="Locked" Type="Edm.Boolean" Nullable="false" DefaultValue="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An indication of whether the account service automatically locked the account because the lockout threshold was exceeded.  To manually unlock the account before the lockout duration period, an administrator can change the property to `false` to clear the lockout condition."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the account service automatically locked the account because the AccountLockoutThreshold was exceeded.  To manually unlock the account before the lockout duration period, an administrator shall be able to change the property to `false` to clear the lockout condition."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the account service automatically locked the account because the `AccountLockoutThreshold` was exceeded.  To manually unlock the account before the lockout duration period, an administrator shall be able to change the property to `false` to clear the lockout condition."/>
         </Property>
         <Property Name="Enabled" Type="Edm.Boolean" Nullable="false" DefaultValue="true">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -234,7 +235,7 @@
         <NavigationProperty Name="Role" Type="Role.Role" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the Redfish role that defines the privileges for this account."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Role, and should link to the resource identified by the RoleId property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `Role`, and should link to the resource identified by the `RoleId` property."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -266,7 +267,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_0_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the RoleId property description by stating its relation to RoleId in the role resource."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the `RoleId` property description by stating its relation to `RoleId` in the role resource."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_0_5.ManagerAccount"/>
     </Schema>
 
@@ -284,13 +285,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_0_9">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the Password description.  It was also created to update descriptions that this schema defines."/>
+      <Annotation Term="OData.Description" String="This version was created to update the `Password` description.  It was also created to update descriptions that this schema defines."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_0_8.ManagerAccount"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_0_10">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the description for Enabled to remove the tie with Locked."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for `Enabled` to remove the tie with `Locked`."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_0_9.ManagerAccount"/>
     </Schema>
 
@@ -310,6 +311,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to mark properties with values containing sensitive data as write-only."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_0_12.ManagerAccount"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_0_14">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_0_13.ManagerAccount"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_1_0">
@@ -348,7 +355,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_1_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the RoleId property description by stating its relation to RoleId in the role resource."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the `RoleId` property description by stating its relation to `RoleId` in the role resource."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_1_1.ManagerAccount"/>
     </Schema>
 
@@ -366,13 +373,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_1_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the Password description.  It was also created to update descriptions that this schema defines."/>
+      <Annotation Term="OData.Description" String="This version was created to update the `Password` description.  It was also created to update descriptions that this schema defines."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_1_4.ManagerAccount"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_1_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the description for Enabled to remove the tie with Locked."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for `Enabled` to remove the tie with `Locked`."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_1_5.ManagerAccount"/>
     </Schema>
 
@@ -400,6 +407,12 @@
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_1_9.ManagerAccount"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_1_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_1_10.ManagerAccount"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.3"/>
@@ -408,7 +421,7 @@
         <NavigationProperty Name="Certificates" Type="CertificateCollection.CertificateCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to a collection of user identity certificates for this account."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CertificateCollection that represents the user identity certificates for this account."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `CertificateCollection` that represents the user identity certificates for this account."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -422,13 +435,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_2_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the Password description.  It was also created to update descriptions that this schema defines."/>
+      <Annotation Term="OData.Description" String="This version was created to update the `Password` description.  It was also created to update descriptions that this schema defines."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_2_1.ManagerAccount"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_2_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the description for Enabled to remove the tie with Locked."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for `Enabled` to remove the tie with `Locked`."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_2_2.ManagerAccount"/>
     </Schema>
 
@@ -446,7 +459,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_2_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to mark properties with values containing sensitive data as write-only.  It was also created to provide more details for the usage of the Certificates property."/>
+      <Annotation Term="OData.Description" String="This version was created to mark properties with values containing sensitive data as write-only.  It was also created to provide more details for the usage of the `Certificates` property."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_2_5.ManagerAccount"/>
     </Schema>
 
@@ -454,6 +467,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_2_6.ManagerAccount"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_2_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_2_7.ManagerAccount"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_3_0">
@@ -464,20 +483,20 @@
         <Property Name="PasswordChangeRequired" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An indication of whether the service requires that the password for this account be changed before further access to the account is allowed."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the service requires that the password for this account be changed before further access to the account is allowed.  The implementation may deny access to the service if the password has not been changed.  A manager account created with an initial PasswordChangeRequired value of `true` may force a password change before first access of the account.  When the Password property for this account is updated, the service shall set this property to `false`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the service requires that the password for this account be changed before further access to the account is allowed.  The implementation may deny access to the service if the password has not been changed.  A manager account created with an initial `PasswordChangeRequired` value of `true` may force a password change before first access of the account.  When the `Password` property for this account is updated, the service shall set this property to `false`."/>
         </Property>
       </EntityType>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_3_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the Password description.  It was also created to update descriptions that this schema defines."/>
+      <Annotation Term="OData.Description" String="This version was created to update the `Password` description.  It was also created to update descriptions that this schema defines."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_3_0.ManagerAccount"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_3_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the description for Enabled to remove the tie with Locked."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for `Enabled` to remove the tie with `Locked`."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_3_1.ManagerAccount"/>
     </Schema>
 
@@ -495,7 +514,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_3_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to mark properties with values containing sensitive data as write-only.  It was also created to provide more details for the usage of the Certificates property."/>
+      <Annotation Term="OData.Description" String="This version was created to mark properties with values containing sensitive data as write-only.  It was also created to provide more details for the usage of the `Certificates` property."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_3_4.ManagerAccount"/>
     </Schema>
 
@@ -505,6 +524,12 @@
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_3_5.ManagerAccount"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_3_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_3_6.ManagerAccount"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.3"/>
@@ -512,18 +537,18 @@
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_3_0.ManagerAccount">
         <Property Name="SNMP" Type="ManagerAccount.v1_4_0.SNMPUserInfo">
           <Annotation Term="OData.Description" String="The SNMP settings for this account."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the SNMP settings for this account when AccountTypes contains `SNMP`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the SNMP settings for this account when `AccountTypes` contains `SNMP`."/>
         </Property>
         <Property Name="AccountTypes" Type="Collection(ManagerAccount.AccountTypes)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The list of services in the manager that the account is allowed to access."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of the various manager services that the account is allowed to access.  This shall not include functionality for receiving events or other notifications.  If this property is not provided by the client, the default value shall be an array that contains the value `Redfish`.  The service may add additional values when this property is set or updated if allowed by the value of the StrictAccountTypes property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of the various manager services that the account is allowed to access.  This shall not include functionality for receiving events or other notifications.  If this property is not provided by the client, the default value shall be an array that contains the value `Redfish`.  The service may add additional values when this property is set or updated if allowed by the value of the `StrictAccountTypes` property."/>
           <Annotation Term="Redfish.Required"/>
         </Property>
         <Property Name="OEMAccountTypes" Type="Collection(Edm.String)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The OEM account types."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of the OEM account types for this account.  This property shall be valid when AccountTypes contains `OEM`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of the OEM account types for this account.  This property shall be valid when `AccountTypes` contains `OEM`."/>
         </Property>
       </EntityType>
 
@@ -660,13 +685,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_4_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the description for Enabled to remove the tie with Locked."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for `Enabled` to remove the tie with `Locked`."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_4_0.ManagerAccount"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_4_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the description for AuthenticationKey, EncryptionKey, and CFB128_AES128."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for `AuthenticationKey`, `EncryptionKey`, and `CFB128_AES128`."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_4_1.ManagerAccount"/>
     </Schema>
 
@@ -678,7 +703,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_4_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the description for EncryptionKey."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for `EncryptionKey`."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_4_3.ManagerAccount"/>
     </Schema>
 
@@ -690,13 +715,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_4_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the descriptions of the resource and the AccountTypes property to clarify intended usage."/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of the resource and the `AccountTypes` property to clarify intended usage."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_4_5.ManagerAccount"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_4_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to mark properties with values containing sensitive data as write-only.  It was also created to provide more details for the usage of the Certificates property."/>
+      <Annotation Term="OData.Description" String="This version was created to mark properties with values containing sensitive data as write-only.  It was also created to provide more details for the usage of the `Certificates` property."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_4_6.ManagerAccount"/>
     </Schema>
 
@@ -704,6 +729,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_4_7.ManagerAccount"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_4_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_4_8.ManagerAccount"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_5_0">
@@ -715,20 +746,20 @@
       <ComplexType Name="SNMPUserInfo" BaseType="ManagerAccount.v1_4_0.SNMPUserInfo">
         <Property Name="AuthenticationKeySet" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Indicates if the AuthenticationKey property is set."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain `true` if a valid value was provided for the AuthenticationKey property.  Otherwise, the property shall contain `false`."/>
+          <Annotation Term="OData.Description" String="Indicates if the `AuthenticationKey` property is set."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain `true` if a valid value was provided for the `AuthenticationKey` property.  Otherwise, the property shall contain `false`."/>
         </Property>
         <Property Name="EncryptionKeySet" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Indicates if the EncryptionKey property is set."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain `true` if a valid value was provided for the EncryptionKey property.  Otherwise, the property shall contain `false`."/>
+          <Annotation Term="OData.Description" String="Indicates if the `EncryptionKey` property is set."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain `true` if a valid value was provided for the `EncryptionKey` property.  Otherwise, the property shall contain `false`."/>
         </Property>
       </ComplexType>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_5_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the description for AuthenticationKey, EncryptionKey, and CFB128_AES128."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for `AuthenticationKey`, `EncryptionKey`, and `CFB128_AES128`."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_5_0.ManagerAccount"/>
     </Schema>
 
@@ -740,7 +771,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_5_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the description for EncryptionKey."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for `EncryptionKey`."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_5_2.ManagerAccount"/>
     </Schema>
 
@@ -752,13 +783,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_5_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the descriptions of the resource and the AccountTypes property to clarify intended usage."/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of the resource and the `AccountTypes` property to clarify intended usage."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_5_4.ManagerAccount"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_5_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to mark properties with values containing sensitive data as write-only.  It was also created to provide more details for the usage of the Certificates property."/>
+      <Annotation Term="OData.Description" String="This version was created to mark properties with values containing sensitive data as write-only.  It was also created to provide more details for the usage of the `Certificates` property."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_5_5.ManagerAccount"/>
     </Schema>
 
@@ -768,16 +799,21 @@
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_5_6.ManagerAccount"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_5_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_5_7.ManagerAccount"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
-      <Annotation Term="OData.Description" String="This version was created to add the PasswordExpiration property."/>
 
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_5_1.ManagerAccount">
         <Property Name="PasswordExpiration" Type="Edm.DateTimeOffset" Nullable="true">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="Indicates the date and time when this account password expires.  If `null`, the account password never expires."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the date and time when this account password expires.  If the value is `null`, the account password never expires.  If provided during account creation or password modification, this value shall override the value of the PasswordExpirationDays property in the AccountService resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date and time when this account password expires.  If the value is `null`, the account password never expires.  If provided during account creation or password modification, this value shall override the value of the `PasswordExpirationDays` property in the `AccountService` resource."/>
         </Property>
       </EntityType>
     </Schema>
@@ -790,25 +826,25 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_6_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the description for EncryptionKey."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for `EncryptionKey`."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_6_1.ManagerAccount"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_6_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology.  It was also created to update the description of PasswordExpiration to tie behavior to the PasswordExpirationDays property in the AccountService resource."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology.  It was also created to update the description of `PasswordExpiration` to tie behavior to the `PasswordExpirationDays` property in the `AccountService` resource."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_6_2.ManagerAccount"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_6_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the descriptions of the resource and the AccountTypes property to clarify intended usage."/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of the resource and the `AccountTypes` property to clarify intended usage."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_6_3.ManagerAccount"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_6_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to mark properties with values containing sensitive data as write-only.  It was also created to provide more details for the usage of the Certificates property."/>
+      <Annotation Term="OData.Description" String="This version was created to mark properties with values containing sensitive data as write-only.  It was also created to provide more details for the usage of the `Certificates` property."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_6_4.ManagerAccount"/>
     </Schema>
 
@@ -818,35 +854,41 @@
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_6_5.ManagerAccount"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_6_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_6_6.ManagerAccount"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add additional SNMPv3 authentication protocols.  It was also created to extend the values for AccountTypes."/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
+      <Annotation Term="OData.Description" String="This version was created to add additional SNMPv3 authentication protocols.  It was also created to extend the values for `AccountTypes`."/>
 
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_6_2.ManagerAccount">
         <Property Name="StrictAccountTypes" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="Indicates if the service needs to use the account types exactly as specified when the account is created or updated."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate if the service needs to use the value of AccountTypes and OEMAccountTypes values exactly as specified.  A `true` value shall indicate the service needs to either accept the value without changes or reject the request.  A `false` value shall indicate the service may add additional `AccountTypes` and `OEMAccountTypes` values as needed to support limitations it has in separately controlling access to individual services.  If this property is not present, the value shall be assumed to be `false`.  An update of the service can cause account types to be added to or removed from the AccountTypes and OEMAccountTypes properties, regardless of the value of this property.  After a service update, clients should inspect all accounts where the value of this property is `true` and perform maintenance as needed."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate if the service needs to use the value of `AccountTypes` and `OEMAccountTypes` values exactly as specified.  A `true` value shall indicate the service needs to either accept the value without changes or reject the request.  A `false` value shall indicate the service may add additional `AccountTypes` and `OEMAccountTypes` values as needed to support limitations it has in separately controlling access to individual services.  If this property is not present, the value shall be assumed to be `false`.  An update of the service can cause account types to be added to or removed from the `AccountTypes` and `OEMAccountTypes` properties, regardless of the value of this property.  After a service update, clients should inspect all accounts where the value of this property is `true` and perform maintenance as needed."/>
         </Property>
       </EntityType>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_7_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology.  It was also created to update the description of PasswordExpiration to tie behavior to the PasswordExpirationDays property in the AccountService resource."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology.  It was also created to update the description of `PasswordExpiration` to tie behavior to the `PasswordExpirationDays` property in the `AccountService` resource."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_7_0.ManagerAccount"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_7_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the descriptions of the resource and the AccountTypes property to clarify intended usage."/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of the resource and the `AccountTypes` property to clarify intended usage."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_7_1.ManagerAccount"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_7_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to mark properties with values containing sensitive data as write-only.  It was also created to provide more details for the usage of the Certificates property."/>
+      <Annotation Term="OData.Description" String="This version was created to mark properties with values containing sensitive data as write-only.  It was also created to provide more details for the usage of the `Certificates` property."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_7_2.ManagerAccount"/>
     </Schema>
 
@@ -856,10 +898,15 @@
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_7_3.ManagerAccount"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_7_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_7_4.ManagerAccount"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.1"/>
-      <Annotation Term="OData.Description" String="This version was created to add the AccountExpiration property."/>
 
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_7_1.ManagerAccount">
         <Property Name="AccountExpiration" Type="Edm.DateTimeOffset">
@@ -877,13 +924,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_8_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the descriptions of the resource and the AccountTypes property to clarify intended usage."/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of the resource and the `AccountTypes` property to clarify intended usage."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_8_0.ManagerAccount"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_8_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to mark properties with values containing sensitive data as write-only.  It was also created to provide more details for the usage of the Certificates property."/>
+      <Annotation Term="OData.Description" String="This version was created to mark properties with values containing sensitive data as write-only.  It was also created to provide more details for the usage of the `Certificates` property."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_8_1.ManagerAccount"/>
     </Schema>
 
@@ -891,6 +938,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_8_2.ManagerAccount"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_8_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_8_3.ManagerAccount"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_9_0">
@@ -901,14 +954,14 @@
         <NavigationProperty Name="Keys" Type="KeyCollection.KeyCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of keys that can be used to authenticate this account.  For example, an SSH public key could be added to this collection to allow for SSH public key authentication."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type KeyCollection that contains the keys that can be used to authenticate this account."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `KeyCollection` that contains the keys that can be used to authenticate this account."/>
         </NavigationProperty>
       </EntityType>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_9_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to provide more details for the usage of the Certificates property.  It was also created to provide more details for the usage of the Certificates property."/>
+      <Annotation Term="OData.Description" String="This version was created to provide more details for the usage of the `Certificates` property.  It was also created to provide more details for the usage of the `Certificates` property."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_9_0.ManagerAccount"/>
     </Schema>
 
@@ -916,6 +969,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_9_1.ManagerAccount"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_9_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_9_2.ManagerAccount"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_10_0">
@@ -936,10 +995,16 @@
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_10_0.ManagerAccount"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_10_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_10_1.ManagerAccount"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_11_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.2"/>
-      <Annotation Term="OData.Description" String="This version was created to add the ChangePassword action."/>
+      <Annotation Term="OData.Description" String="This version was created to add the `ChangePassword` action."/>
 
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_10_0.ManagerAccount">
         <Property Name="EmailAddress" Type="Edm.String">
@@ -955,7 +1020,7 @@
         <Property Name="OneTimePasscodeDeliveryAddress" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The address used to receive one-time passcode messages for multi-factor authentication."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the contact address for receiving one-time passcode messages for multi-factor authentication for this account when the Enabled property in the OneTimePasscode property in AccountService resource contains `true`.  This is typically the contact email address associated with the account, but may be a separate, relay email address for delivery via SMS or other contact method."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the contact address for receiving one-time passcode messages for multi-factor authentication for this account when the `Enabled` property in the `OneTimePasscode` property in `AccountService` resource contains `true`.  This is typically the contact email address associated with the account, but may be a separate, relay email address for delivery via SMS or other contact method."/>
         </Property>
       </EntityType>
     </Schema>
@@ -966,12 +1031,24 @@
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_11_0.ManagerAccount"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_11_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_11_1.ManagerAccount"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_12_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.3"/>
-      <Annotation Term="OData.Description" String="This version was created to add `CFB128_AES192` and `CFB128_AES256` to SNMPEncryptionProtocols."/>
+      <Annotation Term="OData.Description" String="This version was created to add `CFB128_AES192` and `CFB128_AES256` to `SNMPEncryptionProtocols`."/>
 
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_11_1.ManagerAccount"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_12_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_12_0.ManagerAccount"/>
     </Schema>
 
   </edmx:DataServices>

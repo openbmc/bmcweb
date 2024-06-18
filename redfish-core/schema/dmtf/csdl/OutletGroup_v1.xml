@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  OutletGroup v1.1.2                                                  -->
+<!--# Redfish Schema:  OutletGroup v1.2.0                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -38,9 +38,10 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OutletGroup">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="OutletGroup" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The OutletGroup schema contains definitions for an electrical outlet group."/>
+        <Annotation Term="OData.Description" String="The `OutletGroup` schema contains definitions for an electrical outlet group."/>
         <Annotation Term="OData.LongDescription" String="This resource shall be used to represent an electrical outlet group for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -94,7 +95,7 @@
         </Member>
         <Member Name="PowerCycle">
           <Annotation Term="OData.Description" String="Power cycle."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will transition to a power off state, then transition to a power on state.  Upon successful completion, the PowerState property, if supported, shall contain the value `On`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will transition to a power off state, then transition to a power on state.  Upon successful completion, the `PowerState` property, if supported, shall contain the value `On`."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -123,18 +124,18 @@
         </Property>
         <Property Name="PowerOnDelaySeconds" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The number of seconds to delay power up after a power cycle or a PowerControl action.  Zero seconds indicates no delay to power up."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the number of seconds to delay power up after a power cycle or a PowerControl action.  The value `0` shall indicate no delay to power up."/>
+          <Annotation Term="OData.Description" String="The number of seconds to delay power up after a power cycle or a `PowerControl` action.  Zero seconds indicates no delay to power up."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of seconds to delay power up after a power cycle or a `PowerControl` action.  The value `0` shall indicate no delay to power up."/>
         </Property>
         <Property Name="PowerOffDelaySeconds" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The number of seconds to delay power off after a PowerControl action.  Zero seconds indicates no delay to power off."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the number of seconds to delay power off after a PowerControl action.  The value `0` shall indicate no delay to power off."/>
+          <Annotation Term="OData.Description" String="The number of seconds to delay power off after a `PowerControl` action.  Zero seconds indicates no delay to power off."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of seconds to delay power off after a `PowerControl` action.  The value `0` shall indicate no delay to power off."/>
         </Property>
         <Property Name="PowerCycleDelaySeconds" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The number of seconds to delay power on after a PowerControl action to cycle power.  Zero seconds indicates no delay."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the number of seconds to delay power on after a PowerControl action to cycle power.  The value `0` shall indicate no delay to power on."/>
+          <Annotation Term="OData.Description" String="The number of seconds to delay power on after a `PowerControl` action to cycle power.  Zero seconds indicates no delay."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of seconds to delay power on after a `PowerControl` action to cycle power.  The value `0` shall indicate no delay to power on."/>
         </Property>
         <Property Name="PowerRestoreDelaySeconds" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -144,7 +145,7 @@
         <Property Name="PowerRestorePolicy" Type="Circuit.PowerRestorePolicyTypes" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The desired power state of the outlet group when power is restored after a power loss."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the desired PowerState of the outlet group when power is applied.  The value `LastState` shall return the outlet group to the PowerState it was in when power was lost."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the desired `PowerState` of the outlet group when power is applied.  The value `LastState` shall return the outlet group to the `PowerState` it was in when power was lost."/>
         </Property>
         <Property Name="PowerState" Type="Resource.PowerState">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -160,12 +161,12 @@
         <NavigationProperty Name="PowerWatts" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy" String="Power"/>
           <Annotation Term="OData.Description" String="The power (W) for this outlet group."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the total power, in watt units, for this outlet group that represents the `Total` ElectricalContext sensor when multiple power sensors exist for this outlet group.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Power`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total power, in watt units, for this outlet group that represents the `Total` `ElectricalContext` sensor when multiple power sensors exist for this outlet group.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Power`."/>
         </NavigationProperty>
         <NavigationProperty Name="EnergykWh" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy" String="EnergykWh"/>
           <Annotation Term="OData.Description" String="The energy (kWh) for this outlet group."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the total energy, in kilowatt-hour units, for this outlet group that represents the `Total` ElectricalContext sensor when multiple energy sensors exist for this outlet group.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `EnergykWh`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total energy, in kilowatt-hour units, for this outlet group that represents the `Total` `ElectricalContext` sensor when multiple energy sensors exist for this outlet group.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `EnergykWh`."/>
         </NavigationProperty>
 
         <Property Name="Links" Type="OutletGroup.v1_0_0.Links" Nullable="false">
@@ -184,7 +185,7 @@
         <NavigationProperty Name="Outlets" Type="Collection(Outlet.Outlet)" ContainsTarget="true">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The set of outlets in this outlet group."/>
-          <Annotation Term="OData.LongDescription" String="This property shall be an array of links to resources of type Outlet that represent the outlets in this outlet group."/>
+          <Annotation Term="OData.LongDescription" String="This property shall be an array of links to resources of type `Outlet` that represent the outlets in this outlet group."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -214,13 +215,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OutletGroup.v1_0_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update descriptions to tie excerpt property definitions to a specific type of Sensor or Control.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions to tie excerpt property definitions to a specific type of `Sensor` or `Control` resource.  It was also created to correct various typographical errors."/>
       <EntityType Name="OutletGroup" BaseType="OutletGroup.v1_0_1.OutletGroup"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OutletGroup.v1_0_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the PowerState parameter in the PowerControl action to reference the common enumeration in the Circuit schema."/>
+      <Annotation Term="OData.Description" String="This version was created to update the `PowerState` parameter in the `PowerControl` action to reference the common enumeration in the `Circuit` schema."/>
       <EntityType Name="OutletGroup" BaseType="OutletGroup.v1_0_2.OutletGroup"/>
     </Schema>
 
@@ -230,16 +231,22 @@
       <EntityType Name="OutletGroup" BaseType="OutletGroup.v1_0_3.OutletGroup"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OutletGroup.v1_0_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="OutletGroup" BaseType="OutletGroup.v1_0_4.OutletGroup"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OutletGroup.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
-      <Annotation Term="OData.Description" String="This version was created to add `PowerCycle` to the PowerState parameter of the PowerControl action."/>
+      <Annotation Term="OData.Description" String="This version was created to add `PowerCycle` to the `PowerState` parameter of the `PowerControl` action."/>
 
       <EntityType Name="OutletGroup" BaseType="OutletGroup.v1_0_2.OutletGroup">
         <Property Name="PowerControlLocked" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="Indicates whether power control requests are locked."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether requests to the PowerControl action are locked.  If `true`, services shall reject requests to the PowerControl action."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether requests to the `PowerControl` action are locked.  If `true`, services shall reject requests to the `PowerControl` action."/>
         </Property>
         <Property Name="ConfigurationLocked" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -249,14 +256,14 @@
         <Property Name="PowerStateInTransition" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Indicates whether the power state is undergoing a delayed transition."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the PowerState property will undergo a transition between on and off states due to a configured delay.  The transition may be due to the configuration of the power on, off, or restore delay properties.  If `true`, the PowerState property will transition at the conclusion of a configured delay."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the `PowerState` property will undergo a transition between on and off states due to a configured delay.  The transition may be due to the configuration of the power on, off, or restore delay properties.  If `true`, the `PowerState` property will transition at the conclusion of a configured delay."/>
         </Property>
       </EntityType>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OutletGroup.v1_1_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the PowerState parameter in the PowerControl action to reference the common enumeration in the Circuit schema."/>
+      <Annotation Term="OData.Description" String="This version was created to update the `PowerState` parameter in the `PowerControl` action to reference the common enumeration in the `Circuit` schema."/>
       <EntityType Name="OutletGroup" BaseType="OutletGroup.v1_1_0.OutletGroup"/>
     </Schema>
 
@@ -264,6 +271,45 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="OutletGroup" BaseType="OutletGroup.v1_1_1.OutletGroup"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OutletGroup.v1_1_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="OutletGroup" BaseType="OutletGroup.v1_1_2.OutletGroup"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OutletGroup.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2024.1"/>
+
+      <EntityType Name="OutletGroup" BaseType="OutletGroup.v1_1_3.OutletGroup">
+        <Property Name="OutletGroupType" Type="OutletGroup.v1_2_0.OutletGroupType" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The type of outlet group that this resource represents."/>
+          <Annotation Term="OData.LongDescription" String="This property shall describe the type of this outlet group."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Links" BaseType="OutletGroup.v1_0_0.Links">
+        <NavigationProperty Name="OutletGroups" Type="Collection(OutletGroup.OutletGroup)" ContainsTarget="true">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The set of outlet groups in this outlet group."/>
+          <Annotation Term="OData.LongDescription" String="This property shall be an array of links to resources of type `OutletGroup` that represent the outlet groups in this outlet group.  This allows representation of a group of outlet groups.  The outlet groups referenced by this property shall not contain other outlet groups.  Services shall only populate either the link for `Outlets` or `OutletGroups`, but not both."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <EnumType Name="OutletGroupType">
+        <Member Name="HardwareDefined">
+          <Annotation Term="OData.Description" String="A group that is hardware-defined."/>
+          <Annotation Term="OData.LongDescription" String="This value shall represent an outlet group that is hardware-defined."/>
+        </Member>
+        <Member Name="UserDefined">
+          <Annotation Term="OData.Description" String="A group that is user-defined."/>
+          <Annotation Term="OData.LongDescription" String="This value shall represent an outlet group that is user-defined."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

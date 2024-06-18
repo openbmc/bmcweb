@@ -1,0 +1,951 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/EventDestination.v1_14_1.json",
+    "$ref": "#/definitions/EventDestination",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "#EventDestination.ResumeSubscription": {
+                    "$ref": "#/definitions/ResumeSubscription"
+                },
+                "#EventDestination.SuspendSubscription": {
+                    "$ref": "#/definitions/SuspendSubscription"
+                },
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource.",
+                    "versionAdded": "v1_2_0"
+                }
+            },
+            "type": "object"
+        },
+        "DeliveryRetryPolicy": {
+            "enum": [
+                "TerminateAfterRetries",
+                "SuspendRetries",
+                "RetryForever",
+                "RetryForeverWithBackoff"
+            ],
+            "enumDescriptions": {
+                "RetryForever": "The subscription is not suspended or terminated, and attempts at delivery of future events continues regardless of the number of retries.",
+                "RetryForeverWithBackoff": "The subscription is not suspended or terminated, and attempts at delivery of future events continues regardless of the number of retries, but issued over time according to a service-defined backoff algorithm.",
+                "SuspendRetries": "The subscription is suspended after the maximum number of retries is reached.",
+                "TerminateAfterRetries": "The subscription is terminated after the maximum number of retries is reached."
+            },
+            "enumLongDescriptions": {
+                "RetryForever": "This value shall indicate the subscription is not suspended or terminated, and attempts at delivery of future events shall continue regardless of the number of retries.  The interval between retries remains constant and is specified by the `DeliveryRetryIntervalSeconds` property in the event service.",
+                "RetryForeverWithBackoff": "This value shall indicate the subscription is not suspended or terminated, and attempts at delivery of future events shall continue regardless of the number of retries.  Retry attempts are issued over time according to a service-defined backoff algorithm.  The backoff algorithm may insert an increasing amount of delay between retry attempts and may reach a maximum.",
+                "SuspendRetries": "This value shall indicate the subscription is suspended after the maximum number of retries is reached, specified by the `DeliveryRetryAttempts` property in the event service.  The value of the `State` property within `Status` shall contain `Disabled` for a suspended subscription.",
+                "TerminateAfterRetries": "This value shall indicate the subscription is terminated after the maximum number of retries is reached, specified by the `DeliveryRetryAttempts` property in the event service."
+            },
+            "enumVersionAdded": {
+                "RetryForeverWithBackoff": "v1_10_0"
+            },
+            "type": "string"
+        },
+        "EventDestination": {
+            "additionalProperties": false,
+            "description": "The `EventDestination` schema defines the target of an event subscription, including the event types and context to provide to the target in the event payload.",
+            "longDescription": "This resource shall represent the target of an event subscription, including the event types and context to provide to the target in the event payload.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource.",
+                    "versionAdded": "v1_2_0"
+                },
+                "Certificates": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
+                    "description": "The link to a collection of server certificates for the server referenced by the `Destination` property.",
+                    "longDescription": "This property shall contain a link to a resource collection of type `CertificateCollection` that represent the server certificates for the server referenced by the `Destination` property.  If `VerifyCertificate` is `true`, services shall compare the certificates in this collection with the certificate obtained during handshaking with the event destination in order to verify the identity of the event destination prior to sending an event.  If the server cannot be verified, the service shall not send the event.  If `VerifyCertificate` is `false`, the service shall not perform certificate verification with certificates in this collection.  Regardless of the contents of this collection, services may perform additional verification based on other factors, such as the configuration of the SecurityPolicy resource.",
+                    "readonly": true,
+                    "versionAdded": "v1_9_0"
+                },
+                "ClientCertificates": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
+                    "description": "The link to a collection of client identity certificates provided to the server referenced by the `Destination` property.",
+                    "longDescription": "This property shall contain a link to a resource collection of type `CertificateCollection` that represents the client identity certificates that are provided to the server referenced by the `Destination` property as part of TLS handshaking.",
+                    "readonly": true,
+                    "versionAdded": "v1_11_0"
+                },
+                "Context": {
+                    "description": "A client-supplied string that is stored with the event destination subscription.",
+                    "longDescription": "This property shall contain a client-supplied context that remains with the connection through the connection's lifetime.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "DeliveryRetryPolicy": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/DeliveryRetryPolicy"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The subscription delivery retry policy for events, where the subscription type is `RedfishEvent`.",
+                    "longDescription": "This property shall indicate the subscription delivery retry policy for events where the subscription type is `RedfishEvent`.",
+                    "readonly": false,
+                    "versionAdded": "v1_6_0"
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Destination": {
+                    "description": "The URI of the destination event receiver.",
+                    "format": "uri-reference",
+                    "longDescription": "This property shall contain a URI to the destination where the events are sent.  If `Protocol` is `SMTP`, the URI shall follow the RFC6068-described format.  SNMP URIs shall be consistent with RFC4088.  Specifically, for SNMPv3, if a username is specified in the SNMP URI, the SNMPv3 authentication and encryption configuration associated with that user shall be utilized in the SNMPv3 traps.  Syslog URIs shall be consistent with RFC3986 and contain the scheme `syslog://`.  Server-sent event destinations shall be in the form `redfish-sse://ip:port` where `ip` and `port` are the IP address and the port of the client with the open SSE connection.  For other URIs, such as HTTP or HTTPS, they shall be consistent with RFC3986.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "EventFormatType": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/EventDestination.json#/definitions/EventFormatType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The content types of the message that are sent to the `EventDestination`.",
+                    "longDescription": "This property shall indicate the content types of the message that this service sends to the `EventDestination`.  If this property is not present, the `EventFormatType` shall be assumed to be Event.",
+                    "readonly": true,
+                    "versionAdded": "v1_4_0"
+                },
+                "EventTypes": {
+                    "deprecated": "This property has been deprecated.  Starting with Redfish Specification v1.6 (Event v1.3), subscriptions are based on the `RegistryPrefix` and `ResourceType` properties and not on the `EventType` property.  Use `EventFormatType` to create subscriptions for metric reports.  If the subscription does not include this property, the service shall use a single element with a default of `Other`.",
+                    "description": "The types of events that are sent to the destination.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Event.json#/definitions/EventType"
+                    },
+                    "longDescription": "This property shall contain an array that contains the types of events that shall be sent to the destination.  To specify that a client is subscribing for metric reports, the `EventTypes` property should include 'MetricReport'.  If the subscription does not include this property, the service shall use a single element with a default of `Other`.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionDeprecated": "v1_5_0"
+                },
+                "ExcludeMessageIds": {
+                    "description": "The list of `MessageId` values that are not sent to this event destination.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of excluded `MessageId` values that are not allowed values for the `MessageId` property within an event sent to the subscriber.  The `MessageId` shall be in the `MessageRegistryPrefix.MessageKey` format.  If included, the `MessageId` major and minor version details should be ignored.  Events with a `MessageId` that is contained in this array shall not be sent to the subscriber.  If this property is an empty array or is absent, no exclusive filtering based upon the `MessageId` of an event is performed.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_12_0"
+                },
+                "ExcludeRegistryPrefixes": {
+                    "description": "The list of prefixes for the message registries that contain the `MessageId` values that are not sent to this event destination.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of prefixes of excluded message registries that contain the `MessageId` values that are not allowed values for the `MessageId` property within an event sent to the subscriber.  Events with a `MessageId` that is from a message registry contained in this array shall not be sent to the subscriber.  If this property is an empty array or is absent, no exclusive filtering based upon message registry of the `MessageId` of an event is performed.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_12_0"
+                },
+                "HeartbeatIntervalMinutes": {
+                    "description": "Interval for sending heartbeat events to the destination in minutes.",
+                    "longDescription": "This property shall indicate the interval for sending periodic heartbeat events to the subscriber.  The value shall be the interval, in minutes, between each periodic event.  This property shall not be present if the `SendHeartbeat` property is not present.",
+                    "maximum": 65535,
+                    "minimum": 1,
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_11_0"
+                },
+                "HttpHeaders": {
+                    "description": "An array of settings for HTTP headers, such as authorization information.  This array is `null` or an empty array in responses.  An empty array is the preferred return value on read operations.",
+                    "items": {
+                        "$ref": "#/definitions/HttpHeaderProperty"
+                    },
+                    "longDescription": "This property shall contain an array of objects consisting of the names and values of the HTTP headers to include with every event `POST` to the event destination.  This object shall be `null` or an empty array in responses.  An empty array is the preferred return value in responses.",
+                    "type": "array"
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "IncludeOriginOfCondition": {
+                    "description": "An indication of whether the events subscribed to will also include the entire resource or object referenced by the `OriginOfCondition` property in the event payload.",
+                    "longDescription": "This property shall indicate whether the event payload sent to the subscription destination will expand the `OriginOfCondition` property to include the resource or object referenced by the `OriginOfCondition` property.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_8_0"
+                },
+                "MessageIds": {
+                    "description": "The list of `MessageId` values that are sent to this event destination.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of `MessageId` values that are the allowable values for the `MessageId` property within an event sent to the subscriber.  The `MessageId` should be in the `MessageRegistryPrefix.MessageKey` format.  If included, the `MessageId` major and minor version details should be ignored.  Events with a `MessageId` that is not contained in this array and is not from a message registry contained in RegistryPrefixes shall not be sent to the subscriber.  If this property is an empty array or is absent, no inclusive filtering based upon the `MessageId` of an event is performed.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_1_0"
+                },
+                "MetricReportDefinitions": {
+                    "description": "A list of metric report definitions for which the service only sends related metric reports.  If this property is absent or the array is empty, metric reports that originate from any metric report definition are sent to the subscriber.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/MetricReportDefinition.json#/definitions/MetricReportDefinition"
+                    },
+                    "longDescription": "This property shall specify an array of metric report definitions that are the only allowable generators of metric reports for this subscription.  Metric reports originating from metric report definitions not contained in this array shall not be sent to the subscriber.  If this property is absent or the array is empty, the service shall send metric reports originating from any metric report definition to the subscriber.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_6_0"
+                },
+                "MetricReportDefinitions@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "OEMProtocol": {
+                    "description": "The OEM-defined protocol type of the event connection.",
+                    "longDescription": "This property shall contain the protocol type that the event uses to send the event to the destination.  This property shall be present if `Protocol` is `OEM`.",
+                    "readonly": true,
+                    "type": "string",
+                    "versionAdded": "v1_9_0"
+                },
+                "OEMSubscriptionType": {
+                    "description": "The OEM-defined subscription type for events.",
+                    "longDescription": "This property shall indicate the OEM-defined type of subscription for events.  This property shall be present if `SubscriptionType` is `OEM`.",
+                    "readonly": true,
+                    "type": "string",
+                    "versionAdded": "v1_9_0"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "OriginResources": {
+                    "description": "The array of resources for which the service sends only related events.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                    },
+                    "longDescription": "This property shall specify an array of resources, resource collections, or referenceable members that are the only allowable values for the `OriginOfCondition` property within an event that the service sends to the subscriber.  Events with an `OriginOfCondition` that is not contained in this array, and is not subordinate to members of this array if `SubordinateResources` contains the value `true`, shall not be sent to the subscriber.  If this property is an empty array or is absent, no filtering based upon the URI of the `OriginOfCondition` of an event is performed.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_1_0"
+                },
+                "OriginResources@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Protocol": {
+                    "$ref": "#/definitions/EventDestinationProtocol",
+                    "description": "The protocol type of the event connection.",
+                    "longDescription": "This property shall contain the protocol type that the event uses to send the event to the destination.  A `Redfish` value shall indicate that the event type shall adhere to the type defined in the Redfish Specification.",
+                    "readonly": true
+                },
+                "RegistryPrefixes": {
+                    "description": "The list of prefixes for the message registries that contain the `MessageId` values that are sent to this event destination.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array the prefixes of message registries that contain the `MessageId` values that are the allowable values for the `MessageId` property within an event sent to the subscriber.  Events with a `MessageId` that is not from a message registry contained in this array and is not contained by `MessageIds` shall not be sent to the subscriber.  If this property is an empty array or is absent, no inclusive filtering based upon message registry of the `MessageId` of an event is performed.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_4_0"
+                },
+                "ResourceTypes": {
+                    "description": "The list of resource type values (schema names) that correspond to the `OriginOfCondition`.  The version and full namespace should not be specified.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall specify an array of resource type values that contain the allowable resource types for the resource referenced by the `OriginOfCondition` property.  Events with the resource type of the resource referenced by the `OriginOfCondition` property that is not contained in this array shall not be sent to the subscriber.  If this property is an empty array or is absent, no filtering based upon the resource type of the `OriginOfCondition` of an event is performed.  This property shall contain only the general namespace for the type and not the versioned value.  For example, it shall not contain `Task.v1_2_0.Task` and instead shall contain `Task`.  To specify that a client is subscribing to metric reports, the `EventTypes` property should include `MetricReport`.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_4_0"
+                },
+                "SNMP": {
+                    "$ref": "#/definitions/SNMPSettings",
+                    "description": "Settings for an SNMP event destination.",
+                    "longDescription": "This property shall contain the settings for an SNMP event destination.",
+                    "versionAdded": "v1_7_0"
+                },
+                "SendHeartbeat": {
+                    "description": "Send a heartbeat event periodically to the destination.",
+                    "longDescription": "This property shall indicate that the service shall periodically send the `RedfishServiceFunctional` message defined in the Heartbeat Event Message Registry to the subscriber.  If this property is not present, no periodic event shall be sent.  This property shall not apply to event destinations if the `SubscriptionType` property contains the value `SSE`.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_11_0"
+                },
+                "Severities": {
+                    "description": "The list of severities that are sent to this event destination.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Health"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of severities that are the allowable values for the `MessageSeverity` property within an event sent to the subscriber.  If this property is an empty array or is absent, no filtering based upon the `MessageSeverity` of an event is performed.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_13_0"
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource.",
+                    "versionAdded": "v1_6_0"
+                },
+                "SubordinateResources": {
+                    "description": "An indication of whether the subscription is for events in the `OriginResources` array and its subordinate resources.  If `true` and the `OriginResources` array is specified, the subscription is for events in the `OriginResources` array and its subordinate resources.  Note that resources associated through the Links section are not considered subordinate.  If `false` and the `OriginResources` array is specified, the subscription is for events in the `OriginResources` array only.  If the `OriginResources` array is not present, this property has no relevance.",
+                    "longDescription": "This property shall indicate whether the subscription is for events in the `OriginResources` array and its subordinate resources.  If `true` and the `OriginResources` array is specified, the subscription is for events in the `OriginResources` array and its subordinate resources.  Note that resources associated through the Links section are not considered subordinate.  If `false` and the `OriginResources` array is specified, the subscription shall be for events in the `OriginResources` array only.  If the `OriginResources` array is not present, this property shall have no relevance.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                },
+                "SubscriptionType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/SubscriptionType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The subscription type for events.",
+                    "longDescription": "This property shall indicate the type of subscription for events.  If this property is not present, the `SubscriptionType` shall be assumed to be `RedfishEvent`.",
+                    "readonly": true,
+                    "versionAdded": "v1_3_0"
+                },
+                "SyslogFilters": {
+                    "description": "A list of filters applied to syslog messages before sending to a remote syslog server.  An empty list indicates all syslog messages are sent.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/SyslogFilter"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall describe all desired syslog messages to send to a remote syslog server.  If this property contains an empty array or is absent, all messages shall be sent.",
+                    "type": "array",
+                    "versionAdded": "v1_9_0"
+                },
+                "VerifyCertificate": {
+                    "description": "An indication of whether the service will verify the certificate of the server referenced by the `Destination` property prior to sending the event.",
+                    "longDescription": "This property shall indicate whether the service will verify the certificate of the server referenced by the `Destination` property prior to sending the event with the certificates found in the collection referenced by the `Certificates` property.  If this property is not supported by the service or specified by the client in the create request, it shall be assumed to be `false`.  Regardless of the value of this property, services may perform additional verification based on other factors, such as the configuration of the SecurityPolicy resource.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_9_0"
+                }
+            },
+            "required": [
+                "Context",
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name",
+                "SubscriptionType"
+            ],
+            "requiredOnCreate": [
+                "Destination",
+                "Protocol"
+            ],
+            "type": "object"
+        },
+        "EventDestinationProtocol": {
+            "enum": [
+                "Redfish",
+                "Kafka",
+                "SNMPv1",
+                "SNMPv2c",
+                "SNMPv3",
+                "SMTP",
+                "SyslogTLS",
+                "SyslogTCP",
+                "SyslogUDP",
+                "SyslogRELP",
+                "OEM"
+            ],
+            "enumDescriptions": {
+                "Kafka": "The destination follows the Kafka protocol for event notifications.",
+                "OEM": "The destination follows an OEM protocol for event notifications.",
+                "Redfish": "The destination follows the Redfish Specification for event notifications.",
+                "SMTP": "The destination follows the SMTP specification for event notifications.",
+                "SNMPv1": "The destination follows the SNMPv1 protocol for event notifications.",
+                "SNMPv2c": "The destination follows the SNMPv2c protocol for event notifications.",
+                "SNMPv3": "The destination follows the SNMPv3 protocol for event notifications.",
+                "SyslogRELP": "The destination follows syslog RELP for event notifications.",
+                "SyslogTCP": "The destination follows syslog TCP-based transport for event notifications.",
+                "SyslogTLS": "The destination follows syslog TLS-based transport for event notifications.",
+                "SyslogUDP": "The destination follows syslog UDP-based transport for event notifications."
+            },
+            "enumLongDescriptions": {
+                "Kafka": "This value shall indicate the destination follows the Apache-defined Kafka protocol as defined by the Kafka Protocol Guide.  The `Context` property shall contain the Kafka topic of the destination broker.",
+                "OEM": "This value shall indicate an OEM-specific protocol.  The `OEMProtocol` property shall contain the specific OEM event destination protocol.",
+                "Redfish": "This value shall indicate the destination follows the Redfish Specification for event notifications.  Destinations requesting `EventFormatType` of `Event` shall receive a Redfish resource of type `Event`.  Destinations requesting `EventFormatType` of `MetricReport` shall receive a Redfish resource of type `MetricReport`.",
+                "SMTP": "This value shall indicate the destination follows the RFC5321-defined SMTP specification.",
+                "SNMPv1": "This value shall indicate the destination follows the RFC1157-defined SNMPv1 protocol.",
+                "SNMPv2c": "This value shall indicate the destination follows the SNMPv2c protocol as defined by RFC1441 and RFC1452.",
+                "SNMPv3": "This value shall indicate the destination follows the SNMPv3 protocol as defined by RFC3411 and RFC3418.",
+                "SyslogRELP": "This value shall indicate the destination follows the Reliable Event Logging Protocol (RELP) transport for syslog as defined by www.rsyslog.com.",
+                "SyslogTCP": "This value shall indicate the destination follows the TCP-based transport for syslog as defined in RFC6587.",
+                "SyslogTLS": "This value shall indicate the destination follows the TLS-based transport for syslog as defined in RFC5424.",
+                "SyslogUDP": "This value shall indicate the destination follows the UDP-based transport for syslog as defined in RFC5424."
+            },
+            "enumVersionAdded": {
+                "Kafka": "v1_13_0",
+                "OEM": "v1_9_0",
+                "SMTP": "v1_7_0",
+                "SNMPv1": "v1_7_0",
+                "SNMPv2c": "v1_7_0",
+                "SNMPv3": "v1_7_0",
+                "SyslogRELP": "v1_9_0",
+                "SyslogTCP": "v1_9_0",
+                "SyslogTLS": "v1_9_0",
+                "SyslogUDP": "v1_9_0"
+            },
+            "type": "string"
+        },
+        "HttpHeaderProperty": {
+            "additionalProperties": false,
+            "description": "The HTTP header value is the property value.  The header name is the property name.",
+            "longDescription": "This type shall contain the HTTP header name and value to include with every event `POST` to the event destination.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                },
+                "^[^:\\\\s]+$": {
+                    "type": "string"
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "ResumeSubscription": {
+            "additionalProperties": false,
+            "description": "This action resumes a suspended event subscription.",
+            "longDescription": "This action shall resume a suspended event subscription, which affects the subscription status.  The service may deliver buffered events when the subscription is resumed.",
+            "parameters": {
+                "DeliverBufferedEventDuration": {
+                    "description": "The maximum age of buffered events that should be delivered when resuming the subscription.",
+                    "longDescription": "This parameter shall indicate the event age of any buffered or otherwise undelivered events that shall be delivered to this event destination when the subscription is resumed.  The service shall deliver any available, previously undelivered event that was created within the duration specified.  A value that equates to zero time, such as `PT0S`, shall indicate that no previously undelivered events shall be sent.  If undelivered events within the duration may have been discarded due to a lack of buffer space, the service should send the `EventBufferExceeded` message from the Base Message Registry.  If the client does not provide this parameter, the service shall apply an implementation-specific duration.",
+                    "pattern": "^P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?$",
+                    "type": "string",
+                    "versionAdded": "v1_12_0"
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "SNMPAuthenticationProtocols": {
+            "enum": [
+                "None",
+                "CommunityString",
+                "HMAC_MD5",
+                "HMAC_SHA96",
+                "HMAC128_SHA224",
+                "HMAC192_SHA256",
+                "HMAC256_SHA384",
+                "HMAC384_SHA512"
+            ],
+            "enumDescriptions": {
+                "CommunityString": "Trap community string authentication.",
+                "HMAC128_SHA224": "HMAC-128-SHA-224 authentication.",
+                "HMAC192_SHA256": "HMAC-192-SHA-256 authentication.",
+                "HMAC256_SHA384": "HMAC-256-SHA-384 authentication.",
+                "HMAC384_SHA512": "HMAC-384-SHA-512 authentication.",
+                "HMAC_MD5": "HMAC-MD5-96 authentication.",
+                "HMAC_SHA96": "HMAC-SHA-96 authentication.",
+                "None": "No authentication."
+            },
+            "enumLongDescriptions": {
+                "CommunityString": "This value shall indicate authentication using SNMP community strings and the value of TrapCommunity.",
+                "HMAC128_SHA224": "This value shall indicate authentication for SNMPv3 access conforms to the RFC7860-defined usmHMAC128SHA224AuthProtocol.",
+                "HMAC192_SHA256": "This value shall indicate authentication for SNMPv3 access conforms to the RFC7860-defined usmHMAC192SHA256AuthProtocol.",
+                "HMAC256_SHA384": "This value shall indicate authentication for SNMPv3 access conforms to the RFC7860-defined usmHMAC256SHA384AuthProtocol.",
+                "HMAC384_SHA512": "This value shall indicate authentication for SNMPv3 access conforms to the RFC7860-defined usmHMAC384SHA512AuthProtocol.",
+                "HMAC_MD5": "This value shall indicate authentication conforms to the RFC3414-defined HMAC-MD5-96 authentication protocol.",
+                "HMAC_SHA96": "This value shall indicate authentication conforms to the RFC3414-defined HMAC-SHA-96 authentication protocol.",
+                "None": "This value shall indicate authentication is not required."
+            },
+            "enumVersionAdded": {
+                "HMAC128_SHA224": "v1_10_0",
+                "HMAC192_SHA256": "v1_10_0",
+                "HMAC256_SHA384": "v1_10_0",
+                "HMAC384_SHA512": "v1_10_0"
+            },
+            "type": "string"
+        },
+        "SNMPEncryptionProtocols": {
+            "enum": [
+                "None",
+                "CBC_DES",
+                "CFB128_AES128",
+                "CFB128_AES192",
+                "CFB128_AES256"
+            ],
+            "enumDescriptions": {
+                "CBC_DES": "CBC-DES encryption.",
+                "CFB128_AES128": "CFB128-AES-128 encryption.",
+                "CFB128_AES192": "CFB128-AES-192 encryption.",
+                "CFB128_AES256": "CFB128-AES-256 encryption.",
+                "None": "No encryption."
+            },
+            "enumLongDescriptions": {
+                "CBC_DES": "This value shall indicate encryption conforms to the RFC3414-defined CBC-DES encryption protocol.",
+                "CFB128_AES128": "This value shall indicate encryption conforms to the RFC3826-defined CFB128-AES-128 encryption protocol.",
+                "CFB128_AES192": "This value shall indicate encryption conforms to the CFB128-AES-192 encryption protocol, extended from RFC3826.",
+                "CFB128_AES256": "This value shall indicate encryption conforms to the CFB128-AES-256 encryption protocol, extended from RFC3826.",
+                "None": "This value shall indicate there is no encryption."
+            },
+            "enumVersionAdded": {
+                "CFB128_AES192": "v1_14_0",
+                "CFB128_AES256": "v1_14_0"
+            },
+            "type": "string"
+        },
+        "SNMPSettings": {
+            "additionalProperties": false,
+            "description": "Settings for an SNMP event destination.",
+            "longDescription": "This type shall contain the settings for an SNMP event destination.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AuthenticationKey": {
+                    "description": "The secret authentication key for SNMPv3.",
+                    "longDescription": "This property shall contain the key for SNMPv3 authentication.  The value shall be `null` in responses.  This property accepts a passphrase or a hex-encoded key.  If the string starts with `Passphrase:`, the remainder of the string shall be the passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  If the string starts with `Hex:`, then the remainder of the string shall be the key encoded in hexadecimal notation.  If the string starts with neither, the full string shall be a passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  The passphrase can contain any printable characters except for the double quotation mark.",
+                    "pattern": "(^[ !#-~]+$)|(^Passphrase:[ ^[ !#-~]+$)|(^Hex:[0-9A-Fa-f]{24,96})|(^\\*+$)",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_7_0",
+                    "writeOnly": true
+                },
+                "AuthenticationKeySet": {
+                    "description": "Indicates if the `AuthenticationKey` property is set.",
+                    "longDescription": "This property shall contain `true` if a valid value was provided for the `AuthenticationKey` property.  Otherwise, the property shall contain `false`.",
+                    "readonly": true,
+                    "type": "boolean",
+                    "versionAdded": "v1_10_0"
+                },
+                "AuthenticationProtocol": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/SNMPAuthenticationProtocols"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The authentication protocol for SNMPv3.",
+                    "longDescription": "This property shall contain the SNMPv3 authentication protocol.",
+                    "readonly": false,
+                    "versionAdded": "v1_7_0"
+                },
+                "EncryptionKey": {
+                    "description": "The secret authentication key for SNMPv3.",
+                    "longDescription": "This property shall contain the key for SNMPv3 encryption.  The value shall be `null` in responses.  This property accepts a passphrase or a hex-encoded key.  If the string starts with `Passphrase:`, the remainder of the string shall be the passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  If the string starts with `Hex:`, then the remainder of the string shall be the key encoded in hexadecimal notation.  If the string starts with neither, the full string shall be a passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  The passphrase can contain any printable characters except for the double quotation mark.",
+                    "pattern": "(^[A-Za-z0-9]+$)|(^\\*+$)",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_7_0",
+                    "writeOnly": true
+                },
+                "EncryptionKeySet": {
+                    "description": "Indicates if the `EncryptionKey` property is set.",
+                    "longDescription": "This property shall contain `true` if a valid value was provided for the `EncryptionKey` property.  Otherwise, the property shall contain `false`.",
+                    "readonly": true,
+                    "type": "boolean",
+                    "versionAdded": "v1_10_0"
+                },
+                "EncryptionProtocol": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/SNMPEncryptionProtocols"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The encryption protocol for SNMPv3.",
+                    "longDescription": "This property shall contain the SNMPv3 encryption protocol.",
+                    "readonly": false,
+                    "versionAdded": "v1_7_0"
+                },
+                "TrapCommunity": {
+                    "description": "The SNMP trap community string.",
+                    "longDescription": "This property shall contain the SNMP trap community string.  The value shall be `null` in responses.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_7_0",
+                    "writeOnly": true
+                }
+            },
+            "type": "object"
+        },
+        "SubscriptionType": {
+            "enum": [
+                "RedfishEvent",
+                "SSE",
+                "SNMPTrap",
+                "SNMPInform",
+                "Syslog",
+                "OEM"
+            ],
+            "enumDescriptions": {
+                "OEM": "The subscription is an OEM subscription.",
+                "RedfishEvent": "The subscription follows the Redfish Specification for event notifications.  To send an event notification, a service sends an HTTP `POST` to the subscriber's destination URI.",
+                "SNMPInform": "The subscription follows versions 2 and 3 of SNMP Inform for event notifications.",
+                "SNMPTrap": "The subscription follows the various versions of SNMP Traps for event notifications.",
+                "SSE": "The subscription follows the HTML5 server-sent event definition for event notifications.",
+                "Syslog": "The subscription sends syslog messages for event notifications."
+            },
+            "enumLongDescriptions": {
+                "OEM": "This value shall indicate an OEM subscription type.  The `OEMSubscriptionType` property shall contain the specific OEM subscription type.",
+                "SNMPInform": "This value shall indicate the subscription follows versions 2 and 3 of SNMP Inform for event notifications.  `Protocol` shall specify the appropriate version of SNMP.",
+                "SNMPTrap": "This value shall indicate the subscription follows the various versions of SNMP Traps for event notifications.  `Protocol` shall specify the appropriate version of SNMP.",
+                "Syslog": "This value shall indicate the subscription forwards syslog messages to the event destination.  `Protocol` shall specify the appropriate syslog protocol."
+            },
+            "enumVersionAdded": {
+                "OEM": "v1_9_0",
+                "SNMPInform": "v1_7_0",
+                "SNMPTrap": "v1_7_0",
+                "Syslog": "v1_9_0"
+            },
+            "type": "string"
+        },
+        "SuspendSubscription": {
+            "additionalProperties": false,
+            "description": "This action suspends an event subscription.",
+            "longDescription": "This action shall suspend an event subscription.  No events shall be sent to the event destination until invocation of the `ResumeSubscription` action.  The value of the `State` property within `Status` shall contain `Disabled` for a suspended subscription.  The service may buffer events while the subscription is suspended.",
+            "parameters": {},
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_12_0"
+        },
+        "SyslogFacility": {
+            "description": "The syslog facility code is an enumeration of program types.",
+            "enum": [
+                "Kern",
+                "User",
+                "Mail",
+                "Daemon",
+                "Auth",
+                "Syslog",
+                "LPR",
+                "News",
+                "UUCP",
+                "Cron",
+                "Authpriv",
+                "FTP",
+                "NTP",
+                "Security",
+                "Console",
+                "SolarisCron",
+                "Local0",
+                "Local1",
+                "Local2",
+                "Local3",
+                "Local4",
+                "Local5",
+                "Local6",
+                "Local7"
+            ],
+            "enumDescriptions": {
+                "Auth": "Security/authentication messages.",
+                "Authpriv": "Security/authentication messages.",
+                "Console": "Log alert.",
+                "Cron": "Clock daemon.",
+                "Daemon": "System daemons.",
+                "FTP": "FTP daemon.",
+                "Kern": "Kernel messages.",
+                "LPR": "Line printer subsystem.",
+                "Local0": "Locally used facility 0.",
+                "Local1": "Locally used facility 1.",
+                "Local2": "Locally used facility 2.",
+                "Local3": "Locally used facility 3.",
+                "Local4": "Locally used facility 4.",
+                "Local5": "Locally used facility 5.",
+                "Local6": "Locally used facility 6.",
+                "Local7": "Locally used facility 7.",
+                "Mail": "Mail system.",
+                "NTP": "NTP subsystem.",
+                "News": "Network news subsystem.",
+                "Security": "Log audit.",
+                "SolarisCron": "Scheduling daemon.",
+                "Syslog": "Messages generated internally by syslogd.",
+                "UUCP": "UUCP subsystem.",
+                "User": "User-level messages."
+            },
+            "longDescription": "This type shall specify the syslog facility codes as program types.  Facility values are described in the RFC5424.",
+            "type": "string"
+        },
+        "SyslogFilter": {
+            "additionalProperties": false,
+            "description": "A syslog filter.",
+            "longDescription": "This type shall contain the filter for a syslog message.  The filter shall describe the desired syslog message to forward to a remote syslog server.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "LogFacilities": {
+                    "description": "The types of programs that can log messages.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/SyslogFacility"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain the types of programs that can log messages.  If this property contains an empty array or is absent, all facilities shall be indicated.",
+                    "readonly": false,
+                    "type": "array",
+                    "versionAdded": "v1_9_0"
+                },
+                "LowestSeverity": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/SyslogSeverity"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The lowest severity level message that will be forwarded.",
+                    "longDescription": "This property shall contain the lowest syslog severity level that will be forwarded.  The service shall forward all messages equal to or greater than the value in this property.  The value `All` shall indicate all severities.",
+                    "readonly": false,
+                    "versionAdded": "v1_9_0"
+                }
+            },
+            "type": "object"
+        },
+        "SyslogSeverity": {
+            "description": "The syslog severity is an application-specific rating used to describe the urgency of the message.",
+            "enum": [
+                "Emergency",
+                "Alert",
+                "Critical",
+                "Error",
+                "Warning",
+                "Notice",
+                "Informational",
+                "Debug",
+                "All"
+            ],
+            "enumDescriptions": {
+                "Alert": "A condition that should be corrected immediately, such as a corrupted system database.",
+                "All": "A message of any severity.",
+                "Critical": "Hard device errors.",
+                "Debug": "Messages that contain information normally of use only when debugging a program.",
+                "Emergency": "A panic condition.",
+                "Error": "An Error.",
+                "Informational": "Informational only.",
+                "Notice": "Conditions that are not error conditions, but that might require special handling.",
+                "Warning": "A Warning."
+            },
+            "longDescription": "This type shall specify the syslog severity levels as an application-specific rating used to describe the urgency of the message.  `Emergency` should be reserved for messages indicating the system is unusable and `Debug` should only be used when debugging a program.  Severity values are described in RFC5424.",
+            "type": "string"
+        }
+    },
+    "language": "en",
+    "owningEntity": "DMTF",
+    "release": "2023.3",
+    "title": "#EventDestination.v1_14_1.EventDestination"
+}

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Battery v1.2.2                                                      -->
+<!--# Redfish Schema:  Battery v1.3.0                                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -48,10 +48,11 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Battery">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="Battery" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The Battery schema describes a battery unit, such as those used to provide systems with power during a power-loss event.  It also describes the location, such as a slot, socket, or bay, where a unit can be installed by populating a resource instance with an absent state if a unit is not present."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall represent a battery for a Redfish implementation.  It may also represent a location, such as a slot, socket, or bay, where a unit may be installed if the State property within the Status property contains `Absent`."/>
+        <Annotation Term="OData.Description" String="The `Battery` schema describes a battery unit, such as those used to provide systems with power during a power-loss event.  It also describes the location, such as a slot, socket, or bay, where a unit can be installed by populating a resource instance with an absent state if a unit is not present."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent a battery for a Redfish implementation.  It may also represent a location, such as a slot, socket, or bay, where a unit may be installed if the `State` property within the `Status` property contains `Absent`."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -190,22 +191,22 @@
         </Property>
         <Property Name="MaxDischargeRateAmps" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The maximum discharge rate of this battery in amp units."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum discharge rate of this battery in amp units."/>
+          <Annotation Term="OData.Description" String="The maximum discharge rate at the output of this battery in amp units."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum discharge rate at the output of this battery in amp units."/>
           <Annotation Term="Measures.Unit" String="A"/>
           <Annotation Term="Validation.Minimum" Int="0"/>
         </Property>
         <Property Name="MaxChargeRateAmps" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The maximum charge rate of this battery in amp units."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum charge rate of this battery in amp units."/>
+          <Annotation Term="OData.Description" String="The maximum charge rate at the input of this battery in amp units."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum charge rate at the input of this battery in amp units."/>
           <Annotation Term="Measures.Unit" String="A"/>
           <Annotation Term="Validation.Minimum" Int="0"/>
         </Property>
         <Property Name="MaxChargeVoltage" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The maximum charge voltage of this battery."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum charge voltage of this battery."/>
+          <Annotation Term="OData.Description" String="The maximum charge voltage across the cell pack of this battery when it is fully charged."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum charge voltage across the cell pack of this battery when it is fully charged.  This property should not be present if the battery contains an internal charger that regulates the voltage applied to the cell pack from the input of the battery."/>
           <Annotation Term="Measures.Unit" String="V"/>
           <Annotation Term="Validation.Minimum" Int="0"/>
         </Property>
@@ -216,19 +217,19 @@
         </Property>
         <NavigationProperty Name="StateOfHealthPercent" Type="Sensor.Sensor" Nullable="false">
           <Annotation Term="OData.Description" String="The state of health (percent) of this battery."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the state of health, in percent units, of this battery.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Percent`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the state of health, in percent units, of this battery.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Percent`."/>
           <Annotation Term="Redfish.ExcerptCopy"/>
         </NavigationProperty>
         <NavigationProperty Name="Assembly" Type="Assembly.Assembly" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the assembly associated with this battery."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Assembly."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `Assembly`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Metrics" Type="BatteryMetrics.BatteryMetrics" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the battery metrics resource associated with this battery."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type BatteryMetrics."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `BatteryMetrics`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="Actions" Type="Battery.v1_0_0.Actions" Nullable="false">
@@ -271,7 +272,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Battery.v1_0_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update descriptions to tie excerpt property definitions to a specific type of Sensor or Control."/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions to tie excerpt property definitions to a specific type of `Sensor` or `Control` resource."/>
       <EntityType Name="Battery" BaseType="Battery.v1_0_0.Battery"/>
     </Schema>
 
@@ -285,6 +286,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Battery" BaseType="Battery.v1_0_2.Battery"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Battery.v1_0_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `MaxDischargeRateAmps`, `MaxChargeRateAmps`, and `MaxChargeVoltage` properties.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Battery" BaseType="Battery.v1_0_3.Battery"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Battery.v1_1_0">
@@ -304,13 +311,13 @@
         <NavigationProperty Name="Memory" Type="Collection(Memory.Memory)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the memory devices to which this battery provides power during a power-loss event."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Memory that represent the memory devices to which this battery provides power during a power-loss event, such as battery-backed NVDIMMs.  This property shall not be present if the battery powers the containing chassis as a whole rather than individual components in a chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Memory` that represent the memory devices to which this battery provides power during a power-loss event, such as battery-backed NVDIMMs.  This property shall not be present if the battery powers the containing chassis as a whole rather than individual components in a chassis."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="StorageControllers" Type="Collection(StorageController.StorageController)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the storage controllers to which this battery provides power during a power-loss event."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type StorageController that represent the storage controllers to which this battery provides power during a power-loss event, such as battery-backed RAID controllers.  This property shall not be present if the battery powers the containing chassis as a whole rather than individual components in a chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `StorageController` that represent the storage controllers to which this battery provides power during a power-loss event, such as battery-backed RAID controllers.  This property shall not be present if the battery powers the containing chassis as a whole rather than individual components in a chassis."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -326,6 +333,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Battery" BaseType="Battery.v1_1_1.Battery"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Battery.v1_1_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `MaxDischargeRateAmps`, `MaxChargeRateAmps`, and `MaxChargeVoltage` properties.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Battery" BaseType="Battery.v1_1_2.Battery"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Battery.v1_2_0">
@@ -351,6 +364,27 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Battery" BaseType="Battery.v1_2_1.Battery"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Battery.v1_2_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `MaxDischargeRateAmps`, `MaxChargeRateAmps`, and `MaxChargeVoltage` properties.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Battery" BaseType="Battery.v1_2_2.Battery"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Battery.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2024.1"/>
+
+      <EntityType Name="Battery" BaseType="Battery.v1_2_3.Battery">
+        <Property Name="NominalOutputVoltage" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The nominal output voltage of this battery."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the nominal output voltage of this battery."/>
+          <Annotation Term="Measures.Unit" String="V"/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

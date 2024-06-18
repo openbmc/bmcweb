@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ActionInfo v1.4.1                                                   -->
+<!--# Redfish Schema:  ActionInfo v1.4.2                                                   -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -28,9 +28,10 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ActionInfo">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="ActionInfo" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The ActionInfo schema defines the supported parameters and other information for a Redfish action.  Supported parameters can differ among vendors and even among resource instances.  This data can ensure that action requests from applications contain supported parameters."/>
+        <Annotation Term="OData.Description" String="The `ActionInfo` schema defines the supported parameters and other information for a Redfish action.  Supported parameters can differ among vendors and even among resource instances.  This data can ensure that action requests from applications contain supported parameters."/>
         <Annotation Term="OData.LongDescription" String="This resource shall represent the supported parameters and other information for a Redfish action on a target within a Redfish implementation.  Supported parameters can differ among vendors and even among resource instances.  This data can ensure that action requests from applications contain supported parameters."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -163,10 +164,15 @@
       <EntityType Name="ActionInfo" BaseType="ActionInfo.v1_0_6.ActionInfo"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ActionInfo.v1_0_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="ActionInfo" BaseType="ActionInfo.v1_0_7.ActionInfo"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ActionInfo.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
-      <Annotation Term="OData.Description" String="This version was created to add properties to specify parameter minimum and maximum values."/>
 
       <EntityType Name="ActionInfo" BaseType="ActionInfo.v1_0_4.ActionInfo"/>
 
@@ -198,8 +204,14 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ActionInfo.v1_1_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of AllowableValues, MinimumValue, and MaximumValue for array parameters."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of `AllowableValues`, `MinimumValue`, and `MaximumValue` for array parameters."/>
       <EntityType Name="ActionInfo" BaseType="ActionInfo.v1_1_2.ActionInfo"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ActionInfo.v1_1_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="ActionInfo" BaseType="ActionInfo.v1_1_3.ActionInfo"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ActionInfo.v1_2_0">
@@ -220,6 +232,12 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the maximum number of array elements that this service supports for this parameter.  This property shall not be present for non-array parameters."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ActionInfo.v1_2_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="ActionInfo" BaseType="ActionInfo.v1_2_0.ActionInfo"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ActionInfo.v1_3_0">
@@ -248,6 +266,12 @@
       <EntityType Name="ActionInfo" BaseType="ActionInfo.v1_3_0.ActionInfo"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ActionInfo.v1_3_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="ActionInfo" BaseType="ActionInfo.v1_3_1.ActionInfo"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ActionInfo.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.2"/>
@@ -258,7 +282,7 @@
         <Property Name="AllowableValueDescriptions" Type="Collection(Edm.String)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Descriptions of allowable values for this parameter."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the descriptions of allowable values for this parameter.  The descriptions shall appear in the same array order as the AllowableValues property.  For arrays, this property shall represent the descriptions of allowable values for each array member."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the descriptions of allowable values for this parameter.  The descriptions shall appear in the same array order as the `AllowableValues` property.  For arrays, this property shall represent the descriptions of allowable values for each array member."/>
         </Property>
       </ComplexType>
     </Schema>
@@ -267,6 +291,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="ActionInfo" BaseType="ActionInfo.v1_4_0.ActionInfo"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ActionInfo.v1_4_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="ActionInfo" BaseType="ActionInfo.v1_4_1.ActionInfo"/>
     </Schema>
 
   </edmx:DataServices>
