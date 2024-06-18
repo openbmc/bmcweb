@@ -16,6 +16,23 @@
       "message": "We have a unit test that looks like it hardcodes a message registry version in the test results.\n\nhttps://github.com/openbmc/bmcweb/blob/f2a8e57ede74a8252100b2281e3f4d170aa69391/test/redfish-core/include/utils/dbus_utils.cpp#L60\n\nNeeds fixed then this will pass.",
       "revId": "3016ed865a62a8b9c1358a67637ed35c62b27ec7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b939087_410bbda3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-18T16:15:01Z",
+      "side": 1,
+      "message": "+1 in solidarity.  Once the unit tests pass, this can merge.",
+      "revId": "3016ed865a62a8b9c1358a67637ed35c62b27ec7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
