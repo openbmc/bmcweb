@@ -1,6 +1,7 @@
 #pragma once
 
 #include "dbus_utility.hpp"
+#include "generated/enums/resource.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utils/collection.hpp"
@@ -121,7 +122,8 @@ inline void
 
                     if (!present)
                     {
-                        asyncResp->res.jsonValue["Status"]["State"] = "Absent";
+                        asyncResp->res.jsonValue["Status"]["State"] =
+                            resource::State::Absent;
                     }
                 });
             }
@@ -178,7 +180,8 @@ inline void requestRoutesCable(App& app)
                     boost::urls::format("/redfish/v1/Cables/{}", cableId);
                 asyncResp->res.jsonValue["Id"] = cableId;
                 asyncResp->res.jsonValue["Name"] = "Cable";
-                asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
+                asyncResp->res.jsonValue["Status"]["State"] =
+                    resource::State::Enabled;
 
                 getCableProperties(asyncResp, objectPath, serviceMap);
                 return;
