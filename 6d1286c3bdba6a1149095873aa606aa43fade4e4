@@ -33,6 +33,24 @@
       "message": "Some suggestions of additional cases to test:\n- failure case: the key DNE, key is subset (e.g. \"Cou\")\n- compare int/double to string\n- string comparison is subset of value (e.g. \"Fo\")\n- filter using precedence groupings",
       "revId": "6d1286c3bdba6a1149095873aa606aa43fade4e4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "159195ae_fe3cfee1",
+        "filename": "test/redfish-core/include/filter_expr_executor_test.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-19T17:03:17Z",
+      "side": 1,
+      "message": "\u003e Some suggestions of additional cases to test:\n\u003e - failure case: the key DNE, key is subset (e.g. \"Cou\")\n\nI explicitly didn\u0027t include a test for this, because this is undefined behavior.  From both the odata specs and the redfish specs, it isn\u0027t clear what should happen if you give a key that doesn\u0027t exist in the collection.  Today we don\u0027t return it, but I\u0027m not sure that\u0027s correct, it possibly should be a query error, so I don\u0027t want to put that in a unit test as if not returning it is the correct behavior.\n\n\u003e - compare int/double to string\n\nThis also isn\u0027t defined behavior, so I\u0027d like to avoid a unit test (which would imply that the behavior is defined).\n\nIn future patches I suspect we need a path for \"query error\" when the types don\u0027t align, but that\u0027s for a future patch.  This patch is big enough.\n\n\u003e - string comparison is subset of value (e.g. \"Fo\")\n\nSubset of comparison is the same code path as equality, so there\u0027s no additional coverage we gain by this, and like I said on the other example, non existence of keys it undefined behavior right now.\n\n\u003e - filter using precedence groupings\n\nI tried to build some tests for these, but I struggled to come up with a test case example where the precedence of and/or changed the overall result.  If you have an example, I can include it.",
+      "parentUuid": "1ff84afe_ea6a049e",
+      "revId": "6d1286c3bdba6a1149095873aa606aa43fade4e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
