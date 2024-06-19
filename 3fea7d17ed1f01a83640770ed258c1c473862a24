@@ -34,6 +34,29 @@
       "parentUuid": "194fe13f_fccc5e6e",
       "revId": "3fea7d17ed1f01a83640770ed258c1c473862a24",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d74072da_58b1310c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-06-19T15:25:12Z",
+      "side": 1,
+      "message": "nit: typo: \"Chassi\"",
+      "range": {
+        "startLine": 38,
+        "startChar": 8,
+        "endLine": 38,
+        "endChar": 14
+      },
+      "revId": "3fea7d17ed1f01a83640770ed258c1c473862a24",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
