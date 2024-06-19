@@ -20,7 +20,9 @@
 #include "app.hpp"
 #include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
+#include "generated/enums/action_info.hpp"
 #include "generated/enums/computer_system.hpp"
+#include "generated/enums/oem_computer_system.hpp"
 #include "generated/enums/resource.hpp"
 #include "hypervisor_system.hpp"
 #include "led.hpp"
@@ -557,38 +559,46 @@ inline void getHostState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
         // Verify Host State
         if (hostState == "xyz.openbmc_project.State.Host.HostState.Running")
         {
-            asyncResp->res.jsonValue["PowerState"] = "On";
-            asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
+            asyncResp->res.jsonValue["PowerState"] = resource::PowerState::On;
+            asyncResp->res.jsonValue["Status"]["State"] =
+                resource::State::Enabled;
         }
         else if (hostState ==
                  "xyz.openbmc_project.State.Host.HostState.Quiesced")
         {
-            asyncResp->res.jsonValue["PowerState"] = "On";
-            asyncResp->res.jsonValue["Status"]["State"] = "Quiesced";
+            asyncResp->res.jsonValue["PowerState"] = resource::PowerState::On;
+            asyncResp->res.jsonValue["Status"]["State"] =
+                resource::State::Quiesced;
         }
         else if (hostState ==
                  "xyz.openbmc_project.State.Host.HostState.DiagnosticMode")
         {
-            asyncResp->res.jsonValue["PowerState"] = "On";
-            asyncResp->res.jsonValue["Status"]["State"] = "InTest";
+            asyncResp->res.jsonValue["PowerState"] = resource::PowerState::On;
+            asyncResp->res.jsonValue["Status"]["State"] =
+                resource::State::InTest;
         }
         else if (
             hostState ==
             "xyz.openbmc_project.State.Host.HostState.TransitioningToRunning")
         {
-            asyncResp->res.jsonValue["PowerState"] = "PoweringOn";
-            asyncResp->res.jsonValue["Status"]["State"] = "Starting";
+            asyncResp->res.jsonValue["PowerState"] =
+                resource::PowerState::PoweringOn;
+            asyncResp->res.jsonValue["Status"]["State"] =
+                resource::State::Starting;
         }
         else if (hostState ==
                  "xyz.openbmc_project.State.Host.HostState.TransitioningToOff")
         {
-            asyncResp->res.jsonValue["PowerState"] = "PoweringOff";
-            asyncResp->res.jsonValue["Status"]["State"] = "Disabled";
+            asyncResp->res.jsonValue["PowerState"] =
+                resource::PowerState::PoweringOff;
+            asyncResp->res.jsonValue["Status"]["State"] =
+                resource::State::Disabled;
         }
         else
         {
-            asyncResp->res.jsonValue["PowerState"] = "Off";
-            asyncResp->res.jsonValue["Status"]["State"] = "Disabled";
+            asyncResp->res.jsonValue["PowerState"] = resource::PowerState::Off;
+            asyncResp->res.jsonValue["Status"]["State"] =
+                resource::State::Disabled;
         }
     });
 }
@@ -1372,11 +1382,13 @@ inline void
 
         if (value)
         {
-            asyncResp->res.jsonValue["Boot"]["StopBootOnFault"] = "AnyFault";
+            asyncResp->res.jsonValue["Boot"]["StopBootOnFault"] =
+                computer_system::StopBootOnFault::AnyFault;
         }
         else
         {
-            asyncResp->res.jsonValue["Boot"]["StopBootOnFault"] = "Never";
+            asyncResp->res.jsonValue["Boot"]["StopBootOnFault"] =
+                computer_system::StopBootOnFault::Never;
         }
     });
 }
@@ -1965,7 +1977,8 @@ inline void
         {
             BMCWEB_LOG_DEBUG("DBUS response error {}", ec);
             // not an error, don't have to have the interface
-            oemPFR["ProvisioningStatus"] = "NotProvisioned";
+            oemPFR["ProvisioningStatus"] =
+                oem_computer_system::FirmwareProvisioningStatus::NotProvisioned;
             return;
         }
 
@@ -1993,16 +2006,19 @@ inline void
         {
             if (*lockState)
             {
-                oemPFR["ProvisioningStatus"] = "ProvisionedAndLocked";
+                oemPFR["ProvisioningStatus"] = oem_computer_system::
+                    FirmwareProvisioningStatus::ProvisionedAndLocked;
             }
             else
             {
-                oemPFR["ProvisioningStatus"] = "ProvisionedButNotLocked";
+                oemPFR["ProvisioningStatus"] = oem_computer_system::
+                    FirmwareProvisioningStatus::ProvisionedButNotLocked;
             }
         }
         else
         {
-            oemPFR["ProvisioningStatus"] = "NotProvisioned";
+            oemPFR["ProvisioningStatus"] =
+                oem_computer_system::FirmwareProvisioningStatus::NotProvisioned;
         }
     });
 }
@@ -2401,7 +2417,7 @@ inline void
             asyncResp->res.jsonValue["HostWatchdogTimer"];
 
         // watchdog service is running/enabled
-        hostWatchdogTimer["Status"]["State"] = "Enabled";
+        hostWatchdogTimer["Status"]["State"] = resource::State::Enabled;
 
         const bool* enabled = nullptr;
         const std::string* expireAction = nullptr;
@@ -3031,7 +3047,8 @@ inline void
         "#ComputerSystem.v1_22_0.ComputerSystem";
     asyncResp->res.jsonValue["Name"] = BMCWEB_REDFISH_SYSTEM_URI_NAME;
     asyncResp->res.jsonValue["Id"] = BMCWEB_REDFISH_SYSTEM_URI_NAME;
-    asyncResp->res.jsonValue["SystemType"] = "Physical";
+    asyncResp->res.jsonValue["SystemType"] =
+        computer_system::SystemType::Physical;
     asyncResp->res.jsonValue["Description"] = "Computer System";
     asyncResp->res.jsonValue["ProcessorSummary"]["Count"] = 0;
     asyncResp->res.jsonValue["MemorySummary"]["TotalSystemMemoryGiB"] =
@@ -3068,8 +3085,8 @@ inline void
     manager["@odata.id"] = boost::urls::format("/redfish/v1/Managers/{}",
                                                BMCWEB_REDFISH_MANAGER_URI_NAME);
     asyncResp->res.jsonValue["Links"]["ManagedBy"] = std::move(managedBy);
-    asyncResp->res.jsonValue["Status"]["Health"] = "OK";
-    asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
+    asyncResp->res.jsonValue["Status"]["Health"] = resource::Health::OK;
+    asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
 
     // Fill in SerialConsole info
     asyncResp->res.jsonValue["SerialConsole"]["MaxConcurrentSessions"] = 15;
@@ -3368,7 +3385,7 @@ inline void afterGetAllowedHostTransitions(
     nlohmann::json::object_t parameter;
     parameter["Name"] = "ResetType";
     parameter["Required"] = true;
-    parameter["DataType"] = "String";
+    parameter["DataType"] = action_info::ParameterTypes::String;
     parameter["AllowableValues"] = std::move(allowableValues);
     nlohmann::json::array_t parameters;
     parameters.emplace_back(std::move(parameter));
