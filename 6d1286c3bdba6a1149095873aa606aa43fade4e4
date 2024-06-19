@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df1b12ab_0e302959",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-06-19T16:02:52Z",
+      "side": 1,
+      "message": "The code looks good to me, I just have some suggestions on additional unit tests.",
+      "revId": "6d1286c3bdba6a1149095873aa606aa43fade4e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ff84afe_ea6a049e",
+        "filename": "test/redfish-core/include/filter_expr_executor_test.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-06-19T16:02:52Z",
+      "side": 1,
+      "message": "Some suggestions of additional cases to test:\n- failure case: the key DNE, key is subset (e.g. \"Cou\")\n- compare int/double to string\n- string comparison is subset of value (e.g. \"Fo\")\n- filter using precedence groupings",
+      "revId": "6d1286c3bdba6a1149095873aa606aa43fade4e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
