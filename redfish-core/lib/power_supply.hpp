@@ -2,6 +2,7 @@
 
 #include "app.hpp"
 #include "dbus_utility.hpp"
+#include "generated/enums/resource.hpp"
 #include "led.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
@@ -226,7 +227,8 @@ inline void
 
         if (!value)
         {
-            asyncResp->res.jsonValue["Status"]["State"] = "Absent";
+            asyncResp->res.jsonValue["Status"]["State"] =
+                resource::State::Absent;
         }
         else if (!available)
         {
@@ -258,7 +260,8 @@ inline void
 
         if (!value || !available)
         {
-            asyncResp->res.jsonValue["Status"]["Health"] = "Critical";
+            asyncResp->res.jsonValue["Status"]["Health"] =
+                resource::Health::Critical;
         }
     });
 }
@@ -511,8 +514,8 @@ inline void
             "/redfish/v1/Chassis/{}/PowerSubsystem/PowerSupplies/{}", chassisId,
             powerSupplyId);
 
-        asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
-        asyncResp->res.jsonValue["Status"]["Health"] = "OK";
+        asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
+        asyncResp->res.jsonValue["Status"]["Health"] = resource::Health::OK;
 
         dbus::utility::getDbusObject(
             powerSupplyPath, powerSupplyInterface,

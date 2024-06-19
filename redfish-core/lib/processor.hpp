@@ -20,6 +20,7 @@
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "generated/enums/processor.hpp"
+#include "generated/enums/resource.hpp"
 #include "led.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
@@ -144,8 +145,8 @@ inline void getCpuDataByInterface(
     BMCWEB_LOG_DEBUG("Get CPU resources by interface.");
 
     // Set the default value of state
-    asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
-    asyncResp->res.jsonValue["Status"]["Health"] = "OK";
+    asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
+    asyncResp->res.jsonValue["Status"]["Health"] = resource::Health::OK;
 
     for (const auto& interface : cpuInterfacesProperties)
     {
@@ -163,7 +164,8 @@ inline void getCpuDataByInterface(
                 if (!*cpuPresent)
                 {
                     // Slot is not populated
-                    asyncResp->res.jsonValue["Status"]["State"] = "Absent";
+                    asyncResp->res.jsonValue["Status"]["State"] =
+                        resource::State::Absent;
                 }
             }
             else if (property.first == "Functional")
@@ -176,7 +178,8 @@ inline void getCpuDataByInterface(
                 }
                 if (!*cpuFunctional)
                 {
-                    asyncResp->res.jsonValue["Status"]["Health"] = "Critical";
+                    asyncResp->res.jsonValue["Status"]["Health"] =
+                        resource::Health::Critical;
                 }
             }
             else if (property.first == "CoreCount")
@@ -301,7 +304,8 @@ inline void getCpuDataByService(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
         }
         asyncResp->res.jsonValue["Id"] = cpuId;
         asyncResp->res.jsonValue["Name"] = "Processor";
-        asyncResp->res.jsonValue["ProcessorType"] = "CPU";
+        asyncResp->res.jsonValue["ProcessorType"] =
+            processor::ProcessorType::CPU;
 
         bool slotPresent = false;
         std::string corePath = objPath + "/core";
@@ -609,7 +613,8 @@ inline void getAcceleratorDataByService(
         asyncResp->res.jsonValue["Name"] = "Processor";
         asyncResp->res.jsonValue["Status"]["State"] = state;
         asyncResp->res.jsonValue["Status"]["Health"] = health;
-        asyncResp->res.jsonValue["ProcessorType"] = "Accelerator";
+        asyncResp->res.jsonValue["ProcessorType"] =
+            processor::ProcessorType::Accelerator;
     });
 }
 

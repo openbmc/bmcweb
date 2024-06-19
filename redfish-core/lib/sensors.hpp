@@ -18,8 +18,10 @@
 #include "app.hpp"
 #include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
+#include "generated/enums/redundancy.hpp"
 #include "generated/enums/resource.hpp"
 #include "generated/enums/sensor.hpp"
+#include "generated/enums/thermal.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "str_utility.hpp"
@@ -711,13 +713,13 @@ inline void setLedState(nlohmann::json& sensorJson,
         switch (inventoryItem->ledState)
         {
             case LedState::OFF:
-                sensorJson["IndicatorLED"] = "Off";
+                sensorJson["IndicatorLED"] = resource::IndicatorLED::Off;
                 break;
             case LedState::ON:
-                sensorJson["IndicatorLED"] = "Lit";
+                sensorJson["IndicatorLED"] = resource::IndicatorLED::Lit;
                 break;
             case LedState::BLINK:
-                sensorJson["IndicatorLED"] = "Blinking";
+                sensorJson["IndicatorLED"] = resource::IndicatorLED::Blinking;
                 break;
             default:
                 break;
@@ -829,7 +831,7 @@ inline void objectPropertiesToJson(
     else if (sensorType == "fan" || sensorType == "fan_tach")
     {
         unit = "/Reading"_json_pointer;
-        sensorJson["ReadingUnits"] = "RPM";
+        sensorJson["ReadingUnits"] = thermal::ReadingUnits::RPM;
         sensorJson["@odata.type"] = "#Thermal.v1_3_0.Fan";
         setLedState(sensorJson, inventoryItem);
         forceToInt = true;
@@ -837,7 +839,7 @@ inline void objectPropertiesToJson(
     else if (sensorType == "fan_pwm")
     {
         unit = "/Reading"_json_pointer;
-        sensorJson["ReadingUnits"] = "Percent";
+        sensorJson["ReadingUnits"] = thermal::ReadingUnits::Percent;
         sensorJson["@odata.type"] = "#Thermal.v1_3_0.Fan";
         setLedState(sensorJson, inventoryItem);
         forceToInt = true;
@@ -1171,11 +1173,11 @@ inline void populateFanRedundancy(
                     redundancy["@odata.id"] = std::move(url);
                     redundancy["@odata.type"] = "#Redundancy.v1_3_2.Redundancy";
                     redundancy["MinNumNeeded"] = minNumNeeded;
-                    redundancy["Mode"] = "N+m";
+                    redundancy["Mode"] = redundancy::RedundancyType::NPlusM;
                     redundancy["Name"] = name;
                     redundancy["RedundancySet"] = redfishCollection;
                     redundancy["Status"]["Health"] = health;
-                    redundancy["Status"]["State"] = "Enabled";
+                    redundancy["Status"]["State"] = resource::State::Enabled;
 
                     jResp.emplace_back(std::move(redundancy));
                 });

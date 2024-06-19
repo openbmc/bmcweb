@@ -19,6 +19,9 @@
 
 #include "app.hpp"
 #include "dbus_utility.hpp"
+#include "generated/enums/action_info.hpp"
+#include "generated/enums/chassis.hpp"
+#include "generated/enums/resource.hpp"
 #include "health.hpp"
 #include "led.hpp"
 #include "query.hpp"
@@ -125,14 +128,16 @@ inline void getChassisState(std::shared_ptr<bmcweb::AsyncResp> asyncResp)
         // Verify Chassis State
         if (chassisState == "xyz.openbmc_project.State.Chassis.PowerState.On")
         {
-            asyncResp->res.jsonValue["PowerState"] = "On";
-            asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
+            asyncResp->res.jsonValue["PowerState"] = resource::PowerState::On;
+            asyncResp->res.jsonValue["Status"]["State"] =
+                resource::State::Enabled;
         }
         else if (chassisState ==
                  "xyz.openbmc_project.State.Chassis.PowerState.Off")
         {
-            asyncResp->res.jsonValue["PowerState"] = "Off";
-            asyncResp->res.jsonValue["Status"]["State"] = "StandbyOffline";
+            asyncResp->res.jsonValue["PowerState"] = resource::PowerState::On;
+            asyncResp->res.jsonValue["Status"]["State"] =
+                resource::State::StandbyOffline;
         }
     });
 }
@@ -338,7 +343,7 @@ inline void handleDecoratorAssetProperties(
     // SensorCollection
     asyncResp->res.jsonValue["Sensors"]["@odata.id"] =
         boost::urls::format("/redfish/v1/Chassis/{}/Sensors", chassisId);
-    asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
+    asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
 
     nlohmann::json::array_t computerSystems;
     nlohmann::json::object_t system;
@@ -443,7 +448,8 @@ inline void handleChassisGetSubTree(
             boost::urls::format("/redfish/v1/Chassis/{}", chassisId);
         name_util::getPrettyName(asyncResp, path, connectionNames,
                                  "/Name"_json_pointer);
-        asyncResp->res.jsonValue["ChassisType"] = "RackMount";
+        asyncResp->res.jsonValue["ChassisType"] =
+            chassis::ChassisType::RackMount;
         asyncResp->res.jsonValue["Actions"]["#Chassis.Reset"]["target"] =
             boost::urls::format("/redfish/v1/Chassis/{}/Actions/Chassis.Reset",
                                 chassisId);
@@ -846,7 +852,7 @@ inline void handleChassisResetActionInfoGet(
     nlohmann::json::object_t parameter;
     parameter["Name"] = "ResetType";
     parameter["Required"] = true;
-    parameter["DataType"] = "String";
+    parameter["DataType"] = action_info::ParameterTypes::String;
     nlohmann::json::array_t allowed;
     allowed.emplace_back("PowerCycle");
     parameter["AllowableValues"] = std::move(allowed);

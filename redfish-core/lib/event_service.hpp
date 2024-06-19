@@ -16,6 +16,7 @@
 #pragma once
 #include "app.hpp"
 #include "event_service_manager.hpp"
+#include "generated/enums/event_service.hpp"
 #include "http/utility.hpp"
 #include "logging.hpp"
 #include "query.hpp"
@@ -706,7 +707,8 @@ inline void requestRoutesEventDestination(App& app)
 
         asyncResp->res.jsonValue["@odata.type"] =
             "#EventDestination.v1_8_0.EventDestination";
-        asyncResp->res.jsonValue["Protocol"] = "Redfish";
+        asyncResp->res.jsonValue["Protocol"] =
+            event_destination::EventDestinationProtocol::Redfish;
         asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
             "/redfish/v1/EventService/Subscriptions/{}", id);
         asyncResp->res.jsonValue["Id"] = id;

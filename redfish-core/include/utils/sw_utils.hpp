@@ -349,7 +349,8 @@ inline void getSwStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         if (ec)
         {
             // not all swtypes are updateable, this is ok
-            asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
+            asyncResp->res.jsonValue["Status"]["State"] =
+                resource::State::Enabled;
             return;
         }
 

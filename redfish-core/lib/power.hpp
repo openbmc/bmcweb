@@ -18,6 +18,7 @@
 
 #include "app.hpp"
 #include "dbus_utility.hpp"
+#include "generated/enums/power.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "sensors.hpp"
@@ -277,7 +278,8 @@ inline void requestRoutesPower(App& app)
                 // LimitException is Mandatory attribute as per OCP
                 // Baseline Profile – v1.0.0, so currently making it
                 // "NoAction" as default value to make it OCP Compliant.
-                sensorJson["PowerLimit"]["LimitException"] = "NoAction";
+                sensorJson["PowerLimit"]["LimitException"] =
+                    power::PowerLimitException::NoAction;
 
                 if (enabled)
                 {

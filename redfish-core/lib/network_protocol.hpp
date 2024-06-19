@@ -18,6 +18,7 @@
 #include "app.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
+#include "generated/enums/resource.hpp"
 #include "query.hpp"
 #include "redfish_util.hpp"
 #include "registries/privilege_registry.hpp"
@@ -185,9 +186,9 @@ inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     asyncResp->res.jsonValue["Id"] = "NetworkProtocol";
     asyncResp->res.jsonValue["Name"] = "Manager Network Protocol";
     asyncResp->res.jsonValue["Description"] = "Manager Network Service";
-    asyncResp->res.jsonValue["Status"]["Health"] = "OK";
-    asyncResp->res.jsonValue["Status"]["HealthRollup"] = "OK";
-    asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
+    asyncResp->res.jsonValue["Status"]["Health"] = resource::Health::OK;
+    asyncResp->res.jsonValue["Status"]["HealthRollup"] = resource::Health::OK;
+    asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
 
     // HTTP is Mandatory attribute as per OCP Baseline Profile - v1.0.0,
     // but from security perspective it is not recommended to use.

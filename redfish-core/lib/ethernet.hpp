@@ -19,6 +19,8 @@
 #include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
+#include "generated/enums/ethernet_interface.hpp"
+#include "generated/enums/resource.hpp"
 #include "human_sort.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
@@ -1768,13 +1770,15 @@ inline void
 
     if (ethData.nicEnabled)
     {
-        jsonResponse["LinkStatus"] = ethData.linkUp ? "LinkUp" : "LinkDown";
-        jsonResponse["Status"]["State"] = "Enabled";
+        jsonResponse["LinkStatus"] =
+            ethData.linkUp ? ethernet_interface::LinkStatus::LinkUp
+                           : ethernet_interface::LinkStatus::LinkDown;
+        jsonResponse["Status"]["State"] = resource::State::Enabled;
     }
     else
     {
-        jsonResponse["LinkStatus"] = "NoLink";
-        jsonResponse["Status"]["State"] = "Disabled";
+        jsonResponse["LinkStatus"] = ethernet_interface::LinkStatus::NoLink;
+        jsonResponse["Status"]["State"] = resource::State::Disabled;
     }
 
     jsonResponse["SpeedMbps"] = ethData.speed;

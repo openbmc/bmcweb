@@ -18,6 +18,7 @@
 
 #include "app.hpp"
 #include "dbus_utility.hpp"
+#include "generated/enums/resource.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utils/collection.hpp"
@@ -165,39 +166,39 @@ inline void fillPcieDeviceStatus(crow::Response& resp,
     if (linkStatus ==
         "xyz.openbmc_project.Inventory.Item.PCIeSlot.Status.Operational")
     {
-        resp.jsonValue["Status"]["State"] = "Enabled";
-        resp.jsonValue["Status"]["Health"] = "OK";
+        resp.jsonValue["Status"]["State"] = resource::State::Enabled;
+        resp.jsonValue["Status"]["Health"] = resource::Health::OK;
         return;
     }
 
     if (linkStatus ==
         "xyz.openbmc_project.Inventory.Item.PCIeSlot.Status.Degraded")
     {
-        resp.jsonValue["Status"]["State"] = "Enabled";
-        resp.jsonValue["Status"]["Health"] = "Critical";
+        resp.jsonValue["Status"]["State"] = resource::State::Enabled;
+        resp.jsonValue["Status"]["Health"] = resource::Health::Critical;
         return;
     }
 
     if (linkStatus ==
         "xyz.openbmc_project.Inventory.Item.PCIeSlot.Status.Failed")
     {
-        resp.jsonValue["Status"]["State"] = "UnavailableOffline";
-        resp.jsonValue["Status"]["Health"] = "Warning";
+        resp.jsonValue["Status"]["State"] = resource::State::UnavailableOffline;
+        resp.jsonValue["Status"]["Health"] = resource::Health::Warning;
         return;
     }
 
     if (linkStatus ==
         "xyz.openbmc_project.Inventory.Item.PCIeSlot.Status.Inactive")
     {
-        resp.jsonValue["Status"]["State"] = "StandbyOffline";
-        resp.jsonValue["Status"]["Health"] = "OK";
+        resp.jsonValue["Status"]["State"] = resource::State::StandbyOffline;
+        resp.jsonValue["Status"]["Health"] = resource::Health::OK;
         return;
     }
 
     if (linkStatus == "xyz.openbmc_project.Inventory.Item.PCIeSlot.Status.Open")
     {
-        resp.jsonValue["Status"]["State"] = "Absent";
-        resp.jsonValue["Status"]["Health"] = "OK";
+        resp.jsonValue["Status"]["State"] = resource::State::Absent;
+        resp.jsonValue["Status"]["Health"] = resource::Health::OK;
         return;
     }
 }
@@ -633,8 +634,8 @@ inline void addPCIeDeviceCommonProperties(
                             BMCWEB_REDFISH_SYSTEM_URI_NAME, pcieDeviceId);
     asyncResp->res.jsonValue["Name"] = "PCIe Device";
     asyncResp->res.jsonValue["Id"] = pcieDeviceId;
-    asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
-    asyncResp->res.jsonValue["Status"]["Health"] = "OK";
+    asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
+    asyncResp->res.jsonValue["Status"]["Health"] = resource::Health::OK;
 }
 
 inline void afterGetValidPcieDevicePath(

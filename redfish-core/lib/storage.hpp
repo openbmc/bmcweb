@@ -21,6 +21,7 @@
 #include "dbus_utility.hpp"
 #include "generated/enums/drive.hpp"
 #include "generated/enums/protocol.hpp"
+#include "generated/enums/resource.hpp"
 #include "human_sort.hpp"
 #include "query.hpp"
 #include "redfish_util.hpp"
@@ -179,7 +180,7 @@ inline void afterSystemsStorageGetSubtree(
                             BMCWEB_REDFISH_SYSTEM_URI_NAME, storageId);
     asyncResp->res.jsonValue["Name"] = "Storage";
     asyncResp->res.jsonValue["Id"] = storageId;
-    asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
+    asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
 
     getDrives(asyncResp);
     asyncResp->res.jsonValue["Controllers"]["@odata.id"] =
@@ -243,7 +244,7 @@ inline void afterSubtree(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         boost::urls::format("/redfish/v1/Storage/{}", storageId);
     asyncResp->res.jsonValue["Name"] = "Storage";
     asyncResp->res.jsonValue["Id"] = storageId;
-    asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
+    asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
 
     // Storage subsystem to Storage link.
     nlohmann::json::array_t storageServices;
@@ -361,7 +362,8 @@ inline void getDrivePresent(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
         if (!isPresent)
         {
-            asyncResp->res.jsonValue["Status"]["State"] = "Absent";
+            asyncResp->res.jsonValue["Status"]["State"] =
+                resource::State::Absent;
         }
     });
 }
@@ -387,7 +389,8 @@ inline void getDriveState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         // calls
         if (updating)
         {
-            asyncResp->res.jsonValue["Status"]["State"] = "Updating";
+            asyncResp->res.jsonValue["Status"]["State"] =
+                resource::State::Updating;
         }
     });
 }
@@ -682,7 +685,7 @@ inline void afterGetSubtreeSystemsStorageDrive(
     });
 
     // default it to Enabled
-    asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
+    asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
 
     addAllDriveInfo(asyncResp, connectionNames[0].first, path,
                     connectionNames[0].second);
@@ -867,7 +870,7 @@ inline void buildDrive(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         asyncResp->res.jsonValue["Name"] = driveName;
         asyncResp->res.jsonValue["Id"] = driveName;
         // default it to Enabled
-        asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
+        asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
 
         nlohmann::json::object_t linkChassisNav;
         linkChassisNav["@odata.id"] =
@@ -1033,7 +1036,7 @@ inline void populateStorageController(
                             BMCWEB_REDFISH_SYSTEM_URI_NAME, controllerId);
     asyncResp->res.jsonValue["Name"] = controllerId;
     asyncResp->res.jsonValue["Id"] = controllerId;
-    asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
+    asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
 
     sdbusplus::asio::getProperty<bool>(
         *crow::connections::systemBus, connectionName, path,
@@ -1048,7 +1051,8 @@ inline void populateStorageController(
         }
         if (!isPresent)
         {
-            asyncResp->res.jsonValue["Status"]["State"] = "Absent";
+            asyncResp->res.jsonValue["Status"]["State"] =
+                resource::State::Absent;
         }
     });
 
