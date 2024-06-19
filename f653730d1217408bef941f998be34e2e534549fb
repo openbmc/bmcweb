@@ -16,6 +16,24 @@
       "message": "I assume if the unit tests pass, then we are putting the correct format out there.. If you wanted, could run the Redfish Validator but I think we would find out pretty quickly if this broke that.",
       "revId": "f653730d1217408bef941f998be34e2e534549fb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73e2a750_1e221c45",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-19T22:00:14Z",
+      "side": 1,
+      "message": "I\u0027m not that worried about it.  the unit test coverage is pretty close to 100% here.",
+      "parentUuid": "b535a36e_47ccdb48",
+      "revId": "f653730d1217408bef941f998be34e2e534549fb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
