@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "194fe13f_fccc5e6e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-06-19T13:34:24Z",
+      "side": 1,
+      "message": "You could add a sentence about that we use both the inventory.item.board/chassis for Redfish Chassis but oh well, your call.",
+      "revId": "3fea7d17ed1f01a83640770ed258c1c473862a24",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
