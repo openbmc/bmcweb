@@ -1,6 +1,7 @@
 #pragma once
 
 #include "app.hpp"
+#include "generated/enums/metric_definition.hpp"
 #include "generated/enums/resource.hpp"
 #include "generated/enums/triggers.hpp"
 #include "query.hpp"
@@ -900,7 +901,7 @@ inline bool fillTrigger(
             json["DiscreteTriggers"] = *discreteTriggers;
             json["DiscreteTriggerCondition"] =
                 discreteTriggers->empty() ? "Changed" : "Specified";
-            json["MetricType"] = "Discrete";
+            json["MetricType"] = metric_definition::MetricType::Discrete;
         }
         else
         {
@@ -916,7 +917,7 @@ inline bool fillTrigger(
             }
 
             json["NumericThresholds"] = *numericThresholds;
-            json["MetricType"] = "Numeric";
+            json["MetricType"] = metric_definition::MetricType::Numeric;
         }
     }
 

@@ -1187,8 +1187,9 @@ inline void
     updateSvcSimpleUpdate["TransferProtocol@Redfish.AllowableValues"] =
         std::move(allowed);
 
-    asyncResp->res.jsonValue["HttpPushUriOptions"]["HttpPushUriApplyTime"]
-                            ["ApplyTime"] = "Immediate";
+    asyncResp->res
+        .jsonValue["HttpPushUriOptions"]["HttpPushUriApplyTime"]["ApplyTime"] =
+        update_service::ApplyTime::Immediate;
 }
 
 inline void handleUpdateServiceFirmwareInventoryCollectionGet(
@@ -1377,7 +1378,8 @@ inline void handleUpdateServiceFirmwareInventoryGet(
         asyncResp->res.jsonValue["@odata.type"] =
             "#SoftwareInventory.v1_1_0.SoftwareInventory";
         asyncResp->res.jsonValue["Name"] = "Software Inventory";
-        asyncResp->res.jsonValue["Status"]["HealthRollup"] = "OK";
+        asyncResp->res.jsonValue["Status"]["HealthRollup"] =
+            resource::Health::OK;
 
         asyncResp->res.jsonValue["Updateable"] = false;
         sw_util::getSwUpdatableStatus(asyncResp, swId);

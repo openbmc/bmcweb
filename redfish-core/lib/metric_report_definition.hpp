@@ -3,6 +3,7 @@
 #include "app.hpp"
 #include "dbus_utility.hpp"
 #include "generated/enums/metric_report_definition.hpp"
+#include "generated/enums/resource.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "sensors.hpp"
@@ -356,11 +357,11 @@ inline void
 
     if (enabled)
     {
-        asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
+        asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
     }
     else
     {
-        asyncResp->res.jsonValue["Status"]["State"] = "Disabled";
+        asyncResp->res.jsonValue["Status"]["State"] = resource::State::Disabled;
     }
 
     metric_report_definition::ReportUpdatesEnum redfishReportUpdates =

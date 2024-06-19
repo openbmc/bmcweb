@@ -18,6 +18,7 @@
 
 #include "app.hpp"
 #include "dbus_utility.hpp"
+#include "generated/enums/resource.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utils/collection.hpp"
@@ -316,7 +317,8 @@ inline void
 
         if (!value)
         {
-            asyncResp->res.jsonValue["Status"]["Health"] = "Critical";
+            asyncResp->res.jsonValue["Status"]["Health"] =
+                resource::Health::Critical;
         }
     });
 }
@@ -342,7 +344,8 @@ inline void
 
         if (!value)
         {
-            asyncResp->res.jsonValue["Status"]["State"] = "Absent";
+            asyncResp->res.jsonValue["Status"]["State"] =
+                resource::State::Absent;
         }
     });
 }
@@ -546,8 +549,8 @@ inline void addPCIeDeviceCommonProperties(
                             BMCWEB_REDFISH_SYSTEM_URI_NAME, pcieDeviceId);
     asyncResp->res.jsonValue["Name"] = "PCIe Device";
     asyncResp->res.jsonValue["Id"] = pcieDeviceId;
-    asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
-    asyncResp->res.jsonValue["Status"]["Health"] = "OK";
+    asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
+    asyncResp->res.jsonValue["Status"]["Health"] = resource::Health::OK;
 }
 
 inline void afterGetValidPcieDevicePath(

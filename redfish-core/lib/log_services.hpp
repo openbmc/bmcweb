@@ -19,6 +19,7 @@
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "generated/enums/log_entry.hpp"
+#include "generated/enums/log_service.hpp"
 #include "gzfile.hpp"
 #include "http_utility.hpp"
 #include "human_sort.hpp"
@@ -1241,7 +1242,8 @@ inline void requestRoutesEventLogService(App& app)
         asyncResp->res.jsonValue["Name"] = "Event Log Service";
         asyncResp->res.jsonValue["Description"] = "System Event Log Service";
         asyncResp->res.jsonValue["Id"] = "EventLog";
-        asyncResp->res.jsonValue["OverWritePolicy"] = "WrapsWhenFull";
+        asyncResp->res.jsonValue["OverWritePolicy"] =
+            log_service::OverWritePolicy::WrapsWhenFull;
 
         std::pair<std::string, std::string> redfishDateTimeOffset =
             redfish::time_utils::getDateTimeOffsetNow();
@@ -2076,8 +2078,8 @@ inline void fillHostLoggerEntryJson(std::string_view logEntryID,
     logEntryJson["Name"] = "Host Logger Entry";
     logEntryJson["Id"] = logEntryID;
     logEntryJson["Message"] = msg;
-    logEntryJson["EntryType"] = "Oem";
-    logEntryJson["Severity"] = "OK";
+    logEntryJson["EntryType"] = log_entry::LogEntryType::Oem;
+    logEntryJson["Severity"] = log_entry::EventSeverity::OK;
     logEntryJson["OemRecordFormat"] = "Host Logger Entry";
 }
 
@@ -2384,28 +2386,29 @@ inline void
                        const std::string& dumpType)
 {
     std::string dumpPath;
-    std::string overWritePolicy;
+    log_service::OverWritePolicy overWritePolicy =
+        log_service::OverWritePolicy::Invalid;
     bool collectDiagnosticDataSupported = false;
 
     if (dumpType == "BMC")
     {
         dumpPath = std::format("/redfish/v1/Managers/{}/LogServices/Dump",
                                BMCWEB_REDFISH_MANAGER_URI_NAME);
-        overWritePolicy = "WrapsWhenFull";
+        overWritePolicy = log_service::OverWritePolicy::WrapsWhenFull;
         collectDiagnosticDataSupported = true;
     }
     else if (dumpType == "FaultLog")
     {
         dumpPath = std::format("/redfish/v1/Managers/{}/LogServices/FaultLog",
                                BMCWEB_REDFISH_MANAGER_URI_NAME);
-        overWritePolicy = "Unknown";
+        overWritePolicy = log_service::OverWritePolicy::Unknown;
         collectDiagnosticDataSupported = false;
     }
     else if (dumpType == "System")
     {
         dumpPath = std::format("/redfish/v1/Systems/{}/LogServices/Dump",
                                BMCWEB_REDFISH_SYSTEM_URI_NAME);
-        overWritePolicy = "WrapsWhenFull";
+        overWritePolicy = log_service::OverWritePolicy::WrapsWhenFull;
         collectDiagnosticDataSupported = true;
     }
     else
@@ -2421,7 +2424,7 @@ inline void
     asyncResp->res.jsonValue["Name"] = "Dump LogService";
     asyncResp->res.jsonValue["Description"] = dumpType + " Dump LogService";
     asyncResp->res.jsonValue["Id"] = std::filesystem::path(dumpPath).filename();
-    asyncResp->res.jsonValue["OverWritePolicy"] = std::move(overWritePolicy);
+    asyncResp->res.jsonValue["OverWritePolicy"] = overWritePolicy;
 
     std::pair<std::string, std::string> redfishDateTimeOffset =
         redfish::time_utils::getDateTimeOffsetNow();
@@ -2940,7 +2943,8 @@ inline void requestRoutesCrashdumpService(App& app)
         asyncResp->res.jsonValue["Name"] = "Open BMC Oem Crashdump Service";
         asyncResp->res.jsonValue["Description"] = "Oem Crashdump Service";
         asyncResp->res.jsonValue["Id"] = "Crashdump";
-        asyncResp->res.jsonValue["OverWritePolicy"] = "WrapsWhenFull";
+        asyncResp->res.jsonValue["OverWritePolicy"] =
+            log_service::OverWritePolicy::WrapsWhenFull;
         asyncResp->res.jsonValue["MaxNumberOfRecords"] = 3;
 
         std::pair<std::string, std::string> redfishDateTimeOffset =
@@ -3051,7 +3055,7 @@ static void
             BMCWEB_REDFISH_SYSTEM_URI_NAME, logID);
         logEntry["Name"] = "CPU Crashdump";
         logEntry["Id"] = logID;
-        logEntry["EntryType"] = "Oem";
+        logEntry["EntryType"] = log_entry::LogEntryType::Oem;
         logEntry["AdditionalDataURI"] = std::move(crashdumpURI);
         logEntry["DiagnosticDataType"] = "OEM";
         logEntry["OEMDiagnosticDataType"] = "PECICrashdump";
@@ -3525,7 +3529,8 @@ inline void requestRoutesPostCodesLogService(App& app)
         asyncResp->res.jsonValue["Name"] = "POST Code Log Service";
         asyncResp->res.jsonValue["Description"] = "POST Code Log Service";
         asyncResp->res.jsonValue["Id"] = "PostCodes";
-        asyncResp->res.jsonValue["OverWritePolicy"] = "WrapsWhenFull";
+        asyncResp->res.jsonValue["OverWritePolicy"] =
+            log_service::OverWritePolicy::WrapsWhenFull;
         asyncResp->res.jsonValue["Entries"]["@odata.id"] =
             std::format("/redfish/v1/Systems/{}/LogServices/PostCodes/Entries",
                         BMCWEB_REDFISH_SYSTEM_URI_NAME);

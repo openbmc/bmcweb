@@ -207,7 +207,7 @@ inline bool
     bmcJournalLogEntryJson["Name"] = "BMC Journal Entry";
     bmcJournalLogEntryJson["Id"] = bmcJournalLogEntryID;
     bmcJournalLogEntryJson["Message"] = std::move(message);
-    bmcJournalLogEntryJson["EntryType"] = "Oem";
+    bmcJournalLogEntryJson["EntryType"] = log_entry::LogEntryType::Oem;
     log_entry::EventSeverity severityEnum = log_entry::EventSeverity::OK;
     if (severity <= 2)
     {

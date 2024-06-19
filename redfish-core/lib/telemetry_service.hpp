@@ -2,6 +2,7 @@
 
 #include "app.hpp"
 #include "dbus_utility.hpp"
+#include "generated/enums/resource.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utils/dbus_utils.hpp"
@@ -43,7 +44,8 @@ inline void handleTelemetryServiceGet(
                     const dbus::utility::DBusPropertiesMap& ret) {
         if (ec == boost::system::errc::host_unreachable)
         {
-            asyncResp->res.jsonValue["Status"]["State"] = "Absent";
+            asyncResp->res.jsonValue["Status"]["State"] =
+                resource::State::Absent;
             return;
         }
         if (ec)
@@ -53,7 +55,7 @@ inline void handleTelemetryServiceGet(
             return;
         }
 
-        asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
+        asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
 
         const size_t* maxReports = nullptr;
         const uint64_t* minInterval = nullptr;

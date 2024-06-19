@@ -19,6 +19,9 @@
 
 #include "app.hpp"
 #include "dbus_utility.hpp"
+#include "generated/enums/action_info.hpp"
+#include "generated/enums/manager.hpp"
+#include "generated/enums/resource.hpp"
 #include "query.hpp"
 #include "redfish_util.hpp"
 #include "registries/privilege_registry.hpp"
@@ -288,7 +291,7 @@ inline void requestRoutesManagerResetActionInfo(App& app)
         nlohmann::json::object_t parameter;
         parameter["Name"] = "ResetType";
         parameter["Required"] = true;
-        parameter["DataType"] = "String";
+        parameter["DataType"] = action_info::ParameterTypes::String;
 
         nlohmann::json::array_t allowableValues;
         allowableValues.emplace_back("GracefulRestart");
@@ -1938,13 +1941,15 @@ inline void
         {
             if (val == "active")
             {
-                asyncResp->res.jsonValue["Status"]["Health"] = "Critical";
-                asyncResp->res.jsonValue["Status"]["State"] = "Quiesced";
+                asyncResp->res.jsonValue["Status"]["Health"] =
+                    resource::Health::Critical;
+                asyncResp->res.jsonValue["Status"]["State"] =
+                    resource::State::Quiesced;
                 return;
             }
         }
-        asyncResp->res.jsonValue["Status"]["Health"] = "OK";
-        asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
+        asyncResp->res.jsonValue["Status"]["Health"] = resource::Health::OK;
+        asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
     });
 }
 
@@ -1976,9 +1981,9 @@ inline void requestRoutesManager(App& app)
         asyncResp->res.jsonValue["Name"] = "OpenBmc Manager";
         asyncResp->res.jsonValue["Description"] =
             "Baseboard Management Controller";
-        asyncResp->res.jsonValue["PowerState"] = "On";
+        asyncResp->res.jsonValue["PowerState"] = resource::PowerState::On;
 
-        asyncResp->res.jsonValue["ManagerType"] = "BMC";
+        asyncResp->res.jsonValue["ManagerType"] = manager::ManagerType::BMC;
         asyncResp->res.jsonValue["UUID"] = systemd_utils::getUuid();
         asyncResp->res.jsonValue["ServiceEntryPointUUID"] = uuid;
         asyncResp->res.jsonValue["Model"] = "OpenBmc"; // TODO(ed), get model
@@ -2126,8 +2131,10 @@ inline void requestRoutesManager(App& app)
             }
             if (val < 1.0)
             {
-                asyncResp->res.jsonValue["Status"]["Health"] = "OK";
-                asyncResp->res.jsonValue["Status"]["State"] = "Starting";
+                asyncResp->res.jsonValue["Status"]["Health"] =
+                    resource::Health::OK;
+                asyncResp->res.jsonValue["Status"]["State"] =
+                    resource::State::Starting;
                 return;
             }
             checkForQuiesced(asyncResp);
