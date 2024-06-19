@@ -21,25 +21,6 @@ namespace redfish
 namespace time_utils
 {
 
-namespace details
-{
-
-// Creates a string from an integer in the most efficient way possible without
-// using std::locale.  Adds an exact zero pad based on the pad input parameter.
-// Does not handle negative numbers.
-inline std::string padZeros(int64_t value, size_t pad)
-{
-    std::string result(pad, '0');
-    for (int64_t val = value; pad > 0; pad--)
-    {
-        result[pad - 1] = static_cast<char>('0' + val % 10);
-        val /= 10;
-    }
-    return result;
-}
-
-} // namespace details
-
 /**
  * @brief Convert string that represents value in Duration Format to its numeric
  *        equivalent.
@@ -182,9 +163,6 @@ inline std::string toDurationString(std::chrono::milliseconds ms)
         return "";
     }
 
-    std::string fmt;
-    fmt.reserve(sizeof("PxxxxxxxxxxxxDTxxHxxMxx.xxxxxxS"));
-
     std::chrono::days days = std::chrono::floor<std::chrono::days>(ms);
     ms -= days;
 
@@ -196,35 +174,34 @@ inline std::string toDurationString(std::chrono::milliseconds ms)
 
     std::chrono::seconds seconds = std::chrono::floor<std::chrono::seconds>(ms);
     ms -= seconds;
-
-    fmt = "P";
+    std::string daysStr;
     if (days.count() > 0)
     {
-        fmt += std::to_string(days.count()) + "D";
+        daysStr = std::format("{}D", days.count());
     }
-    fmt += "T";
+    std::string hoursStr;
     if (hours.count() > 0)
     {
-        fmt += std::to_string(hours.count()) + "H";
+        hoursStr = std::format("{}H", hours.count());
     }
+    std::string minStr;
     if (minutes.count() > 0)
     {
-        fmt += std::to_string(minutes.count()) + "M";
+        minStr = std::format("{}M", minutes.count());
     }
+    std::string secStr;
     if (seconds.count() != 0 || ms.count() != 0)
     {
-        fmt += std::to_string(seconds.count()) + ".";
-        fmt += details::padZeros(ms.count(), 3);
-        fmt += "S";
+        secStr = std::format("{}.{:03}S", seconds.count(), ms.count());
     }
 
-    return fmt;
+    return std::format("P{}T{}{}{}", daysStr, hoursStr, minStr, secStr);
 }
 
 inline std::optional<std::string>
     toDurationStringFromUint(const uint64_t timeMs)
 {
-    static const uint64_t maxTimeMs =
+    constexpr uint64_t maxTimeMs =
         static_cast<uint64_t>(std::chrono::milliseconds::max().count());
 
     if (maxTimeMs < timeMs)
@@ -305,45 +282,37 @@ std::string toISO8061ExtendedStr(std::chrono::duration<IntType, Period> t)
         t = std::chrono::duration<IntType, Period>::zero();
     }
 
-    std::string out;
-    out += details::padZeros(year, 4);
-    out += '-';
-    out += details::padZeros(month, 2);
-    out += '-';
-    out += details::padZeros(day, 2);
-    out += 'T';
     hours hr = duration_cast<hours>(t);
-    out += details::padZeros(hr.count(), 2);
     t -= hr;
-    out += ':';
 
     minutes mt = duration_cast<minutes>(t);
-    out += details::padZeros(mt.count(), 2);
     t -= mt;
-    out += ':';
 
     seconds se = duration_cast<seconds>(t);
-    out += details::padZeros(se.count(), 2);
+
+    std::string out = std::format("{:04}-{:02}-{:02}T{:02}:{:02}:{:02}", year,
+                                  month, day, hr.count(), mt.count(),
+                                  se.count());
+
     t -= se;
 
+    std::string subseconds;
     if constexpr (std::is_same_v<typename decltype(t)::period, std::milli>)
     {
-        out += '.';
         using MilliDuration = std::chrono::duration<int, std::milli>;
         MilliDuration subsec = duration_cast<MilliDuration>(t);
-        out += details::padZeros(subsec.count(), 3);
+        subseconds = std::format(".{:03}", subsec.count());
     }
     else if constexpr (std::is_same_v<typename decltype(t)::period, std::micro>)
     {
-        out += '.';
-
         using MicroDuration = std::chrono::duration<int, std::micro>;
         MicroDuration subsec = duration_cast<MicroDuration>(t);
-        out += details::padZeros(subsec.count(), 6);
+        subseconds = std::format(".{:06}", subsec.count());
     }
 
-    out += "+00:00";
-    return out;
+    return std::format("{:04}-{:02}-{:02}T{:02}:{:02}:{:02}{}+00:00", year,
+                       month, day, hr.count(), mt.count(), se.count(),
+                       subseconds);
 }
 } // namespace details
 
