@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8af650a7_890cea08",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-06-19T21:37:00Z",
+      "side": 1,
+      "message": "Like below (what this is based on) assumes \"/xyz/openbmc_project/software/\" + *swId, \nThis assumes \"/xyz/openbmc_project/software/\". If we want we make a mapper call but I find this reasonable.",
+      "revId": "141b8ea98b6ea3a7b195998741cbe59f48c4b509",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
