@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7c30837_2cfc167d",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2876,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-06-19T21:55:00Z",
+      "side": 0,
+      "message": "assume removing the move is correct?",
+      "range": {
+        "startLine": 2876,
+        "startChar": 50,
+        "endLine": 2876,
+        "endChar": 60
+      },
+      "revId": "16d95ec693094b005a27feebe49007f446a0135d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
