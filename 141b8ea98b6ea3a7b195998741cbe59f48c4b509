@@ -16,6 +16,47 @@
       "message": "Like below (what this is based on) assumes \"/xyz/openbmc_project/software/\" + *swId, \nThis assumes \"/xyz/openbmc_project/software/\". If we want we make a mapper call but I find this reasonable.",
       "revId": "141b8ea98b6ea3a7b195998741cbe59f48c4b509",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a51ee5f2_b7faa326",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-19T21:55:30Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this at least be: /xyz/openbmc_project/software/ *swId\n\nIt seems reasonable to assume they\u0027re implemented by the same path, but I don\u0027t quite understand the path mismatch.",
+      "parentUuid": "8af650a7_890cea08",
+      "revId": "141b8ea98b6ea3a7b195998741cbe59f48c4b509",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "956f4c0d_3c086f50",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1404,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-19T21:55:30Z",
+      "side": 1,
+      "message": "Given that we support multiple update targets now, putting this information at UpdateService level doesn\u0027t seem appropriate.  This would be the information for THIS bmc, not all components in the system.\n\nCan we attach it to the firmware inventory target instead?",
+      "range": {
+        "startLine": 1404,
+        "startChar": 0,
+        "endLine": 1404,
+        "endChar": 73
+      },
+      "revId": "141b8ea98b6ea3a7b195998741cbe59f48c4b509",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
