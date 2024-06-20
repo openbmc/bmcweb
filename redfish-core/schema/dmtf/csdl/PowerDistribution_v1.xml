@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PowerDistribution v1.3.3                                            -->
+<!--# Redfish Schema:  PowerDistribution v1.4.0                                            -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -63,10 +63,11 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerDistribution">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="PowerDistribution" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="This is the schema definition for a power distribution component or unit, such as a floor power distribution unit (PDU) or switchgear."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent a power distribution component or unit for a Redfish implementation."/>
+        <Annotation Term="OData.Description" String="The `PowerDistribution` schema contains the definitions for a power distribution component or unit, such as a floor power distribution unit (PDU) or switchgear."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent a power distribution component or unit for a Redfish implementation."/>
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -152,7 +153,7 @@
         <Property Name="AssetTag" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The user-assigned asset tag for this equipment."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the user-assigned asset tag, which is an identifying string that tracks the equipment for inventory purposes.  Modifying this property may modify the AssetTag in the containing Chassis resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the user-assigned asset tag, which is an identifying string that tracks the equipment for inventory purposes.  Modifying this property may modify the `AssetTag` in the containing `Chassis` resource."/>
         </Property>
         <Property Name="UUID" Type="Resource.UUID">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -175,14 +176,14 @@
         <NavigationProperty Name="Sensors" Type="SensorCollection.SensorCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A link to the collection of sensors located in the equipment and sub-components."/>
-          <Annotation Term="OData.LongDescription" String="This property shall be a link to a resource collection of type SensorCollection that contains the sensors located in the equipment and sub-components."/>
+          <Annotation Term="OData.LongDescription" String="This property shall be a link to a resource collection of type `SensorCollection` that contains the sensors located in the equipment and sub-components."/>
           <Annotation Term="OData.AutoExpandReferences"/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_3_0"/>
-                <PropertyValue Property="Description" String="This property has been deprecated in favor of the Sensors link in the Chassis resource."/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the `Sensors` link in the `Chassis` resource."/>
               </Record>
             </Collection>
           </Annotation>
@@ -196,49 +197,49 @@
         <NavigationProperty Name="Mains" Type="CircuitCollection.CircuitCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A link to the power input circuits for this equipment."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CircuitCollection that contains the power input circuits for this equipment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `CircuitCollection` that contains the power input circuits for this equipment."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
 
         <NavigationProperty Name="Branches" Type="CircuitCollection.CircuitCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A link to the branch circuits for this equipment."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CircuitCollection that contains the branch circuits for this equipment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `CircuitCollection` that contains the branch circuits for this equipment."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
 
         <NavigationProperty Name="Feeders" Type="CircuitCollection.CircuitCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A link to the feeder circuits for this equipment."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CircuitCollection that contains the feeder circuits for this equipment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `CircuitCollection` that contains the feeder circuits for this equipment."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
 
         <NavigationProperty Name="Subfeeds" Type="CircuitCollection.CircuitCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A link to the subfeed circuits for this equipment."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CircuitCollection that contains the subfeed circuits for this equipment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `CircuitCollection` that contains the subfeed circuits for this equipment."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
 
         <NavigationProperty Name="Outlets" Type="OutletCollection.OutletCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A link to the outlets for this equipment."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type OutletCollection that contains the outlets for this equipment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `OutletCollection` that contains the outlets for this equipment."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
 
         <NavigationProperty Name="OutletGroups" Type="OutletGroupCollection.OutletGroupCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A link to the outlet groups for this equipment."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type OutletCollection that contains the outlet groups for this equipment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `OutletCollection` that contains the outlet groups for this equipment."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
 
         <NavigationProperty Name="Metrics" Type="PowerDistributionMetrics.PowerDistributionMetrics" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A link to the summary metrics for this equipment."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type PowerDistributionMetrics."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `PowerDistributionMetrics`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
 
@@ -259,19 +260,19 @@
         <NavigationProperty Name="Chassis" Type="Collection(Chassis.Chassis)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the chassis that contain this equipment."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Chassis that represent the physical containers associated with this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Chassis` that represent the physical containers associated with this resource."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Facility" Type="Facility.Facility" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A link to the facility that contains this equipment."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Facility that represents the facility that contains this equipment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `Facility` that represents the facility that contains this equipment."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="ManagedBy" Type="Collection(Manager.Manager)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the managers responsible for managing this equipment."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Manager that represent the managers that manage this equipment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Manager` that represent the managers that manage this equipment."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -334,7 +335,7 @@
         <Property Name="ActiveMainsId" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The mains circuit that is switched on and qualified to supply power to the output circuit."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the mains circuit that is switched on and qualified to supply power to the output circuit.  The value shall be a string that matches the Id property value of a circuit contained in the collection referenced by the Mains property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the mains circuit that is switched on and qualified to supply power to the output circuit.  The value shall be a string that matches the `Id` property value of a circuit contained in the collection referenced by the `Mains` property."/>
         </Property>
         <Property Name="AutoTransferEnabled" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -354,7 +355,7 @@
         <Property Name="PreferredMainsId" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The preferred source for the mains circuit to this equipment."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the preferred source for mains circuit to this equipment.  The value shall be a string that matches the Id property value of a circuit contained in the collection referenced by the Mains property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the preferred source for mains circuit to this equipment.  The value shall be a string that matches the `Id` property value of a circuit contained in the collection referenced by the `Mains` property."/>
         </Property>
         <Property Name="RetransferDelaySeconds" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -363,8 +364,8 @@
         </Property>
         <Property Name="RetransferEnabled" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="Indicates if the automatic transfer is permitted from the alternate mains circuit back to the preferred mains circuit after the preferred mains circuit is qualified again and the Retransfer Delay time has expired."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate if the automatic transfer is permitted from the alternate mains circuit back to the preferred mains circuit after the preferred mains circuit is qualified again and the RetransferDelaySeconds time has expired."/>
+          <Annotation Term="OData.Description" String="Indicates if the automatic transfer is permitted from the alternate mains circuit back to the preferred mains circuit after the preferred mains circuit is qualified again and the retransfer delay time has expired."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate if the automatic transfer is permitted from the alternate mains circuit back to the preferred mains circuit after the preferred mains circuit is qualified again and the `RetransferDelaySeconds` time has expired."/>
         </Property>
         <Property Name="TransferDelaySeconds" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -470,13 +471,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerDistribution.v1_0_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to remove Chassis link guidance that is no longer recommended."/>
+      <Annotation Term="OData.Description" String="This version was created to remove `Chassis` link guidance that is no longer recommended."/>
       <EntityType Name="PowerDistribution" BaseType="PowerDistribution.v1_0_4.PowerDistribution"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerDistribution.v1_0_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag to show there might be a tie to the AssetTag of the containing Chassis resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for `AssetTag` to show there might be a tie to the `AssetTag` of the containing `Chassis` resource."/>
       <EntityType Name="PowerDistribution" BaseType="PowerDistribution.v1_0_5.PowerDistribution"/>
     </Schema>
 
@@ -492,43 +493,49 @@
       <EntityType Name="PowerDistribution" BaseType="PowerDistribution.v1_0_7.PowerDistribution"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerDistribution.v1_0_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="PowerDistribution" BaseType="PowerDistribution.v1_0_8.PowerDistribution"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerDistribution.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
-      <Annotation Term="OData.Description" String="This version was created to add `PowerShelf` to EquipmentType."/>
+      <Annotation Term="OData.Description" String="This version was created to add `PowerShelf` to `EquipmentType`."/>
 
       <EntityType Name="PowerDistribution" BaseType="PowerDistribution.v1_0_3.PowerDistribution">
         <NavigationProperty Name="PowerSupplies" Type="PowerSupplyCollection.PowerSupplyCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of power supplies for this equipment."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type PowerSupplyCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `PowerSupplyCollection`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_3_0"/>
-                <PropertyValue Property="Description" String="This property has been deprecated in favor of the PowerSupplies link in the Chassis resource."/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the `PowerSupplies` link in the `Chassis` resource."/>
               </Record>
             </Collection>
           </Annotation>
         </NavigationProperty>
         <Property Name="PowerSupplyRedundancy" Type="Collection(Redundancy.RedundantGroup)" Nullable="false">
           <Annotation Term="OData.Description" String="The redundancy information for the set of power supplies for this equipment."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain redundancy information for the set of power supplies for this equipment.  The values of the RedundancyGroup array shall reference resources of type PowerSupply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain redundancy information for the set of power supplies for this equipment.  The values of the `RedundancyGroup` array shall reference resources of type `PowerSupply`."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_3_0"/>
-                <PropertyValue Property="Description" String="This property has been deprecated in favor of the PowerSupplyRedundancy property in the Chassis resource."/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the `PowerSupplyRedundancy` property in the `Chassis` resource."/>
               </Record>
             </Collection>
           </Annotation>
         </Property>
         <Property Name="MainsRedundancy" Type="Redundancy.RedundantGroup" Nullable="false">
           <Annotation Term="OData.Description" String="The redundancy information for the mains (input) circuits for this equipment."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain redundancy information for the mains (input) circuits for this equipment.  The values of the RedundancyGroup array shall reference resources of type Circuit."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain redundancy information for the mains (input) circuits for this equipment.  The values of the `RedundancyGroup` array shall reference resources of type `Circuit`."/>
         </Property>
       </EntityType>
     </Schema>
@@ -541,13 +548,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerDistribution.v1_1_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to remove Chassis link guidance that is no longer recommended."/>
+      <Annotation Term="OData.Description" String="This version was created to remove `Chassis` link guidance that is no longer recommended."/>
       <EntityType Name="PowerDistribution" BaseType="PowerDistribution.v1_1_1.PowerDistribution"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerDistribution.v1_1_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag to show there might be a tie to the AssetTag of the containing Chassis resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for `AssetTag` to show there might be a tie to the `AssetTag` of the containing `Chassis` resource."/>
       <EntityType Name="PowerDistribution" BaseType="PowerDistribution.v1_1_2.PowerDistribution"/>
     </Schema>
 
@@ -561,6 +568,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="PowerDistribution" BaseType="PowerDistribution.v1_1_4.PowerDistribution"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerDistribution.v1_1_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="PowerDistribution" BaseType="PowerDistribution.v1_1_5.PowerDistribution"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerDistribution.v1_2_0">
@@ -579,13 +592,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerDistribution.v1_2_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to remove Chassis link guidance that is no longer recommended."/>
+      <Annotation Term="OData.Description" String="This version was created to remove `Chassis` link guidance that is no longer recommended."/>
       <EntityType Name="PowerDistribution" BaseType="PowerDistribution.v1_2_1.PowerDistribution"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerDistribution.v1_2_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag to show there might be a tie to the AssetTag of the containing Chassis resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for `AssetTag` to show there might be a tie to the `AssetTag` of the containing `Chassis` resource."/>
       <EntityType Name="PowerDistribution" BaseType="PowerDistribution.v1_2_2.PowerDistribution"/>
     </Schema>
 
@@ -601,10 +614,17 @@
       <EntityType Name="PowerDistribution" BaseType="PowerDistribution.v1_2_4.PowerDistribution"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerDistribution.v1_2_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="PowerDistribution" BaseType="PowerDistribution.v1_2_5.PowerDistribution"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerDistribution.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.3"/>
-      <Annotation Term="OData.Description" String="This version was created to deprecate the PowerSupplyRedundancy property and the PowerSupplies link, in favor of the equivalent properties in the Chassis schema.  It was also created to add BatteryShelf to PowerDistributionType."/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate the `PowerSupplyRedundancy` property and the `PowerSupplies` link, in favor of the equivalent properties in the `Chassis` schema.  It was also created to add `BatteryShelf` to `PowerDistributionType`."/>
+
       <EntityType Name="PowerDistribution" BaseType="PowerDistribution.v1_2_2.PowerDistribution">
         <Property Name="UserLabel" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -616,7 +636,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerDistribution.v1_3_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the description for AssetTag to show there might be a tie to the AssetTag of the containing Chassis resource."/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for `AssetTag` to show there might be a tie to the `AssetTag` of the containing `Chassis` resource."/>
       <EntityType Name="PowerDistribution" BaseType="PowerDistribution.v1_3_0.PowerDistribution"/>
     </Schema>
 
@@ -630,6 +650,27 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="PowerDistribution" BaseType="PowerDistribution.v1_3_2.PowerDistribution"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerDistribution.v1_3_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="PowerDistribution" BaseType="PowerDistribution.v1_3_3.PowerDistribution"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerDistribution.v1_4_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2024.1"/>
+
+      <EntityType Name="PowerDistribution" BaseType="PowerDistribution.v1_3_4.PowerDistribution">
+        <Property Name="PowerCapacityVA" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The maximum power capacity, rated as apparent power, of this equipment, in volt-ampere units."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum power capacity, rated as apparent power, of this equipment, in volt-ampere units."/>
+          <Annotation Term="Measures.Unit" String="V.A"/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

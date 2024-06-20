@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  EnvironmentMetrics v1.3.1                                           -->
+<!--# Redfish Schema:  EnvironmentMetrics v1.3.2                                           -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -34,9 +34,10 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EnvironmentMetrics">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="EnvironmentMetrics" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The EnvironmentMetrics schema represents the environmental metrics of a device."/>
+        <Annotation Term="OData.Description" String="The `EnvironmentMetrics` schema represents the environmental metrics of a device."/>
         <Annotation Term="OData.LongDescription" String="This resource shall represent the environmental metrics for a Redfish implementation."/>
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="Capabilities.InsertRestrictions">
@@ -159,27 +160,27 @@
         <NavigationProperty Name="TemperatureCelsius" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy"/>
           <Annotation Term="OData.Description" String="Temperature (Celsius)."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the temperature, in degree Celsius units, for this resource.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Temperature`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the temperature, in degree Celsius units, for this resource.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Temperature`."/>
         </NavigationProperty>
         <NavigationProperty Name="HumidityPercent" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy"/>
           <Annotation Term="OData.Description" String="Humidity (percent)."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the humidity, in percent units, for this resource.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Humidity`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the humidity, in percent units, for this resource.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Humidity`."/>
         </NavigationProperty>
         <NavigationProperty Name="FanSpeedsPercent" Type="Collection(Sensor.Sensor)">
           <Annotation Term="Redfish.ExcerptCopy" String="FanArray"/>
           <Annotation Term="OData.Description" String="Fan speeds (percent)."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the fan speeds, in percent units, for this resource.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Percent`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the fan speeds, in percent units, for this resource.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Percent`."/>
         </NavigationProperty>
         <NavigationProperty Name="PowerWatts" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy" String="Power"/>
           <Annotation Term="OData.Description" String="Power consumption (W)."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the total power, in watt units, for this resource.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Power`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total power, in watt units, for this resource.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Power`."/>
         </NavigationProperty>
         <NavigationProperty Name="EnergykWh" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy" String="EnergykWh"/>
           <Annotation Term="OData.Description" String="Energy consumption (kWh)."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the total energy, in kilowatt-hour units, for this resource.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `EnergykWh`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total energy, in kilowatt-hour units, for this resource.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `EnergykWh`."/>
         </NavigationProperty>
         <Property Name="Actions" Type="EnvironmentMetrics.v1_0_0.Actions" Nullable="false">
           <Annotation Term="OData.Description" String="The available actions for this resource."/>
@@ -206,7 +207,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EnvironmentMetrics.v1_0_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update descriptions to tie excerpt property definitions to a specific type of Sensor or Control."/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions to tie excerpt property definitions to a specific type of `Sensor` or `Control` resource."/>
       <EntityType Name="EnvironmentMetrics" BaseType="EnvironmentMetrics.v1_0_0.EnvironmentMetrics"/>
     </Schema>
 
@@ -216,34 +217,39 @@
       <EntityType Name="EnvironmentMetrics" BaseType="EnvironmentMetrics.v1_0_1.EnvironmentMetrics"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EnvironmentMetrics.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="EnvironmentMetrics" BaseType="EnvironmentMetrics.v1_0_2.EnvironmentMetrics"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EnvironmentMetrics.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
-      <Annotation Term="OData.Description" String="This version was created to add PowerLoadPercent, PowerLimitWatts, and DewPointCelsius."/>
 
       <EntityType Name="EnvironmentMetrics" BaseType="EnvironmentMetrics.v1_0_0.EnvironmentMetrics">
         <NavigationProperty Name="PowerLoadPercent" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy"/>
           <Annotation Term="OData.Description" String="The power load (percent) for this device."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the power load, in percent units, for this device that represents the `Total` ElectricalContext for this device.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Percent`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the power load, in percent units, for this device that represents the `Total` `ElectricalContext` for this device.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Percent`."/>
         </NavigationProperty>
         <NavigationProperty Name="PowerLimitWatts" Type="Control.Control">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="Redfish.ExcerptCopy" String="Single"/>
           <Annotation Term="OData.Description" String="Power limit (W)."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the power limit control, in watt units, for this resource.  The value of the DataSourceUri property, if present, shall reference a resource of type Control with the ControlType property containing the value of `Power`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the power limit control, in watt units, for this resource.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Control` with the `ControlType` property containing the value of `Power`."/>
         </NavigationProperty>
         <NavigationProperty Name="DewPointCelsius" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy"/>
           <Annotation Term="OData.Description" String="The dew point temperature (C)."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the dew point, in degree Celsius units, based on the temperature and humidity values for this resource.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Temperature`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the dew point, in degree Celsius units, based on the temperature and humidity values for this resource.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Temperature`."/>
         </NavigationProperty>
       </EntityType>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EnvironmentMetrics.v1_1_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update descriptions to tie excerpt property definitions to a specific type of Sensor or Control."/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions to tie excerpt property definitions to a specific type of `Sensor` or `Control` resource."/>
       <EntityType Name="EnvironmentMetrics" BaseType="EnvironmentMetrics.v1_1_0.EnvironmentMetrics"/>
     </Schema>
 
@@ -251,6 +257,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="EnvironmentMetrics" BaseType="EnvironmentMetrics.v1_1_1.EnvironmentMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EnvironmentMetrics.v1_1_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="EnvironmentMetrics" BaseType="EnvironmentMetrics.v1_1_2.EnvironmentMetrics"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EnvironmentMetrics.v1_2_0">
@@ -261,12 +273,12 @@
         <NavigationProperty Name="AbsoluteHumidity" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy"/>
           <Annotation Term="OData.Description" String="Absolute humidity (g/m^3)."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the absolute (volumetric) humidity sensor reading, in grams per cubic meter units, for this resource.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `AbsoluteHumidity`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the absolute (volumetric) humidity sensor reading, in grams per cubic meter units, for this resource.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `AbsoluteHumidity`."/>
         </NavigationProperty>
         <NavigationProperty Name="EnergyJoules" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy"/>
           <Annotation Term="OData.Description" String="Energy consumption (J)."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the total energy, in joule units, for this resource.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `EnergyJoules`.  This property is used for reporting device-level energy consumption measurements, while EnergykWh is used for large-scale consumption measurements."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total energy, in joule units, for this resource.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `EnergyJoules`.  This property is used for reporting device-level energy consumption measurements, while `EnergykWh` is used for large-scale consumption measurements."/>
         </NavigationProperty>
       </EntityType>
     </Schema>
@@ -277,10 +289,16 @@
       <EntityType Name="EnvironmentMetrics" BaseType="EnvironmentMetrics.v1_2_0.EnvironmentMetrics"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EnvironmentMetrics.v1_2_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="EnvironmentMetrics" BaseType="EnvironmentMetrics.v1_2_1.EnvironmentMetrics"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EnvironmentMetrics.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.2"/>
-      <Annotation Term="OData.Description" String="This version was created to add the ResetToDefaults action."/>
+      <Annotation Term="OData.Description" String="This version was created to add the `ResetToDefaults` action."/>
 
       <EntityType Name="EnvironmentMetrics" BaseType="EnvironmentMetrics.v1_2_0.EnvironmentMetrics"/>
     </Schema>
@@ -289,6 +307,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="EnvironmentMetrics" BaseType="EnvironmentMetrics.v1_3_0.EnvironmentMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EnvironmentMetrics.v1_3_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="EnvironmentMetrics" BaseType="EnvironmentMetrics.v1_3_1.EnvironmentMetrics"/>
     </Schema>
 
   </edmx:DataServices>

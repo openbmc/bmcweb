@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  VLanNetworkInterface v1.3.0                                         -->
+<!--# Redfish Schema:  VLanNetworkInterface v1.3.1                                         -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -29,9 +29,10 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VLanNetworkInterface">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="VLanNetworkInterface" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The VLanNetworkInterface schema describes a VLAN network instance that is available on a manager, system, or other device."/>
+        <Annotation Term="OData.Description" String="The `VLanNetworkInterface` schema describes a VLAN network instance that is available on a manager, system, or other device."/>
         <Annotation Term="OData.LongDescription" String="This resource contains information for a VLAN network instance that is available on a manager, system, or other device for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -77,7 +78,7 @@
             <Record>
               <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
               <PropertyValue Property="Version" String="v1_3_0"/>
-              <PropertyValue Property="Description" String="This schema has been deprecated in favor of using individual EthernetInterface resources to show VLAN information."/>
+              <PropertyValue Property="Description" String="This schema has been deprecated in favor of using individual `EthernetInterface` resources to show VLAN information."/>
             </Record>
           </Collection>
         </Annotation>
@@ -144,7 +145,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VLanNetworkInterface.v1_0_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add explicit Permissions annotations to all properties for clarity."/>
+      <Annotation Term="OData.Description" String="This version was created to add permissions annotations to all properties for clarity."/>
       <EntityType Name="VLanNetworkInterface" BaseType="VLanNetworkInterface.v1_0_2.VLanNetworkInterface"/>
     </Schema>
 
@@ -182,6 +183,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="VLanNetworkInterface" BaseType="VLanNetworkInterface.v1_0_8.VLanNetworkInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VLanNetworkInterface.v1_0_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="VLanNetworkInterface" BaseType="VLanNetworkInterface.v1_0_9.VLanNetworkInterface"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VLanNetworkInterface.v1_1_0">
@@ -242,6 +249,12 @@
       <EntityType Name="VLanNetworkInterface" BaseType="VLanNetworkInterface.v1_1_4.VLanNetworkInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VLanNetworkInterface.v1_1_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="VLanNetworkInterface" BaseType="VLanNetworkInterface.v1_1_5.VLanNetworkInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VLanNetworkInterface.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add VLAN priority."/>
@@ -269,6 +282,12 @@
       </TypeDefinition>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VLanNetworkInterface.v1_2_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="VLanNetworkInterface" BaseType="VLanNetworkInterface.v1_2_0.VLanNetworkInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VLanNetworkInterface.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
@@ -282,6 +301,12 @@
           <Annotation Term="OData.LongDescription" String="This property shall indicate whether this VLAN is tagged or untagged for this interface."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VLanNetworkInterface.v1_3_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="VLanNetworkInterface" BaseType="VLanNetworkInterface.v1_3_0.VLanNetworkInterface"/>
     </Schema>
 
   </edmx:DataServices>

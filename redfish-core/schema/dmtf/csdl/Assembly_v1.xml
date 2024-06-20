@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Assembly v1.5.0                                                     -->
+<!--# Redfish Schema:  Assembly v1.5.1                                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -33,10 +33,11 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="Assembly" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The Assembly schema defines an assembly.  Assembly information contains details about a device, such as part number, serial number, manufacturer, and production date.  It also provides access to the original data for the assembly."/>
-        <Annotation Term="OData.LongDescription" String="This Resource shall represent an assembly for a Redfish implementation.  Assembly information contains details about a device, such as part number, serial number, manufacturer, and production date.  It also provides access to the original data for the assembly."/>
+        <Annotation Term="OData.Description" String="The `Assembly` schema defines an assembly.  Assembly information contains details about a device, such as part number, serial number, manufacturer, and production date.  It also provides access to the original data for the assembly."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent an assembly for a Redfish implementation.  Assembly information contains details about a device, such as part number, serial number, manufacturer, and production date.  It also provides access to the original data for the assembly."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -144,8 +145,8 @@
           <Annotation Term="OData.AutoExpand"/>
         </NavigationProperty>
         <Property Name="Actions" Type="Assembly.v1_0_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
         </Property>
       </EntityType>
 
@@ -208,52 +209,51 @@
         <Property Name="BinaryDataURI" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The URI at which to access an image of the assembly information."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the URI at which to access an image of the assembly information, using the Redfish protocol and authentication methods.  The Service provides this URI for the download of the OEM-specific binary image of the assembly data.  An HTTP GET from this URI shall return a response payload of MIME type `application/octet-stream`.  If the service supports it, an HTTP PUT to this URI shall replace the binary image of the assembly."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the URI at which to access an image of the assembly information, using the Redfish protocol and authentication methods.  The service provides this URI for the download of the OEM-specific binary image of the assembly data.  An HTTP `GET` from this URI shall return a response payload of MIME type `application/octet-stream`.  If the service supports it, an HTTP `PUT` to this URI shall replace the binary image of the assembly."/>
           <Annotation Term="OData.IsURL"/>
         </Property>
         <Property Name="Actions" Type="Assembly.v1_0_0.AssemblyDataActions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
         <Property Name="Oem" Type="Assembly.v1_0_0.OemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
       </ComplexType>
 
       <ComplexType Name="AssemblyDataActions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
         <Property Name="Oem" Type="Assembly.v1_0_0.AssemblyDataOemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="AssemblyDataOemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
       </ComplexType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_0_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number.  It was also created to clarify the time of day portion of the ProductionDate property."/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number.  It was also created to clarify the time of day portion of the `ProductionDate` property."/>
       <EntityType Name="Assembly" BaseType="Assembly.v1_0_0.Assembly"/>
       <EntityType Name="AssemblyData" BaseType="Assembly.v1_0_0.AssemblyData"/>
     </Schema>
@@ -267,14 +267,14 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_0_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines.  It was also created to update the description of the BinaryDataURI property."/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines.  It was also created to update the description of the `BinaryDataURI` property."/>
       <EntityType Name="Assembly" BaseType="Assembly.v1_0_2.Assembly"/>
       <EntityType Name="AssemblyData" BaseType="Assembly.v1_0_2.AssemblyData"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_0_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the description for Version."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the description for `Version`."/>
       <EntityType Name="Assembly" BaseType="Assembly.v1_0_3.Assembly"/>
       <EntityType Name="AssemblyData" BaseType="Assembly.v1_0_3.AssemblyData"/>
     </Schema>
@@ -283,6 +283,14 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Assembly" BaseType="Assembly.v1_0_4.Assembly"/>
+      <EntityType Name="AssemblyData" BaseType="Assembly.v1_0_4.AssemblyData"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_0_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Assembly" BaseType="Assembly.v1_0_5.Assembly"/>
+      <EntityType Name="AssemblyData" BaseType="Assembly.v1_0_5.AssemblyData"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_1_0">
@@ -293,15 +301,15 @@
 
       <EntityType Name="AssemblyData" BaseType="Assembly.v1_0_0.AssemblyData">
         <Property Name="Status" Type="Resource.Status" Nullable="false">
-          <Annotation Term="OData.Description" String="The status and health of the Resource and its subordinate or dependent Resources."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the Resource."/>
+          <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
         </Property>
       </EntityType>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_1_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number.  It was also created to clarify the time of day portion of the ProductionDate property."/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number.  It was also created to clarify the time of day portion of the `ProductionDate` property."/>
       <EntityType Name="Assembly" BaseType="Assembly.v1_1_0.Assembly"/>
       <EntityType Name="AssemblyData" BaseType="Assembly.v1_1_0.AssemblyData"/>
     </Schema>
@@ -315,14 +323,14 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_1_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines.  It was also created to update the description of the BinaryDataURI property."/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines.  It was also created to update the description of the `BinaryDataURI` property."/>
       <EntityType Name="Assembly" BaseType="Assembly.v1_1_2.Assembly"/>
       <EntityType Name="AssemblyData" BaseType="Assembly.v1_1_2.AssemblyData"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_1_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the description for Version."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the description for `Version`."/>
       <EntityType Name="Assembly" BaseType="Assembly.v1_1_3.Assembly"/>
       <EntityType Name="AssemblyData" BaseType="Assembly.v1_1_3.AssemblyData"/>
     </Schema>
@@ -331,12 +339,19 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Assembly" BaseType="Assembly.v1_1_4.Assembly"/>
+      <EntityType Name="AssemblyData" BaseType="Assembly.v1_1_4.AssemblyData"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_1_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Assembly" BaseType="Assembly.v1_1_5.Assembly"/>
+      <EntityType Name="AssemblyData" BaseType="Assembly.v1_1_5.AssemblyData"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
-      <Annotation Term="OData.Description" String="This version was created to add the SerialNumber and PhysicalContext properties."/>
 
       <EntityType Name="Assembly" BaseType="Assembly.v1_1_1.Assembly"/>
 
@@ -363,14 +378,14 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_2_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines.  It was also created to update the description of the BinaryDataURI property."/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines.  It was also created to update the description of the `BinaryDataURI` property."/>
       <EntityType Name="Assembly" BaseType="Assembly.v1_2_1.Assembly"/>
       <EntityType Name="AssemblyData" BaseType="Assembly.v1_2_1.AssemblyData"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_2_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the description for Version."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the description for `Version`."/>
       <EntityType Name="Assembly" BaseType="Assembly.v1_2_2.Assembly"/>
       <EntityType Name="AssemblyData" BaseType="Assembly.v1_2_2.AssemblyData"/>
     </Schema>
@@ -379,6 +394,14 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Assembly" BaseType="Assembly.v1_2_3.Assembly"/>
+      <EntityType Name="AssemblyData" BaseType="Assembly.v1_2_3.AssemblyData"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_2_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Assembly" BaseType="Assembly.v1_2_4.Assembly"/>
+      <EntityType Name="AssemblyData" BaseType="Assembly.v1_2_4.AssemblyData"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_3_0">
@@ -404,6 +427,14 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Assembly" BaseType="Assembly.v1_3_0.Assembly"/>
+      <EntityType Name="AssemblyData" BaseType="Assembly.v1_3_0.AssemblyData"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_3_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Assembly" BaseType="Assembly.v1_3_1.Assembly"/>
+      <EntityType Name="AssemblyData" BaseType="Assembly.v1_3_1.AssemblyData"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_4_0">
@@ -425,6 +456,14 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Assembly" BaseType="Assembly.v1_4_0.Assembly"/>
+      <EntityType Name="AssemblyData" BaseType="Assembly.v1_4_0.AssemblyData"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_4_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Assembly" BaseType="Assembly.v1_4_1.Assembly"/>
+      <EntityType Name="AssemblyData" BaseType="Assembly.v1_4_1.AssemblyData"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_5_0">
@@ -433,7 +472,7 @@
 
       <EntityType Name="Assembly" BaseType="Assembly.v1_4_1.Assembly"/>
 
-      <EntityType Name="AssemblyData" BaseType="Assembly.v1_4_0.AssemblyData">
+      <EntityType Name="AssemblyData" BaseType="Assembly.v1_4_1.AssemblyData">
         <Property Name="ISOCountryCodeOfOrigin" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The manufacturing country of origin, using the ISO 3166-1 country code."/>
@@ -441,6 +480,13 @@
           <Annotation Term="Validation.Pattern" String="^([A-Z]{2}|[A-Z]{3})$"/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_5_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Assembly" BaseType="Assembly.v1_5_0.Assembly"/>
+      <EntityType Name="AssemblyData" BaseType="Assembly.v1_5_0.AssemblyData"/>
     </Schema>
 
   </edmx:DataServices>

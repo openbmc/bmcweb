@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  CompositionReservation v1.0.1                                       -->
+<!--# Redfish Schema:  CompositionReservation v1.0.2                                       -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -34,9 +34,10 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CompositionReservation">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="CompositionReservation" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The CompositionReservation schema contains reservation information related to the Compose action defined in the CompositionService resource when the RequestType parameter contains the value `PreviewReserve`."/>
+        <Annotation Term="OData.Description" String="The `CompositionReservation` schema contains reservation information related to the `Compose` action defined in the `CompositionService` resource when the `RequestType` parameter contains the value `PreviewReserve`."/>
         <Annotation Term="OData.LongDescription" String="This resource represents the composition reservation of the composition service for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -74,16 +75,16 @@
         <Property Name="Client" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The client that owns the reservation."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the client that owns the reservation.  The service shall determine this value based on the client that invoked the Compose action that resulted in the creation of this reservation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the client that owns the reservation.  The service shall determine this value based on the client that invoked the `Compose` action that resulted in the creation of this reservation."/>
         </Property>
         <NavigationProperty Name="ReservedResourceBlocks" Type="Collection(ResourceBlock.ResourceBlock)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The array of links to the reserved resource blocks."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type ResourceBlock that represent the reserved resource blocks for this reservation.  Upon deletion of the reservation or when the reservation is applied, the Reserved property in the referenced resource blocks shall change to `false`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `ResourceBlock` that represent the reserved resource blocks for this reservation.  Upon deletion of the reservation or when the reservation is applied, the `Reserved` property in the referenced resource blocks shall change to `false`."/>
         </NavigationProperty>
         <Property Name="Manifest" Type="Manifest.Manifest" Nullable="false">
           <Annotation Term="OData.Description" String="The manifest document processed by the service that resulted in this reservation."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the manifest document processed by the service that resulted in this reservation.  This property shall be required if the RequestFormat parameter in the Compose action request contained the value `Manifest`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the manifest document processed by the service that resulted in this reservation.  This property shall be required if the `RequestFormat` parameter in the `Compose` action request contained the value `Manifest`."/>
         </Property>
         <Property Name="Actions" Type="CompositionReservation.v1_0_0.Actions" Nullable="false">
           <Annotation Term="OData.Description" String="The available actions for this resource."/>
@@ -112,6 +113,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="CompositionReservation" BaseType="CompositionReservation.v1_0_0.CompositionReservation"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CompositionReservation.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="CompositionReservation" BaseType="CompositionReservation.v1_0_1.CompositionReservation"/>
     </Schema>
 
   </edmx:DataServices>

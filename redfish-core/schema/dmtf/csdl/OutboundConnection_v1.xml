@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  OutboundConnection v1.0.1                                           -->
+<!--# Redfish Schema:  OutboundConnection v1.0.2                                           -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -35,9 +35,10 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OutboundConnection">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="OutboundConnection" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The OutboundConnection schema defines how the Redfish service connects to a remote client over a WebSocket connection.  This allows a service behind a firewall to establish a connection to a remote client outside of the firewall."/>
+        <Annotation Term="OData.Description" String="The `OutboundConnection` schema defines how the Redfish service connects to a remote client over a WebSocket connection.  This allows a service behind a firewall to establish a connection to a remote client outside of the firewall."/>
         <Annotation Term="OData.LongDescription" String="This resource shall represent the connection configuration necessary to connect to a remote client.  Services shall initiate the outbound connection over a WebSocket defined in the 'Outbound connections' clause of the Redfish Specification."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -83,20 +84,20 @@
         </Property>
         <NavigationProperty Name="Certificates" Type="CertificateCollection.CertificateCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The link to a collection of server certificates for the remote client referenced by the EndpointURI property."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CertificateCollection that represents the server certificates for the remote client referenced by the EndpointURI property.  If the Authentication property contains `MTLS`, the service shall compare the certificates in this collection with the certificate obtained during handshaking with the WebSocket service to verify the identity of the remote client prior to completing the connection.  If the remote client cannot be verified, the service shall not complete the connection.  Regardless of the contents of this collection, services may perform additional verification based on other factors, such as the configuration of the SecurityPolicy resource."/>
+          <Annotation Term="OData.Description" String="The link to a collection of server certificates for the remote client referenced by the `EndpointURI` property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `CertificateCollection` that represents the server certificates for the remote client referenced by the `EndpointURI` property.  If the `Authentication` property contains `MTLS`, the service shall compare the certificates in this collection with the certificate obtained during handshaking with the WebSocket service to verify the identity of the remote client prior to completing the connection.  If the remote client cannot be verified, the service shall not complete the connection.  Regardless of the contents of this collection, services may perform additional verification based on other factors, such as the configuration of the `SecurityPolicy` resource."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="ClientCertificates" Type="CertificateCollection.CertificateCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The link to a collection of client identity certificates provided to the remote client referenced by the EndpointURI property."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CertificateCollection that represents the client identity certificates for the service.  If the Authentication property contains `MTLS`, these certificates are provided to the remote client referenced by the EndpointURI property as part of TLS handshaking."/>
+          <Annotation Term="OData.Description" String="The link to a collection of client identity certificates provided to the remote client referenced by the `EndpointURI` property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `CertificateCollection` that represents the client identity certificates for the service.  If the `Authentication` property contains `MTLS`, these certificates are provided to the remote client referenced by the `EndpointURI` property as part of TLS handshaking."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="ConnectionEnabled" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="Indicates if the outbound connection is enabled."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate if the outbound connection is enabled.  If `true`, the service shall attempt to establish an outbound connection to the remote client specified by the EndpointURI property.  If `false`, the service shall not attempt to establish a connection to the remote client and shall close the connection if one is already established.  When a connection is established, the service shall create a Session resource to represent the active connection.  When a connection is closed, the service shall delete the connection's respective Session resource.  If the client does not provide this property, the service shall default this value to `true`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate if the outbound connection is enabled.  If `true`, the service shall attempt to establish an outbound connection to the remote client specified by the `EndpointURI` property.  If `false`, the service shall not attempt to establish a connection to the remote client and shall close the connection if one is already established.  When a connection is established, the service shall create a Session resource to represent the active connection.  When a connection is closed, the service shall delete the connection's respective Session resource.  If the client does not provide this property, the service shall default this value to `true`."/>
         </Property>
         <Property Name="EndpointURI" Type="Edm.String" Nullable="false">
           <Annotation Term="Redfish.RequiredOnCreate"/>
@@ -136,15 +137,15 @@
       <EnumType Name="OutboundConnectionRetryPolicyType">
         <Member Name="None">
           <Annotation Term="OData.Description" String="No retries."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the service will not attempt to re-establish the outbound connection if the connection is dropped or not established.  If the connection is dropped or not established, the service shall set the ConnectionEnabled property to `false`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the service will not attempt to re-establish the outbound connection if the connection is dropped or not established.  If the connection is dropped or not established, the service shall set the `ConnectionEnabled` property to `false`."/>
         </Member>
         <Member Name="RetryForever">
           <Annotation Term="OData.Description" String="Retry forever."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the service will attempt to re-establish the outbound connection at the interval specified by the RetryIntervalMinutes property regardless of the number of retries."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the service will attempt to re-establish the outbound connection at the interval specified by the `RetryIntervalMinutes` property regardless of the number of retries."/>
         </Member>
         <Member Name="RetryCount">
           <Annotation Term="OData.Description" String="Retry until a maximum count is reached."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the service will attempt to re-establish the outbound connection at the interval specified by the RetryIntervalMinutes property until the number of retries reaches the count specified by the RetryCount property.  If the limit is reached, the service shall set the ConnectionEnabled property to `false`.  If a connection is established, the service shall reset the count."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the service will attempt to re-establish the outbound connection at the interval specified by the `RetryIntervalMinutes` property until the number of retries reaches the count specified by the `RetryCount` property.  If the limit is reached, the service shall set the `ConnectionEnabled` property to `false`.  If a connection is established, the service shall reset the count."/>
         </Member>
       </EnumType>
 
@@ -155,7 +156,7 @@
         </Member>
         <Member Name="JWT">
           <Annotation Term="OData.Description" String="JSON Web Token."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate an RFC7519-defined JSON Web Token (JWT) is specified in one of the HTTP headers in the PreUpgradeHTTPHeaders property.  This is typically encoded in the `Authorization` header with the scheme `Bearer`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate an RFC7519-defined JSON Web Token (JWT) is specified in one of the HTTP headers in the `PreUpgradeHTTPHeaders` property.  This is typically encoded in the `Authorization` header with the scheme `Bearer`."/>
         </Member>
         <Member Name="None">
           <Annotation Term="OData.Description" String="No authentication."/>
@@ -224,7 +225,7 @@
         <NavigationProperty Name="Session" Type="Session.Session">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the session for this outbound connection."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the link to a resource of type Session that represents the active connection for this outbound connection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the link to a resource of type `Session` that represents the active connection for this outbound connection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -234,6 +235,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="OutboundConnection" BaseType="OutboundConnection.v1_0_0.OutboundConnection"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OutboundConnection.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="OutboundConnection" BaseType="OutboundConnection.v1_0_1.OutboundConnection"/>
     </Schema>
 
   </edmx:DataServices>

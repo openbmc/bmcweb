@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Signature v1.0.2                                                    -->
+<!--# Redfish Schema:  Signature v1.0.3                                                    -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -28,9 +28,10 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Signature">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="Signature" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The Signature schema describes a signature or a hash."/>
+        <Annotation Term="OData.Description" String="The `Signature` schema describes a signature or a hash."/>
         <Annotation Term="OData.LongDescription" String="This resource contains a signature for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -45,7 +46,7 @@
         <Annotation Term="Capabilities.DeleteRestrictions">
           <Record>
             <PropertyValue Property="Deletable" Bool="true"/>
-            <Annotation Term="OData.Description" String="Use the DELETE operation to remove signatures."/>
+            <Annotation Term="OData.Description" String="Use the `DELETE` operation to remove signatures."/>
           </Record>
         </Annotation>
         <Annotation Term="Redfish.Uris">
@@ -60,7 +61,7 @@
       <EnumType Name="SignatureTypeRegistry">
         <Member Name="UEFI">
           <Annotation Term="OData.Description" String="A signature defined in the UEFI Specification."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate that the SignatureType string contains the #define name of the SignatureType member of the EFI_SIGNATURE_LIST, as defined by the UEFI Specification.  This value shall also indicate that the format of the SignatureString is a big-endian hex-encoded string of the binary value specified in the UEFI SignatureData array in EFI_SIGNATURE_DATA, as defined by the UEFI Specification."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the `SignatureType` string contains the #define name of the SignatureType member of the EFI_SIGNATURE_LIST, as defined by the UEFI Specification.  This value shall also indicate that the format of the `SignatureString` is a big-endian hex-encoded string of the binary value specified in the UEFI SignatureData array in EFI_SIGNATURE_DATA, as defined by the UEFI Specification."/>
         </Member>
       </EnumType>
     </Schema>
@@ -79,19 +80,19 @@
         <Property Name="SignatureType" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The format of the signature."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the format type for the signature.  The format is qualified by the value of the SignatureTypeRegistry property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the format type for the signature.  The format is qualified by the value of the `SignatureTypeRegistry` property."/>
           <Annotation Term="Redfish.RequiredOnCreate"/>
         </Property>
         <Property Name="SignatureString" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The string for the signature."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the string of the signature, and the format shall follow the requirements specified by the value of the SignatureType property.  If the signature contains any private keys, they shall be removed from the string in responses.  If the private key for the signature is not known by the service and is needed to use the signature, the client shall provide the private key as part of the string in the POST request."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the string of the signature, and the format shall follow the requirements specified by the value of the `SignatureType` property.  If the signature contains any private keys, they shall be removed from the string in responses.  If the private key for the signature is not known by the service and is needed to use the signature, the client shall provide the private key as part of the string in the `POST` request."/>
           <Annotation Term="Redfish.RequiredOnCreate"/>
         </Property>
         <Property Name="UefiSignatureOwner" Type="Edm.Guid">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The UEFI signature owner for this signature."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall contain the GUID of the UEFI signature owner for this signature as defined by the UEFI Specification.  This property shall only be present if the SignatureTypeRegistry property is `UEFI`."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall contain the GUID of the UEFI signature owner for this signature as defined by the UEFI Specification.  This property shall only be present if the `SignatureTypeRegistry` property is `UEFI`."/>
         </Property>
         <Property Name="Actions" Type="Signature.v1_0_0.Actions" Nullable="false">
           <Annotation Term="OData.Description" String="The available actions for this resource."/>
@@ -126,6 +127,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Signature" BaseType="Signature.v1_0_1.Signature"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Signature.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Signature" BaseType="Signature.v1_0_2.Signature"/>
     </Schema>
 
   </edmx:DataServices>

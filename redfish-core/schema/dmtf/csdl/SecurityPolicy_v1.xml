@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  SecurityPolicy v1.0.1                                               -->
+<!--# Redfish Schema:  SecurityPolicy v1.0.2                                               -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -33,10 +33,11 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SecurityPolicy">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="SecurityPolicy" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The SecurityPolicy resource provides a central point to configure the security policy of a manager."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall represent configurable security-related policies managed by a manager.  All security parameters in other resources that are controlled by the manager shall follow the related settings in this security policy.  For example, an outbound TLS connection established per an EventDestination resource will follow the values of the properties in the TLS property."/>
+        <Annotation Term="OData.Description" String="The `SecurityPolicy` resource provides a central point to configure the security policy of a manager."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent configurable security-related policies managed by a manager.  All security parameters in other resources that are controlled by the manager shall follow the related settings in this security policy.  For example, an outbound TLS connection established per an `EventDestination` resource will follow the values of the properties in the `TLS` property."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -76,7 +77,7 @@
         <Property Name="OverrideParentManager" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="Override the security policy of the parent manager."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this security policy overrides the security policy of the managers referenced by the ManagedBy property within the Links property of the Manager resource for this security policy.  If this property is absent, the value shall be assumed to be `false`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this security policy overrides the security policy of the managers referenced by the `ManagedBy` property within the `Links` property of the `Manager` resource for this security policy.  If this property is absent, the value shall be assumed to be `false`."/>
         </Property>
         <Property Name="SPDM" Type="SecurityPolicy.v1_0_0.SPDMPolicy" Nullable="false">
           <Annotation Term="OData.Description" String="The SPDM policy."/>
@@ -128,21 +129,21 @@
           <Annotation Term="OData.Description" String="An indication of whether the manager will verify the certificate of the SPDM endpoint."/>
           <Annotation Term="OData.LongDescription" String="This property shall indicate whether the manager will verify the certificate of the SPDM endpoint.  If `true`, the manager shall verify the device certificate with the certificates found in the collections referenced by the `RevokedCertificates` and `TrustedCertificates` properties.  If `false`, the manager shall not perform verification of the endpoint certificate."/>
         </Property>
-        <NavigationProperty Name="TrustedCertificates" Type="CertificateCollection.CertificateCollection">
+        <NavigationProperty Name="TrustedCertificates" Type="CertificateCollection.CertificateCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The trusted SPDM device certificates."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CertificateCollection that represents the set of trusted SPDM device certificates.  Certificates in this collection may contain leaf certificates, partial certificate chains, or complete certificate chains, where a partial certificate chain is a chain containing only CA certificates.  If `VerifyCertificate` contains the value `true` and if an SPDM endpoint verifies successfully against a partial chain or exactly matches a leaf certificate, that SPDM endpoint shall be considered verified and other authentications checks are performed."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `CertificateCollection` that represents the set of trusted SPDM device certificates.  Certificates in this collection may contain leaf certificates, partial certificate chains, or complete certificate chains, where a partial certificate chain is a chain containing only CA certificates.  If `VerifyCertificate` contains the value `true` and if an SPDM endpoint verifies successfully against a partial chain or exactly matches a leaf certificate, that SPDM endpoint shall be considered verified and other authentications checks are performed."/>
         </NavigationProperty>
-        <NavigationProperty Name="RevokedCertificates" Type="CertificateCollection.CertificateCollection">
+        <NavigationProperty Name="RevokedCertificates" Type="CertificateCollection.CertificateCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The revoked SPDM device certificates."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CertificateCollection that represents the set of revoked SPDM device certificates.  Certificates in this collection may contain leaf certificates, partial certificate chains, or complete certificate chains, where a partial certificate chain is a chain containing only CA certificates.  If `VerifyCertificate` contains the value `true` and if an SPDM endpoint verifies successfully against a partial chain or exactly matches a leaf certificate, that SPDM endpoint shall fail authentication."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `CertificateCollection` that represents the set of revoked SPDM device certificates.  Certificates in this collection may contain leaf certificates, partial certificate chains, or complete certificate chains, where a partial certificate chain is a chain containing only CA certificates.  If `VerifyCertificate` contains the value `true` and if an SPDM endpoint verifies successfully against a partial chain or exactly matches a leaf certificate, that SPDM endpoint shall fail authentication."/>
         </NavigationProperty>
-        <Property Name="Allowed" Type="SecurityPolicy.v1_0_0.SPDMParameterSet">
+        <Property Name="Allowed" Type="SecurityPolicy.v1_0_0.SPDMParameterSet" Nullable="false">
           <Annotation Term="OData.Description" String="The SPDM policy settings that are allowed, such as the allowable SPDM versions and algorithms."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the SPDM policy settings that are allowed, such as the allowable SPDM versions and algorithms."/>
         </Property>
-        <Property Name="Denied" Type="SecurityPolicy.v1_0_0.SPDMParameterSet">
+        <Property Name="Denied" Type="SecurityPolicy.v1_0_0.SPDMParameterSet" Nullable="false">
           <Annotation Term="OData.Description" String="The SPDM policy settings that are prohibited, such as the prohibited SPDM versions and algorithms."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the SPDM policy settings that are prohibited, such as the prohibited SPDM versions and algorithms."/>
         </Property>
@@ -152,7 +153,7 @@
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="The SPDM policy settings."/>
         <Annotation Term="OData.LongDescription" String="This object shall contain SPDM policy settings."/>
-        <Property Name="Algorithms" Type="SecurityPolicy.v1_0_0.SPDMAlgorithmSet">
+        <Property Name="Algorithms" Type="SecurityPolicy.v1_0_0.SPDMAlgorithmSet" Nullable="false">
           <Annotation Term="OData.Description" String="The SPDM algorithms."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the SPDM algorithms."/>
         </Property>
@@ -206,23 +207,23 @@
           <Annotation Term="OData.Description" String="An indication of whether the manager will verify the certificate of the remote TLS endpoint."/>
           <Annotation Term="OData.LongDescription" String="This property shall indicate whether the manager will verify the certificate of the remote endpoint in a TLS connection.  If `true`, the manager shall verify the remote endpoint certificate with the certificates found in the collections referenced by the `RevokedCertificates` and `TrustedCertificates` properties.  If `false` or not present, the manager shall not perform verification of the endpoint certificate."/>
         </Property>
-        <NavigationProperty Name="TrustedCertificates" Type="CertificateCollection.CertificateCollection">
+        <NavigationProperty Name="TrustedCertificates" Type="CertificateCollection.CertificateCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The trusted TLS server certificates."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CertificateCollection that represents the set of trusted TLS certificates.  Certificates in this collection may contain leaf certificates, partial certificate chains, or complete certificate chains, where a partial certificate chain is a chain containing only CA certificates.  If `VerifyCertificate` contains the value `true` and if a TLS endpoint verifies successfully against a partial chain or exactly matches a leaf certificate, that TLS endpoint shall be considered verified and other authentications checks are performed."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `CertificateCollection` that represents the set of trusted TLS certificates.  Certificates in this collection may contain leaf certificates, partial certificate chains, or complete certificate chains, where a partial certificate chain is a chain containing only CA certificates.  If `VerifyCertificate` contains the value `true` and if a TLS endpoint verifies successfully against a partial chain or exactly matches a leaf certificate, that TLS endpoint shall be considered verified and other authentications checks are performed."/>
         </NavigationProperty>
-        <NavigationProperty Name="RevokedCertificates" Type="CertificateCollection.CertificateCollection">
+        <NavigationProperty Name="RevokedCertificates" Type="CertificateCollection.CertificateCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The revoked TLS server certificates."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CertificateCollection that represents the set of revoked TLS certificates.  Certificates in this collection may contain leaf certificates, partial certificate chains, or complete certificate chains, where a partial certificate chain is a chain containing only CA certificates.  If `VerifyCertificate` contains the value `true` and if a TLS endpoint verifies successfully against a partial chain or exactly matches a leaf certificate, that TLS endpoint shall fail authentication."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `CertificateCollection` that represents the set of revoked TLS certificates.  Certificates in this collection may contain leaf certificates, partial certificate chains, or complete certificate chains, where a partial certificate chain is a chain containing only CA certificates.  If `VerifyCertificate` contains the value `true` and if a TLS endpoint verifies successfully against a partial chain or exactly matches a leaf certificate, that TLS endpoint shall fail authentication."/>
         </NavigationProperty>
-        <Property Name="Allowed" Type="SecurityPolicy.v1_0_0.TLSParameterSet">
+        <Property Name="Allowed" Type="SecurityPolicy.v1_0_0.TLSParameterSet" Nullable="false">
           <Annotation Term="OData.Description" String="The TLS policy settings that are allowed, such as the allowable TLS versions and algorithms."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the TLS policy settings that are allowed, such as the allowable TLS versions and algorithms.  If a value is missing for the same property in the 'Allowed' and 'Denied' object, the missing value shall behave as if the value is present in the same property under the 'Denied' object.  If a value conflicts for the same property between the 'Allowed' and 'Denied' object, the value of the same property in the 'Denied' object shall take precedence.  A Redfish service can resolve or prevent conflicts at time of request as well."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the TLS policy settings that are allowed, such as the allowable TLS versions and algorithms.  If a value is missing for the same property in the `Allowed` and `Denied` object, the missing value shall behave as if the value is present in the same property under the `Denied` object.  If a value conflicts for the same property between the `Allowed` and `Denied` object, the value of the same property in the `Denied` object shall take precedence.  A Redfish service can resolve or prevent conflicts at time of request as well."/>
         </Property>
-        <Property Name="Denied" Type="SecurityPolicy.v1_0_0.TLSParameterSet">
+        <Property Name="Denied" Type="SecurityPolicy.v1_0_0.TLSParameterSet" Nullable="false">
           <Annotation Term="OData.Description" String="The TLS policy settings that are prohibited, such as the prohibited TLS versions and algorithms."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the TLS policy settings that are prohibited, such as the prohibited TLS versions and algorithms.  If a value is missing for the same property in the 'Allowed' and 'Denied' object, the missing value shall behave as if the value is present in the same property under the 'Denied' object.  If a value conflicts for the same property between the 'Allowed' and 'Denied' object, the value of the same property in the 'Denied' object shall take precedence.  A Redfish service can resolve or prevent conflicts at time of request as well."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the TLS policy settings that are prohibited, such as the prohibited TLS versions and algorithms.  If a value is missing for the same property in the `Allowed` and `Denied` object, the missing value shall behave as if the value is present in the same property under the `Denied` object.  If a value conflicts for the same property between the `Allowed` and `Denied` object, the value of the same property in the `Denied` object shall take precedence.  A Redfish service can resolve or prevent conflicts at time of request as well."/>
         </Property>
       </ComplexType>
 
@@ -230,7 +231,7 @@
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="The TLS policy settings."/>
         <Annotation Term="OData.LongDescription" String="This object shall contain TLS policy settings."/>
-        <Property Name="Algorithms" Type="SecurityPolicy.v1_0_0.TLSAlgorithmSet">
+        <Property Name="Algorithms" Type="SecurityPolicy.v1_0_0.TLSAlgorithmSet" Nullable="false">
           <Annotation Term="OData.Description" String="The TLS algorithms."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the TLS algorithms."/>
         </Property>
@@ -265,6 +266,11 @@
       <EntityType Name="SecurityPolicy" BaseType="SecurityPolicy.v1_0_0.SecurityPolicy"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SecurityPolicy.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="SecurityPolicy" BaseType="SecurityPolicy.v1_0_1.SecurityPolicy"/>
+    </Schema>
+
   </edmx:DataServices>
 </edmx:Edmx>
-

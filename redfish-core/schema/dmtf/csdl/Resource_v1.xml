@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Resource v1.18.0                                                    -->
+<!--# Redfish Schema:  Resource v1.19.0                                                    -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -32,6 +32,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <TypeDefinition Name="Id" UnderlyingType="Edm.String">
         <Annotation Term="OData.Description" String="The unique identifier for this resource within the collection of similar resources."/>
@@ -102,8 +103,8 @@
         <Annotation Term="OData.LongDescription" String="This type shall contain any status or health properties of a resource."/>
         <Property Name="State" Type="Resource.State">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The known state of the resource, such as if it is enabled."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether and why this component is available.  Enabled indicates the resource is available.  Disabled indicates the resource has been intentionally made unavailable but it can be enabled.  Offline indicates the resource is unavailable intentionally and requires action to make it available.  InTest indicates that the component is undergoing testing.  Starting indicates that the resource is becoming available.  Absent indicates the resource is physically unavailable."/>
+          <Annotation Term="OData.Description" String="The state of the resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the state of the resource."/>
         </Property>
         <Property Name="HealthRollup" Type="Resource.Health">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -117,7 +118,7 @@
         </Property>
         <Property Name="Conditions" Type="Collection(Resource.Condition)">
           <Annotation Term="OData.Description" String="Conditions in this resource that require attention."/>
-          <Annotation Term="OData.LongDescription" String="This property shall represent the active conditions requiring attention in this or a related resource that affects the Health or HealthRollup of this resource.  The service may roll up multiple conditions originating from a resource, using the `ConditionInRelatedResource` message from Base Message Registry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall represent the active conditions requiring attention in this or a related resource that affects the `Health` or `HealthRollup` of this resource.  The service may roll up multiple conditions originating from a resource, using the `ConditionInRelatedResource` message from the Base Message Registry.  The array order of conditions may change as new conditions occur or as conditions are resolved by the service."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -146,13 +147,13 @@
         <Property Name="MessageId" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The identifier for the message."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a MessageId, as defined in the 'MessageId format' clause of the Redfish Specification."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a `MessageId`, as defined in the 'MessageId format' clause of the Redfish Specification."/>
           <Annotation Term="Redfish.Required"/>
         </Property>
         <Property Name="MessageArgs" Type="Collection(Edm.String)" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of message arguments that are substituted for the arguments in the message when looked up in the message registry."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of message arguments that are substituted for the arguments in the message when looked up in the message registry.  It has the same semantics as the MessageArgs property in the Redfish MessageRegistry schema."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of message arguments that are substituted for the arguments in the message when looked up in the message registry.  It has the same semantics as the `MessageArgs` property in the Redfish `MessageRegistry` schema."/>
         </Property>
         <Property Name="Message" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -173,7 +174,7 @@
         <NavigationProperty Name="LogEntry" Type="LogEntry.LogEntry" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the log entry created for this condition."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type LogEntry that represents the log entry created for this condition."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `LogEntry` that represents the log entry created for this condition."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="Resolution" Type="Edm.String" Nullable="false">
@@ -206,27 +207,35 @@
       <EnumType Name="State">
         <Member Name="Enabled">
           <Annotation Term="OData.Description" String="This function or resource is enabled."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that a function or resource is capable of operating."/>
         </Member>
         <Member Name="Disabled">
           <Annotation Term="OData.Description" String="This function or resource is disabled."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that a function or resource is unavailable."/>
         </Member>
         <Member Name="StandbyOffline">
           <Annotation Term="OData.Description" String="This function or resource is enabled but awaits an external action to activate it."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that a resource is temporarily unavailable but may become available through an external action."/>
         </Member>
         <Member Name="StandbySpare">
           <Annotation Term="OData.Description" String="This function or resource is part of a redundancy set and awaits a failover or other external action to activate it."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that a resource is unavailable but may become available automatically as part of a failover, through an external action, or in response to the change in state of another device or resource."/>
         </Member>
         <Member Name="InTest">
           <Annotation Term="OData.Description" String="This function or resource is undergoing testing or is in the process of capturing information for debugging."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the component is undergoing testing or is in the process of capturing information for debugging."/>
         </Member>
         <Member Name="Starting">
           <Annotation Term="OData.Description" String="This function or resource is starting."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the resource is attempting to transition to `Enabled`."/>
         </Member>
         <Member Name="Absent">
           <Annotation Term="OData.Description" String="This function or device is not currently present or detected.  This resource represents a capability or an available location where a device can be installed."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the function or device is absent as defined in the 'Absent resources' clause of the Redfish Specification."/>
         </Member>
         <Member Name="UnavailableOffline">
           <Annotation Term="OData.Description" String="This function or resource is present but cannot be used."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that a function or resource is present but not able to be used."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -238,6 +247,7 @@
         </Member>
         <Member Name="Deferring">
           <Annotation Term="OData.Description" String="The element does not process any commands but queues new requests."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the element does not process any commands but queues new requests."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -249,6 +259,7 @@
         </Member>
         <Member Name="Quiesced">
           <Annotation Term="OData.Description" String="The element is enabled but only processes a restricted set of commands."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the element is enabled but only processes a restricted set of commands."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -260,6 +271,7 @@
         </Member>
         <Member Name="Updating">
           <Annotation Term="OData.Description" String="The element is updating and might be unavailable or degraded."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the element is updating.  The element may become unavailable or operate at a degraded level of performance or functionality."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -271,11 +283,29 @@
         </Member>
         <Member Name="Qualified">
           <Annotation Term="OData.Description" String="The element quality is within the acceptable range of operation."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the element is within the acceptable range of operation."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
                 <PropertyValue Property="Version" String="v1_9_0"/>
+              </Record>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_19_0"/>
+                <PropertyValue Property="Description" String="This value has been deprecated in favor of StandbySpare."/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="Degraded">
+          <Annotation Term="OData.Description" String="The function or resource is degraded."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource is enabled but operating in a degraded mode."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_19_0"/>
               </Record>
             </Collection>
           </Annotation>
@@ -297,23 +327,23 @@
       <EnumType Name="ResetType">
         <Member Name="On">
           <Annotation Term="OData.Description" String="Turn on the unit."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will transition to a power on state.  Upon successful completion, the PowerState property, if supported, shall contain the value `On`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will transition to a power on state.  Upon successful completion, the `PowerState` property, if supported, shall contain the value `On`."/>
         </Member>
         <Member Name="ForceOff">
           <Annotation Term="OData.Description" String="Turn off the unit immediately (non-graceful shutdown)."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will transition to a power off state.  The transition will start immediately.  Upon successful completion, the PowerState property, if supported, shall contain the value `Off`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will transition to a power off state.  The transition will start immediately.  Upon successful completion, the `PowerState` property, if supported, shall contain the value `Off`."/>
         </Member>
         <Member Name="GracefulShutdown">
           <Annotation Term="OData.Description" String="Shut down gracefully and power off."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will transition to a power off state.  The transition will start after first performing tasks to safely shut down the resource.  For example, when shutting down a computer system, the host operating system is allowed to safely shut down processes and close connections.  Upon successful completion, the PowerState property, if supported, shall contain the value `Off`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will transition to a power off state.  The transition will start after first performing tasks to safely shut down the resource.  For example, when shutting down a computer system, the host operating system is allowed to safely shut down processes and close connections.  Upon successful completion, the `PowerState` property, if supported, shall contain the value `Off`."/>
         </Member>
         <Member Name="GracefulRestart">
           <Annotation Term="OData.Description" String="Shut down gracefully and restart the unit."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will transition to a power on state, after transiting through a restart.  The transition will start after first performing tasks to safely shut down the resource.  For example, when shutting down a computer system, the host operating system is allowed to safely shut down processes and close connections.  Upon successful completion, the PowerState property, if supported, shall contain the value `On`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will transition to a power on state, after transiting through a restart.  The transition will start after first performing tasks to safely shut down the resource.  For example, when shutting down a computer system, the host operating system is allowed to safely shut down processes and close connections.  Upon successful completion, the `PowerState` property, if supported, shall contain the value `On`."/>
         </Member>
         <Member Name="ForceRestart">
           <Annotation Term="OData.Description" String="Shut down immediately and non-gracefully and restart the unit."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will transition to a power on state, after transiting through a restart.  The transition will start immediately.  Upon successful completion, the PowerState property, if supported, shall contain the value `On`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will transition to a power on state, after transiting through a restart.  The transition will start immediately.  Upon successful completion, the `PowerState` property, if supported, shall contain the value `On`."/>
         </Member>
         <Member Name="Nmi">
           <Annotation Term="OData.Description" String="Generate a diagnostic interrupt, which is usually an NMI on x86 systems, to stop normal operations, complete diagnostic actions, and, typically, halt the system."/>
@@ -321,7 +351,7 @@
         </Member>
         <Member Name="ForceOn">
           <Annotation Term="OData.Description" String="Turn on the unit immediately."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will transition to a power on state.  The transition will start immediately.  Upon successful completion, the PowerState property shall contain the value `On`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will transition to a power on state.  The transition will start immediately.  Upon successful completion, the `PowerState` property shall contain the value `On`."/>
         </Member>
         <Member Name="PushPowerButton">
           <Annotation Term="OData.Description" String="Simulate the pressing of the physical power button on this unit."/>
@@ -329,7 +359,7 @@
         </Member>
         <Member Name="PowerCycle">
           <Annotation Term="OData.Description" String="Power cycle the unit.  Behaves like a full power removal, followed by a power restore to the resource."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will perform a power cycle.  If currently in the power on state, the resource will transition to a power off state, then transition to a power on state.  If currently in the power off state, the resource will transition to a power on state.  Upon successful completion, the PowerState property, if supported, shall contain the value `On`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will perform a power cycle.  If currently in the power on state, the resource will transition to a power off state, then transition to a power on state.  If currently in the power off state, the resource will transition to a power on state.  Upon successful completion, the `PowerState` property, if supported, shall contain the value `On`."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -341,7 +371,7 @@
         </Member>
         <Member Name="Suspend">
           <Annotation Term="OData.Description" String="Write the state of the unit to disk before powering off.  This allows for the state to be restored when powered back on."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will have any state information written to persistent memory and then transition to a power off state.  Upon successful completion, the PowerState property, if supported, shall contain the value `Off`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will have any state information written to persistent memory and then transition to a power off state.  Upon successful completion, the `PowerState` property, if supported, shall contain the value `Off`."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -353,7 +383,7 @@
         </Member>
         <Member Name="Pause">
           <Annotation Term="OData.Description" String="Pause execution on the unit but do not remove power.  This is typically a feature of virtual machine hypervisors."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will transition to a paused state.  Upon successful completion, the PowerState property, if supported, shall contain the value `Paused`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will transition to a paused state.  Upon successful completion, the `PowerState` property, if supported, shall contain the value `Paused`."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -365,7 +395,7 @@
         </Member>
         <Member Name="Resume">
           <Annotation Term="OData.Description" String="Resume execution on the paused unit.  This is typically a feature of virtual machine hypervisors."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will transition to a power on state.  Upon successful completion, the PowerState property, if supported, shall contain the value `On`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will transition to a power on state.  Upon successful completion, the `PowerState` property, if supported, shall contain the value `On`."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -392,15 +422,15 @@
       <EnumType Name="IndicatorLED">
         <Member Name="Lit">
           <Annotation Term="OData.Description" String="The indicator LED is lit."/>
-          <Annotation Term="OData.LongDescription" String="This value shall represent that the indicator LED is in a solid on state.  If the service does not support this value, it shall reject PATCH or PUT requests containing this value by returning the HTTP 400 (Bad Request) status code."/>
+          <Annotation Term="OData.LongDescription" String="This value shall represent that the indicator LED is in a solid on state.  If the service does not support this value, it shall reject `PATCH` or `PUT` requests containing this value by returning the HTTP `400 Bad Request` status code."/>
         </Member>
         <Member Name="Blinking">
           <Annotation Term="OData.Description" String="The indicator LED is blinking."/>
-          <Annotation Term="OData.LongDescription" String="This value shall represent that the indicator LED is in a blinking state where the LED is being turned on and off in repetition.  If the service does not support this value, it shall reject PATCH or PUT requests containing this value by returning the HTTP 400 (Bad Request) status code."/>
+          <Annotation Term="OData.LongDescription" String="This value shall represent that the indicator LED is in a blinking state where the LED is being turned on and off in repetition.  If the service does not support this value, it shall reject `PATCH` or `PUT` requests containing this value by returning the HTTP `400 Bad Request` status code."/>
         </Member>
         <Member Name="Off">
           <Annotation Term="OData.Description" String="The indicator LED is off."/>
-          <Annotation Term="OData.LongDescription" String="This value shall represent that the indicator LED is in a solid off state.  If the service does not support this value, it shall reject PATCH or PUT requests containing this value by returning the HTTP 400 (Bad Request) status code."/>
+          <Annotation Term="OData.LongDescription" String="This value shall represent that the indicator LED is in a solid off state.  If the service does not support this value, it shall reject `PATCH` or `PUT` requests containing this value by returning the HTTP `400 Bad Request` status code."/>
         </Member>
       </EnumType>
 
@@ -437,7 +467,7 @@
 
       <EntityType Name="ReferenceableMember" BaseType="Resource.ReferenceableMember" Abstract="true">
         <Annotation Term="OData.Description" String="The base type for addressable members of an array."/>
-        <Annotation Term="OData.LongDescription" String="References array members by using the value returned in the @odata.id property, which can be a dereferenceable URL.  The @odata.id of this entity shall contain the location of this element within an item."/>
+        <Annotation Term="OData.LongDescription" String="References array members by using the value returned in the `@odata.id` property, which can be a dereferenceable URL.  The `@odata.id` of this entity shall contain the location of this element within an item."/>
         <Key>
           <PropertyRef Name="MemberId"/>
         </Key>
@@ -512,7 +542,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_0_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It also updates the description for MemberId to match the Redfish v1.6 requirements."/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It also updates the description for `MemberId` to match the Redfish v1.6 requirements."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_0_8">
@@ -542,12 +572,17 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_0_13">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for Id, Name, Description, and MemberId to be consistent with usage in the specification."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for `Id`, `Name`, `Description`, and `MemberId` to be consistent with usage in the specification."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_0_14">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to replace the `system` terminology with `unit` in descriptions for ResetType.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to replace the 'system' terminology with 'unit' in descriptions for `ResetType`.  It was also created to correct various typographical errors."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_0_15">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add long descriptions to the values of `State` in `Status`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_1_0">
@@ -558,12 +593,12 @@
         <Property Name="DurableName" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The world-wide, persistent name of the resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the world-wide unique identifier for the resource.  The string shall be in the Identifier.DurableNameFormat property value format."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the world-wide unique identifier for the resource.  The string shall be in the format described by the value in the `DurableNameFormat` property."/>
         </Property>
         <Property Name="DurableNameFormat" Type="Resource.v1_1_0.DurableNameFormat">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The format of the durable name property."/>
-          <Annotation Term="OData.LongDescription" String="This property shall represent the format of the DurableName property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall represent the format of the `DurableName` property."/>
         </Property>
       </ComplexType>
 
@@ -577,21 +612,21 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_5_0"/>
-                <PropertyValue Property="Description" String="This property has been deprecated in favor of the PostalAddress, Placement, and PartLocation properties."/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the `PostalAddress`, `Placement`, and `PartLocation` properties."/>
               </Record>
             </Collection>
           </Annotation>
         </Property>
         <Property Name="InfoFormat" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The format of the Info property."/>
-          <Annotation Term="OData.LongDescription" String="This property shall represent the Info property format."/>
+          <Annotation Term="OData.Description" String="The format of the `Info` property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall represent the `Info` property format."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_5_0"/>
-                <PropertyValue Property="Description" String="This property has been deprecated in favor of the PostalAddress, Placement, and PartLocation properties."/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the `PostalAddress`, `Placement`, and `PartLocation` properties."/>
               </Record>
             </Collection>
           </Annotation>
@@ -605,7 +640,7 @@
       <EnumType Name="DurableNameFormat">
         <Member Name="NAA">
           <Annotation Term="OData.Description" String="The Name Address Authority (NAA) format."/>
-          <Annotation Term="OData.LongDescription" String="This durable name shall contain a hexadecimal representation of the Name Address Authority structure, as defined in the T11 Fibre Channel - Framing and Signaling - 3 (FC-FS-3) specification.  The DurableName property shall follow the regular expression pattern `^(([0-9A-Fa-f]{2}){8}){1,2}$`, where the most significant octet is first."/>
+          <Annotation Term="OData.LongDescription" String="This durable name shall contain a hexadecimal representation of the Name Address Authority structure, as defined in the T11 Fibre Channel - Framing and Signaling - 3 (FC-FS-3) specification.  The `DurableName` property shall follow the regular expression pattern `^(([0-9A-Fa-f]{2}){8}){1,2}$`, where the most significant octet is first."/>
         </Member>
         <Member Name="iQN">
           <Annotation Term="OData.Description" String="The iSCSI Qualified Name (iQN)."/>
@@ -613,15 +648,15 @@
         </Member>
         <Member Name="FC_WWN">
           <Annotation Term="OData.Description" String="The Fibre Channel (FC) World Wide Name (WWN)."/>
-          <Annotation Term="OData.LongDescription" String="This durable name shall contain a hexadecimal representation of the World-Wide Name (WWN) format, as defined in the T11 Fibre Channel Physical and Signaling Interface Specification.  The DurableName property shall follow the regular expression pattern `^([0-9A-Fa-f]{2}[:-]){7}([0-9A-Fa-f]{2})$`, where the most significant octet is first."/>
+          <Annotation Term="OData.LongDescription" String="This durable name shall contain a hexadecimal representation of the World-Wide Name (WWN) format, as defined in the T11 Fibre Channel Physical and Signaling Interface Specification.  The `DurableName` property shall follow the regular expression pattern `^([0-9A-Fa-f]{2}[:-]){7}([0-9A-Fa-f]{2})$`, where the most significant octet is first."/>
         </Member>
         <Member Name="UUID">
           <Annotation Term="OData.Description" String="The Universally Unique Identifier (UUID)."/>
-          <Annotation Term="OData.LongDescription" String="This durable name shall contain the hexadecimal representation of the UUID, as defined by RFC4122.  The DurableName property shall follow the regular expression pattern '([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})'."/>
+          <Annotation Term="OData.LongDescription" String="This durable name shall contain the hexadecimal representation of the UUID, as defined by RFC4122.  The `DurableName` property shall follow the regular expression pattern '([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})'."/>
         </Member>
         <Member Name="EUI">
           <Annotation Term="OData.Description" String="The IEEE-defined 64-bit Extended Unique Identifier (EUI)."/>
-          <Annotation Term="OData.LongDescription" String="This durable name shall contain the hexadecimal representation of the IEEE-defined 64-bit Extended Unique Identifier (EUI), as defined in the IEEE's Guidelines for 64-bit Global Identifier (EUI-64) Specification.  The DurableName property shall follow the regular expression pattern `^([0-9A-Fa-f]{2}[:-]){7}([0-9A-Fa-f]{2})$`, where the most significant octet is first."/>
+          <Annotation Term="OData.LongDescription" String="This durable name shall contain the hexadecimal representation of the IEEE-defined 64-bit Extended Unique Identifier (EUI), as defined in the IEEE's Guidelines for 64-bit Global Identifier (EUI-64) Specification.  The `DurableName` property shall follow the regular expression pattern `^([0-9A-Fa-f]{2}[:-]){7}([0-9A-Fa-f]{2})$`, where the most significant octet is first."/>
         </Member>
         <Member Name="NQN">
           <Annotation Term="OData.Description" String="The NVMe Qualified Name (NQN)."/>
@@ -654,7 +689,7 @@
         </Member>
         <Member Name="NGUID">
           <Annotation Term="OData.Description" String="The Namespace Globally Unique Identifier (NGUID)."/>
-          <Annotation Term="OData.LongDescription" String="This durable name shall be in the Namespace Globally Unique Identifier (NGUID), as defined in the NVN Express Specification.  The DurableName property shall follow the regular expression pattern `^([0-9A-Fa-f]{2}){16}$`, where the most significant octet is first."/>
+          <Annotation Term="OData.LongDescription" String="This durable name shall be in the Namespace Globally Unique Identifier (NGUID), as defined in the NVN Express Specification.  The `DurableName` property shall follow the regular expression pattern `^([0-9A-Fa-f]{2}){16}$`, where the most significant octet is first."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -666,7 +701,7 @@
         </Member>
         <Member Name="MACAddress">
           <Annotation Term="OData.Description" String="The media access control address (MAC address)."/>
-          <Annotation Term="OData.LongDescription" String="This durable name shall be a media access control address (MAC address), which is a unique identifier assigned to a network interface controller (NIC) for use as a network address.  This value should not be used if a more specific type of identifier is available.  The DurableName property shall follow the regular expression pattern `^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$`, where the most significant octet is first."/>
+          <Annotation Term="OData.LongDescription" String="This durable name shall be a media access control address (MAC address), which is a unique identifier assigned to a network interface controller (NIC) for use as a network address.  This value should not be used if a more specific type of identifier is available.  The `DurableName` property shall follow the regular expression pattern `^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$`, where the most significant octet is first."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -678,7 +713,7 @@
         </Member>
         <Member Name="GCXLID">
           <Annotation Term="OData.Description" String="The globally unique CXL logical device identifier (GCXLID)."/>
-          <Annotation Term="OData.LongDescription" String="This durable name shall be in the globally unique CXL logical device identifier (GCXLID).  The DurableName property shall follow the regular expression pattern `^([0-9A-Fa-f]{2}-){7}[0-9A-Fa-f]{2}:([0-9A-Fa-f]{4})$`, where the first eight hyphen-delimited octets contain the PCIe serial number, where the most significant octet is first, and the remaining 16-bit field contains the CXL Logical Device Identifier, with the most significant byte first."/>
+          <Annotation Term="OData.LongDescription" String="This durable name shall be in the globally unique CXL logical device identifier (GCXLID).  The `DurableName` property shall follow the regular expression pattern `^([0-9A-Fa-f]{2}-){7}[0-9A-Fa-f]{2}:([0-9A-Fa-f]{4})$`, where the first eight hyphen-delimited octets contain the PCIe serial number, where the most significant octet is first, and the remaining 16-bit field contains the CXL Logical Device Identifier, with the most significant byte first."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -713,7 +748,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_1_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add an abstract base type for Identifier and Location, and deprecates the versioned definition of IndicatorLED to use an unversioned definition."/>
+      <Annotation Term="OData.Description" String="This version was created to add an abstract base type for `Identifier` and `Location`, and deprecates the versioned definition of `IndicatorLED` to use an unversioned definition."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_1_6">
@@ -728,7 +763,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_1_8">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It also updates the description for MemberId to match the Redfish v1.6 requirements."/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It also updates the description for `MemberId` to match the Redfish v1.6 requirements."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_1_9">
@@ -758,17 +793,22 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_1_14">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for Id, Name, Description, and MemberId to be consistent with usage in the specification."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for `Id`, `Name`, `Description`, and `MemberId` to be consistent with usage in the specification."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_1_15">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to enhance the description of DurableNameFormat values to indicate that the patterns shown are regular expressions."/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of `DurableNameFormat` values to indicate that the patterns shown are regular expressions."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_1_16">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to replace the `system` terminology with `unit` in descriptions for ResetType.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to replace the 'system' terminology with 'unit' in descriptions for `ResetType`.  It was also created to correct various typographical errors."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_1_17">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add long descriptions to the values of `State` in `Status`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_2_0">
@@ -794,7 +834,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_2_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add an abstract base type for Identifier and Location, and deprecates the versioned definition of IndicatorLED and PowerState to use an unversioned definition."/>
+      <Annotation Term="OData.Description" String="This version was created to add an abstract base type for `Identifier` and `Location`, and deprecates the versioned definition of `IndicatorLED` and `PowerState` to use an unversioned definition."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_2_5">
@@ -809,7 +849,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_2_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It also updates the MemberId description to match the Redfish v1.6 requirements."/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It also updates the `MemberId` description to match the Redfish v1.6 requirements."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_2_8">
@@ -839,17 +879,22 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_2_13">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for Id, Name, Description, and MemberId to be consistent with usage in the specification."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for `Id`, `Name`, `Description`, and `MemberId` to be consistent with usage in the specification."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_2_14">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to enhance the description of DurableNameFormat values to indicate that the patterns shown are regular expressions."/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of `DurableNameFormat` values to indicate that the patterns shown are regular expressions."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_2_15">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to replace the `system` terminology with `unit` in descriptions for ResetType.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to replace the 'system' terminology with 'unit' in descriptions for `ResetType`.  It was also created to correct various typographical errors."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_2_16">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add long descriptions to the values of `State` in `Status`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_3_0">
@@ -877,7 +922,7 @@
             <Record>
               <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
               <PropertyValue Property="Version" String="v1_17_0"/>
-              <PropertyValue Property="Description" String="This object and its properties have been deprecated in favor of PhysicalAddress."/>
+              <PropertyValue Property="Description" String="This object and its properties have been deprecated in favor of `PhysicalAddress`."/>
             </Record>
           </Collection>
         </Annotation>
@@ -955,7 +1000,7 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_7_0"/>
-                <PropertyValue Property="Description" String="This property has been deprecated in favor of the AdditionalInfo property."/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the `AdditionalInfo` property."/>
               </Record>
             </Collection>
           </Annotation>
@@ -1112,7 +1157,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_3_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add an abstract base type for Identifier and Location, and deprecates the versioned definition of IndicatorLED and PowerState to use an unversioned definition."/>
+      <Annotation Term="OData.Description" String="This version was created to add an abstract base type for `Identifier` and `Location`, and deprecates the versioned definition of `IndicatorLED` and `PowerState` to use an unversioned definition."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_3_4">
@@ -1127,7 +1172,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_3_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It also updates the description for MemberId to match the Redfish v1.6 requirements and adds a missing term to several properties to disallow them from being `null`."/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It also updates the description for `MemberId` to match the Redfish v1.6 requirements and adds a missing term to several properties to disallow them from being `null`."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_3_7">
@@ -1157,17 +1202,22 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_3_12">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for Id, Name, Description, and MemberId to be consistent with usage in the specification."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for `Id`, `Name`, `Description`, and `MemberId` to be consistent with usage in the specification."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_3_13">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to enhance the description of DurableNameFormat values to indicate that the patterns shown are regular expressions."/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of `DurableNameFormat` values to indicate that the patterns shown are regular expressions."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_3_14">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to replace the `system` terminology with `unit` in descriptions for ResetType.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to replace the 'system' terminology with 'unit' in descriptions for `ResetType`.  It was also created to correct various typographical errors."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_3_15">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add long descriptions to the values of `State` in `Status`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_4_0">
@@ -1183,7 +1233,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_4_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add an abstract base type for Identifier and Location, and deprecates the versioned definition of IndicatorLED and PowerState to use an unversioned definition."/>
+      <Annotation Term="OData.Description" String="This version was created to add an abstract base type for `Identifier` and `Location`, and deprecates the versioned definition of `IndicatorLED` and `PowerState` to use an unversioned definition."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_4_3">
@@ -1198,7 +1248,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_4_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It also updates the description for MemberId to match the Redfish v1.6 requirements and adds a missing term to several properties to disallow them from being `null`."/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It also updates the description for `MemberId` to match the Redfish v1.6 requirements and adds a missing term to several properties to disallow them from being `null`."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_4_6">
@@ -1228,23 +1278,28 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_4_11">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for Id, Name, Description, and MemberId to be consistent with usage in the specification."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for `Id`, `Name`, `Description`, and `MemberId` to be consistent with usage in the specification."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_4_12">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to enhance the description of DurableNameFormat values to indicate that the patterns shown are regular expressions."/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of `DurableNameFormat` values to indicate that the patterns shown are regular expressions."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_4_13">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to replace the `system` terminology with `unit` in descriptions for ResetType.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to replace the 'system' terminology with 'unit' in descriptions for `ResetType`.  It was also created to correct various typographical errors."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_4_14">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add long descriptions to the values of `State` in `Status`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.2"/>
-      <Annotation Term="OData.Description" String="This version was created to add PartLocation to Location."/>
+      <Annotation Term="OData.Description" String="This version was created to add `PartLocation` to Location."/>
 
       <EnumType Name="LocationType">
         <Annotation Term="OData.Description" String="The types of locations for a part within an enclosure."/>
@@ -1326,30 +1381,30 @@
 
       <EnumType Name="Orientation">
         <Annotation Term="OData.Description" String="The orientations for the ordering of the part location ordinal value."/>
-        <Annotation Term="OData.LongDescription" String="This enumeration shall list the orientations for the ordering of the LocationOrdinalValue property."/>
+        <Annotation Term="OData.LongDescription" String="This enumeration shall list the orientations for the ordering of the `LocationOrdinalValue` property."/>
         <Member Name="FrontToBack">
-          <Annotation Term="OData.Description" String="The ordering for LocationOrdinalValue is front to back."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the ordering for LocationOrdinalValue is front to back."/>
+          <Annotation Term="OData.Description" String="The ordering for `LocationOrdinalValue` is front to back."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the ordering for `LocationOrdinalValue` is front to back."/>
         </Member>
         <Member Name="BackToFront">
           <Annotation Term="OData.Description" String="The ordering for the LocationOrdinalValue is back to front."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the ordering for LocationOrdinalValue is back to front."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the ordering for `LocationOrdinalValue` is back to front."/>
         </Member>
         <Member Name="TopToBottom">
           <Annotation Term="OData.Description" String="The ordering for the LocationOrdinalValue is top to bottom."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the ordering for LocationOrdinalValue is top to bottom."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the ordering for `LocationOrdinalValue` is top to bottom."/>
         </Member>
         <Member Name="BottomToTop">
-          <Annotation Term="OData.Description" String="The ordering for LocationOrdinalValue is bottom to top."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the ordering for LocationOrdinalValue is bottom to top."/>
+          <Annotation Term="OData.Description" String="The ordering for `LocationOrdinalValue` is bottom to top."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the ordering for `LocationOrdinalValue` is bottom to top."/>
         </Member>
         <Member Name="LeftToRight">
           <Annotation Term="OData.Description" String="The ordering for the LocationOrdinalValue is left to right."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the ordering for LocationOrdinalValue is left to right."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the ordering for `LocationOrdinalValue` is left to right."/>
         </Member>
         <Member Name="RightToLeft">
           <Annotation Term="OData.Description" String="The ordering for the LocationOrdinalValue is right to left."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the ordering for LocationOrdinalValue is right to left."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the ordering for `LocationOrdinalValue` is right to left."/>
         </Member>
       </EnumType>
 
@@ -1368,8 +1423,8 @@
         </Property>
         <Property Name="LocationOrdinalValue" Type="Edm.Int64" DefaultValue="0">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The number that represents the location of the part.  For example, if LocationType is `Slot` and this unit is in slot 2, the LocationOrdinalValue is `2`."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the number that represents the location of the part based on the LocationType.  LocationOrdinalValue shall be measured based on the Orientation value starting with `0`."/>
+          <Annotation Term="OData.Description" String="The number that represents the location of the part.  For example, if `LocationType` is `Slot` and this unit is in slot 2, the LocationOrdinalValue is `2`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number that represents the location of the part based on the `LocationType`.  `LocationOrdinalValue` shall be measured based on the Orientation value starting with `0`."/>
         </Property>
         <Property Name="Reference" Type="Resource.v1_5_0.Reference">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -1378,22 +1433,22 @@
         </Property>
         <Property Name="Orientation" Type="Resource.v1_5_0.Orientation">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The orientation for the ordering of the slot enumeration used by the LocationOrdinalValue property."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the orientation for the ordering used by the LocationOrdinalValue property."/>
+          <Annotation Term="OData.Description" String="The orientation for the ordering of the slot enumeration used by the `LocationOrdinalValue` property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the orientation for the ordering used by the `LocationOrdinalValue` property."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="Location" BaseType="Resource.v1_3_0.Location">
         <Property Name="PartLocation" Type="Resource.v1_5_0.PartLocation" Nullable="false">
           <Annotation Term="OData.Description" String="The part location for a resource within an enclosure."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the part location for a resource within an enclosure.  This representation shall indicate the location of a part within a location specified by the Placement property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the part location for a resource within an enclosure.  This representation shall indicate the location of a part within a location specified by the `Placement` property."/>
         </Property>
       </ComplexType>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_5_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add an abstract base type for Identifier and Location, and deprecates the versioned definition of IndicatorLED and PowerState to use an unversioned definition."/>
+      <Annotation Term="OData.Description" String="This version was created to add an abstract base type for `Identifier` and `Location`, and deprecates the versioned definition of `IndicatorLED` and `PowerState` to use an unversioned definition."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_5_2">
@@ -1408,7 +1463,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_5_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It also updates the description for MemberId to match the Redfish v1.6 requirements and adds a missing term to several properties to disallow them from being `null`."/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It also updates the description for `MemberId` to match the Redfish v1.6 requirements and adds a missing term to several properties to disallow them from being `null`."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_5_5">
@@ -1433,28 +1488,33 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_5_9">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add formats to the different durable name types.  It was also created to correct various descriptions to use proper normative terminology.  It was also created to clarify the usage of LocationType within PartLocation."/>
+      <Annotation Term="OData.Description" String="This version was created to add formats to the different durable name types.  It was also created to correct various descriptions to use proper normative terminology.  It was also created to clarify the usage of `LocationType` within `PartLocation`."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_5_10">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the description for LocationType within PartLocation.  It was also created to clarify the descriptions for Id, Name, Description, and MemberId to be consistent with usage in the specification."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for `LocationType` within `PartLocation`.  It was also created to clarify the descriptions for `Id`, `Name`, `Description`, and `MemberId` to be consistent with usage in the specification."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_5_11">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to enhance the description of DurableNameFormat values to indicate that the patterns shown are regular expressions."/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of `DurableNameFormat` values to indicate that the patterns shown are regular expressions."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_5_12">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to replace the `system` terminology with `unit` in descriptions for ResetType.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to replace the 'system' terminology with 'unit' in descriptions for `ResetType`.  It was also created to correct various typographical errors."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_5_13">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add long descriptions to the values of `State` in `Status`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.3"/>
-      <Annotation Term="OData.Description" String="This version was created to add GPS coordinates to Location and enumerations for DurableNameFormat for NVMe fabric extension."/>
+      <Annotation Term="OData.Description" String="This version was created to add enumerations for `DurableNameFormat` for NVMe fabric extension."/>
 
       <ComplexType Name="Location" BaseType="Resource.v1_5_0.Location">
         <Property Name="Longitude" Type="Edm.Decimal" DefaultValue="0">
@@ -1480,7 +1540,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_6_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the permissions for Longitude, Latitude, and AltitudeMeters inside the Location object.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the permissions for `Longitude`, `Latitude`, and `AltitudeMeters` inside the `Location` object.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_6_2">
@@ -1515,33 +1575,38 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_6_8">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add formats to the different durable name types.  It was also created to correct various descriptions to use proper normative terminology.  It was also created to clarify the usage of LocationType within PartLocation."/>
+      <Annotation Term="OData.Description" String="This version was created to add formats to the different durable name types.  It was also created to correct various descriptions to use proper normative terminology.  It was also created to clarify the usage of `LocationType` within `PartLocation`."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_6_9">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the description for LocationType within PartLocation.  It was also created to clarify the descriptions for Id, Name, Description, and MemberId to be consistent with usage in the specification."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for `LocationType` within `PartLocation`.  It was also created to clarify the descriptions for `Id`, `Name`, `Description`, and `MemberId` to be consistent with usage in the specification."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_6_10">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to enhance the description of AltitudeMeters."/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of `AltitudeMeters`."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_6_11">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to enhance the description of DurableNameFormat values to indicate that the patterns shown are regular expressions."/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of `DurableNameFormat` values to indicate that the patterns shown are regular expressions."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_6_12">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to replace the `system` terminology with `unit` in descriptions for ResetType.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to replace the 'system' terminology with 'unit' in descriptions for `ResetType`.  It was also created to correct various typographical errors."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_6_13">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add long descriptions to the values of `State` in `Status`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
-      <Annotation Term="OData.Description" String="This version was created to add an array of Contact Information entries to Location, and deprecates Location within PostalAddress in favor of AdditionalInfo."/>
+      <Annotation Term="OData.Description" String="This version was created to deprecates `Location` within `PostalAddress` in favor of `AdditionalInfo`."/>
 
       <ComplexType Name="Location" BaseType="Resource.v1_6_0.Location">
         <Property Name="Contacts" Type="Collection(Resource.v1_7_0.ContactInfo)">
@@ -1594,7 +1659,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_7_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to update the description for MemberId to match the requirements of Redfish v1.6.  It was also created to add a missing term on several properties to not allow them to be `null`."/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to update the description for `MemberId` to match the requirements of Redfish v1.6.  It was also created to add a missing term on several properties to not allow them to be `null`."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_7_3">
@@ -1619,38 +1684,43 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_7_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add formats to the different durable name types.  It was also created to correct various descriptions to use proper normative terminology.  It was also created to clarify the usage of LocationType within PartLocation."/>
+      <Annotation Term="OData.Description" String="This version was created to add formats to the different durable name types.  It was also created to correct various descriptions to use proper normative terminology.  It was also created to clarify the usage of `LocationType` within `PartLocation`."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_7_8">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the description for LocationType within PartLocation.  It was also created to clarify the descriptions for Id, Name, Description, and MemberId to be consistent with usage in the specification."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for `LocationType` within `PartLocation`.  It was also created to clarify the descriptions for `Id`, `Name`, `Description`, and `MemberId` to be consistent with usage in the specification."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_7_9">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to enhance the description of AltitudeMeters."/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of `AltitudeMeters`."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_7_10">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to enhance the description of DurableNameFormat values to indicate that the patterns shown are regular expressions."/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of `DurableNameFormat` values to indicate that the patterns shown are regular expressions."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_7_11">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to replace the `system` terminology with `unit` in descriptions for ResetType.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to replace the 'system' terminology with 'unit' in descriptions for `ResetType`.  It was also created to correct various typographical errors."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_7_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add long descriptions to the values of `State` in `Status`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.3"/>
-      <Annotation Term="OData.Description" String="This version was created to add the Redfish excerpt annotation to the Name property."/>
+      <Annotation Term="OData.Description" String="This version was created to add the Redfish excerpt annotation to the `Name` property."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_8_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to update the description for MemberId to match the requirements of Redfish v1.6.  It was also created to add a missing term on several properties to not allow them to be `null`."/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to update the description for `MemberId` to match the requirements of Redfish v1.6.  It was also created to add a missing term on several properties to not allow them to be `null`."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_8_2">
@@ -1660,7 +1730,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_8_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to remove the Redfish excerpt annotation from the Name property, prior to the first publication of schemas containing excerpt usage."/>
+      <Annotation Term="OData.Description" String="This version was created to remove the Redfish excerpt annotation from the `Name` property, prior to the first publication of schemas containing excerpt usage."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_8_4">
@@ -1680,33 +1750,38 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_8_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add formats to the different durable name types.  It was also created to correct various descriptions to use proper normative terminology.  It was also created to clarify the usage of LocationType within PartLocation."/>
+      <Annotation Term="OData.Description" String="This version was created to add formats to the different durable name types.  It was also created to correct various descriptions to use proper normative terminology.  It was also created to clarify the usage of `LocationType` within `PartLocation`."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_8_8">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the description for LocationType within PartLocation.  It was also created to clarify the descriptions for Id, Name, Description, and MemberId to be consistent with usage in the specification."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for `LocationType` within `PartLocation`.  It was also created to clarify the descriptions for `Id`, `Name`, `Description`, and `MemberId` to be consistent with usage in the specification."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_8_9">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to enhance the description of AltitudeMeters."/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of `AltitudeMeters`."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_8_10">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to enhance the description of DurableNameFormat values to indicate that the patterns shown are regular expressions."/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of `DurableNameFormat` values to indicate that the patterns shown are regular expressions."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_8_11">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to replace the `system` terminology with `unit` in descriptions for ResetType.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to replace the 'system' terminology with 'unit' in descriptions for `ResetType`.  It was also created to correct various typographical errors."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_8_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add long descriptions to the values of `State` in `Status`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_9_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.4"/>
-      <Annotation Term="OData.Description" String="This version was created to add the `Qualified` enumeration to State within Status."/>
+      <Annotation Term="OData.Description" String="This version was created to add the `Qualified` enumeration to `State` within `Status`."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_9_1">
@@ -1721,7 +1796,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_9_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add long descriptions to the ResetType enumeration values."/>
+      <Annotation Term="OData.Description" String="This version was created to add long descriptions to the `ResetType` enumeration values."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_9_4">
@@ -1731,27 +1806,32 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_9_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add formats to the different durable name types.  It was also created to correct various descriptions to use proper normative terminology.  It was also created to clarify the usage of LocationType within PartLocation."/>
+      <Annotation Term="OData.Description" String="This version was created to add formats to the different durable name types.  It was also created to correct various descriptions to use proper normative terminology.  It was also created to clarify the usage of `LocationType` within `PartLocation`."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_9_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the description for LocationType within PartLocation.  It was also created to clarify the descriptions for Id, Name, Description, and MemberId to be consistent with usage in the specification."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for `LocationType` within `PartLocation`.  It was also created to clarify the descriptions for `Id`, `Name`, `Description`, and `MemberId` to be consistent with usage in the specification."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_9_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to enhance the description of AltitudeMeters."/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of `AltitudeMeters`."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_9_8">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to enhance the description of DurableNameFormat values to indicate that the patterns shown are regular expressions."/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of `DurableNameFormat` values to indicate that the patterns shown are regular expressions."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_9_9">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to replace the `system` terminology with `unit` in descriptions for ResetType.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to replace the 'system' terminology with 'unit' in descriptions for `ResetType`.  It was also created to correct various typographical errors."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_9_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add long descriptions to the values of `State` in `Status`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_10_0">
@@ -1767,132 +1847,162 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_10_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add formats to the different durable name types.  It was also created to correct various descriptions to use proper normative terminology.  It was also created to clarify the usage of LocationType within PartLocation."/>
+      <Annotation Term="OData.Description" String="This version was created to add formats to the different durable name types.  It was also created to correct various descriptions to use proper normative terminology.  It was also created to clarify the usage of `LocationType` within `PartLocation`."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_10_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the description for LocationType within PartLocation.  It was also created to clarify the descriptions for Id, Name, Description, and MemberId to be consistent with usage in the specification."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for `LocationType` within `PartLocation`.  It was also created to clarify the descriptions for `Id`, `Name`, `Description`, and `MemberId` to be consistent with usage in the specification."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_10_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to enhance the description of AltitudeMeters."/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of `AltitudeMeters`."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_10_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to enhance the description of DurableNameFormat values to indicate that the patterns shown are regular expressions."/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of `DurableNameFormat` values to indicate that the patterns shown are regular expressions."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_10_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to replace the `system` terminology with `unit` in descriptions for ResetType.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to replace the 'system' terminology with 'unit' in descriptions for `ResetType`.  It was also created to correct various typographical errors."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_10_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add long descriptions to the values of `State` in `Status`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_11_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
-      <Annotation Term="OData.Description" String="This version was created to add the Conditions array property to Status."/>
+      <Annotation Term="OData.Description" String="This version was created to add the `Conditions` array property to `Status`."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_11_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add formats to the different durable name types.  It was also created to correct various descriptions to use proper normative terminology.  It was also created to clarify the usage of LocationType within PartLocation."/>
+      <Annotation Term="OData.Description" String="This version was created to add formats to the different durable name types.  It was also created to correct various descriptions to use proper normative terminology.  It was also created to clarify the usage of `LocationType` within `PartLocation`."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_11_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the description for LocationType within PartLocation.  It was also created to clarify the descriptions for Id, Name, Description, and MemberId to be consistent with usage in the specification."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for `LocationType` within `PartLocation`.  It was also created to clarify the descriptions for `Id`, `Name`, `Description`, and `MemberId` to be consistent with usage in the specification."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_11_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to enhance the description of AltitudeMeters.  It was also created to improve the description of Conditions."/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of `AltitudeMeters`.  It was also created to improve the description of `Conditions`."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_11_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to enhance the description of DurableNameFormat values to indicate that the patterns shown are regular expressions."/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of `DurableNameFormat` values to indicate that the patterns shown are regular expressions."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_11_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to replace the `system` terminology with `unit` in descriptions for ResetType.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to replace the 'system' terminology with 'unit' in descriptions for `ResetType`.  It was also created to correct various typographical errors."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_11_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add long descriptions to the values of `State` in `Status`.  It was also created to note that the array order of conditions may change as new conditions occur or are resolved by the service.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_12_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.1"/>
-      <Annotation Term="OData.Description" String="This version was created to deprecate the `NSID` enumeration from Identifiers.  It was also created to add `Backplane` to LocationType within PartLocation."/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate the `NSID` enumeration from Identifiers.  It was also created to add `Backplane` to `LocationType` within `PartLocation`."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_12_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the description for LocationType within PartLocation.  It was also created to clarify the descriptions for Id, Name, Description, and MemberId to be consistent with usage in the specification."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for `LocationType` within `PartLocation`.  It was also created to clarify the descriptions for `Id`, `Name`, `Description`, and `MemberId` to be consistent with usage in the specification."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_12_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to enhance the description of AltitudeMeters.  It was also created to improve the description of Conditions."/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of `AltitudeMeters`.  It was also created to improve the description of `Conditions`."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_12_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to enhance the description of DurableNameFormat values to indicate that the patterns shown are regular expressions."/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of `DurableNameFormat` values to indicate that the patterns shown are regular expressions."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_12_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to replace the `system` terminology with `unit` in descriptions for ResetType.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to replace the 'system' terminology with 'unit' in descriptions for `ResetType`.  It was also created to correct various typographical errors."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_12_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add long descriptions to the values of `State` in `Status`.  It was also created to note that the array order of conditions may change as new conditions occur or are resolved by the service.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_13_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
-      <Annotation Term="OData.Description" String="This version was created to add `Embedded` to LocationType within PartLocation.  It was also created to add the `Pause`, `Resume`, and `Suspend` enumerations to ResetType.  It was also created to add `Paused` to PowerState."/>
+      <Annotation Term="OData.Description" String="This version was created to add `Embedded` to `LocationType` within `PartLocation`.  It was also created to add the `Pause`, `Resume`, and `Suspend` enumerations to ResetType.  It was also created to add `Paused` to PowerState."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_13_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to enhance the description of AltitudeMeters.  It was also created to improve the description of Conditions."/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of `AltitudeMeters`.  It was also created to improve the description of `Conditions`."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_13_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to enhance the description of DurableNameFormat values to indicate that the patterns shown are regular expressions."/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of `DurableNameFormat` values to indicate that the patterns shown are regular expressions."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_13_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to replace the `system` terminology with `unit` in descriptions for ResetType.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to replace the 'system' terminology with 'unit' in descriptions for `ResetType`.  It was also created to correct various typographical errors."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_13_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add long descriptions to the values of `State` in `Status`.  It was also created to note that the array order of conditions may change as new conditions occur or are resolved by the service.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_14_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
-      <Annotation Term="OData.Description" String="This version was created to add Resolution to the Conditions property in Status.  It was also created to add `MACAddress` to DurableNameFormat."/>
+      <Annotation Term="OData.Description" String="This version was created to add Resolution to the `Conditions` property in `Status`.  It was also created to add `MACAddress` to `DurableNameFormat`."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_14_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to enhance the description of DurableNameFormat values to indicate that the patterns shown are regular expressions."/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of `DurableNameFormat` values to indicate that the patterns shown are regular expressions."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_14_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to replace the `system` terminology with `unit` in descriptions for ResetType.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to replace the 'system' terminology with 'unit' in descriptions for `ResetType`.  It was also created to correct various typographical errors."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_14_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add long descriptions to the values of `State` in `Status`.  It was also created to note that the array order of conditions may change as new conditions occur or are resolved by the service.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_15_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.3"/>
-      <Annotation Term="OData.Description" String="This version was created to add `GCXLID` to DurableNameFormat."/>
+      <Annotation Term="OData.Description" String="This version was created to add `GCXLID` to `DurableNameFormat`."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_15_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to replace the `system` terminology with `unit` in descriptions for ResetType.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to replace the 'system' terminology with 'unit' in descriptions for `ResetType`.  It was also created to correct various typographical errors."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_15_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add long descriptions to the values of `State` in `Status`.  It was also created to note that the array order of conditions may change as new conditions occur or are resolved by the service.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_16_0">
@@ -1902,21 +2012,26 @@
       <ComplexType Name="Location" BaseType="Resource.v1_7_0.Location">
         <Property Name="PartLocationContext" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Human-readable string to enable differentiation between PartLocation values for parts in the same enclosure, which might include hierarchical information of containing PartLocation values for the part."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a human-readable string to enable differentiation between PartLocation values for parts in the same enclosure, which may include hierarchical information of containing PartLocation values for the part.  The value of this property shall not include values of the PartLocation properties for the part itself.  The purpose of this value, in conjunction with the PartLocation of the part itself, is to allow clients to determine the physical location of the part without tracing through the PartLocation of multiple resources."/>
+          <Annotation Term="OData.Description" String="Human-readable string to enable differentiation between `PartLocation` values for parts in the same enclosure, which might include hierarchical information of containing `PartLocation` values for the part."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a human-readable string to enable differentiation between `PartLocation` values for parts in the same enclosure, which may include hierarchical information of containing `PartLocation` values for the part.  The value of this property shall not include values of the `PartLocation` properties for the part itself.  The purpose of this value, in conjunction with the `PartLocation` of the part itself, is to allow clients to determine the physical location of the part without tracing through the `PartLocation` of multiple resources."/>
         </Property>
       </ComplexType>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_16_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to replace the `system` terminology with `unit` in descriptions for ResetType.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to replace the 'system' terminology with 'unit' in descriptions for `ResetType`.  It was also created to correct various typographical errors."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_16_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add long descriptions to the values of `State` in `Status`.  It was also created to note that the array order of conditions may change as new conditions occur or are resolved by the service.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_17_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.2"/>
-      <Annotation Term="OData.Description" String="This version was created to deprecate PostalAddress in Location in favor of PhysicalAddress."/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate PostalAddress in Location in favor of `PhysicalAddress`."/>
 
       <ComplexType Name="Location" BaseType="Resource.v1_16_0.Location">
          <Property Name="PhysicalAddress" Type="Resource.v1_17_0.PhysicalAddress" Nullable="false">
@@ -1970,13 +2085,29 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_17_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to replace the `system` terminology with `unit` in descriptions for ResetType.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to replace the 'system' terminology with 'unit' in descriptions for `ResetType`.  It was also created to correct various typographical errors."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_17_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add long descriptions to the values of `State` in `Status`.  It was also created to note that the array order of conditions may change as new conditions occur or are resolved by the service.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_18_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.3"/>
-      <Annotation Term="OData.Description" String="This version was created to add ResolutionSteps to the Conditions property in Status."/>
+      <Annotation Term="OData.Description" String="This version was created to add `ResolutionSteps` to the `Conditions` property in `Status`."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_18_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add long descriptions to the values of `State` in `Status`.  It was also created to note that the array order of conditions may change as new conditions occur or are resolved by the service.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_19_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2024.1"/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate `Qualified` in `State` in favor of `StandbySpare`.  It was also created to add `Degraded` to `State`."/>
     </Schema>
 
   </edmx:DataServices>

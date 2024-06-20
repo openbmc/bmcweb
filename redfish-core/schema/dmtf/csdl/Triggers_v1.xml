@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Triggers v1.3.2                                                     -->
+<!--# Redfish Schema:  Triggers v1.4.0                                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -33,10 +33,11 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Triggers">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="Triggers" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The Triggers schema describes a trigger that applies to metrics."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall contain a trigger that applies to metrics."/>
+        <Annotation Term="OData.Description" String="The `Triggers` schema describes a trigger condition that applies to metrics."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall contain a trigger condition that applies to metrics."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -78,17 +79,17 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the actions that the trigger initiates."/>
         </Property>
         <Property Name="NumericThresholds" Type="Triggers.v1_0_0.Thresholds" Nullable="false">
-          <Annotation Term="OData.Description" String="The thresholds when a numeric metric triggers."/>
+          <Annotation Term="OData.Description" String="The thresholds for a numeric metric trigger."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the list of thresholds to which to compare a numeric metric value."/>
         </Property>
         <Property Name="DiscreteTriggerCondition" Type="Triggers.v1_0_0.DiscreteTriggerConditionEnum">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The conditions when a discrete metric triggers."/>
+          <Annotation Term="OData.Description" String="The conditions for a discrete metric trigger."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the conditions when a discrete metric triggers."/>
         </Property>
         <Property Name="DiscreteTriggers" Type="Collection(Triggers.v1_0_0.DiscreteTrigger)" Nullable="false">
           <Annotation Term="OData.Description" String="The list of discrete triggers."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a list of values to which to compare a metric reading.  This property shall be present when the DiscreteTriggerCondition property is `Specified`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a list of values to which to compare a metric reading.  This property shall be present when the `DiscreteTriggerCondition` property is `Specified`."/>
         </Property>
 
         <Property Name="Status" Type="Resource.Status" Nullable="false">
@@ -97,13 +98,13 @@
         </Property>
 
         <Property Name="Wildcards" Type="Collection(Triggers.v1_0_0.Wildcard)" Nullable="false">
-          <Annotation Term="OData.Description" String="The wildcards and their substitution values for the entries in the MetricProperties array property."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the wildcards and their substitution values for the entries in the MetricProperties array property.  Each wildcard shall have a corresponding entry in this array property."/>
+          <Annotation Term="OData.Description" String="The wildcards and their substitution values for the entries in the `MetricProperties` array property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the wildcards and their substitution values for the entries in the `MetricProperties` array property.  Each wildcard shall have a corresponding entry in this array property."/>
         </Property>
         <Property Name="MetricProperties" Type="Collection(Edm.String)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="An array of URIs with wildcards and property identifiers for this trigger.  Each wildcard is replaced with its corresponding entry in the Wildcard array property."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of URIs with wildcards and property identifiers for this trigger.  Use a set of curly braces to delimit each wildcard in the URI.  Replace each wildcard with its corresponding entry in the Wildcard array property.  A URI that contains wildcards shall link to a resource property to which the metric definition applies after all wildcards are replaced with their corresponding entries in the Wildcard array property.  The property identifiers portion of the URI shall follow the RFC6901-defined JSON fragment notation rules."/>
+          <Annotation Term="OData.Description" String="An array of URIs with wildcards and property identifiers for this trigger.  Each wildcard, a name contained by a set of curly braces, is replaced with its corresponding entry in the `Wildcard` array property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of URIs with wildcards and property identifiers for this trigger.  Use a set of curly braces to delimit each wildcard in the URI.  Replace each wildcard with its corresponding entry in the `Wildcard` array property.  A URI that contains wildcards shall link to a resource property to which this trigger definition applies after all wildcards are replaced with their corresponding entries in the Wildcard property.  The property identifiers portion of the URI shall follow the RFC6901-defined JSON fragment notation rules."/>
           <Annotation Term="OData.IsURL"/>
         </Property>
         <Property Name="Actions" Type="Triggers.v1_0_0.Actions" Nullable="false">
@@ -116,10 +117,10 @@
         <Annotation Term="OData.Description" String="The type of metric for which the trigger is configured."/>
         <Annotation Term="OData.LongDescription" String="This type shall specify the type of metric for which the trigger is configured."/>
         <Member Name="Numeric">
-          <Annotation Term="OData.Description" String="The trigger is for numeric sensor."/>
+          <Annotation Term="OData.Description" String="A numeric value trigger."/>
         </Member>
         <Member Name="Discrete">
-          <Annotation Term="OData.Description" String="The trigger is for a discrete sensor."/>
+          <Annotation Term="OData.Description" String="A discrete value trigger."/>
         </Member>
       </EnumType>
 
@@ -128,15 +129,15 @@
         <Annotation Term="OData.LongDescription" String="This type shall specify the actions to perform when a trigger condition is met."/>
         <Member Name="LogToLogService">
           <Annotation Term="OData.Description" String="When a trigger condition is met, record in a log."/>
-          <Annotation Term="OData.LongDescription" String="This value indicates that when a trigger condition is met, the service shall log the occurrence of the condition to the log that the LogService property in the telemetry service resource describes."/>
+          <Annotation Term="OData.LongDescription" String="This value indicates that when a trigger condition is met, the service shall log the occurrence of the condition to the log that the `LogService` property in the telemetry service resource describes.  The message for the created log entry shall follow the guidance specified by the `TriggerActionMessage` property."/>
         </Member>
         <Member Name="RedfishEvent">
           <Annotation Term="OData.Description" String="When a trigger condition is met, the service sends an event to subscribers."/>
-          <Annotation Term="OData.LongDescription" String="This value indicates that when a trigger condition is met, the service shall send an event to subscribers."/>
+          <Annotation Term="OData.LongDescription" String="This value indicates that when a trigger condition is met, the service shall send an event to subscribers.  The message key for the event shall follow the guidance specified by TriggerActionMessage."/>
         </Member>
         <Member Name="RedfishMetricReport">
           <Annotation Term="OData.Description" String="When a trigger condition is met, force an update of the specified metric reports."/>
-          <Annotation Term="OData.LongDescription" String="This value indicates that when a trigger condition is met, the service shall force the metric reports managed by the MetricReportDefinitions specified by the MetricReportDefinitions property to be updated, regardless of the MetricReportDefinitionType property value.  The actions specified in the ReportActions property of each MetricReportDefinition shall be performed."/>
+          <Annotation Term="OData.LongDescription" String="This value indicates that when a trigger condition is met, the service shall force the metric reports managed by the metric report definitions specified by the `MetricReportDefinitions` property to be updated, regardless of the `MetricReportDefinitionType` property value.  The actions specified in the `ReportActions` property of each `MetricReportDefinition` resource shall be performed."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -152,7 +153,7 @@
         <Annotation Term="OData.Description" String="The condition, in relationship to the discrete trigger values, which constitutes a trigger."/>
         <Annotation Term="OData.LongDescription" String="This type shall specify the condition, in relationship to the discrete trigger values, which constitutes a trigger."/>
         <Member Name="Specified">
-          <Annotation Term="OData.Description" String="A discrete trigger condition is met when the metric value becomes one of the values that the DiscreteTriggers property lists."/>
+          <Annotation Term="OData.Description" String="A discrete trigger condition is met when the metric value becomes one of the values that the `DiscreteTriggers` property lists."/>
         </Member>
         <Member Name="Changed">
           <Annotation Term="OData.Description" String="A discrete trigger condition is met whenever the metric value changes."/>
@@ -161,44 +162,44 @@
 
       <ComplexType Name="Thresholds">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The set of thresholds for a sensor."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain a set of thresholds for a sensor."/>
+        <Annotation Term="OData.Description" String="The set of thresholds for a metric."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain a set of thresholds for a metric."/>
         <Property Name="UpperWarning" Type="Triggers.v1_0_0.Threshold" Nullable="false">
           <Annotation Term="OData.Description" String="The value at which the reading is above normal range."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the value at which the MetricProperties property is above the normal range.  The value of the property shall use the same units as the MetricProperties property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the value at which the `MetricProperties` property is above the normal range.  The value of the property shall use the same units as the `MetricProperties` property."/>
         </Property>
         <Property Name="UpperCritical" Type="Triggers.v1_0_0.Threshold" Nullable="false">
           <Annotation Term="OData.Description" String="The value at which the reading is above normal range and requires attention."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the value at which the MetricProperties property is above the normal range and may require attention.  The value of the property shall use the same units as the MetricProperties property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the value at which the `MetricProperties` property is above the normal range and may require attention.  The value of the property shall use the same units as the `MetricProperties` property."/>
         </Property>
         <Property Name="LowerWarning" Type="Triggers.v1_0_0.Threshold" Nullable="false">
           <Annotation Term="OData.Description" String="The value at which the reading is below normal range."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the value at which the MetricProperties property is below the normal range.  The value of the property shall use the same units as the MetricProperties property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the value at which the `MetricProperties` property is below the normal range.  The value of the property shall use the same units as the `MetricProperties` property."/>
         </Property>
         <Property Name="LowerCritical" Type="Triggers.v1_0_0.Threshold" Nullable="false">
           <Annotation Term="OData.Description" String="The value at which the reading is below normal range and requires attention."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the value at which the MetricProperties property is below the normal range and may require attention.  The value of the property shall use the same units as the MetricProperties property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the value at which the `MetricProperties` property is below the normal range and may require attention.  The value of the property shall use the same units as the `MetricProperties` property."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="Threshold">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="A threshold definition for a sensor."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the properties for an individual threshold for this sensor."/>
+        <Annotation Term="OData.Description" String="A threshold definition for a metric."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the properties for an individual threshold for this metric."/>
         <Property Name="Reading" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The threshold value."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate the reading for this sensor that activates the threshold.  The value of the property shall use the same units as the MetricProperties property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the reading for this metric that activates the threshold.  The value of the property shall use the same units as the `MetricProperties` property."/>
         </Property>
         <Property Name="Activation" Type="Triggers.v1_0_0.ThresholdActivation">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The direction of crossing that activates this threshold."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate the direction of crossing of the reading for this sensor that activates the threshold."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the direction of crossing of the reading for this metric that activates the threshold."/>
         </Property>
         <Property Name="DwellTime" Type="Edm.Duration">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The duration the sensor value must violate the threshold before the threshold is activated."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate the duration the sensor value violates the threshold before the threshold is activated."/>
+          <Annotation Term="OData.Description" String="The duration the metric value must violate the threshold before the threshold is activated."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the duration the metric value violates the threshold before the threshold is activated."/>
         </Property>
       </ComplexType>
 
@@ -229,7 +230,7 @@
         </Member>
         <Member Name="Either">
           <Annotation Term="OData.Description" String="Value crosses the threshold in either direction."/>
-          <Annotation Term="OData.LongDescription" String="This threshold is activated when either the Increasing or Decreasing conditions are met."/>
+          <Annotation Term="OData.LongDescription" String="This threshold is activated when either the `Increasing` or `Decreasing` conditions are met."/>
         </Member>
         <Member Name="Disabled">
           <Annotation Term="OData.Description" String="The threshold is disabled."/>
@@ -262,23 +263,23 @@
         <Annotation Term="OData.LongDescription" String="This object shall contain the characteristics of the discrete trigger."/>
         <Property Name="Name" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The name of trigger."/>
+          <Annotation Term="OData.Description" String="The name of the trigger."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a name for the trigger."/>
         </Property>
         <Property Name="Value" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The discrete metric value that constitutes a trigger event."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the value discrete metric that constitutes a trigger event.  The DwellTime shall be measured from this point in time."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the value discrete metric that constitutes a trigger event.  The `DwellTime` shall be measured from this point in time."/>
         </Property>
         <Property Name="DwellTime" Type="Edm.Duration">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The amount of time that a trigger event persists before the metric action is performed."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the amount of time that a trigger event persists before the TriggerActions are performed."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the amount of time that a trigger event persists before the `TriggerActions` are performed."/>
         </Property>
         <Property Name="Severity" Type="Resource.Health">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The severity of the event message."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the Severity property to be used in the event message."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the `Severity` property to be used in the event message."/>
         </Property>
       </ComplexType>
 
@@ -289,12 +290,12 @@
         <Property Name="Name" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The wildcard."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the string used as a wildcard."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the string used as a wildcard when contained by curly braces for a URI segment in `MetricProperties`."/>
         </Property>
         <Property Name="Values" Type="Collection(Edm.String)">
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An array of values to substitute for the wildcard."/>
-          <Annotation Term="OData.LongDescription" String="This array property shall contain the list of values to substitute for the wildcard."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An array of values to substitute for the wildcard.  A single value of `*` matches all resources."/>
+          <Annotation Term="OData.LongDescription" String="This array property shall contain the list of values to substitute for the wildcard.  A single value of `*` shall indicate that the wildcard matches any available values when substituted for a URI segment.  If this property is not present, the value shall be assumed to be `*`."/>
         </Property>
       </ComplexType>
     </Schema>
@@ -347,6 +348,12 @@
       <EntityType Name="Triggers" BaseType="Triggers.v1_0_7.Triggers"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Triggers.v1_0_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add description text for `Wildcard`-related properties that a value of `*` can be used to select all resources.  It was also created to clarify various descriptions.  It was also created to change the permissions of `Wildcard`-related properties to be read-write.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Triggers" BaseType="Triggers.v1_0_8.Triggers"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Triggers.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -354,8 +361,8 @@
       <EntityType Name="Triggers" BaseType="Triggers.v1_0_2.Triggers">
         <Property Name="EventTriggers" Type="Collection(Edm.String)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The array of MessageIds that specify when a trigger condition is met based on an event."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of MessageIds that specify when a trigger condition is met based on an event.  When the service generates an event and if it contains a MessageId within this array, a trigger condition shall be met.  The MetricType property should not be present if this resource is configured for event-based triggers."/>
+          <Annotation Term="OData.Description" String="The array of `MessageId` values that specify when a trigger condition is met based on an event."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of `MessageId` values that specify when a trigger condition is met based on an event.  When the service generates an event and if it contains a `MessageId` within this array, a trigger condition shall be met.  The `MetricType` property should not be present if this resource is configured for event-based triggers."/>
           <Annotation Term="Validation.Pattern" String="^[A-Za-z0-9]+\.\d+\.\d+\.[A-Za-z0-9.]+$"/>
         </Property>
         <Property Name="Links" Type="Triggers.v1_1_0.Links" Nullable="false">
@@ -369,8 +376,8 @@
         <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
         <NavigationProperty Name="MetricReportDefinitions" Type="Collection(MetricReportDefinition.MetricReportDefinition)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The metric report definitions that generate new metric reports when a trigger condition is met and when the TriggerActions property contains `RedfishMetricReport`."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a set of links to metric report definitions that generate new metric reports when a trigger condition is met and when the TriggerActions property contains `RedfishMetricReport`."/>
+          <Annotation Term="OData.Description" String="The metric report definitions that generate new metric reports when a trigger condition is met and when the `TriggerActions` property contains `RedfishMetricReport`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a set of links to metric report definitions that generate new metric reports when a trigger condition is met and when the `TriggerActions` property contains `RedfishMetricReport`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -396,7 +403,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Triggers.v1_1_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology.  It was also created to clarify the usage of MetricType for event-based triggers."/>
+      <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology.  It was also created to clarify the usage of `MetricType` for event-based triggers."/>
       <EntityType Name="Triggers" BaseType="Triggers.v1_1_3.Triggers"/>
     </Schema>
 
@@ -412,6 +419,12 @@
       <EntityType Name="Triggers" BaseType="Triggers.v1_1_5.Triggers"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Triggers.v1_1_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add description text for `Wildcard`-related properties that a value of `*` can be used to select all resources.  It was also created to clarify various descriptions.  It was also created to change the permissions of `Wildcard`-related properties to be read-write.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Triggers" BaseType="Triggers.v1_1_6.Triggers"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Triggers.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
@@ -419,8 +432,8 @@
       <EntityType Name="Triggers" BaseType="Triggers.v1_1_4.Triggers">
         <Property Name="MetricIds" Type="Collection(Edm.String)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The label for the metric definitions that contain the property identifiers for this trigger.  It matches the Id property of the corresponding metric definition."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the labels for the metric definitions that contain the property identifiers for this trigger.  This property shall match the value of the Id property of the corresponding metric definitions."/>
+          <Annotation Term="OData.Description" String="The label for the metric definitions that contain the property identifiers for this trigger.  It matches the `Id` property of the corresponding metric definition."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the labels for the metric definitions that contain the property identifiers for this trigger.  This property shall match the value of the `Id` property of the corresponding metric definitions."/>
         </Property>
       </EntityType>
     </Schema>
@@ -437,21 +450,27 @@
       <EntityType Name="Triggers" BaseType="Triggers.v1_2_1.Triggers"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Triggers.v1_2_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add description text for `Wildcard`-related properties that a value of `*` can be used to select all resources.  It was also created to clarify various descriptions.  It was also created to change the permissions of `Wildcard`-related properties to be read-write.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Triggers" BaseType="Triggers.v1_2_2.Triggers"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Triggers.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.1"/>
-      <Annotation Term="OData.Description" String="This version was created to add `Disabled` to Activation within Threshold."/>
+      <Annotation Term="OData.Description" String="This version was created to add `Disabled` to `Activation` within `Threshold`."/>
 
       <EntityType Name="Triggers" BaseType="Triggers.v1_2_0.Triggers">
         <Property Name="HysteresisReading" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The reading offset from the threshold value required to clear the threshold."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate the offset from the reading for this sensor and the threshold value that deactivates the threshold.  For example, a value of `-2` indicates the sensor reading shall fall 2 units below an upper threshold value to deactivate the threshold.  The value of the property shall use the same units as the Reading property.  A value of `0`, or if the property is not present in the resource, shall indicate the threshold is deactivated when the sensor value no longer violates the threshold.  The threshold shall not deactivate until the conditions of both HysteresisReading and HysteresisDuration are met."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the offset from the reading for this sensor and the threshold value that deactivates the threshold.  For example, a value of `-2` indicates the metric reading shall fall 2 units below an upper threshold value to deactivate the threshold.  The value of the property shall use the same units as the `Reading` property.  A value of `0`, or if the property is not present in the resource, shall indicate the threshold is deactivated when the metric value no longer violates the threshold.  The threshold shall not deactivate until the conditions of both `HysteresisReading` and `HysteresisDuration` are met."/>
         </Property>
         <Property Name="HysteresisDuration" Type="Edm.Duration">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The duration the sensor value must not violate the threshold before the threshold is deactivated."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate the duration the sensor value no longer violates the threshold before the threshold is deactivated.  A duration of zero seconds, or if the property is not present in the resource, shall indicate the threshold is deactivated immediately once the sensor value no longer violates the threshold.  The threshold shall not deactivate until the conditions of both HysteresisReading and HysteresisDuration are met."/>
+          <Annotation Term="OData.Description" String="The duration the metric value must not violate the threshold before the threshold is deactivated."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the duration the metric value no longer violates the threshold before the threshold is deactivated.  A duration of zero seconds, or if the property is not present in the resource, shall indicate the threshold is deactivated immediately once the metric value no longer violates the threshold.  The threshold shall not deactivate until the conditions of both `HysteresisReading` and `HysteresisDuration` are met."/>
         </Property>
       </EntityType>
     </Schema>
@@ -466,6 +485,47 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to remove normative language from non-normative descriptions."/>
       <EntityType Name="Triggers" BaseType="Triggers.v1_3_1.Triggers"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Triggers.v1_3_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add description text for `Wildcard`-related properties that a value of `*` can be used to select all resources.  It was also created to clarify various descriptions.  It was also created to change the permissions of `Wildcard`-related properties to be read-write.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Triggers" BaseType="Triggers.v1_3_2.Triggers"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Triggers.v1_4_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2024.1"/>
+
+      <EntityType Name="Triggers" BaseType="Triggers.v1_3_3.Triggers">
+        <Property Name="TriggerEnabled" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether the trigger is enabled."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the trigger is enabled.  If `true`, it is enabled.  If `false`, it is disabled and none of the actions listed in `TriggerActions` will occur."/>
+        </Property>
+        <Property Name="TriggerActionMessage" Type="Triggers.v1_4_0.TriggerActionMessage">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The message issued as part of the trigger actions."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the message definition used to generate a Redfish event or a log entry as requested by the values of `TriggerActions`."/>
+        </Property>
+      </EntityType>
+
+      <EnumType Name="TriggerActionMessage">
+        <Annotation Term="OData.Description" String="The message used for events or log entries when the trigger is activated."/>
+        <Annotation Term="OData.LongDescription" String="The value shall indicate the message used to complete the specified trigger actions."/>
+        <Member Name="Telemetry">
+          <Annotation Term="OData.Description" String="Messages from the Telemetry Message Registry."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that messages generated in response to a trigger action shall utilize messages from the Telemetry Message Registry.  If this property is not supplied or supported, this value should be used as the default for this trigger."/>
+        </Member>
+        <Member Name="DriveMediaLife">
+          <Annotation Term="OData.Description" String="`MediaLifeLeftLow` message from the Storage Device Message Registry."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that messages generated in response to a trigger action shall utilize the `MediaLifeLeftLow` message from the Storage Device Message Registry."/>
+        </Member>
+        <Member Name="ConnectionSpeed">
+          <Annotation Term="OData.Description" String="`ConnectionSpeedLow` message from the Network Device Message Registry."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that messages generated in response to a trigger action shall utilize the `ConnectionSpeedLow` message from the Network Device Message Registry."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

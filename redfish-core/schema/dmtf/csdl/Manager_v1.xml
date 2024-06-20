@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Manager v1.19.0                                                     -->
+<!--# Redfish Schema:  Manager v1.19.1                                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -81,6 +81,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="Manager" BaseType="Resource.v1_0_0.Resource" Abstract="true">
         <Annotation Term="OData.Description" String="In Redfish, a manager is a systems management entity that can implement or provide access to a Redfish service.  Examples of managers are BMCs (baseboard management controllers), enclosure managers, management controllers, and other subsystems that are assigned manageability functions.  An implementation can have multiple managers, which might be directly accessible through a Redfish-defined interface."/>
@@ -114,12 +115,12 @@
         <Parameter Name="Manager" Type="Manager.v1_0_0.Actions"/>
         <Parameter Name="ResetType" Type="Resource.ResetType">
           <Annotation Term="OData.Description" String="The type of reset."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of reset.  The service can accept a request without the parameter and perform an implementation-specific default reset.  Services should include the @Redfish.AllowableValues annotation for this parameter to ensure compatibility with clients, even when ActionInfo has been implemented."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of reset.  The service can accept a request without the parameter and perform an implementation-specific default reset.  Services should include the `@Redfish.AllowableValues` annotation for this parameter to ensure compatibility with clients, even when `ActionInfo` has been implemented."/>
         </Parameter>
       </Action>
 
       <Action Name="ForceFailover" IsBound="true">
-        <Annotation Term="OData.Description" String="The ForceFailover action forces a failover of this manager to the manager used in the parameter."/>
+        <Annotation Term="OData.Description" String="The `ForceFailover` action forces a failover of this manager to the manager used in the parameter."/>
         <Annotation Term="OData.LongDescription" String="This action shall perform a forced failover of the manager's redundancy to the manager supplied as a parameter."/>
         <Parameter Name="Manager" Type="Manager.v1_0_0.Actions"/>
         <Parameter Name="NewManager" Type="Manager.Manager" Nullable="false">
@@ -129,8 +130,8 @@
       </Action>
 
       <Action Name="ModifyRedundancySet" IsBound="true">
-        <Annotation Term="OData.Description" String="The ModifyRedundancySet operation adds members to or removes members from a redundant group of managers."/>
-        <Annotation Term="OData.LongDescription" String="The ModifyRedundancySet operation shall add members to or remove members from a redundant group of managers."/>
+        <Annotation Term="OData.Description" String="The `ModifyRedundancySet` operation adds members to or removes members from a redundant group of managers."/>
+        <Annotation Term="OData.LongDescription" String="The `ModifyRedundancySet` operation shall add members to or remove members from a redundant group of managers."/>
         <Parameter Name="Manager" Type="Manager.v1_0_0.Actions"/>
         <Parameter Name="Add" Type="Collection(Manager.Manager)">
           <Annotation Term="OData.Description" String="An array of managers to add to the redundancy set."/>
@@ -178,38 +179,38 @@
         <NavigationProperty Name="EthernetInterfaces" Type="EthernetInterfaceCollection.EthernetInterfaceCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to a collection of NICs that this manager uses for network communication."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type EthernetInterfaceCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `EthernetInterfaceCollection`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="SerialInterfaces" Type="SerialInterfaceCollection.SerialInterfaceCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to a collection of serial interfaces that this manager uses for serial and console communication."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type SerialInterfaceCollection, which this manager uses."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `SerialInterfaceCollection`, which this manager uses."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="NetworkProtocol" Type="ManagerNetworkProtocol.ManagerNetworkProtocol" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the network services and their settings that the manager controls."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type ManagerNetworkProtocol, which represents the network services for this manager."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `ManagerNetworkProtocol`, which represents the network services for this manager."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="LogServices" Type="LogServiceCollection.LogServiceCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to a collection of logs that the manager uses."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type LogServiceCollection that this manager uses."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `LogServiceCollection` that this manager uses."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="VirtualMedia" Type="VirtualMediaCollection.VirtualMediaCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The link to the Virtual Media services for this particular manager."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type VirtualMediaCollection, which this manager uses."/>
+          <Annotation Term="OData.Description" String="The link to the virtual media services for this particular manager."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `VirtualMediaCollection`, which this manager uses."/>
           <Annotation Term="OData.AutoExpandReferences"/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_10_0"/>
-                <PropertyValue Property="Description" String="This property has been deprecated in favor of the VirtualMedia property in the ComputerSystem resource."/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the `VirtualMedia` property in the `ComputerSystem` resource."/>
               </Record>
             </Collection>
           </Annotation>
@@ -236,8 +237,8 @@
         </Property>
         <Property Name="DateTimeLocalOffset" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The time offset from UTC that the DateTime property is in `+HH:MM` format."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the offset from UTC time that the DateTime property contains.  If both DateTime and DateTimeLocalOffset are provided in modification requests, services shall apply DateTimeLocalOffset after DateTime is applied."/>
+          <Annotation Term="OData.Description" String="The time offset from UTC that the `DateTime` property is in `+HH:MM` format."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the offset from UTC time that the `DateTime` property contains.  If both `DateTime` and `DateTimeLocalOffset` are provided in modification requests, services shall apply `DateTimeLocalOffset` after `DateTime` is applied."/>
           <Annotation Term="Validation.Pattern" String="^([-+][0-1][0-9]:[0-5][0-9])$"/>
         </Property>
         <Property Name="FirmwareVersion" Type="Edm.String">
@@ -253,7 +254,7 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_10_0"/>
-                <PropertyValue Property="Description" String="This property has been deprecated in favor of the SerialConsole property in the ComputerSystem resource."/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the `SerialConsole` property in the `ComputerSystem` resource."/>
               </Record>
             </Collection>
           </Annotation>
@@ -264,7 +265,7 @@
         </Property>
         <Property Name="GraphicalConsole" Type="Manager.v1_0_0.GraphicalConsole" Nullable="false">
           <Annotation Term="OData.Description" String="The information about the graphical console service of this manager."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the information about the graphical console (KVM-IP) service of this manager.  This property should be used to describe a service for the manager's console or operating system, not a service provided on behalf of a host operating system.  Implementations representing host OS consoles, known generally as a KVM-IP feature, should use the GraphicalConsole property in ComputerSystem."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the information about the graphical console (KVM-IP) service of this manager.  This property should be used to describe a service for the manager's console or operating system, not a service provided on behalf of a host operating system.  Implementations representing host OS consoles, known generally as a KVM-IP feature, should use the `GraphicalConsole` property in ComputerSystem."/>
         </Property>
         <Property Name="Actions" Type="Manager.v1_0_0.Actions" Nullable="false">
           <Annotation Term="OData.Description" String="The available actions for this resource."/>
@@ -452,7 +453,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_0_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to remove the Nullable facet on NavigationProperties of the Collection type."/>
+      <Annotation Term="OData.Description" String="This version was created to remove the nullable term on arrays of links."/>
       <EntityType Name="Manager" BaseType="Manager.v1_0_3.Manager"/>
     </Schema>
 
@@ -464,7 +465,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_0_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the short and long descriptions in the defined actions.  It was also created to remove the `Nullable=false` term on ServiceEntryPointUUID."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the short and long descriptions in the defined actions.  It was also created to allow `ServiceEntryPointUUID` to be `null`."/>
       <EntityType Name="Manager" BaseType="Manager.v1_0_5.Manager"/>
     </Schema>
 
@@ -506,7 +507,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_0_13">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for ResetType."/>
+      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for `ResetType`."/>
       <EntityType Name="Manager" BaseType="Manager.v1_0_12.Manager"/>
     </Schema>
 
@@ -524,14 +525,20 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_0_16">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the behavior when both DateTime and DateTimeLocalOffset are provided in modification requests."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior when both `DateTime` and `DateTimeLocalOffset` are provided in modification requests."/>
       <EntityType Name="Manager" BaseType="Manager.v1_0_15.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_0_17">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the description for the `BMC` value of ManagerType to allow for multiple systems.  It was also created to clarify the usage of the ServiceIdentification property.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for the `BMC` value of `ManagerType` to allow for multiple systems.  It was also created to clarify the usage of the `ServiceIdentification` property.  It was also created to correct various typographical errors."/>
       <EntityType Name="Manager" BaseType="Manager.v1_0_16.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_0_18">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_0_17.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_1_0">
@@ -558,7 +565,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_1_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to remove the Nullable facet on NavigationProperties of the Collection type."/>
+      <Annotation Term="OData.Description" String="This version was created to remove the nullable term on arrays of links."/>
       <EntityType Name="Manager" BaseType="Manager.v1_1_1.Manager"/>
     </Schema>
 
@@ -570,7 +577,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_1_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the short and long descriptions in the defined actions.  It was also created to remove the `Nullable=false` term on ServiceEntryPointUUID."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the short and long descriptions in the defined actions.  It was also created to allow `ServiceEntryPointUUID` to be `null`."/>
       <EntityType Name="Manager" BaseType="Manager.v1_1_3.Manager"/>
     </Schema>
 
@@ -612,7 +619,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_1_11">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for ResetType."/>
+      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for `ResetType`."/>
       <EntityType Name="Manager" BaseType="Manager.v1_1_10.Manager"/>
     </Schema>
 
@@ -630,14 +637,20 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_1_14">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the behavior when both DateTime and DateTimeLocalOffset are provided in modification requests."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior when both `DateTime` and `DateTimeLocalOffset` are provided in modification requests."/>
       <EntityType Name="Manager" BaseType="Manager.v1_1_13.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_1_15">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the description for the `BMC` value of ManagerType to allow for multiple systems.  It was also created to clarify the usage of the ServiceIdentification property.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for the `BMC` value of `ManagerType` to allow for multiple systems.  It was also created to clarify the usage of the `ServiceIdentification` property.  It was also created to correct various typographical errors."/>
       <EntityType Name="Manager" BaseType="Manager.v1_1_14.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_1_16">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_1_15.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_2_0">
@@ -661,7 +674,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_2_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to remove the Nullable facet on NavigationProperties of the Collection type."/>
+      <Annotation Term="OData.Description" String="This version was created to remove the nullable term on arrays of links."/>
       <EntityType Name="Manager" BaseType="Manager.v1_2_1.Manager"/>
     </Schema>
 
@@ -673,7 +686,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_2_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change PowerState to use the unversioned definition.  It was also created to correct the short and long descriptions in the defined actions and to remove the `Nullable=false` term from ServiceEntryPointUUID."/>
+      <Annotation Term="OData.Description" String="This version was created to change `PowerState` to use the unversioned definition.  It was also created to correct the short and long descriptions in the defined actions and to remove the `Nullable=false` term from ServiceEntryPointUUID."/>
       <EntityType Name="Manager" BaseType="Manager.v1_2_3.Manager"/>
     </Schema>
 
@@ -715,7 +728,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_2_11">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for ResetType."/>
+      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for `ResetType`."/>
       <EntityType Name="Manager" BaseType="Manager.v1_2_10.Manager"/>
     </Schema>
 
@@ -733,14 +746,20 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_2_14">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the behavior when both DateTime and DateTimeLocalOffset are provided in modification requests."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior when both `DateTime` and `DateTimeLocalOffset` are provided in modification requests."/>
       <EntityType Name="Manager" BaseType="Manager.v1_2_13.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_2_15">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the description for the `BMC` value of ManagerType to allow for multiple systems.  It was also created to clarify the usage of the ServiceIdentification property.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for the `BMC` value of `ManagerType` to allow for multiple systems.  It was also created to clarify the usage of the `ServiceIdentification` property.  It was also created to correct various typographical errors."/>
       <EntityType Name="Manager" BaseType="Manager.v1_2_14.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_2_16">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_2_15.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_3_0">
@@ -751,7 +770,7 @@
         <NavigationProperty Name="HostInterfaces" Type="HostInterfaceCollection.HostInterfaceCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to a collection of host interfaces that this manager uses for local host communication.  Clients can find host interface configuration options and settings in this navigation property."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type HostInterfaceCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `HostInterfaceCollection`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -759,7 +778,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_3_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to remove the Nullable facet on NavigationProperties of the Collection type."/>
+      <Annotation Term="OData.Description" String="This version was created to remove the nullable term on arrays of links."/>
       <EntityType Name="Manager" BaseType="Manager.v1_3_0.Manager"/>
     </Schema>
 
@@ -771,7 +790,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_3_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change PowerState to use the unversioned definition.  It was also created to correct the short and long descriptions in the defined actions and to remove the `Nullable=false` term from ServiceEntryPointUUID."/>
+      <Annotation Term="OData.Description" String="This version was created to change `PowerState` to use the unversioned definition.  It was also created to correct the short and long descriptions in the defined actions and to remove the `Nullable=false` term from ServiceEntryPointUUID."/>
       <EntityType Name="Manager" BaseType="Manager.v1_3_2.Manager"/>
     </Schema>
 
@@ -813,7 +832,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_3_10">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for ResetType."/>
+      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for `ResetType`."/>
       <EntityType Name="Manager" BaseType="Manager.v1_3_9.Manager"/>
     </Schema>
 
@@ -831,14 +850,20 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_3_13">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the behavior when both DateTime and DateTimeLocalOffset are provided in modification requests."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior when both `DateTime` and `DateTimeLocalOffset` are provided in modification requests."/>
       <EntityType Name="Manager" BaseType="Manager.v1_3_12.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_3_14">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the description for the `BMC` value of ManagerType to allow for multiple systems.  It was also created to clarify the usage of the ServiceIdentification property.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for the `BMC` value of `ManagerType` to allow for multiple systems.  It was also created to clarify the usage of the `ServiceIdentification` property.  It was also created to correct various typographical errors."/>
       <EntityType Name="Manager" BaseType="Manager.v1_3_13.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_3_15">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_3_14.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_4_0">
@@ -901,7 +926,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_4_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for ResetType."/>
+      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for `ResetType`."/>
       <EntityType Name="Manager" BaseType="Manager.v1_4_6.Manager"/>
     </Schema>
 
@@ -919,14 +944,20 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_4_10">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the behavior when both DateTime and DateTimeLocalOffset are provided in modification requests."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior when both `DateTime` and `DateTimeLocalOffset` are provided in modification requests."/>
       <EntityType Name="Manager" BaseType="Manager.v1_4_9.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_4_11">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the description for the `BMC` value of ManagerType to allow for multiple systems.  It was also created to clarify the usage of the ServiceIdentification property.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for the `BMC` value of `ManagerType` to allow for multiple systems.  It was also created to clarify the usage of the `ServiceIdentification` property.  It was also created to correct various typographical errors."/>
       <EntityType Name="Manager" BaseType="Manager.v1_4_10.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_4_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_4_11.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_5_0">
@@ -981,7 +1012,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_5_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for ResetType."/>
+      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for `ResetType`."/>
       <EntityType Name="Manager" BaseType="Manager.v1_5_5.Manager"/>
     </Schema>
 
@@ -993,20 +1024,26 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_5_8">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of RemoteAccountService to be allowed for other types of aggregated managers.  It was also created to correct various descriptions to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of `RemoteAccountService` to be allowed for other types of aggregated managers.  It was also created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="Manager" BaseType="Manager.v1_5_7.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_5_9">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the behavior when both DateTime and DateTimeLocalOffset are provided in modification requests."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior when both `DateTime` and `DateTimeLocalOffset` are provided in modification requests."/>
       <EntityType Name="Manager" BaseType="Manager.v1_5_8.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_5_10">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the description for the `BMC` value of ManagerType to allow for multiple systems.  It was also created to clarify the usage of the ServiceIdentification property.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for the `BMC` value of `ManagerType` to allow for multiple systems.  It was also created to clarify the usage of the `ServiceIdentification` property.  It was also created to correct various typographical errors."/>
       <EntityType Name="Manager" BaseType="Manager.v1_5_9.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_5_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_5_10.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_6_0">
@@ -1019,13 +1056,13 @@
         <NavigationProperty Name="ActiveSoftwareImage" Type="SoftwareInventory.SoftwareInventory" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The link to the software inventory resource that represents the active firmware image for this manager."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type SoftwareInventory that represents the active firmware image for this manager."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `SoftwareInventory` that represents the active firmware image for this manager."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="SoftwareImages" Type="Collection(SoftwareInventory.SoftwareInventory)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The images that are associated with this manager."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type SoftwareInventory that represent the firmware images that apply to this manager."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `SoftwareInventory` that represent the firmware images that apply to this manager."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -1045,7 +1082,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_6_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for ResetType."/>
+      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for `ResetType`."/>
       <EntityType Name="Manager" BaseType="Manager.v1_6_2.Manager"/>
     </Schema>
 
@@ -1057,20 +1094,26 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_6_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of RemoteAccountService to be allowed for other types of aggregated managers.  It was also created to correct various descriptions to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of `RemoteAccountService` to be allowed for other types of aggregated managers.  It was also created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="Manager" BaseType="Manager.v1_6_4.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_6_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the behavior when both DateTime and DateTimeLocalOffset are provided in modification requests."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior when both `DateTime` and `DateTimeLocalOffset` are provided in modification requests."/>
       <EntityType Name="Manager" BaseType="Manager.v1_6_5.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_6_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the description for the `BMC` value of ManagerType to allow for multiple systems.  It was also created to clarify the usage of the ServiceIdentification property.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for the `BMC` value of `ManagerType` to allow for multiple systems.  It was also created to clarify the usage of the `ServiceIdentification` property.  It was also created to correct various typographical errors."/>
       <EntityType Name="Manager" BaseType="Manager.v1_6_6.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_6_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_6_7.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_7_0">
@@ -1110,7 +1153,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_7_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for ResetType."/>
+      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for `ResetType`."/>
       <EntityType Name="Manager" BaseType="Manager.v1_7_2.Manager"/>
     </Schema>
 
@@ -1122,26 +1165,32 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_7_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of RemoteAccountService to be allowed for other types of aggregated managers.  It was also created to correct various descriptions to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of `RemoteAccountService` to be allowed for other types of aggregated managers.  It was also created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="Manager" BaseType="Manager.v1_7_4.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_7_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the behavior when both DateTime and DateTimeLocalOffset are provided in modification requests."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior when both `DateTime` and `DateTimeLocalOffset` are provided in modification requests."/>
       <EntityType Name="Manager" BaseType="Manager.v1_7_5.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_7_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the description for the `BMC` value of ManagerType to allow for multiple systems.  It was also created to clarify the usage of the ServiceIdentification property.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for the `BMC` value of `ManagerType` to allow for multiple systems.  It was also created to clarify the usage of the `ServiceIdentification` property.  It was also created to correct various typographical errors."/>
       <EntityType Name="Manager" BaseType="Manager.v1_7_6.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_7_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_7_7.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
-      <Annotation Term="OData.Description" String="This version was created to add the ResetToDefaults action."/>
+      <Annotation Term="OData.Description" String="This version was created to add the `ResetToDefaults` action."/>
 
       <EntityType Name="Manager" BaseType="Manager.v1_7_1.Manager"/>
 
@@ -1150,7 +1199,7 @@
           <Annotation Term="OData.Description" String="Reset all settings to factory defaults."/>
         </Member>
         <Member Name="PreserveNetworkAndUsers">
-          <Annotation Term="OData.Description" String="Reset all settings except network and local user names/passwords to factory defaults."/>
+          <Annotation Term="OData.Description" String="Reset all settings except network and local usernames/passwords to factory defaults."/>
         </Member>
         <Member Name="PreserveNetwork">
           <Annotation Term="OData.Description" String="Reset all settings except network settings to factory defaults."/>
@@ -1166,7 +1215,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_8_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for ResetType."/>
+      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for `ResetType`."/>
       <EntityType Name="Manager" BaseType="Manager.v1_8_1.Manager"/>
     </Schema>
 
@@ -1178,26 +1227,31 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_8_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of RemoteAccountService to be allowed for other types of aggregated managers.  It was also created to correct various descriptions to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of `RemoteAccountService` to be allowed for other types of aggregated managers.  It was also created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="Manager" BaseType="Manager.v1_8_3.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_8_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the behavior when both DateTime and DateTimeLocalOffset are provided in modification requests."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior when both `DateTime` and `DateTimeLocalOffset` are provided in modification requests."/>
       <EntityType Name="Manager" BaseType="Manager.v1_8_4.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_8_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the description for the `BMC` value of ManagerType to allow for multiple systems.  It was also created to clarify the usage of the ServiceIdentification property.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for the `BMC` value of `ManagerType` to allow for multiple systems.  It was also created to clarify the usage of the `ServiceIdentification` property.  It was also created to correct various typographical errors."/>
       <EntityType Name="Manager" BaseType="Manager.v1_8_5.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_8_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_8_6.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_9_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.2"/>
-      <Annotation Term="OData.Description" String="This version was created to add the LastResetTime."/>
 
       <EntityType Name="Manager" BaseType="Manager.v1_8_1.Manager">
         <Property Name="LastResetTime" Type="Edm.DateTimeOffset" Nullable="false">
@@ -1211,13 +1265,13 @@
         <NavigationProperty Name="ManagedBy" Type="Collection(Manager.Manager)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The array of links to the managers responsible for managing this manager."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Manager that represent the managers for this manager."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Manager` that represent the managers for this manager."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="ManagerForManagers" Type="Collection(Manager.Manager)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the managers that are managed by this manager."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Manager that represent the managers being managed by this manager."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Manager` that represent the managers being managed by this manager."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -1225,7 +1279,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_9_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for ResetType."/>
+      <Annotation Term="OData.Description" String="This version was created to add annotation recommendations for `ResetType`."/>
       <EntityType Name="Manager" BaseType="Manager.v1_9_0.Manager"/>
     </Schema>
 
@@ -1237,32 +1291,38 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_9_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of RemoteAccountService to be allowed for other types of aggregated managers.  It was also created to correct various descriptions to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of `RemoteAccountService` to be allowed for other types of aggregated managers.  It was also created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="Manager" BaseType="Manager.v1_9_2.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_9_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the behavior when both DateTime and DateTimeLocalOffset are provided in modification requests."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior when both `DateTime` and `DateTimeLocalOffset` are provided in modification requests."/>
       <EntityType Name="Manager" BaseType="Manager.v1_9_3.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_9_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the description for the `BMC` value of ManagerType to allow for multiple systems.  It was also created to clarify the usage of the ServiceIdentification property.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for the `BMC` value of `ManagerType` to allow for multiple systems.  It was also created to clarify the usage of the `ServiceIdentification` property.  It was also created to correct various typographical errors."/>
       <EntityType Name="Manager" BaseType="Manager.v1_9_4.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_9_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_9_5.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.3"/>
-      <Annotation Term="OData.Description" String="This version was created to add the time zone configuration.  It was also created to deprecate the VirtualMedia and SerialConsole properties in favor of the VirtualMedia and SerialConsole properties in the ComputerSystem schema."/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate the `VirtualMedia` and `SerialConsole` properties in favor of the `VirtualMedia` and `SerialConsole` properties in the `ComputerSystem` schema."/>
 
       <EntityType Name="Manager" BaseType="Manager.v1_9_1.Manager">
         <Property Name="TimeZoneName" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The time zone of the manager."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the time zone of the manager.  The time zone shall be either the 'Name' or the 'Format' for the zone as defined in the IANA Time Zone Database.  The value of this property is used for display purposes, especially to enhance the display of time.  A Redfish service may not be able to ensure accuracy and consistency between the DateTimeOffset property and this property.  Therefore, to specify the correct time zone offset, see the DateTimeOffset property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the time zone of the manager.  The time zone shall be either the 'Name' or the 'Format' for the zone as defined in the IANA Time Zone Database.  The value of this property is used for display purposes, especially to enhance the display of time.  A Redfish service may not be able to ensure accuracy and consistency between the `DateTimeOffset` property and this property.  Therefore, to specify the correct time zone offset, see the `DateTimeOffset` property."/>
         </Property>
       </EntityType>
     </Schema>
@@ -1275,26 +1335,31 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_10_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of RemoteAccountService to be allowed for other types of aggregated managers.  It was also created to correct various descriptions to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of `RemoteAccountService` to be allowed for other types of aggregated managers.  It was also created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="Manager" BaseType="Manager.v1_10_1.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_10_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the behavior when both DateTime and DateTimeLocalOffset are provided in modification requests."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior when both `DateTime` and `DateTimeLocalOffset` are provided in modification requests."/>
       <EntityType Name="Manager" BaseType="Manager.v1_10_2.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_10_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the description for the `BMC` value of ManagerType to allow for multiple systems.  It was also created to clarify the usage of the ServiceIdentification property.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for the `BMC` value of `ManagerType` to allow for multiple systems.  It was also created to clarify the usage of the `ServiceIdentification` property.  It was also created to correct various typographical errors."/>
       <EntityType Name="Manager" BaseType="Manager.v1_10_3.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_10_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_10_4.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_11_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
-      <Annotation Term="OData.Description" String="This version was created to add Location, LocationIndicatorActive, and SparePartNumber."/>
 
       <EntityType Name="Manager" BaseType="Manager.v1_10_1.Manager">
         <Property Name="Location" Type="Resource.Location" Nullable="false">
@@ -1304,7 +1369,7 @@
         <Property Name="LocationIndicatorActive" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An indicator allowing an operator to physically locate this resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the state of the indicator used to physically identify or locate this resource.  A write to this property shall update the value of IndicatorLED in this resource, if supported, to reflect the implementation of the locating function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the state of the indicator used to physically identify or locate this resource.  A write to this property shall update the value of `IndicatorLED` in this resource, if supported, to reflect the implementation of the locating function."/>
         </Property>
         <Property Name="SparePartNumber" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -1316,45 +1381,56 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_11_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of RemoteAccountService to be allowed for other types of aggregated managers.  It was also created to correct various descriptions to use proper normative terminology."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of `RemoteAccountService` to be allowed for other types of aggregated managers.  It was also created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="Manager" BaseType="Manager.v1_11_0.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_11_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the behavior when both DateTime and DateTimeLocalOffset are provided in modification requests."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior when both `DateTime` and `DateTimeLocalOffset` are provided in modification requests."/>
       <EntityType Name="Manager" BaseType="Manager.v1_11_1.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_11_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the description for the `BMC` value of ManagerType to allow for multiple systems.  It was also created to clarify the usage of the ServiceIdentification property.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for the `BMC` value of `ManagerType` to allow for multiple systems.  It was also created to clarify the usage of the `ServiceIdentification` property.  It was also created to correct various typographical errors."/>
       <EntityType Name="Manager" BaseType="Manager.v1_11_2.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_11_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_11_3.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_12_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.1"/>
-      <Annotation Term="OData.Description" String="This version was created to add USBPorts."/>
 
       <EntityType Name="Manager" BaseType="Manager.v1_11_0.Manager">
         <NavigationProperty Name="USBPorts" Type="PortCollection.PortCollection" Nullable="false">
           <Annotation Term="OData.Description" String="The USB ports of the manager."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type PortCollection that represent the USB ports of the manager."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `PortCollection` that represent the USB ports of the manager."/>
         </NavigationProperty>
       </EntityType>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_12_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the behavior when both DateTime and DateTimeLocalOffset are provided in modification requests."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior when both `DateTime` and `DateTimeLocalOffset` are provided in modification requests."/>
       <EntityType Name="Manager" BaseType="Manager.v1_12_0.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_12_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the description for the `BMC` value of ManagerType to allow for multiple systems.  It was also created to clarify the usage of the ServiceIdentification property.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for the `BMC` value of `ManagerType` to allow for multiple systems.  It was also created to clarify the usage of the `ServiceIdentification` property.  It was also created to correct various typographical errors."/>
       <EntityType Name="Manager" BaseType="Manager.v1_12_1.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_12_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_12_2.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_13_0">
@@ -1365,7 +1441,7 @@
         <NavigationProperty Name="Certificates" Type="CertificateCollection.CertificateCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to a collection of certificates for device identity and attestation."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CertificateCollection that contains certificates for device identity and attestation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `CertificateCollection` that contains certificates for device identity and attestation."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="Measurements" Type="Collection(SoftwareInventory.MeasurementBlock)" Nullable="false">
@@ -1376,7 +1452,7 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_14_0"/>
-                <PropertyValue Property="Description" String="This property has been deprecated in favor of the ComponentIntegrity resource."/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the `ComponentIntegrity` resource."/>
               </Record>
             </Collection>
           </Annotation>
@@ -1386,28 +1462,40 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_13_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the description for the `BMC` value of ManagerType to allow for multiple systems.  It was also created to clarify the usage of the ServiceIdentification property.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for the `BMC` value of `ManagerType` to allow for multiple systems.  It was also created to clarify the usage of the `ServiceIdentification` property.  It was also created to correct various typographical errors."/>
       <EntityType Name="Manager" BaseType="Manager.v1_13_0.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_13_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_13_1.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_14_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
-      <Annotation Term="OData.Description" String="This version was created to deprecate Measurements in favor of measurement reporting in the ComponentIntegrity resource."/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate `Measurements` in favor of measurement reporting in the `ComponentIntegrity` resource."/>
 
       <EntityType Name="Manager" BaseType="Manager.v1_13_0.Manager">
         <NavigationProperty Name="ManagerDiagnosticData" Type="ManagerDiagnosticData.ManagerDiagnosticData">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The diagnostic data for this manager."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type ManagerDiagnosticData that represents the diagnostic data for this manager."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `ManagerDiagnosticData` that represents the diagnostic data for this manager."/>
         </NavigationProperty>
       </EntityType>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_14_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the description for the `BMC` value of ManagerType to allow for multiple systems.  It was also created to clarify the usage of the ServiceIdentification property.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for the `BMC` value of `ManagerType` to allow for multiple systems.  It was also created to clarify the usage of the `ServiceIdentification` property.  It was also created to correct various typographical errors."/>
       <EntityType Name="Manager" BaseType="Manager.v1_14_0.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_14_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_14_1.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_15_0">
@@ -1418,7 +1506,7 @@
         <Property Name="ServiceIdentification" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="A product instance identifier displayed in the Redfish service root."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a vendor-provided or user-provided value that identifies and associates a discovered Redfish service with a particular product instance.  If this manager provides the Redfish service, the ServiceIdentification property in the ServiceRoot resource shall contain the value of this property.  This property shall only be present if the manager provides the Redfish service.  The value of this property is used in conjunction with the Product and Vendor properties in ServiceRoot to match user credentials or other a priori product instance information necessary for initial deployment to the correct, matching Redfish service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a vendor-provided or user-provided value that identifies and associates a discovered Redfish service with a particular product instance.  If this manager provides the Redfish service, the `ServiceIdentification` property in the `ServiceRoot` resource shall contain the value of this property.  This property shall only be present if the manager provides the Redfish service.  The value of this property is used in conjunction with the `Product` and `Vendor` properties in `ServiceRoot` to match user credentials or other a priori product instance information necessary for initial deployment to the correct, matching Redfish service."/>
         </Property>
         <Property Name="AdditionalFirmwareVersions" Type="SoftwareInventory.AdditionalVersions" Nullable="false">
           <Annotation Term="OData.Description" String="The additional firmware versions of the manager."/>
@@ -1429,9 +1517,14 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_15_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-
-      <Annotation Term="OData.Description" String="This version was created to update the description for the `BMC` value of ManagerType to allow for multiple systems.  It was also created to clarify the usage of the ServiceIdentification property.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for the `BMC` value of `ManagerType` to allow for multiple systems.  It was also created to clarify the usage of the `ServiceIdentification` property.  It was also created to correct various typographical errors."/>
       <EntityType Name="Manager" BaseType="Manager.v1_15_0.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_15_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_15_1.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_16_0">
@@ -1441,24 +1534,30 @@
       <EntityType Name="Manager" BaseType="Manager.v1_15_0.Manager">
         <NavigationProperty Name="DedicatedNetworkPorts" Type="PortCollection.PortCollection" Nullable="false">
           <Annotation Term="OData.Description" String="The dedicated network ports of the manager."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type PortCollection that represent the dedicated network ports of the manager."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `PortCollection` that represent the dedicated network ports of the manager."/>
         </NavigationProperty>
         <NavigationProperty Name="SharedNetworkPorts" Type="PortCollection.PortCollection" Nullable="false">
           <Annotation Term="OData.Description" String="The shared network ports of the manager."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type PortCollection that represent the shared network ports of the manager.  The members of this collection shall reference Port resources subordinate to NetworkAdapter resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `PortCollection` that represent the shared network ports of the manager.  The members of this collection shall reference Port resources subordinate to NetworkAdapter resources."/>
         </NavigationProperty>
         <NavigationProperty Name="SecurityPolicy" Type="SecurityPolicy.SecurityPolicy">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The security policy settings for this manager."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type SecurityPolicy that contains the security policy settings for this manager."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `SecurityPolicy` that contains the security policy settings for this manager."/>
         </NavigationProperty>
       </EntityType>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_16_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the description for the `BMC` value of ManagerType to allow for multiple systems.  It was also created to clarify the usage of the ServiceIdentification property.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for the `BMC` value of `ManagerType` to allow for multiple systems.  It was also created to clarify the usage of the `ServiceIdentification` property.  It was also created to correct various typographical errors."/>
       <EntityType Name="Manager" BaseType="Manager.v1_16_0.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_16_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_16_1.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_17_0">
@@ -1476,8 +1575,14 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_17_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the description for the `BMC` value of ManagerType to allow for multiple systems.  It was also created to clarify the usage of the ServiceIdentification property.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for the `BMC` value of `ManagerType` to allow for multiple systems.  It was also created to clarify the usage of the `ServiceIdentification` property.  It was also created to correct various typographical errors."/>
       <EntityType Name="Manager" BaseType="Manager.v1_17_0.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_17_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_17_1.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_18_0">
@@ -1490,15 +1595,21 @@
         <NavigationProperty Name="SelectedNetworkPort" Type="Port.Port">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The network port currently used by this manager.  This allows selection of shared or dedicated ports for managers that support one or the other.  For managers that always have their dedicated port enabled, this allows the selection of which shared port to use."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Port that represents the current network port used by this manager."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `Port` that represents the current network port used by this manager."/>
         </NavigationProperty>
       </ComplexType>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_18_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the description for the `BMC` value of ManagerType to allow for multiple systems.  It was also created to clarify the usage of the ServiceIdentification property.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for the `BMC` value of `ManagerType` to allow for multiple systems.  It was also created to clarify the usage of the `ServiceIdentification` property.  It was also created to correct various typographical errors."/>
       <EntityType Name="Manager" BaseType="Manager.v1_18_0.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_18_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_18_1.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_19_0">
@@ -1519,24 +1630,30 @@
         <Property Name="StartDateTime" Type="Edm.DateTimeOffset" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The start date and time with UTC offset of daylight saving time."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the start date and time with UTC offset of daylight saving time for this manager.  Services shall update the UTC offset based on changes made to DateTimeLocalOffset.  This property shall be read-only if the service contains time zone databases."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the start date and time with UTC offset of daylight saving time for this manager.  Services shall update the UTC offset based on changes made to `DateTimeLocalOffset`.  This property shall be read-only if the service contains time zone databases."/>
         </Property>
         <Property Name="EndDateTime" Type="Edm.DateTimeOffset" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The end date and time with UTC offset of daylight saving time."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the end date and time with UTC offset of daylight saving time for this manager.  If daylight saving time is permanent, specify a sufficiently distant end date and time.  Services shall update the UTC offset based on changes made to DateTimeLocalOffset.  This property shall be read-only if the service contains time zone databases."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the end date and time with UTC offset of daylight saving time for this manager.  If daylight saving time is permanent, specify a sufficiently distant end date and time.  Services shall update the UTC offset based on changes made to `DateTimeLocalOffset`.  This property shall be read-only if the service contains time zone databases."/>
         </Property>
         <Property Name="OffsetMinutes" Type="Edm.Int64" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The daylight saving time offset in minutes."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the number of minutes added to the DateTime value when the DateTime value is between the values of StartDateTime and EndDateTime.  This offset shall be applied only if AutoDSTEnabled is `true`.  This property shall be read-only if the service contains time zone databases."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of minutes added to the `DateTime` value when the `DateTime` value is between the values of StartDateTime and EndDateTime.  This offset shall be applied only if AutoDSTEnabled is `true`.  This property shall be read-only if the service contains time zone databases."/>
         </Property>
         <Property Name="TimeZoneName" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The time zone of the manager when daylight saving time is in effect."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the time zone of the manager when daylight saving time is in effect.  When daylight saving time is in effect, the service shall update the TimeZoneName property in the root of the resource.  When daylight saving time is no longer in effect, the service shall restore the original value of the TimeZoneName property in the root of the resource.  The time zone shall be either the 'Name' or the 'Format' for the zone as defined in the IANA Time Zone Database.  The value of this property is used for display purposes, especially to enhance the display of time.  This property shall be read-only if the service contains time zone databases."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the time zone of the manager when daylight saving time is in effect.  When daylight saving time is in effect, the service shall update the `TimeZoneName` property in the root of the resource.  When daylight saving time is no longer in effect, the service shall restore the original value of the `TimeZoneName` property in the root of the resource.  The time zone shall be either the 'Name' or the 'Format' for the zone as defined in the IANA Time Zone Database.  The value of this property is used for display purposes, especially to enhance the display of time.  This property shall be read-only if the service contains time zone databases."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_19_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_19_0.Manager"/>
     </Schema>
 
   </edmx:DataServices>

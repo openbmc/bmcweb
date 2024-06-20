@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PowerDomain v1.2.1                                                  -->
+<!--# Redfish Schema:  PowerDomain v1.2.2                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -35,10 +35,11 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerDomain">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="PowerDomain" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The PowerDomain schema contains the definition for the DCIM power domain."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent a DCIM power domain for a Redfish implementation."/>
+        <Annotation Term="OData.Description" String="The `PowerDomain` schema contains the definition for the DCIM power domain."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent a DCIM power domain for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -89,31 +90,31 @@
         <NavigationProperty Name="FloorPDUs" Type="Collection(PowerDistribution.PowerDistribution)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An array of links to the floor power distribution units in this power domain."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type PowerDistribution that represent the floor power distribution units in this power domain."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `PowerDistribution` that represent the floor power distribution units in this power domain."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="RackPDUs" Type="Collection(PowerDistribution.PowerDistribution)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An array of links to the rack-level power distribution units in this power domain."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type PowerDistribution that represent the rack-level power distribution units in this power domain."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `PowerDistribution` that represent the rack-level power distribution units in this power domain."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="TransferSwitches" Type="Collection(PowerDistribution.PowerDistribution)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An array of links to the transfer switches in this power domain."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type PowerDistribution that represent the transfer switches in this power domain."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `PowerDistribution` that represent the transfer switches in this power domain."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Switchgear" Type="Collection(PowerDistribution.PowerDistribution)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An array of links to the switchgear in this power domain."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type PowerDistribution that represent the switchgear in this power domain."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `PowerDistribution` that represent the switchgear in this power domain."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="ManagedBy" Type="Collection(Manager.Manager)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the managers responsible for managing this power domain."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Manager that represent the managers that manage this power domain."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Manager` that represent the managers that manage this power domain."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -147,6 +148,12 @@
       <EntityType Name="PowerDomain" BaseType="PowerDomain.v1_0_1.PowerDomain"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerDomain.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="PowerDomain" BaseType="PowerDomain.v1_0_2.PowerDomain"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerDomain.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
@@ -156,7 +163,7 @@
         <NavigationProperty Name="PowerShelves" Type="Collection(PowerDistribution.PowerDistribution)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An array of links to the power shelves in this power domain."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type PowerDistribution that represent the power shelves in this power domain."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `PowerDistribution` that represent the power shelves in this power domain."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -168,6 +175,12 @@
       <EntityType Name="PowerDomain" BaseType="PowerDomain.v1_1_0.PowerDomain"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerDomain.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="PowerDomain" BaseType="PowerDomain.v1_1_1.PowerDomain"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerDomain.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.3"/>
@@ -177,7 +190,7 @@
         <NavigationProperty Name="ElectricalBuses" Type="Collection(PowerDistribution.PowerDistribution)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An array of links to the electrical buses in this power domain."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type PowerDistribution that represent the electrical buses in this power domain."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `PowerDistribution` that represent the electrical buses in this power domain."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -187,6 +200,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="PowerDomain" BaseType="PowerDomain.v1_2_0.PowerDomain"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerDomain.v1_2_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="PowerDomain" BaseType="PowerDomain.v1_2_1.PowerDomain"/>
     </Schema>
 
   </edmx:DataServices>

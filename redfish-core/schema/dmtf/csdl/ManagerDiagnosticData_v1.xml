@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ManagerDiagnosticData v1.2.2                                        -->
+<!--# Redfish Schema:  ManagerDiagnosticData v1.2.3                                        -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -32,9 +32,10 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerDiagnosticData">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="ManagerDiagnosticData" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The ManagerDiagnosticData schema defines internal diagnostic data for a manager.  It contains information that might be used by vendors to collect debug information about the manager.  Clients should not make decisions for raising alerts, creating service events, or other actions based on information in this resource."/>
+        <Annotation Term="OData.Description" String="The `ManagerDiagnosticData` schema defines internal diagnostic data for a manager.  It contains information that might be used by vendors to collect debug information about the manager.  Clients should not make decisions for raising alerts, creating service events, or other actions based on information in this resource."/>
         <Annotation Term="OData.LongDescription" String="This resource shall represent internal diagnostic data for a manager for a Redfish implementation.  Clients should not make decisions for raising alerts, creating service events, or other actions based on information in this resource."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -145,7 +146,7 @@
         <Property Name="UsedBytes" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The amount of used memory in bytes."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the amount of used memory in bytes.  This value is calculated as TotalBytes minus FreeBytes minus BuffersAndCacheBytes."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the amount of used memory in bytes.  This value is calculated as `TotalBytes` minus `FreeBytes` minus `BuffersAndCacheBytes`."/>
           <Annotation Term="Measures.Unit" String="By"/>
         </Property>
         <Property Name="FreeBytes" Type="Edm.Int64">
@@ -299,6 +300,12 @@
       <EntityType Name="ManagerDiagnosticData" BaseType="ManagerDiagnosticData.v1_0_1.ManagerDiagnosticData"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerDiagnosticData.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="ManagerDiagnosticData" BaseType="ManagerDiagnosticData.v1_0_2.ManagerDiagnosticData"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerDiagnosticData.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
@@ -336,6 +343,12 @@
       <EntityType Name="ManagerDiagnosticData" BaseType="ManagerDiagnosticData.v1_1_1.ManagerDiagnosticData"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerDiagnosticData.v1_1_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="ManagerDiagnosticData" BaseType="ManagerDiagnosticData.v1_1_2.ManagerDiagnosticData"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerDiagnosticData.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.3"/>
@@ -359,6 +372,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="ManagerDiagnosticData" BaseType="ManagerDiagnosticData.v1_2_1.ManagerDiagnosticData"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerDiagnosticData.v1_2_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="ManagerDiagnosticData" BaseType="ManagerDiagnosticData.v1_2_2.ManagerDiagnosticData"/>
     </Schema>
 
   </edmx:DataServices>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Outlet v1.4.2                                                       -->
+<!--# Redfish Schema:  Outlet v1.4.3                                                       -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -45,9 +45,10 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Outlet">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="Outlet" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The Outlet schema contains a definition for an electrical outlet."/>
+        <Annotation Term="OData.Description" String="The `Outlet` schema contains a definition for an electrical outlet."/>
         <Annotation Term="OData.LongDescription" String="This resource shall be used to represent an electrical outlet for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -101,7 +102,7 @@
         </Member>
         <Member Name="PowerCycle">
           <Annotation Term="OData.Description" String="Power cycle."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will transition to a power off state, then transition to a power on state.  Upon successful completion, the PowerState property, if supported, shall contain the value `On`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will transition to a power off state, then transition to a power on state.  Upon successful completion, the `PowerState` property, if supported, shall contain the value `On`."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -231,25 +232,25 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_1_0"/>
-                <PropertyValue Property="Description" String="This property has been deprecated in favor of the LocationIndicatorActive property."/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the `LocationIndicatorActive` property."/>
               </Record>
             </Collection>
           </Annotation>
         </Property>
         <Property Name="PowerOnDelaySeconds" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The number of seconds to delay power up after a power cycle or a PowerControl action.  Zero seconds indicates no delay to power up."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the number of seconds to delay power up after a power cycle or a PowerControl action.  The value `0` shall indicate no delay to power up."/>
+          <Annotation Term="OData.Description" String="The number of seconds to delay power up after a power cycle or a `PowerControl` action.  Zero seconds indicates no delay to power up."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of seconds to delay power up after a power cycle or a `PowerControl` action.  The value `0` shall indicate no delay to power up."/>
         </Property>
         <Property Name="PowerOffDelaySeconds" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The number of seconds to delay power off after a PowerControl action.  Zero seconds indicates no delay to power off."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the number of seconds to delay power off after a PowerControl action.  The value `0` shall indicate no delay to power off."/>
+          <Annotation Term="OData.Description" String="The number of seconds to delay power off after a `PowerControl` action.  Zero seconds indicates no delay to power off."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of seconds to delay power off after a `PowerControl` action.  The value `0` shall indicate no delay to power off."/>
         </Property>
         <Property Name="PowerCycleDelaySeconds" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The number of seconds to delay power on after a PowerControl action to cycle power.  Zero seconds indicates no delay."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the number of seconds to delay power on after a PowerControl action to cycle power.  The value `0` shall indicate no delay to power on."/>
+          <Annotation Term="OData.Description" String="The number of seconds to delay power on after a `PowerControl` action to cycle power.  Zero seconds indicates no delay."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of seconds to delay power on after a `PowerControl` action to cycle power.  The value `0` shall indicate no delay to power on."/>
         </Property>
         <Property Name="PowerRestoreDelaySeconds" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -259,7 +260,7 @@
         <Property Name="PowerRestorePolicy" Type="Circuit.PowerRestorePolicyTypes" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The desired power state of the outlet when power is restored after a power loss."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the desired PowerState of the outlet when power is applied.  The value `LastState` shall return the outlet to the PowerState it was in when power was lost."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the desired `PowerState` of the outlet when power is applied.  The value `LastState` shall return the outlet to the `PowerState` it was in when power was lost."/>
         </Property>
         <Property Name="PowerState" Type="Resource.PowerState">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -274,36 +275,36 @@
         <NavigationProperty Name="Voltage" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
           <Annotation Term="OData.Description" String="The voltage (V) for this single-phase outlet."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the voltage, in volt units, for this single-phase outlet.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Voltage`.  This property shall not appear in resource instances representing poly-phase outlets."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the voltage, in volt units, for this single-phase outlet.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Voltage`.  This property shall not appear in resource instances representing poly-phase outlets."/>
         </NavigationProperty>
         <NavigationProperty Name="CurrentAmps" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy" String="Current"/>
           <Annotation Term="OData.Description" String="The current (A) for this single-phase outlet."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the current, in ampere units, for this single-phase outlet.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Current`.  This property shall not appear in resource instances representing poly-phase outlets."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the current, in ampere units, for this single-phase outlet.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Current`.  This property shall not appear in resource instances representing poly-phase outlets."/>
         </NavigationProperty>
         <NavigationProperty Name="PowerWatts" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy" String="Power"/>
           <Annotation Term="OData.Description" String="The power (W) for this outlet."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the total power, in watt units, for this outlet that represents the `Total` ElectricalContext sensor when multiple power sensors exist for this outlet.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Power`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total power, in watt units, for this outlet that represents the `Total` `ElectricalContext` sensor when multiple power sensors exist for this outlet.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Power`."/>
         </NavigationProperty>
         <NavigationProperty Name="EnergykWh" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy" String="EnergykWh"/>
           <Annotation Term="OData.Description" String="The energy (kWh) for this outlet."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the total energy, in kilowatt-hour units, for this outlet that represents the `Total` ElectricalContext sensor when multiple energy sensors exist for this outlet.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `EnergykWh`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total energy, in kilowatt-hour units, for this outlet that represents the `Total` `ElectricalContext` sensor when multiple energy sensors exist for this outlet.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `EnergykWh`."/>
         </NavigationProperty>
         <NavigationProperty Name="FrequencyHz" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy"/>
           <Annotation Term="OData.Description" String="The frequency (Hz) for this outlet."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the frequency, in hertz units, for this outlet.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Frequency`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the frequency, in hertz units, for this outlet.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Frequency`."/>
         </NavigationProperty>
 
         <Property Name="PolyPhaseVoltage" Type="Outlet.v1_0_0.VoltageSensors">
           <Annotation Term="OData.Description" String="The voltage readings for this outlet."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the voltage readings for this outlet.  For single-phase outlets, this property shall contain a duplicate copy of the voltage sensor referenced in the Voltage property, if present.  For poly-phase outlets, this property should contain multiple voltage sensor readings used to fully describe the outlet."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the voltage readings for this outlet.  For single-phase outlets, this property shall contain a duplicate copy of the voltage sensor referenced in the `Voltage` property, if present.  For poly-phase outlets, this property should contain multiple voltage sensor readings used to fully describe the outlet."/>
         </Property>
         <Property Name="PolyPhaseCurrentAmps" Type="Outlet.v1_0_0.CurrentSensors">
           <Annotation Term="OData.Description" String="The current readings for this outlet."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the current readings for this outlet.  For single-phase outlets, this property shall contain a duplicate copy of the current sensor referenced in the CurrentAmps property, if present.  For poly-phase outlets, this property should contain multiple current sensor readings used to fully describe the outlet."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the current readings for this outlet.  For single-phase outlets, this property shall contain a duplicate copy of the current sensor referenced in the `CurrentAmps` property, if present.  For poly-phase outlets, this property should contain multiple current sensor readings used to fully describe the outlet."/>
         </Property>
 
         <Property Name="Links" Type="Outlet.v1_0_0.Links" Nullable="false">
@@ -322,7 +323,7 @@
         <NavigationProperty Name="BranchCircuit" Type="Circuit.Circuit">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A reference to the branch circuit related to this outlet."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Circuit that represent the branch circuit associated with this outlet."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `Circuit` that represent the branch circuit associated with this outlet."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -350,32 +351,32 @@
         <NavigationProperty Name="Line1ToLine2" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
           <Annotation Term="OData.Description" String="The Line 1 to Line 2 voltage (V) for this outlet."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the line-to-line voltage, in volt units, between L1 and L2.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Voltage`.  This property shall not be present if the equipment does not include an L1-L2 measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the line-to-line voltage, in volt units, between L1 and L2.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Voltage`.  This property shall not be present if the equipment does not include an L1-L2 measurement."/>
         </NavigationProperty>
         <NavigationProperty Name="Line2ToLine3" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
           <Annotation Term="OData.Description" String="The Line 2 to Line 3 voltage (V) for this outlet."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the line-to-line voltage, in volt units, between L2 and L3.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Voltage`.  This property shall not be present if the equipment does not include an L2-L3 measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the line-to-line voltage, in volt units, between L2 and L3.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Voltage`.  This property shall not be present if the equipment does not include an L2-L3 measurement."/>
         </NavigationProperty>
         <NavigationProperty Name="Line3ToLine1" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
           <Annotation Term="OData.Description" String="The Line 3 to Line 1 voltage (V) for this outlet."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the line-to-line voltage, in volt units, between L3 and L1.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Voltage`.  This property shall not be present if the equipment does not include an L3-L1 measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the line-to-line voltage, in volt units, between L3 and L1.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Voltage`.  This property shall not be present if the equipment does not include an L3-L1 measurement."/>
         </NavigationProperty>
         <NavigationProperty Name="Line1ToNeutral" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
           <Annotation Term="OData.Description" String="The Line 1 to Neutral voltage (V) for this outlet."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the line-to-line voltage, in volt units, between L1 and Neutral.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Voltage`.  This property shall not be present if the equipment does not include an L1-Neutral measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the line-to-line voltage, in volt units, between L1 and Neutral.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Voltage`.  This property shall not be present if the equipment does not include an L1-Neutral measurement."/>
         </NavigationProperty>
         <NavigationProperty Name="Line2ToNeutral" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
           <Annotation Term="OData.Description" String="The Line 2 to Neutral voltage (V) for this outlet."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the line-to-line voltage, in volt units, between L2 and Neutral.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Voltage`.  This property shall not be present if the equipment does not include an L2-Neutral measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the line-to-line voltage, in volt units, between L2 and Neutral.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Voltage`.  This property shall not be present if the equipment does not include an L2-Neutral measurement."/>
         </NavigationProperty>
         <NavigationProperty Name="Line3ToNeutral" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
           <Annotation Term="OData.Description" String="The Line 3 to Neutral voltage (V) for this outlet."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the line-to-line voltage, in volt units, between L3 and Neutral.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Voltage`.  This property shall not be present if the equipment does not include an L3-Neutral measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the line-to-line voltage, in volt units, between L3 and Neutral.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Voltage`.  This property shall not be present if the equipment does not include an L3-Neutral measurement."/>
         </NavigationProperty>
       </ComplexType>
 
@@ -386,22 +387,22 @@
         <NavigationProperty Name="Line1" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy" String="Current"/>
           <Annotation Term="OData.Description" String="Line 1 current (A)."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the line current, in ampere units, for L1.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Current`.  This property shall not be present if the equipment does not include an L1 measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the line current, in ampere units, for L1.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Current`.  This property shall not be present if the equipment does not include an L1 measurement."/>
         </NavigationProperty>
         <NavigationProperty Name="Line2" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy" String="Current"/>
           <Annotation Term="OData.Description" String="Line 2 current (A)."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the line current, in ampere units, for L2.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Current`.  This property shall not be present if the equipment does not include an L2 measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the line current, in ampere units, for L2.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Current`.  This property shall not be present if the equipment does not include an L2 measurement."/>
         </NavigationProperty>
         <NavigationProperty Name="Line3" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy" String="Current"/>
           <Annotation Term="OData.Description" String="Line 3 current (A)."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the line current, in ampere units, for L3.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Current`.  This property shall not be present if the equipment does not include an L3 measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the line current, in ampere units, for L3.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Current`.  This property shall not be present if the equipment does not include an L3 measurement."/>
         </NavigationProperty>
         <NavigationProperty Name="Neutral" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy" String="Current"/>
           <Annotation Term="OData.Description" String="Neutral line current (A)."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the line current, in ampere units, for the Neutral line.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Current`.  This property shall not be present if the equipment does not include a Neutral line measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the line current, in ampere units, for the Neutral line.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Current`.  This property shall not be present if the equipment does not include a Neutral line measurement."/>
         </NavigationProperty>
       </ComplexType>
 
@@ -429,13 +430,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Outlet.v1_0_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update descriptions to tie excerpt property definitions to a specific type of Sensor or Control."/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions to tie excerpt property definitions to a specific type of `Sensor` or `Control` resource."/>
       <EntityType Name="Outlet" BaseType="Outlet.v1_0_2.Outlet"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Outlet.v1_0_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the PowerState parameter in the PowerControl action to reference the common enumeration in the Circuit schema."/>
+      <Annotation Term="OData.Description" String="This version was created to update the `PowerState` parameter in the `PowerControl` action to reference the common enumeration in the `Circuit` schema."/>
       <EntityType Name="Outlet" BaseType="Outlet.v1_0_3.Outlet"/>
     </Schema>
 
@@ -445,16 +446,22 @@
       <EntityType Name="Outlet" BaseType="Outlet.v1_0_4.Outlet"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Outlet.v1_0_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Outlet" BaseType="Outlet.v1_0_5.Outlet"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Outlet.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.3"/>
-      <Annotation Term="OData.Description" String="This version was created to add LocationIndicatorActive and to deprecate IndicatorLED properties."/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate `IndicatorLED` property in favor of `LocationIndicatorActive`."/>
 
       <EntityType Name="Outlet" BaseType="Outlet.v1_0_1.Outlet">
         <Property Name="LocationIndicatorActive" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An indicator allowing an operator to physically locate this resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the state of the indicator used to physically identify or locate this resource.  A write to this property shall update the value of IndicatorLED in this resource, if supported, to reflect the implementation of the locating function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the state of the indicator used to physically identify or locate this resource.  A write to this property shall update the value of `IndicatorLED` in this resource, if supported, to reflect the implementation of the locating function."/>
         </Property>
       </EntityType>
     </Schema>
@@ -467,13 +474,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Outlet.v1_1_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update descriptions to tie excerpt property definitions to a specific type of Sensor or Control."/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions to tie excerpt property definitions to a specific type of `Sensor` or `Control` resource."/>
       <EntityType Name="Outlet" BaseType="Outlet.v1_1_1.Outlet"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Outlet.v1_1_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the PowerState parameter in the PowerControl action to reference the common enumeration in the Circuit schema."/>
+      <Annotation Term="OData.Description" String="This version was created to update the `PowerState` parameter in the `PowerControl` action to reference the common enumeration in the `Circuit` schema."/>
       <EntityType Name="Outlet" BaseType="Outlet.v1_1_2.Outlet"/>
     </Schema>
 
@@ -481,6 +488,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Outlet" BaseType="Outlet.v1_1_3.Outlet"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Outlet.v1_1_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Outlet" BaseType="Outlet.v1_1_4.Outlet"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Outlet.v1_2_0">
@@ -491,20 +504,20 @@
         <NavigationProperty Name="PowerLoadPercent" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy"/>
           <Annotation Term="OData.Description" String="The power load (percent) for this outlet."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the power load, in percent units, for this outlet that represents the `Total` ElectricalContext for this outlet.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Percent`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the power load, in percent units, for this outlet that represents the `Total` `ElectricalContext` for this outlet.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Percent`."/>
         </NavigationProperty>
       </EntityType>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Outlet.v1_2_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update descriptions to tie excerpt property definitions to a specific type of Sensor or Control."/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions to tie excerpt property definitions to a specific type of `Sensor` or `Control` resource."/>
       <EntityType Name="Outlet" BaseType="Outlet.v1_2_0.Outlet"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Outlet.v1_2_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the PowerState parameter in the PowerControl action to reference the common enumeration in the Circuit schema."/>
+      <Annotation Term="OData.Description" String="This version was created to update the `PowerState` parameter in the `PowerControl` action to reference the common enumeration in the `Circuit` schema."/>
       <EntityType Name="Outlet" BaseType="Outlet.v1_2_1.Outlet"/>
     </Schema>
 
@@ -512,6 +525,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Outlet" BaseType="Outlet.v1_2_2.Outlet"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Outlet.v1_2_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Outlet" BaseType="Outlet.v1_2_3.Outlet"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Outlet.v1_3_0">
@@ -535,19 +554,19 @@
         <NavigationProperty Name="DistributionCircuits" Type="Collection(Circuit.Circuit)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An array of links to mains or input circuits powered by this outlet."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Circuit that represent the circuits powered by this outlet.  This property is used to show a connection to an input circuit downstream in a power distribution chain."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Circuit` that represent the circuits powered by this outlet.  This property is used to show a connection to an input circuit downstream in a power distribution chain."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Chassis" Type="Collection(Chassis.Chassis)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="Any array of links to chassis connected to this outlet."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Chassis that represent the chassis connected to this outlet."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Chassis` that represent the chassis connected to this outlet."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="PowerSupplies" Type="Collection(PowerSupply.PowerSupply)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An array of links to the power supplies connected to this outlet."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type PowerSupply that represent the power supplies connected to this outlet."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `PowerSupply` that represent the power supplies connected to this outlet."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -555,13 +574,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Outlet.v1_3_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update descriptions to tie excerpt property definitions to a specific type of Sensor or Control."/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions to tie excerpt property definitions to a specific type of `Sensor` or `Control` resource."/>
       <EntityType Name="Outlet" BaseType="Outlet.v1_3_0.Outlet"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Outlet.v1_3_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the PowerState parameter in the PowerControl action to reference the common enumeration in the Circuit schema."/>
+      <Annotation Term="OData.Description" String="This version was created to update the `PowerState` parameter in the `PowerControl` action to reference the common enumeration in the `Circuit` schema."/>
       <EntityType Name="Outlet" BaseType="Outlet.v1_3_1.Outlet"/>
     </Schema>
 
@@ -571,16 +590,22 @@
       <EntityType Name="Outlet" BaseType="Outlet.v1_3_2.Outlet"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Outlet.v1_3_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Outlet" BaseType="Outlet.v1_3_3.Outlet"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Outlet.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
-      <Annotation Term="OData.Description" String="This version was created to add `PowerCycle` to the PowerState parameter of the PowerControl action."/>
+      <Annotation Term="OData.Description" String="This version was created to add `PowerCycle` to the `PowerState` parameter of the `PowerControl` action."/>
 
       <EntityType Name="Outlet" BaseType="Outlet.v1_3_1.Outlet">
         <Property Name="PowerControlLocked" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="Indicates whether power control requests are locked."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether requests to the PowerControl action are locked.  If `true`, services shall reject requests to the PowerControl action."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether requests to the `PowerControl` action are locked.  If `true`, services shall reject requests to the `PowerControl` action."/>
         </Property>
         <Property Name="ConfigurationLocked" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -590,14 +615,14 @@
         <Property Name="PowerStateInTransition" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Indicates whether the power state is undergoing a delayed transition."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the PowerState property will undergo a transition between on and off states due to a configured delay.  The transition may be due to the configuration of the power on, off, or restore delay properties.  If `true`, the PowerState property will transition at the conclusion of a configured delay."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the `PowerState` property will undergo a transition between on and off states due to a configured delay.  The transition may be due to the configuration of the power on, off, or restore delay properties.  If `true`, the `PowerState` property will transition at the conclusion of a configured delay."/>
         </Property>
       </EntityType>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Outlet.v1_4_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the PowerState parameter in the PowerControl action to reference the common enumeration in the Circuit schema."/>
+      <Annotation Term="OData.Description" String="This version was created to update the `PowerState` parameter in the `PowerControl` action to reference the common enumeration in the `Circuit` schema."/>
       <EntityType Name="Outlet" BaseType="Outlet.v1_4_0.Outlet"/>
     </Schema>
 
@@ -605,6 +630,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Outlet" BaseType="Outlet.v1_4_1.Outlet"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Outlet.v1_4_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Outlet" BaseType="Outlet.v1_4_2.Outlet"/>
     </Schema>
 
   </edmx:DataServices>

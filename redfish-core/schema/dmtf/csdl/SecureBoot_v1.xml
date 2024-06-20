@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  SecureBoot v1.1.1                                                   -->
+<!--# Redfish Schema:  SecureBoot v1.1.2                                                   -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -31,9 +31,10 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SecureBoot">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="SecureBoot" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The SecureBoot schema contains UEFI Secure Boot information and represents properties for managing the UEFI Secure Boot functionality of a system."/>
+        <Annotation Term="OData.Description" String="The `SecureBoot` schema contains UEFI Secure Boot information and represents properties for managing the UEFI Secure Boot functionality of a system."/>
         <Annotation Term="OData.LongDescription" String="This resource contains UEFI Secure Boot information for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -164,7 +165,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SecureBoot.v1_0_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add requirements on the action parameters to show they are mandatory through Nullable=false, and corrects the short and long descriptions in the defined actions."/>
+      <Annotation Term="OData.Description" String="This version was created to mark several action parameters as mandatory, and corrects the short and long descriptions in the defined actions."/>
       <EntityType Name="SecureBoot" BaseType="SecureBoot.v1_0_2.SecureBoot"/>
     </Schema>
 
@@ -198,6 +199,12 @@
       <EntityType Name="SecureBoot" BaseType="SecureBoot.v1_0_7.SecureBoot"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SecureBoot.v1_0_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="SecureBoot" BaseType="SecureBoot.v1_0_8.SecureBoot"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SecureBoot.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
@@ -206,7 +213,7 @@
         <NavigationProperty Name="SecureBootDatabases" Type="SecureBootDatabaseCollection.SecureBootDatabaseCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A link to the collection of UEFI Secure Boot databases."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a link to a resource collection of type SecureBootDatabaseCollection."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be a link to a resource collection of type `SecureBootDatabaseCollection`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -216,6 +223,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="SecureBoot" BaseType="SecureBoot.v1_1_0.SecureBoot"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SecureBoot.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="SecureBoot" BaseType="SecureBoot.v1_1_1.SecureBoot"/>
     </Schema>
 
   </edmx:DataServices>

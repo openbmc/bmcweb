@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  JsonSchemaFile v1.1.4                                               -->
+<!--# Redfish Schema:  JsonSchemaFile v1.1.5                                               -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -28,10 +28,11 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="JsonSchemaFile">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="JsonSchemaFile" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The JsonSchemaFile schema contains the properties that describe the locations, as URIs, of a Redfish Schema definition that a Redfish Service implements or references."/>
-        <Annotation Term="OData.LongDescription" String="This Resource shall represent the schema file locator Resource for a Redfish implementation."/>
+        <Annotation Term="OData.Description" String="The `JsonSchemaFile` schema contains the properties that describe the locations, as URIs, of a Redfish schema definition that a Redfish service implements or references."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent the schema file locator resource for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -53,7 +54,6 @@
           </Collection>
         </Annotation>
       </EntityType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="JsonSchemaFile.v1_0_0">
@@ -69,8 +69,8 @@
         </Property>
         <Property Name="Schema" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The @odata.type name this schema describes."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the @odata.type property value for that schema and shall conform to the Redfish Specification-specified syntax for the Type property."/>
+          <Annotation Term="OData.Description" String="The `@odata.type` name this schema describes."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the `@odata.type` property value for that schema and shall conform to the Redfish Specification-specified syntax for the 'Type' property."/>
           <Annotation Term="Redfish.Required"/>
         </Property>
         <Property Name="Location" Type="Collection(JsonSchemaFile.v1_0_0.Location)" Nullable="false">
@@ -92,28 +92,27 @@
         <Property Name="Uri" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to locally available URI for schema."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a URI colocated with the Redfish Service that specifies the location of the schema file, which can be retrieved using the Redfish protocol and authentication methods.  This property shall be used for only individual schema files.  The file name portion of the URI shall conform to the format specified in the Redfish Specification."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a URI colocated with the Redfish service that specifies the location of the schema file, which can be retrieved using the Redfish protocol and authentication methods.  This property shall be used for only individual schema files.  The file name portion of the URI shall conform to the format specified in the Redfish Specification."/>
           <Annotation Term="OData.IsURL"/>
         </Property>
         <Property Name="ArchiveUri" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to an archive file, if the schema is hosted on the service in an archive file."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a URI colocated with the Redfish Service that specifies the location of the schema file, which can be retrieved using the Redfish protocol and authentication methods.  This property shall be used for only archive files, in zip or other formats.  The ArchiveFile value shall be the individual schema file name within the archive file."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a URI colocated with the Redfish service that specifies the location of the schema file, which can be retrieved using the Redfish protocol and authentication methods.  This property shall be used for only archive files, in zip or other formats.  The `ArchiveFile` value shall be the individual schema file name within the archive file."/>
           <Annotation Term="OData.IsURL"/>
         </Property>
         <Property Name="PublicationUri" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to publicly available (canonical) URI for schema."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a URI not colocated with the Redfish Service that specifies the canonical location of the schema file.  This property shall be used for only individual schema files."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a URI not colocated with the Redfish service that specifies the canonical location of the schema file.  This property shall be used for only individual schema files."/>
           <Annotation Term="OData.IsURL"/>
         </Property>
         <Property Name="ArchiveFile" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The name of the file in the archive, if the schema is hosted on the service in an archive file."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the file name of the individual schema file within the archive file that the ArchiveUri property specifies.  The file name shall conform to the Redfish Specification-described format."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the file name of the individual schema file within the archive file that the `ArchiveUri` property specifies.  The file name shall conform to the Redfish Specification-described format."/>
         </Property>
       </ComplexType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="JsonSchemaFile.v1_0_2">
@@ -142,7 +141,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="JsonSchemaFile.v1_0_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the description of the Uri and ArchiveFile properties."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description of the `Uri` and `ArchiveFile` properties."/>
       <EntityType Name="JsonSchemaFile" BaseType="JsonSchemaFile.v1_0_5.JsonSchemaFile"/>
     </Schema>
 
@@ -154,34 +153,41 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="JsonSchemaFile.v1_0_8">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines.  It was also created to update the description of ArchiveUri and Uri."/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines.  It was also created to update the description of `ArchiveUri` and `Uri`."/>
       <EntityType Name="JsonSchemaFile" BaseType="JsonSchemaFile.v1_0_7.JsonSchemaFile"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="JsonSchemaFile.v1_0_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="JsonSchemaFile" BaseType="JsonSchemaFile.v1_0_8.JsonSchemaFile"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="JsonSchemaFile.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
+
       <EntityType Name="JsonSchemaFile" BaseType="JsonSchemaFile.v1_0_4.JsonSchemaFile">
         <Property Name="Actions" Type="JsonSchemaFile.v1_1_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
         <Property Name="Oem" Type="JsonSchemaFile.v1_1_0.OemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
       </ComplexType>
     </Schema>
 
@@ -193,7 +199,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="JsonSchemaFile.v1_1_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the description of the Uri and ArchiveFile properties."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description of the `Uri` and `ArchiveFile` properties."/>
       <EntityType Name="JsonSchemaFile" BaseType="JsonSchemaFile.v1_1_1.JsonSchemaFile"/>
     </Schema>
 
@@ -205,8 +211,14 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="JsonSchemaFile.v1_1_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines.  It was also created to update the description of ArchiveUri and Uri."/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines.  It was also created to update the description of `ArchiveUri` and `Uri`."/>
       <EntityType Name="JsonSchemaFile" BaseType="JsonSchemaFile.v1_1_3.JsonSchemaFile"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="JsonSchemaFile.v1_1_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="JsonSchemaFile" BaseType="JsonSchemaFile.v1_1_4.JsonSchemaFile"/>
     </Schema>
 
   </edmx:DataServices>

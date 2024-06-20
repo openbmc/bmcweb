@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ContainerImage v1.0.0                                               -->
+<!--# Redfish Schema:  ContainerImage v1.0.1                                               -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -39,9 +39,10 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ContainerImage">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="ContainerImage" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The ContainerImage schema represents a container image available to a computer system."/>
+        <Annotation Term="OData.Description" String="The `ContainerImage` schema represents a container image available to a computer system."/>
         <Annotation Term="OData.LongDescription" String="This resource shall represent a container image available to a computer system."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -134,13 +135,13 @@
         <NavigationProperty Name="SoftwareImage" Type="SoftwareInventory.SoftwareInventory" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the software image for this container image."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type SoftwareInventory that represents the software image for this container image."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `SoftwareInventory` that represents the software image for this container image."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Containers" Type="Collection(Container.Container)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The array of links to the containers running from this container image."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Container that represent the container instances running from this container image."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Container` that represent the container instances running from this container image."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -160,6 +161,12 @@
         <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ContainerImage.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="ContainerImage" BaseType="ContainerImage.v1_0_0.ContainerImage"/>
     </Schema>
 
   </edmx:DataServices>

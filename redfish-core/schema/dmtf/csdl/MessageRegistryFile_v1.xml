@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  MessageRegistryFile v1.1.4                                          -->
+<!--# Redfish Schema:  MessageRegistryFile v1.1.5                                          -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -28,9 +28,10 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistryFile">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="MessageRegistryFile" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The MessageRegistryFile schema describes the registry file locator resource.  This referenced registry file can be any type of registry, such as a message registry, privilege registry, or attribute registry."/>
+        <Annotation Term="OData.Description" String="The `MessageRegistryFile` schema describes the registry file locator resource.  This referenced registry file can be any type of registry, such as a message registry, privilege registry, or attribute registry."/>
         <Annotation Term="OData.LongDescription" String="This resource shall represent the registry file locator for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -68,7 +69,7 @@
         </Property>
         <Property Name="Registry" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The registry name and its major and minor versions.  This registry can be any type of registry, such as a message registry, privilege registry, or attribute rgistry."/>
+          <Annotation Term="OData.Description" String="The registry name and its major and minor versions.  This registry can be any type of registry, such as a message registry, privilege registry, or attribute registry."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the registry name and it major and minor versions, as defined by the Redfish Specification.  This registry can be any type of registry, such as message registry, privilege registry, or attribute registry."/>
           <Annotation Term="Redfish.Required"/>
         </Property>
@@ -97,7 +98,7 @@
         <Property Name="ArchiveUri" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="If the registry is hosted on the service in an archive file, the link to the archive file."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a URI that is colocated with the Redfish service that specifies the location of the registry file, which can be retrieved using the Redfish protocol and authentication methods.  This property shall be used for only ZIP or other archive files.  The ArchiveFile property shall contain the file name of the individual registry file within the archive file."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a URI that is colocated with the Redfish service that specifies the location of the registry file, which can be retrieved using the Redfish protocol and authentication methods.  This property shall be used for only ZIP or other archive files.  The `ArchiveFile` property shall contain the file name of the individual registry file within the archive file."/>
           <Annotation Term="OData.IsURL"/>
         </Property>
         <Property Name="PublicationUri" Type="Edm.String" Nullable="false">
@@ -109,7 +110,7 @@
         <Property Name="ArchiveFile" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="If the service hosts the registry in an archive file, the name of the file within the archive."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the file name of the individual registry file within the archive file specified by the ArchiveUri property.  The file name shall conform to the Redfish Specification-specified syntax."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the file name of the individual registry file within the archive file specified by the `ArchiveUri` property.  The file name shall conform to the Redfish Specification-specified syntax."/>
         </Property>
       </ComplexType>
     </Schema>
@@ -154,6 +155,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="MessageRegistryFile" BaseType="MessageRegistryFile.v1_0_7.MessageRegistryFile"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistryFile.v1_0_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="MessageRegistryFile" BaseType="MessageRegistryFile.v1_0_8.MessageRegistryFile"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistryFile.v1_1_0">
@@ -206,6 +213,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="MessageRegistryFile" BaseType="MessageRegistryFile.v1_1_3.MessageRegistryFile"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistryFile.v1_1_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="MessageRegistryFile" BaseType="MessageRegistryFile.v1_1_4.MessageRegistryFile"/>
     </Schema>
 
   </edmx:DataServices>

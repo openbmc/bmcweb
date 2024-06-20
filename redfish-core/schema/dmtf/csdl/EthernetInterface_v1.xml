@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  EthernetInterface v1.12.0                                           -->
+<!--# Redfish Schema:  EthernetInterface v1.12.1                                           -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -57,9 +57,10 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="EthernetInterface" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The EthernetInterface schema represents a single, logical Ethernet interface or network interface controller (NIC)."/>
+        <Annotation Term="OData.Description" String="The `EthernetInterface` schema represents a single, logical Ethernet interface or network interface controller (NIC)."/>
         <Annotation Term="OData.LongDescription" String="This resource contains NIC resources as part of the Redfish Specification."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -126,7 +127,7 @@
         <Property Name="SpeedMbps" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The current speed, in Mbit/s, of this interface."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the link speed of the interface, in megabits per second (Mbit/s) units.  This property shall be writable only when the AutoNeg property is `false`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the link speed of the interface, in megabits per second (Mbit/s) units.  This property shall be writable only when the `AutoNeg` property is `false`."/>
           <Annotation Term="Measures.Unit" String="Mbit/s"/>
         </Property>
         <Property Name="AutoNeg" Type="Edm.Boolean">
@@ -142,12 +143,12 @@
         <Property Name="MTUSize" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The currently configured maximum transmission unit (MTU), in bytes, on this interface."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the size, in bytes, of the largest protocol data unit (PDU) that can be passed in an Ethernet (MAC) frame on this interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the size, in bytes, of the largest protocol data unit (PDU) that can be passed in an Ethernet (MAC) frame on this interface, as currently configured by the operating system or driver."/>
         </Property>
         <Property Name="HostName" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The DNS host name, without any domain information."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the DNS host name for this interface.  Modifying this property may modify the HostName in one or more EthernetInterface resources that belong to the same system, manager, or other device.  If this interface is subordinate to a ComputerSystem resource, modifying this property may modify the HostName of the ComputerSystem resource that contains this interface.  If this interface is subordinate to a Manager resource, modifying this property may modify the HostName of the ManagerNetworkProtocol resource of the Manager resource that contains this interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the DNS host name for this interface.  Modifying this property may modify the `HostName` in one or more `EthernetInterface` resources that belong to the same system, manager, or other device.  If this interface is subordinate to a `ComputerSystem` resource, modifying this property may modify the `HostName` of the `ComputerSystem` resource that contains this interface.  If this interface is subordinate to a `Manager` resource, modifying this property may modify the `HostName` of the `ManagerNetworkProtocol` resource of the `Manager` resource that contains this interface."/>
         </Property>
         <Property Name="FQDN" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -157,15 +158,15 @@
         <Property Name="MaxIPv6StaticAddresses" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The maximum number of static IPv6 addresses that can be configured on this interface."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate the number of array items supported by IPv6StaticAddresses, or the maximum number of static IPv6 addresses that can be configured on this interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the number of array items supported by `IPv6StaticAddresses`, or the maximum number of static IPv6 addresses that can be configured on this interface."/>
         </Property>
         <Property Name="VLAN" Type="VLanNetworkInterface.VLAN" Nullable="false">
-          <Annotation Term="OData.Description" String="If this network interface supports more than one VLAN, this property is absent.  VLAN collections appear in the Links property of this resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the VLAN for this interface.  If this interface supports more than one VLAN, the VLAN property shall be absent and, instead, the VLAN collection link shall be present."/>
+          <Annotation Term="OData.Description" String="If this network interface supports more than one VLAN, this property is absent.  VLAN collections appear in the `Links` property of this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the VLAN for this interface.  If this interface supports more than one VLAN, the `VLAN` property shall be absent and, instead, the VLAN collection link shall be present."/>
         </Property>
         <Property Name="IPv4Addresses" Type="Collection(IPAddresses.IPv4Address)" Nullable="false">
           <Annotation Term="OData.Description" String="The IPv4 addresses currently in use by this interface."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of objects that represent the IPv4 connection characteristics currently in use by this interface for any value of AddressOrigin.  It is recommended that this property be regarded as read-only with configuration of static addresses performed by updating the values within IPv4StaticAddresses.  Services may reject updates to this array for this reason."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of objects that represent the IPv4 connection characteristics currently in use by this interface for any value of `AddressOrigin`.  It is recommended that this property be regarded as read-only with configuration of static addresses performed by updating the values within `IPv4StaticAddresses`.  Services may reject updates to this array for this reason."/>
         </Property>
         <Property Name="IPv6AddressPolicyTable" Type="Collection(EthernetInterface.v1_0_0.IPv6AddressPolicyEntry)">
           <Annotation Term="OData.Description" String="An array that represents the RFC6724-defined address selection policy table."/>
@@ -173,10 +174,10 @@
         </Property>
         <Property Name="IPv6Addresses" Type="Collection(IPAddresses.IPv6Address)" Nullable="false">
           <Annotation Term="OData.Description" String="The IPv6 addresses currently in use by this interface."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of objects that represent the IPv6 connection characteristics for this interface for any value of AddressOrigin."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of objects that represent the IPv6 connection characteristics for this interface for any value of  `AddressOrigin`."/>
         </Property>
         <Property Name="IPv6StaticAddresses" Type="Collection(IPAddresses.IPv6StaticAddress)">
-          <Annotation Term="OData.Description" String="The IPv6 static addresses assigned to this interface.  See IPv6Addresses for the addresses in use by this interface."/>
+          <Annotation Term="OData.Description" String="The IPv6 static addresses assigned to this interface.  See `IPv6Addresses` for the addresses in use by this interface."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain an array of objects that represent the IPv6 static connection characteristics for this interface."/>
         </Property>
         <Property Name="IPv6DefaultGateway" Type="Edm.String">
@@ -192,8 +193,8 @@
         </Property>
         <NavigationProperty Name="VLANs" Type="VLanNetworkInterfaceCollection.VLanNetworkInterfaceCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The link to a collection of VLANs, which applies only if the interface supports more than one VLAN.  If this property applies, the VLANEnabled and VLANId properties do not apply."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type VLanNetworkInterfaceCollection, which applies only if the interface supports more than one VLAN.  If this property is present, the VLANEnabled and VLANId properties shall not be present."/>
+          <Annotation Term="OData.Description" String="The link to a collection of VLANs, which applies only if the interface supports more than one VLAN.  If this property applies, the `VLANEnabled` and `VLANId` properties do not apply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `VLanNetworkInterfaceCollection`, which applies only if the interface supports more than one VLAN.  If this property is present, the `VLANEnabled` and `VLANId` properties shall not be present."/>
           <Annotation Term="OData.AutoExpandReferences"/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
@@ -258,7 +259,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_0_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change IPAddresses and VLanNetworkInterface structures to their abstract base types."/>
+      <Annotation Term="OData.Description" String="This version was created to change IP address properties and the `VLAN` property to their abstract base types."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_0_4.EthernetInterface"/>
     </Schema>
 
@@ -276,7 +277,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_0_8">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to allow for `null` to be used in several writable properties that are arrays.  It was also created to update the description for the SpeedMbps property.  It was also created to update descriptions that this schema defines."/>
+      <Annotation Term="OData.Description" String="This version was created to allow for `null` to be used in several writable properties that are arrays.  It was also created to update the description for the `SpeedMbps` property.  It was also created to update descriptions that this schema defines."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_0_7.EthernetInterface"/>
     </Schema>
 
@@ -312,7 +313,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_0_14">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the description for HostName to show there might be a tie to the HostName of the containing ComputerSystem resource or other EthernetInterface resources."/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for `HostName` to show there might be a tie to the `HostName` of the containing `ComputerSystem` resource or other `EthernetInterface` resources."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_0_13.EthernetInterface"/>
     </Schema>
 
@@ -320,6 +321,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_0_14.EthernetInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_0_16">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the context of `MTUSize`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_0_15.EthernetInterface"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_1_0">
@@ -357,7 +364,7 @@
         <NavigationProperty Name="Endpoints" Type="Collection(Endpoint.Endpoint)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the endpoints that connect to this Ethernet interface."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Endpoint with which this Ethernet interface is associated."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Endpoint` with which this Ethernet interface is associated."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -371,13 +378,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_1_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to remove the Nullable facet from NavigationProperties of the Collection type."/>
+      <Annotation Term="OData.Description" String="This version was created to remove the nullable term on arrays of links."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_1_1.EthernetInterface"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_1_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change IPAddresses and VLanNetworkInterface structures to their abstract base types."/>
+      <Annotation Term="OData.Description" String="This version was created to change IP address properties and the `VLAN` property to their abstract base types."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_1_2.EthernetInterface"/>
     </Schema>
 
@@ -395,7 +402,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_1_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to allow for `null` to be used in several writable properties that are arrays.  It was also created to update the description for the SpeedMbps property.  It was also created to update descriptions that this schema defines."/>
+      <Annotation Term="OData.Description" String="This version was created to allow for `null` to be used in several writable properties that are arrays.  It was also created to update the description for the `SpeedMbps` property.  It was also created to update descriptions that this schema defines."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_1_5.EthernetInterface"/>
     </Schema>
 
@@ -431,7 +438,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_1_12">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the description for HostName to show there might be a tie to the HostName of the containing ComputerSystem resource or other EthernetInterface resources."/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for `HostName` to show there might be a tie to the `HostName` of the containing `ComputerSystem` resource or other `EthernetInterface` resources."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_1_11.EthernetInterface"/>
     </Schema>
 
@@ -439,6 +446,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_1_12.EthernetInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_1_14">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the context of `MTUSize`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_1_13.EthernetInterface"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_2_0">
@@ -451,7 +464,7 @@
         <NavigationProperty Name="HostInterface" Type="HostInterface.HostInterface" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to a Host Interface that is associated with this Ethernet interface."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type HostInterface that represents the interface that a host uses to communicate with a manager."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `HostInterface` that represents the interface that a host uses to communicate with a manager."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -459,13 +472,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_2_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to remove the Nullable facet on NavigationProperties of the Collection type."/>
+      <Annotation Term="OData.Description" String="This version was created to remove the nullable term on arrays of links."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_2_0.EthernetInterface"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_2_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change IPAddresses and VLanNetworkInterface structures to their abstract base types."/>
+      <Annotation Term="OData.Description" String="This version was created to change IP address properties and the `VLAN` property to their abstract base types."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_2_1.EthernetInterface"/>
     </Schema>
 
@@ -483,7 +496,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_2_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to allow for `null` to be used in several writable properties that are arrays.  It was also created to update the description for the SpeedMbps property.  It was also created to update descriptions that this schema defines."/>
+      <Annotation Term="OData.Description" String="This version was created to allow for `null` to be used in several writable properties that are arrays.  It was also created to update the description for the `SpeedMbps` property.  It was also created to update descriptions that this schema defines."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_2_4.EthernetInterface"/>
     </Schema>
 
@@ -519,7 +532,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_2_11">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the description for HostName to show there might be a tie to the HostName of the containing ComputerSystem resource or other EthernetInterface resources."/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for `HostName` to show there might be a tie to the `HostName` of the containing `ComputerSystem` resource or other `EthernetInterface` resources."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_2_10.EthernetInterface"/>
     </Schema>
 
@@ -527,6 +540,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_2_11.EthernetInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_2_13">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the context of `MTUSize`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_2_12.EthernetInterface"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_3_0">
@@ -544,7 +563,7 @@
         <NavigationProperty Name="Chassis" Type="Chassis.Chassis" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the chassis that contains this Ethernet interface."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Chassis that represent the physical container associated with this Ethernet interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `Chassis` that represent the physical container associated with this Ethernet interface."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -568,7 +587,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_3_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change IPAddresses and VLanNetworkInterface structures to their abstract base types."/>
+      <Annotation Term="OData.Description" String="This version was created to change IP address properties and the `VLAN` property to their abstract base types."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_3_0.EthernetInterface"/>
     </Schema>
 
@@ -586,7 +605,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_3_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to allow for `null` to be used in several writable properties that are arrays.  It was also created to update the description for the SpeedMbps property.  It was also created to update descriptions that this schema defines."/>
+      <Annotation Term="OData.Description" String="This version was created to allow for `null` to be used in several writable properties that are arrays.  It was also created to update the description for the `SpeedMbps` property.  It was also created to update descriptions that this schema defines."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_3_3.EthernetInterface"/>
     </Schema>
 
@@ -622,7 +641,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_3_10">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the description for HostName to show there might be a tie to the HostName of the containing ComputerSystem resource or other EthernetInterface resources."/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for `HostName` to show there might be a tie to the `HostName` of the containing `ComputerSystem` resource or other `EthernetInterface` resources."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_3_9.EthernetInterface"/>
     </Schema>
 
@@ -630,6 +649,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_3_10.EthernetInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_3_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the context of `MTUSize`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_3_11.EthernetInterface"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_4_0">
@@ -659,8 +684,8 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the statically-defined set of DNS server IP addresses to use when DHCP provisioning is not enabled for name server configuration.  As an implementation option, they can be used in addition to DHCP-provided addresses, or in cases where the DHCP server provides no DNS assignments."/>
         </Property>
         <Property Name="IPv4StaticAddresses" Type="Collection(IPAddresses.IPv4Address)">
-          <Annotation Term="OData.Description" String="The IPv4 static addresses assigned to this interface.  See IPv4Addresses for the addresses in use by this interface."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of objects that represent all IPv4 static addresses assigned to, but not necessarily in use by, this interface.  The IPv4Addresses property shall also list the addresses that this interface uses."/>
+          <Annotation Term="OData.Description" String="The IPv4 static addresses assigned to this interface.  See `IPv4Addresses` for the addresses in use by this interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of objects that represent all IPv4 static addresses assigned to, but not necessarily in use by, this interface.  The `IPv4Addresses` property shall also list the addresses that this interface uses."/>
         </Property>
       </EntityType>
 
@@ -747,7 +772,7 @@
         </Member>
         <Member Name="Stateless">
           <Annotation Term="OData.Description" String="DHCPv6 stateless mode."/>
-          <Annotation Term="OData.LongDescription" String="DHCPv6 shall operate in stateless mode on this interface.  DHCPv6 stateless mode allows configuring the interface using DHCP options but does not configure addresses.  It is always enabled by default whenever DHCPv6 Stateful mode is also enabled.  Services may replace this value with `Enabled`."/>
+          <Annotation Term="OData.LongDescription" String="DHCPv6 shall operate in stateless mode on this interface.  DHCPv6 stateless mode allows configuring the interface using DHCP options but does not configure addresses.  It is always enabled by default whenever DHCPv6 stateful mode is also enabled.  Services may replace this value with `Enabled`."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -807,7 +832,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_4_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to allow for `null` to be used in several writable properties that are arrays.  It was also created to update the description for the SpeedMbps property.  It was also created to update descriptions that this schema defines."/>
+      <Annotation Term="OData.Description" String="This version was created to allow for `null` to be used in several writable properties that are arrays.  It was also created to update the description for the `SpeedMbps` property.  It was also created to update descriptions that this schema defines."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_4_2.EthernetInterface"/>
     </Schema>
 
@@ -843,7 +868,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_4_9">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the description for HostName to show there might be a tie to the HostName of the containing ComputerSystem resource or other EthernetInterface resources."/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for `HostName` to show there might be a tie to the `HostName` of the containing `ComputerSystem` resource or other `EthernetInterface` resources."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_4_8.EthernetInterface"/>
     </Schema>
 
@@ -851,6 +876,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_4_9.EthernetInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_4_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the context of `MTUSize`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_4_10.EthernetInterface"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_5_0">
@@ -869,8 +900,8 @@
 
       <EnumType Name="DHCPFallback">
         <Member Name="Static">
-          <Annotation Term="OData.Description" String="Fall back to a static address specified by IPv4StaticAddresses."/>
-          <Annotation Term="OData.LongDescription" String="DHCP shall fall back to a static address specified by IPv4StaticAddresses."/>
+          <Annotation Term="OData.Description" String="Fall back to a static address specified by `IPv4StaticAddresses`."/>
+          <Annotation Term="OData.LongDescription" String="DHCP shall fall back to a static address specified by `IPv4StaticAddresses`."/>
         </Member>
         <Member Name="AutoConfig">
           <Annotation Term="OData.Description" String="Fall back to an autoconfigured address."/>
@@ -885,7 +916,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_5_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to allow for `null` to be used in several writable properties that are arrays.  It was also created to update the description for the SpeedMbps property.  It was also created to update descriptions that this schema defines."/>
+      <Annotation Term="OData.Description" String="This version was created to allow for `null` to be used in several writable properties that are arrays.  It was also created to update the description for the `SpeedMbps` property.  It was also created to update descriptions that this schema defines."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_5_0.EthernetInterface"/>
     </Schema>
 
@@ -921,7 +952,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_5_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the description for HostName to show there might be a tie to the HostName of the containing ComputerSystem resource or other EthernetInterface resources."/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for `HostName` to show there might be a tie to the `HostName` of the containing `ComputerSystem` resource or other `EthernetInterface` resources."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_5_6.EthernetInterface"/>
     </Schema>
 
@@ -929,6 +960,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_5_7.EthernetInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_5_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the context of `MTUSize`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_5_8.EthernetInterface"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_6_0">
@@ -947,14 +984,14 @@
         <NavigationProperty Name="NetworkDeviceFunction" Type="NetworkDeviceFunction.NetworkDeviceFunction">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the parent network device function and is only used when representing one of the VLANs on that network device function, such as is done in Unix."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type NetworkDeviceFunction and only be populated with the EthernetInterfaceType property is `Virtual`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `NetworkDeviceFunction` and only be populated with the `EthernetInterfaceType` property is `Virtual`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_7_0"/>
-                <PropertyValue Property="Description" String="This property has been deprecated in favor of NetworkDeviceFunctions as each EthernetInterface could represent more than one NetworkDeviceFunction."/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of `NetworkDeviceFunctions` as each `EthernetInterface` could represent more than one `NetworkDeviceFunction`."/>
               </Record>
             </Collection>
           </Annotation>
@@ -968,7 +1005,7 @@
         </Member>
         <Member Name="Virtual">
           <Annotation Term="OData.Description" String="A virtual Ethernet interface."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a network device function has multiple VLANs and is representing one of them as a virtual Ethernet interface.  The NetworkDeviceFunction property within Links shall contain the locator for the parent network device function."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a network device function has multiple VLANs and is representing one of them as a virtual Ethernet interface.  The `NetworkDeviceFunction` property within Links shall contain the locator for the parent network device function."/>
         </Member>
       </EnumType>
     </Schema>
@@ -999,7 +1036,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_6_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the description for HostName to show there might be a tie to the HostName of the containing ComputerSystem resource or other EthernetInterface resources."/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for `HostName` to show there might be a tie to the `HostName` of the containing `ComputerSystem` resource or other `EthernetInterface` resources."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_6_4.EthernetInterface"/>
     </Schema>
 
@@ -1009,10 +1046,16 @@
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_6_5.EthernetInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_6_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the context of `MTUSize`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_6_6.EthernetInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
-      <Annotation Term="OData.Description" String="This version was created to deprecate several properties and add NetworkDeviceFunctions link collection."/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate several properties and add `NetworkDeviceFunctions` link collection."/>
 
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_6_4.EthernetInterface"/>
 
@@ -1020,7 +1063,7 @@
         <NavigationProperty Name="NetworkDeviceFunctions" Type="Collection(NetworkDeviceFunction.NetworkDeviceFunction)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the network device functions that constitute this Ethernet interface."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type NetworkDeviceFunction."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `NetworkDeviceFunction`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -1028,7 +1071,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_7_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the description for HostName to show there might be a tie to the HostName of the containing ComputerSystem resource or other EthernetInterface resources."/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for `HostName` to show there might be a tie to the `HostName` of the containing `ComputerSystem` resource or other `EthernetInterface` resources."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_7_0.EthernetInterface"/>
     </Schema>
 
@@ -1038,17 +1081,23 @@
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_7_1.EthernetInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_7_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the context of `MTUSize`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_7_2.EthernetInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
-      <Annotation Term="OData.Description" String="This version was created to deprecate the `Stateless` and `Stateful` values for DHCPv6 OperatingMode and add `Enabled` to DHCPv6 OperatingMode."/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate the `Stateless` and `Stateful` values for `OperatingMode` in `DHCPv6` and add `Enabled` to `OperatingMode` in `DHCPv6`."/>
 
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_7_0.EthernetInterface"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_8_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the description for HostName to show there might be a tie to the HostName of the containing ComputerSystem resource or other EthernetInterface resources."/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for `HostName` to show there might be a tie to the `HostName` of the containing `ComputerSystem` resource or other `EthernetInterface` resources."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_8_0.EthernetInterface"/>
     </Schema>
 
@@ -1056,6 +1105,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_8_1.EthernetInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_8_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the context of `MTUSize`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_8_2.EthernetInterface"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_9_0">
@@ -1074,13 +1129,13 @@
         <NavigationProperty Name="Ports" Type="Collection(Port.Port)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The links to the ports providing this Ethernet interface."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Port that represent the ports providing this Ethernet interface.  This property shall not be present if the Ethernet interface is not directly associated to a physical port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Port` that represent the ports providing this Ethernet interface.  This property shall not be present if the Ethernet interface is not directly associated to a physical port."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="RelatedInterfaces" Type="Collection(EthernetInterface.EthernetInterface)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The links to the Ethernet interfaces that constitute this Ethernet interface."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type EthernetInterface.  If TeamMode contains `None`, this property shall contain one member that represents the parent interface for the VLAN.  For other values of TeamMode, this property shall contain the members of the team."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `EthernetInterface`.  If `TeamMode` contains `None`, this property shall contain one member that represents the parent interface for the VLAN.  For other values of TeamMode, this property shall contain the members of the team."/>
           <Annotation Term="OData.AutoExpandReferences"/>
           <Annotation Term="Redfish.RequiredOnCreate"/>
         </NavigationProperty>
@@ -1116,7 +1171,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_9_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the description for HostName to show there might be a tie to the HostName of the containing ComputerSystem resource or other EthernetInterface resources."/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for `HostName` to show there might be a tie to the `HostName` of the containing `ComputerSystem` resource or other `EthernetInterface` resources."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_9_0.EthernetInterface"/>
     </Schema>
 
@@ -1124,6 +1179,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_9_1.EthernetInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_9_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the context of `MTUSize`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_9_2.EthernetInterface"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_10_0">
@@ -1136,7 +1197,7 @@
         <NavigationProperty Name="AffiliatedInterfaces" Type="Collection(EthernetInterface.EthernetInterface)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The links to the Ethernet interfaces that are affiliated with this interface, such as a VLAN or a team that uses this interface."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type EthernetInterface that represent the Ethernet interfaces that are affiliated with this interface.  EthernetInterface resources referenced in this property shall reference this resource in their RelatedInterfaces property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `EthernetInterface` that represent the Ethernet interfaces that are affiliated with this interface.  `EthernetInterface` resources referenced in this property shall reference this resource in their `RelatedInterfaces` property."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -1146,6 +1207,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_10_0.EthernetInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_10_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the context of `MTUSize`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_10_1.EthernetInterface"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_11_0">
@@ -1186,6 +1253,12 @@
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_11_0.EthernetInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_11_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the context of `MTUSize`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_11_1.EthernetInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_12_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.3"/>
@@ -1197,6 +1270,12 @@
           <Annotation Term="OData.LongDescription" String="This property shall indicate whether IPv6 is enabled on this interface.  If this property contains `false`, the interface shall not contain any assigned IPv6 addresses, shall not initiate DHCPv6 requests, and shall not send or process ICMPv6 packets.  If this property is not present, but this interface contains other IPv6 properties, the value shall be assumed to be `true`."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_12_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the context of `MTUSize`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_12_0.EthernetInterface"/>
     </Schema>
 
   </edmx:DataServices>
