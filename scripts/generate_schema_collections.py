@@ -22,9 +22,6 @@ WARNING = """/****************************************************************
  ***************************************************************/"""
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
-REDFISH_SCHEMA_DIR = os.path.realpath(
-    os.path.join(SCRIPT_DIR, "..", "static", "redfish", "v1", "schema")
-)
 CPP_OUTFILE = os.path.realpath(
     os.path.join(
         SCRIPT_DIR, "..", "redfish-core", "include", "aggregation_utils.hpp"
@@ -39,8 +36,19 @@ EDM = "{http://docs.oasis-open.org/odata/ns/edm}"
 seen_paths = set()
 
 
+def resolve_filename(xml_file):
+    for root, dirs, files in os.walk(
+        os.path.join(SCRIPT_DIR, "..", "redfish-core", "schema")
+    ):
+        for csdl_file in files:
+            if csdl_file == xml_file:
+                return os.path.join(root, csdl_file)
+    raise Exception(f"Could not resolve {xml_file} in search folders")
+
+
 def parse_node(target_entitytype, path, top_collections, found_top, xml_file):
-    filepath = os.path.join(REDFISH_SCHEMA_DIR, xml_file)
+
+    filepath = resolve_filename(xml_file)
     tree = ET.parse(filepath)
     root = tree.getroot()
 

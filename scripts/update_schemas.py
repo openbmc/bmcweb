@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import os
 import shutil
-import xml.etree.ElementTree as ET
 import zipfile
 from collections import OrderedDict, defaultdict
 from io import BytesIO
@@ -22,24 +21,6 @@ WARNING = """/****************************************************************
  * should be first pushed to the relevant registry in the DMTF
  * github organization.
  ***************************************************************/"""
-
-# OEM schemas
-oem_schema_names = [
-    "OemAssembly",
-    "OemManager",
-    "OemManagerAccount",
-    "OemComputerSystem",
-    "OemVirtualMedia",
-    "OpenBMCAccountService",
-    "OemMessage",
-    "OemUpdateService",
-    "OemPCIeSlots",
-    "OemFabricAdapter",
-    "OemServiceRoot",
-    "OemPCIeDevice",
-    "OemLogEntry",
-    "OemLogEntryAttachment",
-]
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 
@@ -65,9 +46,12 @@ cpp_path = os.path.realpath(
 )
 
 
-schema_path = os.path.join(static_path, "schema")
-json_schema_path = os.path.join(static_path, "JsonSchemas")
-metadata_index_path = os.path.join(static_path, "$metadata", "index.xml")
+schema_path = os.path.join(
+    SCRIPT_DIR, "..", "redfish-core", "schema", "dmtf", "csdl"
+)
+json_schema_path = os.path.join(
+    SCRIPT_DIR, "..", "redfish-core", "schema", "dmtf", "json-schema"
+)
 
 zipBytesIO = BytesIO(r.content)
 zip_ref = zipfile.ZipFile(zipBytesIO)
@@ -120,10 +104,6 @@ if os.path.exists(json_schema_path):
             os.remove(f)
         else:
             shutil.rmtree(f)
-try:
-    os.remove(metadata_index_path)
-except FileNotFoundError:
-    pass
 
 if not os.path.exists(schema_path):
     os.makedirs(schema_path)
@@ -155,88 +135,26 @@ for key, value in json_schema_files.items():
 json_schema_files = OrderedDict(
     sorted(json_schema_files.items(), key=lambda x: SchemaVersion(x[0]))
 )
-
-csdl_filenames.sort(key=SchemaVersion)
-
-# Create oem filenames - from oem json names
-oem_csdl_filenames = []
-for filename in oem_schema_names:
-    oem_csdl_filenames.append(filename + "_v1.xml")
-
-# Append Oem csdl files
-csdl_filenames += oem_csdl_filenames
-
-with open(metadata_index_path, "w") as metadata_index:
-    metadata_index.write('<?xml version="1.0" encoding="UTF-8"?>\n')
-    metadata_index.write(
-        "<edmx:Edmx xmlns:edmx="
-        '"http://docs.oasis-open.org/odata/ns/edmx"'
-        ' Version="4.0">\n'
-    )
-
-    for filename in csdl_filenames:
-        # filename looks like Zone_v1.xml
-        if filename in oem_csdl_filenames:
-            with open(
-                os.path.join(schema_path, filename), "rb"
-            ) as oem_csdl_in:
-                content = oem_csdl_in.read()
-                content = content.replace(b"\r\n", b"\n")
-        else:
-            with open(os.path.join(schema_path, filename), "wb") as schema_out:
-                content = zip_ref.read(os.path.join("csdl", filename))
-                content = content.replace(b"\r\n", b"\n")
-                schema_out.write(content)
-
-        metadata_index.write(
-            '    <edmx:Reference Uri="/redfish/v1/schema/' + filename + '">\n'
-        )
-
-        xml_root = ET.fromstring(content)
-        edmx = "{http://docs.oasis-open.org/odata/ns/edmx}"
-        edm = "{http://docs.oasis-open.org/odata/ns/edm}"
-        for edmx_child in xml_root:
-            if edmx_child.tag == edmx + "DataServices":
-                for data_child in edmx_child:
-                    if data_child.tag == edm + "Schema":
-                        namespace = data_child.attrib["Namespace"]
-                        if namespace.startswith("RedfishExtensions"):
-                            metadata_index.write(
-                                '        <edmx:Include Namespace="'
-                                + namespace
-                                + '"  Alias="Redfish"/>\n'
-                            )
-
-                        else:
-                            metadata_index.write(
-                                '        <edmx:Include Namespace="'
-                                + namespace
-                                + '"/>\n'
-                            )
-        metadata_index.write("    </edmx:Reference>\n")
-
-    metadata_index.write(
-        "    <edmx:DataServices>\n"
-        "        <Schema "
-        'xmlns="http://docs.oasis-open.org/odata/ns/edm" '
-        'Namespace="Service">\n'
-        '            <EntityContainer Name="Service" '
-        'Extends="ServiceRoot.v1_0_0.ServiceContainer"/>\n'
-        "        </Schema>\n"
-        "    </edmx:DataServices>\n"
-    )
-    metadata_index.write("</edmx:Edmx>\n")
-
+for csdl_file in csdl_filenames:
+    with open(os.path.join(schema_path, csdl_file), "wb") as schema_out:
+        content = zip_ref.read(os.path.join("csdl", csdl_file))
+        content = content.replace(b"\r\n", b"\n")
+        schema_out.write(content)
 
 for schema, version in json_schema_files.items():
     zip_filepath = os.path.join("json-schema", version[0])
-    schemadir = os.path.join(json_schema_path, schema)
-    os.makedirs(schemadir)
 
-    with open(os.path.join(schemadir, schema + ".json"), "wb") as schema_file:
+    with open(os.path.join(json_schema_path, version[0]), "wb") as schema_file:
         schema_file.write(zip_ref.read(zip_filepath).replace(b"\r\n", b"\n"))
 
 with open(os.path.join(cpp_path, "schemas.hpp"), "w") as hpp_file:
+    schemas = []
+    for root, dirs, files in os.walk(
+        os.path.join(SCRIPT_DIR, "..", "static", "redfish", "v1", "schema")
+    ):
+        for csdl_file in sorted(files, key=SchemaVersion):
+            if csdl_file.endswith(".xml"):
+                schemas.append(csdl_file.replace("_v1.xml", ""))
     hpp_file.write(
         "#pragma once\n"
         "{WARNING}\n"
@@ -248,14 +166,11 @@ with open(os.path.join(cpp_path, "schemas.hpp"), "w") as hpp_file:
         "{{\n"
         "    constexpr std::array<std::string_view,{SIZE}> schemas {{\n".format(
             WARNING=WARNING,
-            SIZE=len(json_schema_files) + len(oem_schema_names),
+            SIZE=len(schemas),
         )
     )
-    for schema_file in json_schema_files:
-        hpp_file.write('        "{}",\n'.format(schema_file))
-
-    for schema_file in oem_schema_names:
-        hpp_file.write('        "{}",\n'.format(schema_file))
+    for schema in schemas:
+        hpp_file.write('        "{}",\n'.format(schema))
 
     hpp_file.write("    };\n}\n")
 

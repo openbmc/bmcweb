@@ -373,7 +373,7 @@ summary({
           'systemd unit directory' : systemd_system_unit_dir
         }, section : 'Directories')
 
-install_subdir('static', install_dir : 'share/www', strip_directory : true)
+install_subdir('static', install_dir: 'share/www', strip_directory: true, follow_symlinks: true)
 
 # Config subdirectory
 
@@ -461,6 +461,7 @@ srcfiles_unittest = files(
   'test/redfish-core/lib/update_service_test.cpp',
   'test/redfish-core/lib/service_root_test.cpp',
   'test/redfish-core/lib/thermal_subsystem_test.cpp',
+  'test/redfish-core/lib/metadata_test.cpp',
   'test/redfish-core/lib/power_subsystem_test.cpp',
 )
 

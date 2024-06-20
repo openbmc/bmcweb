@@ -61,6 +61,5 @@
             "name": "LicenseService",
             "url": "/redfish/v1/LicenseService"
         }
-
     ]
 }

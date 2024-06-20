@@ -1,0 +1,373 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/CertificateService.v1_0_4.json",
+    "$ref": "#/definitions/CertificateService",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "#CertificateService.GenerateCSR": {
+                    "$ref": "#/definitions/GenerateCSR"
+                },
+                "#CertificateService.ReplaceCertificate": {
+                    "$ref": "#/definitions/ReplaceCertificate"
+                },
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "CertificateService": {
+            "additionalProperties": false,
+            "description": "The CertificateService schema describes a certificate service that represents the actions available to manage certificates and links to the certificates.",
+            "longDescription": "This resource shall represent the certificate service properties for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "CertificateLocations": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateLocations.json#/definitions/CertificateLocations",
+                    "description": "The information about the location of certificates.",
+                    "longDescription": "This property shall contain a link to a resource of type CertificateLocations.",
+                    "readonly": true
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "GenerateCSR": {
+            "actionResponse": {
+                "$ref": "#/definitions/GenerateCSRResponse"
+            },
+            "additionalProperties": false,
+            "description": "This action makes a certificate signing request.",
+            "longDescription": "This action shall make a certificate signing request.  The response shall contain a signing request that a certificate authority (CA) will sign.  The service should retain the private key that was generated during this request for installation of the certificate.  The private key should not be part of the response.",
+            "parameters": {
+                "AlternativeNames": {
+                    "description": "The additional host names of the component to secure.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "longDescription": "This parameter shall contain an array of additional host names of the component to secure, as defined by the RFC5280 'subjectAltName' attribute.",
+                    "type": "array"
+                },
+                "CertificateCollection": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
+                    "description": "The link to the certificate collection where the certificate is installed after the certificate authority (CA) signs the certificate.",
+                    "longDescription": "This parameter shall contain a link to a resource collection of type CertificateCollection where the certificate is installed after the certificate authority (CA) signs the certificate.",
+                    "requiredParameter": true
+                },
+                "ChallengePassword": {
+                    "description": "The challenge password to apply to the certificate for revocation requests.",
+                    "longDescription": "This property shall contain the challenge password to apply to the certificate for revocation requests as defined by the RFC2985 'challengePassword' attribute.",
+                    "type": "string"
+                },
+                "City": {
+                    "description": "The city or locality of the organization making the request.",
+                    "longDescription": "This parameter shall contain the city or locality of the organization making the request, as defined by the RFC5280 'localityName' attribute.",
+                    "requiredParameter": true,
+                    "type": "string"
+                },
+                "CommonName": {
+                    "description": "The fully qualified domain name of the component to secure.",
+                    "longDescription": "This parameter shall contain the fully qualified domain name of the component to secure, as defined by the RFC5280 'commonName' attribute.",
+                    "requiredParameter": true,
+                    "type": "string"
+                },
+                "ContactPerson": {
+                    "description": "The name of the user making the request.",
+                    "longDescription": "This property shall contain the name of the user making the request, as defined by the RFC5280 'name' attribute.",
+                    "type": "string"
+                },
+                "Country": {
+                    "description": "The two-letter country code of the organization making the request.",
+                    "longDescription": "This parameter shall contain the two-letter ISO code for the country of the organization making the request, as defined by the RFC5280 'countryName' attribute.",
+                    "requiredParameter": true,
+                    "type": "string"
+                },
+                "Email": {
+                    "description": "The email address of the contact within the organization making the request.",
+                    "longDescription": "This parameter shall contain the email address of the contact within the organization making the request, as defined by the RFC2985 'emailAddress' attribute.",
+                    "type": "string"
+                },
+                "GivenName": {
+                    "description": "The given name of the user making the request.",
+                    "longDescription": "This parameter shall contain the given name of the user making the request, as defined by the RFC5280 'givenName' attribute.",
+                    "type": "string"
+                },
+                "Initials": {
+                    "description": "The initials of the user making the request.",
+                    "longDescription": "This parameter shall contain the initials of the user making the request, as defined by the RFC5280 'initials' attribute.",
+                    "type": "string"
+                },
+                "KeyBitLength": {
+                    "description": "The length of the key, in bits, if needed based on the KeyPairAlgorithm parameter value.",
+                    "longDescription": "This parameter shall contain the length of the key, in bits, if needed based on the KeyPairAlgorithm parameter value.",
+                    "type": "integer"
+                },
+                "KeyCurveId": {
+                    "description": "The curve ID to use with the key, if needed based on the KeyPairAlgorithm parameter value.",
+                    "longDescription": "This parameter shall contain the curve ID to use with the key, if needed based on the KeyPairAlgorithm parameter value.  The allowable values for this parameter shall be the strings in the 'Name' field of the 'TPM_ECC_CURVE Constants' table within the 'Trusted Computing Group Algorithm Registry'.",
+                    "type": "string"
+                },
+                "KeyPairAlgorithm": {
+                    "description": "The type of key-pair for use with signing algorithms.",
+                    "longDescription": "This parameter shall contain the type of key-pair for use with signing algorithms.  The allowable values for this parameter shall be the strings in the 'Algorithm Name' field of the 'TPM_ALG_ID Constants' table within the 'Trusted Computing Group Algorithm Registry'.",
+                    "type": "string"
+                },
+                "KeyUsage": {
+                    "description": "The usage of the key contained in the certificate.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Certificate.json#/definitions/KeyUsage"
+                    },
+                    "longDescription": "This parameter shall contain the usage of the key contained in the certificate.  If the client does not provide this value, the service can determine the appropriate key usage settings in the certificate signing request.",
+                    "type": "array"
+                },
+                "Organization": {
+                    "description": "The name of the organization making the request.",
+                    "longDescription": "This parameter shall contain the name of the organization making the request, as defined by the RFC5280 'organizationName' attribute.",
+                    "requiredParameter": true,
+                    "type": "string"
+                },
+                "OrganizationalUnit": {
+                    "description": "The name of the unit or division of the organization making the request.",
+                    "longDescription": "This parameter shall contain the name of the unit or division of the organization making the request, as defined by the RFC5280 'organizationalUnitName' attribute.",
+                    "requiredParameter": true,
+                    "type": "string"
+                },
+                "State": {
+                    "description": "The state, province, or region of the organization making the request.",
+                    "longDescription": "This parameter shall contain the state, province, or region of the organization making the request, as defined by the RFC5280 'stateOrProvinceName' attribute.",
+                    "requiredParameter": true,
+                    "type": "string"
+                },
+                "Surname": {
+                    "description": "The surname of the user making the request.",
+                    "longDescription": "This parameter shall contain the surname of the user making the request, as defined by the RFC5280 'surname' attribute.",
+                    "type": "string"
+                },
+                "UnstructuredName": {
+                    "description": "The unstructured name of the subject.",
+                    "longDescription": "This property shall contain the unstructured name of the subject, as defined by the RFC2985 'unstructuredName' attribute.",
+                    "type": "string"
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "GenerateCSRResponse": {
+            "additionalProperties": false,
+            "description": "The response body for the GenerateCSR action.",
+            "longDescription": "This type shall contain the properties found in the response body for the GenerateCSR action.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "CSRString": {
+                    "description": "The string for the certificate signing request.",
+                    "longDescription": "This property shall contain the Privacy Enhanced Mail (PEM)-encoded string, which contains RFC2986-specified structures, of the certificate signing request.  The private key should not be part of the string.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "CertificateCollection": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
+                    "description": "The link to the certificate collection where the certificate is installed.",
+                    "longDescription": "This property shall contain a link to a resource collection of type CertificateCollection where the certificate is installed after the certificate authority (CA) has signed the certificate.",
+                    "readonly": true
+                }
+            },
+            "required": [
+                "CertificateCollection",
+                "CSRString"
+            ],
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "ReplaceCertificate": {
+            "additionalProperties": false,
+            "description": "This action replaces a certificate.",
+            "longDescription": "This action shall replace a certificate.  The `Location` header in the response shall contain the URI of the new certificate resource.",
+            "parameters": {
+                "CertificateString": {
+                    "description": "The string for the certificate.",
+                    "longDescription": "This parameter shall contain the string of the certificate, and the format shall follow the requirements specified by the CertificateType property value.  If the certificate contains any private keys, they shall be removed from the string in responses.  If the service does not know the private key for the certificate and it is needed to use the certificate, the client shall provide the private key as part of the string in the POST request.",
+                    "requiredParameter": true,
+                    "type": "string"
+                },
+                "CertificateType": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Certificate.json#/definitions/CertificateType",
+                    "description": "The format of the certificate.",
+                    "longDescription": "This parameter shall contain the format type for the certificate.",
+                    "requiredParameter": true
+                },
+                "CertificateUri": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Certificate.json#/definitions/Certificate",
+                    "description": "The link to the certificate that is being replaced.",
+                    "longDescription": "This parameter shall contain a link to a resource of type Certificate that is being replaced.",
+                    "requiredParameter": true
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2018.3",
+    "title": "#CertificateService.v1_0_4.CertificateService"
+}
