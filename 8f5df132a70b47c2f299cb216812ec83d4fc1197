@@ -213,6 +213,30 @@
       },
       "revId": "8f5df132a70b47c2f299cb216812ec83d4fc1197",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ad97453_e6c99b4e",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1203,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-06-20T23:38:28Z",
+      "side": 0,
+      "message": "\u003e The downside is if you change it on D-Bus, this isn\u0027t correct? The long term plan is? This is passed in on the Post?\n\nLong Term plan is no one will cache this value on BMC, there is no D-Bus interface which caches this. This will be strictly connected to the update to be triggered and with every new update this value will be supplied to CodeUpdater daemon via startUpdate interface, which will be default (\"immediate\") for Unstructured HTTP Post and for Multipart-form HTTP Post, this arg will be part of POST command.\n\n\u003e The new backend is ignoring the setting, and instead accepting the param based on the update argument, which for simple update bmcweb will just hardcode to immediate (I think?).\n\nYes.\n(PS: Unstructured HTTP Post \u003d Simple Update)\n\n\u003e \n\u003e Per that, I think just hardcoding the response to GET would be correct to Redfish, right?\n\u003e \n\u003e Although this does make me wonder if for compatibility sake we should leave the PATCH handler, and just have PATCHing update mode to immediate just be a no op.\n\u003e \n\u003e Jagpal, WDYT?\n\nSome history on this. The reason we removed the PATCH because its only use-case was for \"Immediate\" and we were brainstorming on how to communicate ApplyTime and Image to CodeUpdater daemon (1 D-Bus method vs 2 D-Bus methods), but since ApplyTime only application was \"Immediate\", we thought its better to drop the PATCH and call startUpdate D-Bus interface for Unstructured HTTP POST with default ApplyTime as \"Immediate\".\n\nNow, i would take a step back and try to understand the meaning of GET API. Its returns the ApplyTime for HTTPPushURI, for which the only supported value is \"Immediate\" and next time if client uses the Unstructured HTTP POST, the \"Immediate\" will be used, hence GET returning \"Immediate\" and removing PATCH makes sense to me.",
+      "parentUuid": "1e50f37e_24a8be91",
+      "range": {
+        "startLine": 1189,
+        "startChar": 0,
+        "endLine": 1203,
+        "endChar": 9
+      },
+      "revId": "8f5df132a70b47c2f299cb216812ec83d4fc1197",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
