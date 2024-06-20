@@ -2183,7 +2183,7 @@ inline void getPowerMode(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 }
 
 /**
- * @brief Validate the specified mode is valid and return the PowerMode
+ * @brief Validate the specified mode is valid and return the dbus PowerMode
  * name associated with that string
  *
  * @param[in] asyncResp   Shared pointer for generating response message.
@@ -2234,21 +2234,66 @@ inline std::string
     return mode;
 }
 
+inline void handleAllowablePowerModes(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& service, const std::string& path,
+    const boost::system::error_code& ec, std::vector<std::string>& allowedModes,
+    const std::string& requestedMode, const std::string& dbusPmode)
+{
+    if (ec)
+    {
+        // Check if property was found
+        if (ec.value() != boost::system::linux_error::bad_request_descriptor)
+        {
+            BMCWEB_LOG_ERROR("D-BUS response error on AllowedPowerModes Get{}",
+                             ec);
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        // else AllowedPowerModes not implemented, so allow the set
+    }
+    else
+    {
+        if (!allowedModes.empty())
+        {
+            std::vector<std::string>::iterator it =
+                find(allowedModes.begin(), allowedModes.end(), dbusPmode);
+            if (it == allowedModes.end())
+            {
+                BMCWEB_LOG_ERROR(
+                    "Requested PowerMode ({}) is not in AllowedPowerModes",
+                    requestedMode);
+                messages::propertyValueNotInList(asyncResp->res, requestedMode,
+                                                 "PowerMode");
+                return;
+            }
+        }
+        // else empty list means all modes are allowed
+    }
+
+    BMCWEB_LOG_DEBUG("Setting power mode {} ({})", requestedMode, dbusPmode);
+
+    // Set the Power Mode property
+    setDbusProperty(asyncResp, service, path,
+                    "xyz.openbmc_project.Control.Power.Mode", "PowerMode",
+                    "PowerMode", dbusPmode);
+}
+
 /**
  * @brief Sets system power mode.
  *
- * @param[in] asyncResp   Shared pointer for generating response message.
- * @param[in] pmode   System power mode from request.
+ * @param[in] asyncResp     Shared pointer for generating response message.
+ * @param[in] requestedMode System power mode from request.
  *
  * @return None.
  */
 inline void setPowerMode(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                         const std::string& pmode)
+                         const std::string& requestedMode)
 {
     BMCWEB_LOG_DEBUG("Set power mode.");
 
-    std::string powerMode = validatePowerMode(asyncResp, pmode);
-    if (powerMode.empty())
+    std::string dbusPowerMode = validatePowerMode(asyncResp, requestedMode);
+    if (dbusPowerMode.empty())
     {
         return;
     }
@@ -2258,9 +2303,9 @@ inline void setPowerMode(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         "xyz.openbmc_project.Control.Power.Mode"};
     dbus::utility::getSubTree(
         "/", 0, interfaces,
-        [asyncResp,
-         powerMode](const boost::system::error_code& ec,
-                    const dbus::utility::MapperGetSubTreeResponse& subtree) {
+        [asyncResp, dbusPowerMode, requestedMode](
+            const boost::system::error_code& ec,
+            const dbus::utility::MapperGetSubTreeResponse& subtree) {
         if (ec)
         {
             BMCWEB_LOG_ERROR("DBUS response error on Power.Mode GetSubTree {}",
@@ -2301,12 +2346,17 @@ inline void setPowerMode(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             return;
         }
 
-        BMCWEB_LOG_DEBUG("Setting power mode({}) -> {}", powerMode, path);
-
-        // Set the Power Mode property
-        setDbusProperty(asyncResp, service, path,
-                        "xyz.openbmc_project.Control.Power.Mode", "PowerMode",
-                        "PowerMode", powerMode);
+        // Make sure requested mode is in list of AllowedPowerModes
+        sdbusplus::asio::getProperty<std::vector<std::string>>(
+            *crow::connections::systemBus, service, path,
+            "xyz.openbmc_project.Control.Power.Mode", "AllowedPowerModes",
+            [asyncResp, service, path, requestedMode,
+             dbusPowerMode](const boost::system::error_code& ec2,
+                            std::vector<std::string> allowedModes) {
+            handleAllowablePowerModes(asyncResp, service, path, ec2,
+                                      allowedModes, requestedMode,
+                                      dbusPowerMode);
+        });
     });
 }
 
