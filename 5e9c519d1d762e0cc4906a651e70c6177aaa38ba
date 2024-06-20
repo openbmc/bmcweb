@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12e13980_27c9154c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-06-20T19:41:09Z",
+      "side": 1,
+      "message": "So we haven\u0027t done this on a PATCH/POST before but it makes we do.. \nIf it is not in the AllowedPowerModes we should reject it. \n\nWe probably should do this on the POST here too (different problem): \nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/systems.hpp#L3338",
+      "revId": "5e9c519d1d762e0cc4906a651e70c6177aaa38ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "973a0807_215f2b51",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2253,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-06-20T19:41:09Z",
+      "side": 1,
+      "message": "No AllowedPowerModes or an empty array is allow them all, sure seems reasonable. \nWe could in theory do some check against all of them but we don\u0027t do that before so this seems reasonable.",
+      "revId": "5e9c519d1d762e0cc4906a651e70c6177aaa38ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7f317a1_6bc40c06",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2263,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-06-20T19:41:09Z",
+      "side": 1,
+      "message": "WARNING here",
+      "range": {
+        "startLine": 2263,
+        "startChar": 27,
+        "endLine": 2263,
+        "endChar": 32
+      },
+      "revId": "5e9c519d1d762e0cc4906a651e70c6177aaa38ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0103f441_bda333a8",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2320,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-06-20T19:41:09Z",
+      "side": 1,
+      "message": "So you already have a PowerMode otherwise you would hit this.",
+      "revId": "5e9c519d1d762e0cc4906a651e70c6177aaa38ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
