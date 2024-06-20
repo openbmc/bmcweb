@@ -18,6 +18,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "f34fc830_5369a9e1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-20T19:47:27Z",
+      "side": 1,
+      "message": "I see what you\u0027re doing, but I\u0027m not sure why.  bmcweb currently calls set on the PowerMode property.  If that property is not allowed by the backend, the backend should return an appropriate error, right?\n\nGiven the above, I\u0027m not sure why we\u0027re trying to precondition things, unless the backend isn\u0027t returning an appropriate error code?  If that\u0027s the case, the fix is to make the backend return an appropriate error code, not to try to implement complex look-before-you-leap logic.",
+      "revId": "5e9c519d1d762e0cc4906a651e70c6177aaa38ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "973a0807_215f2b51",
