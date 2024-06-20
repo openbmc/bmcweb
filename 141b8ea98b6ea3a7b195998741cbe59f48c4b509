@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e8a7fc02_0d9a9d9e",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2024-06-20T12:29:17Z",
+      "side": 1,
+      "message": "I think it makes sense to move it under /swId. Initially I thought it would be less cumbersome to find the info under just the software/ path, but bmcweb already has access to the current swId, and the min version is tied to the firmware image running on the system. I\u0027ll make the change to move it under /swId.",
+      "parentUuid": "0f99ef89_e32a729c",
+      "revId": "141b8ea98b6ea3a7b195998741cbe59f48c4b509",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "956f4c0d_3c086f50",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 1
