@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3097bd8_2c76c041",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-06-20T16:43:07Z",
+      "side": 1,
+      "message": "I agree. I think this is safe enough to do",
+      "revId": "c6d598ceda8e57e5293668098d93b4b4c02f9964",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de360caf_1545856f",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-06-20T16:43:07Z",
+      "side": 1,
+      "message": "remove this line.",
+      "revId": "c6d598ceda8e57e5293668098d93b4b4c02f9964",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
