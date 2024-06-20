@@ -16,6 +16,24 @@
       "message": "This is never going to hit. I guess that is exactly why we have the invalid enum. Init to invalid. Makes sense. \nhttps://github.com/openbmc/bmcweb/blob/16d95ec693094b005a27feebe49007f446a0135d/scripts/generate_schema_enums.py#L84",
       "revId": "25b46fedc7fc5efb5801a142593ee7d514a09e36",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99d9c141_9b1f5740",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2843,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-20T19:49:41Z",
+      "side": 1,
+      "message": "If we don\u0027t init this (which is what I did on patchset 1) clang-tidy complains that we didn\u0027t init it.",
+      "parentUuid": "6078a637_a82fb8f7",
+      "revId": "25b46fedc7fc5efb5801a142593ee7d514a09e36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
