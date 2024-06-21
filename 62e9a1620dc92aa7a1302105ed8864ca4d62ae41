@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26539fa1_b632281c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2024-06-21T12:43:43Z",
+      "side": 1,
+      "message": "I\u0027ve noticed that new definitions are already present on master: https://github.com/openbmc/bmcweb/blob/master/redfish-core/include/registries/telemetry_message_registry.hpp (thanks to automated generation). That makes this patch redundant, so You can safely close this one.",
+      "revId": "62e9a1620dc92aa7a1302105ed8864ca4d62ae41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
