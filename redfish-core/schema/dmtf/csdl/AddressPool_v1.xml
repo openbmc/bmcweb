@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  AddressPool v1.2.4                                                  -->
+<!--# Redfish Schema:  AddressPool v1.3.0                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -39,9 +39,10 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AddressPool">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="AddressPool" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The schema definition of an address pool and its configuration."/>
+        <Annotation Term="OData.Description" String="The `AddressPool` schema contains the definition of an address pool and its configuration."/>
         <Annotation Term="OData.LongDescription" String="This resource shall represent an address pool in a Redfish implementation."/>
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="Capabilities.InsertRestrictions">
@@ -98,13 +99,13 @@
         <NavigationProperty Name="Endpoints" Type="Collection(Endpoint.Endpoint)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An array of links to the endpoints that this address pool contains."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Endpoint that this address pool contains."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Endpoint` that this address pool contains."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Zones" Type="Collection(Zone.Zone)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An array of links to the zones that this address pool contains."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Zone that this address pool contains."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Zone` that this address pool contains."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -176,10 +177,16 @@
       <EntityType Name="AddressPool" BaseType="AddressPool.v1_0_2.AddressPool"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AddressPool.v1_0_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="AddressPool" BaseType="AddressPool.v1_0_3.AddressPool"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AddressPool.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add Ethernet address pool definitions and update permissions for Endpoints and Zones."/>
       <Annotation Term="Redfish.Release" String="2020.3"/>
+      <Annotation Term="OData.Description" String="This version was created to update the permissions for `Endpoints` and `Zones`."/>
 
       <EntityType Name="AddressPool" BaseType="AddressPool.v1_0_0.AddressPool">
         <Property Name="Ethernet" Type="AddressPool.v1_1_0.Ethernet" Nullable="false">
@@ -192,27 +199,27 @@
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="Ethernet-related properties for an address pool."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain the Ethernet-related properties for an address pool."/>
-        <Property Name="IPv4" Type="AddressPool.v1_1_0.IPv4">
+        <Property Name="IPv4" Type="AddressPool.v1_1_0.IPv4" Nullable="false">
           <Annotation Term="OData.Description" String="IPv4 and Virtual LAN (VLAN) related addressing for this Ethernet fabric."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain IPv4 and Virtual LAN (VLAN) addressing-related properties for this Ethernet fabric."/>
         </Property>
-        <Property Name="BGPEvpn" Type="AddressPool.v1_1_0.BGPEvpn">
+        <Property Name="BGPEvpn" Type="AddressPool.v1_1_0.BGPEvpn" Nullable="false">
           <Annotation Term="OData.Description" String="BGP Ethernet Virtual Private Network (EVPN) related properties for this Ethernet fabric."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the BGP Ethernet Virtual Private Network (EVPN) related properties for this Ethernet fabric."/>
         </Property>
-        <Property Name="EBGP" Type="AddressPool.v1_1_0.EBGP">
+        <Property Name="EBGP" Type="AddressPool.v1_1_0.EBGP" Nullable="false">
           <Annotation Term="OData.Description" String="External BGP (eBGP) related properties for this Ethernet fabric."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the External BGP (eBGP) related properties for this Ethernet fabric."/>
         </Property>
-        <Property Name="MultiProtocolIBGP" Type="AddressPool.v1_1_0.CommonBGPProperties">
+        <Property Name="MultiProtocolIBGP" Type="AddressPool.v1_1_0.CommonBGPProperties" Nullable="false">
           <Annotation Term="OData.Description" String="Multi Protocol iBGP (MP iBGP) related properties for this Ethernet fabric."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the Multi Protocol iBGP (MP iBGP) related properties for this Ethernet fabric."/>
         </Property>
-        <Property Name="MultiProtocolEBGP" Type="AddressPool.v1_1_0.EBGP">
+        <Property Name="MultiProtocolEBGP" Type="AddressPool.v1_1_0.EBGP" Nullable="false">
           <Annotation Term="OData.Description" String="Multi Protocol eBGP (MP eBGP) related properties for this Ethernet fabric."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the Multi Protocol eBGP (MP eBGP) related properties for this Ethernet fabric."/>
         </Property>
-        <Property Name="BFDSingleHopOnly" Type="AddressPool.v1_1_0.BFDSingleHopOnly">
+        <Property Name="BFDSingleHopOnly" Type="AddressPool.v1_1_0.BFDSingleHopOnly" Nullable="false">
           <Annotation Term="OData.Description" String="Bidirectional Forwarding Detection (BFD) related properties for this Ethernet fabric."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the Bidirectional Forwarding Detection (BFD) related properties for this Ethernet fabric."/>
         </Property>
@@ -222,31 +229,31 @@
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="IPv4 and Virtual LAN (VLAN) related addressing for an Ethernet fabric."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain IPv4 and Virtual LAN (VLAN) addressing-related properties for an Ethernet fabric."/>
-        <Property Name="VLANIdentifierAddressRange" Type="AddressPool.v1_1_0.VLANIdentifierAddressRange">
+        <Property Name="VLANIdentifierAddressRange" Type="AddressPool.v1_1_0.VLANIdentifierAddressRange" Nullable="false">
           <Annotation Term="OData.Description" String="Virtual LAN (VLAN) tag related addressing for this Ethernet fabric or for end-host networks."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain Virtual LAN (VLAN) tags for the entire fabric as well as to end hosts."/>
         </Property>
-        <Property Name="HostAddressRange" Type="AddressPool.v1_1_0.IPv4AddressRange">
+        <Property Name="HostAddressRange" Type="AddressPool.v1_1_0.IPv4AddressRange" Nullable="false">
           <Annotation Term="OData.Description" String="IPv4-related host subnet addressing for physical device endpoints that connect to this Ethernet fabric."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the IP subnet range for host addressing for physical device endpoints that connect to this Ethernet fabric.  An endpoint shall be allocated an IP address from this host address range.  The Ethernet fabric should provide IP unicast or multicast connectivity for host device endpoints belonging to this host address range."/>
         </Property>
-        <Property Name="LoopbackAddressRange" Type="AddressPool.v1_1_0.IPv4AddressRange">
+        <Property Name="LoopbackAddressRange" Type="AddressPool.v1_1_0.IPv4AddressRange" Nullable="false">
           <Annotation Term="OData.Description" String="Loopback-related IPv4 addressing for this Ethernet fabric."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the range of loopback-related IPv4 addresses assigned to this Ethernet fabric's Ethernet switches.  A loopback interface provides a stable interface to which an IP address is then assigned.  This address can be configured as the source address when the networking device needs to send data for control-plane protocols such as BGP and OSPF."/>
         </Property>
-        <Property Name="FabricLinkAddressRange" Type="AddressPool.v1_1_0.IPv4AddressRange">
+        <Property Name="FabricLinkAddressRange" Type="AddressPool.v1_1_0.IPv4AddressRange" Nullable="false">
           <Annotation Term="OData.Description" String="Link-related IPv4 addressing for this Ethernet fabric typically applied to connections between spine and leaf Ethernet switches."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain link-related IPv4 addressing for this Ethernet fabric typically applied to connections between spine and leaf Ethernet switches."/>
         </Property>
-        <Property Name="ManagementAddressRange" Type="AddressPool.v1_1_0.IPv4AddressRange">
+        <Property Name="ManagementAddressRange" Type="AddressPool.v1_1_0.IPv4AddressRange" Nullable="false">
           <Annotation Term="OData.Description" String="Management-related addressing for this Ethernet fabric."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the range of management IPv4 addresses assigned to manage this Ethernet fabric's Ethernet switches."/>
         </Property>
-        <Property Name="IBGPAddressRange" Type="AddressPool.v1_1_0.IPv4AddressRange">
+        <Property Name="IBGPAddressRange" Type="AddressPool.v1_1_0.IPv4AddressRange" Nullable="false">
           <Annotation Term="OData.Description" String="Internal BGP (iBGP) related addressing for this Ethernet fabric."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the range of IPv4 addresses assigned to Internal BGP (iBGP) neighbors belonging to the same AS (Autonomous System)."/>
         </Property>
-        <Property Name="EBGPAddressRange" Type="AddressPool.v1_1_0.IPv4AddressRange">
+        <Property Name="EBGPAddressRange" Type="AddressPool.v1_1_0.IPv4AddressRange" Nullable="false">
           <Annotation Term="OData.Description" String="External BGP (eBGP) related addressing for this Ethernet fabric."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the range of IPv4 addresses assigned to External BGP (eBGP) neighbors belonging to different ASes (Autonomous Systems)."/>
         </Property>
@@ -261,7 +268,7 @@
           <Annotation Term="OData.Description" String="The Network Time Protocol (NTP) servers for this Ethernet fabric."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain an array of the Network Time Protocol (NTP) servers for this Ethernet fabric."/>
         </Property>
-        <Property Name="DHCP" Type="AddressPool.v1_1_0.DHCP">
+        <Property Name="DHCP" Type="AddressPool.v1_1_0.DHCP" Nullable="false">
           <Annotation Term="OData.Description" String="The Dynamic Host Configuration Protocol (DHCP) related addressing for this Ethernet fabric."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the primary and secondary Dynamic Host Configuration Protocol (DHCP) server addressing for this Ethernet fabric."/>
         </Property>
@@ -316,23 +323,23 @@
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="BGP Ethernet Virtual Private Network (BGP EVPN) related properties for an Ethernet fabric."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain the EVPN-related properties for an Ethernet fabric that uses an IETF-defined Ethernet Virtual Private Network (EVPN) based control plane specification based on RFC7432."/>
-        <Property Name="VLANIdentifierAddressRange" Type="AddressPool.v1_1_0.VLANIdentifierAddressRange">
+        <Property Name="VLANIdentifierAddressRange" Type="AddressPool.v1_1_0.VLANIdentifierAddressRange" Nullable="false">
           <Annotation Term="OData.Description" String="Virtual LAN (VLAN) tag related address range applicable to this Ethernet fabric or for end-host subnets."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the Virtual LAN (VLAN) tag related address range applicable to this Ethernet fabric or for endpoint host subnets.  VLAN tags can be used for the purpose of identifying packets belonging to different networks."/>
         </Property>
-        <Property Name="ESINumberRange" Type="AddressPool.v1_1_0.ESINumberRange">
+        <Property Name="ESINumberRange" Type="AddressPool.v1_1_0.ESINumberRange" Nullable="false">
           <Annotation Term="OData.Description" String="The Ethernet Segment Identifier (ESI) number range for the fabric."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain Ethernet Segment Identifier (ESI) number ranges for allocation in supporting functions such as multihoming."/>
         </Property>
-         <Property Name="EVINumberRange" Type="AddressPool.v1_1_0.EVINumberRange">
+         <Property Name="EVINumberRange" Type="AddressPool.v1_1_0.EVINumberRange" Nullable="false">
           <Annotation Term="OData.Description" String="The Ethernet Virtual Private Network (EVPN) Instance number (EVI) number range for the fabric."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the Ethernet Virtual Private Network (EVPN) Instance number (EVI) range for EVPN-based fabrics."/>
         </Property>
-        <Property Name="RouteDistinguisherRange" Type="AddressPool.v1_1_0.RouteDistinguisherRange">
+        <Property Name="RouteDistinguisherRange" Type="AddressPool.v1_1_0.RouteDistinguisherRange" Nullable="false">
           <Annotation Term="OData.Description" String="The Route Distinguisher (RD) number range for the fabric."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the Route Distinguisher (RD) Instance number range for Ethernet Virtual Private Network (EVPN) based fabrics."/>
         </Property>
-        <Property Name="RouteTargetRange" Type="AddressPool.v1_1_0.RouteTargetRange">
+        <Property Name="RouteTargetRange" Type="AddressPool.v1_1_0.RouteTargetRange" Nullable="false">
           <Annotation Term="OData.Description" String="The Route Target (RT) number range for the fabric."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the Route Target (RT) Instance number range for Ethernet Virtual Private Network (EVPN) based fabrics."/>
         </Property>
@@ -363,11 +370,29 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="Address Resolution Protocol (ARP) suppression status."/>
           <Annotation Term="OData.LongDescription" String="This property shall indicate whether Address Resolution Protocol (ARP) suppression is enabled."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_3_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the `ARPSuppressionEnabled` property."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Property>
         <Property Name="NDPSupressionEnabled" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="Network Discovery Protocol (NDP) suppression status."/>
           <Annotation Term="OData.LongDescription" String="This property shall indicate whether Network Discovery Protocol (NDP) suppression is enabled."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_3_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the `NDPSuppressionEnabled` property."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Property>
         <Property Name="NDPProxyEnabled" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -435,23 +460,23 @@
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="Common BGP properties."/>
         <Annotation Term="OData.LongDescription" String="This property shall contain properties shared across both External and Internal Border Gateway Protocol (BGP) related properties."/>
-        <Property Name="ASNumberRange" Type="AddressPool.v1_1_0.ASNumberRange">
+        <Property Name="ASNumberRange" Type="AddressPool.v1_1_0.ASNumberRange" Nullable="false">
           <Annotation Term="OData.Description" String="Autonomous System (AS) number range."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the range of Autonomous System (AS) numbers assigned to each Border Gateway Protocol (BGP) peer within the fabric."/>
         </Property>
-        <Property Name="BGPNeighbor" Type="AddressPool.v1_1_0.BGPNeighbor">
+        <Property Name="BGPNeighbor" Type="AddressPool.v1_1_0.BGPNeighbor" Nullable="false">
           <Annotation Term="OData.Description" String="Border Gateway Protocol (BGP) neighbor related properties."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain all Border Gateway Protocol (BGP) neighbor related properties."/>
         </Property>
-        <Property Name="GracefulRestart" Type="AddressPool.v1_1_0.GracefulRestart">
+        <Property Name="GracefulRestart" Type="AddressPool.v1_1_0.GracefulRestart" Nullable="false">
           <Annotation Term="OData.Description" String="Graceful restart related properties."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain all graceful restart related properties."/>
         </Property>
-        <Property Name="MultiplePaths" Type="AddressPool.v1_1_0.MultiplePaths">
+        <Property Name="MultiplePaths" Type="AddressPool.v1_1_0.MultiplePaths" Nullable="false">
           <Annotation Term="OData.Description" String="Multiple path related properties."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain all multiple path related properties."/>
         </Property>
-        <Property Name="BGPRoute" Type="AddressPool.v1_1_0.BGPRoute">
+        <Property Name="BGPRoute" Type="AddressPool.v1_1_0.BGPRoute" Nullable="false">
           <Annotation Term="OData.Description" String="Border Gateway Protocol (BGP) route-related properties."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain Border Gateway Protocol (BGP) route-related properties."/>
         </Property>
@@ -729,7 +754,7 @@
           <Annotation Term="OData.Description" String="Border Gateway Protocol (BGP) neighbor log state change status."/>
           <Annotation Term="OData.LongDescription" String="This property shall indicate whether Border Gateway Protocol (BGP) neighbor state changes are logged."/>
         </Property>
-        <Property Name="MaxPrefix" Type="AddressPool.v1_1_0.MaxPrefix">
+        <Property Name="MaxPrefix" Type="AddressPool.v1_1_0.MaxPrefix" Nullable="false">
           <Annotation Term="OData.Description" String="Border Gateway Protocol (BGP) max prefix properties."/>
           <Annotation Term="OData.LongDescription" String="These properties are applicable to configuring Border Gateway Protocol (BGP) max prefix related properties."/>
         </Property>
@@ -878,10 +903,15 @@
       <EntityType Name="AddressPool" BaseType="AddressPool.v1_1_4.AddressPool"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AddressPool.v1_1_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="AddressPool" BaseType="AddressPool.v1_1_5.AddressPool"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AddressPool.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
-      <Annotation Term="OData.Description" String="This version was created to add CIDR and Enabled to BGPNeighbor."/>
 
       <EntityType Name="AddressPool" BaseType="AddressPool.v1_1_1.AddressPool"/>
 
@@ -909,14 +939,14 @@
           <Annotation Term="OData.Description" String="The Route Target (RT) Administrator Subfield."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the RFC4364-defined Route Target (RT) Administrator subfield."/>
         </Property>
-        <Property Name="GatewayIPAddressRange" Type="AddressPool.v1_2_0.GatewayIPAddressRange">
+        <Property Name="GatewayIPAddressRange" Type="AddressPool.v1_2_0.GatewayIPAddressRange" Nullable="false">
           <Annotation Term="OData.Description" String="The IPv4 address range for gateways."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the IPv4 address range for gateway nodes on this subnet."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="IPv4" BaseType="AddressPool.v1_1_0.IPv4">
-        <Property Name="SystemMACRange" Type="AddressPool.v1_2_0.SystemMACRange">
+        <Property Name="SystemMACRange" Type="AddressPool.v1_2_0.SystemMACRange" Nullable="false">
           <Annotation Term="OData.Description" String="The MAC address range for systems in this subnet."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the Media Access Control (MAC) address range for systems in Ethernet Virtual Private Network (EVPN) based fabrics."/>
         </Property>
@@ -981,6 +1011,33 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="AddressPool" BaseType="AddressPool.v1_2_3.AddressPool"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AddressPool.v1_2_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="AddressPool" BaseType="AddressPool.v1_2_4.AddressPool"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AddressPool.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2024.1"/>
+      <Annotation Term="OData.Description" String="This version was created to add deprecate `ARPSupressionEnabled` and `NDPSupressionEnabled` in favor of `ARPSuppressionEnabled` and `NDPSuppressionEnabled`."/>
+
+      <EntityType Name="AddressPool" BaseType="AddressPool.v1_2_5.AddressPool"/>
+
+      <ComplexType Name="BGPEvpn" BaseType="AddressPool.v1_2_0.BGPEvpn">
+        <Property Name="ARPSuppressionEnabled" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Address Resolution Protocol (ARP) suppression status."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether Address Resolution Protocol (ARP) suppression is enabled."/>
+        </Property>
+        <Property Name="NDPSuppressionEnabled" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Network Discovery Protocol (NDP) suppression status."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether Network Discovery Protocol (NDP) suppression is enabled."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

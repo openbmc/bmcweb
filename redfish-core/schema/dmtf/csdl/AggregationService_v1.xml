@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  AggregationService v1.0.1                                           -->
+<!--# Redfish Schema:  AggregationService v1.0.3                                           -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -45,9 +45,10 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AggregationService">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="AggregationService" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The AggregationService schema contains properties for managing aggregation operations, either on ad hoc combinations of resources or on defined sets of resources called aggregates.  Access points define the properties needed to access the entity being aggregated and connection methods describe the protocol or other semantics of the connection."/>
+        <Annotation Term="OData.Description" String="The `AggregationService` schema contains properties for managing aggregation operations, either on ad hoc combinations of resources or on defined sets of resources called aggregates.  Access points define the properties needed to access the entity being aggregated and connection methods describe the protocol or other semantics of the connection."/>
         <Annotation Term="OData.LongDescription" String="This resource shall represent an aggregation service for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -103,7 +104,7 @@
         <Parameter Name="AggregationService" Type="AggregationService.v1_0_0.Actions" />
         <Parameter Name="Systems" Type="Collection(ComputerSystem.ComputerSystem)" Nullable="false">
           <Annotation Term="OData.Description" String="The computer systems to restore."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain an array of links to resources of type ComputerSystem."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain an array of links to resources of type `ComputerSystem`."/>
         </Parameter>
       </Action>
     </Schema>
@@ -125,19 +126,19 @@
         <NavigationProperty Name="Aggregates" Type="AggregateCollection.AggregateCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of aggregates associated with this service."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type AggregateCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `AggregateCollection`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="AggregationSources" Type="AggregationSourceCollection.AggregationSourceCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of aggregation sources associated with this service."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type AggregationSourceCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `AggregationSourceCollection`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="ConnectionMethods" Type="ConnectionMethodCollection.ConnectionMethodCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of connection methods associated with this service."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type ConnectionMethodCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `ConnectionMethodCollection`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="Actions" Type="AggregationService.v1_0_0.Actions" Nullable="false">
@@ -173,6 +174,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to remove the additional properties term in the root of the resource, which was incorrectly set to `true`."/>
       <EntityType Name="AggregationService" BaseType="AggregationService.v1_0_1.AggregationService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AggregationService.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="AggregationService" BaseType="AggregationService.v1_0_2.AggregationService"/>
     </Schema>
 
   </edmx:DataServices>

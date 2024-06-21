@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Schedule v1.2.4                                                     -->
+<!--# Redfish Schema:  Schedule v1.2.5                                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# Portions Copyright 2015-2018 Storage Networking Industry Association (SNIA), USA.    -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
@@ -24,6 +24,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Schedule">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <ComplexType Name="Schedule" Abstract="true">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
@@ -166,7 +167,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Schedule.v1_0_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the RecurrenceInterval property."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `RecurrenceInterval` property."/>
       <ComplexType Name="Schedule" BaseType="Schedule.v1_0_1.Schedule"/>
     </Schema>
 
@@ -174,6 +175,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct the regular expression pattern for duration properties in JSON Schema and OpenAPI to not allow for negative values."/>
       <ComplexType Name="Schedule" BaseType="Schedule.v1_0_2.Schedule"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Schedule.v1_0_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <ComplexType Name="Schedule" BaseType="Schedule.v1_0_3.Schedule"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Schedule.v1_1_0">
@@ -202,7 +209,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Schedule.v1_1_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the RecurrenceInterval property."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `RecurrenceInterval` property."/>
       <ComplexType Name="Schedule" BaseType="Schedule.v1_1_2.Schedule"/>
     </Schema>
 
@@ -212,10 +219,16 @@
       <ComplexType Name="Schedule" BaseType="Schedule.v1_1_3.Schedule"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Schedule.v1_1_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <ComplexType Name="Schedule" BaseType="Schedule.v1_1_4.Schedule"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Schedule.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
-      <Annotation Term="OData.Description" String="This version was created to correct time and date properties to use DateTimeOffset and Duration formats, add `Every` enumerations to DayOfWeek and MonthOfYear types, and to incorporate default behavior into descriptions."/>
+      <Annotation Term="OData.Description" String="This version was created to correct time and date properties to use date-time and duration formats, add `Every` enumerations to `DayOfWeek` and `MonthOfYear` types, and to incorporate default behavior into descriptions."/>
 
       <ComplexType Name="Schedule" BaseType="Schedule.v1_1_0.Schedule"/>
     </Schema>
@@ -234,7 +247,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Schedule.v1_2_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the RecurrenceInterval property."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `RecurrenceInterval` property."/>
       <ComplexType Name="Schedule" BaseType="Schedule.v1_2_2.Schedule"/>
     </Schema>
 
@@ -242,6 +255,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct the regular expression pattern for duration properties in JSON Schema and OpenAPI to not allow for negative values."/>
       <ComplexType Name="Schedule" BaseType="Schedule.v1_2_3.Schedule"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Schedule.v1_2_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <ComplexType Name="Schedule" BaseType="Schedule.v1_2_4.Schedule"/>
     </Schema>
 
   </edmx:DataServices>

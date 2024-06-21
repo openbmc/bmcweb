@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Connection v1.3.1                                                   -->
+<!--# Redfish Schema:  Connection v1.3.2                                                   -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -48,9 +48,10 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Connection">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="Connection" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The Connection schema describes the access permissions that endpoints, or groups of endpoints, have with other resources in the service."/>
+        <Annotation Term="OData.Description" String="The `Connection` schema describes the access permissions that endpoints, or groups of endpoints, have with other resources in the service."/>
         <Annotation Term="OData.LongDescription" String="This resource shall represent information about a connection in the Redfish Specification."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -120,7 +121,7 @@
         <NavigationProperty Name="Volume" Type="Volume.Volume" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The specified volume."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Volume.  The endpoints referenced by the InitiatorEndpoints or InitiatorEndpointGroups properties shall be given access to this volume as described by this object.  If TargetEndpoints or TargetEndpointGroups is present, the referenced initiator endpoints shall be required to access the referenced volume through one of the referenced target endpoints."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `Volume`.  The endpoints referenced by the `InitiatorEndpoints` or `InitiatorEndpointGroups` properties shall be given access to this volume as described by this object.  If `TargetEndpoints` or `TargetEndpointGroups` is present, the referenced initiator endpoints shall be required to access the referenced volume through one of the referenced target endpoints."/>
         </NavigationProperty>
       </ComplexType>
 
@@ -173,25 +174,25 @@
         <NavigationProperty Name="InitiatorEndpoints" Type="Collection(Endpoint.Endpoint)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An array of links to the initiator endpoints that are associated with this connection."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Endpoint that are the initiator endpoints associated with this connection.  If the referenced endpoints contain the EntityRole property, the EntityRole property shall contain the value `Initiator` or `Both`.  This property shall not be present if InitiatorEndpointGroups is present."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Endpoint` that are the initiator endpoints associated with this connection.  If the referenced endpoints contain the `EntityRole` property, the `EntityRole` property shall contain the value `Initiator` or `Both`.  This property shall not be present if `InitiatorEndpointGroups` is present."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="TargetEndpoints" Type="Collection(Endpoint.Endpoint)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An array of links to the target endpoints that are associated with this connection."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Endpoint that are the target endpoints associated with this connection.  If the referenced endpoints contain the EntityRole property, the EntityRole property shall contain the value `Target` or `Both`.  This property shall not be present if TargetEndpointGroups is present."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Endpoint` that are the target endpoints associated with this connection.  If the referenced endpoints contain the `EntityRole` property, the `EntityRole` property shall contain the value `Target` or `Both`.  This property shall not be present if `TargetEndpointGroups` is present."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="InitiatorEndpointGroups" Type="Collection(EndpointGroup.EndpointGroup)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An array of links to the initiator endpoint groups that are associated with this connection."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type EndpointGroup that are the initiator endpoint groups associated with this connection.  If the referenced endpoint groups contain the GroupType property, the GroupType property shall contain the value `Initiator` or `Client`.  This property shall not be present if InitiatorEndpoints is present."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `EndpointGroup` that are the initiator endpoint groups associated with this connection.  If the referenced endpoint groups contain the `GroupType` property, the `GroupType` property shall contain the value `Initiator` or `Client`.  This property shall not be present if `InitiatorEndpoints` is present."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="TargetEndpointGroups" Type="Collection(EndpointGroup.EndpointGroup)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An array of links to the target endpoint groups that are associated with this connection."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type EndpointGroup that are the target endpoint groups associated with this connection.  If the referenced endpoint groups contain the GroupType property, the GroupType property shall contain the value `Target` or `Server`.  This property shall not be present if TargetEndpoints is present."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `EndpointGroup` that are the target endpoint groups associated with this connection.  If the referenced endpoint groups contain the `GroupType` property, the `GroupType` property shall contain the value `Target` or `Server`.  This property shall not be present if `TargetEndpoints` is present."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -217,6 +218,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Connection" BaseType="Connection.v1_0_0.Connection"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Connection.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Connection" BaseType="Connection.v1_0_1.Connection"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Connection.v1_1_0">
@@ -251,7 +258,7 @@
         <NavigationProperty Name="MemoryChunk" Type="MemoryChunks.MemoryChunks">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The specified memory chunk."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type MemoryChunk.  The endpoints referenced by the InitiatorEndpoints or InitiatorEndpointGroups properties shall be given access to this memory chunk as described by this object.  If TargetEndpoints or TargetEndpointGroups is present, the referenced initiator endpoints shall be required to access the referenced memory chunk through one of the referenced target endpoints."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `MemoryChunk`.  The endpoints referenced by the `InitiatorEndpoints` or `InitiatorEndpointGroups` properties shall be given access to this memory chunk as described by this object.  If `TargetEndpoints` or `TargetEndpointGroups` is present, the referenced initiator endpoints shall be required to access the referenced memory chunk through one of the referenced target endpoints."/>
         </NavigationProperty>
       </ComplexType>
 
@@ -301,6 +308,12 @@
       <EntityType Name="Connection" BaseType="Connection.v1_1_0.Connection"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Connection.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Connection" BaseType="Connection.v1_1_1.Connection"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Connection.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.1"/>
@@ -311,18 +324,18 @@
         <Property Name="LUN" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The initiator-visible logical unit number (LUN) assigned to this volume."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the initiator-visible logical unit number (LUN) assigned to this volume for initiators referenced by the InitiatorEndpoints or InitiatorEndpointGroups properties."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the initiator-visible logical unit number (LUN) assigned to this volume for initiators referenced by the `InitiatorEndpoints` or `InitiatorEndpointGroups` properties."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="ConnectionKey" BaseType="Connection.v1_1_0.ConnectionKey">
         <Property Name="CHAP" Type="Connection.v1_2_0.CHAPConnectionKey">
           <Annotation Term="OData.Description" String="The CHAP-specific permission key information for this connection."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the CHAP-specific permission key information for this connection.  This property shall not be present if DHCHAP is present."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the CHAP-specific permission key information for this connection.  This property shall not be present if `DHCHAP` is present."/>
         </Property>
         <Property Name="DHCHAP" Type="Connection.v1_2_0.DHCHAPKey">
           <Annotation Term="OData.Description" String="The DHCHAP-specific permission key information for this connection."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the DHCHAP-specific permission key information for this connection.  This property shall not be present if CHAP is present."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the DHCHAP-specific permission key information for this connection.  This property shall not be present if `CHAP` is present."/>
         </Property>
       </ComplexType>
 
@@ -380,6 +393,12 @@
       <EntityType Name="Connection" BaseType="Connection.v1_2_0.Connection"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Connection.v1_2_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Connection" BaseType="Connection.v1_2_1.Connection"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Connection.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.2"/>
@@ -408,7 +427,7 @@
         <NavigationProperty Name="MemoryRegion" Type="MemoryRegion.MemoryRegion">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The specified memory region."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type MemoryRegion.  The endpoints referenced by the InitiatorEndpoints or InitiatorEndpointGroups properties shall be given access to this memory region as described by this object.  If TargetEndpoints or TargetEndpointGroups is present, the referenced initiator endpoints shall be required to access the referenced memory region through one of the referenced target endpoints."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `MemoryRegion`.  The endpoints referenced by the `InitiatorEndpoints` or `InitiatorEndpointGroups` properties shall be given access to this memory region as described by this object.  If `TargetEndpoints` or `TargetEndpointGroups` is present, the referenced initiator endpoints shall be required to access the referenced memory region through one of the referenced target endpoints."/>
         </NavigationProperty>
       </ComplexType>
     </Schema>
@@ -417,6 +436,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Connection" BaseType="Connection.v1_3_0.Connection"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Connection.v1_3_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Connection" BaseType="Connection.v1_3_1.Connection"/>
     </Schema>
 
   </edmx:DataServices>

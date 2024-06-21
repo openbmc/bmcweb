@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Port v1.11.0                                                        -->
+<!--# Redfish Schema:  Port v1.12.0                                                        -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -63,9 +63,10 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="Port" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The Port schema contains properties that describe a port of a switch, controller, chassis, or any other device that could be connected to another entity."/>
+        <Annotation Term="OData.Description" String="The `Port` schema contains properties that describe a port of a switch, controller, chassis, or any other device that could be connected to another entity."/>
         <Annotation Term="OData.LongDescription" String="This resource contains a simple port for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -158,6 +159,15 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The label of this port on the physical package for this port."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the name of the port as indicated on the device containing the port."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_12_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of `Location` and `ServiceLabel`."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Property>
         <Property Name="PortProtocol" Type="Protocol.Protocol">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -165,7 +175,7 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the protocol being sent over this port."/>
         </Property>
         <Property Name="PortType" Type="Port.v1_0_0.PortType">
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The type of this port."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the port type for this port."/>
         </Property>
@@ -202,19 +212,19 @@
         <NavigationProperty Name="AssociatedEndpoints" Type="Collection(Endpoint.Endpoint)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the endpoints at the other end of the link."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Endpoint that represent the endpoints to which this port is connected."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Endpoint` that represent the endpoints to which this port is connected."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="ConnectedSwitches" Type="Collection(Switch.Switch)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the switches at the other end of the link."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Switch that represent the switches to which this port is connected."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Switch` that represent the switches to which this port is connected."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="ConnectedSwitchPorts" Type="Collection(Port.Port)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the switch ports at the other end of the link."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Port that represent the switch ports to which this port is connected."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Port` that represent the switch ports to which this port is connected."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -265,13 +275,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_0_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to remove the Nullable facet on NavigationProperties of the Collection type."/>
+      <Annotation Term="OData.Description" String="This version was created to remove the nullable term on arrays of links."/>
       <EntityType Name="Port" BaseType="Port.v1_0_1.Port"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_0_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change PortProtocol to use the unversioned definition, and correct the short and long descriptions in the defined actions."/>
+      <Annotation Term="OData.Description" String="This version was created to change `PortProtocol` to use the unversioned definition, and correct the short and long descriptions in the defined actions."/>
       <EntityType Name="Port" BaseType="Port.v1_0_2.Port"/>
     </Schema>
 
@@ -313,14 +323,20 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_0_10">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the AssociatedEndpoints, ConnectedSwitches, and ConnectedSwitchPorts properties inside of Links."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `AssociatedEndpoints`, `ConnectedSwitches`, and `ConnectedSwitchPorts` properties inside of `Links`."/>
       <EntityType Name="Port" BaseType="Port.v1_0_9.Port"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_0_11">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the long descriptions of CurrentSpeedGbps and MaxSpeedGbps properties to show speeds are unidirectional.  It was also created to to broaden the descriptions for the values of ConnectedDeviceMode to allow for reuse as a common enumeration.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to update the long descriptions of `CurrentSpeedGbps` and `MaxSpeedGbps` properties to show speeds are unidirectional.  It was also created to to broaden the descriptions for the values of `ConnectedDeviceMode` to allow for reuse as a common enumeration.  It was also created to correct various typographical errors."/>
       <EntityType Name="Port" BaseType="Port.v1_0_10.Port"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_0_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions of `PortType` to read-write.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Port" BaseType="Port.v1_0_11.Port"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_1_0">
@@ -373,14 +389,20 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_1_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the AssociatedEndpoints, ConnectedSwitches, and ConnectedSwitchPorts properties inside of Links."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `AssociatedEndpoints`, `ConnectedSwitches`, and `ConnectedSwitchPorts` properties inside of `Links`."/>
       <EntityType Name="Port" BaseType="Port.v1_1_6.Port"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_1_8">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the long descriptions of CurrentSpeedGbps and MaxSpeedGbps properties to show speeds are unidirectional."/>
+      <Annotation Term="OData.Description" String="This version was created to update the long descriptions of `CurrentSpeedGbps` and `MaxSpeedGbps` properties to show speeds are unidirectional."/>
       <EntityType Name="Port" BaseType="Port.v1_1_7.Port"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_1_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions of `PortType` to read-write.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Port" BaseType="Port.v1_1_8.Port"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_2_0">
@@ -447,19 +469,19 @@
         <NavigationProperty Name="LPRT" Type="RouteEntryCollection.RouteEntryCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The Linear Packet Relay Table for the port."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type RouteEntryCollection, and shall represent the Gen-Z Core Specification-defined Linear Packet Relay Table for this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `RouteEntryCollection`, and shall represent the Gen-Z Core Specification-defined Linear Packet Relay Table for this port."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="MPRT" Type="RouteEntryCollection.RouteEntryCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The Multi-subnet Packet Relay Table for the port."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type RouteEntryCollection, and shall represent the Gen-Z Core Specification-defined Multi-subnet Packet Relay Table for this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `RouteEntryCollection`, and shall represent the Gen-Z Core Specification-defined Multi-subnet Packet Relay Table for this port."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="VCAT" Type="VCATEntryCollection.VCATEntryCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The Virtual Channel Action Table for the port."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type VCATEntryCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `VCATEntryCollection`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -468,7 +490,7 @@
         <NavigationProperty Name="ConnectedPorts" Type="Collection(Port.Port)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the remote device ports at the other end of the link."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Port that represent the remote device ports to which this port is connected."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Port` that represent the remote device ports to which this port is connected."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -546,7 +568,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_2_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for the values of LinkStatus."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for the values of `LinkStatus`."/>
       <EntityType Name="Port" BaseType="Port.v1_2_1.Port"/>
     </Schema>
 
@@ -564,26 +586,32 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_2_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the permissions for LinkStatus."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the permissions for `LinkStatus`."/>
       <EntityType Name="Port" BaseType="Port.v1_2_4.Port"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_2_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the AssociatedEndpoints, ConnectedSwitches, ConnectedSwitchPorts, and ConnectedPorts properties inside of Links."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `AssociatedEndpoints`, `ConnectedSwitches`, `ConnectedSwitchPorts`, and `ConnectedPorts` properties inside of `Links`."/>
       <EntityType Name="Port" BaseType="Port.v1_2_5.Port"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_2_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the InterfaceEnabled and LinkState properties."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `InterfaceEnabled` and `LinkState` properties."/>
       <EntityType Name="Port" BaseType="Port.v1_2_6.Port"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_2_8">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the long descriptions of CurrentSpeedGbps and MaxSpeedGbps properties to show speeds are unidirectional."/>
+      <Annotation Term="OData.Description" String="This version was created to update the long descriptions of `CurrentSpeedGbps` and `MaxSpeedGbps` properties to show speeds are unidirectional."/>
       <EntityType Name="Port" BaseType="Port.v1_2_7.Port"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_2_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions of `PortType` to read-write.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Port" BaseType="Port.v1_2_8.Port"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_3_0">
@@ -594,7 +622,7 @@
         <Property Name="LocationIndicatorActive" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An indicator allowing an operator to physically locate this resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the state of the indicator used to physically identify or locate this resource.  A write to this property shall update the value of IndicatorLED in this resource, if supported, to reflect the implementation of the locating function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the state of the indicator used to physically identify or locate this resource.  A write to this property shall update the value of `IndicatorLED` in this resource, if supported, to reflect the implementation of the locating function."/>
         </Property>
         <Property Name="MaxFrameSize" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -883,26 +911,32 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_3_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the permissions for LinkStatus."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the permissions for `LinkStatus`."/>
       <EntityType Name="Port" BaseType="Port.v1_3_2.Port"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_3_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the AssociatedEndpoints, ConnectedSwitches, ConnectedSwitchPorts, and ConnectedPorts properties inside of Links."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `AssociatedEndpoints`, `ConnectedSwitches`, `ConnectedSwitchPorts`, and `ConnectedPorts` properties inside of `Links`."/>
       <EntityType Name="Port" BaseType="Port.v1_3_3.Port"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_3_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the InterfaceEnabled and LinkState properties.  It was also created to remove normative language from non-normative descriptions."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `InterfaceEnabled` and `LinkState` properties.  It was also created to remove normative language from non-normative descriptions."/>
       <EntityType Name="Port" BaseType="Port.v1_3_4.Port"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_3_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the long descriptions of CurrentSpeedGbps and MaxSpeedGbps properties to show speeds are unidirectional."/>
+      <Annotation Term="OData.Description" String="This version was created to update the long descriptions of `CurrentSpeedGbps` and `MaxSpeedGbps` properties to show speeds are unidirectional."/>
       <EntityType Name="Port" BaseType="Port.v1_3_5.Port"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_3_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions of `PortType` to read-write.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Port" BaseType="Port.v1_3_6.Port"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_4_0">
@@ -925,7 +959,7 @@
         <NavigationProperty Name="EnvironmentMetrics" Type="EnvironmentMetrics.EnvironmentMetrics" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the environment metrics for this port or any attached small form-factor pluggable (SFP) device."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type EnvironmentMetrics that represents the environment metrics for this port or any attached small form-factor pluggable (SFP) device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `EnvironmentMetrics` that represents the environment metrics for this port or any attached small form-factor pluggable (SFP) device."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="CurrentProtocolVersion" Type="Edm.String">
@@ -947,7 +981,7 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_10_0"/>
-                <PropertyValue Property="Description" String="This property has been deprecated in favor of InterfaceEnabled."/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of `InterfaceEnabled`."/>
               </Record>
             </Collection>
           </Annotation>
@@ -960,7 +994,7 @@
         <NavigationProperty Name="NetworkDeviceFunction" Type="NetworkDeviceFunction.NetworkDeviceFunction" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the network device function associated with this bandwidth setting of this network port."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type NetworkDeviceFunction that represents the network device function associated with this bandwidth setting of this network port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `NetworkDeviceFunction` that represents the network device function associated with this bandwidth setting of this network port."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="AllocationPercent" Type="Edm.Int64">
@@ -979,7 +1013,7 @@
         <NavigationProperty Name="NetworkDeviceFunction" Type="NetworkDeviceFunction.NetworkDeviceFunction" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the network device function associated with this bandwidth setting of this network port."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type NetworkDeviceFunction that represents the network device function associated with this bandwidth setting of this network port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `NetworkDeviceFunction` that represents the network device function associated with this bandwidth setting of this network port."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="AllocationPercent" Type="Edm.Int64">
@@ -1277,13 +1311,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_4_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the permissions for LinkStatus."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the permissions for `LinkStatus`."/>
       <EntityType Name="Port" BaseType="Port.v1_4_0.Port"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_4_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the AssociatedEndpoints, ConnectedSwitches, ConnectedSwitchPorts, and ConnectedPorts properties inside of Links."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `AssociatedEndpoints`, `ConnectedSwitches`, `ConnectedSwitchPorts`, and `ConnectedPorts` properties inside of `Links`."/>
       <EntityType Name="Port" BaseType="Port.v1_4_1.Port"/>
     </Schema>
 
@@ -1295,20 +1329,26 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_4_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the InterfaceEnabled and LinkState properties.  It was also created to remove normative language from non-normative descriptions.  It was also created to clarify the range of possible values for properties with percent units."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `InterfaceEnabled` and `LinkState` properties.  It was also created to remove normative language from non-normative descriptions.  It was also created to clarify the range of possible values for properties with percent units."/>
       <EntityType Name="Port" BaseType="Port.v1_4_3.Port"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_4_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the long descriptions of CurrentSpeedGbps and MaxSpeedGbps properties to show speeds are unidirectional."/>
+      <Annotation Term="OData.Description" String="This version was created to update the long descriptions of `CurrentSpeedGbps` and `MaxSpeedGbps` properties to show speeds are unidirectional."/>
       <EntityType Name="Port" BaseType="Port.v1_4_4.Port"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_4_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions of `PortType` to read-write.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Port" BaseType="Port.v1_4_5.Port"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
-      <Annotation Term="OData.Description" String="This version was created to add new values to the PortConnectionType property."/>
+      <Annotation Term="OData.Description" String="This version was created to add new values to the `PortConnectionType` property."/>
 
       <EntityType Name="Port" BaseType="Port.v1_4_1.Port"/>
 
@@ -1329,7 +1369,7 @@
         <NavigationProperty Name="Cables" Type="Collection(Cable.Cable)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the cables connected to this port."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Cable that represent the cables connected to this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Cable` that represent the cables connected to this port."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -1337,7 +1377,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_5_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the AssociatedEndpoints, ConnectedSwitches, ConnectedSwitchPorts, and ConnectedPorts properties inside of Links."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `AssociatedEndpoints`, `ConnectedSwitches`, `ConnectedSwitchPorts`, and `ConnectedPorts` properties inside of `Links`."/>
       <EntityType Name="Port" BaseType="Port.v1_5_0.Port"/>
     </Schema>
 
@@ -1349,14 +1389,20 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_5_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the InterfaceEnabled and LinkState properties.  It was also created to remove normative language from non-normative descriptions.  It was also created to clarify the range of possible values for properties with percent units."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `InterfaceEnabled` and `LinkState` properties.  It was also created to remove normative language from non-normative descriptions.  It was also created to clarify the range of possible values for properties with percent units."/>
       <EntityType Name="Port" BaseType="Port.v1_5_2.Port"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_5_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the long descriptions of CurrentSpeedGbps and MaxSpeedGbps properties to show speeds are unidirectional."/>
+      <Annotation Term="OData.Description" String="This version was created to update the long descriptions of `CurrentSpeedGbps` and `MaxSpeedGbps` properties to show speeds are unidirectional."/>
       <EntityType Name="Port" BaseType="Port.v1_5_3.Port"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_5_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions of `PortType` to read-write.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Port" BaseType="Port.v1_5_4.Port"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_6_0">
@@ -1397,7 +1443,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_6_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the AssociatedEndpoints, ConnectedSwitches, ConnectedSwitchPorts, and ConnectedPorts properties inside of Links."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `AssociatedEndpoints`, `ConnectedSwitches`, `ConnectedSwitchPorts`, and `ConnectedPorts` properties inside of `Links`."/>
       <EntityType Name="Port" BaseType="Port.v1_6_0.Port"/>
     </Schema>
 
@@ -1409,14 +1455,20 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_6_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the InterfaceEnabled and LinkState properties.  It was also created to remove normative language from non-normative descriptions.  It was also created to clarify the range of possible values for properties with percent units."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `InterfaceEnabled` and `LinkState` properties.  It was also created to remove normative language from non-normative descriptions.  It was also created to clarify the range of possible values for properties with percent units."/>
       <EntityType Name="Port" BaseType="Port.v1_6_2.Port"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_6_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the long descriptions of CurrentSpeedGbps and MaxSpeedGbps properties to show speeds are unidirectional."/>
+      <Annotation Term="OData.Description" String="This version was created to update the long descriptions of `CurrentSpeedGbps` and `MaxSpeedGbps` properties to show speeds are unidirectional."/>
       <EntityType Name="Port" BaseType="Port.v1_6_3.Port"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_6_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions of `PortType` to read-write.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Port" BaseType="Port.v1_6_4.Port"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_7_0">
@@ -1429,7 +1481,7 @@
         <NavigationProperty Name="EthernetInterfaces" Type="Collection(EthernetInterface.EthernetInterface)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The links to the Ethernet interfaces this port provides."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type EthernetInterface that represent the Ethernet interfaces this port provides.  This property shall not include Ethernet interfaces that are not directly associated to a physical port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `EthernetInterface` that represent the Ethernet interfaces this port provides.  This property shall not include Ethernet interfaces that are not directly associated to a physical port."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -1437,20 +1489,26 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_7_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the InterfaceEnabled and LinkState properties.  It was also created to remove normative language from non-normative descriptions.  It was also created to clarify the range of possible values for properties with percent units."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `InterfaceEnabled` and `LinkState` properties.  It was also created to remove normative language from non-normative descriptions.  It was also created to clarify the range of possible values for properties with percent units."/>
       <EntityType Name="Port" BaseType="Port.v1_7_0.Port"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_7_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the long descriptions of CurrentSpeedGbps and MaxSpeedGbps properties to show speeds are unidirectional."/>
+      <Annotation Term="OData.Description" String="This version was created to update the long descriptions of `CurrentSpeedGbps` and `MaxSpeedGbps` properties to show speeds are unidirectional."/>
       <EntityType Name="Port" BaseType="Port.v1_7_1.Port"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_7_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions of `PortType` to read-write.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Port" BaseType="Port.v1_7_2.Port"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.3"/>
-      <Annotation Term="OData.Description" String="This version was created to add `PCIe` to LinkNetworkTechnology."/>
+      <Annotation Term="OData.Description" String="This version was created to add `PCIe` to `LinkNetworkTechnology`."/>
 
       <EntityType Name="Port" BaseType="Port.v1_7_0.Port">
         <Property Name="RemotePortId" Type="Edm.String">
@@ -1567,6 +1625,15 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="Indicates whether temporary throughput reduction is enabled."/>
           <Annotation Term="OData.LongDescription" String="This property shall indicate whether the CXL Specification-defined 'Temporary Throughput Reduction' mechanism is enabled."/>
+            <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_12_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of `TemporaryThroughputReductionEnabled` in `PCIeDevice`."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Property>
         <Property Name="Congestion" Type="Port.v1_8_0.Congestion">
           <Annotation Term="OData.Description" String="The congestion properties for this CXL port."/>
@@ -1633,6 +1700,15 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Indicates whether the port supports the CXL Specification-defined 'Temporary Throughput Reduction' mechanism."/>
           <Annotation Term="OData.LongDescription" String="This property shall indicate whether the port supports the CXL Specification-defined 'Temporary Throughput Reduction' mechanism."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_12_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of `TemporaryThroughputReductionSupported` in `PCIeDevice`."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Property>
       </ComplexType>
 
@@ -1741,14 +1817,20 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_8_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the InterfaceEnabled and LinkState properties.  It was also created to remove normative language from non-normative descriptions."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `InterfaceEnabled` and `LinkState` properties.  It was also created to remove normative language from non-normative descriptions."/>
       <EntityType Name="Port" BaseType="Port.v1_8_0.Port"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_8_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the long descriptions of CurrentSpeedGbps and MaxSpeedGbps properties to show speeds are unidirectional.  It was also created to to broaden the descriptions for the values of ConnectedDeviceMode to allow for reuse as a common enumeration.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to update the long descriptions of `CurrentSpeedGbps` and `MaxSpeedGbps` properties to show speeds are unidirectional.  It was also created to to broaden the descriptions for the values of `ConnectedDeviceMode` to allow for reuse as a common enumeration.  It was also created to correct various typographical errors."/>
       <EntityType Name="Port" BaseType="Port.v1_8_1.Port"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_8_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions of `PortType` to read-write.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Port" BaseType="Port.v1_8_2.Port"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_9_0">
@@ -1761,34 +1843,46 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_9_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the InterfaceEnabled and LinkState properties.  It was also created to remove normative language from non-normative descriptions.  It was also created to clarify the range of possible values for properties with percent units."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `InterfaceEnabled` and `LinkState` properties.  It was also created to remove normative language from non-normative descriptions.  It was also created to clarify the range of possible values for properties with percent units."/>
       <EntityType Name="Port" BaseType="Port.v1_9_0.Port"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_9_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the long descriptions of CurrentSpeedGbps and MaxSpeedGbps properties to show speeds are unidirectional.  It was also created to to broaden the descriptions for the values of ConnectedDeviceMode to allow for reuse as a common enumeration.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to update the long descriptions of `CurrentSpeedGbps` and `MaxSpeedGbps` properties to show speeds are unidirectional.  It was also created to to broaden the descriptions for the values of `ConnectedDeviceMode` to allow for reuse as a common enumeration.  It was also created to correct various typographical errors."/>
       <EntityType Name="Port" BaseType="Port.v1_9_1.Port"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_9_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions of `PortType` to read-write.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Port" BaseType="Port.v1_9_2.Port"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.2"/>
-      <Annotation Term="OData.Description" String="This version was created to deprecate Enabled in favor of InterfaceEnabled."/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate `Enabled` in favor of `InterfaceEnabled`."/>
 
       <EntityType Name="Port" BaseType="Port.v1_9_1.Port"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_10_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the long descriptions of CurrentSpeedGbps and MaxSpeedGbps properties to show speeds are unidirectional.  It was also created to to broaden the descriptions for the values of ConnectedDeviceMode to allow for reuse as a common enumeration.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to update the long descriptions of `CurrentSpeedGbps` and `MaxSpeedGbps` properties to show speeds are unidirectional.  It was also created to to broaden the descriptions for the values of `ConnectedDeviceMode` to allow for reuse as a common enumeration.  It was also created to correct various typographical errors."/>
       <EntityType Name="Port" BaseType="Port.v1_10_0.Port"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_10_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions of `PortType` to read-write.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Port" BaseType="Port.v1_10_1.Port"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_11_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.3"/>
-      <Annotation Term="OData.Description" String="This version was created to deprecate `Reserved` in CurrentPortConfigurationState in favor of `FabricLink`."/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate `Reserved` in `CurrentPortConfigurationState` in favor of `FabricLink`."/>
 
       <EntityType Name="Port" BaseType="Port.v1_10_1.Port"/>
 
@@ -1799,6 +1893,20 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the CXL Specification-defined 'Supported CXL Modes'.  This property shall not contain the value `Disconnected`."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_11_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions of `PortType` to read-write.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Port" BaseType="Port.v1_11_0.Port"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_12_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2024.1"/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate `TemporaryThroughputReductionSupported` and `TemporaryThroughputReductionEnabled` in favor of `TemporaryThroughputReductionSupported` and `TemporaryThroughputReductionEnabled` in `PCIeDevice`.  It was also created to deprecate `PortId` in favor of `Location` and `ServiceLabel`."/>
+
+      <EntityType Name="Port" BaseType="Port.v1_11_1.Port"/>
     </Schema>
 
   </edmx:DataServices>

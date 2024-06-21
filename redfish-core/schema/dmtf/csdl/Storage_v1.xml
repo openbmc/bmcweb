@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################                   -->
-<!--# Redfish Schema:  Storage v1.15.1                                                                 -->
+<!--# Redfish Schema:  Storage v1.16.0                                                                 -->
 <!--#                                                                                                  -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,                  -->
 <!--# available at http://www.dmtf.org/standards/redfish                                               -->
-<!--# Copyright 2014-2023 DMTF in cooperation with the Storage Networking Industry Association (SNIA). -->
+<!--# Copyright 2014-2024 DMTF in cooperation with the Storage Networking Industry Association (SNIA). -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright             -->
 <!--################################################################################                   -->
 <!---->
@@ -102,9 +102,10 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="Storage" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The Storage schema defines a storage subsystem and its respective properties.  A storage subsystem represents a set of physical or virtual storage controllers and the resources, such as volumes, that can be accessed from that subsystem."/>
+        <Annotation Term="OData.Description" String="The `Storage` schema defines a storage subsystem and its respective properties.  A storage subsystem represents a set of physical or virtual storage controllers and the resources, such as volumes, that can be accessed from that subsystem."/>
         <Annotation Term="OData.LongDescription" String="This resource shall represent a storage subsystem in the Redfish Specification."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -114,7 +115,7 @@
         <Annotation Term="Capabilities.UpdateRestrictions">
           <Record>
             <PropertyValue Property="Updatable" Bool="true"/>
-            <Annotation Term="OData.Description" String="Writable properties, such as AssetTag, can be updated for a storage subsystem."/>
+            <Annotation Term="OData.Description" String="Writable properties, such as `AssetTag`, can be updated for a storage subsystem."/>
           </Record>
         </Annotation>
         <Annotation Term="Capabilities.DeleteRestrictions">
@@ -190,6 +191,20 @@
           </Collection>
         </Annotation>
       </Action>
+
+      <Action Name="RekeyExternalKey" IsBound="true">
+        <Annotation Term="OData.Description" String="This action causes the controllers of the storage subsystem to request new encryption keys managed by an external key service."/>
+        <Annotation Term="OData.LongDescription" String="This action shall cause the controllers of the storage subsystem to request new encryption keys managed by an external key service."/>
+        <Parameter Name="Storage" Type="Storage.v1_0_0.Actions"/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_16_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_0_0">
@@ -207,7 +222,7 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_13_0"/>
-                <PropertyValue Property="Description" String="This property has been deprecated in favor of Controllers to allow for storage controllers to be represented as their own resources."/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of `Controllers` to allow for storage controllers to be represented as their own resources."/>
               </Record>
             </Collection>
           </Annotation>
@@ -221,7 +236,7 @@
         <NavigationProperty Name="Volumes" Type="VolumeCollection.VolumeCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The set of volumes that the storage controllers produce."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type VolumeCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `VolumeCollection`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="Links" Type="Storage.v1_0_0.Links" Nullable="false">
@@ -249,7 +264,7 @@
         <NavigationProperty Name="Enclosures" Type="Collection(Chassis.Chassis)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the chassis to which this storage subsystem is attached."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Chassis that represent the physical containers attached to this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Chassis` that represent the physical containers attached to this resource."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -350,14 +365,14 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_0_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to remove the Nullable facet on NavigationProperties of the Collection type."/>
+      <Annotation Term="OData.Description" String="This version was created to remove the nullable term on arrays of links."/>
       <EntityType Name="Storage" BaseType="Storage.v1_0_2.Storage"/>
       <EntityType Name="StorageController" BaseType="Storage.v1_0_2.StorageController"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_0_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change Identifier to its abstract base type, to add an abstract definition of StorageController, and to deprecate the versioned definition of Protocol to use an unversioned definition.  It was also created to add requirements on the action parameters to show they are mandatory through Nullable=false.  It was also created to correct the short and long descriptions in the defined actions."/>
+      <Annotation Term="OData.Description" String="This version was created to change `Identifier` to its abstract base type, to add an abstract definition of `StorageController`, and to deprecate the versioned definition of `Protocol` to use an unversioned definition.  It was also created to mark several action parameters as mandatory.  It was also created to correct the short and long descriptions in the defined actions."/>
       <EntityType Name="Storage" BaseType="Storage.v1_0_3.Storage"/>
       <EntityType Name="StorageController" BaseType="Storage.v1_0_3.StorageController"/>
     </Schema>
@@ -371,7 +386,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_0_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation.  It was also created to change the VolumeCollection reference to Swordfish."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation.  It was also created to change the `VolumeCollection` reference to Swordfish."/>
       <EntityType Name="Storage" BaseType="Storage.v1_0_5.Storage"/>
       <EntityType Name="StorageController" BaseType="Storage.v1_0_5.StorageController"/>
     </Schema>
@@ -415,6 +430,14 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Storage" BaseType="Storage.v1_0_11.Storage"/>
+      <EntityType Name="StorageController" BaseType="Storage.v1_0_11.StorageController"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_0_13">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Storage" BaseType="Storage.v1_0_12.Storage"/>
+      <EntityType Name="StorageController" BaseType="Storage.v1_0_12.StorageController"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_1_0">
@@ -435,7 +458,7 @@
         <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
         <NavigationProperty Name="Endpoints" Type="Collection(Endpoint.Endpoint)">
           <Annotation Term="OData.Description" String="An array of links to the endpoints that connect to this controller."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Endpoint with which this controller is associated."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Endpoint` with which this controller is associated."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -450,14 +473,14 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_1_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to remove the Nullable facet on NavigationProperties of the Collection type."/>
+      <Annotation Term="OData.Description" String="This version was created to remove the nullable term on arrays of links."/>
       <EntityType Name="Storage" BaseType="Storage.v1_1_1.Storage"/>
       <EntityType Name="StorageController" BaseType="Storage.v1_1_1.StorageController"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_1_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change Identifier to its abstract base type, to add an abstract definition of StorageController, and to deprecate the versioned definition of Protocol to use an unversioned definition.  It was also created to add requirements on the action parameters to show they are mandatory through Nullable=false.  It was also created to correct the short and long descriptions in the defined actions."/>
+      <Annotation Term="OData.Description" String="This version was created to change `Identifier` to its abstract base type, to add an abstract definition of `StorageController`, and to deprecate the versioned definition of `Protocol` to use an unversioned definition.  It was also created to mark several action parameters as mandatory.  It was also created to correct the short and long descriptions in the defined actions."/>
       <EntityType Name="Storage" BaseType="Storage.v1_1_2.Storage"/>
       <EntityType Name="StorageController" BaseType="Storage.v1_1_2.StorageController"/>
     </Schema>
@@ -471,7 +494,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_1_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation.  It was also created to change the VolumeCollection reference to Swordfish."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation.  It was also created to change the `VolumeCollection` reference to Swordfish."/>
       <EntityType Name="Storage" BaseType="Storage.v1_1_4.Storage"/>
       <EntityType Name="StorageController" BaseType="Storage.v1_1_4.StorageController"/>
     </Schema>
@@ -515,6 +538,14 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Storage" BaseType="Storage.v1_1_10.Storage"/>
+      <EntityType Name="StorageController" BaseType="Storage.v1_1_10.StorageController"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_1_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Storage" BaseType="Storage.v1_1_11.Storage"/>
+      <EntityType Name="StorageController" BaseType="Storage.v1_1_11.StorageController"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_2_0">
@@ -549,7 +580,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_2_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change Identifier to its abstract base type, to add an abstract definition of StorageController, and to deprecate the versioned definition of Protocol to use an unversioned definition.  It was also created to add requirements on the action parameters to show they are mandatory through Nullable=false.  It was also created to correct the short and long descriptions in the defined actions."/>
+      <Annotation Term="OData.Description" String="This version was created to change `Identifier` to its abstract base type, to add an abstract definition of `StorageController`, and to deprecate the versioned definition of `Protocol` to use an unversioned definition.  It was also created to mark several action parameters as mandatory.  It was also created to correct the short and long descriptions in the defined actions."/>
       <EntityType Name="Storage" BaseType="Storage.v1_2_0.Storage"/>
       <EntityType Name="StorageController" BaseType="Storage.v1_2_0.StorageController"/>
     </Schema>
@@ -563,7 +594,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_2_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation.  It was also created to change the VolumeCollection reference to Swordfish."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation.  It was also created to change the `VolumeCollection` reference to Swordfish."/>
       <EntityType Name="Storage" BaseType="Storage.v1_2_2.Storage"/>
       <EntityType Name="StorageController" BaseType="Storage.v1_2_2.StorageController"/>
     </Schema>
@@ -607,6 +638,14 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Storage" BaseType="Storage.v1_2_8.Storage"/>
+      <EntityType Name="StorageController" BaseType="Storage.v1_2_8.StorageController"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_2_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Storage" BaseType="Storage.v1_2_9.Storage"/>
+      <EntityType Name="StorageController" BaseType="Storage.v1_2_9.StorageController"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_3_0">
@@ -626,7 +665,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_3_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to move Protocols to its own CSDL file.  It was also created to add requirements on the action parameters to show they are mandatory through Nullable=false.  It was also created to correct the short and long descriptions in the defined actions."/>
+      <Annotation Term="OData.Description" String="This version was created to move `Protocols` to its own schema file.  It was also created to mark several action parameters as mandatory.  It was also created to correct the short and long descriptions in the defined actions."/>
       <EntityType Name="Storage" BaseType="Storage.v1_3_0.Storage"/>
       <EntityType Name="StorageController" BaseType="Storage.v1_3_0.StorageController"/>
     </Schema>
@@ -640,7 +679,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_3_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation.  It was also created to change the VolumeCollection reference to Swordfish."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation.  It was also created to change the `VolumeCollection` reference to Swordfish."/>
       <EntityType Name="Storage" BaseType="Storage.v1_3_2.Storage"/>
       <EntityType Name="StorageController" BaseType="Storage.v1_3_2.StorageController"/>
     </Schema>
@@ -684,6 +723,14 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Storage" BaseType="Storage.v1_3_8.Storage"/>
+      <EntityType Name="StorageController" BaseType="Storage.v1_3_8.StorageController"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_3_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Storage" BaseType="Storage.v1_3_9.Storage"/>
+      <EntityType Name="StorageController" BaseType="Storage.v1_3_9.StorageController"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_4_0">
@@ -700,7 +747,7 @@
         <NavigationProperty Name="Assembly" Type="Assembly.Assembly" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the assembly associated with this storage controller."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Assembly."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `Assembly`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -708,14 +755,14 @@
       <ComplexType Name="StorageControllerLinks" BaseType="Storage.v1_1_0.StorageControllerLinks">
         <NavigationProperty Name="StorageServices" Type="Collection(StorageService.StorageService)">
           <Annotation Term="OData.Description" String="An array of links to the storage services that connect to this controller."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type StorageService with which this controller is associated."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `StorageService` with which this controller is associated."/>
           <Annotation Term="OData.AutoExpandReferences"/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_9_0"/>
-                <PropertyValue Property="Description" String="This property has been deprecated in favor of StorageServices within the Links property at the root level."/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of `StorageServices` within the `Links` property at the root level."/>
               </Record>
             </Collection>
           </Annotation>
@@ -732,7 +779,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_4_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation.  It was also created to change the VolumeCollection reference to Swordfish."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation.  It was also created to change the `VolumeCollection` reference to Swordfish."/>
       <EntityType Name="Storage" BaseType="Storage.v1_4_1.Storage"/>
       <EntityType Name="StorageController" BaseType="Storage.v1_4_1.StorageController"/>
     </Schema>
@@ -776,6 +823,14 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Storage" BaseType="Storage.v1_4_8.Storage"/>
+      <EntityType Name="StorageController" BaseType="Storage.v1_4_8.StorageController"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_4_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Storage" BaseType="Storage.v1_4_9.Storage"/>
+      <EntityType Name="StorageController" BaseType="Storage.v1_4_9.StorageController"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_5_0">
@@ -810,7 +865,7 @@
         <Property Name="PersistentCacheSizeMiB" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The portion of the cache memory that is persistent, measured in MiB."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the amount of cache memory that is persistent as measured in mebibytes.  This size shall be less than or equal to the TotalCacheSizeMiB."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the amount of cache memory that is persistent as measured in mebibytes.  This size shall be less than or equal to the `TotalCacheSizeMiB`."/>
           <Annotation Term="Validation.Minimum" Int="0"/>
           <Annotation Term="Measures.Unit" String="MiBy"/>
         </Property>
@@ -823,14 +878,14 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_5_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation.  It was also created to change the VolumeCollection reference to Swordfish."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation.  It was also created to change the `VolumeCollection` reference to Swordfish."/>
       <EntityType Name="Storage" BaseType="Storage.v1_5_0.Storage"/>
       <EntityType Name="StorageController" BaseType="Storage.v1_5_0.StorageController"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_5_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to add a missing term on PCIeInterface to not allow it to be `null`."/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to add a missing term on `PCIeInterface` to not allow it to be `null`."/>
       <EntityType Name="Storage" BaseType="Storage.v1_5_1.Storage"/>
       <EntityType Name="StorageController" BaseType="Storage.v1_5_1.StorageController"/>
     </Schema>
@@ -867,6 +922,14 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Storage" BaseType="Storage.v1_5_6.Storage"/>
+      <EntityType Name="StorageController" BaseType="Storage.v1_5_6.StorageController"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_5_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Storage" BaseType="Storage.v1_5_7.Storage"/>
+      <EntityType Name="StorageController" BaseType="Storage.v1_5_7.StorageController"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_6_0">
@@ -886,7 +949,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_6_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to add a missing term on PCIeInterface to not allow it to be `null`."/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to add a missing term on `PCIeInterface` to not allow it to be `null`."/>
       <EntityType Name="Storage" BaseType="Storage.v1_6_0.Storage"/>
       <EntityType Name="StorageController" BaseType="Storage.v1_6_0.StorageController"/>
     </Schema>
@@ -923,6 +986,14 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Storage" BaseType="Storage.v1_6_5.Storage"/>
+      <EntityType Name="StorageController" BaseType="Storage.v1_6_5.StorageController"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_6_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Storage" BaseType="Storage.v1_6_6.Storage"/>
+      <EntityType Name="StorageController" BaseType="Storage.v1_6_6.StorageController"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_7_0">
@@ -935,7 +1006,7 @@
         <NavigationProperty Name="Ports" Type="PortCollection.PortCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of ports that exist on the storage controller."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type PortCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `PortCollection`."/>
         </NavigationProperty>
         <Property Name="ControllerRates" Type="Storage.v1_7_0.Rates" Nullable="false">
           <Annotation Term="OData.Description" String="This property describes the various controller rates used for processes such as volume rebuild or consistency checks."/>
@@ -973,7 +1044,7 @@
       <ComplexType Name="StorageControllerLinks" BaseType="Storage.v1_4_0.StorageControllerLinks">
         <NavigationProperty Name="PCIeFunctions" Type="Collection(PCIeFunction.PCIeFunction)">
           <Annotation Term="OData.Description" String="An array of links to the PCIe functions that the storage controller produces."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type PCIeFunction that represent the PCIe functions associated with this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `PCIeFunction` that represent the PCIe functions associated with this resource."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -1011,6 +1082,14 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Storage" BaseType="Storage.v1_7_4.Storage"/>
+      <EntityType Name="StorageController" BaseType="Storage.v1_7_4.StorageController"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_7_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Storage" BaseType="Storage.v1_7_5.Storage"/>
+      <EntityType Name="StorageController" BaseType="Storage.v1_7_5.StorageController"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_8_0">
@@ -1021,26 +1100,26 @@
         <NavigationProperty Name="FileSystems" Type="FileSystemCollection.FileSystemCollection" Nullable="false" ContainsTarget="true">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="All file systems that are allocated by this storage subsystem."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type FileSystemCollection.  This property shall be used when file systems are shared or exported by the storage subsystem."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `FileSystemCollection`.  This property shall be used when file systems are shared or exported by the storage subsystem."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="StoragePools" Type="StoragePoolCollection.StoragePoolCollection" Nullable="false" ContainsTarget="true">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The set of all storage pools that are allocated by this storage subsystem.  A storage pool is the set of storage capacity that can be used to produce volumes or other storage pools."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type StoragePoolCollection.  This property shall be used when an abstraction of media, rather than references to individual media, are used as the storage data source."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `StoragePoolCollection`.  This property shall be used when an abstraction of media, rather than references to individual media, are used as the storage data source."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="StorageGroups" Type="StorageGroupCollection.StorageGroupCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="All of the storage groups, each of which contains a set of volumes and endpoints that are managed as a group for mapping and masking, that belong to this storage subsystem."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type StorageGroupsCollection.  This property shall be used when implementing mapping and masking."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `StorageGroupsCollection`.  This property shall be used when implementing mapping and masking."/>
           <Annotation Term="OData.AutoExpandReferences"/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_15_0"/>
-                <PropertyValue Property="Description" String="This property was deprecated in favor of the Connections property."/>
+                <PropertyValue Property="Description" String="This property was deprecated in favor of the `Connections` property."/>
               </Record>
             </Collection>
           </Annotation>
@@ -1048,13 +1127,13 @@
         <NavigationProperty Name="EndpointGroups" Type="EndpointGroupCollection.EndpointGroupCollection" Nullable="false" ContainsTarget="true">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="All of the endpoint groups, each of which contains a set of endpoints that are used for a common purpose such as an ACL or logical identification, that belong to this storage subsystem."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type EndpointGroupCollection.  This property shall be implemented when atomic control is needed to perform mapping, masking, and zoning operations."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `EndpointGroupCollection`.  This property shall be implemented when atomic control is needed to perform mapping, masking, and zoning operations."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="ConsistencyGroups" Type="ConsistencyGroupCollection.ConsistencyGroupCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The consistency groups, each of which contains a set of volumes that are treated by an application or set of applications as a single resource, that are managed by this storage subsystem."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type ConsistencyGroupCollection.  The property shall be used when groups of volumes are treated as a single resource by an application or set of applications."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `ConsistencyGroupCollection`.  The property shall be used when groups of volumes are treated as a single resource by an application or set of applications."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -1087,6 +1166,14 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Storage" BaseType="Storage.v1_8_3.Storage"/>
+      <EntityType Name="StorageController" BaseType="Storage.v1_8_3.StorageController"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_8_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Storage" BaseType="Storage.v1_8_4.Storage"/>
+      <EntityType Name="StorageController" BaseType="Storage.v1_8_4.StorageController"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_9_0">
@@ -1097,7 +1184,7 @@
         <NavigationProperty Name="Controllers" Type="StorageControllerCollection.StorageControllerCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The set of controllers instantiated by this storage subsystem."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type StorageControllerCollection that contains the set of storage controllers allocated to this storage subsystem."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `StorageControllerCollection` that contains the set of storage controllers allocated to this storage subsystem."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="Identifiers" Type="Collection(Resource.Identifier)" Nullable="false">
@@ -1110,23 +1197,25 @@
         <NavigationProperty Name="SimpleStorage" Type="SimpleStorage.SimpleStorage" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the simple storage instance that corresponds to this storage."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type SimpleStorage that represents the same storage subsystem as this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `SimpleStorage` that represents the same storage subsystem as this resource."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="StorageServices" Type="Collection(StorageService.StorageService)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the storage services that connect to this storage subsystem."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type StorageService with which this storage subsystem is associated."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `StorageService` with which this storage subsystem is associated."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
+
+      <EntityType Name="StorageController" BaseType="Storage.v1_8_1.StorageController"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_9_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Storage" BaseType="Storage.v1_9_0.Storage"/>
-      <EntityType Name="StorageController" BaseType="Storage.v1_8_2.StorageController"/>
+      <EntityType Name="StorageController" BaseType="Storage.v1_9_0.StorageController"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_9_2">
@@ -1140,12 +1229,19 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Storage" BaseType="Storage.v1_9_2.Storage"/>
+      <EntityType Name="StorageController" BaseType="Storage.v1_9_2.StorageController"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_9_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Storage" BaseType="Storage.v1_9_3.Storage"/>
+      <EntityType Name="StorageController" BaseType="Storage.v1_9_3.StorageController"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
-      <Annotation Term="OData.Description" String="This version was created to add Certificates and Measurements to devices for attestation and identity management."/>
 
       <EntityType Name="Storage" BaseType="Storage.v1_9_1.Storage"/>
 
@@ -1153,7 +1249,7 @@
         <NavigationProperty Name="Certificates" Type="CertificateCollection.CertificateCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to a collection of certificates for device identity and attestation."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CertificateCollection that contains certificates for device identity and attestation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `CertificateCollection` that contains certificates for device identity and attestation."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="Measurements" Type="Collection(SoftwareInventory.MeasurementBlock)" Nullable="false">
@@ -1164,7 +1260,7 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_12_0"/>
-                <PropertyValue Property="Description" String="This property has been deprecated in favor of the ComponentIntegrity resource."/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the `ComponentIntegrity` resource."/>
               </Record>
             </Collection>
           </Annotation>
@@ -1183,12 +1279,20 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Storage" BaseType="Storage.v1_10_1.Storage"/>
+      <EntityType Name="StorageController" BaseType="Storage.v1_10_1.StorageController"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_10_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Storage" BaseType="Storage.v1_10_2.Storage"/>
+      <EntityType Name="StorageController" BaseType="Storage.v1_10_2.StorageController"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_11_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
-      <Annotation Term="OData.Description" String="This version was created to add the ResetToDefaults action."/>
+      <Annotation Term="OData.Description" String="This version was created to add the `ResetToDefaults` action."/>
 
       <EntityType Name="Storage" BaseType="Storage.v1_10_1.Storage"/>
 
@@ -1205,44 +1309,72 @@
         <NavigationProperty Name="HostingStorageSystems" Type="Collection(ComputerSystem.ComputerSystem)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The storage systems that host this storage subsystem."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type ComputerSystem that represent the storage systems that host this storage subsystem.  The members of this array shall be in the StorageSystems resource collection off the service root."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `ComputerSystem` that represent the storage systems that host this storage subsystem.  The members of this array shall be in the `StorageSystems` resource collection off the service root."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
+
+      <EntityType Name="StorageController" BaseType="Storage.v1_10_1.StorageController"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_11_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Storage" BaseType="Storage.v1_11_0.Storage"/>
+      <EntityType Name="StorageController" BaseType="Storage.v1_11_0.StorageController"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_11_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Storage" BaseType="Storage.v1_11_1.Storage"/>
+      <EntityType Name="StorageController" BaseType="Storage.v1_11_1.StorageController"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_12_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
-      <Annotation Term="OData.Description" String="This version was created to deprecate Measurements in favor of measurement reporting in the ComponentIntegrity resource."/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate `Measurements` in favor of measurement reporting in the `ComponentIntegrity` resource."/>
 
       <EntityType Name="Storage" BaseType="Storage.v1_11_0.Storage"/>
+      <EntityType Name="StorageController" BaseType="Storage.v1_11_0.StorageController"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_12_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Storage" BaseType="Storage.v1_12_0.Storage"/>
+      <EntityType Name="StorageController" BaseType="Storage.v1_12_0.StorageController"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_12_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Storage" BaseType="Storage.v1_12_1.Storage"/>
+      <EntityType Name="StorageController" BaseType="Storage.v1_12_1.StorageController"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_13_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.1"/>
-      <Annotation Term="OData.Description" String="This version was created to deprecate the StorageControllers array property in favor of the StorageController resource collection provided by the Controllers property."/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate the `StorageControllers` array property in favor of the `StorageControllerCollection` resource collection provided by the `Controllers` property."/>
 
       <EntityType Name="Storage" BaseType="Storage.v1_12_0.Storage"/>
+      <EntityType Name="StorageController" BaseType="Storage.v1_12_0.StorageController"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_13_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Storage" BaseType="Storage.v1_13_0.Storage"/>
+      <EntityType Name="StorageController" BaseType="Storage.v1_13_0.StorageController"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_13_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Storage" BaseType="Storage.v1_13_1.Storage"/>
+      <EntityType Name="StorageController" BaseType="Storage.v1_13_1.StorageController"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_14_0">
@@ -1263,7 +1395,7 @@
         <Property Name="LocalEncryptionKeyIdentifier" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The local encryption key identifier used by the storage subsystem."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the local encryption key identifier used by the storage subsystem when EncryptionMode contains `UseLocalKey`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the local encryption key identifier used by the storage subsystem when `EncryptionMode` contains `UseLocalKey`."/>
         </Property>
       </EntityType>
 
@@ -1290,12 +1422,22 @@
           <Annotation Term="OData.Description" String="The storage subsystem uses a local key for encryption."/>
         </Member>
       </EnumType>
+
+      <EntityType Name="StorageController" BaseType="Storage.v1_13_0.StorageController"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_14_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Storage" BaseType="Storage.v1_14_0.Storage"/>
+      <EntityType Name="StorageController" BaseType="Storage.v1_14_0.StorageController"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_14_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Storage" BaseType="Storage.v1_14_1.Storage"/>
+      <EntityType Name="StorageController" BaseType="Storage.v1_14_1.StorageController"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_15_0">
@@ -1306,7 +1448,7 @@
         <NavigationProperty Name="Connections" Type="ConnectionCollection.ConnectionCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The collection of links to the connections that this storage subsystem contains."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type ConnectionCollection.  The members of this collection shall reference Connection resources subordinate to Fabric resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `ConnectionCollection`.  The members of this collection shall reference Connection resources subordinate to Fabric resources."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="AutoVolumeCreate" Type="Storage.v1_15_0.AutoVolumeCreate">
@@ -1320,7 +1462,7 @@
         <NavigationProperty Name="NVMeoFDiscoverySubsystems" Type="Collection(Storage.Storage)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the discovery subsystems that discovered this subsystem in an NVMe-oF environment."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Storage that represent the discovery subsystems that discovered this subsystem in an NVMe-oF environment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Storage` that represent the discovery subsystems that discovered this subsystem in an NVMe-oF environment."/>
         </NavigationProperty>
       </ComplexType>
 
@@ -1338,12 +1480,72 @@
           <Annotation Term="OData.Description" String="Automatically create RAID1 volumes."/>
         </Member>
       </EnumType>
+
+      <EntityType Name="StorageController" BaseType="Storage.v1_14_0.StorageController"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_15_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the spelling of the NVMeoFDiscoverySubsystems property.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the spelling of the `NVMeoFDiscoverySubsystems` property.  It was also created to correct various typographical errors."/>
       <EntityType Name="Storage" BaseType="Storage.v1_15_0.Storage"/>
+      <EntityType Name="StorageController" BaseType="Storage.v1_15_0.StorageController"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_15_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Storage" BaseType="Storage.v1_15_1.Storage"/>
+      <EntityType Name="StorageController" BaseType="Storage.v1_15_1.StorageController"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_16_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2024.1"/>
+      <Annotation Term="OData.Description" String="This version was created to add the `RekeyExternalKey` action."/>
+
+      <EntityType Name="Storage" BaseType="Storage.v1_15_2.Storage">
+        <Property Name="NVMeSubsystemProperties" Type="Storage.v1_16_0.NVMeSubsystemProperties">
+          <Annotation Term="OData.Description" String="Information specific to NVMe Subsystems."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain information specific to NVMe Subsystems.  This property shall only be present if this resource represents an NVMe Subsystem."/>
+        </Property>
+        <Property Name="ConfigurationLock" Type="Storage.v1_16_0.ConfigurationLock">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates whether in-band configuration requests to the storage subsystem are locked."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether configuration requests to the storage subsystem are locked.  Services shall reject modification requests that contain the value `Partial`.  Modifying the value of this property may affect the `ConfigurationLock` property in `Drive` resources referenced by the `Drives` property."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="NVMeSubsystemProperties">
+        <Annotation Term="OData.Description" String="Information specific to NVMe Subsystems."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain information specific to NVMe Subsystems."/>
+        <Property Name="MaxNamespacesSupported" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The maximum number of namespace attachments supported by this NVMe Subsystem."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum number of namespace attachments supported by this NVMe Subsystem.  If no maximum is specified, this property should not be implemented."/>
+        </Property>
+        <Property Name="SharedNamespaceControllerAttachmentSupported" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates whether the subsystem supports shared namespace controller attachment, allowing a shared namespace to be attached concurrently to two or more controllers in an NVMe Subsystem."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the subsystem supports shared namespace controller attachment, allowing a shared namespace to be attached concurrently to two or more controllers in an NVMe Subsystem."/>
+        </Property>
+      </ComplexType>
+
+      <EntityType Name="StorageController" BaseType="Storage.v1_15_2.StorageController"/>
+
+      <EnumType Name="ConfigurationLock">
+        <Member Name="Enabled">
+          <Annotation Term="OData.Description" String="In-band configuration requests are locked.  Configuration requests include applying firmware, updating security keys, and other hardware settings.  It does not include managing the volumes or data within the storage subsystem."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate in-band configuration requests are locked."/>
+        </Member>
+        <Member Name="Disabled">
+          <Annotation Term="OData.Description" String="In-band configuration requests are not locked."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate in-band configuration requests are not locked."/>
+        </Member>
+        <Member Name="Partial">
+          <Annotation Term="OData.Description" String="Some in-band configuration requests are not locked while others are locked.  This value is used for status reporting to indicate that the storage subsystem is partially locked and client action is recommended."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate some in-band configuration requests are not locked while others are locked."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

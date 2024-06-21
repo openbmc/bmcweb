@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  GraphicsController v1.0.1                                           -->
+<!--# Redfish Schema:  GraphicsController v1.0.2                                           -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -39,9 +39,10 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="GraphicsController">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="GraphicsController" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The GraphicsController schema defines a graphics controller that can be used to drive one or more display devices."/>
+        <Annotation Term="OData.Description" String="The `GraphicsController` schema defines a graphics controller that can be used to drive one or more display devices."/>
         <Annotation Term="OData.LongDescription" String="This resource shall represent a graphics output device in a Redfish implementation."/>
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="Capabilities.InsertRestrictions">
@@ -127,7 +128,7 @@
         </Property>
         <NavigationProperty Name="Ports" Type="PortCollection.PortCollection" Nullable="false">
           <Annotation Term="OData.Description" String="The ports of the graphics controller."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type PortCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `PortCollection`."/>
         </NavigationProperty>
         <Property Name="Links" Type="GraphicsController.v1_0_0.Links" Nullable="false">
           <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
@@ -145,13 +146,13 @@
         <NavigationProperty Name="Processors" Type="Collection(Processor.Processor)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the processors that are a part of this graphics controller."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Processor that represent the processors that this graphics controller contains."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Processor` that represent the processors that this graphics controller contains."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
-        <NavigationProperty Name="PCIeDevice" Type="PCIeDevice.PCIeDevice">
+        <NavigationProperty Name="PCIeDevice" Type="PCIeDevice.PCIeDevice" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A link to the PCIe device that represents this graphics controller."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type PCIeDevice that represents this graphics controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `PCIeDevice` that represents this graphics controller."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -177,6 +178,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="GraphicsController" BaseType="GraphicsController.v1_0_0.GraphicsController"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="GraphicsController.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="GraphicsController" BaseType="GraphicsController.v1_0_1.GraphicsController"/>
     </Schema>
 
   </edmx:DataServices>

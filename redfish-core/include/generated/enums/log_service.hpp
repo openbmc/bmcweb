@@ -93,6 +93,14 @@ enum class TransferProtocolType{
     OEM,
 };
 
+enum class AutoClearResolvedEntries{
+    Invalid,
+    ClearEventGroup,
+    RetainCauseResolutionEntries,
+    UpdateCauseEntry,
+    None,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(OverWritePolicy, {
     {OverWritePolicy::Invalid, "Invalid"},
     {OverWritePolicy::Unknown, "Unknown"},
@@ -179,6 +187,14 @@ NLOHMANN_JSON_SERIALIZE_ENUM(TransferProtocolType, {
     {TransferProtocolType::SCP, "SCP"},
     {TransferProtocolType::TFTP, "TFTP"},
     {TransferProtocolType::OEM, "OEM"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(AutoClearResolvedEntries, {
+    {AutoClearResolvedEntries::Invalid, "Invalid"},
+    {AutoClearResolvedEntries::ClearEventGroup, "ClearEventGroup"},
+    {AutoClearResolvedEntries::RetainCauseResolutionEntries, "RetainCauseResolutionEntries"},
+    {AutoClearResolvedEntries::UpdateCauseEntry, "UpdateCauseEntry"},
+    {AutoClearResolvedEntries::None, "None"},
 });
 
 }

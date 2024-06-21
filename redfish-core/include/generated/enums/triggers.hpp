@@ -38,6 +38,13 @@ enum class DirectionOfCrossingEnum{
     Decreasing,
 };
 
+enum class TriggerActionMessage{
+    Invalid,
+    Telemetry,
+    DriveMediaLife,
+    ConnectionSpeed,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(MetricTypeEnum, {
     {MetricTypeEnum::Invalid, "Invalid"},
     {MetricTypeEnum::Numeric, "Numeric"},
@@ -69,6 +76,13 @@ NLOHMANN_JSON_SERIALIZE_ENUM(DirectionOfCrossingEnum, {
     {DirectionOfCrossingEnum::Invalid, "Invalid"},
     {DirectionOfCrossingEnum::Increasing, "Increasing"},
     {DirectionOfCrossingEnum::Decreasing, "Decreasing"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(TriggerActionMessage, {
+    {TriggerActionMessage::Invalid, "Invalid"},
+    {TriggerActionMessage::Telemetry, "Telemetry"},
+    {TriggerActionMessage::DriveMediaLife, "DriveMediaLife"},
+    {TriggerActionMessage::ConnectionSpeed, "ConnectionSpeed"},
 });
 
 }

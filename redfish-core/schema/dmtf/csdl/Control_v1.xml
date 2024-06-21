@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Control v1.5.0                                                      -->
+<!--# Redfish Schema:  Control v1.5.1                                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -39,9 +39,10 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="Control" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The Control schema describes a control point and its properties."/>
+        <Annotation Term="OData.Description" String="The `Control` schema describes a control point and its properties."/>
         <Annotation Term="OData.LongDescription" String="This resource shall represent a control point for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -118,25 +119,25 @@
         <Property Name="SetPoint" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The desired set point of the control."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the desired set point control value.  The units shall follow the value of SetPointUnits.  If the DefaultSetPoint property is not supported and if a user-defined set point is not configured, the property may contain `null` in responses."/>
-          <Annotation Term="Redfish.Excerpt" String="Single"/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the desired set point control value.  The units shall follow the value of `SetPointUnits`.  If the `DefaultSetPoint` property is not supported and if a user-defined set point is not configured, the property may contain `null` in responses."/>
+          <Annotation Term="Redfish.Excerpt" String="Single,SingleLoop"/>
         </Property>
         <Property Name="SettingMin" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The minimum set point in the allowed range."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the minimum desired set point within the acceptable range.  The service shall reject values less than the value of AllowableMin.  The units shall follow the value of SetPointUnits."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the minimum desired set point within the acceptable range.  The service shall reject values less than the value of `AllowableMin`.  The units shall follow the value of `SetPointUnits`."/>
           <Annotation Term="Redfish.Excerpt" String="Range"/>
         </Property>
         <Property Name="SettingMax" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The maximum set point in the allowed range."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum desired set point within the acceptable range.  The service shall reject values greater than the value of AllowableMax.  The units shall follow the value of SetPointUnits."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum desired set point within the acceptable range.  The service shall reject values greater than the value of `AllowableMax`.  The units shall follow the value of `SetPointUnits`."/>
           <Annotation Term="Redfish.Excerpt" String="Range"/>
         </Property>
         <Property Name="AllowableNumericValues" Type="Collection(Edm.Decimal)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The supported values for the set point."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the supported values for this control.  The units shall follow the value of SetPointUnits.  This property should only be present when the set point or range has a limited set of supported values that cannot be accurately described using the Increment property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the supported values for this control.  The units shall follow the value of `SetPointUnits`.  This property should only be present when the set point or range has a limited set of supported values that cannot be accurately described using the `Increment` property."/>
           <Annotation Term="Redfish.Excerpt" String="Range"/>
         </Property>
         <Property Name="SetPointUnits" Type="Edm.String">
@@ -147,41 +148,41 @@
         <Property Name="DeadBand" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The maximum deviation from the set point allowed before the control will activate."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum deviation value allowed above or below the value of SetPoint before the control will activate."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum deviation value allowed above or below the value of `SetPoint` before the control will activate."/>
         </Property>
         <Property Name="ControlDelaySeconds" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The time delay in seconds before the control will activate once the value has deviated from the set point."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the time in seconds that will elapse after the control value deviates above or below the value of SetPoint before the control will activate."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the time in seconds that will elapse after the control value deviates above or below the value of `SetPoint` before the control will activate."/>
         </Property>
         <Property Name="AllowableMax" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The maximum possible setting for this control."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate the maximum possible value of the SetPoint or SettingMax properties for this control.  Services shall not accept values for SetPoint or SettingMax above this value."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the maximum possible value of the `SetPoint` or `SettingMax` properties for this control.  Services shall not accept values for `SetPoint` or `SettingMax` above this value."/>
           <Annotation Term="Redfish.Excerpt"/>
         </Property>
         <Property Name="AllowableMin" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The minimum possible setting for this control."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate the minimum possible value of the SetPoint or SettingMin properties for this control.  Services shall not accept values for SetPoint or SettingMin below this value."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the minimum possible value of the `SetPoint` or `SettingMin` properties for this control.  Services shall not accept values for `SetPoint` or `SettingMin` below this value."/>
           <Annotation Term="Redfish.Excerpt"/>
         </Property>
         <Property Name="Increment" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The smallest increment supported for the set point."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the smallest change allowed to the value of the SetPoint, SettingMin, or SettingMax properties.  The units shall follow the value of SetPointUnits."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the smallest change allowed to the value of the `SetPoint`, `SettingMin`, or `SettingMax` properties.  The units shall follow the value of `SetPointUnits`."/>
         </Property>
         <Property Name="Accuracy" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The estimated percent error of measured versus actual values."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the percent error of the measured versus actual values of the SetPoint property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the percent error of the measured versus actual values of the `SetPoint` property."/>
           <Annotation Term="Measures.Unit" String="%"/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_4_0"/>
-                <PropertyValue Property="Description" String="This property has been deprecated in favor of SetPointAccuracy to provide a range instead of a percentage."/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of `SetPointAccuracy` to provide a range instead of a percentage."/>
               </Record>
             </Collection>
           </Annotation>
@@ -194,7 +195,7 @@
         <Property Name="PhysicalSubContext" Type="PhysicalContext.PhysicalSubContext">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The usage or location within a device to which this control applies."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a description of the usage or sub-region within the equipment to which this control applies.  This property generally differentiates multiple controls within the same PhysicalContext instance."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a description of the usage or sub-region within the equipment to which this control applies.  This property generally differentiates multiple controls within the same `PhysicalContext` instance."/>
         </Property>
         <Property Name="Implementation" Type="Control.v1_0_0.ImplementationType">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -204,7 +205,7 @@
         <Property Name="SetPointUpdateTime" Type="Edm.DateTimeOffset">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The date and time that the set point was changed."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the date and time that the value of SetPoint was last changed."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date and time that the value of `SetPoint` was last changed."/>
         </Property>
         <NavigationProperty Name="RelatedItem" Type="Collection(Resource.Item)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -212,15 +213,16 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources that this control services."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
-        <Property Name="ControlLoop" Type="Control.v1_0_0.ControlLoop">
+        <Property Name="ControlLoop" Type="Control.v1_0_0.ControlLoop" Nullable="false">
           <Annotation Term="OData.Description" String="The control loop details."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the details for the control loop described by this resource."/>
+          <Annotation Term="Redfish.Excerpt" String="SingleLoop"/>
         </Property>
 
         <Property Name="Reading" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The reading of the sensor associated with this control."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the value of the Reading property of the Sensor resource directly associated with this control.  This property shall not be present if multiple sensors are associated with a single control."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the value of the `Reading` property of the `Sensor` resource directly associated with this control.  This property shall not be present if multiple sensors are associated with a single control."/>
           <Annotation Term="Redfish.ExcerptCopyOnly"/>
         </Property>
         <Property Name="ReadingUnits" Type="Edm.String">
@@ -233,12 +235,12 @@
         <NavigationProperty Name="Sensor" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy"/>
           <Annotation Term="OData.Description" String="The sensor reading associated with this control."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the Sensor excerpt directly associated with this control.  The value of the DataSourceUri property shall reference a resource of type Sensor.  This property shall not be present if multiple sensors are associated with a single control."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the Sensor excerpt directly associated with this control.  The value of the `DataSourceUri` property shall reference a resource of type `Sensor`.  This property shall not be present if multiple sensors are associated with a single control."/>
         </NavigationProperty>
         <NavigationProperty Name="AssociatedSensors" Type="Collection(Sensor.Sensor)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the sensors associated with this control."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Sensor that represent the sensors related to this control."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Sensor` that represent the sensors related to this control."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
 
@@ -261,16 +263,19 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The proportional coefficient."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the coefficient for the proportional factor in a control loop."/>
+          <Annotation Term="Redfish.Excerpt" String="SingleLoop"/>
         </Property>
         <Property Name="Integral" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The integral coefficient."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the coefficient for the integral factor in a control loop."/>
+          <Annotation Term="Redfish.Excerpt" String="SingleLoop"/>
         </Property>
         <Property Name="Differential" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The differential coefficient."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the coefficient for the differential factor in a control loop."/>
+          <Annotation Term="Redfish.Excerpt" String="SingleLoop"/>
         </Property>
         <Property Name="CoefficientUpdateTime" Type="Edm.DateTimeOffset">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -282,19 +287,19 @@
       <EnumType Name="ControlType">
         <Member Name="Temperature">
           <Annotation Term="OData.Description" String="Temperature (C) control or thermostat."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a control used to regulate temperature, in degree Celsius units, either to a single set point or within a range.  The SetPointUnits property shall contain `Cel`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a control used to regulate temperature, in degree Celsius units, either to a single set point or within a range.  The `SetPointUnits` property shall contain `Cel`."/>
         </Member>
         <Member Name="Power">
           <Annotation Term="OData.Description" String="Power (W) control or power limit."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a control used to regulate or limit maximum power consumption, in watt units, either to a single set point or within a range.  The SetPointUnits property shall contain `W`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a control used to regulate or limit maximum power consumption, in watt units, either to a single set point or within a range.  The `SetPointUnits` property shall contain `W`."/>
         </Member>
         <Member Name="Frequency">
           <Annotation Term="OData.Description" String="Frequency (Hz) control."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a control used to limit the operating frequency, in hertz units, of a device, either to a single set point or within a range.  The SetPointUnits property shall contain `Hz`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a control used to limit the operating frequency, in hertz units, of a device, either to a single set point or within a range.  The `SetPointUnits` property shall contain `Hz`."/>
         </Member>
         <Member Name="FrequencyMHz">
           <Annotation Term="OData.Description" String="Frequency (MHz) control."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a control used to limit the operating frequency, in megahertz units, of a device, either to a single set point or within a range.  The SetPointUnits property shall contain `MHz`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a control used to limit the operating frequency, in megahertz units, of a device, either to a single set point or within a range.  The `SetPointUnits` property shall contain `MHz`."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -306,7 +311,7 @@
         </Member>
         <Member Name="Pressure">
           <Annotation Term="OData.Description" String="Pressure (kPa) control."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a control used to adjust pressure in a system, in kilopascal units.  The SetPointUnits property shall contain `kPa`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a control used to adjust pressure in a system, in kilopascal units.  The `SetPointUnits` property shall contain `kPa`."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -323,7 +328,7 @@
         </Member>
         <Member Name="PressurekPa">
           <Annotation Term="OData.Description" String="Pressure (kPa) control."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a control used to adjust pressure in a system, in kilopascal units.  The SetPointUnits property shall contain `kPa`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a control used to adjust pressure in a system, in kilopascal units.  The `SetPointUnits` property shall contain `kPa`."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -335,7 +340,7 @@
         </Member>
         <Member Name="Valve">
           <Annotation Term="OData.Description" String="Valve (% open) control."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a control used to adjust a valve in a system, in percent units.  The SetPointUnits property shall contain `%`.  A value of `100` shall indicate the valve is completely open, and a value of `0` shall indicate the valve is completely closed."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a control used to adjust a valve in a system, in percent units.  The `SetPointUnits` property shall contain `%`.  A value of `100` shall indicate the valve is completely open, and a value of `0` shall indicate the valve is completely closed."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -347,7 +352,7 @@
         </Member>
         <Member Name="Percent">
           <Annotation Term="OData.Description" String="Percent-based control."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a percent-based control, in percent units.  The SetPointUnits property shall contain `%`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a percent-based control, in percent units.  The `SetPointUnits` property shall contain `%`."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -359,7 +364,7 @@
         </Member>
         <Member Name="DutyCycle">
           <Annotation Term="OData.Description" String="Duty cycle (%) control."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a control used to adjust the duty cycle, such as a PWM-based control, in percent units.  The SetPointUnits property shall contain `%`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a control used to adjust the duty cycle, such as a PWM-based control, in percent units.  The `SetPointUnits` property shall contain `%`."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -374,11 +379,11 @@
       <EnumType Name="SetPointType">
         <Member Name="Single">
           <Annotation Term="OData.Description" String="Control uses a single set point."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the control utilizes a single set point for its operation.  The SetPoint property shall be present for this control type.  The SettingMin and SettingMax properties shall not be present for this control type."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the control utilizes a single set point for its operation.  The `SetPoint` property shall be present for this control type.  The `SettingMin` and `SettingMax` properties shall not be present for this control type."/>
         </Member>
         <Member Name="Range">
           <Annotation Term="OData.Description" String="Control uses a range of values."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the control utilizes a set point range for its operation.  The SettingMin and SettingMax properties shall be present for this control type.  The SetPoint property shall not be present for this control type."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the control utilizes a set point range for its operation.  The `SettingMin` and `SettingMax` properties shall be present for this control type.  The `SetPoint` property shall not be present for this control type."/>
         </Member>
       </EnumType>
 
@@ -438,10 +443,16 @@
       <EntityType Name="Control" BaseType="Control.v1_0_1.Control"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add excerpt annotations to expose the `ControlLoop` object within an excerpt.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Control" BaseType="Control.v1_0_2.Control"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
-      <Annotation Term="OData.Description" String="This version was created to add `FrequencyMhz` and `Pressure` to ControlType."/>
+      <Annotation Term="OData.Description" String="This version was created to add `FrequencyMhz` and `Pressure` to `ControlType`."/>
 
       <EntityType Name="Control" BaseType="Control.v1_0_1.Control"/>
     </Schema>
@@ -452,10 +463,16 @@
       <EntityType Name="Control" BaseType="Control.v1_1_0.Control"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add excerpt annotations to expose the `ControlLoop` object within an excerpt.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Control" BaseType="Control.v1_1_1.Control"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.2"/>
-      <Annotation Term="OData.Description" String="This version was created to add the ResetToDefaults action."/>
+      <Annotation Term="OData.Description" String="This version was created to add the `ResetToDefaults` action."/>
 
       <EntityType Name="Control" BaseType="Control.v1_1_0.Control"/>
     </Schema>
@@ -466,16 +483,22 @@
       <EntityType Name="Control" BaseType="Control.v1_2_0.Control"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_2_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add excerpt annotations to expose the `ControlLoop` object within an excerpt.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Control" BaseType="Control.v1_2_1.Control"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.1"/>
-      <Annotation Term="OData.Description" String="This version was created to add `Valve` and `PressurekPa` to ControlType, and to deprecate `Pressure` which was defined with units inconsistent with the definition for an equivalent Sensor's ReadingType."/>
+      <Annotation Term="OData.Description" String="This version was created to add `Valve` and `PressurekPa` to `ControlType`, and to deprecate `Pressure` which was defined with units inconsistent with the definition for an equivalent `Sensor` resource's `ReadingType`."/>
 
       <EntityType Name="Control" BaseType="Control.v1_2_0.Control">
         <Property Name="DefaultSetPoint" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The default set point of the control."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the default set point control value.  The units shall follow the value of SetPointUnits.  Services apply this value to the SetPoint property under certain conditions, such as a reset of the manager or a ResetToDefaults action."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the default set point control value.  The units shall follow the value of `SetPointUnits`.  Services apply this value to the `SetPoint` property under certain conditions, such as a reset of the manager or a `ResetToDefaults` action."/>
           <Annotation Term="Redfish.Excerpt" String="Single"/>
         </Property>
       </EntityType>
@@ -483,36 +506,54 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_3_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to describe behavior of SetPoint when a DefaultSetPoint is not provided.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to describe behavior of `SetPoint` when a `DefaultSetPoint` is not provided.  It was also created to correct various typographical errors."/>
       <EntityType Name="Control" BaseType="Control.v1_3_0.Control"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_3_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add excerpt annotations to expose the `ControlLoop` object within an excerpt.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Control" BaseType="Control.v1_3_1.Control"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.2"/>
-      <Annotation Term="OData.Description" String="This version was created to deprecate the Accuracy property in favor of SetPointAccuracy."/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate the `Accuracy` property in favor of `SetPointAccuracy`."/>
 
       <EntityType Name="Control" BaseType="Control.v1_3_0.Control">
         <Property Name="SetPointAccuracy" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Accuracy (+/-) of the set point."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the accuracy of the value of the SetPoint for this control.  The value shall be the absolute value of the maximum deviation of the SetPoint from its actual value.  The value shall be in units that follow the SetPointUnits for this control."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the accuracy of the value of the `SetPoint` for this control.  The value shall be the absolute value of the maximum deviation of the `SetPoint` from its actual value.  The value shall be in units that follow the `SetPointUnits` for this control."/>
         </Property>
       </EntityType>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_4_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to describe behavior of SetPoint when a DefaultSetPoint is not provided.  It was also created to correct various typographical errors."/>
+      <Annotation Term="OData.Description" String="This version was created to describe behavior of `SetPoint` when a `DefaultSetPoint` is not provided.  It was also created to correct various typographical errors."/>
       <EntityType Name="Control" BaseType="Control.v1_4_0.Control"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_4_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add excerpt annotations to expose the `ControlLoop` object within an excerpt.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Control" BaseType="Control.v1_4_1.Control"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.3"/>
-      <Annotation Term="OData.Description" String="This version was created to add `Percent` and `DutyCyle` to ControlType."/>
+      <Annotation Term="OData.Description" String="This version was created to add `Percent` and `DutyCyle` to `ControlType`."/>
 
       <EntityType Name="Control" BaseType="Control.v1_4_1.Control"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_5_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add excerpt annotations to expose the `ControlLoop` object within an excerpt.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Control" BaseType="Control.v1_5_0.Control"/>
     </Schema>
 
   </edmx:DataServices>

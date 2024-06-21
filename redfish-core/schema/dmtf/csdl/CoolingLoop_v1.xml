@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  CoolingLoop v1.0.2                                                  -->
+<!--# Redfish Schema:  CoolingLoop v1.0.3                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -51,9 +51,10 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CoolingLoop">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="CoolingLoop" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="This schema describes a cooling loop.  A cooling loop might be any coolant-carrying vessel, such as facility-level pipework, an immersion cooling tank, or a manifold.  A loop might describe its connectors and instrumentation but does not generally include active cooling components or subsystems."/>
+        <Annotation Term="OData.Description" String="The `CoolingLoop` schema describes a cooling loop.  A cooling loop might be any coolant-carrying vessel, such as facility-level pipework, an immersion cooling tank, or a manifold.  A loop might describe its connectors and instrumentation but does not generally include active cooling components or subsystems."/>
         <Annotation Term="OData.LongDescription" String="This resource shall represent a cooling loop for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -151,20 +152,20 @@
         <NavigationProperty Name="PrimaryCoolantConnectors" Type="CoolantConnectorCollection.CoolantConnectorCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A link to the primary coolant connectors for this equipment."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CoolantConnectorCollection that contains the primary coolant connectors for this equipment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `CoolantConnectorCollection` that contains the primary coolant connectors for this equipment."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="SecondaryCoolantConnectors" Type="CoolantConnectorCollection.CoolantConnectorCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A link to the secondary coolant connectors for this equipment."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CoolantConnectorCollection that contains the secondary coolant connectors for this equipment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `CoolantConnectorCollection` that contains the secondary coolant connectors for this equipment."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="CoolantLevelPercent" Type="Sensor.Sensor">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="Redfish.ExcerptCopy"/>
           <Annotation Term="OData.Description" String="The coolant capacity filled (percent)."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the amount of coolant capacity, in percent units, filled in this cooling loop.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Percent`.  Services that support this property shall also return the CoolantLevelStatus property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the amount of coolant capacity, in percent units, filled in this cooling loop.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Percent`.  Services that support this property shall also return the `CoolantLevelStatus` property."/>
         </NavigationProperty>
         <Property Name="Links" Type="CoolingLoop.v1_0_0.Links" Nullable="false">
           <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
@@ -230,19 +231,19 @@
         <NavigationProperty Name="Chassis" Type="Chassis.Chassis">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A link to the chassis that contains this equipment."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to resources of type Chassis that represent the physical container that contains this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to resources of type `Chassis` that represent the physical container that contains this resource."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Facility" Type="Facility.Facility" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A link to the facility that contains this equipment."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Facility that represents the facility that contains this equipment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `Facility` that represents the facility that contains this equipment."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="ManagedBy" Type="Collection(Manager.Manager)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the managers responsible for managing this equipment."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Manager that represent the managers that manage this equipment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Manager` that represent the managers that manage this equipment."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -289,6 +290,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="CoolingLoop" BaseType="CoolingLoop.v1_0_1.CoolingLoop"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CoolingLoop.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="CoolingLoop" BaseType="CoolingLoop.v1_0_2.CoolingLoop"/>
     </Schema>
 
   </edmx:DataServices>

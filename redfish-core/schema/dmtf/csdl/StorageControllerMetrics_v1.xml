@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################               -->
-<!--# Redfish Schema:  StorageControllerMetrics v1.0.2                                             -->
+<!--# Redfish Schema:  StorageControllerMetrics v1.0.3                                             -->
 <!--#                                                                                              -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,              -->
 <!--# available at http://www.dmtf.org/standards/redfish                                           -->
-<!--# Copyright 2014-2023 DMTF in cooperation with Storage Networking Industry Association (SNIA). -->
+<!--# Copyright 2014-2024 DMTF in cooperation with Storage Networking Industry Association (SNIA). -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright         -->
 <!--################################################################################               -->
 <!---->
@@ -35,10 +35,11 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageControllerMetrics">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="StorageControllerMetrics" BaseType="Resource.v1_0_0.Resource" Abstract="true">
         <Annotation Term="OData.Description" String="The usage and health statistics for a storage controller."/>
-        <Annotation Term="OData.LongDescription" String="The StorageControllerMetrics schema shall contain the usage and health statistics for a storage controller in a Redfish implementation."/>
+        <Annotation Term="OData.LongDescription" String="The `StorageControllerMetrics` schema shall contain the usage and health statistics for a storage controller in a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -101,7 +102,7 @@
         <Property Name="StateChangeCount" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The number of state changes for this storage controller."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the number of times the State property within the Status property of the parent StorageController resource changed."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of times the `State` property within the `Status` property of the parent `StorageController` resource changed."/>
         </Property>
         <Property Name="NVMeSMART" Type="StorageControllerMetrics.NVMeSMARTMetrics" Nullable="false">
           <Annotation Term="OData.Description" String="The NVMe SMART metrics for this storage controller."/>
@@ -288,6 +289,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="StorageControllerMetrics" BaseType="StorageControllerMetrics.v1_0_1.StorageControllerMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageControllerMetrics.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="StorageControllerMetrics" BaseType="StorageControllerMetrics.v1_0_2.StorageControllerMetrics"/>
     </Schema>
 
   </edmx:DataServices>

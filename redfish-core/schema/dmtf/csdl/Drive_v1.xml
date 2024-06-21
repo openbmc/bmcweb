@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################               -->
-<!--# Redfish Schema:  Drive v1.18.0                                                               -->
+<!--# Redfish Schema:  Drive v1.19.0                                                               -->
 <!--#                                                                                              -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,              -->
 <!--# available at http://www.dmtf.org/standards/redfish                                           -->
-<!--# Copyright 2014-2023 DMTF in cooperation with Storage Networking Industry Association (SNIA). -->
+<!--# Copyright 2014-2024 DMTF in cooperation with Storage Networking Industry Association (SNIA). -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright         -->
 <!--################################################################################               -->
 <!---->
@@ -75,10 +75,11 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="Drive" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The Drive schema represents a single physical drive for a system, including links to associated volumes.  It also describes the location, such as a slot, socket, or bay, where a unit can be installed, by populating a resource instance with an absent state if a unit is not present."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall represent a drive or other physical storage medium for a Redfish implementation.  It may also represent a location, such as a slot, socket, or bay, where a unit may be installed, but the State property within the Status property contains `Absent`."/>
+        <Annotation Term="OData.Description" String="The `Drive` schema represents a single physical drive for a system, including links to associated volumes.  It also describes the location, such as a slot, socket, or bay, where a unit can be installed, by populating a resource instance with an absent state if a unit is not present."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent a drive or other physical storage medium for a Redfish implementation.  It may also represent a location, such as a slot, socket, or bay, where a unit may be installed, but the `State` property within the `Status` property contains `Absent`."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -87,7 +88,7 @@
         <Annotation Term="Capabilities.UpdateRestrictions">
           <Record>
             <PropertyValue Property="Updatable" Bool="true"/>
-            <Annotation Term="OData.Description" String="Writable properties, such as IndicatorLED, can be updated for drives."/>
+            <Annotation Term="OData.Description" String="Writable properties, such as `IndicatorLED`, can be updated for drives."/>
           </Record>
         </Annotation>
         <Annotation Term="Capabilities.DeleteRestrictions">
@@ -127,7 +128,7 @@
         </Parameter>
         <Parameter Name="OverwritePasses" Type="Edm.Int64">
           <Annotation Term="OData.Description" String="The number of times to overwrite the drive if performing an overwrite type of sanitization."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the number of times to overwrite the drive if the SanitizationType parameter contains the value `Overwrite`.  This parameter shall be ignored if the SanitizationType parameter does not contain the value `Overwrite`.  If the client does not provide this parameter, the service shall perform an implementation-specific number of passes."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the number of times to overwrite the drive if the `SanitizationType` parameter contains the value `Overwrite`.  This parameter shall be ignored if the `SanitizationType` parameter does not contain the value `Overwrite`.  If the client does not provide this parameter, the service shall perform an implementation-specific number of passes."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -159,7 +160,7 @@
 
       <Action Name="RevertToOriginalFactoryState" IsBound="true">
         <Annotation Term="OData.Description" String="This action reverts a self-encrypting drive (SED) to the original factory state."/>
-        <Annotation Term="OData.LongDescription" String="This action shall revert a self-encrypting drive (SED) to the original factory state.  Upon successful completion of this action, the drive data shall be securely erased and the EncryptionStatus property shall contain `Unencrypted`."/>
+        <Annotation Term="OData.LongDescription" String="This action shall revert a self-encrypting drive (SED) to the original factory state.  Upon successful completion of this action, the drive data shall be securely erased and the `EncryptionStatus` property shall contain `Unencrypted`."/>
         <Parameter Name="Drive" Type="Drive.v1_0_0.Actions"/>
         <Parameter Name="PhysicalSecureID" Type="Edm.String">
           <Annotation Term="OData.Description" String="The physical secure ID (PSID).  The PSID is generally printed on the drive label and used to revert an encrypted SED."/>
@@ -184,7 +185,7 @@
         <Property Name="StatusIndicator" Type="Drive.v1_0_0.StatusIndicator">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The state of the status indicator, which communicates status information about this drive."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the status indicator state for the status indicator associated with this drive.  The Redfish.AllowableValues annotation specifies the valid values for this property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the status indicator state for the status indicator associated with this drive.  The `@Redfish.AllowableValues` annotation specifies the valid values for this property."/>
         </Property>
         <Property Name="IndicatorLED" Type="Resource.IndicatorLED">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -195,7 +196,7 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_11_0"/>
-                <PropertyValue Property="Description" String="This property has been deprecated in favor of the LocationIndicatorActive property."/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the `LocationIndicatorActive` property."/>
               </Record>
             </Collection>
           </Annotation>
@@ -272,7 +273,7 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_4_0"/>
-                <PropertyValue Property="Description" String="This property has been deprecated in favor of the singular property PhysicalLocation found in Drive.v1_4_0."/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the singular `PhysicalLocation` property."/>
               </Record>
             </Collection>
           </Annotation>
@@ -280,7 +281,7 @@
         <Property Name="HotspareType" Type="Drive.v1_0_0.HotspareType">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The type of hot spare that this drive serves as."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the hot spare type for the associated drive.  If the drive currently serves as a hot spare, its Status.State field shall be 'StandbySpare' and 'Enabled' when it is part of a volume."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the hot spare type for the associated drive.  If the drive currently serves as a hot spare, the `State` property in `Status` shall contain `StandbySpare` and `Enabled` when it is part of a volume."/>
         </Property>
         <Property Name="EncryptionAbility" Type="Drive.v1_0_0.EncryptionAbility">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -339,7 +340,7 @@
         <NavigationProperty Name="Volumes" Type="Collection(Volume.Volume)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the volumes that this drive either wholly or only partially contains."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Volume with which this drive is associated.  This property shall include all volume resources of which this drive is a member and all volumes for which this drive acts as a spare if the hot spare type is `Dedicated`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Volume` with which this drive is associated.  This property shall include all volume resources of which this drive is a member and all volumes for which this drive acts as a spare if the hot spare type is `Dedicated`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -383,7 +384,7 @@
           <Annotation Term="OData.Description" String="The drive is serving as a hot spare for all other drives in this storage domain that are contained in the same chassis."/>
         </Member>
         <Member Name="Dedicated">
-          <Annotation Term="OData.Description" String="The drive is serving as a hot spare for a user-defined set of drives or volumes.  Clients cannot specify this value when modifying the HotspareType property.  This value is reported as a result of configuring the spare drives within a volume."/>
+          <Annotation Term="OData.Description" String="The drive is serving as a hot spare for a user-defined set of drives or volumes.  Clients cannot specify this value when modifying the `HotspareType` property.  This value is reported as a result of configuring the spare drives within a volume."/>
         </Member>
       </EnumType>
 
@@ -473,13 +474,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_0_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to fix supported types and to remove the Nullable facet on NavigationProperties of the Collection type and to use Redfish.Deprecated on certain enumerated values."/>
+      <Annotation Term="OData.Description" String="This version was created to fix supported types and to remove the nullable term on arrays of links and to add the deprecated annotation on certain enumerated values."/>
       <EntityType Name="Drive" BaseType="Drive.v1_0_2.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_0_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change Identifier and Location to their abstract base types, and IndicatorLED and Protocol to use the unversioned definition.  It was also created to correct the short and long descriptions in the defined Actions."/>
+      <Annotation Term="OData.Description" String="This version was created to change `Identifier` and `Location` to their abstract base types, and `IndicatorLED` and `Protocol` to use the unversioned definition.  It was also created to correct the short and long descriptions in the defined `Actions`."/>
       <EntityType Name="Drive" BaseType="Drive.v1_0_3.Drive"/>
     </Schema>
 
@@ -491,7 +492,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_0_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation.  It was also created to change the VolumeCollection reference to Swordfish."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation.  It was also created to change the `VolumeCollection` reference to Swordfish."/>
       <EntityType Name="Drive" BaseType="Drive.v1_0_5.Drive"/>
     </Schema>
 
@@ -533,19 +534,19 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_0_13">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change the permissions for HotspareType to read-write."/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions for `HotspareType` to read-write."/>
       <EntityType Name="Drive" BaseType="Drive.v1_0_12.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_0_14">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the units annotation value for RotationSpeedRPM to match the available UCUM format."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the units annotation value for `RotationSpeedRPM` to match the available UCUM format."/>
       <EntityType Name="Drive" BaseType="Drive.v1_0_13.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_0_15">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the Revision property when it's necessary to distinguish hardware and firmware versions.  It was also created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `Revision` property when it's necessary to distinguish hardware and firmware versions.  It was also created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
       <EntityType Name="Drive" BaseType="Drive.v1_0_14.Drive"/>
     </Schema>
 
@@ -561,14 +562,20 @@
       <EntityType Name="Drive" BaseType="Drive.v1_0_16.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_0_18">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_0_17.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.2"/>
 
       <EntityType Name="Drive" BaseType="Drive.v1_0_1.Drive">
         <Property Name="Operations" Type="Collection(Drive.v1_1_0.Operations)" Nullable="false">
-          <Annotation Term="OData.Description" String="The operations currently running on the Drive."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a list of all operations currently running on the Drive."/>
+          <Annotation Term="OData.Description" String="The operations currently running on the drive."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a list of all operations currently running on the drive."/>
         </Property>
       </EntityType>
 
@@ -576,7 +583,7 @@
         <NavigationProperty Name="Endpoints" Type="Collection(Endpoint.Endpoint)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the endpoints that connect to this drive."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Endpoint with which this drive is associated."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Endpoint` with which this drive is associated."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -594,7 +601,7 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_17_0"/>
-                <PropertyValue Property="Description" String="This property is deprecated in favor of the Operation property using the OperationType enumeration defined in the Volume schema."/>
+                <PropertyValue Property="Description" String="This property is deprecated in favor of the `Operation` property using the `OperationType` enumeration defined in the `Volume` schema."/>
               </Record>
             </Collection>
           </Annotation>
@@ -610,7 +617,7 @@
         <NavigationProperty Name="AssociatedTask" Type="Task.Task" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the task associated with the operation, if any."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Task that represents the task associated with the operation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `Task` that represents the task associated with the operation."/>
         </NavigationProperty>
       </ComplexType>
     </Schema>
@@ -623,13 +630,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_1_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to fix supported types to remove the Nullable facet on NavigationProperties of the Collection type and to use Redfish.Deprecated on certain enumerated values."/>
+      <Annotation Term="OData.Description" String="This version was created to fix supported types to remove the nullable term on arrays of links and to add the deprecated annotation on certain enumerated values."/>
       <EntityType Name="Drive" BaseType="Drive.v1_1_1.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_1_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to migrate the Operations definition, to change Identifier and Location to their abstract base types, and IndicatorLED, Protocol, and Operations to use the unversioned definition.  It was also created to correct the short and long descriptions in the defined Actions."/>
+      <Annotation Term="OData.Description" String="This version was created to migrate the `Operations` definition, to change `Identifier` and `Location` to their abstract base types, and `IndicatorLED`, `Protocol`, and `Operations` to use the unversioned definition.  It was also created to correct the short and long descriptions in the defined actions."/>
       <EntityType Name="Drive" BaseType="Drive.v1_1_2.Drive"/>
     </Schema>
 
@@ -641,7 +648,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_1_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation.  It was also created to change the VolumeCollection reference to Swordfish."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation.  It was also created to change the `VolumeCollection` reference to Swordfish."/>
       <EntityType Name="Drive" BaseType="Drive.v1_1_4.Drive"/>
     </Schema>
 
@@ -683,19 +690,19 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_1_12">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change the permissions for HotspareType to read-write."/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions for `HotspareType` to read-write."/>
       <EntityType Name="Drive" BaseType="Drive.v1_1_11.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_1_13">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the units annotation value for RotationSpeedRPM to match the available UCUM format."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the units annotation value for `RotationSpeedRPM` to match the available UCUM format."/>
       <EntityType Name="Drive" BaseType="Drive.v1_1_12.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_1_14">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the Revision property when it's necessary to distinguish hardware and firmware versions.  It was also created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `Revision` property when it's necessary to distinguish hardware and firmware versions.  It was also created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
       <EntityType Name="Drive" BaseType="Drive.v1_1_13.Drive"/>
     </Schema>
 
@@ -711,6 +718,12 @@
       <EntityType Name="Drive" BaseType="Drive.v1_1_15.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_1_17">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_1_16.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
@@ -721,7 +734,7 @@
         <NavigationProperty Name="Chassis" Type="Chassis.Chassis" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the chassis that contains this drive."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Chassis that represents the physical container associated with this drive."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `Chassis` that represents the physical container associated with this drive."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -729,7 +742,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_2_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to migrate the Operations definition, to change Identifier and Location to their abstract base types, and IndicatorLED, Protocol, and Operations to use the unversioned definition.  It was also created to correct the short and long descriptions in the defined Actions."/>
+      <Annotation Term="OData.Description" String="This version was created to migrate the `Operations` definition, to change `Identifier` and `Location` to their abstract base types, and `IndicatorLED`, `Protocol`, and `Operations` to use the unversioned definition.  It was also created to correct the short and long descriptions in the defined actions."/>
       <EntityType Name="Drive" BaseType="Drive.v1_2_0.Drive"/>
     </Schema>
 
@@ -741,7 +754,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_2_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation.  It was also created to change the VolumeCollection reference to Swordfish."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation.  It was also created to change the `VolumeCollection` reference to Swordfish."/>
       <EntityType Name="Drive" BaseType="Drive.v1_2_2.Drive"/>
     </Schema>
 
@@ -783,19 +796,19 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_2_10">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change the permissions for HotspareType to read-write."/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions for `HotspareType` to read-write."/>
       <EntityType Name="Drive" BaseType="Drive.v1_2_9.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_2_11">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the units annotation value for RotationSpeedRPM to match the available UCUM format."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the units annotation value for `RotationSpeedRPM` to match the available UCUM format."/>
       <EntityType Name="Drive" BaseType="Drive.v1_2_10.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_2_12">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the Revision property when it's necessary to distinguish hardware and firmware versions.  It was also created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `Revision` property when it's necessary to distinguish hardware and firmware versions.  It was also created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
       <EntityType Name="Drive" BaseType="Drive.v1_2_11.Drive"/>
     </Schema>
 
@@ -811,6 +824,12 @@
       <EntityType Name="Drive" BaseType="Drive.v1_2_13.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_2_15">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_2_14.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.3"/>
@@ -819,7 +838,7 @@
         <NavigationProperty Name="Assembly" Type="Assembly.Assembly" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the assembly associated with this drive."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Assembly."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `Assembly`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -833,7 +852,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_3_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation.  It was also created to change the VolumeCollection reference to Swordfish."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation.  It was also created to change the `VolumeCollection` reference to Swordfish."/>
       <EntityType Name="Drive" BaseType="Drive.v1_3_1.Drive"/>
     </Schema>
 
@@ -875,19 +894,19 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_3_9">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change the permissions for HotspareType to read-write."/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions for `HotspareType` to read-write."/>
       <EntityType Name="Drive" BaseType="Drive.v1_3_8.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_3_10">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the units annotation value for RotationSpeedRPM to match the available UCUM format."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the units annotation value for `RotationSpeedRPM` to match the available UCUM format."/>
       <EntityType Name="Drive" BaseType="Drive.v1_3_9.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_3_11">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the Revision property when it's necessary to distinguish hardware and firmware versions.  It was also created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `Revision` property when it's necessary to distinguish hardware and firmware versions.  It was also created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
       <EntityType Name="Drive" BaseType="Drive.v1_3_10.Drive"/>
     </Schema>
 
@@ -903,13 +922,19 @@
       <EntityType Name="Drive" BaseType="Drive.v1_3_12.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_3_14">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_3_13.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.1"/>
 
       <EntityType Name="Drive" BaseType="Drive.v1_3_0.Drive">
         <Property Name="PhysicalLocation" Type="Resource.Location" Nullable="false">
-          <Annotation Term="OData.Description" String="The location of the drive."/>
+          <Annotation Term="OData.Description" String="The location of the drive.  This property is equivalent to the `Location` property common to other standard Redfish resources."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the location information of the associated drive."/>
         </Property>
       </EntityType>
@@ -923,7 +948,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_4_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation.  It was also created to change the VolumeCollection reference to Swordfish."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation.  It was also created to change the `VolumeCollection` reference to Swordfish."/>
       <EntityType Name="Drive" BaseType="Drive.v1_4_1.Drive"/>
     </Schema>
 
@@ -965,19 +990,19 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_4_9">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change the permissions for HotspareType to read-write."/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions for `HotspareType` to read-write."/>
       <EntityType Name="Drive" BaseType="Drive.v1_4_8.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_4_10">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the units annotation value for RotationSpeedRPM to match the available UCUM format."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the units annotation value for `RotationSpeedRPM` to match the available UCUM format."/>
       <EntityType Name="Drive" BaseType="Drive.v1_4_9.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_4_11">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the Revision property when it's necessary to distinguish hardware and firmware versions.  It was also created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `Revision` property when it's necessary to distinguish hardware and firmware versions.  It was also created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
       <EntityType Name="Drive" BaseType="Drive.v1_4_10.Drive"/>
     </Schema>
 
@@ -991,6 +1016,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Drive" BaseType="Drive.v1_4_12.Drive"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_4_14">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify `PhysicalLocation` is the same as `Location` found elsewhere.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_4_13.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_5_0">
@@ -1017,7 +1048,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_5_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation.  It was also created to change the VolumeCollection reference to Swordfish."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation.  It was also created to change the `VolumeCollection` reference to Swordfish."/>
       <EntityType Name="Drive" BaseType="Drive.v1_5_0.Drive"/>
     </Schema>
 
@@ -1059,19 +1090,19 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_5_8">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change the permissions for HotspareType to read-write."/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions for `HotspareType` to read-write."/>
       <EntityType Name="Drive" BaseType="Drive.v1_5_7.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_5_9">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the units annotation value for RotationSpeedRPM to match the available UCUM format."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the units annotation value for `RotationSpeedRPM` to match the available UCUM format."/>
       <EntityType Name="Drive" BaseType="Drive.v1_5_8.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_5_10">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the Revision property when it's necessary to distinguish hardware and firmware versions.  It was also created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `Revision` property when it's necessary to distinguish hardware and firmware versions.  It was also created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
       <EntityType Name="Drive" BaseType="Drive.v1_5_9.Drive"/>
     </Schema>
 
@@ -1087,6 +1118,12 @@
       <EntityType Name="Drive" BaseType="Drive.v1_5_11.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_5_13">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify `PhysicalLocation` is the same as `Location` found elsewhere.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_5_12.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -1096,7 +1133,7 @@
       <ComplexType Name="Links" BaseType="Drive.v1_2_0.Links">
         <NavigationProperty Name="PCIeFunctions" Type="Collection(PCIeFunction.PCIeFunction)">
           <Annotation Term="OData.Description" String="An array of links to the PCIe functions that the drive produces."/>
-          <Annotation Term="OData.LongDescription" String="This property shall link to a resource of type PCIeFunction that represents the PCIe functions associated with this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall link to a resource of type `PCIeFunction` that represents the PCIe functions associated with this resource."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -1134,19 +1171,19 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_6_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change the permissions for HotspareType to read-write."/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions for `HotspareType` to read-write."/>
       <EntityType Name="Drive" BaseType="Drive.v1_6_5.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_6_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the units annotation value for RotationSpeedRPM to match the available UCUM format."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the units annotation value for `RotationSpeedRPM` to match the available UCUM format."/>
       <EntityType Name="Drive" BaseType="Drive.v1_6_6.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_6_8">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the Revision property when it's necessary to distinguish hardware and firmware versions.  It was also created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `Revision` property when it's necessary to distinguish hardware and firmware versions.  It was also created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
       <EntityType Name="Drive" BaseType="Drive.v1_6_7.Drive"/>
     </Schema>
 
@@ -1162,10 +1199,16 @@
       <EntityType Name="Drive" BaseType="Drive.v1_6_9.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_6_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify `PhysicalLocation` is the same as `Location` found elsewhere.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_6_10.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
-      <Annotation Term="OData.Description" String="This version was created to add a WriteCacheEnabled property and reset action for Drive."/>
+      <Annotation Term="OData.Description" String="This version was created to add the `Reset` action."/>
 
       <EntityType Name="Drive" BaseType="Drive.v1_6_0.Drive">
         <Property Name="WriteCacheEnabled" Type="Edm.Boolean">
@@ -1202,19 +1245,19 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_7_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change the permissions for HotspareType to read-write."/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions for `HotspareType` to read-write."/>
       <EntityType Name="Drive" BaseType="Drive.v1_7_4.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_7_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the units annotation value for RotationSpeedRPM to match the available UCUM format."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the units annotation value for `RotationSpeedRPM` to match the available UCUM format."/>
       <EntityType Name="Drive" BaseType="Drive.v1_7_5.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_7_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the Revision property when it's necessary to distinguish hardware and firmware versions.  It was also created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `Revision` property when it's necessary to distinguish hardware and firmware versions.  It was also created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
       <EntityType Name="Drive" BaseType="Drive.v1_7_6.Drive"/>
     </Schema>
 
@@ -1230,6 +1273,12 @@
       <EntityType Name="Drive" BaseType="Drive.v1_7_8.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_7_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify `PhysicalLocation` is the same as `Location` found elsewhere.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_7_9.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.3"/>
@@ -1240,7 +1289,7 @@
         <NavigationProperty Name="StoragePools" Type="Collection(StoragePool.StoragePool)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the storage pools to which this drive belongs."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links of type StoragePool to which this drive belongs."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links of type `StoragePool` to which this drive belongs."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -1272,19 +1321,19 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_8_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change the permissions for HotspareType to read-write."/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions for `HotspareType` to read-write."/>
       <EntityType Name="Drive" BaseType="Drive.v1_8_4.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_8_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the units annotation value for RotationSpeedRPM to match the available UCUM format."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the units annotation value for `RotationSpeedRPM` to match the available UCUM format."/>
       <EntityType Name="Drive" BaseType="Drive.v1_8_5.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_8_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the Revision property when it's necessary to distinguish hardware and firmware versions.  It was also created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `Revision` property when it's necessary to distinguish hardware and firmware versions.  It was also created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
       <EntityType Name="Drive" BaseType="Drive.v1_8_6.Drive"/>
     </Schema>
 
@@ -1300,10 +1349,15 @@
       <EntityType Name="Drive" BaseType="Drive.v1_8_8.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_8_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify `PhysicalLocation` is the same as `Location` found elsewhere.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_8_9.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_9_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.4"/>
-      <Annotation Term="OData.Description" String="This version was created to add Multipath property for Drive."/>
 
       <EntityType Name="Drive" BaseType="Drive.v1_8_0.Drive">
         <Property Name="Multipath" Type="Edm.Boolean">
@@ -1340,19 +1394,19 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_9_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change the permissions for HotspareType to read-write."/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions for `HotspareType` to read-write."/>
       <EntityType Name="Drive" BaseType="Drive.v1_9_4.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_9_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the units annotation value for RotationSpeedRPM to match the available UCUM format."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the units annotation value for `RotationSpeedRPM` to match the available UCUM format."/>
       <EntityType Name="Drive" BaseType="Drive.v1_9_5.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_9_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the Revision property when it's necessary to distinguish hardware and firmware versions.  It was also created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `Revision` property when it's necessary to distinguish hardware and firmware versions.  It was also created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
       <EntityType Name="Drive" BaseType="Drive.v1_9_6.Drive"/>
     </Schema>
 
@@ -1368,10 +1422,15 @@
       <EntityType Name="Drive" BaseType="Drive.v1_9_8.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_9_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify `PhysicalLocation` is the same as `Location` found elsewhere.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_9_9.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.2"/>
-      <Annotation Term="OData.Description" String="This version was created to add ReadyToRemove property."/>
 
       <EntityType Name="Drive" BaseType="Drive.v1_9_2.Drive">
         <Property Name="ReadyToRemove" Type="Edm.Boolean">
@@ -1396,19 +1455,19 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_10_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change the permissions for HotspareType to read-write."/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions for `HotspareType` to read-write."/>
       <EntityType Name="Drive" BaseType="Drive.v1_10_2.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_10_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the units annotation value for RotationSpeedRPM to match the available UCUM format."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the units annotation value for `RotationSpeedRPM` to match the available UCUM format."/>
       <EntityType Name="Drive" BaseType="Drive.v1_10_3.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_10_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the Revision property when it's necessary to distinguish hardware and firmware versions.  It was also created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `Revision` property when it's necessary to distinguish hardware and firmware versions.  It was also created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
       <EntityType Name="Drive" BaseType="Drive.v1_10_4.Drive"/>
     </Schema>
 
@@ -1424,16 +1483,22 @@
       <EntityType Name="Drive" BaseType="Drive.v1_10_6.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_10_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify `PhysicalLocation` is the same as `Location` found elsewhere.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_10_7.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_11_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.3"/>
-      <Annotation Term="OData.Description" String="This version was created to add LocationIndicatorActive and to deprecate IndicatorLED properties."/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate `IndicatorLED` in favor of `LocationIndicatorActive`."/>
 
       <EntityType Name="Drive" BaseType="Drive.v1_10_0.Drive">
         <Property Name="LocationIndicatorActive" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An indicator allowing an operator to physically locate this resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the state of the indicator used to physically identify or locate this resource.  A write to this property shall update the value of IndicatorLED in this resource, if supported, to reflect the implementation of the locating function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the state of the indicator used to physically identify or locate this resource.  A write to this property shall update the value of `IndicatorLED` in this resource, if supported, to reflect the implementation of the locating function."/>
         </Property>
       </EntityType>
     </Schema>
@@ -1452,19 +1517,19 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_11_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change the permissions for HotspareType to read-write."/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions for `HotspareType` to read-write."/>
       <EntityType Name="Drive" BaseType="Drive.v1_11_2.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_11_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the units annotation value for RotationSpeedRPM to match the available UCUM format."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the units annotation value for `RotationSpeedRPM` to match the available UCUM format."/>
       <EntityType Name="Drive" BaseType="Drive.v1_11_3.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_11_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the Revision property when it's necessary to distinguish hardware and firmware versions.  It was also created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `Revision` property when it's necessary to distinguish hardware and firmware versions.  It was also created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
       <EntityType Name="Drive" BaseType="Drive.v1_11_4.Drive"/>
     </Schema>
 
@@ -1480,22 +1545,27 @@
       <EntityType Name="Drive" BaseType="Drive.v1_11_6.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_11_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify `PhysicalLocation` is the same as `Location` found elsewhere.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_11_7.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_12_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
-      <Annotation Term="OData.Description" String="This version was created to add Certificates and Measurements to devices for attestation and identity management.  It was also created to add a link for EnvironmentMetrics."/>
 
       <EntityType Name="Drive" BaseType="Drive.v1_11_1.Drive">
         <NavigationProperty Name="EnvironmentMetrics" Type="EnvironmentMetrics.EnvironmentMetrics" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the environment metrics for this drive."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type EnvironmentMetrics that specifies the environment metrics for this drive."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `EnvironmentMetrics` that specifies the environment metrics for this drive."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Certificates" Type="CertificateCollection.CertificateCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to a collection of certificates for device identity and attestation."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CertificateCollection that contains certificates for device identity and attestation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `CertificateCollection` that contains certificates for device identity and attestation."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="Measurements" Type="Collection(SoftwareInventory.MeasurementBlock)" Nullable="false">
@@ -1506,7 +1576,7 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_14_0"/>
-                <PropertyValue Property="Description" String="This property has been deprecated in favor of the ComponentIntegrity resource."/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the `ComponentIntegrity` resource."/>
               </Record>
             </Collection>
           </Annotation>
@@ -1522,19 +1592,19 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_12_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change the permissions for HotspareType to read-write."/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions for `HotspareType` to read-write."/>
       <EntityType Name="Drive" BaseType="Drive.v1_12_1.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_12_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the units annotation value for RotationSpeedRPM to match the available UCUM format."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the units annotation value for `RotationSpeedRPM` to match the available UCUM format."/>
       <EntityType Name="Drive" BaseType="Drive.v1_12_2.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_12_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the Revision property when it's necessary to distinguish hardware and firmware versions.  It was also created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `Revision` property when it's necessary to distinguish hardware and firmware versions.  It was also created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
       <EntityType Name="Drive" BaseType="Drive.v1_12_3.Drive"/>
     </Schema>
 
@@ -1550,6 +1620,12 @@
       <EntityType Name="Drive" BaseType="Drive.v1_12_5.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_12_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify `PhysicalLocation` is the same as `Location` found elsewhere.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_12_6.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_13_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
@@ -1560,7 +1636,7 @@
         <NavigationProperty Name="Storage" Type="Storage.Storage" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A link to the storage subsystem to which this drive belongs."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Storage that represents the storage subsystem to which this drive belongs."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `Storage` that represents the storage subsystem to which this drive belongs."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -1568,13 +1644,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_13_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the units annotation value for RotationSpeedRPM to match the available UCUM format."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the units annotation value for `RotationSpeedRPM` to match the available UCUM format."/>
       <EntityType Name="Drive" BaseType="Drive.v1_13_0.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_13_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the Revision property when it's necessary to distinguish hardware and firmware versions.  It was also created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `Revision` property when it's necessary to distinguish hardware and firmware versions.  It was also created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
       <EntityType Name="Drive" BaseType="Drive.v1_13_1.Drive"/>
     </Schema>
 
@@ -1590,10 +1666,16 @@
       <EntityType Name="Drive" BaseType="Drive.v1_13_3.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_13_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify `PhysicalLocation` is the same as `Location` found elsewhere.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_13_4.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_14_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
-      <Annotation Term="OData.Description" String="This version was created to deprecate Measurements in favor of measurement reporting in the ComponentIntegrity resource."/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate `Measurements` in favor of measurement reporting in the `ComponentIntegrity` resource."/>
 
       <EntityType Name="Drive" BaseType="Drive.v1_13_1.Drive"/>
 
@@ -1601,7 +1683,7 @@
         <NavigationProperty Name="NetworkDeviceFunctions" Type="Collection(NetworkDeviceFunction.NetworkDeviceFunction)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the network device functions that provide network connectivity for this drive."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the array of links to resources of type NetworkDeviceFunction.  This property should only be present for drives with network connectivity, such as Ethernet attached drives."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the array of links to resources of type `NetworkDeviceFunction`.  This property should only be present for drives with network connectivity, such as Ethernet attached drives."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -1609,7 +1691,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_14_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the Revision property when it's necessary to distinguish hardware and firmware versions.  It was also created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `Revision` property when it's necessary to distinguish hardware and firmware versions.  It was also created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
       <EntityType Name="Drive" BaseType="Drive.v1_14_0.Drive"/>
     </Schema>
 
@@ -1625,10 +1707,16 @@
       <EntityType Name="Drive" BaseType="Drive.v1_14_2.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_14_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify `PhysicalLocation` is the same as `Location` found elsewhere.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_14_3.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_15_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.1"/>
-      <Annotation Term="OData.Description" String="This version was created to add parameters to the SecureErase action for NVMe use cases."/>
+      <Annotation Term="OData.Description" String="This version was created to add parameters to the `SecureErase` action for NVMe use cases."/>
 
       <EntityType Name="Drive" BaseType="Drive.v1_14_0.Drive"/>
 
@@ -1650,7 +1738,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_15_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the Revision property when it's necessary to distinguish hardware and firmware versions.  It was also created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `Revision` property when it's necessary to distinguish hardware and firmware versions.  It was also created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
       <EntityType Name="Drive" BaseType="Drive.v1_15_0.Drive"/>
     </Schema>
 
@@ -1664,6 +1752,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Drive" BaseType="Drive.v1_15_2.Drive"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_15_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify `PhysicalLocation` is the same as `Location` found elsewhere.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_15_3.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_16_0">
@@ -1699,7 +1793,7 @@
         </Member>
         <Member Name="EDSFF">
           <Annotation Term="OData.Description" String="An EDSFF drive."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the drive corresponds to one of SNIA's SFF specifications with an unspecified form factor.  The SlotFormFactor property should not contain this value."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the drive corresponds to one of SNIA's SFF specifications with an unspecified form factor.  The `SlotFormFactor` property should not contain this value."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -1727,7 +1821,7 @@
         </Member>
         <Member Name="M2">
           <Annotation Term="OData.Description" String="An M.2 drive."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the drive corresponds to the PCI Express M.2 Specification with an unspecified form factor.  The SlotFormFactor property should not contain this value."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the drive corresponds to the PCI Express M.2 Specification with an unspecified form factor.  The `SlotFormFactor` property should not contain this value."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -1783,13 +1877,13 @@
         <NavigationProperty Name="ActiveSoftwareImage" Type="SoftwareInventory.SoftwareInventory" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The link to the software inventory that represents the active drive firmware image."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link a resource of type SoftwareInventory that represents the active drive firmware image."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link a resource of type `SoftwareInventory` that represents the active drive firmware image."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="SoftwareImages" Type="Collection(SoftwareInventory.SoftwareInventory)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The images that are associated with this drive."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type SoftwareInventory that represent the firmware images that apply to this drive."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `SoftwareInventory` that represent the firmware images that apply to this drive."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -1797,7 +1891,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_16_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the Revision property when it's necessary to distinguish hardware and firmware versions.  It was also created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `Revision` property when it's necessary to distinguish hardware and firmware versions.  It was also created to update the schema descriptions to mention its applicability to physical locations as an absent resource."/>
       <EntityType Name="Drive" BaseType="Drive.v1_16_0.Drive"/>
     </Schema>
 
@@ -1811,6 +1905,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Drive" BaseType="Drive.v1_16_2.Drive"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_16_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify `PhysicalLocation` is the same as `Location` found elsewhere.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_16_3.Drive"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_17_0">
@@ -1852,12 +1952,57 @@
       <EntityType Name="Drive" BaseType="Drive.v1_17_1.Drive"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_17_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify `PhysicalLocation` is the same as `Location` found elsewhere.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_17_2.Drive"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_18_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add `M2` and `EDSFF` to FormFactor.  It was also created to add the RevertToOriginalFactoryState action."/>
       <Annotation Term="Redfish.Release" String="2023.3"/>
+      <Annotation Term="OData.Description" String="This version was created to add `M2` and `EDSFF` to `FormFactor`.  It was also created to add the `RevertToOriginalFactoryState` action."/>
 
       <EntityType Name="Drive" BaseType="Drive.v1_17_2.Drive"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_18_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify `PhysicalLocation` is the same as `Location` found elsewhere.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Drive" BaseType="Drive.v1_18_0.Drive"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_19_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2024.1"/>
+
+      <EntityType Name="Drive" BaseType="Drive.v1_18_1.Drive">
+        <Property Name="SparePartNumber" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The spare part number of the drive."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the spare part number of the drive."/>
+        </Property>
+        <Property Name="ConfigurationLock" Type="Drive.v1_19_0.ConfigurationLock">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates whether in-band configuration requests to the drive are locked."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether configuration requests to the drive are locked.  Services shall reject modification requests that contain the value `Partial`."/>
+        </Property>
+      </EntityType>
+
+      <EnumType Name="ConfigurationLock">
+        <Member Name="Enabled">
+          <Annotation Term="OData.Description" String="In-band configuration requests are locked.  Configuration requests include applying firmware, updating security keys, and other hardware settings.  It does not include managing the volumes or data on the drive."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate in-band configuration requests are locked."/>
+        </Member>
+        <Member Name="Disabled">
+          <Annotation Term="OData.Description" String="In-band configuration requests are not locked."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate in-band configuration requests are not locked."/>
+        </Member>
+        <Member Name="Partial">
+          <Annotation Term="OData.Description" String="Some in-band configuration requests are not locked while others are locked.  This value is used for status reporting to indicate that the drive is partially locked and client action is recommended."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate some in-band configuration requests are not locked while others are locked."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

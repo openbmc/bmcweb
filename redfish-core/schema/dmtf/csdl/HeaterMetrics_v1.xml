@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  HeaterMetrics v1.0.1                                                -->
+<!--# Redfish Schema:  HeaterMetrics v1.0.2                                                -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -31,9 +31,10 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="HeaterMetrics">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="HeaterMetrics" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The HeaterMetrics schema contains definitions for the metrics of a heater."/>
+        <Annotation Term="OData.Description" String="The `HeaterMetrics` schema contains definitions for the metrics of a heater."/>
         <Annotation Term="OData.LongDescription" String="This resource shall be used to represent the metrics of a heater unit for a Redfish implementation."/>
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="Capabilities.InsertRestrictions">
@@ -73,12 +74,12 @@
         <NavigationProperty Name="TemperatureReadingsCelsius" Type="Collection(Sensor.Sensor)">
           <Annotation Term="Redfish.ExcerptCopy" String="Array"/>
           <Annotation Term="OData.Description" String="The temperatures (in degree Celsius units) from all related sensors for this device."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the temperatures, in degree Celsius units, for this subsystem.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Temperature`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the temperatures, in degree Celsius units, for this subsystem.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Temperature`."/>
         </NavigationProperty>
         <NavigationProperty Name="PowerWatts" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy" String="Power"/>
           <Annotation Term="OData.Description" String="Power consumption (W)."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the total power consumption, in watt units, for this resource.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Power`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total power consumption, in watt units, for this resource.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Power`."/>
         </NavigationProperty>
         <Property Name="PrePowerOnHeatingTimeSeconds" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -117,6 +118,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="HeaterMetrics" BaseType="HeaterMetrics.v1_0_0.HeaterMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="HeaterMetrics.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="HeaterMetrics" BaseType="HeaterMetrics.v1_0_1.HeaterMetrics"/>
     </Schema>
 
   </edmx:DataServices>

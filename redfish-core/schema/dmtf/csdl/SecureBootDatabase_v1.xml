@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  SecureBootDatabase v1.0.2                                           -->
+<!--# Redfish Schema:  SecureBootDatabase v1.0.3                                           -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -34,9 +34,10 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SecureBootDatabase">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="SecureBootDatabase" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The SecureBootDatabase schema describes a UEFI Secure Boot database used to store certificates or hashes."/>
+        <Annotation Term="OData.Description" String="The `SecureBootDatabase` schema describes a UEFI Secure Boot database used to store certificates or hashes."/>
         <Annotation Term="OData.LongDescription" String="This resource shall be used to represent a UEFI Secure Boot database for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -81,7 +82,7 @@
         <Property Name="DatabaseId" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="This property contains the name of the UEFI Secure Boot database."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the name of the UEFI Secure Boot database.  This property shall contain the same value as the Id property.  The value shall be one of the UEFI-defined Secure Boot databases: `PK`, `KEK` `db`, `dbx`, `dbr`, `dbt`, `PKDefault`, `KEKDefault`, `dbDefault`, `dbxDefault`, `dbrDefault`, or `dbtDefault`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name of the UEFI Secure Boot database.  This property shall contain the same value as the `Id` property.  The value shall be one of the UEFI-defined Secure Boot databases: `PK`, `KEK` `db`, `dbx`, `dbr`, `dbt`, `PKDefault`, `KEKDefault`, `dbDefault`, `dbxDefault`, `dbrDefault`, or `dbtDefault`."/>
         </Property>
         <Property Name="Actions" Type="SecureBootDatabase.v1_0_0.Actions" Nullable="false">
           <Annotation Term="OData.Description" String="The available actions for this resource."/>
@@ -90,13 +91,13 @@
         <NavigationProperty Name="Certificates" Type="CertificateCollection.CertificateCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A link to the collection of certificates contained in this UEFI Secure Boot database."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a link to a resource collection of type CertificateCollection."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be a link to a resource collection of type `CertificateCollection`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Signatures" Type="SignatureCollection.SignatureCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A link to the collection of signatures contained in this UEFI Secure Boot database."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a link to a resource collection of type SignatureCollection."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be a link to a resource collection of type `SignatureCollection`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -129,7 +130,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SecureBootDatabase.v1_0_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the name of the `PKDefault` database in the description of the DatabaseId property."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the name of the `PKDefault` database in the description of the `DatabaseId` property."/>
       <EntityType Name="SecureBootDatabase" BaseType="SecureBootDatabase.v1_0_0.SecureBootDatabase"/>
     </Schema>
 
@@ -137,6 +138,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="SecureBootDatabase" BaseType="SecureBootDatabase.v1_0_1.SecureBootDatabase"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SecureBootDatabase.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="SecureBootDatabase" BaseType="SecureBootDatabase.v1_0_2.SecureBootDatabase"/>
     </Schema>
 
   </edmx:DataServices>

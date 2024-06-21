@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  LeakDetection v1.0.0                                                -->
+<!--# Redfish Schema:  LeakDetection v1.0.1                                                -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -38,9 +38,10 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LeakDetection">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="LeakDetection" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The LeakDetection schema contains definitions for reporting leaks in liquid cooling systems or other equipment."/>
+        <Annotation Term="OData.Description" String="The `LeakDetection` schema contains definitions for reporting leaks in liquid cooling systems or other equipment."/>
         <Annotation Term="OData.LongDescription" String="This resource shall represent the leak detection functionality present in a service for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -84,7 +85,7 @@
         <NavigationProperty Name="LeakDetectors" Type="LeakDetectorCollection.LeakDetectorCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of leak detectors within this subsystem."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type LeakDetectorCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `LeakDetectorCollection`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="Actions" Type="LeakDetection.v1_0_0.Actions" Nullable="false">
@@ -104,12 +105,12 @@
         <NavigationProperty Name="HumidityPercent" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy"/>
           <Annotation Term="OData.Description" String="Humidity (percent)."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the humidity, in percent units, for this resource.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Humidity`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the humidity, in percent units, for this resource.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Humidity`."/>
         </NavigationProperty>
         <NavigationProperty Name="Detectors" Type="Collection(LeakDetector.LeakDetector)">
           <Annotation Term="Redfish.ExcerptCopy" String="Array"/>
           <Annotation Term="OData.Description" String="The leak detection states from all related leak detection devices in this group."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the states of all leak detection devices in this detector group.  The value of the DataSourceUri property, if present, shall reference a resource of type LeakDetector."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the states of all leak detection devices in this detector group.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `LeakDetector`."/>
         </NavigationProperty>
       </ComplexType>
 
@@ -128,6 +129,12 @@
         <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LeakDetection.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="LeakDetection" BaseType="LeakDetection.v1_0_0.LeakDetection"/>
     </Schema>
 
   </edmx:DataServices>

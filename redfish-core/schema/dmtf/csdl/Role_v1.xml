@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Role v1.3.1                                                         -->
+<!--# Redfish Schema:  Role v1.3.2                                                         -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -31,10 +31,11 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Role">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="Role" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The Role schema contains a Redfish role to use in conjunction with a manager account."/>
-        <Annotation Term="OData.LongDescription" String="This resource represents the Redfish role for the user account."/>
+        <Annotation Term="OData.Description" String="The `Role` schema contains a Redfish role to use in conjunction with a manager account."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent the Redfish role for the user account."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -91,7 +92,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Role.v1_0_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change references to PrivilegeType to use the unversioned definition."/>
+      <Annotation Term="OData.Description" String="This version was created to change references to `PrivilegeType` to use the unversioned definition."/>
       <EntityType Name="Role" BaseType="Role.v1_0_2.Role"/>
     </Schema>
 
@@ -125,6 +126,12 @@
       <EntityType Name="Role" BaseType="Role.v1_0_7.Role"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Role.v1_0_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Role" BaseType="Role.v1_0_8.Role"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Role.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
@@ -155,7 +162,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Role.v1_1_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change references to PrivilegeType to use the unversioned definition."/>
+      <Annotation Term="OData.Description" String="This version was created to change references to `PrivilegeType` to use the unversioned definition."/>
       <EntityType Name="Role" BaseType="Role.v1_1_0.Role"/>
     </Schema>
 
@@ -189,6 +196,12 @@
       <EntityType Name="Role" BaseType="Role.v1_1_5.Role"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Role.v1_1_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Role" BaseType="Role.v1_1_6.Role"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Role.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.2"/>
@@ -198,14 +211,14 @@
           <Annotation Term="Redfish.RequiredOnCreate"/>
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The name of the role."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the string name of the role.  This property shall contain the same value as the Id property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the string name of the role.  This property shall contain the same value as the `Id` property."/>
         </Property>
       </EntityType>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Role.v1_2_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change references to PrivilegeType to use the unversioned definition."/>
+      <Annotation Term="OData.Description" String="This version was created to change references to `PrivilegeType` to use the unversioned definition."/>
       <EntityType Name="Role" BaseType="Role.v1_2_0.Role"/>
     </Schema>
 
@@ -239,6 +252,12 @@
       <EntityType Name="Role" BaseType="Role.v1_2_5.Role"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Role.v1_2_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Role" BaseType="Role.v1_2_6.Role"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Role.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
@@ -252,7 +271,7 @@
         <Property Name="AlternateRoleId" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An equivalent role to use when this role is restricted."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a non-restricted `RoleId` intended to be used in its place when the Restricted property contains the value `true`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a non-restricted `RoleId` intended to be used in its place when the `Restricted` property contains the value `true`."/>
         </Property>
       </EntityType>
     </Schema>
@@ -261,6 +280,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="Role" BaseType="Role.v1_3_0.Role"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Role.v1_3_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Role" BaseType="Role.v1_3_1.Role"/>
     </Schema>
 
   </edmx:DataServices>

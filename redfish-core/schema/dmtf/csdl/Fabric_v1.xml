@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Fabric v1.3.1                                                       -->
+<!--# Redfish Schema:  Fabric v1.3.2                                                       -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2023 DMTF.                                                            -->
+<!--# Copyright 2014-2024 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -50,9 +50,10 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Fabric">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="Fabric" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The Fabric schema represents a simple fabric consisting of one or more switches, zero or more endpoints, and zero or more zones."/>
+        <Annotation Term="OData.Description" String="The `Fabric` schema represents a simple fabric consisting of one or more switches, zero or more endpoints, and zero or more zones."/>
         <Annotation Term="OData.LongDescription" String="This resource shall represent a simple switchable fabric for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -99,19 +100,19 @@
         <NavigationProperty Name="Zones" Type="ZoneCollection.ZoneCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The collection of links to the zones that this fabric contains."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type ZoneCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `ZoneCollection`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Endpoints" Type="EndpointCollection.EndpointCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The collection of links to the endpoints that this fabric contains."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type EndpointCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `EndpointCollection`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Switches" Type="SwitchCollection.SwitchCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The collection of links to the switches that this fabric contains."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type SwitchCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `SwitchCollection`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="Links" Type="Fabric.v1_0_0.Links" Nullable="false">
@@ -119,8 +120,8 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
         </Property>
         <Property Name="Actions" Type="Fabric.v1_0_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
         </Property>
       </EntityType>
 
@@ -148,7 +149,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Fabric.v1_0_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add explicit Permissions annotations to all properties for clarity."/>
+      <Annotation Term="OData.Description" String="This version was created to add permissions annotations to all properties for clarity."/>
       <EntityType Name="Fabric" BaseType="Fabric.v1_0_0.Fabric"/>
     </Schema>
 
@@ -160,7 +161,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Fabric.v1_0_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change FabricType to use the unversioned definition.  It was also created to update the descriptions that this schema defines."/>
+      <Annotation Term="OData.Description" String="This version was created to change `FabricType` to use the unversioned definition.  It was also created to update the descriptions that this schema defines."/>
       <EntityType Name="Fabric" BaseType="Fabric.v1_0_2.Fabric"/>
     </Schema>
 
@@ -200,6 +201,12 @@
       <EntityType Name="Fabric" BaseType="Fabric.v1_0_8.Fabric"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Fabric.v1_0_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Fabric" BaseType="Fabric.v1_0_9.Fabric"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Fabric.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.4"/>
@@ -208,7 +215,7 @@
         <NavigationProperty Name="AddressPools" Type="AddressPoolCollection.AddressPoolCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The collection of links to the address pools that this fabric contains."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type AddressPoolCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `AddressPoolCollection`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -232,6 +239,12 @@
       <EntityType Name="Fabric" BaseType="Fabric.v1_1_2.Fabric"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Fabric.v1_1_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Fabric" BaseType="Fabric.v1_1_3.Fabric"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Fabric.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.3"/>
@@ -240,13 +253,13 @@
         <NavigationProperty Name="Connections" Type="ConnectionCollection.ConnectionCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The collection of links to the connections that this fabric contains."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type ConnectionCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `ConnectionCollection`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="EndpointGroups" Type="EndpointGroupCollection.EndpointGroupCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The collection of links to the endpoint groups that this fabric contains."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type EndpointGroupCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `EndpointGroupCollection`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -262,6 +275,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various descriptions to use proper normative terminology."/>
       <EntityType Name="Fabric" BaseType="Fabric.v1_2_1.Fabric"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Fabric.v1_2_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Fabric" BaseType="Fabric.v1_2_2.Fabric"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Fabric.v1_3_0">
@@ -281,6 +300,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Fabric" BaseType="Fabric.v1_3_0.Fabric"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Fabric.v1_3_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
+      <EntityType Name="Fabric" BaseType="Fabric.v1_3_1.Fabric"/>
     </Schema>
 
   </edmx:DataServices>
