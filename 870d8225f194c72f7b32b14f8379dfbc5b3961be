@@ -16,6 +16,24 @@
       "message": "Should this symlink update also need to be done via `update_schemas.py` ?\n(Perhaps maybe separately)",
       "revId": "870d8225f194c72f7b32b14f8379dfbc5b3961be",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a33fc5ea_c7e32c54",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-06-21T18:10:11Z",
+      "side": 1,
+      "message": "Yeah, Let me look at adding support there (later)",
+      "parentUuid": "f0e09713_05cce55a",
+      "revId": "870d8225f194c72f7b32b14f8379dfbc5b3961be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
