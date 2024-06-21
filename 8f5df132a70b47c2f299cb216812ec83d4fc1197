@@ -261,6 +261,30 @@
       },
       "revId": "8f5df132a70b47c2f299cb216812ec83d4fc1197",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d289602_6528afa1",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1203,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-06-21T21:09:44Z",
+      "side": 0,
+      "message": "Merged https://gerrit.openbmc.org/c/openbmc/webui-vue/+/72192.\n \n @Ed Please let me know if you have any other comments/feedback. Thanks",
+      "parentUuid": "15b43435_6b03083e",
+      "range": {
+        "startLine": 1189,
+        "startChar": 0,
+        "endLine": 1203,
+        "endChar": 9
+      },
+      "revId": "8f5df132a70b47c2f299cb216812ec83d4fc1197",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
