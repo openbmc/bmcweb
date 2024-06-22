@@ -16,6 +16,75 @@
       "message": "Addressed comment and replied. Thanks",
       "revId": "b2e96c59d69efefe91ff3c1f911ae9572421931e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d09e4c8_6abcc7ac",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-22T21:59:49Z",
+      "side": 1,
+      "message": "Please use the dbus path object for combining these.   swId comes from a user api, so we need to escape it.",
+      "range": {
+        "startLine": 356,
+        "startChar": 0,
+        "endLine": 356,
+        "endChar": 28
+      },
+      "revId": "b2e96c59d69efefe91ff3c1f911ae9572421931e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5be12058_e28cedc9",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-22T21:59:49Z",
+      "side": 1,
+      "message": "Please use the operator/ on sdbusplus::message::object_path for doing dbus path appending.",
+      "range": {
+        "startLine": 404,
+        "startChar": 48,
+        "endLine": 404,
+        "endChar": 52
+      },
+      "revId": "b2e96c59d69efefe91ff3c1f911ae9572421931e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c793ea6_796a0edf",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-22T21:59:49Z",
+      "side": 1,
+      "message": "?\n\nsoftware_version seems like it shouldn\u0027t be a sub-path on the software?",
+      "range": {
+        "startLine": 404,
+        "startChar": 57,
+        "endLine": 404,
+        "endChar": 73
+      },
+      "revId": "b2e96c59d69efefe91ff3c1f911ae9572421931e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
