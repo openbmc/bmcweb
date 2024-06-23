@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "744c1bf0_a0d65408",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-06-23T04:04:20Z",
+      "side": 1,
+      "message": "Used object_path.",
+      "parentUuid": "7d09e4c8_6abcc7ac",
+      "range": {
+        "startLine": 356,
+        "startChar": 0,
+        "endLine": 356,
+        "endChar": 28
+      },
+      "revId": "b2e96c59d69efefe91ff3c1f911ae9572421931e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5be12058_e28cedc9",
@@ -77,6 +101,54 @@
       "writtenOn": "2024-06-22T21:59:49Z",
       "side": 1,
       "message": "?\n\nsoftware_version seems like it shouldn\u0027t be a sub-path on the software?",
+      "range": {
+        "startLine": 404,
+        "startChar": 57,
+        "endLine": 404,
+        "endChar": 73
+      },
+      "revId": "b2e96c59d69efefe91ff3c1f911ae9572421931e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37789b10_91533452",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-06-23T04:04:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5be12058_e28cedc9",
+      "range": {
+        "startLine": 404,
+        "startChar": 48,
+        "endLine": 404,
+        "endChar": 52
+      },
+      "revId": "b2e96c59d69efefe91ff3c1f911ae9572421931e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3271ec4d_b2398c77",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-06-23T04:04:20Z",
+      "side": 1,
+      "message": "This is an existing association to updatable software.",
+      "parentUuid": "3c793ea6_796a0edf",
       "range": {
         "startLine": 404,
         "startChar": 57,
