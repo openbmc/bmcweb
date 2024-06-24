@@ -107,6 +107,24 @@ TEST(FilterParser, BasicOperations)
     EXPECT_TRUE(parseFilter("'Physical' gt ProcessorSummary/Count"));
     EXPECT_TRUE(parseFilter("'Physical' ge ProcessorSummary/Count"));
 }
+
+TEST(FilterParser, Spaces)
+{
+    // Strings with spaces
+    parse("foo eq ' '", R"(unquoted_string("foo") Equals quoted_string(" "))");
+
+    // Lots of spaces between args
+    parse("foo       eq       ''",
+          R"(unquoted_string("foo") Equals quoted_string(""))");
+
+    // Lots of spaces between parens
+    parse("(      foo eq ''      )",
+          R"(unquoted_string("foo") Equals quoted_string(""))");
+
+    parse("not           foo eq ''",
+          R"(not(unquoted_string("foo") Equals quoted_string("")))");
+}
+
 TEST(FilterParser, Failures)
 {
     // Invalid expressions
