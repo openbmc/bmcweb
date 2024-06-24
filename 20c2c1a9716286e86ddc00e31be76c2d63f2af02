@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9afa4015_9cb9fde5",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1176,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-24T19:11:42Z",
+      "side": 1,
+      "message": "nit, for new code, we should be using the generated enums from geneated/enums/update_service.hpp\n\n\nActually, nevermind, i\u0027ll just incorporate it into my patch.",
+      "range": {
+        "startLine": 1176,
+        "startChar": 44,
+        "endLine": 1176,
+        "endChar": 55
+      },
+      "revId": "20c2c1a9716286e86ddc00e31be76c2d63f2af02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
