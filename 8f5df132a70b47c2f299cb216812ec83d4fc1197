@@ -285,6 +285,30 @@
       },
       "revId": "8f5df132a70b47c2f299cb216812ec83d4fc1197",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e75f052b_3aedfa1f",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1203,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-24T20:03:29Z",
+      "side": 0,
+      "message": "Nope, I think I\u0027m good now that the GET is correct.",
+      "parentUuid": "0d289602_6528afa1",
+      "range": {
+        "startLine": 1189,
+        "startChar": 0,
+        "endLine": 1203,
+        "endChar": 9
+      },
+      "revId": "8f5df132a70b47c2f299cb216812ec83d4fc1197",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
