@@ -23,6 +23,7 @@
 #include "registries/privilege_registry.hpp"
 #include "registries/resource_event_message_registry.hpp"
 #include "registries/task_event_message_registry.hpp"
+#include "registries/telemetry_message_registry.hpp"
 
 #include <boost/url/format.hpp>
 
@@ -48,11 +49,11 @@ inline void handleMessageRegistryFileCollectionGet(
     asyncResp->res.jsonValue["Name"] = "MessageRegistryFile Collection";
     asyncResp->res.jsonValue["Description"] =
         "Collection of MessageRegistryFiles";
-    asyncResp->res.jsonValue["Members@odata.count"] = 4;
+    asyncResp->res.jsonValue["Members@odata.count"] = 5;
 
     nlohmann::json& members = asyncResp->res.jsonValue["Members"];
-    for (const char* memberName :
-         std::to_array({"Base", "TaskEvent", "ResourceEvent", "OpenBMC"}))
+    for (const char* memberName : std::to_array(
+             {"Base", "TaskEvent", "ResourceEvent", "OpenBMC", "Telemetry"}))
     {
         nlohmann::json::object_t member;
         member["@odata.id"] = boost::urls::format("/redfish/v1/Registries/{}",
@@ -104,6 +105,11 @@ inline void handleMessageRoutesMessageRegistryFileGet(
     {
         header = &registries::resource_event::header;
         url = registries::resource_event::url;
+    }
+    else if (registry == "Telemetry")
+    {
+        header = &registries::telemetry::header;
+        url = registries::telemetry::url;
     }
     else
     {
@@ -190,6 +196,15 @@ inline void handleMessageRegistryGet(
         header = &registries::resource_event::header;
         for (const registries::MessageEntry& entry :
              registries::resource_event::registry)
+        {
+            registryEntries.emplace_back(&entry);
+        }
+    }
+    else if (registry == "Telemetry")
+    {
+        header = &registries::telemetry::header;
+        for (const registries::MessageEntry& entry :
+             registries::telemetry::registry)
         {
             registryEntries.emplace_back(&entry);
         }
