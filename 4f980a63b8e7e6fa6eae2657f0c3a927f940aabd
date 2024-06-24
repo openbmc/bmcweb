@@ -1,0 +1,251 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "036ccd74_2b0c5b5b",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-24T21:38:53Z",
+      "side": 1,
+      "message": "I see no usage of the \"replace\" enumeration.  Maybe something that is no longer needed?",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 11
+      },
+      "revId": "4f980a63b8e7e6fa6eae2657f0c3a927f940aabd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15fece04_4b8b43ae",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-24T21:38:53Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem right to put an empty value?",
+      "range": {
+        "startLine": 62,
+        "startChar": 35,
+        "endLine": 62,
+        "endChar": 50
+      },
+      "revId": "4f980a63b8e7e6fa6eae2657f0c3a927f940aabd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c819889e_5aabb274",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-24T21:38:53Z",
+      "side": 1,
+      "message": "same here.",
+      "range": {
+        "startLine": 69,
+        "startChar": 43,
+        "endLine": 69,
+        "endChar": 51
+      },
+      "revId": "4f980a63b8e7e6fa6eae2657f0c3a927f940aabd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e243de3f_110dee58",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-24T21:38:53Z",
+      "side": 1,
+      "message": "This needs to return some kind of error.  Generally we would return empty string then check for that when this function is called.",
+      "range": {
+        "startLine": 103,
+        "startChar": 11,
+        "endLine": 103,
+        "endChar": 35
+      },
+      "revId": "4f980a63b8e7e6fa6eae2657f0c3a927f940aabd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a984e5c_69004f09",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-24T21:38:53Z",
+      "side": 1,
+      "message": "Lets separate out this logic a bit.  If we get an error that doesn\u0027t have an appropriate length, that becomes a messages::internalError.  As is this code just ignores it.",
+      "range": {
+        "startLine": 113,
+        "startChar": 8,
+        "endLine": 113,
+        "endChar": 43
+      },
+      "revId": "4f980a63b8e7e6fa6eae2657f0c3a927f940aabd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de5d32a1_e79b3a87",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-24T21:38:53Z",
+      "side": 1,
+      "message": "This looks like it\u0027s only ever used with type string.  You might also consider changing from std::vector to std::span.",
+      "range": {
+        "startLine": 128,
+        "startChar": 16,
+        "endLine": 128,
+        "endChar": 25
+      },
+      "revId": "4f980a63b8e7e6fa6eae2657f0c3a927f940aabd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05bd50b6_d9a5e8b0",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-24T21:38:53Z",
+      "side": 1,
+      "message": "For array values, we would generally point to the index in the array that caused the problem\n\nie, MyArray/1",
+      "revId": "4f980a63b8e7e6fa6eae2657f0c3a927f940aabd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc131826_f9a0915c",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-24T21:38:53Z",
+      "side": 1,
+      "message": "Common error.",
+      "range": {
+        "startLine": 144,
+        "startChar": 69,
+        "endLine": 144,
+        "endChar": 73
+      },
+      "revId": "4f980a63b8e7e6fa6eae2657f0c3a927f940aabd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d647b3d_23512d5a",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-24T21:38:53Z",
+      "side": 1,
+      "message": "please move toRedfishProperty to its own line",
+      "range": {
+        "startLine": 144,
+        "startChar": 21,
+        "endLine": 144,
+        "endChar": 38
+      },
+      "revId": "4f980a63b8e7e6fa6eae2657f0c3a927f940aabd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4dee25fd_3dfbff7c",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 885,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-24T21:38:53Z",
+      "side": 1,
+      "message": "do we really need both structs here?  They differ in only minor ways.",
+      "range": {
+        "startLine": 884,
+        "startChar": 0,
+        "endLine": 885,
+        "endChar": 28
+      },
+      "revId": "4f980a63b8e7e6fa6eae2657f0c3a927f940aabd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a383e241_9b9a3093",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1147,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-24T21:38:53Z",
+      "side": 1,
+      "message": "common error.",
+      "range": {
+        "startLine": 1147,
+        "startChar": 71,
+        "endLine": 1147,
+        "endChar": 75
+      },
+      "revId": "4f980a63b8e7e6fa6eae2657f0c3a927f940aabd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
