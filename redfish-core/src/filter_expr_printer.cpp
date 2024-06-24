@@ -133,11 +133,14 @@ std::optional<filter_grammar::program> parseFilter(std::string_view expr)
     std::string_view::iterator iter = expr.begin();
     const std::string_view::iterator end = expr.end();
     BMCWEB_LOG_DEBUG("Parsing input string \"{}\"", expr);
-    bool r = boost::spirit::x3::parse(iter, end, grammar, program);
 
-    if (!r)
+    // Filter examples have unclear guidelines about between which arguments
+    // spaces are allowed or disallowed.  Specification is not clear, so in
+    // almost all cases we allow zero or more
+    using boost::spirit::x3::space;
+    if (!boost::spirit::x3::phrase_parse(iter, end, grammar, space, program))
     {
-        std::string rest(iter, end);
+        std::string_view rest(iter, end);
 
         BMCWEB_LOG_ERROR("Parsing failed stopped at \"{}\"", rest);
         return std::nullopt;

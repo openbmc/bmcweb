@@ -15,6 +15,7 @@ namespace details
 {
 using boost::spirit::x3::char_;
 using boost::spirit::x3::int64;
+using boost::spirit::x3::lexeme;
 using boost::spirit::x3::lit;
 using boost::spirit::x3::real_parser;
 using boost::spirit::x3::rule;
@@ -49,14 +50,9 @@ const rule<class LogicalNotId, LogicalNot> logicalNot("LogicalNot");
 ///// BEGIN GRAMMAR
 
 // Two types of strings.
-const auto quotedString_def = '\'' >> *('\\' >> char_ | ~char_('\'')) >> '\'';
+const auto quotedString_def = '\'' >> lexeme[*('\\' >> char_ | ~char_('\''))] >>
+                              '\'';
 const auto unquotedString_def = char_("a-zA-Z") >> *(char_("a-zA-Z0-9[]/"));
-
-// Spaces
-// Filter examples have unclear guidelines about between which arguments spaces
-// are allowed or disallowed.  Specification is not clear, so in almost all
-// cases we allow zero or more
-const auto sp = *lit(' ');
 
 // Make sure we only parse true floating points as doubles
 // This requires we have a "." which causes 1 to parse as int64, and 1.0 to
@@ -65,10 +61,6 @@ constexpr const real_parser<double, strict_real_policies<double>> strictDouble;
 
 // Argument
 const auto arg = strictDouble | int64 | unquotedString | quotedString;
-
-// Note, unlike most other comparisons, spaces are required here (one or more)
-// to differentiate keys from values (ex Fooeq eq foo)
-const auto rsp = +lit(' ');
 
 // Greater Than/Less Than/Equals
 const symbols<ComparisonOpEnum> compare{
@@ -79,22 +71,25 @@ const symbols<ComparisonOpEnum> compare{
     {"ne", ComparisonOpEnum::NotEquals},
     {"eq", ComparisonOpEnum::Equals}};
 
-const auto comparison_def = arg >> rsp >> compare >> rsp >> arg;
+// Note, unlike most other comparisons, spaces are required here (one or more)
+// to differentiate keys from values (ex Fooeq eq foo)
+const auto comparison_def =
+    lexeme[arg >> +lit(' ') >> compare >> +lit(' ') >> arg];
 
 // Parenthesis
-const auto parens = lit('(') >> sp >> logicalAnd >> sp >> lit(')');
+const auto parens = lit('(') >> logicalAnd >> lit(')');
 
 // Logical values
 const auto booleanOp_def = comparison | parens;
 
 // Not
-const auto logicalNot_def = -(char_('n') >> lit("ot") >> sp) >> booleanOp;
+const auto logicalNot_def = -(char_('n') >> lit("ot")) >> booleanOp;
 
 // Or
-const auto logicalOr_def = logicalNot >> *(sp >> lit("or") >> sp >> logicalNot);
+const auto logicalOr_def = logicalNot >> *(lit("or") >> logicalNot);
 
 // And
-const auto logicalAnd_def = logicalOr >> *(sp >> lit("and") >> sp >> logicalOr);
+const auto logicalAnd_def = logicalOr >> *(lit("and") >> logicalOr);
 
 BOOST_SPIRIT_DEFINE(booleanOp, logicalAnd, logicalNot, logicalOr, quotedString,
                     comparison, unquotedString);
