@@ -51,6 +51,24 @@
       "parentUuid": "1ff84afe_ea6a049e",
       "revId": "6d1286c3bdba6a1149095873aa606aa43fade4e4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b37ebf9_16242590",
+        "filename": "test/redfish-core/include/filter_expr_executor_test.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-06-24T14:56:16Z",
+      "side": 1,
+      "message": "Makes sense to not add tests for undefined behavior.\n\nSeems like the precedence groupings could be done if the member object has multiple fields. I\u0027ll look at this and push a new test to a new commit if I come up with one that works. (i.e. no need to hold this merge up for the possibility of the test.)",
+      "parentUuid": "159195ae_fe3cfee1",
+      "revId": "6d1286c3bdba6a1149095873aa606aa43fade4e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
