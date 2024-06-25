@@ -1,0 +1,9 @@
+Code-Review+2: Gunnar Mills <gunnar@gmills.xyz>
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Code-Review+1: Alicja Rybak <alicja.rybak@intel.com>
+Submitted-by: Ed Tanous <ed@tanous.net>
+Submitted-at: Tue, 25 Jun 2024 17:42:48 +0000
+Reviewed-on: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/72315
+Comments-Total: 1
+Project: openbmc/bmcweb
+Branch: refs/heads/master
