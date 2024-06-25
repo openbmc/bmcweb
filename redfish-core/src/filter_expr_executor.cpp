@@ -1,7 +1,9 @@
 #include "filter_expr_executor.hpp"
 
 #include "filter_expr_parser_ast.hpp"
+#include "human_sort.hpp"
 #include "logging.hpp"
+#include "utils/time_utils.hpp"
 
 namespace redfish
 {
@@ -9,12 +11,83 @@ namespace redfish
 namespace
 {
 
+// A value that has been parsed as a time string per Edm.DateTimeOffset
+struct DateTimeString
+{
+    time_utils::usSinceEpoch value = time_utils::usSinceEpoch::zero();
+
+    // The following is created by dumping all key names of type
+    // Edm.DateTimeOffset.  While imperfect that it's a hardcoded list, these
+    // keys don't change that often
+    static constexpr auto timeKeys =
+        std::to_array<std::string_view>({"AccountExpiration",
+                                         "CalibrationTime",
+                                         "CoefficientUpdateTime",
+                                         "Created",
+                                         "CreatedDate",
+                                         "CreatedTime",
+                                         "CreateTime",
+                                         "DateTime",
+                                         "EndDateTime",
+                                         "EndTime",
+                                         "EventTimestamp",
+                                         "ExpirationDate",
+                                         "FirstOverflowTimestamp",
+                                         "InitialStartTime",
+                                         "InstallDate",
+                                         "LastOverflowTimestamp",
+                                         "LastResetTime",
+                                         "LastStateTime",
+                                         "LastUpdated",
+                                         "LifetimeStartDateTime",
+                                         "LowestReadingTime",
+                                         "MaintenanceWindowStartTime",
+                                         "Modified",
+                                         "PasswordExpiration",
+                                         "PeakReadingTime",
+                                         "PresentedPublicHostKeyTimestamp",
+                                         "ProductionDate",
+                                         "ReadingTime",
+                                         "ReleaseDate",
+                                         "ReservationTime",
+                                         "SensorResetTime",
+                                         "ServicedDate",
+                                         "SetPointUpdateTime",
+                                         "StartDateTime",
+                                         "StartTime",
+                                         "Time",
+                                         "Timestamp",
+                                         "ValidNotAfter",
+                                         "ValidNotBefore"});
+
+    explicit DateTimeString(std::string_view strvalue)
+    {
+        std::optional<time_utils::usSinceEpoch> out =
+            time_utils::dateStringToEpoch(strvalue);
+        if (!out)
+        {
+            BMCWEB_LOG_ERROR(
+                "Internal datetime value didn't parse as datetime?");
+        }
+        else
+        {
+            value = *out;
+        }
+    }
+
+    static bool isDateTimeKey(std::string_view key)
+    {
+        auto out = std::equal_range(timeKeys.begin(), timeKeys.end(), key);
+        return out.first != out.second;
+    }
+};
+
 // Class that can convert an arbitrary AST type into a structured value
 // Pulling from the json pointer when required
 struct ValueVisitor
 {
-    using result_type =
-        std::variant<std::monostate, double, int64_t, std::string>;
+    using result_type = std::variant<std::monostate, double, int64_t,
+                                     std::string, DateTimeString>;
     nlohmann::json& body;
     result_type operator()(double n);
     result_type operator()(int64_t x);
@@ -63,6 +136,10 @@ ValueVisitor::result_type
     const std::string* strValue = entry->get_ptr<const std::string*>();
     if (strValue != nullptr)
     {
+        if (DateTimeString::isDateTimeKey(x))
+        {
+            return DateTimeString(*strValue);
+        }
         return {*strValue};
     }
 
@@ -166,6 +243,14 @@ bool doStringComparison(std::string_view left,
             return left == right;
         case filter_ast::ComparisonOpEnum::NotEquals:
             return left != right;
+        case filter_ast::ComparisonOpEnum::GreaterThan:
+            return alphanumComp(left, right) > 0;
+        case filter_ast::ComparisonOpEnum::GreaterThanOrEqual:
+            return alphanumComp(left, right) >= 0;
+        case filter_ast::ComparisonOpEnum::LessThan:
+            return alphanumComp(left, right) < 0;
+        case filter_ast::ComparisonOpEnum::LessThanOrEqual:
+            return alphanumComp(left, right) <= 0;
         default:
             BMCWEB_LOG_ERROR(
                 "Got comparator that should never happen.  Attempt to do numeric comparison on string {}",
@@ -177,10 +262,10 @@ bool doStringComparison(std::string_view left,
 bool ApplyFilter::operator()(const filter_ast::Comparison& x)
 {
     ValueVisitor numeric(body);
-    std::variant<std::monostate, double, int64_t, std::string> left =
-        boost::apply_visitor(numeric, x.left);
-    std::variant<std::monostate, double, int64_t, std::string> right =
-        boost::apply_visitor(numeric, x.right);
+    std::variant<std::monostate, double, int64_t, std::string, DateTimeString>
+        left = boost::apply_visitor(numeric, x.left);
+    std::variant<std::monostate, double, int64_t, std::string, DateTimeString>
+        right = boost::apply_visitor(numeric, x.right);
 
     // Numeric comparisons
     const double* lDoubleValue = std::get_if<double>(&left);
@@ -221,6 +306,27 @@ bool ApplyFilter::operator()(const filter_ast::Comparison& x)
     // String comparisons
     const std::string* lStrValue = std::get_if<std::string>(&left);
     const std::string* rStrValue = std::get_if<std::string>(&right);
+
+    const DateTimeString* lDateValue = std::get_if<DateTimeString>(&left);
+    const DateTimeString* rDateValue = std::get_if<DateTimeString>(&right);
+
+    // If we're trying to compare a date string to a string, construct a
+    // datestring from the string
+    if (lDateValue != nullptr && rStrValue != nullptr)
+    {
+        rDateValue = &right.emplace<DateTimeString>(std::string(*rStrValue));
+    }
+    if (lStrValue != nullptr && rDateValue != nullptr)
+    {
+        lDateValue = &left.emplace<DateTimeString>(std::string(*lStrValue));
+    }
+
+    if (lDateValue != nullptr && rDateValue != nullptr)
+    {
+        return doIntComparison(lDateValue->value.count(), x.token,
+                               rDateValue->value.count());
+    }
+
     if (lStrValue != nullptr && rStrValue != nullptr)
     {
         return doStringComparison(*lStrValue, x.token, *rStrValue);
