@@ -226,6 +226,7 @@ class ConfigFile
         authConfig["SessionToken"] = c.sessionToken;
         authConfig["BasicAuth"] = c.basic;
         authConfig["TLS"] = c.tls;
+        authConfig["TLSStrict"] = c.tlsStrict;
         authConfig["TLSCommonNameParseMode"] =
             static_cast<int>(c.mTLSCommonNameParsingMode);
 
