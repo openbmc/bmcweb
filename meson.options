@@ -1,11 +1,4 @@
 option(
-    'yocto-deps',
-    type: 'feature',
-    value: 'disabled',
-    description: 'Use YOCTO dependencies system',
-)
-
-option(
     'kvm',
     type: 'feature',
     value: 'enabled',
