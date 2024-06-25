@@ -34,6 +34,24 @@
       "parentUuid": "34aa337e_6cb9a4b3",
       "revId": "3e72c2027aa4e64b9892ab0d3970358ba446f1fa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3d12252_3c10eb77",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 33
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000936
+      },
+      "writtenOn": "2024-06-25T16:51:26Z",
+      "side": 1,
+      "message": "\u003e I\u0027ve been under the impression that LDAP is essentially not usable in its current form.  The fact that this has been checked in for over a year and nobody has reported LDAP issues somewhat backs that up.\n\nWell, I\u0027m reporting it now. Can say after that minimal fix to webui (to assume Administrator for remote users) it\u0027s quite usable without tricks or tweaks.\n\n\u003e I would assume that this is just a bug in phosphor-user-manager that needs fixed.\n\nAFAICT the LDAP support was designed under assumption that every user has just a primary group assigned and that primary group is mapped to Administrator/Operator/ReadOnly and that\u0027s it. It used to work nicely enough and it still can work but this patch I\u0027m commenting introduced a regression.\n\nRequiring extending not only phosphor-user-manager, bmcweb and webui-vue (for adding `GroupsAttribute`) to implement support for multiple groups but also probably the LDAP schema and actual database (at the clients\u0027!) looks like something that breaks compatibiliity with existing installs way too much.\n \n\u003e \u003e Also, why is host serial console access permission treated in a way that differs from IP KVM access?\n\u003e \n\u003e Because people want to treat them differently, and Redfish treats them separately.\u0027\n\u003e \n\u003e \u003e Aren\u0027t implications about the same in most scenarios?\n\u003e \n\u003e possibly.  There might be cases where the serial console is more locked down than KVM (or vice versa) so some admins might give access to one or the other.  It\u0027s probably also something to do with \"Principal of least privilege\".\n\nThen those people can please share their document called \"Threat Model\" so one could verify whether the implementation helps anything at all. Current way of requiring additional local group to access serial console (and not requiring anything like that for KVM so any Administrator can use it) is likely to not limit potential attacker anyhow as many modern popular setups (e.g. RHEL or Windows Server) do not even enable any control over serial by default but provide full control over KVM.\n\nSo far it looks like the gain is really dubious security-wise while regression is real...",
+      "parentUuid": "0b3b2a09_07a633aa",
+      "revId": "3e72c2027aa4e64b9892ab0d3970358ba446f1fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
