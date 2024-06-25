@@ -147,22 +147,104 @@ TEST(FilterParser, FloatingPointToFloatingPoint)
 TEST(FilterParser, String)
 {
     const nlohmann::json members =
-        R"({"Members": [{"SerialNumber": "Foo"}]})"_json;
+        R"({"Members": [{"SerialNumber": "1234"}]})"_json;
     // Forward true conditions
-    filterTrue("SerialNumber eq 'Foo'", members);
+    filterTrue("SerialNumber eq '1234'", members);
     filterTrue("SerialNumber ne 'NotFoo'", members);
+    filterTrue("SerialNumber gt '1233'", members);
+    filterTrue("SerialNumber ge '1234'", members);
+    filterTrue("SerialNumber lt '1235'", members);
+    filterTrue("SerialNumber le '1234'", members);
 
     // Reverse true conditions
-    filterTrue("'Foo' eq SerialNumber", members);
+    filterTrue("'1234' eq SerialNumber", members);
     filterTrue("'NotFoo' ne SerialNumber", members);
+    filterTrue("'1235' gt SerialNumber", members);
+    filterTrue("'1234' ge SerialNumber", members);
+    filterTrue("'1233' lt SerialNumber", members);
+    filterTrue("'1234' le SerialNumber", members);
 
     // Forward false conditions
     filterFalse("SerialNumber eq 'NotFoo'", members);
-    filterFalse("SerialNumber ne 'Foo'", members);
+    filterFalse("SerialNumber ne '1234'", members);
+    filterFalse("SerialNumber gt '1234'", members);
+    filterFalse("SerialNumber ge '1235'", members);
+    filterFalse("SerialNumber lt '1234'", members);
+    filterFalse("SerialNumber le '1233'", members);
 
     // Reverse false conditions
     filterFalse("'NotFoo' eq SerialNumber", members);
-    filterFalse("'Foo' ne SerialNumber", members);
+    filterFalse("'1234' ne SerialNumber", members);
+    filterFalse("'1234' gt SerialNumber", members);
+    filterFalse("'1233' ge SerialNumber", members);
+    filterFalse("'1234' lt SerialNumber", members);
+    filterFalse("'1235' le SerialNumber", members);
+}
+
+TEST(FilterParser, StringHuman)
+{
+    // Ensure that we're sorting based on human facing numbers, not
+    // lexicographic comparison
+
+    const nlohmann::json members = R"({"Members": [{}]})"_json;
+    // Forward true conditions
+    filterFalse("'20' eq '3'", members);
+    filterTrue("'20' ne '3'", members);
+    filterTrue("'20' gt '3'", members);
+    filterTrue("'20' ge '3'", members);
+    filterFalse("'20' lt '3'", members);
+    filterFalse("'20' le '3'", members);
+}
+
+TEST(FilterParser, StringSemver)
+{
+    const nlohmann::json members =
+        R"({"Members": [{"Version": "20.0.2"}]})"_json;
+    // Forward true conditions
+    filterTrue("Version eq '20.0.2'", members);
+    filterTrue("Version ne '20.2.0'", members);
+    filterTrue("Version gt '20.0.1'", members);
+    filterTrue("Version gt '1.9.9'", members);
+    filterTrue("Version gt '10.9.9'", members);
+}
+
+TEST(FilterParser, Dates)
+{
+    const nlohmann::json members =
+        R"({"Members": [{"Created": "2021-11-30T22:41:35.123+00:00"}]})"_json;
+
+    // Note, all comparisons below differ by a single millisecond
+    // Forward true conditions
+    filterTrue("Created eq '2021-11-30T22:41:35.123+00:00'", members);
+    filterTrue("Created ne '2021-11-30T22:41:35.122+00:00'", members);
+    filterTrue("Created gt '2021-11-30T22:41:35.122+00:00'", members);
+    filterTrue("Created ge '2021-11-30T22:41:35.123+00:00'", members);
+    filterTrue("Created lt '2021-11-30T22:41:35.124+00:00'", members);
+    filterTrue("Created le '2021-11-30T22:41:35.123+00:00'", members);
+
+    // Reverse true conditions
+    filterTrue("'2021-11-30T22:41:35.123+00:00' eq Created", members);
+    filterTrue("'2021-11-30T22:41:35.122+00:00' ne Created", members);
+    filterTrue("'2021-11-30T22:41:35.124+00:00' gt Created", members);
+    filterTrue("'2021-11-30T22:41:35.123+00:00' ge Created", members);
+    filterTrue("'2021-11-30T22:41:35.122+00:00' lt Created", members);
+    filterTrue("'2021-11-30T22:41:35.123+00:00' le Created", members);
+
+    // Forward false conditions
+    filterFalse("Created eq '2021-11-30T22:41:35.122+00:00'", members);
+    filterFalse("Created ne '2021-11-30T22:41:35.123+00:00'", members);
+    filterFalse("Created gt '2021-11-30T22:41:35.123+00:00'", members);
+    filterFalse("Created ge '2021-11-30T22:41:35.124+00:00'", members);
+    filterFalse("Created lt '2021-11-30T22:41:35.123+00:00'", members);
+    filterFalse("Created le '2021-11-30T22:41:35.122+00:00'", members);
+
+    // Reverse false conditions
+    filterFalse("'2021-11-30T22:41:35.122+00:00' eq Created", members);
+    filterFalse("'2021-11-30T22:41:35.123+00:00' ne Created", members);
+    filterFalse("'2021-11-30T22:41:35.123+00:00' gt Created", members);
+    filterFalse("'2021-11-30T22:41:35.122+00:00' ge Created", members);
+    filterFalse("'2021-11-30T22:41:35.123+00:00' lt Created", members);
+    filterFalse("'2021-11-30T22:41:35.124+00:00' le Created", members);
 }
 
 } // namespace redfish
