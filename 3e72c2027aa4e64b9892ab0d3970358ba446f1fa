@@ -16,6 +16,24 @@
       "message": "Hello,\n\nI understand I\u0027m late to the party but probably someone can still clarify please.\n\nHow is this supposed to be used with remotely authenticated users, e.g. with LDAP?\n```\n# busctl call xyz.openbmc_project.User.Manager /xyz/openbmc_project/user xyz.openbmc_project.User.Manager GetUserInfo s ldap_sync\na{sv} 2 \"RemoteUser\" b true \"UserPrivilege\" s \"priv-admin\"\n```\nAs you can see `UserGroups` array isn\u0027t present in the reply at all in this case. This leads to a regression where previously LDAP/RADIUS/whatever-authenticated users could use SOL and now they can not (even worse, the web interface terminates the session on attempt as it gets 401 reply trying to upgrade connection to WS).\n\nAlso, why is host serial console access permission treated in a way that differs from IP KVM access? Aren\u0027t implications about the same in most scenarios? Is there a document somewhere describing the rationale behind this change?",
       "revId": "3e72c2027aa4e64b9892ab0d3970358ba446f1fa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b3b2a09_07a633aa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 33
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-25T16:11:17Z",
+      "side": 1,
+      "message": "I\u0027ve been under the impression that LDAP is essentially not usable in its current form.  The fact that this has been checked in for over a year and nobody has reported LDAP issues somewhat backs that up.\n\nI would assume that this is just a bug in phosphor-user-manager that needs fixed.\n\n\u003e Also, why is host serial console access permission treated in a way that differs from IP KVM access?\n\nBecause people want to treat them differently, and Redfish treats them separately.\u0027\n\n\u003e Aren\u0027t implications about the same in most scenarios?\n\npossibly.  There might be cases where the serial console is more locked down than KVM (or vice versa) so some admins might give access to one or the other.  It\u0027s probably also something to do with \"Principal of least privilege\".",
+      "parentUuid": "34aa337e_6cb9a4b3",
+      "revId": "3e72c2027aa4e64b9892ab0d3970358ba446f1fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
