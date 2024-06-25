@@ -2,7 +2,7 @@ option(
     'yocto-deps',
     type: 'feature',
     value: 'disabled',
-    description: 'Use YOCTO dependencies system'
+    description: 'Use YOCTO dependencies system',
 )
 
 option(
@@ -10,14 +10,14 @@ option(
     type: 'feature',
     value: 'enabled',
     description: '''Enable the KVM host video WebSocket.  Path is /kvm/0.
-                    Video is from the BMCs /dev/videodevice.'''
+                    Video is from the BMCs /dev/videodevice.''',
 )
 
 option(
     'tests',
     type: 'feature',
     value: 'enabled',
-    description: 'Enable Unit tests for bmcweb'
+    description: 'Enable Unit tests for bmcweb',
 )
 
 option(
@@ -26,7 +26,7 @@ option(
     value: 'enabled',
     description: '''Enable the Virtual Media WebSocket. Path is /vm/0/0 and /nbd/<id> to
                     open the websocket. See
-                    https://github.com/openbmc/jsnbd/blob/master/README.'''
+                    https://github.com/openbmc/jsnbd/blob/master/README.''',
 )
 
 # if you use this option and are seeing this comment, please comment here:
@@ -49,7 +49,7 @@ option(
     description: '''Enable Phosphor REST (D-Bus) APIs. Paths directly map
                     Phosphor D-Bus object paths, for example,
                     /xyz/openbmc_project/logging/entry/enumerate. See
-                    https://github.com/openbmc/docs/blob/master/rest-api.md.'''
+                    https://github.com/openbmc/docs/blob/master/rest-api.md.''',
 )
 
 option(
@@ -57,7 +57,7 @@ option(
     type: 'feature',
     value: 'enabled',
     description: '''Enable Redfish APIs.  Paths are under /redfish/v1/. See
-                    https://github.com/openbmc/bmcweb/blob/master/DEVELOPING.md#redfish.'''
+                    https://github.com/openbmc/bmcweb/blob/master/DEVELOPING.md#redfish.''',
 )
 
 option(
@@ -65,7 +65,7 @@ option(
     type: 'feature',
     value: 'enabled',
     description: '''Enable host serial console WebSocket. Path is /console0.
-                    See https://github.com/openbmc/docs/blob/master/console.md.'''
+                    See https://github.com/openbmc/docs/blob/master/console.md.''',
 )
 
 option(
@@ -73,7 +73,7 @@ option(
     type: 'feature',
     value: 'enabled',
     description: '''Enable serving files from the /usr/share/www directory
-                    as paths under /.'''
+                    as paths under /.''',
 )
 
 option(
@@ -81,7 +81,7 @@ option(
     type: 'feature',
     value: 'enabled',
     description: '''Enable BMC journal access through Redfish. Paths are under
-                    /redfish/v1/Managers/bmc/LogServices/Journal.'''
+                    /redfish/v1/Managers/bmc/LogServices/Journal.''',
 )
 
 option(
@@ -89,7 +89,7 @@ option(
     type: 'feature',
     value: 'disabled',
     description: '''Enable CPU log service transactions through Redfish. Paths
-                    are under /redfish/v1/Systems/system/LogServices/Crashdump'.'''
+                    are under /redfish/v1/Systems/system/LogServices/Crashdump'.''',
 )
 
 option(
@@ -98,7 +98,7 @@ option(
     value: 'enabled',
     description: '''Enable Dump log service transactions through Redfish. Paths
                    are under /redfish/v1/Systems/system/LogServices/Dump
-                   and /redfish/v1/Managers/bmc/LogServices/Dump'''
+                   and /redfish/v1/Managers/bmc/LogServices/Dump''',
 )
 
 option(
@@ -107,7 +107,7 @@ option(
     value: 'enabled',
     description: '''Enable DBUS log service transactions through Redfish. Paths
                     are under
-                    /redfish/v1/Systems/system/LogServices/EventLog/Entries'''
+                    /redfish/v1/Systems/system/LogServices/EventLog/Entries''',
 )
 
 option(
@@ -116,7 +116,7 @@ option(
     value: 'enabled',
     description: '''Enable host log service transactions based on
                     phosphor-hostlogger through Redfish.  Paths are under
-                    /redfish/v1/Systems/system/LogServices/HostLogger'''
+                    /redfish/v1/Systems/system/LogServices/HostLogger''',
 )
 
 option(
@@ -124,7 +124,29 @@ option(
     type: 'feature',
     value: 'disabled',
     description: '''Enable provisioning feature support in redfish. Paths are
-                    under /redfish/v1/Systems/system/'''
+                    under /redfish/v1/Systems/system/''',
+)
+
+option(
+    'redfish-manager-uri-name',
+    type: 'string',
+    value: 'bmc',
+    description: '''The static Redfish Manager ID representing the BMC
+                    instance. This option will appear in the Redfish tree at
+                    /redfish/v1/Managers/<redfish-manager-uri-name>.
+                    Defaults to \'bmc\' which resolves to
+                    /redfish/v1/Managers/bmc''',
+)
+
+option(
+    'redfish-system-uri-name',
+    type: 'string',
+    value: 'system',
+    description: '''The static Redfish System ID representing the host
+                    instance. This option will appear in the Redfish tree at
+                    /redfish/v1/Systems/<redfish-system-uri-name>.
+                    Defaults to \'system\' which resolves to
+                    /redfish/v1/Systems/system''',
 )
 
 option(
@@ -152,47 +174,47 @@ option(
 option(
     'bmcweb-logging',
     type: 'combo',
-    choices : [ 'disabled', 'enabled', 'debug', 'info', 'warning', 'error', 'critical' ],
+    choices: ['disabled', 'enabled', 'debug', 'info', 'warning', 'error', 'critical'],
     value: 'error',
     description: '''Enable output the extended logging level.
                     - disabled: disable bmcweb log traces.
                     - enabled: treated as 'debug'
-                    - For the other logging level option, see DEVELOPING.md.'''
+                    - For the other logging level option, see DEVELOPING.md.''',
 )
 
 option(
     'basic-auth',
     type: 'feature',
     value: 'enabled',
-    description: 'Enable basic authentication'
+    description: 'Enable basic authentication',
 )
 option(
      'redfish-license',
      type : 'feature',
      value : 'enabled',
      description : '''Enable License transactions through Redfish. Paths are
-                      under /redfish/v1/LicenseService/Licenses/'''
+                      under /redfish/v1/LicenseService/Licenses/''',
 )
 
 option(
     'session-auth',
     type: 'feature',
     value: 'enabled',
-    description: 'Enable session authentication'
+    description: 'Enable session authentication',
 )
 
 option(
     'xtoken-auth',
     type: 'feature',
     value: 'enabled',
-    description: 'Enable xtoken authentication'
+    description: 'Enable xtoken authentication',
 )
 
 option(
     'cookie-auth',
     type: 'feature',
     value: 'enabled',
-    description: 'Enable cookie authentication'
+    description: 'Enable cookie authentication',
 )
 
 option(
@@ -201,7 +223,7 @@ option(
     value: 'enabled',
     description: '''Enables authenticating users through TLS client
                     certificates. The insecure-disable-ssl must be disabled for
-                    this option to take effect.'''
+                    this option to take effect.''',
 )
 
 option(
@@ -215,7 +237,7 @@ option(
                                 (default)
                     - meta:     Parses the Subject CN in the format used by
                                 Meta Inc (see mutual_tls_meta.cpp for details)
-                    '''
+                    ''',
 )
 
 option(
@@ -230,7 +252,7 @@ option(
     type: 'feature',
     value: 'enabled',
     description: '''Enable the IBM management console specific functionality.
-                    Paths are under /ibm/v1/'''
+                    Paths are under /ibm/v1/''',
 )
 
 option(
@@ -238,7 +260,7 @@ option(
     type: 'feature',
     value: 'disabled',
     description: '''Enable the Google specific functionality. Paths are under
-                    /google/v1/'''
+                    /google/v1/''',
 )
 
 option(
@@ -247,7 +269,7 @@ option(
     min: 0,
     max: 512,
     value: 30,
-    description: 'Specifies the http request body length limit'
+    description: 'Specifies the http request body length limit',
 )
 
 option(
@@ -256,7 +278,7 @@ option(
     value: 'enabled',
     description: '''Enable/disable the new PowerSubsystem, ThermalSubsystem,
                     and all children schemas. This includes displaying all
-                    sensors in the SensorCollection.'''
+                    sensors in the SensorCollection.''',
 )
 
 option(
@@ -265,7 +287,7 @@ option(
     value: 'enabled',
     description: '''Enable/disable the old Power / Thermal. The default
                     condition is allowing the old Power / Thermal. This
-                    will be disabled by default June 2024. '''
+                    will be disabled by default June 2024. ''',
 )
 
 option(
@@ -274,7 +296,21 @@ option(
     value: 'enabled',
     description: '''Enables Redfish OEM fan data on the manager resource.
                     This includes PID and Stepwise controller data. See
-                    OemManager schema for more detail.'''
+                    OemManager schema for more detail.''',
+)
+
+option(
+    'redfish-updateservice-use-dbus',
+    type: 'feature',
+    value: 'disabled',
+    description: '''Enables xyz.openbmc_project.Software.Update D-Bus interface
+                    to propagate UpdateService requests to the corresponding
+                    updater daemons instead of moving files to /tmp/images dir.
+                    This option is temporary, should not be enabled on any
+                    production systems. The code will be moved to the normal
+                    code update flow and the option will be removed at the end
+                    of Q3 2024.
+                ''',
 )
 
 option(
@@ -284,7 +320,7 @@ option(
     description: '''Enables HealthPopulate and generate the Status property for
                     the resource. Upstream this is removed. Downstream this is
                     only the chassis resource. Will do something different for
-                    next gen.'''
+                    next gen.''',
 )
 
 option(
@@ -293,7 +329,7 @@ option(
     min: 1,
     max: 65535,
     value: 443,
-    description: 'HTTPS Port number.'
+    description: 'HTTPS Port number.',
 )
 
 option(
@@ -304,21 +340,21 @@ option(
     description: '''Sets which DNS resolver backend should be used.
     systemd-dbus uses the Systemd ResolveHostname on dbus, but requires dbus
     support.  asio relies on boost::asio::tcp::resolver, but cannot resolve
-    names when boost threading is disabled.'''
+    names when boost threading is disabled.''',
 )
 
 option(
     'redfish-aggregation',
     type: 'feature',
     value: 'disabled',
-    description: 'Allows this BMC to aggregate resources from satellite BMCs'
+    description: 'Allows this BMC to aggregate resources from satellite BMCs',
 )
 
 option(
     'event-subscription',
     type : 'feature',
     value : 'enabled',
-    description: 'Enable Event Subscription through websocket'
+    description: 'Enable Event Subscription through websocket',
 )
 
 option(
@@ -327,8 +363,8 @@ option(
     value: 'disabled',
     description: '''This is a temporary option flag for staging the
     ComputerSystemCollection transition to multi-host.  It, as well as the code
-    still beneath it will be removed on 9/1/2023.  Do not enable in a
-    production environment, or where API stability is required.'''
+    still beneath it will be removed on 9/1/2024.  Do not enable in a
+    production environment, or where API stability is required.''',
 )
 
 option(
@@ -337,13 +373,14 @@ option(
     value: 'disabled',
     description: '''Enable HTTP/2 protocol support using nghttp2.  Do not rely
                     on this option for any production systems.  It may have
-                    behavior changes or be removed at any time.'''
+                    behavior changes or be removed at any time.''',
 )
+
 option(
     'audit-events',
     type: 'feature',
     value: 'enabled',
-    description: 'Enable audit events support for bmcweb'
+    description: 'Enable audit events support for bmcweb',
 )
 
 # Insecure options. Every option that starts with a `insecure` flag should
@@ -356,7 +393,7 @@ option(
     type: 'feature',
     value: 'disabled',
     description: '''Disable CSRF prevention checks.Should be set to false for
-                    production systems.'''
+                    production systems.''',
 )
 
 option(
@@ -364,7 +401,7 @@ option(
     type: 'feature',
     value: 'disabled',
     description: '''Disable SSL ports. Should be set to false for production
-                    systems.'''
+                    systems.''',
 )
 
 option(
@@ -372,7 +409,7 @@ option(
     type: 'feature',
     value: 'disabled',
     description: '''Disable authentication and authoriztion on all ports.
-                    Should be set to false for production systems.'''
+                    Should be set to false for production systems.''',
 )
 
 option(
@@ -380,7 +417,7 @@ option(
     type: 'feature',
     value: 'disabled',
     description: '''Enable TFTP based firmware update transactions through
-                    Redfish UpdateService.   SimpleUpdate.'''
+                    Redfish UpdateService.   SimpleUpdate.''',
 )
 
 option(
@@ -391,14 +428,14 @@ option(
                     of the presence of the content-type header.  Enabling this
                     conflicts with the input parsing guidelines, but may be
                     required to support old clients that may not set the
-                    Content-Type header on payloads.'''
+                    Content-Type header on payloads.''',
 )
 
 option(
     'insecure-push-style-notification',
     type: 'feature',
     value: 'disabled',
-    description: 'Enable HTTP push style eventing feature'
+    description: 'Enable HTTP push style eventing feature',
 )
 
 option(
@@ -409,7 +446,7 @@ option(
                     experimental, and has not been tested against the full
                     limits of user-facing behavior.  It is not recommended to
                     enable on production systems at this time.  Other query
-                    parameters such as only are not controlled by this option.'''
+                    parameters such as only are not controlled by this option.''',
 )
 
 option(
