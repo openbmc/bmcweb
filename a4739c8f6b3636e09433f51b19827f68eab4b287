@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "621f230b_e7d01acc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-06-25T16:34:09Z",
+      "side": 1,
+      "message": "are you planning to add more to the commit log? .Looking at the changes it is doing something else too to handle invalid callback handler. How does it relate to cancel?",
+      "revId": "a4739c8f6b3636e09433f51b19827f68eab4b287",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5dd4cea_e3faa803",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-06-25T16:34:09Z",
+      "side": 1,
+      "message": "Good. This previous log always confuses me",
+      "revId": "a4739c8f6b3636e09433f51b19827f68eab4b287",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4ee21a3_c85da234",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-06-25T16:34:09Z",
+      "side": 1,
+      "message": "when do this happen? will not the callback shares the lifetime of connectioninfo?\nvalid call back is always assigned to connection info in sendData",
+      "revId": "a4739c8f6b3636e09433f51b19827f68eab4b287",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9d59a43_82996f55",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-06-25T16:34:09Z",
+      "side": 1,
+      "message": "A general comment. Is there any plan to rewrite the http-client using coroutine?. I can see that a coro-task implementation is available with sdbusplusplus library. The nested call back in http_client is always a burden for refactor/review.",
+      "revId": "a4739c8f6b3636e09433f51b19827f68eab4b287",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "064b55a9_d14288bb",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-06-25T16:34:09Z",
+      "side": 1,
+      "message": "can we give better log here too? aync_wait failed is very generic.",
+      "revId": "a4739c8f6b3636e09433f51b19827f68eab4b287",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
