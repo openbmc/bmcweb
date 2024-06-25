@@ -140,6 +140,30 @@
       },
       "revId": "8640b2c2eaf3d2c21f9bccdab97941d2a37cdf08",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5911e09_1add036d",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 1093,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-25T22:57:22Z",
+      "side": 1,
+      "message": "\u003e \u003e Lets get this rephrased.\n\u003e \u003e \n\u003e \u003e 1. In redfish this is called \"SimpleUpdate\" not \"unstructured\".\n\u003e \n\u003e I looked at the Redfish schema and all the words for SimpleUpdate refers to the SimpleUpdate Action https://grok.openbmc.org/xref/openbmc/bmcweb/redfish-core/schema/dmtf/json-schema/UpdateService.v1_14_0.json?r\u003df2a8e57e#262, which is different from HTTP Post to HTTPPushURI https://grok.openbmc.org/xref/openbmc/bmcweb/redfish-core/schema/dmtf/json-schema/UpdateService.v1_14_0.json?r\u003df2a8e57e#541. They are 2 different flows and i used the word Unstructured as it was mentioned in https://www.dmtf.org/sites/default/files/standards/documents/DSP2062_1.0.1.pdf. I remember you mentioned this white paper to be informational, so if you don\u0027t want to use \"Unstructured\" probably we can use just \"HTTP Push\" as \"SimpleUpdate\" refers to different flow as per Schema?\n\nSure, HTTP push would be fine.\n\n\u003e \n\u003e \n\u003e \u003e 2. It\u0027s not deprecated, nor do I think it can ever be.  Too many client systems rely on simple update to update the bmc.\n\u003e \n\u003e DONE.\n\u003e \n\u003e \n\u003e \u003e \n\u003e \u003e The rest is true, we will only ever support bmc updates (because that\u0027s all simple update is intended to supported), and specific component updates need to be handled through something else.",
+      "parentUuid": "0dcbe525_cf38836e",
+      "range": {
+        "startLine": 1093,
+        "startChar": 8,
+        "endLine": 1093,
+        "endChar": 73
+      },
+      "revId": "8640b2c2eaf3d2c21f9bccdab97941d2a37cdf08",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
