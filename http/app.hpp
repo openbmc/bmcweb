@@ -83,6 +83,16 @@ class App
         router.validate();
     }
 
+    void loadCertificate()
+    {
+        BMCWEB_LOG_DEBUG("Loading certificate");
+        if (!server)
+        {
+            return;
+        }
+        server->loadCertificate();
+    }
+
     std::optional<boost::asio::ip::tcp::acceptor> setupSocket()
     {
         if (io == nullptr)
