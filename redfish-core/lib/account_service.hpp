@@ -23,6 +23,7 @@
 #include "persistent_data.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "sessions.hpp"
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
@@ -1339,7 +1340,8 @@ inline void
 
     nlohmann::json::object_t clientCertificate;
     clientCertificate["Enabled"] = authMethodsConfig.tls;
-    clientCertificate["RespondToUnauthenticatedClients"] = true;
+    clientCertificate["RespondToUnauthenticatedClients"] =
+        !authMethodsConfig.tlsStrict;
 
     using account_service::CertificateMappingAttribute;
 
@@ -1468,6 +1470,38 @@ inline void
     authMethodsConfig.mTLSCommonNameParsingMode = parseMode;
 }
 
+inline void handleRespondToUnauthenticatedClientsPatch(
+    App& app, const crow::Request& req, crow::Response& res,
+    bool respondToUnauthenticatedClients)
+{
+    if (req.session != nullptr)
+    {
+        // Sanity check.  If the user isn't currently authenticated with mutual
+        // TLS, they very likely are about to permanently lock themselves out.
+        // Make sure they're using mutual TLS before allowing locking.
+        if (req.session->sessionType != persistent_data::SessionType::MutualTLS)
+        {
+            messages::propertyValueExternalConflict(
+                res,
+                "MultiFactorAuth/ClientCertificate/RespondToUnauthenticatedClients",
+                respondToUnauthenticatedClients);
+            return;
+        }
+    }
+
+    persistent_data::AuthConfigMethods& authMethodsConfig =
+        persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
+
+    // Change the settings
+    authMethodsConfig.tlsStrict = !respondToUnauthenticatedClients;
+
+    // Write settings to disk
+    persistent_data::getConfig().writeData();
+
+    // Trigger a reload, to apply the new settings to new connections
+    app.loadCertificate();
+}
+
 inline void handleAccountServicePatch(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
@@ -1482,6 +1516,7 @@ inline void handleAccountServicePatch(
     std::optional<uint16_t> maxPasswordLength;
     LdapPatchParams ldapObject;
     std::optional<std::string> certificateMappingAttribute;
+    std::optional<bool> respondToUnauthenticatedClients;
     LdapPatchParams activeDirectoryObject;
     AuthMethods auth;
     std::optional<std::string> httpBasicAuth;
@@ -1501,6 +1536,7 @@ inline void handleAccountServicePatch(
             "ActiveDirectory/ServiceAddresses", activeDirectoryObject.serviceAddressList,
             "ActiveDirectory/ServiceEnabled", activeDirectoryObject.serviceEnabled,
             "MultiFactorAuth/ClientCertificate/CertificateMappingAttribute", certificateMappingAttribute,
+            "MultiFactorAuth/ClientCertificate/RespondToUnauthenticatedClients", respondToUnauthenticatedClients,
             "LDAP/Authentication/AuthenticationType", ldapObject.authType,
             "LDAP/Authentication/Password", ldapObject.password,
             "LDAP/Authentication/Username", ldapObject.userName,
@@ -1538,6 +1574,12 @@ inline void handleAccountServicePatch(
             messages::propertyValueNotInList(asyncResp->res, "HttpBasicAuth",
                                              *httpBasicAuth);
         }
+    }
+
+    if (respondToUnauthenticatedClients)
+    {
+        handleRespondToUnauthenticatedClientsPatch(
+            app, req, asyncResp->res, *respondToUnauthenticatedClients);
     }
 
     if (certificateMappingAttribute)
