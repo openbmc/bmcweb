@@ -184,33 +184,18 @@ inline std::shared_ptr<persistent_data::UserSession>
 
 inline std::shared_ptr<persistent_data::UserSession>
     performTLSAuth(Response& res,
-                   const boost::beast::http::header<true>& reqHeader,
-                   const std::weak_ptr<persistent_data::UserSession>& session)
+                   const std::shared_ptr<persistent_data::UserSession>& session)
 {
-    if (auto sp = session.lock())
+    if (session != nullptr)
     {
-        // set cookie only if this is req from the browser.
-        if (reqHeader["User-Agent"].empty())
-        {
-            BMCWEB_LOG_DEBUG(" TLS session: {} will be used for this request.",
-                             sp->uniqueId);
-            return sp;
-        }
-        // TODO: change this to not switch to cookie auth
-        res.addHeader(boost::beast::http::field::set_cookie,
-                      "XSRF-TOKEN=" + sp->csrfToken +
-                          "; SameSite=Strict; Secure");
-        res.addHeader(boost::beast::http::field::set_cookie,
-                      "SESSION=" + sp->sessionToken +
-                          "; SameSite=Strict; Secure; HttpOnly");
         res.addHeader(boost::beast::http::field::set_cookie,
                       "IsAuthenticated=true; Secure");
         BMCWEB_LOG_DEBUG(
             " TLS session: {} with cookie will be used for this request.",
-            sp->uniqueId);
-        return sp;
+            session->uniqueId);
     }
-    return nullptr;
+
+    return session;
 }
 
 // checks if request can be forwarded without authentication
@@ -269,7 +254,7 @@ inline std::shared_ptr<persistent_data::UserSession> authenticate(
     {
         if (authMethodsConfig.tls)
         {
-            sessionOut = performTLSAuth(res, reqHeader, session);
+            sessionOut = performTLSAuth(res, session);
         }
     }
     if constexpr (BMCWEB_XTOKEN_AUTH)
