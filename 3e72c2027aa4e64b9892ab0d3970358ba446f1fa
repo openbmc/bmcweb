@@ -52,6 +52,24 @@
       "parentUuid": "0b3b2a09_07a633aa",
       "revId": "3e72c2027aa4e64b9892ab0d3970358ba446f1fa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5aea02a7_872ea98f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 33
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-25T17:37:50Z",
+      "side": 1,
+      "message": "\u003e Well, I\u0027m reporting it now.\n\nYep, that\u0027s fine.  LDAP support goes more to the fact that to my knowledge there\u0027s no way to test it, no instructions on how to set it up, or documentation for others to execute.  That\u0027s fine you\u0027re reporting it;  If your goal is to fix the bug, no need to comment here, just send the patch to fix it.  If your goal is to keep LDAP working in the long term, we either need some way to test it (think a simple script to run or something), or to have someone testing it manually periodically.\n\n\n\u003e looks like something that breaks compatibiliity with existing installs way too much.\n\nWhat does \"installs\" mean in this context?  We have an API, so far as I understand the API backward compatibility support has been maintained.\n\n\u003e Requiring extending not only phosphor-user-manager, bmcweb and webui-vue\n\nphosphor-user-manager support was already added as part of this.  webui-vue support isn\u0027t required (the default is that new users get access to everything I believe).\n\nI could certainly see the argument that this should be a 403 forbidden (because the login was valid), not a 401 unauthorized.  That\u0027s something we could pretty trivially fix.  I actually don\u0027t even see where we\u0027re sending 401 from for serial websockets, so I\u0027ll need you to propose that change if you have ldap set up and can see where it\u0027s setting 401.\n\n\n\u003e Then those people can please share their document called \"Threat Model\"\n\nI said nothing about threat model, so I\u0027m not sure why you made that leap or why it would be required in this case.  https://en.wikipedia.org/wiki/Principle_of_least_privilege is what I was referring to, and involves those that don\u0027t need access to a serial console should not have access to it, regardless of whether or not it changes the threat model.\n\n\u003e RHEL or Windows Server\n\nI would say the majority of OpenBMC installs aren\u0027t running either of these, so I\u0027m not sure where the comparison comes from.  At the end of the day, someone thought it was a useful enough feature for them that they went to a lot of effort to do it and upstream it.  The feature might not be useful to you, which is fine, but that\u0027s a different discussion.\n\n\n\n\nAll of this feedback it great, but you haven\u0027t really stated what you\u0027d like to see happen here.",
+      "parentUuid": "e3d12252_3c10eb77",
+      "revId": "3e72c2027aa4e64b9892ab0d3970358ba446f1fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
