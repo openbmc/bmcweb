@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa630245_4d4c39eb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-25T16:58:35Z",
+      "side": 1,
+      "message": "Yes, I will add more to the commit message, I was just looking for an early indication of whether this overlaps with any of the work you were doing.  Yes, cancel is probably not the best name for the commit.",
+      "parentUuid": "621f230b_e7d01acc",
+      "revId": "a4739c8f6b3636e09433f51b19827f68eab4b287",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "d5dd4cea_e3faa803",
@@ -54,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "88b7e5ab_144e9a9f",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-25T16:58:35Z",
+      "side": 1,
+      "message": "In the case where the connection disconnects, but didn\u0027t have an active request in progress.",
+      "parentUuid": "d4ee21a3_c85da234",
+      "revId": "a4739c8f6b3636e09433f51b19827f68eab4b287",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f9d59a43_82996f55",
         "filename": "http/http_client.hpp",
         "patchSetId": 5
@@ -71,6 +107,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3ed4dd29_04b7f38a",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-25T16:58:35Z",
+      "side": 1,
+      "message": "I would fully support a rewrite of http client using c++20 coroutines, but I don\u0027t plan on doing that myself.\n\nIf that\u0027s something you\u0027re interested in doing, feel free to send me patches.  asio supports c++20 coroutines, so it should be pretty doable, just time and effort.",
+      "parentUuid": "f9d59a43_82996f55",
+      "revId": "a4739c8f6b3636e09433f51b19827f68eab4b287",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "064b55a9_d14288bb",
         "filename": "http/http_client.hpp",
         "patchSetId": 5
@@ -82,6 +136,24 @@
       "writtenOn": "2024-06-25T16:34:09Z",
       "side": 1,
       "message": "can we give better log here too? aync_wait failed is very generic.",
+      "revId": "a4739c8f6b3636e09433f51b19827f68eab4b287",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7a4e9e5_9c4d9180",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-25T16:58:35Z",
+      "side": 1,
+      "message": "What would you prefer here?",
+      "parentUuid": "064b55a9_d14288bb",
       "revId": "a4739c8f6b3636e09433f51b19827f68eab4b287",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
