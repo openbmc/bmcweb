@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e128459_55c2af85",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 998,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-25T18:17:04Z",
+      "side": 1,
+      "message": "Probably want to pass by rvalue reference (\u0026\u0026)\n\n?",
+      "range": {
+        "startLine": 998,
+        "startChar": 25,
+        "endLine": 998,
+        "endChar": 38
+      },
+      "revId": "8640b2c2eaf3d2c21f9bccdab97941d2a37cdf08",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5cf92f45_81c57869",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 1086,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-25T18:17:04Z",
+      "side": 1,
+      "message": "can we get this called something more descriptive, like \"doSimpleUpdate\"\n\n\n\"updateApplicationContext\" doesn\u0027t really mean anything.  There\u0027s no application, there\u0027s no context here, now that apply time isn\u0027t being set.",
+      "range": {
+        "startLine": 1086,
+        "startChar": 12,
+        "endLine": 1086,
+        "endChar": 36
+      },
+      "revId": "8640b2c2eaf3d2c21f9bccdab97941d2a37cdf08",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a25a327_b62a9a0a",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 1093,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-25T18:17:04Z",
+      "side": 1,
+      "message": "Lets get this rephrased.\n\n1. In redfish this is called \"SimpleUpdate\" not \"unstructured\".\n2. It\u0027s not deprecated, nor do I think it can ever be.  Too many client systems rely on simple update to update the bmc.\n\nThe rest is true, we will only ever support bmc updates (because that\u0027s all simple update is intended to supported), and specific component updates need to be handled through something else.",
+      "range": {
+        "startLine": 1093,
+        "startChar": 8,
+        "endLine": 1093,
+        "endChar": 73
+      },
+      "revId": "8640b2c2eaf3d2c21f9bccdab97941d2a37cdf08",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
