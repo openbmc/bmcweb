@@ -70,6 +70,24 @@
       "parentUuid": "e3d12252_3c10eb77",
       "revId": "3e72c2027aa4e64b9892ab0d3970358ba446f1fa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11b1e18e_1982d4d3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 33
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-25T17:41:32Z",
+      "side": 1,
+      "message": "\u003e even worse, the web interface terminates the session on attempt as it gets 401 reply \n\nI just looked, and I\u0027m not sure how this could happen in the code.  I would expect a 403 forbidden from here:\n\nhttps://github.com/openbmc/bmcweb/blob/0bdda665a3589924e1f5a51d7ff8633c6544ffa1/include/dbus_privileges.hpp#L94\n\nPresumably that\u0027s not what you\u0027re seeing.",
+      "parentUuid": "5aea02a7_872ea98f",
+      "revId": "3e72c2027aa4e64b9892ab0d3970358ba446f1fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
