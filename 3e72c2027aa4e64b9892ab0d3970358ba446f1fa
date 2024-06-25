@@ -106,6 +106,24 @@
       "parentUuid": "11b1e18e_1982d4d3",
       "revId": "3e72c2027aa4e64b9892ab0d3970358ba446f1fa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a6185c0_de031f1e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 33
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-25T20:31:34Z",
+      "side": 1,
+      "message": "This closed code review is not the appropriate forum for this discussion.  Clearly there\u0027s a lot of things that need to be discussed concerning LDAP, but a comment on a closed gerrit review won\u0027t get a lot of reviewers, nor does it include everyone that needs included (webui/user-manager maintainers namely).  I do recall this did have a design doc previously, so you might look at that as well before you start the discussion.\n\nI know you have strong opinions on which forums you like to use, so I\u0027ll leave it up to you where to continue this conversation.",
+      "parentUuid": "54dedfb1_a20bd55e",
+      "revId": "3e72c2027aa4e64b9892ab0d3970358ba446f1fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
