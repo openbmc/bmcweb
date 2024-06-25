@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34aa337e_6cb9a4b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 33
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000936
+      },
+      "writtenOn": "2024-06-25T08:08:13Z",
+      "side": 1,
+      "message": "Hello,\n\nI understand I\u0027m late to the party but probably someone can still clarify please.\n\nHow is this supposed to be used with remotely authenticated users, e.g. with LDAP?\n```\n# busctl call xyz.openbmc_project.User.Manager /xyz/openbmc_project/user xyz.openbmc_project.User.Manager GetUserInfo s ldap_sync\na{sv} 2 \"RemoteUser\" b true \"UserPrivilege\" s \"priv-admin\"\n```\nAs you can see `UserGroups` array isn\u0027t present in the reply at all in this case. This leads to a regression where previously LDAP/RADIUS/whatever-authenticated users could use SOL and now they can not (even worse, the web interface terminates the session on attempt as it gets 401 reply trying to upgrade connection to WS).\n\nAlso, why is host serial console access permission treated in a way that differs from IP KVM access? Aren\u0027t implications about the same in most scenarios? Is there a document somewhere describing the rationale behind this change?",
+      "revId": "3e72c2027aa4e64b9892ab0d3970358ba446f1fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
