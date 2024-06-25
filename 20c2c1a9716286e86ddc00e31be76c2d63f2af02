@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "337edd9d_f2a5892c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-06-25T18:57:12Z",
+      "side": 1,
+      "message": "We have 2 x +1 for https://gerrit.openbmc.org/c/openbmc/docs/+/72193, so hopefully it should go in soon. Since https://gerrit.openbmc.org/c/openbmc/docs/+/72193 has no functional impact, but only documentation, merging this PR.",
+      "parentUuid": "bff63b1e_a21bd896",
+      "revId": "20c2c1a9716286e86ddc00e31be76c2d63f2af02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "9afa4015_9cb9fde5",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 7
