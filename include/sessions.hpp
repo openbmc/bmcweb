@@ -184,11 +184,19 @@ inline MTLSCommonNameParseMode getMTLSCommonNameParseMode(std::string_view name)
 
 struct AuthConfigMethods
 {
+    // Authentication paths
     bool basic = BMCWEB_BASIC_AUTH;
     bool sessionToken = BMCWEB_SESSION_AUTH;
     bool xtoken = BMCWEB_XTOKEN_AUTH;
     bool cookie = BMCWEB_COOKIE_AUTH;
     bool tls = BMCWEB_MUTUAL_TLS_AUTH;
+
+    // Whether or not unauthenticated TLS should be accepted
+    // true = reject connections if mutual tls is not provided
+    // false = allow connection, and allow user to use other auth method
+    // Always default to false, because root certificates will not
+    // be provisioned at startup
+    bool tlsStrict = false;
 
     MTLSCommonNameParseMode mTLSCommonNameParsingMode =
         getMTLSCommonNameParseMode(
@@ -220,6 +228,10 @@ struct AuthConfigMethods
                 else if (element.first == "TLS")
                 {
                     tls = *value;
+                }
+                else if (element.first == "TLSStrict")
+                {
+                    tlsStrict = *value;
                 }
             }
             const uint64_t* intValue =
