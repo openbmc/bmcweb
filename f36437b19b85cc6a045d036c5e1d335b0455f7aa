@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "21912975_92fad60c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-26T21:52:27Z",
+      "side": 1,
+      "message": "I got tired of waiting.  I\u0027ve updated the commit message and tested it myself.",
+      "parentUuid": "6c042456_916674a3",
+      "revId": "f36437b19b85cc6a045d036c5e1d335b0455f7aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4884bcf8_33698f39",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-06-14T18:50:18Z",
       "side": 1,
       "message": "Tested how?  Redfish service validator seems like a good place to start for testing.",
+      "range": {
+        "startLine": 9,
+        "startChar": 35,
+        "endLine": 9,
+        "endChar": 41
+      },
+      "revId": "f36437b19b85cc6a045d036c5e1d335b0455f7aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "931a1e6a_439845b0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-26T21:52:27Z",
+      "side": 1,
+      "message": "Updated commit message.",
+      "parentUuid": "4884bcf8_33698f39",
       "range": {
         "startLine": 9,
         "startChar": 35,
