@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56a609b3_d66ebd40",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000009
+      },
+      "writtenOn": "2024-06-26T04:55:24Z",
+      "side": 1,
+      "message": "You also need to bump the minimum meson version to 1.1.0 (IIRC?): https://gerrit.openbmc.org/plugins/gitiles/openbmc/bmcweb/+/d588541a9a4f8c7b93872f6541deca8707213456/meson.build#5",
+      "revId": "d588541a9a4f8c7b93872f6541deca8707213456",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
