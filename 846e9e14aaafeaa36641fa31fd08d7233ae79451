@@ -110,6 +110,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8145408e_cbeb0fe1",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-26T16:56:19Z",
+      "side": 1,
+      "message": "because if we\u0027re in the middle of waiting for a server to reply, we want a much shorter timeout than TCP.  TCP timeout is much longer than we want (on the order of minutes).\n\nThe intent is esentially\nIf we\u0027re waiting for a reply, set a 30 second timeout.\nif we\u0027re not waiting for a reply, let TCP determine our timeout.",
+      "parentUuid": "663bada6_b1faba36",
+      "revId": "846e9e14aaafeaa36641fa31fd08d7233ae79451",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "198e97da_b52f12fb",
         "filename": "http/http_client.hpp",
         "patchSetId": 7
@@ -157,6 +175,24 @@
       "side": 1,
       "message": "I mean both afterWrite and afterRead will be called and hence the code inside that will executed twice. That means waitAndRetry will be called twice.",
       "parentUuid": "50d9493e_25d5b615",
+      "revId": "846e9e14aaafeaa36641fa31fd08d7233ae79451",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25d6286d_c4163ea2",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-26T16:56:19Z",
+      "side": 1,
+      "message": "afterWrite and afterRead do different things though.  Which code exactly will be executed twice?",
+      "parentUuid": "a26ba032_a41563c1",
       "revId": "846e9e14aaafeaa36641fa31fd08d7233ae79451",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
