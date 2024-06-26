@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cafb1b52_d4411a1a",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-26T15:32:12Z",
+      "side": 1,
+      "message": "\u003e 2 is what we were targeting with this patch set.\n\nYep.",
+      "parentUuid": "b5ab351c_5ff52968",
+      "revId": "846e9e14aaafeaa36641fa31fd08d7233ae79451",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "198e97da_b52f12fb",
         "filename": "http/http_client.hpp",
         "patchSetId": 7
@@ -67,6 +85,24 @@
       "writtenOn": "2024-06-26T13:52:25Z",
       "side": 1,
       "message": "since we have two outstanding IO, what happens both fails(a common scenario). Would the retry code execute multiple times? How do we avoid that ?",
+      "revId": "846e9e14aaafeaa36641fa31fd08d7233ae79451",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50d9493e_25d5b615",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-26T15:32:12Z",
+      "side": 1,
+      "message": "I don\u0027t think this one can execute twice, because it\u0027s only ever started once.",
+      "parentUuid": "198e97da_b52f12fb",
       "revId": "846e9e14aaafeaa36641fa31fd08d7233ae79451",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
