@@ -265,7 +265,9 @@ inline void handleSessionCollectionPost(
                                 session->username));
     }
 
-    fillSessionObject(asyncResp->res, *session);
+    crow::getUserInfo(asyncResp, username, session, [asyncResp, session]() {
+        fillSessionObject(asyncResp->res, *session);
+    });
 }
 inline void handleSessionServiceHead(
     crow::App& app, const crow::Request& req,
