@@ -157,6 +157,30 @@
       },
       "revId": "b2e96c59d69efefe91ff3c1f911ae9572421931e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "630774a3_b2b7a234",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-26T06:44:50Z",
+      "side": 1,
+      "message": "Right, but you\u0027re accessing it as a subpath.",
+      "parentUuid": "3271ec4d_b2398c77",
+      "range": {
+        "startLine": 404,
+        "startChar": 57,
+        "endLine": 404,
+        "endChar": 73
+      },
+      "revId": "b2e96c59d69efefe91ff3c1f911ae9572421931e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
