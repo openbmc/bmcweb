@@ -34,6 +34,41 @@
       "parentUuid": "513243b2_426a01c5",
       "revId": "846e9e14aaafeaa36641fa31fd08d7233ae79451",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5ab351c_5ff52968",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-06-26T13:52:25Z",
+      "side": 1,
+      "message": "I thought we made this change to achieve two things. \n1) to get the response from server. \n2) to monitor any possible break in the connection. \n1 is already achieved by existing implementation\n2 is what we were targeting with this patch set. \nIs it correct?",
+      "parentUuid": "7fa6417d_b5ef54fd",
+      "revId": "846e9e14aaafeaa36641fa31fd08d7233ae79451",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "198e97da_b52f12fb",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-06-26T13:52:25Z",
+      "side": 1,
+      "message": "since we have two outstanding IO, what happens both fails(a common scenario). Would the retry code execute multiple times? How do we avoid that ?",
+      "revId": "846e9e14aaafeaa36641fa31fd08d7233ae79451",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
