@@ -121,7 +121,7 @@ int run()
     }
     crow::login_routes::requestRoutes(app);
 
-    if constexpr (BMCWEB_REDFISH_DBUS_LOG)
+    if constexpr (!BMCWEB_REDFISH_DBUS_LOG)
     {
         int rc = redfish::EventServiceManager::startEventLogMonitor(*io);
         if (rc != 0)
