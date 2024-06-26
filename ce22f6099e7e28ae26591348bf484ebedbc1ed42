@@ -33,6 +33,24 @@
       "message": "This is always reporting a single empty string on my system.\n\n@paul, clearly that\u0027s not what you saw. Did you have any changes compared to master in your build?",
       "revId": "ce22f6099e7e28ae26591348bf484ebedbc1ed42",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64eff6cc_53bde72f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000936
+      },
+      "writtenOn": "2024-06-26T17:44:25Z",
+      "side": 1,
+      "message": "\u003e This is always reporting a single empty string on my system.\n\nOn session creation or later when requesting the object?\n\n\u003e @paul, clearly that\u0027s not what you saw.\n\nI was checking the Session object after creating it via /login endpoint. I saw empty string returned when Session was created the normal Redfish way and I mentioned that in the commit message of the \"provide cookies with special query parameter\" patch. This limitation is because the internal session object is created after the permissions validation so there\u0027s nothing to fill the role at that moment. I was thinking about the nicest way to refactor that code a bit so that it works properly but I do not yet have a patch to offer.\n\n\u003e Did you have any changes compared to master in your build?\n\nI\u0027ll be retesting with fully vanilla master soon.",
+      "parentUuid": "98854e85_4c154452",
+      "revId": "ce22f6099e7e28ae26591348bf484ebedbc1ed42",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ],
   "submitRequirementResults": []
