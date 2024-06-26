@@ -51,6 +51,24 @@
       "parentUuid": "98854e85_4c154452",
       "revId": "ce22f6099e7e28ae26591348bf484ebedbc1ed42",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab6e4688_5f5f9bdf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-26T17:59:12Z",
+      "side": 1,
+      "message": "On creation:\n```\n❯ curl --insecure -H \"Content-Type: application/json\" -X POST -D headers.txt https://192.168.7.2/redfish/v1/SessionService/Sessions -d    \u0027{\"UserName\":\"root\", \"Password\":\"0penBmc\"}\u0027\n{\n  \"@odata.id\": \"/redfish/v1/SessionService/Sessions/nLWi9bUIdN\",\n  \"@odata.type\": \"#Session.v1_7_0.Session\",\n  \"ClientOriginIPAddress\": \"192.168.7.1\",\n  \"Description\": \"Manager User Session\",\n  \"Id\": \"nLWi9bUIdN\",\n  \"Name\": \"User Session\",\n  \"Roles\": [\n    \"\"\n  ],\n  \"UserName\": \"root\"\n}%\n```\n\n\u003e I was thinking about the nicest way to refactor that code a bit so that it works properly but I do not yet have a patch to offer.\n\nSo is the best option to revert the patch for now and you can resubmit it when you have time to work on it?  Or do you expect you\u0027ll be able to come up with a fix in the next few days?",
+      "parentUuid": "64eff6cc_53bde72f",
+      "revId": "ce22f6099e7e28ae26591348bf484ebedbc1ed42",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ],
   "submitRequirementResults": []
