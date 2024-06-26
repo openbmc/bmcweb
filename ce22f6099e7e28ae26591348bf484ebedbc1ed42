@@ -87,6 +87,24 @@
       "parentUuid": "ab6e4688_5f5f9bdf",
       "revId": "ce22f6099e7e28ae26591348bf484ebedbc1ed42",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8892801_16ef918d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000936
+      },
+      "writtenOn": "2024-06-26T18:08:51Z",
+      "side": 1,
+      "message": "If I knew about this shortcoming with session creation I wouldn\u0027t submit this patch before fixing. But I was only testing using /login as that\u0027s what webui does, sorry.\nPlease give me few days, I\u0027ll try to come up with a reasonable solution, if you do not like it then revert makes sense but currently it\u0027s not a regression and nobody yet depends on this functionality so I hope this can wait a bit.",
+      "parentUuid": "57d699dd_dbf77b8b",
+      "revId": "ce22f6099e7e28ae26591348bf484ebedbc1ed42",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ],
   "submitRequirementResults": []
