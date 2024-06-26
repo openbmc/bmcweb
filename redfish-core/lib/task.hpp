@@ -144,7 +144,8 @@ struct TaskData : std::enable_shared_from_this<TaskData>
         {
             res.result(boost::beast::http::status::accepted);
             std::string strIdx = std::to_string(index);
-            std::string uri = "/redfish/v1/TaskService/Tasks/" + strIdx;
+            boost::urls::url uri =
+                boost::urls::format("/redfish/v1/TaskService/Tasks/{}", strIdx);
 
             res.jsonValue["@odata.id"] = uri;
             res.jsonValue["@odata.type"] = "#Task.v1_4_3.Task";
@@ -152,8 +153,11 @@ struct TaskData : std::enable_shared_from_this<TaskData>
             res.jsonValue["TaskState"] = state;
             res.jsonValue["TaskStatus"] = status;
 
+            boost::urls::url taskMonitor = boost::urls::format(
+                "/redfish/v1/TaskService/TaskMonitors/{}", strIdx);
+
             res.addHeader(boost::beast::http::field::location,
-                          uri + "/Monitor");
+                          taskMonitor.buffer());
             res.addHeader(boost::beast::http::field::retry_after,
                           std::to_string(retryAfterSeconds));
         }
@@ -313,7 +317,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
 
 inline void requestRoutesTaskMonitor(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/TaskService/Tasks/<str>/Monitor/")
+    BMCWEB_ROUTE(app, "/redfish/v1/TaskService/TaskMonitors/<str>/")
         .privileges(redfish::privileges::getTask)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
@@ -402,8 +406,8 @@ inline void requestRoutesTask(App& app)
             boost::urls::format("/redfish/v1/TaskService/Tasks/{}", strParam);
         if (!ptr->gave204)
         {
-            asyncResp->res.jsonValue["TaskMonitor"] =
-                "/redfish/v1/TaskService/Tasks/" + strParam + "/Monitor";
+            asyncResp->res.jsonValue["TaskMonitor"] = boost::urls::format(
+                "/redfish/v1/TaskService/TaskMonitors/{}", strParam);
         }
 
         asyncResp->res.jsonValue["HidePayload"] = !ptr->payload;

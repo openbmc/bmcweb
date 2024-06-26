@@ -261,6 +261,12 @@ def generate_top_collections():
         "ServiceRoot", curr_path, top_collections, False, "ServiceRoot_v1.xml"
     )
 
+    # Task service is not called out by CSDL, and is technically not a
+    # collection, but functionally needs to be treated like a collection, per
+    # the Asynchronous operations section of DSP0266
+    # https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.20.1.html#asynchronous-operations
+    top_collections.add("/redfish/v1/TaskService/TaskMonitors")
+
     print("Finished traversal!")
 
     TOTAL = len(top_collections)

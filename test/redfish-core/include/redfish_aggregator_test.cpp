@@ -61,6 +61,7 @@ TEST(addPrefixToItem, ValidURIs)
                                     "PowerEquipment/FloorPDUs",
                                     "Systems",
                                     "TaskService/Tasks",
+                                    "TaskService/TaskMonitors",
                                     "TelemetryService/LogService/Entries",
                                     "UpdateService/SoftwareInventory"};
 
@@ -215,6 +216,22 @@ TEST(addPrefixes, ParseJsonObjectNestedArray)
               "/redfish/v1/Chassis/5B42_TestChassis");
 }
 
+TEST(addPrefixes, FixHttpTaskMonitor)
+{
+    // Previously bmcweb hosted task monitors incorrectly.
+    // It has been corrected in the next test, but ensure that the "old"
+    // way still produces the correct result.
+    nlohmann::json taskResp = R"(
+    {
+      "TaskMonitor": "/redfish/v1/TaskService/Tasks/0/Monitor"
+    }
+    )"_json;
+
+    addPrefixes(taskResp, "5B247A");
+    EXPECT_EQ(taskResp["TaskMonitor"],
+              "/redfish/v1/TaskService/Tasks/5B247A_0/Monitor");
+}
+
 TEST(addPrefixes, FixHttpHeadersInResponseBody)
 {
     nlohmann::json taskResp = nlohmann::json::parse(R"(
@@ -231,7 +248,7 @@ TEST(addPrefixes, FixHttpHeadersInResponseBody)
         ]
       },
       "PercentComplete": 100,
-      "TaskMonitor": "/redfish/v1/TaskService/Tasks/0/Monitor",
+      "TaskMonitor": "/redfish/v1/TaskService/TaskMonitors/0",
       "TaskState": "Completed",
       "TaskStatus": "OK"
     }
@@ -241,7 +258,7 @@ TEST(addPrefixes, FixHttpHeadersInResponseBody)
     addPrefixes(taskResp, "5B247A");
     EXPECT_EQ(taskResp["@odata.id"], "/redfish/v1/TaskService/Tasks/5B247A_0");
     EXPECT_EQ(taskResp["TaskMonitor"],
-              "/redfish/v1/TaskService/Tasks/5B247A_0/Monitor");
+              "/redfish/v1/TaskService/TaskMonitors/5B247A_0");
     nlohmann::json& httpHeaders = taskResp["Payload"]["HttpHeaders"];
     EXPECT_EQ(
         httpHeaders[4],
