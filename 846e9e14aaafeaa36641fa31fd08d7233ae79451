@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "513243b2_426a01c5",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-06-26T06:33:07Z",
+      "side": 1,
+      "message": "do we need timeout? Can\u0027t we keep receive indefinitely ? other timeouts will anyway closes the connection so that receive will be interrupted and new connection starts as usual.",
+      "revId": "846e9e14aaafeaa36641fa31fd08d7233ae79451",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
