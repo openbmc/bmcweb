@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0eb9171a_7b1943e5",
+        "filename": "include/dbus_privileges.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1000936
+      },
+      "writtenOn": "2024-06-27T21:20:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f88853ef_047d1e37",
+      "revId": "4467333943159cb101a9111a90fca75f7c8a312b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "33889680_34c07113",
@@ -81,6 +99,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7ca4574_cdb6168e",
+        "filename": "include/dbus_privileges.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1000936
+      },
+      "writtenOn": "2024-06-27T21:20:30Z",
+      "side": 1,
+      "message": "\u003e This is an unsafe capture.  Capture shared pointers by value.\n\nLife-time tracking in C++ is hard :/ . Hope I got it right this time.",
+      "parentUuid": "33889680_34c07113",
+      "range": {
+        "startLine": 176,
+        "startChar": 21,
+        "endLine": 176,
+        "endChar": 28
+      },
+      "revId": "4467333943159cb101a9111a90fca75f7c8a312b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b60552ce_c54be806",
+        "filename": "include/dbus_privileges.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1000936
+      },
+      "writtenOn": "2024-06-27T21:20:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4da0b1c7_9462ac4d",
+      "range": {
+        "startLine": 176,
+        "startChar": 41,
+        "endLine": 176,
+        "endChar": 53
+      },
+      "revId": "4467333943159cb101a9111a90fca75f7c8a312b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "f3e9666f_f95fbf30",
@@ -94,6 +160,30 @@
       "writtenOn": "2024-06-27T19:22:42Z",
       "side": 1,
       "message": "chaining these two operations seems unfortunate.  My gut is telling me there should be a simpler way to do this, but I guess this is fine as-is.",
+      "range": {
+        "startLine": 261,
+        "startChar": 0,
+        "endLine": 261,
+        "endChar": 52
+      },
+      "revId": "4467333943159cb101a9111a90fca75f7c8a312b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbb1b970_25d6cb43",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1000936
+      },
+      "writtenOn": "2024-06-27T21:20:30Z",
+      "side": 1,
+      "message": "\u003e chaining these two operations seems unfortunate.  My gut is telling me there should be a simpler way to do this, but I guess this is fine as-is.\n\nIf only `phosphor-user-manager` wouldn\u0027t be needed at all and everything including group membership could go through PAM and libnss... But I guess there\u0027s a good reason why privilege validation code does that D-Bus call?",
+      "parentUuid": "f3e9666f_f95fbf30",
       "range": {
         "startLine": 261,
         "startChar": 0,
