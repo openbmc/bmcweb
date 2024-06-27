@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dd723c10_7ce5a0ee",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-27T19:57:25Z",
+      "side": 1,
+      "message": "I don\u0027t think it does?  Clients are given the task monitor URI through the Location header on the 202 response.  Unless they\u0027re going and breaking that apart, then recombining it (which I can\u0027t imagine why they would, the ID is random), I can\u0027t imagine any client breaks.\n\nAlso, because this isn\u0027t \"in\" the Redfish tree, there\u0027s no way to get to it otherwise like there would be if we changed some collection name.",
+      "parentUuid": "e3211c69_8990b846",
+      "revId": "75def5abeccc4219266225c1af353e67f83b1b0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "08e4a6a5_975f0fa9",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -31,6 +49,24 @@
       "writtenOn": "2024-06-27T19:34:50Z",
       "side": 1,
       "message": "Doesn\u0027t code update, spin up a task?",
+      "revId": "75def5abeccc4219266225c1af353e67f83b1b0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93c107cd_86999e84",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-27T19:57:25Z",
+      "side": 1,
+      "message": "Yeah, i guess I can do that;  I\u0027m more stuck that I don\u0027t have a client that handles that properly, but I guess I can poke at it with python/curl.",
+      "parentUuid": "08e4a6a5_975f0fa9",
       "revId": "75def5abeccc4219266225c1af353e67f83b1b0a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
