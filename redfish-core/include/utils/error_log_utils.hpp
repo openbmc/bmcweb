@@ -33,10 +33,11 @@ inline void setErrorLogUri(
     const bool isLink)
 {
     // Get the Hidden Property
-    crow::connections::systemBus->async_method_call(
-        [asyncResp, errorLogObjPath, errorLogPropPath,
-         isLink](const boost::system::error_code& ec,
-                 std::variant<bool>& hiddenProperty) {
+    sdbusplus::asio::getProperty<bool>(
+        *crow::connections::systemBus, "xyz.openbmc_project.Logging",
+        errorLogObjPath.str, "org.open_power.Logging.PEL.Entry", "Hidden",
+        [asyncResp, errorLogObjPath, errorLogPropPath, isLink](
+            const boost::system::error_code& ec, const bool hiddenProperty) {
         if (ec)
         {
             BMCWEB_LOG_ERROR(
@@ -44,17 +45,9 @@ inline void setErrorLogUri(
                 ec.value(), ec.message(), errorLogObjPath.str);
             return;
         }
-        bool* hiddenPropVal = std::get_if<bool>(&hiddenProperty);
-        if (hiddenPropVal == nullptr)
-        {
-            BMCWEB_LOG_ERROR(
-                "Failed to get the Hidden property value from the given error log object {}",
-                errorLogObjPath.str);
-            return;
-        }
 
         std::string errLogUri{"/redfish/v1/Systems/system/LogServices/"};
-        if (*hiddenPropVal)
+        if (hiddenProperty)
         {
             errLogUri.append("CELog/Entries/");
         }
@@ -75,10 +68,7 @@ inline void setErrorLogUri(
             std::string path = errorLogPropPath.to_string();
             asyncResp->res.jsonValue[path]["@odata.id"] = errLogUri;
         }
-    },
-        "xyz.openbmc_project.Logging", errorLogObjPath.str,
-        "org.freedesktop.DBus.Properties", "Get",
-        "org.open_power.Logging.PEL.Entry", "Hidden");
+    });
 }
 
 } // namespace error_log_utils
