@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "da7ce0ea_268ddf92",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-27T19:11:19Z",
+      "side": 1,
+      "message": "At some point, it\u0027d be really great if we could generate an enum of \"every possible redfish property name\"",
+      "parentUuid": "5010c96e_66601559",
+      "range": {
+        "startLine": 10,
+        "startChar": 41,
+        "endLine": 10,
+        "endChar": 60
+      },
+      "revId": "4c9bf302f4b0afaf39c608f9231059b462fcc4c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "089d965f_ba8791d8",
@@ -37,6 +61,24 @@
       "writtenOn": "2024-06-27T18:40:40Z",
       "side": 1,
       "message": "Ed\u0027s name should be here also for the sign off.",
+      "revId": "4c9bf302f4b0afaf39c608f9231059b462fcc4c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a376200_10777985",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-27T19:11:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "089d965f_ba8791d8",
       "revId": "4c9bf302f4b0afaf39c608f9231059b462fcc4c9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
