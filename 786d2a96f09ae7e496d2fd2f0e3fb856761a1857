@@ -16,6 +16,24 @@
       "message": "@Marco, Need your input here.  Can Meta propose adding an OEM method to AccountService in DMTF?  It would likely look very similar to how LogEntry OEM is enabled, with a com.facebook OEM schema added to be able to enable this mode.\n\nThe existing standard didn\u0027t account for OEM-specified parsing mechanisms.",
       "revId": "786d2a96f09ae7e496d2fd2f0e3fb856761a1857",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca4ff6bb_982a48dd",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1284,
+      "author": {
+        "id": 1001910
+      },
+      "writtenOn": "2024-06-27T18:47:18Z",
+      "side": 1,
+      "message": "Hi Ed, thank you for working on this on such short notice. Discussing with mikechoi@meta.com, we decided to prioritise support for UPNs in our certs so we won\u0027t need this option (our TLS certs should have new UPN by the end of the year and I plan to develop/validate support for it soon).\n\nUntil then, specific internal tooling will be developed to support vendor BMC platforms that don\u0027t have the meta certificate parsing flag (e.g. using password auth).",
+      "parentUuid": "c70e0771_6588de95",
+      "revId": "786d2a96f09ae7e496d2fd2f0e3fb856761a1857",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
