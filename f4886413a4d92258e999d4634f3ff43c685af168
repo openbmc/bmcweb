@@ -33,6 +33,24 @@
       "message": "why to add loadCertificate() here in app?",
       "revId": "f4886413a4d92258e999d4634f3ff43c685af168",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f12f5bd_52876b2d",
+        "filename": "http/app.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-27T19:15:05Z",
+      "side": 1,
+      "message": "Because we need to be able to re-init the SSL context from within an HTTP handler.  (see where this patchset does that in account_service.hpp).",
+      "parentUuid": "5d6eba96_61d1cbb0",
+      "revId": "f4886413a4d92258e999d4634f3ff43c685af168",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
