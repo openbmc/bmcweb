@@ -181,6 +181,30 @@
       },
       "revId": "b2e96c59d69efefe91ff3c1f911ae9572421931e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f889e15f_7b3c7053",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-06-27T04:06:11Z",
+      "side": 1,
+      "message": "Replied here https://gerrit.openbmc.org/c/openbmc/bmcweb/+/72046/comment/02144c38_6d2ed4d3/. Please let me know if it answers your question.",
+      "parentUuid": "630774a3_b2b7a234",
+      "range": {
+        "startLine": 404,
+        "startChar": 57,
+        "endLine": 404,
+        "endChar": 73
+      },
+      "revId": "b2e96c59d69efefe91ff3c1f911ae9572421931e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

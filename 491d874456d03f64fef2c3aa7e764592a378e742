@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b6f2645_dc6dee45",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-06-27T04:06:11Z",
+      "side": 1,
+      "message": "Replied to your comments. Thanks",
+      "revId": "491d874456d03f64fef2c3aa7e764592a378e742",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "02144c38_6d2ed4d3",
@@ -14,6 +31,30 @@
       "writtenOn": "2024-06-26T06:44:50Z",
       "side": 1,
       "message": "I\u0027m a little confused here, you\u0027re doing an association lookup to look up the software version interfaces?  Isn\u0027t the software version attached directly to the software path?\n\nsomething like\n\nGetObject(\"/xyz/openbmc_project/software/\u003cswId\u003e, {\"xyz.openbmc_project.Software.Update\"})\n\nWould be simpler, right?",
+      "range": {
+        "startLine": 410,
+        "startChar": 0,
+        "endLine": 414,
+        "endChar": 36
+      },
+      "revId": "491d874456d03f64fef2c3aa7e764592a378e742",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab55577c_43e7e212",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-06-27T04:06:11Z",
+      "side": 1,
+      "message": "xyz.openbmc_project.Software.Update --is-on--\u003e /xyz/openbmc_project/software/bmc object_path (for BMC).\nxyz.openbmc_project.Software.Version --is-on--\u003e /xyz/openbmc_project/software/\u003cswId\u003e object_path.\n\n/xyz/openbmc_project/software/bmc (updatable) --associated-with--\u003e (software_version) /xyz/openbmc_project/software/\u003cswId\u003e\n\nSo, here i am trying to get the associated subtree for /xyz/openbmc_project/software/\u003cswId\u003e/software_version with xyz.openbmc_project.Software.Update interface on the object_path /xyz/openbmc_project/software.",
+      "parentUuid": "02144c38_6d2ed4d3",
       "range": {
         "startLine": 410,
         "startChar": 0,
