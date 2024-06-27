@@ -111,6 +111,30 @@
       },
       "revId": "491d874456d03f64fef2c3aa7e764592a378e742",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29ab9e1e_a75553dd",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-06-27T17:16:38Z",
+      "side": 1,
+      "message": "Basically, i am trying to keep a singleton update interface for the BMC at fixed path which is /xyz/openbmc_project/software/bmc. The BMC versions will continue to be at /xyz/openbmc_project/software/\u003cswId\u003e.\nIf its creating confusion in terms of object_path, probably i can use the /xyz/openbmc_project/software/update/bmc for hosting the update interface?",
+      "parentUuid": "e888aa0f_0cbcaef4",
+      "range": {
+        "startLine": 410,
+        "startChar": 0,
+        "endLine": 414,
+        "endChar": 36
+      },
+      "revId": "491d874456d03f64fef2c3aa7e764592a378e742",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
