@@ -183,6 +183,30 @@
       },
       "revId": "491d874456d03f64fef2c3aa7e764592a378e742",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "243db0fa_f8774c9f",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-06-27T19:38:50Z",
+      "side": 1,
+      "message": "\u003e This is making it pretty complicated if we split responsibility across dbus interfaces. What I was expecting was\n/xyz/openbmc_project/software/bmc\nHosts update and version interfaces for the bmc\n\u003e /xyz/openbmc_project/software/\u003cswId\u003e\nhosts update and version interfaces for other components. \n\nWhy we have to treat BMC as a special case and use a fixed path for it and use \u003cswId\u003e for all others?\n\nMoreover, there can be more than one version for the BMC, for example, active, activating, staged so i don\u0027t think we can put all of them at the same DBus path. As per design, the idea was to keep Version and Update interfaces at same path /xyz/openbmc_project/software/\u003cswId\u003e. While doing proto-typing i felt that duplicating the Update interface doesn\u0027t make sense since nothing is changing for that interface from one BMC version to another, its just a way to deliver the update command to the component. So i kept it separate from the Version interface but used an association to link the Version and Update interfaces. I was going to float those design changes for discussion but its good we are discussing now.\n\n\n\u003e Once of these components might also be a \"copy\" of the bmc.\n\nI am not sure what you mean by copy of bmc?\n\n\n\u003e \u003e /xyz/openbmc_project/software/update/bmc for hosting the update interface?\n\u003e \n\u003e I\u0027m not sure what this would accomplish, aside from putting it at a different namespace path.  The complexity is that the code has split up the dbus object paths for things that represent the same thing. \n\nVersion interface is representing the particular version of a component software and there can be n version interfaces for that component depending upon what state (running, staged, activating etc) that version is in. Contrary, Update interface provides a way to trigger/deliver an update action to a component daemon, which shouldn\u0027t change from one version to another.\n\n\u003e We can have multiple interfaces on the same dbus path, and that\u0027s generally how we represent \"this object can do multiple things\". We fall back to associations when we\u0027re operating in different path namespaces, relating two distinct objects to one another, but by in large we will have the same path host multiple interfaces if that path just has multiple capabilities.\n\nI agree that we could have kept both Update and Version as one object but I have explained above the reasoning for keeping them separate. Please let me know if it makes sense?",
+      "parentUuid": "4b4b5684_0ae87958",
+      "range": {
+        "startLine": 410,
+        "startChar": 0,
+        "endLine": 414,
+        "endChar": 36
+      },
+      "revId": "491d874456d03f64fef2c3aa7e764592a378e742",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
