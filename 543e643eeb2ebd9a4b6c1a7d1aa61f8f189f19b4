@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "173eed73_6132620c",
+        "filename": "include/authentication.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-06-27T17:39:43Z",
+      "side": 0,
+      "message": "why to remove these headers?",
+      "revId": "543e643eeb2ebd9a4b6c1a7d1aa61f8f189f19b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
