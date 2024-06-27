@@ -325,6 +325,24 @@
       "parentUuid": "0f24fa18_c5d5f783",
       "revId": "a2bbcd3d1bd4cc6782b23fc20765c728722bc67a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8249b53_58e8ad17",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-27T18:08:00Z",
+      "side": 1,
+      "message": "I\u0027m closing this out;  There are multiple avenues to communicate with gerrit admins (I suspect andrew prefers discord or email), I will assume the two of you will work that out.",
+      "parentUuid": "0fbd2e70_cd42a7a1",
+      "revId": "a2bbcd3d1bd4cc6782b23fc20765c728722bc67a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

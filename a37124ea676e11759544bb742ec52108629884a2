@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "39f6e666_c9c3455b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-27T18:08:00Z",
+      "side": 1,
+      "message": "\u003e No, my intention is to get this feature merged.\n\nCool, then lets get the coding issues sorted.\n\n\u003e However I understand your remarks on the current implementation / design. \n\u003e I also got informed about the development in phosphor-dbus-interfaces that should solve the problems (https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/72414). Once it gets merged I will continue on this patch and rework the design accordingly.\n\nSounds good.",
+      "parentUuid": "8d2cdaf7_272c8ba2",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 72
+      },
+      "revId": "a37124ea676e11759544bb742ec52108629884a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1c8b3c0f_8e685512",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -252,6 +276,30 @@
       "side": 1,
       "message": "Acknowledged",
       "parentUuid": "7b86f0dd_b9136cc2",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 16
+      },
+      "revId": "a37124ea676e11759544bb742ec52108629884a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c2c7287_91205557",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-27T18:08:00Z",
+      "side": 1,
+      "message": "Reopening until this is resolved in code.",
+      "parentUuid": "f79e054e_6effe466",
       "range": {
         "startLine": 42,
         "startChar": 0,
@@ -666,6 +714,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cfa806cb_35105b72",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-27T18:08:00Z",
+      "side": 1,
+      "message": "Reopening until this is resolved in code.",
+      "parentUuid": "dde40dc5_1cb3a747",
+      "range": {
+        "startLine": 146,
+        "startChar": 39,
+        "endLine": 146,
+        "endChar": 58
+      },
+      "revId": "a37124ea676e11759544bb742ec52108629884a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8f804802_1ff14441",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 3
@@ -761,6 +833,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4d0a3ed4_a0172173",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-27T18:08:00Z",
+      "side": 1,
+      "message": "Once you think you\u0027ve brought this patchset up to the coding standard, feel free to close this out and I\u0027ll re-review with more specifics if there\u0027s anything remaining.",
+      "parentUuid": "d6278af3_f102ba5b",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 63
+      },
+      "revId": "a37124ea676e11759544bb742ec52108629884a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "45ec2b5e_f003bcdc",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 3
@@ -796,6 +892,30 @@
       "side": 1,
       "message": "Acknowledged",
       "parentUuid": "45ec2b5e_f003bcdc",
+      "range": {
+        "startLine": 179,
+        "startChar": 30,
+        "endLine": 179,
+        "endChar": 34
+      },
+      "revId": "a37124ea676e11759544bb742ec52108629884a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f209bf3f_f059d1ea",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-27T18:08:00Z",
+      "side": 1,
+      "message": "Reopening until this is resolved in code.  Please close once the code is fixed.",
+      "parentUuid": "c118a083_fcb04e90",
       "range": {
         "startLine": 179,
         "startChar": 30,
