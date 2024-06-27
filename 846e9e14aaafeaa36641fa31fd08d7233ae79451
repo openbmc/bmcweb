@@ -128,6 +128,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e7d8a5e8_6e70ccbd",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-06-27T11:26:38Z",
+      "side": 1,
+      "message": "but line 355 will return in case of timer expiry and there is no more monitoring for the connection termination right?\n\nHow do we make sure that we don\u0027t want to wait for replay from server but will wait wait for connection termination?",
+      "parentUuid": "8145408e_cbeb0fe1",
+      "revId": "846e9e14aaafeaa36641fa31fd08d7233ae79451",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "198e97da_b52f12fb",
         "filename": "http/http_client.hpp",
         "patchSetId": 7
@@ -193,6 +211,24 @@
       "side": 1,
       "message": "afterWrite and afterRead do different things though.  Which code exactly will be executed twice?",
       "parentUuid": "a26ba032_a41563c1",
+      "revId": "846e9e14aaafeaa36641fa31fd08d7233ae79451",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06702ca5_09c4eab4",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-06-27T11:26:38Z",
+      "side": 1,
+      "message": "line 312 and line 367 will not execute concurrently?",
+      "parentUuid": "25d6286d_c4163ea2",
       "revId": "846e9e14aaafeaa36641fa31fd08d7233ae79451",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
