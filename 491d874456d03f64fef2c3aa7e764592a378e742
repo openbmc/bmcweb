@@ -63,6 +63,30 @@
       },
       "revId": "491d874456d03f64fef2c3aa7e764592a378e742",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12aa303b_7665524e",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-27T16:31:36Z",
+      "side": 1,
+      "message": "\u003e xyz.openbmc_project.Software.Update --is-on--\u003e /xyz/openbmc_project/software/bmc object_path (for BMC).\n\u003e xyz.openbmc_project.Software.Version --is-on--\u003e /xyz/openbmc_project/software/\u003cswId\u003e object_path.\n\u003e \n\u003e /xyz/openbmc_project/software/bmc (updatable) --associated-with--\u003e (software_version) /xyz/openbmc_project/software/\u003cswId\u003e\n\n\n/xyz/openbmc_project/software/bmc\n/xyz/openbmc_project/software/\u003cswId\u003e\n/xyz/openbmc_project/software/\u003cswId\u003e\n\n\nThese are all 3 the same path (two with wildcards, and one with a swid of \"bmc\")\n\nWhat am I missing here?\n\n\u003e \n\u003e So, here i am trying to get the associated subtree for /xyz/openbmc_project/software/\u003cswId\u003e/software_version with xyz.openbmc_project.Software.Update interface on the object_path /xyz/openbmc_project/software.\n\nRight, but if they\u0027re all the same path, why do we need to look up an association?",
+      "parentUuid": "ab55577c_43e7e212",
+      "range": {
+        "startLine": 410,
+        "startChar": 0,
+        "endLine": 414,
+        "endChar": 36
+      },
+      "revId": "491d874456d03f64fef2c3aa7e764592a378e742",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
