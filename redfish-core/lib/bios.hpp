@@ -695,180 +695,166 @@ inline void requestRoutesBiosSettings(App& app)
  * BiosAttributeRegistry class supports handle get method for BIOS attribute
  * registry.
  */
-inline void requestRoutesBiosAttributeRegistry(App& app)
+inline void getBiosAttributeRegistry(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    BMCWEB_ROUTE(
-        app,
-        "/redfish/v1/Registries/BiosAttributeRegistry/BiosAttributeRegistry")
-        .privileges({{"Login"}})
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    asyncResp->res.jsonValue["@odata.id"] =
+        "/redfish/v1/Registries/BiosAttributeRegistry/BiosAttributeRegistry";
+    asyncResp->res.jsonValue["@odata.type"] =
+        "#AttributeRegistry.v1_3_2.AttributeRegistry";
+    asyncResp->res.jsonValue["Name"] = "Bios Attribute Registry";
+    asyncResp->res.jsonValue["Id"] = "BiosAttributeRegistry";
+    asyncResp->res.jsonValue["RegistryVersion"] = "1.0.0";
+    asyncResp->res.jsonValue["Language"] = "en";
+    asyncResp->res.jsonValue["OwningEntity"] = "OpenBMC";
+    asyncResp->res.jsonValue["RegistryEntries"]["Attributes"] =
+        nlohmann::json::array();
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code& ec,
+                    const dbus::utility::MapperGetObject& getObjectType) {
+        if (ec)
         {
+            BMCWEB_LOG_ERROR("ObjectMapper::GetObject call failed: {}", ec);
+            messages::internalError(asyncResp->res);
+
             return;
         }
-        asyncResp->res.jsonValue["@odata.id"] =
-            "/redfish/v1/Registries/BiosAttributeRegistry/"
-            "BiosAttributeRegistry";
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#AttributeRegistry.v1_3_2.AttributeRegistry";
-        asyncResp->res.jsonValue["Name"] = "Bios Attribute Registry";
-        asyncResp->res.jsonValue["Id"] = "BiosAttributeRegistry";
-        asyncResp->res.jsonValue["RegistryVersion"] = "1.0.0";
-        asyncResp->res.jsonValue["Language"] = "en";
-        asyncResp->res.jsonValue["OwningEntity"] = "OpenBMC";
-        asyncResp->res.jsonValue["RegistryEntries"]["Attributes"] =
-            nlohmann::json::array();
+        std::string service = getObjectType.begin()->first;
 
         crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code& ec,
-                        const dbus::utility::MapperGetObject& getObjectType) {
-            if (ec)
+            [asyncResp](const boost::system::error_code& ec1,
+                        const std::variant<BiosBaseTableType>& retBiosTable) {
+            if (ec1)
             {
-                BMCWEB_LOG_ERROR("ObjectMapper::GetObject call failed: {}", ec);
-                messages::internalError(asyncResp->res);
-
+                BMCWEB_LOG_WARNING("getBiosAttributeRegistry DBUS error: {}",
+                                   ec1);
+                messages::resourceNotFound(asyncResp->res, "Registries/Bios",
+                                           "Bios");
                 return;
             }
-            std::string service = getObjectType.begin()->first;
-
-            crow::connections::systemBus->async_method_call(
-                [asyncResp](
-                    const boost::system::error_code& ec1,
-                    const std::variant<BiosBaseTableType>& retBiosTable) {
-                if (ec1)
+            const BiosBaseTableType* baseBiosTable =
+                std::get_if<BiosBaseTableType>(&retBiosTable);
+            nlohmann::json& attributeArray =
+                asyncResp->res.jsonValue["RegistryEntries"]["Attributes"];
+            if (baseBiosTable == nullptr)
+            {
+                BMCWEB_LOG_ERROR("baseBiosTable == nullptr ");
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            for (const BiosBaseTableItemType& item : *baseBiosTable)
+            {
+                nlohmann::json optionsArray = nlohmann::json::array();
+                const std::string& itemType =
+                    std::get<biosBaseAttrType>(item.second);
+                std::string attrType = mapAttrTypeToRedfish(itemType);
+                if (attrType == "UNKNOWN")
                 {
-                    BMCWEB_LOG_WARNING(
-                        "getBiosAttributeRegistry DBUS error: {}", ec1);
-                    messages::resourceNotFound(asyncResp->res,
-                                               "Registries/Bios", "Bios");
-                    return;
-                }
-                const BiosBaseTableType* baseBiosTable =
-                    std::get_if<BiosBaseTableType>(&retBiosTable);
-                nlohmann::json& attributeArray =
-                    asyncResp->res.jsonValue["RegistryEntries"]["Attributes"];
-                if (baseBiosTable == nullptr)
-                {
-                    BMCWEB_LOG_ERROR("baseBiosTable == nullptr ");
+                    BMCWEB_LOG_ERROR("attrType == UNKNOWN");
                     messages::internalError(asyncResp->res);
                     return;
                 }
-                for (const BiosBaseTableItemType& item : *baseBiosTable)
+                nlohmann::json attributeItem;
+                attributeItem["AttributeName"] = item.first;
+                attributeItem["Type"] = attrType;
+                attributeItem["ReadOnly"] =
+                    std::get<biosBaseReadonlyStatus>(item.second);
+                attributeItem["DisplayName"] =
+                    std::get<biosBaseDisplayName>(item.second);
+                attributeItem["HelpText"] =
+                    std::get<biosBaseDescription>(item.second);
+                if (!std::get<biosBaseMenuPath>(item.second).empty())
                 {
-                    nlohmann::json optionsArray = nlohmann::json::array();
-                    const std::string& itemType =
-                        std::get<biosBaseAttrType>(item.second);
-                    std::string attrType = mapAttrTypeToRedfish(itemType);
-                    if (attrType == "UNKNOWN")
+                    attributeItem["MenuPath"] =
+                        std::get<biosBaseMenuPath>(item.second);
+                }
+
+                if (attrType == "String" || attrType == "Enumeration")
+                {
+                    const std::string* currValue = std::get_if<std::string>(
+                        &std::get<biosBaseCurrValue>(item.second));
+                    const std::string* defValue = std::get_if<std::string>(
+                        &std::get<biosBaseDefaultValue>(item.second));
+                    if (currValue != nullptr && !currValue->empty())
                     {
-                        BMCWEB_LOG_ERROR("attrType == UNKNOWN");
+                        attributeItem["CurrentValue"] = *currValue;
+                    }
+                    if (defValue != nullptr && !defValue->empty())
+                    {
+                        attributeItem["DefaultValue"] = *defValue;
+                    }
+                }
+                else if (attrType == "Integer")
+                {
+                    const int64_t* currValue = std::get_if<int64_t>(
+                        &std::get<biosBaseCurrValue>(item.second));
+                    const int64_t* defValue = std::get_if<int64_t>(
+                        &std::get<biosBaseDefaultValue>(item.second));
+                    attributeItem["CurrentValue"] =
+                        currValue != nullptr ? *currValue : 0;
+                    attributeItem["DefaultValue"] =
+                        defValue != nullptr ? *defValue : 0;
+                }
+                else
+                {
+                    BMCWEB_LOG_ERROR("Unsupported attribute type.");
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                const std::vector<OptionsItemType>& optionsVector =
+                    std::get<biosBaseOptions>(item.second);
+                for (const OptionsItemType& optItem : optionsVector)
+                {
+                    nlohmann::json optItemJson;
+                    const std::string& strOptItemType =
+                        std::get<optItemType>(optItem);
+                    std::string optItemTypeRedfish =
+                        mapBoundTypeToRedfish(strOptItemType);
+                    if (optItemTypeRedfish == "UNKNOWN")
+                    {
+                        BMCWEB_LOG_ERROR("optItemTypeRedfish == UNKNOWN");
                         messages::internalError(asyncResp->res);
                         return;
                     }
-                    nlohmann::json attributeItem;
-                    attributeItem["AttributeName"] = item.first;
-                    attributeItem["Type"] = attrType;
-                    attributeItem["ReadOnly"] =
-                        std::get<biosBaseReadonlyStatus>(item.second);
-                    attributeItem["DisplayName"] =
-                        std::get<biosBaseDisplayName>(item.second);
-                    attributeItem["HelpText"] =
-                        std::get<biosBaseDescription>(item.second);
-                    if (!std::get<biosBaseMenuPath>(item.second).empty())
-                    {
-                        attributeItem["MenuPath"] =
-                            std::get<biosBaseMenuPath>(item.second);
-                    }
-
-                    if (attrType == "String" || attrType == "Enumeration")
+                    if (optItemTypeRedfish == "OneOf")
                     {
                         const std::string* currValue = std::get_if<std::string>(
-                            &std::get<biosBaseCurrValue>(item.second));
-                        const std::string* defValue = std::get_if<std::string>(
-                            &std::get<biosBaseDefaultValue>(item.second));
-                        if (currValue != nullptr && !currValue->empty())
+                            &std::get<optItemValue>(optItem));
+                        if (currValue != nullptr)
                         {
-                            attributeItem["CurrentValue"] = *currValue;
+                            optItemJson["ValueName"] = *currValue;
+                            optionsArray.push_back(optItemJson);
                         }
-                        if (defValue != nullptr && !defValue->empty())
-                        {
-                            attributeItem["DefaultValue"] = *defValue;
-                        }
-                    }
-                    else if (attrType == "Integer")
-                    {
-                        const int64_t* currValue = std::get_if<int64_t>(
-                            &std::get<biosBaseCurrValue>(item.second));
-                        const int64_t* defValue = std::get_if<int64_t>(
-                            &std::get<biosBaseDefaultValue>(item.second));
-                        attributeItem["CurrentValue"] =
-                            currValue != nullptr ? *currValue : 0;
-                        attributeItem["DefaultValue"] =
-                            defValue != nullptr ? *defValue : 0;
                     }
                     else
                     {
-                        BMCWEB_LOG_ERROR("Unsupported attribute type.");
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
-
-                    const std::vector<OptionsItemType>& optionsVector =
-                        std::get<biosBaseOptions>(item.second);
-                    for (const OptionsItemType& optItem : optionsVector)
-                    {
-                        nlohmann::json optItemJson;
-                        const std::string& strOptItemType =
-                            std::get<optItemType>(optItem);
-                        std::string optItemTypeRedfish =
-                            mapBoundTypeToRedfish(strOptItemType);
-                        if (optItemTypeRedfish == "UNKNOWN")
+                        const int64_t* currValue = std::get_if<int64_t>(
+                            &std::get<optItemValue>(optItem));
+                        if (currValue != nullptr)
                         {
-                            BMCWEB_LOG_ERROR("optItemTypeRedfish == UNKNOWN");
-                            messages::internalError(asyncResp->res);
-                            return;
-                        }
-                        if (optItemTypeRedfish == "OneOf")
-                        {
-                            const std::string* currValue =
-                                std::get_if<std::string>(
-                                    &std::get<optItemValue>(optItem));
-                            if (currValue != nullptr)
-                            {
-                                optItemJson["ValueName"] = *currValue;
-                                optionsArray.push_back(optItemJson);
-                            }
-                        }
-                        else
-                        {
-                            const int64_t* currValue = std::get_if<int64_t>(
-                                &std::get<optItemValue>(optItem));
-                            if (currValue != nullptr)
-                            {
-                                attributeItem[optItemTypeRedfish] = *currValue;
-                            }
+                            attributeItem[optItemTypeRedfish] = *currValue;
                         }
                     }
-
-                    if (!optionsArray.empty())
-                    {
-                        attributeItem["Value"] = optionsArray;
-                    }
-                    attributeArray.push_back(attributeItem);
                 }
-            },
-                service, "/xyz/openbmc_project/bios_config/manager",
-                "org.freedesktop.DBus.Properties", "Get",
-                "xyz.openbmc_project.BIOSConfig.Manager", "BaseBIOSTable");
+
+                if (!optionsArray.empty())
+                {
+                    attributeItem["Value"] = optionsArray;
+                }
+                attributeArray.push_back(attributeItem);
+            }
         },
-            "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetObject",
-            "/xyz/openbmc_project/bios_config/manager",
-            std::array<const char*, 0>());
-    });
+            service, "/xyz/openbmc_project/bios_config/manager",
+            "org.freedesktop.DBus.Properties", "Get",
+            "xyz.openbmc_project.BIOSConfig.Manager", "BaseBIOSTable");
+    },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetObject",
+        "/xyz/openbmc_project/bios_config/manager",
+        std::array<const char*, 0>());
 }
 
 /**

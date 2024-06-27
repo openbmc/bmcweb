@@ -16,6 +16,7 @@
 #pragma once
 
 #include "app.hpp"
+#include "bios.hpp"
 #include "query.hpp"
 #include "registries.hpp"
 #include "registries/base_message_registry.hpp"
@@ -56,16 +57,7 @@ inline void handleMessageRegistryFileCollectionGet(
 
     for (const char* memberName :
          std::to_array({"Base", "TaskEvent", "ResourceEvent", "OpenBMC",
-                        "BiosAttributeRegistry"}))
-    {
-        nlohmann::json::object_t member;
-        member["@odata.id"] = boost::urls::format("/redfish/v1/Registries/{}",
-                                                  memberName);
-        members.emplace_back(std::move(member));
-    }
-
-    for (const char* memberName : std::to_array(
-             {"Base", "TaskEvent", "ResourceEvent", "OpenBMC", "License"}))
+                        "BiosAttributeRegistry", "License"}))
     {
         nlohmann::json::object_t member;
         member["@odata.id"] = boost::urls::format("/redfish/v1/Registries/{}",
@@ -180,6 +172,14 @@ inline void handleMessageRegistryGet(
     {
         return;
     }
+
+    if (registry == "BiosAttributeRegistry" &&
+        registryMatch == "BiosAttributeRegistry")
+    {
+        getBiosAttributeRegistry(asyncResp);
+        return;
+    }
+
     const registries::Header* header = nullptr;
     std::vector<const registries::MessageEntry*> registryEntries;
     if (registry == "Base")

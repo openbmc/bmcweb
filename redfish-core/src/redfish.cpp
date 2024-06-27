@@ -183,7 +183,6 @@ RedfishService::RedfishService(App& app)
     requestRoutesSystemActionsOemExecutePanelFunction(app);
     requestRoutesBiosService(app);
     requestRoutesBiosSettings(app);
-    requestRoutesBiosAttributeRegistry(app);
     requestRoutesBiosReset(app);
 
 #ifdef BMCWEB_ENABLE_VM_NBDPROXY
