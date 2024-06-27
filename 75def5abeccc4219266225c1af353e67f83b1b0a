@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3211c69_8990b846",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-06-27T19:34:50Z",
+      "side": 1,
+      "message": "What about breaking clients here?",
+      "revId": "75def5abeccc4219266225c1af353e67f83b1b0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08e4a6a5_975f0fa9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-06-27T19:34:50Z",
+      "side": 1,
+      "message": "Doesn\u0027t code update, spin up a task?",
+      "revId": "75def5abeccc4219266225c1af353e67f83b1b0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
