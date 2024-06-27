@@ -192,6 +192,30 @@
       },
       "revId": "4467333943159cb101a9111a90fca75f7c8a312b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b6b5428_5fb20ff3",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-27T21:25:08Z",
+      "side": 1,
+      "message": "Honestly, I really don\u0027t think there is a \"good\" reason.  Frankly at some point I\u0027d like that whole check to go away in lieu of us just checking the group membership at session creation time and monitoring for group changes.  Doing a blocking dbus call for every request is slow.",
+      "parentUuid": "dbb1b970_25d6cb43",
+      "range": {
+        "startLine": 261,
+        "startChar": 0,
+        "endLine": 261,
+        "endChar": 52
+      },
+      "revId": "4467333943159cb101a9111a90fca75f7c8a312b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
