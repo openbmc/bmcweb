@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5010c96e_66601559",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-06-27T18:40:40Z",
+      "side": 1,
+      "message": "set-property is service, path, interface, property, value \n\nbusctl set-property xyz.openbmc_project.Software.BMC.Updater \\\n  /xyz/openbmc_project/software/$id \\\n  xyz.openbmc_project.Software.Activation RequestedActivation s \\\n  xyz.openbmc_project.Software.Activation.RequestedActivations.Active\n\nI guess since this redfishPropertyName isn\u0027t part of that, it could go at either the front or the end, so those properties are all in order. It seems reasonable, but I don\u0027t see much benefit here, but no harm.",
+      "range": {
+        "startLine": 10,
+        "startChar": 41,
+        "endLine": 10,
+        "endChar": 60
+      },
+      "revId": "4c9bf302f4b0afaf39c608f9231059b462fcc4c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "089d965f_ba8791d8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-06-27T18:40:40Z",
+      "side": 1,
+      "message": "Ed\u0027s name should be here also for the sign off.",
+      "revId": "4c9bf302f4b0afaf39c608f9231059b462fcc4c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
