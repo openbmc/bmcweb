@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f88853ef_047d1e37",
+        "filename": "include/dbus_privileges.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-06-27T19:31:31Z",
+      "side": 1,
+      "message": "include string",
+      "revId": "4467333943159cb101a9111a90fca75f7c8a312b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "33889680_34c07113",
         "filename": "include/dbus_privileges.hpp",
         "patchSetId": 3
@@ -36,6 +53,29 @@
         "startChar": 21,
         "endLine": 176,
         "endChar": 28
+      },
+      "revId": "4467333943159cb101a9111a90fca75f7c8a312b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4da0b1c7_9462ac4d",
+        "filename": "include/dbus_privileges.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-06-27T19:31:31Z",
+      "side": 1,
+      "message": "#include \u003cutility\u003e",
+      "range": {
+        "startLine": 176,
+        "startChar": 41,
+        "endLine": 176,
+        "endChar": 53
       },
       "revId": "4467333943159cb101a9111a90fca75f7c8a312b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
