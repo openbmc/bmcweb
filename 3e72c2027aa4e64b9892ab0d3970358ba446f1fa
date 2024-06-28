@@ -142,6 +142,24 @@
       "parentUuid": "8a6185c0_de031f1e",
       "revId": "3e72c2027aa4e64b9892ab0d3970358ba446f1fa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3d20863_8d84515f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 33
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000936
+      },
+      "writtenOn": "2024-06-28T20:27:17Z",
+      "side": 1,
+      "message": "\u003e Paul, Sorry I just saw it. Did you get chance to look at the documentation changes for this drop\" https://gerrit.openbmc.org/c/openbmc/docs/+/60968/6/architecture/user-management.md\n\nHello Ninad, thank you for getting back to me with this. No, I wasn\u0027t aware of that change to the docs but looking at it now I\u0027m afraid I only see \"what\" but not \"why\" there. What is the threat model here and how this change helps with it? Also it says that Webconsole users can authenticate against LDAP but I do not see how it\u0027s supposed to be possible given the current implementation.\n\nIf you do not mind please let us continue this discussion on the mailing list so that other interested parties would be aware and could participate: https://lore.kernel.org/openbmc/CACWQX80B7o9Dn611OOVDS4ViV9BOjn_x_Lwh62em+0-6q3g4Kw@mail.gmail.com/T/#t .\n\nBasically, my question is why exactly you think this is a good idea (especially why serial console needs a separate group while IP KVM doesn\u0027t). And how this can be used with remote authentication (e.g. LDAP) when we are limited to a single (\"primary\") group in the current setups and code across the whole stack. Also I see you added a migration script which covers the local users nicely (by adding all admins to \"hostconsole\" local group) but it regresses SOL access both via WebUI and ssh -p 2200 for remotely authenticated users.\n\nI hope we can find a good way forward but your help here is needed to clarify your usecases and requirements.",
+      "parentUuid": "ce5e63d3_943c8261",
+      "revId": "3e72c2027aa4e64b9892ab0d3970358ba446f1fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
