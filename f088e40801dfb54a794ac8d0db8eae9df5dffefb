@@ -88,6 +88,24 @@
       "parentUuid": "021e1017_f09fdb20",
       "revId": "f088e40801dfb54a794ac8d0db8eae9df5dffefb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "377e0504_7ef44c7d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-28T00:05:07Z",
+      "side": 1,
+      "message": "\u003e With StartUpdate D-Bus API i don\u0027t think we can use the current flow as current flow goes through multiple apps - BMCWeb -\u003e downloadManager -\u003e CodeUpdater. The idea was to deprecate the tftp path since no one uses it and then brainstorm how we should implement this for HTTP flow using D-Bus interface.\n\u003e \n\u003e The current distributed flow works because only one update at a time and that too only BMC update is supported, so task handler knows which activation interface to watch for on D-Bus.\n\u003e \n\u003e In general, the main actions for HTTP flow can be -\n\u003e 1. Create Task and return to user.\n\u003e 2. Asynchronously download the Image.\n\u003e 3. Invoke the StartUpdate action with imageFd to CodeUpdater.\n\u003e 4. Watch for activation status changes and update task status.\n\u003e \n\u003e My understanding is these need to happen in a way so BMCWeb can co-relate the task to the backend to watch for (since BMCWeb is the one to call startUpdate). The critical piece is image download after which we can trigger an update request to CodeUpdater and before which we need to return back to client with TaskInfo.\n\u003e \n\u003e So, this will probably involve some discussion on how to handle this.\n\nRight, my assumption was that the existing TFTP flows already do steps 1-4.  If you\u0027d prefer to talk about this in a different forum (not this patch) I\u0027m happy to do talk about it there, but I\u0027d just like to understand the path for an http pull feature in the new model.",
+      "parentUuid": "b1c0dcc0_bb15c050",
+      "revId": "f088e40801dfb54a794ac8d0db8eae9df5dffefb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
