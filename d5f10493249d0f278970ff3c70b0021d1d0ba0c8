@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7253a942_8bf9ed6e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-28T00:08:38Z",
+      "side": 1,
+      "message": "I\u0027m assuming the other discussion in the prior patch about paths won\u0027t change this patch.  If it does, we\u0027ll figure it out.",
+      "revId": "d5f10493249d0f278970ff3c70b0021d1d0ba0c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
