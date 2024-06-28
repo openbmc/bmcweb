@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2bbbc42_5163f451",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001322
+      },
+      "writtenOn": "2024-06-28T12:29:35Z",
+      "side": 1,
+      "message": "Add a snippet of the validator logs.",
+      "revId": "d00d38e56a441c6ab9e28fa08f6bdd685e28de36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98888b53_102ad1ae",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001322
+      },
+      "writtenOn": "2024-06-28T12:29:35Z",
+      "side": 1,
+      "message": "what is the need to have this change? do we have any requirement? or is it just a refactoring of code?",
+      "revId": "d00d38e56a441c6ab9e28fa08f6bdd685e28de36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
