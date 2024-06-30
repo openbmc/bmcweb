@@ -19,24 +19,32 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OemLogEntryAttachment">
       <Annotation Term="Redfish.OwningEntity" String="IBM"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OemLogEntryAttachment.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="OpenBMC"/>
+      <Annotation Term="Redfish.Release" String="1.0"/>
 
       <ComplexType Name="Oem" BaseType="Resource.OemObject">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
         <Annotation Term="OData.Description" String="OemLogEntryAttachment Oem properties."/>
         <Annotation Term="OData.AutoExpand"/>
-        <Property Name="IBM" Type="OemLogEntryAttachment.IBM"/>
+        <Property Name="IBM" Type="OemLogEntryAttachment.v1_0_0.IBM"/>
       </ComplexType>
 
       <ComplexType Name="IBM" BaseType="Resource.OemObject">
         <Annotation Term="OData.AdditionalProperties" Bool="false" />
         <Annotation Term="OData.Description" String="Oem properties for IBM." />
         <Annotation Term="OData.AutoExpand"/>
-        <Property Name="PelJson" Type="OemLogEntryAttachment.IBM">
+        <Property Name="PelJson" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="PEL in Json format."/>
         </Property>
+        <Property Name="AdditionalDataFullAuditLogURI" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Audit Log in Json format."/>
+        </Property>
       </ComplexType>
-
     </Schema>
 
   </edmx:DataServices>
