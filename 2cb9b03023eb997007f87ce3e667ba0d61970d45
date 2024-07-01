@@ -62,6 +62,29 @@
       },
       "revId": "2cb9b03023eb997007f87ce3e667ba0d61970d45",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6894144f_b651dd7d",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-01T16:42:55Z",
+      "side": 1,
+      "message": "We shoudl be setting the scheme based on a separate property.  Something like:\n\nProtocol: HTTP\nProtocol: HTTPS\n\nIt seems reasonable that someone would want to connect to https but not use authentication, or might choose password auth.  They are separate parameters.",
+      "range": {
+        "startLine": 513,
+        "startChar": 34,
+        "endLine": 513,
+        "endChar": 35
+      },
+      "revId": "2cb9b03023eb997007f87ce3e667ba0d61970d45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
