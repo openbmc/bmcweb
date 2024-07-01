@@ -206,14 +206,37 @@ class ConfigFile
 
     void writeData()
     {
-        std::ofstream persistentFile(filename);
+        std::filesystem::path path(filename);
+        path = path.parent_path();
+        std::error_code ecDir;
+        std::filesystem::create_directories(path, ecDir);
+        if (ecDir)
+        {
+            BMCWEB_LOG_CRITICAL("Can't create persistent folders {}",
+                                ecDir.message());
+            return;
+        }
+        boost::beast::file_posix persistentFile;
+        boost::system::error_code ec;
+        persistentFile.open(filename, boost::beast::file_mode::write, ec);
+        if (ec)
+        {
+            BMCWEB_LOG_CRITICAL("Unable to store persistent data to file");
+            return;
+        }
 
         // set the permission of the file to 640
         std::filesystem::perms permission =
             std::filesystem::perms::owner_read |
             std::filesystem::perms::owner_write |
             std::filesystem::perms::group_read;
-        std::filesystem::permissions(filename, permission);
+        std::filesystem::permissions(filename, permission, ec);
+        if (ec)
+        {
+            BMCWEB_LOG_CRITICAL("Failed to set filesystem permissions {}",
+                                ec.message());
+            return;
+        }
         const AuthConfigMethods& c =
             SessionStore::getInstance().getAuthMethodsConfig();
         const auto& eventServiceConfig =
@@ -306,7 +329,13 @@ class ConfigFile
 
             subscriptions.emplace_back(std::move(subscription));
         }
-        persistentFile << data;
+        std::string out = nlohmann::json(data).dump(
+            -1, ' ', true, nlohmann::json::error_handler_t::replace);
+        persistentFile.write(out.data(), out.size(), ec);
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR("Failed to write file", ec.message());
+        }
     }
 
     std::string systemUuid;
