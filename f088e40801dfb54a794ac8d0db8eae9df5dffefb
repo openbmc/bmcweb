@@ -124,6 +124,24 @@
       "parentUuid": "377e0504_7ef44c7d",
       "revId": "f088e40801dfb54a794ac8d0db8eae9df5dffefb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42ffd8e5_95eb2985",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-01T23:56:28Z",
+      "side": 1,
+      "message": "\u003e Please let me know if you are fine with merging this change?\n\nOnce we have an understanding of how general push updates fit in this new architecture.  Previously they were going to follow the TFTP model, so I don\u0027t want to remove the TFTP model until there\u0027s an understanding of how the new model handles the same task.",
+      "parentUuid": "8de0ca43_4dc70083",
+      "revId": "f088e40801dfb54a794ac8d0db8eae9df5dffefb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
