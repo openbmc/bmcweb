@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bacc057a_de955832",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-01T15:22:08Z",
+      "side": 1,
+      "message": "How is this related to the existing fixed prefix name?\n\nhttps://github.com/openbmc/bmcweb/blob/1cf823137844d1f3ef28c3b7129d8a7eb7f2662a/redfish-core/include/redfish_aggregator.hpp#L430C41-L430C47",
+      "range": {
+        "startLine": 18,
+        "startChar": 33,
+        "endLine": 18,
+        "endChar": 45
+      },
+      "revId": "2cb9b03023eb997007f87ce3e667ba0d61970d45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3869d60d_02cde521",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-01T15:22:08Z",
+      "side": 1,
+      "message": "Can we just grab the implementation from here: https://github.com/openbmc/dbus-sensors/blob/e8a14e91eefb21dc4bfa754c57212504f7fddb09/src/VariantVisitors.hpp#L28",
+      "revId": "2cb9b03023eb997007f87ce3e667ba0d61970d45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ff20fdb_6fe63d40",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-01T15:22:08Z",
+      "side": 1,
+      "message": "We should call this \"MutualTLS",
+      "range": {
+        "startLine": 511,
+        "startChar": 38,
+        "endLine": 511,
+        "endChar": 42
+      },
+      "revId": "2cb9b03023eb997007f87ce3e667ba0d61970d45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
