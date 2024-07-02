@@ -5,6 +5,7 @@ conf_data = configuration_data()
 feature_options = [
     'basic-auth',
     'cookie-auth',
+    'experimental-bmcweb-user',
     'experimental-redfish-dbus-log-subscription',
     'experimental-redfish-multi-computer-system',
     'google-api',
@@ -170,6 +171,18 @@ foreach index : range(ports.length())
     )
 endforeach
 
+if get_option('experimental-bmcweb-user').allowed()
+    user = 'bmcweb'
+    group = 'bmcweb'
+    dynamic_user = 'yes'
+    state_directory = 'bmcweb'
+else
+    user = 'root'
+    group = 'root'
+    dynamic_user = 'no'
+    state_directory = '/home/root'
+endif
+
 configure_file(
     input: 'bmcweb.service.in',
     output: 'bmcweb.service',
@@ -178,6 +191,10 @@ configure_file(
     configuration: configuration_data(
         {
             'MESON_INSTALL_PREFIX': get_option('prefix'),
+            'BMCWEB_USER': user,
+            'BMCWEB_GROUP': group,
+            'BMCWEB_STATE_DIRECTORY': group,
+            'BMCWEB_DYNAMICUSER': dynamic_user,
             'BMCWEB_WATCHDOG_TIMEOUT_SECONDS': get_option(
                 'watchdog-timeout-seconds',
             ),
