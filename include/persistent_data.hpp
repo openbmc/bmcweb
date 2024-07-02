@@ -21,8 +21,19 @@ class ConfigFile
     uint64_t jsonRevision = 1;
 
   public:
-    // todo(ed) should read this from a fixed location somewhere, not CWD
-    static constexpr const char* filename = "bmcweb_persistent_data.json";
+    const char* filename()
+    {
+        if constexpr (BMCWEB_EXPERIMENTAL_BMCWEB_USER)
+        {
+            return "/var/lib/bmcweb/persistent_data.json";
+        }
+        else
+        {
+            // todo(ed) should read this from a fixed location somewhere, not
+            // CWD
+            return "persistent_data.json";
+        }
+    }
 
     ConfigFile()
     {
@@ -49,7 +60,7 @@ class ConfigFile
     // this application for the moment
     void readData()
     {
-        std::ifstream persistentFile(filename);
+        std::ifstream persistentFile(filename());
         uint64_t fileRevision = 0;
         if (persistentFile.is_open())
         {
@@ -206,14 +217,14 @@ class ConfigFile
 
     void writeData()
     {
-        std::ofstream persistentFile(filename);
+        std::ofstream persistentFile(filename());
 
         // set the permission of the file to 640
         std::filesystem::perms permission =
             std::filesystem::perms::owner_read |
             std::filesystem::perms::owner_write |
             std::filesystem::perms::group_read;
-        std::filesystem::permissions(filename, permission);
+        std::filesystem::permissions(filename(), permission);
         const AuthConfigMethods& c =
             SessionStore::getInstance().getAuthMethodsConfig();
         const auto& eventServiceConfig =
