@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21b378dc_4fb808ee",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-02T18:15:09Z",
+      "side": 1,
+      "message": "This is going to collide hard with https://gerrit.openbmc.org/c/openbmc/bmcweb/+/72358\n\nThat\u0027s ok, I can resolve the merge conflicts;  Lets get yours in first.  If you could help to review that series now that you understand that code, I would appreciate it.",
+      "revId": "030b237ea0adfdf9ba7d7749a7c510041471447e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb5d965d_db86f2e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-02T18:15:09Z",
+      "side": 1,
+      "message": "LGTM.  Leaving in review for a minute to do the bookeeping on the open issues and to let others comment.",
+      "revId": "030b237ea0adfdf9ba7d7749a7c510041471447e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
