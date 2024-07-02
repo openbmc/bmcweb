@@ -613,6 +613,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "62c186e7_f068c536",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-02T20:16:07Z",
+      "side": 1,
+      "message": "Where you put it is fine.",
+      "parentUuid": "4a22d534_cca9d70c",
+      "range": {
+        "startLine": 260,
+        "startChar": 0,
+        "endLine": 266,
+        "endChar": 63
+      },
+      "revId": "28469f01ac391a2fde542d8ff6ce393a09c580cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c78b1df2_fe31627f",
@@ -752,6 +776,24 @@
       "side": 1,
       "message": "X-Auth-Token is sent unconditionally as per your request.\n\nHowever I\u0027m asking you to give it one final thought. The way it currently is the token is returned as HttpOnly cookie but also as reply header for this particular endpoint once. So if we assume webui-vue JS got injected something malicious somehow then it can intercept that response and get access to the secret token which was supposed to be absolutely inaccessible to JS.",
       "parentUuid": "0f07b01e_2a001e54",
+      "revId": "28469f01ac391a2fde542d8ff6ce393a09c580cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b7165fc_ca247e9a",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-02T20:16:07Z",
+      "side": 1,
+      "message": "\u003e X-Auth-Token is sent unconditionally as per your request.\n\u003e \n\u003e However I\u0027m asking you to give it one final thought. The way it currently is the token is returned as HttpOnly cookie but also as reply header for this particular endpoint once. So if we assume webui-vue JS got injected something malicious somehow then it can intercept that response and get access to the secret token which was supposed to be absolutely inaccessible to JS.\n\nYou make a fair argument that we shouldn\u0027t return X-Auth-Token when we get this header.  If you wanted to change to make it so we don\u0027t send an X-Auth-Token in the case where we\u0027re sending cookies, that seems reasonable to me",
+      "parentUuid": "c05b016f_ec314668",
       "revId": "28469f01ac391a2fde542d8ff6ce393a09c580cf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

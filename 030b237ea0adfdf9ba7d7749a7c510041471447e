@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "5072baee_83f683ce",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-02T20:16:07Z",
+      "side": 1,
+      "message": "\u003e \u003e This is going to collide hard with https://gerrit.openbmc.org/c/openbmc/bmcweb/+/72358\n\u003e \u003e \n\u003e \u003e That\u0027s ok, I can resolve the merge conflicts;  Lets get yours in first.  If you could help to review that series now that you understand that code, I would appreciate it.\n\u003e \n\u003e I\u0027ll see what I can do. Not sure I fancy getting mTLS set up myself without any good instructions for easily reproducible setup though.\n\nI didn\u0027t ask you to test, just to review the parts of the code you understand.  With that said, scripts/generate_auth_certs.py, makes it pretty trivial to set up mTLS in a reproducible way.",
+      "parentUuid": "a1ab1125_c45af588",
+      "revId": "030b237ea0adfdf9ba7d7749a7c510041471447e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "eb5d965d_db86f2e2",
