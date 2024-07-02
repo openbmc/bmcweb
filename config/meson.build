@@ -5,6 +5,7 @@ conf_data = configuration_data()
 feature_options = [
     'basic-auth',
     'cookie-auth',
+    'experimental-bmcweb-user',
     'experimental-http2',
     'experimental-redfish-multi-computer-system',
     'experimental-redfish-dbus-log-subscription',
@@ -151,13 +152,31 @@ foreach index : range(ports.length())
     )
 endforeach
 
+if get_option('experimental-bmcweb-user').allowed()
+    user = 'bmcweb'
+    group = 'bmcweb'
+    dynamic_user = 'yes'
+    working_dir = '/usr/share/www'
+else
+    user = 'root'
+    group = 'root'
+    dynamic_user = 'no'
+    working_dir = '/home/root'
+endif
+
 configure_file(
     input: 'bmcweb.service.in',
     output: 'bmcweb.service',
     install_dir: systemd_system_unit_dir,
     install: true,
     configuration: configuration_data(
-        {'MESON_INSTALL_PREFIX': get_option('prefix')},
+        {
+            'MESON_INSTALL_PREFIX': get_option('prefix'),
+            'BMCWEB_USER': user,
+            'BMCWEB_GROUP': group,
+            'BMCWEB_DYNAMICUSER': dynamic_user,
+            'BMCWEB_WORKING_DIR': working_dir,
+        },
     ),
 )
 
