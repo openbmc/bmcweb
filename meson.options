@@ -313,6 +313,22 @@ option(
 )
 
 option(
+    'experimental-user',
+    type: 'string',
+    value: 'root',
+    description: '''The user to run bmcweb as.  Note, at this time this option
+                    causes unknown failures.''',
+)
+
+option(
+    'experimental-group',
+    type: 'string',
+    value: 'root',
+    description: '''The group to run bmcweb as.  Note, at this time this option
+                    causes unknown failures.''',
+)
+
+option(
     'experimental-http2',
     type: 'feature',
     value: 'disabled',

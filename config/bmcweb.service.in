@@ -8,7 +8,14 @@ After=network.target
 ExecReload=kill -s HUP $MAINPID
 ExecStart=@MESON_INSTALL_PREFIX@/bin/bmcweb
 Type=simple
-WorkingDirectory=/home/root
+User=@BMCWEB_USER@
+Group=@BMCWEB_GROUP@
+DynamicUser=@BMCWEB_DYNAMICUSER@
+StateDirectory=bmcweb
+WorkingDirectory=/usr/share/www
+
+# bmcweb currently uses /tmp as a mechanism to share files.
+PrivateTmp=no
 
 [Install]
 WantedBy=network.target
