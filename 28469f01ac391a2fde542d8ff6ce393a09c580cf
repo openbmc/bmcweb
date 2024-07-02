@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "d4c5b374_4fd78fa2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000936
+      },
+      "writtenOn": "2024-07-02T20:10:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6d67daa_664f1fe6",
+      "range": {
+        "startLine": 11,
+        "startChar": 30,
+        "endLine": 12,
+        "endChar": 63
+      },
+      "revId": "28469f01ac391a2fde542d8ff6ce393a09c580cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "e028b227_8708b22c",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -126,6 +150,30 @@
       "side": 1,
       "message": "\u003e I\u0027m happy to have it documented, just not in this spot.\n\nGot it, thanks for the clarification.",
       "parentUuid": "3a04fa79_95d799d9",
+      "range": {
+        "startLine": 719,
+        "startChar": 0,
+        "endLine": 721,
+        "endChar": 23
+      },
+      "revId": "28469f01ac391a2fde542d8ff6ce393a09c580cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "495373c5_5dc55ab3",
+        "filename": "Redfish.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1000936
+      },
+      "writtenOn": "2024-07-02T20:10:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "290f5c46_aae66430",
       "range": {
         "startLine": 719,
         "startChar": 0,
@@ -255,6 +303,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3732db0e_ca00a458",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1000936
+      },
+      "writtenOn": "2024-07-02T20:10:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e6b2d5a_0d2a96ac",
+      "range": {
+        "startLine": 258,
+        "startChar": 0,
+        "endLine": 258,
+        "endChar": 2
+      },
+      "revId": "28469f01ac391a2fde542d8ff6ce393a09c580cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "33c965a2_d974f699",
@@ -364,6 +436,30 @@
       "side": 1,
       "message": "\u003e \u003e https://github.com/openbmc/bmcweb/blob/00a0fe4e361efcdeb600f3a2e88b746fa18b9715/include/login_routes.hpp#L174\n\u003e \u003e \n\u003e \u003e Does not include any mention of the keyword \"Path\", this is why I\u0027m confused.\n\u003e \n\u003e https://www.rfc-editor.org/rfc/rfc6265#section-5.3 point 7 for this case says \"set the cookie\u0027s path to the default-path of the request-uri\" and https://www.rfc-editor.org/rfc/rfc6265#section-5.1.4 tells how to compute the default path. Basically, it was a \"happy coincidence\" that `/login` defaults to `/` for the Path, if it was `/openbmc/login` then the cookies would have been set to `Path\u003d/openbmc` and not work at all for `/redfish/v1` endpoints.\n\nThe above text would be perfect to put in your commit message about why you changed it to now return path where it didn\u0027t previously.  In your reading, should we be returning Path\u003d/ on all the other set-cookie calls?  I suspect things like mtls cookies would be broken if you first requested a path that wasn\u0027t root because we don\u0027t set path.  (doesn\u0027t have to be in this patch).\n\n\u003e \n\u003e \u003e I\u0027m assuming you tried without Path being set, and it didn\u0027t work?  Some mention of this in your commit message would be good, so we can note why it\u0027s different.\n\u003e \n\u003e Sure, how else would a person without much clue about web technologies learn about it if not by getting puzzling results :)\n\u003e But then after reading the docs and seeing what the deal is about I just assumed it\u0027s common knowledge for cookie users so not something worth mentioning.\n\n\nPutting that, or some variation of \"I tried the simple thing and it didn\u0027t work because XYZ, so I read RFCXXX and now it works\" helps me to not have to go look up the various standards to figure out what you did and why (which takes effort that when reviewing 10s of patches a day, I don\u0027t really have time for).\n\nLets get the commit message updated with the details and close this out.",
       "parentUuid": "3e4527c1_d5288a4c",
+      "range": {
+        "startLine": 262,
+        "startChar": 40,
+        "endLine": 262,
+        "endChar": 46
+      },
+      "revId": "28469f01ac391a2fde542d8ff6ce393a09c580cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c8de2df_783dccf8",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1000936
+      },
+      "writtenOn": "2024-07-02T20:10:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba0fbb1c_98ea10c9",
       "range": {
         "startLine": 262,
         "startChar": 40,
@@ -495,6 +591,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4a22d534_cca9d70c",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000936
+      },
+      "writtenOn": "2024-07-02T20:10:45Z",
+      "side": 1,
+      "message": "I hope I found a suitable location for the common set/clear cookies method, if not, ready to rework but I\u0027d need a hint at a better place.",
+      "parentUuid": "3bcf8f27_9f7290d0",
+      "range": {
+        "startLine": 260,
+        "startChar": 0,
+        "endLine": 266,
+        "endChar": 63
+      },
+      "revId": "28469f01ac391a2fde542d8ff6ce393a09c580cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c78b1df2_fe31627f",
         "filename": "redfish-core/lib/redfish_sessions.hpp",
         "patchSetId": 2
@@ -614,6 +734,24 @@
       "side": 1,
       "message": "\u003e So if you just agreed to relax the security requirements for WS a bit and allow authenticating with the subprotocol alone (without cookies) that would seem like a viable way forward of converting webui-vue to standard auth.\n\nFWIW, it\u0027s done using cookies because it reduces the amount of code that\u0027s presented to an unathenticated attacker, which reduces the possibility of an unauthenticated attack being found.  Subprotocol runs a lot more code before it can decide a connection is unauthenticated, and all that code is specific to websockets (so harder to test). while I\u0027d like to believe that code is bug and race condition free, not executing it at all is easier.",
       "parentUuid": "9db60740_ac441f31",
+      "revId": "28469f01ac391a2fde542d8ff6ce393a09c580cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c05b016f_ec314668",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1000936
+      },
+      "writtenOn": "2024-07-02T20:10:45Z",
+      "side": 1,
+      "message": "X-Auth-Token is sent unconditionally as per your request.\n\nHowever I\u0027m asking you to give it one final thought. The way it currently is the token is returned as HttpOnly cookie but also as reply header for this particular endpoint once. So if we assume webui-vue JS got injected something malicious somehow then it can intercept that response and get access to the secret token which was supposed to be absolutely inaccessible to JS.",
+      "parentUuid": "0f07b01e_2a001e54",
       "revId": "28469f01ac391a2fde542d8ff6ce393a09c580cf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
