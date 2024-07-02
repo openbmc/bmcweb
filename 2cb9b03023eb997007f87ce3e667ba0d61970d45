@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8a440211_d646ceef",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-07-02T06:51:36Z",
+      "side": 1,
+      "message": "Now we are not hardcoding the satellite bmc name. We use satellite name coming from dbus.(Entity manager/Decorators can take responsibility of assigning unique name)  \n\nPreviously for the forwarding resource request we were using hardcoded satellite name.  \nSince the satellite name is no more hardcoded and there are more than one satellite bmc possible, we need a way distinguish between local and remote resource request. The Remote_ prefix will help in identifying it with minimal possible changes.",
+      "parentUuid": "bacc057a_de955832",
+      "range": {
+        "startLine": 18,
+        "startChar": 33,
+        "endLine": 18,
+        "endChar": 45
+      },
+      "revId": "2cb9b03023eb997007f87ce3e667ba0d61970d45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3869d60d_02cde521",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 4
@@ -43,6 +67,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9297ecc3_bdc300c1",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-07-02T06:51:36Z",
+      "side": 1,
+      "message": "look like it throws. Can we have something that doesn\u0027t throw?\nCan I add one version that takes ec as arg instead ?",
+      "parentUuid": "3869d60d_02cde521",
+      "revId": "2cb9b03023eb997007f87ce3e667ba0d61970d45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0ff20fdb_6fe63d40",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 4
@@ -54,6 +96,30 @@
       "writtenOn": "2024-07-01T15:22:08Z",
       "side": 1,
       "message": "We should call this \"MutualTLS",
+      "range": {
+        "startLine": 511,
+        "startChar": 38,
+        "endLine": 511,
+        "endChar": 42
+      },
+      "revId": "2cb9b03023eb997007f87ce3e667ba0d61970d45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0bbb89b3_a4799023",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-07-02T06:51:36Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "0ff20fdb_6fe63d40",
       "range": {
         "startLine": 511,
         "startChar": 38,
