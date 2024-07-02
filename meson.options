@@ -454,6 +454,16 @@ option(
     production environment, or where API stability is required.''',
 )
 
+# BMCWEB_EXPERIMENTAL_BMCWEB_USER
+option(
+    'experimental-bmcweb-user',
+    type: 'feature',
+    value: 'disabled',
+    description: '''Enable to run bmcweb as the bmcweb user.  This is
+    experimental.  Expect many things to be broken if you enable this
+    option.''',
+)
+
 # BMCWEB_HTTP2
 option(
     'http2',
