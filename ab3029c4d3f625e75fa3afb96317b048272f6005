@@ -33,6 +33,24 @@
       "message": "Eh, these probably should\u0027ve gone in authentication.hpp directly.  This file is more about \"session\" storage than http session handle.  Oh well, they\u0027re fine here.",
       "revId": "ab3029c4d3f625e75fa3afb96317b048272f6005",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "009a216b_f23e1860",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1000936
+      },
+      "writtenOn": "2024-07-02T20:49:30Z",
+      "side": 1,
+      "message": "OTOH authentication.hpp is mostly about /checking/ authencity of requests made under an already existing session while setting and clearing cookies are coupled to session management, that was my reasoning. So let\u0027s wait for more feedback if any.",
+      "parentUuid": "640b6da4_60db844a",
+      "revId": "ab3029c4d3f625e75fa3afb96317b048272f6005",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
