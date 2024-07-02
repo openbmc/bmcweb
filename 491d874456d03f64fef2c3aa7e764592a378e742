@@ -231,6 +231,30 @@
       },
       "revId": "491d874456d03f64fef2c3aa7e764592a378e742",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa65a5a4_c31a36ac",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-07-02T21:10:00Z",
+      "side": 1,
+      "message": "In summary, i will go back to where our conversation started and make the change so Version interface and Update Interface can reside on the same D-Bus path, which is /xyz/openbmc_project/Software/{SwId} which would be true for all Components (including BMC) to keep it consistent.\n\nPlease let me know if there are still any questions?",
+      "parentUuid": "a310588f_4fe43a42",
+      "range": {
+        "startLine": 410,
+        "startChar": 0,
+        "endLine": 414,
+        "endChar": 36
+      },
+      "revId": "491d874456d03f64fef2c3aa7e764592a378e742",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
