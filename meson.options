@@ -453,6 +453,15 @@ option(
 
 # BMCWEB_EXPERIMENTAL_HTTP2
 option(
+    'experimental-bmcweb-user',
+    type: 'feature',
+    value: 'disabled',
+    description: '''Enable to run bmcweb as the bmcweb user.  This is
+    experimental.  Expect many things to be broken if you enable this
+    option.''',
+)
+
+option(
     'experimental-http2',
     type: 'feature',
     value: 'disabled',
