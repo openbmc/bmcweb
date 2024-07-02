@@ -32,8 +32,22 @@ class ConfigFile
     uint64_t jsonRevision = 1;
 
   public:
-    // todo(ed) should read this from a fixed location somewhere, not CWD
-    static constexpr const char* filename = "bmcweb_persistent_data.json";
+    static std::string getStateFile()
+    {
+        // NOLINTNEXTLINE(concurrency-mt-unsafe)
+        const char* stateDir = std::getenv("STATE_DIRECTORY");
+        if (stateDir == nullptr)
+        {
+            stateDir = ".";
+        }
+        return std::string(stateDir) + "/bmcweb_persistent_data.json";
+    }
+
+    static const std::string& filename()
+    {
+        const static std::string fname = getStateFile();
+        return fname;
+    }
 
     ConfigFile()
     {
@@ -60,7 +74,7 @@ class ConfigFile
     // this application for the moment
     void readData()
     {
-        std::ifstream persistentFile(filename);
+        std::ifstream persistentFile(filename());
         uint64_t fileRevision = 0;
         if (persistentFile.is_open())
         {
@@ -248,7 +262,8 @@ class ConfigFile
 
     void writeData()
     {
-        std::filesystem::path path(filename);
+        const std::string& fname = filename();
+        std::filesystem::path path(fname);
         path = path.parent_path();
         if (!path.empty())
         {
@@ -263,7 +278,7 @@ class ConfigFile
         }
         boost::beast::file_posix persistentFile;
         boost::system::error_code ec;
-        persistentFile.open(filename, boost::beast::file_mode::write, ec);
+        persistentFile.open(fname.c_str(), boost::beast::file_mode::write, ec);
         if (ec)
         {
             BMCWEB_LOG_CRITICAL("Unable to store persistent data to file {}",
@@ -276,7 +291,7 @@ class ConfigFile
             std::filesystem::perms::owner_read |
             std::filesystem::perms::owner_write |
             std::filesystem::perms::group_read;
-        std::filesystem::permissions(filename, permission, ec);
+        std::filesystem::permissions(fname, permission, ec);
         if (ec)
         {
             BMCWEB_LOG_CRITICAL("Failed to set filesystem permissions {}",
