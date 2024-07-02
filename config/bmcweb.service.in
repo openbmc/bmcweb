@@ -8,10 +8,15 @@ After=network.target
 ExecReload=kill -s HUP $MAINPID
 ExecStart=@MESON_INSTALL_PREFIX@/libexec/bmcwebd
 Type=simple
-StateDirectory=/home/root
-WorkingDirectory=/home/root
+User=@BMCWEB_USER@
+Group=@BMCWEB_GROUP@
+DynamicUser=@BMCWEB_DYNAMICUSER@
+StateDirectory=@BMCWEB_STATE_DIRECTORY@
 SyslogLevelPrefix=true
-WatchdogSec=@BMCWEB_WATCHDOG_TIMEOUT_SECONDS@s
+WorkingDirectory=@BMCWEB_WORKING_DIRECTORY@
+
+# bmcweb currently uses /tmp as a mechanism to share files.
+PrivateTmp=no
 
 [Install]
 WantedBy=network.target
