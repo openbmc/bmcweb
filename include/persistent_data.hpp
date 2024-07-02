@@ -22,7 +22,7 @@ class ConfigFile
 
   public:
     // todo(ed) should read this from a fixed location somewhere, not CWD
-    static constexpr const char* filename = "bmcweb_persistent_data.json";
+    static constexpr const char* filename = "/var/lib/bmcweb/persistent_data.json";
 
     ConfigFile()
     {

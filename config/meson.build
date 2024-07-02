@@ -116,6 +116,9 @@ configure_file(
     install: true,
     configuration: configuration_data({
         'MESON_INSTALL_PREFIX': get_option('prefix'),
+        'BMCWEB_USER': get_option('experimental-user'),
+        'BMCWEB_GROUP': get_option('experimental-group'),
+        'BMCWEB_DYNAMICUSER': get_option('experimental-user') == 'root' ? 'no': 'yes',
     }),
 )
 
