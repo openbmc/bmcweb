@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35164891_0549b377",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-02T20:36:08Z",
+      "side": 1,
+      "message": "Looks like what we talked about.",
+      "revId": "ab3029c4d3f625e75fa3afb96317b048272f6005",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "640b6da4_60db844a",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-02T20:36:08Z",
+      "side": 1,
+      "message": "Eh, these probably should\u0027ve gone in authentication.hpp directly.  This file is more about \"session\" storage than http session handle.  Oh well, they\u0027re fine here.",
+      "revId": "ab3029c4d3f625e75fa3afb96317b048272f6005",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
