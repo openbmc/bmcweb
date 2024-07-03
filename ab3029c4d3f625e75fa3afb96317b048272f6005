@@ -51,6 +51,24 @@
       "parentUuid": "640b6da4_60db844a",
       "revId": "ab3029c4d3f625e75fa3afb96317b048272f6005",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "550ccdf6_1056ed2f",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-03T00:27:18Z",
+      "side": 1,
+      "message": "how about just a new file for cookies.hpp?",
+      "parentUuid": "009a216b_f23e1860",
+      "revId": "ab3029c4d3f625e75fa3afb96317b048272f6005",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
