@@ -160,6 +160,24 @@
       "parentUuid": "ce5e63d3_943c8261",
       "revId": "3e72c2027aa4e64b9892ab0d3970358ba446f1fa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c0634bc_3a7a6dc4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 33
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-07-03T20:22:42Z",
+      "side": 1,
+      "message": "\u003e  looking at it now I\u0027m afraid I only see \"what\" but not \"why\" there\n\nThis hostconsole user group was added to control access to the Host Console. It maps to Redfish\u0027s AccountType \u003d HostConsole\n\n\u003e (especially why serial console needs a separate group while IP KVM doesn\u0027t). \n\nI think the driving factor behind this was adding the AccountType \u003d HostConsole\nhttps://gerrit.openbmc.org/q/topic:%22hostconsole-group%22\n\nRedfish does have a separate group for KVMIP, so we can discuss if we want to create a new user group for that. \n\n            \"enumDescriptions\": {\n                \"HostConsole\": \"Allow access to the host\u0027s console, which could be connected through Telnet, SSH, or another protocol.\",\n                \"IPMI\": \"Allow access to the Intelligent Platform Management Interface service.\",\n                \"KVMIP\": \"Allow access to a Keyboard-Video-Mouse over IP session.\",\n                \"ManagerConsole\": \"Allow access to the manager\u0027s console, which could be connected through Telnet, SSH, SM CLP, or another protocol.\",\n                \"OEM\": \"OEM account type.  See the `OEMAccountTypes` property.\",\n                \"Redfish\": \"Allow access to the Redfish service.\",\n                \"SNMP\": \"Allow access to SNMP services.\",\n                \"VirtualMedia\": \"Allow access to control virtual media.\",\n                \"WebUI\": \"Allow access to a web user interface session, such as a graphical interface or another web-based protocol.\"\n            },",
+      "parentUuid": "c3d20863_8d84515f",
+      "revId": "3e72c2027aa4e64b9892ab0d3970358ba446f1fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
