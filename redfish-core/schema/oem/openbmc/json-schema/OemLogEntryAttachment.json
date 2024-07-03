@@ -48,6 +48,11 @@
                     "description": "PEL in Json format.",
                     "readonly": true,
                     "type": ["string", "null"]
+                },
+                "AdditionalDataFullAuditLogURI": {
+                    "description": "Audit Log in Json format.",
+                    "readonly": true,
+                    "type": ["string", "null"]
                 }
             },
             "type": "object"
@@ -55,5 +60,5 @@
     },
     "owningEntity": "IBM",
     "release": "1.0",
-    "title": "#OemLogEntryAttachment"
+    "title": "#OemLogEntryAttachment.v1_0_0"
 }

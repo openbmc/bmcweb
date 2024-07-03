@@ -2361,6 +2361,9 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                     redfish::time_utils::getDateTimeUintMs(*timestamp);
                 thisEntry["Modified"] =
                     redfish::time_utils::getDateTimeUintMs(*updateTimestamp);
+
+                thisEntry["Oem"]["IBM"]["@odata.type"] =
+                    "#OemLogEntryAttachment.v1_0_0.IBM";
                 thisEntry["Oem"]["IBM"]["@odata.id"] = boost::urls::format(
                     "/redfish/v1/Systems/system/LogServices/EventLog/Entries/{}/OemPelAttachment",
                     std::to_string(*id));
@@ -2372,7 +2375,7 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                 }
 #ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
                 thisEntry["Oem"]["OpenBMC"]["@odata.type"] =
-                    "#OemLogEntry.v1_0_0.LogEntry";
+                    "#OemLogEntry.v1_0_0.OpenBMC";
                 thisEntry["Oem"]["OpenBMC"]["ManagementSystemAck"] =
                     *managementSystemAck;
 #endif
@@ -2623,6 +2626,8 @@ inline void requestRoutesDBusCELogEntryCollection(App& app)
                 {
                     thisEntry["ServiceProviderNotified"] = *notifyAction;
                 }
+                thisEntry["Oem"]["IBM"]["@odata.type"] =
+                    "#OemLogEntryAttachment.v1_0_0.IBM";
                 thisEntry["Oem"]["IBM"]["@odata.id"] = boost::urls::format(
                     "/redfish/v1/Systems/system/LogServices/CELog/Entries/{}/OemPelAttachment",
                     std::to_string(*id));
@@ -2634,7 +2639,7 @@ inline void requestRoutesDBusCELogEntryCollection(App& app)
                 }
 #ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
                 thisEntry["Oem"]["OpenBMC"]["@odata.type"] =
-                    "#OemLogEntry.v1_0_0.LogEntry";
+                    "#OemLogEntry.v1_0_0.OpenBMC";
                 thisEntry["Oem"]["OpenBMC"]["ManagementSystemAck"] =
                     managementSystemAck;
 #endif
@@ -2782,6 +2787,9 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                 redfish::time_utils::getDateTimeUintMs(*timestamp);
             asyncResp->res.jsonValue["Modified"] =
                 redfish::time_utils::getDateTimeUintMs(*updateTimestamp);
+
+            asyncResp->res.jsonValue["Oem"]["IBM"]["@odata.type"] =
+                "#OemLogEntryAttachment.v1_0_0.IBM";
             asyncResp->res
                 .jsonValue["Oem"]["IBM"]["@odata.id"] = boost::urls::format(
                 "/redfish/v1/Systems/system/LogServices/EventLog/Entries/{}/OemPelAttachment",
@@ -2794,7 +2802,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
             }
 #ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
             asyncResp->res.jsonValue["Oem"]["OpenBMC"]["@odata.type"] =
-                "#OemLogEntry.v1_0_0.LogEntry";
+                "#OemLogEntry.v1_0_0.OpenBMC";
             asyncResp->res.jsonValue["Oem"]["OpenBMC"]["ManagementSystemAck"] =
                 *managementSystemAck;
 #endif
@@ -3033,6 +3041,8 @@ inline void requestRoutesDBusCELogEntry(App& app)
                 asyncResp->res.jsonValue["ServiceProviderNotified"] =
                     *notifyAction;
             }
+            asyncResp->res.jsonValue["Oem"]["IBM"]["@odata.type"] =
+                "#OemLogEntryAttachment.v1_0_0.IBM";
             asyncResp->res
                 .jsonValue["Oem"]["IBM"]["@odata.id"] = boost::urls::format(
                 "/redfish/v1/Systems/system/LogServices/CELog/Entries/{}/OemPelAttachment",
@@ -3046,7 +3056,7 @@ inline void requestRoutesDBusCELogEntry(App& app)
             }
 #ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
             asyncResp->res.jsonValue["Oem"]["OpenBMC"]["@odata.type"] =
-                "#OemLogEntry.v1_0_0.LogEntry";
+                "#OemLogEntry.v1_0_0.OpenBMC";
             asyncResp->res.jsonValue["Oem"]["OpenBMC"]["ManagementSystemAck"] =
                 *managementSystemAck;
 #endif
@@ -3168,9 +3178,9 @@ inline void
 
         asyncResp->res.jsonValue["Oem"]["IBM"]["PelJson"] = pelJson;
         asyncResp->res.jsonValue["Oem"]["@odata.type"] =
-            "#OemLogEntryAttachment.Oem";
+            "#OemLogEntryAttachment.v1_0_0.Oem";
         asyncResp->res.jsonValue["Oem"]["IBM"]["@odata.type"] =
-            "#OemLogEntryAttachment.IBM";
+            "#OemLogEntryAttachment.v1_0_0.IBM";
     };
 
     uint32_t id = 0;
@@ -5746,7 +5756,8 @@ static LogParseError
     logEntryJson["EventTimestamp"] = std::move(entryTimeStr);
 
     /* logEntryJson["Oem"]["IBM"]["@odata.id"] ?? */
-    logEntryJson["Oem"]["IBM"]["@odata.type"] = "#OemLogEntry.v1_0_0.LogEntry";
+    logEntryJson["Oem"]["IBM"]["@odata.type"] =
+        "#OemLogEntryAttachment.v1_0_0.IBM";
     logEntryJson["Oem"]["IBM"]["AdditionalDataFullAuditLogURI"] =
         "/redfish/v1/Systems/system/LogServices/AuditLog/Entries/FullAudit/attachment";
 

@@ -199,7 +199,7 @@ inline void requestRoutesLicenseService(App& app)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/LicenseService/";
+        asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/LicenseService";
         asyncResp->res.jsonValue["@odata.type"] =
             "#LicenseService.v1_0_0.LicenseService";
         asyncResp->res.jsonValue["Name"] = "License Service";
