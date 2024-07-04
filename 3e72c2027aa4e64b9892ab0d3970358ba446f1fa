@@ -214,6 +214,24 @@
       "parentUuid": "2af443ba_35bd2f14",
       "revId": "3e72c2027aa4e64b9892ab0d3970358ba446f1fa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04a863b7_b1312f8f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 33
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000936
+      },
+      "writtenOn": "2024-07-04T00:38:53Z",
+      "side": 1,
+      "message": "\u003e \u003e \u003e \u003e  looking at it now I\u0027m afraid I only see \"what\" but not \"why\" there\n\u003e \u003e \u003e \n\u003e \u003e \u003e This hostconsole user group was added to control access to the Host Console. It maps to Redfish\u0027s AccountType \u003d HostConsole\n\u003e \u003e \n\u003e \u003e So when does it actually help? Is it useful in real life at all for anything?\n\u003e \n\u003e yes,  if you want to disable the host console access to a user.  not all systems have kvm.\n\nThat seems to be such a niche usecase. Having no KVM but having serial console and wanting BMC user with Administrator rights not being able to access serial console of the host... Why can\u0027t someone share a non-hypothetical example of this?..\n\n\u003e \u003e Why is it not better to revert this (and the change to dropbear port 2200 confi to fix regression with remote authentication? What would be the possible alternatives for fixing this regression?\n\u003e \n\u003e \n\u003e with respect, I don’t really think revert is an option.  LDAP isn’t really used, as proven by the fact that this was broken over a year ago and this is the first report.\n\nNot all OpenBMC downstreams follow upstream closely enough, unfortunately.\n\nFor how many years did OpenBMC not include separate hostconsole group and how many people complained about it? In fact, did anyone complain at all ever before Ninad decided to introduce this?\n\n\u003e I’ve seen many reports that LDAP doesn’t work at all, and to my knowledge there’s no documentation or setup scripts to test functionality.\n\nFunctionality of using Microsoft Active Directory is hard to test with a script... Also there\u0027s nothing special about it other than assigning BMC users \"legacy primary POSIX group\" about this setup from AD side, like any windows sysadmin should be able to assist with testing that if one wanted.\n\nAs to testing against e.g. OpenLDAP, that can probably be made with a script, yes, but, again, it\u0027s faster to just ask a sysadmin to setup one rather than invest in writing such a script I think.\n\nI personally tested both, not many surprises there...\n\n\u003e my recommendation would be to find the bug in phosphor user manager that doesn’t expose the right groups, and just fix it.\n\nWhat if there\u0027s no bug at all? It was never meant to provide a _list_ of groups. Just one single primary group. That\u0027s how the code was designed and written. There\u0027s no even good generic way to do that especially for nested groups (you have to do a recursive search over them; Microsoft AD provides a non-standard extension for the purpose).\n\n\u003e fwiw, this might be a case where dmtf might need to be engaged, because I don’t know how one would configure “this user has host console access” in the existing LDAP configs.\n\nFor local users Ninad provided a migration script so this change at least didn\u0027t regress that. So it looks like you\u0027re not supposed to introduce a change which would break existing configs, it should have an automatic migration path, right? But there\u0027s no way for automatic migration for LDAP config as it\u0027s not managed by BMC. So this change is wrong, it breaks valid and working usecase.",
+      "parentUuid": "62a35617_31ae044e",
+      "revId": "3e72c2027aa4e64b9892ab0d3970358ba446f1fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
