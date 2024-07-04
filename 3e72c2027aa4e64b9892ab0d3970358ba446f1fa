@@ -178,6 +178,24 @@
       "parentUuid": "c3d20863_8d84515f",
       "revId": "3e72c2027aa4e64b9892ab0d3970358ba446f1fa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2af443ba_35bd2f14",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 33
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000936
+      },
+      "writtenOn": "2024-07-04T00:02:24Z",
+      "side": 1,
+      "message": "\u003e \u003e  looking at it now I\u0027m afraid I only see \"what\" but not \"why\" there\n\u003e \n\u003e This hostconsole user group was added to control access to the Host Console. It maps to Redfish\u0027s AccountType \u003d HostConsole\n\nSo when does it actually help? Is it useful in real life at all for anything?\n\nWhy is it not better to revert this (and the change to dropbear port 2200 config) to fix regression with remote authentication? What would be the possible alternatives for fixing this regression?",
+      "parentUuid": "9c0634bc_3a7a6dc4",
+      "revId": "3e72c2027aa4e64b9892ab0d3970358ba446f1fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
