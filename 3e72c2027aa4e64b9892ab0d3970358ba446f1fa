@@ -196,6 +196,24 @@
       "parentUuid": "9c0634bc_3a7a6dc4",
       "revId": "3e72c2027aa4e64b9892ab0d3970358ba446f1fa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62a35617_31ae044e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 33
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-04T00:11:08Z",
+      "side": 1,
+      "message": "\u003e \u003e \u003e  looking at it now I\u0027m afraid I only see \"what\" but not \"why\" there\n\u003e \u003e \n\u003e \u003e This hostconsole user group was added to control access to the Host Console. It maps to Redfish\u0027s AccountType \u003d HostConsole\n\u003e \n\u003e So when does it actually help? Is it useful in real life at all for anything?\n\nyes,  if you want to disable the host console access to a user.  not all systems have kvm.\n\n\n\u003e \n\u003e Why is it not better to revert this (and the change to dropbear port 2200 confi to fix regression with remote authentication? What would be the possible alternatives for fixing this regression?\n\n\nwith respect, I don’t really think revert is an option.  LDAP isn’t really used, as proven by the fact that this was broken over a year ago and this is the first report.  I’ve seen many reports that LDAP doesn’t work at all, and to my knowledge there’s no documentation or setup scripts to test functionality.\n\nmy recommendation would be to find the bug in phosphor user manager that doesn’t expose the right groups, and just fix it.\n\nfwiw, this might be a case where dmtf might need to be engaged, because I don’t know how one would configure “this user has host console access” in the existing LDAP configs.",
+      "parentUuid": "2af443ba_35bd2f14",
+      "revId": "3e72c2027aa4e64b9892ab0d3970358ba446f1fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
