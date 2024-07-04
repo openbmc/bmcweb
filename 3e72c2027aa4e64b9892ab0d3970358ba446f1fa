@@ -285,6 +285,42 @@
       "parentUuid": "9333bb37_aecd176c",
       "revId": "3e72c2027aa4e64b9892ab0d3970358ba446f1fa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2518210_e2df0291",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 33
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000936
+      },
+      "writtenOn": "2024-07-04T16:56:17Z",
+      "side": 1,
+      "message": "\u003e I would like to see the script written, but that doesn’t mean I’m going to break host console users to do it.\n\nSo first I\u0027m supposed to write a script, then I\u0027m supposed to contact DMTF forum to gather opinions, then I\u0027m supposed to get feedback from phosphor-user-manager maintainers who do not seem to be willing to respond at all and then might be one year later we come to a consensus of how to fix this without regressing those hypothetical hostconsole users?\n\nDoesn\u0027t sound like a fair deal to me. Easier to patch it out downstream, and it won\u0027t be even painful for rebases.\n\nSo be it, I\u0027ll just concentrate on something where I can make a difference and where I see some sense. I\u0027m ready to advocate and provide real life scenarios for each and every line of code I propose, and when I see I\u0027m wrong I admit that. (Good) software exists to serve a purpose, not to tick a box in the feature set. When I offer a change I have a clear idea of how it should be making an end-user\u0027s life easier or happier and I can share it in plain text when needed. In the rare cases I can not I\u0027m ready to admit it might be a nonsense goal.",
+      "parentUuid": "da53b2a3_a0a51bfb",
+      "revId": "3e72c2027aa4e64b9892ab0d3970358ba446f1fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab74370a_fd73e851",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 33
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000936
+      },
+      "writtenOn": "2024-07-04T16:56:17Z",
+      "side": 1,
+      "message": "\u003e \u003e \u003e \u003e \u003e \u003e  looking at it now I\u0027m afraid I only see \"what\" but not \"why\" there\n\u003e \u003e \u003e \u003e \u003e \n\u003e \u003e \u003e \u003e \u003e This hostconsole user group was added to control access to the Host Console. It maps to Redfish\u0027s AccountType \u003d HostConsole\n\u003e \u003e \u003e \u003e \n\u003e \u003e \u003e \u003e So when does it actually help? Is it useful in real life at all for anything?\n\u003e \u003e \u003e \n\u003e \u003e \u003e yes,  if you want to disable the host console access to a user.  not all systems have kvm.\n\u003e \u003e \n\u003e \u003e That seems to be such a niche usecase. Having no KVM but having serial console and wanting BMC user with Administrator rights not being able to access serial console of the host... Why can\u0027t someone share a non-hypothetical example of this?..\n\u003e \n\u003e this has nothing to do with administrator or any role.  that’s why it’s separate.\n\u003e the ability to control whether a user has access to the serial console is a feature a lot of BMCs support.\n\nI\u0027m asking you (or anybody else) to share https://en.wikipedia.org/wiki/User_story where this feature is needed in real life.\n\n\u003e \u003e Functionality of using Microsoft Active Directory is hard to test with a script... Also there\u0027s nothing special about it other than assigning BMC users \"legacy primary POSIX group\" about this setup from AD side, like any windows sysadmin should be able to assist with testing that if one wanted.\n\u003e \n\u003e cool; can’t wait for you to document how easy it is.  as someone with pretty good Redfish knowledge, it was more effort than I was willing to put forth to learn how to do.\n\nCan\u0027t wait to see at least one non-imaginary user of hostconsole feature.\n\nI\u0027m ready to write an LDAP user story.\n \n\u003e \u003e As to testing against e.g. OpenLDAP, that can probably be made with a script, yes, but, again, it\u0027s faster to just ask a sysadmin to setup one rather than invest in writing such a script I think.\n\u003e \n\u003e that kind of thinking is why features break.  if committers can’t test for regressions easily, we have to rely on it just breaking, then folks like yourself fixing it.\n\nI agree it would be useful to have.\n\n\u003e \u003e \u003e my recommendation would be to find the bug in phosphor user manager that doesn’t expose the right groups, and just fix it.\n\u003e \u003e \n\u003e \u003e What if there\u0027s no bug at all? It was never meant to provide a _list_ of groups.\n\u003e \n\u003e phosphor-user-manager absolutely provides a list of groups in its interfaces today.\n\nNOT FOR REMOTE USERS, it can NOT do that for remote users and it\u0027s not a bug, it was designed like that.\n\n\u003e \u003e For local users Ninad provided a migration script so this change at least didn\u0027t regress that. So it looks like you\u0027re not supposed to introduce a change which would break existing configs, it should have an automatic migration path, right? But there\u0027s no way for automatic migration for LDAP config as it\u0027s not managed by BMC. So this change is wrong, it breaks valid and working usecase.\n\u003e \n\u003e yep, and reverting this will also break existing users, so we need to find a solution that doesn’t impact either types of users.\n\nI\u0027m not convinced those users exist. If Redfish has some feature it doesn\u0027t mean anyone\u0027s using it. If that feature is really useful I can\u0027t for the life of me understand why nobody is willing to share the user stories and threat models that motivated its introduction into OpenBMC.",
+      "parentUuid": "a65cf7ca_6336965f",
+      "revId": "3e72c2027aa4e64b9892ab0d3970358ba446f1fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
