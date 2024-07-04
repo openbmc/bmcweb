@@ -22,6 +22,30 @@
       },
       "revId": "cdf8bf46ddc0aa08dec5117e39abe5b4976a4dea",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3dc3fbf4_e997aa04",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2024-07-04T05:22:23Z",
+      "side": 1,
+      "message": "Thanks Ed for comments. For now I will abandon this change. Based on the need will revert the changes for review.",
+      "parentUuid": "0c4b06af_27d5364a",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 16
+      },
+      "revId": "cdf8bf46ddc0aa08dec5117e39abe5b4976a4dea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
