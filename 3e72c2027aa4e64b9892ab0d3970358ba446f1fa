@@ -249,6 +249,42 @@
       "message": "Actionable suggestion: I write a script that configures OpenLDAP in a GNU/Linux distro of your choice and sends an OpenBMC host (specific QEMU target of your choice) some Redfish requests to make it use that server for authenticating users. If that works you revert hostconsole patches (so that SOL both over WebSocket and over ssh works for an LDAP user mapped to Administrator).\n\nDeal?",
       "revId": "3e72c2027aa4e64b9892ab0d3970358ba446f1fa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a65cf7ca_6336965f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 33
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-04T15:31:30Z",
+      "side": 1,
+      "message": "\u003e \u003e \u003e \u003e \u003e  looking at it now I\u0027m afraid I only see \"what\" but not \"why\" there\n\u003e \u003e \u003e \u003e \n\u003e \u003e \u003e \u003e This hostconsole user group was added to control access to the Host Console. It maps to Redfish\u0027s AccountType \u003d HostConsole\n\u003e \u003e \u003e \n\u003e \u003e \u003e So when does it actually help? Is it useful in real life at all for anything?\n\u003e \u003e \n\u003e \u003e yes,  if you want to disable the host console access to a user.  not all systems have kvm.\n\u003e \n\u003e That seems to be such a niche usecase. Having no KVM but having serial console and wanting BMC user with Administrator rights not being able to access serial console of the host... Why can\u0027t someone share a non-hypothetical example of this?..\n\nthis has nothing to do with administrator or any role.  that’s why it’s separate.\nthe ability to control whether a user has access to the serial console is a feature a lot of BMCs support.\n\n\n\u003e \n\u003e \u003e \u003e Why is it not better to revert this (and the change to dropbear port 2200 confi to fix regression with remote authentication? What would be the possible alternatives for fixing this regression?\n\u003e \u003e \n\u003e \u003e \n\u003e \u003e with respect, I don’t really think revert is an option.  LDAP isn’t really used, as proven by the fact that this was broken over a year ago and this is the first report.\n\u003e \n\u003e Not all OpenBMC downstreams follow upstream closely enough, unfortunately.\n\u003e \n\u003e For how many years did OpenBMC not include separate hostconsole group and how many people complained about it? In fact, did anyone complain at all ever before Ninad decided to introduce this?\n\nthe lack of ability to limit users access was brought up by more than just Ninad, and in my (maintainer) opinion is a reasonable feature to have.\n\n\u003e \n\u003e \u003e I’ve seen many reports that LDAP doesn’t work at all, and to my knowledge there’s no documentation or setup scripts to test functionality.\n\u003e \n\u003e Functionality of using Microsoft Active Directory is hard to test with a script... Also there\u0027s nothing special about it other than assigning BMC users \"legacy primary POSIX group\" about this setup from AD side, like any windows sysadmin should be able to assist with testing that if one wanted.\n\ncool; can’t wait for you to document how easy it is.  as someone with pretty good Redfish knowledge, it was more effort than I was willing to put forth to learn how to do.\n\n\u003e \n\u003e As to testing against e.g. OpenLDAP, that can probably be made with a script, yes, but, again, it\u0027s faster to just ask a sysadmin to setup one rather than invest in writing such a script I think.\n\nthat kind of thinking is why features break.  if committers can’t test for regressions easily, we have to rely on it just breaking, then folks like yourself fixing it.\n\n\u003e \n\u003e I personally tested both, not many surprises there...\n\u003e \n\u003e \u003e my recommendation would be to find the bug in phosphor user manager that doesn’t expose the right groups, and just fix it.\n\u003e \n\u003e What if there\u0027s no bug at all? It was never meant to provide a _list_ of groups.\n\nphosphor-user-manager absolutely provides a list of groups in its interfaces today.\n\n\u003e Just one single primary group. That\u0027s how the code was designed and written. There\u0027s no even good generic way to do that especially for nested groups (you have to do a recursive search over them; Microsoft AD provides a non-standard extension for the purpose).\n\u003e \n\u003e \u003e fwiw, this might be a case where dmtf might need to be engaged, because I don’t know how one would configure “this user has host console access” in the existing LDAP configs.\n\u003e \n\u003e For local users Ninad provided a migration script so this change at least didn\u0027t regress that. So it looks like you\u0027re not supposed to introduce a change which would break existing configs, it should have an automatic migration path, right? But there\u0027s no way for automatic migration for LDAP config as it\u0027s not managed by BMC. So this change is wrong, it breaks valid and working usecase.\n\n\nyep, and reverting this will also break existing users, so we need to find a solution that doesn’t impact either types of users.",
+      "parentUuid": "04a863b7_b1312f8f",
+      "revId": "3e72c2027aa4e64b9892ab0d3970358ba446f1fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da53b2a3_a0a51bfb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 33
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-04T15:31:30Z",
+      "side": 1,
+      "message": "I would like to see the script written, but that doesn’t mean I’m going to break host console users to do it.\n\nI’ve seen almost no discussion about how both of these features could exist together in the same codebase, so I suspect that’s the next step before we start talking about reverting anything.",
+      "parentUuid": "9333bb37_aecd176c",
+      "revId": "3e72c2027aa4e64b9892ab0d3970358ba446f1fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
