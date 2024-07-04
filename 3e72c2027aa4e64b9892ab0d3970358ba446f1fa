@@ -232,6 +232,23 @@
       "parentUuid": "62a35617_31ae044e",
       "revId": "3e72c2027aa4e64b9892ab0d3970358ba446f1fa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9333bb37_aecd176c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 33
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000936
+      },
+      "writtenOn": "2024-07-04T01:07:19Z",
+      "side": 1,
+      "message": "Actionable suggestion: I write a script that configures OpenLDAP in a GNU/Linux distro of your choice and sends an OpenBMC host (specific QEMU target of your choice) some Redfish requests to make it use that server for authenticating users. If that works you revert hostconsole patches (so that SOL both over WebSocket and over ssh works for an LDAP user mapped to Administrator).\n\nDeal?",
+      "revId": "3e72c2027aa4e64b9892ab0d3970358ba446f1fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
