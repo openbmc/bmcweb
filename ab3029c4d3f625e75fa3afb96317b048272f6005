@@ -87,6 +87,24 @@
       "parentUuid": "550ccdf6_1056ed2f",
       "revId": "ab3029c4d3f625e75fa3afb96317b048272f6005",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc8af074_59979651",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-04T15:32:11Z",
+      "side": 1,
+      "message": "bmcweb namespace please",
+      "parentUuid": "5ae619c4_ffaf903b",
+      "revId": "ab3029c4d3f625e75fa3afb96317b048272f6005",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
