@@ -280,6 +280,7 @@ class ConfigFile
             subscription["SubscriptionType"] = subValue->subscriptionType;
             subscription["MetricReportDefinitions"] =
                 subValue->metricReportDefinitions;
+            subscription["VerifyCertificate"] = subValue->verifyCertificate;
 
             subscriptions.emplace_back(std::move(subscription));
         }

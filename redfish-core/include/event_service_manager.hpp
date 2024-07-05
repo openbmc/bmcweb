@@ -481,6 +481,7 @@ class Subscription : public persistent_data::UserSubscription
     std::optional<crow::HttpClient> client;
     std::string path;
     std::string uriProto;
+    bool verifyCertificate = false;
 
     // Check used to indicate what response codes are valid as part of our retry
     // policy.  2XX is considered acceptable
@@ -571,6 +572,7 @@ class EventServiceManager
             subValue->id = newSub->id;
             subValue->destinationUrl = newSub->destinationUrl;
             subValue->protocol = newSub->protocol;
+            subValue->verifyCertificate = newSub->verifyCertificate;
             subValue->retryPolicy = newSub->retryPolicy;
             subValue->customText = newSub->customText;
             subValue->eventFormatType = newSub->eventFormatType;
