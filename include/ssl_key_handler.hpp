@@ -623,7 +623,14 @@ inline std::shared_ptr<boost::asio::ssl::context> getSslServerContext()
     return std::make_shared<boost::asio::ssl::context>(std::move(sslCtx));
 }
 
-inline std::optional<boost::asio::ssl::context> getSSLClientContext()
+enum class VerifyCertificate
+{
+    Verify,
+    NoVerify
+};
+
+inline std::optional<boost::asio::ssl::context>
+    getSSLClientContext([[maybe_unused]] VerifyCertificate verifyCertificate)
 {
     namespace fs = std::filesystem;
 
@@ -655,8 +662,14 @@ inline std::optional<boost::asio::ssl::context> getSSLClientContext()
         return std::nullopt;
     }
 
+    int mode = boost::asio::ssl::verify_peer;
+    if (verifyCertificate == VerifyCertificate::NoVerify)
+    {
+        mode = boost::asio::ssl::verify_none;
+    }
+
     // Verify the remote server's certificate
-    sslCtx.set_verify_mode(boost::asio::ssl::verify_peer, ec);
+    sslCtx.set_verify_mode(mode, ec);
     if (ec)
     {
         BMCWEB_LOG_ERROR("SSL context set_verify_mode failed");

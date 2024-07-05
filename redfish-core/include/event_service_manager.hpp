@@ -386,8 +386,10 @@ class Subscription : public persistent_data::UserSubscription
         // A connection pool will be created if one does not already exist
         if (client)
         {
-            client->sendData(std::move(msg), destinationUrl, httpHeaders,
-                             boost::beast::http::verb::post);
+            client->sendData(
+                std::move(msg), destinationUrl,
+                static_cast<ensuressl::VerifyCertificate>(verifyCertificate),
+                httpHeaders, boost::beast::http::verb::post);
             return true;
         }
 
@@ -662,6 +664,7 @@ class EventServiceManager
             subValue->id = newSub->id;
             subValue->destinationUrl = newSub->destinationUrl;
             subValue->protocol = newSub->protocol;
+            subValue->verifyCertificate = newSub->verifyCertificate;
             subValue->retryPolicy = newSub->retryPolicy;
             subValue->customText = newSub->customText;
             subValue->eventFormatType = newSub->eventFormatType;

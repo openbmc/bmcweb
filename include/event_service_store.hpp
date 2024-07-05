@@ -15,6 +15,7 @@ struct UserSubscription
     std::string id;
     boost::urls::url destinationUrl;
     std::string protocol;
+    bool verifyCertificate = true;
     std::string retryPolicy;
     std::string customText;
     std::string eventFormatType;
@@ -68,6 +69,15 @@ struct UserSubscription
                     continue;
                 }
                 subvalue->protocol = *value;
+            }
+            else if (element.first == "VerifyCertificate")
+            {
+                const bool* value = element.second.get_ptr<const bool*>();
+                if (value == nullptr)
+                {
+                    continue;
+                }
+                subvalue->verifyCertificate = *value;
             }
             else if (element.first == "DeliveryRetryPolicy")
             {
