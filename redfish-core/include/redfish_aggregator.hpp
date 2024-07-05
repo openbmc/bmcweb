@@ -737,8 +737,9 @@ class RedfishAggregator
         {
             url.set_query(targetURI.query());
         }
-        client.sendDataWithCallback(std::move(data), url, thisReq.fields(),
-                                    thisReq.method(), cb);
+        client.sendDataWithCallback(std::move(data), url,
+                                    ensuressl::VerifyCertificate::Verify,
+                                    thisReq.fields(), thisReq.method(), cb);
     }
 
     // Forward a request for a collection URI to each known satellite BMC
@@ -759,8 +760,9 @@ class RedfishAggregator
                 url.set_query(thisReq.url().query());
             }
             std::string data = thisReq.body();
-            client.sendDataWithCallback(std::move(data), url, thisReq.fields(),
-                                        thisReq.method(), cb);
+            client.sendDataWithCallback(std::move(data), url,
+                                        ensuressl::VerifyCertificate::Verify,
+                                        thisReq.fields(), thisReq.method(), cb);
         }
     }
 
@@ -785,8 +787,9 @@ class RedfishAggregator
 
             std::string data = thisReq.body();
 
-            client.sendDataWithCallback(std::move(data), url, thisReq.fields(),
-                                        thisReq.method(), cb);
+            client.sendDataWithCallback(std::move(data), url,
+                                        ensuressl::VerifyCertificate::Verify,
+                                        thisReq.fields(), thisReq.method(), cb);
         }
     }
 
