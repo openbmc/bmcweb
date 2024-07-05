@@ -278,6 +278,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
         }
         std::string destUrl;
         std::string protocol;
+        std::optional<bool> verifyCertificate;
         std::optional<std::string> context;
         std::optional<std::string> subscriptionType;
         std::optional<std::string> eventFormatType2;
@@ -294,7 +295,8 @@ inline void requestRoutesEventDestinationCollection(App& app)
                 "EventFormatType", eventFormatType2, "HttpHeaders", headers,
                 "RegistryPrefixes", regPrefixes, "MessageIds", msgIds,
                 "DeliveryRetryPolicy", retryPolicy, "MetricReportDefinitions",
-                mrdJsonArray, "ResourceTypes", resTypes))
+                mrdJsonArray, "ResourceTypes", resTypes, "VerifyCertificate",
+                verifyCertificate))
         {
             return;
         }
@@ -432,6 +434,11 @@ inline void requestRoutesEventDestinationCollection(App& app)
             return;
         }
         subValue->protocol = protocol;
+
+        if (verifyCertificate)
+        {
+            subValue->verifyCertificate = *verifyCertificate;
+        }
 
         if (eventFormatType2)
         {
