@@ -674,7 +674,7 @@ inline void requestRoutesBiosSettings(App& app)
                 "xyz.openbmc_project.BIOSConfigManager",
                 "/xyz/openbmc_project/bios_config/manager",
                 "xyz.openbmc_project.BIOSConfig.Manager", "PendingAttributes",
-                std::variant<PendingAttributesType>(pendingAttributes),
+                pendingAttributes,
                 [asyncResp](const boost::system::error_code& ec1) {
                 if (ec1)
                 {
