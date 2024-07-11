@@ -409,11 +409,13 @@ inline void getCpuAssetData(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
         const std::string* manufacturer = nullptr;
         const std::string* partNumber = nullptr;
         const std::string* sparePartNumber = nullptr;
+        const std::string* buildDate = nullptr;
 
         const bool success = sdbusplus::unpackPropertiesNoThrow(
             dbus_utils::UnpackErrorPrinter(), properties, "SerialNumber",
             serialNumber, "Model", model, "Manufacturer", manufacturer,
-            "PartNumber", partNumber, "SparePartNumber", sparePartNumber);
+            "PartNumber", partNumber, "SparePartNumber", sparePartNumber,
+            "BuildDate", buildDate);
 
         if (!success)
         {
@@ -456,6 +458,11 @@ inline void getCpuAssetData(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
         if (sparePartNumber != nullptr && !sparePartNumber->empty())
         {
             asyncResp->res.jsonValue["SparePartNumber"] = *sparePartNumber;
+        }
+
+        if (buildDate != nullptr)
+        {
+            redfish::time_utils::productionDateReport(asyncResp, buildDate);
         }
     });
 }
