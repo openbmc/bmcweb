@@ -79,6 +79,57 @@
       },
       "revId": "92dac0b0090226ae8ad8b4ba115cb74b03581a4f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56b39a9f_4d4b28d2",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-07-11T14:56:38Z",
+      "side": 1,
+      "message": "I don\u0027t see ProductionDate in the latest Fabric Adapter schema \nhttps://redfish.dmtf.org/schemas/v1/FabricAdapter.v1_5_3.json",
+      "revId": "92dac0b0090226ae8ad8b4ba115cb74b03581a4f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf3e1b65_53bb88e6",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-07-11T14:56:38Z",
+      "side": 1,
+      "message": "I don\u0027t see ProductionDate for Fan. \nhttps://redfish.dmtf.org/schemas/v1/Fan.v1_5_2.json\nI see it for PowerSupplies.\nNeed to talk to the DMTF about adding first.\n\nThis will fail the Redfish Validator",
+      "revId": "92dac0b0090226ae8ad8b4ba115cb74b03581a4f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d3c7bbe_23ff8b26",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2252,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-07-11T14:56:38Z",
+      "side": 1,
+      "message": "I don\u0027t see it for Managers either \nhttps://redfish.dmtf.org/schemas/v1/Manager.v1_19_1.json",
+      "revId": "92dac0b0090226ae8ad8b4ba115cb74b03581a4f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
