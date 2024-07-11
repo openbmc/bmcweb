@@ -1,5 +1,6 @@
 #pragma once
 
+#include "app.hpp"
 #include "logging.hpp"
 
 #include <algorithm>
@@ -377,5 +378,45 @@ inline std::pair<std::string, std::string> getDateTimeOffsetNow()
 
 using usSinceEpoch = std::chrono::duration<int64_t, std::micro>;
 std::optional<usSinceEpoch> dateStringToEpoch(std::string_view datetime);
+
+/**
+ * @brief Returns the datetime in ISO 8601 format
+ *
+ * @param[in] std::string_view the date of item manufacture in ISO 8601 format,
+ *            either as YYYYMMDD or YYYYMMDDThhmmssZ
+ * Ref: https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/
+ *      xyz/openbmc_project/Inventory/Decorator/Asset.interface.yaml#L16
+ *
+ * @return std::string which consist the datetime
+ */
+inline std::optional<std::string> getDateTimeIso8601(std::string_view datetime)
+{
+    std::optional<redfish::time_utils::usSinceEpoch> us =
+        redfish::time_utils::dateStringToEpoch(datetime);
+    if (!us)
+    {
+        return std::nullopt;
+    }
+    return std::make_optional(redfish::time_utils::getDateTimeUint(
+        static_cast<uint64_t>(us->count() / 1000000)));
+}
+
+/**
+ * @brief ProductionDate report
+ */
+inline void
+    productionDateReport(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const std::string* buildDate)
+{
+    std::optional<std::string> valueStr =
+        redfish::time_utils::getDateTimeIso8601(*buildDate);
+    if (!valueStr)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    asyncResp->res.jsonValue["ProductionDate"] = *valueStr;
+}
+
 } // namespace time_utils
 } // namespace redfish

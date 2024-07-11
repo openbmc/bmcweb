@@ -218,5 +218,16 @@ TEST(Utility, DateStringToEpochWithInvalidDateTimeFormats)
     EXPECT_EQ(dateStringToEpoch("19991399"), std::nullopt);
 }
 
+TEST(Utility, GetDateTimeIso8601)
+{
+    EXPECT_EQ(getDateTimeIso8601("20230531"), "2023-05-31");
+
+    EXPECT_EQ(getDateTimeIso8601("20230531T000000Z"),
+              "2023-05-31T00:00:00+00:00");
+
+    // invalid datetime
+    EXPECT_EQ(getDateTimeIso8601("202305"), std::nullopt);
+}
+
 } // namespace
 } // namespace redfish::time_utils
