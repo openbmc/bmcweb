@@ -93,6 +93,15 @@ class ConfigFile
                             systemUuid = *jSystemUuid;
                         }
                     }
+                    else if (item.first == "webui_enabled")
+                    {
+                        const bool* enabled =
+                            item.second.get_ptr<const bool*>();
+                        if (enabled != nullptr)
+                        {
+                            webuiEnabled = *enabled;
+                        }
+                    }
                     else if (item.first == "auth_config")
                     {
                         SessionStore::getInstance()
@@ -238,6 +247,7 @@ class ConfigFile
             eventServiceConfig.retryTimeoutInterval;
 
         data["system_uuid"] = systemUuid;
+        data["webui_enabled"] = webuiEnabled;
         data["revision"] = jsonRevision;
         data["timeout"] = SessionStore::getInstance().getTimeoutInSeconds();
 
@@ -309,6 +319,8 @@ class ConfigFile
     }
 
     std::string systemUuid;
+
+    bool webuiEnabled = true;
 };
 
 inline ConfigFile& getConfig()
