@@ -1,5 +1,6 @@
 #pragma once
 
+#include "app.hpp"
 #include "logging.hpp"
 
 #include <algorithm>
@@ -376,6 +377,57 @@ inline std::pair<std::string, std::string> getDateTimeOffsetNow()
     }
 
     return std::make_pair(dateTime, timeOffset);
+}
+
+/**
+ * @brief Returns the datetime in ISO 8601 format
+ *
+ * @param[in] std::string_view the date of item manufacture in ISO 8601 format,
+ *            either as YYYYMMDD or YYYYMMDDThhmmssZ
+ * Ref: https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/
+ *      xyz/openbmc_project/Inventory/Decorator/Asset.interface.yaml#L16
+ *
+ * @return std::string which consist the datetime
+ */
+inline std::optional<std::string> getDateTimeIso8601(std::string_view datetime)
+{
+    std::string datetimeStr = std::string{datetime};
+    if ((datetimeStr.size() != 8) && (datetimeStr.size() != 16))
+    {
+        return std::nullopt;
+    }
+
+    if (datetimeStr.size() == 8)
+    {
+        datetimeStr.insert(4, 1, '-');
+        datetimeStr.insert(7, 1, '-');
+    }
+    else
+    {
+        datetimeStr.insert(4, 1, '-');
+        datetimeStr.insert(7, 1, '-');
+        datetimeStr.insert(13, 1, ':');
+        datetimeStr.insert(16, 1, ':');
+    }
+
+    return std::make_optional(datetimeStr);
+}
+
+/**
+ * @brief ProductionDate report
+ */
+inline void
+    productionDateReport(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const std::string* buildDate)
+{
+    std::optional<std::string> valueStr =
+        redfish::time_utils::getDateTimeIso8601(*buildDate);
+    if (!valueStr)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    asyncResp->res.jsonValue["ProductionDate"] = *valueStr;
 }
 
 using usSinceEpoch = std::chrono::duration<int64_t, std::micro>;
