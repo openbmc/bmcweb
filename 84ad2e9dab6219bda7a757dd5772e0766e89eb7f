@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "3382c278_87060010",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-11T23:30:26Z",
+      "side": 1,
+      "message": "\u003e So since you still add a cookie I assume you want to allow web browsers to use mTLS to authenticate to bmcweb.\n\nToday, this use case doesn\u0027t work, although was implemented at one point.  I have left the cookie in case someone in the future wants to use it, but to my knowledge, webui-vue has never supported it.\n\n\u003e But AFAICT you still need CSRF protection in this case or else a malicious unrelated tab in a web browser with that client certificate would be able to covertly run any requests any time.\n\u003e I might be missing something but it looks that getting mTLS with web-browsers done right security wise requires much more effort and then would be out of scope for this patch if at all possible (without additional authentication factors).\n\n\nYep, you got it.  Trying to get web browsers working with mtls is outside this patch, and would need someone to champion it.\n\n\u003e Probably mTLS for web browsers should be declared unsupported in this patch, no cookies sent at all and then if a good solution found re-introduced later?\n\nThe difference in what you\u0027re asking is the IsAuthenticated header?  If we wanted to remove that, lets do it in a different patch.  I believe it\u0027s still used in some contexts.  The cookies are not.\n\n\u003e And if there\u0027s a reasonable way then probably getting WebSockets working can be done too?\n\nA code review isn\u0027t the place for that discussion.  That would be a new feature.\n\n\u003e Either way to me it looks like this part requires more clarifications so that even someone inexperienced with web like me could follow the ideas behind security of the solution.\n\nwhat clarifications are you looking for?",
+      "parentUuid": "426de302_57a37bcf",
+      "range": {
+        "startLine": 34,
+        "startChar": 1,
+        "endLine": 36,
+        "endChar": 25
+      },
+      "revId": "84ad2e9dab6219bda7a757dd5772e0766e89eb7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "6f4bebf9_eba4d42b",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-07-11T19:24:36Z",
       "side": 1,
       "message": "I think you might want to specify `Path\u003d/` here or else multiple cookies with the same name are going to be created and even though it wouldn\u0027t be breaking anything (I guess) that\u0027s not intended.",
+      "range": {
+        "startLine": 192,
+        "startChar": 0,
+        "endLine": 194,
+        "endChar": 0
+      },
+      "revId": "84ad2e9dab6219bda7a757dd5772e0766e89eb7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f16a44f_ba03925c",
+        "filename": "include/authentication.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-11T23:30:26Z",
+      "side": 1,
+      "message": "\u003e I think you might want to specify `Path\u003d/`\n\nThat\u0027s fair, and based on our previous conversations correct, but that would be a different patch (along with a commit message describing why).\n\n\u003e here or else multiple cookies with the same name are going to be created and even though it wouldn\u0027t be breaking anything (I guess) that\u0027s not intended.",
+      "parentUuid": "000ed86f_ccdc0e7b",
       "range": {
         "startLine": 192,
         "startChar": 0,
