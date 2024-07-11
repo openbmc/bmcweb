@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c098f555_f663283d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-07-11T19:15:54Z",
+      "side": 1,
+      "message": "Any way we can not do every version of these json-scheams?",
+      "revId": "f6e8e4213bf955019002db5eff34ac7d7f263619",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0cd25beb_67603016",
+        "filename": "redfish-core/schema/oem/openbmc/json-schema/OpenBMCAccountService.json",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-07-11T19:15:54Z",
+      "side": 1,
+      "message": "Did you need to do this here?",
+      "revId": "f6e8e4213bf955019002db5eff34ac7d7f263619",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34cbe5e3_4485a17e",
+        "filename": "static/images/DMTF_Redfish_logo_2017.svg",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-07-11T19:15:54Z",
+      "side": 1,
+      "message": "Why change this file name?",
+      "revId": "f6e8e4213bf955019002db5eff34ac7d7f263619",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
