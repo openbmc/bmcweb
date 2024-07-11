@@ -59,7 +59,8 @@ struct StaticFile
     std::string_view contentType;
     std::string_view contentEncoding;
     std::string etag;
-    bool renamed = false;
+    bool isDirectoryIndex = false;
+    bool isRootIndex = false;
 };
 
 inline void
@@ -67,6 +68,16 @@ inline void
                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       const StaticFile& file)
 {
+    if (file.isRootIndex)
+    {
+        if (!persistent_data::getConfig().webuiEnabled)
+        {
+            // If the webui is disabled, don't allow accessing index files
+            asyncResp->res.result(boost::beast::http::status::not_found);
+            return;
+        }
+    }
+
     if (!file.contentType.empty())
     {
         asyncResp->res.addHeader(boost::beast::http::field::content_type,
@@ -84,7 +95,7 @@ inline void
         asyncResp->res.addHeader(boost::beast::http::field::etag, file.etag);
         // Don't cache paths that don't have the etag in them, like
         // index, which gets transformed to /
-        if (!file.renamed)
+        if (!file.isDirectoryIndex)
         {
             // Anything with a hash can be cached forever and is
             // immutable
@@ -177,7 +188,7 @@ inline void addFile(App& app, const std::filesystem::directory_entry& dir)
             // insert the non-directory version of this path
             webroutes::routes.insert(webpath);
             webpath += "/";
-            file.renamed = true;
+            file.isDirectoryIndex = true;
         }
     }
 
@@ -195,7 +206,8 @@ inline void addFile(App& app, const std::filesystem::directory_entry& dir)
 
     if (webpath == "/")
     {
-        forward_unauthorized::hasWebuiRoute = true;
+        forward_unauthorized::webuiInstalled = true;
+        file.isRootIndex = true;
     }
 
     app.routeDynamic(webpath)(
