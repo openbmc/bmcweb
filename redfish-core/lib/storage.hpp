@@ -309,11 +309,12 @@ inline void getDriveAsset(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         const std::string* serialNumber = nullptr;
         const std::string* manufacturer = nullptr;
         const std::string* model = nullptr;
+        const std::string* buildDate = nullptr;
 
         const bool success = sdbusplus::unpackPropertiesNoThrow(
             dbus_utils::UnpackErrorPrinter(), propertiesList, "PartNumber",
             partNumber, "SerialNumber", serialNumber, "Manufacturer",
-            manufacturer, "Model", model);
+            manufacturer, "Model", model, "BuildDate", buildDate);
 
         if (!success)
         {
@@ -339,6 +340,11 @@ inline void getDriveAsset(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         if (model != nullptr)
         {
             asyncResp->res.jsonValue["Model"] = *model;
+        }
+
+        if (buildDate != nullptr)
+        {
+            redfish::time_utils::productionDateReport(asyncResp, buildDate);
         }
     });
 }
