@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "800fac2e_7c378b13",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-11T23:40:34Z",
+      "side": 1,
+      "message": "in talking with DMTF, I think we had the right behavior previously, use case checker might be wrong.\n\nhttps://github.com/DMTF/Redfish/issues/6139",
+      "parentUuid": "26536b50_b93e43c7",
+      "revId": "50b93977515de01417a55c089def948d60825743",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "7ad80be9_65f90292",
