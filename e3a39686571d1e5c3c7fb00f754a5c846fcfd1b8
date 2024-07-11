@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86596c16_fc62a6f0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-07-11T21:23:46Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/webui-vue/+/71937 is removing it from the webui-vue.",
+      "revId": "e3a39686571d1e5c3c7fb00f754a5c846fcfd1b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
