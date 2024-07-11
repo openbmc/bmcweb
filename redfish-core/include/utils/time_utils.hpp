@@ -378,6 +378,37 @@ inline std::pair<std::string, std::string> getDateTimeOffsetNow()
     return std::make_pair(dateTime, timeOffset);
 }
 
+/**
+ * @brief Returns the datetime in ISO 8601 format
+ *
+ * @param[in] std::string the date of item manufacture in ISO 8601 format,
+ *            either as YYYYMMDD or YYYYMMDDThhmmssZ
+ * Ref: https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/
+ *      xyz/openbmc_project/Inventory/Decorator/Asset.interface.yaml#L16
+ *
+ * @return std::string which consist the datetime
+ */
+inline std::string getDateTimeIso8601(std::string datetime)
+{
+    if (datetime.size() == 8)
+    {
+        datetime.insert(4, 1, '-');
+        datetime.insert(7, 1, '-');
+    }
+    else if (datetime.size() == 16)
+    {
+        datetime.insert(4, 1, '-');
+        datetime.insert(7, 1, '-');
+        datetime.insert(13, 1, ':');
+        datetime.insert(16, 1, ':');
+    }
+    else
+    {
+        datetime = "";
+    }
+    return datetime;
+}
+
 using usSinceEpoch = std::chrono::duration<int64_t, std::micro>;
 std::optional<usSinceEpoch> dateStringToEpoch(std::string_view datetime);
 } // namespace time_utils

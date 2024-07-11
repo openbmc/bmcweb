@@ -278,11 +278,13 @@ inline void
         const std::string* manufacturer = nullptr;
         const std::string* model = nullptr;
         const std::string* sparePartNumber = nullptr;
+        const std::string* buildDate = nullptr;
 
         const bool success = sdbusplus::unpackPropertiesNoThrow(
             dbus_utils::UnpackErrorPrinter(), propertiesList, "PartNumber",
             partNumber, "SerialNumber", serialNumber, "Manufacturer",
-            manufacturer, "Model", model, "SparePartNumber", sparePartNumber);
+            manufacturer, "Model", model, "SparePartNumber", sparePartNumber,
+            "BuildDate", buildDate);
 
         if (!success)
         {
@@ -314,6 +316,18 @@ inline void
         if (sparePartNumber != nullptr && !sparePartNumber->empty())
         {
             asyncResp->res.jsonValue["SparePartNumber"] = *sparePartNumber;
+        }
+
+        if (buildDate != nullptr)
+        {
+            std::string valueStr = *buildDate;
+            valueStr = redfish::time_utils::getDateTimeIso8601(valueStr);
+            if (valueStr.empty())
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            asyncResp->res.jsonValue["ProductionDate"] = valueStr;
         }
     });
 }

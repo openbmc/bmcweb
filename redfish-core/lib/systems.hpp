@@ -361,11 +361,12 @@ inline void
     const std::string* manufacturer = nullptr;
     const std::string* model = nullptr;
     const std::string* subModel = nullptr;
+    const std::string* buildDate = nullptr;
 
     const bool success = sdbusplus::unpackPropertiesNoThrow(
         dbus_utils::UnpackErrorPrinter(), propertiesList, "PartNumber",
         partNumber, "SerialNumber", serialNumber, "Manufacturer", manufacturer,
-        "Model", model, "SubModel", subModel);
+        "Model", model, "SubModel", subModel, "BuildDate", buildDate);
 
     if (!success)
     {
@@ -396,6 +397,18 @@ inline void
     if (subModel != nullptr)
     {
         asyncResp->res.jsonValue["SubModel"] = *subModel;
+    }
+
+    if (buildDate != nullptr)
+    {
+        std::string valueStr = *buildDate;
+        valueStr = redfish::time_utils::getDateTimeIso8601(valueStr);
+        if (valueStr.empty())
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        asyncResp->res.jsonValue["ProductionDate"] = valueStr;
     }
 
     // Grab the bios version
