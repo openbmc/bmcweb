@@ -810,8 +810,12 @@ inline std::optional<MultiPartUpdateParameters>
             if (param.second == "UpdateParameters")
             {
                 std::vector<std::string> tempTargets;
-                nlohmann::json content =
-                    nlohmann::json::parse(formpart.content);
+                nlohmann::json content = nlohmann::json::parse(formpart.content,
+                                                               nullptr, false);
+                if (content.is_discarded())
+                {
+                    return std::nullopt;
+                }
                 nlohmann::json::object_t* obj =
                     content.get_ptr<nlohmann::json::object_t*>();
                 if (obj == nullptr)
