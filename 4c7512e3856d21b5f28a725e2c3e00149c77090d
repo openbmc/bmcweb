@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d548bf1_ef7eca8a",
+        "filename": "include/event_service_store.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-07-11T07:21:48Z",
+      "side": 1,
+      "message": "looks like as per redfish schema verifyCertificate property can be assumed to be \"false\" by default...\n\n\"property is not supported by the service or specified by the client in the create request, it shall be assumed to be `false`\"",
+      "revId": "4c7512e3856d21b5f28a725e2c3e00149c77090d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
