@@ -1,7 +1,7 @@
 # Mapping from option key name to schemas that should be installed if that option is enabled
 schemas = {
     'insecure-disable-auth': 'OpenBMCAccountService',
-    'redfish-oem-manager-fan-data': 'OemManager',
+    'redfish-oem-manager-fan-data': 'OpenBMCManager',
     'redfish-provisioning-feature': 'OemComputerSystem',
     #'vm-nbdproxy': 'OemVirtualMedia',
 }

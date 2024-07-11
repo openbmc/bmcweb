@@ -1,16 +1,19 @@
 {
-    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema.v1_4_0.json",
-    "copyright": "Copyright 2014-2018 Distributed Management Task Force, Inc. (DMTF). For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "$id": "https://github.com/openbmc/bmcweb/tree/master/static/redfish/v1/JsonSchemasOpenBMCManager.v1_0_0.json",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2023 OpenBMC.",
     "definitions": {
         "Fan": {
-            "additionalProperties": true,
+            "additionalProperties": false,
             "description": "OpenBmc oem fan properties.",
+            "longDescription": "OpenBMC oem fan properties.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -27,7 +30,9 @@
                         {
                             "type": "null"
                         }
-                    ]
+                    ],
+                    "description": "Current OpenBMC fan controllers.",
+                    "longDescription": "Current OpenBMC fan controllers."
                 },
                 "FanZones": {
                     "anyOf": [
@@ -37,7 +42,9 @@
                         {
                             "type": "null"
                         }
-                    ]
+                    ],
+                    "description": "Current OpenBMC fan zones.",
+                    "longDescription": "Current OpenBMC fan zones."
                 },
                 "PidControllers": {
                     "anyOf": [
@@ -47,11 +54,14 @@
                         {
                             "type": "null"
                         }
-                    ]
+                    ],
+                    "description": "Current OpenBMC pid controllers.",
+                    "longDescription": "Current OpenBMC pid controllers."
                 },
                 "Profile": {
                     "description": "Current thermal profile.",
                     "longDescription": "Current thermal profile.",
+                    "readonly": false,
                     "type": ["string", "null"]
                 },
                 "StepwiseControllers": {
@@ -62,7 +72,9 @@
                         {
                             "type": "null"
                         }
-                    ]
+                    ],
+                    "description": "Current OpenBMC stepwise controllers.",
+                    "longDescription": "Current OpenBMC stepwise controllers."
                 }
             },
             "type": "object"
@@ -70,12 +82,14 @@
         "FanController": {
             "additionalProperties": false,
             "description": "Configuration data for Fan Controllers.",
+            "longDescription": "Configuration data for Fan Controllers.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -87,26 +101,31 @@
                 "FFGainCoefficient": {
                     "description": "Feed forward gain coefficient for the PID.",
                     "longDescription": "Feed forward gain coefficient for the PID.",
+                    "readonly": false,
                     "type": "number"
                 },
                 "FFOffCoefficient": {
                     "description": "Feed forward offset coefficient for the PID.",
                     "longDescription": "Feed forward offset coefficient for the PID.",
+                    "readonly": false,
                     "type": "number"
                 },
                 "ICoefficient": {
                     "description": "Integral Coefficient for the PID.",
                     "longDescription": "Integral Coefficient for the PID.",
+                    "readonly": false,
                     "type": "number"
                 },
                 "ILimitMax": {
                     "description": "Integral limit maximum for the PID.",
                     "longDescription": "Integral limit maximum for the PID.",
+                    "readonly": false,
                     "type": "number"
                 },
                 "ILimitMin": {
                     "description": "Integral limit minimum for the PID.",
                     "longDescription": "Integral limit minimum for the PID.",
+                    "readonly": false,
                     "type": "number"
                 },
                 "Inputs": {
@@ -115,21 +134,25 @@
                         "type": ["string", "null"]
                     },
                     "longDescription": "Input sensors to the PID controller.",
+                    "readonly": false,
                     "type": "array"
                 },
                 "NegativeHysteresis": {
                     "description": "Negative hysteresis for the controller.",
                     "longDescription": "Negative hysteresis for the controller.",
+                    "readonly": false,
                     "type": "number"
                 },
                 "OutLimitMax": {
                     "description": "Output limit maximum for the pwm.",
                     "longDescription": "Output limit maximum for the pwm.",
+                    "readonly": false,
                     "type": "number"
                 },
                 "OutLimitMin": {
                     "description": "Output limit minimum for the pwm.",
                     "longDescription": "Output limit minimum for the pwm.",
+                    "readonly": false,
                     "type": "number"
                 },
                 "Outputs": {
@@ -138,26 +161,31 @@
                         "type": ["string", "null"]
                     },
                     "longDescription": "Output sensors to the PID controller.",
+                    "readonly": false,
                     "type": "array"
                 },
                 "PCoefficient": {
                     "description": "Polynomial coefficient for the PID.",
                     "longDescription": "Polynomial coefficient for the PID.",
+                    "readonly": false,
                     "type": "number"
                 },
                 "PositiveHysteresis": {
                     "description": "Positive hysteresis for the controller.",
                     "longDescription": "Positive hysteresis for the controller.",
+                    "readonly": false,
                     "type": "number"
                 },
                 "SlewNeg": {
                     "description": "Negative slew rate for the PID.",
                     "longDescription": "Negative slew rate for the PID.",
+                    "readonly": false,
                     "type": "number"
                 },
                 "SlewPos": {
                     "description": "Positive slew rate for the PID.",
                     "longDescription": "Positive slew rate for the PID.",
+                    "readonly": false,
                     "type": "number"
                 },
                 "Zones": {
@@ -165,11 +193,12 @@
                     "items": {
                         "$ref": "#/definitions/FanZone"
                     },
+                    "longDescription": "Contains the Zones that this PID contributes to.",
                     "readonly": true,
                     "type": "array"
                 },
                 "Zones@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 }
             },
             "type": "object"
@@ -179,11 +208,15 @@
             "description": "OpenBmc FanControllers.",
             "longDescription": "Container for OpenBmc fan controllers.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "[A-Za-z0-9_.:]+": {
+                    "$ref": "#/definitions/FanController"
+                },
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -197,12 +230,14 @@
         "FanZone": {
             "additionalProperties": false,
             "description": "Configuration data for Fan Controllers.",
+            "longDescription": "Configuration data for Fan Controllers.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -221,16 +256,19 @@
                         }
                     ],
                     "description": "The Chassis that enables this Zone.",
+                    "longDescription": "The Chassis that enables this Zone.",
                     "readonly": true
                 },
                 "FailSafePercent": {
                     "description": "If the sensors are in fail-safe mode, this is the percentage to use.",
                     "longDescription": "If the sensors are in fail-safe mode, this is the percentage to use.",
+                    "readonly": false,
                     "type": "number"
                 },
                 "MinThermalOutput": {
                     "description": "Minimum thermal RPM that can be set in this Zone.",
                     "longDescription": "Minimum thermal RPM that can be set in this Zone.",
+                    "readonly": false,
                     "type": "number"
                 }
             },
@@ -241,11 +279,15 @@
             "description": "OpenBmc FanZones.",
             "longDescription": "Container for OpenBmc fan zones.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "[A-Za-z0-9_.:]+": {
+                    "$ref": "#/definitions/FanZone"
+                },
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -256,55 +298,16 @@
             "properties": {},
             "type": "object"
         },
-        "Oem": {
-            "additionalProperties": true,
-            "description": "OemManager Oem properties.",
+        "Manager": {
+            "additionalProperties": false,
+            "description": "OpenBMCManager Oem properties.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
                         "boolean",
-                        "number",
-                        "null",
-                        "object",
-                        "string"
-                    ]
-                }
-            },
-            "properties": {
-                "OpenBmc": {
-                    "anyOf": [
-                        {
-                            "$ref": "#/definitions/OpenBmc"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ]
-                },
-                "IBM": {
-                    "anyOf": [
-                        {
-                            "$ref": "#/definitions/IBM"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ]
-                }
-            },
-            "type": "object"
-        },
-        "OpenBmc": {
-            "additionalProperties": true,
-            "description": "Oem properties for OpenBmc.",
-            "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
-                    "description": "This property shall specify a valid odata or Redfish property.",
-                    "type": [
-                        "array",
-                        "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -321,7 +324,9 @@
                         {
                             "type": "null"
                         }
-                    ]
+                    ],
+                    "description": "OpenBMC fan configuration.",
+                    "longDescription": "OpenBMC fan configuration."
                 }
             },
             "type": "object"
@@ -329,12 +334,14 @@
         "PidController": {
             "additionalProperties": false,
             "description": "Configuration data for Fan Controllers.",
+            "longDescription": "Configuration data for Fan Controllers.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -346,26 +353,31 @@
                 "FFGainCoefficient": {
                     "description": "Feed forward gain coefficient for the PID.",
                     "longDescription": "Feed forward gain coefficient for the PID.",
+                    "readonly": false,
                     "type": "number"
                 },
                 "FFOffCoefficient": {
                     "description": "Feed forward offset coefficient for the PID.",
                     "longDescription": "Feed forward offset coefficient for the PID.",
+                    "readonly": false,
                     "type": "number"
                 },
                 "ICoefficient": {
                     "description": "Integral Coefficient for the PID.",
                     "longDescription": "Integral Coefficient for the PID.",
+                    "readonly": false,
                     "type": "number"
                 },
                 "ILimitMax": {
                     "description": "Integral limit maximum for the PID.",
                     "longDescription": "Integral limit maximum for the PID.",
+                    "readonly": false,
                     "type": "number"
                 },
                 "ILimitMin": {
                     "description": "Integral limit minimum for the PID.",
                     "longDescription": "Integral limit minimum for the PID.",
+                    "readonly": false,
                     "type": "number"
                 },
                 "Inputs": {
@@ -374,51 +386,61 @@
                         "type": ["string", "null"]
                     },
                     "longDescription": "Input sensors to the PID controller.",
+                    "readonly": false,
                     "type": "array"
                 },
                 "NegativeHysteresis": {
                     "description": "Negative hysteresis for the controller.",
                     "longDescription": "Negative hysteresis for the controller.",
+                    "readonly": false,
                     "type": "number"
                 },
                 "OutLimitMax": {
                     "description": "Output limit maximum for the pwm.",
                     "longDescription": "Output limit maximum for the pwm.",
+                    "readonly": false,
                     "type": "number"
                 },
                 "OutLimitMin": {
                     "description": "Output limit minimum for the pwm.",
                     "longDescription": "Output limit minimum for the pwm.",
+                    "readonly": false,
                     "type": "number"
                 },
                 "PCoefficient": {
                     "description": "Polynomial coefficient for the PID.",
                     "longDescription": "Polynomial coefficient for the PID.",
+                    "readonly": false,
                     "type": "number"
                 },
                 "PositiveHysteresis": {
                     "description": "Positive hysteresis for the controller.",
                     "longDescription": "Positive hysteresis for the controller.",
+                    "readonly": false,
                     "type": "number"
                 },
                 "SetPoint": {
                     "description": "Setpoint for the PID.",
                     "longDescription": "Setpoint for the PID.",
+                    "readonly": false,
                     "type": "number"
                 },
                 "SetPointOffset": {
                     "description": "Threshold to take value from and apply to setpoint.",
                     "longDescription": "Threshold to take value from and apply to setpoint. Valid threshold names are supported.",
+                    "readonly": false,
                     "type": "string"
                 },
                 "SlewNeg": {
                     "description": "Negative slew rate for the PID.",
                     "longDescription": "Negative slew rate for the PID.",
+                    "readonly": false,
                     "type": "number"
                 },
                 "SlewPos": {
                     "description": "Positive slew rate for the PID.",
                     "longDescription": "Positive slew rate for the PID.",
+                    "readonly": false,
                     "type": "number"
                 },
                 "Zones": {
@@ -426,11 +448,12 @@
                     "items": {
                         "$ref": "#/definitions/FanZone"
                     },
+                    "longDescription": "Contains the Zones that this PID contributes to.",
                     "readonly": true,
                     "type": "array"
                 },
                 "Zones@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 }
             },
             "type": "object"
@@ -440,11 +463,15 @@
             "description": "OpenBmc PidControllers.",
             "longDescription": "Container for OpenBmc pid controllers.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "[A-Za-z0-9_.:]+": {
+                    "$ref": "#/definitions/PidController"
+                },
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -458,12 +485,14 @@
         "StepwiseController": {
             "additionalProperties": false,
             "description": "Configuration data for Stepwise Controllers.",
+            "longDescription": "Configuration data for Stepwise Controllers.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -475,6 +504,7 @@
                 "Direction": {
                     "description": "Direction that the stepwise controller applies.",
                     "longDescription": "Direction that the stepwise controller applies. Options include Ceiling and Floor.",
+                    "readonly": false,
                     "type": ["string", "null"]
                 },
                 "Inputs": {
@@ -483,19 +513,23 @@
                         "type": ["string", "null"]
                     },
                     "longDescription": "Input sensors to the Stepwise controller.",
+                    "readonly": false,
                     "type": "array"
                 },
                 "NegativeHysteresis": {
                     "description": "Negative Hysteresis for the stepwise controller.",
                     "longDescription": "Negative Hysteresis for the stepwise controller.",
+                    "readonly": false,
                     "type": "number"
                 },
                 "PositiveHysteresis": {
                     "description": "Positive Hysteresis for the stepwise controller.",
                     "longDescription": "Positive Hysteresis for the stepwise controller.",
+                    "readonly": false,
                     "type": "number"
                 },
                 "Steps": {
+                    "autoExpand": true,
                     "description": "Temperature vs RPM steps for the stepwise controller.",
                     "items": {
                         "anyOf": [
@@ -515,11 +549,12 @@
                     "items": {
                         "$ref": "#/definitions/FanZone"
                     },
+                    "longDescription": "Contains the Zones that this controller contributes to.",
                     "readonly": true,
                     "type": "array"
                 },
                 "Zones@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 }
             },
             "type": "object"
@@ -529,11 +564,15 @@
             "description": "OpenBmc StepwiseControllers.",
             "longDescription": "Container for OpenBmc Stepwise controllers.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "[A-Za-z0-9_.:]+": {
+                    "$ref": "#/definitions/StepwiseController"
+                },
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -546,12 +585,15 @@
         },
         "StepwiseSteps": {
             "additionalProperties": false,
+            "description": "Single stepwise step pair.",
+            "longDescription": "Single stepwise step pair.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -563,11 +605,13 @@
                 "Output": {
                     "description": "Fan speed setting for step.",
                     "longDescription": "Fan speed setting for step.",
+                    "readonly": false,
                     "type": "number"
                 },
                 "Target": {
                     "description": "Input sensor reading for step.",
                     "longDescription": "Input sensor reading for step.",
+                    "readonly": false,
                     "type": "number"
                 }
             },
@@ -600,5 +644,6 @@
             "type": "object"
         }
     },
-    "title": "#OemManager"
+    "owningEntity": "OpenBMC",
+    "title": "#OpenBMCManager.v1_0_0"
 }

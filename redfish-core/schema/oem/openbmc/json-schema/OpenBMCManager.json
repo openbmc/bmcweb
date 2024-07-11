@@ -1,0 +1,8 @@
+{
+    "$id": "https://github.com/openbmc/bmcweb/tree/master/static/redfish/v1/JsonSchemasOpenBMCManager.json",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2023 OpenBMC.",
+    "definitions": {},
+    "owningEntity": "OpenBMC",
+    "title": "#OpenBMCManager"
+}
