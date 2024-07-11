@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca60fed3_07c486f6",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-11T06:03:03Z",
+      "side": 1,
+      "message": "needs, \"else internal error\" logic.",
+      "revId": "92dac0b0090226ae8ad8b4ba115cb74b03581a4f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7576ce91_dc831a51",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-11T06:03:03Z",
+      "side": 1,
+      "message": "This block of code is copy pasted a lot.  Please wrap into a method and unit test it.",
+      "range": {
+        "startLine": 415,
+        "startChar": 0,
+        "endLine": 430,
+        "endChar": 20
+      },
+      "revId": "92dac0b0090226ae8ad8b4ba115cb74b03581a4f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05de35bc_36eeb1cc",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-11T06:03:03Z",
+      "side": 1,
+      "message": "We\u0027re at the point where this block of code need deduplicated before anything more is added to it.  There are 8 instances where essentially identical code is called.  They need reduced.",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 9
+      },
+      "revId": "92dac0b0090226ae8ad8b4ba115cb74b03581a4f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
