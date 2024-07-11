@@ -28,6 +28,7 @@
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
 #include "utils/query_param.hpp"
+#include "utils/time_utils.hpp"
 
 #include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
@@ -347,6 +348,7 @@ class InventoryItem
     std::string model;
     std::string partNumber;
     std::string serialNumber;
+    std::string buildDate;
     std::set<std::string> sensors;
     std::string ledObjectPath;
     LedState ledState = LedState::UNKNOWN;
@@ -1405,6 +1407,21 @@ inline void storeInventoryItemData(
                     {
                         inventoryItem.partNumber = *value;
                     }
+                }
+
+                if (name == "BuildDate")
+                {
+                    const std::string* value =
+                        std::get_if<std::string>(&dbusValue);
+                    std::optional<std::string> valueStr =
+                        redfish::time_utils::getDateTimeIso8601(*value);
+                    if (!valueStr)
+                    {
+                        messages::internalError();
+                        return;
+                    }
+
+                    inventoryItem.buildDate = *valueStr;
                 }
             }
         }
