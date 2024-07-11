@@ -16,6 +16,24 @@
       "message": "Hi EdTanous\n\nI am trying to understand, how does this new enum help, anyways only 2 possible values and \nVerifyCertificate redfish property also boolean type, isn\u0027t additional logic to convert enum to bool and bool to enum ?\n\nThank you",
       "revId": "c68978086628eb3f42e754da53ff12f9cca49d6c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7080ec7_6bca6bfb",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-11T05:23:58Z",
+      "side": 1,
+      "message": "it makes it more clear what the boolean means",
+      "parentUuid": "bff3e86d_82aae89f",
+      "revId": "c68978086628eb3f42e754da53ff12f9cca49d6c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
