@@ -2010,6 +2010,8 @@ inline void requestRoutesManager(App& app)
             boost::urls::format("/redfish/v1/Managers/{}#/Oem/OpenBmc",
                                 BMCWEB_REDFISH_MANAGER_URI_NAME);
 
+        oemOpenbmc["WebuiEnabled"] = persistent_data::getConfig().webuiEnabled;
+
         nlohmann::json::object_t certificates;
         certificates["@odata.id"] = boost::urls::format(
             "/redfish/v1/Managers/{}/Truststore/Certificates",
@@ -2267,6 +2269,7 @@ inline void requestRoutesManager(App& app)
         std::optional<nlohmann::json::object_t> fanZones;
         std::optional<nlohmann::json::object_t> stepwiseControllers;
         std::optional<std::string> profile;
+        std::optional<bool> webuiEnabled;
 
         // clang-format off
         if (!json_util::readJsonPatch(req, asyncResp->res,
@@ -2276,7 +2279,8 @@ inline void requestRoutesManager(App& app)
               "Oem/OpenBmc/Fan/FanZones", fanZones,
               "Oem/OpenBmc/Fan/PidControllers", pidControllers,
               "Oem/OpenBmc/Fan/Profile", profile,
-              "Oem/OpenBmc/Fan/StepwiseControllers", stepwiseControllers
+              "Oem/OpenBmc/Fan/StepwiseControllers", stepwiseControllers,
+              "Oem/OpenBmc/WebuiEnabled", webuiEnabled
         ))
         {
             return;
@@ -2329,6 +2333,12 @@ inline void requestRoutesManager(App& app)
         if (datetime)
         {
             setDateTime(asyncResp, *datetime);
+        }
+        if (webuiEnabled)
+        {
+            persistent_data::ConfigFile& config = persistent_data::getConfig();
+            config.webuiEnabled = *webuiEnabled;
+            config.writeData();
         }
     });
 }
