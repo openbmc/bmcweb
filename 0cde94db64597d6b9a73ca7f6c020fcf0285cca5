@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83451b85_ceaeb24b",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-07-11T21:18:07Z",
+      "side": 1,
+      "message": "include vector, string,",
+      "revId": "0cde94db64597d6b9a73ca7f6c020fcf0285cca5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
