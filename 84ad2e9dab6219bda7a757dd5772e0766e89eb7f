@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "426de302_57a37bcf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000936
+      },
+      "writtenOn": "2024-07-11T19:24:36Z",
+      "side": 1,
+      "message": "So since you still add a cookie I assume you want to allow web browsers to use mTLS to authenticate to bmcweb. But AFAICT you still need CSRF protection in this case or else a malicious unrelated tab in a web browser with that client certificate would be able to covertly run any requests any time.\nI might be missing something but it looks that getting mTLS with web-browsers done right security wise requires much more effort and then would be out of scope for this patch if at all possible (without additional authentication factors).\nProbably mTLS for web browsers should be declared unsupported in this patch, no cookies sent at all and then if a good solution found re-introduced later? And if there\u0027s a reasonable way then probably getting WebSockets working can be done too?\nEither way to me it looks like this part requires more clarifications so that even someone inexperienced with web like me could follow the ideas behind security of the solution.",
+      "range": {
+        "startLine": 34,
+        "startChar": 1,
+        "endLine": 36,
+        "endChar": 25
+      },
+      "revId": "84ad2e9dab6219bda7a757dd5772e0766e89eb7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f4bebf9_eba4d42b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000936
+      },
+      "writtenOn": "2024-07-11T19:24:36Z",
+      "side": 1,
+      "message": "The code all looks nice but I do have a question about that cookie...",
+      "revId": "84ad2e9dab6219bda7a757dd5772e0766e89eb7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "000ed86f_ccdc0e7b",
+        "filename": "include/authentication.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1000936
+      },
+      "writtenOn": "2024-07-11T19:24:36Z",
+      "side": 1,
+      "message": "I think you might want to specify `Path\u003d/` here or else multiple cookies with the same name are going to be created and even though it wouldn\u0027t be breaking anything (I guess) that\u0027s not intended.",
+      "range": {
+        "startLine": 192,
+        "startChar": 0,
+        "endLine": 194,
+        "endChar": 0
+      },
+      "revId": "84ad2e9dab6219bda7a757dd5772e0766e89eb7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
