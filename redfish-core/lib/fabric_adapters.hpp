@@ -72,11 +72,12 @@ inline void
         const std::string* model = nullptr;
         const std::string* partNumber = nullptr;
         const std::string* sparePartNumber = nullptr;
+        const std::string* buildDate = nullptr;
 
         const bool success = sdbusplus::unpackPropertiesNoThrow(
             dbus_utils::UnpackErrorPrinter(), propertiesList, "SerialNumber",
             serialNumber, "Model", model, "PartNumber", partNumber,
-            "SparePartNumber", sparePartNumber);
+            "SparePartNumber", sparePartNumber, "BuildDate", buildDate);
 
         if (!success)
         {
@@ -102,6 +103,26 @@ inline void
         if (sparePartNumber != nullptr && !sparePartNumber->empty())
         {
             asyncResp->res.jsonValue["SparePartNumber"] = *sparePartNumber;
+        }
+
+        if (buildDate != nullptr)
+        {
+            // The date of item manufacture in ISO 8601 format, either as
+            // YYYYMMDD or YYYYMMDDThhmmssZ
+            std::string valueStr = *buildDate;
+            if (valueStr.size() == 8)
+            {
+                valueStr.insert(4, 1, '-');
+                valueStr.insert(7, 1, '-');
+            }
+            if (valueStr.size() == 16)
+            {
+                valueStr.insert(4, 1, '-');
+                valueStr.insert(7, 1, '-');
+                valueStr.insert(13, 1, ':');
+                valueStr.insert(16, 1, ':');
+            }
+            asyncResp->res.jsonValue["ProductionDate"] = valueStr;
         }
     });
 }

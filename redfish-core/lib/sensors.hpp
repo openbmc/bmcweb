@@ -345,6 +345,7 @@ class InventoryItem
     std::string model;
     std::string partNumber;
     std::string serialNumber;
+    std::string buildDate;
     std::set<std::string> sensors;
     std::string ledObjectPath;
     LedState ledState = LedState::UNKNOWN;
@@ -1402,6 +1403,31 @@ inline void storeInventoryItemData(
                     if (value != nullptr)
                     {
                         inventoryItem.partNumber = *value;
+                    }
+                }
+
+                if (name == "BuildDate")
+                {
+                    const std::string* value =
+                        std::get_if<std::string>(&dbusValue);
+                    // The date of item manufacture in ISO 8601 format, either
+                    // as YYYYMMDD or YYYYMMDDThhmmssZ
+                    std::string valueStr = *value;
+                    if (valueStr.size() == 8)
+                    {
+                        valueStr.insert(4, 1, '-');
+                        valueStr.insert(7, 1, '-');
+                    }
+                    if (valueStr.size() == 16)
+                    {
+                        valueStr.insert(4, 1, '-');
+                        valueStr.insert(7, 1, '-');
+                        valueStr.insert(13, 1, ':');
+                        valueStr.insert(16, 1, ':');
+                    }
+                    if (!valueStr.empty())
+                    {
+                        inventoryItem.buildDate = valueStr;
                     }
                 }
             }
