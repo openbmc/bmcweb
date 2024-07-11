@@ -2,6 +2,7 @@
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "http_utility.hpp"
+#include "persistent_data.hpp"
 
 #include <boost/url/format.hpp>
 #include <boost/url/url.hpp>
@@ -10,7 +11,7 @@ namespace forward_unauthorized
 {
 
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-static bool hasWebuiRoute = false;
+static bool webuiInstalled = false;
 
 inline void sendUnauthorized(std::string_view url,
                              std::string_view xRequestedWith,
@@ -21,8 +22,8 @@ inline void sendUnauthorized(std::string_view url,
     if (http_helpers::isContentTypeAllowed(
             accept, http_helpers::ContentType::HTML, false /*allowWildcard*/))
     {
-        // If we have a webui installed, redirect to that login page
-        if (hasWebuiRoute)
+        // If we have a webui installed and enabled, redirect to that login page
+        if (webuiInstalled && persistent_data::getConfig().webuiEnabled)
         {
             boost::urls::url forward = boost::urls::format("/?next={}#/login",
                                                            url);
