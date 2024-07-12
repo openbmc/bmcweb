@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "b85d2695_7be6927f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000936
+      },
+      "writtenOn": "2024-07-12T17:32:59Z",
+      "side": 1,
+      "message": "\u003e what clarifications are you looking for?\n\nLet me try to rephrase. I have an impression that (presuming bmcweb should be secure by default) the right way to solve the TODO would be to disable sending of all cookies, including isAuthenticated, to discourage webui developers from trying to use mTLS altogether because with bmcweb as it currently is can not be made secure anyhow as it lacks any kind of CSRF protection for mTLS connections (I couldn\u0027t find any specific guidance about this aspect of mTLS at OWASP but it\u0027s essentially the same as basic auth, if you allow basic auth for web browser you need CSRF protections).\n\nAnd in any case when a code is touched which has security implications it would be nice to see what rationale, what idea was behind the decision to make it the way it is. In this case you decided to leave the code sending the cookie as it was but it\u0027s not clear whether you considered security implications of that or not. If you see a practical way how webui can be improved to start using it without compromising security, an outline would be nice to have in a commit message. If you think that\u0027s not possible then why keep the dead code which can also encourage frontend developers to try using it without knowing it shouldn\u0027t be done?",
+      "parentUuid": "3382c278_87060010",
+      "range": {
+        "startLine": 34,
+        "startChar": 1,
+        "endLine": 36,
+        "endChar": 25
+      },
+      "revId": "84ad2e9dab6219bda7a757dd5772e0766e89eb7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "6f4bebf9_eba4d42b",
