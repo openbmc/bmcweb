@@ -259,7 +259,7 @@ inline nlohmann::json vmItemTemplate(const std::string& name,
     item["MediaTypes"] = nlohmann::json::array_t({"CD", "USBStick"});
     item["TransferMethod"] = "Stream";
     item["Oem"]["OpenBMC"]["@odata.type"] =
-        "#OemVirtualMedia.v1_0_0.VirtualMedia";
+        "#OpenBMCVirtualMedia.v1_0_0.VirtualMedia";
     item["Oem"]["OpenBMC"]["@odata.id"] = boost::urls::format(
         "/redfish/v1/Managers/{}/VirtualMedia/{}#/Oem/OpenBMC", name, resName);
 

@@ -17,11 +17,11 @@
 
   <edmx:DataServices>
 
-    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OemVirtualMedia">
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OpenBMCVirtualMedia">
       <Annotation Term="Redfish.OwningEntity" String="OpenBMC"/>
     </Schema>
 
-    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OemVirtualMedia.v1_0_0">
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OpenBMCVirtualMedia.v1_0_0">
       <Annotation Term="Redfish.OwningEntity" String="OpenBMC"/>
       <Annotation Term="Redfish.Release" String="1.0"/>
 
