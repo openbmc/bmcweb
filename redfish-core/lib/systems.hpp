@@ -2817,7 +2817,7 @@ inline void handleComputerSystemCollectionGet(
             BMCWEB_LOG_CRITICAL("Count wasn't found??");
             return;
         }
-        uint64_t* count = val->get_ptr<uint64_t*>();
+        int64_t* count = val->get_ptr<int64_t*>();
         if (count == nullptr)
         {
             BMCWEB_LOG_CRITICAL("Count wasn't found??");
