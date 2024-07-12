@@ -344,15 +344,15 @@ class ConfigFile
         for (const auto& it :
              EventServiceStore::getInstance().subscriptionsConfigMap)
         {
-            std::shared_ptr<UserSubscription> subValue = it.second;
-            if (subValue->subscriptionType == "SSE")
+            const UserSubscription& subValue = *it.second;
+            if (subValue.subscriptionType == "SSE")
             {
                 BMCWEB_LOG_DEBUG("The subscription type is SSE, so skipping.");
                 continue;
             }
             nlohmann::json::object_t headers;
             for (const boost::beast::http::fields::value_type& header :
-                 subValue->httpHeaders)
+                 subValue.httpHeaders)
             {
                 // Note, these are technically copies because nlohmann doesn't
                 // support key lookup by std::string_view.  At least the
@@ -364,19 +364,19 @@ class ConfigFile
 
             nlohmann::json::object_t subscription;
 
-            subscription["Id"] = subValue->id;
-            subscription["Context"] = subValue->customText;
-            subscription["DeliveryRetryPolicy"] = subValue->retryPolicy;
-            subscription["Destination"] = subValue->destinationUrl;
-            subscription["EventFormatType"] = subValue->eventFormatType;
+            subscription["Id"] = subValue.id;
+            subscription["Context"] = subValue.customText;
+            subscription["DeliveryRetryPolicy"] = subValue.retryPolicy;
+            subscription["Destination"] = subValue.destinationUrl;
+            subscription["EventFormatType"] = subValue.eventFormatType;
             subscription["HttpHeaders"] = std::move(headers);
-            subscription["MessageIds"] = subValue->registryMsgIds;
-            subscription["Protocol"] = subValue->protocol;
-            subscription["RegistryPrefixes"] = subValue->registryPrefixes;
-            subscription["ResourceTypes"] = subValue->resourceTypes;
-            subscription["SubscriptionType"] = subValue->subscriptionType;
+            subscription["MessageIds"] = subValue.registryMsgIds;
+            subscription["Protocol"] = subValue.protocol;
+            subscription["RegistryPrefixes"] = subValue.registryPrefixes;
+            subscription["ResourceTypes"] = subValue.resourceTypes;
+            subscription["SubscriptionType"] = subValue.subscriptionType;
             subscription["MetricReportDefinitions"] =
-                subValue->metricReportDefinitions;
+                subValue.metricReportDefinitions;
 
             subscriptions.emplace_back(std::move(subscription));
         }
