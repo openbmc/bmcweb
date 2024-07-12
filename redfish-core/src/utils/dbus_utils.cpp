@@ -133,7 +133,7 @@ void afterSetPropertyAction(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     // Only set 204 if another error hasn't already happened.
     if (asyncResp->res.result() == boost::beast::http::status::ok)
     {
-        asyncResp->res.result(boost::beast::http::status::no_content);
+        messages::success(asyncResp->res);
     }
 };
 } // namespace details
