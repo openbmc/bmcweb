@@ -77,7 +77,7 @@ namespace redfish
         "MetricReportDefinitionCollection",
         "OemComputerSystem",
         "OemManager",
-        "OemVirtualMedia",
+        "OpenBMCVirtualMedia",
         "OpenBMCAccountService",
         "OperatingConfig",
         "OperatingConfigCollection",
