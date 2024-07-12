@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1e3c0728_b238eeb0",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2820,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-12T18:07:27Z",
+      "side": 1,
+      "message": "please don\u0027t use auto here.  nlohmann::json\u0026",
+      "range": {
+        "startLine": 2820,
+        "startChar": 8,
+        "endLine": 2820,
+        "endChar": 12
+      },
+      "revId": "90907a8ad559e37d6af04d5cbd3233ceb3b53582",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d6881849_13dd4f58",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 2
