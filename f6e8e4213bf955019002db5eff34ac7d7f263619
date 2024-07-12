@@ -71,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e77ae35_705bddd0",
+        "filename": "redfish-core/schema/oem/openbmc/json-schema/OpenBMCAccountService.json",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-12T00:20:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f18d4d8_c5442f3c",
+      "revId": "f6e8e4213bf955019002db5eff34ac7d7f263619",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "34cbe5e3_4485a17e",
@@ -102,6 +120,24 @@
       "side": 1,
       "message": "I\u0027ll answer better in the commit message, but to make it optional to install, we need to add a meson file, and it made sense to move it at the same time (because that\u0027s easier in meson).",
       "parentUuid": "34cbe5e3_4485a17e",
+      "revId": "f6e8e4213bf955019002db5eff34ac7d7f263619",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2a7f13b_fc1c9397",
+        "filename": "static/images/DMTF_Redfish_logo_2017.svg",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-12T00:20:08Z",
+      "side": 1,
+      "message": "Answered in the commit message.",
+      "parentUuid": "e63a4c5e_216e164b",
       "revId": "f6e8e4213bf955019002db5eff34ac7d7f263619",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
