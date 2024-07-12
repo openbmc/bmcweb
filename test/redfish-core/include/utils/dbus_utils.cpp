@@ -29,8 +29,20 @@ TEST(DbusUtils, AfterPropertySetSuccess)
     afterSetProperty(asyncResp, "MyRedfishProperty",
                      nlohmann::json("MyRedfishValue"), ec, msg);
 
-    EXPECT_EQ(asyncResp->res.result(), boost::beast::http::status::no_content);
-    EXPECT_TRUE(asyncResp->res.jsonValue.empty());
+    EXPECT_EQ(asyncResp->res.result(), boost::beast::http::status::ok);
+    EXPECT_EQ(asyncResp->res.jsonValue,
+              R"({
+                    "@Message.ExtendedInfo": [
+                        {
+                            "@odata.type": "#Message.v1_1_1.Message",
+                            "Message": "The request completed successfully.",
+                            "MessageArgs": [],
+                            "MessageId": "Base.1.18.1.Success",
+                            "MessageSeverity": "OK",
+                            "Resolution": "None."
+                        }
+                    ]
+                })"_json);
 }
 
 TEST(DbusUtils, AfterPropertySetInternalError)
