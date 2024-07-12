@@ -1965,8 +1965,8 @@ inline void
         nlohmann::json& oemPFR =
             asyncResp->res.jsonValue["Oem"]["OpenBmc"]["FirmwareProvisioning"];
         asyncResp->res.jsonValue["Oem"]["OpenBmc"]["@odata.type"] =
-            "#OemComputerSystem.OpenBmc";
-        oemPFR["@odata.type"] = "#OemComputerSystem.FirmwareProvisioning";
+            "#OpenBMCComputerSystem.v1_0_0.OpenBmc";
+        oemPFR["@odata.type"] = "#OpenBMCComputerSystem.FirmwareProvisioning";
 
         if (ec)
         {
