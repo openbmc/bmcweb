@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "107aa7ee_eaaa00d3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-12T18:09:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7de509c_580d2b6c",
+      "revId": "a31f1191735e689fc96961bd0f416519c15e80df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d694018a_b386fcbe",
@@ -49,6 +67,24 @@
       "side": 1,
       "message": "Still WIP.  I mostly just rebased it.",
       "parentUuid": "d694018a_b386fcbe",
+      "revId": "a31f1191735e689fc96961bd0f416519c15e80df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba584eb4_30bb237c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-12T18:09:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "567d0042_3c9417fd",
       "revId": "a31f1191735e689fc96961bd0f416519c15e80df",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
