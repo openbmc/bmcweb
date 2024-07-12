@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84a0f520_b5a2b591",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-12T03:50:20Z",
+      "side": 1,
+      "message": "I’m not understanding what the crash is.  yes, this is making a copy of a shared ptr instead of a reference.  why is that a problem?",
+      "revId": "722d99dc952186a67d28e8acfa75246c8a0711c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
