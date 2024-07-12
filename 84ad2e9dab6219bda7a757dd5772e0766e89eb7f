@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "87b9e930_e6599821",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-12T22:26:23Z",
+      "side": 1,
+      "message": "\u003e \u003e what clarifications are you looking for?\n\u003e \n\u003e Let me try to rephrase. I have an impression that (presuming bmcweb should be secure by default) the right way to solve the TODO would be to disable sending of all cookies, including isAuthenticated,\n\nSorry to cut in the middle of a sentence, but IsAuthenticated has no impact on the service security.  It is only a \"hint\" to the UI for the first load that it probably doesn\u0027t need to display the login page.\n\n\u003e to discourage webui developers from trying to use mTLS altogether because with bmcweb as it currently is can not be made secure anyhow as it lacks any kind of CSRF protection for mTLS connections \n\u003e (I couldn\u0027t find any specific guidance about this aspect of mTLS at OWASP but it\u0027s essentially the same as basic auth, if you allow basic auth for web browser you need CSRF protections).\n\nI\u0027m not sure why you think they\u0027re similar, but they\u0027re really not similar at all, aside from the browser keeping a cache of each.  At a minimum, MTLS certificates have a valid by date and valid before date, that limit the exposure if they\u0027re leaked.  The certificate key itself is also never present on the wire as it is in basic auth.\n\nIf you\u0027re going to make statements about the security or non-security of bmcweb, please try to quote an authority on the subject (it doesn\u0027t have to be owasp).  Debating complex undocumented security principles in a code review isn\u0027t generally fruitful in my experience.\n\nThere are plenty of deployments where CSRF isn\u0027t necessarily required for MTLS, and to my knowledge, CSRF has never been enforced on a mutual TLS gui or in bmcweb, so that would be new, that I\u0027m happy to discuss in a patches that want to add that.\n\n\nThe goal here isn\u0027t to encourage or discourage developers from doing anything.  If someone wants the webui to work with mutual TLS, they\u0027ll find a way to make it work and test it.  I haven\u0027t seen that happen, so the best I can do here is _try_ to keep the code similar for the paths that used to work.\n\n\n\u003e \n\u003e And in any case when a code is touched which has security implications it would be nice to see what rationale, what idea was behind the decision to make it the way it is.\n\nThat\u0027s certainly something I try to ask for in reviews.  You are welcome to do it as well, although in this case, this was literally just removing extra things that were known to not be used (hence the TODO).  It didn\u0027t really have anything to do with security. \n\n\n\u003e In this case you decided to leave the code sending the cookie as it was but it\u0027s not clear whether you considered security implications of that or not.\n\nYou mean the IsAuthenticated cookie?  That cookie has nothing to do with security, which is why it\u0027s not documented in the commit message.\n\n\u003e If you see a practical way how webui can be improved to start using it without compromising security, an outline would be nice to have in a commit message.\n\nThat would be for putting in a commit message in a patch about improving the webui, or a mailing list discussion.  Any \"practical way\" i suggest would start by reading information on the topic of mutual TLS authenticated websites and APIs, but that\u0027s something anyone can do.\n\n\u003e If you think that\u0027s not possible then why keep the dead code which can also encourage frontend developers to try using it without knowing it shouldn\u0027t be done?\n\nWhy wouldn\u0027t we encourage developers to add new things or fix bugs in existing implementations?",
+      "parentUuid": "b85d2695_7be6927f",
+      "range": {
+        "startLine": 34,
+        "startChar": 1,
+        "endLine": 36,
+        "endChar": 25
+      },
+      "revId": "84ad2e9dab6219bda7a757dd5772e0766e89eb7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "6f4bebf9_eba4d42b",
