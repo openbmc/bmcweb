@@ -17,12 +17,12 @@
     </edmx:Reference>
 
     <edmx:DataServices>
-        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OemComputerSystem">
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OpenBMCComputerSystem">
             <ComplexType Name="Oem" BaseType="Resource.OemObject">
                 <Annotation Term="OData.AdditionalProperties" Bool="true" />
-                <Annotation Term="OData.Description" String="OemComputerSystem Oem properties." />
+                <Annotation Term="OData.Description" String="OpenBMCComputerSystem Oem properties." />
                 <Annotation Term="OData.AutoExpand"/>
-                <Property Name="OpenBmc" Type="OemComputerSystem.OpenBmc"/>
+                <Property Name="OpenBmc" Type="OpenBMCComputerSystem.OpenBmc"/>
             </ComplexType>
 
             <ComplexType Name="OpenBmc" BaseType="Resource.OemObject">
@@ -30,10 +30,10 @@
                 <Annotation Term="OData.Description" String="Oem properties for OpenBmc." />
                 <Annotation Term="Redfish.DynamicPropertyPatterns">
                     <Collection>
-                        <NavigationProperty Type="OemComputerSystem.FirmwareProvisioning">
+                        <NavigationProperty Type="OpenBMCComputerSystem.FirmwareProvisioning">
                             <Annotation Term="OData.AutoExpand"/>
                             <PropertyValue Property="Pattern" String="[A-Za-z0-9_.:]+" />
-                            <PropertyValue Property="Type" String="OemComputerSystem.FirmwareProvisioning" />
+                            <PropertyValue Property="Type" String="OpenBMCComputerSystem.FirmwareProvisioning" />
                         </NavigationProperty>
                     </Collection>
                 </Annotation>
@@ -42,7 +42,7 @@
             <ComplexType Name="FirmwareProvisioning" BaseType="Resource.OemObject">
                 <Annotation Term="OData.AdditionalProperties" Bool="false" />
                 <Annotation Term="OData.Description" String="Configuration data for platform firmware provisioning." />
-                <Property Name="ProvisioningStatus" Type="OemComputerSystem.FirmwareProvisioningStatus">
+                <Property Name="ProvisioningStatus" Type="OpenBMCComputerSystem.FirmwareProvisioningStatus">
                     <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
                     <Annotation Term="OData.Description" String="This indicates platform firmware provisioning state."/>
                     <Annotation Term="OData.LongDescription" String="The value of this property indicating provisioning status of platform firmware."/>
