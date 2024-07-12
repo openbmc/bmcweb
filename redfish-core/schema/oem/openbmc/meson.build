@@ -2,7 +2,7 @@
 schemas = {
     'insecure-disable-auth': 'OpenBMCAccountService',
     'redfish-oem-manager-fan-data': 'OpenBMCManager',
-    'redfish-provisioning-feature': 'OemComputerSystem',
+    'redfish-provisioning-feature': 'OpenBMCComputerSystem',
     #'vm-nbdproxy': 'OpenBMCVirtualMedia',
 }
 
