@@ -3,7 +3,7 @@ schemas = {
     'insecure-disable-auth': 'OpenBMCAccountService',
     'redfish-oem-manager-fan-data': 'OpenBMCManager',
     'redfish-provisioning-feature': 'OemComputerSystem',
-    #'vm-nbdproxy': 'OemVirtualMedia',
+    #'vm-nbdproxy': 'OpenBMCVirtualMedia',
 }
 
 foreach option_key, schema : schemas
