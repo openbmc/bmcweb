@@ -1,0 +1,14 @@
+{
+    "Copyright": "Copyright 2024 OpenBMC.",
+    "RedfishSchema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "ODataSchema": "http://redfish.dmtf.org/schemas/v1/odata-v4.json",
+    "Location": "https://github.com/openbmc/bmcweb/tree/master/redfish-core/schema/oem/openbmc/json-schema/",
+    "ResourceLocation": "https://github.com/openbmc/bmcweb/tree/master/redfish-core/schema/oem/openbmc/json-schema/",
+    "DoNotWrite": [
+        "Volume.",
+        "VolumeCollection.",
+        "RedfishError.",
+        "RedfishExtensions.",
+        "Validation."
+    ]
+}
