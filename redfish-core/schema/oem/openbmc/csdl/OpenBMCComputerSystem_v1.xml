@@ -17,13 +17,24 @@
     </edmx:Reference>
 
     <edmx:DataServices>
-        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OemComputerSystem">
+
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OpenBMCComputerSystem">
+            <Annotation Term="Redfish.OwningEntity" String="OpenBMC"/>
+            <Annotation Term="OData.Description" String="OpenBMC extensions to the standard account service."/>
+            <Annotation Term="Redfish.Uris">
+            <Collection>
+                <String>/redfish/v1/Systems/{SystemId}#/OpeBMC/OpenBMCAccountService</String>
+            </Collection>
+            </Annotation>
+        </Schema>
+    
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OpenBMCComputerSystem.v1_0_0">
             <ComplexType Name="Oem" BaseType="Resource.OemObject">
                 <Annotation Term="OData.AdditionalProperties" Bool="true" />
-                <Annotation Term="OData.Description" String="OemComputerSystem Oem properties." />
+                <Annotation Term="OData.Description" String="OpenBMCComputerSystem Oem properties." />
                 <Annotation Term="OData.AutoExpand"/>
-                <Property Name="OpenBmc" Type="OemComputerSystem.OpenBmc"/>
-                <Property Name="IBM" Type="OemComputerSystem.IBM"/>
+                <Property Name="OpenBmc" Type="OpenBMCComputerSystem.OpenBmc"/>
+                <Property Name="IBM" Type="OpenBMCComputerSystem.IBM"/>
             </ComplexType>
 
             <ComplexType Name="OpenBmc" BaseType="Resource.OemObject">
@@ -31,10 +42,10 @@
                 <Annotation Term="OData.Description" String="Oem properties for OpenBmc." />
                 <Annotation Term="Redfish.DynamicPropertyPatterns">
                     <Collection>
-                        <NavigationProperty Type="OemComputerSystem.FirmwareProvisioning">
+                        <NavigationProperty Type="OpenBMCComputerSystem.FirmwareProvisioning">
                             <Annotation Term="OData.AutoExpand"/>
                             <PropertyValue Property="Pattern" String="[A-Za-z0-9_.:]+" />
-                            <PropertyValue Property="Type" String="OemComputerSystem.FirmwareProvisioning" />
+                            <PropertyValue Property="Type" String="OpenBMCComputerSystem.FirmwareProvisioning" />
                         </NavigationProperty>
                     </Collection>
                 </Annotation>
@@ -43,7 +54,7 @@
             <ComplexType Name="FirmwareProvisioning" BaseType="Resource.OemObject">
                 <Annotation Term="OData.AdditionalProperties" Bool="false" />
                 <Annotation Term="OData.Description" String="Configuration data for platform firmware provisioning." />
-                <Property Name="ProvisioningStatus" Type="OemComputerSystem.FirmwareProvisioningStatus">
+                <Property Name="ProvisioningStatus" Type="OpenBMCComputerSystem.FirmwareProvisioningStatus">
                     <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
                     <Annotation Term="OData.Description" String="This indicates platform firmware provisioning state."/>
                     <Annotation Term="OData.LongDescription" String="The value of this property indicating provisioning status of platform firmware."/>
@@ -103,14 +114,14 @@
             </ComplexType>
         </Schema>
 
-        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OemComputerSystem.v1_0_0">
-            <ComplexType Name="IBM" BaseType="OemComputerSystem.IBM">
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OpenBMCComputerSystem.v1_0_0">
+            <ComplexType Name="IBM" BaseType="OpenBMCComputerSystem.IBM">
                 <Property Name="EnabledPanelFunctions" Type="Collection(Edm.Int64)">
                   <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
                   <Annotation Term="OData.Description" String="List of enabled panel functions."/>
                   <Annotation Term="OData.LongDescription" String="This property shall contain the list of enabled panel functions."/>
                 </Property>
-                <Property Name="ChapData" Type="OemComputerSystem.v1_0_0.ChapData">
+                <Property Name="ChapData" Type="OpenBMCComputerSystem.v1_0_0.ChapData">
                   <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
                   <Annotation Term="OData.Description" String="ChapData details to Host."/>
                   <Annotation Term="OData.LongDescription" String="This property shall contain ChapData."/>
@@ -136,7 +147,7 @@
             <Action Name="ExecutePanelFunction" IsBound="true">
                 <Annotation Term="OData.Description" String="This action executes a panel function."/>
                 <Annotation Term="OData.LongDescription" String="This action executes a panel function if the function is enabled."/>
-                <Parameter Name="FuncNo" Type="OemComputerSystem.v1_0_0.OemActions" Nullable="false">
+                <Parameter Name="FuncNo" Type="OpenBMCComputerSystem.v1_0_0.OemActions" Nullable="false">
                     <Annotation Term="OData.Description" String="Panel function number."/>
                     <Annotation Term="OData.LongDescription" String="This parameter shall contain a  panel function number to be executed."/>
                 </Parameter>

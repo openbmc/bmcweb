@@ -1418,8 +1418,8 @@ inline void
         nlohmann::json& oemPFR =
             asyncResp->res.jsonValue["Oem"]["OpenBmc"]["FirmwareProvisioning"];
         asyncResp->res.jsonValue["Oem"]["OpenBmc"]["@odata.type"] =
-            "#OemComputerSystem.OpenBmc";
-        oemPFR["@odata.type"] = "#OemComputerSystem.FirmwareProvisioning";
+            "#OpenBMCComputerSystem.v1_0_0.OpenBmc";
+        oemPFR["@odata.type"] = "#OpenBMCComputerSystem.FirmwareProvisioning";
 
         if (ec)
         {
@@ -1579,8 +1579,7 @@ inline void
     {
         BMCWEB_LOG_DEBUG("Safe mode: {}", *safeMode);
         nlohmann::json& oemSafeMode = asyncResp->res.jsonValue["Oem"];
-        oemSafeMode["@odata.type"] = "#OemComputerSystem.Oem";
-        oemSafeMode["IBM"]["@odata.type"] = "#OemComputerSystem.v1_0_0.IBM";
+        oemSafeMode["IBM"]["@odata.type"] = "#OpenBMCComputerSystem.v1_0_0.IBM";
         oemSafeMode["IBM"]["SafeMode"] = *safeMode;
     }
 }
@@ -2142,8 +2141,7 @@ inline void getEnabledPanelFunctions(
             return;
         }
         nlohmann::json& oem = asyncResp->res.jsonValue["Oem"];
-        oem["@odata.type"] = "#OemComputerSystem.Oem";
-        oem["IBM"]["@odata.type"] = "#OemComputerSystem.v1_0_0.IBM";
+        oem["IBM"]["@odata.type"] = "#OpenBMCComputerSystem.v1_0_0.IBM";
         oem["IBM"]["EnabledPanelFunctions"] = enabledFuncs;
     });
 }
@@ -2262,7 +2260,7 @@ inline void requestRoutesSystemActionsOemExecutePanelFunction(App& app)
 {
     BMCWEB_ROUTE(
         app,
-        "/redfish/v1/Systems/system/Actions/Oem/OemComputerSystem.ExecutePanelFunction/")
+        "/redfish/v1/Systems/system/Actions/Oem/OpenBMCComputerSystem.ExecutePanelFunction/")
         .privileges(redfish::privileges::postComputerSystem)
         .methods(boost::beast::http::verb::post)(std::bind_front(
             handleSystemActionsOemExecutePanelFunctionPost, std::ref(app)));
@@ -2299,7 +2297,7 @@ inline void getChapData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
         }
 
         nlohmann::json& oemIBM = asyncResp->res.jsonValue["Oem"]["IBM"];
-        oemIBM["@odata.type"] = "#OemComputerSystem.v1_0_0.IBM";
+        oemIBM["@odata.type"] = "#OpenBMCComputerSystem.v1_0_0.IBM";
 
         nlohmann::json& chapData = oemIBM["ChapData"];
         chapData["ChapName"] = *chapName;
@@ -2856,8 +2854,8 @@ inline void
     getEnabledPanelFunctions(asyncResp);
 
     nlohmann::json& actionOem = asyncResp->res.jsonValue["Actions"]["Oem"];
-    actionOem["#OemComputerSystem.v1_0_0.ExecutePanelFunction"]["target"] =
-        "/redfish/v1/Systems/system/Actions/Oem/OemComputerSystem.ExecutePanelFunction";
+    actionOem["#OpenBMCComputerSystem.v1_0_0.ExecutePanelFunction"]["target"] =
+        "/redfish/v1/Systems/system/Actions/Oem/OpenBMCComputerSystem.ExecutePanelFunction";
 
     // ChapData
     getChapData(asyncResp);

@@ -1,7 +1,7 @@
 {
-    "$id": "https://github.com/openbmc/bmcweb/tree/master/static/redfish/v1/JsonSchemasOpenBMCComputerSystem.json",
+    "$id": "https://github.com/openbmc/bmcweb/tree/master/redfish-core/schema/oem/openbmc/json-schema/OpenBMCComputerSystem.v1_0_0.json",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2023 OpenBMC.",
+    "copyright": "Copyright 2024 OpenBMC.",
     "definitions": {
         "FirmwareProvisioning": {
             "additionalProperties": false,
@@ -24,7 +24,7 @@
                 "ProvisioningStatus": {
                     "anyOf": [
                         {
-                            "$ref": "#/definitions/FirmwareProvisioningStatus"
+                            "$ref": "https://github.com/openbmc/bmcweb/tree/master/redfish-core/schema/oem/openbmc/json-schema/OpenBMCComputerSystem.json#/definitions/FirmwareProvisioningStatus"
                         },
                         {
                             "type": "null"
@@ -76,17 +76,7 @@
                 "OpenBmc": {
                     "anyOf": [
                         {
-                            "$ref": "#/definitions/OpenBmc"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ]
-                },
-                "IBM": {
-                    "anyOf": [
-                        {
-                            "$ref": "#/definitions/IBM"
+                            "$ref": "https://github.com/openbmc/bmcweb/tree/master/redfish-core/schema/oem/openbmc/json-schema/OpenBMCComputerSystem.json#/definitions/OpenBmc"
                         },
                         {
                             "type": "null"
@@ -256,5 +246,6 @@
             "versionAdded": "v1_0_0"
         }
     },
-    "title": "#OpenBMCComputerSystem"
+    "owningEntity": "OpenBMC",
+    "title": "#OpenBMCComputerSystem.v1_0_0"
 }
