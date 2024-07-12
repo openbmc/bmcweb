@@ -51,6 +51,23 @@
       "message": "I\u0027m moved this out of WIP;  I\u0027m not sure why it was put in that state.  I suspect this can merge.",
       "revId": "50b93977515de01417a55c089def948d60825743",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e92e3ba_60de14fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-12T16:58:13Z",
+      "side": 1,
+      "message": "It\u0027s looking like this behavior is correct to the standard;  Redfish usecase checker is wrong.",
+      "revId": "50b93977515de01417a55c089def948d60825743",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
