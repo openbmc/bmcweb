@@ -70,6 +70,30 @@
       },
       "revId": "3b7a0b7600db2c6bd0e959ca7b262e0e3df15c50",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01c84445_14d1c759",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2826,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-07-12T19:58:57Z",
+      "side": 1,
+      "message": "I might need your suggestion here, Ed.\n\nSo, after checking for is_number_integer(), can we just do a direct static_cast?\n`static_cast\u003cuint64_t\u003e(countRef.get\u003cint64_t\u003e())`",
+      "parentUuid": "48e83ea6_e436f4f4",
+      "range": {
+        "startLine": 2826,
+        "startChar": 25,
+        "endLine": 2826,
+        "endChar": 37
+      },
+      "revId": "3b7a0b7600db2c6bd0e959ca7b262e0e3df15c50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
