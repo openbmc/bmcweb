@@ -93,6 +93,30 @@
       },
       "revId": "90907a8ad559e37d6af04d5cbd3233ceb3b53582",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61e448ab_f0acc0ce",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2821,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-12T19:49:51Z",
+      "side": 1,
+      "message": "Latest code is still calling is_number.  I\u0027m not sure why this was marked done?",
+      "parentUuid": "5d74377d_3be4ec1e",
+      "range": {
+        "startLine": 2821,
+        "startChar": 22,
+        "endLine": 2821,
+        "endChar": 31
+      },
+      "revId": "90907a8ad559e37d6af04d5cbd3233ceb3b53582",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
