@@ -46,6 +46,29 @@
       },
       "revId": "3281bcf157d2a5a7e12eea199e280fc21db3b3fb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c9ec12e_7d841e58",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 2820,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-13T19:30:38Z",
+      "side": 0,
+      "message": "Just change this to int64_t and be done with it.\n\nIF you MUST handle both, do\n\n        uint64_t* count \u003d val-\u003eget_ptr\u003cuint64_t*\u003e();\n        if (count !\u003d nullptr)\n        {\n            *count++;\n        }\n        int64_t* icount \u003d val-\u003eget_ptr\u003cint64_t*\u003e();\n        if (icount !\u003d nullptr)\n        {\n            *icount++;\n        }",
+      "range": {
+        "startLine": 2820,
+        "startChar": 39,
+        "endLine": 2820,
+        "endChar": 47
+      },
+      "revId": "3281bcf157d2a5a7e12eea199e280fc21db3b3fb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
