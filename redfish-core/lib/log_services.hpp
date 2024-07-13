@@ -1059,7 +1059,7 @@ inline std::string getDumpEntryPath(const std::string& dumpPath)
     if (dumpPath == "/xyz/openbmc_project/dump/bmc/entry")
     {
         return std::format("/redfish/v1/Managers/{}/LogServices/Dump/Entries/",
-                           BMCWEB_REDFISH_SYSTEM_URI_NAME);
+                           BMCWEB_REDFISH_MANAGER_URI_NAME);
     }
 
     if (dumpPath == "/xyz/openbmc_project/dump/system/entry")
