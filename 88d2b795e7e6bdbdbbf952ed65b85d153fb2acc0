@@ -22,6 +22,30 @@
       },
       "revId": "88d2b795e7e6bdbdbbf952ed65b85d153fb2acc0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "461e3f0f_bab4a2d7",
+        "filename": "redfish-core/src/utils/dbus_utils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-13T19:27:53Z",
+      "side": 1,
+      "message": "Changed to \"success\" which is more correct for that branch.",
+      "parentUuid": "a8e9ed8c_57b47f94",
+      "range": {
+        "startLine": 133,
+        "startChar": 16,
+        "endLine": 133,
+        "endChar": 20
+      },
+      "revId": "88d2b795e7e6bdbdbbf952ed65b85d153fb2acc0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
