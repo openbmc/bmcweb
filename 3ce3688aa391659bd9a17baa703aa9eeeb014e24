@@ -22,6 +22,30 @@
       },
       "revId": "3ce3688aa391659bd9a17baa703aa9eeeb014e24",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37b35831_ffdaf5fe",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1285,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-14T21:35:41Z",
+      "side": 1,
+      "message": "I\u0027m assuming you mean BMCWEB_META_TLS_COMMON_NAME_PARSING and BMCWEB_MUTUAL_TLS_COMMON_NAME_PARSING_DEFAULT ?\n\nOne sets whether Meta mode is allowed at all, the other sets what the default parsing mode should be.  In your guys case, I suspect you\u0027ll want both meta mode as enabled and as the default.",
+      "parentUuid": "e9ba2e49_4ff76feb",
+      "range": {
+        "startLine": 1283,
+        "startChar": 0,
+        "endLine": 1285,
+        "endChar": 62
+      },
+      "revId": "3ce3688aa391659bd9a17baa703aa9eeeb014e24",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ],
   "submitRequirementResults": []
