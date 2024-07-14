@@ -1,4 +1,28 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9ba2e49_4ff76feb",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1285,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-07-14T21:31:47Z",
+      "side": 1,
+      "message": "Why do we end up needing two options to enable the single thing?",
+      "range": {
+        "startLine": 1283,
+        "startChar": 0,
+        "endLine": 1285,
+        "endChar": 62
+      },
+      "revId": "3ce3688aa391659bd9a17baa703aa9eeeb014e24",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ],
   "submitRequirementResults": []
 }
