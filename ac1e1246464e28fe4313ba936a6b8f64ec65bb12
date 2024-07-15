@@ -22,6 +22,30 @@
       },
       "revId": "ac1e1246464e28fe4313ba936a6b8f64ec65bb12",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a3f7a3d_d4b319f2",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-07-15T01:47:58Z",
+      "side": 0,
+      "message": "Yes, it works, I modified it to:\nconst UserSubscription\u0026 subValue \u003d *it.second;\nTested 500 times and the problem did not appear.",
+      "parentUuid": "2feb98cd_05d1154e",
+      "range": {
+        "startLine": 266,
+        "startChar": 12,
+        "endLine": 266,
+        "endChar": 45
+      },
+      "revId": "ac1e1246464e28fe4313ba936a6b8f64ec65bb12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
