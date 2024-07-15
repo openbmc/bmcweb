@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c7787949_8ffa0647",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-15T15:52:35Z",
+      "side": 1,
+      "message": "I\u0027d like to see this patch merged (as I believe it will help get other things moving forward), so if there\u0027s anything I can do to help, please let me know.\n\none thing to keep in mind, the auth certificates script in the bmcweb script directory might be a good starting point for setting up certificates quickly.",
+      "parentUuid": "6a613044_7adf1893",
+      "revId": "4c7512e3856d21b5f28a725e2c3e00149c77090d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2d548bf1_ef7eca8a",
         "filename": "include/event_service_store.hpp",
         "patchSetId": 11
