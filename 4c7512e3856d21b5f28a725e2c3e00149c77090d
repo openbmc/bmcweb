@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6a613044_7adf1893",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-07-15T07:53:34Z",
+      "side": 1,
+      "message": "yeah I need to test this patch.\nneed little time on this one, will get this updated in a week.\nThank you.",
+      "parentUuid": "f9f00c67_29c02fea",
+      "revId": "4c7512e3856d21b5f28a725e2c3e00149c77090d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2d548bf1_ef7eca8a",
         "filename": "include/event_service_store.hpp",
         "patchSetId": 11
