@@ -2623,8 +2623,8 @@ inline void handleComputerSystemCollectionGet(
     system["@odata.id"] = "/redfish/v1/Systems/system";
     ifaceArray.emplace_back(std::move(system));
     sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/network/hypervisor",
+        *crow::connections::systemBus, "xyz.openbmc_project.Network.Hypervisor",
+        "/xyz/openbmc_project/network/hypervisor/config",
         "xyz.openbmc_project.Network.SystemConfiguration", "HostName",
         [asyncResp](const boost::system::error_code& ec2,
                     const std::string& /*hostName*/) {
@@ -2638,7 +2638,7 @@ inline void handleComputerSystemCollectionGet(
             BMCWEB_LOG_CRITICAL("Count wasn't found??");
             return;
         }
-        uint64_t* count = val->get_ptr<uint64_t*>();
+        int64_t* count = val->get_ptr<int64_t*>();
         if (count == nullptr)
         {
             BMCWEB_LOG_CRITICAL("Count wasn't found??");
