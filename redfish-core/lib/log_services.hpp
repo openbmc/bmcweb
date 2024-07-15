@@ -54,6 +54,7 @@
 #include <cstdio>
 #include <filesystem>
 #include <iterator>
+#include <map>
 #include <memory>
 #include <optional>
 #include <ranges>
@@ -5661,8 +5662,17 @@ static LogParseError
 
     std::string logEntryID;
     std::string entryTimeStr;
-    std::string messageID;
+    const std::string& messageID = "OpenBMC.0.5.AuditLogUsysConfig";
     nlohmann::json messageArgs = nlohmann::json::array();
+    std::map<std::string, uint>::const_iterator mapEntry;
+    const std::map<std::string, uint> msgArgMap({{"Type", 0},
+                                                 {"Operation", 1},
+                                                 {"Account", 2},
+                                                 {"Executable", 3},
+                                                 {"Hostname", 4},
+                                                 {"IPAddress", 5},
+                                                 {"Terminal", 6},
+                                                 {"Result", 7}});
     for (const auto& item : auditEntry.items())
     {
         if (item.key() == "ID")
@@ -5674,23 +5684,20 @@ static LogParseError
             uint64_t timestamp = item.value();
             entryTimeStr = redfish::time_utils::getDateTimeUint(timestamp);
         }
-        else if (item.key() == "MessageId")
+        else
         {
-            messageID = item.value();
-        }
-        else if (item.key() == "MessageArgs")
-        {
-            messageArgs = item.value();
+            /* The rest of the properties either go into the MessageArgs or
+             * they are not part of the response.
+             */
+            mapEntry = msgArgMap.find(item.key());
+            if (mapEntry != msgArgMap.end())
+            {
+                messageArgs[mapEntry->second] = item.value();
+            }
         }
     }
 
     // Check that we found all of the expected fields.
-    if (messageID.empty())
-    {
-        BMCWEB_LOG_ERROR("Missing MessageID");
-        return LogParseError::parseFailed;
-    }
-
     if (logEntryID.empty())
     {
         BMCWEB_LOG_ERROR("Missing ID");
@@ -5749,7 +5756,7 @@ static LogParseError
         logEntryID);
     logEntryJson["Name"] = "Audit Log Entry";
     logEntryJson["Id"] = logEntryID;
-    logEntryJson["MessageId"] = std::move(messageID);
+    logEntryJson["MessageId"] = messageID;
     logEntryJson["Message"] = std::move(msg);
     logEntryJson["MessageArgs"] = std::move(messageArgs);
     logEntryJson["EntryType"] = "Event";
