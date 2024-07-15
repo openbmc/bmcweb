@@ -2942,7 +2942,7 @@ inline void handleSensorGet(App& app, const crow::Request& req,
     // and get the path and service name associated with the sensor
     ::dbus::utility::getDbusObject(
         sensorPath, interfaces,
-        [asyncResp, sensorId,
+        [asyncResp, chassisId, sensorId,
          sensorPath](const boost::system::error_code& ec,
                      const ::dbus::utility::MapperGetObject& subtree) {
         BMCWEB_LOG_DEBUG("respHandler1 enter");
@@ -2959,8 +2959,51 @@ inline void handleSensorGet(App& app, const crow::Request& req,
                 "Sensor getSensorPaths resp_handler: Dbus error {}", ec);
             return;
         }
-        getSensorFromDbus(asyncResp, sensorPath, subtree);
-        BMCWEB_LOG_DEBUG("respHandler1 exit");
+
+        const auto& valueIface = *subtree.begin();
+        const std::string& connectionName = valueIface.first;
+
+        sdbusplus::asio::getProperty<
+            std::vector<std::tuple<std::string, std::string, std::string>>>(
+            *crow::connections::systemBus, connectionName, sensorPath,
+            "xyz.openbmc_project.Association.Definitions", "Associations",
+            [asyncResp, chassisId, sensorId, sensorPath, subtree](
+                const boost::system::error_code& ec2,
+                const std::vector<std::tuple<std::string, std::string,
+                                             std::string>>& associationData) {
+            if (ec2)
+            {
+                BMCWEB_LOG_DEBUG("DBUS response error {}", ec2);
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            // Get Chassis instance that sensor is belong to
+            // https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/
+            // yaml/xyz/openbmc_project/Association/Definitions.interface.yaml#L6
+            for (const auto& data : associationData)
+            {
+                const std::string& forward = get<0>(data);
+                const std::string& endpoint = get<2>(data);
+
+                BMCWEB_LOG_DEBUG("Association forward: {}", forward);
+                BMCWEB_LOG_DEBUG("Association endpoint: {}", endpoint);
+
+                if (forward == "chassis")
+                {
+                    if (chassisId != endpoint.substr(endpoint.rfind('/') + 1))
+                    {
+                        BMCWEB_LOG_WARNING("Sensor not found from {}",
+                                           chassisId);
+                        messages::resourceNotFound(asyncResp->res, "Sensor",
+                                                   sensorId);
+                        return;
+                    }
+                }
+            }
+            getSensorFromDbus(asyncResp, sensorPath, subtree);
+            BMCWEB_LOG_DEBUG("respHandler1 exit");
+        });
     });
 }
 
