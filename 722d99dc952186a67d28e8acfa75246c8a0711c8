@@ -52,6 +52,24 @@
       "parentUuid": "db9bcc49_996c5dfb",
       "revId": "722d99dc952186a67d28e8acfa75246c8a0711c8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1b31821_ed807a06",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-07-15T03:02:39Z",
+      "side": 1,
+      "message": "Go through the following steps:\n1. Use redfish to create multiple subscriptions (it seems that the more subscriptions, the higher the probability of crash)\ncurl -k -u user:passwd -X POST https://192.168.252.132/redfish/v1/EventService/Subscriptions/ -d \u0027\n{\n\"Context\": \"CustomText\",\n\"Destination\": \"https://30.221.33.11:5678\",\n\"Protocol\": \"Redfish\",\n\"EventFormatType\": \"Event\",\n\"DeliveryRetryPolicy\": \"RetryForever\",\n\"ResourceTypes\": [\n\"Task\"\n],\n\"HttpHeaders\": [\n{\n\"Authentication\": \"Splunk 49ce1-sdfoijf-wegsdfe-qwessddasd\"\n}\n]\n}\u0027\n2. Restart bmcweb\nsystemctl restart bmcweb.service",
+      "parentUuid": "a4d9a315_4c1a0afe",
+      "revId": "722d99dc952186a67d28e8acfa75246c8a0711c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
