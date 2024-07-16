@@ -1246,6 +1246,11 @@ class EventServiceManager
         return 0;
     }
 
+    static void stopEventLogMonitor()
+    {
+        inotifyConn.reset();
+    }
+
     static void getReadingsForReport(sdbusplus::message_t& msg)
     {
         if (msg.is_method_error())
