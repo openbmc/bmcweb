@@ -176,5 +176,23 @@ TEST(Utility, DateStringToEpoch)
               std::nullopt);
 }
 
+TEST(Utility, DateStringToEpochWithInvalidDateTimeFormats)
+{
+    // A list of various invalid date time strings to test for.
+    const std::vector<std::string> invalidDateTimeStrings = {
+        "2024-13-01T12:00:00Z", // invalid month (13)
+        "2024-07-32T12:00:00Z", // invalid day (32)
+        "2024-07-01T25:00:00Z", // invalid hour (25)
+        "2024-07-01T12:60:00Z", // invalid minute (60)
+        "2024-07-01T12:00:60Z", // invalid second (60)
+        "2024-07-01T12:00:00X"  // invalid timezone
+    };
+
+    for (const auto& dateTimeString : invalidDateTimeStrings)
+    {
+        EXPECT_EQ(dateStringToEpoch(dateTimeString), std::nullopt);
+    }
+}
+
 } // namespace
 } // namespace redfish::time_utils
