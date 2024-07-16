@@ -5,32 +5,18 @@
 #include <array>
 #include <cstddef>
 #include <cstdint>
+#include <format>
+#include <span>
 #include <string>
 #include <vector>
 
-static constexpr std::array<char, 16> digitsArray = {
-    '0', '1', '2', '3', '4', '5', '6', '7',
-    '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
-
-inline std::string intToHexString(uint64_t value, size_t digits)
+inline std::string bytesToHexString(const std::span<const uint8_t>& bytes)
 {
-    std::string rc(digits, '0');
-    size_t bitIndex = (digits - 1) * 4;
-    for (size_t digitIndex = 0; digitIndex < digits; digitIndex++)
+    std::string rc;
+    rc.reserve(bytes.size() * 2);
+    for (uint8_t byte : bytes)
     {
-        rc[digitIndex] = digitsArray[(value >> bitIndex) & 0x0f];
-        bitIndex -= 4;
-    }
-    return rc;
-}
-
-inline std::string bytesToHexString(const std::vector<uint8_t>& bytes)
-{
-    std::string rc(bytes.size() * 2, '0');
-    for (size_t i = 0; i < bytes.size(); ++i)
-    {
-        rc[i * 2] = digitsArray[(bytes[i] & 0xf0) >> 4];
-        rc[i * 2 + 1] = digitsArray[bytes[i] & 0x0f];
+        rc += std::format("{:02X}", byte);
     }
     return rc;
 }
