@@ -166,7 +166,8 @@ inline void getCpuDataByInterface(
                 if (value != nullptr && *value != 2)
                 {
                     asyncResp->res.jsonValue["ProcessorId"]["EffectiveFamily"] =
-                        "0x" + intToHexString(*value, 4);
+
+                        std::format("{:#04X}", *value);
                 }
             }
             else if (property.first == "EffectiveModel")
@@ -180,7 +181,7 @@ inline void getCpuDataByInterface(
                 if (*value != 0)
                 {
                     asyncResp->res.jsonValue["ProcessorId"]["EffectiveModel"] =
-                        "0x" + intToHexString(*value, 4);
+                        std::format("{:#04X}", *value);
                 }
             }
             else if (property.first == "Id")
@@ -190,7 +191,7 @@ inline void getCpuDataByInterface(
                 {
                     asyncResp->res
                         .jsonValue["ProcessorId"]["IdentificationRegisters"] =
-                        "0x" + intToHexString(*value, 16);
+                        std::format("{:#016X}", *value);
                 }
             }
             else if (property.first == "Microcode")
@@ -204,7 +205,7 @@ inline void getCpuDataByInterface(
                 if (*value != 0)
                 {
                     asyncResp->res.jsonValue["ProcessorId"]["MicrocodeInfo"] =
-                        "0x" + intToHexString(*value, 8);
+                        std::format("{:#08X}", *value);
                 }
             }
             else if (property.first == "Step")
@@ -218,7 +219,7 @@ inline void getCpuDataByInterface(
                 if (*value != std::numeric_limits<uint16_t>::max())
                 {
                     asyncResp->res.jsonValue["ProcessorId"]["Step"] =
-                        "0x" + intToHexString(*value, 4);
+                        std::format("{:#04X}", *value);
                 }
             }
         }
