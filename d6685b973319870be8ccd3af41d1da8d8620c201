@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c49a85b_2ea2d241",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-16T00:24:49Z",
+      "side": 1,
+      "message": "sdbusplus::messages::operator/\u003d please for constructing user (read attacker) driven dbus IDs.",
+      "range": {
+        "startLine": 307,
+        "startChar": 8,
+        "endLine": 307,
+        "endChar": 49
+      },
+      "revId": "d6685b973319870be8ccd3af41d1da8d8620c201",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e758c3c_1eba3f9a",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1370,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-16T00:24:49Z",
+      "side": 1,
+      "message": "We should add Minimum version here, right?  And get minimum version from the minimum version service, and version from the version service?\n\nOtherwise if a service only implemented MinimumVersion (which I agree, is odd) this wouldn\u0027t work right.",
+      "range": {
+        "startLine": 1370,
+        "startChar": 9,
+        "endLine": 1370,
+        "endChar": 45
+      },
+      "revId": "d6685b973319870be8ccd3af41d1da8d8620c201",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a89e8e83_b69a999b",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1390,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-16T00:24:49Z",
+      "side": 1,
+      "message": "Not your fault, but this is an instance of a common error\n\nShould be using sdbusplus::message::filename()",
+      "range": {
+        "startLine": 1390,
+        "startChar": 27,
+        "endLine": 1390,
+        "endChar": 36
+      },
+      "revId": "d6685b973319870be8ccd3af41d1da8d8620c201",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
