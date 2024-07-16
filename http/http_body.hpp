@@ -84,10 +84,9 @@ class HttpBody::value_type
         encodingType = EncodingType::Raw;
     }
 
-    void open(const char* path, boost::beast::file_mode mode,
-              boost::system::error_code& ec)
+    void open(const char* path, boost::system::error_code& ec)
     {
-        fileHandle.fileHandle.open(path, mode, ec);
+        fileHandle.fileHandle.open(path, boost::beast::file_mode::read, ec);
         if (ec)
         {
             return;
@@ -111,6 +110,39 @@ class HttpBody::value_type
             BMCWEB_LOG_WARNING("Fasvise returned {} ignoring", fadvise);
         }
         ec = {};
+    }
+
+    bool returnRange(size_t start, std::optional<size_t> end)
+    {
+        if (!fileSize)
+        {
+            BMCWEB_LOG_ERROR("Attempt to seek file with no size?");
+            return false;
+        }
+        boost::system::error_code ec;
+        fileHandle.fileHandle.seek(start, ec);
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR("Failed to seek");
+            return false;
+        }
+
+        if (end)
+        {
+            // If end is defined, go to the requested end
+            *fileSize = start - *end;
+        }
+        else
+        {
+            // If end is not defined, go to the end, file size is size - start
+            *fileSize -= start;
+        }
+        return true;
+    }
+
+    void close()
+    {
+        fileHandle.fileHandle = boost::beast::file_posix();
     }
 
     void setFd(int fd, boost::system::error_code& ec)
