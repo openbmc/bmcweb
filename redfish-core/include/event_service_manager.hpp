@@ -1126,6 +1126,11 @@ class EventServiceManager
         inotifyConn->async_read_some(boost::asio::buffer(readBuffer),
                                      [&](const boost::system::error_code& ec,
                                          const std::size_t& bytesTransferred) {
+            if (ec == boost::asio::error::operation_aborted)
+            {
+                BMCWEB_LOG_DEBUG("Inotify was canceled (shutdown?)");
+                return;
+            }
             if (ec)
             {
                 BMCWEB_LOG_ERROR("Callback Error: {}", ec.message());
@@ -1244,6 +1249,11 @@ class EventServiceManager
         watchRedfishEventLogFile();
 
         return 0;
+    }
+
+    static void stopEventLogMonitor()
+    {
+        inotifyConn.reset();
     }
 
     static void getReadingsForReport(sdbusplus::message_t& msg)
