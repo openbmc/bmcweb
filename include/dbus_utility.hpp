@@ -19,7 +19,7 @@
 #include "dbus_singleton.hpp"
 #include "logging.hpp"
 
-#include <boost/system/error_code.hpp> // IWYU pragma: keep
+#include <boost/system/error_code.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/message/native_types.hpp>
 
@@ -37,10 +37,6 @@
 #include <utility>
 #include <variant>
 #include <vector>
-
-// IWYU pragma: no_include <stddef.h>
-// IWYU pragma: no_include <stdint.h>
-// IWYU pragma: no_include <boost/system/detail/error_code.hpp>
 
 namespace dbus
 {
