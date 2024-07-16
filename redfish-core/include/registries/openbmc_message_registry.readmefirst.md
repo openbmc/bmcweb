@@ -1,3 +1,5 @@
+# Registry Edits: Read me first
+
 Please read this before making edits to the openbmc base registry.
 
 Messages in this registry are intended to be generally useful across OpenBMC
@@ -16,11 +18,8 @@ this file to remain useful across systems.
 
 3. Message strings should be human readable, and read like a normal sentence.
    This generally involves placing the substitution parameters in the
-   appropriate place in the string.
-
-Incorrect: "An error occurred. Device: %1"
-
-Correct: "An error occurred on device %1".
+   appropriate place in the string. Incorrect: "An error occurred. Device: %1"
+   Correct: "An error occurred on device %1".
 
 4. Message registry versioning semantics shall be obeyed. Adding new messages
    require an increment to the subminor revision. Changes to existing messages
