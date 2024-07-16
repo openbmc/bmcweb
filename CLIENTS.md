@@ -17,13 +17,13 @@ regardless of whether there is user impact.
 
 Redfish-Service-Validator: A tool to verify through GET requests that bmcweb
 properly implements the Redfish schemas in the responded Resource.
-git@github.com:DMTF/Redfish-Service-Validator.git
+<https://github.com/DMTF/Redfish-Service-Validator.git>
 
 Status: 100% passing. Integrated with CI to ensure no regressions.
 
 Redfish-Protocol-Validator: A tool to verify the protocol-level interactions
 with the Redfish wire-protocol, and checks those against the Redfish
-specification. git@github.com:DMTF/Redfish-Protocol-Validator.git
+specification. <https://github.com/DMTF/Redfish-Protocol-Validator>
 
 Status: 100% of assertions passing. No CI integration.
 
@@ -47,12 +47,12 @@ Status: Unknown
 
 fwupd: Is a client implementation that allows updating firmware components in a
 generic way, and includes redfish as one of its plugins.
-git@github.com:fwupd/fwupd.git
+<https://github.com/fwupd/fwupd>
 
 Status: Unknown
 
 python-redfish-library: A python library used by a number of tools.
-git@github.com:DMTF/python-redfish-library.git
+<https://github.com/DMTF/python-redfish-library>
 
 Status: Compatible
 
@@ -62,7 +62,7 @@ EventService handlers. <https://github.com/DMTF/Redfish-Event-Listener>
 Status: Compatible. No CI integration.
 
 Redfish-Tacklebox: A collection of common utilities for managing redfish servers
-git@github.com:DMTF/Redfish-Tacklebox.git
+<https://github.com/DMTF/Redfish-Tacklebox>
 
 Status: Unknown.
 

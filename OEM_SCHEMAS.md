@@ -96,6 +96,6 @@ namespace should not be modified without appropriate versioning information.
 Given the nature of semantic versioning, Redfish does not directly have support
 for schema branching within a namespace, therefore, if a system intends to ship
 a version of the schemas that have been modified from the version available at
-https://github.com/openbmc/bmcweb/tree/master/static/redfish/v1/schema, the
+<https://github.com/openbmc/bmcweb/tree/master/static/redfish/v1/schema>, the
 Redfish specification _requires_ that the namespace be changed to avoid
 collisions.
