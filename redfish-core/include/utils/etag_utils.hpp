@@ -26,7 +26,8 @@ inline void etagOmitDateTimeHandler(
     crow::Response& res)
 {
     size_t hash = json_util::hashJsonWithoutKey(res.jsonValue, "DateTime");
-    res.setCurrentOverrideEtag("\"" + intToHexString(hash, 8) + "\"");
+    std::string etag = std::format("\"{:08X}\"", hash);
+    res.setCurrentOverrideEtag(etag);
     oldCompleteRequestHandler(res);
 }
 

@@ -165,7 +165,7 @@ inline void dimmPropToHex(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     {
         return;
     }
-    asyncResp->res.jsonValue[jsonPtr][key] = "0x" + intToHexString(*value, 4);
+    asyncResp->res.jsonValue[jsonPtr][key] = std::format("{:#04X}", *value);
 }
 
 inline void getPersistentMemoryProperties(
