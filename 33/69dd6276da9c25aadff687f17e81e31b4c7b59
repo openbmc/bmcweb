@@ -1,0 +1,9 @@
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Code-Review+2: Ed Tanous <ed@tanous.net>
+Code-Review+1: Farah Rasheed <Farah.Rasheed1@dell.com>
+Submitted-by: Ed Tanous <ed@tanous.net>
+Submitted-at: Tue, 16 Jul 2024 18:37:42 +0000
+Reviewed-on: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/72674
+Comments-Total: 10
+Project: openbmc/bmcweb
+Branch: refs/heads/master
