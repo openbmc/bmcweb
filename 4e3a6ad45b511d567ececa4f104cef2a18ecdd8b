@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "539b90d0_d94dc76e",
+        "filename": "Redfish.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-07-16T15:19:22Z",
+      "side": 1,
+      "message": "Cool. It will not think this is a link anymore. \nhttps://github.com/openbmc/bmcweb/blob/master/Redfish.md",
+      "revId": "4e3a6ad45b511d567ececa4f104cef2a18ecdd8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
