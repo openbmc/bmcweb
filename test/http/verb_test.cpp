@@ -6,7 +6,7 @@
 #include <optional>
 #include <string_view>
 
-#include <gtest/gtest.h> // IWYU pragma: keep
+#include <gtest/gtest.h>
 
 using BoostVerb = boost::beast::http::verb;
 

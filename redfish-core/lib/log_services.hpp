@@ -4152,6 +4152,11 @@ static bool fillPostCodeEntry(
         // Get the Created time from the timestamp
         std::string entryTimeStr;
         entryTimeStr = redfish::time_utils::getDateTimeUintUs(usecSinceEpoch);
+        std::string hexCodeStr = std::format("\"{:02x}\"",
+                                             std::get<0>(code.second));
+
+        std::string hexCodeStr = "0x" +
+                                 intToHexString(std::get<0>(code.second), 2);
 
         // assemble messageArgs: BootIndex, TimeOffset(100us), PostCode(hex)
         std::ostringstream hexCode;

@@ -23,8 +23,6 @@
 #include <utility>
 
 // IWYU pragma: no_forward_declare crow::App
-// IWYU pragma: no_include <boost/url/impl/params_view.hpp>
-// IWYU pragma: no_include <boost/url/impl/url_view.hpp>
 
 #include "redfish_aggregator.hpp"
 

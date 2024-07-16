@@ -13,9 +13,6 @@
 #include <string>
 #include <string_view>
 
-// IWYU pragma: no_include <stddef.h>
-// IWYU pragma: no_include <stdint.h>
-
 namespace redfish
 {
 
