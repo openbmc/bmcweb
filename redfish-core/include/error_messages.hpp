@@ -25,7 +25,6 @@
 #include <string>
 #include <string_view>
 
-// IWYU pragma: no_include <cstdint.h>
 // IWYU pragma: no_forward_declare crow::Response
 
 namespace redfish

@@ -14,7 +14,7 @@
 
 #include <sys/types.h>
 
-#include <boost/beast/http/message.hpp> // IWYU pragma: keep
+#include <boost/beast/http/message.hpp>
 #include <boost/beast/http/status.hpp>
 #include <boost/beast/http/verb.hpp>
 #include <boost/url/params_view.hpp>
@@ -38,14 +38,6 @@
 #include <system_error>
 #include <utility>
 #include <vector>
-
-// IWYU pragma: no_include <boost/url/impl/params_view.hpp>
-// IWYU pragma: no_include <boost/beast/http/impl/message.hpp>
-// IWYU pragma: no_include <boost/intrusive/detail/list_iterator.hpp>
-// IWYU pragma: no_include <boost/algorithm/string/detail/classification.hpp>
-// IWYU pragma: no_include <boost/iterator/iterator_facade.hpp>
-// IWYU pragma: no_include <boost/type_index/type_index_facade.hpp>
-// IWYU pragma: no_include <stdint.h>
 
 namespace redfish
 {
