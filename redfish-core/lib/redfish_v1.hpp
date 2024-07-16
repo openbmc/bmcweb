@@ -177,7 +177,7 @@ inline void jsonSchemaGet(App& app, const crow::Request& req,
 }
 
 inline void
-    jsonSchemaGetFile(const crow::Request& /*req*/,
+    jsonSchemaGetFile(const crow::Request& req,
                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       const std::string& schema, const std::string& schemaFile)
 {
@@ -203,8 +203,8 @@ inline void
         messages::resourceNotFound(asyncResp->res, "JsonSchemaFile", schema);
         return;
     }
-
-    if (!asyncResp->res.openFile(filepath))
+    std::optional<ByteRange> parsedRange = parseRangeHeader(req);
+    if (!asyncResp->res.openFileRanged(filepath, parsedRange))
     {
         BMCWEB_LOG_DEBUG("failed to read file");
         asyncResp->res.result(

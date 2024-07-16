@@ -1,6 +1,7 @@
 #pragma once
 #include "http_body.hpp"
 #include "logging.hpp"
+#include "parsing.hpp"
 #include "utils/hex_utils.hpp"
 
 #include <fcntl.h>
@@ -292,13 +293,42 @@ struct Response
                   bmcweb::EncodingType enc = bmcweb::EncodingType::Raw)
     {
         boost::beast::error_code ec;
-        response.body().open(path.c_str(), boost::beast::file_mode::read, ec);
+        response.body().open(path.c_str(), ec);
         response.body().encodingType = enc;
         if (ec)
         {
             BMCWEB_LOG_ERROR("Failed to open file {}", path.c_str());
             return false;
         }
+        return true;
+    }
+
+    bool openFileRanged(const std::filesystem::path& path,
+                        std::optional<ByteRange> range,
+                        bmcweb::EncodingType enc = bmcweb::EncodingType::Raw)
+    {
+        if (!openFile(path, enc))
+        {
+            BMCWEB_LOG_ERROR("Failed to open file {}", path.c_str());
+            return false;
+        }
+        if (!range)
+        {
+            return true;
+        }
+        return response.body().returnRange(range->start, range->end);
+    }
+
+    bool populateSizeFromFile(
+        const std::filesystem::path& path,
+        bmcweb::EncodingType enc = bmcweb::EncodingType::Raw)
+    {
+        // open the file, then immediately close it
+        if (!openFile(path, enc))
+        {
+            return false;
+        }
+        response.body().close();
         return true;
     }
 
@@ -318,6 +348,19 @@ struct Response
             BMCWEB_LOG_ERROR("Failed to set fd");
             return false;
         }
+        return true;
+    }
+
+    bool
+        populateSizeFromFd(int fd,
+                           bmcweb::EncodingType enc = bmcweb::EncodingType::Raw)
+    {
+        // open the file, then immediately close it
+        if (!openFd(fd, enc))
+        {
+            return false;
+        }
+        response.body().close();
         return true;
     }
 
