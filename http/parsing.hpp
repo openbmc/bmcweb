@@ -4,6 +4,8 @@
 #include "logging.hpp"
 #include "str_utility.hpp"
 
+#include <boost/fusion/include/adapt_struct.hpp>
+#include <boost/spirit/home/x3.hpp>
 #include <nlohmann/json.hpp>
 
 #include <algorithm>
@@ -45,4 +47,31 @@ inline JsonParseResult parseRequestAsJson(const crow::Request& req,
     }
 
     return JsonParseResult::Success;
+}
+
+struct ByteRange
+{
+    size_t start = 0;
+    std::optional<size_t> end;
+};
+
+BOOST_FUSION_ADAPT_STRUCT(ByteRange, start, end);
+
+inline bool parseRangeHeader(const crow::Request& req,
+                             std::optional<ByteRange>& rangeOut)
+{
+    std::string_view range =
+        req.getHeaderValue(boost::beast::http::field::range);
+    if (range.empty())
+    {
+        // Range request is not required
+        return true;
+    }
+
+    using boost::spirit::x3::lit;
+    using boost::spirit::x3::parse;
+    using boost::spirit::x3::uint64;
+
+    auto parser = lit("bytes ") >> uint64 >> -(lit('-') >> uint64);
+    return parse(range.begin(), range.end(), parser, rangeOut.emplace());
 }

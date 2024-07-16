@@ -62,10 +62,10 @@ struct StaticFile
     bool renamed = false;
 };
 
-inline void
-    handleStaticAsset(const crow::Request& req,
-                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                      const StaticFile& file)
+inline bool
+    handleStaticAssetCommon(const crow::Request& req,
+                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const StaticFile& file)
 {
     if (!file.contentType.empty())
     {
@@ -78,6 +78,8 @@ inline void
         asyncResp->res.addHeader(boost::beast::http::field::content_encoding,
                                  file.contentEncoding);
     }
+
+    asyncResp->res.addHeader(boost::beast::http::field::accept_ranges, "bytes");
 
     if (!file.etag.empty())
     {
@@ -97,11 +99,48 @@ inline void
         if (cachedEtag == file.etag)
         {
             asyncResp->res.result(boost::beast::http::status::not_modified);
-            return;
+            return false;
         }
     }
+    return true;
+}
 
-    if (!asyncResp->res.openFile(file.absolutePath))
+inline void
+    handleStaticAssetHead(const crow::Request& req,
+                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const StaticFile& file)
+{
+    if (!handleStaticAssetCommon(req, asyncResp, file))
+    {
+        return;
+    }
+    if (!asyncResp->res.populateSizeFromFile(file.absolutePath))
+    {
+        BMCWEB_LOG_DEBUG("failed to read file");
+        asyncResp->res.result(
+            boost::beast::http::status::internal_server_error);
+        return;
+    }
+}
+
+inline void
+    handleStaticAssetGet(const crow::Request& req,
+                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const StaticFile& file)
+{
+    if (!handleStaticAssetCommon(req, asyncResp, file))
+    {
+        return;
+    }
+
+    std::optional<ByteRange> parsedRange;
+    if (!parseRangeHeader(req, parsedRange))
+    {
+        asyncResp->res.result(boost::beast::http::status::bad_request);
+        return;
+    }
+
+    if (!asyncResp->res.openFileRanged(file.absolutePath, parsedRange))
     {
         BMCWEB_LOG_DEBUG("failed to read file");
         asyncResp->res.result(
@@ -198,11 +237,16 @@ inline void addFile(App& app, const std::filesystem::directory_entry& dir)
         forward_unauthorized::hasWebuiRoute = true;
     }
 
-    app.routeDynamic(webpath)(
+    app.routeDynamic(webpath).methods(boost::beast::http::verb::get)(
+        [file](const crow::Request& req,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+        handleStaticAssetGet(req, asyncResp, file);
+    });
+    app.routeDynamic(webpath).methods(boost::beast::http::verb::head)(
         [file = std::move(file)](
             const crow::Request& req,
             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        handleStaticAsset(req, asyncResp, file);
+        handleStaticAssetHead(req, asyncResp, file);
     });
 }
 

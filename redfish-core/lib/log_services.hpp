@@ -3674,8 +3674,16 @@ inline void requestRoutesCrashdumpFile(App& app)
             return;
         }
 
+        std::optional<ByteRange> parsedRange;
+        if (!parseRangeHeader(req, parsedRange))
+        {
+            messages::propertyValueOutOfRange(asyncResp->res, "Range", "");
+            return;
+        }
+
         auto getStoredLogCallback =
-            [asyncResp, logID, fileName, url(boost::urls::url(req.url()))](
+            [asyncResp, logID, fileName, parsedRange,
+             url(boost::urls::url(req.url()))](
                 const boost::system::error_code& ec,
                 const std::vector<
                     std::pair<std::string, dbus::utility::DbusVariantType>>&
@@ -3708,7 +3716,7 @@ inline void requestRoutesCrashdumpFile(App& app)
                 return;
             }
 
-            if (!asyncResp->res.openFile(dbusFilepath))
+            if (!asyncResp->res.openFileRanged(dbusFilepath, parsedRange))
             {
                 messages::resourceNotFound(asyncResp->res, "LogEntry", logID);
                 return;
