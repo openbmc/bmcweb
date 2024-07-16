@@ -88,6 +88,24 @@
       "parentUuid": "f1b31821_ed807a06",
       "revId": "722d99dc952186a67d28e8acfa75246c8a0711c8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36442d07_7ae9b320",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-07-16T05:40:50Z",
+      "side": 1,
+      "message": "I have rewritten it as a reference, and I tested the combination of these two patches dozens of times, and no more crash was found.",
+      "parentUuid": "109729f9_6e1acf6d",
+      "revId": "722d99dc952186a67d28e8acfa75246c8a0711c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
