@@ -64,15 +64,6 @@
 #include <variant>
 #include <vector>
 
-// IWYU pragma: no_include <boost/algorithm/string/detail/classification.hpp>
-// IWYU pragma: no_include <boost/system/detail/error_code.hpp>
-// IWYU pragma: no_include <boost/system/detail/error_category.hpp>
-// IWYU pragma: no_include <errno.h>
-// IWYU pragma: no_include <string.h>
-// IWYU pragma: no_include <ext/alloc_traits.h>
-// IWYU pragma: no_include <exception>
-// IWYU pragma: no_include <boost/type_index/type_index_facade.hpp>
-
 namespace crow
 {
 namespace openbmc_mapper

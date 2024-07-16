@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-#include <gtest/gtest.h> // IWYU pragma: keep
+#include <gtest/gtest.h>
 
 namespace redfish
 {

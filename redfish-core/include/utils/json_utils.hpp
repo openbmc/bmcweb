@@ -41,7 +41,6 @@
 #include <variant>
 #include <vector>
 
-// IWYU pragma: no_include <stdint.h>
 // IWYU pragma: no_forward_declare crow::Request
 
 namespace redfish
