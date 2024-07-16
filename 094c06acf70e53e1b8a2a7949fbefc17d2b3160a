@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1ae2684_1008ae1b",
+        "filename": "test/redfish-core/include/utils/time_utils_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1002110
+      },
+      "writtenOn": "2024-07-16T16:31:07Z",
+      "side": 1,
+      "message": "No functional code change, added various invalid date time strings for test cases such as invalid month, second, and so on since these cases are not currently covered which I found while on a quest to track a related bug.",
+      "revId": "094c06acf70e53e1b8a2a7949fbefc17d2b3160a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
