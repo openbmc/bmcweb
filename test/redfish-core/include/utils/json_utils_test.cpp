@@ -14,13 +14,8 @@
 #include <variant>
 #include <vector>
 
-#include <gmock/gmock.h> // IWYU pragma: keep
-#include <gtest/gtest.h> // IWYU pragma: keep
-
-// IWYU pragma: no_include <gtest/gtest-message.h>
-// IWYU pragma: no_include <gtest/gtest-test-part.h>
-// IWYU pragma: no_include "gtest/gtest_pred_impl.h"
-// IWYU pragma: no_include <boost/intrusive/detail/list_iterator.hpp>
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 
 namespace redfish::json_util
 {
