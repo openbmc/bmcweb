@@ -30,6 +30,7 @@
 #include "task.hpp"
 #include "task_messages.hpp"
 #include "utils/dbus_utils.hpp"
+#include "utils/hex_utils.hpp"
 #include "utils/json_utils.hpp"
 #include "utils/time_utils.hpp"
 
@@ -4152,11 +4153,9 @@ static bool fillPostCodeEntry(
         // Get the Created time from the timestamp
         std::string entryTimeStr;
         entryTimeStr = redfish::time_utils::getDateTimeUintUs(usecSinceEpoch);
-
+        std::string hexCodeStr = std::format("{:02x}",
+                                             std::get<0>(code.second));
         // assemble messageArgs: BootIndex, TimeOffset(100us), PostCode(hex)
-        std::ostringstream hexCode;
-        hexCode << "0x" << std::setfill('0') << std::setw(2) << std::hex
-                << std::get<0>(code.second);
         std::ostringstream timeOffsetStr;
         // Set Fixed -Point Notation
         timeOffsetStr << std::fixed;
@@ -4167,7 +4166,6 @@ static bool fillPostCodeEntry(
 
         std::string bootIndexStr = std::to_string(bootIndex);
         std::string timeOffsetString = timeOffsetStr.str();
-        std::string hexCodeStr = hexCode.str();
 
         std::array<std::string_view, 3> messageArgs = {
             bootIndexStr, timeOffsetString, hexCodeStr};
