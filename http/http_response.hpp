@@ -259,7 +259,7 @@ struct Response
         }
 
         size_t hashval = std::hash<nlohmann::json>{}(jsonValue);
-        return "\"" + intToHexString(hashval, 8) + "\"";
+        return std::format("\"{:08X}\"", hashval);
     }
 
     void write(std::string&& bodyPart)
