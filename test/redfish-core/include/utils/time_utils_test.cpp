@@ -176,5 +176,41 @@ TEST(Utility, DateStringToEpoch)
               std::nullopt);
 }
 
+TEST(Utility, DateStringToEpochWithInvalidDateTimeFormats)
+{
+    // invalid month (13)
+    EXPECT_EQ(dateStringToEpoch("2024-13-01T12:00:00Z"), std::nullopt);
+
+    // invalid character for month
+    EXPECT_EQ(dateStringToEpoch("2024-X-01T12:00:00Z"), std::nullopt);
+
+    // invalid day (32)
+    EXPECT_EQ(dateStringToEpoch("2024-07-32T12:00:00Z"), std::nullopt);
+
+    // invalid character for day
+    EXPECT_EQ(dateStringToEpoch("2024-07-XT12:00:00Z"), std::nullopt);
+
+    // invalid hour (25)
+    EXPECT_EQ(dateStringToEpoch("2024-07-01T25:00:00Z"), std::nullopt);
+
+    // invalid character for hour
+    EXPECT_EQ(dateStringToEpoch("2024-07-01TX:00:00Z"), std::nullopt);
+
+    // invalid minute (60)
+    EXPECT_EQ(dateStringToEpoch("2024-07-01T12:60:00Z"), std::nullopt);
+
+    // invalid character for minute
+    EXPECT_EQ(dateStringToEpoch("2024-13-01T12:X:00Z"), std::nullopt);
+
+    // invalid second (60)
+    EXPECT_EQ(dateStringToEpoch("2024-07-01T12:00:XZ"), std::nullopt);
+
+    // invalid character for second
+    EXPECT_EQ(dateStringToEpoch("2024-13-01T12:00:00Z"), std::nullopt);
+
+    // invalid timezone
+    EXPECT_EQ(dateStringToEpoch("2024-07-01T12:00:00X"), std::nullopt);
+}
+
 } // namespace
 } // namespace redfish::time_utils
