@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "6ecec0b1_c6ba73f7",
+        "filename": "test/redfish-core/include/utils/time_utils_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1002110
+      },
+      "writtenOn": "2024-07-16T16:55:18Z",
+      "side": 1,
+      "message": "I updated the EXPECT_EQ to print the string under test in event of failure.",
+      "parentUuid": "ba8e22c9_e094b291",
+      "revId": "094c06acf70e53e1b8a2a7949fbefc17d2b3160a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "d1ae2684_1008ae1b",
         "filename": "test/redfish-core/include/utils/time_utils_test.cpp",
         "patchSetId": 3
@@ -48,6 +66,30 @@
       "writtenOn": "2024-07-16T16:47:40Z",
       "side": 1,
       "message": "nit, you might also try replacing each - : or T with other characters just like you did timezone.\n\nUp to you if you want to do that.",
+      "range": {
+        "startLine": 188,
+        "startChar": 13,
+        "endLine": 188,
+        "endChar": 14
+      },
+      "revId": "094c06acf70e53e1b8a2a7949fbefc17d2b3160a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a2537c6_61bfffb8",
+        "filename": "test/redfish-core/include/utils/time_utils_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1002110
+      },
+      "writtenOn": "2024-07-16T16:55:18Z",
+      "side": 1,
+      "message": "Done, thank you!",
+      "parentUuid": "fa20189e_252b19f3",
       "range": {
         "startLine": 188,
         "startChar": 13,
