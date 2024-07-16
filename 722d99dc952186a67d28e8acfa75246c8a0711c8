@@ -70,6 +70,24 @@
       "parentUuid": "a4d9a315_4c1a0afe",
       "revId": "722d99dc952186a67d28e8acfa75246c8a0711c8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "109729f9_6e1acf6d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-16T00:58:45Z",
+      "side": 1,
+      "message": "```\n#0  0x00704150 in boost::asio::detail::epoll_reactor::deregister_descriptor (this\u003d0x0, descriptor\u003d8,\n    descriptor_data\u003d@0x81dd08: 0xc223a8, closing\u003dfalse) at /usr/include/boost/asio/detail/impl/epoll_reactor.ipp:403\n403\t/usr/include/boost/asio/detail/impl/epoll_reactor.ipp: No such file or directory.\n(gdb)\n(gdb) where\n#0  0x00704150 in boost::asio::detail::epoll_reactor::deregister_descriptor (this\u003d0x0, descriptor\u003d8,\n    descriptor_data\u003d@0x81dd08: 0xc223a8, closing\u003dfalse) at /usr/include/boost/asio/detail/impl/epoll_reactor.ipp:403\n#1  0x0076b16c in boost::asio::detail::reactive_descriptor_service::destroy (impl\u003d..., this\u003d0xbfa440)\n    at /usr/include/boost/asio/detail/impl/reactive_descriptor_service.ipp:94\n#2  boost::asio::detail::io_object_impl\u003cboost::asio::detail::reactive_descriptor_service, boost::asio::any_io_executor\u003e::~io_object_impl() [clone .isra.0] (this\u003d\u003coptimized out\u003e, this\u003d\u003coptimized out\u003e) at /usr/include/boost/asio/detail/io_object_impl.hpp:95\n#3  0x005e431c in boost::asio::posix::basic_descriptor\u003cboost::asio::any_io_executor\u003e::~basic_descriptor (this\u003d\u003coptimized out\u003e,\n    this\u003d\u003coptimized out\u003e) at /usr/include/boost/asio/posix/basic_descriptor.hpp:718\n#4  boost::asio::posix::basic_stream_descriptor\u003cboost::asio::any_io_executor\u003e::~basic_stream_descriptor (this\u003d\u003coptimized out\u003e,\n    this\u003d\u003coptimized out\u003e) at /usr/include/boost/asio/posix/basic_stream_descriptor.hpp:49\n#5  std::_Optional_payload_base\u003cboost::asio::posix::basic_stream_descriptor\u003cboost::asio::any_io_executor\u003e \u003e::_M_destroy (\n    this\u003d0x81dcfc \u003c_ZN7redfishL11inotifyConnE.lto_priv.0\u003e) at /usr/include/c++/13.2.0/optional:287\n#6  std::_Optional_payload_base\u003cboost::asio::posix::basic_stream_descriptor\u003cboost::asio::any_io_executor\u003e \u003e::_M_reset (\n    this\u003d0x81dcfc \u003c_ZN7redfishL11inotifyConnE.lto_priv.0\u003e) at /usr/include/c++/13.2.0/optional:318\n#7  std::_Optional_payload\u003cboost::asio::posix::basic_stream_descriptor\u003cboost::asio::any_io_executor\u003e, false, false, false\u003e::~_Optional_payload (this\u003d\u003coptimized out\u003e, this\u003d\u003coptimized out\u003e) at /usr/include/c++/13.2.0/optional:439\n#8  std::_Optional_base\u003cboost::asio::posix::basic_stream_descriptor\u003cboost::asio::any_io_executor\u003e, false, false\u003e::~_Optional_base (this\u003d\u003coptimized out\u003e, this\u003d\u003coptimized out\u003e) at /usr/include/c++/13.2.0/optional:510\n#9  std::optional\u003cboost::asio::posix::basic_stream_descriptor\u003cboost::asio::any_io_executor\u003e \u003e::~optional (\n    this\u003d\u003coptimized out\u003e, this\u003d\u003coptimized out\u003e) at /usr/include/c++/13.2.0/optional:705\n#10 0x7663aa30 in __run_exit_handlers (status\u003d12556632, listp\u003d0x7663aa30 \u003c__run_exit_handlers+476\u003e,\n    run_list_atexit\u003drun_list_atexit@entry\u003dtrue, run_dtors\u003drun_dtors@entry\u003dtrue) at exit.c:108\n#11 0x7663abec in __GI_exit (status\u003d\u003coptimized out\u003e) at exit.c:138\n#12 0x76623434 in __libc_start_call_main (main\u003d0x76623434 \u003c__libc_start_call_main+112\u003e, main@entry\u003d0x38, argc\u003d1987448408,\n    argc@entry\u003d1987453688, argv\u003d0x5024d0 \u003cmain(int, char**)\u003e, argv@entry\u003d0x7e8c8e14)\n    at /usr/src/debug/glibc/2.39+git/sysdeps/nptl/libc_start_call_main.h:74\n#13 0x7662351c in __libc_start_main_impl (main\u003d0x38, argc\u003d1987453688, argv\u003d0x7e8c8e14, init\u003d\u003coptimized out\u003e, fini\u003d0x0,\n    rtld_fini\u003d0x76f08998 \u003c_dl_fini\u003e, stack_end\u003d0x7e8c8e14) at libc-start.c:360\n#14 0x00503bec in _start () at ../sysdeps/arm/start.S:105\n```\n\nThis is the result I get when I look at the coredump.\n\nWe should do your fix as well (please get it rewritten to just be the change to the reference), but I believe this is the underlying problem.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/72784\n\nIf you could test that, I\u0027d appreciate it.",
+      "parentUuid": "f1b31821_ed807a06",
+      "revId": "722d99dc952186a67d28e8acfa75246c8a0711c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
