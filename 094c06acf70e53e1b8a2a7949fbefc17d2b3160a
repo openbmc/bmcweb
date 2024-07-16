@@ -110,6 +110,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "bffb2dde_19d8bd59",
+        "filename": "test/redfish-core/include/utils/time_utils_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-16T18:37:40Z",
+      "side": 1,
+      "message": "It\u0027s not really a standard, but a minor preference.  As you have it now, you get correct printing for \"free\", and each usage of the helper function is made very clear from the unit tests;  It\u0027s debatable, but I find this to be better (especially if we have a failure that we have to comment out)\n\nThanks for making the change.",
+      "parentUuid": "52c18980_5c330b5d",
+      "revId": "094c06acf70e53e1b8a2a7949fbefc17d2b3160a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "d1ae2684_1008ae1b",
         "filename": "test/redfish-core/include/utils/time_utils_test.cpp",
         "patchSetId": 3
