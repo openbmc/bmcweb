@@ -77,7 +77,7 @@ Fields common to all schemas
 ### /redfish/v1/AccountService/MultiFactorAuth/ClientCertificate/Certificates
 
 - Members
-- Members@odata.count
+- `Members@odata.count`
 
 ### /redfish/v1/AccountService/MultiFactorAuth/ClientCertificate/Certificates/{Certificate}
 
@@ -112,7 +112,7 @@ Fields common to all schemas
 #### AggregationSourceCollection
 
 - Members
-- Members@odata.count
+- `Members@odata.count`
 
 ### /redfish/v1/AggregationService/AggregationSources/{AggregationSourceId}
 
@@ -127,7 +127,7 @@ Fields common to all schemas
 
 - Description
 - Members
-- Members@odata.count
+- `Members@odata.count`
 
 ### /redfish/v1/AccountService/Accounts/{ManagerAccountId}/
 
@@ -138,7 +138,7 @@ Fields common to all schemas
 - Enabled
 - Links/Role
 - Locked
-- Locked@Redfish.AllowableValues
+- `Locked@Redfish.AllowableValues`
 - Password
 - PasswordChangeRequired
 - RoleId
@@ -151,7 +151,7 @@ Fields common to all schemas
 
 - Description
 - Members
-- Members@odata.count
+- `Members@odata.count`
 
 ### /redfish/v1/AccountService/Roles/
 
@@ -160,7 +160,7 @@ Fields common to all schemas
 - Description
 - Members
   - By default will contain 3 roles, "Administrator", "Operator", and "ReadOnly"
-- Members@odata.count
+- `Members@odata.count`
 
 ### /redfish/v1/AccountService/Roles/{RoleId}/
 
@@ -185,7 +185,7 @@ Fields common to all schemas
 
 - Description
 - Members
-- Members@odata.count
+- `Members@odata.count`
 
 ### /redfish/v1/Cables/{CableId}/
 
@@ -216,7 +216,7 @@ Fields common to all schemas
 #### ChassisCollection
 
 - Members
-- Members@odata.count
+- `Members@odata.count`
 
 ### /redfish/v1/Chassis/{ChassisId}/
 
@@ -249,7 +249,7 @@ Fields common to all schemas
 #### Drive
 
 - Drives
-- Drives@odata.count
+- `Drives@odata.count`
 - Status (this is dependent on a entity manager association from Chassis to
   Drives)
 
@@ -272,7 +272,7 @@ Fields common to all schemas
 
 - Description
 - Members
-- Members@odata.count
+- `Members@odata.count`
 
 ### /redfish/v1/Chassis/{ChassisId}/Sensors/{Id}/
 
@@ -354,7 +354,7 @@ Fields common to all schemas
 
 - Description
 - Members
-- Members@odata.count
+- `Members@odata.count`
 
 #### /redfish/v1/Chassis/{ChassisId}/ThermalSubsystem/Fans/{FanName}/
 
@@ -429,7 +429,7 @@ Fields common to all schemas
 
 - Description
 - Members
-- Members@odata.count
+- `Members@odata.count`
 
 #### /redfish/v1/Chassis/{ChassisId}/PowerSubsystem/PowerSupplies/{PowerSupplyId}
 
@@ -467,7 +467,7 @@ Fields common to all schemas
 #### EventDestinationCollection
 
 - Members
-- Members@odata.count
+- `Members@odata.count`
 
 ### /redfish/v1/EventService/Subscriptions/{EventName}/
 
@@ -485,7 +485,7 @@ Fields common to all schemas
 #### JsonSchemaFileCollection
 
 - Description
-- Members@odata.count
+- `Members@odata.count`
 - Members
 
 ### /redfish/v1/JsonSchemas/{Id}/
@@ -495,16 +495,16 @@ Fields common to all schemas
 - Schema
 - Description
 - Languages
-- Languages@odata.count
+- `Languages@odata.count`
 - Location
-- Location@odata.count
+- `Location@odata.count`
 
 ### /redfish/v1/Managers/
 
 #### ManagerCollection
 
 - Members
-- Members@odata.count
+- `Members@odata.count`
 
 ### /redfish/v1/Managers/bmc/
 
@@ -547,7 +547,7 @@ Fields common to all schemas
 
 - Description
 - Members
-- Members@odata.count
+- `Members@odata.count`
 
 ### /redfish/v1/Managers/bmc/EthernetInterfaces/{EthernetInterfaceId}/
 
@@ -609,7 +609,7 @@ other.
 
 - Description
 - Members
-- Members@odata.count
+- `Members@odata.count`
 
 ### /redfish/v1/Managers/bmc/LogServices/RedfishLog/
 
@@ -664,7 +664,7 @@ other.
 
 - Description
 - Members
-- Members@odata.count
+- `Members@odata.count`
 
 ### /redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/{CertificateId}/
 
@@ -692,7 +692,7 @@ other.
 - Description
 - Members
   - Should support Base, CommonMessages, and EventingMessages
-- Members@odata.count
+- `Members@odata.count`
 
 ### /redfish/v1/Registries/{MessageRegistryFileId}/
 
@@ -700,9 +700,9 @@ other.
 
 - Description
 - Languages
-- Languages@odata.count
+- `Languages@odata.count`
 - Location
-- Location@odata.count
+- `Location@odata.count`
 - Registry
 
 ### /redfish/v1/SessionService/
@@ -720,7 +720,7 @@ other.
 
 - Description
 - Members
-- Members@odata.count
+- `Members@odata.count`
 
 ### /redfish/v1/SessionService/Sessions/{SessionId}/
 
@@ -737,7 +737,7 @@ other.
 
 - Members
   - Should support one system
-- Members@odata.count
+- `Members@odata.count`
 
 ### /redfish/v1/Systems/system/Bios/
 
@@ -793,7 +793,7 @@ other.
 #### EthernetInterfaceCollection
 
 - Members
-- Members@odata.count
+- `Members@odata.count`
 - Description
 
 ### /redfish/v1/Systems/system/FabricAdapters/
@@ -801,7 +801,7 @@ other.
 #### FabricAdapterCollection
 
 - Members
-- Members@odata.count
+- `Members@odata.count`
 
 ### /redfish/v1/Systems/system/FabricAdapters/{FabricAdapterId}/
 
@@ -821,7 +821,7 @@ other.
 - Description
 - Members
   - Should default to one member, named SEL
-- Members@odata.count
+- `Members@odata.count`
 
 ### /redfish/v1/Systems/system/LogServices/EventLog/
 
@@ -840,7 +840,7 @@ other.
 
 - Description
 - Members
-- Members@odata.count
+- `Members@odata.count`
 
 ### /redfish/v1/Systems/system/LogServices/EventLog/Entries/{LogEntryId}/
 
@@ -859,7 +859,7 @@ other.
 #### LogEntryCollection
 
 - Members
-- Members@odata.count
+- `Members@odata.count`
 - Description
 - @odata.nextLink
 
@@ -881,7 +881,7 @@ other.
 #### MemoryCollection
 
 - Members
-- Members@odata.count
+- `Members@odata.count`
 
 ### /redfish/v1/Systems/system/Memory/{MemoryId}/
 
@@ -916,7 +916,7 @@ other.
 
 - Description
 - Members
-- Members@odata.count
+- `Members@odata.count`
 
 ### /redfish/v1/Systems/system/PCIeDevices/{PCIeDevice}/
 
@@ -942,7 +942,7 @@ other.
 
 - Members
   - Should Support CPU1 and CPU2 for dual socket systems
-- Members@odata.count
+- `Members@odata.count`
 
 ### /redfish/v1/Systems/system/Processors/{ProcessorId}/
 
@@ -978,14 +978,14 @@ other.
 #### StorageCollection
 
 - Members
-- Members@odata.count
+- `Members@odata.count`
 
 ### /redfish/v1/Systems/system/Storage/{StorageId}/
 
 #### Storage
 
 - Drives
-- Drives@odata.count
+- `Drives@odata.count`
 - Status
 
 ### /redfish/v1/Systems/system/Storage/{StorageId}/Drive/{DriveId}/
@@ -1013,7 +1013,7 @@ other.
 #### TaskCollection
 
 - Members
-- Members@odata.count
+- `Members@odata.count`
 
 ### /redfish/v1/TelemetryService/
 
@@ -1032,7 +1032,7 @@ other.
 #### MetricReportDefinitionCollection
 
 - Members
-- Members@odata.count
+- `Members@odata.count`
 
 ### /redfish/v1/TelemetryService/MetricReportDefinitions/{MetricReportDefinitionId}/
 
@@ -1055,7 +1055,7 @@ other.
 #### MetricReportCollection
 
 - Members
-- Members@odata.count
+- `Members@odata.count`
 
 ### /redfish/v1/TelemetryService/MetricReports/{MetricReportId}/
 
@@ -1072,7 +1072,7 @@ other.
 #### TriggersCollection
 
 - Members
-- Members@odata.count
+- `Members@odata.count`
 
 ### /redfish/v1/UpdateService/
 
@@ -1092,14 +1092,14 @@ other.
 
 - Members
   - Should Support BMC, ME, CPLD and BIOS
-- Members@odata.count
+- `Members@odata.count`
 
 ### /redfish/v1/UpdateService/FirmwareInventory/{SoftwareInventoryId}/
 
 #### SoftwareInventory
 
 - Description
-- RelatedItem@odata.count
+- `RelatedItem@odata.count`
 - RelatedItem
 - Status
 - Updateable
