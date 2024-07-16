@@ -32,8 +32,6 @@
 #include <utility>
 #include <vector>
 
-// IWYU pragma: no_include <stddef.h>
-
 namespace redfish
 {
 

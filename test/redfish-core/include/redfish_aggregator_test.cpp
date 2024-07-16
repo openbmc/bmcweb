@@ -12,7 +12,7 @@
 #include <string>
 #include <utility>
 
-#include <gtest/gtest.h> // IWYU pragma: keep
+#include <gtest/gtest.h>
 
 namespace redfish
 {

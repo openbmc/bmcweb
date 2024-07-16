@@ -21,7 +21,7 @@ extern "C"
 #include <memory>
 
 #include <gmock/gmock.h>
-#include <gtest/gtest.h> // IWYU pragma: keep
+#include <gtest/gtest.h>
 
 using ::testing::IsNull;
 using ::testing::NotNull;

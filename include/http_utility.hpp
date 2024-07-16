@@ -10,8 +10,6 @@
 #include <string_view>
 #include <vector>
 
-// IWYU pragma: no_include <ctype.h>
-
 namespace http_helpers
 {
 
