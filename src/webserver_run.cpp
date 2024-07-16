@@ -146,5 +146,8 @@ int run()
 
     crow::connections::systemBus = nullptr;
 
+    // TODO(ed) Make event log monitor an RAII object instead of global vars
+    redfish::EventServiceManager::stopEventLogMonitor();
+
     return 0;
 }
