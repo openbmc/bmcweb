@@ -239,7 +239,7 @@ struct Response
             return "";
         }
         size_t hashval = std::hash<nlohmann::json>{}(jsonValue);
-        return "\"" + intToHexString(hashval, 8) + "\"";
+        return std::format("\"{:08X}\"", hashval);
     }
 
     void write(std::string&& bodyPart)
@@ -291,7 +291,7 @@ struct Response
             return;
         }
         size_t hashval = std::hash<nlohmann::json>{}(jsonValue);
-        std::string hexVal = "\"" + intToHexString(hashval, 8) + "\"";
+        std::string hexVal = std::format("\"{:08X}\"", hashval);
         addHeader(http::field::etag, hexVal);
         if (expectedHash && hexVal == *expectedHash)
         {

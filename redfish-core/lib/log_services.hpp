@@ -26,6 +26,7 @@
 #include "task_messages.hpp"
 #include "utils/dbus_event_log_entry.hpp"
 #include "utils/dbus_utils.hpp"
+#include "utils/hex_utils.hpp"
 #include "utils/json_utils.hpp"
 #include "utils/query_param.hpp"
 #include "utils/time_utils.hpp"
