@@ -16,6 +16,161 @@
       "message": "Thanks Ed, Gunnar for your review.\nI have updated it. Please help review.",
       "revId": "48b6d83aa97db369412f870c8bbdca47f0faabaa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88347480_338e4731",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-17T15:43:53Z",
+      "side": 1,
+      "message": "Missing documentation updates.",
+      "revId": "48b6d83aa97db369412f870c8bbdca47f0faabaa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "297cda91_f33b64f2",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-17T15:43:53Z",
+      "side": 1,
+      "message": "std::string_view for new code please.",
+      "range": {
+        "startLine": 391,
+        "startChar": 43,
+        "endLine": 391,
+        "endChar": 49
+      },
+      "revId": "48b6d83aa97db369412f870c8bbdca47f0faabaa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93ccd0e9_c6bf45fc",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-17T15:43:53Z",
+      "side": 1,
+      "message": "Does this function need a unit test?",
+      "range": {
+        "startLine": 391,
+        "startChar": 19,
+        "endLine": 391,
+        "endChar": 37
+      },
+      "revId": "48b6d83aa97db369412f870c8bbdca47f0faabaa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "594c6c59_9bee87a8",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-17T15:43:53Z",
+      "side": 1,
+      "message": "Need to handle errors if the string isn\u0027t the correct size.",
+      "range": {
+        "startLine": 393,
+        "startChar": 0,
+        "endLine": 393,
+        "endChar": 29
+      },
+      "revId": "48b6d83aa97db369412f870c8bbdca47f0faabaa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56707763_5fbc1eb8",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-17T15:43:53Z",
+      "side": 1,
+      "message": "Remove this line.  There\u0027s no need to write a variable then immediately overwrite it.",
+      "range": {
+        "startLine": 416,
+        "startChar": 0,
+        "endLine": 416,
+        "endChar": 42
+      },
+      "revId": "48b6d83aa97db369412f870c8bbdca47f0faabaa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90ab968d_59a455c2",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2239,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-17T15:43:53Z",
+      "side": 1,
+      "message": "same here.",
+      "range": {
+        "startLine": 2237,
+        "startChar": 34,
+        "endLine": 2239,
+        "endChar": 42
+      },
+      "revId": "48b6d83aa97db369412f870c8bbdca47f0faabaa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18f36feb_5fbf3dbb",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-17T15:43:53Z",
+      "side": 1,
+      "message": "This block of code is now copy-pasted several times.  Please rework into a method.",
+      "range": {
+        "startLine": 323,
+        "startChar": 12,
+        "endLine": 330,
+        "endChar": 23
+      },
+      "revId": "48b6d83aa97db369412f870c8bbdca47f0faabaa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
