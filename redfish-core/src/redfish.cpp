@@ -18,6 +18,7 @@
 #include "hypervisor_system.hpp"
 #include "log_services.hpp"
 #include "manager_diagnostic_data.hpp"
+#include "manager_logservices_journal.hpp"
 #include "managers.hpp"
 #include "memory.hpp"
 #include "message_registries.hpp"
