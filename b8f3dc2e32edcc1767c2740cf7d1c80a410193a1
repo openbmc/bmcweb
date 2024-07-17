@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6c4afb5_69cc8d89",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-17T20:22:21Z",
+      "side": 1,
+      "message": "Couple issues with this:\n\n1. Any validation should be done in the certificate service that\u0027s CREATING the CSR, not in bmcweb.  Error codes should be handled appropriately when DBus returns an error such that Redfish works as expected, but because you might create a CSR from within openbmc, or create a CSR from another protocol like IPMI, this validation can\u0027t apply only to bmcweb.\n2. The commit message needs to describe _why_ we want to do this.  Are there cases of invalid emails being generated?  Do signing authorities reject bad emails?\n\nOverall, I wonder if this is something we should avoid as a feature, as any email validation we do will be subjective and error prone (as your very complicated regex already proves).\n\nIn terms of workflow, I would expect these fields are supposed to be verified by the certificate authority.  The BMC can\u0027t verify most of the fields in this for correctness.  Just because I provided a regex-matching email doesn\u0027t mean it\u0027s valid, or I\u0027m authorized to create a CSR tied to that email.  I\u0027d rather us do no validation than incomplete validation.\n\nIf we decide that this is in fact needed, PLEASE don\u0027t create this regex by hand.  There are many authorities that have regexes for verifying email correctness, and they are significantly more complex than what\u0027s in this patchset.   We should grab one and document in a code comment where we got it from, as well as document that we\u0027re following RFC5322.  Again, this assumes that we even want this supported at all.",
+      "revId": "b8f3dc2e32edcc1767c2740cf7d1c80a410193a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "7d971a9c_da10214b",
