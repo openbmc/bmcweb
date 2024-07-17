@@ -1,5 +1,6 @@
 #include "async_resp.hpp"
 #include "log_services.hpp"
+#include "manager_logservices_journal.hpp"
 
 #include <systemd/sd-id128.h>
 
