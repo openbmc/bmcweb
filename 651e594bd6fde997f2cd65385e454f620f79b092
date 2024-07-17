@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58c64b29_afdc11fc",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 795,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-17T20:35:35Z",
+      "side": 1,
+      "message": "Isn\u0027t this logic wrong?  Shouldn\u0027t it be\n\nif (optEmail \u0026\u0026 !isValidEmail(...))",
+      "range": {
+        "startLine": 795,
+        "startChar": 32,
+        "endLine": 795,
+        "endChar": 55
+      },
+      "revId": "651e594bd6fde997f2cd65385e454f620f79b092",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
