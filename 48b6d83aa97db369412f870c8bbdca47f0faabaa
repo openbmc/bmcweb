@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd2226e0_607a35d9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-07-17T16:52:36Z",
+      "side": 1,
+      "message": "It would be a few months before DMTF would release the new schemas so I suggest breaking it up into 2 parts, schemas that have this property today and later can add it to other properties after Redfish adds it",
+      "parentUuid": "c9c37329_c144a1c2",
+      "revId": "48b6d83aa97db369412f870c8bbdca47f0faabaa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "c0c14584_6b7b6e4e",
