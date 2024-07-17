@@ -912,46 +912,14 @@ inline void startUpdate(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         "StartUpdate", sdbusplus::message::unix_fd(memfd.fd), applyTime);
 }
 
-inline void getAssociatedUpdateInterface(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, task::Payload payload,
-    const MemoryFileDescriptor& memfd, const std::string& applyTime,
-    const boost::system::error_code& ec,
-    const dbus::utility::MapperGetSubTreeResponse& subtree)
+inline void getSwInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      task::Payload payload, MemoryFileDescriptor memfd,
+                      const std::string& applyTime, const std::string& target,
+                      const boost::system::error_code& ec,
+                      const dbus::utility::MapperGetSubTreeResponse& subtree)
 {
-    if (ec)
-    {
-        BMCWEB_LOG_ERROR("error_code = {}", ec);
-        BMCWEB_LOG_ERROR("error msg = {}", ec.message());
-        messages::internalError(asyncResp->res);
-        return;
-    }
-    BMCWEB_LOG_DEBUG("Found {} startUpdate subtree paths", subtree.size());
-
-    if (subtree.size() > 1)
-    {
-        BMCWEB_LOG_ERROR("Found more than one startUpdate subtree paths");
-        messages::internalError(asyncResp->res);
-        return;
-    }
-
-    auto objectPath = subtree[0].first;
-    auto serviceName = subtree[0].second[0].first;
-
-    BMCWEB_LOG_DEBUG("Found objectPath {} serviceName {}", objectPath,
-                     serviceName);
-    startUpdate(asyncResp, std::move(payload), memfd, applyTime, objectPath,
-                serviceName);
-}
-
-inline void
-    getSwInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-              task::Payload payload, MemoryFileDescriptor memfd,
-              const std::string& applyTime, const std::string& target,
-              const boost::system::error_code& ec,
-              const dbus::utility::MapperGetSubTreePathsResponse& subtree)
-{
-    using SwInfoMap =
-        std::unordered_map<std::string, sdbusplus::message::object_path>;
+    using SwInfoMap = std::unordered_map<
+        std::string, std::pair<sdbusplus::message::object_path, std::string>>;
     SwInfoMap swInfoMap;
 
     if (ec)
@@ -963,11 +931,11 @@ inline void
     }
     BMCWEB_LOG_DEBUG("Found {} software version paths", subtree.size());
 
-    for (const auto& objectPath : subtree)
+    for (const auto& entry : subtree)
     {
-        sdbusplus::message::object_path path(objectPath);
+        sdbusplus::message::object_path path(entry.first);
         std::string swId = path.filename();
-        swInfoMap.emplace(swId, path);
+        swInfoMap.emplace(swId, make_pair(path, entry.second[0].first));
     }
 
     auto swEntry = swInfoMap.find(target);
@@ -978,23 +946,37 @@ inline void
         return;
     }
 
-    BMCWEB_LOG_DEBUG("Found software version path {}", swEntry->second.str);
+    BMCWEB_LOG_DEBUG("Found software version path {} serviceName {}",
+                     swEntry->second.first.str, swEntry->second.second);
 
-    sdbusplus::message::object_path swObjectPath = swEntry->second /
-                                                   "software_version";
-    constexpr std::array<std::string_view, 1> interfaces = {
-        "xyz.openbmc_project.Software.Update"};
-    dbus::utility::getAssociatedSubTree(
-        swObjectPath,
-        sdbusplus::message::object_path("/xyz/openbmc_project/software"), 0,
-        interfaces,
-        [asyncResp, payload = std::move(payload), memfd = std::move(memfd),
-         applyTime](
-            const boost::system::error_code& ec1,
-            const dbus::utility::MapperGetSubTreeResponse& subtree1) mutable {
-        getAssociatedUpdateInterface(asyncResp, std::move(payload), memfd,
-                                     applyTime, ec1, subtree1);
-    });
+    startUpdate(asyncResp, std::move(payload), memfd, applyTime,
+                swEntry->second.first.str, swEntry->second.second);
+}
+
+inline void
+    handleBMCUpdate(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                    task::Payload payload, MemoryFileDescriptor memfd,
+                    const std::string& applyTime,
+                    const boost::system::error_code& ec,
+                    const dbus::utility::MapperEndPoints& functionalSoftware)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("error_code = {}", ec);
+        BMCWEB_LOG_ERROR("error msg = {}", ec.message());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    if (functionalSoftware.size() != 1)
+    {
+        BMCWEB_LOG_ERROR("Found {} functional software endpoints",
+                         functionalSoftware.size());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    startUpdate(asyncResp, std::move(payload), memfd, applyTime,
+                functionalSoftware[0], "xyz.openbmc_project.Software.Manager");
 }
 
 inline void
@@ -1025,21 +1007,26 @@ inline void
 
     if (!targets.empty() && targets[0] == BMCWEB_REDFISH_MANAGER_URI_NAME)
     {
-        startUpdate(asyncResp, std::move(payload), memfd, applyTime,
-                    "/xyz/openbmc_project/software/bmc",
-                    "xyz.openbmc_project.Software.Manager");
+        dbus::utility::getAssociationEndPoints(
+            "/xyz/openbmc_project/software/bmc/functional",
+            [asyncResp, payload = std::move(payload), memfd = std::move(memfd),
+             applyTime](
+                const boost::system::error_code& ec,
+                const dbus::utility::MapperEndPoints& objectPaths) mutable {
+            handleBMCUpdate(asyncResp, std::move(payload), std::move(memfd),
+                            applyTime, ec, objectPaths);
+        });
     }
     else
     {
         constexpr std::array<std::string_view, 1> interfaces = {
             "xyz.openbmc_project.Software.Version"};
-        dbus::utility::getSubTreePaths(
+        dbus::utility::getSubTree(
             "/xyz/openbmc_project/software", 1, interfaces,
             [asyncResp, payload = std::move(payload), memfd = std::move(memfd),
-             applyTime,
-             targets](const boost::system::error_code& ec,
-                      const dbus::utility::MapperGetSubTreePathsResponse&
-                          subtree) mutable {
+             applyTime, targets](const boost::system::error_code& ec,
+                                 const dbus::utility::MapperGetSubTreeResponse&
+                                     subtree) mutable {
             getSwInfo(asyncResp, std::move(payload), std::move(memfd),
                       applyTime, targets[0], ec, subtree);
         });
