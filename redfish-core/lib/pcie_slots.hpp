@@ -251,7 +251,6 @@ inline void
         if (endpoints.empty())
         {
             BMCWEB_LOG_DEBUG("No association found for processor");
-            messages::internalError(asyncResp->res);
             return;
         }
 
@@ -419,7 +418,7 @@ inline void
     // Get FabricAdapter device link if exists
     addLinkedFabricAdapter(asyncResp, pcieSlotPath, index);
 
-    // Get processor link
+    // Get disk backplane link
     linkAssociatedDiskBackplane(asyncResp, pcieSlotPath, index);
 
     // Get pcie slot location indicator state
@@ -438,7 +437,7 @@ inline void onMapperAssociationDone(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisID, const std::string& pcieSlotPath,
     const std::string& connectionName, const boost::system::error_code& ec,
-    const dbus::utility::MapperEndPoints& pcieSlotChassis)
+    const dbus::utility::MapperGetSubTreePathsResponse& pcieSlotChassis)
 {
     if (ec)
     {
@@ -514,12 +513,18 @@ inline void
             const std::string& connectionName = connectionInterfacePair.first;
             sdbusplus::message::object_path pcieSlotAssociationPath(
                 pcieSlotPath);
-            pcieSlotAssociationPath /= "chassis";
+            pcieSlotAssociationPath /= "contained_by";
 
             // The association of this PCIeSlot is used to determine whether
             // it belongs to this ChassisID
-            dbus::utility::getAssociationEndPoints(
+            constexpr std::array<std::string_view, 1> chassisInterfaces = {
+                "xyz.openbmc_project.Inventory.Item.Chassis"};
+
+            dbus::utility::getAssociatedSubTreePaths(
                 std::string{pcieSlotAssociationPath},
+                sdbusplus::message::object_path(
+                    "/xyz/openbmc_project/inventory"),
+                0, chassisInterfaces,
                 [asyncResp, chassisID, pcieSlotPath, connectionName](
                     const boost::system::error_code& ec2,
                     const dbus::utility::MapperEndPoints& endpoints) {
