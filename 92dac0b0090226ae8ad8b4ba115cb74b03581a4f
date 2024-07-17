@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bfdd0b95_832abf3c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2024-07-17T10:00:50Z",
+      "side": 1,
+      "message": "Redfish Validator failed with message:\n```\nERROR - ProductionDate not defined in schema ComputerSystem.v1_19_0 (check version, spelling and casing)\nERROR - ProductionDate not defined in schema Chassis.v1_21_0 (check version, spelling and casing)\nERROR - ProductionDate not defined in schema Manager.v1_14_0 (check version, spelling and casing)\n```\nI don\u0027t see the ProductionDate in the ComputerSystem, Chassis, and Manager schema.\nDoes we need to work with DMTF first?",
+      "parentUuid": "9dd89892_2ce05ef3",
+      "revId": "92dac0b0090226ae8ad8b4ba115cb74b03581a4f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ca60fed3_07c486f6",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 1
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "88ce482a_eb718e3d",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2024-07-17T10:00:50Z",
+      "side": 1,
+      "message": "Updated.",
+      "parentUuid": "ca60fed3_07c486f6",
+      "revId": "92dac0b0090226ae8ad8b4ba115cb74b03581a4f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7576ce91_dc831a51",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 1
@@ -48,6 +84,30 @@
       "writtenOn": "2024-07-11T06:03:03Z",
       "side": 1,
       "message": "This block of code is copy pasted a lot.  Please wrap into a method and unit test it.",
+      "range": {
+        "startLine": 415,
+        "startChar": 0,
+        "endLine": 430,
+        "endChar": 20
+      },
+      "revId": "92dac0b0090226ae8ad8b4ba115cb74b03581a4f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "828691dc_4e2383b4",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2024-07-17T10:00:50Z",
+      "side": 1,
+      "message": "Updated.",
+      "parentUuid": "7576ce91_dc831a51",
       "range": {
         "startLine": 415,
         "startChar": 0,
@@ -81,6 +141,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1aab20b_d7eca962",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2024-07-17T10:00:50Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "05de35bc_36eeb1cc",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 9
+      },
+      "revId": "92dac0b0090226ae8ad8b4ba115cb74b03581a4f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "56b39a9f_4d4b28d2",
@@ -94,6 +178,24 @@
       "writtenOn": "2024-07-11T14:56:38Z",
       "side": 1,
       "message": "I don\u0027t see ProductionDate in the latest Fabric Adapter schema \nhttps://redfish.dmtf.org/schemas/v1/FabricAdapter.v1_5_3.json",
+      "revId": "92dac0b0090226ae8ad8b4ba115cb74b03581a4f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65a3b716_d6cb6753",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2024-07-17T10:00:50Z",
+      "side": 1,
+      "message": "Updated.",
+      "parentUuid": "56b39a9f_4d4b28d2",
       "revId": "92dac0b0090226ae8ad8b4ba115cb74b03581a4f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -117,6 +219,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e1e4e352_e3e93e21",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2024-07-17T10:00:50Z",
+      "side": 1,
+      "message": "Updated.",
+      "parentUuid": "bf3e1b65_53bb88e6",
+      "revId": "92dac0b0090226ae8ad8b4ba115cb74b03581a4f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7d3c7bbe_23ff8b26",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 1
@@ -128,6 +248,24 @@
       "writtenOn": "2024-07-11T14:56:38Z",
       "side": 1,
       "message": "I don\u0027t see it for Managers either \nhttps://redfish.dmtf.org/schemas/v1/Manager.v1_19_1.json",
+      "revId": "92dac0b0090226ae8ad8b4ba115cb74b03581a4f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cd0a282_b0c96d5a",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2252,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2024-07-17T10:00:50Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "7d3c7bbe_23ff8b26",
       "revId": "92dac0b0090226ae8ad8b4ba115cb74b03581a4f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
