@@ -46,6 +46,21 @@ constexpr const char* authorityObjectPath =
 } // namespace certs
 
 /**
+ * @brief Helper method to validate the given email address using regex.
+ * @param emailAddress The email address to validate.
+ * @return @c true if the email address is valid, @c false otherwise.
+*/
+inline bool isValidEmail(const std::string& emailAddress)
+{
+    // Regular expression to validate the given email address
+    // Ensuring at least one of letter, digit, dot, underscore, plus or hyphen in the user name.
+    // Allowing any letter, digit or hyphen in the first part of the domain name.
+    // Allowing multiple sub-domains, and ending with the top level domain match.
+    std::regex validEmailRegex(R"((^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z]{2,}$))");
+    return std::regex_match(emailAddress, validEmailRegex);
+}
+
+/**
  * The Certificate schema defines a Certificate Service which represents the
  * actions available to manage certificates and links to where certificates
  * are installed.
@@ -771,6 +786,14 @@ inline void
     if (req.ioService == nullptr)
     {
         messages::internalError(asyncResp->res);
+        return;
+    }
+
+    if (optEmail.has_value() && isValidEmail(*optEmail))
+    {
+        BMCWEB_LOG_ERROR("Invalid email address{}", *optEmail);
+        // The email address is not valid
+        messages::propertyValueNotInList(asyncResp->res, optEmail.value(), "Email");
         return;
     }
 
