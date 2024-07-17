@@ -64,6 +64,18 @@ TEST(getPreferredContentType, PositiveTest)
     EXPECT_EQ(getPreferredContentType("text/html, application/json", htmlJson),
               ContentType::HTML);
 
+    // String the chrome gives
+    EXPECT_EQ(getPreferredContentType(
+                  "text/html,"
+                  "application/xhtml+xml,"
+                  "application/xml;q=0.9,"
+                  "image/avif,"
+                  "image/webp,"
+                  "image/apng,*/*;q=0.8,"
+                  "application/signed-exchange;v=b3;q=0.7",
+                  htmlJson),
+              ContentType::HTML);
+
     std::array<ContentType, 2> jsonHtml{ContentType::JSON, ContentType::HTML};
     EXPECT_EQ(getPreferredContentType("text/html, application/json", jsonHtml),
               ContentType::HTML);
@@ -76,6 +88,27 @@ TEST(getPreferredContentType, PositiveTest)
     EXPECT_EQ(getPreferredContentType("application/json", cborJson),
               ContentType::JSON);
     EXPECT_EQ(getPreferredContentType("*/*", cborJson), ContentType::ANY);
+
+    // Application types with odd characters
+    EXPECT_EQ(getPreferredContentType(
+                  "application/prs.nprend, application/json", cborJson),
+              ContentType::JSON);
+
+    EXPECT_EQ(getPreferredContentType("application/rdf+xml, application/json",
+                                      cborJson),
+              ContentType::JSON);
+
+    // Q values are ignored, but should parse
+    EXPECT_EQ(getPreferredContentType(
+                  "application/rdf+xml;q=0.9, application/json", cborJson),
+              ContentType::JSON);
+    EXPECT_EQ(getPreferredContentType(
+                  "application/rdf+xml;q=1, application/json", cborJson),
+              ContentType::JSON);
+    EXPECT_EQ(getPreferredContentType("application/json;q=0.9", cborJson),
+              ContentType::JSON);
+    EXPECT_EQ(getPreferredContentType("application/json;q=1", cborJson),
+              ContentType::JSON);
 }
 
 TEST(getPreferredContentType, NegativeTest)
