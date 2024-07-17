@@ -46,6 +46,20 @@ constexpr const char* authorityObjectPath =
 } // namespace certs
 
 /**
+ * @brief Helper method to validate the given email address using regex.
+ * @param emailAddress The email address to validate.
+ * @return @c true if the email address is valid, @c false otherwise.
+ */
+inline bool isValidEmail(const std::string& emailAddress)
+{
+    // Regular expression to validate the given email address
+    // Regex obtained from https://emailregex.com/index.html
+    std::regex validEmailRegex(
+        R"((?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\]))");
+    return std::regex_match(emailAddress, validEmailRegex);
+}
+
+/**
  * The Certificate schema defines a Certificate Service which represents the
  * actions available to manage certificates and links to where certificates
  * are installed.
@@ -774,6 +788,15 @@ inline void
         return;
     }
 
+    if (optEmail.has_value() && !isValidEmail(*optEmail))
+    {
+        BMCWEB_LOG_ERROR("Invalid email address{}", *optEmail);
+        // The email address is not valid
+        messages::propertyValueNotInList(asyncResp->res, optEmail.value(),
+                                         "Email");
+        return;
+    }
+
     // Make this static so it survives outside this method
     static boost::asio::steady_timer timeout(*req.ioService);
     timeout.expires_after(std::chrono::seconds(timeOut));
@@ -835,8 +858,7 @@ inline void
             messages::internalError(asyncResp->res);
             return;
         }
-    },
-        service, objectPath, "xyz.openbmc_project.Certs.CSR.Create",
+    }, service, objectPath, "xyz.openbmc_project.Certs.CSR.Create",
         "GenerateCSR", *optAlternativeNames, *optChallengePassword, city,
         commonName, *optContactPerson, country, *optEmail, *optGivenName,
         *optInitials, *optKeyBitLength, *optKeyCurveId, *optKeyPairAlgorithm,
