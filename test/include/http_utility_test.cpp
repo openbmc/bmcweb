@@ -76,6 +76,15 @@ TEST(getPreferredContentType, PositiveTest)
     EXPECT_EQ(getPreferredContentType("application/json", cborJson),
               ContentType::JSON);
     EXPECT_EQ(getPreferredContentType("*/*", cborJson), ContentType::ANY);
+
+    // Application types with odd characters
+    EXPECT_EQ(getPreferredContentType(
+                  "application/prs.nprend, application/json", cborJson),
+              ContentType::JSON);
+
+    EXPECT_EQ(getPreferredContentType("application/rdf+xml, application/json",
+                                      cborJson),
+              ContentType::JSON);
 }
 
 TEST(getPreferredContentType, NegativeTest)
