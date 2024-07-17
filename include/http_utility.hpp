@@ -1,5 +1,7 @@
 #pragma once
 
+#include <boost/spirit/home/x3.hpp>
+
 #include <algorithm>
 #include <cctype>
 #include <iomanip>
@@ -26,71 +28,50 @@ enum class ContentType
     EventStream,
 };
 
-struct ContentTypePair
-{
-    std::string_view contentTypeString;
-    ContentType contentTypeEnum;
-};
-
-constexpr std::array<ContentTypePair, 5> contentTypes{{
-    {"application/cbor", ContentType::CBOR},
-    {"application/json", ContentType::JSON},
-    {"application/octet-stream", ContentType::OctetStream},
-    {"text/html", ContentType::HTML},
-    {"text/event-stream", ContentType::EventStream},
-}};
-
 inline ContentType getPreferredContentType(
     std::string_view header, std::span<const ContentType> preferedOrder)
 {
-    size_t lastIndex = 0;
-    while (lastIndex < header.size() + 1)
+    using boost::spirit::x3::char_;
+    using boost::spirit::x3::lit;
+    using boost::spirit::x3::omit;
+    using boost::spirit::x3::parse;
+    using boost::spirit::x3::space;
+    using boost::spirit::x3::symbols;
+    using boost::spirit::x3::uint_;
+
+    const symbols<ContentType> knownMimeType{
+        {"application/cbor", ContentType::CBOR},
+        {"application/json", ContentType::JSON},
+        {"application/octet-stream", ContentType::OctetStream},
+        {"text/html", ContentType::HTML},
+        {"text/event-stream", ContentType::EventStream},
+        {"*/*", ContentType::ANY}};
+
+    std::vector<ContentType> ct;
+
+    auto parameters = *(lit(';') >> lit("q=") >> uint_ >> -(lit('.') >> uint_));
+    auto typeCharset = char_("a-zA-Z.+-");
+    auto mimeType = knownMimeType |
+                    omit[+typeCharset >> lit('/') >> +typeCharset];
+    auto parser = +(mimeType >> omit[parameters >> -char_(',') >> *space]);
+    if (!parse(header.begin(), header.end(), parser, ct))
     {
-        size_t index = header.find(',', lastIndex);
-        if (index == std::string_view::npos)
-        {
-            index = header.size();
-        }
-        std::string_view encoding = header.substr(lastIndex, index);
-
-        if (!header.empty())
-        {
-            header.remove_prefix(1);
-        }
-        lastIndex = index + 1;
-        // ignore any q-factor weighting (;q=)
-        std::size_t separator = encoding.find(";q=");
-
-        if (separator != std::string_view::npos)
-        {
-            encoding = encoding.substr(0, separator);
-        }
-        // If the client allows any encoding, given them the first one on the
-        // servers list
-        if (encoding == "*/*")
-        {
-            return ContentType::ANY;
-        }
-        const auto* knownContentType = std::ranges::find_if(
-            contentTypes, [encoding](const ContentTypePair& pair) {
-                return pair.contentTypeString == encoding;
-            });
-
-        if (knownContentType == contentTypes.end())
-        {
-            // not able to find content type in list
-            continue;
-        }
-
-        // Not one of the types requested
-        if (std::ranges::find(preferedOrder,
-                              knownContentType->contentTypeEnum) ==
-            preferedOrder.end())
-        {
-            continue;
-        }
-        return knownContentType->contentTypeEnum;
+        return ContentType::NoMatch;
     }
+
+    for (const ContentType parsedType : ct)
+    {
+        if (parsedType == ContentType::ANY)
+        {
+            return parsedType;
+        }
+        auto it = std::ranges::find(preferedOrder, parsedType);
+        if (it != preferedOrder.end())
+        {
+            return *it;
+        }
+    }
+
     return ContentType::NoMatch;
 }
 
