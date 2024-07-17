@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "04cd5848_835c0e94",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002110
+      },
+      "writtenOn": "2024-07-17T21:44:38Z",
+      "side": 1,
+      "message": "You have a valid point that the certificate service generating the CSR should handle the validation for the various fields, esp since duplication can be avoided across openbmc and other protocols. \n\nThe initial idea was the preempt the error by handling preliminary checks in bmcweb since if validation is not happening when CSR is created, the CSR will probably be rejected by signing authorities. \n\nBut, it can end up getting complicated. Considering that various fields that are used (or are optional), perhaps we can say that the onus is entirely when the CSR is created. I would be ok if we want to reject this code review and say that such checks will happen entirely in the certificate service instead.",
+      "parentUuid": "b6c4afb5_69cc8d89",
+      "revId": "b8f3dc2e32edcc1767c2740cf7d1c80a410193a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "7d971a9c_da10214b",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 2
