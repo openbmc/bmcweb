@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9c37329_c144a1c2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-07-17T16:51:06Z",
+      "side": 1,
+      "message": "This needs to pass the Redfish Validator, either by talking to the DMTF getting them to add it to System, Manager, Chassis, etc, then bumping those schemas or by removing it from those schemas that don\u0027t have it.",
+      "revId": "48b6d83aa97db369412f870c8bbdca47f0faabaa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "c0c14584_6b7b6e4e",
