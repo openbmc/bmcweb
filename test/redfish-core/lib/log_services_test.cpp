@@ -54,14 +54,18 @@ TEST(LogServicesBMCJouralTest, LogServicesBMCJouralGetReturnsError)
     EXPECT_EQ(timestampIn, timestampOut);
     EXPECT_EQ(indexOut, 0);
 
-    uint64_t indexIn = 1;
+    // Index of _1 is invalid. First index is omitted
+    EXPECT_FALSE(getTimestampFromID(
+        shareAsyncResp, std::format("{}_{}_1", goodBootIDStr, timestampIn),
+        bootIDOut, timestampOut, indexOut));
+
+    // Index of _2 is valid, and should return a zero index (1)
     EXPECT_TRUE(getTimestampFromID(
-        shareAsyncResp,
-        std::format("{}_{}_{}", goodBootIDStr, timestampIn, indexIn), bootIDOut,
-        timestampOut, indexOut));
+        shareAsyncResp, std::format("{}_{}_2", goodBootIDStr, timestampIn),
+        bootIDOut, timestampOut, indexOut));
     EXPECT_NE(sd_id128_equal(goodBootID, bootIDOut), 0);
     EXPECT_EQ(timestampIn, timestampOut);
-    EXPECT_EQ(indexOut, indexIn);
+    EXPECT_EQ(indexOut, 1);
 }
 
 TEST(LogServicesPostCodeParse, PostCodeParse)
