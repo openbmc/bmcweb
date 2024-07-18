@@ -124,7 +124,7 @@ inline std::string getDumpPath(std::string_view dumpType)
     return dbusDumpPath;
 }
 
-static bool getUniqueEntryID(const std::string& logEntry, std::string& entryID,
+inline bool getUniqueEntryID(const std::string& logEntry, std::string& entryID,
                              const bool firstEntry = true)
 {
     static time_t prevTs = 0;
