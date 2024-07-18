@@ -39,6 +39,30 @@
       },
       "revId": "40d0af4b553de8454ca4ccaf84d3e8e2545d5eb0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9021a7e1_8c9bc067",
+        "filename": "redfish-core/lib/manager_logservices_journal.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-18T22:43:26Z",
+      "side": 1,
+      "message": "This comment got completely removed and replaced with a better comment about how it works.",
+      "parentUuid": "c00b665c_043e11dc",
+      "range": {
+        "startLine": 301,
+        "startChar": 12,
+        "endLine": 301,
+        "endChar": 14
+      },
+      "revId": "40d0af4b553de8454ca4ccaf84d3e8e2545d5eb0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
