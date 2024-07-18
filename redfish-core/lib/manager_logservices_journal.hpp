@@ -336,23 +336,46 @@ inline void handleManagersLogServiceJournalEntriesGet(
     std::unique_ptr<sd_journal, decltype(&sd_journal_close)> journal(
         journalTmp, sd_journal_close);
     journalTmp = nullptr;
-    uint64_t entryCount = 0;
+
     // Reset the unique ID on the first entry
     bool firstEntry = true;
-    SD_JOURNAL_FOREACH(journal.get())
-    {
-        entryCount++;
-        // Handle paging using skip (number of entries to skip from
-        // the start) and top (number of entries to display)
-        if (entryCount <= skip || entryCount > skip + top)
-        {
-            continue;
-        }
 
+    // Seek to the beginning
+    if (sd_journal_seek_head(journal.get()) < 0)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    // Get the first entry
+    if (sd_journal_next(journal.get()) < 0)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    // Get the first sequence number
+    uint64_t startSeqNum = 0;
+    if (sd_journal_get_seqnum(journal.get(), &startSeqNum, nullptr) < 0)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    if (skip > 0)
+    {
+        if (sd_journal_next_skip(journal.get(), skip) < 0)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+    }
+
+    for (uint64_t entryCount = 0; entryCount < top; entryCount++)
+    {
         std::string idStr;
         if (!getUniqueEntryID(journal.get(), idStr, firstEntry))
         {
-            continue;
+            messages::internalError(asyncResp->res);
+            break;
         }
         firstEntry = false;
 
@@ -364,9 +387,43 @@ inline void handleManagersLogServiceJournalEntriesGet(
             return;
         }
         logEntryArray.emplace_back(std::move(bmcJournalLogEntry));
+
+        ret = sd_journal_next(journal.get());
+        if (ret < 0)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        if (ret == 0)
+        {
+            break;
+        }
     }
-    asyncResp->res.jsonValue["Members@odata.count"] = entryCount;
-    if (skip + top < entryCount)
+
+    if (sd_journal_seek_tail(journal.get()) < 0)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    if (sd_journal_previous(journal.get()) < 0)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    uint64_t endSeqNum = 0;
+    if (sd_journal_get_seqnum(journal.get(), &endSeqNum, nullptr) < 0)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    BMCWEB_LOG_DEBUG("journal Sequence IDs start:{} end:{}", startSeqNum,
+                     endSeqNum);
+
+    // Add 1 to account for the last entry
+    uint64_t totalEntries = endSeqNum - startSeqNum + 1;
+    asyncResp->res.jsonValue["Members@odata.count"] = totalEntries;
+    if (skip + top < totalEntries)
     {
         asyncResp->res.jsonValue["Members@odata.nextLink"] =
             boost::urls::format(
