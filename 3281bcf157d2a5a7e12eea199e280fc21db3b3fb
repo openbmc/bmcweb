@@ -1,4 +1,22 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14f9c39b_f8cce62d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000936
+      },
+      "writtenOn": "2024-07-18T11:05:31Z",
+      "side": 1,
+      "message": "Hello,\n\nDuring testing of the current bmcweb I noticed this IsAuthenticated cookie doesn\u0027t actually make it to the client, please see this debug log (with few messages added):\n\n```\n[DEBUG http_connection.hpp:104] 0x264cf58 Generated TLS session: 3PkjVDCcEr\n[DEBUG http_connection.hpp:486] 0x264cf58 doReadHeaders\n[DEBUG http_connection.hpp:498] 0x264cf58 async_read_header 116 Bytes\n[DEBUG authentication.hpp:193] Adding cookie to response: 0x264f180\n[DEBUG authentication.hpp:199]  TLS session: 3PkjVDCcEr with cookie will be used for this request.\n[DEBUG authentication.hpp:279] authHeader\u003d\n[DEBUG http_connection.hpp:445] 0x264cf58 No content length available\n[INFO http_connection.hpp:270] Request:  0x264cf58 HTTP/1.1 GET /redfish/v1/AccountService/Accounts 172.40.1.4\n[DEBUG http_connection.hpp:303] Setting completion handler\n[DEBUG http_response.hpp:270] 0x25ded40 setting completion handler\n[DEBUG routing.hpp:650] Matched rule \u0027/redfish/v1/AccountService/Accounts/\u0027 1 / 2\n[DEBUG dbus_privileges.hpp:50] userName \u003d root userRole \u003d priv-admin\n[DEBUG query.hpp:125] setup redfish route\n[DEBUG http_response.hpp:281] 0x25ded40 releasing completion handlertrue\n[DEBUG http_response.hpp:270] 0x25ded40 setting completion handler\n[DEBUG http_response.hpp:260] 0x25ded40 calling completion handler\n[DEBUG http_response.hpp:263] 0x25ded40 completion handler was valid\n[DEBUG query_param.hpp:1039] Processing query params\n[DEBUG http_response.hpp:79] Moving response containers; this: 0x264f180; other: 0x25ded40\n[DEBUG http_response.hpp:84] this header: Set-Cookie IsAuthenticated\u003dtrue; Secure\n[DEBUG http_response.hpp:90] that header: Allow GET, HEAD, POST\n[DEBUG http_response.hpp:90] that header: OData-Version 4.0\n[DEBUG http_response.hpp:90] that header: Link \u003c/redfish/v1/JsonSchemas/ManagerAccountCollection.json\u003e; rel\u003ddescribedby\n```\n\nIn other words, the response (including the header that sets the cookie) gets fully overwritten during move after processing, naturally, it\u0027s not present in the reply a client sees:\n\n```\n\u003c HTTP/1.1 200 OK\n\u003c Allow: GET, HEAD, POST\n\u003c OData-Version: 4.0\n\u003c Link: \u003c/redfish/v1/JsonSchemas/ManagerAccountCollection.json\u003e; rel\u003ddescribedby\n\u003c Strict-Transport-Security: max-age\u003d31536000; includeSubdomains\n\u003c Pragma: no-cache\n\u003c Cache-Control: no-store, max-age\u003d0\n\u003c X-Content-Type-Options: nosniff\n\u003c ETag: \"45C7E789\"\n\u003c Content-Type: application/json\n* TLSv1.2 (IN), TLS header, Supplemental data (23):\n\u003c Date: Thu, 18 Jul 2024 10:57:46 GMT\n\u003c Content-Length: 395\n\u003c\n{ \n  \"@odata.id\": \"/redfish/v1/AccountService/Accounts\",\n  \"@odata.type\": \"#ManagerAccountCollection.ManagerAccountCollection\",\n  \"Description\": \"BMC User Accounts\",\n  \"Members\": [\n    { \n      \"@odata.id\": \"/redfish/v1/AccountService/Accounts/test\"\n    },\n    { \n      \"@odata.id\": \"/redfish/v1/AccountService/Accounts/root\"\n    }\n  ],\n  \"Members@odata.count\": 2,\n  \"Name\": \"Accounts Collection\"\n}\n```",
+      "revId": "3281bcf157d2a5a7e12eea199e280fc21db3b3fb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ],
   "submitRequirementResults": []
 }
