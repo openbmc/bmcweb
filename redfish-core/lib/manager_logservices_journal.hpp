@@ -77,7 +77,7 @@ inline bool
 }
 
 inline bool getUniqueEntryID(sd_journal* journal, std::string& entryID,
-                             const bool firstEntry = true)
+                             bool firstEntry)
 {
     int ret = 0;
     static sd_id128_t prevBootID{};
@@ -285,6 +285,66 @@ inline void handleManagersLogServiceJournalGet(
         BMCWEB_REDFISH_MANAGER_URI_NAME);
 }
 
+inline void readJournalEntries(
+    std::unique_ptr<sd_journal, decltype(&sd_journal_close)> journal,
+    uint64_t topEntryCount, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    nlohmann::json& logEntry = asyncResp->res.jsonValue["Members"];
+    nlohmann::json::array_t* logEntryArray =
+        logEntry.get_ptr<nlohmann::json::array_t*>();
+    if (logEntryArray == nullptr)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    // Chunk  entries at a time
+    size_t segmentCountRemaining = 10;
+
+    // Reset the unique ID on the first entry
+    for (uint64_t entryCount = logEntryArray->size();
+         entryCount < topEntryCount; entryCount++)
+    {
+        if (segmentCountRemaining == 0)
+        {
+            boost::asio::post(crow::connections::systemBus->get_io_context(),
+                              [asyncResp, topEntryCount,
+                               journal = std::move(journal)]() mutable {
+                readJournalEntries(std::move(journal), topEntryCount,
+                                   asyncResp);
+            });
+            return;
+        }
+
+        std::string idStr;
+        if (!getUniqueEntryID(journal.get(), idStr, entryCount == 0))
+        {
+            continue;
+        }
+
+        nlohmann::json::object_t bmcJournalLogEntry;
+        if (fillBMCJournalLogEntryJson(idStr, journal.get(),
+                                       bmcJournalLogEntry) != 0)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        logEntryArray->emplace_back(std::move(bmcJournalLogEntry));
+
+        int ret = sd_journal_next(journal.get());
+        if (ret < 0)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        if (ret == 0)
+        {
+            break;
+        }
+        segmentCountRemaining--;
+    }
+}
+
 inline void handleManagersLogServiceJournalEntriesGet(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -320,8 +380,7 @@ inline void handleManagersLogServiceJournalEntriesGet(
     asyncResp->res.jsonValue["Name"] = "Open BMC Journal Entries";
     asyncResp->res.jsonValue["Description"] =
         "Collection of BMC Journal Entries";
-    nlohmann::json& logEntryArray = asyncResp->res.jsonValue["Members"];
-    logEntryArray = nlohmann::json::array();
+    asyncResp->res.jsonValue["Members"] = nlohmann::json::array_t();
 
     // Go through the journal and use the timestamp to create a
     // unique ID for each entry
@@ -333,46 +392,79 @@ inline void handleManagersLogServiceJournalEntriesGet(
         messages::internalError(asyncResp->res);
         return;
     }
+
     std::unique_ptr<sd_journal, decltype(&sd_journal_close)> journal(
         journalTmp, sd_journal_close);
     journalTmp = nullptr;
-    uint64_t entryCount = 0;
-    // Reset the unique ID on the first entry
-    bool firstEntry = true;
-    SD_JOURNAL_FOREACH(journal.get())
+
+    // Seek to the end
+    if (sd_journal_seek_tail(journal.get()) < 0)
     {
-        entryCount++;
-        // Handle paging using skip (number of entries to skip from
-        // the start) and top (number of entries to display)
-        if (entryCount <= skip || entryCount > skip + top)
-        {
-            continue;
-        }
-
-        std::string idStr;
-        if (!getUniqueEntryID(journal.get(), idStr, firstEntry))
-        {
-            continue;
-        }
-        firstEntry = false;
-
-        nlohmann::json::object_t bmcJournalLogEntry;
-        if (fillBMCJournalLogEntryJson(idStr, journal.get(),
-                                       bmcJournalLogEntry) != 0)
-        {
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        logEntryArray.emplace_back(std::move(bmcJournalLogEntry));
+        messages::internalError(asyncResp->res);
+        return;
     }
-    asyncResp->res.jsonValue["Members@odata.count"] = entryCount;
-    if (skip + top < entryCount)
+
+    // Get the last entry
+    if (sd_journal_previous(journal.get()) < 0)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    // Get the last sequence number
+    uint64_t endSeqNum = 0;
+    if (sd_journal_get_seqnum(journal.get(), &endSeqNum, nullptr) < 0)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    // Seek to the beginning
+    if (sd_journal_seek_head(journal.get()) < 0)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    // Get the first entry
+    if (sd_journal_next(journal.get()) < 0)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    // Get the first sequence number
+    uint64_t startSeqNum = 0;
+    if (sd_journal_get_seqnum(journal.get(), &startSeqNum, nullptr) < 0)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    BMCWEB_LOG_DEBUG("journal Sequence IDs start:{} end:{}", startSeqNum,
+                     endSeqNum);
+
+    // Add 1 to account for the last entry
+    uint64_t totalEntries = endSeqNum - startSeqNum + 1;
+    asyncResp->res.jsonValue["Members@odata.count"] = totalEntries;
+    if (skip + top < totalEntries)
     {
         asyncResp->res.jsonValue["Members@odata.nextLink"] =
             boost::urls::format(
                 "/redfish/v1/Managers/{}/LogServices/Journal/Entries?$skip={}",
                 BMCWEB_REDFISH_MANAGER_URI_NAME, std::to_string(skip + top));
     }
+
+    if (skip > 0)
+    {
+        if (sd_journal_next_skip(journal.get(), skip) < 0)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+    }
+
+    readJournalEntries(std::move(journal), top, asyncResp);
 }
 
 inline void handleManagersLogServiceJournalEntriesElementGet(
@@ -414,7 +506,6 @@ inline void handleManagersLogServiceJournalEntriesElementGet(
     // Go to the timestamp in the log and move to the entry at the
     // index tracking the unique ID
     std::string idStr;
-    bool firstEntry = true;
     ret = sd_journal_seek_monotonic_usec(journal.get(), bootID, ts);
     if (ret < 0)
     {
@@ -423,16 +514,20 @@ inline void handleManagersLogServiceJournalEntriesElementGet(
         messages::internalError(asyncResp->res);
         return;
     }
-    for (uint64_t i = 0; i <= index; i++)
+
+    if (sd_journal_next_skip(journal.get(), index) < 0)
     {
-        sd_journal_next(journal.get());
-        if (!getUniqueEntryID(journal.get(), idStr, firstEntry))
-        {
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        firstEntry = false;
+        messages::internalError(asyncResp->res);
+        return;
     }
+
+    bool firstEntry = index == 0;
+    if (!getUniqueEntryID(journal.get(), idStr, firstEntry))
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
     // Confirm that the entry ID matches what was requested
     if (idStr != entryID)
     {
