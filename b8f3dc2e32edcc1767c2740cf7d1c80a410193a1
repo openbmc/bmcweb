@@ -56,6 +56,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "5d9d8e2d_61ebc8a7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-18T19:20:35Z",
+      "side": 1,
+      "message": "I\u0027m still of the opinion that we don\u0027t really want to do this type of verification, because in the workflow it\u0027s the signing authorities name, we should just verify that we can correctly create the CSR.\n\nSo before you go do a lot of work, lets have a discussion somewhere about what you\u0027re trying to accomplish in the overall CSR workflow.",
+      "parentUuid": "f35423d9_64844b98",
+      "revId": "b8f3dc2e32edcc1767c2740cf7d1c80a410193a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "7d971a9c_da10214b",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 2
