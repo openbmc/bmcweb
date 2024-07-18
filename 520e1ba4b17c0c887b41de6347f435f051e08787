@@ -16,6 +16,24 @@
       "message": "Is this a duplicate of https://gerrit.openbmc.org/c/openbmc/bmcweb/+/70895 ?",
       "revId": "520e1ba4b17c0c887b41de6347f435f051e08787",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2dbb0fe_0c435ed8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2024-07-18T02:56:23Z",
+      "side": 1,
+      "message": "Yes, I didn\u0027t know it.",
+      "parentUuid": "e3638715_7cf2fbc6",
+      "revId": "520e1ba4b17c0c887b41de6347f435f051e08787",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
