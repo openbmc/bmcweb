@@ -237,6 +237,8 @@ endif
 bmcweb_dependencies += tinyxml
 
 systemd = dependency('systemd')
+add_project_arguments('-DSYSTEMD_VERSION=' + systemd.version(), language: 'cpp')
+
 zlib = dependency('zlib')
 bmcweb_dependencies += [systemd, zlib]
 
