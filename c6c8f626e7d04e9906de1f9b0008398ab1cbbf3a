@@ -73,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "beb76294_9b8a9f32",
+        "filename": "redfish-core/lib/manager_logservices_journal.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-19T20:55:14Z",
+      "side": 1,
+      "message": "We do, but in the way sd_journal_next_skip works, we need to skip at least one entry.\n\nFWIW, when I found this, I thought it was weird too.... but it gives the right behavior.",
+      "parentUuid": "d6bfac81_753745c3",
+      "range": {
+        "startLine": 537,
+        "startChar": 44,
+        "endLine": 537,
+        "endChar": 53
+      },
+      "revId": "c6c8f626e7d04e9906de1f9b0008398ab1cbbf3a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0b8f0280_29043652",
         "filename": "test/redfish-core/lib/log_services_test.cpp",
         "patchSetId": 10
@@ -84,6 +108,30 @@
       "writtenOn": "2024-07-19T15:35:50Z",
       "side": 1,
       "message": "typo: omitted",
+      "range": {
+        "startLine": 57,
+        "startChar": 46,
+        "endLine": 57,
+        "endChar": 54
+      },
+      "revId": "c6c8f626e7d04e9906de1f9b0008398ab1cbbf3a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a0400e8_fa12bd59",
+        "filename": "test/redfish-core/lib/log_services_test.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-19T20:55:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b8f0280_29043652",
       "range": {
         "startLine": 57,
         "startChar": 46,
