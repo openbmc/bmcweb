@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bca721f_3e9b1527",
+        "filename": "redfish-core/lib/manager_logservices_journal.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-19T20:25:36Z",
+      "side": 1,
+      "message": "yep.  that’s a good catch.  I tested a lot of cases, but didn’t test that one.\n\nI posted a script to openbmc-tools to test this.",
+      "parentUuid": "fbf9ddb0_09d5aa2a",
+      "range": {
+        "startLine": 317,
+        "startChar": 0,
+        "endLine": 322,
+        "endChar": 9
+      },
+      "revId": "c6c8f626e7d04e9906de1f9b0008398ab1cbbf3a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d6bfac81_753745c3",
