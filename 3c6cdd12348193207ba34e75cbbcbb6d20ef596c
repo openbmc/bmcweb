@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "93602b45_2ba815c8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 41
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2024-07-19T15:25:34Z",
+      "side": 1,
+      "message": "I rewrite the powersupply code to decrease the number of mapper calls.\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/72423",
+      "parentUuid": "3807d2d7_a0ae105d",
+      "revId": "3c6cdd12348193207ba34e75cbbcbb6d20ef596c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b7bc1805_c2ff39e5",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 41
@@ -54,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a5b00494_01c3e365",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2024-07-19T15:25:34Z",
+      "side": 1,
+      "message": "I did not follow, which call we are we duplicating.",
+      "parentUuid": "b7bc1805_c2ff39e5",
+      "revId": "3c6cdd12348193207ba34e75cbbcbb6d20ef596c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "062313e8_e062bd67",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 41
@@ -65,6 +101,30 @@
       "writtenOn": "2024-02-22T17:38:03Z",
       "side": 1,
       "message": "Please review the WIP aiming to change these calls.",
+      "range": {
+        "startLine": 392,
+        "startChar": 21,
+        "endLine": 392,
+        "endChar": 32
+      },
+      "revId": "3c6cdd12348193207ba34e75cbbcbb6d20ef596c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a40ff3ec_ad1d8623",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2024-07-19T15:25:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "062313e8_e062bd67",
       "range": {
         "startLine": 392,
         "startChar": 21,
