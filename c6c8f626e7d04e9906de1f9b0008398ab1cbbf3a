@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fbf9ddb0_09d5aa2a",
+        "filename": "redfish-core/lib/manager_logservices_journal.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2024-07-19T15:35:50Z",
+      "side": 1,
+      "message": "Hmm... I just realized: Does this `timestamp + index` approach for the ID still work after this change?\n\nFor example, if I have these timestamps in the journal:\nA. 100\nB. 101\nC. 101\nD. 101\nE. 102\n\nWhen I read them all, I get these IDs:\nA. 100\nB. 101\nC. 101_2\nD. 101_3\nE. 102\n\nIf I skip to C, with the more efficient reads, won\u0027t I get these IDs because I skipped getting the timestamp for the first 101 entry:\nC. 101\nD. 101_2\nE. 102\n\nWould changing to something like `timestamp + sequence number` help avoid this?",
+      "range": {
+        "startLine": 317,
+        "startChar": 0,
+        "endLine": 322,
+        "endChar": 9
+      },
+      "revId": "c6c8f626e7d04e9906de1f9b0008398ab1cbbf3a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6bfac81_753745c3",
+        "filename": "redfish-core/lib/manager_logservices_journal.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2024-07-19T15:35:50Z",
+      "side": 1,
+      "message": "Don\u0027t we want the zero-based index for journal access?",
+      "range": {
+        "startLine": 537,
+        "startChar": 44,
+        "endLine": 537,
+        "endChar": 53
+      },
+      "revId": "c6c8f626e7d04e9906de1f9b0008398ab1cbbf3a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b8f0280_29043652",
+        "filename": "test/redfish-core/lib/log_services_test.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2024-07-19T15:35:50Z",
+      "side": 1,
+      "message": "typo: omitted",
+      "range": {
+        "startLine": 57,
+        "startChar": 46,
+        "endLine": 57,
+        "endChar": 54
+      },
+      "revId": "c6c8f626e7d04e9906de1f9b0008398ab1cbbf3a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
