@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3068a5ff_38f1a7a7",
+        "filename": "redfish-core/lib/manager_logservices_journal.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-19T19:45:31Z",
+      "side": 1,
+      "message": "Made the change.",
+      "parentUuid": "99a35e71_1fad2644",
+      "range": {
+        "startLine": 463,
+        "startChar": 12,
+        "endLine": 463,
+        "endChar": 53
+      },
+      "revId": "13797a5c0e8c0dc69a78f422405aa9f9140ee639",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "15783e87_c17728f5",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-07-19T15:14:48Z",
       "side": 1,
       "message": "the schema is LogEntry. \n\nhandleManagersJournalEntriesLogEntryGet I think would be better",
+      "range": {
+        "startLine": 469,
+        "startChar": 12,
+        "endLine": 469,
+        "endChar": 60
+      },
+      "revId": "13797a5c0e8c0dc69a78f422405aa9f9140ee639",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b402637_72e1ff5c",
+        "filename": "redfish-core/lib/manager_logservices_journal.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-19T19:45:31Z",
+      "side": 1,
+      "message": "Made the change.",
+      "parentUuid": "15783e87_c17728f5",
       "range": {
         "startLine": 469,
         "startChar": 12,
