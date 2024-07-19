@@ -372,9 +372,7 @@ inline void
     sdbusplus::message::object_path endpointPath{cableObjectPath};
     endpointPath /= associationName;
 
-    // NOTE: "xyz.openbmc_project.Inventory.Item.Connector" may go away later
-    constexpr std::array<std::string_view, 2> portInterfaces = {
-        "xyz.openbmc_project.Inventory.Item.Connector",
+    constexpr std::array<std::string_view, 1> portInterfaces = {
         "xyz.openbmc_project.Inventory.Connector.Port"};
 
     dbus::utility::getAssociatedSubTreePaths(
