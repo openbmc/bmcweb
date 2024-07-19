@@ -121,6 +121,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "14fd4c0d_8543f661",
+        "filename": "redfish-core/lib/manager_logservices_journal.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-19T21:07:00Z",
+      "side": 1,
+      "message": "I remembered a little about what the deal is here;  sd_journal_seek_monotonic_usec seeks to the entry, but documents that you always have to call sd_journal_next* to resolve the entry after you\u0027ve seeked.\n\nsd_journal_next_skip(..., 0);\n\nDoesn\u0027t move the pointer at all, and is basically noop in our case:\n\nhttps://github.com/systemd/systemd/blob/e8468541727db9cea18cf29c39f46013bce1bae3/src/libsystemd/sd-journal/sd-journal.c#L1135\n\nBecause that this point we have locationType LOCATION_SEEK.\n\nAdding 1 to it makes the tests pass, including for the non zero case, so I think it\u0027s counting the seek pointer as one of the things to skip.\n\nThis is different behavior than when your seek is already on an entry.",
+      "parentUuid": "beb76294_9b8a9f32",
+      "range": {
+        "startLine": 537,
+        "startChar": 44,
+        "endLine": 537,
+        "endChar": 53
+      },
+      "revId": "c6c8f626e7d04e9906de1f9b0008398ab1cbbf3a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0b8f0280_29043652",
         "filename": "test/redfish-core/lib/log_services_test.cpp",
         "patchSetId": 10
