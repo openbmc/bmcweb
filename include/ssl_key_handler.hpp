@@ -34,7 +34,6 @@ namespace ensuressl
 {
 constexpr const char* trustStorePath = "/etc/ssl/certs/authority";
 constexpr const char* x509Comment = "Generated from OpenBMC service";
-static void initOpenssl();
 static EVP_PKEY* createEcKey();
 
 // Trust chain related errors.`
@@ -134,41 +133,6 @@ inline std::string verifyOpensslKeyCert(const std::string& filepath)
     BIO_free(bufio);
     if (pkey != nullptr)
     {
-#if (OPENSSL_VERSION_NUMBER < 0x30000000L)
-        RSA* rsa = EVP_PKEY_get1_RSA(pkey);
-        if (rsa != nullptr)
-        {
-            BMCWEB_LOG_INFO("Found an RSA key");
-            if (RSA_check_key(rsa) == 1)
-            {
-                privateKeyValid = true;
-            }
-            else
-            {
-                BMCWEB_LOG_ERROR("Key not valid error number {}",
-                                 ERR_get_error());
-            }
-            RSA_free(rsa);
-        }
-        else
-        {
-            EC_KEY* ec = EVP_PKEY_get1_EC_KEY(pkey);
-            if (ec != nullptr)
-            {
-                BMCWEB_LOG_INFO("Found an EC key");
-                if (EC_KEY_check_key(ec) == 1)
-                {
-                    privateKeyValid = true;
-                }
-                else
-                {
-                    BMCWEB_LOG_ERROR("Key not valid error number {}",
-                                     ERR_get_error());
-                }
-                EC_KEY_free(ec);
-            }
-        }
-#else
         EVP_PKEY_CTX* pkeyCtx = EVP_PKEY_CTX_new_from_pkey(nullptr, pkey,
                                                            nullptr);
 
@@ -184,7 +148,6 @@ inline std::string verifyOpensslKeyCert(const std::string& filepath)
         {
             BMCWEB_LOG_ERROR("Key not valid error number {}", ERR_get_error());
         }
-#endif
 
         if (privateKeyValid)
         {
@@ -204,9 +167,7 @@ inline std::string verifyOpensslKeyCert(const std::string& filepath)
             }
         }
 
-#if (OPENSSL_VERSION_NUMBER > 0x30000000L)
         EVP_PKEY_CTX_free(pkeyCtx);
-#endif
         EVP_PKEY_free(pkey);
     }
     if (!certValid)
@@ -283,7 +244,6 @@ inline void writeCertificateToFile(const std::string& filepath,
 inline std::string generateSslCertificate(const std::string& cn)
 {
     BMCWEB_LOG_INFO("Generating new keys");
-    initOpenssl();
 
     std::string buffer;
     BMCWEB_LOG_INFO("Generating EC key");
@@ -388,29 +348,6 @@ EVP_PKEY* createEcKey()
 {
     EVP_PKEY* pKey = nullptr;
 
-#if (OPENSSL_VERSION_NUMBER < 0x30000000L)
-    int eccgrp = 0;
-    eccgrp = OBJ_txt2nid("secp384r1");
-
-    EC_KEY* myecc = EC_KEY_new_by_curve_name(eccgrp);
-    if (myecc != nullptr)
-    {
-        EC_KEY_set_asn1_flag(myecc, OPENSSL_EC_NAMED_CURVE);
-        EC_KEY_generate_key(myecc);
-        pKey = EVP_PKEY_new();
-        if (pKey != nullptr)
-        {
-            if (EVP_PKEY_assign(pKey, EVP_PKEY_EC, myecc) != 0)
-            {
-                /* pKey owns myecc from now */
-                if (EC_KEY_check_key(myecc) <= 0)
-                {
-                    BMCWEB_LOG_ERROR("EC_check_key failed.");
-                }
-            }
-        }
-    }
-#else
     // Create context for curve parameter generation.
     std::unique_ptr<EVP_PKEY_CTX, decltype(&::EVP_PKEY_CTX_free)> ctx{
         EVP_PKEY_CTX_new_id(EVP_PKEY_EC, nullptr), &::EVP_PKEY_CTX_free};
@@ -447,18 +384,8 @@ EVP_PKEY* createEcKey()
     {
         return nullptr;
     }
-#endif
 
     return pKey;
-}
-
-void initOpenssl()
-{
-#if OPENSSL_VERSION_NUMBER < 0x10100000L
-    SSL_load_error_strings();
-    OpenSSL_add_all_algorithms();
-    RAND_load_file("/dev/urandom", 1024);
-#endif
 }
 
 inline std::string ensureOpensslKeyPresentAndValid(const std::string& filepath)
