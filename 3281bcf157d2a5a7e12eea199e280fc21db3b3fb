@@ -33,6 +33,24 @@
       "message": "Not everything here worked as expected, please see inline.",
       "revId": "3281bcf157d2a5a7e12eea199e280fc21db3b3fb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75b86f6c_13b4fb9e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-20T16:29:06Z",
+      "side": 1,
+      "message": "Interesting;  I will take a look.\n\nJust to make sure, this doesn\u0027t cause a user facing failure, because the UI doesn\u0027t support IsAuthenticated correct? (although we should make sure the behavior matches the intent, so I\u0027ll take a look either way)",
+      "parentUuid": "14f9c39b_f8cce62d",
+      "revId": "3281bcf157d2a5a7e12eea199e280fc21db3b3fb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ],
   "submitRequirementResults": []
