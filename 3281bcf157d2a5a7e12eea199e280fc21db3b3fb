@@ -51,6 +51,24 @@
       "parentUuid": "14f9c39b_f8cce62d",
       "revId": "3281bcf157d2a5a7e12eea199e280fc21db3b3fb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da201c6b_5e382804",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000936
+      },
+      "writtenOn": "2024-07-20T21:46:14Z",
+      "side": 1,
+      "message": "\u003e Just to make sure, this doesn\u0027t cause a user facing failure, because the UI doesn\u0027t support IsAuthenticated correct?\n\nmTLS for WebUI wasn\u0027t working (requires normal logging in) before this change for the same reason and still doesn\u0027t work now with unmodified webui-vue. That\u0027s because before the app wants to route to `/` https://github.com/openbmc/webui-vue/blob/master/src/router/routes.js#L94 it checks if the user was authenticated https://github.com/openbmc/webui-vue/blob/master/src/router/index.js#L22 and since there is (and there was) no cookie https://github.com/openbmc/webui-vue/blob/master/src/store/modules/Authentication/AuthenticanStore.js#L22 the router redirects to `/login`.\n\nIf this check is relaxed webui-vue starts being functional with mTLS (of course without WebSockets). My guess is that if the cookie was actually set webui-vue would work without changes but I haven\u0027t tried. I\u0027d say webui-vue supported and still supports isAuthenticated cookie but bmcweb stopped sending it after some regression and that\u0027s why mTLS for webui-vue stopped working.",
+      "parentUuid": "75b86f6c_13b4fb9e",
+      "revId": "3281bcf157d2a5a7e12eea199e280fc21db3b3fb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ],
   "submitRequirementResults": []
