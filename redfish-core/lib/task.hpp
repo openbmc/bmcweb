@@ -416,7 +416,7 @@ inline void requestRoutesTask(App& app)
                 p.httpOperation;
             asyncResp->res.jsonValue["Payload"]["HttpHeaders"] = p.httpHeaders;
             asyncResp->res.jsonValue["Payload"]["JsonBody"] = p.jsonBody.dump(
-                2, ' ', true, nlohmann::json::error_handler_t::replace);
+                -1, ' ', true, nlohmann::json::error_handler_t::replace);
         }
         asyncResp->res.jsonValue["PercentComplete"] = ptr->percentComplete;
     });
