@@ -177,6 +177,24 @@
       "parentUuid": "90114d48_c9fc701f",
       "revId": "4c7512e3856d21b5f28a725e2c3e00149c77090d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afc8f325_615199fb",
+        "filename": "include/event_service_store.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-22T15:15:19Z",
+      "side": 1,
+      "message": "There\u0027s a long discussion in the DMTF that you can look at.",
+      "parentUuid": "7e5d9817_100cecbe",
+      "revId": "4c7512e3856d21b5f28a725e2c3e00149c77090d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
