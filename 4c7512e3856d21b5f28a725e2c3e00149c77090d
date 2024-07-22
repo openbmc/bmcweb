@@ -159,6 +159,24 @@
       "parentUuid": "5f8e649c_55b0299f",
       "revId": "4c7512e3856d21b5f28a725e2c3e00149c77090d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e5d9817_100cecbe",
+        "filename": "include/event_service_store.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2024-07-22T14:14:56Z",
+      "side": 1,
+      "message": "@Ed, Is there a plan in DMTF to update the specification to correctly mention the default value for this property ?",
+      "parentUuid": "90114d48_c9fc701f",
+      "revId": "4c7512e3856d21b5f28a725e2c3e00149c77090d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
