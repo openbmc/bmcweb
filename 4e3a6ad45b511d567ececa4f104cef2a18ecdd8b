@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "321778b9_7109f761",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-22T19:13:59Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "1c6cf284_5155c047",
+      "revId": "4e3a6ad45b511d567ececa4f104cef2a18ecdd8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "539b90d0_d94dc76e",
         "filename": "Redfish.md",
         "patchSetId": 2
