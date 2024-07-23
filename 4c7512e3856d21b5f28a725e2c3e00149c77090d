@@ -195,6 +195,24 @@
       "parentUuid": "7e5d9817_100cecbe",
       "revId": "4c7512e3856d21b5f28a725e2c3e00149c77090d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c666cbad_5be22893",
+        "filename": "include/event_service_store.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-23T03:00:59Z",
+      "side": 1,
+      "message": "I\u0027m happy to continue this discussion elsewhere, but currently our defaults verify SSL;  This patchset is adding a feature, but is keeping the behavior the same as it was in the commit prior, while adding the ability to configure the setting.\n\nWe can follow up and continue the DMTF discussion if you think this needs to change, but as far as this patchset is concerned, I suspect it can merge.",
+      "parentUuid": "afc8f325_615199fb",
+      "revId": "4c7512e3856d21b5f28a725e2c3e00149c77090d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
