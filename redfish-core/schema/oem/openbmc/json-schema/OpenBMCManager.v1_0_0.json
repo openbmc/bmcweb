@@ -1,7 +1,7 @@
 {
-    "$id": "https://github.com/openbmc/bmcweb/tree/master/static/redfish/v1/JsonSchemasOpenBMCManager.v1_0_0.json",
+    "$id": "https://github.com/openbmc/bmcweb/tree/master/redfish-core/schema/oem/openbmc/json-schema/OpenBMCManager.v1_0_0.json",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2023 OpenBMC.",
+    "copyright": "Copyright 2024 OpenBMC.",
     "definitions": {
         "Fan": {
             "additionalProperties": false,
