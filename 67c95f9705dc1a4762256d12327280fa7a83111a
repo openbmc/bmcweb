@@ -22,6 +22,30 @@
       },
       "revId": "67c95f9705dc1a4762256d12327280fa7a83111a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff1bf06f_0c3b9e0e",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002110
+      },
+      "writtenOn": "2024-07-23T16:52:11Z",
+      "side": 1,
+      "message": "Acknowledged\n\nThanks, I can check out the auto gen script to see what is going on if the process is automated via the redfish spec itself.",
+      "parentUuid": "c9ba90d8_c1478dcf",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 23
+      },
+      "revId": "67c95f9705dc1a4762256d12327280fa7a83111a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
