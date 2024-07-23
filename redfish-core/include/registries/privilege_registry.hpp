@@ -577,18 +577,18 @@ const static auto& postEnvironmentMetrics = privilegeSetConfigureManager;
 // EthernetInterface
 const static auto& getEthernetInterface = privilegeSetLogin;
 const static auto& headEthernetInterface = privilegeSetLogin;
-const static auto& patchEthernetInterface = privilegeSetConfigureComponents;
-const static auto& postEthernetInterface = privilegeSetConfigureComponents;
-const static auto& putEthernetInterface = privilegeSetConfigureComponents;
-const static auto& deleteEthernetInterface = privilegeSetConfigureComponents;
+const static auto& patchEthernetInterface = privilegeSetConfigureManager;
+const static auto& postEthernetInterface = privilegeSetConfigureManager;
+const static auto& putEthernetInterface = privilegeSetConfigureManager;
+const static auto& deleteEthernetInterface = privilegeSetConfigureManager;
 
 // EthernetInterfaceCollection
 const static auto& getEthernetInterfaceCollection = privilegeSetLogin;
 const static auto& headEthernetInterfaceCollection = privilegeSetLogin;
-const static auto& patchEthernetInterfaceCollection = privilegeSetConfigureComponents;
-const static auto& postEthernetInterfaceCollection = privilegeSetConfigureComponents;
-const static auto& putEthernetInterfaceCollection = privilegeSetConfigureComponents;
-const static auto& deleteEthernetInterfaceCollection = privilegeSetConfigureComponents;
+const static auto& patchEthernetInterfaceCollection = privilegeSetConfigureManager;
+const static auto& postEthernetInterfaceCollection = privilegeSetConfigureManager;
+const static auto& putEthernetInterfaceCollection = privilegeSetConfigureManager;
+const static auto& deleteEthernetInterfaceCollection = privilegeSetConfigureManager;
 
 // EventDestination
 const static auto& getEventDestination = privilegeSetLogin;
