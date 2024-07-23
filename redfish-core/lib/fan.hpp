@@ -237,6 +237,9 @@ inline void getFanHealth(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         [asyncResp](const boost::system::error_code& ec, const bool value) {
         if (ec)
         {
+            // Set the health to critical if unable to read the property
+            // since the default value set to OK is misleading.
+            asyncResp->res.jsonValue["Status"]["Health"] = "Critical";
             if (ec.value() != EBADR)
             {
                 BMCWEB_LOG_ERROR("DBUS response error for Health {}",
