@@ -55,6 +55,12 @@ constexpr size_t maxSaveareaFileSize =
 constexpr size_t maxBroadcastMsgSize =
     1000;     // Allow Broadcast message size upto 1KB
 
+// NOLINTBEGIN(cppcoreguidelines-avoid-non-const-global-variables)
+static boost::container::flat_map<std::string,
+                                  std::unique_ptr<sdbusplus::bus::match::match>>
+    ackMatches;
+// NOLINTEND(cppcoreguidelines-avoid-non-const-global-variables)
+
 inline bool isValidConfigFileName(const std::string& fileName,
                                   nlohmann::json& resp)
 {
@@ -922,9 +928,6 @@ inline void
 inline void getCSREntryAck(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            const std::string& entryId)
 {
-    static boost::container::flat_map<
-        std::string, std::unique_ptr<sdbusplus::bus::match::match>>
-        ackMatches;
     crow::connections::systemBus->async_method_call(
         [asyncResp, entryId](const boost::system::error_code ec,
                              const std::variant<std::string>& hostAck) {
@@ -989,9 +992,6 @@ static void
     handleCsrRequest(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                      const std::string& csrString)
 {
-    static boost::container::flat_map<
-        std::string, std::unique_ptr<sdbusplus::bus::match::match>>
-        ackMatches;
     std::shared_ptr<boost::asio::steady_timer> timeout =
         std::make_shared<boost::asio::steady_timer>(
             crow::connections::systemBus->get_io_context());
