@@ -198,6 +198,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "b251e2ed_760c9166",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002110
+      },
+      "writtenOn": "2024-07-24T20:20:21Z",
+      "side": 1,
+      "message": "Your assumption is indeed correct when it comes to the platform, it is not an upstream platform. I\u0027m in the midst of setting up qemu to reproduce some issues (not this particular one since this is on the backend and hardware dependent, but the other one I reported regarding the operator priv being allowed to modify n/w settings, for example), hence the delay in answering your question to include the platform in the bug descriptions. I\u0027ll have to dig in deeper on this fan issue, I\u0027ll close this PR for now so get it off your inbox, and will send a comment if I find anything on my end.",
+      "parentUuid": "4f082e8b_ad0a4926",
+      "revId": "abcf354e17a99e7da4ea77ed9a4cd7f17bc6d73a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "6740fe69_c426c9e9",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 1
