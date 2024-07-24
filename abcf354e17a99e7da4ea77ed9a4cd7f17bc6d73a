@@ -124,6 +124,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7313c90_b4cc8db9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-07-24T16:48:28Z",
+      "side": 1,
+      "message": "To add here.. Going to need more why this is needed.. \"which would be incorrect/confusing\". Why is an absent fan confusing to have an \"Ok\"? You already have the State saying absent.. \nThere is other resources that follow this, Processors, Pcie Slot, etc. Should an empty PCIe Slot also be Critical? \nWe could ask Redfish here.",
+      "parentUuid": "da98b9bb_c87d7d8f",
+      "revId": "abcf354e17a99e7da4ea77ed9a4cd7f17bc6d73a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "6740fe69_c426c9e9",
