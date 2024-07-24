@@ -178,6 +178,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f082e8b_ad0a4926",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-24T17:12:33Z",
+      "side": 1,
+      "message": "Given I\u0027ve asked the platform question several times in multiple forums, and you seem to have ignored it in all, I\u0027m going to assume you\u0027re not answering my question because you\u0027re testing on a non-upstream platform using a fork.\n\nTo be clear, thats is fine, and we\u0027re happy that you\u0027re finding the code useful, but it means that we can\u0027t really help you triage your bug.  FWIW, this is why we have a checkbox on the bug form to make sure that the bug wasn\u0027t being reported against a fork.\n\nWhatever your fan control daemon is probably isn\u0027t obeying the dbus interfaces if you\u0027re seeing this bug.  Given that\u0027s platform specific, there\u0027s not a lot of help we can give you.\n\nAs far as this change goes, bmcweb on master appears to be working as designed, and is setting \"OK\" for fan daemons that don\u0027t support the functional interface.",
+      "parentUuid": "1abc72e7_e5efd734",
+      "revId": "abcf354e17a99e7da4ea77ed9a4cd7f17bc6d73a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "6740fe69_c426c9e9",
