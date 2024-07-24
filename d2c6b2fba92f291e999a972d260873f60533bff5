@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df442013_e3986dcf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-07-24T16:54:30Z",
+      "side": 1,
+      "message": "Can we ask Redfish via an issue or https://redfishforum.com/ ?\nwebui-vue is specific to OpenBMC, but a BMC GUI isn\u0027t unique. A parameter like webui_enabled isn\u0027t unique to OpenBMC.\n\nIPMI/SSH/Telnet aren\u0027t part of Redfish but are in the spec. \n\nhttps://redfish.dmtf.org/schemas/v1/ManagerNetworkProtocol.v1_10_1.json\n```\n                \"IPMI\": {\n                    \"$ref\": \"#/definitions/Protocol\",\n                    \"description\": \"The settings for this manager\u0027s IPMI-over-LAN protocol support.\",\n                    \"longDescription\": \"This object shall contain the IPMI over LAN protocol settings for the manager.  The default `Port` property value should be `623` for compatibility with established client implementations.\"\n                },\n...\n                \"Telnet\": {\n                    \"$ref\": \"#/definitions/Protocol\",\n                    \"description\": \"The settings for this manager\u0027s Telnet protocol support.\",\n                    \"longDescription\": \"This object shall contain the Telnet protocol settings for this manager.  The default `Port` property value should be `23` for compatibility with established client implementations.\"\n                },\n```",
+      "revId": "d2c6b2fba92f291e999a972d260873f60533bff5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a327de2_73789c01",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-07-24T16:54:30Z",
+      "side": 1,
+      "message": "I would like to see Redfish discuss here first.",
+      "revId": "d2c6b2fba92f291e999a972d260873f60533bff5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
