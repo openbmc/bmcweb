@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "00bfe48e_8ca93e0f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-07-24T21:01:19Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "dd723c10_7ce5a0ee",
+      "revId": "75def5abeccc4219266225c1af353e67f83b1b0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "08e4a6a5_975f0fa9",
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "Yeah, i guess I can do that;  I\u0027m more stuck that I don\u0027t have a client that handles that properly, but I guess I can poke at it with python/curl.",
       "parentUuid": "08e4a6a5_975f0fa9",
+      "revId": "75def5abeccc4219266225c1af353e67f83b1b0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d1ea6f7_6a34fa14",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-07-24T21:01:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93c107cd_86999e84",
       "revId": "75def5abeccc4219266225c1af353e67f83b1b0a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
