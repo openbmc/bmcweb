@@ -216,6 +216,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "bf8649d8_8a7864b1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-24T20:40:26Z",
+      "side": 1,
+      "message": "👍.  Still happy to help if there\u0027s something out there.  I get that people have forks, and they\u0027ve innovated (read, replaced components) in areas, I just can\u0027t be in a position of debugging non-public code for the authors, it would take effort away from community efforts to do so.\n\nThis really looks like you\u0027ve replaced the fan control daemon, and the one you\u0027ve replaced it with isn\u0027t implementing the interfaces properly.",
+      "parentUuid": "b251e2ed_760c9166",
+      "revId": "abcf354e17a99e7da4ea77ed9a4cd7f17bc6d73a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "6740fe69_c426c9e9",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 1
