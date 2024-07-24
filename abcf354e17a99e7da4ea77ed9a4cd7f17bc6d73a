@@ -162,6 +162,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "1abc72e7_e5efd734",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002110
+      },
+      "writtenOn": "2024-07-24T16:56:46Z",
+      "side": 1,
+      "message": "True. This originally came from reports from our testers that \"uh, the fan is missing/absent in the slot, then why is the health being shown as OK on the webui-vue which is confusing cos the health of an absent fan can\u0027t be ok.\"  \n\nThinking more about this, this should either be \"as designed\" in the backend considering that the possible values for health can be ok, warning and critical and none of them really are possible if the state of the fan is absent.\n\nHaven\u0027t really thought of the best solution yet, but this PR should indeed not be the correct way to solve it.\n\nThanks to Ed and you for the learnings I did get here though, this is my first month on OpenBMC, have learned more about different backends + this webserver and responsibilities of each component in openbmc, thanks to this one code review!",
+      "parentUuid": "f7313c90_b4cc8db9",
+      "revId": "abcf354e17a99e7da4ea77ed9a4cd7f17bc6d73a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "6740fe69_c426c9e9",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 1
