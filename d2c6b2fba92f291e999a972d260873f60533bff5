@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "66ed2daf_7c2a0499",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-07-24T20:55:17Z",
+      "side": 1,
+      "message": "\u003e It is though; Keep in mind, this option only enables/disables webui-vue, it doesn\u0027t disable all UI components.\n\nCan we do this for all UI components instead?",
+      "parentUuid": "1b460e04_41cbea11",
+      "revId": "d2c6b2fba92f291e999a972d260873f60533bff5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "5a327de2_73789c01",
@@ -49,6 +67,23 @@
       "writtenOn": "2024-07-24T16:54:30Z",
       "side": 1,
       "message": "I would like to see Redfish discuss here first.",
+      "revId": "d2c6b2fba92f291e999a972d260873f60533bff5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d48d524_11e34400",
+        "filename": "redfish-core/schema/oem/openbmc/csdl/OpenBMCManager_v1.xml",
+        "patchSetId": 12
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-07-24T20:55:17Z",
+      "side": 1,
+      "message": "Should this say \"webui-vue? Since this is specific to webui-vue?",
       "revId": "d2c6b2fba92f291e999a972d260873f60533bff5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
