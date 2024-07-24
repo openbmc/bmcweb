@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67714eb4_91a4c5d4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-24T20:31:20Z",
+      "side": 1,
+      "message": "So moving from where to where?  More than once sentence of commit message would help here.",
+      "revId": "8c84269d61b5f0d015b3f9b8816d0a90a7cd8a5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7414bf40_76a6de28",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-24T20:31:20Z",
+      "side": 1,
+      "message": "Any other related commits in other repos here?",
+      "revId": "8c84269d61b5f0d015b3f9b8816d0a90a7cd8a5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecb8ffd9_6cc4bc52",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-24T20:31:20Z",
+      "side": 1,
+      "message": "Didn\u0027t have time to review the code, but getting a better put together commit message will help this code review to go faster so that I don\u0027t have to hunt down what the paths are and what the relevant other commits are.",
+      "revId": "8c84269d61b5f0d015b3f9b8816d0a90a7cd8a5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
