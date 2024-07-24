@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7c4799e_fc2fcc36",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-07-24T20:58:54Z",
+      "side": 0,
+      "message": "Starting to taskResumed seems like a weird mapping.. \nOutside of this review.",
+      "revId": "1a0866ca04200ba2682c06682969413dfd146f42",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc409282_096dae40",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-07-24T20:58:54Z",
+      "side": 0,
+      "message": "Yeah, I don\u0027t get some of these mapping. Oh well, outside of this review",
+      "revId": "1a0866ca04200ba2682c06682969413dfd146f42",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
