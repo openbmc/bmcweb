@@ -3,6 +3,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "baf6c1c4_47644237",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-07-24T16:45:37Z",
+      "side": 1,
+      "message": "Please follow https://cbea.ms/git-commit/ and wrap at 72. \n\n    Separate subject from body with a blank line\n    Limit the subject line to 50 characters\n    Capitalize the subject line\n    Do not end the subject line with a period\n    Use the imperative mood in the subject line\n    Wrap the body at 72 characters\n    Use the body to explain what and why vs. how",
+      "revId": "abcf354e17a99e7da4ea77ed9a4cd7f17bc6d73a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "679ca01d_36ce51de",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-07-24T16:45:37Z",
+      "side": 1,
+      "message": "Why is an absent fan Critical? \nIt should have a State of Absent..",
+      "revId": "abcf354e17a99e7da4ea77ed9a4cd7f17bc6d73a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6347e33c_aebb6512",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -103,6 +137,24 @@
       "writtenOn": "2024-07-23T15:45:55Z",
       "side": 1,
       "message": "The health is being defaulted to OK here: https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/fan.hpp#L228\n\nThis resulted in health being set to OK when there was an error in retrieving the property in this method that is called later on (https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/fan.hpp#L369)",
+      "revId": "abcf354e17a99e7da4ea77ed9a4cd7f17bc6d73a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd604827_149fa977",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-07-24T16:45:37Z",
+      "side": 1,
+      "message": "This should for sure be in the if (ec.value() !\u003d EBADR), otherwise if you don\u0027t have this interface, you get a default of Critical..",
+      "parentUuid": "6740fe69_c426c9e9",
       "revId": "abcf354e17a99e7da4ea77ed9a4cd7f17bc6d73a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
