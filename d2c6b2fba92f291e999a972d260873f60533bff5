@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b460e04_41cbea11",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-24T17:01:02Z",
+      "side": 1,
+      "message": "\u003e Can we ask Redfish via an issue or https://redfishforum.com/ ?\n\u003e webui-vue is specific to OpenBMC, but a BMC GUI isn\u0027t unique. A parameter like webui_enabled isn\u0027t unique to OpenBMC.\n\nIt is though;  Keep in mind, this option only enables/disables webui-vue, it doesn\u0027t disable all UI components.\n\n\u003e \n\u003e IPMI/SSH/Telnet aren\u0027t part of Redfish but are in the spec. \n\u003e \n\u003e https://redfish.dmtf.org/schemas/v1/ManagerNetworkProtocol.v1_10_1.json\n\u003e ```\n\u003e                 \"IPMI\": {\n\u003e                     \"$ref\": \"#/definitions/Protocol\",\n\u003e                     \"description\": \"The settings for this manager\u0027s IPMI-over-LAN protocol support.\",\n\u003e                     \"longDescription\": \"This object shall contain the IPMI over LAN protocol settings for the manager.  The default `Port` property value should be `623` for compatibility with established client implementations.\"\n\u003e                 },\n\u003e ...\n\u003e                 \"Telnet\": {\n\u003e                     \"$ref\": \"#/definitions/Protocol\",\n\u003e                     \"description\": \"The settings for this manager\u0027s Telnet protocol support.\",\n\u003e                     \"longDescription\": \"This object shall contain the Telnet protocol settings for this manager.  The default `Port` property value should be `23` for compatibility with established client implementations.\"\n\u003e                 },\n\u003e ```\n\nYes, but they are well defined protocols for a given server/manager.  A \"UI\" isn\u0027t well defined.\n\nI went to go type up the question in the DMTF just for the hell of it, but I\u0027m not really sure how to pose it in a generic way.  \"I want to disable webui-vue at runtime\" isn\u0027t really a good way to start a dmtf conversation.  Given this feature doesn\u0027t disable ALL UIs, we\u0027d have to pose it as disabling a part of the UI?  I\u0027m not sure how we\u0027d specify parts in a standard.",
+      "parentUuid": "df442013_e3986dcf",
+      "revId": "d2c6b2fba92f291e999a972d260873f60533bff5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "5a327de2_73789c01",
