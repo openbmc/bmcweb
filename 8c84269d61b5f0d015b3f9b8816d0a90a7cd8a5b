@@ -35,6 +35,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "20a0ff20_5f3d0fbb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-24T20:32:28Z",
+      "side": 1,
+      "message": "Redfish service validator?\n\nhttps://github.com/openbmc/bmcweb/blob/master/REDFISH_CHECKLIST.md",
+      "revId": "8c84269d61b5f0d015b3f9b8816d0a90a7cd8a5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "ecb8ffd9_6cc4bc52",
