@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc53b887_5328c3d3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-07-25T21:54:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "67714eb4_91a4c5d4",
+      "revId": "8c84269d61b5f0d015b3f9b8816d0a90a7cd8a5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7414bf40_76a6de28",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f457964f_13bacb55",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-07-25T21:54:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7414bf40_76a6de28",
+      "revId": "8c84269d61b5f0d015b3f9b8816d0a90a7cd8a5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "20a0ff20_5f3d0fbb",
@@ -48,6 +84,24 @@
       "writtenOn": "2024-07-24T20:32:28Z",
       "side": 1,
       "message": "Redfish service validator?\n\nhttps://github.com/openbmc/bmcweb/blob/master/REDFISH_CHECKLIST.md",
+      "revId": "8c84269d61b5f0d015b3f9b8816d0a90a7cd8a5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e350f313_45733289",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-07-25T21:54:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20a0ff20_5f3d0fbb",
       "revId": "8c84269d61b5f0d015b3f9b8816d0a90a7cd8a5b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
