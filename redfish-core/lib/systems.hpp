@@ -2187,8 +2187,9 @@ inline void doGetEnabledPanelFunctions(
     BMCWEB_LOG_DEBUG("Get Enabled Panel functions");
 
     crow::connections::systemBus->async_method_call(
-        [asyncResp, callback](const boost::system::error_code& ec,
-                              const std::vector<uint8_t>& enabledFuncs) {
+        [asyncResp, callback{std::move(callback)}](
+            const boost::system::error_code& ec,
+            const std::vector<uint8_t>& enabledFuncs) {
         callback(ec, enabledFuncs);
     },
         "com.ibm.PanelApp", "/com/ibm/panel_app", "com.ibm.panel",

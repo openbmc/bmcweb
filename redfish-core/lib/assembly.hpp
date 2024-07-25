@@ -54,7 +54,7 @@ inline void doGetAssociatedChassisAssembly(
         endpointPath,
         sdbusplus::message::object_path("/xyz/openbmc_project/inventory"), 0,
         chassisAssemblyInterfaces,
-        [asyncResp, chassisPath, callback{callback}](
+        [asyncResp, chassisPath, callback{std::move(callback)}](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreePathsResponse& subtreePaths) {
         if (ec)
@@ -100,7 +100,7 @@ inline void getChassisAssembly(
     // get the chassis path
     redfish::chassis_utils::getValidChassisPath(
         asyncResp, chassisID,
-        [asyncResp, callback{callback}](
+        [asyncResp, callback{std::move(callback)}](
             const std::optional<std::string>& validChassisPath) {
         if (!validChassisPath)
         {
@@ -111,8 +111,8 @@ inline void getChassisAssembly(
 
         doGetAssociatedChassisAssembly(
             asyncResp, *validChassisPath,
-            [asyncResp, validChassisPath, callback{callback}](
-                const std::vector<std::string>& sortedAssemblyList) {
+            [asyncResp, validChassisPath,
+             callback](const std::vector<std::string>& sortedAssemblyList) {
             callback(validChassisPath, sortedAssemblyList);
         });
     });

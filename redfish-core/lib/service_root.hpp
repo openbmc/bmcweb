@@ -29,12 +29,8 @@
 
 #include <boost/system/error_code.hpp>
 #include <nlohmann/json.hpp>
-#include <persistent_data.hpp>
-#include <query.hpp>
-#include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
-#include <utils/systemd_utils.hpp>
 #include <utils/time_utils.hpp>
 
 #include <array>
