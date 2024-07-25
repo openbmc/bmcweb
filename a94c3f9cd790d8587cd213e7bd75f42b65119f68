@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "15b804e7_5254861b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-07-25T18:20:18Z",
+      "side": 1,
+      "message": "Actually \nhttps://ssl-config.mozilla.org/guidelines/5.7.json",
+      "parentUuid": "7041f15f_f681807a",
+      "revId": "a94c3f9cd790d8587cd213e7bd75f42b65119f68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "51bac2c7_fd53da47",
         "filename": "include/ssl_key_handler.hpp",
         "patchSetId": 7
@@ -31,6 +49,24 @@
       "writtenOn": "2024-07-25T18:18:12Z",
       "side": 1,
       "message": "This link is out of date, fix if you want",
+      "revId": "a94c3f9cd790d8587cd213e7bd75f42b65119f68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc0d1eee_e0824b52",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-07-25T18:20:18Z",
+      "side": 1,
+      "message": "You fix this in the next commit, fine here. \nhttps://ssl-config.mozilla.org/guidelines/5.7.json",
+      "parentUuid": "51bac2c7_fd53da47",
       "revId": "a94c3f9cd790d8587cd213e7bd75f42b65119f68",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
