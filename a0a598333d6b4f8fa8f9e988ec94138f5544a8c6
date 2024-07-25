@@ -22,6 +22,30 @@
       },
       "revId": "a0a598333d6b4f8fa8f9e988ec94138f5544a8c6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c180e4ee_3f12b61c",
+        "filename": "scripts/generate_schema_collections.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-25T15:34:24Z",
+      "side": 1,
+      "message": "redfish intentionally doesn’t move sections like that;  I intentionally didn\u0027t include a version under the assumption that we should just use whatever is latest.\n\nIf you really want a version I can add it.",
+      "parentUuid": "1963d608_e87ec535",
+      "range": {
+        "startLine": 266,
+        "startChar": 14,
+        "endLine": 266,
+        "endChar": 21
+      },
+      "revId": "a0a598333d6b4f8fa8f9e988ec94138f5544a8c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
