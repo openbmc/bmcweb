@@ -218,6 +218,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2871b10c_d729f912",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2024-07-25T18:56:06Z",
+      "side": 1,
+      "message": "\u003e Since we are waiting asynchronously a server hang may not have much impact.\n\nServer hang may be alright for redfish events, but it would have an impact on Redfish aggregation.  We can\u0027t return the overall response until either we receive a response from the satellite BMC or we timeout/fail in the connect-\u003esend-\u003ereceive flow.  The timeout at least helps mitigate that.\n\n\u003e The intent is esentially\n\u003e If we\u0027re waiting for a reply, set a 30 second timeout.\n\u003e if we\u0027re not waiting for a reply, let TCP determine our timeout.\n\nThis sounds reasonable to me since it preserves the current aggregation behavior.",
+      "parentUuid": "5440a996_eda5da15",
+      "revId": "846e9e14aaafeaa36641fa31fd08d7233ae79451",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "198e97da_b52f12fb",
         "filename": "http/http_client.hpp",
         "patchSetId": 7
