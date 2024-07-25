@@ -16,6 +16,24 @@
       "message": "How is the message you get by calling doTftpUpdate any different than this message here?",
       "revId": "f07d21efc6dafeb8b0bac478b933fa55f459e66d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7127ecf_29709762",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 627,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-07-25T22:11:21Z",
+      "side": 1,
+      "message": "Done. Removed doTftpUpdate and fallback to this error.",
+      "parentUuid": "85048324_6d9f177d",
+      "revId": "f07d21efc6dafeb8b0bac478b933fa55f459e66d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
