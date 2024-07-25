@@ -16,6 +16,24 @@
       "message": "OpenSSL 3.0 was released Sept 2021 and 1.1. is end of life. This seems reasonable. Add that to the commit msg if you want.",
       "revId": "0bea92542d8a6efcd4913811d4e7fc37f1d8adce",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8acb645a_c364cab9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-25T15:58:17Z",
+      "side": 1,
+      "message": "Good call.  Added the docs on 1.1.1 EOL.",
+      "parentUuid": "becf19b9_ba85f434",
+      "revId": "0bea92542d8a6efcd4913811d4e7fc37f1d8adce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
