@@ -25,6 +25,9 @@
 #include "health.hpp"
 #include "hypervisor_system.hpp"
 #include "led.hpp"
+#include "oem/ibm/lamp_test.hpp"
+#include "oem/ibm/pcie_topology_refresh.hpp"
+#include "oem/ibm/system_attention_indicator.hpp"
 #include "query.hpp"
 #include "redfish_util.hpp"
 #include "registries/privilege_registry.hpp"
@@ -33,12 +36,6 @@
 #include "utils/pcie_util.hpp"
 #include "utils/sw_utils.hpp"
 #include "utils/time_utils.hpp"
-
-#ifdef BMCWEB_ENABLE_IBM_LED_EXTENSIONS
-#include "oem/ibm/lamp_test.hpp"
-#include "oem/ibm/system_attention_indicator.hpp"
-#endif
-#include "oem/ibm/pcie_topology_refresh.hpp"
 
 #include <boost/asio/error.hpp>
 #include <boost/container/flat_map.hpp>
@@ -3002,11 +2999,12 @@ inline void
     getStopBootOnFault(asyncResp);
     getAutomaticRetryPolicy(asyncResp);
     getLastResetTime(asyncResp);
-#ifdef BMCWEB_ENABLE_IBM_LED_EXTENSIONS
-    getLampTestState(asyncResp);
-    getSAI(asyncResp, "PartitionSystemAttentionIndicator");
-    getSAI(asyncResp, "PlatformSystemAttentionIndicator");
-#endif
+    if constexpr (BMCWEB_IBM_LED_EXTENSIONS)
+    {
+        getLampTestState(asyncResp);
+        getSAI(asyncResp, "PartitionSystemAttentionIndicator");
+        getSAI(asyncResp, "PlatformSystemAttentionIndicator");
+    }
     if constexpr (BMCWEB_REDFISH_PROVISIONING_FEATURE)
     {
         getProvisioningStatus(asyncResp);
@@ -3164,53 +3162,53 @@ inline void handleComputerSystemPatch(
 
         if (ibmOem)
         {
-#ifdef BMCWEB_ENABLE_IBM_LED_EXTENSIONS
-            std::optional<bool> lampTest;
-            std::optional<bool> partitionSAI;
-            std::optional<bool> platformSAI;
             std::optional<bool> pcieTopologyRefresh;
             std::optional<bool> savePCIeTopologyInfo;
             std::optional<std::string> chapName;
             std::optional<std::string> chapSecret;
-            if (!json_util::readJson(
-                    *ibmOem, asyncResp->res, "LampTest", lampTest,
-                    "PartitionSystemAttentionIndicator", partitionSAI,
-                    "PlatformSystemAttentionIndicator", platformSAI,
-                    "PCIeTopologyRefresh", pcieTopologyRefresh,
-                    "SavePCIeTopologyInfo", savePCIeTopologyInfo,
-                    "ChapData/ChapName", chapName, "ChapData/ChapSecret",
-                    chapSecret))
+
+            if constexpr (BMCWEB_IBM_LED_EXTENSIONS)
             {
-                return;
+                std::optional<bool> lampTest;
+                std::optional<bool> partitionSAI;
+                std::optional<bool> platformSAI;
+                if (!json_util::readJson(
+                        *ibmOem, asyncResp->res, "LampTest", lampTest,
+                        "PartitionSystemAttentionIndicator", partitionSAI,
+                        "PlatformSystemAttentionIndicator", platformSAI,
+                        "PCIeTopologyRefresh", pcieTopologyRefresh,
+                        "SavePCIeTopologyInfo", savePCIeTopologyInfo,
+                        "ChapData/ChapName", chapName, "ChapData/ChapSecret",
+                        chapSecret))
+                {
+                    return;
+                }
+                if (lampTest)
+                {
+                    setLampTestState(asyncResp, *lampTest);
+                }
+                if (partitionSAI)
+                {
+                    setSAI(asyncResp, "PartitionSystemAttentionIndicator",
+                           *partitionSAI);
+                }
+                if (platformSAI)
+                {
+                    setSAI(asyncResp, "PlatformSystemAttentionIndicator",
+                           *platformSAI);
+                }
             }
-            if (lampTest)
+            else
             {
-                setLampTestState(asyncResp, *lampTest);
+                if (!json_util::readJson(
+                        *ibmOem, asyncResp->res, "PCIeTopologyRefresh",
+                        pcieTopologyRefresh, "SavePCIeTopologyInfo",
+                        savePCIeTopologyInfo, "ChapData/ChapName", chapName,
+                        "ChapData/ChapSecret", chapSecret))
+                {
+                    return;
+                }
             }
-            if (partitionSAI)
-            {
-                setSAI(asyncResp, "PartitionSystemAttentionIndicator",
-                       *partitionSAI);
-            }
-            if (platformSAI)
-            {
-                setSAI(asyncResp, "PlatformSystemAttentionIndicator",
-                       *platformSAI);
-            }
-#else
-            std::optional<bool> pcieTopologyRefresh;
-            std::optional<bool> savePCIeTopologyInfo;
-            std::optional<std::string> chapName;
-            std::optional<std::string> chapSecret;
-            if (!json_util::readJson(
-                    *ibmOem, asyncResp->res, "PCIeTopologyRefresh",
-                    pcieTopologyRefresh, "SavePCIeTopologyInfo",
-                    savePCIeTopologyInfo, "ChapData/ChapName", chapName,
-                    "ChapData/ChapSecret", chapSecret))
-            {
-                return;
-            }
-#endif
             if (pcieTopologyRefresh)
             {
                 setPCIeTopologyRefresh(req, asyncResp, *pcieTopologyRefresh);

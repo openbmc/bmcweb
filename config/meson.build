@@ -3,7 +3,9 @@
 conf_data = configuration_data()
 
 feature_options = [
+    'audit-events',
     'basic-auth',
+    'bmc-shell-socket',
     'cookie-auth',
     'dns-resolver',
     'event-subscription',
@@ -13,6 +15,9 @@ feature_options = [
     'host-serial-socket',
     'http-body-limit',
     'https_port',
+    'hw-isolation',
+    'hypervisor-serial-socket',
+    'ibm-led-extensions',
     'ibm-management-console',
     'ibm-usb-code-update',
     'insecure-disable-auth',
@@ -31,7 +36,9 @@ feature_options = [
     'redfish-cpu-log',
     'redfish-dbus-log',
     'redfish-dump-log',
+    'redfish-health-populate',
     'redfish-host-logger',
+    'redfish-license',
     'redfish-new-powersubsystem-thermalsubsystem',
     'redfish-oem-manager-fan-data',
     'redfish-provisioning-feature',
@@ -71,10 +78,7 @@ foreach option_key : feature_options
 endforeach
 
 conf_data.set('MESON_INSTALL_PREFIX', get_option('prefix'))
-enable_health_populate = get_option('redfish-health-populate')
-conf_data.set10('BMCWEB_ENABLE_HEALTH_POPULATE', enable_health_populate.allowed())
-enable_license_status = get_option('redfish-license')
-conf_data.set10('BMCWEB_ENABLE_REDFISH_LICENSE', enable_license_status.allowed())
+
 conf_data.set10('BMCWEB_VIRTUAL_MEDIA_VM', get_option('vm-websocket').allowed())
 conf_data.set10('BMCWEB_VIRTUAL_MEDIA_NBD', false)
 

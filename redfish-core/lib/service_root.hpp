@@ -261,10 +261,11 @@ inline void handleServiceRootGetImpl(
     asyncResp->res.jsonValue["TelemetryService"]["@odata.id"] =
         "/redfish/v1/TelemetryService";
     asyncResp->res.jsonValue["Cables"]["@odata.id"] = "/redfish/v1/Cables";
-#ifdef BMCWEB_ENABLE_REDFISH_LICENSE
-    asyncResp->res.jsonValue["LicenseService"]["@odata.id"] =
-        "/redfish/v1/LicenseService";
-#endif
+    if constexpr (BMCWEB_REDFISH_LICENSE)
+    {
+        asyncResp->res.jsonValue["LicenseService"]["@odata.id"] =
+            "/redfish/v1/LicenseService";
+    }
     asyncResp->res.jsonValue["Links"]["ManagerProvidingService"]["@odata.id"] =
         "/redfish/v1/Managers/bmc";
 

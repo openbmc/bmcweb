@@ -132,20 +132,22 @@ class Server
                             ec2.message());
                     }
                     startAsyncWaitForSignal();
+                    return;
                 }
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
-                if (signalNo == SIGUSR1)
+
+                if constexpr (BMCWEB_IBM_MANAGEMENT_CONSOLE)
                 {
-                    BMCWEB_LOG_CRITICAL(
-                        "INFO: Receivied USR1 signal to dump latest session  data for bmc dump");
-                    persistent_data::getConfig().writeCurrentSessionData();
-                    this->startAsyncWaitForSignal();
+                    if (signalNo == SIGUSR1)
+                    {
+                        BMCWEB_LOG_CRITICAL(
+                            "INFO: Receivied USR1 signal to dump latest session  data for bmc dump");
+                        persistent_data::getConfig().writeCurrentSessionData();
+                        this->startAsyncWaitForSignal();
+                        return;
+                    }
                 }
-#endif
-                else
-                {
-                    stop();
-                }
+
+                stop();
             }
         });
     }

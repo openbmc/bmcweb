@@ -2311,10 +2311,9 @@ inline void requestRoutesManager(App& app)
         // clang-format on
 
         if (pidControllers || fanControllers || fanZones ||
-            stepwiseControllers || profile || usbCodeUpdateEnabled)
+            stepwiseControllers || profile)
         {
-            if constexpr (BMCWEB_REDFISH_OEM_MANAGER_FAN_DATA ||
-                          BMCWEB_IBM_USB_CODE_UPDATE)
+            if constexpr (BMCWEB_REDFISH_OEM_MANAGER_FAN_DATA)
             {
                 std::vector<std::pair<std::string,
                                       std::optional<nlohmann::json::object_t>>>
@@ -2351,7 +2350,15 @@ inline void requestRoutesManager(App& app)
 
         if (usbCodeUpdateEnabled)
         {
-            setUSBCodeUpdateState(asyncResp, *usbCodeUpdateEnabled);
+            if constexpr (BMCWEB_IBM_USB_CODE_UPDATE)
+            {
+                setUSBCodeUpdateState(asyncResp, *usbCodeUpdateEnabled);
+            }
+            else
+            {
+                messages::propertyUnknown(asyncResp->res, "Oem");
+                return;
+            }
         }
 
         if (activeSoftwareImageOdataId)

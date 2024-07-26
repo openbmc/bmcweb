@@ -189,7 +189,6 @@ class ConfigFile
         }
     }
 
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
     void writeCurrentSessionData()
     {
         std::ofstream persistentFile(dumpFilename);
@@ -267,7 +266,6 @@ class ConfigFile
         }
         persistentFile << data;
     }
-#endif
 
     void writeData()
     {

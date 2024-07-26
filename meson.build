@@ -57,29 +57,6 @@ endif
 
 incdir = include_directories('include', 'redfish-core/include', 'redfish-core/lib', 'http')
 
-# Get the options and enable the respective features
-## create a MAP of  "options : feature_flag"
-
-feature_map = {
-    'bmc-shell-socket': '-DBMCWEB_ENABLE_BMC_SHELL_WEBSOCKET',
-    'hypervisor-serial-socket': '-DBMCWEB_ENABLE_HYPERVISOR_SERIAL_WEBSOCKET',
-    'ibm-management-console': '-DBMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE',
-    'redfish-license': '-DBMCWEB_ENABLE_REDFISH_LICENSE',
-    'audit-events': '-DBMCWEB_ENABLE_LINUX_AUDIT_EVENTS',
-    'ibm-led-extensions': '-DBMCWEB_ENABLE_IBM_LED_EXTENSIONS',
-    'hw-isolation': '-DBMCWEB_ENABLE_HW_ISOLATION',
-}
-
-# Get the options status and build a project summary to show which flags are
-# being enabled during the configuration time.
-
-foreach option_key, option_value : feature_map
-    if (get_option(option_key).allowed())
-        summary(option_key, option_value, section: 'Features')
-        add_project_arguments(option_value, language: 'cpp')
-    endif
-endforeach
-
 if (get_option('tests').allowed())
     summary('unittest', 'NA', section: 'Features')
 endif
@@ -437,10 +414,10 @@ srcfiles_unittest = files(
 )
 
 if (get_option('audit-events').allowed())
-	srcfiles_unittest += files('test/include/audit_events_test.cpp',)
+    srcfiles_unittest += files('test/include/audit_events_test.cpp',)
 endif
 
-if(get_option('tests').allowed())
+if (get_option('tests').allowed())
     # generate the test executable
     foreach test_src : srcfiles_unittest
         test_bin = executable(

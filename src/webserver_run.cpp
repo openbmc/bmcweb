@@ -79,13 +79,15 @@ int run()
     {
         crow::obmc_console::requestRoutes(app);
     }
-#ifdef BMCWEB_ENABLE_HYPERVISOR_SERIAL_WEBSOCKET
-    crow::obmc_hypervisor::requestRoutes(app);
-#endif
+    if constexpr (BMCWEB_HYPERVISOR_SERIAL_SOCKET)
+    {
+        crow::obmc_hypervisor::requestRoutes(app);
+    }
 
-#ifdef BMCWEB_ENABLE_BMC_SHELL_WEBSOCKET
-    crow::obmc_shell::requestRoutes(app);
-#endif
+    if constexpr (BMCWEB_BMC_SHELL_SOCKET)
+    {
+        crow::obmc_shell::requestRoutes(app);
+    }
 
     crow::obmc_vm::requestRoutes(app);
 

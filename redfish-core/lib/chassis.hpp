@@ -384,7 +384,7 @@ inline void handleChassisGetSubTree(
 
         auto health = std::make_shared<HealthPopulate>(asyncResp);
 
-        if constexpr (bmcwebEnableHealthPopulate)
+        if constexpr (BMCWEB_REDFISH_HEALTH_POPULATE)
         {
             dbus::utility::getAssociationEndPoints(
                 path + "/all_sensors",

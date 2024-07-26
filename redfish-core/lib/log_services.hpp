@@ -77,7 +77,6 @@ constexpr const char* crashdumpOnDemandInterface =
 constexpr const char* crashdumpTelemetryInterface =
     "com.intel.crashdump.Telemetry";
 
-#ifdef BMCWEB_ENABLE_HW_ISOLATION
 constexpr std::array<const char*, 3> hwIsolationEntryIfaces = {
     "xyz.openbmc_project.HardwareIsolation.Entry",
     "xyz.openbmc_project.Association.Definitions",
@@ -100,8 +99,6 @@ static const RedfishUriListType redfishUriList = {
      "/redfish/v1/Chassis/<str>/Assembly#/Assemblies"},
     {"xyz.openbmc_project.Inventory.Item.Board.Motherboard",
      "/redfish/v1/Chassis/<str>/Assembly#/Assemblies"}};
-
-#endif // BMCWEB_ENABLE_HW_ISOLATION
 
 enum class DumpCreationProgress
 {
@@ -1626,21 +1623,23 @@ inline void requestRoutesSystemLogServiceCollection(App& app)
             }
         });
 
-#ifdef BMCWEB_ENABLE_LINUX_AUDIT_EVENTS
-        nlohmann::json::object_t auditLog;
-        auditLog["@odata.id"] =
-            "/redfish/v1/Systems/system/LogServices/AuditLog";
-        logServiceArray.push_back(std::move(auditLog));
-#endif // BMCWEB_ENABLE_LINUX_AUDIT_EVENTS
-#ifdef BMCWEB_ENABLE_HW_ISOLATION
-        nlohmann::json& logServiceArrayLocal =
-            asyncResp->res.jsonValue["Members"];
-        logServiceArrayLocal.push_back(
-            {{"@odata.id", "/redfish/v1/Systems/system/"
-                           "LogServices/HardwareIsolation"}});
-        asyncResp->res.jsonValue["Members@odata.count"] =
-            logServiceArrayLocal.size();
-#endif // BMCWEB_ENABLE_HW_ISOLATION
+        if constexpr (BMCWEB_AUDIT_EVENTS)
+        {
+            nlohmann::json::object_t auditLog;
+            auditLog["@odata.id"] =
+                "/redfish/v1/Systems/system/LogServices/AuditLog";
+            logServiceArray.push_back(std::move(auditLog));
+        }
+        if constexpr (BMCWEB_HW_ISOLATION)
+        {
+            nlohmann::json& logServiceArrayLocal =
+                asyncResp->res.jsonValue["Members"];
+            logServiceArrayLocal.push_back(
+                {{"@odata.id", "/redfish/v1/Systems/system/"
+                               "LogServices/HardwareIsolation"}});
+            asyncResp->res.jsonValue["Members@odata.count"] =
+                logServiceArrayLocal.size();
+        }
     });
 }
 
@@ -2209,9 +2208,7 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                 const bool* resolved = nullptr;
                 const std::string* notify = nullptr;
                 const bool* hidden = nullptr;
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
                 const bool* managementSystemAck = nullptr;
-#endif
 
                 for (const auto& interfaceMap : objectPath.second)
                 {
@@ -2318,18 +2315,19 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                                     return;
                                 }
                             }
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
-                            else if (propertyMap.first == "ManagementSystemAck")
+                            else if constexpr (BMCWEB_IBM_MANAGEMENT_CONSOLE)
                             {
-                                managementSystemAck =
-                                    std::get_if<bool>(&propertyMap.second);
-                                if (managementSystemAck == nullptr)
+                                if (propertyMap.first == "ManagementSystemAck")
                                 {
-                                    messages::internalError(asyncResp->res);
-                                    return;
+                                    managementSystemAck =
+                                        std::get_if<bool>(&propertyMap.second);
+                                    if (managementSystemAck == nullptr)
+                                    {
+                                        messages::internalError(asyncResp->res);
+                                        return;
+                                    }
                                 }
                             }
-#endif
                         }
                     }
                 }
@@ -2390,12 +2388,13 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                         "/redfish/v1/Systems/system/LogServices/EventLog/Entries/" +
                         std::to_string(*id) + "/attachment";
                 }
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
-                thisEntry["Oem"]["OpenBMC"]["@odata.type"] =
-                    "#OemLogEntry.v1_0_0.OpenBMC";
-                thisEntry["Oem"]["OpenBMC"]["ManagementSystemAck"] =
-                    *managementSystemAck;
-#endif
+                if constexpr (BMCWEB_IBM_MANAGEMENT_CONSOLE)
+                {
+                    thisEntry["Oem"]["OpenBMC"]["@odata.type"] =
+                        "#OemLogEntry.v1_0_0.OpenBMC";
+                    thisEntry["Oem"]["OpenBMC"]["ManagementSystemAck"] =
+                        *managementSystemAck;
+                }
             }
             std::ranges::sort(entriesArray, [](const nlohmann::json& left,
                                                const nlohmann::json& right) {
@@ -2473,9 +2472,7 @@ inline void requestRoutesDBusCELogEntryCollection(App& app)
                 const bool* resolved = nullptr;
                 const bool* hidden = nullptr;
                 const std::string* notify = nullptr;
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
                 bool managementSystemAck = false;
-#endif
 
                 for (const auto& interfaceMap : objectPath.second)
                 {
@@ -2582,19 +2579,21 @@ inline void requestRoutesDBusCELogEntryCollection(App& app)
                                     return;
                                 }
                             }
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
-                            else if (propertyMap.first == "ManagementSystemAck")
+                            else if constexpr (BMCWEB_IBM_MANAGEMENT_CONSOLE)
                             {
-                                const bool* managementSystemAckptr =
-                                    std::get_if<bool>(&propertyMap.second);
-                                if (managementSystemAckptr == nullptr)
+                                if (propertyMap.first == "ManagementSystemAck")
                                 {
-                                    messages::internalError(asyncResp->res);
-                                    return;
+                                    const bool* managementSystemAckptr =
+                                        std::get_if<bool>(&propertyMap.second);
+                                    if (managementSystemAckptr == nullptr)
+                                    {
+                                        messages::internalError(asyncResp->res);
+                                        return;
+                                    }
+                                    managementSystemAck =
+                                        *managementSystemAckptr;
                                 }
-                                managementSystemAck = *managementSystemAckptr;
                             }
-#endif
                         }
                     }
                 }
@@ -2654,12 +2653,13 @@ inline void requestRoutesDBusCELogEntryCollection(App& app)
                         "/redfish/v1/Systems/system/LogServices/CELog/Entries/{}/attachment",
                         std::to_string(*id));
                 }
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
-                thisEntry["Oem"]["OpenBMC"]["@odata.type"] =
-                    "#OemLogEntry.v1_0_0.OpenBMC";
-                thisEntry["Oem"]["OpenBMC"]["ManagementSystemAck"] =
-                    managementSystemAck;
-#endif
+                if constexpr (BMCWEB_IBM_MANAGEMENT_CONSOLE)
+                {
+                    thisEntry["Oem"]["OpenBMC"]["@odata.type"] =
+                        "#OemLogEntry.v1_0_0.OpenBMC";
+                    thisEntry["Oem"]["OpenBMC"]["ManagementSystemAck"] =
+                        managementSystemAck;
+                }
             }
             std::ranges::sort(entriesArray, [](const nlohmann::json& left,
                                                const nlohmann::json& right) {
@@ -2733,21 +2733,15 @@ inline void requestRoutesDBusEventLogEntry(App& app)
             const bool* resolved = nullptr;
             const std::string* notify = nullptr;
             const bool* hidden = nullptr;
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
             const bool* managementSystemAck = nullptr;
-#endif
 
             const bool success = sdbusplus::unpackPropertiesNoThrow(
                 dbus_utils::UnpackErrorPrinter(), resp, "Id", id, "Timestamp",
                 timestamp, "UpdateTimestamp", updateTimestamp, "Severity",
                 severity, "EventId", eventId, "Resolved", resolved,
                 "Resolution", resolution, "Path", filePath, "Hidden", hidden,
-                "ServiceProviderNotify", notify, "Subsystem", subsystem
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
-                ,
-                "ManagementSystemAck", managementSystemAck
-#endif
-            );
+                "ServiceProviderNotify", notify, "Subsystem", subsystem,
+                "ManagementSystemAck", managementSystemAck);
 
             if (!success)
             {
@@ -2758,11 +2752,9 @@ inline void requestRoutesDBusEventLogEntry(App& app)
             if (id == nullptr || eventId == nullptr || severity == nullptr ||
                 timestamp == nullptr || updateTimestamp == nullptr ||
                 resolved == nullptr || notify == nullptr || hidden == nullptr ||
-                subsystem == nullptr
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
-                || managementSystemAck == nullptr
-#endif
-            )
+                subsystem == nullptr ||
+                (BMCWEB_IBM_MANAGEMENT_CONSOLE &&
+                 managementSystemAck == nullptr))
             {
                 messages::internalError(asyncResp->res);
                 return;
@@ -2817,12 +2809,14 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                     "/redfish/v1/Systems/system/LogServices/EventLog/Entries/" +
                     std::to_string(*id) + "/attachment";
             }
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
-            asyncResp->res.jsonValue["Oem"]["OpenBMC"]["@odata.type"] =
-                "#OemLogEntry.v1_0_0.OpenBMC";
-            asyncResp->res.jsonValue["Oem"]["OpenBMC"]["ManagementSystemAck"] =
-                *managementSystemAck;
-#endif
+            if constexpr (BMCWEB_IBM_MANAGEMENT_CONSOLE)
+            {
+                asyncResp->res.jsonValue["Oem"]["OpenBMC"]["@odata.type"] =
+                    "#OemLogEntry.v1_0_0.OpenBMC";
+                asyncResp->res
+                    .jsonValue["Oem"]["OpenBMC"]["ManagementSystemAck"] =
+                    *managementSystemAck;
+            }
         });
     });
 
@@ -2987,21 +2981,15 @@ inline void requestRoutesDBusCELogEntry(App& app)
             const bool* resolved = nullptr;
             const std::string* notify = nullptr;
             const bool* hidden = nullptr;
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
             const bool* managementSystemAck = nullptr;
-#endif
 
             const bool success = sdbusplus::unpackPropertiesNoThrow(
                 dbus_utils::UnpackErrorPrinter(), resp, "Id", id, "Timestamp",
                 timestamp, "UpdateTimestamp", updateTimestamp, "Severity",
                 severity, "EventId", eventId, "Resolved", resolved,
                 "Resolution", resolution, "Path", filePath, "Hidden", hidden,
-                "ServiceProviderNotify", notify, "Subsystem", subsystem
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
-                ,
-                "ManagementSystemAck", managementSystemAck
-#endif
-            );
+                "ServiceProviderNotify", notify, "Subsystem", subsystem,
+                "ManagementSystemAck", managementSystemAck);
 
             if (!success)
             {
@@ -3012,11 +3000,9 @@ inline void requestRoutesDBusCELogEntry(App& app)
             if (id == nullptr || eventId == nullptr || severity == nullptr ||
                 timestamp == nullptr || updateTimestamp == nullptr ||
                 resolved == nullptr || hidden == nullptr || notify == nullptr ||
-                subsystem == nullptr
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
-                || managementSystemAck == nullptr
-#endif
-            )
+                subsystem == nullptr ||
+                (BMCWEB_IBM_MANAGEMENT_CONSOLE &&
+                 managementSystemAck == nullptr))
             {
                 messages::internalError(asyncResp->res);
                 return;
@@ -3071,12 +3057,14 @@ inline void requestRoutesDBusCELogEntry(App& app)
                     "/redfish/v1/Systems/system/LogServices/CELog/Entries/{}/attachment",
                     std::to_string(*id));
             }
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
-            asyncResp->res.jsonValue["Oem"]["OpenBMC"]["@odata.type"] =
-                "#OemLogEntry.v1_0_0.OpenBMC";
-            asyncResp->res.jsonValue["Oem"]["OpenBMC"]["ManagementSystemAck"] =
-                *managementSystemAck;
-#endif
+            if constexpr (BMCWEB_IBM_MANAGEMENT_CONSOLE)
+            {
+                asyncResp->res.jsonValue["Oem"]["OpenBMC"]["@odata.type"] =
+                    "#OemLogEntry.v1_0_0.OpenBMC";
+                asyncResp->res
+                    .jsonValue["Oem"]["OpenBMC"]["ManagementSystemAck"] =
+                    *managementSystemAck;
+            }
         });
     });
 
@@ -5617,7 +5605,6 @@ inline void requestRoutesPostCodesEntry(App& app)
     });
 }
 
-#ifdef BMCWEB_ENABLE_LINUX_AUDIT_EVENTS
 /****************************************************
  * Redfish AuditLog interfaces
  ******************************************************/
@@ -6275,8 +6262,6 @@ inline void requestRoutesFullAuditLogDownload(App& app)
             std::bind_front(handleFullAuditLogAttachment, std::ref(app)));
 }
 
-#endif // BMCWEB_ENABLE_LINUX_AUDIT_EVENTS
-#ifdef BMCWEB_ENABLE_HW_ISOLATION
 /**
  * @brief API Used to add the supported HardwareIsolation LogServices Members
  *
@@ -7247,37 +7232,40 @@ inline void postSystemHardwareIsolationLogServiceClearLog(
  */
 inline void requestRoutesSystemHardwareIsolationLogService(App& app)
 {
-    BMCWEB_ROUTE(app,
-                 "/redfish/v1/Systems/system/LogServices/HardwareIsolation/")
-        .privileges(redfish::privileges::getLogService)
-        .methods(boost::beast::http::verb::get)(
-            getSystemHardwareIsolationLogService);
+    if constexpr (BMCWEB_HW_ISOLATION)
+    {
+        BMCWEB_ROUTE(
+            app, "/redfish/v1/Systems/system/LogServices/HardwareIsolation/")
+            .privileges(redfish::privileges::getLogService)
+            .methods(boost::beast::http::verb::get)(
+                getSystemHardwareIsolationLogService);
 
-    BMCWEB_ROUTE(
-        app, "/redfish/v1/Systems/system/LogServices/HardwareIsolation/Entries")
-        .privileges(redfish::privileges::getLogEntryCollection)
-        .methods(boost::beast::http::verb::get)(
-            getSystemHardwareIsolationLogEntryCollection);
+        BMCWEB_ROUTE(
+            app,
+            "/redfish/v1/Systems/system/LogServices/HardwareIsolation/Entries")
+            .privileges(redfish::privileges::getLogEntryCollection)
+            .methods(boost::beast::http::verb::get)(
+                getSystemHardwareIsolationLogEntryCollection);
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/LogServices/"
-                      "HardwareIsolation/Entries/<str>/")
-        .privileges(redfish::privileges::getLogEntry)
-        .methods(boost::beast::http::verb::get)(
-            getSystemHardwareIsolationLogEntryById);
+        BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/LogServices/"
+                          "HardwareIsolation/Entries/<str>/")
+            .privileges(redfish::privileges::getLogEntry)
+            .methods(boost::beast::http::verb::get)(
+                getSystemHardwareIsolationLogEntryById);
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/LogServices/"
-                      "HardwareIsolation/Entries/<str>/")
-        .privileges(redfish::privileges::deleteLogEntry)
-        .methods(boost::beast::http::verb::delete_)(
-            deleteSystemHardwareIsolationLogEntryById);
+        BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/LogServices/"
+                          "HardwareIsolation/Entries/<str>/")
+            .privileges(redfish::privileges::deleteLogEntry)
+            .methods(boost::beast::http::verb::delete_)(
+                deleteSystemHardwareIsolationLogEntryById);
 
-    BMCWEB_ROUTE(app,
-                 "/redfish/v1/Systems/system/LogServices/HardwareIsolation/"
-                 "Actions/LogService.ClearLog/")
-        .privileges(redfish::privileges::postLogService)
-        .methods(boost::beast::http::verb::post)(
-            postSystemHardwareIsolationLogServiceClearLog);
+        BMCWEB_ROUTE(app,
+                     "/redfish/v1/Systems/system/LogServices/HardwareIsolation/"
+                     "Actions/LogService.ClearLog/")
+            .privileges(redfish::privileges::postLogService)
+            .methods(boost::beast::http::verb::post)(
+                postSystemHardwareIsolationLogServiceClearLog);
+    }
 }
-#endif // BMCWEB_ENABLE_HW_ISOLATION
 
 } // namespace redfish

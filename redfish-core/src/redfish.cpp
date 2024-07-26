@@ -161,12 +161,13 @@ RedfishService::RedfishService(App& app)
         requestRoutesBMCJournalLogEntry(app);
     }
 
-#ifdef BMCWEB_ENABLE_LINUX_AUDIT_EVENTS
-    requestRoutesAuditLogService(app);
-    requestRoutesAuditLogEntry(app);
-    requestRoutesAuditLogEntryCollection(app);
-    requestRoutesFullAuditLogDownload(app);
-#endif
+    if constexpr (BMCWEB_AUDIT_EVENTS)
+    {
+        requestRoutesAuditLogService(app);
+        requestRoutesAuditLogEntry(app);
+        requestRoutesAuditLogEntryCollection(app);
+        requestRoutesFullAuditLogDownload(app);
+    }
 
     if constexpr (BMCWEB_REDFISH_CPU_LOG)
     {
@@ -212,20 +213,24 @@ RedfishService::RedfishService(App& app)
         requestRoutesDBusEventLogEntryDownloadPelJson(app);
         requestRoutesDBusCELogEntryDownloadPelJson(app);
     }
-#ifdef BMCWEB_ENABLE_REDFISH_LICENSE
-    requestRoutesLicenseService(app);
-    requestRoutesLicenseEntryCollection(app);
-    requestRoutesLicenseEntry(app);
-#endif
+    if constexpr (BMCWEB_REDFISH_LICENSE)
+    {
+        requestRoutesLicenseService(app);
+        requestRoutesLicenseEntryCollection(app);
+        requestRoutesLicenseEntry(app);
+    }
+
     if constexpr (BMCWEB_REDFISH_HOST_LOGGER)
     {
         requestRoutesSystemHostLogger(app);
         requestRoutesSystemHostLoggerCollection(app);
         requestRoutesSystemHostLoggerLogEntry(app);
     }
-#ifdef BMCWEB_ENABLE_HW_ISOLATION
-    requestRoutesSystemHardwareIsolationLogService(app);
-#endif
+
+    if constexpr (BMCWEB_HW_ISOLATION)
+    {
+        requestRoutesSystemHardwareIsolationLogService(app);
+    }
     requestRoutesMessageRegistryFileCollection(app);
     requestRoutesMessageRegistryFile(app);
     requestRoutesMessageRegistry(app);

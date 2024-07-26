@@ -2,9 +2,7 @@
 #include "bmcweb_config.h"
 
 #include "async_resp.hpp"
-#ifdef BMCWEB_ENABLE_LINUX_AUDIT_EVENTS
 #include "audit_events.hpp"
-#endif
 #include "authentication.hpp"
 #include "complete_response_fields.hpp"
 #include "dump_utils.hpp"
@@ -418,28 +416,30 @@ class Connection :
         res = std::move(thisRes);
         res.keepAlive(keepAlive);
 
-#ifdef BMCWEB_ENABLE_LINUX_AUDIT_EVENTS
-        if (audit::wantAudit(*req))
+        if constexpr (BMCWEB_AUDIT_EVENTS)
         {
-            if (userSession != nullptr)
+            if (audit::wantAudit(*req))
             {
-                bool requestSuccess = false;
-                // Look for good return codes and if so we know the operation
-                // passed
-                if ((res.resultInt() >= 200) && (res.resultInt() < 300))
+                if (userSession != nullptr)
                 {
-                    requestSuccess = true;
-                }
+                    bool requestSuccess = false;
+                    // Look for good return codes and if so we know the
+                    // operation passed
+                    if ((res.resultInt() >= 200) && (res.resultInt() < 300))
+                    {
+                        requestSuccess = true;
+                    }
 
-                audit::auditEvent(*req, userSession->username, requestSuccess);
-            }
-            else
-            {
-                BMCWEB_LOG_DEBUG(
-                    "UserSession is null, not able to log audit event!");
+                    audit::auditEvent(*req, userSession->username,
+                                      requestSuccess);
+                }
+                else
+                {
+                    BMCWEB_LOG_DEBUG(
+                        "UserSession is null, not able to log audit event!");
+                }
             }
         }
-#endif // BMCWEB_ENABLE_LINUX_AUDIT_EVENTS
 
         completeResponseFields(*req, res);
         res.addHeader(boost::beast::http::field::date, getCachedDateStr());

@@ -109,7 +109,7 @@ void assertServiceRootGet(crow::Response& res)
     EXPECT_FALSE(
         json["ProtocolFeaturesSupported"]["DeepOperations"]["DeepPATCH"]);
     EXPECT_EQ(json["ProtocolFeaturesSupported"]["DeepOperations"].size(), 2);
-    if (bmcwebEnableLicense)
+    if constexpr (BMCWEB_REDFISH_LICENSE)
     {
         EXPECT_EQ(json["LicenseService"]["@odata.id"],
                   "/redfish/v1/LicenseService");
