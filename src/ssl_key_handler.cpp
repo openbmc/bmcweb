@@ -459,18 +459,15 @@ static int alpnSelectProtoCallback(SSL* /*unused*/, const unsigned char** out,
                                    const unsigned char* in, unsigned int inlen,
                                    void* /*unused*/)
 {
-    // There's a mismatch in constness for nghttp2_select_next_protocol.  The
-    // examples in nghttp2 don't show this problem.  Unclear what the right fix
-    // is here.
-
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
-    unsigned char** outNew = const_cast<unsigned char**>(out);
-    int rv = nghttp2_select_next_protocol(outNew, outlen, in, inlen);
-    if (rv != 1)
+    int rv = nghttp2_select_alpn(out, outlen, in, inlen);
+    if (rv == -1)
     {
         return SSL_TLSEXT_ERR_NOACK;
     }
-
+    if (rv == 1)
+    {
+        BMCWEB_LOG_DEBUG("Selected HTTP2");
+    }
     return SSL_TLSEXT_ERR_OK;
 }
 
