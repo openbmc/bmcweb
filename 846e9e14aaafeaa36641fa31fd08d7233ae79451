@@ -236,6 +236,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "394e27f5_2dbd625d",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-26T17:48:47Z",
+      "side": 1,
+      "message": "\u003e In this case just monitoring for server disconnect will do the job\n\nThat\u0027s effectively what we\u0027re doing by using the Read.",
+      "parentUuid": "2871b10c_d729f912",
+      "revId": "846e9e14aaafeaa36641fa31fd08d7233ae79451",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "198e97da_b52f12fb",
         "filename": "http/http_client.hpp",
         "patchSetId": 7
