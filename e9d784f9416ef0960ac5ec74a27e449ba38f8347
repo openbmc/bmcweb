@@ -16,6 +16,24 @@
       "message": "DataSourceUri is also added for both SpeedPercent and SecondarySpeedPercent. Shouldn\u0027t they be added here as well?\n\n(Added in getFanSpeedPercent())",
       "revId": "e9d784f9416ef0960ac5ec74a27e449ba38f8347",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7f90d01_c3135479",
+        "filename": "Redfish.md",
+        "patchSetId": 43
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2024-07-26T13:21:25Z",
+      "side": 1,
+      "message": "Yes, we should add it; it is not a common property.",
+      "parentUuid": "931114c4_665984ae",
+      "revId": "e9d784f9416ef0960ac5ec74a27e449ba38f8347",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
