@@ -99,7 +99,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
         matchStr(matchIn), index(idx),
         startTime(std::chrono::system_clock::to_time_t(
             std::chrono::system_clock::now())),
-        status("OK"), state("Running"), messages(nlohmann::json::array()),
+        status("OK"), state("Starting"), messages(nlohmann::json::array()),
         timer(crow::connections::systemBus->get_io_context())
 
     {}

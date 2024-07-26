@@ -1198,6 +1198,16 @@ inline void createDumpTaskCallback(
             "member='PropertiesChanged',path='" +
                 createdObjPath.str + "'");
 
+        // Take the task state to "Running" for all dumps except
+        // Resource dumps as there is no validation on the user input
+        // for dump creation, meaning only in resource dump creation,
+        // validation will be done on the user input.
+        const std::string resourceDumpIdPrefix =
+            "/xyz/openbmc_project/dump/system/entry/B";
+        if (!(createdObjPath.str).starts_with(resourceDumpIdPrefix))
+        {
+            task->state = "Running";
+        }
         // The task timer is set to max time limit within which the
         // requested dump will be collected.
         task->startTimer(std::chrono::minutes(20));
