@@ -445,7 +445,7 @@ inline void handleRoleMapPatch(
                         std::format("RemoteRoleMapping/{}/LocalRole", index),
                         ldapDbusService, roleMapObjData[index].first,
                         "xyz.openbmc_project.User.PrivilegeMapperEntry",
-                        "Privilege", *localRole);
+                        "Privilege", getPrivilegeFromRoleId(std::move(*localRole)));
                 }
             }
             // Create a new RoleMapping Object.
