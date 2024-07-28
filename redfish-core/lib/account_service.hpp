@@ -440,12 +440,21 @@ inline void handleRoleMapPatch(
                 // If "LocalRole" info is provided
                 if (localRole)
                 {
+                    std::string priv = getPrivilegeFromRoleId(*localRole);
+                    if (priv.empty())
+                    {
+                        messages::propertyValueNotInList(
+                            asyncResp->res, *localRole,
+                            std::format("RemoteRoleMapping/{}/LocalRole",
+                                        index));
+                        return;
+                    }
                     setDbusProperty(
                         asyncResp,
                         std::format("RemoteRoleMapping/{}/LocalRole", index),
                         ldapDbusService, roleMapObjData[index].first,
                         "xyz.openbmc_project.User.PrivilegeMapperEntry",
-                        "Privilege", *localRole);
+                        "Privilege", priv);
                 }
             }
             // Create a new RoleMapping Object.
