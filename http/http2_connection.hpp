@@ -436,15 +436,7 @@ class HTTP2Connection :
         }
         else if (nameSv == ":method")
         {
-            boost::beast::http::verb verb =
-                boost::beast::http::string_to_verb(valueSv);
-            if (verb == boost::beast::http::verb::unknown)
-            {
-                BMCWEB_LOG_ERROR("Unknown http verb {}", valueSv);
-                close();
-                return -1;
-            }
-            thisReq.method(verb);
+            thisReq.methodString(nameSv);
         }
         else if (nameSv == ":scheme")
         {
