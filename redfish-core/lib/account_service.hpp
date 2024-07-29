@@ -37,6 +37,7 @@
 #include <memory>
 #include <optional>
 #include <ranges>
+#include <regex>
 #include <string>
 #include <string_view>
 #include <utility>
@@ -79,6 +80,17 @@ struct LDAPConfigData
     std::string groupAttribute;
     std::vector<std::pair<std::string, LDAPRoleMapData>> groupRoleList;
 };
+
+/**
+ * @brief Checks if a group name is valid.
+ * @param groupName The group name to be validated.
+ * @return @c true if the group name is valid, @c false otherwise.
+ */
+inline bool isGroupNameValid(const std::string& groupName)
+{
+    const static std::regex allWhitespacesPattern("^\\s*$");
+    return !std::regex_match(groupName, allWhitespacesPattern);
+}
 
 inline std::string getRoleIdFromPrivilege(std::string_view role)
 {
@@ -429,6 +441,13 @@ inline void handleRoleMapPatch(
                 // If "RemoteGroup" info is provided
                 if (remoteGroup)
                 {
+                    // Validate the group name
+                    if (!isGroupNameValid(*remoteGroup))
+                    {
+                        messages::propertyValueFormatError(asyncResp->res, *remoteGroup, "groupName");
+                        return;
+                    }
+
                     setDbusProperty(
                         asyncResp,
                         std::format("RemoteRoleMapping/{}/RemoteGroup", index),
