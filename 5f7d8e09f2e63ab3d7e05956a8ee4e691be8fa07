@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d124f3f_81dc369b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-29T19:27:31Z",
+      "side": 1,
+      "message": "Similar to your other commit, bmcweb is not the correct place to put validation logic like this.\n\n\" \" is a valid string on dbus, therefore phosphor-user-manager needs to be verifying correctness and returning the appropriate error code when a user provides \nsomething that\u0027s malformed.",
+      "revId": "5f7d8e09f2e63ab3d7e05956a8ee4e691be8fa07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
