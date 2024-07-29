@@ -484,7 +484,8 @@ inline void handleRoleMapPatch(
                         *crow::connections::systemBus, ldapDbusService,
                         roleMapObjData[index].first,
                         "xyz.openbmc_project.User.PrivilegeMapperEntry",
-                        "Privilege", *localRole,
+                        "Privilege",
+                        getPrivilegeFromRoleId(std::move(*localRole)),
                         [asyncResp, roleMapObjData, serverType, index,
                          localRole](const boost::system::error_code& ec,
                                     const sdbusplus::message_t& msg) {
