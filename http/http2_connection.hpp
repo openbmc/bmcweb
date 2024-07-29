@@ -441,8 +441,7 @@ class HTTP2Connection :
             if (verb == boost::beast::http::verb::unknown)
             {
                 BMCWEB_LOG_ERROR("Unknown http verb {}", valueSv);
-                close();
-                return -1;
+                verb = boost::beast::http::verb::trace;
             }
             thisReq.method(verb);
         }
