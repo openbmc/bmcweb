@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69211c55_d4b62b2b",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1002110
+      },
+      "writtenOn": "2024-07-29T19:22:37Z",
+      "side": 1,
+      "message": "This is a result of conversation from a review in webui-vue to do the validation in bmcweb: https://gerrit.openbmc.org/c/openbmc/webui-vue/+/72463",
+      "revId": "02519f66d9c2dd6e2701b1671db70f85cf3c1c79",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
