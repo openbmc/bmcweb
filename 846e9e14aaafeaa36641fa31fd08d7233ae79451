@@ -272,6 +272,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "42e8213c_ab87ba5c",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-29T19:14:17Z",
+      "side": 1,
+      "message": "\u003e So we are not effectively monitoring the server disconnect beyond the timeout time.\n\nIn this patchset, we\u0027re always monitoring the connection.",
+      "parentUuid": "f45a7983_2bf0f717",
+      "revId": "846e9e14aaafeaa36641fa31fd08d7233ae79451",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "198e97da_b52f12fb",
         "filename": "http/http_client.hpp",
         "patchSetId": 7
