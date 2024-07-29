@@ -75,9 +75,20 @@ struct Request
     {
         return req.method();
     }
+
     void method(boost::beast::http::verb verb)
     {
         req.method(verb);
+    }
+
+    void methodString(std::string_view verb)
+    {
+        req.method_string(verb);
+    }
+
+    std::string_view methodString()
+    {
+        return req.method_string();
     }
 
     std::string_view getHeaderValue(std::string_view key) const
