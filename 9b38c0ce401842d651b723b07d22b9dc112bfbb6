@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5462bc08_23bf0cb5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-07-29T17:54:58Z",
+      "side": 1,
+      "message": "FYI. I\u0027m going to start working on addressing the code review comments of this commit and the other unmerged commits for this same topic.",
+      "revId": "9b38c0ce401842d651b723b07d22b9dc112bfbb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ef848f61_2974b1e0",
