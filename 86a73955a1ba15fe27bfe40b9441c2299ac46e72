@@ -16,6 +16,24 @@
       "message": "The CI fail is commit_spelling: FAILED but I don\u0027t see misspelled words here. I wonder if it is mad about alpn or something. I wish that commit_spelling: FAILED had more debug :/",
       "revId": "86a73955a1ba15fe27bfe40b9441c2299ac46e72",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f74299a5_3fade59d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-29T21:51:44Z",
+      "side": 1,
+      "message": "It does have more debug.  IN the logs it printed:\n\ngeneric-dictionary - misspelling count \u003e\u003e /tmp/tmp.YclROcupqf:11: propertly \u003d\u003d\u003e properly, property\n\nwhich has been fixed.",
+      "parentUuid": "18259ba4_2376a8f8",
+      "revId": "86a73955a1ba15fe27bfe40b9441c2299ac46e72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
