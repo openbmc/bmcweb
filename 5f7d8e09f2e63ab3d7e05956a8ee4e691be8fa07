@@ -34,6 +34,24 @@
       "parentUuid": "4d124f3f_81dc369b",
       "revId": "5f7d8e09f2e63ab3d7e05956a8ee4e691be8fa07",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10a5927a_acb66182",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-29T19:38:43Z",
+      "side": 1,
+      "message": "\u003e One reason was that reviewers on my webui-vue PR seemed to think bmcweb was where it should be\n\nWhat I suspect they were saying was \"bmcweb is giving the wrong response here, you should debug and get the bmc (as a whole) to return the correct response\", not direct advice that it should go in bmcweb.\n\n\u003e https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/ethernet.hpp#L1267\n\nYes, you have found one of the few remaining examples where we do this kind of validation.  That pattern is not widespread, and that file is one of the few remaining places where we verify things outside of the daemon itself.\n\nIt arguably should be fixed, but \"Perfect is the enemy of good;  Good is the enemy of better.\"\n\nFWIW, https://github.com/openbmc/bmcweb/issues/176#issuecomment-1485586513",
+      "parentUuid": "4d124f3f_81dc369b",
+      "revId": "5f7d8e09f2e63ab3d7e05956a8ee4e691be8fa07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ],
   "submitRequirementResults": []
