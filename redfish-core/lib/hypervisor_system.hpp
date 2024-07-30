@@ -456,7 +456,10 @@ inline void parseInterfaceData(nlohmann::json& jsonResponse,
     jsonResponse["@odata.id"] = boost::urls::format(
         "/redfish/v1/Systems/hypervisor/EthernetInterfaces/{}", ifaceId);
     jsonResponse["InterfaceEnabled"] = true;
-    jsonResponse["MACAddress"] = ethData.macAddress;
+    if (!ethData.macAddress.empty())
+    {
+        jsonResponse["MACAddress"] = ethData.macAddress;
+    }
 
     jsonResponse["HostName"] = ethData.hostName;
     jsonResponse["DHCPv4"]["DHCPEnabled"] =
