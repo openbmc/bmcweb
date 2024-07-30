@@ -1860,7 +1860,10 @@ inline void
 
     jsonResponse["SpeedMbps"] = ethData.speed;
     jsonResponse["MTUSize"] = ethData.mtuSize;
-    jsonResponse["MACAddress"] = ethData.macAddress;
+    if (!ethData.macAddress.empty())
+    {
+        jsonResponse["MACAddress"] = ethData.macAddress;
+    }
     jsonResponse["DHCPv4"]["DHCPEnabled"] =
         translateDhcpEnabledToBool(ethData.dhcpEnabled, true);
     jsonResponse["DHCPv4"]["UseNTPServers"] = ethData.ntpv4Enabled;
@@ -1920,23 +1923,26 @@ inline void
     ipv4StaticArray = nlohmann::json::array();
     for (const auto& ipv4Config : ipv4Data)
     {
-        std::string gatewayStr = ipv4Config.gateway;
-        if (gatewayStr.empty())
+	if (!ipv4Config.address.empty() && ipv4Config.address != "0.0.0.0")
         {
-            gatewayStr = "0.0.0.0";
-        }
-        nlohmann::json::object_t ipv4;
-        ipv4["AddressOrigin"] = ipv4Config.origin;
-        ipv4["SubnetMask"] = ipv4Config.netmask;
-        ipv4["Address"] = ipv4Config.address;
-        ipv4["Gateway"] = gatewayStr;
+            std::string gatewayStr = ipv4Config.gateway;
+            if (gatewayStr.empty())
+            {
+                gatewayStr = "0.0.0.0";
+            }
+            nlohmann::json::object_t ipv4;
+            ipv4["AddressOrigin"] = ipv4Config.origin;
+            ipv4["SubnetMask"] = ipv4Config.netmask;
+            ipv4["Address"] = ipv4Config.address;
+            ipv4["Gateway"] = gatewayStr;
 
-        if (ipv4Config.origin == "Static")
-        {
-            ipv4StaticArray.push_back(ipv4);
-        }
+            if (ipv4Config.origin == "Static")
+            {
+                ipv4StaticArray.push_back(ipv4);
+            }
 
-        ipv4Array.emplace_back(std::move(ipv4));
+            ipv4Array.emplace_back(std::move(ipv4));
+        }
     }
 
     std::string ipv6GatewayStr = ethData.ipv6DefaultGateway;
@@ -1967,18 +1973,21 @@ inline void
     ipv6AddrPolicyTable = nlohmann::json::array();
     for (const auto& ipv6Config : ipv6Data)
     {
-        nlohmann::json::object_t ipv6;
-        ipv6["Address"] = ipv6Config.address;
-        ipv6["PrefixLength"] = ipv6Config.prefixLength;
-        ipv6["AddressOrigin"] = ipv6Config.origin;
-
-        ipv6Array.emplace_back(std::move(ipv6));
-        if (ipv6Config.origin == "Static")
+        if (!ipv6Config.address.empty() && ipv6Config.address != "::")
         {
-            nlohmann::json::object_t ipv6Static;
-            ipv6Static["Address"] = ipv6Config.address;
-            ipv6Static["PrefixLength"] = ipv6Config.prefixLength;
-            ipv6StaticArray.emplace_back(std::move(ipv6Static));
+            nlohmann::json::object_t ipv6;
+            ipv6["Address"] = ipv6Config.address;
+            ipv6["PrefixLength"] = ipv6Config.prefixLength;
+            ipv6["AddressOrigin"] = ipv6Config.origin;
+
+            ipv6Array.emplace_back(std::move(ipv6));
+            if (ipv6Config.origin == "Static")
+            {
+                nlohmann::json::object_t ipv6Static;
+                ipv6Static["Address"] = ipv6Config.address;
+                ipv6Static["PrefixLength"] = ipv6Config.prefixLength;
+                ipv6StaticArray.emplace_back(std::move(ipv6Static));
+            }
         }
     }
 }
