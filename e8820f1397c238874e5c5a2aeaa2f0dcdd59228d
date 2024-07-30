@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "864be4ec_2ac83e05",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-30T03:22:30Z",
+      "side": 1,
+      "message": "Let me ask it this way;\n\nDoes the backend implement the path in question?  If I merge this, and https://gerrit.openbmc.org/c/openbmc/phosphor-bmc-code-mgmt/+/70668 isn\u0027t merged, do things that were previously working now break (regardless of option).",
+      "parentUuid": "7ecac8e3_64b49d1b",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 44
+      },
+      "revId": "e8820f1397c238874e5c5a2aeaa2f0dcdd59228d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c0de0215_a05e43d7",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -79,6 +103,24 @@
       "side": 1,
       "message": "There is a clang warning that i need to address. But bmcweb change is not dependent on diff as its just a backend usecase for this flow.",
       "parentUuid": "c0de0215_a05e43d7",
+      "revId": "e8820f1397c238874e5c5a2aeaa2f0dcdd59228d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d3eec3e_ca37f797",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-30T03:22:30Z",
+      "side": 1,
+      "message": "Following up on other thread.",
+      "parentUuid": "9b3119ab_4bf25a64",
       "revId": "e8820f1397c238874e5c5a2aeaa2f0dcdd59228d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
