@@ -10,5 +10,5 @@ correct on your machine.
 python3 ~/Redfish-Tools/csdl-to-json-convertor/csdl-to-json.py --input ~/bmcweb/redfish-core/schema/oem/openbmc/csdl --output ~/bmcweb/redfish-core/schema/oem/openbmc/json-schema --config ~/bmcweb/scripts/csdl-to-json-converter/csdl-to-json-convertor/openbmc-config.json
 ```
 
-[1]
-https://github.com/DMTF/Redfish-Tools/blob/main/csdl-to-json-convertor/csdl-to-json.py
+[1]:
+  https://github.com/DMTF/Redfish-Tools/blob/main/csdl-to-json-convertor/csdl-to-json.py
