@@ -2865,6 +2865,13 @@ inline void handleComputerSystemResetActionPost(
     {
         return;
     }
+
+    if (systemName == "hypervisor")
+    {
+        handleHypervisorSystemResetPost(req, asyncResp);
+        return;
+    }
+
     if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
     {
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",

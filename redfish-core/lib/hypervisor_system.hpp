@@ -885,13 +885,9 @@ inline void handleHypervisorResetActionGet(
 }
 
 inline void handleHypervisorSystemResetPost(
-    App& app, const crow::Request& req,
+    const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-    {
-        return;
-    }
     std::optional<std::string> resetType;
     if (!json_util::readJsonAction(req, asyncResp->res, "ResetType", resetType))
     {
@@ -947,11 +943,5 @@ inline void requestRoutesHypervisorSystems(App& app)
         .privileges(redfish::privileges::patchEthernetInterface)
         .methods(boost::beast::http::verb::patch)(std::bind_front(
             handleHypervisorEthernetInterfacePatch, std::ref(app)));
-
-    BMCWEB_ROUTE(app,
-                 "/redfish/v1/Systems/hypervisor/Actions/ComputerSystem.Reset/")
-        .privileges(redfish::privileges::postComputerSystem)
-        .methods(boost::beast::http::verb::post)(
-            std::bind_front(handleHypervisorSystemResetPost, std::ref(app)));
 }
 } // namespace redfish
