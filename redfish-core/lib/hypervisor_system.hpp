@@ -178,23 +178,8 @@ inline bool extractHypervisorInterfaceData(
                 "/xyz/openbmc_project/network/hypervisor/" + ethIfaceId)
             {
                 idFound = true;
-                if (ifacePair.first == "xyz.openbmc_project.Network.MACAddress")
-                {
-                    for (const auto& propertyPair : ifacePair.second)
-                    {
-                        if (propertyPair.first == "MACAddress")
-                        {
-                            const std::string* mac =
-                                std::get_if<std::string>(&propertyPair.second);
-                            if (mac != nullptr)
-                            {
-                                ethData.macAddress = *mac;
-                            }
-                        }
-                    }
-                }
-                else if (ifacePair.first ==
-                         "xyz.openbmc_project.Network.EthernetInterface")
+                if (ifacePair.first ==
+                    "xyz.openbmc_project.Network.EthernetInterface")
                 {
                     for (const auto& propertyPair : ifacePair.second)
                     {
@@ -472,8 +457,6 @@ inline void parseInterfaceData(nlohmann::json& jsonResponse,
     jsonResponse["@odata.id"] = boost::urls::format(
         "/redfish/v1/Systems/hypervisor/EthernetInterfaces/{}", ifaceId);
     jsonResponse["InterfaceEnabled"] = true;
-    jsonResponse["MACAddress"] = ethData.macAddress;
-
     jsonResponse["HostName"] = ethData.hostName;
     jsonResponse["DHCPv4"]["DHCPEnabled"] =
         translateDhcpEnabledToBool(ethData.dhcpEnabled, true);
