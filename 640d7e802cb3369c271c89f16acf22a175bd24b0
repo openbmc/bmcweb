@@ -16,6 +16,24 @@
       "message": "Carson are you okay with this?",
       "revId": "640d7e802cb3369c271c89f16acf22a175bd24b0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8de92ff5_318c646e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2024-07-30T16:45:42Z",
+      "side": 1,
+      "message": "TL;DR Thanks for the ping and yes I\u0027m good with the change\n\nI think my original intent was trying to protect against transient failures in top level collections like /redfish/v1/Chassis.  Any \"failures\" from the satellite BMC will not get forwarded. The aggregator will find resources at that endpoint and ignore non-200 OK satellite responses (timeout gets treated as a 502 Bad Gateway response).\n\nThe \"failure\" wouldn\u0027t get surfaced and a client wouldn\u0027t know that there is a satellite that encountered some sort of issue.  It may succeed on retry revealing aggregated resources in the collection.  Then when the client queries just those aggregated resources the retry won\u0027t always be enough to overcome it and the failure will get surfaced.\n\nIn practice I bet it\u0027s unlikely that there are transient satellite BMC failures that reliably get fixed by a retry.\n\nI can see timeouts being a concern when combined with a retry.  From what I\u0027ve seen, requests to a satellite that timeout indicate that satellite BMC is just not in a good state.\n\nIf the satellite is not responding then yeah we should try to avoid delaying for 1 min before completely giving up.\n\nIf it comes up that there is a need for retries in aggregation then maybe this could be set via a compiler flag or as part of the JSON config?  I view that as outside of the scope of this patch.",
+      "parentUuid": "f8406efd_2ec25ba9",
+      "revId": "640d7e802cb3369c271c89f16acf22a175bd24b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
