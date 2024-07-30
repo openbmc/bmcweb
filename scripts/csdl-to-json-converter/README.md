@@ -11,4 +11,4 @@ python3 ~/Redfish-Tools/csdl-to-json-convertor/csdl-to-json.py --input ~/bmcweb/
 ```
 
 [1]
-https://github.com/DMTF/Redfish-Tools/blob/main/csdl-to-json-convertor/csdl-to-json.py
+<https://github.com/DMTF/Redfish-Tools/blob/main/csdl-to-json-convertor/csdl-to-json.py>
