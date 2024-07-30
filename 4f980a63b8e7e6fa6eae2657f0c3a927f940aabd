@@ -95,6 +95,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b562251f_1ba3fc80",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1001990
+      },
+      "writtenOn": "2024-07-30T11:25:27Z",
+      "side": 1,
+      "message": "We translate specific redfish messages, for all others dbusMessage is the same as redfish. We don\u0027t need to return them",
+      "parentUuid": "e243de3f_110dee58",
+      "range": {
+        "startLine": 103,
+        "startChar": 11,
+        "endLine": 103,
+        "endChar": 35
+      },
+      "revId": "4f980a63b8e7e6fa6eae2657f0c3a927f940aabd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8a984e5c_69004f09",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 4
@@ -118,6 +142,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c598530f_89ef22fe",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1001990
+      },
+      "writtenOn": "2024-07-30T11:25:27Z",
+      "side": 1,
+      "message": "We don\u0027t wan\u0027t InternlError because then we can\u0027t check errorMessage with other parameters. And we compare size to be sure the errorMessage returns what we looking for instead \"propertyName.something_else\"",
+      "parentUuid": "8a984e5c_69004f09",
+      "range": {
+        "startLine": 113,
+        "startChar": 8,
+        "endLine": 113,
+        "endChar": 43
+      },
+      "revId": "4f980a63b8e7e6fa6eae2657f0c3a927f940aabd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "de5d32a1_e79b3a87",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 4
@@ -129,6 +177,30 @@
       "writtenOn": "2024-06-24T21:38:53Z",
       "side": 1,
       "message": "This looks like it\u0027s only ever used with type string.  You might also consider changing from std::vector to std::span.",
+      "range": {
+        "startLine": 128,
+        "startChar": 16,
+        "endLine": 128,
+        "endChar": 25
+      },
+      "revId": "4f980a63b8e7e6fa6eae2657f0c3a927f940aabd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17f1a56f_4622b074",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1001990
+      },
+      "writtenOn": "2024-07-30T11:25:27Z",
+      "side": 1,
+      "message": "This needs more changes, starting in struct AddReportArgs. Other functions are using it as vector and add data to this vector. If its needed can be added in other patch in future",
+      "parentUuid": "de5d32a1_e79b3a87",
       "range": {
         "startLine": 128,
         "startChar": 16,
