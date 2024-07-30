@@ -290,6 +290,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7ba2ad9b_b687b366",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-07-30T04:46:05Z",
+      "side": 1,
+      "message": "How? After the read is aborted we are not reading again right(line 355) ?",
+      "parentUuid": "42e8213c_ab87ba5c",
+      "revId": "846e9e14aaafeaa36641fa31fd08d7233ae79451",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "198e97da_b52f12fb",
         "filename": "http/http_client.hpp",
         "patchSetId": 7
