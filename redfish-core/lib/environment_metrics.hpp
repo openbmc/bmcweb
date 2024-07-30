@@ -182,9 +182,9 @@ inline void afterGetPropertyForPowerWatts(
         return;
     }
     asyncResp->res.jsonValue["PowerWatts"]["@odata.id"] = boost::urls::format(
-        "/redfish/v1/Chassis/{}/Sensors/total_power", chassisId);
+        "/redfish/v1/Chassis/{}/Sensors/power_total_power", chassisId);
     asyncResp->res.jsonValue["PowerWatts"]["DataSourceUri"] =
-        boost::urls::format("/redfish/v1/Chassis/{}/Sensors/total_power",
+        boost::urls::format("/redfish/v1/Chassis/{}/Sensors/power_total_power",
                             chassisId);
     asyncResp->res.jsonValue["PowerWatts"]["Reading"] = value;
 }
