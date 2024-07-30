@@ -506,7 +506,10 @@ inline void parseInterfaceData(nlohmann::json& jsonResponse,
     jsonResponse["Id"] = ifaceId;
     jsonResponse["@odata.id"] = boost::urls::format(
         "/redfish/v1/Systems/hypervisor/EthernetInterfaces/{}", ifaceId);
-    jsonResponse["MACAddress"] = ethData.macAddress;
+    if (!ethData.macAddress.empty())
+    {
+        jsonResponse["MACAddress"] = ethData.macAddress;
+    }
 
     jsonResponse["HostName"] = ethData.hostName;
     jsonResponse["DHCPv4"]["DHCPEnabled"] =
@@ -528,26 +531,48 @@ inline void parseInterfaceData(nlohmann::json& jsonResponse,
     ipv4Array = nlohmann::json::array();
     ipv4StaticArray = nlohmann::json::array();
     bool ipv4IsActive = false;
+    std::string v4Origin;
+    std::string v4Gateway;
+    std::string v4Netmask;
+    std::string v4Address;
+
     for (const auto& ipv4Config : ipv4Data)
     {
         if (ipv4Config.isActive)
         {
             ipv4IsActive = ipv4Config.isActive;
         }
+        if (!ipv4Config.origin.empty())
+        {
+            v4Origin = ipv4Config.origin;
+        }
+        if (!ipv4Config.gateway.empty())
+        {
+            v4Gateway = ethData.defaultGateway;
+        }
+        if (!ipv4Config.netmask.empty())
+        {
+            v4Netmask = ipv4Config.netmask;
+        }
         if (!ipv4Config.address.empty())
         {
-            nlohmann::json::object_t ipv4;
-            ipv4["AddressOrigin"] = ipv4Config.origin;
-            ipv4["SubnetMask"] = ipv4Config.netmask;
-            ipv4["Address"] = ipv4Config.address;
-            ipv4["Gateway"] = ipv4Config.gateway;
-
-            if (ipv4Config.origin == "Static")
-            {
-                ipv4StaticArray.emplace_back(ipv4);
-            }
-            ipv4Array.emplace_back(std::move(ipv4));
+            v4Address = ipv4Config.address;
         }
+    }
+    nlohmann::json::object_t ipv4;
+    ipv4["AddressOrigin"] = v4Origin;
+    ipv4["SubnetMask"] = v4Netmask;
+    ipv4["Address"] = v4Address;
+    ipv4["Gateway"] = v4Gateway;
+    if (v4Origin == "Static")
+    {
+        ipv4StaticArray.push_back(ipv4);
+    }
+    ipv4Array.emplace_back(std::move(ipv4));
+
+    if (ipv4IsActive)
+    {
+        jsonResponse["InterfaceEnabled"] = true;
     }
 
     std::string ipv6GatewayStr = ethData.ipv6DefaultGateway;
