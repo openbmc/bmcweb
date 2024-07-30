@@ -118,7 +118,7 @@ struct EthernetInterfaceData
     std::string defaultGateway;
     std::string ipv6DefaultGateway;
     std::string ipv6StaticDefaultGateway;
-    std::string macAddress;
+    std::optional<std::string> macAddress;
     std::optional<uint32_t> vlanId;
     std::vector<std::string> nameServers;
     std::vector<std::string> staticNameServers;
@@ -1861,7 +1861,10 @@ inline void parseInterfaceData(
 
     jsonResponse["SpeedMbps"] = ethData.speed;
     jsonResponse["MTUSize"] = ethData.mtuSize;
-    jsonResponse["MACAddress"] = ethData.macAddress;
+    if (ethData.macAddress)
+    {
+        jsonResponse["MACAddress"] = *ethData.macAddress;
+    }
     jsonResponse["DHCPv4"]["DHCPEnabled"] =
         translateDhcpEnabledToBool(ethData.dhcpEnabled, true);
     jsonResponse["DHCPv4"]["UseNTPServers"] = ethData.ntpv4Enabled;
