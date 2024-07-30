@@ -119,6 +119,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c141373_66f06fd1",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-30T17:46:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab835181_2102724f",
+      "range": {
+        "startLine": 117,
+        "startChar": 1,
+        "endLine": 120,
+        "endChar": 9
+      },
+      "revId": "05e179b355f7558d125ca066804424322a917ca0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a59ad954_4faac86f",
@@ -166,6 +190,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "40304037_518ae560",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-30T17:46:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9aa87ce_4c6867b6",
+      "range": {
+        "startLine": 121,
+        "startChar": 1,
+        "endLine": 122,
+        "endChar": 9
+      },
+      "revId": "05e179b355f7558d125ca066804424322a917ca0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cc6ccfff_3bb3d9ad",
@@ -203,6 +251,30 @@
       "side": 1,
       "message": "I can\u0027t fully explain why its here, but it was in the code before it was moved.  Happy to discuss something that\u0027s an improvement here;  Lets talk about it in another patch or gerrit/the mailing list.",
       "parentUuid": "cc6ccfff_3bb3d9ad",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 200,
+        "endChar": 6
+      },
+      "revId": "05e179b355f7558d125ca066804424322a917ca0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b55d2220_f05c6c69",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-30T17:46:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16f7113f_ad03fdd1",
       "range": {
         "startLine": 198,
         "startChar": 0,
