@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7ecac8e3_64b49d1b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-07-30T02:08:10Z",
+      "side": 1,
+      "message": "No, we don\u0027t have to wait for that. The related commit is just a backend implementation for the usecase. On BMCWeb side the change is already protected by the option feature flag.",
+      "parentUuid": "f2a4ff27_873506e5",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 44
+      },
+      "revId": "e8820f1397c238874e5c5a2aeaa2f0dcdd59228d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c0de0215_a05e43d7",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -37,6 +61,24 @@
       "writtenOn": "2024-07-29T22:50:07Z",
       "side": 1,
       "message": "Looks like this commit doesn\u0027t build.",
+      "revId": "e8820f1397c238874e5c5a2aeaa2f0dcdd59228d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b3119ab_4bf25a64",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-07-30T02:08:10Z",
+      "side": 1,
+      "message": "There is a clang warning that i need to address. But bmcweb change is not dependent on diff as its just a backend usecase for this flow.",
+      "parentUuid": "c0de0215_a05e43d7",
       "revId": "e8820f1397c238874e5c5a2aeaa2f0dcdd59228d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
