@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d2a1be24_87eff9c2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-07-30T17:15:12Z",
+      "side": 1,
+      "message": "No, merging this PR won\u0027t break anything as there is no implementation of the StartUpdate interface in the backend which has been merged yet. Moreover, the implementation in Related PR is also compiled in through meson option in phosphor-bmc-code-mgmt which is disabled by default.",
+      "parentUuid": "864be4ec_2ac83e05",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 44
+      },
+      "revId": "e8820f1397c238874e5c5a2aeaa2f0dcdd59228d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c0de0215_a05e43d7",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
