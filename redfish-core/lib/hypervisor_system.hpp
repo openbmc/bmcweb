@@ -884,7 +884,7 @@ inline void handleHypervisorIPv4StaticPatch(
             return;
         }
 
-        BMCWEB_LOG_ERROR(
+        BMCWEB_LOG_DEBUG(
             "INFO: Static ip configuration request from client: {} - IP Address: {}, Gateway: {}, Prefix Length: {}",
             clientIp, *address, *gateway, static_cast<int64_t>(prefixLength));
         // Set the DHCPEnabled to false since the Static IPv4 is set
@@ -938,32 +938,13 @@ inline void handleHypervisorIPv6StaticPatch(
             return;
         }
 
-        bool errorInEntry = false;
-        if (address)
-        {
-            if (!ip_util::ipv4VerifyIpAndGetBitcount(*address))
-            {
-                messages::propertyValueFormatError(asyncResp->res, *address,
-                                                   pathString + "/Address");
-                errorInEntry = true;
-            }
-        }
-        else
+        if (!address)
         {
             messages::propertyMissing(asyncResp->res, pathString + "/Address");
             return;
         }
 
-        if (gateway)
-        {
-            if (!ip_util::ipv4VerifyIpAndGetBitcount(*gateway))
-            {
-                messages::propertyValueFormatError(asyncResp->res, *gateway,
-                                                   pathString + "/Gateway");
-                errorInEntry = true;
-            }
-        }
-        else
+        if (!gateway)
         {
             // Since gateway is optional, replace it with default value
             *gateway = "::";
@@ -973,11 +954,6 @@ inline void handleHypervisorIPv6StaticPatch(
         {
             messages::propertyMissing(asyncResp->res,
                                       pathString + "/PrefixLength");
-            return;
-        }
-
-        if (errorInEntry)
-        {
             return;
         }
 
@@ -1322,42 +1298,42 @@ inline void handleHypervisorEthernetInterfacePatch(
                 handleHypervisorIPv4StaticPatch(clientIp, ifaceId, ipv4Static,
                                                 ethData, asyncResp);
             }
-            if (ipv6StaticAddresses)
+        }
+
+        if (ipv6StaticAddresses)
+        {
+            const nlohmann::json& ipv6Static = *ipv6StaticAddresses;
+            if (ipv6Static.begin() == ipv6Static.end())
             {
-                const nlohmann::json& ipv6Static = *ipv6StaticAddresses;
-                if (ipv6Static.begin() == ipv6Static.end())
-                {
-                    messages::propertyValueTypeError(asyncResp->res, ipv6Static,
-                                                     "IPv6StaticAddresses");
-                    return;
-                }
+                messages::propertyValueTypeError(asyncResp->res, ipv6Static,
+                                                 "IPv6StaticAddresses");
+                return;
+            }
 
-                // One and only one hypervisor instance supported
-                if (ipv6Static.size() != 1)
-                {
-                    messages::propertyValueFormatError(
-                        asyncResp->res, ipv6Static, "IPv6StaticAddresses");
-                    return;
-                }
+            // One and only one hypervisor instance supported
+            if (ipv6Static.size() != 1)
+            {
+                messages::propertyValueFormatError(asyncResp->res, ipv6Static,
+                                                   "IPv6StaticAddresses");
+                return;
+            }
 
-                const nlohmann::json& ipv6Json = ipv6Static[0];
-                // Check if the param is 'null'. If its null, it means
-                // that user wants to delete the IP address. Deleting
-                // the IP address is allowed only if its statically
-                // configured. Deleting the address originated from DHCP
-                // is not allowed.
-                if ((ipv6Json.is_null()) &&
-                    (translateDhcpEnabledToBool(ethData.dhcpEnabled, false)))
-                {
-                    BMCWEB_LOG_INFO(
-                        "Ignoring the delete on ipv6StaticAddresses "
-                        "as the interface is DHCP enabled");
-                }
-                else
-                {
-                    handleHypervisorIPv6StaticPatch(req, ifaceId, ipv6Static,
-                                                    ethData, asyncResp);
-                }
+            const nlohmann::json& ipv6Json = ipv6Static[0];
+            // Check if the param is 'null'. If its null, it means
+            // that user wants to delete the IP address. Deleting
+            // the IP address is allowed only if its statically
+            // configured. Deleting the address originated from DHCP
+            // is not allowed.
+            if ((ipv6Json.is_null()) &&
+                (translateDhcpEnabledToBool(ethData.dhcpEnabled, false)))
+            {
+                BMCWEB_LOG_INFO("Ignoring the delete on ipv6StaticAddresses "
+                                "as the interface is DHCP enabled");
+            }
+            else
+            {
+                handleHypervisorIPv6StaticPatch(req, ifaceId, ipv6Static,
+                                                ethData, asyncResp);
             }
         }
 
