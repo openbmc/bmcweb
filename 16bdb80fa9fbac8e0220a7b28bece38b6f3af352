@@ -16,6 +16,24 @@
       "message": "I suspect we just need to remove this newline?",
       "revId": "16bdb80fa9fbac8e0220a7b28bece38b6f3af352",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc1d5733_6474e444",
+        "filename": "scripts/csdl-to-json-converter/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-07-30T03:26:02Z",
+      "side": 1,
+      "message": "\u003e I suspect we just need to remove this newline?\n\nNo, CI still reports an error:\n```\nAll done! ✨ 🍰 ✨\n9 files left unchanged.\n    Running clang_format\n    Running eslint\n    Running flake8\n    Running isort\n    Running markdownlint\nscripts/csdl-to-json-converter/README.md:13:5 MD034/no-bare-urls Bare URL used [Context: \"https://github.com/DMTF/Redfis...\"]\n    Failed markdownlint; temporarily ignoring.\n    Running prettier\nstatic/redfish/v1/odata/index.json 55ms (unchanged)\nstatic/google/v1/odata/index.json 3ms (unchanged)\nscripts/csdl-to-json-converter/openbmc-config.json 2ms (unchanged)\nredfish-core/schema/oem/openbmc/json-schema/OpenBMCVirtualMedia.v1_0_0.json 3ms (unchanged)\nredfish-core/schema/oem/openbmc/json-schema/OpenBMCVirtualMedia.json 2ms (unchanged)\nredfish-core/schema/oem/openbmc/json-schema/OpenBMCManager.v1_0_0.json 32ms (unchanged)\nredfish-core/schema/oem/openbmc/json-schema/OpenBMCManager.json 9ms (unchanged)\nredfish-core/schema/oem/openbmc/json-schema/OpenBMCComputerSystem.v1_0_0.json 3ms (unchanged)\nredfish-core/schema/oem/openbmc/json-schema/OpenBMCComputerSystem.json 9ms (unchanged)\nredfish-core/schema/oem/openbmc/json-schema/OpenBMCAccountService.v1_0_0.json 4ms (unchanged)\nredfish-core/schema/oem/openbmc/json-schema/OpenBMCAccountService.json 1ms (unchanged)\nredfish-core/schema/oem/openbmc/json-schema/OemComputerSystem.json 3ms (unchanged)\nredfish-core/include/registries/openbmc.json 45ms (unchanged)\nscripts/csdl-to-json-converter/README.md 28ms\nredfish-core/include/registries/openbmc_message_registry.readmefirst.md 11ms (unchanged)\nTESTING.md 25ms (unchanged)\nRedfish.md 96ms (unchanged)\nREDFISH_CHECKLIST.md 9ms (unchanged)\nREADME.md 10ms (unchanged)\nOEM_SCHEMAS.md 14ms (unchanged)\nHEADERS.md 9ms (unchanged)\nDEVELOPING.md 26ms (unchanged)\nDBUS_USAGE.md 4ms (unchanged)\nCOMMON_ERRORS.md 23ms (unchanged)\nCLIENTS.md 6ms (unchanged)\nAGGREGATION.md 14ms (unchanged)\n.markdownlint.yaml 22ms (unchanged)\n.github/ISSUE_TEMPLATE/config.yml 5ms (unchanged)\n.github/ISSUE_TEMPLATE/bug_report.yml 11ms (unchanged)\n    Running shellcheck\n    Result differences...\ndiff --git a/scripts/csdl-to-json-converter/README.md b/scripts/csdl-to-json-converter/README.md\nindex b097dfa6..424355ab 100644\n--- a/scripts/csdl-to-json-converter/README.md\n+++ b/scripts/csdl-to-json-converter/README.md\n@@ -10,4 +10,5 @@ correct on your machine.\n python3 ~/Redfish-Tools/csdl-to-json-convertor/csdl-to-json.py --input ~/bmcweb/redfish-core/schema/oem/openbmc/csdl --output ~/bmcweb/redfish-core/schema/oem/openbmc/json-schema --config ~/bmcweb/scripts/csdl-to-json-converter/csdl-to-json-convertor/openbmc-config.json\n ```\n \n-[1] https://github.com/DMTF/Redfish-Tools/blob/main/csdl-to-json-convertor/csdl-to-json.py\n+[1]\n+https://github.com/DMTF/Redfish-Tools/blob/main/csdl-to-json-convertor/csdl-to-json.py\nFormat: FAILED\n```",
+      "parentUuid": "c16e0863_ce1d6b15",
+      "revId": "16bdb80fa9fbac8e0220a7b28bece38b6f3af352",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
