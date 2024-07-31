@@ -33,6 +33,24 @@
       "message": "This is missing checks so it only gets enabled on IBM systems.",
       "revId": "d32ee477982109accc36a3cff4d776d73faa8e2c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a910e8b9_d5fa5468",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2874,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-07-31T16:38:52Z",
+      "side": 1,
+      "message": "We don\u0027t have checks for \n\n    if (systemName \u003d\u003d \"hypervisor\")\n    {\n        handleHypervisorSystemGet(asyncResp);\n        return;\n    }\n\n\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/systems.hpp#L3022 \n\nhypervisor isn\u0027t behind a compile flag.\n\nThis isn\u0027t putting out a link (that is done in hypervisor system), this is calling the correct function if the post is called on /redfish/v1/Systems/hypervisor/Actions/ComputerSystem.Reset/\n\nWe could \n1) follow the handleHypervisorSystemGet, and if /redfish/v1/Systems/hypervisor/ is requested, call that function. This seems reasonable to me.  \n2) have some call to \n```\n        *crow::connections::systemBus, \"xyz.openbmc_project.Settings\",\n        \"/xyz/openbmc_project/network/hypervisor\",\n        \"xyz.openbmc_project.Network.SystemConfiguration\", \n```\nto determine if this is a 404 or should call that method. Have an extra D-Bus call in there and extra code for I don\u0027t see much value.  \n3) Move the hypervisor under a meson option. I feel we move back and forth on this. Should the Redfish Tree be dynamically determined in cases like this? That was the original thought behind the call to Settings to determine if a hypervisor system should be there. \n\nI prefer #1, it is simpler and follows the dynamically building the tree.",
+      "parentUuid": "77253d4c_d4b582ca",
+      "revId": "d32ee477982109accc36a3cff4d776d73faa8e2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
