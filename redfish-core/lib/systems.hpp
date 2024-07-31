@@ -2726,6 +2726,13 @@ inline void handleComputerSystemResetActionPost(
     {
         return;
     }
+
+    if (systemName == "hypervisor")
+    {
+        handleHypervisorSystemResetPost(req, asyncResp);
+        return;
+    }
+
     if (systemName != "system")
     {
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
