@@ -51,6 +51,24 @@
       "parentUuid": "77253d4c_d4b582ca",
       "revId": "d32ee477982109accc36a3cff4d776d73faa8e2c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8af07d5_713b2788",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2874,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-07-31T17:09:20Z",
+      "side": 1,
+      "message": "\u003e Should the Redfish Tree be dynamically determined in cases like this?\n\nTo be clear on the ideal, the Redfish tree should be determined for all resources of a type using the dbus inventory tree.  This is essentially what the multi-host guys are trying to do right now, but to my knowledge, that code doesn\u0027t exist, and I\u0027m assuming nobody has the desire to make it happen.\n\nThe problem here is that the hypervisor stuff copy/pasted a bunch of code, (especially from ethernet), and didn\u0027t really handle the collection with inventory interfaces the way that would let us use the same code for both.  It does a check of a \"hostname\" property in settingsd instead of inventory, so it\u0027s not really something we can add to every single handler, nor is it something that scales beyond N \u003d 1 hypervisor.\n\n\nFor #1, what happens if that is called on a non ibm system?  I\u0027m assuming it returns 500 internal error, which per the guidelines is always a bug.\n\n\nI think for now we go with #3, with the stated desire that we\u0027d like to converge at some point, but that probably won\u0027t happen until after multihost happens.",
+      "parentUuid": "a910e8b9_d5fa5468",
+      "revId": "d32ee477982109accc36a3cff4d776d73faa8e2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
