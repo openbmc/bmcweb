@@ -60,8 +60,9 @@ inline void getValidDumpEntryForAttachment(
 
     auto getValidDumpEntryCallback =
         [asyncResp, entryID, dumpType, dumpId, entriesPath,
-         callback](const boost::system::error_code& ec,
-                   const dbus::utility::ManagedObjectType& resp) {
+         callback{std::move(callback)}](
+            const boost::system::error_code& ec,
+            const dbus::utility::ManagedObjectType& resp) {
         if (ec.value() == EBADR)
         {
             messages::resourceNotFound(asyncResp->res, dumpType + " dump",

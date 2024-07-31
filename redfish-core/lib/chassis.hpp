@@ -308,23 +308,28 @@ inline void handleDecoratorAssetProperties(
 
     asyncResp->res.jsonValue["Name"] = chassisId;
     asyncResp->res.jsonValue["Id"] = chassisId;
-#ifdef BMCWEB_ALLOW_DEPRECATED_POWER_THERMAL
-    asyncResp->res.jsonValue["Thermal"]["@odata.id"] =
-        boost::urls::format("/redfish/v1/Chassis/{}/Thermal", chassisId);
-    // Power object
-    asyncResp->res.jsonValue["Power"]["@odata.id"] =
-        boost::urls::format("/redfish/v1/Chassis/{}/Power", chassisId);
-#endif
-#ifdef BMCWEB_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM
-    asyncResp->res.jsonValue["ThermalSubsystem"]["@odata.id"] =
-        boost::urls::format("/redfish/v1/Chassis/{}/ThermalSubsystem",
-                            chassisId);
-    asyncResp->res.jsonValue["PowerSubsystem"]["@odata.id"] =
-        boost::urls::format("/redfish/v1/Chassis/{}/PowerSubsystem", chassisId);
-    asyncResp->res.jsonValue["EnvironmentMetrics"]["@odata.id"] =
-        boost::urls::format("/redfish/v1/Chassis/{}/EnvironmentMetrics",
-                            chassisId);
-#endif
+
+    if constexpr (BMCWEB_REDFISH_ALLOW_DEPRECATED_POWER_THERMAL)
+    {
+        asyncResp->res.jsonValue["Thermal"]["@odata.id"] =
+            boost::urls::format("/redfish/v1/Chassis/{}/Thermal", chassisId);
+        // Power object
+        asyncResp->res.jsonValue["Power"]["@odata.id"] =
+            boost::urls::format("/redfish/v1/Chassis/{}/Power", chassisId);
+    }
+
+    if constexpr (BMCWEB_REDFISH_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM)
+    {
+        asyncResp->res.jsonValue["ThermalSubsystem"]["@odata.id"] =
+            boost::urls::format("/redfish/v1/Chassis/{}/ThermalSubsystem",
+                                chassisId);
+        asyncResp->res.jsonValue["PowerSubsystem"]["@odata.id"] =
+            boost::urls::format("/redfish/v1/Chassis/{}/PowerSubsystem",
+                                chassisId);
+        asyncResp->res.jsonValue["EnvironmentMetrics"]["@odata.id"] =
+            boost::urls::format("/redfish/v1/Chassis/{}/EnvironmentMetrics",
+                                chassisId);
+    }
 
     asyncResp->res.jsonValue["Assembly"]["@odata.id"] =
         boost::urls::format("/redfish/v1/Chassis/{}/Assembly", chassisId);
@@ -379,7 +384,7 @@ inline void handleChassisGetSubTree(
 
         auto health = std::make_shared<HealthPopulate>(asyncResp);
 
-        if constexpr (bmcwebEnableHealthPopulate)
+        if constexpr (BMCWEB_REDFISH_HEALTH_POPULATE)
         {
             dbus::utility::getAssociationEndPoints(
                 path + "/all_sensors",

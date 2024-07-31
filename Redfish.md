@@ -627,6 +627,14 @@ other.
 #### ManagerDiagnosticData
 
 - ServiceRootUptimeSeconds
+- FreeStorageSpaceKiB
+- MemoryStatistics/AvailableBytes
+- MemoryStatistics/BuffersAndCacheBytes
+- MemoryStatistics/FreeBytes
+- MemoryStatistics/SharedBytes
+- MemoryStatistics/TotalBytes
+- ProcessorStatistics/KernelPercent
+- ProcessorStatistics/UserPercent
 
 ### /redfish/v1/Managers/bmc/NetworkProtocol/
 
@@ -964,6 +972,14 @@ other.
 - TotalCores
 - TotalThreads
 - Version
+
+### /redfish/v1/Systems/system/ResetActionInfo/
+
+#### ActionInfo
+
+- Parameters/AllowableValues
+- Parameters/DataType
+- Parameters/Required
 
 ### /redfish/v1/Systems/system/Storage/
 

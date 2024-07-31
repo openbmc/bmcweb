@@ -16,9 +16,7 @@
 #pragma once
 
 #include "app.hpp"
-#ifdef BMCWEB_ENABLE_LINUX_AUDIT_EVENTS
 #include "audit_events.hpp"
-#endif
 #include "error_messages.hpp"
 #include "http/utility.hpp"
 #include "persistent_data.hpp"
@@ -230,9 +228,10 @@ inline void handleSessionCollectionPost(
     {
         messages::resourceAtUriUnauthorized(asyncResp->res, req.url(),
                                             "Invalid username or password");
-#ifdef BMCWEB_ENABLE_LINUX_AUDIT_EVENTS
-        audit::auditEvent(req, std::string(username), false);
-#endif
+        if constexpr (BMCWEB_AUDIT_EVENTS)
+        {
+            audit::auditEvent(req, std::string(username), false);
+        }
         return;
     }
 
@@ -252,9 +251,10 @@ inline void handleSessionCollectionPost(
         "Location", "/redfish/v1/SessionService/Sessions/" + session->uniqueId);
     asyncResp->res.result(boost::beast::http::status::created);
 
-#ifdef BMCWEB_ENABLE_LINUX_AUDIT_EVENTS
-    audit::auditEvent(req, std::string(username), true);
-#endif
+    if constexpr (BMCWEB_AUDIT_EVENTS)
+    {
+        audit::auditEvent(req, std::string(username), true);
+    }
 
     if (session->isConfigureSelfOnly)
     {

@@ -18,6 +18,7 @@
 #include "app.hpp"
 #include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
+#include "generated/enums/resource.hpp"
 #include "generated/enums/sensor.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
@@ -63,21 +64,30 @@ constexpr auto powerPaths = std::to_array<std::string_view>({
     "/xyz/openbmc_project/sensors/power"
 });
 
-constexpr auto sensorPaths = std::to_array<std::string_view>({
-    "/xyz/openbmc_project/sensors/power",
-    "/xyz/openbmc_project/sensors/current",
-    "/xyz/openbmc_project/sensors/airflow",
-    "/xyz/openbmc_project/sensors/humidity",
-#ifdef BMCWEB_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM
-    "/xyz/openbmc_project/sensors/voltage",
-    "/xyz/openbmc_project/sensors/fan_tach",
-    "/xyz/openbmc_project/sensors/temperature",
-    "/xyz/openbmc_project/sensors/fan_pwm",
-    "/xyz/openbmc_project/sensors/altitude",
-    "/xyz/openbmc_project/sensors/energy",
-#endif
-    "/xyz/openbmc_project/sensors/utilization"
-});
+constexpr auto getSensorPaths(){
+    if constexpr(BMCWEB_REDFISH_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM){
+    return std::to_array<std::string_view>({
+        "/xyz/openbmc_project/sensors/power",
+        "/xyz/openbmc_project/sensors/current",
+        "/xyz/openbmc_project/sensors/airflow",
+        "/xyz/openbmc_project/sensors/humidity",
+        "/xyz/openbmc_project/sensors/voltage",
+        "/xyz/openbmc_project/sensors/fan_tach",
+        "/xyz/openbmc_project/sensors/temperature",
+        "/xyz/openbmc_project/sensors/fan_pwm",
+        "/xyz/openbmc_project/sensors/altitude",
+        "/xyz/openbmc_project/sensors/energy",
+        "/xyz/openbmc_project/sensors/utilization"});
+    } else {
+      return  std::to_array<std::string_view>({"/xyz/openbmc_project/sensors/power",
+        "/xyz/openbmc_project/sensors/current",
+        "/xyz/openbmc_project/sensors/airflow",
+        "/xyz/openbmc_project/sensors/humidity",
+        "/xyz/openbmc_project/sensors/utilization"});
+}
+}
+
+constexpr auto sensorPaths = getSensorPaths();
 
 constexpr auto thermalPaths = std::to_array<std::string_view>({
     "/xyz/openbmc_project/sensors/fan_tach",
@@ -591,16 +601,24 @@ void getChassis(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 /**
  * @brief Returns the Redfish State value for the specified inventory item.
  * @param inventoryItem D-Bus inventory item associated with a sensor.
+ * @param sensorAvailable Boolean representing if D-Bus sensor is marked as
+ * available.
  * @return State value for inventory item.
  */
-inline std::string getState(const InventoryItem* inventoryItem)
+inline resource::State getState(const InventoryItem* inventoryItem,
+                                const bool sensorAvailable)
 {
     if ((inventoryItem != nullptr) && !(inventoryItem->isPresent))
     {
-        return "Absent";
+        return resource::State::Absent;
     }
 
-    return "Enabled";
+    if (!sensorAvailable)
+    {
+        return resource::State::UnavailableOffline;
+    }
+
+    return resource::State::Enabled;
 }
 
 /**
@@ -753,7 +771,21 @@ inline void objectPropertiesToJson(
         sensorJson["Name"] = std::move(sensorNameEs);
     }
 
-    sensorJson["Status"]["State"] = getState(inventoryItem);
+    const bool* checkAvailable = nullptr;
+    bool available = true;
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), propertiesDict, "Available",
+        checkAvailable);
+    if (!success)
+    {
+        messages::internalError();
+    }
+    if (checkAvailable != nullptr)
+    {
+        available = *checkAvailable;
+    }
+
+    sensorJson["Status"]["State"] = getState(inventoryItem, available);
     sensorJson["Status"]["Health"] = getHealth(sensorJson, propertiesDict,
                                                inventoryItem);
 
@@ -2228,7 +2260,7 @@ inline nlohmann::json& getPowerSupply(nlohmann::json& powerSupplyArray,
             inventoryItem.powerSupplyEfficiencyPercent;
     }
 
-    powerSupply["Status"]["State"] = getState(&inventoryItem);
+    powerSupply["Status"]["State"] = getState(&inventoryItem, true);
     const char* health = inventoryItem.isFunctional ? "OK" : "Critical";
     powerSupply["Status"]["Health"] = health;
 

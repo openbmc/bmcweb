@@ -29,12 +29,8 @@
 
 #include <boost/system/error_code.hpp>
 #include <nlohmann/json.hpp>
-#include <persistent_data.hpp>
-#include <query.hpp>
-#include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
-#include <utils/systemd_utils.hpp>
 #include <utils/time_utils.hpp>
 
 #include <array>
@@ -240,10 +236,11 @@ inline void handleServiceRootGetImpl(
         "/redfish/v1/SessionService/Sessions";
     asyncResp->res.jsonValue["AccountService"]["@odata.id"] =
         "/redfish/v1/AccountService";
-#ifdef BMCWEB_ENABLE_REDFISH_AGGREGATION
-    asyncResp->res.jsonValue["AggregationService"]["@odata.id"] =
-        "/redfish/v1/AggregationService";
-#endif
+    if constexpr (BMCWEB_REDFISH_AGGREGATION)
+    {
+        asyncResp->res.jsonValue["AggregationService"]["@odata.id"] =
+            "/redfish/v1/AggregationService";
+    }
     asyncResp->res.jsonValue["Chassis"]["@odata.id"] = "/redfish/v1/Chassis";
     asyncResp->res.jsonValue["JsonSchemas"]["@odata.id"] =
         "/redfish/v1/JsonSchemas";
@@ -264,10 +261,11 @@ inline void handleServiceRootGetImpl(
     asyncResp->res.jsonValue["TelemetryService"]["@odata.id"] =
         "/redfish/v1/TelemetryService";
     asyncResp->res.jsonValue["Cables"]["@odata.id"] = "/redfish/v1/Cables";
-#ifdef BMCWEB_ENABLE_REDFISH_LICENSE
-    asyncResp->res.jsonValue["LicenseService"]["@odata.id"] =
-        "/redfish/v1/LicenseService";
-#endif
+    if constexpr (BMCWEB_REDFISH_LICENSE)
+    {
+        asyncResp->res.jsonValue["LicenseService"]["@odata.id"] =
+            "/redfish/v1/LicenseService";
+    }
     asyncResp->res.jsonValue["Links"]["ManagerProvidingService"]["@odata.id"] =
         "/redfish/v1/Managers/bmc";
 
@@ -276,16 +274,18 @@ inline void handleServiceRootGetImpl(
     protocolFeatures["ExcerptQuery"] = false;
 
     protocolFeatures["ExpandQuery"]["ExpandAll"] =
-        bmcwebInsecureEnableQueryParams;
-    // This is the maximum level is defined by us
-    if (bmcwebInsecureEnableQueryParams)
+        BMCWEB_INSECURE_ENABLE_REDFISH_QUERY;
+    // This is the maximum level defined in ServiceRoot.v1_13_0.json
+    if constexpr (BMCWEB_INSECURE_ENABLE_REDFISH_QUERY)
     {
         protocolFeatures["ExpandQuery"]["MaxLevels"] = 3;
     }
-    protocolFeatures["ExpandQuery"]["Levels"] = bmcwebInsecureEnableQueryParams;
-    protocolFeatures["ExpandQuery"]["Links"] = bmcwebInsecureEnableQueryParams;
+    protocolFeatures["ExpandQuery"]["Levels"] =
+        BMCWEB_INSECURE_ENABLE_REDFISH_QUERY;
+    protocolFeatures["ExpandQuery"]["Links"] =
+        BMCWEB_INSECURE_ENABLE_REDFISH_QUERY;
     protocolFeatures["ExpandQuery"]["NoLinks"] =
-        bmcwebInsecureEnableQueryParams;
+        BMCWEB_INSECURE_ENABLE_REDFISH_QUERY;
     protocolFeatures["FilterQuery"] = false;
     protocolFeatures["OnlyMemberQuery"] = true;
     protocolFeatures["SelectQuery"] = true;

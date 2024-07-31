@@ -1,7 +1,16 @@
 #include "async_resp.hpp"
+#include "error_messages.hpp"
+#include "http_response.hpp"
 #include "redfish_aggregator.hpp"
 
+#include <boost/beast/http/field.hpp>
+#include <boost/beast/http/status.hpp>
 #include <nlohmann/json.hpp>
+
+#include <array>
+#include <memory>
+#include <string>
+#include <utility>
 
 #include <gtest/gtest.h> // IWYU pragma: keep
 

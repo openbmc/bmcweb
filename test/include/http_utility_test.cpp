@@ -1,5 +1,7 @@
 #include "http_utility.hpp"
 
+#include <array>
+
 #include <gtest/gtest.h> // IWYU pragma: keep
 
 // IWYU pragma: no_include <gtest/gtest-message.h>

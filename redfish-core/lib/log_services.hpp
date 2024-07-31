@@ -77,7 +77,6 @@ constexpr const char* crashdumpOnDemandInterface =
 constexpr const char* crashdumpTelemetryInterface =
     "com.intel.crashdump.Telemetry";
 
-#ifdef BMCWEB_ENABLE_HW_ISOLATION
 constexpr std::array<const char*, 3> hwIsolationEntryIfaces = {
     "xyz.openbmc_project.HardwareIsolation.Entry",
     "xyz.openbmc_project.Association.Definitions",
@@ -100,8 +99,6 @@ static const RedfishUriListType redfishUriList = {
      "/redfish/v1/Chassis/<str>/Assembly#/Assemblies"},
     {"xyz.openbmc_project.Inventory.Item.Board.Motherboard",
      "/redfish/v1/Chassis/<str>/Assembly#/Assemblies"}};
-
-#endif // BMCWEB_ENABLE_HW_ISOLATION
 
 enum class DumpCreationProgress
 {
@@ -938,7 +935,7 @@ inline void
                           const std::string& entryID,
                           const std::string& dumpType)
 {
-    if constexpr (bmcwebEnableMultiHost)
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
         // Option currently returns no systems.  TBD
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -1523,7 +1520,7 @@ inline void requestRoutesSystemLogServiceCollection(App& app)
         {
             return;
         }
-        if constexpr (bmcwebEnableMultiHost)
+        if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
         {
             // Option currently returns no systems.  TBD
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -1552,38 +1549,44 @@ inline void requestRoutesSystemLogServiceCollection(App& app)
         eventLog["@odata.id"] =
             "/redfish/v1/Systems/system/LogServices/EventLog";
         logServiceArray.emplace_back(std::move(eventLog));
-#ifdef BMCWEB_ENABLE_REDFISH_DUMP_LOG
-        nlohmann::json::object_t dumpLog;
-        dumpLog["@odata.id"] = "/redfish/v1/Systems/system/LogServices/Dump";
-        logServiceArray.emplace_back(std::move(dumpLog));
-#endif
-
-#ifdef BMCWEB_ENABLE_REDFISH_CPU_LOG
-        nlohmann::json::object_t crashdump;
-        crashdump["@odata.id"] =
-            "/redfish/v1/Systems/system/LogServices/Crashdump";
-        logServiceArray.emplace_back(std::move(crashdump));
-#endif
-
-#ifdef BMCWEB_ENABLE_REDFISH_HOST_LOGGER
-        nlohmann::json::object_t hostlogger;
-        hostlogger["@odata.id"] =
-            "/redfish/v1/Systems/system/LogServices/HostLogger";
-        logServiceArray.emplace_back(std::move(hostlogger));
-#endif
-
-#ifdef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
-        Privileges effectiveUserPrivileges =
-            redfish::getUserPrivileges(*req.session);
-
-        if (isOperationAllowedWithPrivileges({{"ConfigureManager"}},
-                                             effectiveUserPrivileges))
+        if constexpr (BMCWEB_REDFISH_DUMP_LOG)
         {
-            nlohmann::json::object_t item;
-            item["@odata.id"] = "/redfish/v1/Systems/system/LogServices/CELog";
-            logServiceArray.emplace_back(std::move(item));
+            nlohmann::json::object_t dumpLog;
+            dumpLog["@odata.id"] =
+                "/redfish/v1/Systems/system/LogServices/Dump";
+            logServiceArray.emplace_back(std::move(dumpLog));
         }
-#endif
+
+        if constexpr (BMCWEB_REDFISH_CPU_LOG)
+        {
+            nlohmann::json::object_t crashdump;
+            crashdump["@odata.id"] =
+                "/redfish/v1/Systems/system/LogServices/Crashdump";
+            logServiceArray.emplace_back(std::move(crashdump));
+        }
+
+        if constexpr (BMCWEB_REDFISH_HOST_LOGGER)
+        {
+            nlohmann::json::object_t hostlogger;
+            hostlogger["@odata.id"] =
+                "/redfish/v1/Systems/system/LogServices/HostLogger";
+            logServiceArray.emplace_back(std::move(hostlogger));
+        }
+
+        if constexpr (BMCWEB_REDFISH_DBUS_LOG)
+        {
+            Privileges effectiveUserPrivileges =
+                redfish::getUserPrivileges(*req.session);
+
+            if (isOperationAllowedWithPrivileges({{"ConfigureManager"}},
+                                                 effectiveUserPrivileges))
+            {
+                nlohmann::json::object_t item;
+                item["@odata.id"] =
+                    "/redfish/v1/Systems/system/LogServices/CELog";
+                logServiceArray.emplace_back(std::move(item));
+            }
+        }
 
         asyncResp->res.jsonValue["Members@odata.count"] =
             logServiceArray.size();
@@ -1620,21 +1623,23 @@ inline void requestRoutesSystemLogServiceCollection(App& app)
             }
         });
 
-#ifdef BMCWEB_ENABLE_LINUX_AUDIT_EVENTS
-        nlohmann::json::object_t auditLog;
-        auditLog["@odata.id"] =
-            "/redfish/v1/Systems/system/LogServices/AuditLog";
-        logServiceArray.push_back(std::move(auditLog));
-#endif // BMCWEB_ENABLE_LINUX_AUDIT_EVENTS
-#ifdef BMCWEB_ENABLE_HW_ISOLATION
-        nlohmann::json& logServiceArrayLocal =
-            asyncResp->res.jsonValue["Members"];
-        logServiceArrayLocal.push_back(
-            {{"@odata.id", "/redfish/v1/Systems/system/"
-                           "LogServices/HardwareIsolation"}});
-        asyncResp->res.jsonValue["Members@odata.count"] =
-            logServiceArrayLocal.size();
-#endif // BMCWEB_ENABLE_HW_ISOLATION
+        if constexpr (BMCWEB_AUDIT_EVENTS)
+        {
+            nlohmann::json::object_t auditLog;
+            auditLog["@odata.id"] =
+                "/redfish/v1/Systems/system/LogServices/AuditLog";
+            logServiceArray.push_back(std::move(auditLog));
+        }
+        if constexpr (BMCWEB_HW_ISOLATION)
+        {
+            nlohmann::json& logServiceArrayLocal =
+                asyncResp->res.jsonValue["Members"];
+            logServiceArrayLocal.push_back(
+                {{"@odata.id", "/redfish/v1/Systems/system/"
+                               "LogServices/HardwareIsolation"}});
+            asyncResp->res.jsonValue["Members@odata.count"] =
+                logServiceArrayLocal.size();
+        }
     });
 }
 
@@ -1875,7 +1880,7 @@ inline void requestRoutesJournalEventLogEntryCollection(App& app)
         {
             return;
         }
-        if constexpr (bmcwebEnableMultiHost)
+        if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
         {
             // Option currently returns no systems.  TBD
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -1980,7 +1985,7 @@ inline void requestRoutesJournalEventLogEntry(App& app)
         {
             return;
         }
-        if constexpr (bmcwebEnableMultiHost)
+        if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
         {
             // Option currently returns no systems.  TBD
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -2150,7 +2155,7 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
         {
             return;
         }
-        if constexpr (bmcwebEnableMultiHost)
+        if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
         {
             // Option currently returns no systems.  TBD
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -2203,9 +2208,7 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                 const bool* resolved = nullptr;
                 const std::string* notify = nullptr;
                 const bool* hidden = nullptr;
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
                 const bool* managementSystemAck = nullptr;
-#endif
 
                 for (const auto& interfaceMap : objectPath.second)
                 {
@@ -2312,18 +2315,19 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                                     return;
                                 }
                             }
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
-                            else if (propertyMap.first == "ManagementSystemAck")
+                            else if constexpr (BMCWEB_IBM_MANAGEMENT_CONSOLE)
                             {
-                                managementSystemAck =
-                                    std::get_if<bool>(&propertyMap.second);
-                                if (managementSystemAck == nullptr)
+                                if (propertyMap.first == "ManagementSystemAck")
                                 {
-                                    messages::internalError(asyncResp->res);
-                                    return;
+                                    managementSystemAck =
+                                        std::get_if<bool>(&propertyMap.second);
+                                    if (managementSystemAck == nullptr)
+                                    {
+                                        messages::internalError(asyncResp->res);
+                                        return;
+                                    }
                                 }
                             }
-#endif
                         }
                     }
                 }
@@ -2384,12 +2388,13 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                         "/redfish/v1/Systems/system/LogServices/EventLog/Entries/" +
                         std::to_string(*id) + "/attachment";
                 }
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
-                thisEntry["Oem"]["OpenBMC"]["@odata.type"] =
-                    "#OemLogEntry.v1_0_0.OpenBMC";
-                thisEntry["Oem"]["OpenBMC"]["ManagementSystemAck"] =
-                    *managementSystemAck;
-#endif
+                if constexpr (BMCWEB_IBM_MANAGEMENT_CONSOLE)
+                {
+                    thisEntry["Oem"]["OpenBMC"]["@odata.type"] =
+                        "#OemLogEntry.v1_0_0.OpenBMC";
+                    thisEntry["Oem"]["OpenBMC"]["ManagementSystemAck"] =
+                        *managementSystemAck;
+                }
             }
             std::ranges::sort(entriesArray, [](const nlohmann::json& left,
                                                const nlohmann::json& right) {
@@ -2414,7 +2419,7 @@ inline void requestRoutesDBusCELogEntryCollection(App& app)
         {
             return;
         }
-        if constexpr (bmcwebEnableMultiHost)
+        if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
         {
             // Option currently returns no systems.  TBD
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -2467,9 +2472,7 @@ inline void requestRoutesDBusCELogEntryCollection(App& app)
                 const bool* resolved = nullptr;
                 const bool* hidden = nullptr;
                 const std::string* notify = nullptr;
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
                 bool managementSystemAck = false;
-#endif
 
                 for (const auto& interfaceMap : objectPath.second)
                 {
@@ -2576,19 +2579,21 @@ inline void requestRoutesDBusCELogEntryCollection(App& app)
                                     return;
                                 }
                             }
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
-                            else if (propertyMap.first == "ManagementSystemAck")
+                            else if constexpr (BMCWEB_IBM_MANAGEMENT_CONSOLE)
                             {
-                                const bool* managementSystemAckptr =
-                                    std::get_if<bool>(&propertyMap.second);
-                                if (managementSystemAckptr == nullptr)
+                                if (propertyMap.first == "ManagementSystemAck")
                                 {
-                                    messages::internalError(asyncResp->res);
-                                    return;
+                                    const bool* managementSystemAckptr =
+                                        std::get_if<bool>(&propertyMap.second);
+                                    if (managementSystemAckptr == nullptr)
+                                    {
+                                        messages::internalError(asyncResp->res);
+                                        return;
+                                    }
+                                    managementSystemAck =
+                                        *managementSystemAckptr;
                                 }
-                                managementSystemAck = *managementSystemAckptr;
                             }
-#endif
                         }
                     }
                 }
@@ -2648,12 +2653,13 @@ inline void requestRoutesDBusCELogEntryCollection(App& app)
                         "/redfish/v1/Systems/system/LogServices/CELog/Entries/{}/attachment",
                         std::to_string(*id));
                 }
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
-                thisEntry["Oem"]["OpenBMC"]["@odata.type"] =
-                    "#OemLogEntry.v1_0_0.OpenBMC";
-                thisEntry["Oem"]["OpenBMC"]["ManagementSystemAck"] =
-                    managementSystemAck;
-#endif
+                if constexpr (BMCWEB_IBM_MANAGEMENT_CONSOLE)
+                {
+                    thisEntry["Oem"]["OpenBMC"]["@odata.type"] =
+                        "#OemLogEntry.v1_0_0.OpenBMC";
+                    thisEntry["Oem"]["OpenBMC"]["ManagementSystemAck"] =
+                        managementSystemAck;
+                }
             }
             std::ranges::sort(entriesArray, [](const nlohmann::json& left,
                                                const nlohmann::json& right) {
@@ -2679,7 +2685,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
         {
             return;
         }
-        if constexpr (bmcwebEnableMultiHost)
+        if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
         {
             // Option currently returns no systems.  TBD
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -2727,21 +2733,15 @@ inline void requestRoutesDBusEventLogEntry(App& app)
             const bool* resolved = nullptr;
             const std::string* notify = nullptr;
             const bool* hidden = nullptr;
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
             const bool* managementSystemAck = nullptr;
-#endif
 
             const bool success = sdbusplus::unpackPropertiesNoThrow(
                 dbus_utils::UnpackErrorPrinter(), resp, "Id", id, "Timestamp",
                 timestamp, "UpdateTimestamp", updateTimestamp, "Severity",
                 severity, "EventId", eventId, "Resolved", resolved,
                 "Resolution", resolution, "Path", filePath, "Hidden", hidden,
-                "ServiceProviderNotify", notify, "Subsystem", subsystem
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
-                ,
-                "ManagementSystemAck", managementSystemAck
-#endif
-            );
+                "ServiceProviderNotify", notify, "Subsystem", subsystem,
+                "ManagementSystemAck", managementSystemAck);
 
             if (!success)
             {
@@ -2752,11 +2752,9 @@ inline void requestRoutesDBusEventLogEntry(App& app)
             if (id == nullptr || eventId == nullptr || severity == nullptr ||
                 timestamp == nullptr || updateTimestamp == nullptr ||
                 resolved == nullptr || notify == nullptr || hidden == nullptr ||
-                subsystem == nullptr
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
-                || managementSystemAck == nullptr
-#endif
-            )
+                subsystem == nullptr ||
+                (BMCWEB_IBM_MANAGEMENT_CONSOLE &&
+                 managementSystemAck == nullptr))
             {
                 messages::internalError(asyncResp->res);
                 return;
@@ -2811,12 +2809,14 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                     "/redfish/v1/Systems/system/LogServices/EventLog/Entries/" +
                     std::to_string(*id) + "/attachment";
             }
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
-            asyncResp->res.jsonValue["Oem"]["OpenBMC"]["@odata.type"] =
-                "#OemLogEntry.v1_0_0.OpenBMC";
-            asyncResp->res.jsonValue["Oem"]["OpenBMC"]["ManagementSystemAck"] =
-                *managementSystemAck;
-#endif
+            if constexpr (BMCWEB_IBM_MANAGEMENT_CONSOLE)
+            {
+                asyncResp->res.jsonValue["Oem"]["OpenBMC"]["@odata.type"] =
+                    "#OemLogEntry.v1_0_0.OpenBMC";
+                asyncResp->res
+                    .jsonValue["Oem"]["OpenBMC"]["ManagementSystemAck"] =
+                    *managementSystemAck;
+            }
         });
     });
 
@@ -2831,7 +2831,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
         {
             return;
         }
-        if constexpr (bmcwebEnableMultiHost)
+        if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
         {
             // Option currently returns no systems.  TBD
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -2896,7 +2896,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
         {
             return;
         }
-        if constexpr (bmcwebEnableMultiHost)
+        if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
         {
             // Option currently returns no systems.  TBD
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -2981,21 +2981,15 @@ inline void requestRoutesDBusCELogEntry(App& app)
             const bool* resolved = nullptr;
             const std::string* notify = nullptr;
             const bool* hidden = nullptr;
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
             const bool* managementSystemAck = nullptr;
-#endif
 
             const bool success = sdbusplus::unpackPropertiesNoThrow(
                 dbus_utils::UnpackErrorPrinter(), resp, "Id", id, "Timestamp",
                 timestamp, "UpdateTimestamp", updateTimestamp, "Severity",
                 severity, "EventId", eventId, "Resolved", resolved,
                 "Resolution", resolution, "Path", filePath, "Hidden", hidden,
-                "ServiceProviderNotify", notify, "Subsystem", subsystem
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
-                ,
-                "ManagementSystemAck", managementSystemAck
-#endif
-            );
+                "ServiceProviderNotify", notify, "Subsystem", subsystem,
+                "ManagementSystemAck", managementSystemAck);
 
             if (!success)
             {
@@ -3006,11 +3000,9 @@ inline void requestRoutesDBusCELogEntry(App& app)
             if (id == nullptr || eventId == nullptr || severity == nullptr ||
                 timestamp == nullptr || updateTimestamp == nullptr ||
                 resolved == nullptr || hidden == nullptr || notify == nullptr ||
-                subsystem == nullptr
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
-                || managementSystemAck == nullptr
-#endif
-            )
+                subsystem == nullptr ||
+                (BMCWEB_IBM_MANAGEMENT_CONSOLE &&
+                 managementSystemAck == nullptr))
             {
                 messages::internalError(asyncResp->res);
                 return;
@@ -3065,12 +3057,14 @@ inline void requestRoutesDBusCELogEntry(App& app)
                     "/redfish/v1/Systems/system/LogServices/CELog/Entries/{}/attachment",
                     std::to_string(*id));
             }
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
-            asyncResp->res.jsonValue["Oem"]["OpenBMC"]["@odata.type"] =
-                "#OemLogEntry.v1_0_0.OpenBMC";
-            asyncResp->res.jsonValue["Oem"]["OpenBMC"]["ManagementSystemAck"] =
-                *managementSystemAck;
-#endif
+            if constexpr (BMCWEB_IBM_MANAGEMENT_CONSOLE)
+            {
+                asyncResp->res.jsonValue["Oem"]["OpenBMC"]["@odata.type"] =
+                    "#OemLogEntry.v1_0_0.OpenBMC";
+                asyncResp->res
+                    .jsonValue["Oem"]["OpenBMC"]["ManagementSystemAck"] =
+                    *managementSystemAck;
+            }
         });
     });
 
@@ -3380,7 +3374,7 @@ inline void requestRoutesSystemHostLogger(App& app)
         {
             return;
         }
-        if constexpr (bmcwebEnableMultiHost)
+        if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
         {
             // Option currently returns no systems.  TBD
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -3424,7 +3418,7 @@ inline void requestRoutesSystemHostLoggerCollection(App& app)
         {
             return;
         }
-        if constexpr (bmcwebEnableMultiHost)
+        if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
         {
             // Option currently returns no systems.  TBD
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -3508,7 +3502,7 @@ inline void requestRoutesSystemHostLoggerLogEntry(App& app)
         {
             return;
         }
-        if constexpr (bmcwebEnableMultiHost)
+        if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
         {
             // Option currently returns no systems.  TBD
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -3586,57 +3580,59 @@ inline void handleBMCLogServicesCollectionGet(
     nlohmann::json& logServiceArray = asyncResp->res.jsonValue["Members"];
     logServiceArray = nlohmann::json::array();
 
-#ifdef BMCWEB_ENABLE_REDFISH_BMC_JOURNAL
-    nlohmann::json::object_t journal;
-    journal["@odata.id"] = "/redfish/v1/Managers/bmc/LogServices/Journal";
-    logServiceArray.emplace_back(std::move(journal));
-#endif
+    if constexpr (BMCWEB_REDFISH_BMC_JOURNAL)
+    {
+        nlohmann::json::object_t journal;
+        journal["@odata.id"] = "/redfish/v1/Managers/bmc/LogServices/Journal";
+        logServiceArray.emplace_back(std::move(journal));
+    }
 
     asyncResp->res.jsonValue["Members@odata.count"] = logServiceArray.size();
 
-#ifdef BMCWEB_ENABLE_REDFISH_DUMP_LOG
-    constexpr std::array<std::string_view, 1> interfaces = {
-        "xyz.openbmc_project.Collection.DeleteAll"};
-    dbus::utility::getSubTreePaths(
-        "/xyz/openbmc_project/dump", 0, interfaces,
-        [asyncResp](
-            const boost::system::error_code& ec,
-            const dbus::utility::MapperGetSubTreePathsResponse& subTreePaths) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR(
-                "handleBMCLogServicesCollectionGet respHandler got error {}",
-                ec);
-            // Assume that getting an error simply means there are no dump
-            // LogServices. Return without adding any error response.
-            return;
-        }
-
-        nlohmann::json& logServiceArrayLocal =
-            asyncResp->res.jsonValue["Members"];
-
-        for (const std::string& path : subTreePaths)
-        {
-            if (path == "/xyz/openbmc_project/dump/bmc")
+    if constexpr (BMCWEB_REDFISH_DUMP_LOG)
+    {
+        constexpr std::array<std::string_view, 1> interfaces = {
+            "xyz.openbmc_project.Collection.DeleteAll"};
+        dbus::utility::getSubTreePaths(
+            "/xyz/openbmc_project/dump", 0, interfaces,
+            [asyncResp](const boost::system::error_code& ec,
+                        const dbus::utility::MapperGetSubTreePathsResponse&
+                            subTreePaths) {
+            if (ec)
             {
-                nlohmann::json::object_t member;
-                member["@odata.id"] =
-                    "/redfish/v1/Managers/bmc/LogServices/Dump";
-                logServiceArrayLocal.emplace_back(std::move(member));
+                BMCWEB_LOG_ERROR(
+                    "handleBMCLogServicesCollectionGet respHandler got error {}",
+                    ec);
+                // Assume that getting an error simply means there are no dump
+                // LogServices. Return without adding any error response.
+                return;
             }
-            else if (path == "/xyz/openbmc_project/dump/faultlog")
-            {
-                nlohmann::json::object_t member;
-                member["@odata.id"] =
-                    "/redfish/v1/Managers/bmc/LogServices/FaultLog";
-                logServiceArrayLocal.emplace_back(std::move(member));
-            }
-        }
 
-        asyncResp->res.jsonValue["Members@odata.count"] =
-            logServiceArrayLocal.size();
-    });
-#endif
+            nlohmann::json& logServiceArrayLocal =
+                asyncResp->res.jsonValue["Members"];
+
+            for (const std::string& path : subTreePaths)
+            {
+                if (path == "/xyz/openbmc_project/dump/bmc")
+                {
+                    nlohmann::json::object_t member;
+                    member["@odata.id"] =
+                        "/redfish/v1/Managers/bmc/LogServices/Dump";
+                    logServiceArrayLocal.emplace_back(std::move(member));
+                }
+                else if (path == "/xyz/openbmc_project/dump/faultlog")
+                {
+                    nlohmann::json::object_t member;
+                    member["@odata.id"] =
+                        "/redfish/v1/Managers/bmc/LogServices/FaultLog";
+                    logServiceArrayLocal.emplace_back(std::move(member));
+                }
+            }
+
+            asyncResp->res.jsonValue["Members@odata.count"] =
+                logServiceArrayLocal.size();
+        });
+    }
 }
 
 inline void requestRoutesBMCLogServiceCollection(App& app)
@@ -4166,7 +4162,7 @@ inline void handleLogServicesDumpCollectDiagnosticDataComputerSystemPost(
         return;
     }
 
-    if constexpr (bmcwebEnableMultiHost)
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
         // Option currently returns no systems.  TBD
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -4202,7 +4198,7 @@ inline void handleLogServicesDumpClearLogComputerSystemPost(
     {
         return;
     }
-    if constexpr (bmcwebEnableMultiHost)
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
         // Option currently returns no systems.  TBD
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -4413,7 +4409,7 @@ inline void requestRoutesCrashdumpService(App& app)
         {
             return;
         }
-        if constexpr (bmcwebEnableMultiHost)
+        if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
         {
             // Option currently returns no systems.  TBD
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -4470,7 +4466,7 @@ void inline requestRoutesCrashdumpClear(App& app)
         {
             return;
         }
-        if constexpr (bmcwebEnableMultiHost)
+        if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
         {
             // Option currently returns no systems.  TBD
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -4585,7 +4581,7 @@ inline void requestRoutesCrashdumpEntryCollection(App& app)
         {
             return;
         }
-        if constexpr (bmcwebEnableMultiHost)
+        if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
         {
             // Option currently returns no systems.  TBD
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -4659,7 +4655,7 @@ inline void requestRoutesCrashdumpEntry(App& app)
         {
             return;
         }
-        if constexpr (bmcwebEnableMultiHost)
+        if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
         {
             // Option currently returns no systems.  TBD
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -4693,7 +4689,7 @@ inline void requestRoutesCrashdumpFile(App& app)
         // Do not call getRedfishRoute here since the crashdump file is not a
         // Redfish resource.
 
-        if constexpr (bmcwebEnableMultiHost)
+        if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
         {
             // Option currently returns no systems.  TBD
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -4798,7 +4794,7 @@ inline void requestRoutesCrashdumpCollect(App& app)
             return;
         }
 
-        if constexpr (bmcwebEnableMultiHost)
+        if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
         {
             // Option currently returns no systems.  TBD
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -4934,7 +4930,7 @@ inline void requestRoutesDBusLogServiceActionsClear(App& app)
         {
             return;
         }
-        if constexpr (bmcwebEnableMultiHost)
+        if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
         {
             // Option currently returns no systems.  TBD
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -5042,7 +5038,7 @@ inline void requestRoutesPostCodesLogService(App& app)
         {
             return;
         }
-        if constexpr (bmcwebEnableMultiHost)
+        if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
         {
             // Option currently returns no systems.  TBD
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -5093,7 +5089,7 @@ inline void requestRoutesPostCodesClear(App& app)
         {
             return;
         }
-        if constexpr (bmcwebEnableMultiHost)
+        if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
         {
             // Option currently returns no systems.  TBD
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -5454,7 +5450,7 @@ inline void requestRoutesPostCodesEntryCollection(App& app)
         {
             return;
         }
-        if constexpr (bmcwebEnableMultiHost)
+        if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
         {
             // Option currently returns no systems.  TBD
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -5505,7 +5501,7 @@ inline void requestRoutesPostCodesEntryAdditionalData(App& app)
             asyncResp->res.result(boost::beast::http::status::bad_request);
             return;
         }
-        if constexpr (bmcwebEnableMultiHost)
+        if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
         {
             // Option currently returns no systems.  TBD
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -5591,7 +5587,7 @@ inline void requestRoutesPostCodesEntry(App& app)
         {
             return;
         }
-        if constexpr (bmcwebEnableMultiHost)
+        if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
         {
             // Option currently returns no systems.  TBD
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -5609,7 +5605,6 @@ inline void requestRoutesPostCodesEntry(App& app)
     });
 }
 
-#ifdef BMCWEB_ENABLE_LINUX_AUDIT_EVENTS
 /****************************************************
  * Redfish AuditLog interfaces
  ******************************************************/
@@ -5622,7 +5617,7 @@ inline void handleLogServicesAuditLogGet(
     {
         return;
     }
-    if constexpr (bmcwebEnableMultiHost)
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
         // Option currently returns no systems.  TBD
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -6024,7 +6019,7 @@ inline void handleLogServicesAuditLogEntriesCollectionGet(
         return;
     }
 
-    if constexpr (bmcwebEnableMultiHost)
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
         // Option currently returns no systems.  TBD
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -6084,7 +6079,7 @@ inline void handleLogServicesAuditLogEntryGet(
     {
         return;
     }
-    if constexpr (bmcwebEnableMultiHost)
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
         // Option currently returns no systems.  TBD
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -6215,7 +6210,7 @@ inline void handleFullAuditLogAttachment(
         asyncResp->res.result(boost::beast::http::status::bad_request);
         return;
     }
-    if constexpr (bmcwebEnableMultiHost)
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
         // Option currently returns no systems.  TBD
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -6267,8 +6262,6 @@ inline void requestRoutesFullAuditLogDownload(App& app)
             std::bind_front(handleFullAuditLogAttachment, std::ref(app)));
 }
 
-#endif // BMCWEB_ENABLE_LINUX_AUDIT_EVENTS
-#ifdef BMCWEB_ENABLE_HW_ISOLATION
 /**
  * @brief API Used to add the supported HardwareIsolation LogServices Members
  *
@@ -7239,37 +7232,40 @@ inline void postSystemHardwareIsolationLogServiceClearLog(
  */
 inline void requestRoutesSystemHardwareIsolationLogService(App& app)
 {
-    BMCWEB_ROUTE(app,
-                 "/redfish/v1/Systems/system/LogServices/HardwareIsolation/")
-        .privileges(redfish::privileges::getLogService)
-        .methods(boost::beast::http::verb::get)(
-            getSystemHardwareIsolationLogService);
+    if constexpr (BMCWEB_HW_ISOLATION)
+    {
+        BMCWEB_ROUTE(
+            app, "/redfish/v1/Systems/system/LogServices/HardwareIsolation/")
+            .privileges(redfish::privileges::getLogService)
+            .methods(boost::beast::http::verb::get)(
+                getSystemHardwareIsolationLogService);
 
-    BMCWEB_ROUTE(
-        app, "/redfish/v1/Systems/system/LogServices/HardwareIsolation/Entries")
-        .privileges(redfish::privileges::getLogEntryCollection)
-        .methods(boost::beast::http::verb::get)(
-            getSystemHardwareIsolationLogEntryCollection);
+        BMCWEB_ROUTE(
+            app,
+            "/redfish/v1/Systems/system/LogServices/HardwareIsolation/Entries")
+            .privileges(redfish::privileges::getLogEntryCollection)
+            .methods(boost::beast::http::verb::get)(
+                getSystemHardwareIsolationLogEntryCollection);
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/LogServices/"
-                      "HardwareIsolation/Entries/<str>/")
-        .privileges(redfish::privileges::getLogEntry)
-        .methods(boost::beast::http::verb::get)(
-            getSystemHardwareIsolationLogEntryById);
+        BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/LogServices/"
+                          "HardwareIsolation/Entries/<str>/")
+            .privileges(redfish::privileges::getLogEntry)
+            .methods(boost::beast::http::verb::get)(
+                getSystemHardwareIsolationLogEntryById);
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/LogServices/"
-                      "HardwareIsolation/Entries/<str>/")
-        .privileges(redfish::privileges::deleteLogEntry)
-        .methods(boost::beast::http::verb::delete_)(
-            deleteSystemHardwareIsolationLogEntryById);
+        BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/LogServices/"
+                          "HardwareIsolation/Entries/<str>/")
+            .privileges(redfish::privileges::deleteLogEntry)
+            .methods(boost::beast::http::verb::delete_)(
+                deleteSystemHardwareIsolationLogEntryById);
 
-    BMCWEB_ROUTE(app,
-                 "/redfish/v1/Systems/system/LogServices/HardwareIsolation/"
-                 "Actions/LogService.ClearLog/")
-        .privileges(redfish::privileges::postLogService)
-        .methods(boost::beast::http::verb::post)(
-            postSystemHardwareIsolationLogServiceClearLog);
+        BMCWEB_ROUTE(app,
+                     "/redfish/v1/Systems/system/LogServices/HardwareIsolation/"
+                     "Actions/LogService.ClearLog/")
+            .privileges(redfish::privileges::postLogService)
+            .methods(boost::beast::http::verb::post)(
+                postSystemHardwareIsolationLogServiceClearLog);
+    }
 }
-#endif // BMCWEB_ENABLE_HW_ISOLATION
 
 } // namespace redfish

@@ -1,11 +1,9 @@
 #pragma once
 
 #include "app.hpp"
+#include "audit_events.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
-#ifdef BMCWEB_ENABLE_LINUX_AUDIT_EVENTS
-#include "audit_events.hpp"
-#endif
 #include "multipart_parser.hpp"
 #include "pam_authenticate.hpp"
 #include "webassets.hpp"
@@ -160,9 +158,10 @@ inline void handleLogin(const crow::Request& req,
         if ((pamrc != PAM_SUCCESS) && !isConfigureSelfOnly)
         {
             asyncResp->res.result(boost::beast::http::status::unauthorized);
-#ifdef BMCWEB_ENABLE_LINUX_AUDIT_EVENTS
-            audit::auditEvent(req, std::string(username), false);
-#endif
+            if constexpr (BMCWEB_AUDIT_EVENTS)
+            {
+                audit::auditEvent(req, std::string(username), false);
+            }
         }
         else
         {
@@ -181,9 +180,10 @@ inline void handleLogin(const crow::Request& req,
 
             // if content type is json, assume json token
             asyncResp->res.jsonValue["token"] = session->sessionToken;
-#ifdef BMCWEB_ENABLE_LINUX_AUDIT_EVENTS
-            audit::auditEvent(req, std::string(username), true);
-#endif
+            if constexpr (BMCWEB_AUDIT_EVENTS)
+            {
+                audit::auditEvent(req, std::string(username), true);
+            }
         }
     }
     else

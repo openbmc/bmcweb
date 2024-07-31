@@ -1,4 +1,5 @@
 
+#include "http_response.hpp"
 #include "update_service.hpp"
 
 #include <boost/url/url.hpp>

@@ -1,7 +1,6 @@
 #include "ibm/locks.hpp"
 
 #include <cstdint>
-#include <memory>
 #include <string>
 #include <tuple>
 #include <utility>

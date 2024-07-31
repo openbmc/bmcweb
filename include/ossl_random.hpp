@@ -2,7 +2,10 @@
 
 #include "logging.hpp"
 
+extern "C"
+{
 #include <openssl/rand.h>
+}
 
 #include <limits>
 #include <string>

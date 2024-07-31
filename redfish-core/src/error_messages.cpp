@@ -22,14 +22,16 @@
 
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/status.hpp>
-#include <boost/url/url_view_base.hpp>
+#include <boost/url/url_view.hpp>
 #include <nlohmann/json.hpp>
 
 #include <array>
 #include <cstddef>
+#include <cstdint>
 #include <source_location>
 #include <span>
 #include <string>
+#include <string_view>
 #include <utility>
 
 // IWYU pragma: no_include <stddef.h>

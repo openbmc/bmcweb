@@ -2,9 +2,7 @@
 #include "bmcweb_config.h"
 
 #include "async_resp.hpp"
-#ifdef BMCWEB_ENABLE_LINUX_AUDIT_EVENTS
 #include "audit_events.hpp"
-#endif
 #include "authentication.hpp"
 #include "complete_response_fields.hpp"
 #include "dump_utils.hpp"
@@ -47,9 +45,8 @@ namespace crow
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static int connectionCount = 0;
 
-// request body limit size set by the bmcwebHttpReqBodyLimitMb option
-constexpr uint64_t httpReqBodyLimit = 1024UL * 1024UL *
-                                      bmcwebHttpReqBodyLimitMb;
+// request body limit size set by the BMCWEB_HTTP_BODY_LIMIT option
+constexpr uint64_t httpReqBodyLimit = 1024UL * 1024UL * BMCWEB_HTTP_BODY_LIMIT;
 
 constexpr uint64_t loggedOutPostBodyLimit = 4096U;
 
@@ -79,9 +76,10 @@ class Connection :
     {
         initParser();
 
-#ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
-        prepareMutualTls();
-#endif // BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
+        if constexpr (BMCWEB_MUTUAL_TLS_AUTH)
+        {
+            prepareMutualTls();
+        }
 
         connectionCount++;
 
@@ -196,7 +194,7 @@ class Connection :
     void afterSslHandshake()
     {
         // If http2 is enabled, negotiate the protocol
-        if constexpr (bmcwebEnableHTTP2)
+        if constexpr (BMCWEB_EXPERIMENTAL_HTTP2)
         {
             const unsigned char* alpn = nullptr;
             unsigned int alpnlen = 0;
@@ -281,20 +279,21 @@ class Connection :
         keepAlive = req->keepAlive();
         if constexpr (!std::is_same_v<Adaptor, boost::beast::test::stream>)
         {
-#ifndef BMCWEB_INSECURE_DISABLE_AUTHX
-            if (!crow::authentication::isOnAllowlist(req->url().path(),
-                                                     req->method()) &&
-                req->session == nullptr)
+            if constexpr (!BMCWEB_INSECURE_DISABLE_AUTH)
             {
-                BMCWEB_LOG_WARNING("Authentication failed");
-                forward_unauthorized::sendUnauthorized(
-                    req->url().encoded_path(),
-                    req->getHeaderValue("X-Requested-With"),
-                    req->getHeaderValue("Accept"), res);
-                completeRequest(res);
-                return;
+                if (!crow::authentication::isOnAllowlist(req->url().path(),
+                                                         req->method()) &&
+                    req->session == nullptr)
+                {
+                    BMCWEB_LOG_WARNING("Authentication failed");
+                    forward_unauthorized::sendUnauthorized(
+                        req->url().encoded_path(),
+                        req->getHeaderValue("X-Requested-With"),
+                        req->getHeaderValue("Accept"), res);
+                    completeRequest(res);
+                    return;
+                }
             }
-#endif // BMCWEB_INSECURE_DISABLE_AUTHX
         }
         auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
         BMCWEB_LOG_DEBUG("Setting completion handler");
@@ -417,28 +416,30 @@ class Connection :
         res = std::move(thisRes);
         res.keepAlive(keepAlive);
 
-#ifdef BMCWEB_ENABLE_LINUX_AUDIT_EVENTS
-        if (audit::wantAudit(*req))
+        if constexpr (BMCWEB_AUDIT_EVENTS)
         {
-            if (userSession != nullptr)
+            if (audit::wantAudit(*req))
             {
-                bool requestSuccess = false;
-                // Look for good return codes and if so we know the operation
-                // passed
-                if ((res.resultInt() >= 200) && (res.resultInt() < 300))
+                if (userSession != nullptr)
                 {
-                    requestSuccess = true;
-                }
+                    bool requestSuccess = false;
+                    // Look for good return codes and if so we know the
+                    // operation passed
+                    if ((res.resultInt() >= 200) && (res.resultInt() < 300))
+                    {
+                        requestSuccess = true;
+                    }
 
-                audit::auditEvent(*req, userSession->username, requestSuccess);
-            }
-            else
-            {
-                BMCWEB_LOG_DEBUG(
-                    "UserSession is null, not able to log audit event!");
+                    audit::auditEvent(*req, userSession->username,
+                                      requestSuccess);
+                }
+                else
+                {
+                    BMCWEB_LOG_DEBUG(
+                        "UserSession is null, not able to log audit event!");
+                }
             }
         }
-#endif // BMCWEB_ENABLE_LINUX_AUDIT_EVENTS
 
         completeResponseFields(*req, res);
         res.addHeader(boost::beast::http::field::date, getCachedDateStr());
@@ -474,12 +475,13 @@ class Connection :
   private:
     uint64_t getContentLengthLimit()
     {
-#ifndef BMCWEB_INSECURE_DISABLE_AUTHX
-        if (userSession == nullptr)
+        if constexpr (!BMCWEB_INSECURE_DISABLE_AUTH)
         {
-            return loggedOutPostBodyLimit;
+            if (userSession == nullptr)
+            {
+                return loggedOutPostBodyLimit;
+            }
         }
-#endif
 
         return httpReqBodyLimit;
     }
@@ -585,11 +587,12 @@ class Connection :
 
             if constexpr (!std::is_same_v<Adaptor, boost::beast::test::stream>)
             {
-#ifndef BMCWEB_INSECURE_DISABLE_AUTHX
-                boost::beast::http::verb method = parser->get().method();
-                userSession = crow::authentication::authenticate(
-                    ip, res, method, parser->get().base(), mtlsSession);
-#endif // BMCWEB_INSECURE_DISABLE_AUTHX
+                if constexpr (!BMCWEB_INSECURE_DISABLE_AUTH)
+                {
+                    boost::beast::http::verb method = parser->get().method();
+                    userSession = crow::authentication::authenticate(
+                        ip, res, method, parser->get().base(), mtlsSession);
+                }
             }
 
             std::string_view expect =

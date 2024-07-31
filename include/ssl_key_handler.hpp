@@ -8,7 +8,6 @@
 extern "C"
 {
 #include <nghttp2/nghttp2.h>
-}
 #include <openssl/bio.h>
 #include <openssl/dh.h>
 #include <openssl/dsa.h>
@@ -18,6 +17,7 @@ extern "C"
 #include <openssl/rand.h>
 #include <openssl/rsa.h>
 #include <openssl/ssl.h>
+}
 
 #include <boost/asio/ssl/context.hpp>
 
@@ -485,7 +485,7 @@ inline std::shared_ptr<boost::asio::ssl::context>
     mSslContext->use_private_key_file(sslPemFile,
                                       boost::asio::ssl::context::pem);
 
-    if constexpr (bmcwebEnableHTTP2)
+    if constexpr (BMCWEB_EXPERIMENTAL_HTTP2)
     {
         SSL_CTX_set_next_protos_advertised_cb(mSslContext->native_handle(),
                                               nextProtoCallback, nullptr);

@@ -1222,56 +1222,61 @@ inline void
 
     if (basicAuth)
     {
-#ifndef BMCWEB_ENABLE_BASIC_AUTHENTICATION
-        messages::actionNotSupported(
-            asyncResp->res,
-            "Setting BasicAuth when basic-auth feature is disabled");
-        return;
-#endif
+        if constexpr (!BMCWEB_BASIC_AUTH)
+        {
+            messages::actionNotSupported(
+                asyncResp->res,
+                "Setting BasicAuth when basic-auth feature is disabled");
+            return;
+        }
         authMethodsConfig.basic = *basicAuth;
     }
 
     if (cookie)
     {
-#ifndef BMCWEB_ENABLE_COOKIE_AUTHENTICATION
-        messages::actionNotSupported(
-            asyncResp->res,
-            "Setting Cookie when cookie-auth feature is disabled");
-        return;
-#endif
+        if constexpr (!BMCWEB_COOKIE_AUTH)
+        {
+            messages::actionNotSupported(
+                asyncResp->res,
+                "Setting Cookie when cookie-auth feature is disabled");
+            return;
+        }
         authMethodsConfig.cookie = *cookie;
     }
 
     if (sessionToken)
     {
-#ifndef BMCWEB_ENABLE_SESSION_AUTHENTICATION
-        messages::actionNotSupported(
-            asyncResp->res,
-            "Setting SessionToken when session-auth feature is disabled");
-        return;
-#endif
+        if constexpr (!BMCWEB_SESSION_AUTH)
+        {
+            messages::actionNotSupported(
+                asyncResp->res,
+                "Setting SessionToken when session-auth feature is disabled");
+            return;
+        }
         authMethodsConfig.sessionToken = *sessionToken;
     }
 
     if (xToken)
     {
-#ifndef BMCWEB_ENABLE_XTOKEN_AUTHENTICATION
-        messages::actionNotSupported(
-            asyncResp->res,
-            "Setting XToken when xtoken-auth feature is disabled");
-        return;
-#endif
+        if constexpr (!BMCWEB_XTOKEN_AUTH)
+        {
+            messages::actionNotSupported(
+                asyncResp->res,
+                "Setting XToken when xtoken-auth feature is disabled");
+            return;
+        }
         authMethodsConfig.xtoken = *xToken;
     }
 
     if (tls)
     {
-#ifndef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
-        messages::actionNotSupported(
-            asyncResp->res,
-            "Setting TLS when mutual-tls-auth feature is disabled");
-        return;
-#endif
+        if constexpr (!BMCWEB_MUTUAL_TLS_AUTH)
+        {
+            messages::actionNotSupported(
+                asyncResp->res,
+                "Setting TLS when mutual-tls-auth feature is disabled");
+            return;
+        }
         authMethodsConfig.tls = *tls;
     }
 
@@ -2290,11 +2295,13 @@ inline void
         boost::beast::http::field::link,
         "</redfish/v1/JsonSchemas/ManagerAccount/ManagerAccount.json>; rel=describedby");
 
-#ifdef BMCWEB_INSECURE_DISABLE_AUTHENTICATION
-    // If authentication is disabled, there are no user accounts
-    messages::resourceNotFound(asyncResp->res, "ManagerAccount", accountName);
-    return;
-#endif // BMCWEB_INSECURE_DISABLE_AUTHENTICATION
+    if constexpr (BMCWEB_INSECURE_DISABLE_AUTH)
+    {
+        // If authentication is disabled, there are no user accounts
+        messages::resourceNotFound(asyncResp->res, "ManagerAccount",
+                                   accountName);
+        return;
+    }
 
     if (req.session == nullptr)
     {
@@ -2489,12 +2496,12 @@ inline void
         return;
     }
 
-#ifdef BMCWEB_INSECURE_DISABLE_AUTHENTICATION
-    // If authentication is disabled, there are no user accounts
-    messages::resourceNotFound(asyncResp->res, "ManagerAccount", username);
-    return;
-
-#endif // BMCWEB_INSECURE_DISABLE_AUTHENTICATION
+    if constexpr (BMCWEB_INSECURE_DISABLE_AUTH)
+    {
+        // If authentication is disabled, there are no user accounts
+        messages::resourceNotFound(asyncResp->res, "ManagerAccount", username);
+        return;
+    }
     sdbusplus::message::object_path tempObjPath(rootUserDbusPath);
     tempObjPath /= username;
     const std::string userPath(tempObjPath);
@@ -2533,12 +2540,12 @@ inline void
     {
         return;
     }
-#ifdef BMCWEB_INSECURE_DISABLE_AUTHENTICATION
-    // If authentication is disabled, there are no user accounts
-    messages::resourceNotFound(asyncResp->res, "ManagerAccount", username);
-    return;
-
-#endif // BMCWEB_INSECURE_DISABLE_AUTHENTICATION
+    if constexpr (BMCWEB_INSECURE_DISABLE_AUTH)
+    {
+        // If authentication is disabled, there are no user accounts
+        messages::resourceNotFound(asyncResp->res, "ManagerAccount", username);
+        return;
+    }
     std::optional<std::string> newUserName;
     std::optional<std::string> password;
     std::optional<bool> enabled;
