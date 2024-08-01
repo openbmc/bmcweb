@@ -90,6 +90,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1576391_a5c16dd3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-01T16:56:20Z",
+      "side": 1,
+      "message": "Right.... but I\u0027m not sure how to type it up so it doesn\u0027t sound insane:\n\"I want to disable OEM specific pieces of the UI at runtime\" is where I started with.  \"I want to disable the entire webui\" might be reasonable, but that\u0027s not what this patch is doing, nor what I intended.  I guess maybe I could start with that?\n\nFWIW, there\u0027s a pretty major update to OEM_SCHEMAS.md that I\u0027m about to propose.  Things like\n\n\"In the current implementation, OEM schemas for all namespaces are shipped on all systems.\"\nAre no longer true as of the last set of refactoring.  There\u0027s documentation on how to create json schemas, and all the compile-time static generation has been moved to runtime, which means that OEM schemas won\u0027t be a bear to maintain anymore, and if a system doesn\u0027t like them, they can just shut that feature off.",
+      "parentUuid": "486a815f_562f710a",
+      "revId": "d2c6b2fba92f291e999a972d260873f60533bff5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "5a327de2_73789c01",

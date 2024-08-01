@@ -22,6 +22,30 @@
       },
       "revId": "35b9b50cc10bf634a87e93ea4730412499cab5d1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90cef744_caa08107",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-01T16:56:20Z",
+      "side": 1,
+      "message": "Because they might produce a BMC that gets used by multiple other people/companies.  The same reason most of our other authentication parameters are selectable at runtime.",
+      "parentUuid": "fcdd5072_4883ad0e",
+      "range": {
+        "startLine": 10,
+        "startChar": 58,
+        "endLine": 13,
+        "endChar": 47
+      },
+      "revId": "35b9b50cc10bf634a87e93ea4730412499cab5d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
