@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c6a744c_f8de5945",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-01T21:25:43Z",
+      "side": 1,
+      "message": "This is the incorrect property pointer;  Look at the line below it for the correct std::format call, which uses index.",
+      "range": {
+        "startLine": 447,
+        "startChar": 56,
+        "endLine": 447,
+        "endChar": 67
+      },
+      "revId": "4166350561fa0c11c1271a8c51eeb37c421b8b26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
