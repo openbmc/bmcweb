@@ -1,19 +1,77 @@
 #pragma once
 
 #include "app.hpp"
+#include "dbus_utility.hpp"
+#include "error_messages.hpp"
 #include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utils/chassis_utils.hpp"
+#include "utils/dbus_utils.hpp"
 
 #include <boost/url/format.hpp>
+#include <sdbusplus/asio/property.hpp>
+#include <sdbusplus/unpack_properties.hpp>
 
+#include <cstdint>
 #include <memory>
 #include <optional>
 #include <string>
 
 namespace redfish
 {
+
+inline void getPowerSubsystemAllocation(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    sdbusplus::asio::getAllProperties(
+        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+        "/xyz/openbmc_project/control/host0/power_cap",
+        "xyz.openbmc_project.Control.Power.Cap",
+        [asyncResp](const boost::system::error_code& ec,
+                    const dbus::utility::DBusPropertiesMap& propertiesList) {
+        if (ec)
+        {
+            if (ec.value() != EBADR)
+            {
+                BMCWEB_LOG_ERROR("DBUS response error: {}", ec.value());
+                messages::internalError(asyncResp->res);
+            }
+            return;
+        }
+
+        uint32_t powerCap{0};
+        bool powerCapEnable{false};
+        uint32_t maxPowerCapValue{0};
+        const bool success = sdbusplus::unpackPropertiesNoThrow(
+            dbus_utils::UnpackErrorPrinter(), propertiesList, "PowerCap",
+            powerCap, "PowerCapEnable", powerCapEnable, "MaxPowerCapValue",
+            maxPowerCapValue);
+
+        if (!success)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        // If MaxPowerCapValue valid, store Allocation properties in JSON
+        if ((maxPowerCapValue > 0) && (maxPowerCapValue < UINT32_MAX))
+        {
+            if (powerCapEnable)
+            {
+                asyncResp->res.jsonValue["Allocation"]["AllocatedWatts"] =
+                    powerCap;
+            }
+            else
+            {
+                asyncResp->res.jsonValue["Allocation"]["AllocatedWatts"] =
+                    maxPowerCapValue;
+            }
+            asyncResp->res.jsonValue["Allocation"]["RequestedWatts"] =
+                maxPowerCapValue;
+        }
+    });
+}
 
 inline void doPowerSubsystemCollection(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -40,6 +98,8 @@ inline void doPowerSubsystemCollection(
     asyncResp->res.jsonValue["PowerSupplies"]["@odata.id"] =
         boost::urls::format(
             "/redfish/v1/Chassis/{}/PowerSubsystem/PowerSupplies", chassisId);
+
+    getPowerSubsystemAllocation(asyncResp);
 }
 
 inline void handlePowerSubsystemCollectionHead(
