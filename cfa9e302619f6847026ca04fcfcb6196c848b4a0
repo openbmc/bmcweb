@@ -16,6 +16,29 @@
       "message": "Hi Ed Tanous\ncan you please merge this commit",
       "revId": "cfa9e302619f6847026ca04fcfcb6196c848b4a0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84f7cdc1_1ef41dee",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-01T17:43:26Z",
+      "side": 1,
+      "message": "This function can return an error (empty string) that doesn\u0027t seem to be handled here.\n\nAlso, std::move() makes no sense when the function accepts a string_view.  I\u0027m a little surprised tidy didn\u0027t flag it and that it compiles, but at a minimum it\u0027s incorrect, if not a lifetime issue with an rvalue temporary.  Id\u0027 bet if we had asan on this code it would flag this as a use after free.",
+      "range": {
+        "startLine": 449,
+        "startChar": 24,
+        "endLine": 449,
+        "endChar": 46
+      },
+      "revId": "cfa9e302619f6847026ca04fcfcb6196c848b4a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
