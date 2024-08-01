@@ -1877,13 +1877,13 @@ inline void
         translateDhcpEnabledToBool(ethData.dhcpEnabled, true);
     jsonResponse["DHCPv4"]["UseNTPServers"] = ethData.ntpv4Enabled;
     jsonResponse["DHCPv4"]["UseDNSServers"] = ethData.dnsv4Enabled;
-    jsonResponse["DHCPv4"]["UseDomainName"] = ethData.hostNamev4Enabled;
+    jsonResponse["DHCPv4"]["UseDomainName"] = ethData.domainv4Enabled;
     jsonResponse["DHCPv6"]["OperatingMode"] =
         translateDhcpEnabledToBool(ethData.dhcpEnabled, false) ? "Enabled"
                                                                : "Disabled";
     jsonResponse["DHCPv6"]["UseNTPServers"] = ethData.ntpv6Enabled;
     jsonResponse["DHCPv6"]["UseDNSServers"] = ethData.dnsv6Enabled;
-    jsonResponse["DHCPv6"]["UseDomainName"] = ethData.hostNamev6Enabled;
+    jsonResponse["DHCPv6"]["UseDomainName"] = ethData.domainv6Enabled;
     jsonResponse["StatelessAddressAutoConfig"]["IPv6AutoConfigEnabled"] =
         ethData.ipv6AcceptRa;
 
