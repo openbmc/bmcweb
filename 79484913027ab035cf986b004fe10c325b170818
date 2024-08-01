@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "59e9870f_0a290ac6",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-01T17:36:32Z",
+      "side": 1,
+      "message": "Yeah, I missed everthing with no_forward_declare because of the find and replace I used.  Will fix.",
+      "parentUuid": "e55c4dee_4de7e17e",
+      "revId": "79484913027ab035cf986b004fe10c325b170818",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8454398b_5fa1af87",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 3
