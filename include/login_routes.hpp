@@ -208,8 +208,6 @@ inline void handleLogout(const crow::Request& req,
                                  "SESSION="
                                  "; SameSite=Strict; Secure; HttpOnly; "
                                  "expires=Thu, 01 Jan 1970 00:00:00 GMT");
-        asyncResp->res.addHeader("Clear-Site-Data",
-                                 R"("cache","cookies","storage")");
         persistent_data::SessionStore::getInstance().removeSession(session);
     }
 }
