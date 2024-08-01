@@ -505,6 +505,7 @@ inline void afterHandlePCIeSlotCollectionGet(
     asyncResp->res.jsonValue["Name"] = "PCIe Slot Information";
     asyncResp->res.jsonValue["@odata.id"] =
         boost::urls::format("/redfish/v1/Chassis/{}/PCIeSlots", chassisID);
+    asyncResp->res.jsonValue["Id"] = "PCIeSlots";
     asyncResp->res.jsonValue["Slots"] = nlohmann::json::array();
 
     getValidPCIeSlotList(
