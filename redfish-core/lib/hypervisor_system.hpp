@@ -281,9 +281,18 @@ inline bool extractHypervisorInterfaceData(
 
                         if (origin != nullptr)
                         {
-                            ipv4Address.origin =
-                                translateAddressOriginDbusToRedfish(*origin,
-                                                                    true);
+                            if (protocol == "ipv4")
+                            {
+                                ipv4Address.origin =
+                                    translateAddressOriginDbusToRedfish(*origin,
+                                                                        true);
+                            }
+                            if (protocol == "ipv6")
+                            {
+                                ipv6Address.origin =
+                                    translateAddressOriginDbusToRedfish(*origin,
+                                                                        false);
+                            }
                         }
                     }
 
@@ -506,7 +515,10 @@ inline void parseInterfaceData(nlohmann::json& jsonResponse,
     jsonResponse["Id"] = ifaceId;
     jsonResponse["@odata.id"] = boost::urls::format(
         "/redfish/v1/Systems/hypervisor/EthernetInterfaces/{}", ifaceId);
-    jsonResponse["MACAddress"] = ethData.macAddress;
+    if (!ethData.macAddress.empty())
+    {
+        jsonResponse["MACAddress"] = ethData.macAddress;
+    }
 
     jsonResponse["HostName"] = ethData.hostName;
     jsonResponse["DHCPv4"]["DHCPEnabled"] =
@@ -528,6 +540,7 @@ inline void parseInterfaceData(nlohmann::json& jsonResponse,
     ipv4Array = nlohmann::json::array();
     ipv4StaticArray = nlohmann::json::array();
     bool ipv4IsActive = false;
+
     for (const auto& ipv4Config : ipv4Data)
     {
         if (ipv4Config.isActive)
@@ -583,7 +596,10 @@ inline void parseInterfaceData(nlohmann::json& jsonResponse,
 
             if (ipv6Config.origin == "Static")
             {
-                ipv6StaticArray.emplace_back(ipv6);
+                nlohmann::json::object_t ipv6Static;
+                ipv6Static["Address"] = ipv6["Address"];
+                ipv6Static["PrefixLength"] = ipv6["PrefixLength"];
+                ipv6StaticArray.emplace_back(ipv6Static);
                 if (ipv6GatewayStr != "::")
                 {
                     nlohmann::json::object_t ipv6StaticDefaultGwObj;
