@@ -922,7 +922,6 @@ inline void addPCIeFunctionProperties(
             std::get_if<std::string>(&property.second);
         if (strProperty == nullptr)
         {
-            BMCWEB_LOG_ERROR("Function wasn't a string?");
             continue;
         }
         if (property.first == functionName + "DeviceId")
