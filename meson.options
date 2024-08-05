@@ -95,15 +95,6 @@ option(
 )
 
 option(
-    'redfish-dbus-log',
-    type: 'feature',
-    value: 'disabled',
-    description: '''Enable DBUS log service transactions through Redfish. Paths
-                    are under
-                    /redfish/v1/Systems/system/LogServices/EventLog/Entries''',
-)
-
-option(
     'redfish-host-logger',
     type: 'feature',
     value: 'enabled',
