@@ -16,6 +16,24 @@
       "message": "The new logic (L473-L515) seems finding only one ipv4 address and also potentially mixed-up data from the array.  For example, if ipv4Data[0] \u0026 ipv4Data[1] have partial data, they may potentially mixing up the end result.\n\nI think the original loop is correct but just need to filter out the empty field something like\n\n```\n   for (const auto\u0026 ipv4Config : ipv4Data)\n    {\n        if (ipv4Config.isActive)\n        {\n            nlohmann::json::object_t ipv4;\n            if(!ipv4Config.origin.empty())\n            {\n                 ipv4[\"AddressOrigin\"] \u003d ipv4Config.origin;\n            }\n            \n             if (!ipv4Config.netmask.empty())\n            {\n                 ipv4[\"SubnetMask\"] \u003d ipv4Config.netmask;\n            }\n...\n            if( !ipv4.is_null())\n            {\n                if (ipv4Config.origin \u003d\u003d \"Static\")\n                {\n                    ipv4StaticArray.push_back(ipv4);\n                }\n                ipv4Array.emplace_back(std::move(ipv4));\n            }\n        }\n   }\n   \n   if( !ipv4Array.is_null() ) \n   {\n      jsonResponse[\"InterfaceEnabled\"] \u003d true;\n   }\n```",
       "revId": "4651424843ba6f67b19ed1cdb38f9588987470a8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3b73b4d_8b300791",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-08-05T10:03:46Z",
+      "side": 1,
+      "message": "This is no longer needed as the empty address origin issue is not occurring when there is just one protocol supported (i.e., ipv4)",
+      "parentUuid": "2def91f4_7fe4e03d",
+      "revId": "4651424843ba6f67b19ed1cdb38f9588987470a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
