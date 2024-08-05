@@ -58,7 +58,7 @@ static inline void handlePCIeDevicePath(
         }
 
         dbus::utility::getDbusObject(
-            pcieDevicePath, {},
+            pcieDevicePath, pcieDeviceInterface,
             [pcieDevicePath, asyncResp,
              callback](const boost::system::error_code& ec,
                        const dbus::utility::MapperGetObject& object) {
