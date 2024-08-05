@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58b81801_6414e55a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-05T20:10:34Z",
+      "side": 1,
+      "message": "I\u0027m not aware of this capability, can you point me to it?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 67
+      },
+      "revId": "4b49c9c6b240c9a6db0beef5132cba0cc60489eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bce19f7_aeab0e31",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-05T20:10:34Z",
+      "side": 1,
+      "message": "A little more detail needed here.\n\nWhat\u0027s changing?  How is the behavior changed for the user?",
+      "revId": "4b49c9c6b240c9a6db0beef5132cba0cc60489eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bda4f90b_e5d135ea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-05T20:10:34Z",
+      "side": 1,
+      "message": "More detail needed here.  What are \"both\" cases.",
+      "range": {
+        "startLine": 13,
+        "startChar": 41,
+        "endLine": 13,
+        "endChar": 49
+      },
+      "revId": "4b49c9c6b240c9a6db0beef5132cba0cc60489eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d370630e_915c9972",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-05T20:10:34Z",
+      "side": 1,
+      "message": "I\u0027m having a lot of trouble reviewing this because it did a refactor of functions, which is great to see, but makes it really hard to figure out where we have behavior changes.\n\nCould you separate out the refactoring in a patchset ahead of this one, and do the behavior changes in another one.",
+      "revId": "4b49c9c6b240c9a6db0beef5132cba0cc60489eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
