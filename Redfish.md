@@ -597,13 +597,13 @@ to the persistent /var/log/ filesystem. The bmcweb software then looks for these
 files in /var/log/ and returns the appropriate Redfish EventLog Entries for
 these. More details on adding events can be found [here][3]
 
-The other implementation of EventLog Entries can be enabled by compiling bmcweb
-with the `-DBMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES=ON` option. This will cause
-bmcweb to look to [phosphor-logging][4] for any D-Bus log entries. These will
-then be translated to Redfish EventLog Entries.
+The other implementation of EventLog Entries is automatically chosen when the
+mentioned files cannot be found. This will cause bmcweb to look to
+[phosphor-logging][4] for any D-Bus log entries. These will then be translated
+to Redfish EventLog Entries.
 
-These two implementations do not work together, so choosing one will disable the
-other.
+These two implementations are alternatives and bmcweb automatically chooses the
+correct one depending on the presence of the rsyslog generated log files.
 
 #### LogServiceCollection
 
