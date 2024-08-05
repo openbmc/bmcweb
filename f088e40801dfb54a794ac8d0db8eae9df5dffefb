@@ -178,6 +178,24 @@
       "parentUuid": "4ad8a6a0_7c942015",
       "revId": "f088e40801dfb54a794ac8d0db8eae9df5dffefb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d78152a8_d88b4fcb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-08-05T00:44:12Z",
+      "side": 1,
+      "message": "\u003e \u003e Download Image In Task Callback\n\u003e \n\u003e What does this mean?  what daemon is doing the download?  It shouldn\u0027t be bmcweb, bmcweb should just be \"starting\" the update on another service.  In your design, which service would that be?\n\nThis is what i am thinking we can do -\n\n1) Add a new HTTP.interface.yaml with -\n1.a) Method - downloadImage(URI), which accepts a HTTP URL and immediately returns a memfd and asynchronously starts the HTTP download.\n1.b) Signal - DownloadFinished(memfd), event which informs that the download has finished for specified memfd.\n\n2) In BMCWeb, for HTTP download use case create task and return a task id to user. In task callback -\n2.a) Call downloadImage(URI) from Step#1.\n2.b) Perform a dup on the return memfd.\n2.c) Watch for DownloadFinished signal for memfd (returned from Step 2.a).\n2.d) On download completion call startUpdate as a regular flow.\n\nSo, basically for Image download use case we will extend the task callback to also perform the download.",
+      "parentUuid": "7e7b0551_6e20ec98",
+      "revId": "f088e40801dfb54a794ac8d0db8eae9df5dffefb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
