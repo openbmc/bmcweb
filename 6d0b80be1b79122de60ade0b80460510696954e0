@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3253a8b9_ffdbfd29",
+        "filename": "redfish-core/src/redfish.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-05T23:35:18Z",
+      "side": 0,
+      "message": "?  Why were these completely removed?",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 141,
+        "endChar": 47
+      },
+      "revId": "6d0b80be1b79122de60ade0b80460510696954e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
