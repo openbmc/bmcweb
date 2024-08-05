@@ -16,6 +16,24 @@
       "message": "The code seems good to me.\n\nOne minor comment. it would be better to add 1-2 line of validator error summary at the commit message.",
       "revId": "2c6678560e0b9db9802bc873710e4f9dc681698b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69cb16b6_4425be22",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-08-05T15:35:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab8ae012_4af979ff",
+      "revId": "2c6678560e0b9db9802bc873710e4f9dc681698b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
