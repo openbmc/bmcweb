@@ -304,8 +304,8 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
         }
     }
 
-    inline void afterRead(const std::weak_ptr<NbdProxyServer>& weak,
-                          const boost::system::error_code& ec, size_t bytesRead)
+    void afterRead(const std::weak_ptr<NbdProxyServer>& weak,
+                   const boost::system::error_code& ec, size_t bytesRead)
     {
         if (ec)
         {
