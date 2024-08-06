@@ -1950,6 +1950,11 @@ inline void handlePut(const crow::Request& req,
                     while (propNode != nullptr)
                     {
                         const char* propertyName = propNode->Attribute("name");
+                        if (propertyName == nullptr)
+                        {
+                            BMCWEB_LOG_DEBUG("Couldn't find name property");
+                            continue;
+                        }
                         BMCWEB_LOG_DEBUG("Found property {}", propertyName);
                         if (propertyName == transaction->propertyName)
                         {
