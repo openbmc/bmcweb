@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8a52cca8_b6707f3f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-06T20:08:13Z",
+      "side": 1,
+      "message": "FOr reference, this is the function we have:\nhttps://github.com/openbmc/bmcweb/blob/d5c0172e0335df05db2eaae3dae2c7d3def56089/http/http_response.hpp#L171",
+      "parentUuid": "3cf1f5c2_c72cc30b",
+      "revId": "7e5604b6d80a28b236d3216ae827fa501e86313f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a16c5987_77a690bd",
         "filename": "http/http_client.hpp",
         "patchSetId": 1
