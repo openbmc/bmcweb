@@ -196,6 +196,24 @@
       "parentUuid": "7e7b0551_6e20ec98",
       "revId": "f088e40801dfb54a794ac8d0db8eae9df5dffefb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "314dbfef_e425deaf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-06T02:45:56Z",
+      "side": 1,
+      "message": "\u003e \u003e \u003e Download Image In Task Callback\n\u003e \u003e \n\u003e \u003e What does this mean?  what daemon is doing the download?  It shouldn\u0027t be bmcweb, bmcweb should just be \"starting\" the update on another service.  In your design, which service would that be?\n\u003e \n\u003e This is what i am thinking we can do -\n\u003e \n\u003e 1) Add a new HTTP.interface.yaml with -\n\u003e 1.a) Method - downloadImage(URI), which accepts a HTTP URL and immediately returns a memfd and asynchronously starts the HTTP download.\n\u003e 1.b) Signal - DownloadFinished(memfd), event which informs that the download has finished for specified memfd.\n\nWhich daemon implements this interface?\n\n\u003e \n\u003e 2) In BMCWeb, for HTTP download use case create task and return a task id to user. In task callback -\n\u003e 2.a) Call downloadImage(URI) from Step#1.\n\u003e 2.b) Perform a dup on the return memfd.\n\u003e 2.c) Watch for DownloadFinished signal for memfd (returned from Step 2.a).\n\nI\u0027m not quite following, why would bmcweb track download finished?  Isn\u0027t this flow being done in another application somewhere?\n\n\u003e 2.d) On download completion call startUpdate as a regular flow.\n\u003e \n\u003e So, basically for Image download use case we will extend the task callback to also perform the download.",
+      "parentUuid": "d78152a8_d88b4fcb",
+      "revId": "f088e40801dfb54a794ac8d0db8eae9df5dffefb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
