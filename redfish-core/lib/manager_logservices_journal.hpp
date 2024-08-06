@@ -627,8 +627,6 @@ inline void handleManagersJournalEntriesLogEntryGet(
         return;
     }
 
-    std::string idStr = getUniqueEntryID(index, ts, bootID);
-
     nlohmann::json::object_t bmcJournalLogEntry;
     if (!fillBMCJournalLogEntryJson(entryID, journal.get(), bmcJournalLogEntry))
     {
