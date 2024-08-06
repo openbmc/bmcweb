@@ -43,8 +43,11 @@ std::string getUsernameFromCommonName(std::string_view commonName)
             }
             return std::string{*sslUserMeta};
         }
+        default:
+        {
+            return "";
+        }
     }
-    return "";
 }
 
 std::shared_ptr<persistent_data::UserSession>
