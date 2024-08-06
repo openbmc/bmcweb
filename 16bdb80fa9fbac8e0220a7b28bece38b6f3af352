@@ -52,6 +52,24 @@
       "parentUuid": "dc1d5733_6474e444",
       "revId": "16bdb80fa9fbac8e0220a7b28bece38b6f3af352",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5795e4d8_9aa9588f",
+        "filename": "scripts/csdl-to-json-converter/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-08-06T01:12:00Z",
+      "side": 1,
+      "message": "yes, I think so",
+      "parentUuid": "3de53a2a_21e66445",
+      "revId": "16bdb80fa9fbac8e0220a7b28bece38b6f3af352",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
