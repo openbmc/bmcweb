@@ -737,8 +737,11 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
         thisReq.set(boost::beast::http::field::host,
                     destUri.encoded_host_address());
         thisReq.keep_alive(true);
-        thisReq.body().str() = std::move(data);
-        thisReq.prepare_payload();
+        if (!data.empty())
+        {
+            thisReq.body().str() = std::move(data);
+            thisReq.prepare_payload();
+        }
         auto cb = std::bind_front(&ConnectionPool::afterSendData,
                                   weak_from_this(), resHandler);
         // Reuse an existing connection if one is available
