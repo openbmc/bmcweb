@@ -1017,15 +1017,15 @@ inline DumpCreationProgress
                     messages::insufficientPrivilege());
                 return DumpCreationProgress::DUMP_CREATE_FAILED;
             }
-            if ((*value).ends_with("AcfFileInvalid") ||
-                (*value).ends_with("PasswordInvalid"))
+            if ((*value).ends_with("ACFFileInvalid") ||
+                (*value).ends_with("UserChallengeInvalid"))
             {
                 BMCWEB_LOG_WARNING(
                     "DumpRequestStatus: ACFFile Invalid/Password Invalid");
                 taskData->messages.emplace_back(
                     messages::resourceAtUriUnauthorized(
                         boost::urls::url_view(taskData->payload->targetUri),
-                        "Invalid Password/ACF File Invalid"));
+                        "Invalid User challenge/ACF File Invalid"));
                 return DumpCreationProgress::DUMP_CREATE_FAILED;
             }
             if ((*value).ends_with("ResourceSelectorInvalid"))
