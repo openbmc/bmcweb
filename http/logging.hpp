@@ -77,7 +77,11 @@ inline void vlog(std::format_string<Args...>&& format, Args&&... args,
                   "Missing string for level");
     constexpr std::string_view levelString = mapLogLevelFromName[stringIndex];
     std::string_view filename = loc.file_name();
-    filename = filename.substr(filename.rfind('/') + 1);
+    filename = filename.substr(filename.rfind('/'));
+    if (!filename.empty())
+    {
+        filename.remove_prefix(1);
+    }
     std::string logLocation;
     try
     {
