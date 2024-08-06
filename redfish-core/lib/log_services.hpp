@@ -1753,11 +1753,13 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                 {
                     thisEntry["Resolution"] = *resolution;
                 }
-                std::optional<bool> notifyAction =
-                    getProviderNotifyAction(*notify);
-                if (notifyAction)
-                {
-                    thisEntry["ServiceProviderNotified"] = *notifyAction;
+                if (notify != nullptr){
+                    std::optional<bool> notifyAction =
+                        getProviderNotifyAction(*notify);
+                    if (notifyAction)
+                    {
+                        thisEntry["ServiceProviderNotified"] = *notifyAction;
+                    }
                 }
                 thisEntry["EntryType"] = "Event";
                 thisEntry["Severity"] =
