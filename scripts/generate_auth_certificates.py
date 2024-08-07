@@ -337,15 +337,19 @@ def generate_pk12(certs_dir, key, client_cert, username):
 
 
 def test_mtls_auth(url, certs_dir):
-    response = httpx.get(
-        f"https://{url}/redfish/v1/SessionService/Sessions",
-        verify=os.path.join(certs_dir, "CA-cert.cer"),
-        cert=(
-            os.path.join(certs_dir, "client-cert.pem"),
-            os.path.join(certs_dir, "client-key.pem"),
-        ),
-    )
-    response.raise_for_status()
+    with httpx.Client(verify=os.path.join(certs_dir, "CA-cert.cer"), cert=(
+        os.path.join(certs_dir, "client-cert.pem"),
+        os.path.join(certs_dir, "client-key.pem"),
+    )) as client:
+        response = client.get(
+            f"https://{url}/redfish/v1/SessionService/Sessions",
+            verify=os.path.join(certs_dir, "CA-cert.cer"),
+            cert=(
+                os.path.join(certs_dir, "client-cert.pem"),
+                os.path.join(certs_dir, "client-key.pem"),
+            ),
+        )
+        response.raise_for_status()
 
 
 def setup_server_cert(
