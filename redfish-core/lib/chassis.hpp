@@ -135,7 +135,7 @@ inline void getChassisState(std::shared_ptr<bmcweb::AsyncResp> asyncResp)
         else if (chassisState ==
                  "xyz.openbmc_project.State.Chassis.PowerState.Off")
         {
-            asyncResp->res.jsonValue["PowerState"] = resource::PowerState::On;
+            asyncResp->res.jsonValue["PowerState"] = resource::PowerState::Off;
             asyncResp->res.jsonValue["Status"]["State"] =
                 resource::State::StandbyOffline;
         }
