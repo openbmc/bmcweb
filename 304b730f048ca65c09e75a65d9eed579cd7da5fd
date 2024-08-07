@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23b817ca_03271362",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-07T20:38:55Z",
+      "side": 1,
+      "message": "@Gunnar, could you have one of your guys look at this.  I know you guys use this log type heavily, and in this consolidation, it\u0027s going to fix several bugs, for example ServiceProviderNotify was only added to one half of the URIs for LogEntry, so it would\u0027ve been incorrect for individual access.",
+      "revId": "304b730f048ca65c09e75a65d9eed579cd7da5fd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
