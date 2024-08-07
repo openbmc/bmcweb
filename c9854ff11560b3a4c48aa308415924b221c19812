@@ -16,6 +16,24 @@
       "message": "A rare patch with negative diff 😎\nAssuming it ends up producing the same json output then it should be good.\n\nThanks for all the work 👍",
       "revId": "c9854ff11560b3a4c48aa308415924b221c19812",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cbef7fa_20307d9e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-07T19:57:22Z",
+      "side": 1,
+      "message": "A negative diff is a sign that we\u0027re refactoring well.",
+      "parentUuid": "0fd44fd4_442826ac",
+      "revId": "c9854ff11560b3a4c48aa308415924b221c19812",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
