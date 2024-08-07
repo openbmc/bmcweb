@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a8f3c57_0328cf62",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-08-07T15:58:24Z",
+      "side": 1,
+      "message": "changed the approach on this patch. Now there is no choosing but the implementation is unified.",
+      "parentUuid": "58b81801_6414e55a",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 67
+      },
+      "revId": "4b49c9c6b240c9a6db0beef5132cba0cc60489eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0bce19f7_aeab0e31",
@@ -37,6 +61,24 @@
       "writtenOn": "2024-08-05T20:10:34Z",
       "side": 1,
       "message": "A little more detail needed here.\n\nWhat\u0027s changing?  How is the behavior changed for the user?",
+      "revId": "4b49c9c6b240c9a6db0beef5132cba0cc60489eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d88c5739_71d82ba4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-08-07T15:58:24Z",
+      "side": 1,
+      "message": "The user should have log entries from both sources with the newest revision.",
+      "parentUuid": "0bce19f7_aeab0e31",
       "revId": "4b49c9c6b240c9a6db0beef5132cba0cc60489eb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -64,6 +106,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c66caec_5c12906a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-08-07T15:58:24Z",
+      "side": 1,
+      "message": "with the 2 backends.",
+      "parentUuid": "bda4f90b_e5d135ea",
+      "range": {
+        "startLine": 13,
+        "startChar": 41,
+        "endLine": 13,
+        "endChar": 49
+      },
+      "revId": "4b49c9c6b240c9a6db0beef5132cba0cc60489eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d370630e_915c9972",
@@ -77,6 +143,24 @@
       "writtenOn": "2024-08-05T20:10:34Z",
       "side": 1,
       "message": "I\u0027m having a lot of trouble reviewing this because it did a refactor of functions, which is great to see, but makes it really hard to figure out where we have behavior changes.\n\nCould you separate out the refactoring in a patchset ahead of this one, and do the behavior changes in another one.",
+      "revId": "4b49c9c6b240c9a6db0beef5132cba0cc60489eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "faac1ceb_98de1f83",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-08-07T15:58:24Z",
+      "side": 1,
+      "message": "Yes, this is the eternal problem with bmcweb.\nEverything inline and huge diffs.\n\nI can try to split the patch.",
+      "parentUuid": "d370630e_915c9972",
       "revId": "4b49c9c6b240c9a6db0beef5132cba0cc60489eb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
