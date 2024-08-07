@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "545c15d0_88264297",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-08-07T17:49:13Z",
+      "side": 1,
+      "message": "I am good with inspection only..",
+      "range": {
+        "startLine": 13,
+        "startChar": 40,
+        "endLine": 14,
+        "endChar": 16
+      },
+      "revId": "b0b6152c5457de60db8ed38a4e8b31513e30edd0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
