@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec719559_f32d9651",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-07T17:48:39Z",
+      "side": 1,
+      "message": "Changed to follow conventions.",
+      "parentUuid": "d2db7a9d_4bcf2873",
+      "revId": "ae9faa26c7e18efa6b9f0366f098d7eb4ab40b00",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f739aba0_17fb6e24",
@@ -160,6 +178,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a50f36f5_f64697d1",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3525,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-07T17:48:39Z",
+      "side": 1,
+      "message": "Changed to follow conventions.",
+      "parentUuid": "e234c078_36199532",
+      "range": {
+        "startLine": 3506,
+        "startChar": 0,
+        "endLine": 3525,
+        "endChar": 9
+      },
+      "revId": "ae9faa26c7e18efa6b9f0366f098d7eb4ab40b00",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1014e99d_f55438da",
@@ -209,6 +251,24 @@
       "side": 1,
       "message": "That doesn\u0027t change my point.  The name is ambiguous.",
       "parentUuid": "f38bb227_0514bc9e",
+      "revId": "ae9faa26c7e18efa6b9f0366f098d7eb4ab40b00",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1af43655_0ec6684c",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3526,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-07T17:48:39Z",
+      "side": 1,
+      "message": "Changed to follow conventions.",
+      "parentUuid": "ee7a6857_b44ce5d9",
       "revId": "ae9faa26c7e18efa6b9f0366f098d7eb4ab40b00",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

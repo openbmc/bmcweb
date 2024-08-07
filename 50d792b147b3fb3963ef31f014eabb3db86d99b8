@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ea5a182_5af872ff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-07T17:48:39Z",
+      "side": 1,
+      "message": "Because I didn\u0027t want to burden you further, and you didn\u0027t seem to want to \"rewrite all of log_services.hpp\" I\u0027ve updated this patchset with what I asked for to help you out.\n\nPlease review, and ensure that it does the refactor that you intended.  If it looks good to you, it can merge assuming nobody else has any comments.",
+      "revId": "50d792b147b3fb3963ef31f014eabb3db86d99b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
