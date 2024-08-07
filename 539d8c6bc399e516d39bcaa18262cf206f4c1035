@@ -46,6 +46,30 @@
       },
       "revId": "539d8c6bc399e516d39bcaa18262cf206f4c1035",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3594a784_debeb51a",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-07T19:17:50Z",
+      "side": 1,
+      "message": "Damn.... I was so close.  Fix is here: //gerrit.openbmc.org/c/openbmc/bmcweb/+/73531",
+      "parentUuid": "7847ebc2_fdcee63d",
+      "range": {
+        "startLine": 134,
+        "startChar": 75,
+        "endLine": 134,
+        "endChar": 77
+      },
+      "revId": "539d8c6bc399e516d39bcaa18262cf206f4c1035",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ],
   "submitRequirementResults": []
