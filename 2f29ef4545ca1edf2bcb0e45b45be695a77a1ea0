@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "422e1cc4_706f20d1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-07T17:13:13Z",
+      "side": 1,
+      "message": "Overall, I\u0027m pretty confused at the title of this commit message.  The two logging options have very different behavior in terms of what properties are produced and what capabilities each mechanism has in regards to paging, eventing, messageid, etc.\n\nWhile I would love to see things be consolidated, I\u0027m quite confused at how we\u0027re accomplishing that, while still keeping the behavior the same without having the option flag.\n\nAny detail you could add in the commit message would be greatly appreciated.",
+      "revId": "2f29ef4545ca1edf2bcb0e45b45be695a77a1ea0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c958801d_7e760dd6",
         "filename": "redfish-core/include/event_service_manager.hpp",
         "patchSetId": 4
