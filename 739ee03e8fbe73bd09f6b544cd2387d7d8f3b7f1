@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "990dac83_db5f5930",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-08-07T21:35:46Z",
+      "side": 1,
+      "message": "The Redfish Service Validator version 2.4.8 passed with this. It does not validate the DataSourceUri. I\u0027ve opened an issue against the validator to address that:\nhttps://github.com/DMTF/Redfish-Service-Validator/issues/598",
+      "parentUuid": "9e709fcf_ed74be7d",
+      "range": {
+        "startLine": 25,
+        "startChar": 5,
+        "endLine": 25,
+        "endChar": 26
+      },
+      "revId": "739ee03e8fbe73bd09f6b544cd2387d7d8f3b7f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d25f0595_2e997a2a",
         "filename": "Redfish.md",
         "patchSetId": 19

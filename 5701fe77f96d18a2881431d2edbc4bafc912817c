@@ -186,6 +186,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "50d6b5f5_8d88a7d8",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-08-07T21:35:46Z",
+      "side": 1,
+      "message": "With Myung\u0027s help I\u0027ve restructured the code a bit in order to build a vector of the fanSensorPaths and services to path to the callback for filling in the property values.\n\nAdditionally I\u0027ve moved the sort of this vector rather than after each update of the JSON array.",
+      "parentUuid": "800eb4f9_0c3f505d",
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ad6f4fe9_c2dfea03",
         "filename": "redfish-core/include/utils/fan_utils.hpp",
         "patchSetId": 18
@@ -362,6 +380,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d469cfa1_e5af4ea9",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-08-07T21:35:46Z",
+      "side": 1,
+      "message": "The DeviceName property for a SensorFanArrayExcerpt is defined \"shall contain the value of the `Name` property of the associated resource\".\n\nSo I\u0027ve modified how this property is built here to build it the same way it is built in objectPropertiesToJson() [1]\n\n[1] https://github.com/openbmc/bmcweb/blob/fa2d6ae7034875a61314380295a88dc8abaa34a1/redfish-core/lib/sensors.hpp#L761",
+      "parentUuid": "d5414093_e4127793",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 57
+      },
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "52b3ed37_a6bde908",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 18
@@ -397,6 +439,30 @@
       "side": 1,
       "message": "Updated",
       "parentUuid": "52b3ed37_a6bde908",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 48
+      },
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e39b85be_04cfed28",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-08-07T21:35:46Z",
+      "side": 1,
+      "message": "I\u0027ve moved the sort to sort the vector produced by getFanSensorObjects(). The single callback will then add the objects in the already sorted order.",
+      "parentUuid": "00b95fc9_f8cd19c3",
       "range": {
         "startLine": 41,
         "startChar": 0,
@@ -669,6 +735,30 @@
       "side": 1,
       "message": "Updated",
       "parentUuid": "39dab4b0_4284627c",
+      "range": {
+        "startLine": 99,
+        "startChar": 32,
+        "endLine": 99,
+        "endChar": 49
+      },
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e84fb0b9_16c70a4a",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-08-07T21:35:46Z",
+      "side": 1,
+      "message": "George had updated already to use all_sensors. I believe that addressed this review comment. Please let me know if I\u0027m missing something else for this one.",
+      "parentUuid": "4e2b610f_8c855dc4",
       "range": {
         "startLine": 99,
         "startChar": 32,
