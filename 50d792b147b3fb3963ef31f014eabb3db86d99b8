@@ -16,6 +16,23 @@
       "message": "Because I didn\u0027t want to burden you further, and you didn\u0027t seem to want to \"rewrite all of log_services.hpp\" I\u0027ve updated this patchset with what I asked for to help you out.\n\nPlease review, and ensure that it does the refactor that you intended.  If it looks good to you, it can merge assuming nobody else has any comments.",
       "revId": "50d792b147b3fb3963ef31f014eabb3db86d99b8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad49e7ab_3374dc1e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1618,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-07T17:53:53Z",
+      "side": 1,
+      "message": "This is another lambda that looks prime for refactoring.",
+      "revId": "50d792b147b3fb3963ef31f014eabb3db86d99b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
