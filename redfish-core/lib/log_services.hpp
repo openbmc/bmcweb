@@ -1402,6 +1402,157 @@ static LogParseError
     return LogParseError::success;
 }
 
+inline void afterLogEntriesGetManagedObjects(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::ManagedObjectType& resp)
+{
+    if (ec)
+    {
+        // TODO Handle for specific error code
+        BMCWEB_LOG_ERROR("getLogEntriesIfaceData resp_handler got error {}",
+                         ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    nlohmann::json::array_t entriesArray;
+    for (const auto& objectPath : resp)
+    {
+        const uint32_t* id = nullptr;
+        const uint64_t* timestamp = nullptr;
+        const uint64_t* updateTimestamp = nullptr;
+        const std::string* severity = nullptr;
+        const std::string* message = nullptr;
+        const std::string* filePath = nullptr;
+        const std::string* resolution = nullptr;
+        bool resolved = false;
+        const std::string* notify = nullptr;
+
+        for (const auto& interfaceMap : objectPath.second)
+        {
+            if (interfaceMap.first == "xyz.openbmc_project.Logging.Entry")
+            {
+                for (const auto& propertyMap : interfaceMap.second)
+                {
+                    if (propertyMap.first == "Id")
+                    {
+                        id = std::get_if<uint32_t>(&propertyMap.second);
+                    }
+                    else if (propertyMap.first == "Timestamp")
+                    {
+                        timestamp = std::get_if<uint64_t>(&propertyMap.second);
+                    }
+                    else if (propertyMap.first == "UpdateTimestamp")
+                    {
+                        updateTimestamp =
+                            std::get_if<uint64_t>(&propertyMap.second);
+                    }
+                    else if (propertyMap.first == "Severity")
+                    {
+                        severity =
+                            std::get_if<std::string>(&propertyMap.second);
+                    }
+                    else if (propertyMap.first == "Resolution")
+                    {
+                        resolution =
+                            std::get_if<std::string>(&propertyMap.second);
+                    }
+                    else if (propertyMap.first == "Message")
+                    {
+                        message = std::get_if<std::string>(&propertyMap.second);
+                    }
+                    else if (propertyMap.first == "Resolved")
+                    {
+                        const bool* resolveptr =
+                            std::get_if<bool>(&propertyMap.second);
+                        if (resolveptr == nullptr)
+                        {
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        resolved = *resolveptr;
+                    }
+                    else if (propertyMap.first == "ServiceProviderNotify")
+                    {
+                        notify = std::get_if<std::string>(&propertyMap.second);
+                        if (notify == nullptr)
+                        {
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                    }
+                }
+                if (id == nullptr || message == nullptr || severity == nullptr)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+            }
+            else if (interfaceMap.first ==
+                     "xyz.openbmc_project.Common.FilePath")
+            {
+                for (const auto& propertyMap : interfaceMap.second)
+                {
+                    if (propertyMap.first == "Path")
+                    {
+                        filePath =
+                            std::get_if<std::string>(&propertyMap.second);
+                    }
+                }
+            }
+        }
+        // Object path without the
+        // xyz.openbmc_project.Logging.Entry interface, ignore
+        // and continue.
+        if (id == nullptr || message == nullptr || severity == nullptr ||
+            timestamp == nullptr || updateTimestamp == nullptr)
+        {
+            continue;
+        }
+        nlohmann::json& thisEntry = entriesArray.emplace_back();
+        thisEntry["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
+        thisEntry["@odata.id"] = boost::urls::format(
+            "/redfish/v1/Systems/{}/LogServices/EventLog/Entries/{}",
+            BMCWEB_REDFISH_SYSTEM_URI_NAME, std::to_string(*id));
+        thisEntry["Name"] = "System Event Log Entry";
+        thisEntry["Id"] = std::to_string(*id);
+        thisEntry["Message"] = *message;
+        thisEntry["Resolved"] = resolved;
+        if ((resolution != nullptr) && (!(*resolution).empty()))
+        {
+            thisEntry["Resolution"] = *resolution;
+        }
+        if (notify != nullptr)
+        {
+            std::optional<bool> notifyAction = getProviderNotifyAction(*notify);
+            if (notifyAction)
+            {
+                thisEntry["ServiceProviderNotified"] = *notifyAction;
+            }
+        }
+        thisEntry["EntryType"] = "Event";
+        thisEntry["Severity"] = translateSeverityDbusToRedfish(*severity);
+        thisEntry["Created"] =
+            redfish::time_utils::getDateTimeUintMs(*timestamp);
+        thisEntry["Modified"] =
+            redfish::time_utils::getDateTimeUintMs(*updateTimestamp);
+        if (filePath != nullptr)
+        {
+            thisEntry["AdditionalDataURI"] =
+                std::format(
+                    "/redfish/v1/Systems/{}/LogServices/EventLog/Entries/",
+                    BMCWEB_REDFISH_SYSTEM_URI_NAME) +
+                std::to_string(*id) + "/attachment";
+        }
+    }
+    std::ranges::sort(entriesArray, [](const nlohmann::json& left,
+                                       const nlohmann::json& right) {
+        return (left["Id"] <= right["Id"]);
+    });
+    asyncResp->res.jsonValue["Members@odata.count"] = entriesArray.size();
+    asyncResp->res.jsonValue["Members"] = std::move(entriesArray);
+}
+
 inline void handleSystemsLogServiceEventLogLogEntryCollection(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -1619,155 +1770,7 @@ inline void dBusEventLogEntryCollection(
         "xyz.openbmc_project.Logging", path,
         [asyncResp](const boost::system::error_code& ec,
                     const dbus::utility::ManagedObjectType& resp) {
-        if (ec)
-        {
-            // TODO Handle for specific error code
-            BMCWEB_LOG_ERROR("getLogEntriesIfaceData resp_handler got error {}",
-                             ec);
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        nlohmann::json::array_t entriesArray;
-        for (const auto& objectPath : resp)
-        {
-            const uint32_t* id = nullptr;
-            const uint64_t* timestamp = nullptr;
-            const uint64_t* updateTimestamp = nullptr;
-            const std::string* severity = nullptr;
-            const std::string* message = nullptr;
-            const std::string* filePath = nullptr;
-            const std::string* resolution = nullptr;
-            bool resolved = false;
-            const std::string* notify = nullptr;
-
-            for (const auto& interfaceMap : objectPath.second)
-            {
-                if (interfaceMap.first == "xyz.openbmc_project.Logging.Entry")
-                {
-                    for (const auto& propertyMap : interfaceMap.second)
-                    {
-                        if (propertyMap.first == "Id")
-                        {
-                            id = std::get_if<uint32_t>(&propertyMap.second);
-                        }
-                        else if (propertyMap.first == "Timestamp")
-                        {
-                            timestamp =
-                                std::get_if<uint64_t>(&propertyMap.second);
-                        }
-                        else if (propertyMap.first == "UpdateTimestamp")
-                        {
-                            updateTimestamp =
-                                std::get_if<uint64_t>(&propertyMap.second);
-                        }
-                        else if (propertyMap.first == "Severity")
-                        {
-                            severity =
-                                std::get_if<std::string>(&propertyMap.second);
-                        }
-                        else if (propertyMap.first == "Resolution")
-                        {
-                            resolution =
-                                std::get_if<std::string>(&propertyMap.second);
-                        }
-                        else if (propertyMap.first == "Message")
-                        {
-                            message =
-                                std::get_if<std::string>(&propertyMap.second);
-                        }
-                        else if (propertyMap.first == "Resolved")
-                        {
-                            const bool* resolveptr =
-                                std::get_if<bool>(&propertyMap.second);
-                            if (resolveptr == nullptr)
-                            {
-                                messages::internalError(asyncResp->res);
-                                return;
-                            }
-                            resolved = *resolveptr;
-                        }
-                        else if (propertyMap.first == "ServiceProviderNotify")
-                        {
-                            notify =
-                                std::get_if<std::string>(&propertyMap.second);
-                            if (notify == nullptr)
-                            {
-                                messages::internalError(asyncResp->res);
-                                return;
-                            }
-                        }
-                    }
-                    if (id == nullptr || message == nullptr ||
-                        severity == nullptr)
-                    {
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
-                }
-                else if (interfaceMap.first ==
-                         "xyz.openbmc_project.Common.FilePath")
-                {
-                    for (const auto& propertyMap : interfaceMap.second)
-                    {
-                        if (propertyMap.first == "Path")
-                        {
-                            filePath =
-                                std::get_if<std::string>(&propertyMap.second);
-                        }
-                    }
-                }
-            }
-            // Object path without the
-            // xyz.openbmc_project.Logging.Entry interface, ignore
-            // and continue.
-            if (id == nullptr || message == nullptr || severity == nullptr ||
-                timestamp == nullptr || updateTimestamp == nullptr)
-            {
-                continue;
-            }
-            nlohmann::json& thisEntry = entriesArray.emplace_back();
-            thisEntry["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
-            thisEntry["@odata.id"] = boost::urls::format(
-                "/redfish/v1/Systems/{}/LogServices/EventLog/Entries/{}",
-                BMCWEB_REDFISH_SYSTEM_URI_NAME, std::to_string(*id));
-            thisEntry["Name"] = "System Event Log Entry";
-            thisEntry["Id"] = std::to_string(*id);
-            thisEntry["Message"] = *message;
-            thisEntry["Resolved"] = resolved;
-            if ((resolution != nullptr) && (!(*resolution).empty()))
-            {
-                thisEntry["Resolution"] = *resolution;
-            }
-            if (notify != nullptr)
-            {
-                std::optional<bool> notifyAction =
-                    getProviderNotifyAction(*notify);
-                if (notifyAction)
-                {
-                    thisEntry["ServiceProviderNotified"] = *notifyAction;
-                }
-            }
-            thisEntry["EntryType"] = "Event";
-            thisEntry["Severity"] = translateSeverityDbusToRedfish(*severity);
-            thisEntry["Created"] =
-                redfish::time_utils::getDateTimeUintMs(*timestamp);
-            thisEntry["Modified"] =
-                redfish::time_utils::getDateTimeUintMs(*updateTimestamp);
-            if (filePath != nullptr)
-            {
-                thisEntry["AdditionalDataURI"] =
-                    std::format(
-                        "/redfish/v1/Systems/{}/LogServices/EventLog/Entries/",
-                        BMCWEB_REDFISH_SYSTEM_URI_NAME) +
-                    std::to_string(*id) + "/attachment";
-            }
-        }
-        std::ranges::sort(entriesArray, [](const nlohmann::json& left,
-                                           const nlohmann::json& right) {
-            return (left["Id"] <= right["Id"]);
-        });
-        asyncResp->res.jsonValue["Members@odata.count"] = entriesArray.size();
-        asyncResp->res.jsonValue["Members"] = std::move(entriesArray);
+        afterLogEntriesGetManagedObjects(asyncResp, ec, resp);
     });
 }
 
