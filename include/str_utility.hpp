@@ -1,7 +1,10 @@
 #pragma once
 
 #include <algorithm>
+#include <cctype>
+#include <cstdint>
 #include <ranges>
+#include <span>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -39,6 +42,30 @@ inline bool asciiIEquals(std::string_view left, std::string_view right)
     return std::ranges::equal(left, right, [](char lChar, char rChar) {
         return asciiToLower(lChar) == asciiToLower(rChar);
     });
+}
+
+/**
+ * Method returns ASCII string of a 64 bit number if ascii convertable
+ *
+ * @param[in] 64 bit value
+ *
+ * @return ascii converted string
+ */
+
+inline std::string convertToAscii(const uint64_t& element)
+{
+    uint64_t tmpelement = element;
+    uint8_t* p = static_cast<uint8_t*>(static_cast<void*>(&tmpelement));
+    std::span<unsigned char> bytearray{p, 8};
+
+    if (std::count_if(bytearray.begin(), bytearray.end(), [](unsigned char c) {
+        return (std::isprint(c) == 0);
+    }) != 0)
+    {
+        return {};
+    }
+
+    return {std::string(bytearray.begin(), bytearray.end())};
 }
 
 } // namespace bmcweb

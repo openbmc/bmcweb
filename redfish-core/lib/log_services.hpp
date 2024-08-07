@@ -5178,7 +5178,7 @@ static bool fillPostCodeEntry(
 {
     // Get the Message from the MessageRegistry
     const registries::Message* message =
-        registries::getMessage("OpenBMC.0.2.BIOSPOSTCode");
+        registries::getMessage("OpenBMC.0.6.BIOSPOSTCodeASCII");
     if (message == nullptr)
     {
         BMCWEB_LOG_ERROR("Couldn't find known message?");
@@ -5235,6 +5235,8 @@ static bool fillPostCodeEntry(
         std::ostringstream hexCode;
         hexCode << "0x" << std::setfill('0') << std::setw(2) << std::hex
                 << std::get<0>(code.second);
+        std::string stringCode =
+            bmcweb::convertToAscii(std::get<uint64_t>(code.second));
         std::ostringstream timeOffsetStr;
         // Set Fixed -Point Notation
         timeOffsetStr << std::fixed;
@@ -5247,8 +5249,8 @@ static bool fillPostCodeEntry(
         std::string timeOffsetString = timeOffsetStr.str();
         std::string hexCodeStr = hexCode.str();
 
-        std::array<std::string_view, 3> messageArgs = {
-            bootIndexStr, timeOffsetString, hexCodeStr};
+        std::array<std::string_view, 4> messageArgs = {
+            bootIndexStr, timeOffsetString, hexCodeStr, stringCode};
 
         std::string msg =
             redfish::registries::fillMessageArgs(messageArgs, message->message);
@@ -5274,7 +5276,7 @@ static bool fillPostCodeEntry(
         bmcLogEntry["Name"] = "POST Code Log Entry";
         bmcLogEntry["Id"] = postcodeEntryID;
         bmcLogEntry["Message"] = std::move(msg);
-        bmcLogEntry["MessageId"] = "OpenBMC.0.2.BIOSPOSTCode";
+        bmcLogEntry["MessageId"] = "OpenBMC.0.6.BIOSPOSTCodeASCII";
         bmcLogEntry["MessageArgs"] = messageArgs;
         bmcLogEntry["EntryType"] = "Event";
         bmcLogEntry["Severity"] = std::move(severity);
@@ -5667,7 +5669,7 @@ static LogParseError
 
     std::string logEntryID;
     std::string entryTimeStr;
-    const std::string& messageID = "OpenBMC.0.5.AuditLogUsysConfig";
+    const std::string& messageID = "OpenBMC.0.6.AuditLogUsysConfig";
     nlohmann::json messageArgs = nlohmann::json::array();
     std::map<std::string, uint>::const_iterator mapEntry;
     const std::map<std::string, uint> msgArgMap({{"Type", 0},

@@ -164,6 +164,15 @@
             "Resolution": "None.",
             "Severity": "OK"
         },
+        "BIOSPOSTCodeASCII": {
+            "Description": "BIOS Power-On Self-Test Code received",
+            "Message": "Boot Count: %1; Time Stamp Offset: %2 seconds; POSTCode: %3; POST Code in ASCII: %4",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 4,
+            "ParamTypes": ["number", "number", "number", "string"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
         "BIOSPOSTError": {
             "Description": "Indicates BIOS POST has encountered an error.",
             "Message": "BIOS POST Error. Error Code=%1",
@@ -1701,5 +1710,5 @@
     "Name": "OpenBMC Message Registry",
     "OwningEntity": "OpenBMC",
     "RegistryPrefix": "OpenBMC",
-    "RegistryVersion": "0.5.0"
+    "RegistryVersion": "0.6.0"
 }

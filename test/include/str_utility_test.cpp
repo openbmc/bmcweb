@@ -74,4 +74,22 @@ TEST(AsciiIEquals, Positive)
     EXPECT_FALSE(asciiIEquals("bar", "foo"));
 }
 
+TEST(Utility, convertToAsciiGoodTestCase)
+{
+    using bmcweb::convertToAscii;
+    std::string stringCode = convertToAscii(0x205942444e415453);
+    EXPECT_EQ("STANDBY ", stringCode);
+    stringCode = convertToAscii(0x3030463130303143);
+    EXPECT_EQ("C1001F00", stringCode);
+}
+
+TEST(Utility, convertToAsciiBadTestCase)
+{
+    using bmcweb::convertToAscii;
+    std::string stringCode = convertToAscii(0xFFFFFFFFFFFFFFFF);
+    EXPECT_EQ("", stringCode);
+    stringCode = convertToAscii(0xD7D7D7D7D7D7D7D7);
+    EXPECT_EQ("", stringCode);
+}
+
 } // namespace
