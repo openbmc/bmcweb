@@ -977,6 +977,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "326e6428_2539b1c1",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-07T16:16:11Z",
+      "side": 1,
+      "message": "Reopening, as there are still instances of this present in the current patchset.",
+      "parentUuid": "81c2bb7b_017b9f66",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 63
+      },
+      "revId": "a37124ea676e11759544bb742ec52108629884a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "45ec2b5e_f003bcdc",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 3

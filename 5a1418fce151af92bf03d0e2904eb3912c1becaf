@@ -20,6 +20,109 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f0ce0c39_f1029f88",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-07T16:16:11Z",
+      "side": 1,
+      "message": "Partial review as last round of comments seem to have just been marked done without actually having been done or understood.\n\nIn the future, lets have a short sentence response on what you did to update the patch in the response to the comments rather than just marking \"done\".  I think that\u0027ll help us communicate better.\n\n\n\nIn addition, lets break this patchset down to JUST the ComputerSystemCollection changes, so we can do this incrementally over time, rather than trying to get the whole power reset case handled in one patch.\n\nWould also like to see IBM review to see if this would work for their hypervisor use cases, so we can clean up that code.  @Asmitha, @Andrew,is that something you can do or find someone with knowledge of how the IBM hypervisor stuff works?",
+      "revId": "5a1418fce151af92bf03d0e2904eb3912c1becaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a36a0054_0a80f892",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-07T16:16:11Z",
+      "side": 1,
+      "message": "Please don\u0027t capture request objects by value.  They make VERY large copies.  Parse out the information you need in the first callback for a given flow.\n\nFYI, we\u0027re trying to make this pitfall more obvious here:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/71547\n\nUnder the hope that we can catch this earlier.",
+      "range": {
+        "startLine": 52,
+        "startChar": 12,
+        "endLine": 52,
+        "endChar": 13
+      },
+      "revId": "5a1418fce151af92bf03d0e2904eb3912c1becaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "546bd6e2_6244dc58",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-07T16:16:11Z",
+      "side": 1,
+      "message": "std::move.",
+      "range": {
+        "startLine": 53,
+        "startChar": 9,
+        "endLine": 53,
+        "endChar": 17
+      },
+      "revId": "5a1418fce151af92bf03d0e2904eb3912c1becaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e6a452f_aa6d0fc9",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-07T16:16:11Z",
+      "side": 1,
+      "message": "mutable",
+      "revId": "5a1418fce151af92bf03d0e2904eb3912c1becaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "570a3d01_1e7a8faa",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-07T16:16:11Z",
+      "side": 1,
+      "message": "Instance of common error #12 https://gerrit.openbmc.org/c/openbmc/bmcweb/+/71547",
+      "range": {
+        "startLine": 91,
+        "startChar": 17,
+        "endLine": 91,
+        "endChar": 21
+      },
+      "revId": "5a1418fce151af92bf03d0e2904eb3912c1becaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "abacedba_97550dbf",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 5
@@ -117,6 +220,23 @@
         "endLine": 3170,
         "endChar": 21
       },
+      "revId": "5a1418fce151af92bf03d0e2904eb3912c1becaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9eefff6_64c794c6",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 3372,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-07T16:16:11Z",
+      "side": 1,
+      "message": "I don\u0027t see a return statement here, which would cause both handlers to run, and provide overlapping data.  Did this not show in the testing?",
       "revId": "5a1418fce151af92bf03d0e2904eb3912c1becaf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
