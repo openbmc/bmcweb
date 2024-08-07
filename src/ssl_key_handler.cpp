@@ -471,9 +471,10 @@ static int alpnSelectProtoCallback(
     return SSL_TLSEXT_ERR_OK;
 }
 
-static bool getSslContext(boost::asio::ssl::context& mSslContext,
-                          const std::string& sslPemFile)
+static std::optional<boost::asio::ssl::context> getSslContext(
+    boost::asio::ssl::context::method mode, const std::string& sslPemFile)
 {
+    boost::asio::ssl::context mSslContext(mode);
     mSslContext.set_options(
         boost::asio::ssl::context::default_workarounds |
         boost::asio::ssl::context::no_sslv2 |
@@ -493,13 +494,13 @@ static bool getSslContext(boost::asio::ssl::context& mSslContext,
         mSslContext.use_certificate(buf, boost::asio::ssl::context::pem, ec);
         if (ec)
         {
-            return false;
+            return std::nullopt;
         }
         mSslContext.use_private_key(buf, boost::asio::ssl::context::pem, ec);
         if (ec)
         {
             BMCWEB_LOG_CRITICAL("Failed to open ssl pkey");
-            return false;
+            return std::nullopt;
         }
     }
 
@@ -514,17 +515,18 @@ static bool getSslContext(boost::asio::ssl::context& mSslContext,
                                 mozillaIntermediate) != 1)
     {
         BMCWEB_LOG_ERROR("Error setting cipher list");
-        return false;
+        return std::nullopt;
     }
-    return true;
+    return {std::move(mSslContext)};
 }
 
 std::shared_ptr<boost::asio::ssl::context> getSslServerContext()
 {
-    boost::asio::ssl::context sslCtx(boost::asio::ssl::context::tls_server);
-
     auto certFile = ensureCertificate();
-    if (!getSslContext(sslCtx, certFile))
+    std::optional<boost::asio::ssl::context> sslCtx =
+        getSslContext(boost::asio::ssl::context::tls_server, certFile);
+
+    if (!sslCtx)
     {
         BMCWEB_LOG_CRITICAL("Couldn't get server context");
         return nullptr;
@@ -540,24 +542,24 @@ std::shared_ptr<boost::asio::ssl::context> getSslServerContext()
     }
 
     boost::system::error_code ec;
-    sslCtx.set_verify_mode(mode, ec);
+    sslCtx->set_verify_mode(mode, ec);
     if (ec)
     {
         BMCWEB_LOG_DEBUG("Failed to set verify mode {}", ec.message());
         return nullptr;
     }
-    SSL_CTX_set_options(sslCtx.native_handle(), SSL_OP_NO_RENEGOTIATION);
+    SSL_CTX_set_options(sslCtx->native_handle(), SSL_OP_NO_RENEGOTIATION);
 
     if constexpr (BMCWEB_EXPERIMENTAL_HTTP2)
     {
-        SSL_CTX_set_next_protos_advertised_cb(sslCtx.native_handle(),
+        SSL_CTX_set_next_protos_advertised_cb(sslCtx->native_handle(),
                                               nextProtoCallback, nullptr);
 
-        SSL_CTX_set_alpn_select_cb(sslCtx.native_handle(),
+        SSL_CTX_set_alpn_select_cb(sslCtx->native_handle(),
                                    alpnSelectProtoCallback, nullptr);
     }
 
-    return std::make_shared<boost::asio::ssl::context>(std::move(sslCtx));
+    return std::make_shared<boost::asio::ssl::context>(std::move(*sslCtx));
 }
 
 std::optional<boost::asio::ssl::context>
@@ -565,14 +567,15 @@ std::optional<boost::asio::ssl::context>
 {
     namespace fs = std::filesystem;
 
-    boost::asio::ssl::context sslCtx(boost::asio::ssl::context::tls_client);
-
     // NOTE, this path is temporary;  In the future it will need to change to
     // be set per subscription.  Do not rely on this.
     fs::path certPath = "/etc/ssl/certs/https/client.pem";
     std::string cert = verifyOpensslKeyCert(certPath);
 
-    if (!getSslContext(sslCtx, cert))
+    std::optional<boost::asio::ssl::context> sslCtx =
+        getSslContext(boost::asio::ssl::context::tls_server, cert);
+
+    if (!sslCtx)
     {
         return std::nullopt;
     }
@@ -580,7 +583,7 @@ std::optional<boost::asio::ssl::context>
     // Add a directory containing certificate authority files to be used
     // for performing verification.
     boost::system::error_code ec;
-    sslCtx.set_default_verify_paths(ec);
+    sslCtx->set_default_verify_paths(ec);
     if (ec)
     {
         BMCWEB_LOG_ERROR("SSL context set_default_verify failed");
@@ -594,21 +597,21 @@ std::optional<boost::asio::ssl::context>
     }
 
     // Verify the remote server's certificate
-    sslCtx.set_verify_mode(mode, ec);
+    sslCtx->set_verify_mode(mode, ec);
     if (ec)
     {
         BMCWEB_LOG_ERROR("SSL context set_verify_mode failed");
         return std::nullopt;
     }
 
-    if (SSL_CTX_set_cipher_list(sslCtx.native_handle(), mozillaIntermediate) !=
+    if (SSL_CTX_set_cipher_list(sslCtx->native_handle(), mozillaIntermediate) !=
         1)
     {
         BMCWEB_LOG_ERROR("SSL_CTX_set_cipher_list failed");
         return std::nullopt;
     }
 
-    return {std::move(sslCtx)};
+    return sslCtx;
 }
 
 } // namespace ensuressl
