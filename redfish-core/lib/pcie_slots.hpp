@@ -62,11 +62,10 @@ inline void afterAddLinkedFabricAdapter(
     nlohmann::json& fabricArray = linkOemIbm["UpstreamFabricAdapters"];
     for (const auto& fabricAdapterPath : fabricAdapterPaths)
     {
-        std::string fabricAdapterName =
-            sdbusplus::message::object_path(fabricAdapterPath).filename();
         nlohmann::json::object_t item;
         item["@odata.id"] = boost::urls::format(
-            "/redfish/v1/Systems/system/FabricAdapters/{}", fabricAdapterName);
+            "/redfish/v1/Systems/system/FabricAdapters/{}",
+            fabric_util::buildFabricUniquePath(fabricAdapterPath));
         fabricArray.emplace_back(std::move(item));
     }
     linkOemIbm["UpstreamFabricAdapters@odata.count"] = fabricArray.size();
