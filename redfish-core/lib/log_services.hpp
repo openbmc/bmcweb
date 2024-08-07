@@ -1402,8 +1402,72 @@ static LogParseError
     return LogParseError::success;
 }
 
-// returns entry count on success
-// returns std::nullopt on error
+inline void fillEventLogLogEntryFromPropertyMap(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const dbus::utility::DBusPropertiesMap& resp,
+    nlohmann::json& objectToFillOut)
+{
+    uint32_t id = 0;
+    uint64_t timestamp = 0;
+    uint64_t updateTimestamp = 0;
+    std::string severity;
+    std::string message;
+    const std::string* filePath;
+    const std::string* resolution;
+    bool resolved = false;
+    std::string notify;
+    // clang-format off
+    bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), resp,
+        "Id", id,
+        "Message", message,
+        "Path", filePath,
+        "Resolution", resolution,
+        "Resolved", resolved,
+        "ServiceProviderNotify", notify,
+        "Severity", severity,
+        "Timestamp", timestamp,
+        "UpdateTimestamp", updateTimestamp
+    );
+    // clang-format on
+
+    if (!success)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    objectToFillOut["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
+    objectToFillOut["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Systems/{}/LogServices/EventLog/Entries/{}",
+        BMCWEB_REDFISH_SYSTEM_URI_NAME, std::to_string(id));
+    objectToFillOut["Name"] = "System Event Log Entry";
+    objectToFillOut["Id"] = std::to_string(id);
+    objectToFillOut["Message"] = message;
+    objectToFillOut["Resolved"] = resolved;
+    std::optional<bool> notifyAction = getProviderNotifyAction(notify);
+    if (notifyAction)
+    {
+        objectToFillOut["ServiceProviderNotified"] = *notifyAction;
+    }
+    if ((resolution != nullptr) && !resolution->empty())
+    {
+        objectToFillOut["Resolution"] = *resolution;
+    }
+    objectToFillOut["EntryType"] = "Event";
+    objectToFillOut["Severity"] = translateSeverityDbusToRedfish(severity);
+    objectToFillOut["Created"] =
+        redfish::time_utils::getDateTimeUintMs(timestamp);
+    objectToFillOut["Modified"] =
+        redfish::time_utils::getDateTimeUintMs(updateTimestamp);
+    if (filePath != nullptr)
+    {
+        objectToFillOut["AdditionalDataURI"] = boost::urls::format(
+            "/redfish/v1/Systems/{}/LogServices/EventLog/Entries/{}/attachment",
+            BMCWEB_REDFISH_SYSTEM_URI_NAME, std::to_string(id));
+    }
+}
+
 inline void afterLogEntriesGetManagedObjects(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const boost::system::error_code& ec,
@@ -1420,132 +1484,19 @@ inline void afterLogEntriesGetManagedObjects(
     nlohmann::json::array_t entriesArray;
     for (const auto& objectPath : resp)
     {
-        const uint32_t* id = nullptr;
-        const uint64_t* timestamp = nullptr;
-        const uint64_t* updateTimestamp = nullptr;
-        const std::string* severity = nullptr;
-        const std::string* message = nullptr;
-        const std::string* filePath = nullptr;
-        const std::string* resolution = nullptr;
-        bool resolved = false;
-        const std::string* notify = nullptr;
-
+        dbus::utility::DBusPropertiesMap propsFlattened;
         for (const auto& interfaceMap : objectPath.second)
         {
-            if (interfaceMap.first == "xyz.openbmc_project.Logging.Entry")
+            for (const auto& propertyMap : interfaceMap.second)
             {
-                for (const auto& propertyMap : interfaceMap.second)
-                {
-                    if (propertyMap.first == "Id")
-                    {
-                        id = std::get_if<uint32_t>(&propertyMap.second);
-                    }
-                    else if (propertyMap.first == "Timestamp")
-                    {
-                        timestamp = std::get_if<uint64_t>(&propertyMap.second);
-                    }
-                    else if (propertyMap.first == "UpdateTimestamp")
-                    {
-                        updateTimestamp =
-                            std::get_if<uint64_t>(&propertyMap.second);
-                    }
-                    else if (propertyMap.first == "Severity")
-                    {
-                        severity =
-                            std::get_if<std::string>(&propertyMap.second);
-                    }
-                    else if (propertyMap.first == "Resolution")
-                    {
-                        resolution =
-                            std::get_if<std::string>(&propertyMap.second);
-                    }
-                    else if (propertyMap.first == "Message")
-                    {
-                        message = std::get_if<std::string>(&propertyMap.second);
-                    }
-                    else if (propertyMap.first == "Resolved")
-                    {
-                        const bool* resolveptr =
-                            std::get_if<bool>(&propertyMap.second);
-                        if (resolveptr == nullptr)
-                        {
-                            messages::internalError(asyncResp->res);
-                            return;
-                        }
-                        resolved = *resolveptr;
-                    }
-                    else if (propertyMap.first == "ServiceProviderNotify")
-                    {
-                        notify = std::get_if<std::string>(&propertyMap.second);
-                        if (notify == nullptr)
-                        {
-                            messages::internalError(asyncResp->res);
-                            return;
-                        }
-                    }
-                }
-                if (id == nullptr || message == nullptr || severity == nullptr)
-                {
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-            }
-            else if (interfaceMap.first ==
-                     "xyz.openbmc_project.Common.FilePath")
-            {
-                for (const auto& propertyMap : interfaceMap.second)
-                {
-                    if (propertyMap.first == "Path")
-                    {
-                        filePath =
-                            std::get_if<std::string>(&propertyMap.second);
-                    }
-                }
+                propsFlattened.emplace_back(propertyMap.first,
+                                            propertyMap.second);
             }
         }
-        // Object path without the
-        // xyz.openbmc_project.Logging.Entry interface, ignore
-        // and continue.
-        if (id == nullptr || message == nullptr || severity == nullptr ||
-            timestamp == nullptr || updateTimestamp == nullptr)
-        {
-            continue;
-        }
-        nlohmann::json& thisEntry = entriesArray.emplace_back();
-        thisEntry["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
-        thisEntry["@odata.id"] = boost::urls::format(
-            "/redfish/v1/Systems/{}/LogServices/EventLog/Entries/{}",
-            BMCWEB_REDFISH_SYSTEM_URI_NAME, std::to_string(*id));
-        thisEntry["Name"] = "System Event Log Entry";
-        thisEntry["Id"] = std::to_string(*id);
-        thisEntry["Message"] = *message;
-        thisEntry["Resolved"] = resolved;
-        if ((resolution != nullptr) && (!(*resolution).empty()))
-        {
-            thisEntry["Resolution"] = *resolution;
-        }
-        if (notify != nullptr){
-            std::optional<bool> notifyAction = getProviderNotifyAction(*notify);
-            if (notifyAction)
-            {
-                thisEntry["ServiceProviderNotified"] = *notifyAction;
-            }
-        }
-        thisEntry["EntryType"] = "Event";
-        thisEntry["Severity"] = translateSeverityDbusToRedfish(*severity);
-        thisEntry["Created"] =
-            redfish::time_utils::getDateTimeUintMs(*timestamp);
-        thisEntry["Modified"] =
-            redfish::time_utils::getDateTimeUintMs(*updateTimestamp);
-        if (filePath != nullptr)
-        {
-            thisEntry["AdditionalDataURI"] =
-                std::format(
-                    "/redfish/v1/Systems/{}/LogServices/EventLog/Entries/",
-                    BMCWEB_REDFISH_SYSTEM_URI_NAME) +
-                std::to_string(*id) + "/attachment";
-        }
+        fillEventLogLogEntryFromPropertyMap(asyncResp, propsFlattened,
+                                            entriesArray.emplace_back());
     }
+
     std::ranges::sort(entriesArray, [](const nlohmann::json& left,
                                        const nlohmann::json& right) {
         return (left["Id"] <= right["Id"]);
@@ -1806,7 +1757,7 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
 
 inline void
     dBusEventLogEntryGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                         std::string& entryID)
+                         std::string entryID)
 {
     dbus::utility::escapePathForDbus(entryID);
 
@@ -1830,68 +1781,9 @@ inline void
             messages::internalError(asyncResp->res);
             return;
         }
-        const uint32_t* id = nullptr;
-        const uint64_t* timestamp = nullptr;
-        const uint64_t* updateTimestamp = nullptr;
-        const std::string* severity = nullptr;
-        const std::string* message = nullptr;
-        const std::string* filePath = nullptr;
-        const std::string* resolution = nullptr;
-        bool resolved = false;
-        const std::string* notify = nullptr;
 
-        const bool success = sdbusplus::unpackPropertiesNoThrow(
-            dbus_utils::UnpackErrorPrinter(), resp, "Id", id, "Timestamp",
-            timestamp, "UpdateTimestamp", updateTimestamp, "Severity", severity,
-            "Message", message, "Resolved", resolved, "Resolution", resolution,
-            "Path", filePath, "ServiceProviderNotify", notify);
-
-        if (!success)
-        {
-            messages::internalError(asyncResp->res);
-            return;
-        }
-
-        if (id == nullptr || message == nullptr || severity == nullptr ||
-            timestamp == nullptr || updateTimestamp == nullptr ||
-            notify == nullptr)
-        {
-            messages::internalError(asyncResp->res);
-            return;
-        }
-
-        asyncResp->res.jsonValue["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
-        asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
-            "/redfish/v1/Systems/{}/LogServices/EventLog/Entries/{}",
-            BMCWEB_REDFISH_SYSTEM_URI_NAME, std::to_string(*id));
-        asyncResp->res.jsonValue["Name"] = "System Event Log Entry";
-        asyncResp->res.jsonValue["Id"] = std::to_string(*id);
-        asyncResp->res.jsonValue["Message"] = *message;
-        asyncResp->res.jsonValue["Resolved"] = resolved;
-        std::optional<bool> notifyAction = getProviderNotifyAction(*notify);
-        if (notifyAction)
-        {
-            asyncResp->res.jsonValue["ServiceProviderNotified"] = *notifyAction;
-        }
-        if ((resolution != nullptr) && (!(*resolution).empty()))
-        {
-            asyncResp->res.jsonValue["Resolution"] = *resolution;
-        }
-        asyncResp->res.jsonValue["EntryType"] = "Event";
-        asyncResp->res.jsonValue["Severity"] =
-            translateSeverityDbusToRedfish(*severity);
-        asyncResp->res.jsonValue["Created"] =
-            redfish::time_utils::getDateTimeUintMs(*timestamp);
-        asyncResp->res.jsonValue["Modified"] =
-            redfish::time_utils::getDateTimeUintMs(*updateTimestamp);
-        if (filePath != nullptr)
-        {
-            asyncResp->res.jsonValue["AdditionalDataURI"] =
-                std::format(
-                    "/redfish/v1/Systems/{}/LogServices/EventLog/Entries/",
-                    BMCWEB_REDFISH_SYSTEM_URI_NAME) +
-                std::to_string(*id) + "/attachment";
-        }
+        fillEventLogLogEntryFromPropertyMap(asyncResp, resp,
+                                            asyncResp->res.jsonValue);
     });
 }
 
@@ -1959,7 +1851,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& systemName, const std::string& param) {
+                   const std::string& systemName, const std::string& entryId) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -1978,9 +1870,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
             return;
         }
 
-        std::string entryID = param;
-
-        dBusEventLogEntryGet(asyncResp, entryID);
+        dBusEventLogEntryGet(asyncResp, entryId);
     });
 
     BMCWEB_ROUTE(
