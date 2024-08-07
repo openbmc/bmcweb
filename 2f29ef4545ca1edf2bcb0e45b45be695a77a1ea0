@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c958801d_7e760dd6",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-07T17:10:41Z",
+      "side": 1,
+      "message": "Did you test the subscribe capability when rsyslog isn\u0027t present?  I suspect this path is incorrect now after your change.",
+      "revId": "2f29ef4545ca1edf2bcb0e45b45be695a77a1ea0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ee9bfad_7f1c6ef4",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 899,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-07T17:10:41Z",
+      "side": 1,
+      "message": "Same as above.",
+      "range": {
+        "startLine": 899,
+        "startChar": 12,
+        "endLine": 899,
+        "endChar": 31
+      },
+      "revId": "2f29ef4545ca1edf2bcb0e45b45be695a77a1ea0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60988cd6_8dbeb293",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1711,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-07T17:10:41Z",
+      "side": 1,
+      "message": "Why is this being passed in as an arg if it\u0027s not connected to anything?  This loos like just a stack variable?",
+      "range": {
+        "startLine": 1710,
+        "startChar": 0,
+        "endLine": 1711,
+        "endChar": 44
+      },
+      "revId": "2f29ef4545ca1edf2bcb0e45b45be695a77a1ea0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef7a1f1f_0739089e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1734,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-07T17:10:41Z",
+      "side": 1,
+      "message": "This doesn\u0027t look correct.  Only the",
+      "range": {
+        "startLine": 1733,
+        "startChar": 7,
+        "endLine": 1734,
+        "endChar": 27
+      },
+      "revId": "2f29ef4545ca1edf2bcb0e45b45be695a77a1ea0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

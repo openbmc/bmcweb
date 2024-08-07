@@ -46,6 +46,30 @@
       },
       "revId": "6d0b80be1b79122de60ade0b80460510696954e0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efc51380_e0ecce93",
+        "filename": "redfish-core/src/redfish.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-07T17:10:41Z",
+      "side": 0,
+      "message": "\u003e The idea was to register a handler for the route instead of the implementation.\n\nThat seems like something that needs stated in the commit message, and ideally put in its own patchset so it\u0027s more obvious that\u0027s what we\u0027re doing.  I guess it\u0027s fine as-is, but we need at least some indication that this is being done and why in the commit message.",
+      "parentUuid": "25a6a4ab_36d4296d",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 141,
+        "endChar": 47
+      },
+      "revId": "6d0b80be1b79122de60ade0b80460510696954e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

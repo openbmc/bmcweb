@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a7837cfc_691312ca",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-07T17:10:41Z",
+      "side": 1,
+      "message": "Please answer my question nonetheless.  if you found this capability doesn\u0027t exist, feel free to say so.",
+      "parentUuid": "8a8f3c57_0328cf62",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 67
+      },
+      "revId": "4b49c9c6b240c9a6db0beef5132cba0cc60489eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0bce19f7_aeab0e31",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -79,6 +103,24 @@
       "side": 1,
       "message": "The user should have log entries from both sources with the newest revision.",
       "parentUuid": "0bce19f7_aeab0e31",
+      "revId": "4b49c9c6b240c9a6db0beef5132cba0cc60489eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a141e8f_0e1e790c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-07T17:10:41Z",
+      "side": 1,
+      "message": "\u003e What\u0027s changing? How is the behavior changed for the user?\n\nthese questions do not appear to be answered in the commit message in the latest version, so reopening.",
+      "parentUuid": "d88c5739_71d82ba4",
       "revId": "4b49c9c6b240c9a6db0beef5132cba0cc60489eb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -132,6 +174,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9b16995a_c8960c19",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-07T17:10:41Z",
+      "side": 1,
+      "message": "Need more details in the commit message;  What URIs did you test?  How did you verify they were correct?  How did you verify they matched the previous?",
+      "parentUuid": "3c66caec_5c12906a",
+      "range": {
+        "startLine": 13,
+        "startChar": 41,
+        "endLine": 13,
+        "endChar": 49
+      },
+      "revId": "4b49c9c6b240c9a6db0beef5132cba0cc60489eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d370630e_915c9972",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -161,6 +227,24 @@
       "side": 1,
       "message": "Yes, this is the eternal problem with bmcweb.\nEverything inline and huge diffs.\n\nI can try to split the patch.",
       "parentUuid": "d370630e_915c9972",
+      "revId": "4b49c9c6b240c9a6db0beef5132cba0cc60489eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35e4e75f_14660005",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-07T17:10:41Z",
+      "side": 1,
+      "message": "Thank you.",
+      "parentUuid": "faac1ceb_98de1f83",
       "revId": "4b49c9c6b240c9a6db0beef5132cba0cc60489eb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
