@@ -134,12 +134,10 @@ RedfishService::RedfishService(App& app)
         requestRoutesFaultLogDumpClear(app);
     }
 
-    if constexpr (!BMCWEB_REDFISH_DBUS_LOG)
-    {
-        requestRoutesJournalEventLogEntryCollection(app);
-        requestRoutesJournalEventLogEntry(app);
-        requestRoutesJournalEventLogClear(app);
-    }
+    requestRoutesEventLogClear(app);
+    requestRoutesEventLogEntryCollection(app);
+    requestRoutesEventLogEntry(app);
+    requestRoutesEventLogEntryDownload(app);
 
     requestRoutesBMCLogServiceCollection(app);
 
@@ -173,14 +171,6 @@ RedfishService::RedfishService(App& app)
     if constexpr (BMCWEB_VM_NBDPROXY)
     {
         requestNBDVirtualMediaRoutes(app);
-    }
-
-    if constexpr (BMCWEB_REDFISH_DBUS_LOG)
-    {
-        requestRoutesDBusLogServiceActionsClear(app);
-        requestRoutesDBusEventLogEntryCollection(app);
-        requestRoutesDBusEventLogEntry(app);
-        requestRoutesDBusEventLogEntryDownload(app);
     }
 
     if constexpr (BMCWEB_REDFISH_HOST_LOGGER)

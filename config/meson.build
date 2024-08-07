@@ -24,7 +24,6 @@ feature_options = [
     'redfish-allow-deprecated-power-thermal',
     'redfish-bmc-journal',
     'redfish-cpu-log',
-    'redfish-dbus-log',
     'redfish-dump-log',
     'redfish-host-logger',
     'redfish-new-powersubsystem-thermalsubsystem',

@@ -640,10 +640,7 @@ class EventServiceManager
 
             updateNoOfSubscribersCount();
 
-            if constexpr (!BMCWEB_REDFISH_DBUS_LOG)
-            {
-                cacheRedfishLogFile();
-            }
+            cacheRedfishLogFile();
 
             // Update retry configuration.
             subValue->updateRetryConfig(retryAttempts, retryTimeoutInterval);
@@ -897,12 +894,9 @@ class EventServiceManager
 
         updateNoOfSubscribersCount();
 
-        if constexpr (!BMCWEB_REDFISH_DBUS_LOG)
+        if (redfishLogFilePosition != 0)
         {
-            if (redfishLogFilePosition != 0)
-            {
-                cacheRedfishLogFile();
-            }
+            cacheRedfishLogFile();
         }
         // Update retry configuration.
         subValue->updateRetryConfig(retryAttempts, retryTimeoutInterval);
