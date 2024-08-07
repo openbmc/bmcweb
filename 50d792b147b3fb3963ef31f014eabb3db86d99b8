@@ -38,6 +38,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "cd21bdea_e6417df5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-07T18:56:00Z",
+      "side": 1,
+      "message": "Sounds good.  Let me know if you need any questions answered.",
+      "parentUuid": "fa5eb578_1084f701",
+      "revId": "50d792b147b3fb3963ef31f014eabb3db86d99b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "ad49e7ab_3374dc1e",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
