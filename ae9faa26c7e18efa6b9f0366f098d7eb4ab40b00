@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d2db7a9d_4bcf2873",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-07T16:18:35Z",
+      "side": 1,
+      "message": "Right, but I would like them to follow the conventions we\u0027ve been using elsewhere, rather than leaving the inline lambda, which we know causes issues.",
+      "parentUuid": "3acda76a_9dc26846",
+      "revId": "ae9faa26c7e18efa6b9f0366f098d7eb4ab40b00",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f739aba0_17fb6e24",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 1
@@ -120,6 +138,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e234c078_36199532",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3525,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-07T16:18:35Z",
+      "side": 1,
+      "message": "I didn\u0027t ask you to rewrite all of log_services.hpp, I asked you to follow the convention of having a complete callback in the BMCWEB_ROUTE handler.",
+      "parentUuid": "512db1a6_31504863",
+      "range": {
+        "startLine": 3506,
+        "startChar": 0,
+        "endLine": 3525,
+        "endChar": 9
+      },
+      "revId": "ae9faa26c7e18efa6b9f0366f098d7eb4ab40b00",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1014e99d_f55438da",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 1
@@ -149,6 +191,24 @@
       "side": 1,
       "message": "The function is not handling the request on its own, the request handler is declared inline.\nThe function is a helper function.\nSo we need not derive the name from the URI.",
       "parentUuid": "1014e99d_f55438da",
+      "revId": "ae9faa26c7e18efa6b9f0366f098d7eb4ab40b00",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee7a6857_b44ce5d9",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3526,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-07T16:18:35Z",
+      "side": 1,
+      "message": "That doesn\u0027t change my point.  The name is ambiguous.",
+      "parentUuid": "f38bb227_0514bc9e",
       "revId": "ae9faa26c7e18efa6b9f0366f098d7eb4ab40b00",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
