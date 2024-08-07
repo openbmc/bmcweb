@@ -1,0 +1,147 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89bfecba_8c3e2100",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-07T16:06:08Z",
+      "side": 1,
+      "message": "Can we break this patchset down to JUST the changes to make ComputerSystemCollection work for the moment?  I think that will give the best result, so we can get agreement on what the general interfaces are before we start porting things.",
+      "revId": "5a1418fce151af92bf03d0e2904eb3912c1becaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abacedba_97550dbf",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2975,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-07T16:06:08Z",
+      "side": 1,
+      "message": "Please don\u0027t make whitespace changes that are unrelated to your logic change.  They make this patchset hard to review.  There are multiple, I will let you find them clean them up rather than marking all of them.",
+      "range": {
+        "startLine": 2973,
+        "startChar": 5,
+        "endLine": 2975,
+        "endChar": 80
+      },
+      "revId": "5a1418fce151af92bf03d0e2904eb3912c1becaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08653d16_43d76ea2",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2983,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-07T16:06:08Z",
+      "side": 1,
+      "message": "BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM is not the same as BMCWEB_REDFISH_SYSTEM_URI_NAME.empty().  They are different parameters for different purposes.  Just leaving the System URI empty does not explicitly enable multi host, and as written, can lead to systems that don\u0027t work.\n\n\nDo we have an understanding of why this branch needs to remain here at all?\n\nI would expect some logic like:\n\nBuild the collection\nIf there is only one member, have the collection name match BMCWEB_REDFISH_SYSTEM_URI_NAME",
+      "revId": "5a1418fce151af92bf03d0e2904eb3912c1becaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d5d5228_d395aa11",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 3003,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-07T16:06:08Z",
+      "side": 1,
+      "message": "What if you have a system named \"hypervisor\".  Wont\u0027 this conflict?  I suspect this needs to stay under the option flag.",
+      "revId": "5a1418fce151af92bf03d0e2904eb3912c1becaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "611f9041_774ac4a2",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 3128,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-07T16:06:08Z",
+      "side": 1,
+      "message": "I\u0027m assuming this is basically doing if (computerSystemIndex \u003e 0) ?",
+      "range": {
+        "startLine": 3128,
+        "startChar": 12,
+        "endLine": 3128,
+        "endChar": 29
+      },
+      "revId": "5a1418fce151af92bf03d0e2904eb3912c1becaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98e5f166_032df8b8",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 3170,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-07T16:06:08Z",
+      "side": 1,
+      "message": "Why are we using std::move on a function pointer?",
+      "range": {
+        "startLine": 3170,
+        "startChar": 12,
+        "endLine": 3170,
+        "endChar": 21
+      },
+      "revId": "5a1418fce151af92bf03d0e2904eb3912c1becaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7675907b_9015ca5f",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 3669,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-07T16:06:08Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 3669,
+        "startChar": 0,
+        "endLine": 3669,
+        "endChar": 47
+      },
+      "revId": "5a1418fce151af92bf03d0e2904eb3912c1becaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
