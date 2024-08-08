@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e350aa47_623c5629",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 23
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-08-08T22:37:27Z",
+      "side": 1,
+      "message": "I don\u0027t seem to have permission to mark this one Work-in-Progress in gerrit. I\u0027ve altered the commit message instead.",
+      "revId": "98127cd7240d398dc73c5e8ae4975d220aa21ad5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
