@@ -517,6 +517,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3baf4371_e6095cfa",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-08T00:56:57Z",
+      "side": 1,
+      "message": "Please don\u0027t invent your own sort.  Use the existing ones, they are more correct.",
+      "parentUuid": "e39b85be_04cfed28",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 48
+      },
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5bcafc96_d634c92e",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 18

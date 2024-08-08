@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e34d737b_0de8eec5",
+        "filename": "Redfish.md",
+        "patchSetId": 22
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-08T00:56:57Z",
+      "side": 1,
+      "message": "Should be array markers [] on these because FanSpeedsPercent is an array.",
+      "revId": "57f6b0efb2ccbf4be1d0f0fdb42d83ec3f6ddf25",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "89061415_9708ffaa",
         "filename": "redfish-core/include/utils/fan_utils.hpp",
         "patchSetId": 22
