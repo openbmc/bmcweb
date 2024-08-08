@@ -83,6 +83,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7451a594_9d6d2bda",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-08T22:52:22Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "01568f1a_e96a13b1",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 7
+      },
+      "revId": "57f6b0efb2ccbf4be1d0f0fdb42d83ec3f6ddf25",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0b7afd06_d59e4992",
@@ -120,6 +144,30 @@
       "side": 1,
       "message": "I misunderstood your earlier comment about excerpts to be specific to returning the \"DeviceName\" property only. I see now that it was meant more generally.\n\nI will be pursuing a separate commit to implement SpeedRPM for fans in the /redfish/v1/Chassis/\u003cchassis\u003e/Sensors/\u003cfanSensor\u003e path.\n\nI\u0027ll mark this commit as WIP until that one merges then return to this one to handle this as an excerpt mode.",
       "parentUuid": "0b7afd06_d59e4992",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 5
+      },
+      "revId": "57f6b0efb2ccbf4be1d0f0fdb42d83ec3f6ddf25",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfc8b633_79ec4fb8",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-08T22:52:22Z",
+      "side": 1,
+      "message": "Great.  Thanks Janet.",
+      "parentUuid": "4dd6f796_fa231c9f",
       "range": {
         "startLine": 80,
         "startChar": 0,
