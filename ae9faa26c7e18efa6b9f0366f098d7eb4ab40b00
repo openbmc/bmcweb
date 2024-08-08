@@ -16,6 +16,24 @@
       "message": "This is still a very large refactor in the middle of the patchset.",
       "revId": "ae9faa26c7e18efa6b9f0366f098d7eb4ab40b00",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ee10b58_7c580f45",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1774,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-08-08T16:12:24Z",
+      "side": 0,
+      "message": "The issue with the ```redfish-core/lib/log_services.hpp``` file is\n\n- it\u0027s a header filled with implementation functions\n- the functions are not pre-declared and thus i need to reorder them so the compiler can find the symbol.\n\nIf you think we can pre-declare the functions, please tell me and i can do that to avoid moving functions around.",
+      "parentUuid": "cbac27f5_ecd43d62",
+      "revId": "ae9faa26c7e18efa6b9f0366f098d7eb4ab40b00",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

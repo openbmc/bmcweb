@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a82ca7d2_bef1da01",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-08-08T16:12:24Z",
+      "side": 1,
+      "message": "I did not know of the subscribe capability. I left these call sites alone in the newest revision and focused only on the request handlers.",
+      "parentUuid": "c958801d_7e760dd6",
+      "revId": "2f29ef4545ca1edf2bcb0e45b45be695a77a1ea0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1ee9bfad_7f1c6ef4",
@@ -48,6 +66,30 @@
       "writtenOn": "2024-08-07T17:10:41Z",
       "side": 1,
       "message": "Same as above.",
+      "range": {
+        "startLine": 899,
+        "startChar": 12,
+        "endLine": 899,
+        "endChar": 31
+      },
+      "revId": "2f29ef4545ca1edf2bcb0e45b45be695a77a1ea0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0052a94_c73780ee",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 899,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-08-08T16:12:24Z",
+      "side": 1,
+      "message": "I did not know of the subscribe capability. I left these call sites alone in the newest revision and focused only on the request handlers.",
+      "parentUuid": "1ee9bfad_7f1c6ef4",
       "range": {
         "startLine": 899,
         "startChar": 12,
@@ -81,6 +123,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7782a54a_8e477859",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1711,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-08-08T16:12:24Z",
+      "side": 1,
+      "message": "comment should not apply anymore in newest revision. feel free to reopen if otherwise.",
+      "parentUuid": "60988cd6_8dbeb293",
+      "range": {
+        "startLine": 1710,
+        "startChar": 0,
+        "endLine": 1711,
+        "endChar": 44
+      },
+      "revId": "2f29ef4545ca1edf2bcb0e45b45be695a77a1ea0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ef7a1f1f_0739089e",
@@ -94,6 +160,30 @@
       "writtenOn": "2024-08-07T17:10:41Z",
       "side": 1,
       "message": "This doesn\u0027t look correct.  Only the",
+      "range": {
+        "startLine": 1733,
+        "startChar": 7,
+        "endLine": 1734,
+        "endChar": 27
+      },
+      "revId": "2f29ef4545ca1edf2bcb0e45b45be695a77a1ea0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "beb11b9a_2d8d8176",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1734,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-08-08T16:12:24Z",
+      "side": 1,
+      "message": "Can you explain more about ```QueryCapabilities``` class?\n\nI can imagine ```top``` and ```skip``` being related to pagination. I think the unified solution can support pagination, right?\n\nSince we have the total order relation.",
+      "parentUuid": "ef7a1f1f_0739089e",
       "range": {
         "startLine": 1733,
         "startChar": 7,

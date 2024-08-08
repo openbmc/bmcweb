@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "022de3ac_f362ecbf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-08-08T16:12:24Z",
+      "side": 1,
+      "message": "I believe it can be detected by looking if ```/var/log/redfish``` exists. If that file is cleared however that capability goes away. \n\nNoticed that when i was testing the previous version of this patch and cleared the \nlog. Then the phosphor-logging event logs showed up 😄\nWhich is a bug since clearing should clear everything.\n\nSince the relevant rsyslog configuration is copy/pasted for those who use that backend, the detection could also work by looking for those configuration files.\n\nSo the capability/ability to detect is there but it\u0027s not watertight.\n\nOne of the reasons why i changed the approach to unify/aggregate both event sources.",
+      "parentUuid": "a7837cfc_691312ca",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 67
+      },
+      "revId": "4b49c9c6b240c9a6db0beef5132cba0cc60489eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0bce19f7_aeab0e31",
@@ -121,6 +145,24 @@
       "side": 1,
       "message": "\u003e What\u0027s changing? How is the behavior changed for the user?\n\nthese questions do not appear to be answered in the commit message in the latest version, so reopening.",
       "parentUuid": "d88c5739_71d82ba4",
+      "revId": "4b49c9c6b240c9a6db0beef5132cba0cc60489eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8541918b_96e4af5b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-08-08T16:12:24Z",
+      "side": 1,
+      "message": "Added a section detailing the behavior for the individual operations.\nTODO: add a section for each URL.",
+      "parentUuid": "4a141e8f_0e1e790c",
       "revId": "4b49c9c6b240c9a6db0beef5132cba0cc60489eb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
