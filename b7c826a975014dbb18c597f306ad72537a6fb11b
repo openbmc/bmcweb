@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e67d08e_3e5577b0",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1405,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-08-08T21:27:05Z",
+      "side": 1,
+      "message": "Huh? Where do we return count?",
+      "revId": "b7c826a975014dbb18c597f306ad72537a6fb11b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
