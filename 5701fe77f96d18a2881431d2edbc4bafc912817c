@@ -446,6 +446,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c6f04846_5b8ea3d2",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-08-08T22:35:20Z",
+      "side": 1,
+      "message": "That is the same text I was reading. I interpreted \"the associated resource\" as the sensor not the chassis.\n\nI\u0027ll remove the \"DeviceName\" property from the response.",
+      "parentUuid": "f67a5251_9d414f3c",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 57
+      },
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "52b3ed37_a6bde908",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 18
@@ -529,6 +553,30 @@
       "side": 1,
       "message": "Please don\u0027t invent your own sort.  Use the existing ones, they are more correct.",
       "parentUuid": "e39b85be_04cfed28",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 48
+      },
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b5def5e_c535afc6",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-08-08T22:35:20Z",
+      "side": 1,
+      "message": "I didn\u0027t realize there were existing utility functions. I\u0027ve changed the sort() of the vector produced by getFanSensorObjects() to use AlphanumLess().",
+      "parentUuid": "3baf4371_e6095cfa",
       "range": {
         "startLine": 41,
         "startChar": 0,
