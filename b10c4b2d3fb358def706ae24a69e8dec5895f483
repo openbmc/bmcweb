@@ -34,6 +34,24 @@
       "parentUuid": "36aa2481_0caff634",
       "revId": "b10c4b2d3fb358def706ae24a69e8dec5895f483",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6dbb5a7_b902fc8d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-08T18:56:00Z",
+      "side": 1,
+      "message": "\u003e 1. If entries are really duplicated we ought to be able to de-duplicate them by some criterion. Then just display one but delete both if requested. I\u0027m not in the know about all the properties these events may have, so take this with a grain of salt.\n\nCool;  That would be business logic done outside bmcweb if you wanted to try to deduplicate.  Not really sure how that would work, but probably worth raising some discussions with the two backend maintainers to see how that would be accomplished.\n\n\u003e \n\u003e Anyways, duplicate entries are better than having one or the other in my personal opinion.\n\nYou\u0027re welcome to your opinion, but my opinion is that duplicated entries are a bug/regression, and we shouldn\u0027t regress code that works.  Feel free to reach out to the other implementers/users of this code and see if they\u0027re ok with the external APIs changing behavior significantly, but I somewhat doubt that\u0027ll be ok.\n\n\u003e And then missing out on some event logs. This whole patch idea is just meant as a temporary measure anyways since the rsyslog stuff seems to be the legacy thing. So it is expected that it is pulled out at some point.\n\nI\u0027m not sure where you got the idea that it\u0027s \"legacy\".  rsyslog today supports more features and is faster than the phosphor-logging based entries.  phosphor-logging entries support the ideal of using dbus for everything.  They\u0027re different goals, one is not \"legacy\".\n\nI know there was some effort to try to make phosphor-logging more performant and support more features, but that doesn\u0027t make the rsyslog stuff legacy until we at least get to feature parity.  Once we\u0027re there, then we can discuss deprecating one or the other.\n\n\u003e \n\u003e But to do this conversion it will be helpful for people to see messages from both backends. Then they can convert the code which produces the Event Log Entry and verify that the message is still produced. Without having to switch the meson option and recompile.\n\nThese extra messages and lack of support will cause problems for clients.  That\u0027s why there\u0027s an option in the first place.\n\n\u003e \n\u003e 2. What do you mean by rollover? Like multiple log files?\n\nNo, I mean logs are handled in a circular buffer.  Redfish expects that it is ONE circular buffer.  By combining two, now entries will disappear at random, not only from the tail.\n\n\u003e \n\u003e 3. I would have to look into the redfish spec as to which fields are expected in the json. As long as that is met the client will have to deal with it.\n\nWith respect, that\u0027s not how that works.  If bmcweb suddenly responded with no fields except the Redfish minimum, that would break things functionally.  bmcweb is an implementation on top of Redfish, for which we make additional guarantees about support.\n\n\u003e \n\u003e 4. Will still have to look into the EventService stuff. I tried to leave it out of this patch and just focus on the request handlers.\n\nSo long as we\u0027re on the same page, this patchset can\u0027t merge until the Redfish functionality is correct, because you\u0027ve removed the option flag that would let us do experimental development.  If your intent is for nothing to merge until all the performance, eventing, and behavior work is done, then let me know when you\u0027ve tested everything and think this patch (presumably series of patches) can merge.\n\n\u003e \n\u003e btw sorry for needlessly pushing the 2 prior patches, had the --force still enabled in some script.\n\nNot a big deal.  Content looks the same so I don\u0027t think there\u0027s even anything to fix.",
+      "parentUuid": "1e6eadcd_874388b8",
+      "revId": "b10c4b2d3fb358def706ae24a69e8dec5895f483",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
