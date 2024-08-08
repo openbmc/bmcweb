@@ -258,6 +258,30 @@
       },
       "revId": "739ee03e8fbe73bd09f6b544cd2387d7d8f3b7f1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6560ad6_17fac1db",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-08T00:52:28Z",
+      "side": 1,
+      "message": "You didn\u0027t answer the question.  That\u0027s good the code was removed, what was it replaced with?",
+      "parentUuid": "d74006c1_0770909a",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 45
+      },
+      "revId": "739ee03e8fbe73bd09f6b544cd2387d7d8f3b7f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

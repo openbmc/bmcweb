@@ -204,6 +204,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "14c30949_da688653",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-08T00:52:28Z",
+      "side": 1,
+      "message": "Once we get this based on the existing code and producing the correct values, then I\u0027ll review if this is complete.",
+      "parentUuid": "50d6b5f5_8d88a7d8",
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ad6f4fe9_c2dfea03",
         "filename": "redfish-core/include/utils/fan_utils.hpp",
         "patchSetId": 18
@@ -391,6 +409,30 @@
       "writtenOn": "2024-08-07T21:35:46Z",
       "side": 1,
       "message": "The DeviceName property for a SensorFanArrayExcerpt is defined \"shall contain the value of the `Name` property of the associated resource\".\n\nSo I\u0027ve modified how this property is built here to build it the same way it is built in objectPropertiesToJson() [1]\n\n[1] https://github.com/openbmc/bmcweb/blob/fa2d6ae7034875a61314380295a88dc8abaa34a1/redfish-core/lib/sensors.hpp#L761",
+      "parentUuid": "d5414093_e4127793",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 57
+      },
+      "revId": "5701fe77f96d18a2881431d2edbc4bafc912817c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f67a5251_9d414f3c",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-08T00:52:28Z",
+      "side": 1,
+      "message": "Not sure where you\u0027re getting your text, but here\u0027s where I\"m getting mine:\n\nhttps://github.com/DMTF/Redfish-Publications/blob/bff927ee3cd16e0c059845fba976bf738b0717b2/csdl/Sensor_v1.xml#L860\n\n\"\"This property shall contain the name of the device associated with this sensor.  If the device is represented by a resource, the value shall contain the value of the `Name` property of the associated resource.\"\n\nBased on that description, DeviceName should be the name of the containing Chassis, NOT the name of the sensor.  Lets omit it for now until we can implement it correctly.",
       "parentUuid": "d5414093_e4127793",
       "range": {
         "startLine": 36,

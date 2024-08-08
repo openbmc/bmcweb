@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89061415_9708ffaa",
+        "filename": "redfish-core/include/utils/fan_utils.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-08T00:52:28Z",
+      "side": 1,
+      "message": "we have existing sorts that handle human things correctly.  Please use them.  Don\u0027t invent a new one.",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 7
+      },
+      "revId": "57f6b0efb2ccbf4be1d0f0fdb42d83ec3f6ddf25",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b7afd06_d59e4992",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-08T00:52:28Z",
+      "side": 1,
+      "message": "I\u0027m not really sure how many times i can say this, so I\u0027ll try again.  There\u0027s existing code that produces a sensor value.  This code has to match EXACTLY for the spec to be fulfilled, with the subtraction of entries not marked in excerpt.\n\nToday, there is no code that sets a sensor values SpeedRPM property, we only set Reading, so we can\u0027t have the excerpt version set SpeedRPM, and the non excerpt version set Reading.\n\nThe only way to ensure that these two stay the same is to have the same code generate both.  This patchset continues to ignore this.\n\nThis is the method that needs abstracted to add an \"excerpt\" mode.  https://github.com/openbmc/bmcweb/blob/ea5e22424e00d9134556a966fe4c2a28dcbb94dc/redfish-core/lib/sensors.hpp#L745\n\nPlease do as I\u0027ve asked.  This code is still incorrect to the standard.\n\n\n\nIf we want to change to support SpeedRPM instead of or in addition to Reading in the sensor list, that\u0027s a different patch.",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 5
+      },
+      "revId": "57f6b0efb2ccbf4be1d0f0fdb42d83ec3f6ddf25",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
