@@ -232,6 +232,30 @@
       },
       "revId": "2f29ef4545ca1edf2bcb0e45b45be695a77a1ea0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6fb2853_9acd4a7c",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1734,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-08T19:13:12Z",
+      "side": 1,
+      "message": "\u003e Can you explain more about ```QueryCapabilities``` class?\n\nCode review isn\u0027t a place for questions about the Redfish standard.  Discord, the mailing list or Redfish forum is where questions like this should be asked (ideally before pushing code that you don\u0027t understand, but that\u0027s ok this time).\n\n\u003e \n\u003e I can imagine ```top``` and ```skip``` being related to pagination. I think the unified solution can support pagination, right?\n\nI\u0027m not sure who you\u0027re asking, but considering you\u0027re writing the code for this unified solution, I\u0027d expect you would know whether or not paging works and was tested?  If you\u0027re asking me, I don\u0027t see how they could work with the code as you\u0027ve written it.\n\n\u003e \n\u003e Since we have the total order relation.",
+      "parentUuid": "beb11b9a_2d8d8176",
+      "range": {
+        "startLine": 1733,
+        "startChar": 7,
+        "endLine": 1734,
+        "endChar": 27
+      },
+      "revId": "2f29ef4545ca1edf2bcb0e45b45be695a77a1ea0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
