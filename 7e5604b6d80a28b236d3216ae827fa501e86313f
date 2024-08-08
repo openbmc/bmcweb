@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "44ebe6dd_fea98a60",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-08T18:13:02Z",
+      "side": 1,
+      "message": "\u003e Hi Ed,\n\u003e We was testing on redfish aggregation feature and notice that http client has 50% failed rate to send request to satellite controller (1 success then follow 1 fail).\n\u003e \n\u003e We check the request data send from BMC (client side) by Wireshark, and find out the end of request data repeated final chunk [0x00 0x0d 0x0a 0x0d 0x0a] twice, and satellite controller (server side) close the socket due to the extra final chunk sent form BMC.\n\u003e \n\u003e The test flow as below:\n\u003e BMC --- RF AGGR Req (v) --\u003e SAT \n\u003e BMC \u003c-- RF AGGR Res (v) --- SAT (response success)\n\u003e BMC \u003c-- Close Socket ------ SAT (extra final chunk)\n\u003e BMC --- RF AGGR Req (x) --\u003e SAT (BMC send failed, broken pipe)\n\u003e \n\u003e \n\u003e So far we have tested two methods that can avoid the this problem.\n\u003e \n\u003e 1. don\u0027t assign body and call prepare_payload() when data is empty.\n\u003e [Patchset 1]\n\u003e So far we not sure why calling prepare_payload() with empty body will causing extra final chunk, this may require digging deeper into the `chunked(true)` function of the boost easter library.\n\nFor reference, this is the code.\nhttps://github.com/boostorg/beast/blob/fee9be0be10c9c9a22ac1505a710d1d8ed5a3dfb/include/boost/beast/http/impl/message.hpp#L360\n\nNote that the current http client does not explicitly support HTTP chunking.  Is your satellite sending a chunked response?\n\n\u003e \n\u003e 2. add into bmcweb::HttpBody\n\nThis function is already added to bmcweb Response object.  Please just use the one we have.\n\n\u003e Please have a check with link here [https://github.com/boostorg/beast/blob/848e20680fb374532a0c5816b79b38532e6da775/include/boost/beast/http/impl/message.hpp#L362-L375]\n\u003e With static bmcweb:HttpBosy::size() implementation, the `n` will not be null, and then `chunked(false)` will be called.\n\u003e And we check the request data with this method, it doesn\u0027t contains extra final chunk, and redfish aggregation works successfully.\n\u003e \n\u003e \n\u003e \n\u003e \n\u003e I\u0027m wondering which approach seems more appropriate?\n\nThe second.  we should be calling prepare_payload in all cases;  If we need a custom version, we should use a custom version.  We shouldn\u0027t just void calling it.",
+      "parentUuid": "18307039_42e132ec",
+      "revId": "7e5604b6d80a28b236d3216ae827fa501e86313f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a16c5987_77a690bd",
         "filename": "http/http_client.hpp",
         "patchSetId": 1
