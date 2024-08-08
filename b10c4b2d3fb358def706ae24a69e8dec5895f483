@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36aa2481_0caff634",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-08T18:06:38Z",
+      "side": 1,
+      "message": "I\u0027m starting to understand this patch a little better now that we\u0027ve simplified it;  Essentially you\u0027re taking the two different logging systems and merging them into a single collection?  That seems error prone for a number of reasons.\n\n1. Entries are going to be duplicated (because both rely on the journal as a \"source\" or backing.\n2. Rollover is going to happen incorrectly, as the dbus based events are going to roll over in a different pile than the rsyslog based events.\n3. We\u0027re going to have a mix of messages that have a proper MessageId, and those that don\u0027t.  One of the expectations when the rsyslog is used is that every entry has a proper MessageId.\n4. EventService eventing won\u0027t work for the non-rsyslog based events.\n\n\nHave you checked that paging works properly when the values are intermixed?",
+      "revId": "b10c4b2d3fb358def706ae24a69e8dec5895f483",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

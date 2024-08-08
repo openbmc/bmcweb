@@ -102,6 +102,46 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3365523f_70395870",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1618,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-08T18:06:38Z",
+      "side": 1,
+      "message": "1, this should be inline, not static.\n2. We already have equivalents of this function for collection sorting.  Why are we creating a new one?  It looks technically worse than the first one, because it\u0027s doing string compares on date objects.",
+      "revId": "2f29ef4545ca1edf2bcb0e45b45be695a77a1ea0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fdc123cd_21ff1235",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1630,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-08T18:06:38Z",
+      "side": 1,
+      "message": "nit, this isn\u0027t a lambda.",
+      "range": {
+        "startLine": 1630,
+        "startChar": 39,
+        "endLine": 1630,
+        "endChar": 45
+      },
+      "revId": "2f29ef4545ca1edf2bcb0e45b45be695a77a1ea0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "60988cd6_8dbeb293",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 4
