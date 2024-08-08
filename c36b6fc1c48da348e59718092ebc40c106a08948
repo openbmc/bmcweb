@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7391de5_cfa0955b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 44
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2024-08-08T20:03:33Z",
+      "side": 1,
+      "message": "Fan sensor associations are defined in associations.json file.\nhttps://github.com/openbmc/openbmc/blob/master/meta-ibm/recipes-phosphor/inventory/phosphor-inventory-manager/associations.json#L94\nFan associations are implemented in phosphor-hwmon based on on the definitions in associations.json.\n\nThe latest patch has been tested in Rainier.",
+      "parentUuid": "4538905f_7fed13dd",
+      "revId": "c36b6fc1c48da348e59718092ebc40c106a08948",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "751212be_496b5313",
@@ -174,6 +192,30 @@
       "writtenOn": "2024-08-08T15:24:39Z",
       "side": 1,
       "message": "If no priority exists, we still need to handle it, right?",
+      "range": {
+        "startLine": 437,
+        "startChar": 0,
+        "endLine": 437,
+        "endChar": 15
+      },
+      "revId": "c36b6fc1c48da348e59718092ebc40c106a08948",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2b382ba_91628476",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2024-08-08T20:03:33Z",
+      "side": 1,
+      "message": "Where should we store the value if the sensor priority is not defined? Should it be saved in /SpeedPercent?",
+      "parentUuid": "3784f6d1_303deb01",
       "range": {
         "startLine": 437,
         "startChar": 0,
