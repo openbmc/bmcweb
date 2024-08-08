@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fff39958_5465c141",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-08T19:09:27Z",
+      "side": 1,
+      "message": "\u003e I believe it can be detected by looking if ```/var/log/redfish``` exists. If that file is cleared however that capability goes away. \n\nAnd that code that checks if that file exists is.... where?\n\n\u003e \n\u003e Noticed that when i was testing the previous version of this patch and cleared the \n\u003e log. Then the phosphor-logging event logs showed up 😄\n\u003e Which is a bug since clearing should clear everything.\n\nThat seems like a newly introduced bug?  I don\u0027t see any code that\u0027s checking for existence of that file, and switching to dbus if it doesn\u0027t exist.  They\u0027re completely different handlers.\n\n\u003e \n\u003e Since the relevant rsyslog configuration is copy/pasted for those who use that backend, the detection could also work by looking for those configuration files.\n\u003e \n\u003e So the capability/ability to detect is there but it\u0027s not watertight.\n\u003e \n\u003e One of the reasons why i changed the approach to unify/aggregate both event sources.",
+      "parentUuid": "022de3ac_f362ecbf",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 67
+      },
+      "revId": "4b49c9c6b240c9a6db0beef5132cba0cc60489eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0bce19f7_aeab0e31",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3

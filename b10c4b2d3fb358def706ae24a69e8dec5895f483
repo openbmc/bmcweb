@@ -52,6 +52,23 @@
       "parentUuid": "1e6eadcd_874388b8",
       "revId": "b10c4b2d3fb358def706ae24a69e8dec5895f483",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c614fe3_a9a0ff28",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-08T19:09:27Z",
+      "side": 1,
+      "message": "I\u0027m not really sure why we\u0027re trying to remove an option flag in one fell swoop but as written, this patch is going to break client implementations and Redfish guarantees for both option modes (as I\u0027m sure you saw the behavior change in your testing).  If you need some leeway to go make breakages and fix them, then integrate later, generally we would use an \"experimental-*\" option flag for that so that we don\u0027t break everyone else while you\u0027re doing that, so we can switch your code on only for you.\nIf you want to make an option, please put both your name and the date it will be deleted in the description (generally we do 6 months after merge).\n\n\nFrom what\u0027s actually written here here, it\u0027s looking like you\u0027d rather stack patches, which is fine too.  Please mark them WIP until they\u0027re correct to the previous client-facing behavior, and ready for review.",
+      "revId": "b10c4b2d3fb358def706ae24a69e8dec5895f483",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
