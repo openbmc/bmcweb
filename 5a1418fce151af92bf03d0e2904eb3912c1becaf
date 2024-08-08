@@ -243,6 +243,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "00955d85_bcf7af24",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 3525,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-08T01:02:32Z",
+      "side": 1,
+      "message": "Same here.  BMCWEB_REDFISH_SYSTEM_URI_NAME isn\u0027t a substitute for BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM",
+      "revId": "5a1418fce151af92bf03d0e2904eb3912c1becaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7675907b_9015ca5f",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 5
