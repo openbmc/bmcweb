@@ -16,6 +16,24 @@
       "message": "What\u0027s going on with this patch?  It keeps getting rebased, but isn\u0027t marked WIP and per the commit message fails the service validator (which means it can\u0027t merge).\n\nWhat\u0027s the intent here?",
       "revId": "126f8e8d91e7874b828b83fc4b550ec12e5daadb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7cb027f9_1a7ce079",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 28
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2024-08-08T23:21:12Z",
+      "side": 1,
+      "message": "Next commit is ready for review\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/63136\n\nI will merge both commits together.",
+      "parentUuid": "68ab7361_cdc0e3dd",
+      "revId": "126f8e8d91e7874b828b83fc4b550ec12e5daadb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
