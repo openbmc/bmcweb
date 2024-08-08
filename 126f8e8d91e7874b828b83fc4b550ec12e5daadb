@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68ab7361_cdc0e3dd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 28
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-08T22:06:11Z",
+      "side": 1,
+      "message": "What\u0027s going on with this patch?  It keeps getting rebased, but isn\u0027t marked WIP and per the commit message fails the service validator (which means it can\u0027t merge).\n\nWhat\u0027s the intent here?",
+      "revId": "126f8e8d91e7874b828b83fc4b550ec12e5daadb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
