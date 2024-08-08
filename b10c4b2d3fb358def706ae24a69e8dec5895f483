@@ -16,6 +16,24 @@
       "message": "I\u0027m starting to understand this patch a little better now that we\u0027ve simplified it;  Essentially you\u0027re taking the two different logging systems and merging them into a single collection?  That seems error prone for a number of reasons.\n\n1. Entries are going to be duplicated (because both rely on the journal as a \"source\" or backing.\n2. Rollover is going to happen incorrectly, as the dbus based events are going to roll over in a different pile than the rsyslog based events.\n3. We\u0027re going to have a mix of messages that have a proper MessageId, and those that don\u0027t.  One of the expectations when the rsyslog is used is that every entry has a proper MessageId.\n4. EventService eventing won\u0027t work for the non-rsyslog based events.\n\n\nHave you checked that paging works properly when the values are intermixed?",
       "revId": "b10c4b2d3fb358def706ae24a69e8dec5895f483",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e6eadcd_874388b8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-08-08T18:25:04Z",
+      "side": 1,
+      "message": "1. If entries are really duplicated we ought to be able to de-duplicate them by some criterion. Then just display one but delete both if requested. I\u0027m not in the know about all the properties these events may have, so take this with a grain of salt.\n\nAnyways, duplicate entries are better than having one or the other in my personal opinion. And then missing out on some event logs. This whole patch idea is just meant as a temporary measure anyways since the rsyslog stuff seems to be the legacy thing. So it is expected that it is pulled out at some point.\n\nBut to do this conversion it will be helpful for people to see messages from both backends. Then they can convert the code which produces the Event Log Entry and verify that the message is still produced. Without having to switch the meson option and recompile.\n\n2. What do you mean by rollover? Like multiple log files?\n\n3. I would have to look into the redfish spec as to which fields are expected in the json. As long as that is met the client will have to deal with it.\n\n4. Will still have to look into the EventService stuff. I tried to leave it out of this patch and just focus on the request handlers.\n\nbtw sorry for needlessly pushing the 2 prior patches, had the --force still enabled in some script.",
+      "parentUuid": "36aa2481_0caff634",
+      "revId": "b10c4b2d3fb358def706ae24a69e8dec5895f483",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
