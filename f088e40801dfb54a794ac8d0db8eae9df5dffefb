@@ -232,6 +232,24 @@
       "parentUuid": "314dbfef_e425deaf",
       "revId": "f088e40801dfb54a794ac8d0db8eae9df5dffefb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70c6e0f4_80f9f275",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-09T17:33:13Z",
+      "side": 1,
+      "message": "\u003e \u003e \u003e \u003e \u003e Download Image In Task Callback\n\u003e \u003e \u003e \u003e \n\u003e \u003e \u003e \u003e What does this mean?  what daemon is doing the download?  It shouldn\u0027t be bmcweb, bmcweb should just be \"starting\" the update on another service.  In your design, which service would that be?\n\u003e \u003e \u003e \n\u003e \u003e \u003e This is what i am thinking we can do -\n\u003e \u003e \u003e \n\u003e \u003e \u003e 1) Add a new HTTP.interface.yaml with -\n\u003e \u003e \u003e 1.a) Method - downloadImage(URI), which accepts a HTTP URL and immediately returns a memfd and asynchronously starts the HTTP download.\n\u003e \u003e \u003e 1.b) Signal - DownloadFinished(memfd), event which informs that the download has finished for specified memfd.\n\u003e \u003e \n\u003e \u003e Which daemon implements this interface?\n\u003e \n\u003e The download Manager which already implements the tftp interface https://grok.openbmc.org/xref/openbmc/phosphor-bmc-code-mgmt/download_manager.hpp?r\u003d1e9a5f1a.\n\nGotcha, so we\u0027re not getting rid of that interface, only the bmcweb side?  Understood.\n\n\u003e \n\u003e \u003e \n\u003e \u003e \u003e \n\u003e \u003e \u003e 2) In BMCWeb, for HTTP download use case create task and return a task id to user. In task callback -\n\u003e \u003e \u003e 2.a) Call downloadImage(URI) from Step#1.\n\u003e \u003e \u003e 2.b) Perform a dup on the return memfd.\n\u003e \u003e \u003e 2.c) Watch for DownloadFinished signal for memfd (returned from Step 2.a).\n\u003e \u003e \n\u003e \u003e I\u0027m not quite following, why would bmcweb track download finished?  Isn\u0027t this flow being done in another application somewhere?\n\u003e \n\u003e BMCWeb needs to initiate the startUpdate once the download has finished, so once it receives the signal for download finished from new HTTP download interface it will trigger the update using the returned memfd.\n\nThis is a problem......  bmcweb shouldn\u0027t really be involved in the update state machine aside from handing off the information to the hander.\n\n\u003e \n\u003e \u003e \n\u003e \u003e \u003e 2.d) On download completion call startUpdate as a regular flow.\n\u003e \u003e \u003e \n\u003e \u003e \u003e So, basically for Image download use case we will extend the task callback to also perform the download.",
+      "parentUuid": "9ea55340_c9d787b7",
+      "revId": "f088e40801dfb54a794ac8d0db8eae9df5dffefb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
