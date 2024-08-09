@@ -108,6 +108,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d36e9204_763b6c91",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-09T18:36:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "043c99bb_4de109df",
+      "revId": "7e5604b6d80a28b236d3216ae827fa501e86313f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a16c5987_77a690bd",
@@ -125,6 +143,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "76f9e334_ffcdc6b6",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-09T18:36:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a16c5987_77a690bd",
+      "revId": "7e5604b6d80a28b236d3216ae827fa501e86313f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "672a3cdb_8a010194",
@@ -138,6 +174,24 @@
       "writtenOn": "2024-08-06T16:58:34Z",
       "side": 1,
       "message": "Why does prepare_payload send the wrong response if body().str() is empty?",
+      "revId": "7e5604b6d80a28b236d3216ae827fa501e86313f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d11fafa_54b5871e",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 743,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-09T18:36:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "672a3cdb_8a010194",
       "revId": "7e5604b6d80a28b236d3216ae827fa501e86313f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
