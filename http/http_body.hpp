@@ -11,6 +11,8 @@
 #include <boost/beast/http/message.hpp>
 #include <boost/system/error_code.hpp>
 
+#include <cstdint>
+#include <optional>
 #include <string_view>
 
 namespace bmcweb
@@ -23,6 +25,8 @@ struct HttpBody
     class reader;
     class value_type;
     // NOLINTEND(readability-identifier-naming)
+
+    static std::uint64_t size(const value_type& body);
 };
 
 enum class EncodingType
@@ -303,5 +307,11 @@ class HttpBody::reader
         ec = {};
     }
 };
+
+inline std::uint64_t HttpBody::size(const value_type& body)
+{
+    std::optional<size_t> payloadSize = body.payloadSize();
+    return payloadSize.value_or(0U);
+}
 
 } // namespace bmcweb
