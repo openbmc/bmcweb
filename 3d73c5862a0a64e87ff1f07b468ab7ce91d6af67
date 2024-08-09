@@ -88,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1ca8cbb_69529c2a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 65
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-08-09T15:35:52Z",
+      "side": 1,
+      "message": "The code is rewritten using `GetAssociatedSubTreeById()` which will be done via\nhttps://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/69999",
+      "parentUuid": "6fa0232b_51a07125",
+      "revId": "3d73c5862a0a64e87ff1f07b468ab7ce91d6af67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "87dc7f79_05c9e040",
@@ -746,6 +764,30 @@
       "side": 1,
       "message": "You\u0027ve put it in the commit message, which fine.",
       "parentUuid": "1d1387d0_32843dfd",
+      "range": {
+        "startLine": 296,
+        "startChar": 4,
+        "endLine": 296,
+        "endChar": 29
+      },
+      "revId": "3d73c5862a0a64e87ff1f07b468ab7ce91d6af67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae817a60_47f4fb5c",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 65
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-08-09T15:35:52Z",
+      "side": 1,
+      "message": "Code is rewritten using `getAssociatedSubTreePathsById()` which will be available once https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/69999 is approved and merged.",
+      "parentUuid": "c9483ce6_8921132c",
       "range": {
         "startLine": 296,
         "startChar": 4,
