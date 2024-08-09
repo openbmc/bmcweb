@@ -24,6 +24,8 @@ struct HttpBody
     class reader;
     class value_type;
     // NOLINTEND(readability-identifier-naming)
+
+    static std::uint64_t size(const value_type& body);
 };
 
 enum class EncodingType
@@ -266,5 +268,11 @@ class HttpBody::reader
         ec = {};
     }
 };
+
+inline std::uint64_t HttpBody::size(const value_type& body)
+{
+    auto payloadSize = body.payloadSize();
+    return payloadSize.has_value() ? *payloadSize : 0;
+}
 
 } // namespace bmcweb
