@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "78e6b0f8_edf051fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001264
+      },
+      "writtenOn": "2024-08-09T17:38:09Z",
+      "side": 1,
+      "message": "\u003e For reference, this is the code.\n\u003e https://github.com/boostorg/beast/blob/fee9be0be10c9c9a22ac1505a710d1d8ed5a3dfb/include/boost/beast/http/impl/message.hpp#L360\n\u003e Note that the current http client does not explicitly support HTTP chunking. Is your satellite sending a chunked response?\n\nI think the problem is from client side request message.\n\nWhen request sends without data, current client request message is looks like below:\n[headers][final chunk][final chunk]\n\nsatellite controller (server) take \"[headers][final chunk]\" as a normal request message and response, and then follow up an unexpected \"[final chunk]\", so server close the socket.\n\nCurrent http_client will expected socket remain if server side supports \"keep-alive\". when server close socket unexpectedly, it cause next request failed (broken pipe).\n\n\u003e This function is already added to bmcweb Response object. Please just use the one we have.\n\nI was trying adding a static function bmcweb::HttpBody::size() into struct bmcweb::HttpBody.\n\nThis is a example from exist basic_dynamic_body in boost beast library.\nhttps://github.com/boostorg/beast/blob/fee9be0be10c9c9a22ac1505a710d1d8ed5a3dfb/include/boost/beast/http/basic_dynamic_body.hpp#L48-L59\n\n\u003e The second. we should be calling prepare_payload in all cases; If we need a custom version, we should use a custom version. We shouldn\u0027t just void calling it.\n\nWe are not trying to adding new custom version of HttpBody.\n\nIn patchset2, we want to ensure that prepare_payload() goes into the section below, and this will need bmcweb::HttpBody::size() implemented.\nhttps://github.com/boostorg/beast/blob/fee9be0be10c9c9a22ac1505a710d1d8ed5a3dfb/include/boost/beast/http/impl/message.hpp#L364-L374\n```\n        if(*n \u003e 0 ||\n            this-\u003emethod() \u003d\u003d verb::options ||\n            this-\u003emethod() \u003d\u003d verb::put ||\n            this-\u003emethod() \u003d\u003d verb::post)\n        {\n            this-\u003econtent_length(n);\n        }\n        else\n        {\n            this-\u003echunked(false);\n        }\n```\n\nin this section, the empty data request will call `this-\u003echunked(false)`, so that the request data will not contains unexpected final chunk.",
+      "parentUuid": "44ebe6dd_fea98a60",
+      "revId": "7e5604b6d80a28b236d3216ae827fa501e86313f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a16c5987_77a690bd",
         "filename": "http/http_client.hpp",
         "patchSetId": 1
