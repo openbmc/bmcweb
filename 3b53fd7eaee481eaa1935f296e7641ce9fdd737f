@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a1f1e98_46a74fc6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-08-09T18:56:47Z",
+      "side": 1,
+      "message": "WIP because https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/69999 and https://gerrit.openbmc.org/c/openbmc/phosphor-objmgr/+/70699 need to merge first",
+      "revId": "3b53fd7eaee481eaa1935f296e7641ce9fdd737f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
