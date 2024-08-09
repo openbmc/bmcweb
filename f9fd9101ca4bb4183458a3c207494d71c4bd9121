@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "06dab513_ef6cbc95",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-08-09T18:53:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "939f65a9_c5ffa96d",
+      "revId": "f9fd9101ca4bb4183458a3c207494d71c4bd9121",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb76866f_7dd7334b",
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "Updated.",
       "parentUuid": "cb76866f_7dd7334b",
+      "revId": "f9fd9101ca4bb4183458a3c207494d71c4bd9121",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c588b57_f24ff71c",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-08-09T18:53:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "987d1b44_2bbc3a44",
       "revId": "f9fd9101ca4bb4183458a3c207494d71c4bd9121",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -108,6 +144,30 @@
       "side": 1,
       "message": "Hi Gunnar, I have updated it.",
       "parentUuid": "f1889d48_4aa1281f",
+      "range": {
+        "startLine": 1414,
+        "startChar": 0,
+        "endLine": 1424,
+        "endChar": 56
+      },
+      "revId": "f9fd9101ca4bb4183458a3c207494d71c4bd9121",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50a7b4e7_14a81333",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1424,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-08-09T18:53:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cfec0b1d_30878568",
       "range": {
         "startLine": 1414,
         "startChar": 0,

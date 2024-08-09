@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47ecdd60_faf312f4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-08-09T18:53:04Z",
+      "side": 1,
+      "message": "I don\u0027t see how the validator could have passed with your latest changes.\nI don\u0027t see ProductionDate in  \nhttps://redfish.dmtf.org/schemas/v1/Power.v1_7_3.json",
+      "revId": "adcabd0ab552f8883e4b4bbf36b9b0ea20bfaa4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee5587bb_96da461f",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 2266,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-08-09T18:53:04Z",
+      "side": 1,
+      "message": "This is the PowerSupply complex of \nhttps://redfish.dmtf.org/schemas/v1/Power.v1_7_3.json\n\nI don\u0027t see a ProductionDate.. The Validator is going to fail..",
+      "revId": "adcabd0ab552f8883e4b4bbf36b9b0ea20bfaa4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "630de3fb_d38950ba",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 2277,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-08-09T18:53:04Z",
+      "side": 1,
+      "message": "How does this work if the interface BuildDate doesn\u0027t exist? Or is empty? I think on the other ones if it is empty, you don\u0027t put this out?",
+      "revId": "adcabd0ab552f8883e4b4bbf36b9b0ea20bfaa4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
