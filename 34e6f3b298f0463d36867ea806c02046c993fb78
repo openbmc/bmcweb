@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e46e070_168630a4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2024-08-09T12:48:25Z",
+      "side": 1,
+      "message": "Hi @Ed,\nI\u0027ve taken over this patch after Eryk and pushed some fixes. Could You please take a look?",
+      "revId": "34e6f3b298f0463d36867ea806c02046c993fb78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

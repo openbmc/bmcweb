@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1ae4d04f_16acd9ef",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2024-08-09T12:48:25Z",
+      "side": 1,
+      "message": "That was part of downstream code, which shouldn\u0027t appear here at all. Removed.",
+      "parentUuid": "036ccd74_2b0c5b5b",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 11
+      },
+      "revId": "4f980a63b8e7e6fa6eae2657f0c3a927f940aabd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "15fece04_4b8b43ae",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 4
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c1f9d592_f200d148",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2024-08-09T12:48:25Z",
+      "side": 1,
+      "message": "Restored verify function to original shape, without optional parameters. IMO this introduced unnecessary complications to the code.",
+      "parentUuid": "15fece04_4b8b43ae",
+      "range": {
+        "startLine": 62,
+        "startChar": 35,
+        "endLine": 62,
+        "endChar": 50
+      },
+      "revId": "4f980a63b8e7e6fa6eae2657f0c3a927f940aabd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c819889e_5aabb274",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 4
@@ -60,6 +108,30 @@
       "writtenOn": "2024-06-24T21:38:53Z",
       "side": 1,
       "message": "same here.",
+      "range": {
+        "startLine": 69,
+        "startChar": 43,
+        "endLine": 69,
+        "endChar": 51
+      },
+      "revId": "4f980a63b8e7e6fa6eae2657f0c3a927f940aabd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99a60863_290ed3dd",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2024-08-09T12:48:25Z",
+      "side": 1,
+      "message": "Restored verify function to original shape, without optional parameters. IMO this introduced unnecessary complications to the code.",
+      "parentUuid": "c819889e_5aabb274",
       "range": {
         "startLine": 69,
         "startChar": 43,
@@ -143,6 +215,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c22d59bd_ad1311b8",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2024-08-09T12:48:25Z",
+      "side": 1,
+      "message": "Messages we\u0027re getting back from backend don\u0027t point to enums, but rather for specific property names. Is it necessary for them to have full namespaced name as well\n(e.g. `xyz.openbmc_project.Telemetry.Report.ReportingType` instead of just `ReportingType`)?\n\nIf so, then backend indeed would need adjustments + this function would need to be extended for handling all property names as all of them would then differ from ther Redfish counterparts.",
+      "parentUuid": "e319eb65_fce04ba1",
+      "range": {
+        "startLine": 103,
+        "startChar": 11,
+        "endLine": 103,
+        "endChar": 35
+      },
+      "revId": "4f980a63b8e7e6fa6eae2657f0c3a927f940aabd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8a984e5c_69004f09",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 4
@@ -202,6 +298,30 @@
       "side": 1,
       "message": "\u003e We don\u0027t wan\u0027t InternlError because then we can\u0027t check errorMessage with other parameters.\n\nWe\u0027re receiving a bad dbus interface, which is an error the user can do nothing about.  The correct error is internal error 500.\n\n\u003e And we compare size to be sure the errorMessage returns what we looking for instead \"propertyName.something_else\"\n\nThat\u0027s fine, but we need to be comparing error messages correctly.",
       "parentUuid": "c598530f_89ef22fe",
+      "range": {
+        "startLine": 113,
+        "startChar": 8,
+        "endLine": 113,
+        "endChar": 43
+      },
+      "revId": "4f980a63b8e7e6fa6eae2657f0c3a927f940aabd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e10a763_e9ec3804",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2024-08-09T12:48:25Z",
+      "side": 1,
+      "message": "I\u0027ve added a comment which will relate to this in the one regarding including array index in error.",
+      "parentUuid": "d809cacc_84680e13",
       "range": {
         "startLine": 113,
         "startChar": 8,
@@ -285,6 +405,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "56e26d2a_e9e24cc0",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2024-08-09T12:48:25Z",
+      "side": 1,
+      "message": "Actually, there\u0027s a second type used here, which is `nlohman::json::object_t`. That\u0027s why template needs to stay. Changed parameter to std::span.",
+      "parentUuid": "c6dd7ce9_a1f34779",
+      "range": {
+        "startLine": 128,
+        "startChar": 16,
+        "endLine": 128,
+        "endChar": 25
+      },
+      "revId": "4f980a63b8e7e6fa6eae2657f0c3a927f940aabd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "05bd50b6_d9a5e8b0",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 4
@@ -296,6 +440,24 @@
       "writtenOn": "2024-06-24T21:38:53Z",
       "side": 1,
       "message": "For array values, we would generally point to the index in the array that caused the problem\n\nie, MyArray/1",
+      "revId": "4f980a63b8e7e6fa6eae2657f0c3a927f940aabd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7401715e_a5b5ce0f",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2024-08-09T12:48:25Z",
+      "side": 1,
+      "message": "It\u0027s actually not that trivial. If backend returns back an error, it means there\u0027s a more generalized problem with an array, not specific to any of its member (e.g. item count being too big).\n\nFrom what I saw, if problem\u0027s with an object, backend might point out which field causes failure after a dot. This however seems to be a dead code, as I\u0027ve never been able to force that behavior. I\u0027m considering removing that code, which would simplify the handler here: we would remove that `\u003e\u003d key.size()` check and simply do a strict comparison between errorMessage and key.",
+      "parentUuid": "05bd50b6_d9a5e8b0",
       "revId": "4f980a63b8e7e6fa6eae2657f0c3a927f940aabd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -348,6 +510,54 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ba148931_cce09b01",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2024-08-09T12:48:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d647b3d_23512d5a",
+      "range": {
+        "startLine": 144,
+        "startChar": 21,
+        "endLine": 144,
+        "endChar": 38
+      },
+      "revId": "4f980a63b8e7e6fa6eae2657f0c3a927f940aabd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c80c7653_a05489c5",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2024-08-09T12:48:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc131826_f9a0915c",
+      "range": {
+        "startLine": 144,
+        "startChar": 69,
+        "endLine": 144,
+        "endChar": 73
+      },
+      "revId": "4f980a63b8e7e6fa6eae2657f0c3a927f940aabd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4dee25fd_3dfbff7c",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 4
@@ -371,6 +581,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "886bd2a1_4abcb200",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 885,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2024-08-09T12:48:25Z",
+      "side": 1,
+      "message": "Agreed, I\u0027ve removed the second structure and extended the original one with fields for Redfish values for certain enums.",
+      "parentUuid": "4dee25fd_3dfbff7c",
+      "range": {
+        "startLine": 884,
+        "startChar": 0,
+        "endLine": 885,
+        "endChar": 28
+      },
+      "revId": "4f980a63b8e7e6fa6eae2657f0c3a927f940aabd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a383e241_9b9a3093",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 4
@@ -382,6 +616,30 @@
       "writtenOn": "2024-06-24T21:38:53Z",
       "side": 1,
       "message": "common error.",
+      "range": {
+        "startLine": 1147,
+        "startChar": 71,
+        "endLine": 1147,
+        "endChar": 75
+      },
+      "revId": "4f980a63b8e7e6fa6eae2657f0c3a927f940aabd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "317ca578_88e71207",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1147,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2024-08-09T12:48:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a383e241_9b9a3093",
       "range": {
         "startLine": 1147,
         "startChar": 71,
