@@ -33,46 +33,26 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
             continue;
         }
 
-        /* Assume PAM is only prompting for the password as hidden input */
-        /* Allocate memory only when PAM_PROMPT_ECHO_OFF is encounterred */
-
-        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-        char* appPass = reinterpret_cast<char*>(appdataPtr);
-        size_t appPassSize = std::strlen(appPass);
-
-        if ((appPassSize + 1) > PAM_MAX_RESP_SIZE)
-        {
-            return PAM_CONV_ERR;
-        }
-        // IDeally we'd like to avoid using malloc here, but because we're
-        // passing off ownership of this to a C application, there aren't a lot
-        // of sane ways to avoid it.
-
-        // NOLINTNEXTLINE(cppcoreguidelines-no-malloc)
-        void* passPtr = malloc(appPassSize + 1);
-        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-        char* pass = reinterpret_cast<char*>(passPtr);
-        if (pass == nullptr)
-        {
-            return PAM_BUF_ERR;
-        }
-
-        std::strncpy(pass, appPass, appPassSize + 1);
-
         size_t numMsgSize = static_cast<size_t>(numMsg);
         // NOLINTNEXTLINE(cppcoreguidelines-no-malloc)
         void* ptr = calloc(numMsgSize, sizeof(struct pam_response));
         if (ptr == nullptr)
         {
-            // NOLINTNEXTLINE(cppcoreguidelines-no-malloc)
-            free(pass);
             return PAM_BUF_ERR;
         }
 
         // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
         *resp = reinterpret_cast<pam_response*>(ptr);
 
-        responses[i]->resp = pass;
+        char **authData = (char **)appdataPtr;  // Array containing password and TOTP
+        if (strstr(msg[i]->msg, "Password") != NULL)
+        {
+             responses[i]->resp = strdup(authData[0]);  // Password input
+        }
+        if (strstr(msg[i]->msg, "Verification code") != NULL || strstr(msg[i]->msg, "TOTP") != NULL)
+        {
+             responses[i]->resp = strdup(authData[1]);  // TOTP input
+        }
 
         return PAM_SUCCESS;
     }
@@ -84,16 +64,25 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
  * @brief Attempt username/password authentication via PAM.
  * @param username The provided username aka account name.
  * @param password The provided password.
+ * @param token The provided MFA token.
  * @returns PAM error code or PAM_SUCCESS for success. */
 inline int pamAuthenticateUser(std::string_view username,
-                               std::string_view password)
+                               std::string_view password,
+                               std::optional<std::string> token)
 {
     std::string userStr(username);
     std::string passStr(password);
 
-    char* passStrNoConst = passStr.data();
+    char *authData[2];
+    authData[0] = passStr.data();
+    if(token)
+    {
+        std::string passcode(*token);
+        authData[1] = passcode.data();
+    }
+
     const struct pam_conv localConversation = {pamFunctionConversation,
-                                               passStrNoConst};
+                                               authData};
     pam_handle_t* localAuthHandle = nullptr; // this gets set by pam_start
 
     int retval = pam_start("webserver", userStr.c_str(), &localConversation,
@@ -125,10 +114,12 @@ inline int pamAuthenticateUser(std::string_view username,
 inline int pamUpdatePassword(const std::string& username,
                              const std::string& password)
 {
+
+    char *authData[2];
     // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
-    char* passStrNoConst = const_cast<char*>(password.c_str());
+    authData[0] = const_cast<char*>(password.c_str());
     const struct pam_conv localConversation = {pamFunctionConversation,
-                                               passStrNoConst};
+                                               authData};
     pam_handle_t* localAuthHandle = nullptr; // this gets set by pam_start
 
     int retval = pam_start("webserver", username.c_str(), &localConversation,
