@@ -7,6 +7,12 @@
 #include <span>
 #include <string_view>
 
+struct PasswordData
+{
+    std::string password;
+    std::optional<std::string> token;
+};
+
 // function used to get user input
 inline int pamFunctionConversation(int numMsg, const struct pam_message** msgs,
                                    struct pam_response** resp, void* appdataPtr)
@@ -20,8 +26,9 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msgs,
     {
         return PAM_CONV_ERR;
     }
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
+    PasswordData* appPass = reinterpret_cast<PasswordData*>(appdataPtr);
     auto msgCount = static_cast<size_t>(numMsg);
-
     // NOLINTNEXTLINE(cppcoreguidelines-avoid-c-arrays)
     auto responseArrPtr = std::make_unique<pam_response[]>(msgCount);
     auto responses = std::span(responseArrPtr.get(), msgCount);
@@ -41,20 +48,34 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msgs,
             case PAM_PROMPT_ECHO_OFF:
             {
                 // Assume PAM is only prompting for the password as hidden input
-                // Allocate memory only when PAM_PROMPT_ECHO_OFF is encounterred
-                char* appPass = static_cast<char*>(appdataPtr);
-                size_t appPassSize = std::strlen(appPass);
-
+                // Allocate memory only when PAM_PROMPT_ECHO_OFF is encountered
+                size_t appPassSize = appPass->password.size();
                 if ((appPassSize + 1) > PAM_MAX_RESP_SIZE)
                 {
                     return PAM_CONV_ERR;
                 }
-                // Create an array for pam to own
-                // NOLINTNEXTLINE(cppcoreguidelines-avoid-c-arrays)
-                auto passPtr = std::make_unique<char[]>(appPassSize + 1);
-                std::strncpy(passPtr.get(), appPass, appPassSize + 1);
-
-                responses[i].resp = passPtr.release();
+                std::string_view message(msg.msg);
+                constexpr std::string_view passwordPrompt = "Password: ";
+                // String used by Google authenticator to ask for one time code
+                constexpr std::string_view totpPrompt = "Verification code: ";
+                if (message.starts_with(passwordPrompt))
+                {
+                    response.resp =
+                        strdup(appPass->password.c_str()); // Password input
+                }
+                else if (message.starts_with(totpPrompt))
+                {
+                    if (!appPass->token)
+                    {
+                        return PAM_CONV_ERR;
+                    }
+                    response.resp =
+                        strdup(appPass->token->c_str()); // TOTP input
+                }
+                else
+                {
+                    return PAM_CONV_ERR;
+                }
             }
             break;
             case PAM_ERROR_MSG:
@@ -76,16 +97,15 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msgs,
  * @brief Attempt username/password authentication via PAM.
  * @param username The provided username aka account name.
  * @param password The provided password.
+ * @param token The provided MFA token.
  * @returns PAM error code or PAM_SUCCESS for success. */
 inline int pamAuthenticateUser(std::string_view username,
-                               std::string_view password)
+                               std::string_view password,
+                               std::optional<std::string> token)
 {
     std::string userStr(username);
-    std::string passStr(password);
-
-    char* passStrNoConst = passStr.data();
-    const struct pam_conv localConversation = {pamFunctionConversation,
-                                               passStrNoConst};
+    PasswordData data{std::string(password), std::move(token)};
+    const struct pam_conv localConversation = {pamFunctionConversation, &data};
     pam_handle_t* localAuthHandle = nullptr; // this gets set by pam_start
 
     int retval = pam_start("webserver", userStr.c_str(), &localConversation,
