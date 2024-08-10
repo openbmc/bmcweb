@@ -209,12 +209,13 @@ inline void handleSessionCollectionPost(
     std::string username;
     std::string password;
     std::optional<std::string> clientId;
+    std::optional<std::string> token;
     if (!json_util::readJsonPatch(req, asyncResp->res, "UserName", username,
-                                  "Password", password, "Context", clientId))
+                                  "Password", password, "Token", token,
+                                  "Context", clientId))
     {
         return;
     }
-
     if (password.empty() || username.empty() ||
         asyncResp->res.result() != boost::beast::http::status::ok)
     {
@@ -231,7 +232,12 @@ inline void handleSessionCollectionPost(
         return;
     }
 
-    int pamrc = pamAuthenticateUser(username, password);
+    if (!token)
+    {
+        *token = "";
+    }
+
+    int pamrc = pamAuthenticateUser(username, password, *token);
     bool isConfigureSelfOnly = pamrc == PAM_NEW_AUTHTOK_REQD;
     if ((pamrc != PAM_SUCCESS) && !isConfigureSelfOnly)
     {
