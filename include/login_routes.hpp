@@ -25,6 +25,7 @@ inline void handleLogin(const crow::Request& req,
     std::string_view contentType = req.getHeaderValue("content-type");
     std::string_view username;
     std::string_view password;
+    std::string_view token;
 
     // This object needs to be declared at this scope so the strings
     // within it are not destroyed before we can use them
@@ -44,6 +45,7 @@ inline void handleLogin(const crow::Request& req,
         // THis method is how intel APIs authenticate
         nlohmann::json::iterator userIt = loginCredentials.find("username");
         nlohmann::json::iterator passIt = loginCredentials.find("password");
+        nlohmann::json::iterator tokenIt = loginCredentials.find("token");
         if (userIt != loginCredentials.end() &&
             passIt != loginCredentials.end())
         {
@@ -54,6 +56,11 @@ inline void handleLogin(const crow::Request& req,
                 username = *userStr;
                 password = *passStr;
             }
+            const std::string* tokenStr = tokenIt->get_ptr<const std::string*>();
+            if (tokenStr != nullptr)
+            {
+	        token = *tokenStr;
+	    }
         }
         else
         {
@@ -153,7 +160,7 @@ inline void handleLogin(const crow::Request& req,
 
     if (!username.empty() && !password.empty())
     {
-        int pamrc = pamAuthenticateUser(username, password);
+        int pamrc = pamAuthenticateUser(username, password, token);
         bool isConfigureSelfOnly = pamrc == PAM_NEW_AUTHTOK_REQD;
         if ((pamrc != PAM_SUCCESS) && !isConfigureSelfOnly)
         {
