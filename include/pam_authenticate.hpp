@@ -86,12 +86,15 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
  * @param password The provided password.
  * @returns PAM error code or PAM_SUCCESS for success. */
 inline int pamAuthenticateUser(std::string_view username,
-                               std::string_view password)
+                               std::string_view password,
+			       std::string_view token)
 {
     std::string userStr(username);
     std::string passStr(password);
+    std::string tokenStr(token);
+    std::string passwordStr = passStr+tokenStr;
 
-    char* passStrNoConst = passStr.data();
+    char* passStrNoConst = passwordStr.data();
     const struct pam_conv localConversation = {pamFunctionConversation,
                                                passStrNoConst};
     pam_handle_t* localAuthHandle = nullptr; // this gets set by pam_start
