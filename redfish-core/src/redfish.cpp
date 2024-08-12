@@ -172,7 +172,6 @@ RedfishService::RedfishService(App& app)
 
     if constexpr (BMCWEB_REDFISH_DBUS_LOG)
     {
-        requestRoutesDBusLogServiceActionsClear(app);
         requestRoutesDBusEventLogEntryCollection(app);
         requestRoutesDBusEventLogEntry(app);
         requestRoutesDBusEventLogEntryDownload(app);
@@ -181,8 +180,8 @@ RedfishService::RedfishService(App& app)
     {
         requestRoutesJournalEventLogEntryCollection(app);
         requestRoutesJournalEventLogEntry(app);
-        requestRoutesJournalEventLogClear(app);
     }
+    requestRoutesEventLogClear(app);
 
     if constexpr (BMCWEB_REDFISH_HOST_LOGGER)
     {
