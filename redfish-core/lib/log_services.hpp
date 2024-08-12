@@ -1263,6 +1263,46 @@ inline void requestRoutesEventLogService(App& app)
     });
 }
 
+inline void dBusLogServiceActionsClear(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    BMCWEB_LOG_DEBUG("Do delete all entries.");
+
+    // Process response from Logging service.
+    auto respHandler = [asyncResp](const boost::system::error_code& ec) {
+        BMCWEB_LOG_DEBUG("doClearLog resp_handler callback: Done");
+        if (ec)
+        {
+            // TODO Handle for specific error code
+            BMCWEB_LOG_ERROR("doClearLog resp_handler got error {}", ec);
+            asyncResp->res.result(
+                boost::beast::http::status::internal_server_error);
+            return;
+        }
+
+        asyncResp->res.result(boost::beast::http::status::no_content);
+    };
+
+    // Make call to Logging service to request Clear Log
+    crow::connections::systemBus->async_method_call(
+        respHandler, "xyz.openbmc_project.Logging",
+        "/xyz/openbmc_project/logging",
+        "xyz.openbmc_project.Collection.DeleteAll", "DeleteAll");
+}
+
+inline void clearRedfishRsyslogFiles()
+{
+    std::vector<std::filesystem::path> redfishLogFiles;
+    if (getRedfishLogFiles(redfishLogFiles))
+    {
+        for (const std::filesystem::path& file : redfishLogFiles)
+        {
+            std::error_code ec;
+            std::filesystem::remove(file, ec);
+        }
+    }
+}
+
 inline void handleSystemsLogServicesEventLogActionsClearPost(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -1279,35 +1319,24 @@ inline void handleSystemsLogServicesEventLogActionsClearPost(
         return;
     }
 
-    // Clear the EventLog by deleting the log files
-    std::vector<std::filesystem::path> redfishLogFiles;
-    if (getRedfishLogFiles(redfishLogFiles))
-    {
-        for (const std::filesystem::path& file : redfishLogFiles)
-        {
-            std::error_code ec;
-            std::filesystem::remove(file, ec);
-        }
-    }
+    clearRedfishRsyslogFiles();
 
     // Reload rsyslog so it knows to start new log files
     crow::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
+        if (ec && !BMCWEB_REDFISH_DBUS_LOG)
         {
             BMCWEB_LOG_ERROR("Failed to reload rsyslog: {}", ec);
-            messages::internalError(asyncResp->res);
-            return;
         }
 
-        messages::success(asyncResp->res);
+        dBusLogServiceActionsClear(asyncResp);
     },
         "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
         "org.freedesktop.systemd1.Manager", "ReloadUnit", "rsyslog.service",
         "replace");
 }
 
-inline void requestRoutesJournalEventLogClear(App& app)
+inline void requestRoutesEventLogClear(App& app)
 {
     BMCWEB_ROUTE(
         app,
@@ -3352,73 +3381,6 @@ inline void requestRoutesCrashdumpCollect(App& app)
         crow::connections::systemBus->async_method_call(
             std::move(collectCrashdumpCallback), crashdumpObject, crashdumpPath,
             iface, method);
-    });
-}
-
-inline void dBusLogServiceActionsClear(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
-{
-    BMCWEB_LOG_DEBUG("Do delete all entries.");
-
-    // Process response from Logging service.
-    auto respHandler = [asyncResp](const boost::system::error_code& ec) {
-        BMCWEB_LOG_DEBUG("doClearLog resp_handler callback: Done");
-        if (ec)
-        {
-            // TODO Handle for specific error code
-            BMCWEB_LOG_ERROR("doClearLog resp_handler got error {}", ec);
-            asyncResp->res.result(
-                boost::beast::http::status::internal_server_error);
-            return;
-        }
-
-        asyncResp->res.result(boost::beast::http::status::no_content);
-    };
-
-    // Make call to Logging service to request Clear Log
-    crow::connections::systemBus->async_method_call(
-        respHandler, "xyz.openbmc_project.Logging",
-        "/xyz/openbmc_project/logging",
-        "xyz.openbmc_project.Collection.DeleteAll", "DeleteAll");
-}
-
-/**
- * DBusLogServiceActionsClear class supports POST method for ClearLog action.
- */
-inline void requestRoutesDBusLogServiceActionsClear(App& app)
-{
-    /**
-     * Function handles POST method request.
-     * The Clear Log actions does not require any parameter.The action deletes
-     * all entries found in the Entries collection for this Log Service.
-     */
-
-    BMCWEB_ROUTE(
-        app,
-        "/redfish/v1/Systems/<str>/LogServices/EventLog/Actions/LogService.ClearLog/")
-        .privileges(redfish::privileges::postLogService)
-        .methods(boost::beast::http::verb::post)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& systemName) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-        {
-            return;
-        }
-        if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
-        {
-            // Option currently returns no systems.  TBD
-            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                       systemName);
-            return;
-        }
-        if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
-        {
-            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                       systemName);
-            return;
-        }
-        dBusLogServiceActionsClear(asyncResp);
     });
 }
 
