@@ -179,8 +179,8 @@ RedfishService::RedfishService(App& app)
     else
     {
         requestRoutesJournalEventLogEntryCollection(app);
-        requestRoutesJournalEventLogEntry(app);
     }
+    requestRoutesEventLogEntry(app);
     requestRoutesEventLogClear(app);
 
     if constexpr (BMCWEB_REDFISH_HOST_LOGGER)
