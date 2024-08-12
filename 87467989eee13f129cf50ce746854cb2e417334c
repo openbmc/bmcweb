@@ -1,0 +1,176 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7aa6611_e2ab340e",
+        "filename": "config/bmcweb_config.h.in",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-12T23:33:27Z",
+      "side": 1,
+      "message": "I think this goes away now.  This file is now completely generated from meson.\n\nThis probably made sense a few months ago.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 68
+      },
+      "revId": "87467989eee13f129cf50ce746854cb2e417334c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f576099b_47d9b5a5",
+        "filename": "meson.build",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-12T23:33:27Z",
+      "side": 1,
+      "message": "weird the CLI daemon needs http included.... but idk, we must have an include dependency there that doesn\u0027t make sense.",
+      "revId": "87467989eee13f129cf50ce746854cb2e417334c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0e461f6_7442db47",
+        "filename": "meson.build",
+        "patchSetId": 3
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-12T23:33:27Z",
+      "side": 1,
+      "message": "bmcweb doesn\u0027t need cli11 (yet)",
+      "revId": "87467989eee13f129cf50ce746854cb2e417334c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c740bb1_70487777",
+        "filename": "meson.build",
+        "patchSetId": 3
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-12T23:33:27Z",
+      "side": 1,
+      "message": "nit, can we call this \"daemon\" just be be more clear.",
+      "range": {
+        "startLine": 377,
+        "startChar": 23,
+        "endLine": 377,
+        "endChar": 33
+      },
+      "revId": "87467989eee13f129cf50ce746854cb2e417334c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "386d6867_2ebd0dae",
+        "filename": "meson.build",
+        "patchSetId": 3
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-12T23:33:27Z",
+      "side": 1,
+      "message": "can we call this \"CLI application\" instead of executable?",
+      "range": {
+        "startLine": 389,
+        "startChar": 22,
+        "endLine": 389,
+        "endChar": 32
+      },
+      "revId": "87467989eee13f129cf50ce746854cb2e417334c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1d0648f_187f4fe8",
+        "filename": "src/webserver_cli.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-12T23:33:27Z",
+      "side": 1,
+      "message": "I don\u0027t see iostream used?",
+      "range": {
+        "startLine": 3,
+        "startChar": 10,
+        "endLine": 3,
+        "endChar": 18
+      },
+      "revId": "87467989eee13f129cf50ce746854cb2e417334c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac101af1_2e37b4cf",
+        "filename": "src/webserver_cli.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-12T23:33:27Z",
+      "side": 1,
+      "message": "The CLI should JUST need asio/connection.hpp",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 31
+      },
+      "revId": "87467989eee13f129cf50ce746854cb2e417334c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebcd1540_4f3858d8",
+        "filename": "src/webserver_cli.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-12T23:33:27Z",
+      "side": 1,
+      "message": "needs clang formatted.",
+      "range": {
+        "startLine": 16,
+        "startChar": 1,
+        "endLine": 16,
+        "endChar": 2
+      },
+      "revId": "87467989eee13f129cf50ce746854cb2e417334c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
