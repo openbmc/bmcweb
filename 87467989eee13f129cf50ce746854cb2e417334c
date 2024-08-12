@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "45795e4d_311bce06",
+        "filename": "config/bmcweb_config.h.in",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-12T23:54:27Z",
+      "side": 1,
+      "message": "Yep, I think you got it.",
+      "parentUuid": "6886f727_a274cfd5",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 68
+      },
+      "revId": "87467989eee13f129cf50ce746854cb2e417334c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f576099b_47d9b5a5",
         "filename": "meson.build",
         "patchSetId": 3
