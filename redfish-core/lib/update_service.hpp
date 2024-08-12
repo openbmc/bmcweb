@@ -950,7 +950,7 @@ inline void
     if (!targets.empty() && targets[0] == BMCWEB_REDFISH_MANAGER_URI_NAME)
     {
         dbus::utility::getAssociationEndPoints(
-            "/xyz/openbmc_project/software/bmc/functional",
+            "/xyz/openbmc_project/software/bmc/updateable",
             [asyncResp, payload = std::move(payload), memfd = std::move(memfd),
              applyTime](
                 const boost::system::error_code& ec,
