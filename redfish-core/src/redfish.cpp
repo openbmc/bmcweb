@@ -173,13 +173,14 @@ RedfishService::RedfishService(App& app)
     if constexpr (BMCWEB_REDFISH_DBUS_LOG)
     {
         requestRoutesDBusEventLogEntryCollection(app);
-        requestRoutesDBusEventLogEntry(app);
+        requestRoutesDBusEventLogEntryPatch(app);
         requestRoutesDBusEventLogEntryDownload(app);
     }
     else
     {
         requestRoutesJournalEventLogEntryCollection(app);
     }
+    requestRoutesEventLogEntryDelete(app);
     requestRoutesEventLogEntry(app);
     requestRoutesEventLogClear(app);
 
