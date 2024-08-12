@@ -1670,6 +1670,37 @@ inline void requestRoutesJournalEventLogEntryCollection(App& app)
             handleSystemsLogServiceEventLogLogEntryCollection, std::ref(app)));
 }
 
+inline void dBusEventLogEntryGet(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, std::string entryID)
+{
+    dbus::utility::escapePathForDbus(entryID);
+
+    // DBus implementation of EventLog/Entries
+    // Make call to Logging Service to find all log entry objects
+    sdbusplus::asio::getAllProperties(
+        *crow::connections::systemBus, "xyz.openbmc_project.Logging",
+        "/xyz/openbmc_project/logging/entry/" + entryID, "",
+        [asyncResp, entryID](const boost::system::error_code& ec,
+                             const dbus::utility::DBusPropertiesMap& resp) {
+            if (ec.value() == EBADR)
+            {
+                messages::resourceNotFound(asyncResp->res, "EventLogEntry",
+                                           entryID);
+                return;
+            }
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR(
+                    "EventLogEntry (DBus) resp_handler got error {}", ec);
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            fillEventLogLogEntryFromPropertyMap(asyncResp, resp,
+                                                asyncResp->res.jsonValue);
+        });
+}
+
 inline void handleSystemsLogServiceEventLogEntriesGet(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -1738,11 +1769,11 @@ inline void handleSystemsLogServiceEventLogEntriesGet(
             }
         }
     }
-    // Requested ID was not found
-    messages::resourceNotFound(asyncResp->res, "LogEntry", targetID);
+
+    dBusEventLogEntryGet(asyncResp, targetID);
 }
 
-inline void requestRoutesJournalEventLogEntry(App& app)
+inline void requestRoutesEventLogEntry(App& app)
 {
     BMCWEB_ROUTE(
         app, "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/<str>/")
@@ -1805,37 +1836,6 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
             });
 }
 
-inline void dBusEventLogEntryGet(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, std::string entryID)
-{
-    dbus::utility::escapePathForDbus(entryID);
-
-    // DBus implementation of EventLog/Entries
-    // Make call to Logging Service to find all log entry objects
-    sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, "xyz.openbmc_project.Logging",
-        "/xyz/openbmc_project/logging/entry/" + entryID, "",
-        [asyncResp, entryID](const boost::system::error_code& ec,
-                             const dbus::utility::DBusPropertiesMap& resp) {
-            if (ec.value() == EBADR)
-            {
-                messages::resourceNotFound(asyncResp->res, "EventLogEntry",
-                                           entryID);
-                return;
-            }
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR(
-                    "EventLogEntry (DBus) resp_handler got error {}", ec);
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            fillEventLogLogEntryFromPropertyMap(asyncResp, resp,
-                                                asyncResp->res.jsonValue);
-        });
-}
-
 inline void
     dBusEventLogEntryPatch(const crow::Request& req,
                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -1893,34 +1893,6 @@ inline void dBusEventLogEntryDelete(
 
 inline void requestRoutesDBusEventLogEntry(App& app)
 {
-    BMCWEB_ROUTE(
-        app, "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/<str>/")
-        .privileges(redfish::privileges::getLogEntry)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& systemName, const std::string& entryId) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-                {
-                    return;
-                }
-                if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
-                {
-                    // Option currently returns no systems.  TBD
-                    messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                               systemName);
-                    return;
-                }
-                if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
-                {
-                    messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                               systemName);
-                    return;
-                }
-
-                dBusEventLogEntryGet(asyncResp, entryId);
-            });
-
     BMCWEB_ROUTE(
         app, "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/<str>/")
         .privileges(redfish::privileges::patchLogEntry)
