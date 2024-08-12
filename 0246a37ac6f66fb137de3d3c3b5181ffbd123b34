@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7032e28_9e231a6f",
+        "filename": "include/login_routes.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-12T15:03:26Z",
+      "side": 1,
+      "message": "Lets avoid adding anything to the /login API going forward.  This is a new feature, we shouldn\u0027t need to add it to every API.  The UI now supports logging in through \"normal\" Redfish, so we shouldn\u0027t really need to update this anymore.",
+      "revId": "0246a37ac6f66fb137de3d3c3b5181ffbd123b34",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47b93253_8fe9d78e",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-12T15:03:26Z",
+      "side": 1,
+      "message": "Lets make this take a std::optional, just so it\u0027s clear if the user provided it, or if the user provided an empty string.",
+      "range": {
+        "startLine": 90,
+        "startChar": 32,
+        "endLine": 90,
+        "endChar": 53
+      },
+      "revId": "0246a37ac6f66fb137de3d3c3b5181ffbd123b34",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe2c45bf_dc1ad26b",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-12T15:03:26Z",
+      "side": 1,
+      "message": "This doesn’t seem right.  The token provided is just string appended?  Any documentation for this?  That seems like it would have weird behaviors, where if the user attached an OTP at the end of the password, it would be parsed the same.",
+      "revId": "0246a37ac6f66fb137de3d3c3b5181ffbd123b34",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a17d2f5_2918e1de",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-12T15:03:26Z",
+      "side": 1,
+      "message": "Nullptr dereference.  token is a std::optional, it\u0027s not guaranteed to be provided by a user.",
+      "range": {
+        "startLine": 235,
+        "startChar": 56,
+        "endLine": 235,
+        "endChar": 62
+      },
+      "revId": "0246a37ac6f66fb137de3d3c3b5181ffbd123b34",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
