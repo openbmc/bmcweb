@@ -77,6 +77,9 @@ enum class DumpCreationProgress
     DUMP_CREATE_INPROGRESS
 };
 
+const std::string deletedRsyslogEventLogEntriesFilename =
+    "/var/log/deleted_redfish_event_log_entries";
+
 namespace fs = std::filesystem;
 
 inline std::string translateSeverityDbusToRedfish(const std::string& s)
@@ -1293,14 +1296,15 @@ inline void dBusLogServiceActionsClear(
 inline void clearRedfishRsyslogFiles()
 {
     std::vector<std::filesystem::path> redfishLogFiles;
+    std::error_code ec;
     if (getRedfishLogFiles(redfishLogFiles))
     {
         for (const std::filesystem::path& file : redfishLogFiles)
         {
-            std::error_code ec;
             std::filesystem::remove(file, ec);
         }
     }
+    std::filesystem::remove(deletedRsyslogEventLogEntriesFilename, ec);
 }
 
 inline void handleSystemsLogServicesEventLogActionsClearPost(
@@ -1534,6 +1538,24 @@ inline void afterLogEntriesGetManagedObjects(
     asyncResp->res.jsonValue["Members"] = std::move(entriesArray);
 }
 
+inline bool rsyslogRedfishEventLogEntryIsDeleted(const std::string& targetID)
+{
+    std::string deletedEntryID;
+    std::ifstream logStream(deletedRsyslogEventLogEntriesFilename);
+    if (!logStream.is_open())
+    {
+        return false;
+    }
+    while (std::getline(logStream, deletedEntryID))
+    {
+        if (deletedEntryID == targetID)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
 inline void handleSystemsLogServiceEventLogLogEntryCollection(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -1606,6 +1628,11 @@ inline void handleSystemsLogServiceEventLogLogEntryCollection(
                 continue;
             }
             firstEntry = false;
+
+            if (rsyslogRedfishEventLogEntryIsDeleted(idStr))
+            {
+                continue;
+            }
 
             nlohmann::json::object_t bmcLogEntry;
             LogParseError status = fillEventLogEntryJson(idStr, logEntry,
@@ -1736,6 +1763,10 @@ inline void handleSystemsLogServiceEventLogEntriesGet(
 
             if (idStr == targetID)
             {
+                if (rsyslogRedfishEventLogEntryIsDeleted(targetID))
+                {
+                    continue;
+                }
                 nlohmann::json::object_t bmcLogEntry;
                 LogParseError status = fillEventLogEntryJson(idStr, logEntry,
                                                              bmcLogEntry);
@@ -1872,7 +1903,7 @@ inline void
         "xyz.openbmc_project.Object.Delete", "Delete");
 }
 
-inline void requestRoutesDBusEventLogEntry(App& app)
+inline void requestRoutesDBusEventLogEntryPatch(App& app)
 {
     BMCWEB_ROUTE(
         app, "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/<str>/")
@@ -1901,34 +1932,113 @@ inline void requestRoutesDBusEventLogEntry(App& app)
 
         dBusEventLogEntryPatch(req, asyncResp, entryId);
     });
+}
 
+inline bool rsyslogRedfishEventLogEntryExists(const std::string& targetID)
+{
+    std::vector<std::filesystem::path> redfishLogFiles;
+    getRedfishLogFiles(redfishLogFiles);
+    std::string logEntry;
+    for (auto it = redfishLogFiles.rbegin(); it < redfishLogFiles.rend(); it++)
+    {
+        std::ifstream logStream(*it);
+        if (!logStream.is_open())
+        {
+            continue;
+        }
+        bool firstEntry = true;
+        while (std::getline(logStream, logEntry))
+        {
+            std::string idStr;
+            if (!getUniqueEntryID(logEntry, idStr, firstEntry))
+            {
+                continue;
+            }
+            firstEntry = false;
+
+            if (idStr == targetID)
+            {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+inline void appendRsyslogRedfishDeletedEntry(const std::string& targetID)
+{
+    std::ofstream deletedEntries(deletedRsyslogEventLogEntriesFilename,
+                                 std::ofstream::app);
+    if (!deletedEntries.is_open())
+    {
+        BMCWEB_LOG_ERROR("could not open {}",
+                         deletedRsyslogEventLogEntriesFilename);
+    }
+
+    deletedEntries << targetID << '\n';
+}
+
+// returns true if the entry was found and deleted
+inline bool deleteRsyslogRedfishEventLogEntry(const std::string& targetID)
+{
+    BMCWEB_LOG_DEBUG("deleting event log entry with id {}", targetID);
+
+    if (!rsyslogRedfishEventLogEntryExists(targetID))
+    {
+        return false;
+    }
+
+    if (rsyslogRedfishEventLogEntryIsDeleted(targetID))
+    {
+        BMCWEB_LOG_DEBUG("event log entry with id {} is already deleted",
+                         targetID);
+        return true;
+    }
+
+    appendRsyslogRedfishDeletedEntry(targetID);
+
+    return true;
+}
+
+inline void handleSystemsLogServiceEventLogEntriesDelete(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const std::string& param)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        // Option currently returns no systems.  TBD
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+
+    if (deleteRsyslogRedfishEventLogEntry(param))
+    {
+        asyncResp->res.result(boost::beast::http::status::ok);
+        return;
+    }
+
+    dBusEventLogEntryDelete(asyncResp, param);
+}
+
+inline void requestRoutesEventLogEntryDelete(App& app)
+{
     BMCWEB_ROUTE(
         app, "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/<str>/")
         .privileges(redfish::privileges::deleteLogEntry)
-
-        .methods(boost::beast::http::verb::delete_)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& systemName, const std::string& param) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-        {
-            return;
-        }
-        if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
-        {
-            // Option currently returns no systems.  TBD
-            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                       systemName);
-            return;
-        }
-        if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
-        {
-            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                       systemName);
-            return;
-        }
-        dBusEventLogEntryDelete(asyncResp, param);
-    });
+        .methods(boost::beast::http::verb::delete_)(std::bind_front(
+            handleSystemsLogServiceEventLogEntriesDelete, std::ref(app)));
 }
 
 constexpr const char* hostLoggerFolderPath = "/var/log/console";
