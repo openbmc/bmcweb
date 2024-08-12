@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "89c903d6_8af036e2",
+        "filename": "include/login_routes.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-12T18:19:15Z",
+      "side": 1,
+      "message": "The GUI no longer uses /login.  it was moved to SessionService about a month ago:\n\nhttps://github.com/openbmc/webui-vue/commit/1ff8e89fd2397c468ab0237158e5aeeff2692413",
+      "parentUuid": "036e0b28_697ecad7",
+      "revId": "0246a37ac6f66fb137de3d3c3b5181ffbd123b34",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "47b93253_8fe9d78e",
         "filename": "include/pam_authenticate.hpp",
         "patchSetId": 3
@@ -120,6 +138,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1dded298_ac3d0f70",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-12T18:19:15Z",
+      "side": 1,
+      "message": "That\u0027s documented as for:\n\"Some PAM clients cannot prompt the user for more than just the password.\"\n\nbmcweb IS the Pam client, so we can implement whatever we want.  We shouldn\u0027t need to set forward_pass, we should be able to return both prompts.\n\nNote, that the current logic just assumes that everything is asking for a password.  For OTP, you\u0027d go modify this code here:\n\nhttps://github.com/openbmc/bmcweb/blob/b729096d0a787abe2a7e8a9a2d1ea12b5e1540fb/include/pam_authenticate.hpp#L36\n\nTo handle both an OTP and a password (if it\u0027s requested).",
+      "parentUuid": "481572ba_ede262eb",
+      "revId": "0246a37ac6f66fb137de3d3c3b5181ffbd123b34",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6a17d2f5_2918e1de",
         "filename": "redfish-core/lib/redfish_sessions.hpp",
         "patchSetId": 3
@@ -155,6 +191,30 @@
       "side": 1,
       "message": "already addressed Nullptr dereference in latest patchset\nbut I think its good to take token as  std::optional.",
       "parentUuid": "6a17d2f5_2918e1de",
+      "range": {
+        "startLine": 235,
+        "startChar": 56,
+        "endLine": 235,
+        "endChar": 62
+      },
+      "revId": "0246a37ac6f66fb137de3d3c3b5181ffbd123b34",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5711e38d_ed04855a",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-12T18:19:15Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "7acdfdc7_4978b030",
       "range": {
         "startLine": 235,
         "startChar": 56,
