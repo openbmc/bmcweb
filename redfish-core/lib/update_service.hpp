@@ -831,8 +831,9 @@ inline void
         return;
     }
 
-    BMCWEB_LOG_INFO("Call to StartUpdate Success, retPath = {}", retPath.str);
-    createTask(asyncResp, std::move(payload), objectPath);
+    BMCWEB_LOG_INFO("Call to StartUpdate on {} Success, retPath = {}",
+                    objectPath, retPath.str);
+    createTask(asyncResp, std::move(payload), retPath);
 }
 
 inline void startUpdate(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
