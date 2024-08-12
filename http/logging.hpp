@@ -53,8 +53,23 @@ constexpr crow::LogLevel getLogLevelFromName(std::string_view name)
 }
 
 // configured bmcweb LogLevel
-constexpr crow::LogLevel bmcwebCurrentLoggingLevel =
-    getLogLevelFromName(BMCWEB_LOGGING_LEVEL);
+inline crow::LogLevel& getBmcwebCurrentLoggingLevel(){
+    static crow::LogLevel level = getLogLevelFromName(bmcwebLoggingLevel);
+    return level;
+}
+
+struct FormatString
+{
+    std::string_view str;
+    std::source_location loc;
+
+    // NOLINTNEXTLINE(google-explicit-constructor)
+    FormatString(const char* stringIn, const std::source_location& locIn =
+                                           std::source_location::current()) :
+        str(stringIn),
+        loc(locIn)
+    {}
+};
 
 template <typename T>
 const void* logPtr(T p)
@@ -68,7 +83,7 @@ template <LogLevel level, typename... Args>
 inline void vlog(std::format_string<Args...>&& format, Args&&... args,
                  const std::source_location& loc) noexcept
 {
-    if constexpr (bmcwebCurrentLoggingLevel < level)
+    if  (getBmcwebCurrentLoggingLevel() < level)
     {
         return;
     }
