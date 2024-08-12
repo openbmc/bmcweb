@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cd0a672a_0ff3de56",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-12T15:00:32Z",
+      "side": 1,
+      "message": "That sounds great.  Thank you for accommodating me.",
+      "parentUuid": "dcfdc693_547b0958",
+      "revId": "5a1418fce151af92bf03d0e2904eb3912c1becaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a36a0054_0a80f892",
         "filename": "redfish-core/include/utils/systems_utils.hpp",
         "patchSetId": 5
