@@ -22,6 +22,46 @@
       },
       "revId": "eaf4faa01dfa4e68a6943ff4513fd69410b295e2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84a66d27_4ce85a37",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1662,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-12T18:29:00Z",
+      "side": 1,
+      "message": "Nit, new code is supposed to use sdbusplus::message::object_path.  I realize this code was just moved, so I don\u0027t expect you to change it, just FYI.",
+      "range": {
+        "startLine": 1662,
+        "startChar": 48,
+        "endLine": 1662,
+        "endChar": 55
+      },
+      "revId": "eaf4faa01dfa4e68a6943ff4513fd69410b295e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7a695c6_3e676941",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1753,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-12T18:29:00Z",
+      "side": 1,
+      "message": "So we try to find an entry in the Redfish log files, then fall back to dbus?  That seems error prone.  Is there any way to make the branching decision higher based on the ID + the meson option?",
+      "revId": "eaf4faa01dfa4e68a6943ff4513fd69410b295e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
