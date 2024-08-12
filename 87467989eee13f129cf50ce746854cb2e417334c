@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6886f727_a274cfd5",
+        "filename": "config/bmcweb_config.h.in",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002169
+      },
+      "writtenOn": "2024-08-12T23:53:39Z",
+      "side": 1,
+      "message": "The alternative is to use BMCWEB_LOGGING_LEVEL directly in logging.hpp as it needs an anchor for loglevel for the first time",
+      "parentUuid": "b7aa6611_e2ab340e",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 68
+      },
+      "revId": "87467989eee13f129cf50ce746854cb2e417334c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f576099b_47d9b5a5",
         "filename": "meson.build",
         "patchSetId": 3
@@ -145,6 +169,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d44b0288_8c4d56da",
+        "filename": "src/webserver_cli.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1002169
+      },
+      "writtenOn": "2024-08-12T23:53:39Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c1d0648f_187f4fe8",
+      "range": {
+        "startLine": 3,
+        "startChar": 10,
+        "endLine": 3,
+        "endChar": 18
+      },
+      "revId": "87467989eee13f129cf50ce746854cb2e417334c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ac101af1_2e37b4cf",
@@ -168,6 +216,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "25185355_911cd713",
+        "filename": "src/webserver_cli.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002169
+      },
+      "writtenOn": "2024-08-12T23:53:39Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ac101af1_2e37b4cf",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 31
+      },
+      "revId": "87467989eee13f129cf50ce746854cb2e417334c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ebcd1540_4f3858d8",
@@ -181,6 +253,30 @@
       "writtenOn": "2024-08-12T23:33:27Z",
       "side": 1,
       "message": "needs clang formatted.",
+      "range": {
+        "startLine": 16,
+        "startChar": 1,
+        "endLine": 16,
+        "endChar": 2
+      },
+      "revId": "87467989eee13f129cf50ce746854cb2e417334c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcc501ec_0586e148",
+        "filename": "src/webserver_cli.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1002169
+      },
+      "writtenOn": "2024-08-12T23:53:39Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ebcd1540_4f3858d8",
       "range": {
         "startLine": 16,
         "startChar": 1,
