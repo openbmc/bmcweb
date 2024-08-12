@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "036e0b28_697ecad7",
+        "filename": "include/login_routes.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-08-12T17:42:51Z",
+      "side": 1,
+      "message": "ok, looks like GUI login page still uses /login API, so i have updated /login as well.",
+      "parentUuid": "d7032e28_9e231a6f",
+      "revId": "0246a37ac6f66fb137de3d3c3b5181ffbd123b34",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "47b93253_8fe9d78e",
         "filename": "include/pam_authenticate.hpp",
         "patchSetId": 3
@@ -31,6 +49,30 @@
       "writtenOn": "2024-08-12T15:03:26Z",
       "side": 1,
       "message": "Lets make this take a std::optional, just so it\u0027s clear if the user provided it, or if the user provided an empty string.",
+      "range": {
+        "startLine": 90,
+        "startChar": 32,
+        "endLine": 90,
+        "endChar": 53
+      },
+      "revId": "0246a37ac6f66fb137de3d3c3b5181ffbd123b34",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18e5f811_469c2e1f",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-08-12T17:42:51Z",
+      "side": 1,
+      "message": "agree, will make this change",
+      "parentUuid": "47b93253_8fe9d78e",
       "range": {
         "startLine": 90,
         "startChar": 32,
@@ -60,6 +102,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "481572ba_ede262eb",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-08-12T17:42:51Z",
+      "side": 1,
+      "message": "google pam authenticator support these options like forward_pass, user_first_pass to tell PAM modules how each google-authenticator PAM module can pick corresponding  OTP token for authentication.\n\nhttps://github.com/google/google-authenticator-libpam?tab\u003dreadme-ov-file#try_first_pass--use_first_pass--forward_pass\n\nPAM configuration file will have this configuration\nauth required pam_google_authenticator.so forward_pass nullok",
+      "parentUuid": "fe2c45bf_dc1ad26b",
+      "revId": "0246a37ac6f66fb137de3d3c3b5181ffbd123b34",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6a17d2f5_2918e1de",
         "filename": "redfish-core/lib/redfish_sessions.hpp",
         "patchSetId": 3
@@ -71,6 +131,30 @@
       "writtenOn": "2024-08-12T15:03:26Z",
       "side": 1,
       "message": "Nullptr dereference.  token is a std::optional, it\u0027s not guaranteed to be provided by a user.",
+      "range": {
+        "startLine": 235,
+        "startChar": 56,
+        "endLine": 235,
+        "endChar": 62
+      },
+      "revId": "0246a37ac6f66fb137de3d3c3b5181ffbd123b34",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7acdfdc7_4978b030",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-08-12T17:42:51Z",
+      "side": 1,
+      "message": "already addressed Nullptr dereference in latest patchset\nbut I think its good to take token as  std::optional.",
+      "parentUuid": "6a17d2f5_2918e1de",
       "range": {
         "startLine": 235,
         "startChar": 56,
