@@ -7,6 +7,7 @@
 // NOLINTBEGIN(readability-identifier-naming)
 
 @BMCWEB_OPTIONS@
+constexpr const char* bmcwebLoggingLevel = "@BMCWEB_LOGGING_LEVEL@";
 
 // NOLINTEND(readability-identifier-naming)
 // clang-format on
