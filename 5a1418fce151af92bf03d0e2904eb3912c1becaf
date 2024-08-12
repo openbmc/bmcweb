@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dcfdc693_547b0958",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-08-12T14:15:44Z",
+      "side": 1,
+      "message": "Sure, I will do this in the future. \n\nI have now splited the commit to only include the introduction of getCollectionMembers in systems.hpp aswell as adjusted the commit message. I am working on resolving the issues you have commented here in a new patch. Will publish those under the same topic once I have fixed them. Is that ok with you?",
+      "parentUuid": "f0ce0c39_f1029f88",
+      "revId": "5a1418fce151af92bf03d0e2904eb3912c1becaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a36a0054_0a80f892",
         "filename": "redfish-core/include/utils/systems_utils.hpp",
         "patchSetId": 5
