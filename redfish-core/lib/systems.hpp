@@ -2796,27 +2796,31 @@ inline void handleComputerSystemCollectionGet(
         return;
     }
 
-    asyncResp->res.addHeader(
-        boost::beast::http::field::link,
-        "</redfish/v1/JsonSchemas/ComputerSystemCollection.json>; rel=describedby");
+    asyncResp->res.addHeader(boost::beast::http::field::link,
+                             "</redfish/v1/JsonSchemas/ComputerSystemCollection.json>; rel=describedby");
     asyncResp->res.jsonValue["@odata.type"] =
         "#ComputerSystemCollection.ComputerSystemCollection";
     asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Systems";
     asyncResp->res.jsonValue["Name"] = "Computer System Collection";
 
-    nlohmann::json& ifaceArray = asyncResp->res.jsonValue["Members"];
-    ifaceArray = nlohmann::json::array();
     if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
-        asyncResp->res.jsonValue["Members@odata.count"] = 0;
-        // Option currently returns no systems.  TBD
+        constexpr std::array<std::string_view, 1> interfaces{
+            "xyz.openbmc_project.Inventory.Decorator.ManagedHost"};
+        collection_util::getCollectionMembers(
+            asyncResp, boost::urls::url("/redfish/v1/Systems"), interfaces,
+            "/xyz/openbmc_project/inventory");
         return;
     }
+
+    nlohmann::json& ifaceArray = asyncResp->res.jsonValue["Members"];
     asyncResp->res.jsonValue["Members@odata.count"] = 1;
     nlohmann::json::object_t system;
     system["@odata.id"] = boost::urls::format("/redfish/v1/Systems/{}",
                                               BMCWEB_REDFISH_SYSTEM_URI_NAME);
     ifaceArray.emplace_back(std::move(system));
+
+    // hypervisor
     sdbusplus::asio::getProperty<std::string>(
         *crow::connections::systemBus, "xyz.openbmc_project.Settings",
         "/xyz/openbmc_project/network/hypervisor",
