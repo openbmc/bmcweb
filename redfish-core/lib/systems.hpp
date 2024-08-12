@@ -33,6 +33,7 @@
 #include "utils/json_utils.hpp"
 #include "utils/pcie_util.hpp"
 #include "utils/sw_utils.hpp"
+#include "utils/systems_utils.hpp"
 #include "utils/time_utils.hpp"
 
 #include <boost/asio/error.hpp>
@@ -2804,19 +2805,13 @@ inline void handleComputerSystemCollectionGet(
     asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Systems";
     asyncResp->res.jsonValue["Name"] = "Computer System Collection";
 
-    nlohmann::json& ifaceArray = asyncResp->res.jsonValue["Members"];
-    ifaceArray = nlohmann::json::array();
-    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
-    {
-        asyncResp->res.jsonValue["Members@odata.count"] = 0;
-        // Option currently returns no systems.  TBD
-        return;
-    }
-    asyncResp->res.jsonValue["Members@odata.count"] = 1;
-    nlohmann::json::object_t system;
-    system["@odata.id"] = boost::urls::format("/redfish/v1/Systems/{}",
-                                              BMCWEB_REDFISH_SYSTEM_URI_NAME);
-    ifaceArray.emplace_back(std::move(system));
+    constexpr std::array<std::string_view, 1> interfaces{
+        "xyz.openbmc_project.Inventory.Decorator.ManagedHost"};
+    systems_utils::getSystemCollectionMembers(
+        asyncResp, boost::urls::url("/redfish/v1/Systems"), interfaces,
+        "/xyz/openbmc_project/inventory");
+
+    // hypervisor
     sdbusplus::asio::getProperty<std::string>(
         *crow::connections::systemBus, "xyz.openbmc_project.Settings",
         "/xyz/openbmc_project/network/hypervisor",
