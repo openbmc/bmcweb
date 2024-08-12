@@ -79,6 +79,8 @@ enum class DumpCreationProgress
 
 const std::string deletedRsyslogEventLogEntriesFilename =
     "/var/log/deleted_redfish_event_log_entries";
+const std::string resolvedRsyslogEventLogEntriesFilename =
+    "/var/log/resolved_redifsh_event_log_entries";
 
 namespace fs = std::filesystem;
 
@@ -1305,6 +1307,7 @@ inline void clearRedfishRsyslogFiles()
         }
     }
     std::filesystem::remove(deletedRsyslogEventLogEntriesFilename, ec);
+    std::filesystem::remove(resolvedRsyslogEventLogEntriesFilename, ec);
 }
 
 inline void handleSystemsLogServicesEventLogActionsClearPost(
@@ -1350,6 +1353,44 @@ inline void requestRoutesEventLogClear(App& app)
             handleSystemsLogServicesEventLogActionsClearPost, std::ref(app)));
 }
 
+inline std::set<std::string> rsyslogRedfishEventLogResolvedEntries()
+{
+    std::set<std::string> res;
+    std::string resolvedEntryID;
+    std::ifstream logStream(resolvedRsyslogEventLogEntriesFilename);
+    if (!logStream.is_open())
+    {
+        BMCWEB_LOG_ERROR("Failed to open resolved log entries file: {}",
+                         resolvedRsyslogEventLogEntriesFilename);
+        return res;
+    }
+    while (std::getline(logStream, resolvedEntryID))
+    {
+        res.insert(resolvedEntryID);
+    }
+    BMCWEB_LOG_DEBUG("found {} resolved log entries in {}", res.size(),
+                     resolvedRsyslogEventLogEntriesFilename);
+    return res;
+}
+
+inline bool rsyslogRedfishEventLogEntryIsResolved(const std::string& entryID)
+{
+    std::string resolvedEntryID;
+    std::ifstream logStream(resolvedRsyslogEventLogEntriesFilename);
+    if (!logStream.is_open())
+    {
+        return false;
+    }
+    while (std::getline(logStream, resolvedEntryID))
+    {
+        if (resolvedEntryID == entryID)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
 enum class LogParseError
 {
     success,
@@ -1360,7 +1401,8 @@ enum class LogParseError
 static LogParseError
     fillEventLogEntryJson(const std::string& logEntryID,
                           const std::string& logEntry,
-                          nlohmann::json::object_t& logEntryJson)
+                          nlohmann::json::object_t& logEntryJson,
+                          std::set<std::string>& resolvedEntries)
 {
     // The redfish log format is "<Timestamp> <MessageId>,<MessageArgs>"
     // First get the Timestamp
@@ -1432,6 +1474,8 @@ static LogParseError
     logEntryJson["EntryType"] = "Event";
     logEntryJson["Severity"] = message->messageSeverity;
     logEntryJson["Created"] = std::move(timestamp);
+    logEntryJson["Resolved"] = resolvedEntries.contains(logEntryID);
+
     return LogParseError::success;
 }
 
@@ -1608,6 +1652,8 @@ inline void handleSystemsLogServiceEventLogLogEntryCollection(
     uint64_t entryCount = 0;
     std::string logEntry;
 
+    std::set<std::string> resolvedEntries =
+        rsyslogRedfishEventLogResolvedEntries();
     // Oldest logs are in the last file, so start there and loop
     // backwards
     for (auto it = redfishLogFiles.rbegin(); it < redfishLogFiles.rend(); it++)
@@ -1635,8 +1681,8 @@ inline void handleSystemsLogServiceEventLogLogEntryCollection(
             }
 
             nlohmann::json::object_t bmcLogEntry;
-            LogParseError status = fillEventLogEntryJson(idStr, logEntry,
-                                                         bmcLogEntry);
+            LogParseError status = fillEventLogEntryJson(
+                idStr, logEntry, bmcLogEntry, resolvedEntries);
             if (status == LogParseError::messageIdNotInRegistry)
             {
                 continue;
@@ -1739,6 +1785,8 @@ inline void handleSystemsLogServiceEventLogEntriesGet(
     std::vector<std::filesystem::path> redfishLogFiles;
     getRedfishLogFiles(redfishLogFiles);
     std::string logEntry;
+    std::set<std::string> resolvedEntries =
+        rsyslogRedfishEventLogResolvedEntries();
 
     // Oldest logs are in the last file, so start there and loop
     // backwards
@@ -1768,8 +1816,8 @@ inline void handleSystemsLogServiceEventLogEntriesGet(
                     continue;
                 }
                 nlohmann::json::object_t bmcLogEntry;
-                LogParseError status = fillEventLogEntryJson(idStr, logEntry,
-                                                             bmcLogEntry);
+                LogParseError status = fillEventLogEntryJson(
+                    idStr, logEntry, bmcLogEntry, resolvedEntries);
                 if (status != LogParseError::success)
                 {
                     messages::internalError(asyncResp->res);
@@ -1848,18 +1896,10 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
 }
 
 inline void
-    dBusEventLogEntryPatch(const crow::Request& req,
-                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                           const std::string& entryId)
+    dBusEventLogEntryPatch(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const std::string& entryId,
+                           const std::optional<bool>& resolved)
 {
-    std::optional<bool> resolved;
-
-    if (!json_util::readJsonPatch(req, asyncResp->res, "Resolved", resolved))
-    {
-        return;
-    }
-    BMCWEB_LOG_DEBUG("Set Resolved");
-
     setDbusProperty(asyncResp, "Resolved", "xyz.openbmc_project.Logging",
                     "/xyz/openbmc_project/logging/entry/" + entryId,
                     "xyz.openbmc_project.Logging.Entry", "Resolved",
@@ -1903,37 +1943,6 @@ inline void
         "xyz.openbmc_project.Object.Delete", "Delete");
 }
 
-inline void requestRoutesDBusEventLogEntryPatch(App& app)
-{
-    BMCWEB_ROUTE(
-        app, "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/<str>/")
-        .privileges(redfish::privileges::patchLogEntry)
-        .methods(boost::beast::http::verb::patch)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& systemName, const std::string& entryId) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-        {
-            return;
-        }
-        if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
-        {
-            // Option currently returns no systems.  TBD
-            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                       systemName);
-            return;
-        }
-        if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
-        {
-            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                       systemName);
-            return;
-        }
-
-        dBusEventLogEntryPatch(req, asyncResp, entryId);
-    });
-}
-
 inline bool rsyslogRedfishEventLogEntryExists(const std::string& targetID)
 {
     std::vector<std::filesystem::path> redfishLogFiles;
@@ -1963,6 +1972,116 @@ inline bool rsyslogRedfishEventLogEntryExists(const std::string& targetID)
         }
     }
     return false;
+}
+
+inline void appendRsyslogRedfishResolvedEntry(const std::string& targetID)
+{
+    std::ofstream resolvedEntries(resolvedRsyslogEventLogEntriesFilename,
+                                  std::ofstream::app);
+    if (!resolvedEntries.is_open())
+    {
+        BMCWEB_LOG_ERROR("could not open resolved log entries file {}",
+                         resolvedRsyslogEventLogEntriesFilename);
+        return;
+    }
+
+    resolvedEntries << targetID << '\n';
+}
+
+inline void removeRsyslogRedfishResolvedEntry(const std::string& targetID)
+{
+    std::set<std::string> resolvedEntries =
+        rsyslogRedfishEventLogResolvedEntries();
+
+    std::ofstream resolvedEntriesNew(resolvedRsyslogEventLogEntriesFilename,
+                                     std::ofstream::trunc);
+    if (!resolvedEntriesNew.is_open())
+    {
+        BMCWEB_LOG_ERROR("could not open resolved log entries file {}",
+                         resolvedRsyslogEventLogEntriesFilename);
+        return;
+    }
+
+    for (const auto& entryID : resolvedEntries)
+    {
+        if (entryID == targetID)
+        {
+            continue;
+        }
+        resolvedEntriesNew << entryID << '\n';
+    }
+}
+
+// returns true if the entry exists
+inline bool rsyslogRedfishEventLogEntryResolve(const std::string& entryID,
+                                               bool resolve)
+{
+    BMCWEB_LOG_DEBUG("setting resolved state for log entry {}: {}", entryID,
+                     resolve);
+
+    bool exists = rsyslogRedfishEventLogEntryExists(entryID);
+
+    const bool isResolved = rsyslogRedfishEventLogEntryIsResolved(entryID);
+
+    if (!isResolved && resolve)
+    {
+        appendRsyslogRedfishResolvedEntry(entryID);
+    }
+    if (isResolved && !resolve)
+    {
+        removeRsyslogRedfishResolvedEntry(entryID);
+    }
+
+    return exists;
+}
+
+inline void handleSystemsLogServiceEventLogEntryPatch(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const std::string& entryId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        // Option currently returns no systems.  TBD
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+
+    std::optional<bool> resolved;
+
+    if (!json_util::readJsonPatch(req, asyncResp->res, "Resolved", resolved))
+    {
+        return;
+    }
+    BMCWEB_LOG_DEBUG("Set Resolved");
+
+    if (rsyslogRedfishEventLogEntryResolve(entryId, resolved.value_or(false)))
+    {
+        asyncResp->res.result(boost::beast::http::status::no_content);
+        return;
+    }
+
+    dBusEventLogEntryPatch(asyncResp, entryId, resolved);
+}
+
+inline void requestRoutesEventLogEntryPatch(App& app)
+{
+    BMCWEB_ROUTE(
+        app, "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/<str>/")
+        .privileges(redfish::privileges::patchLogEntry)
+        .methods(boost::beast::http::verb::patch)(std::bind_front(
+            handleSystemsLogServiceEventLogEntryPatch, std::ref(app)));
 }
 
 inline void appendRsyslogRedfishDeletedEntry(const std::string& targetID)
