@@ -33,6 +33,7 @@
 #include "utils/json_utils.hpp"
 #include "utils/pcie_util.hpp"
 #include "utils/sw_utils.hpp"
+#include "utils/systems_utils.hpp"
 #include "utils/time_utils.hpp"
 
 #include <boost/asio/error.hpp>
@@ -2804,48 +2805,41 @@ inline void handleComputerSystemCollectionGet(
     asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Systems";
     asyncResp->res.jsonValue["Name"] = "Computer System Collection";
 
-    nlohmann::json& ifaceArray = asyncResp->res.jsonValue["Members"];
-    ifaceArray = nlohmann::json::array();
-    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    getSystemCollectionMembers(asyncResp);
+
+    if (!BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
-        asyncResp->res.jsonValue["Members@odata.count"] = 0;
-        // Option currently returns no systems.  TBD
-        return;
+        // hypervisor
+        sdbusplus::asio::getProperty<std::string>(
+            *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+            "/xyz/openbmc_project/network/hypervisor",
+            "xyz.openbmc_project.Network.SystemConfiguration", "HostName",
+            [asyncResp](const boost::system::error_code& ec2,
+                        const std::string& /*hostName*/) {
+            if (ec2)
+            {
+                return;
+            }
+            auto val = asyncResp->res.jsonValue.find("Members@odata.count");
+            if (val == asyncResp->res.jsonValue.end())
+            {
+                BMCWEB_LOG_CRITICAL("Count wasn't found??");
+                return;
+            }
+            int64_t* count = val->get_ptr<int64_t*>();
+            if (count == nullptr)
+            {
+                BMCWEB_LOG_CRITICAL("Count wasn't found??");
+                return;
+            }
+            *count = *count + 1;
+            BMCWEB_LOG_DEBUG("Hypervisor is available");
+            nlohmann::json& ifaceArray2 = asyncResp->res.jsonValue["Members"];
+            nlohmann::json::object_t hypervisor;
+            hypervisor["@odata.id"] = "/redfish/v1/Systems/hypervisor";
+            ifaceArray2.emplace_back(std::move(hypervisor));
+        });
     }
-    asyncResp->res.jsonValue["Members@odata.count"] = 1;
-    nlohmann::json::object_t system;
-    system["@odata.id"] = boost::urls::format("/redfish/v1/Systems/{}",
-                                              BMCWEB_REDFISH_SYSTEM_URI_NAME);
-    ifaceArray.emplace_back(std::move(system));
-    sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/network/hypervisor",
-        "xyz.openbmc_project.Network.SystemConfiguration", "HostName",
-        [asyncResp](const boost::system::error_code& ec2,
-                    const std::string& /*hostName*/) {
-        if (ec2)
-        {
-            return;
-        }
-        auto val = asyncResp->res.jsonValue.find("Members@odata.count");
-        if (val == asyncResp->res.jsonValue.end())
-        {
-            BMCWEB_LOG_CRITICAL("Count wasn't found??");
-            return;
-        }
-        int64_t* count = val->get_ptr<int64_t*>();
-        if (count == nullptr)
-        {
-            BMCWEB_LOG_CRITICAL("Count wasn't found??");
-            return;
-        }
-        *count = *count + 1;
-        BMCWEB_LOG_DEBUG("Hypervisor is available");
-        nlohmann::json& ifaceArray2 = asyncResp->res.jsonValue["Members"];
-        nlohmann::json::object_t hypervisor;
-        hypervisor["@odata.id"] = "/redfish/v1/Systems/hypervisor";
-        ifaceArray2.emplace_back(std::move(hypervisor));
-    });
 }
 
 /**
