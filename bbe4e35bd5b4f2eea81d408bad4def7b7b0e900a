@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de753231_dd0f32e1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-08-13T08:29:22Z",
+      "side": 1,
+      "message": "The user clearing the log is something abstract. The intent is to clear the log and on subsequent queries there should be on logs returned, if there were none produced in the meantime.\n\nWhat is happening on the bmc to implement this clearing is an implementation detail. The user does not need to care about it. If during clearing of the log we create ```didclear.txt``` and write 3 prime numbers to that file the client does not care.",
+      "parentUuid": "a939abd2_7505f350",
+      "range": {
+        "startLine": 9,
+        "startChar": 26,
+        "endLine": 10,
+        "endChar": 15
+      },
+      "revId": "bbe4e35bd5b4f2eea81d408bad4def7b7b0e900a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0b6ed0cf_97ce6879",
@@ -37,6 +61,24 @@
       "writtenOn": "2024-08-12T18:21:58Z",
       "side": 1,
       "message": "Need a better statement than this.  What are \"both\"?  how did you cause them to be cleared.",
+      "revId": "bbe4e35bd5b4f2eea81d408bad4def7b7b0e900a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a06b8d07_98e55eda",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-08-13T08:29:22Z",
+      "side": 1,
+      "message": "Everyone working with this code ought to know what these backends are.\n\n\u003e how did you cause them to be cleared\n\nin the same way it was done before. There is very little change is this patch, even if the diff suggests otherwise.",
+      "parentUuid": "0b6ed0cf_97ce6879",
       "revId": "bbe4e35bd5b4f2eea81d408bad4def7b7b0e900a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
