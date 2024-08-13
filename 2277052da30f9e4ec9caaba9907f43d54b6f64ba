@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfadc281_4ec33475",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-13T23:06:12Z",
+      "side": 1,
+      "message": "I\u0027m not really following what this is doing, and it seems to only ever be called with no args?",
+      "revId": "2277052da30f9e4ec9caaba9907f43d54b6f64ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f32e213_d1fa4bb1",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-13T23:06:12Z",
+      "side": 1,
+      "message": "don\u0027t declare static variables inline.  They take memory at runtime.",
+      "range": {
+        "startLine": 83,
+        "startChar": 4,
+        "endLine": 83,
+        "endChar": 10
+      },
+      "revId": "2277052da30f9e4ec9caaba9907f43d54b6f64ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bf716d4_355016a6",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-13T23:06:12Z",
+      "side": 1,
+      "message": "We have the TemporaryFile class that might be of use here?  As written it doesn\u0027t look like this will clean itself up if the unit tests fail.",
+      "revId": "2277052da30f9e4ec9caaba9907f43d54b6f64ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
