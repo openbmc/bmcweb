@@ -164,6 +164,30 @@
       },
       "revId": "c6cc60d9232c04fc05368a56901caa16910f3f70",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a1e3e9b_8e5c40cf",
+        "filename": "src/pam_main.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000009
+      },
+      "writtenOn": "2024-08-13T03:49:40Z",
+      "side": 1,
+      "message": "\u003e For a socket, I think you would just need to pass the abstract socket name (which should be unique) and then require the servers side to only accept one connection so you don\u0027t have any snoops.\n\u003e \n\u003e With a pipe, you will need to have some sort of protocol, because its a stream, but over the socket, you can be packet based, which is nicer. I don\u0027t have a super strong opinion just as long as it is not in plaintext over D-Bus.\n\nUse [socketpair(2)](https://www.man7.org/linux/man-pages/man2/socketpair.2.html), `AF_UNIX` and `SOCK_SEQPACKET`?\n\nThere\u0027s also [memfd_create](https://www.man7.org/linux/man-pages/man2/memfd_create.2.html) and [File Sealing](https://www.man7.org/linux/man-pages/man2/fcntl.2.html) to continue down the fd-passing route.",
+      "parentUuid": "aecaa2a0_76f22695",
+      "range": {
+        "startLine": 166,
+        "startChar": 36,
+        "endLine": 166,
+        "endChar": 63
+      },
+      "revId": "c6cc60d9232c04fc05368a56901caa16910f3f70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
