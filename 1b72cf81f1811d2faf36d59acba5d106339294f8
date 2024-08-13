@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2286246_452902d4",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 12
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-13T23:16:05Z",
+      "side": 1,
+      "message": "Nit, trailing whitespace.",
+      "range": {
+        "startLine": 249,
+        "startChar": 69,
+        "endLine": 249,
+        "endChar": 70
+      },
+      "revId": "1b72cf81f1811d2faf36d59acba5d106339294f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
