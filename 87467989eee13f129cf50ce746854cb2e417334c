@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9c66b56_933da1b3",
+        "filename": "config/bmcweb_config.h.in",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002169
+      },
+      "writtenOn": "2024-08-13T00:13:14Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "45795e4d_311bce06",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 68
+      },
+      "revId": "87467989eee13f129cf50ce746854cb2e417334c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f576099b_47d9b5a5",
