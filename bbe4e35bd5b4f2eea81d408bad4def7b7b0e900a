@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "59057daf_2c7c16bb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-13T16:57:35Z",
+      "side": 1,
+      "message": "Yes, you\u0027re right, from a user perspective the log cleared.... but only if both logging backends were present.  If one wasn\u0027t present, it\u0027s going to return an error, thus breaking the user expectations.",
+      "parentUuid": "de753231_dd0f32e1",
+      "range": {
+        "startLine": 9,
+        "startChar": 26,
+        "endLine": 10,
+        "endChar": 15
+      },
+      "revId": "bbe4e35bd5b4f2eea81d408bad4def7b7b0e900a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0b6ed0cf_97ce6879",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -79,6 +103,24 @@
       "side": 1,
       "message": "Everyone working with this code ought to know what these backends are.\n\n\u003e how did you cause them to be cleared\n\nin the same way it was done before. There is very little change is this patch, even if the diff suggests otherwise.",
       "parentUuid": "0b6ed0cf_97ce6879",
+      "revId": "bbe4e35bd5b4f2eea81d408bad4def7b7b0e900a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f87c09f_8a6144f6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-13T16:57:35Z",
+      "side": 1,
+      "message": "The point of this section is to enumerate how you tested in a way that a competent person could reproduce the same results, and the reviewer can provide input on whether or not your testing procedure was enough to cover the change being made.  It doesn\u0027t have to be exact commands, but enough that someone understands what you did.  As-written, I have no idea what you tested, because it\u0027s 4 words of description.",
+      "parentUuid": "a06b8d07_98e55eda",
       "revId": "bbe4e35bd5b4f2eea81d408bad4def7b7b0e900a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
