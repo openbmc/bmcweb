@@ -16,6 +16,24 @@
       "message": "With this patch I see errors in the journal:\n\n```\n[ERROR dbus_utils.hpp:29] DBUS property error in property: Id, reason: 0\n[CRITICAL error_messages.cpp:290] Internal Error /usr/src/debug/bmcweb/1.0+git/redfish-core/lib/log_services.hpp(1436:32) `void redfish::fillEventLogLogEntryFromPropertyMap(const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026, const dbus::utility::DBusPropertiesMap\u0026, nlohmann::json_abi_v3_11_3::json\u0026)`:\n```\n\n\nWithout this patch I see it working as expected \n```\n\"@odata.id\": \"/redfish/v1/Systems/system/LogServices/EventLog/Entries\",\n\"@odata.type\": \"#LogEntryCollection.LogEntryCollection\",\n\"Description\": \"Collection of System Event Log Entries\",\n\"Members\": [\n{\n\"@odata.id\": \"/redfish/v1/Systems/system/LogServices/EventLog/Entries/1\",\n\"@odata.type\": \"#LogEntry.v1_9_0.LogEntry\",\n\"AdditionalDataURI\": \"/redfish/v1/Systems/system/LogServices/EventLog/Entries/1/attachment\",\n\"Created\": \"2024-08-13T06:17:37.156+00:00\",\n\"EntryType\": \"Event\",\n\"Id\": \"1\",\n\"Message\": \"xyz.openbmc_project.Logging.Error.LogsCleared\",\n\"Modified\": \"2024-08-13T06:17:37.156+00:00\",\n\"Name\": \"System Event Log Entry\",\n\"Resolved\": false,\n\"ServiceProviderNotified\": false,\n\"Severity\": \"OK\"\n},\n```\n\n```\nbusctl introspect xyz.openbmc_project.Logging /xyz/openbmc_project/logging/entry/1\nNAME                                        TYPE      SIGNATURE RESULT/VALUE                             FLAGS\norg.freedesktop.DBus.Introspectable         interface -         -                                        -\n.Introspect                                 method    -         s                                        -\n\n...\n\nxyz.openbmc_project.Logging.Entry           interface -         -                                        -\n.GetEntry                                   method    -         h                                        -\n.AdditionalData                             property  as        1 \"NUM_LOGS\u003d2\"                           emits-change writable\n.EventId                                    property  s         \"BD8D2007 00000055 2E2D0010 00000000 ... emits-change writable\n.Id                                         property  u         1                                        emits-change writable\n.Message                                    property  s         \"xyz.openbmc_project.Logging.Error.Lo... emits-change writable\n.Resolution                                 property  s         \"\"                                       emits-change writable\n.Resolved                                   property  b         false                                    emits-change writable\n.ServiceProviderNotify                      property  s         \"xyz.openbmc_project.Logging.Entry.No... emits-change writable\n.Severity                                   property  s         \"xyz.openbmc_project.Logging.Entry.Le... emits-change writable\n.Timestamp                                  property  t         1723529857156                            emits-change writable\n.UpdateTimestamp                            property  t         1723529857156    \n\n```",
       "revId": "c046286aec13bd08ebbd28145a3d01b2a93ae6a1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7121bcfb_424f18c3",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1436,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-08-13T19:40:37Z",
+      "side": 1,
+      "message": "I saw this at redfish/v1/Systems/system/LogServices/EventLog/Entries with the top commit as well\n\n```\n./bmcweb \n[ERROR dbus_utils.hpp:29] DBUS property error in property: Id, reason: 0\n[CRITICAL error_messages.cpp:290] Internal Error /usr/src/debug/bmcweb/1.0+git/redfish-core/lib/log_services.hpp(1534:32) `void redfish::fillEventLogLogEntryFromPropertyMap(const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026, const dbus::utility::DBusPropertiesMap\u0026, nlohmann::json_abi_v3_11_3::json\u0026)`: \nAborted (core dumped)\n```",
+      "parentUuid": "d6afb349_04845ad5",
+      "revId": "c046286aec13bd08ebbd28145a3d01b2a93ae6a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
