@@ -52,6 +52,24 @@
       "parentUuid": "7121bcfb_424f18c3",
       "revId": "c046286aec13bd08ebbd28145a3d01b2a93ae6a1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c666a734_5436a4be",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1436,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-13T19:58:29Z",
+      "side": 1,
+      "message": "Interesting, ok.  Thank you for testing.  THis is obviously something we\u0027ll have to look at closer.",
+      "parentUuid": "0e1c5cbe_f42e7307",
+      "revId": "c046286aec13bd08ebbd28145a3d01b2a93ae6a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
