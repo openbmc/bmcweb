@@ -207,6 +207,24 @@
       "parentUuid": "5f759032_4b65b3da",
       "revId": "bbe4e35bd5b4f2eea81d408bad4def7b7b0e900a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abed4538_d73d56c2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-13T17:35:43Z",
+      "side": 1,
+      "message": "\u003e We still need to get how you documented this on a real system.\n\nWe still need to get _documented_ how you _tested_ this on a real system.\n\nis what that sentence should\u0027ve read as.",
+      "parentUuid": "d236c312_55c1b503",
+      "revId": "bbe4e35bd5b4f2eea81d408bad4def7b7b0e900a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
