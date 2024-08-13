@@ -29,17 +29,17 @@ are the steps for using the SDK and QEMU.
 - Reduce binary size by stripping it when ready for testing
 
   ```sh
-  arm-openbmc-linux-gnueabi-strip bmcweb
+  arm-openbmc-linux-gnueabi-strip bmcwebd
   ```
 
   **Note:** Stripping is not required and having the debug symbols could be
   useful depending on your testing. Leaving them will drastically increase your
   transfer time to the BMC.
 
-- Copy your bmcweb you want to test to /tmp/ in QEMU
+- Copy your bmcweb daemon you want to test to /tmp/ in QEMU
 
   ```sh
-  scp -P 2222 bmcweb root@127.0.0.1:/tmp/
+  scp -P 2222 bmcwebd root@127.0.0.1:/tmp/
   ```
 
   **Special Notes:** The address and port shown here (127.0.0.1 and 2222)
@@ -52,11 +52,11 @@ are the steps for using the SDK and QEMU.
   systemctl stop bmcweb
   ```
 
-  **Note:** bmcweb supports being started directly in parallel with the bmcweb
-  running as a service. The standalone bmcweb will be available on port 18080.
-  An advantage of this is you can compare between the two easily for testing. In
-  QEMU you would need to open up port 18080 when starting QEMU. Your curl
-  commands would need to use 18080 to communicate.
+  **Note:** bmcweb daemon supports being started directly in parallel with the
+  bmcweb running as a service. The standalone bmcweb daemon will be available on
+  port 18080. An advantage of this is you can compare between the two easily for
+  testing. In QEMU you would need to open up port 18080 when starting QEMU. Your
+  curl commands would need to use 18080 to communicate.
 
 - If running within a system that has read-only /usr/ filesystem, issue the
   following commands one time per QEMU boot to make the filesystem writable
@@ -67,16 +67,16 @@ are the steps for using the SDK and QEMU.
   mount -t overlay -o lowerdir=/usr,upperdir=/var/persist/usr,workdir=/var/persist/work/usr overlay /usr
   ```
 
-- Remove the existing bmcweb from the filesystem in QEMU
+- Remove the existing bmcweb daemon from the filesystem in QEMU
 
   ```sh
-  rm /usr/bin/bmcweb
+  rm /usr/libexec/bmcwebd
   ```
 
-- Link to your new bmcweb in /tmp/
+- Link to your new bmcweb daemon in /tmp/
 
   ```sh
-  ln -sf /tmp/bmcweb /usr/bin/bmcweb
+  ln -sf /tmp/bmcwebd /usr/libexec/bmcwebd
   ```
 
 - Test your changes. bmcweb will be started automatically upon your first REST
