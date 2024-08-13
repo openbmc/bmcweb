@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6ba9c9a5_a2be8619",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-13T17:13:53Z",
+      "side": 1,
+      "message": "\u003e Which impacts? \n\nI\u0027m not going to enumerate all of them, but off the top of my head:\nProperty differences in result\nDifferences in LogEntry delete behavior\nDifferences in EventService behavior for the two backends.\nDifferences in Circular Buffering/overflow behavior\nDifferences in behavior if one backend isn\u0027t present.\nPolling Performance (as you mentioned).  My understanding was that this wasn\u0027t a \"small\" impact.  For large number (thousands) of entries my understanding is that it\u0027s quite a large impact.\nDifferences in Paging capabilities.\n\n\nI suspect the thing we discussed in discord about you adding an option mode where you get \"both\" logs under different URIs probably makes the most sense for now, and we can work through all the above over time, especially if this is just a dev use case, there\u0027s no sense in going through all the effort.\n\n\n\u003e For the testing, what do you have in mind? What would you like to see tested?\n\nIn a short sentence, all behavior that was changed needs tested.  This is also written down in TESTING.md if you want to read that.  You\u0027ve changed a lot of behavior in this patch series, so we need to at least try to test all the use cases you\u0027ve changed.  I suspect you\u0027ve broken the usage contract for a vast majority of them (see impacts above).",
+      "parentUuid": "861211c6_ea38aabd",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 0
+      },
+      "revId": "eaf4faa01dfa4e68a6943ff4513fd69410b295e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "84a66d27_4ce85a37",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
@@ -97,6 +121,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a2d18bb7_7bd49a12",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1662,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-13T17:13:53Z",
+      "side": 1,
+      "message": "\u003e i would have rather not moved this code. But since it\u0027s a .hpp file (why?)\n\u003e and functions are not declared somewhere above, i had to move it so it would compile, since i am calling it from somewhere higher than it was called previously.\n\u003e \n\u003e Looking at this mess, how can we fix it? Should i pre-declare these functions\n\u003e instead of moving them? Should we make this whole file a .cpp?\n\u003e \n\u003e It\u0027s kind of ridiculous to be moving code around and creating huge diff for no good reason.\n\nI suspect you misread the part where I said \"I don\u0027t expect you to change it\".  This was just something I noticed because the code moved and I did the review that might be fixed in the future.\n\nSure, we can debate the (over) use of headers in bmcweb.  In fact, that problem is even documented in HEADERS.md if you want to contribute to that effort of trying to find a solution.  Re-hashing it in an unrelated code review comment doesn\u0027t really fix the problem I\u0027m afraid.",
+      "parentUuid": "5b85fad0_be461163",
+      "range": {
+        "startLine": 1662,
+        "startChar": 48,
+        "endLine": 1662,
+        "endChar": 55
+      },
+      "revId": "eaf4faa01dfa4e68a6943ff4513fd69410b295e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a7a695c6_3e676941",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
@@ -126,6 +174,24 @@
       "side": 1,
       "message": "\u003e Is there any way to make the branching decision higher based on the ID + the meson option?\nThe point of this patch series is to remove the meson option 😊\n\n\u003e That seems error prone\nHow is the fallback error prone? Which errors do you expect? \n\nThe entry ids are disjoint. If we do not find it in the redfish logs, we look on dbus. If we do not find it on dbus, it does not exist.\n\nSo it is found or not found as before.",
       "parentUuid": "a7a695c6_3e676941",
+      "revId": "eaf4faa01dfa4e68a6943ff4513fd69410b295e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f4dd727_e0ff054a",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1753,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-13T17:13:53Z",
+      "side": 1,
+      "message": "\u003e The entry ids are disjoint.\n\nWhere is that documented?  There\u0027s nothing preventing a logging daemon from creating conflicting IDs compared to the rsyslog based implementation, and there\u0027s been discussions in the past about simplifying the rsyslog IDs down to the monotonic journal id that would now be not possible if we\u0027re doing an explicit merge.",
+      "parentUuid": "06371745_5e12b3f1",
       "revId": "eaf4faa01dfa4e68a6943ff4513fd69410b295e2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
