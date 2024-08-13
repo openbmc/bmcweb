@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aa5f7eaf_39d36704",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-13T17:33:09Z",
+      "side": 1,
+      "message": "\u003e The phosphor-logging backend should always be present in openbmc.\n\nOn your systems, yes.  There are systems that remove them (hence the option flag).\n\n\u003e There should be no error in case the rsyslog generated files are not present.\n\nThis sentence is a great start for how you should be documenting your commit message.  Cool, if rsyslog isn\u0027t present we know (and have tested) that the code gives the expected behavior.  That\u0027s exactly the kind of impacts we want to see documented in a commit message.",
+      "parentUuid": "a9870969_fe30abec",
+      "range": {
+        "startLine": 9,
+        "startChar": 26,
+        "endLine": 10,
+        "endChar": 15
+      },
+      "revId": "bbe4e35bd5b4f2eea81d408bad4def7b7b0e900a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0b6ed0cf_97ce6879",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -163,6 +187,24 @@
       "side": 1,
       "message": "Created some unit tests at the end of this patch series.\n\nThey also cover the clearing of log entries for the rsyslog backend.",
       "parentUuid": "4f87c09f_8a6144f6",
+      "revId": "bbe4e35bd5b4f2eea81d408bad4def7b7b0e900a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d236c312_55c1b503",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-13T17:33:09Z",
+      "side": 1,
+      "message": "Unit tests are great, and much appreciated!\n\nWe still need to get how you documented this on a real system.",
+      "parentUuid": "5f759032_4b65b3da",
       "revId": "bbe4e35bd5b4f2eea81d408bad4def7b7b0e900a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
