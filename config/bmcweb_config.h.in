@@ -9,4 +9,4 @@
 @BMCWEB_OPTIONS@
 
 // NOLINTEND(readability-identifier-naming)
-// clang-format on
+    // clang-format on

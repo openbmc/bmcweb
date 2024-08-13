@@ -23,16 +23,33 @@
 
 #include <boost/asio/io_context.hpp>
 #include <sdbusplus/asio/connection.hpp>
+#include <sdbusplus/asio/object_server.hpp>
 
 #include <memory>
+
+static void setLogLevel(const std::string& logLevel)
+{ 
+    crow::getBmcwebCurrentLoggingLevel() = crow::getLogLevelFromName(logLevel);
+}
+
 
 int run()
 {
     auto io = std::make_shared<boost::asio::io_context>();
     App app(io);
 
-    sdbusplus::asio::connection systemBus(*io);
-    crow::connections::systemBus = &systemBus;
+    std::shared_ptr<sdbusplus::asio::connection> systemBus = std::make_shared<sdbusplus::asio::connection>(*io);
+    crow::connections::systemBus = systemBus.get();
+
+    auto server = sdbusplus::asio::object_server(systemBus);
+
+    std::shared_ptr<sdbusplus::asio::dbus_interface> iface =
+        server.add_interface("/xyz/openbmc_project/bmcweb",
+                             "xyz.openbmc_project.bmcweb");
+
+    iface->register_method("SetLogLevel", setLogLevel);
+
+    iface->initialize();
 
     // Static assets need to be initialized before Authorization, because auth
     // needs to build the whitelist from the static routes
@@ -106,6 +123,9 @@ int run()
     bmcweb::registerUserRemovedSignal();
 
     app.run();
+    
+    systemBus->request_name("xyz.openbmc_project.bmcweb");
+
     io->run();
 
     crow::connections::systemBus = nullptr;
