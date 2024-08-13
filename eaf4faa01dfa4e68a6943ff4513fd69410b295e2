@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5b85fad0_be461163",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1662,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-08-13T08:58:03Z",
+      "side": 1,
+      "message": "i would have rather not moved this code. But since it\u0027s a .hpp file (why?)\nand functions are not declared somewhere above, i had to move it so it would compile, since i am calling it from somewhere higher than it was called previously.\n\nLooking at this mess, how can we fix it? Should i pre-declare these functions\ninstead of moving them? Should we make this whole file a .cpp?\n\nIt\u0027s kind of ridiculous to be moving code around and creating huge diff for no good reason.",
+      "parentUuid": "84a66d27_4ce85a37",
+      "range": {
+        "startLine": 1662,
+        "startChar": 48,
+        "endLine": 1662,
+        "endChar": 55
+      },
+      "revId": "eaf4faa01dfa4e68a6943ff4513fd69410b295e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a7a695c6_3e676941",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
@@ -60,6 +84,24 @@
       "writtenOn": "2024-08-12T18:29:00Z",
       "side": 1,
       "message": "So we try to find an entry in the Redfish log files, then fall back to dbus?  That seems error prone.  Is there any way to make the branching decision higher based on the ID + the meson option?",
+      "revId": "eaf4faa01dfa4e68a6943ff4513fd69410b295e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06371745_5e12b3f1",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1753,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-08-13T08:58:03Z",
+      "side": 1,
+      "message": "\u003e Is there any way to make the branching decision higher based on the ID + the meson option?\nThe point of this patch series is to remove the meson option 😊\n\n\u003e That seems error prone\nHow is the fallback error prone? Which errors do you expect? \n\nThe entry ids are disjoint. If we do not find it in the redfish logs, we look on dbus. If we do not find it on dbus, it does not exist.\n\nSo it is found or not found as before.",
+      "parentUuid": "a7a695c6_3e676941",
       "revId": "eaf4faa01dfa4e68a6943ff4513fd69410b295e2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
