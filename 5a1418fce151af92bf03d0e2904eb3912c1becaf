@@ -217,6 +217,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ae18ce90_22e507c0",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2983,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-13T16:47:23Z",
+      "side": 1,
+      "message": "\u003e I understand, I went back to using BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM then.\n\u003e \n\u003e The reason I branch here, is because non of the single host machines configure the ManagedHost interface as of now, which getCollecdtionMembers bases the search on.\n\u003e As I understand we would break single host if we don\u0027t branch like this, since the call to getCollectionMembers would not return any system on single host. I agree however, once every single host system implements the ManagedHost interface, the branching will no longer be needed.\n\n\nRight, and my understanding and the agreement I had with others when we talked about this option was that we were going to fix that ahead of merging this patch, and make single host systems have something on DBus we could key off, so that ComputerSystemCollection worked the same as all other dbus collections.  Then, one at a time, we would slowly remove the places where the option was used.",
+      "parentUuid": "c52f57bb_12a07af3",
+      "revId": "5a1418fce151af92bf03d0e2904eb3912c1becaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2d5d5228_d395aa11",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 5
