@@ -188,6 +188,30 @@
       },
       "revId": "c6cc60d9232c04fc05368a56901caa16910f3f70",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3778f6e_51a0a905",
+        "filename": "src/pam_main.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-13T03:56:09Z",
+      "side": 1,
+      "message": "Agreed.  I was really hoping that sysytemd-logind had some solution to this, but it doesn\u0027t really seem to in my testing.\n\nI\u0027m still trying to get stuff to actually breathe, then I\u0027ll regroup on this patchset with the \"right\" way.\n\nIn terms of a socket, I was actually thinking AF_UNIX + SOCK_DGRAM, and just ensure that a username + password always fits in one packet.  That\u0027s a way of cheating to not have to invent more of a new protocol.",
+      "parentUuid": "6a1e3e9b_8e5c40cf",
+      "range": {
+        "startLine": 166,
+        "startChar": 36,
+        "endLine": 166,
+        "endChar": 63
+      },
+      "revId": "c6cc60d9232c04fc05368a56901caa16910f3f70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
