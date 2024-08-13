@@ -77,10 +77,28 @@ enum class DumpCreationProgress
     DUMP_CREATE_INPROGRESS
 };
 
-const std::string deletedRsyslogEventLogEntriesFilename =
-    "/var/log/deleted_redfish_event_log_entries";
-const std::string resolvedRsyslogEventLogEntriesFilename =
-    "/var/log/resolved_redifsh_event_log_entries";
+inline std::filesystem::path
+    redfishLogDir(const std::string& newbasedir = "/var/log")
+{
+    static std::string basedir = "/var/log";
+
+    if (basedir != newbasedir && newbasedir != "/var/log")
+    {
+        basedir = newbasedir;
+    }
+
+    return basedir;
+}
+
+inline std::string deletedRsyslogEventLogEntriesFilename()
+{
+    return redfishLogDir() / "deleted_redfish_event_log_entries";
+}
+
+inline std::string resolvedRsyslogEventLogEntriesFilename()
+{
+    return redfishLogDir() / "resolved_redfish_event_log_entries";
+}
 
 namespace fs = std::filesystem;
 
@@ -172,18 +190,17 @@ inline bool getUniqueEntryID(const std::string& logEntry, std::string& entryID,
 static bool
     getRedfishLogFiles(std::vector<std::filesystem::path>& redfishLogFiles)
 {
-    static const std::filesystem::path redfishLogDir = "/var/log";
     static const std::string redfishLogFilename = "redfish";
 
     // Loop through the directory looking for redfish log files
     for (const std::filesystem::directory_entry& dirEnt :
-         std::filesystem::directory_iterator(redfishLogDir))
+         std::filesystem::directory_iterator(redfishLogDir()))
     {
         // If we find a redfish log file, save the path
         std::string filename = dirEnt.path().filename();
         if (filename.starts_with(redfishLogFilename))
         {
-            redfishLogFiles.emplace_back(redfishLogDir / filename);
+            redfishLogFiles.emplace_back(redfishLogDir() / filename);
         }
     }
     // As the log files rotate, they are appended with a ".#" that is higher for
@@ -1306,8 +1323,8 @@ inline void clearRedfishRsyslogFiles()
             std::filesystem::remove(file, ec);
         }
     }
-    std::filesystem::remove(deletedRsyslogEventLogEntriesFilename, ec);
-    std::filesystem::remove(resolvedRsyslogEventLogEntriesFilename, ec);
+    std::filesystem::remove(deletedRsyslogEventLogEntriesFilename(), ec);
+    std::filesystem::remove(resolvedRsyslogEventLogEntriesFilename(), ec);
 }
 
 inline void handleSystemsLogServicesEventLogActionsClearPost(
@@ -1357,15 +1374,15 @@ inline std::set<std::string> rsyslogRedfishEventLogResolvedEntries()
 {
     std::set<std::string> res;
     std::string resolvedEntryID;
-    if (!std::filesystem::exists(resolvedRsyslogEventLogEntriesFilename))
+    if (!std::filesystem::exists(resolvedRsyslogEventLogEntriesFilename()))
     {
         return res;
     }
-    std::ifstream logStream(resolvedRsyslogEventLogEntriesFilename);
+    std::ifstream logStream(resolvedRsyslogEventLogEntriesFilename());
     if (!logStream.is_open())
     {
         BMCWEB_LOG_ERROR("Failed to open resolved log entries file: {}",
-                         resolvedRsyslogEventLogEntriesFilename);
+                         resolvedRsyslogEventLogEntriesFilename());
         return res;
     }
     while (std::getline(logStream, resolvedEntryID))
@@ -1373,14 +1390,14 @@ inline std::set<std::string> rsyslogRedfishEventLogResolvedEntries()
         res.insert(resolvedEntryID);
     }
     BMCWEB_LOG_DEBUG("found {} resolved log entries in {}", res.size(),
-                     resolvedRsyslogEventLogEntriesFilename);
+                     resolvedRsyslogEventLogEntriesFilename());
     return res;
 }
 
 inline bool rsyslogRedfishEventLogEntryIsResolved(const std::string& entryID)
 {
     std::string resolvedEntryID;
-    std::ifstream logStream(resolvedRsyslogEventLogEntriesFilename);
+    std::ifstream logStream(resolvedRsyslogEventLogEntriesFilename());
     if (!logStream.is_open())
     {
         return false;
@@ -1589,7 +1606,7 @@ inline void afterLogEntriesGetManagedObjects(
 inline bool rsyslogRedfishEventLogEntryIsDeleted(const std::string& targetID)
 {
     std::string deletedEntryID;
-    std::ifstream logStream(deletedRsyslogEventLogEntriesFilename);
+    std::ifstream logStream(deletedRsyslogEventLogEntriesFilename());
     if (!logStream.is_open())
     {
         return false;
@@ -1980,12 +1997,12 @@ inline bool rsyslogRedfishEventLogEntryExists(const std::string& targetID)
 
 inline void appendRsyslogRedfishResolvedEntry(const std::string& targetID)
 {
-    std::ofstream resolvedEntries(resolvedRsyslogEventLogEntriesFilename,
+    std::ofstream resolvedEntries(resolvedRsyslogEventLogEntriesFilename(),
                                   std::ofstream::app);
     if (!resolvedEntries.is_open())
     {
         BMCWEB_LOG_ERROR("could not open resolved log entries file {}",
-                         resolvedRsyslogEventLogEntriesFilename);
+                         resolvedRsyslogEventLogEntriesFilename());
         return;
     }
 
@@ -1997,12 +2014,12 @@ inline void removeRsyslogRedfishResolvedEntry(const std::string& targetID)
     std::set<std::string> resolvedEntries =
         rsyslogRedfishEventLogResolvedEntries();
 
-    std::ofstream resolvedEntriesNew(resolvedRsyslogEventLogEntriesFilename,
+    std::ofstream resolvedEntriesNew(resolvedRsyslogEventLogEntriesFilename(),
                                      std::ofstream::trunc);
     if (!resolvedEntriesNew.is_open())
     {
         BMCWEB_LOG_ERROR("could not open resolved log entries file {}",
-                         resolvedRsyslogEventLogEntriesFilename);
+                         resolvedRsyslogEventLogEntriesFilename());
         return;
     }
 
@@ -2090,12 +2107,12 @@ inline void requestRoutesEventLogEntryPatch(App& app)
 
 inline void appendRsyslogRedfishDeletedEntry(const std::string& targetID)
 {
-    std::ofstream deletedEntries(deletedRsyslogEventLogEntriesFilename,
+    std::ofstream deletedEntries(deletedRsyslogEventLogEntriesFilename(),
                                  std::ofstream::app);
     if (!deletedEntries.is_open())
     {
         BMCWEB_LOG_ERROR("could not open {}",
-                         deletedRsyslogEventLogEntriesFilename);
+                         deletedRsyslogEventLogEntriesFilename());
     }
 
     deletedEntries << targetID << '\n';
