@@ -76,11 +76,19 @@ enum class DumpCreationProgress
     DUMP_CREATE_FAILED,
     DUMP_CREATE_INPROGRESS
 };
-
+#ifdef LOG_SERVICES_TEST_ALTERNATIVE_BASEDIR
+static std::filesystem::path redfishLogDir = "/var/log";
+static std::string deletedRsyslogEventLogEntriesFilename =
+    redfishLogDir / "deleted_redfish_event_log_entries";
+static std::string resolvedRsyslogEventLogEntriesFilename =
+    redfishLogDir / "resolved_redfish_event_log_entries";
+#else
+const std::filesystem::path redfishLogDir = "/var/log";
 const std::string deletedRsyslogEventLogEntriesFilename =
-    "/var/log/deleted_redfish_event_log_entries";
+    redfishLogDir / "deleted_redfish_event_log_entries";
 const std::string resolvedRsyslogEventLogEntriesFilename =
-    "/var/log/resolved_redifsh_event_log_entries";
+    redfishLogDir / "resolved_redfish_event_log_entries";
+#endif
 
 namespace fs = std::filesystem;
 
@@ -172,7 +180,6 @@ inline bool getUniqueEntryID(const std::string& logEntry, std::string& entryID,
 static bool
     getRedfishLogFiles(std::vector<std::filesystem::path>& redfishLogFiles)
 {
-    static const std::filesystem::path redfishLogDir = "/var/log";
     static const std::string redfishLogFilename = "redfish";
 
     // Loop through the directory looking for redfish log files
