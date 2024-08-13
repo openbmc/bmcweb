@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "66e87212_59604d59",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-08-13T22:17:29Z",
+      "side": 1,
+      "message": "Would it be better to add an example setLogLevel dbus command here?",
+      "revId": "4a47c94182ab9d0da5fd641140c64c190219a39d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "d8a362b5_6967788a",
@@ -14,6 +31,23 @@
       "writtenOn": "2024-08-13T16:43:27Z",
       "side": 1,
       "message": "Leaving in review for a couple of days to see if anyone has comments, but LGTM.",
+      "revId": "4a47c94182ab9d0da5fd641140c64c190219a39d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b387b2f2_9cf3335a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-08-13T22:17:29Z",
+      "side": 1,
+      "message": "It would better to update https://github.com/openbmc/bmcweb/blob/master/DEVELOPING.md#enabling-logging section to show how the logging level can be controlled.\n\nShould need another openbmc commit to add  dependency of `cli11` in `meta-phosphor/recipes-phosphor/interfaces/bmcweb_git.bb` ?",
       "revId": "4a47c94182ab9d0da5fd641140c64c190219a39d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
