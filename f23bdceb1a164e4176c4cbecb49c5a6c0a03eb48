@@ -22,6 +22,30 @@
       },
       "revId": "f23bdceb1a164e4176c4cbecb49c5a6c0a03eb48",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b21d5054_8b012355",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 953,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-08-13T19:18:58Z",
+      "side": 1,
+      "message": "The update interface resides on /xyz/openbmc_project/software/\u003cswId\u003e object path. If target URI uses \u003cswId\u003e we know how to do the mapping in the else part. The if flow is to support BMC target URI of type BMCWEB_REDFISH_MANAGER_URI_NAME for backwards compatibility. There is an  updateable association from /xyz/openbmc_project/software/bmc to /xyz/openbmc_project/software/\u003cswId\u003e, which we are using here.",
+      "parentUuid": "9548af3f_423ab044",
+      "range": {
+        "startLine": 953,
+        "startChar": 13,
+        "endLine": 953,
+        "endChar": 57
+      },
+      "revId": "f23bdceb1a164e4176c4cbecb49c5a6c0a03eb48",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
