@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "861211c6_ea38aabd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-08-13T09:25:07Z",
+      "side": 1,
+      "message": "\u003e Overall, I don\u0027t see anything that actually documents or tests user impact, and looking at the series, there will be significant impact to the user-facing API\n\nWhich impacts? I see that the rsyslog based entries will be able to be resolved and deleted individually. \nAdditionally there is a small performance impact.\n\nOtherwise there should be no impact from the current iteration of the patch series. \n\nRemember, the querying of the event log collection is still guarded by the meson option. So the client will have the same event logs returned as before.\n\nThe clients using rsyslog backend will additionally have the \"Resolved\" property in their json response.\n\n\u003e Overall, I don\u0027t see anything that actually documents or tests user impact, and looking at the series, there will be significant impact to the user-facing API\n\nFor the testing, what do you have in mind? What would you like to see tested? I assume this will require further changes to the function signatures to decouple them from dbus and the ```/var/log/redfish``` respectively. Some ideas what we can test\n\n- presence of some properties in the response json\n- maybe we can make the location of the rsyslog logs (```/var/log/redfish```) configurable. Then the behavior of the implementation  on that backend can also be tested, including\n  - get all logs\n  - delete an individual log entry\n  - resolve an individual log entry\n  - clear logs\n\nFor the phosphor-logging backend i can imagine it does not require much testing from bmcweb side since bmcweb just uses it without much processing on bmcweb side.",
+      "parentUuid": "210c047c_8e99e4cb",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 0
+      },
+      "revId": "eaf4faa01dfa4e68a6943ff4513fd69410b295e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "84a66d27_4ce85a37",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
