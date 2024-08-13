@@ -246,3 +246,11 @@ your local.conf.
 ```bash
 EXTRA_OEMESON:pn-bmcweb:append = "-Dbmcweb-logging='debug'"
 ```
+
+bmcweb also supports setting logging level at runtime. The bmcweb CLI
+application can be used to set the daemon's logging level on target.
+For example, to set logging level to INFO:
+
+```bash
+bmcweb -l INFO
+```
