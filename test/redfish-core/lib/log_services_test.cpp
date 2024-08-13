@@ -1,4 +1,6 @@
 #include "async_resp.hpp"
+
+#define LOG_SERVICES_TEST_ALTERNATIVE_BASEDIR
 #include "log_services.hpp"
 #include "manager_logservices_journal.hpp"
 
@@ -95,6 +97,88 @@ TEST(LogServicesPostCodeParse, PostCodeParse)
     // Negative numbers
     EXPECT_FALSE(parsePostCode("B-1-2", currentValue, index));
     EXPECT_FALSE(parsePostCode("B-1--2", currentValue, index));
+}
+
+const std::string referenceEntryID = "1722850727";
+const std::string referenceEntry =
+    "2024-08-05T09:38:47.632321+00:00 OpenBMC.0.1.IPMIWatchdog,Enabled";
+
+inline std::string
+    helperInsertFakeLogEntry(const std::filesystem::path& baseDir)
+{
+    std::ofstream redfishlog(baseDir / "redfish");
+    EXPECT_TRUE(redfishlog.is_open());
+
+    redfishlog << referenceEntry << '\n';
+    redfishlog.close();
+
+    return referenceEntryID;
+}
+
+inline void testcasePrepare(const std::filesystem::path& baseDir)
+{
+    std::filesystem::create_directory(baseDir);
+    clearRedfishRsyslogFiles();
+}
+
+TEST(LogServicesEventLogRsyslogTest, EventLogUniqueEntryID)
+{
+    std::string logEntry = referenceEntry;
+    std::string entryID;
+
+    getUniqueEntryID(logEntry, entryID, true);
+    EXPECT_EQ(entryID, referenceEntryID);
+}
+
+TEST(LogServicesEventLogRsyslogTest, EventLogUniqueEntryIDCreatesIndex)
+{
+    std::string logEntry = referenceEntry;
+    std::string entryID;
+
+    getUniqueEntryID(logEntry, entryID, true);
+
+    // assert that index is appended for subsequent logs with the same timestamp
+    getUniqueEntryID(logEntry, entryID, false);
+    EXPECT_EQ(entryID, referenceEntryID + "_1");
+
+    // assert that this index increments
+    getUniqueEntryID(logEntry, entryID, false);
+    EXPECT_EQ(entryID, referenceEntryID + "_2");
+
+    // assert that the index resets when starting anew
+    getUniqueEntryID(logEntry, entryID, true);
+    EXPECT_EQ(entryID, referenceEntryID);
+}
+
+TEST(LogServicesEventLogRsyslogTest, EventLogClear)
+{
+    std::string baseDir = "my-var-log-basedir-clear";
+    testcasePrepare(baseDir);
+
+    helperInsertFakeLogEntry(baseDir);
+
+    std::vector<std::filesystem::path> redfishLogFiles = {};
+    getRedfishLogFiles(redfishLogFiles, baseDir);
+    EXPECT_EQ(redfishLogFiles.size(), 1);
+
+    clearRedfishRsyslogFiles(baseDir);
+
+    redfishLogFiles = {};
+    getRedfishLogFiles(redfishLogFiles, baseDir);
+    EXPECT_EQ(redfishLogFiles.size(), 0);
+}
+
+TEST(LogServicesEventLogRsyslogTest, EventLogEntryExists)
+{
+    std::string baseDir = "my-var-log-basedir-entry-exists";
+    testcasePrepare(baseDir);
+
+    helperInsertFakeLogEntry(baseDir);
+    EXPECT_TRUE(rsyslogRedfishEventLogEntryExists(referenceEntryID, baseDir));
+
+    clearRedfishRsyslogFiles(baseDir);
+
+    EXPECT_FALSE(rsyslogRedfishEventLogEntryExists(referenceEntryID, baseDir));
 }
 
 } // namespace

@@ -77,6 +77,8 @@ enum class DumpCreationProgress
     DUMP_CREATE_INPROGRESS
 };
 
+const std::filesystem::path redfishEventLogBaseDir = "/var/log/";
+
 namespace fs = std::filesystem;
 
 inline std::string translateSeverityDbusToRedfish(const std::string& s)
@@ -164,21 +166,21 @@ inline bool getUniqueEntryID(const std::string& logEntry, std::string& entryID,
     return true;
 }
 
-static bool
-    getRedfishLogFiles(std::vector<std::filesystem::path>& redfishLogFiles)
+static bool getRedfishLogFiles(
+    std::vector<std::filesystem::path>& redfishLogFiles,
+    const std::filesystem::path& baseDir = redfishEventLogBaseDir)
 {
-    static const std::filesystem::path redfishLogDir = "/var/log";
     static const std::string redfishLogFilename = "redfish";
 
     // Loop through the directory looking for redfish log files
     for (const std::filesystem::directory_entry& dirEnt :
-         std::filesystem::directory_iterator(redfishLogDir))
+         std::filesystem::directory_iterator(baseDir))
     {
         // If we find a redfish log file, save the path
         std::string filename = dirEnt.path().filename();
         if (filename.starts_with(redfishLogFilename))
         {
-            redfishLogFiles.emplace_back(redfishLogDir / filename);
+            redfishLogFiles.emplace_back(baseDir / filename);
         }
     }
     // As the log files rotate, they are appended with a ".#" that is higher for
@@ -1300,11 +1302,12 @@ inline void dBusLogServiceActionsClear(
         "xyz.openbmc_project.Collection.DeleteAll", "DeleteAll");
 }
 
-inline void clearRedfishRsyslogFiles()
+inline void clearRedfishRsyslogFiles(
+    const std::filesystem::path& baseDir = redfishEventLogBaseDir)
 {
     std::vector<std::filesystem::path> redfishLogFiles;
     std::error_code ec;
-    if (getRedfishLogFiles(redfishLogFiles))
+    if (getRedfishLogFiles(redfishLogFiles, baseDir))
     {
         for (const std::filesystem::path& file : redfishLogFiles)
         {
@@ -1884,10 +1887,12 @@ inline void dBusEventLogEntryDelete(
         "xyz.openbmc_project.Object.Delete", "Delete");
 }
 
-inline bool rsyslogRedfishEventLogEntryExists(const std::string& targetID)
+inline bool rsyslogRedfishEventLogEntryExists(
+    const std::string& targetID,
+    const std::filesystem::path& baseDir = redfishEventLogBaseDir)
 {
     std::vector<std::filesystem::path> redfishLogFiles;
-    getRedfishLogFiles(redfishLogFiles);
+    getRedfishLogFiles(redfishLogFiles, baseDir);
     std::string logEntry;
     for (auto it = redfishLogFiles.rbegin(); it < redfishLogFiles.rend(); it++)
     {
