@@ -50,6 +50,24 @@
       "message": "It would better to update https://github.com/openbmc/bmcweb/blob/master/DEVELOPING.md#enabling-logging section to show how the logging level can be controlled.\n\nShould need another openbmc commit to add  dependency of `cli11` in `meta-phosphor/recipes-phosphor/interfaces/bmcweb_git.bb` ?",
       "revId": "4a47c94182ab9d0da5fd641140c64c190219a39d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cacd65b1_7bf06a07",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-13T22:25:43Z",
+      "side": 1,
+      "message": "Yes, we\u0027ll need to add the dependency to the recipe.  We\u0027ll do that when we do the bump.",
+      "parentUuid": "b387b2f2_9cf3335a",
+      "revId": "4a47c94182ab9d0da5fd641140c64c190219a39d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
