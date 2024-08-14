@@ -22,6 +22,30 @@
       },
       "revId": "80ff807dbe7d0843732e138324ddfed560ee6cbf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c121a75_66694384",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 2838,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-08-14T18:25:35Z",
+      "side": 1,
+      "message": "This is how I interpret your expected logic from the initial comment in context of the code I have pushed in patchset 5:\n\n\u003e I would expect some logic like:\n\n\u003e Build the collection\n\n-\u003e getCollectionMembers\n\n\u003e If there is only one member, have the collection name match  BMCWEB_REDFISH_SYSTEM_URI_NAME\n\n-\u003e extra step\n\nMy assumption was, this extra work might be needed, since getCollectionName might put a member id that does not match BMCWEB_REDFISH_SYSTEM_URI on single host, depending on how the system is configured in EM. At least that is what I read from the comment. I am sorry for the confusion, I will adjust accordingly.\n\n\u003e If we really need more code, just create a getSystemCollectionMembers that does \n\u003e the same thing, and at the end, have it call whatever you need.\n\nI don\u0027t think this is neccessary anymore.",
+      "parentUuid": "619f2214_6deae847",
+      "range": {
+        "startLine": 2817,
+        "startChar": 0,
+        "endLine": 2838,
+        "endChar": 51
+      },
+      "revId": "80ff807dbe7d0843732e138324ddfed560ee6cbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
