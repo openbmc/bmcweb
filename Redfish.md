@@ -283,6 +283,7 @@ Fields common to all schemas
 - ReadingRangeMin
 - ReadingType
 - ReadingUnits
+- SpeedRPM
 - Status
 - Thresholds
 
