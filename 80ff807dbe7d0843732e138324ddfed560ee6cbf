@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "619f2214_6deae847",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 2838,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-14T18:04:42Z",
+      "side": 1,
+      "message": "?  Why are you trying to do all this?  Doesn\u0027t this same thing get done in GetCollectionMembers already?\n\n\nIf we really need more code, just create a getSystemCollectionMembers that does the same thing, and at the end, have it call whatever you need.",
+      "range": {
+        "startLine": 2817,
+        "startChar": 0,
+        "endLine": 2838,
+        "endChar": 51
+      },
+      "revId": "80ff807dbe7d0843732e138324ddfed560ee6cbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
