@@ -92,6 +92,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cbbb089c_33aed786",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-14T22:30:04Z",
+      "side": 1,
+      "message": "Just so you know, when you link the mockup server on dmtf.org, your links don\u0027t go to the full page.  They always go to service root.\n\nIn theory https://github.com/DMTF/Redfish-Publications/tree/main is the code version of those mockups.\n\ni\u0027m only seeing a few mockups implement THermalSubsystem.",
+      "parentUuid": "5726b10a_7a1333cf",
+      "revId": "21d345ef1c89feb4750f86d147b8c33df539e990",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d23fbbde_c8a65184",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 1
