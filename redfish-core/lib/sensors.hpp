@@ -28,6 +28,7 @@
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
 #include "utils/query_param.hpp"
+#include "utils/sensor_utils.hpp"
 
 #include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
@@ -753,14 +754,8 @@ inline void objectPropertiesToJson(
 {
     if (chassisSubNode == sensors::node::sensors)
     {
-        std::string subNodeEscaped(sensorType);
-        auto remove = std::ranges::remove(subNodeEscaped, '_');
-        subNodeEscaped.erase(std::ranges::begin(remove), subNodeEscaped.end());
-
-        // For sensors in SensorCollection we set Id instead of MemberId,
-        // including power sensors.
-        subNodeEscaped += '_';
-        subNodeEscaped += sensorName;
+        std::string subNodeEscaped =
+            redfish::sensor_utils::getSensorId(sensorName, sensorType);
         sensorJson["Id"] = std::move(subNodeEscaped);
 
         std::string sensorNameEs(sensorName);
@@ -2404,15 +2399,9 @@ inline void getSensorData(
                     if (sensorSchema == sensors::node::sensors &&
                         !sensorsAsyncResp->efficientExpand)
                     {
-                        std::string sensorTypeEscaped(sensorType);
-                        auto remove =
-                            std::ranges::remove(sensorTypeEscaped, '_');
-
-                        sensorTypeEscaped.erase(std::ranges::begin(remove),
-                                                sensorTypeEscaped.end());
-                        std::string sensorId(sensorTypeEscaped);
-                        sensorId += "_";
-                        sensorId += sensorName;
+                        std::string sensorId =
+                            redfish::sensor_utils::getSensorId(sensorName,
+                                                               sensorType);
 
                         sensorsAsyncResp->asyncResp->res
                             .jsonValue["@odata.id"] = boost::urls::format(
@@ -2502,14 +2491,9 @@ inline void getSensorData(
                         }
                         else if (fieldName == "Members")
                         {
-                            std::string sensorTypeEscaped(sensorType);
-                            auto remove =
-                                std::ranges::remove(sensorTypeEscaped, '_');
-                            sensorTypeEscaped.erase(std::ranges::begin(remove),
-                                                    sensorTypeEscaped.end());
-                            std::string sensorId(sensorTypeEscaped);
-                            sensorId += "_";
-                            sensorId += sensorName;
+                            std::string sensorId =
+                                redfish::sensor_utils::getSensorId(sensorName,
+                                                                   sensorType);
 
                             nlohmann::json::object_t member;
                             member["@odata.id"] = boost::urls::format(
@@ -2778,11 +2762,8 @@ inline void setSensorsOverride(
                     messages::internalError(sensorAsyncResp->asyncResp->res);
                     return;
                 }
-                std::string id = path.parent_path().filename();
-                auto remove = std::ranges::remove(id, '_');
-                id.erase(std::ranges::begin(remove), id.end());
-                id += "_";
-                id += sensorName;
+                std::string id = redfish::sensor_utils::getSensorId(
+                    sensorName, path.parent_path().filename());
 
                 const auto& iterator = overrideMap.find(id);
                 if (iterator == overrideMap.end())
@@ -2872,15 +2853,9 @@ inline void getChassisCallback(
             return;
         }
         std::string type = path.parent_path().filename();
-        // fan_tach has an underscore in it, so remove it to "normalize" the
-        // type in the URI
-        auto remove = std::ranges::remove(type, '_');
-        type.erase(std::ranges::begin(remove), type.end());
+        std::string id = redfish::sensor_utils::getSensorId(sensorName, type);
 
         nlohmann::json::object_t member;
-        std::string id = type;
-        id += "_";
-        id += sensorName;
         member["@odata.id"] = boost::urls::format(
             "/redfish/v1/Chassis/{}/{}/{}", chassisId, chassisSubNode, id);
 
