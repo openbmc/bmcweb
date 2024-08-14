@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a987caac_c8128dd8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-08-14T13:24:41Z",
+      "side": 1,
+      "message": "I think this cli `bmcweb` is doing \n```\nbusctl call  xyz.openbmc_project.bmcweb /xyz/openbmc_project/bmcweb  xyz.openbmc_project.bmcweb SetLogLevel s \"INFO\"\n```\n\nI think it may be better to show the raw dbus busctl command example here \u0026 DEVELOPING.md.",
+      "revId": "e95e59be78393cfe31f9dbc0dc31d6d75c180bd1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13564c3c_7ccda30f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-08-14T13:24:41Z",
+      "side": 1,
+      "message": "Do we need still a separate cli bmcweb when it can be done via busctl (or dbus api)?\n\nThis would help for the others who may want to integrate directly using DBUS interface to control bmcweb log level.\n\nIf so, `cli11` dependency can also be removed.",
+      "revId": "e95e59be78393cfe31f9dbc0dc31d6d75c180bd1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbe38e1c_822a0195",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-08-14T13:24:41Z",
+      "side": 1,
+      "message": "How about dealing with `/tmp/bmcweb` (in TESTING.md)?\nIf `bmcwebd` needs to be used, TESTING.md would need to be updated.\n\nOn the other hand, if keeping `bmcweb` as is (instead of changing it to `bmcwebd`) and removing cli `bmcweb`, TESTING.md would not need to be modified.",
+      "revId": "e95e59be78393cfe31f9dbc0dc31d6d75c180bd1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4044647b_4855fd8c",
+        "filename": "src/webserver_run.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-08-14T13:24:41Z",
+      "side": 1,
+      "message": "Since logLevel can be dynamically changed, I think it is better to add a trace line here saying the log level is changing.",
+      "revId": "e95e59be78393cfe31f9dbc0dc31d6d75c180bd1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14e67c36_5f5d6be4",
+        "filename": "src/webserver_run.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-08-14T13:24:41Z",
+      "side": 1,
+      "message": "I think we would need to handle the error case as the invalid loglevel may be passed (unlike the case when it was only controlled via compile time option).\n\nFor example,\n\n```\nbusctl call  xyz.openbmc_project.bmcweb /xyz/openbmc_project/bmcweb  xyz.openbmc_project.bmcweb SetLogLevel s \"INVALID\"\n```",
+      "revId": "e95e59be78393cfe31f9dbc0dc31d6d75c180bd1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
