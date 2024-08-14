@@ -253,6 +253,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e7a8a5bb_3d4da65f",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2983,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-14T16:31:00Z",
+      "side": 1,
+      "message": "\u003e Alright. I tried to implement the logic you suggested in your initial comment, but checking the count after the collection has been build fails, due to getCollectionMembers running async and the value not being set in time.\n\u003e I don\u0027t see another way to get the count, other than reading it from the json in the response object. The branching would fix this at least. Should I overload getCollectionMembers to be able to run a callback inside of it? What do you suggest?\n\n\n\nWhy do you need to \"check the count\" async?  getCollectionMembers builds the whole collection.\n\nMaybe push the code that you think is correct that isn\u0027t working, and we can take a look?  It\u0027s hard to debug code we can\u0027t see.",
+      "parentUuid": "60519e9d_35025aa0",
+      "revId": "5a1418fce151af92bf03d0e2904eb3912c1becaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2d5d5228_d395aa11",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 5
