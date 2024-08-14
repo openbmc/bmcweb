@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "810ac919_3c1a4c73",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-14T17:48:16Z",
+      "side": 1,
+      "message": "Are there any published mockups that show this? Anything in DMTF documentation? The excerpt behavior is new to me and I think this is the first one we\u0027re adding.",
+      "revId": "21d345ef1c89feb4750f86d147b8c33df539e990",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d23fbbde_c8a65184",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 1
