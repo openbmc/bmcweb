@@ -70,6 +70,24 @@
       "parentUuid": "62734329_7ae29836",
       "revId": "f718d39600f95bb59101aef0ef4ce9e68b1ed7a0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "803b45f7_63c4c9c8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-14T20:08:45Z",
+      "side": 1,
+      "message": "I\u0027d also mention, there\u0027s no default field, because there\u0027s only one property on the interface.  There\u0027s not really a need for a default when you can just omit the interface entirely.",
+      "parentUuid": "5b16b365_82a6a2c7",
+      "revId": "f718d39600f95bb59101aef0ef4ce9e68b1ed7a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
