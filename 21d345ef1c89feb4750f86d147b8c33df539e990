@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "455ed655_1f5b137f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-14T20:23:00Z",
+      "side": 1,
+      "message": "But I don\u0027t see SpeedRPM in redfish » v1 » Chassis » 1U » Sensors » CPUFan1\n\nOr in thermal subsystem\n\n\nPS, if we point to https://github.com/DMTF/Redfish-Publications/tree/main/mockups, it might be a little easier to point to specific parts of the tree.  With that said, I don\u0027t see complex server mockup.... so \u003cshrug\u003e",
+      "parentUuid": "e2d7fb0d_4fdbf83b",
+      "revId": "21d345ef1c89feb4750f86d147b8c33df539e990",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d23fbbde_c8a65184",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 1
