@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "31a0ce45_f1907290",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-14T20:26:32Z",
+      "side": 1,
+      "message": "I disagree.  The CLI commands are simpler to read and execute, and can encapsulate any DBus API changes we make.",
+      "parentUuid": "a987caac_c8128dd8",
+      "revId": "e95e59be78393cfe31f9dbc0dc31d6d75c180bd1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "13564c3c_7ccda30f",
         "filename": "/COMMIT_MSG",
         "patchSetId": 15
@@ -54,6 +72,42 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ef6cb372_3b30d4a4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-14T20:26:32Z",
+      "side": 1,
+      "message": "We don\u0027t \"need\" any of this.  We could remove all logging alltogether.  We add things like this because it makes things easier.",
+      "parentUuid": "13564c3c_7ccda30f",
+      "revId": "e95e59be78393cfe31f9dbc0dc31d6d75c180bd1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8283cba_0df8856a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-14T20:26:32Z",
+      "side": 1,
+      "message": "I would prefer that the CLI application be called \"bmcweb\".\n\nIt\u0027s rare that people are launching bmcwebd directly (that documentation is the only case I\u0027m aware of where it\u0027s expected, and that\u0027s a dev mode).",
+      "parentUuid": "dbe38e1c_822a0195",
+      "revId": "e95e59be78393cfe31f9dbc0dc31d6d75c180bd1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4044647b_4855fd8c",
         "filename": "src/webserver_run.cpp",
         "patchSetId": 15
@@ -82,6 +136,24 @@
       "writtenOn": "2024-08-14T13:24:41Z",
       "side": 1,
       "message": "I think we would need to handle the error case as the invalid loglevel may be passed (unlike the case when it was only controlled via compile time option).\n\nFor example,\n\n```\nbusctl call  xyz.openbmc_project.bmcweb /xyz/openbmc_project/bmcweb  xyz.openbmc_project.bmcweb SetLogLevel s \"INVALID\"\n```",
+      "revId": "e95e59be78393cfe31f9dbc0dc31d6d75c180bd1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c9e9f7e_824a52c6",
+        "filename": "src/webserver_run.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-14T20:26:32Z",
+      "side": 1,
+      "message": "I could see it being needed, although this is a CLI application for debug.  I\u0027m not sure how far we really need to go on input validation.  Up to author if they want to fix.",
+      "parentUuid": "14e67c36_5f5d6be4",
       "revId": "e95e59be78393cfe31f9dbc0dc31d6d75c180bd1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
