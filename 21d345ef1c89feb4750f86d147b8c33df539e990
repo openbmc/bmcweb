@@ -110,6 +110,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "99c579c3_4e31ba8d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-14T22:30:10Z",
+      "side": 1,
+      "message": "https://github.com/search?q\u003drepo%3ADMTF%2FRedfish-Publications+ThermalSubsystem+path%3A%2F%5Emockups%5C%2F%2F\u0026type\u003dcode",
+      "parentUuid": "cbbb089c_33aed786",
+      "revId": "21d345ef1c89feb4750f86d147b8c33df539e990",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d23fbbde_c8a65184",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 1
