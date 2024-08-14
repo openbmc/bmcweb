@@ -28,6 +28,7 @@
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
 #include "utils/query_param.hpp"
+#include "utils/sensor_utils.hpp"
 
 #include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
@@ -747,14 +748,10 @@ inline void objectPropertiesToJson(
 {
     if (chassisSubNode == sensors::node::sensors)
     {
-        std::string subNodeEscaped(sensorType);
-        auto remove = std::ranges::remove(subNodeEscaped, '_');
-        subNodeEscaped.erase(std::ranges::begin(remove), subNodeEscaped.end());
-
+        std::string subNodeEscaped =
+            redfish::sensor_utils::getSensorId(sensorName, sensorType);
         // For sensors in SensorCollection we set Id instead of MemberId,
         // including power sensors.
-        subNodeEscaped += '_';
-        subNodeEscaped += sensorName;
         sensorJson["Id"] = std::move(subNodeEscaped);
 
         std::string sensorNameEs(sensorName);
@@ -2360,14 +2357,8 @@ inline void getSensorData(
                 if (sensorSchema == sensors::node::sensors &&
                     !sensorsAsyncResp->efficientExpand)
                 {
-                    std::string sensorTypeEscaped(sensorType);
-                    auto remove = std::ranges::remove(sensorTypeEscaped, '_');
-
-                    sensorTypeEscaped.erase(std::ranges::begin(remove),
-                                            sensorTypeEscaped.end());
-                    std::string sensorId(sensorTypeEscaped);
-                    sensorId += "_";
-                    sensorId += sensorName;
+                    std::string sensorId =
+                        sensor_utils::getSensorId(sensorName, sensorType);
 
                     sensorsAsyncResp->asyncResp->res.jsonValue["@odata.id"] =
                         boost::urls::format("/redfish/v1/Chassis/{}/{}/{}",
@@ -2452,14 +2443,9 @@ inline void getSensorData(
                     }
                     else if (fieldName == "Members")
                     {
-                        std::string sensorTypeEscaped(sensorType);
-                        auto remove = std::ranges::remove(sensorTypeEscaped,
-                                                          '_');
-                        sensorTypeEscaped.erase(std::ranges::begin(remove),
-                                                sensorTypeEscaped.end());
-                        std::string sensorId(sensorTypeEscaped);
-                        sensorId += "_";
-                        sensorId += sensorName;
+                        std::string sensorId =
+                            redfish::sensor_utils::getSensorId(sensorName,
+                                                               sensorType);
 
                         nlohmann::json::object_t member;
                         member["@odata.id"] = boost::urls::format(
@@ -2611,24 +2597,6 @@ inline bool
     return false;
 }
 
-inline std::pair<std::string, std::string>
-    splitSensorNameAndType(std::string_view sensorId)
-{
-    size_t index = sensorId.find('_');
-    if (index == std::string::npos)
-    {
-        return std::make_pair<std::string, std::string>("", "");
-    }
-    std::string sensorType{sensorId.substr(0, index)};
-    std::string sensorName{sensorId.substr(index + 1)};
-    // fan_pwm and fan_tach need special handling
-    if (sensorType == "fantach" || sensorType == "fanpwm")
-    {
-        sensorType.insert(3, 1, '_');
-    }
-    return std::make_pair(sensorType, sensorName);
-}
-
 /**
  * @brief Entry point for overriding sensor values of given sensor
  *
@@ -2687,7 +2655,7 @@ inline void setSensorsOverride(
         {
             const auto& sensor = item.first;
             std::pair<std::string, std::string> sensorNameType =
-                splitSensorNameAndType(sensor);
+                redfish::sensor_utils::splitSensorNameAndType(sensor);
             if (!findSensorNameUsingSensorPath(sensorNameType.second,
                                                *sensorsList, *sensorNames))
             {
@@ -2725,11 +2693,8 @@ inline void setSensorsOverride(
                     messages::internalError(sensorAsyncResp->asyncResp->res);
                     return;
                 }
-                std::string id = path.parent_path().filename();
-                auto remove = std::ranges::remove(id, '_');
-                id.erase(std::ranges::begin(remove), id.end());
-                id += "_";
-                id += sensorName;
+                std::string id = redfish::sensor_utils::getSensorId(
+                    sensorName, path.parent_path().filename());
 
                 const auto& iterator = overrideMap.find(id);
                 if (iterator == overrideMap.end())
@@ -2820,15 +2785,9 @@ inline void getChassisCallback(
             return;
         }
         std::string type = path.parent_path().filename();
-        // fan_tach has an underscore in it, so remove it to "normalize" the
-        // type in the URI
-        auto remove = std::ranges::remove(type, '_');
-        type.erase(std::ranges::begin(remove), type.end());
+        std::string id = redfish::sensor_utils::getSensorId(sensorName, type);
 
         nlohmann::json::object_t member;
-        std::string id = type;
-        id += "_";
-        id += sensorName;
         member["@odata.id"] = boost::urls::format(
             "/redfish/v1/Chassis/{}/{}/{}", chassisId, chassisSubNode, id);
 
@@ -2919,7 +2878,7 @@ inline void handleSensorGet(App& app, const crow::Request& req,
         return;
     }
     std::pair<std::string, std::string> nameType =
-        splitSensorNameAndType(sensorId);
+        redfish::sensor_utils::splitSensorNameAndType(sensorId);
     if (nameType.first.empty() || nameType.second.empty())
     {
         messages::resourceNotFound(asyncResp->res, sensorId, "Sensor");

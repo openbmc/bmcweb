@@ -6,11 +6,11 @@
 #include "generated/enums/triggers.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
-#include "sensors.hpp"
 #include "utility.hpp"
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/sensor_utils.hpp"
 #include "utils/telemetry_utils.hpp"
 #include "utils/time_utils.hpp"
 
@@ -565,7 +565,7 @@ inline bool parseMetricProperties(crow::Response& res, Context& ctx)
         }
 
         std::pair<std::string, std::string> split =
-            splitSensorNameAndType(sensorName);
+            redfish::sensor_utils::splitSensorNameAndType(sensorName);
         if (split.first.empty() || split.second.empty())
         {
             messages::propertyValueIncorrect(
