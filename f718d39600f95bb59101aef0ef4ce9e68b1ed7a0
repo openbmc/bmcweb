@@ -34,6 +34,24 @@
       "parentUuid": "f8f7234b_09dc56bc",
       "revId": "f718d39600f95bb59101aef0ef4ce9e68b1ed7a0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62734329_7ae29836",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-08-14T17:42:29Z",
+      "side": 1,
+      "message": "Not sure if am checking it in the right place, but in phosphor-dbus-interfaces, I can see there is no default field mentioned.\n\nAlso the generated server.hpp file of this interface under dbus-interfaces, can see just the definition but no defaults.\n\nWe have a usecase in our systems where \"hypervisor/eth0\" dbus object doesn\u0027t implement the MACAddress interface. This patch might handle such cases where, ethData.macAddress will still be empty.",
+      "parentUuid": "e8b4492c_67e67443",
+      "revId": "f718d39600f95bb59101aef0ef4ce9e68b1ed7a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
