@@ -52,6 +52,24 @@
       "parentUuid": "e8b4492c_67e67443",
       "revId": "f718d39600f95bb59101aef0ef4ce9e68b1ed7a0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b16b365_82a6a2c7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-14T19:15:42Z",
+      "side": 1,
+      "message": "\u003e Not sure if am checking it in the right place, but in phosphor-dbus-interfaces, I can see there is no default field mentioned.\n\u003e \n\u003e Also the generated server.hpp file of this interface under dbus-interfaces, can see just the definition but no defaults.\n\n\n\u003e \n\u003e We have a usecase in our systems where \"hypervisor/eth0\" dbus object doesn\u0027t implement the MACAddress interface. This patch might handle such cases where, ethData.macAddress will still be empty.\n\nYou don\u0027t need default.  MacAddress is its own interface\n\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/5302e3a6ae32971a5aebabe3ad8f40c8dde2ac49/yaml/xyz/openbmc_project/Network/MACAddress.interface.yaml#L5\n\nIf you don\u0027t want to implement it, don\u0027t implement the whole interface.  Don\u0027t just leave it in and set the property to empty string.",
+      "parentUuid": "62734329_7ae29836",
+      "revId": "f718d39600f95bb59101aef0ef4ce9e68b1ed7a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
