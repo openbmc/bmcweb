@@ -94,6 +94,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a736ed3_39583fce",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-08-15T20:50:07Z",
+      "side": 1,
+      "message": "Ack. Working on parsing out the reqParams in the upcoming patch.",
+      "parentUuid": "a36a0054_0a80f892",
+      "range": {
+        "startLine": 52,
+        "startChar": 12,
+        "endLine": 52,
+        "endChar": 13
+      },
+      "revId": "5a1418fce151af92bf03d0e2904eb3912c1becaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "546bd6e2_6244dc58",
@@ -107,6 +131,30 @@
       "writtenOn": "2024-08-07T16:16:11Z",
       "side": 1,
       "message": "std::move.",
+      "range": {
+        "startLine": 53,
+        "startChar": 9,
+        "endLine": 53,
+        "endChar": 17
+      },
+      "revId": "5a1418fce151af92bf03d0e2904eb3912c1becaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83f44b0e_953e1409",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-08-15T20:50:07Z",
+      "side": 1,
+      "message": "Ack. Using move in upcoming patch.",
+      "parentUuid": "546bd6e2_6244dc58",
       "range": {
         "startLine": 53,
         "startChar": 9,
@@ -134,6 +182,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "acf41632_9c87a51c",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-08-15T20:50:07Z",
+      "side": 1,
+      "message": "Ack. Not constant anymore in upcoming patch.",
+      "parentUuid": "5e6a452f_aa6d0fc9",
+      "revId": "5a1418fce151af92bf03d0e2904eb3912c1becaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "570a3d01_1e7a8faa",
@@ -157,6 +223,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "527d32e2_28fd7b63",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-08-15T20:50:07Z",
+      "side": 1,
+      "message": "Ack. Removed if statement alltogether.",
+      "parentUuid": "570a3d01_1e7a8faa",
+      "range": {
+        "startLine": 91,
+        "startChar": 17,
+        "endLine": 91,
+        "endChar": 21
+      },
+      "revId": "5a1418fce151af92bf03d0e2904eb3912c1becaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "abacedba_97550dbf",
@@ -170,6 +260,30 @@
       "writtenOn": "2024-08-07T16:06:08Z",
       "side": 1,
       "message": "Please don\u0027t make whitespace changes that are unrelated to your logic change.  They make this patchset hard to review.  There are multiple, I will let you find them clean them up rather than marking all of them.",
+      "range": {
+        "startLine": 2973,
+        "startChar": 5,
+        "endLine": 2975,
+        "endChar": 80
+      },
+      "revId": "5a1418fce151af92bf03d0e2904eb3912c1becaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b79eb0b8_be14cc94",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2975,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-08-15T20:50:07Z",
+      "side": 1,
+      "message": "Ack. clang-format did some weirdness there. Local ci now applying correct format.",
+      "parentUuid": "abacedba_97550dbf",
       "range": {
         "startLine": 2973,
         "startChar": 5,
@@ -378,6 +492,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5924bf5e_b9a3d5e3",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 3003,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-08-15T20:50:07Z",
+      "side": 1,
+      "message": "\u003e Also, just to set expectation, just because YOU don\u0027t have multihost + hypervisor, doesn\u0027t mean you can break the hypervisor code without discussion between you and the folks that work on that feature (which has had patches pushed in the last week, so people are still actively developing and using it).  That was the comment made above.\n\u003e \nYes, I understand this. I didn\u0027t meant to break anything here.\n\u003e If your code limits itself such that single systems + hypervisor continue to work, but multihost + hypervisor doesn\u0027t, that\u0027s fine (because you\u0027re right, I don\u0027t know of any use cases) but we can\u0027t just break things.  What I was pointing out here is that we need some branch to differentiate the two modes.  I\u0027ve asked gunnar in another gerrit thread to just add an option flag for this and call it good;  We\u0027ll see what happens there.\n\u003e \nThis is exactly what I meant. By \u0027opting out of it\u0027 I was having in mind putting it under BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM to ignore handling this on multi host. If there will be an option directly dealing with hypervisor stuff, this is fine too.  \n\n\u003e FWIW, I really wish the hypervisor stuff had never been checked in, because of the number of rules it breaks, and it hardcodes yet another ID into bmcweb, but we\u0027re here now, we need to make our best attempt to not break folks.\n\u003e\nI can agree on that.\n\nHowever, going back to the initial comment that we get a conflict in case the system is called \"hypervisor\". - For context, since I don\u0027t know much about the design behind hypervisor, I haven\u0027t touched the logic at all waiting for the review to clarify things if needed. - Don\u0027t we have this conflict unhandled already upstream with the option BMCWEB_REDFISH_MANAGER_URI_NAME?",
+      "parentUuid": "f8a7035b_d9877480",
+      "revId": "5a1418fce151af92bf03d0e2904eb3912c1becaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "611f9041_774ac4a2",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 5
@@ -389,6 +521,30 @@
       "writtenOn": "2024-08-07T16:06:08Z",
       "side": 1,
       "message": "I\u0027m assuming this is basically doing if (computerSystemIndex \u003e 0) ?",
+      "range": {
+        "startLine": 3128,
+        "startChar": 12,
+        "endLine": 3128,
+        "endChar": 29
+      },
+      "revId": "5a1418fce151af92bf03d0e2904eb3912c1becaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cded7d1_6d3a7d3d",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 3128,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-08-15T20:50:07Z",
+      "side": 1,
+      "message": "Ack. Now obsolete, but I will handle such cases this way in the future, should they come up.",
+      "parentUuid": "611f9041_774ac4a2",
       "range": {
         "startLine": 3128,
         "startChar": 12,
@@ -422,6 +578,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "68fccd14_5c2d7348",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 3170,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-08-15T20:50:07Z",
+      "side": 1,
+      "message": "Ack. Not moving anymore in upcoming patch.",
+      "parentUuid": "98e5f166_032df8b8",
+      "range": {
+        "startLine": 3170,
+        "startChar": 12,
+        "endLine": 3170,
+        "endChar": 21
+      },
+      "revId": "5a1418fce151af92bf03d0e2904eb3912c1becaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e9eefff6_64c794c6",
@@ -439,6 +619,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "98d2a349_9380a532",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 3372,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-08-15T20:50:07Z",
+      "side": 1,
+      "message": "Ack. Added return statement in upcoming patch.",
+      "parentUuid": "e9eefff6_64c794c6",
+      "revId": "5a1418fce151af92bf03d0e2904eb3912c1becaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "00955d85_bcf7af24",
@@ -452,6 +650,24 @@
       "writtenOn": "2024-08-08T01:02:32Z",
       "side": 1,
       "message": "Same here.  BMCWEB_REDFISH_SYSTEM_URI_NAME isn\u0027t a substitute for BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM",
+      "revId": "5a1418fce151af92bf03d0e2904eb3912c1becaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87b59b3e_96f692d7",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 3525,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-08-15T20:50:07Z",
+      "side": 1,
+      "message": "Ack. Upcoming patch not making use of it anymore.",
+      "parentUuid": "00955d85_bcf7af24",
       "revId": "5a1418fce151af92bf03d0e2904eb3912c1becaf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
