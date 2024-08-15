@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7609324_7eb75cde",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-15T17:10:37Z",
+      "side": 1,
+      "message": "This is looking a lot closer to what I would\u0027ve expected.",
+      "revId": "6d6f485e55e78380cddd47cfd36cf122ee51f2c1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05a863a8_d87027c0",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-15T17:10:37Z",
+      "side": 1,
+      "message": "Can you please just put this under the redfish namespace, and give it a more represetative name?  handleSystemCollectionMembers.\n\nHaving two functions with the same name in different namespaces can cause confusion.",
+      "range": {
+        "startLine": 18,
+        "startChar": 12,
+        "endLine": 18,
+        "endChar": 35
+      },
+      "revId": "6d6f485e55e78380cddd47cfd36cf122ee51f2c1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0788b9fc_b7e045e4",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-15T17:10:37Z",
+      "side": 1,
+      "message": "No need to make these arguments if this is only ever building one collection.  The arguments made sense when the function was generic, but this is only handling a single collection, so everything can just be inlined in the appropriate places.",
+      "range": {
+        "startLine": 103,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 76
+      },
+      "revId": "6d6f485e55e78380cddd47cfd36cf122ee51f2c1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
