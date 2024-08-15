@@ -128,6 +128,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "99ac29ce_12af1bd5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-08-15T20:59:13Z",
+      "side": 1,
+      "message": "So I think this commit came out of https://gerrit.openbmc.org/c/openbmc/bmcweb/+/57715. \nOn 57715, Ed suggested all properties in the Excerpt be in the data source uri. \nI think this is reasonable, an excerpt is a snippet or subset. \nAlthough Redfish themselves don\u0027t do this :( as pointed out above. \nSee EnvironmentMetrics on https://redfish.dmtf.org/redfish/mockups/v1/1448 \n\nI find implementing this property reasonable. \nIt is a standard Redfish property that maps to our D-Bus property. This commit stands on its own, implementing the Excerpt is a separate commit and not required",
+      "parentUuid": "99c579c3_4e31ba8d",
+      "revId": "21d345ef1c89feb4750f86d147b8c33df539e990",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "be2dd216_3d4014d8",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -139,6 +157,24 @@
       "writtenOn": "2024-08-15T19:40:26Z",
       "side": 1,
       "message": "One thing I\u0027d like to understand here is what we\u0027re referencing when we\u0027re adding this stuff.  If it\u0027s a mockup, please document it in the commit message.  If it\u0027s schema, please link dmtf-publications.  Doing that saves me tons of time having to chase down schema and examples in the DMTF repos, which allows me to respond faster to your code reviews.",
+      "revId": "21d345ef1c89feb4750f86d147b8c33df539e990",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24068b83_f98ffbaa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-08-15T20:59:13Z",
+      "side": 1,
+      "message": "Sure, this is reasonable. I think adding what this property, what it does / any mockups would help. I don\u0027t always see this for new Redfish properties, but can\u0027t hurt and not a bad policy to have this for new properties / schemas",
+      "parentUuid": "be2dd216_3d4014d8",
       "revId": "21d345ef1c89feb4750f86d147b8c33df539e990",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
