@@ -324,6 +324,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0bfe15d8_9b48e1b1",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 3003,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-08-15T19:20:24Z",
+      "side": 1,
+      "message": "Also I had a short exchange on the topic in regards to multi host with @Patrick. At the moment there are no multi host platforms using hypervisors. I suggested we just opt out of it for now entirely for multi host. Are you ok with that?",
+      "parentUuid": "dac888fd_55e68c40",
+      "revId": "5a1418fce151af92bf03d0e2904eb3912c1becaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "611f9041_774ac4a2",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 5
