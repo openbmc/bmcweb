@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1209215e_1ca2a51d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1002169
+      },
+      "writtenOn": "2024-08-15T18:07:30Z",
+      "side": 1,
+      "message": "Done, removed",
+      "parentUuid": "0b269b5d_1a838922",
+      "revId": "e95e59be78393cfe31f9dbc0dc31d6d75c180bd1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "13564c3c_7ccda30f",
         "filename": "/COMMIT_MSG",
         "patchSetId": 15
@@ -210,6 +228,24 @@
       "side": 1,
       "message": "I prefer the current name.",
       "parentUuid": "679da474_a386f394",
+      "revId": "e95e59be78393cfe31f9dbc0dc31d6d75c180bd1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b777c795_dd8cffce",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1002169
+      },
+      "writtenOn": "2024-08-15T18:07:30Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "dae80aba_18747572",
       "revId": "e95e59be78393cfe31f9dbc0dc31d6d75c180bd1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -352,6 +388,24 @@
       "side": 1,
       "message": "Like I said, yes, that would return an error, and you\u0027re right, that could be improved, but given this is a debug interface, and not user facing, I will leave up to the author if they want to spend the effort to fix that.",
       "parentUuid": "14331be9_7c4c9220",
+      "revId": "e95e59be78393cfe31f9dbc0dc31d6d75c180bd1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "090b169a_09d77463",
+        "filename": "src/webserver_run.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1002169
+      },
+      "writtenOn": "2024-08-15T18:07:30Z",
+      "side": 1,
+      "message": "Agree. I would prefer if there\u0027s a single source of truth for the logging states, so I added a validation check in bmcwebd. If validation fails, we don\u0027t change log level:\nroot@s7106:~# journalctl -u bmcweb\nFeb 27 17:26:38 s7106 systemd[1]: Started Start bmcwebd server.\nFeb 27 17:27:01 s7106 bmcwebd[214]: [ERROR event_service_manager.hpp:1303] inotify_add_watch failed for redfish log file.\nFeb 27 17:27:42 s7106 bmcwebd[214]: [INFO webserver_run.cpp:39] Requested log-level change to: DEBUG\nFeb 27 17:27:52 s7106 bmcwebd[214]: [INFO webserver_run.cpp:39] Requested log-level change to: INFO\nFeb 27 17:28:01 s7106 bmcwebd[214]: [ERROR webserver_run.cpp:35] log-level WRONG_INP not found",
+      "parentUuid": "d6cd0085_3031399f",
       "revId": "e95e59be78393cfe31f9dbc0dc31d6d75c180bd1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
