@@ -546,6 +546,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a1ce48ee_3a298f8f",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 3003,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-08-15T21:08:14Z",
+      "side": 1,
+      "message": "Also another option would be to put the hypervisor code into the singe host handle in getSystemCollectionMembers.",
+      "parentUuid": "5924bf5e_b9a3d5e3",
+      "revId": "5a1418fce151af92bf03d0e2904eb3912c1becaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "611f9041_774ac4a2",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 5
