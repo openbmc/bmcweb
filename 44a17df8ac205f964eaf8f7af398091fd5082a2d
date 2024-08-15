@@ -68,6 +68,24 @@
       "parentUuid": "7e8b1823_7925c1d1",
       "revId": "44a17df8ac205f964eaf8f7af398091fd5082a2d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e6be360_d49b4df3",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 3708,
+      "author": {
+        "id": 1000212
+      },
+      "writtenOn": "2024-08-15T21:25:00Z",
+      "side": 1,
+      "message": "Some processors have a 9 byte post code :-(. So, the existing 64bit (8byte) post code is insufficient. At least for the ARM platform this is the reason to use the secondary post code. But for the original intention of the introduction might be a hardware specific feature of an IBM platform.\nIn the ARM case, worst case scenario, the post code ends up with a 0x00\u003cactual 9 byte code\u003e if the back end puts a stock 0 in the primary post code.",
+      "parentUuid": "2c91050a_577e2b68",
+      "revId": "44a17df8ac205f964eaf8f7af398091fd5082a2d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
