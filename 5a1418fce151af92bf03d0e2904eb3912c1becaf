@@ -306,6 +306,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dac888fd_55e68c40",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 3003,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-08-15T14:41:27Z",
+      "side": 1,
+      "message": "like: if (BMCWEB_REDFISH_MANAGER_URI_NAME !\u003d \"hypervisor\") and then do the hypervisor check?",
+      "parentUuid": "2d5d5228_d395aa11",
+      "revId": "5a1418fce151af92bf03d0e2904eb3912c1becaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "611f9041_774ac4a2",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 5
