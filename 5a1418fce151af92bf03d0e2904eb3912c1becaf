@@ -71,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c2bdf9d_ed20ae1e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-08-15T20:56:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd0a672a_0ff3de56",
+      "revId": "5a1418fce151af92bf03d0e2904eb3912c1becaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a36a0054_0a80f892",
@@ -401,6 +419,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccee68a9_fea8dab1",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2983,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-08-15T20:56:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "741689d3_903b45b1",
+      "revId": "5a1418fce151af92bf03d0e2904eb3912c1becaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2d5d5228_d395aa11",
@@ -685,6 +721,30 @@
       "writtenOn": "2024-08-07T16:06:08Z",
       "side": 1,
       "message": "?",
+      "range": {
+        "startLine": 3669,
+        "startChar": 0,
+        "endLine": 3669,
+        "endChar": 47
+      },
+      "revId": "5a1418fce151af92bf03d0e2904eb3912c1becaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17debca6_e893d8bd",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 3669,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-08-15T20:56:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7675907b_9015ca5f",
       "range": {
         "startLine": 3669,
         "startChar": 0,
