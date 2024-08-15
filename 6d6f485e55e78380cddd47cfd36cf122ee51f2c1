@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cafdeaa0_2c21bf2c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-15T19:36:23Z",
+      "side": 1,
+      "message": "If you could go through and close out the threads that you think are now obsolete, or have been fixed, I\u0027d appreciate it.",
+      "revId": "6d6f485e55e78380cddd47cfd36cf122ee51f2c1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "05a863a8_d87027c0",
         "filename": "redfish-core/include/utils/systems_utils.hpp",
         "patchSetId": 11
