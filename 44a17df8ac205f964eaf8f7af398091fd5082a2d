@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c3ef6bf0_a22c4e2e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-15T18:10:50Z",
+      "side": 1,
+      "message": "@cchoux any updates here?  Comments have been open for several months with no replies.  If you\u0027re working on changes, please let us know, otherwise I\u0027ll close this.",
+      "revId": "44a17df8ac205f964eaf8f7af398091fd5082a2d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7e8b1823_7925c1d1",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 3
