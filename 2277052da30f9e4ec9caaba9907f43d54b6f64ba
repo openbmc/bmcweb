@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ed0b17a_59f55264",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-08-15T08:10:21Z",
+      "side": 1,
+      "message": "It\u0027s for setting the redfish log dir. It\u0027s a getter that can also be used to set the value. Basically a mutable global variable shrink wrapped in a function.\n\nHaving the whole event log thing be a class that gets constructed would probably be the cleaner alternative. Then it could have some private members for keeping track of state and the log directory to be used. But that would be a larger change.",
+      "parentUuid": "bfadc281_4ec33475",
+      "revId": "2277052da30f9e4ec9caaba9907f43d54b6f64ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0f32e213_d1fa4bb1",
@@ -41,6 +59,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "51380c62_cdebc899",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-08-15T08:10:21Z",
+      "side": 1,
+      "message": "If it were not inline, clang-tidy would complain about mutable global variable.",
+      "parentUuid": "0f32e213_d1fa4bb1",
+      "range": {
+        "startLine": 83,
+        "startChar": 4,
+        "endLine": 83,
+        "endChar": 10
+      },
+      "revId": "2277052da30f9e4ec9caaba9907f43d54b6f64ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0bf716d4_355016a6",
@@ -54,6 +96,24 @@
       "writtenOn": "2024-08-13T23:06:12Z",
       "side": 1,
       "message": "We have the TemporaryFile class that might be of use here?  As written it doesn\u0027t look like this will clean itself up if the unit tests fail.",
+      "revId": "2277052da30f9e4ec9caaba9907f43d54b6f64ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4da119b9_1429c267",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-08-15T08:10:21Z",
+      "side": 1,
+      "message": "Maybe that can be useful. However the unit tests itself contain logic to cleanup the directory. So the directory itself can be reused.",
+      "parentUuid": "0bf716d4_355016a6",
       "revId": "2277052da30f9e4ec9caaba9907f43d54b6f64ba",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
