@@ -88,6 +88,24 @@
       "parentUuid": "c666a734_5436a4be",
       "revId": "c046286aec13bd08ebbd28145a3d01b2a93ae6a1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9b1676e_e97032ab",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1436,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-15T19:38:09Z",
+      "side": 1,
+      "message": "I found the problem.  Not everything hosted under the logging tree is a LogEntry.  The old code checked before unpacking, the new code doesn\u0027t.\n\nIn theory the issue is fixed now.  Gunnar, if you want to retest, feel free, but I\u0027ve done enough testing that I suspect this can merge without breaking anyone.",
+      "parentUuid": "f2353735_fd37e3ed",
+      "revId": "c046286aec13bd08ebbd28145a3d01b2a93ae6a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
