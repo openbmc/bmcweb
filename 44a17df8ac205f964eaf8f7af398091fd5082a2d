@@ -33,6 +33,24 @@
       "message": "Instead of a compile time flag, can we just tag on std::get\u003c1\u003e to std::get\u003c0\u003e?\nSomething like\n```\nhexCode \u003c\u003c \"0x\" \u003c\u003c std::setfill(\u00270\u0027) \u003c\u003c std::setw(2) \u003c\u003c std::hex\n                    \u003c\u003c std::get\u003c0\u003e(code.second);\nif (std::get\u003c1\u003e(code.second).size() \u003e 0) {\n  hexCode \u003c\u003c bytesToHexString(std::get\u003c1\u003e(code.second));\n}\n```\nThat way if the platform has no secondary code, the vector would be 0 size and things work as is. If it does have a secondary code, it gets tagged onto the primary post code.",
       "revId": "44a17df8ac205f964eaf8f7af398091fd5082a2d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c91050a_577e2b68",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 3708,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-15T18:10:13Z",
+      "side": 1,
+      "message": "\u003e If it does have a secondary code, it gets tagged onto the primary post code.\n\nIf the service expects the primary code in the primary slot, why didn\u0027t the backend put it there in the first place?\n\nIn your case, you can only check if the secondary was PROVIDED.  But that doesn\u0027t mean that the secondary post code is the \"primary\".",
+      "parentUuid": "7e8b1823_7925c1d1",
+      "revId": "44a17df8ac205f964eaf8f7af398091fd5082a2d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
