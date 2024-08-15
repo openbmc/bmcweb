@@ -360,6 +360,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f8a7035b_d9877480",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 3003,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-15T19:35:44Z",
+      "side": 1,
+      "message": "Also, just to set expectation, just because YOU don\u0027t have multihost + hypervisor, doesn\u0027t mean you can break the hypervisor code without discussion between you and the folks that work on that feature (which has had patches pushed in the last week, so people are still actively developing and using it).  That was the comment made above.\n\nIf your code limits itself such that single systems + hypervisor continue to work, but multihost + hypervisor doesn\u0027t, that\u0027s fine (because you\u0027re right, I don\u0027t know of any use cases) but we can\u0027t just break things.  What I was pointing out here is that we need some branch to differentiate the two modes.  I\u0027ve asked gunnar in another gerrit thread to just add an option flag for this and call it good;  We\u0027ll see what happens there.\n\nFWIW, I really wish the hypervisor stuff had never been checked in, because of the number of rules it breaks, and it hardcodes yet another ID into bmcweb, but we\u0027re here now, we need to make our best attempt to not break folks.",
+      "parentUuid": "b549646f_3007c067",
+      "revId": "5a1418fce151af92bf03d0e2904eb3912c1becaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "611f9041_774ac4a2",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 5
