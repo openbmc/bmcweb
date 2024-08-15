@@ -342,6 +342,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b549646f_3007c067",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 3003,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-15T19:31:03Z",
+      "side": 1,
+      "message": "Hypervisor is different than BMCWEB_REDFISH_MANAGER_URI_NAME (which is usually bmc) they are different computersystem resources.\n\nwhat does \"opt out\" mean?  There\u0027s no option flag for hypervisor today?  If that means to just break them, that\u0027s something you\u0027ll have to take up with the IBM folks.\n\nFWIW, I\u0027ve asked them in another thread to add an option flag for the hypervisor stuff so that this kind of thing isn\u0027t something we have to worry about;  Hopefully they reply and do that.",
+      "parentUuid": "0bfe15d8_9b48e1b1",
+      "revId": "5a1418fce151af92bf03d0e2904eb3912c1becaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "611f9041_774ac4a2",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 5
