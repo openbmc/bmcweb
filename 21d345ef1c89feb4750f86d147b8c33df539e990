@@ -146,6 +146,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c7121dbb_ae74a7f1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-08-15T21:08:35Z",
+      "side": 1,
+      "message": "I opened an issue with Redfish here issues/6194 to update the mockups",
+      "parentUuid": "99ac29ce_12af1bd5",
+      "revId": "21d345ef1c89feb4750f86d147b8c33df539e990",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "be2dd216_3d4014d8",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
