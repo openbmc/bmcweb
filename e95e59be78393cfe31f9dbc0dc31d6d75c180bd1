@@ -198,6 +198,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dae80aba_18747572",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-15T15:00:03Z",
+      "side": 1,
+      "message": "I prefer the current name.",
+      "parentUuid": "679da474_a386f394",
+      "revId": "e95e59be78393cfe31f9dbc0dc31d6d75c180bd1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4044647b_4855fd8c",
         "filename": "src/webserver_run.cpp",
         "patchSetId": 15
@@ -316,6 +334,24 @@
       "side": 1,
       "message": "Today code (`getLogLevelFromName()`) will set the log level as \"Disabled\" if the input is invalid.\n\nSo, I think `getLogLevelFromName()` needs to be modified to detect the invalid input and not to change the current log level as Disabled.",
       "parentUuid": "9b606e72_25920568",
+      "revId": "e95e59be78393cfe31f9dbc0dc31d6d75c180bd1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6cd0085_3031399f",
+        "filename": "src/webserver_run.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-15T15:00:03Z",
+      "side": 1,
+      "message": "Like I said, yes, that would return an error, and you\u0027re right, that could be improved, but given this is a debug interface, and not user facing, I will leave up to the author if they want to spend the effort to fix that.",
+      "parentUuid": "14331be9_7c4c9220",
       "revId": "e95e59be78393cfe31f9dbc0dc31d6d75c180bd1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
