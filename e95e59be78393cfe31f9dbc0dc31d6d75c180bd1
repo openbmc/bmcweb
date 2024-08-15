@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0b269b5d_1a838922",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-15T00:30:12Z",
+      "side": 1,
+      "message": "Sorry, but please remove the busctl docs.  I don\u0027t want to document an internal, should only be used from CLI interface.  That implies that other apps can use it, which they shouldn\u0027t be.",
+      "parentUuid": "eea2d370_d651d31c",
+      "revId": "e95e59be78393cfe31f9dbc0dc31d6d75c180bd1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "13564c3c_7ccda30f",
         "filename": "/COMMIT_MSG",
         "patchSetId": 15
@@ -244,6 +262,24 @@
       "side": 1,
       "message": "This error case is handled same as before - getLogLevelFromName(logLevel) returns disabled when invalid arg is passed.",
       "parentUuid": "14e67c36_5f5d6be4",
+      "revId": "e95e59be78393cfe31f9dbc0dc31d6d75c180bd1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b606e72_25920568",
+        "filename": "src/webserver_run.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-15T00:30:12Z",
+      "side": 1,
+      "message": "Right, but ideally it would return an error to the CLI.  I\u0027m not THAT worried about it, and I suspect it\u0027s something that can be fixed in a later patch.",
+      "parentUuid": "3e6b4ffe_439b13d1",
       "revId": "e95e59be78393cfe31f9dbc0dc31d6d75c180bd1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
