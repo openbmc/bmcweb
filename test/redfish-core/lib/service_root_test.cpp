@@ -74,10 +74,10 @@ void assertServiceRootGet(crow::Response& res)
               "/redfish/v1/TelemetryService");
     EXPECT_EQ(json["TelemetryService"].size(), 1);
 
-    EXPECT_THAT(
-        json["UUID"],
-        testing::MatchesRegex("[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-"
-                              "9a-fA-F]{4}-[0-9a-fA-F]{12}"));
+    EXPECT_THAT(json["UUID"],
+                testing::MatchesRegex(
+                    "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-"
+                    "9a-fA-F]{4}-[0-9a-fA-F]{12}"));
 
     EXPECT_EQ(json["UpdateService"]["@odata.id"], "/redfish/v1/UpdateService");
 

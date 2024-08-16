@@ -209,8 +209,8 @@ UnpackErrorCode unpackValueWithErrorCode(nlohmann::json& jsonValue,
         value = static_cast<Type>(*jsonPtr);
     }
 
-    else if constexpr ((std::is_unsigned_v<Type>)&&(
-                           !std::is_same_v<bool, Type>))
+    else if constexpr ((std::is_unsigned_v<Type>) &&
+                       (!std::is_same_v<bool, Type>))
     {
         uint64_t* jsonPtr = jsonValue.get_ptr<uint64_t*>();
         if (jsonPtr == nullptr)
@@ -560,15 +560,16 @@ inline bool readJsonHelperObject(nlohmann::json::object_t& obj,
                 break;
             }
 
-            result = std::visit(
-                         [&item, &unpackSpec, &res](auto&& val) {
-                using ContainedT =
-                    std::remove_pointer_t<std::decay_t<decltype(val)>>;
-                return details::unpackValue<ContainedT>(
-                    item.second, unpackSpec.key, res, *val);
-            },
-                         unpackSpec.value) &&
-                     result;
+            result =
+                std::visit(
+                    [&item, &unpackSpec, &res](auto&& val) {
+                        using ContainedT =
+                            std::remove_pointer_t<std::decay_t<decltype(val)>>;
+                        return details::unpackValue<ContainedT>(
+                            item.second, unpackSpec.key, res, *val);
+                    },
+                    unpackSpec.value) &&
+                result;
 
             unpackSpec.complete = true;
             break;
@@ -587,10 +588,10 @@ inline bool readJsonHelperObject(nlohmann::json::object_t& obj,
         {
             bool isOptional = std::visit(
                 [](auto&& val) {
-                using ContainedType =
-                    std::remove_pointer_t<std::decay_t<decltype(val)>>;
-                return details::IsOptional<ContainedType>::value;
-            },
+                    using ContainedType =
+                        std::remove_pointer_t<std::decay_t<decltype(val)>>;
+                    return details::IsOptional<ContainedType>::value;
+                },
                 perUnpack.value);
             if (isOptional)
             {
@@ -679,8 +680,8 @@ inline std::optional<nlohmann::json::object_t>
     }
     std::erase_if(*object,
                   [](const std::pair<std::string, nlohmann::json>& item) {
-        return item.first.starts_with("@odata.");
-    });
+                      return item.first.starts_with("@odata.");
+                  });
     if (object->empty())
     {
         //  If the update request only contains OData annotations, the service

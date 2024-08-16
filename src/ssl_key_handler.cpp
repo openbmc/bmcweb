@@ -38,15 +38,16 @@ static EVP_PKEY* createEcKey();
 
 // Mozilla intermediate cipher suites v5.7
 // Sourced from: https://ssl-config.mozilla.org/guidelines/5.7.json
-constexpr const char* mozillaIntermediate = "ECDHE-ECDSA-AES128-GCM-SHA256:"
-                                            "ECDHE-RSA-AES128-GCM-SHA256:"
-                                            "ECDHE-ECDSA-AES256-GCM-SHA384:"
-                                            "ECDHE-RSA-AES256-GCM-SHA384:"
-                                            "ECDHE-ECDSA-CHACHA20-POLY1305:"
-                                            "ECDHE-RSA-CHACHA20-POLY1305:"
-                                            "DHE-RSA-AES128-GCM-SHA256:"
-                                            "DHE-RSA-AES256-GCM-SHA384:"
-                                            "DHE-RSA-CHACHA20-POLY1305";
+constexpr const char* mozillaIntermediate =
+    "ECDHE-ECDSA-AES128-GCM-SHA256:"
+    "ECDHE-RSA-AES128-GCM-SHA256:"
+    "ECDHE-ECDSA-AES256-GCM-SHA384:"
+    "ECDHE-RSA-AES256-GCM-SHA384:"
+    "ECDHE-ECDSA-CHACHA20-POLY1305:"
+    "ECDHE-RSA-CHACHA20-POLY1305:"
+    "DHE-RSA-AES128-GCM-SHA256:"
+    "DHE-RSA-AES256-GCM-SHA384:"
+    "DHE-RSA-CHACHA20-POLY1305";
 
 // Trust chain related errors.`
 bool isTrustChainError(int errnum)
@@ -145,8 +146,8 @@ std::string verifyOpensslKeyCert(const std::string& filepath)
     BIO_free(bufio);
     if (pkey != nullptr)
     {
-        EVP_PKEY_CTX* pkeyCtx = EVP_PKEY_CTX_new_from_pkey(nullptr, pkey,
-                                                           nullptr);
+        EVP_PKEY_CTX* pkeyCtx =
+            EVP_PKEY_CTX_new_from_pkey(nullptr, pkey, nullptr);
 
         if (pkeyCtx == nullptr)
         {
@@ -454,10 +455,9 @@ static int nextProtoCallback(SSL* /*unused*/, const unsigned char** data,
     return SSL_TLSEXT_ERR_OK;
 }
 
-static int alpnSelectProtoCallback(SSL* /*unused*/, const unsigned char** out,
-                                   unsigned char* outlen,
-                                   const unsigned char* in, unsigned int inlen,
-                                   void* /*unused*/)
+static int alpnSelectProtoCallback(
+    SSL* /*unused*/, const unsigned char** out, unsigned char* outlen,
+    const unsigned char* in, unsigned int inlen, void* /*unused*/)
 {
     int rv = nghttp2_select_alpn(out, outlen, in, inlen);
     if (rv == -1)
@@ -474,12 +474,13 @@ static int alpnSelectProtoCallback(SSL* /*unused*/, const unsigned char** out,
 static bool getSslContext(boost::asio::ssl::context& mSslContext,
                           const std::string& sslPemFile)
 {
-    mSslContext.set_options(boost::asio::ssl::context::default_workarounds |
-                            boost::asio::ssl::context::no_sslv2 |
-                            boost::asio::ssl::context::no_sslv3 |
-                            boost::asio::ssl::context::single_dh_use |
-                            boost::asio::ssl::context::no_tlsv1 |
-                            boost::asio::ssl::context::no_tlsv1_1);
+    mSslContext.set_options(
+        boost::asio::ssl::context::default_workarounds |
+        boost::asio::ssl::context::no_sslv2 |
+        boost::asio::ssl::context::no_sslv3 |
+        boost::asio::ssl::context::single_dh_use |
+        boost::asio::ssl::context::no_tlsv1 |
+        boost::asio::ssl::context::no_tlsv1_1);
 
     BMCWEB_LOG_DEBUG("Using default TrustStore location: {}", trustStorePath);
     mSslContext.add_verify_path(trustStorePath);

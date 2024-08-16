@@ -86,35 +86,35 @@ class Resolver
                 const std::vector<
                     std::tuple<int32_t, int32_t, std::vector<uint8_t>>>& resp,
                 const std::string& hostName, const uint64_t flagNum) {
-            results_type endpointList;
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR("Resolve failed: {}", ec.message());
-                handler(ec, endpointList);
-                return;
-            }
-            BMCWEB_LOG_DEBUG("ResolveHostname returned: {}:{}", hostName,
-                             flagNum);
-            // Extract the IP address from the response
-            for (const std::tuple<int32_t, int32_t, std::vector<uint8_t>>&
-                     resolveList : resp)
-            {
-                boost::asio::ip::tcp::endpoint endpoint;
-                endpoint.port(portNum);
-                if (!endpointFromResolveTuple(std::get<2>(resolveList),
-                                              endpoint))
+                results_type endpointList;
+                if (ec)
                 {
-                    boost::system::error_code ecErr = make_error_code(
-                        boost::system::errc::address_not_available);
-                    handler(ecErr, endpointList);
+                    BMCWEB_LOG_ERROR("Resolve failed: {}", ec.message());
+                    handler(ec, endpointList);
+                    return;
                 }
-                BMCWEB_LOG_DEBUG("resolved endpoint is : {}",
-                                 endpoint.address().to_string());
-                endpointList.push_back(endpoint);
-            }
-            // All the resolved data is filled in the endpointList
-            handler(ec, endpointList);
-        },
+                BMCWEB_LOG_DEBUG("ResolveHostname returned: {}:{}", hostName,
+                                 flagNum);
+                // Extract the IP address from the response
+                for (const std::tuple<int32_t, int32_t, std::vector<uint8_t>>&
+                         resolveList : resp)
+                {
+                    boost::asio::ip::tcp::endpoint endpoint;
+                    endpoint.port(portNum);
+                    if (!endpointFromResolveTuple(std::get<2>(resolveList),
+                                                  endpoint))
+                    {
+                        boost::system::error_code ecErr = make_error_code(
+                            boost::system::errc::address_not_available);
+                        handler(ecErr, endpointList);
+                    }
+                    BMCWEB_LOG_DEBUG("resolved endpoint is : {}",
+                                     endpoint.address().to_string());
+                    endpointList.push_back(endpoint);
+                }
+                // All the resolved data is filled in the endpointList
+                handler(ec, endpointList);
+            },
             "org.freedesktop.resolve1", "/org/freedesktop/resolve1",
             "org.freedesktop.resolve1.Manager", "ResolveHostname", 0, host,
             AF_UNSPEC, flag);

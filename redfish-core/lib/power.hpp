@@ -126,9 +126,9 @@ inline void afterPowerCapSettingGet(
         // A warning without a odata.type
         nlohmann::json::object_t powerControl;
         powerControl["@odata.type"] = "#Power.v1_0_0.PowerControl";
-        powerControl["@odata.id"] = "/redfish/v1/Chassis/" +
-                                    sensorAsyncResp->chassisId +
-                                    "/Power#/PowerControl/0";
+        powerControl["@odata.id"] =
+            "/redfish/v1/Chassis/" + sensorAsyncResp->chassisId +
+            "/Power#/PowerControl/0";
         powerControl["Name"] = "Chassis Power Control";
         powerControl["MemberId"] = "0";
         tempArray.emplace_back(std::move(powerControl));
@@ -191,16 +191,15 @@ inline void afterPowerCapSettingGet(
     {
         // Redfish specification indicates PowerLimit should
         // be null if the limit is not enabled.
-        sensorJson["PowerLimit"]["LimitInWatts"] = powerCap *
-                                                   std::pow(10, scale);
+        sensorJson["PowerLimit"]["LimitInWatts"] =
+            powerCap * std::pow(10, scale);
     }
 }
 
 using Mapper = dbus::utility::MapperGetSubTreePathsResponse;
-inline void
-    afterGetChassis(const std::shared_ptr<SensorsAsyncResp>& sensorAsyncResp,
-                    const boost::system::error_code& ec2,
-                    const Mapper& chassisPaths)
+inline void afterGetChassis(
+    const std::shared_ptr<SensorsAsyncResp>& sensorAsyncResp,
+    const boost::system::error_code& ec2, const Mapper& chassisPaths)
 {
     if (ec2)
     {

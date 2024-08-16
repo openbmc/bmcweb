@@ -64,9 +64,8 @@ class Connection :
     Connection(Handler* handlerIn, boost::asio::steady_timer&& timerIn,
                std::function<std::string()>& getCachedDateStrF,
                Adaptor&& adaptorIn) :
-        adaptor(std::move(adaptorIn)),
-        handler(handlerIn), timer(std::move(timerIn)),
-        getCachedDateStr(getCachedDateStrF)
+        adaptor(std::move(adaptorIn)), handler(handlerIn),
+        timer(std::move(timerIn)), getCachedDateStr(getCachedDateStrF)
     {
         initParser();
 
@@ -182,12 +181,12 @@ class Connection :
             adaptor.async_handshake(boost::asio::ssl::stream_base::server,
                                     [this, self(shared_from_this())](
                                         const boost::system::error_code& ec) {
-                if (ec)
-                {
-                    return;
-                }
-                afterSslHandshake();
-            });
+                                        if (ec)
+                                        {
+                                            return;
+                                        }
+                                        afterSslHandshake();
+                                    });
         }
         else
         {
@@ -303,8 +302,8 @@ class Connection :
         BMCWEB_LOG_DEBUG("Setting completion handler");
         asyncResp->res.setCompleteRequestHandler(
             [self(shared_from_this())](crow::Response& thisRes) {
-            self->completeRequest(thisRes);
-        });
+                self->completeRequest(thisRes);
+            });
         bool isSse =
             isContentTypeAllowed(req->getHeaderValue("Accept"),
                                  http_helpers::ContentType::EventStream, false);
@@ -316,18 +315,18 @@ class Connection :
         {
             asyncResp->res.setCompleteRequestHandler(
                 [self(shared_from_this())](crow::Response& thisRes) {
-                if (thisRes.result() != boost::beast::http::status::ok)
-                {
-                    // When any error occurs before handle upgradation,
-                    // the result in response will be set to respective
-                    // error. By default the Result will be OK (200),
-                    // which implies successful handle upgrade. Response
-                    // needs to be sent over this connection only on
-                    // failure.
-                    self->completeRequest(thisRes);
-                    return;
-                }
-            });
+                    if (thisRes.result() != boost::beast::http::status::ok)
+                    {
+                        // When any error occurs before handle upgradation,
+                        // the result in response will be set to respective
+                        // error. By default the Result will be OK (200),
+                        // which implies successful handle upgrade. Response
+                        // needs to be sent over this connection only on
+                        // failure.
+                        self->completeRequest(thisRes);
+                        return;
+                    }
+                });
             handler->handleUpgrade(req, asyncResp, std::move(adaptor));
             return;
         }
@@ -495,73 +494,73 @@ class Connection :
             [this,
              self(shared_from_this())](const boost::system::error_code& ec,
                                        std::size_t bytesTransferred) {
-            BMCWEB_LOG_DEBUG("{} async_read_header {} Bytes", logPtr(this),
-                             bytesTransferred);
+                BMCWEB_LOG_DEBUG("{} async_read_header {} Bytes", logPtr(this),
+                                 bytesTransferred);
 
-            if (ec)
-            {
-                cancelDeadlineTimer();
-
-                if (ec == boost::beast::http::error::header_limit)
+                if (ec)
                 {
-                    BMCWEB_LOG_ERROR("{} Header field too large, closing",
-                                     logPtr(this), ec.message());
+                    cancelDeadlineTimer();
 
-                    res.result(boost::beast::http::status::
-                                   request_header_fields_too_large);
-                    keepAlive = false;
+                    if (ec == boost::beast::http::error::header_limit)
+                    {
+                        BMCWEB_LOG_ERROR("{} Header field too large, closing",
+                                         logPtr(this), ec.message());
+
+                        res.result(boost::beast::http::status::
+                                       request_header_fields_too_large);
+                        keepAlive = false;
+                        doWrite();
+                        return;
+                    }
+                    if (ec == boost::beast::http::error::end_of_stream)
+                    {
+                        BMCWEB_LOG_WARNING("{} End of stream, closing {}",
+                                           logPtr(this), ec);
+                        hardClose();
+                        return;
+                    }
+
+                    BMCWEB_LOG_DEBUG("{} Closing socket due to read error {}",
+                                     logPtr(this), ec.message());
+                    gracefulClose();
+
+                    return;
+                }
+
+                constexpr bool isTest =
+                    std::is_same_v<Adaptor, boost::beast::test::stream>;
+
+                if constexpr (!BMCWEB_INSECURE_DISABLE_AUTH && !isTest)
+                {
+                    boost::beast::http::verb method = parser->get().method();
+                    userSession = crow::authentication::authenticate(
+                        ip, res, method, parser->get().base(), mtlsSession);
+                }
+
+                std::string_view expect =
+                    parser->get()[boost::beast::http::field::expect];
+                if (bmcweb::asciiIEquals(expect, "100-continue"))
+                {
+                    res.result(boost::beast::http::status::continue_);
                     doWrite();
                     return;
                 }
-                if (ec == boost::beast::http::error::end_of_stream)
+
+                if (!handleContentLengthError())
                 {
-                    BMCWEB_LOG_WARNING("{} End of stream, closing {}",
-                                       logPtr(this), ec);
-                    hardClose();
                     return;
                 }
 
-                BMCWEB_LOG_DEBUG("{} Closing socket due to read error {}",
-                                 logPtr(this), ec.message());
-                gracefulClose();
+                parser->body_limit(getContentLengthLimit());
 
-                return;
-            }
+                if (parser->is_done())
+                {
+                    handle();
+                    return;
+                }
 
-            constexpr bool isTest =
-                std::is_same_v<Adaptor, boost::beast::test::stream>;
-
-            if constexpr (!BMCWEB_INSECURE_DISABLE_AUTH && !isTest)
-            {
-                boost::beast::http::verb method = parser->get().method();
-                userSession = crow::authentication::authenticate(
-                    ip, res, method, parser->get().base(), mtlsSession);
-            }
-
-            std::string_view expect =
-                parser->get()[boost::beast::http::field::expect];
-            if (bmcweb::asciiIEquals(expect, "100-continue"))
-            {
-                res.result(boost::beast::http::status::continue_);
-                doWrite();
-                return;
-            }
-
-            if (!handleContentLengthError())
-            {
-                return;
-            }
-
-            parser->body_limit(getContentLengthLimit());
-
-            if (parser->is_done())
-            {
-                handle();
-                return;
-            }
-
-            doRead();
-        });
+                doRead();
+            });
     }
 
     void doRead()
@@ -577,48 +576,50 @@ class Connection :
             [this,
              self(shared_from_this())](const boost::system::error_code& ec,
                                        std::size_t bytesTransferred) {
-            BMCWEB_LOG_DEBUG("{} async_read_some {} Bytes", logPtr(this),
-                             bytesTransferred);
+                BMCWEB_LOG_DEBUG("{} async_read_some {} Bytes", logPtr(this),
+                                 bytesTransferred);
 
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR("{} Error while reading: {}", logPtr(this),
-                                 ec.message());
-                if (ec == boost::beast::http::error::body_limit)
+                if (ec)
                 {
-                    if (handleContentLengthError())
+                    BMCWEB_LOG_ERROR("{} Error while reading: {}", logPtr(this),
+                                     ec.message());
+                    if (ec == boost::beast::http::error::body_limit)
                     {
-                        BMCWEB_LOG_CRITICAL("Body length limit reached, "
-                                            "but no content-length "
-                                            "available?  Should never happen");
-                        res.result(
-                            boost::beast::http::status::internal_server_error);
-                        keepAlive = false;
-                        doWrite();
+                        if (handleContentLengthError())
+                        {
+                            BMCWEB_LOG_CRITICAL(
+                                "Body length limit reached, "
+                                "but no content-length "
+                                "available?  Should never happen");
+                            res.result(boost::beast::http::status::
+                                           internal_server_error);
+                            keepAlive = false;
+                            doWrite();
+                        }
+                        return;
                     }
+
+                    gracefulClose();
                     return;
                 }
 
-                gracefulClose();
-                return;
-            }
+                // If the user is logged in, allow them to send files
+                // incrementally one piece at a time. If authentication is
+                // disabled then there is no user session hence always allow to
+                // send one piece at a time.
+                if (userSession != nullptr)
+                {
+                    cancelDeadlineTimer();
+                }
+                if (!parser->is_done())
+                {
+                    doRead();
+                    return;
+                }
 
-            // If the user is logged in, allow them to send files incrementally
-            // one piece at a time. If authentication is disabled then there is
-            // no user session hence always allow to send one piece at a time.
-            if (userSession != nullptr)
-            {
                 cancelDeadlineTimer();
-            }
-            if (!parser->is_done())
-            {
-                doRead();
-                return;
-            }
-
-            cancelDeadlineTimer();
-            handle();
-        });
+                handle();
+            });
     }
 
     void afterDoWrite(const std::shared_ptr<self_type>& /*self*/,

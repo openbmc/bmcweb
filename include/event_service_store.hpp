@@ -26,9 +26,8 @@ struct UserSubscription
     boost::beast::http::fields httpHeaders;
     std::vector<std::string> metricReportDefinitions;
 
-    static std::shared_ptr<UserSubscription>
-        fromJson(const nlohmann::json::object_t& j,
-                 const bool loadFromOldConfig = false)
+    static std::shared_ptr<UserSubscription> fromJson(
+        const nlohmann::json::object_t& j, const bool loadFromOldConfig = false)
     {
         std::shared_ptr<UserSubscription> subvalue =
             std::make_shared<UserSubscription>();

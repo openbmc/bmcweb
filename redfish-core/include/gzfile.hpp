@@ -97,8 +97,8 @@ class GzFileReader
 
         while (pos != std::string::npos)
         {
-            std::string logEntry = bufferStr.substr(initialPos,
-                                                    pos - initialPos);
+            std::string logEntry =
+                bufferStr.substr(initialPos, pos - initialPos);
             // Since there might be consecutive delimiters like "\r\n", we need
             // to filter empty strings.
             if (!logEntry.empty())

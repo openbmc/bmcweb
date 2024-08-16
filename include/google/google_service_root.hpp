@@ -107,9 +107,9 @@ inline void resolveRoT(const std::string& command,
         [command, asyncResp, rotId, entityHandler{std::move(entityHandler)}](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreeResponse& subtree) {
-        hothGetSubtreeCallback(command, asyncResp, rotId, entityHandler, ec,
-                               subtree);
-    });
+            hothGetSubtreeCallback(command, asyncResp, rotId, entityHandler, ec,
+                                   subtree);
+        });
 }
 
 inline void populateRootOfTrustEntity(
@@ -179,8 +179,8 @@ inline void
     crow::connections::systemBus->async_method_call(
         [asyncResp{asyncResp}](const boost::system::error_code& ec,
                                const std::vector<uint8_t>& responseBytes) {
-        invocationCallback(asyncResp, ec, responseBytes);
-    },
+            invocationCallback(asyncResp, ec, responseBytes);
+        },
         resolvedEntity.service, resolvedEntity.object, resolvedEntity.interface,
         "SendHostCommand", bytes);
 }

@@ -67,30 +67,30 @@ inline void
 
     std::function<void(sdbusplus::message_t&)> callback =
         [asyncResp](sdbusplus::message_t& m) {
-        BMCWEB_LOG_DEBUG("Match fired");
+            BMCWEB_LOG_DEBUG("Match fired");
 
-        sdbusplus::message::object_path path;
-        dbus::utility::DBusInterfacesMap interfaces;
-        m.read(path, interfaces);
+            sdbusplus::message::object_path path;
+            dbus::utility::DBusInterfacesMap interfaces;
+            m.read(path, interfaces);
 
-        if (std::ranges::find_if(interfaces, [](const auto& i) {
-            return i.first == "xyz.openbmc_project.Software.Version";
-        }) != interfaces.end())
-        {
-            timeout.cancel();
-            std::string leaf = path.filename();
-            if (leaf.empty())
+            if (std::ranges::find_if(interfaces, [](const auto& i) {
+                    return i.first == "xyz.openbmc_project.Software.Version";
+                }) != interfaces.end())
             {
-                leaf = path.str;
-            }
+                timeout.cancel();
+                std::string leaf = path.filename();
+                if (leaf.empty())
+                {
+                    leaf = path.str;
+                }
 
-            asyncResp->res.jsonValue["data"] = leaf;
-            asyncResp->res.jsonValue["message"] = "200 OK";
-            asyncResp->res.jsonValue["status"] = "ok";
-            BMCWEB_LOG_DEBUG("ending response");
-            fwUpdateMatcher = nullptr;
-        }
-    };
+                asyncResp->res.jsonValue["data"] = leaf;
+                asyncResp->res.jsonValue["message"] = "200 OK";
+                asyncResp->res.jsonValue["status"] = "ok";
+                BMCWEB_LOG_DEBUG("ending response");
+                fwUpdateMatcher = nullptr;
+            }
+        };
     fwUpdateMatcher = std::make_unique<sdbusplus::bus::match_t>(
         *crow::connections::systemBus,
         "interface='org.freedesktop.DBus.ObjectManager',type='signal',"
@@ -120,8 +120,8 @@ inline void requestRoutes(App& app)
         .methods(boost::beast::http::verb::post, boost::beast::http::verb::put)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        uploadImageHandler(req, asyncResp);
-    });
+                uploadImageHandler(req, asyncResp);
+            });
 }
 } // namespace image_upload
 } // namespace crow

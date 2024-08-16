@@ -91,13 +91,13 @@ inline void
 
     crow::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("Failed to reset bios: {}", ec);
-            messages::internalError(asyncResp->res);
-            return;
-        }
-    },
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("Failed to reset bios: {}", ec);
+                messages::internalError(asyncResp->res);
+                return;
+            }
+        },
         "org.open_power.Software.Host.Updater", "/xyz/openbmc_project/software",
         "xyz.openbmc_project.Common.FactoryReset", "Reset");
 }

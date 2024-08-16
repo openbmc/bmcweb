@@ -89,8 +89,8 @@ static const Message*
 {
     std::span<const MessageEntry>::iterator messageIt = std::ranges::find_if(
         registry, [&messageKey](const MessageEntry& messageEntry) {
-        return messageKey == messageEntry.first;
-    });
+            return messageKey == messageEntry.first;
+        });
     if (messageIt != registry.end())
     {
         return &messageIt->second;
@@ -215,12 +215,10 @@ inline void getRegistryAndMessageKey(const std::string& messageID,
     }
 }
 
-inline int formatEventLogEntry(const std::string& logEntryID,
-                               const std::string& messageID,
-                               const std::span<std::string_view> messageArgs,
-                               std::string timestamp,
-                               const std::string& customText,
-                               nlohmann::json::object_t& logEntryJson)
+inline int formatEventLogEntry(
+    const std::string& logEntryID, const std::string& messageID,
+    const std::span<std::string_view> messageArgs, std::string timestamp,
+    const std::string& customText, nlohmann::json::object_t& logEntryJson)
 {
     // Get the Message from the MessageRegistry
     const registries::Message* message = registries::formatMessage(messageID);
@@ -230,8 +228,8 @@ inline int formatEventLogEntry(const std::string& logEntryID,
         return -1;
     }
 
-    std::string msg = redfish::registries::fillMessageArgs(messageArgs,
-                                                           message->message);
+    std::string msg =
+        redfish::registries::fillMessageArgs(messageArgs, message->message);
     if (msg.empty())
     {
         return -1;
@@ -321,8 +319,8 @@ class Subscription : public persistent_data::UserSubscription
             // Search the resourceTypes list for the subscription.
             auto resourceTypeIndex = std::ranges::find_if(
                 resourceTypes, [resType](const std::string& rtEntry) {
-                return rtEntry == resType;
-            });
+                    return rtEntry == resType;
+                });
             if (resourceTypeIndex == resourceTypes.end())
             {
                 BMCWEB_LOG_DEBUG("Not subscribed to this resource");
@@ -393,8 +391,8 @@ class Subscription : public persistent_data::UserSubscription
         msg["Name"] = "Event Log";
         msg["Events"] = logEntryArray;
 
-        std::string strMsg = msg.dump(2, ' ', true,
-                                      nlohmann::json::error_handler_t::replace);
+        std::string strMsg =
+            msg.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
         return sendEvent(std::move(strMsg));
     }
 
@@ -435,8 +433,8 @@ class Subscription : public persistent_data::UserSubscription
         msg["Id"] = std::to_string(eventSeqNum);
         msg["Name"] = "Event Log";
         msg["Events"] = std::move(logEntryArray);
-        std::string strMsg = msg.dump(2, ' ', true,
-                                      nlohmann::json::error_handler_t::replace);
+        std::string strMsg =
+            msg.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
         sendEvent(std::move(strMsg));
         eventSeqNum++;
     }
@@ -474,8 +472,8 @@ class Subscription : public persistent_data::UserSubscription
             msg["Context"] = customText;
         }
 
-        std::string strMsg = msg.dump(2, ' ', true,
-                                      nlohmann::json::error_handler_t::replace);
+        std::string strMsg =
+            msg.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
         sendEvent(std::move(strMsg));
     }
 
@@ -927,8 +925,8 @@ class EventServiceManager
             boost::circular_buffer<Event>::iterator lastEvent =
                 std::find_if(messages.begin(), messages.end(),
                              [&lastEventId](const Event& event) {
-                return event.id == lastEventId;
-            });
+                                 return event.id == lastEventId;
+                             });
             // Can't find a matching ID
             if (lastEvent == messages.end())
             {
@@ -1012,8 +1010,8 @@ class EventServiceManager
             subscriptionsMap,
             [](const std::pair<std::string, std::shared_ptr<Subscription>>&
                    entry) {
-            return (entry.second->subscriptionType == subscriptionTypeSSE);
-        });
+                return (entry.second->subscriptionType == subscriptionTypeSSE);
+            });
         return static_cast<size_t>(size);
     }
 
@@ -1184,94 +1182,95 @@ class EventServiceManager
 
         static std::array<char, 1024> readBuffer;
 
-        inotifyConn->async_read_some(boost::asio::buffer(readBuffer),
-                                     [&](const boost::system::error_code& ec,
-                                         const std::size_t& bytesTransferred) {
-            if (ec == boost::asio::error::operation_aborted)
-            {
-                BMCWEB_LOG_DEBUG("Inotify was canceled (shutdown?)");
-                return;
-            }
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR("Callback Error: {}", ec.message());
-                return;
-            }
-            std::size_t index = 0;
-            while ((index + iEventSize) <= bytesTransferred)
-            {
-                struct inotify_event event
-                {};
-                std::memcpy(&event, &readBuffer[index], iEventSize);
-                if (event.wd == dirWatchDesc)
+        inotifyConn->async_read_some(
+            boost::asio::buffer(readBuffer),
+            [&](const boost::system::error_code& ec,
+                const std::size_t& bytesTransferred) {
+                if (ec == boost::asio::error::operation_aborted)
                 {
-                    if ((event.len == 0) ||
-                        (index + iEventSize + event.len > bytesTransferred))
-                    {
-                        index += (iEventSize + event.len);
-                        continue;
-                    }
-
-                    std::string fileName(&readBuffer[index + iEventSize]);
-                    if (fileName != "redfish")
-                    {
-                        index += (iEventSize + event.len);
-                        continue;
-                    }
-
-                    BMCWEB_LOG_DEBUG(
-                        "Redfish log file created/deleted. event.name: {}",
-                        fileName);
-                    if (event.mask == IN_CREATE)
-                    {
-                        if (fileWatchDesc != -1)
-                        {
-                            BMCWEB_LOG_DEBUG(
-                                "Remove and Add inotify watcher on "
-                                "redfish event log file");
-                            // Remove existing inotify watcher and add
-                            // with new redfish event log file.
-                            inotify_rm_watch(inotifyFd, fileWatchDesc);
-                            fileWatchDesc = -1;
-                        }
-
-                        fileWatchDesc = inotify_add_watch(
-                            inotifyFd, redfishEventLogFile, IN_MODIFY);
-                        if (fileWatchDesc == -1)
-                        {
-                            BMCWEB_LOG_ERROR("inotify_add_watch failed for "
-                                             "redfish log file.");
-                            return;
-                        }
-
-                        EventServiceManager::getInstance()
-                            .resetRedfishFilePosition();
-                        EventServiceManager::getInstance()
-                            .readEventLogsFromFile();
-                    }
-                    else if ((event.mask == IN_DELETE) ||
-                             (event.mask == IN_MOVED_TO))
-                    {
-                        if (fileWatchDesc != -1)
-                        {
-                            inotify_rm_watch(inotifyFd, fileWatchDesc);
-                            fileWatchDesc = -1;
-                        }
-                    }
+                    BMCWEB_LOG_DEBUG("Inotify was canceled (shutdown?)");
+                    return;
                 }
-                else if (event.wd == fileWatchDesc)
+                if (ec)
                 {
-                    if (event.mask == IN_MODIFY)
-                    {
-                        EventServiceManager::getInstance()
-                            .readEventLogsFromFile();
-                    }
+                    BMCWEB_LOG_ERROR("Callback Error: {}", ec.message());
+                    return;
                 }
-                index += (iEventSize + event.len);
-            }
+                std::size_t index = 0;
+                while ((index + iEventSize) <= bytesTransferred)
+                {
+                    struct inotify_event event
+                    {};
+                    std::memcpy(&event, &readBuffer[index], iEventSize);
+                    if (event.wd == dirWatchDesc)
+                    {
+                        if ((event.len == 0) ||
+                            (index + iEventSize + event.len > bytesTransferred))
+                        {
+                            index += (iEventSize + event.len);
+                            continue;
+                        }
 
-            watchRedfishEventLogFile();
-        });
+                        std::string fileName(&readBuffer[index + iEventSize]);
+                        if (fileName != "redfish")
+                        {
+                            index += (iEventSize + event.len);
+                            continue;
+                        }
+
+                        BMCWEB_LOG_DEBUG(
+                            "Redfish log file created/deleted. event.name: {}",
+                            fileName);
+                        if (event.mask == IN_CREATE)
+                        {
+                            if (fileWatchDesc != -1)
+                            {
+                                BMCWEB_LOG_DEBUG(
+                                    "Remove and Add inotify watcher on "
+                                    "redfish event log file");
+                                // Remove existing inotify watcher and add
+                                // with new redfish event log file.
+                                inotify_rm_watch(inotifyFd, fileWatchDesc);
+                                fileWatchDesc = -1;
+                            }
+
+                            fileWatchDesc = inotify_add_watch(
+                                inotifyFd, redfishEventLogFile, IN_MODIFY);
+                            if (fileWatchDesc == -1)
+                            {
+                                BMCWEB_LOG_ERROR("inotify_add_watch failed for "
+                                                 "redfish log file.");
+                                return;
+                            }
+
+                            EventServiceManager::getInstance()
+                                .resetRedfishFilePosition();
+                            EventServiceManager::getInstance()
+                                .readEventLogsFromFile();
+                        }
+                        else if ((event.mask == IN_DELETE) ||
+                                 (event.mask == IN_MOVED_TO))
+                        {
+                            if (fileWatchDesc != -1)
+                            {
+                                inotify_rm_watch(inotifyFd, fileWatchDesc);
+                                fileWatchDesc = -1;
+                            }
+                        }
+                    }
+                    else if (event.wd == fileWatchDesc)
+                    {
+                        if (event.mask == IN_MODIFY)
+                        {
+                            EventServiceManager::getInstance()
+                                .readEventLogsFromFile();
+                        }
+                    }
+                    index += (iEventSize + event.len);
+                }
+
+                watchRedfishEventLogFile();
+            });
     }
 
     static int startEventLogMonitor(boost::asio::io_context& ioc)
@@ -1296,8 +1295,8 @@ class EventServiceManager
         }
 
         // Watch redfish event log file for modifications.
-        fileWatchDesc = inotify_add_watch(inotifyFd, redfishEventLogFile,
-                                          IN_MODIFY);
+        fileWatchDesc =
+            inotify_add_watch(inotifyFd, redfishEventLogFile, IN_MODIFY);
         if (fileWatchDesc == -1)
         {
             BMCWEB_LOG_ERROR("inotify_add_watch failed for redfish log file.");
@@ -1338,8 +1337,9 @@ class EventServiceManager
         std::vector<std::string> invalidProps;
         msg.read(interface, props, invalidProps);
 
-        auto found = std::ranges::find_if(
-            props, [](const auto& x) { return x.first == "Readings"; });
+        auto found = std::ranges::find_if(props, [](const auto& x) {
+            return x.first == "Readings";
+        });
         if (found == props.end())
         {
             BMCWEB_LOG_INFO("Failed to get Readings from Report properties");

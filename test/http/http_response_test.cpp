@@ -37,13 +37,13 @@ std::string getData(boost::beast::http::response<bmcweb::HttpBody>& m)
     boost::beast::http::response_serializer<bmcweb::HttpBody> sr{m};
     sr.split(true);
     // Reads buffers into ret
-    auto reader = [&sr, &ret](const boost::system::error_code& ec2,
-                              const auto& buffer) {
-        EXPECT_FALSE(ec2);
-        std::string ret2 = boost::beast::buffers_to_string(buffer);
-        sr.consume(ret2.size());
-        ret += ret2;
-    };
+    auto reader =
+        [&sr, &ret](const boost::system::error_code& ec2, const auto& buffer) {
+            EXPECT_FALSE(ec2);
+            std::string ret2 = boost::beast::buffers_to_string(buffer);
+            sr.consume(ret2.size());
+            ret += ret2;
+        };
     boost::system::error_code ec;
 
     // Read headers
