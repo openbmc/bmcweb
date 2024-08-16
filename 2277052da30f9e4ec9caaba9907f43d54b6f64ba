@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8006e507_876ea4db",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-16T21:34:08Z",
+      "side": 1,
+      "message": "\u003e Having the whole event log thing be a class that gets constructed would probably be the cleaner alternative.\n\n+1\n\n\nWhat I don\u0027t really understand is why the log directory is changing.  Is this just so that unit tests don\u0027t write to the log dir?  Can we just pass that in as an argument to the functions being unit tested to avoid having singletons like this?",
+      "parentUuid": "5ed0b17a_59f55264",
+      "revId": "2277052da30f9e4ec9caaba9907f43d54b6f64ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0f32e213_d1fa4bb1",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 5
@@ -83,6 +101,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba88f9a7_c0180b87",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-16T21:34:08Z",
+      "side": 1,
+      "message": "Lets close in the thread above now that I know what we\u0027re trying to do here.",
+      "parentUuid": "51380c62_cdebc899",
+      "range": {
+        "startLine": 83,
+        "startChar": 4,
+        "endLine": 83,
+        "endChar": 10
+      },
+      "revId": "2277052da30f9e4ec9caaba9907f43d54b6f64ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0bf716d4_355016a6",
@@ -114,6 +156,24 @@
       "side": 1,
       "message": "Maybe that can be useful. However the unit tests itself contain logic to cleanup the directory. So the directory itself can be reused.",
       "parentUuid": "0bf716d4_355016a6",
+      "revId": "2277052da30f9e4ec9caaba9907f43d54b6f64ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1a7a0ed_0bfa5c31",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-16T21:34:08Z",
+      "side": 1,
+      "message": "\u003e However the unit tests itself contain logic to cleanup the directory.\n\nRight, and rather than duplicate that logic all over the place, we put it in an RAII class called TemporaryFile.  Please take a look at it, and if it doesn\u0027t work, or can\u0027t be easily amended to work, we can review the new code you\u0027ve added, but I\u0027d really prefer we keep patterns similar, and RAII/Exception safety if we can.",
+      "parentUuid": "4da119b9_1429c267",
       "revId": "2277052da30f9e4ec9caaba9907f43d54b6f64ba",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
