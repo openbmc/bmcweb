@@ -86,6 +86,24 @@
       "parentUuid": "2c91050a_577e2b68",
       "revId": "44a17df8ac205f964eaf8f7af398091fd5082a2d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a1f2d2a_4210bb8f",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 3708,
+      "author": {
+        "id": 1001264
+      },
+      "writtenOn": "2024-08-16T05:51:18Z",
+      "side": 1,
+      "message": "Hi @Ed, as Amithash mentioned, current primary postcode insufficient for new systems (ARM platform). \n\nWhat if we change the primary postcode type from `uint64_t` to `std::vector\u003cuint8_t\u003e` ? this will ensure primary code can fill in any size of postcode.\n\nPlease kindly let me know if you have any concerns of this modification, thank you.",
+      "parentUuid": "8e6be360_d49b4df3",
+      "revId": "44a17df8ac205f964eaf8f7af398091fd5082a2d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
