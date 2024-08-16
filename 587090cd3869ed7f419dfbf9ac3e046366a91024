@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fdfd4e2d_f9117b8e",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 2809,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-16T17:12:34Z",
+      "side": 0,
+      "message": "Why was this dropped?",
+      "range": {
+        "startLine": 2809,
+        "startChar": 7,
+        "endLine": 2809,
+        "endChar": 16
+      },
+      "revId": "587090cd3869ed7f419dfbf9ac3e046366a91024",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
