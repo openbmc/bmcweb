@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dcbfe426_fd681a2c",
+        "filename": "scripts/update_schemas.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-16T20:59:36Z",
+      "side": 0,
+      "message": "Lets not remove the schema.  It\u0027s not worth the effort for the minor size savings.",
+      "revId": "6b54e4e08678c0e32ed02adc87237f6ffa936691",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
