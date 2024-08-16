@@ -217,6 +217,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4532273b_5d049219",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-16T15:08:00Z",
+      "side": 1,
+      "message": "For most property additions, it\u0027s obvious, and I can go entirely off schema.  Given this is our first interface that\u0027s implementing an \"Excerpt\" property, we need to make sure we understand the rules that those follow.  I\u0027m not convinced I fully understand what\u0027s going on in the schema.",
+      "parentUuid": "bece58d5_13748555",
+      "revId": "21d345ef1c89feb4750f86d147b8c33df539e990",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d23fbbde_c8a65184",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 1
