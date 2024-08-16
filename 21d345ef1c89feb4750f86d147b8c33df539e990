@@ -235,6 +235,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4325601d_cbba00d0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-16T17:24:16Z",
+      "side": 1,
+      "message": "Things I see in the spec:\n\n```\n3.2.5 excerpt\nsubset of data that is copied from one resource and presented in another resource\n```\n\n```\nReturns a subset of the resource\u0027s properties that match the defined Excerpt schema annotation.\nIf no Excerpt schema annotation is defined for the resource, the entire resource is returned.\n```\n\nI don\u0027t see any reference to ExcerptCopy in either the spec or XML.",
+      "parentUuid": "4532273b_5d049219",
+      "revId": "21d345ef1c89feb4750f86d147b8c33df539e990",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d23fbbde_c8a65184",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 1
