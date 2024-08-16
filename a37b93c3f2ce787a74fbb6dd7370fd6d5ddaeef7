@@ -79,6 +79,24 @@
       "message": "With your new code, you\u0027re now running this in parallel with getSystemCollectionMembers.  This is now a race between which daemon responds first (the mapper or settingsd).",
       "revId": "a37b93c3f2ce787a74fbb6dd7370fd6d5ddaeef7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e10c07c_ea9a7046",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 2823,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-16T17:13:31Z",
+      "side": 1,
+      "message": "More details in documentation: https://github.com/openbmc/bmcweb/blob/master/COMMON_ERRORS.md#13-complete-replacement-of-the-response-object",
+      "parentUuid": "c2010ae9_70b0645d",
+      "revId": "a37b93c3f2ce787a74fbb6dd7370fd6d5ddaeef7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
