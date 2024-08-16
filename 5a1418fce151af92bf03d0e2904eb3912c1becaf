@@ -564,6 +564,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8b4a8ca7_13fa7326",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 3003,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-16T15:56:46Z",
+      "side": 1,
+      "message": "\u003e This is exactly what I meant.\n\nExcellent, then we\u0027re on the same page.\n\nConsidering that the IBM folks are the ones that use that code, I\u0027ll let you start a discussion with them on where it should go.",
+      "parentUuid": "a1ce48ee_3a298f8f",
+      "revId": "5a1418fce151af92bf03d0e2904eb3912c1becaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "611f9041_774ac4a2",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 5
