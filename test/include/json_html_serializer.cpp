@@ -25,9 +25,10 @@ const std::string boilerplateStart =
     "<div class=\"container\">\n"
     "<img src=\"/images/DMTF_Redfish_logo_2017.svg\" alt=\"redfish\" height=\"406px\" width=\"576px\">\n";
 
-const std::string boilerplateEnd = "</div>\n"
-                                   "</body>\n"
-                                   "</html>\n";
+const std::string boilerplateEnd =
+    "</div>\n"
+    "</body>\n"
+    "</html>\n";
 
 TEST(JsonHtmlSerializer, dumpHtmlLink)
 {
@@ -57,9 +58,9 @@ TEST(JsonHtmlSerializer, dumpstring)
     std::string out;
     nlohmann::json j = "foobar";
     dumpHtml(out, j);
-    EXPECT_EQ(out, boilerplateStart +
-                       "<div class=\"content\">\n\"foobar\"</div>\n" +
-                       boilerplateEnd);
+    EXPECT_EQ(out,
+              boilerplateStart + "<div class=\"content\">\n\"foobar\"</div>\n" +
+                  boilerplateEnd);
 }
 } // namespace
 } // namespace json_html_util

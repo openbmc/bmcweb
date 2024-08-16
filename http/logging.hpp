@@ -89,10 +89,10 @@ inline void vlog(std::format_string<Args...>&& format, Args&&... args,
         // throw Based on the documentation, it shouldn't throw, so long as none
         // of the formatters throw, so unclear at this point why this try/catch
         // is required, but add it to silence the static analysis tools.
-        logLocation = std::format("[{} {}:{}] ", levelString, filename,
-                                  loc.line());
-        logLocation += std::format(std::move(format),
-                                   std::forward<Args>(args)...);
+        logLocation =
+            std::format("[{} {}:{}] ", levelString, filename, loc.line());
+        logLocation +=
+            std::format(std::move(format), std::forward<Args>(args)...);
     }
     catch (const std::format_error& /*error*/)
     {
@@ -173,21 +173,21 @@ struct BMCWEB_LOG_DEBUG
 };
 
 template <typename... Args>
-BMCWEB_LOG_CRITICAL(std::format_string<Args...>, Args&&...)
-    -> BMCWEB_LOG_CRITICAL<Args...>;
+BMCWEB_LOG_CRITICAL(std::format_string<Args...>,
+                    Args&&...) -> BMCWEB_LOG_CRITICAL<Args...>;
 
 template <typename... Args>
-BMCWEB_LOG_ERROR(std::format_string<Args...>, Args&&...)
-    -> BMCWEB_LOG_ERROR<Args...>;
+BMCWEB_LOG_ERROR(std::format_string<Args...>,
+                 Args&&...) -> BMCWEB_LOG_ERROR<Args...>;
 
 template <typename... Args>
-BMCWEB_LOG_WARNING(std::format_string<Args...>, Args&&...)
-    -> BMCWEB_LOG_WARNING<Args...>;
+BMCWEB_LOG_WARNING(std::format_string<Args...>,
+                   Args&&...) -> BMCWEB_LOG_WARNING<Args...>;
 
 template <typename... Args>
-BMCWEB_LOG_INFO(std::format_string<Args...>, Args&&...)
-    -> BMCWEB_LOG_INFO<Args...>;
+BMCWEB_LOG_INFO(std::format_string<Args...>,
+                Args&&...) -> BMCWEB_LOG_INFO<Args...>;
 
 template <typename... Args>
-BMCWEB_LOG_DEBUG(std::format_string<Args...>, Args&&...)
-    -> BMCWEB_LOG_DEBUG<Args...>;
+BMCWEB_LOG_DEBUG(std::format_string<Args...>,
+                 Args&&...) -> BMCWEB_LOG_DEBUG<Args...>;

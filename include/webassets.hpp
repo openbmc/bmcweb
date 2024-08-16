@@ -62,10 +62,9 @@ struct StaticFile
     bool renamed = false;
 };
 
-inline void
-    handleStaticAsset(const crow::Request& req,
-                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                      const StaticFile& file)
+inline void handleStaticAsset(
+    const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const StaticFile& file)
 {
     if (!file.contentType.empty())
     {
@@ -135,9 +134,10 @@ inline std::string_view getFiletypeForExtension(std::string_view extension)
              {".woff2", "application/x-font-woff2"},
              {".xml", "application/xml"}}};
 
-    const auto* contentType = std::ranges::find_if(
-        contentTypes,
-        [&extension](const auto& val) { return val.first == extension; });
+    const auto* contentType =
+        std::ranges::find_if(contentTypes, [&extension](const auto& val) {
+            return val.first == extension;
+        });
 
     if (contentType == contentTypes.end())
     {
@@ -206,11 +206,11 @@ inline void addFile(App& app, const std::filesystem::directory_entry& dir)
     }
 
     app.routeDynamic(webpath)(
-        [file = std::move(file)](
-            const crow::Request& req,
-            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        handleStaticAsset(req, asyncResp, file);
-    });
+        [file = std::move(
+             file)](const crow::Request& req,
+                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            handleStaticAsset(req, asyncResp, file);
+        });
 }
 
 inline void requestRoutes(App& app)

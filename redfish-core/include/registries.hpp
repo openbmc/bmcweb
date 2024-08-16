@@ -54,9 +54,8 @@ struct Message
 };
 using MessageEntry = std::pair<const char*, const Message>;
 
-inline std::string
-    fillMessageArgs(const std::span<const std::string_view> messageArgs,
-                    std::string_view msg)
+inline std::string fillMessageArgs(
+    const std::span<const std::string_view> messageArgs, std::string_view msg)
 {
     std::string ret;
     size_t reserve = msg.size();
@@ -90,10 +89,9 @@ inline std::string
     return ret;
 }
 
-inline nlohmann::json::object_t
-    getLogFromRegistry(const Header& header,
-                       std::span<const MessageEntry> registry, size_t index,
-                       std::span<const std::string_view> args)
+inline nlohmann::json::object_t getLogFromRegistry(
+    const Header& header, std::span<const MessageEntry> registry, size_t index,
+    std::span<const std::string_view> args)
 {
     const redfish::registries::MessageEntry& entry = registry[index];
     // Intentionally make a copy of the string, so we can append in the

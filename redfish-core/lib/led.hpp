@@ -42,56 +42,56 @@ inline void
         "/xyz/openbmc_project/led/groups/enclosure_identify_blink",
         "xyz.openbmc_project.Led.Group", "Asserted",
         [asyncResp](const boost::system::error_code& ec, const bool blinking) {
-        // Some systems may not have enclosure_identify_blink object so
-        // proceed to get enclosure_identify state.
-        if (ec == boost::system::errc::invalid_argument)
-        {
-            BMCWEB_LOG_DEBUG(
-                "Get identity blinking LED failed, mismatch in property type");
-            messages::internalError(asyncResp->res);
-            return;
-        }
-
-        // Blinking ON, no need to check enclosure_identify assert.
-        if (!ec && blinking)
-        {
-            asyncResp->res.jsonValue["IndicatorLED"] =
-                chassis::IndicatorLED::Blinking;
-            return;
-        }
-
-        sdbusplus::asio::getProperty<bool>(
-            *crow::connections::systemBus,
-            "xyz.openbmc_project.LED.GroupManager",
-            "/xyz/openbmc_project/led/groups/enclosure_identify",
-            "xyz.openbmc_project.Led.Group", "Asserted",
-            [asyncResp](const boost::system::error_code& ec2,
-                        const bool ledOn) {
-            if (ec2 == boost::system::errc::invalid_argument)
+            // Some systems may not have enclosure_identify_blink object so
+            // proceed to get enclosure_identify state.
+            if (ec == boost::system::errc::invalid_argument)
             {
                 BMCWEB_LOG_DEBUG(
-                    "Get enclosure identity led failed, mismatch in property type");
+                    "Get identity blinking LED failed, mismatch in property type");
                 messages::internalError(asyncResp->res);
                 return;
             }
 
-            if (ec2)
+            // Blinking ON, no need to check enclosure_identify assert.
+            if (!ec && blinking)
             {
+                asyncResp->res.jsonValue["IndicatorLED"] =
+                    chassis::IndicatorLED::Blinking;
                 return;
             }
 
-            if (ledOn)
-            {
-                asyncResp->res.jsonValue["IndicatorLED"] =
-                    chassis::IndicatorLED::Lit;
-            }
-            else
-            {
-                asyncResp->res.jsonValue["IndicatorLED"] =
-                    chassis::IndicatorLED::Off;
-            }
+            sdbusplus::asio::getProperty<bool>(
+                *crow::connections::systemBus,
+                "xyz.openbmc_project.LED.GroupManager",
+                "/xyz/openbmc_project/led/groups/enclosure_identify",
+                "xyz.openbmc_project.Led.Group", "Asserted",
+                [asyncResp](const boost::system::error_code& ec2,
+                            const bool ledOn) {
+                    if (ec2 == boost::system::errc::invalid_argument)
+                    {
+                        BMCWEB_LOG_DEBUG(
+                            "Get enclosure identity led failed, mismatch in property type");
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+
+                    if (ec2)
+                    {
+                        return;
+                    }
+
+                    if (ledOn)
+                    {
+                        asyncResp->res.jsonValue["IndicatorLED"] =
+                            chassis::IndicatorLED::Lit;
+                    }
+                    else
+                    {
+                        asyncResp->res.jsonValue["IndicatorLED"] =
+                            chassis::IndicatorLED::Off;
+                    }
+                });
         });
-    });
 }
 
 /**
@@ -132,22 +132,23 @@ inline void
         "xyz.openbmc_project.Led.Group", "Asserted", ledBlinkng,
         [asyncResp, ledOn,
          ledBlinkng](const boost::system::error_code& ec) mutable {
-        if (ec)
-        {
-            // Some systems may not have enclosure_identify_blink object so
-            // Lets set enclosure_identify state to true if Blinking is
-            // true.
-            if (ledBlinkng)
+            if (ec)
             {
-                ledOn = true;
+                // Some systems may not have enclosure_identify_blink object so
+                // Lets set enclosure_identify state to true if Blinking is
+                // true.
+                if (ledBlinkng)
+                {
+                    ledOn = true;
+                }
             }
-        }
-        setDbusProperty(
-            asyncResp, "IndicatorLED", "xyz.openbmc_project.LED.GroupManager",
-            sdbusplus::message::object_path(
-                "/xyz/openbmc_project/led/groups/enclosure_identify"),
-            "xyz.openbmc_project.Led.Group", "Asserted", ledBlinkng);
-    });
+            setDbusProperty(
+                asyncResp, "IndicatorLED",
+                "xyz.openbmc_project.LED.GroupManager",
+                sdbusplus::message::object_path(
+                    "/xyz/openbmc_project/led/groups/enclosure_identify"),
+                "xyz.openbmc_project.Led.Group", "Asserted", ledBlinkng);
+        });
 }
 
 /**
@@ -166,46 +167,46 @@ inline void getSystemLocationIndicatorActive(
         "/xyz/openbmc_project/led/groups/enclosure_identify_blink",
         "xyz.openbmc_project.Led.Group", "Asserted",
         [asyncResp](const boost::system::error_code& ec, const bool blinking) {
-        // Some systems may not have enclosure_identify_blink object so
-        // proceed to get enclosure_identify state.
-        if (ec == boost::system::errc::invalid_argument)
-        {
-            BMCWEB_LOG_DEBUG(
-                "Get identity blinking LED failed, mismatch in property type");
-            messages::internalError(asyncResp->res);
-            return;
-        }
-
-        // Blinking ON, no need to check enclosure_identify assert.
-        if (!ec && blinking)
-        {
-            asyncResp->res.jsonValue["LocationIndicatorActive"] = true;
-            return;
-        }
-
-        sdbusplus::asio::getProperty<bool>(
-            *crow::connections::systemBus,
-            "xyz.openbmc_project.LED.GroupManager",
-            "/xyz/openbmc_project/led/groups/enclosure_identify",
-            "xyz.openbmc_project.Led.Group", "Asserted",
-            [asyncResp](const boost::system::error_code& ec2,
-                        const bool ledOn) {
-            if (ec2 == boost::system::errc::invalid_argument)
+            // Some systems may not have enclosure_identify_blink object so
+            // proceed to get enclosure_identify state.
+            if (ec == boost::system::errc::invalid_argument)
             {
                 BMCWEB_LOG_DEBUG(
-                    "Get enclosure identity led failed, mismatch in property type");
+                    "Get identity blinking LED failed, mismatch in property type");
                 messages::internalError(asyncResp->res);
                 return;
             }
 
-            if (ec2)
+            // Blinking ON, no need to check enclosure_identify assert.
+            if (!ec && blinking)
             {
+                asyncResp->res.jsonValue["LocationIndicatorActive"] = true;
                 return;
             }
 
-            asyncResp->res.jsonValue["LocationIndicatorActive"] = ledOn;
+            sdbusplus::asio::getProperty<bool>(
+                *crow::connections::systemBus,
+                "xyz.openbmc_project.LED.GroupManager",
+                "/xyz/openbmc_project/led/groups/enclosure_identify",
+                "xyz.openbmc_project.Led.Group", "Asserted",
+                [asyncResp](const boost::system::error_code& ec2,
+                            const bool ledOn) {
+                    if (ec2 == boost::system::errc::invalid_argument)
+                    {
+                        BMCWEB_LOG_DEBUG(
+                            "Get enclosure identity led failed, mismatch in property type");
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+
+                    if (ec2)
+                    {
+                        return;
+                    }
+
+                    asyncResp->res.jsonValue["LocationIndicatorActive"] = ledOn;
+                });
         });
-    });
 }
 
 /**
@@ -226,18 +227,18 @@ inline void setSystemLocationIndicatorActive(
         "/xyz/openbmc_project/led/groups/enclosure_identify_blink",
         "xyz.openbmc_project.Led.Group", "Asserted", ledState,
         [asyncResp, ledState](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            // Some systems may not have enclosure_identify_blink object so
-            // lets set enclosure_identify state also if
-            // enclosure_identify_blink failed
-            setDbusProperty(
-                asyncResp, "LocationIndicatorActive",
-                "xyz.openbmc_project.LED.GroupManager",
-                sdbusplus::message::object_path(
-                    "/xyz/openbmc_project/led/groups/enclosure_identify"),
-                "xyz.openbmc_project.Led.Group", "Asserted", ledState);
-        }
-    });
+            if (ec)
+            {
+                // Some systems may not have enclosure_identify_blink object so
+                // lets set enclosure_identify state also if
+                // enclosure_identify_blink failed
+                setDbusProperty(
+                    asyncResp, "LocationIndicatorActive",
+                    "xyz.openbmc_project.LED.GroupManager",
+                    sdbusplus::message::object_path(
+                        "/xyz/openbmc_project/led/groups/enclosure_identify"),
+                    "xyz.openbmc_project.Led.Group", "Asserted", ledState);
+            }
+        });
 }
 } // namespace redfish

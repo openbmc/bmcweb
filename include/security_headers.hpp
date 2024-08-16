@@ -27,49 +27,52 @@ inline void addSecurityHeaders(crow::Response& res)
     {
         res.addHeader(bf::x_frame_options, "DENY");
         res.addHeader("Referrer-Policy", "no-referrer");
-        res.addHeader("Permissions-Policy", "accelerometer=(),"
-                                            "ambient-light-sensor=(),"
-                                            "autoplay=(),"
-                                            "battery=(),"
-                                            "camera=(),"
-                                            "display-capture=(),"
-                                            "document-domain=(),"
-                                            "encrypted-media=(),"
-                                            "fullscreen=(),"
-                                            "gamepad=(),"
-                                            "geolocation=(),"
-                                            "gyroscope=(),"
-                                            "layout-animations=(self),"
-                                            "legacy-image-formats=(self),"
-                                            "magnetometer=(),"
-                                            "microphone=(),"
-                                            "midi=(),"
-                                            "oversized-images=(self),"
-                                            "payment=(),"
-                                            "picture-in-picture=(),"
-                                            "publickey-credentials-get=(),"
-                                            "speaker-selection=(),"
-                                            "sync-xhr=(self),"
-                                            "unoptimized-images=(self),"
-                                            "unsized-media=(self),"
-                                            "usb=(),"
-                                            "screen-wak-lock=(),"
-                                            "web-share=(),"
-                                            "xr-spatial-tracking=()");
+        res.addHeader(
+            "Permissions-Policy",
+            "accelerometer=(),"
+            "ambient-light-sensor=(),"
+            "autoplay=(),"
+            "battery=(),"
+            "camera=(),"
+            "display-capture=(),"
+            "document-domain=(),"
+            "encrypted-media=(),"
+            "fullscreen=(),"
+            "gamepad=(),"
+            "geolocation=(),"
+            "gyroscope=(),"
+            "layout-animations=(self),"
+            "legacy-image-formats=(self),"
+            "magnetometer=(),"
+            "microphone=(),"
+            "midi=(),"
+            "oversized-images=(self),"
+            "payment=(),"
+            "picture-in-picture=(),"
+            "publickey-credentials-get=(),"
+            "speaker-selection=(),"
+            "sync-xhr=(self),"
+            "unoptimized-images=(self),"
+            "unsized-media=(self),"
+            "usb=(),"
+            "screen-wak-lock=(),"
+            "web-share=(),"
+            "xr-spatial-tracking=()");
         res.addHeader("X-Permitted-Cross-Domain-Policies", "none");
         res.addHeader("Cross-Origin-Embedder-Policy", "require-corp");
         res.addHeader("Cross-Origin-Opener-Policy", "same-origin");
         res.addHeader("Cross-Origin-Resource-Policy", "same-origin");
-        res.addHeader("Content-Security-Policy", "default-src 'none'; "
-                                                 "img-src 'self' data:; "
-                                                 "font-src 'self'; "
-                                                 "style-src 'self'; "
-                                                 "script-src 'self'; "
-                                                 "connect-src 'self' wss:; "
-                                                 "form-action 'none'; "
-                                                 "frame-ancestors 'none'; "
-                                                 "object-src 'none'; "
-                                                 "base-uri 'none' ");
+        res.addHeader("Content-Security-Policy",
+                      "default-src 'none'; "
+                      "img-src 'self' data:; "
+                      "font-src 'self'; "
+                      "style-src 'self'; "
+                      "script-src 'self'; "
+                      "connect-src 'self' wss:; "
+                      "form-action 'none'; "
+                      "frame-ancestors 'none'; "
+                      "object-src 'none'; "
+                      "base-uri 'none' ");
         // The KVM currently needs to load images from base64 encoded
         // strings. img-src 'self' data: is used to allow that.
         // https://stackoverflow.com/questions/18447970/content-security-polic

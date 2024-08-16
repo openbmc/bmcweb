@@ -109,9 +109,9 @@ std::shared_ptr<persistent_data::UserSession>
     // Extract username contained in CommonName
     commonName.resize(256, '\0');
 
-    int length = X509_NAME_get_text_by_NID(X509_get_subject_name(peerCert),
-                                           NID_commonName, commonName.data(),
-                                           static_cast<int>(commonName.size()));
+    int length = X509_NAME_get_text_by_NID(
+        X509_get_subject_name(peerCert), NID_commonName, commonName.data(),
+        static_cast<int>(commonName.size()));
     if (length <= 0)
     {
         BMCWEB_LOG_DEBUG("TLS cannot get common name to create session");

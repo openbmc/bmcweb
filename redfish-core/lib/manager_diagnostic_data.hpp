@@ -106,8 +106,8 @@ inline void
     }
 
     static constexpr double roundFactor = 10000; // 4 decimal places
-    asyncResp->res.jsonValue[jPtr] = std::round(userCPU * roundFactor) /
-                                     roundFactor;
+    asyncResp->res.jsonValue[jPtr] =
+        std::round(userCPU * roundFactor) / roundFactor;
 }
 
 inline void managerGetProcessorStatistics(

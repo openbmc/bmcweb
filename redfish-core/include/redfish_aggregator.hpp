@@ -291,8 +291,8 @@ static inline void addAggregatedHeaders(crow::Response& asyncResp,
 }
 
 // Fix HTTP headers which appear in responses from Task resources among others
-static inline void addPrefixToHeadersInResp(nlohmann::json& json,
-                                            std::string_view prefix)
+static inline void
+    addPrefixToHeadersInResp(nlohmann::json& json, std::string_view prefix)
 {
     // The passed in "HttpHeaders" should be an array of headers
     nlohmann::json::array_t* array = json.get_ptr<nlohmann::json::array_t*>();
@@ -827,33 +827,33 @@ class RedfishAggregator
             [handler{std::move(handler)}](
                 const boost::system::error_code& ec,
                 const dbus::utility::ManagedObjectType& objects) {
-            std::unordered_map<std::string, boost::urls::url> satelliteInfo;
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR("DBUS response error {}, {}", ec.value(),
-                                 ec.message());
+                std::unordered_map<std::string, boost::urls::url> satelliteInfo;
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR("DBUS response error {}, {}", ec.value(),
+                                     ec.message());
+                    handler(ec, satelliteInfo);
+                    return;
+                }
+
+                // Maps a chosen alias representing a satellite BMC to a url
+                // containing the information required to create a http
+                // connection to the satellite
+                findSatelliteConfigs(objects, satelliteInfo);
+
+                if (!satelliteInfo.empty())
+                {
+                    BMCWEB_LOG_DEBUG(
+                        "Redfish Aggregation enabled with {} satellite BMCs",
+                        std::to_string(satelliteInfo.size()));
+                }
+                else
+                {
+                    BMCWEB_LOG_DEBUG(
+                        "No satellite BMCs detected.  Redfish Aggregation not enabled");
+                }
                 handler(ec, satelliteInfo);
-                return;
-            }
-
-            // Maps a chosen alias representing a satellite BMC to a url
-            // containing the information required to create a http
-            // connection to the satellite
-            findSatelliteConfigs(objects, satelliteInfo);
-
-            if (!satelliteInfo.empty())
-            {
-                BMCWEB_LOG_DEBUG(
-                    "Redfish Aggregation enabled with {} satellite BMCs",
-                    std::to_string(satelliteInfo.size()));
-            }
-            else
-            {
-                BMCWEB_LOG_DEBUG(
-                    "No satellite BMCs detected.  Redfish Aggregation not enabled");
-            }
-            handler(ec, satelliteInfo);
-        });
+            });
     }
 
     // Processes the response returned by a satellite BMC and loads its
@@ -877,8 +877,8 @@ class RedfishAggregator
         // We need to create a json from resp's stringResponse
         if (isJsonContentType(resp.getHeaderValue("Content-Type")))
         {
-            nlohmann::json jsonVal = nlohmann::json::parse(*resp.body(),
-                                                           nullptr, false);
+            nlohmann::json jsonVal =
+                nlohmann::json::parse(*resp.body(), nullptr, false);
             if (jsonVal.is_discarded())
             {
                 BMCWEB_LOG_ERROR("Error parsing satellite response as JSON");
@@ -939,8 +939,8 @@ class RedfishAggregator
         // We need to create a json from resp's stringResponse
         if (isJsonContentType(resp.getHeaderValue("Content-Type")))
         {
-            nlohmann::json jsonVal = nlohmann::json::parse(*resp.body(),
-                                                           nullptr, false);
+            nlohmann::json jsonVal =
+                nlohmann::json::parse(*resp.body(), nullptr, false);
             if (jsonVal.is_discarded())
             {
                 BMCWEB_LOG_ERROR("Error parsing satellite response as JSON");
@@ -1072,8 +1072,8 @@ class RedfishAggregator
         if (isJsonContentType(resp.getHeaderValue("Content-Type")))
         {
             bool addedLinks = false;
-            nlohmann::json jsonVal = nlohmann::json::parse(*resp.body(),
-                                                           nullptr, false);
+            nlohmann::json jsonVal =
+                nlohmann::json::parse(*resp.body(), nullptr, false);
             if (jsonVal.is_discarded())
             {
                 BMCWEB_LOG_ERROR("Error parsing satellite response as JSON");

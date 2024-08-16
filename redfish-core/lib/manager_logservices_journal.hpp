@@ -72,8 +72,8 @@ inline bool
         return false;
     }
     entryIDStrView.remove_prefix(1);
-    auto [ptr, indexEc] = std::from_chars(entryIDStrView.begin(),
-                                          entryIDStrView.end(), index);
+    auto [ptr, indexEc] =
+        std::from_chars(entryIDStrView.begin(), entryIDStrView.end(), index);
     if (indexEc != std::errc() || ptr != entryIDStrView.end())
     {
         messages::resourceNotFound(asyncResp->res, "LogEntry", entryIDStrView);
@@ -156,10 +156,9 @@ inline bool getEntryTimestamp(sd_journal* journal, std::string& entryTimestamp)
     return true;
 }
 
-inline bool
-    fillBMCJournalLogEntryJson(const std::string& bmcJournalLogEntryID,
-                               sd_journal* journal,
-                               nlohmann::json::object_t& bmcJournalLogEntryJson)
+inline bool fillBMCJournalLogEntryJson(
+    const std::string& bmcJournalLogEntryID, sd_journal* journal,
+    nlohmann::json::object_t& bmcJournalLogEntryJson)
 {
     // Get the Log Entry contents
     std::string message;
@@ -268,10 +267,9 @@ struct JournalReadState
     uint64_t prevTs = 0;
 };
 
-inline void
-    readJournalEntries(uint64_t topEntryCount,
-                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                       JournalReadState&& readState)
+inline void readJournalEntries(
+    uint64_t topEntryCount, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    JournalReadState&& readState)
 {
     nlohmann::json& logEntry = asyncResp->res.jsonValue["Members"];
     nlohmann::json::array_t* logEntryArray =
@@ -301,9 +299,9 @@ inline void
             boost::asio::post(crow::connections::systemBus->get_io_context(),
                               [asyncResp, topEntryCount,
                                readState = std::move(readState)]() mutable {
-                readJournalEntries(topEntryCount, asyncResp,
-                                   std::move(readState));
-            });
+                                  readJournalEntries(topEntryCount, asyncResp,
+                                                     std::move(readState));
+                              });
             return;
         }
 

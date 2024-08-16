@@ -231,8 +231,8 @@ inline void
             const std::filesystem::path& pathObj = file.path();
             if (std::filesystem::is_regular_file(pathObj))
             {
-                pathObjList.emplace_back("/ibm/v1/Host/ConfigFiles/" +
-                                         pathObj.filename().string());
+                pathObjList.emplace_back(
+                    "/ibm/v1/Host/ConfigFiles/" + pathObj.filename().string());
             }
         }
     }
@@ -291,8 +291,8 @@ inline void handleFileGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         return;
     }
 
-    std::string contentDispositionParam = "attachment; filename=\"" + fileID +
-                                          "\"";
+    std::string contentDispositionParam =
+        "attachment; filename=\"" + fileID + "\"";
     asyncResp->res.addHeader(boost::beast::http::field::content_disposition,
                              contentDispositionParam);
     std::string fileData;
@@ -305,8 +305,8 @@ inline void
     handleFileDelete(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                      const std::string& fileID)
 {
-    std::string filePath("/var/lib/bmcweb/ibm-management-console/configfiles/" +
-                         fileID);
+    std::string filePath(
+        "/var/lib/bmcweb/ibm-management-console/configfiles/" + fileID);
     BMCWEB_LOG_DEBUG("Removing the file : {}", filePath);
     std::ifstream fileOpen(filePath.c_str());
     if (static_cast<bool>(fileOpen))
@@ -416,24 +416,24 @@ inline void requestRoutes(App& app)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#ibmServiceRoot.v1_0_0.ibmServiceRoot";
-        asyncResp->res.jsonValue["@odata.id"] = "/ibm/v1/";
-        asyncResp->res.jsonValue["Id"] = "IBM Rest RootService";
-        asyncResp->res.jsonValue["Name"] = "IBM Service Root";
-        asyncResp->res.jsonValue["ConfigFiles"]["@odata.id"] =
-            "/ibm/v1/Host/ConfigFiles";
-        asyncResp->res.jsonValue["BroadcastService"]["@odata.id"] =
-            "/ibm/v1/HMC/BroadcastService";
-    });
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#ibmServiceRoot.v1_0_0.ibmServiceRoot";
+                asyncResp->res.jsonValue["@odata.id"] = "/ibm/v1/";
+                asyncResp->res.jsonValue["Id"] = "IBM Rest RootService";
+                asyncResp->res.jsonValue["Name"] = "IBM Service Root";
+                asyncResp->res.jsonValue["ConfigFiles"]["@odata.id"] =
+                    "/ibm/v1/Host/ConfigFiles";
+                asyncResp->res.jsonValue["BroadcastService"]["@odata.id"] =
+                    "/ibm/v1/HMC/BroadcastService";
+            });
 
     BMCWEB_ROUTE(app, "/ibm/v1/Host/ConfigFiles")
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        handleConfigFileList(asyncResp);
-    });
+                handleConfigFileList(asyncResp);
+            });
 
     BMCWEB_ROUTE(app,
                  "/ibm/v1/Host/ConfigFiles/Actions/IBMConfigFiles.DeleteAll")
@@ -441,8 +441,8 @@ inline void requestRoutes(App& app)
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        deleteConfigFiles(asyncResp);
-    });
+                deleteConfigFiles(asyncResp);
+            });
 
     BMCWEB_ROUTE(app, "/ibm/v1/Host/ConfigFiles/<str>")
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
@@ -451,23 +451,24 @@ inline void requestRoutes(App& app)
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string& fileName) {
-        BMCWEB_LOG_DEBUG("ConfigFile : {}", fileName);
-        // Validate the incoming fileName
-        if (!isValidConfigFileName(fileName, asyncResp->res))
-        {
-            asyncResp->res.result(boost::beast::http::status::bad_request);
-            return;
-        }
-        handleFileUrl(req, asyncResp, fileName);
-    });
+                BMCWEB_LOG_DEBUG("ConfigFile : {}", fileName);
+                // Validate the incoming fileName
+                if (!isValidConfigFileName(fileName, asyncResp->res))
+                {
+                    asyncResp->res.result(
+                        boost::beast::http::status::bad_request);
+                    return;
+                }
+                handleFileUrl(req, asyncResp, fileName);
+            });
 
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/BroadcastService")
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        handleBroadcastService(req, asyncResp);
-    });
+                handleBroadcastService(req, asyncResp);
+            });
 }
 
 } // namespace ibm_mc
