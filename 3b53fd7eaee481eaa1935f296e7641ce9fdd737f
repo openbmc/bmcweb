@@ -16,6 +16,46 @@
       "message": "WIP because https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/69999 and https://gerrit.openbmc.org/c/openbmc/phosphor-objmgr/+/70699 need to merge first",
       "revId": "3b53fd7eaee481eaa1935f296e7641ce9fdd737f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "102ff5eb_a2df1d33",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-16T17:58:50Z",
+      "side": 1,
+      "message": "One minor thing, otherwise looks good.",
+      "revId": "3b53fd7eaee481eaa1935f296e7641ce9fdd737f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71be2db8_deacc2af",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-16T17:58:50Z",
+      "side": 1,
+      "message": "For new code, lets pass string args by string_view.",
+      "range": {
+        "startLine": 235,
+        "startChar": 4,
+        "endLine": 235,
+        "endChar": 22
+      },
+      "revId": "3b53fd7eaee481eaa1935f296e7641ce9fdd737f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
