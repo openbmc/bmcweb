@@ -104,6 +104,24 @@
       "parentUuid": "8e6be360_d49b4df3",
       "revId": "44a17df8ac205f964eaf8f7af398091fd5082a2d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "531fda38_1f922765",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 3708,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-16T14:54:42Z",
+      "side": 1,
+      "message": "You\u0027re proposing dbus interface changes;  A bcmweb code review isn\u0027t the right place to do that, although what you proposed looks like it would work.",
+      "parentUuid": "9a1f2d2a_4210bb8f",
+      "revId": "44a17df8ac205f964eaf8f7af398091fd5082a2d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
