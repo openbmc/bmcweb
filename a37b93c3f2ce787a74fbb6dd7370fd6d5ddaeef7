@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8b6795a5_c151e0cd",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-08-19T15:52:35Z",
+      "side": 1,
+      "message": "@Asmitha, @Andrew, would it be ok for you if we move the hypervisor code inside systems.hpp-\u003ehandleComputerSystemCollectionGet into getSystemCollectionMembers, to prevent parallel execution of the code in question? Or is there anyone else I should ask?",
+      "parentUuid": "f18f864f_7cae5f62",
+      "revId": "a37b93c3f2ce787a74fbb6dd7370fd6d5ddaeef7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8e5daffe_99b86a62",
         "filename": "redfish-core/include/utils/systems_utils.hpp",
         "patchSetId": 12
@@ -31,6 +49,30 @@
       "writtenOn": "2024-08-16T17:12:34Z",
       "side": 1,
       "message": "This arg needs removed too.  System collection always uses \"Members\" as a key.  There\u0027s no need to make a json pointer.",
+      "range": {
+        "startLine": 106,
+        "startChar": 24,
+        "endLine": 106,
+        "endChar": 64
+      },
+      "revId": "a37b93c3f2ce787a74fbb6dd7370fd6d5ddaeef7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfa225a7_53407e82",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-08-19T15:52:35Z",
+      "side": 1,
+      "message": "Done. Removed the argument and adapted the collection handler.",
+      "parentUuid": "8e5daffe_99b86a62",
       "range": {
         "startLine": 106,
         "startChar": 24,
@@ -54,6 +96,30 @@
       "writtenOn": "2024-08-16T17:12:34Z",
       "side": 1,
       "message": "This really needs a hypervisor specific option.\n\n@Gunnar, similar to the ask I made elsewhere.",
+      "range": {
+        "startLine": 2810,
+        "startChar": 9,
+        "endLine": 2810,
+        "endChar": 58
+      },
+      "revId": "a37b93c3f2ce787a74fbb6dd7370fd6d5ddaeef7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4ebd0a3_4215e065",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 2810,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-08-19T15:52:35Z",
+      "side": 1,
+      "message": "Sure, I will adapt the condition, once there is an option for hypervisors.",
+      "parentUuid": "ccf54781_1e9cf729",
       "range": {
         "startLine": 2810,
         "startChar": 9,
@@ -95,6 +161,24 @@
       "side": 1,
       "message": "More details in documentation: https://github.com/openbmc/bmcweb/blob/master/COMMON_ERRORS.md#13-complete-replacement-of-the-response-object",
       "parentUuid": "c2010ae9_70b0645d",
+      "revId": "a37b93c3f2ce787a74fbb6dd7370fd6d5ddaeef7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a58f96fc_8f13ae1a",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 2823,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-08-19T15:52:35Z",
+      "side": 1,
+      "message": "I guess if we come to an agreement with IBM on moving the code to getSystemCollectionMembers this would be resolved?",
+      "parentUuid": "8e10c07c_ea9a7046",
       "revId": "a37b93c3f2ce787a74fbb6dd7370fd6d5ddaeef7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
