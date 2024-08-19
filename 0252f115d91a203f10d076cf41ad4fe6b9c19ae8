@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "200b8447_1ef506d5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-19T18:02:16Z",
+      "side": 1,
+      "message": "Would doing something like this:\nhttps://github.com/openbmc/bmcweb/commit/6e544fb40201c53dd6377c62e37df71d24586bac\n\nGet us the same result without manual string parsing?  It seems to pass unit tests, but I remember there being subtleties here.  @Carson?",
+      "revId": "0252f115d91a203f10d076cf41ad4fe6b9c19ae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f05e70de_dea872b4",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 3
