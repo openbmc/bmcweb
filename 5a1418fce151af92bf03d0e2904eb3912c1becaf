@@ -598,6 +598,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "951da72d_6533be98",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 3003,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-08-19T18:26:58Z",
+      "side": 1,
+      "message": "Closing.",
+      "parentUuid": "93d03072_0cd6a365",
+      "revId": "5a1418fce151af92bf03d0e2904eb3912c1becaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "611f9041_774ac4a2",

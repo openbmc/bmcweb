@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "643f6fef_a70780ef",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-08-19T18:26:58Z",
+      "side": 1,
+      "message": "\u003e @Asmitha, @Andrew, would it be ok for you if we move the hypervisor code inside systems.hpp-\u003ehandleComputerSystemCollectionGet into getSystemCollectionMembers, to prevent parallel execution of the code in question? Or is there anyone else I should ask? \u003e\n\nI updated the code to fix the race condition we had and to showcase what exactly we have in mind.\n\n@Asmitha, @Andrew, @Gunnar also is there any progress on a hypervisor specific option?",
+      "parentUuid": "8b6795a5_c151e0cd",
+      "revId": "a37b93c3f2ce787a74fbb6dd7370fd6d5ddaeef7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8e5daffe_99b86a62",
         "filename": "redfish-core/include/utils/systems_utils.hpp",
         "patchSetId": 12
@@ -130,6 +148,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a4aeb24_e78f3eab",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 2810,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-08-19T18:26:58Z",
+      "side": 1,
+      "message": "Closing this, since we moved the discussion into another thread.",
+      "parentUuid": "c4ebd0a3_4215e065",
+      "range": {
+        "startLine": 2810,
+        "startChar": 9,
+        "endLine": 2810,
+        "endChar": 58
+      },
+      "revId": "a37b93c3f2ce787a74fbb6dd7370fd6d5ddaeef7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c2010ae9_70b0645d",
@@ -197,6 +239,24 @@
       "side": 1,
       "message": "Lets just follow up on the other thread.  The agreement with IBM i thought would be around how the option flag was handled.  The race condition needs handled either way.",
       "parentUuid": "a58f96fc_8f13ae1a",
+      "revId": "a37b93c3f2ce787a74fbb6dd7370fd6d5ddaeef7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5b5ae33_22fa0983",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 2823,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-08-19T18:26:58Z",
+      "side": 1,
+      "message": "I now moved the code to fix the race condition. I also removed the option flag that guards the hypervisor code since it doesn\u0027t cut it and reverted some of the code to its initial state (renaming variables, swapping lines of code), to point out that practically only a relocation of code from the collection handler was done in this patch, to be as close as possible in line with upstream code. \nAs soon as there is clarification on how to deal with the hypervisor code, I will adapt the code in this patch accordingly. \nIMO this works best for both of us having the patch technically fixed but open for change once the decision is made on how to proceed with the hypervisor code. I then could move on to push the next patch regarding multi host support to continue our  discussion on the design. What is your opinion on this?",
+      "parentUuid": "7e81b6c4_ab1324f3",
       "revId": "a37b93c3f2ce787a74fbb6dd7370fd6d5ddaeef7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
