@@ -22,6 +22,30 @@
       },
       "revId": "54318f4efbb89cc522d5f5b5503a411283ea29d2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e27c8c0_d8bde729",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-08-19T19:19:19Z",
+      "side": 1,
+      "message": "No problem. I have refactored the lambda into a seperate function.",
+      "parentUuid": "1f7b8378_e66206e3",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 15
+      },
+      "revId": "54318f4efbb89cc522d5f5b5503a411283ea29d2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
