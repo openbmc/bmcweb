@@ -274,6 +274,7 @@ else
     ]
     opt.add_cmake_defines(
         {
+            'CMAKE_CXX_FLAGS': '-Wno-unused-parameter',
             'BOOST_INCLUDE_LIBRARIES': ';'.join(boost_libs),
             'BUILD_SHARED_LIBS': 'OFF',
         },
