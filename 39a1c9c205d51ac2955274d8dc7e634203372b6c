@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5faceff1_6dc341bf",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2024-08-19T19:45:05Z",
+      "side": 1,
+      "message": "nit, satellite or aggregated BMC",
+      "range": {
+        "startLine": 584,
+        "startChar": 61,
+        "endLine": 584,
+        "endChar": 67
+      },
+      "revId": "39a1c9c205d51ac2955274d8dc7e634203372b6c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2c8b6cf_97f43b4d",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2024-08-19T19:45:05Z",
+      "side": 1,
+      "message": "Should it either be `\"$only\"` or `\"skip\"` so that they match in terms of the `$`?",
+      "range": {
+        "startLine": 591,
+        "startChar": 16,
+        "endLine": 591,
+        "endChar": 64
+      },
+      "revId": "39a1c9c205d51ac2955274d8dc7e634203372b6c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
