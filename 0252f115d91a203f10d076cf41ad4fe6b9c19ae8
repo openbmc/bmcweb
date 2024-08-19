@@ -37,6 +37,42 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ec358008_d898ee54",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2024-08-19T18:33:37Z",
+      "side": 1,
+      "message": "There were subtleties that prevented us from using the existing URI helper functions.  That\u0027s why we needed this new search function.\n\nI recall issues around handling trailing \u0027/\u0027 and then also for a given URI we had to determine if it was for any of these 3 cases:\n1. Aggregated resource\n2. Top level collection\n3. Uptree from top level collection\n\nIt turns out there was a testing gap for the last entry in the Collections array when also using query params.\n\nI tried to have pretty good coverage in the unit tests.  Your suggestion passes the unit tests so I\u0027m good with doing that version instead.",
+      "parentUuid": "200b8447_1ef506d5",
+      "revId": "0252f115d91a203f10d076cf41ad4fe6b9c19ae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56e71021_da599b90",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2024-08-19T18:33:37Z",
+      "side": 1,
+      "message": "I\u0027m not sure, but my guess would be benjaminfair@google.com",
+      "parentUuid": "9c4bacb5_da35869a",
+      "revId": "0252f115d91a203f10d076cf41ad4fe6b9c19ae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f05e70de_dea872b4",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 3
