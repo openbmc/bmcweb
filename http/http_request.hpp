@@ -110,6 +110,12 @@ struct Request
         return {urlBase};
     }
 
+    void setUrl(boost::urls::url_base& urlIn)
+    {
+        req.target(urlIn.buffer());
+        urlBase = urlIn;
+    }
+
     const boost::beast::http::fields& fields() const
     {
         return req.base();
