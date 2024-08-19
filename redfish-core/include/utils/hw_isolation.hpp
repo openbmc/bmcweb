@@ -196,7 +196,7 @@ inline void
         if (ec)
         {
             BMCWEB_LOG_ERROR(
-                "DBus response error [{} : {}] when tried to get the hardware isolation entry for the given resource dbus object path: ",
+                "DBus response error [{} : {}] when tried to get the hardware isolation entry for the given resource dbus object path: {}",
                 ec.value(), ec.message(), resourceObjPath.str);
             // The error code (53 == Invalid request descriptor) will be
             // returned if dbus doesn't contains "isolated_hw_entry" for

@@ -1093,6 +1093,7 @@ inline void afterGetCpuCoreDataByService(
                             return;
                         }
                         functional = *value;
+                        break;
                     }
                 }
             }
@@ -1110,6 +1111,34 @@ inline void afterGetCpuCoreDataByService(
                         }
                         present = *value;
                     }
+                    else if (propName == "PrettyName")
+                    {
+                        const std::string* prettyName =
+                            std::get_if<std::string>(&propValue);
+                        if (prettyName == nullptr)
+                        {
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        asyncResp->res.jsonValue["Name"] = *prettyName;
+                    }
+                }
+            }
+            else if (interface == "xyz.openbmc_project.Object.Enable")
+            {
+                for (const auto& [propName, propValue] : properties)
+                {
+                    if (propName == "Enabled")
+                    {
+                        const bool* enabled = std::get_if<bool>(&propValue);
+                        if (enabled == nullptr)
+                        {
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        asyncResp->res.jsonValue["Enabled"] = *enabled;
+                        break;
+                    }
                 }
             }
             else if (interface ==
@@ -1126,6 +1155,7 @@ inline void afterGetCpuCoreDataByService(
                             return;
                         }
                         available = *value;
+                        break;
                     }
                 }
             }
