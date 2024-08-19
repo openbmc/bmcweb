@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "eb773db5_f40990d3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-08-19T16:54:41Z",
+      "side": 1,
+      "message": "Hi Ed\nI looked these changes, looks good but I see pam errors while creating redfish session, I will debug and update this commit\nAug 19 16:50:51 romulus bmcweb[210]: pam_unix(webserver:auth): conversation failed\nAug 19 16:50:51 romulus bmcweb[210]: pam_unix(webserver:auth): auth could not identify password for [root]",
+      "parentUuid": "f325ead4_03116be5",
+      "revId": "5a503c0fc65a0907b046bd2461f7923a6e26878b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "84e82804_46d63c54",
         "filename": "include/authentication.hpp",
         "patchSetId": 12
