@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "502bfcf3_9cf6ebb0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-08-19T12:01:49Z",
+      "side": 1,
+      "message": "sure will take a look at this commit.\nThank you",
+      "parentUuid": "1132146d_0411b26f",
+      "revId": "5a503c0fc65a0907b046bd2461f7923a6e26878b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84e82804_46d63c54",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-08-19T05:13:52Z",
       "side": 1,
       "message": "std::nullopt",
+      "range": {
+        "startLine": 72,
+        "startChar": 48,
+        "endLine": 72,
+        "endChar": 50
+      },
+      "revId": "5a503c0fc65a0907b046bd2461f7923a6e26878b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "234dac00_1b67429e",
+        "filename": "include/authentication.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-08-19T12:01:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "84e82804_46d63c54",
       "range": {
         "startLine": 72,
         "startChar": 48,
@@ -66,6 +108,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e5fe2166_3d0d0775",
+        "filename": "include/login_routes.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-08-19T12:01:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b9f0a4d9_4ca3bf9f",
+      "range": {
+        "startLine": 156,
+        "startChar": 60,
+        "endLine": 156,
+        "endChar": 62
+      },
+      "revId": "5a503c0fc65a0907b046bd2461f7923a6e26878b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2eb3f580_c426a3e1",
         "filename": "include/pam_authenticate.hpp",
         "patchSetId": 12
@@ -77,6 +143,30 @@
       "writtenOn": "2024-08-19T05:13:52Z",
       "side": 1,
       "message": "There\u0027s no array size checks.  If the function conversation returns more than 2 requests, this will overflow.\n\nAlso, this is technically a char*[2], not a char**",
+      "range": {
+        "startLine": 47,
+        "startChar": 26,
+        "endLine": 47,
+        "endChar": 35
+      },
+      "revId": "5a503c0fc65a0907b046bd2461f7923a6e26878b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c999e2f_91812258",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-08-19T12:01:49Z",
+      "side": 1,
+      "message": "agreed, i need to work on this code to handle error cases..",
+      "parentUuid": "2eb3f580_c426a3e1",
       "range": {
         "startLine": 47,
         "startChar": 26,
@@ -123,6 +213,30 @@
       "writtenOn": "2024-08-19T05:13:52Z",
       "side": 1,
       "message": "Why do we check for either of these strings?  Presumably Google authenticator only asks for one?",
+      "range": {
+        "startLine": 52,
+        "startChar": 12,
+        "endLine": 52,
+        "endChar": 99
+      },
+      "revId": "5a503c0fc65a0907b046bd2461f7923a6e26878b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af046dc2_c80f7408",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-08-19T12:01:49Z",
+      "side": 1,
+      "message": "yeah, this will asked by PAM module which supports TOTP authentication",
+      "parentUuid": "24e979c7_7238f9f9",
       "range": {
         "startLine": 52,
         "startChar": 12,
