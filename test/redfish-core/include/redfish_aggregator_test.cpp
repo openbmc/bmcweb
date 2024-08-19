@@ -580,6 +580,9 @@ TEST(searchCollectionsArray, containsSubordinateValidURIs)
     EXPECT_TRUE(containsSubordinateCollection(
         "/redfish/v1/TelemetryService/LogService/"));
     EXPECT_TRUE(containsSubordinateCollection("/redfish/v1/UpdateService"));
+
+    EXPECT_TRUE(containsSubordinateCollection(
+        "/redfish/v1/UpdateService?$expand=.($levels=1)"));
 }
 
 TEST(searchCollectionsArray, containsSubordinateInvalidURIs)
