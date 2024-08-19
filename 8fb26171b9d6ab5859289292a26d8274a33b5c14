@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2065684_bb068b9b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-08-19T13:15:43Z",
+      "side": 1,
+      "message": "Right. PCIeSlots is currently not routed and thus no issues.",
+      "parentUuid": "11d51e9d_3ce9af30",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 20
+      },
+      "revId": "8fb26171b9d6ab5859289292a26d8274a33b5c14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7839e49e_4c942b45",
