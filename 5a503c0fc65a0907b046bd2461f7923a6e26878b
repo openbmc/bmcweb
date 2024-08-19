@@ -16,6 +16,144 @@
       "message": "Would you mind helping to review: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/69470\n\nIt might also help make this code easier to write.",
       "revId": "5a503c0fc65a0907b046bd2461f7923a6e26878b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84e82804_46d63c54",
+        "filename": "include/authentication.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-19T05:13:52Z",
+      "side": 1,
+      "message": "std::nullopt",
+      "range": {
+        "startLine": 72,
+        "startChar": 48,
+        "endLine": 72,
+        "endChar": 50
+      },
+      "revId": "5a503c0fc65a0907b046bd2461f7923a6e26878b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9f0a4d9_4ca3bf9f",
+        "filename": "include/login_routes.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-19T05:13:52Z",
+      "side": 1,
+      "message": "std::nullopt",
+      "range": {
+        "startLine": 156,
+        "startChar": 60,
+        "endLine": 156,
+        "endChar": 62
+      },
+      "revId": "5a503c0fc65a0907b046bd2461f7923a6e26878b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2eb3f580_c426a3e1",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-19T05:13:52Z",
+      "side": 1,
+      "message": "There\u0027s no array size checks.  If the function conversation returns more than 2 requests, this will overflow.\n\nAlso, this is technically a char*[2], not a char**",
+      "range": {
+        "startLine": 47,
+        "startChar": 26,
+        "endLine": 47,
+        "endChar": 35
+      },
+      "revId": "5a503c0fc65a0907b046bd2461f7923a6e26878b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e052325d_51e2b4c7",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-19T05:13:52Z",
+      "side": 1,
+      "message": "Why not an exact match?",
+      "range": {
+        "startLine": 48,
+        "startChar": 12,
+        "endLine": 48,
+        "endChar": 18
+      },
+      "revId": "5a503c0fc65a0907b046bd2461f7923a6e26878b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24e979c7_7238f9f9",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-19T05:13:52Z",
+      "side": 1,
+      "message": "Why do we check for either of these strings?  Presumably Google authenticator only asks for one?",
+      "range": {
+        "startLine": 52,
+        "startChar": 12,
+        "endLine": 52,
+        "endChar": 99
+      },
+      "revId": "5a503c0fc65a0907b046bd2461f7923a6e26878b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43f5fac7_baf65ed0",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-19T05:13:52Z",
+      "side": 1,
+      "message": "Should we make a class with this data to pass in on line 85?  That seems less error prone than an array of char pointers.",
+      "range": {
+        "startLine": 76,
+        "startChar": 3,
+        "endLine": 76,
+        "endChar": 22
+      },
+      "revId": "5a503c0fc65a0907b046bd2461f7923a6e26878b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
