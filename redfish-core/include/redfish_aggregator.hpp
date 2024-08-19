@@ -57,51 +57,52 @@ constexpr std::array nonUriProperties{
 inline bool searchCollectionsArray(std::string_view uri,
                                    const SearchType searchType)
 {
-    constexpr std::string_view serviceRootUri = "/redfish/v1";
-
-    // The passed URI must begin with "/redfish/v1", but we have to strip it
-    // from the URI since topCollections does not include it in its URIs
-    if (!uri.starts_with(serviceRootUri))
-    {
-        return false;
-    }
-
-    // Catch empty final segments such as "/redfish/v1/Chassis//"
-    if (uri.ends_with("//"))
-    {
-        return false;
-    }
-
-    std::size_t parseCount = uri.size() - serviceRootUri.size();
-    // Don't include the trailing "/" if it exists such as in "/redfish/v1/"
-    if (uri.ends_with("/"))
-    {
-        parseCount--;
-    }
-
-    boost::system::result<boost::urls::url_view> parsedUrl =
-        boost::urls::parse_relative_ref(
-            uri.substr(serviceRootUri.size(), parseCount));
+    boost::system::result<boost::urls::url> parsedUrl =
+        boost::urls::parse_relative_ref(uri);
     if (!parsedUrl)
     {
-        BMCWEB_LOG_ERROR("Failed to get target URI from {}",
-                         uri.substr(serviceRootUri.size()));
+        BMCWEB_LOG_ERROR("Failed to get target URI from {}", uri);
         return false;
     }
 
-    if (!parsedUrl->segments().is_absolute() && !parsedUrl->segments().empty())
+    parsedUrl->normalize();
+    boost::urls::segments_ref segments = parsedUrl->segments();
+    if (!segments.is_absolute())
     {
         return false;
     }
 
-    // If no segments() then the passed URI was either "/redfish/v1" or
+    // The passed URI must begin with "/redfish/v1", but we have to strip it
+    // from the URI since topCollections does not include it in its URIs.
+    if (segments.size() < 2)
+    {
+        return false;
+    }
+    if (segments.front() != "redfish")
+    {
+        return false;
+    }
+    segments.erase(segments.begin());
+    if (segments.front() != "v1")
+    {
+        return false;
+    }
+    segments.erase(segments.begin());
+
+    // Exclude the trailing "/" if it exists such as in "/redfish/v1/".
+    if (!segments.empty() && segments.back().empty())
+    {
+        segments.pop_back();
+    }
+
+    // If no segments then the passed URI was either "/redfish/v1" or
     // "/redfish/v1/".
-    if (parsedUrl->segments().empty())
+    if (segments.empty())
     {
         return (searchType == SearchType::ContainsSubordinate) ||
                (searchType == SearchType::CollOrCon);
     }
-    std::string_view url = parsedUrl->buffer();
+    std::string_view url = segments.buffer();
     const auto* it = std::ranges::lower_bound(topCollections, url);
     if (it == topCollections.end())
     {
@@ -118,7 +119,7 @@ inline bool searchCollectionsArray(std::string_view uri,
         collectionSegments.end();
 
     // Each segment in the passed URI should match the found collection
-    for (const auto& segment : parsedUrl->segments())
+    for (const auto& segment : segments)
     {
         if (itCollection == endCollection)
         {
