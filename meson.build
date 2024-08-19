@@ -274,6 +274,8 @@ else
     ]
     opt.add_cmake_defines(
         {
+            // 1.86.0 fails this.  Hopefully fixed in 1.86.1
+            'CMAKE_CXX_FLAGS': '-Wno-unused-parameter',
             'BOOST_INCLUDE_LIBRARIES': ';'.join(boost_libs),
             'BUILD_SHARED_LIBS': 'OFF',
         },
