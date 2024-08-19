@@ -573,6 +573,32 @@ class RedfishAggregator
             return;
         }
 
+        if (aggType == AggregationType::Collection)
+        {
+            BMCWEB_LOG_DEBUG("Only aggregate collection certain params");
+            boost::urls::url& urlNew = localReq->url();
+            auto paramsIt = urlNew.params().begin();
+            while (paramsIt != urlNew.params().end())
+            {
+                const boost::urls::param& param = *paramsIt;
+                // only and $skip, params can't be passed to satellite
+                // as applying these filters twice results in different results.
+                // Removing them will cause them to only be processed in the
+                // aggregator. Note, this still doesn't work for collections
+                // that might return less than the complete collection by
+                // default, but hopefully those are rare/nonexistent in top
+                // collections.  bmcweb doesn't implement any of these.
+                if (param.key == "only" || param.key == "$skip")
+                {
+                    paramsIt = urlNew.params().erase(paramsIt);
+                    continue;
+                }
+                // Pass all other parameters
+                paramsIt++;
+            }
+            localReq->target(urlNew.buffer());
+        }
+
         getSatelliteConfigs(
             std::bind_front(aggregateAndHandle, aggType, localReq, asyncResp));
     }
