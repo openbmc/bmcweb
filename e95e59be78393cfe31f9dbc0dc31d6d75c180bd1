@@ -90,6 +90,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "52df483b_7af08599",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-08-19T13:25:18Z",
+      "side": 1,
+      "message": "Given the scope of goal, it would be good to keep the CLI",
+      "parentUuid": "1209215e_1ca2a51d",
+      "revId": "e95e59be78393cfe31f9dbc0dc31d6d75c180bd1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "13564c3c_7ccda30f",
@@ -250,6 +268,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3c304c0_a58941e5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-08-19T13:25:18Z",
+      "side": 1,
+      "message": "Given the scope of goal, it would agree",
+      "parentUuid": "d5638858_aef6f69a",
+      "revId": "e95e59be78393cfe31f9dbc0dc31d6d75c180bd1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4044647b_4855fd8c",
@@ -406,6 +442,42 @@
       "side": 1,
       "message": "Agree. I would prefer if there\u0027s a single source of truth for the logging states, so I added a validation check in bmcwebd. If validation fails, we don\u0027t change log level:\nroot@s7106:~# journalctl -u bmcweb\nFeb 27 17:26:38 s7106 systemd[1]: Started Start bmcwebd server.\nFeb 27 17:27:01 s7106 bmcwebd[214]: [ERROR event_service_manager.hpp:1303] inotify_add_watch failed for redfish log file.\nFeb 27 17:27:42 s7106 bmcwebd[214]: [INFO webserver_run.cpp:39] Requested log-level change to: DEBUG\nFeb 27 17:27:52 s7106 bmcwebd[214]: [INFO webserver_run.cpp:39] Requested log-level change to: INFO\nFeb 27 17:28:01 s7106 bmcwebd[214]: [ERROR webserver_run.cpp:35] log-level WRONG_INP not found",
       "parentUuid": "d6cd0085_3031399f",
+      "revId": "e95e59be78393cfe31f9dbc0dc31d6d75c180bd1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea3aef0d_b9446631",
+        "filename": "src/webserver_run.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-08-19T13:25:18Z",
+      "side": 1,
+      "message": "It seems good",
+      "parentUuid": "090b169a_09d77463",
+      "revId": "e95e59be78393cfe31f9dbc0dc31d6d75c180bd1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58987546_a1ea0f9c",
+        "filename": "src/webserver_run.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-08-19T13:25:18Z",
+      "side": 1,
+      "message": "It seems better",
+      "parentUuid": "ef334808_8c3ae447",
       "revId": "e95e59be78393cfe31f9dbc0dc31d6d75c180bd1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
