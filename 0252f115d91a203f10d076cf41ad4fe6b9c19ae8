@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c4bacb5_da35869a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-19T16:13:08Z",
+      "side": 1,
+      "message": "You may also want to ask about getting added to the CLA list.  I don\u0027t know who the current Google CLA owner is these days.  Maybe @Carson knows?\n\nI\u0027ve triggered CI manually for this patch for the moment.",
+      "revId": "0252f115d91a203f10d076cf41ad4fe6b9c19ae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f05e70de_dea872b4",
