@@ -355,8 +355,8 @@ inline void getLocationIndicatorActive(
     BMCWEB_LOG_DEBUG("Get LocationIndicatorActive");
     getLedGroupPath(
         asyncResp, objPath,
-        [asyncResp, callback{std::move(callback)}](
-            const std::string& ledGroupPath, const std::string& service) {
+        [asyncResp, callback{std::move(callback)}](const std::string& ledGroupPath,
+                                        const std::string& service) {
             getLedState(asyncResp, ledGroupPath, service, callback);
         });
 }
