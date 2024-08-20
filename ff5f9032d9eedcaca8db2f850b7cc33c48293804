@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a062bb09_7eaa7abb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-20T18:31:58Z",
+      "side": 1,
+      "message": "Ok, so until that\u0027s solved for single host systems, we can\u0027t merge this as it would be a major regression for single host systems.\n\nCode looks correct though.",
+      "parentUuid": "09662817_4b6d721f",
+      "revId": "ff5f9032d9eedcaca8db2f850b7cc33c48293804",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8cfcb9cc_e9b471da",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 15
