@@ -16,6 +16,23 @@
       "message": "Hi Ed, as mentioned in patch#1, this is the continuation",
       "revId": "3a3e03507062af5d28f7985971d4487fb08da4e3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45f74259_0eeaa6bf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-08-20T15:19:41Z",
+      "side": 1,
+      "message": "Hi @Ed, in order to progress with multi host support, I pushed the next patch resolving some of the issues you have pointed out earlier. I only pushed the core logic that now resides in systems_utils, since I suspect there will be changes to be made. The amount of code adaptions in systems.hpp to this logic are quite a lot.. \nAs you have asked for, instead of retrieving an index and construct object paths manually, we now follow the approach to let dbus return those to be used in later operations. However, in addition to object paths, it also becomes a necassity with multi host, to retrieve service names as well. I would like to start a discussion on the overall design and hear your opinion on it.\nOn the positive side, we don\u0027t make any assumptions on naming schemes of paths or services which I understand is the desired approach. However, internally we have some concern about the possible effect on latency when making requests. The full flow to get object path and service name consists of four dbus calls. If we have a look at handleComputerSystemGet in systems.hpp, with this approach we have to multiply this number by the amount of different interfaces we need a object path / service for in this particular handler. Could you give us some insight on that as well?",
+      "revId": "3a3e03507062af5d28f7985971d4487fb08da4e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
