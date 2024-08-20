@@ -4,9 +4,11 @@
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "generated/enums/resource.hpp"
+#include "led.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utils/chassis_utils.hpp"
+#include "utils/json_utils.hpp"
 
 #include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
@@ -375,6 +377,7 @@ inline void
     getFanHealth(asyncResp, fanPath, service);
     getFanAsset(asyncResp, fanPath, service);
     getFanLocation(asyncResp, fanPath, service);
+    getLocationIndicatorActive(asyncResp, fanPath);
 }
 
 inline void doFanGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -436,6 +439,61 @@ inline void handleFanGet(App& app, const crow::Request& req,
         std::bind_front(doFanGet, asyncResp, chassisId, fanId));
 }
 
+inline void doPatchFan(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                       const bool locationIndicatorActive,
+                       const std::string& fanPath,
+                       const std::string& /* service */)
+{
+    setLocationIndicatorActive(asyncResp, fanPath, locationIndicatorActive);
+}
+
+inline void fanPatchAfterValidateChassis(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId, const std::string& fanId,
+    const bool locationIndicatorActive,
+    const std::optional<std::string>& validChassisPath)
+{
+    if (!validChassisPath)
+    {
+        BMCWEB_LOG_WARNING("Not a valid chassis ID: {}", chassisId);
+        messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
+        return;
+    }
+
+    // Verify that the fan has the correct chassis and whether fan has a
+    // chassis association
+    getValidFanPath(
+        asyncResp, *validChassisPath, fanId,
+        std::bind_front(doPatchFan, asyncResp, locationIndicatorActive));
+}
+
+inline void handleFanPatch(App& app, const crow::Request& req,
+                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const std::string& chassisId,
+                           const std::string& fanId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    std::optional<bool> locationIndicatorActive;
+    if (!json_util::readJsonPatch(req, asyncResp->res,
+                                  "LocationIndicatorActive",
+                                  locationIndicatorActive))
+    {
+        return;
+    }
+
+    if (locationIndicatorActive)
+    {
+        redfish::chassis_utils::getValidChassisPath(
+            asyncResp, chassisId,
+            std::bind_front(fanPatchAfterValidateChassis, asyncResp, chassisId,
+                            fanId, *locationIndicatorActive));
+    }
+}
+
 inline void requestRoutesFan(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/ThermalSubsystem/Fans/<str>/")
@@ -447,6 +505,11 @@ inline void requestRoutesFan(App& app)
         .privileges(redfish::privileges::getFan)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleFanGet, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/ThermalSubsystem/Fans/<str>/")
+        .privileges(redfish::privileges::patchFan)
+        .methods(boost::beast::http::verb::patch)(
+            std::bind_front(handleFanPatch, std::ref(app)));
 }
 
 } // namespace redfish
