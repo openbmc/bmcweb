@@ -10,11 +10,13 @@
 #include "error_messages.hpp"
 #include "generated/enums/resource.hpp"
 #include "http_request.hpp"
+#include "led.hpp"
 #include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
+#include "utils/json_utils.hpp"
 
 #include <asm-generic/errno.h>
 
@@ -27,6 +29,7 @@
 #include <array>
 #include <functional>
 #include <memory>
+#include <optional>
 #include <string>
 #include <string_view>
 #include <utility>
@@ -192,6 +195,7 @@ inline void doAdapterGet(
     getFabricAdapterAsset(asyncResp, serviceName, fabricAdapterPath);
     getFabricAdapterState(asyncResp, serviceName, fabricAdapterPath);
     getFabricAdapterHealth(asyncResp, serviceName, fabricAdapterPath);
+    getLocationIndicatorActive(asyncResp, fabricAdapterPath);
 }
 
 inline void afterGetValidFabricAdapterPath(
@@ -291,6 +295,76 @@ inline void handleFabricAdapterGet(
     getValidFabricAdapterPath(
         adapterId, std::bind_front(afterHandleFabricAdapterGet, asyncResp,
                                    systemName, adapterId));
+}
+
+inline void afterHandleFabricAdapterPatch(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& adapterId, std::optional<bool> locationIndicatorActive,
+    const boost::system::error_code& ec, const std::string& fabricAdapterPath,
+    const std::string& serviceName)
+{
+    if (ec)
+    {
+        if (ec.value() == boost::system::errc::io_error)
+        {
+            messages::resourceNotFound(asyncResp->res, "FabricAdapter",
+                                       adapterId);
+            return;
+        }
+
+        BMCWEB_LOG_ERROR("DBus method call failed with error {}", ec.value());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    if (fabricAdapterPath.empty() || serviceName.empty())
+    {
+        BMCWEB_LOG_WARNING("Adapter not found");
+        messages::resourceNotFound(asyncResp->res, "FabricAdapter", adapterId);
+        return;
+    }
+
+    if (locationIndicatorActive)
+    {
+        setLocationIndicatorActive(asyncResp, fabricAdapterPath,
+                                   *locationIndicatorActive);
+    }
+}
+
+inline void handleFabricAdapterPatch(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const std::string& adapterId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        // Option currently returns no systems.  TBD
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+
+    std::optional<bool> locationIndicatorActive;
+
+    if (!json_util::readJsonPatch(req, asyncResp->res,
+                                  "LocationIndicatorActive",
+                                  locationIndicatorActive))
+    {
+        return;
+    }
+
+    getValidFabricAdapterPath(
+        adapterId, std::bind_front(afterHandleFabricAdapterPatch, asyncResp,
+                                   adapterId, locationIndicatorActive));
 }
 
 inline void handleFabricAdapterCollectionGet(
@@ -442,5 +516,10 @@ inline void requestRoutesFabricAdapters(App& app)
         .privileges(redfish::privileges::headFabricAdapter)
         .methods(boost::beast::http::verb::head)(
             std::bind_front(handleFabricAdapterHead, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/FabricAdapters/<str>/")
+        .privileges(redfish::privileges::patchFabricAdapter)
+        .methods(boost::beast::http::verb::patch)(
+            std::bind_front(handleFabricAdapterPatch, std::ref(app)));
 }
 } // namespace redfish
