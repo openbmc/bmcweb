@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1236d62_c40a1b2d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-08-20T15:10:53Z",
+      "side": 1,
+      "message": "Revert the http_client part of the patch for now. \n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/69234",
+      "revId": "89b4c5c259ab9212b3737e6b4aabc3871529f7db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfb93ba3_c401530f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-08-20T15:10:53Z",
+      "side": 1,
+      "message": "sign off",
+      "revId": "89b4c5c259ab9212b3737e6b4aabc3871529f7db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
