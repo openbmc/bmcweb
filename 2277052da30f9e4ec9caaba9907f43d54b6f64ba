@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2f97b75_8e2cb1de",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-08-20T10:29:57Z",
+      "side": 1,
+      "message": "👍 i adjusted this to be a default parameter.",
+      "parentUuid": "8006e507_876ea4db",
+      "revId": "2277052da30f9e4ec9caaba9907f43d54b6f64ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0f32e213_d1fa4bb1",
@@ -174,6 +192,24 @@
       "side": 1,
       "message": "\u003e However the unit tests itself contain logic to cleanup the directory.\n\nRight, and rather than duplicate that logic all over the place, we put it in an RAII class called TemporaryFile.  Please take a look at it, and if it doesn\u0027t work, or can\u0027t be easily amended to work, we can review the new code you\u0027ve added, but I\u0027d really prefer we keep patterns similar, and RAII/Exception safety if we can.",
       "parentUuid": "4da119b9_1429c267",
+      "revId": "2277052da30f9e4ec9caaba9907f43d54b6f64ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db1e61eb_73aa9e0d",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-08-20T10:29:57Z",
+      "side": 1,
+      "message": "```struct TemporaryFileHandle``` creates a temporary file but i need an entire directory. Because the logic for the rsyslog backend looks for files inside a directory.\n\nMaybe there could be a ```struct TemporaryDir``` for these usecases.",
+      "parentUuid": "f1a7a0ed_0bfa5c31",
       "revId": "2277052da30f9e4ec9caaba9907f43d54b6f64ba",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
