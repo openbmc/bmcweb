@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e77fdd9_9bd72468",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-20T15:32:31Z",
+      "side": 1,
+      "message": "naming convention is ec.  ec2 was only for when this was conflicting with -Wshadow which you\u0027ve now solved.",
+      "range": {
+        "startLine": 17,
+        "startChar": 37,
+        "endLine": 17,
+        "endChar": 40
+      },
+      "revId": "ff5f9032d9eedcaca8db2f850b7cc33c48293804",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42def7af_3fee0401",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-20T15:32:31Z",
+      "side": 1,
+      "message": "nit: same here.  This can now just be membersArray",
+      "range": {
+        "startLine": 37,
+        "startChar": 20,
+        "endLine": 37,
+        "endChar": 31
+      },
+      "revId": "ff5f9032d9eedcaca8db2f850b7cc33c48293804",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
