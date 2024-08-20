@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "09662817_4b6d721f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-08-20T18:11:38Z",
+      "side": 1,
+      "message": "Unless you haven\u0027t implemented the ManagedHost dbus interface this is the expected result. In order to test the single host case I created a specialized test environment described in the commit message. However I wasn\u0027t able to apply the interface in a Romulus image, which I normally use to test single host..",
+      "parentUuid": "c9dbd5d4_1e1fd06c",
+      "revId": "ff5f9032d9eedcaca8db2f850b7cc33c48293804",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8cfcb9cc_e9b471da",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 15
