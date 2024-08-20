@@ -530,13 +530,15 @@ inline void
  *
  * @return None.
  */
-inline void getHostState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void getHostState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const std::string& /*systemName*/,
+                         const sdbusplus::message::object_path& path,
+                         const std::string& service)
 {
     BMCWEB_LOG_DEBUG("Get host information.");
     sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, "xyz.openbmc_project.State.Host",
-        "/xyz/openbmc_project/state/host0", "xyz.openbmc_project.State.Host",
-        "CurrentHostState",
+        *crow::connections::systemBus, service, path,
+        "xyz.openbmc_project.State.Host", "CurrentHostState",
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& hostState) {
             if (ec)
@@ -2918,16 +2920,29 @@ inline void handleComputerSystemResetActionPost(
 
     if (hostCommand)
     {
-        setDbusProperty(asyncResp, "Reset", "xyz.openbmc_project.State.Host",
-                        statePath / "host0", "xyz.openbmc_project.State.Host",
-                        "RequestedHostTransition", command);
+        const std::string interface = "xyz.openbmc_project.State.Host";
+        getComputerSystemDBusResources(
+            asyncResp, systemName, interface,
+            [command,
+             interface](const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                        const std::string& /*systemName*/,
+                        const std::string& service, const std::string& path) {
+                setDbusProperty(aResp, "Reset", interface, path, service,
+                                "RequestedHostTransition", command);
+            });
     }
     else
     {
-        setDbusProperty(asyncResp, "Reset", "xyz.openbmc_project.State.Chassis",
-                        statePath / "chassis0",
-                        "xyz.openbmc_project.State.Chassis",
-                        "RequestedPowerTransition", command);
+        const std::string interface = "xyz.openbmc_project.State.Chassis";
+        getComputerSystemDBusResources(
+            asyncResp, systemName, interface,
+            [command,
+             interface](const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                        const std::string& /*systemName*/,
+                        const std::string& service, const std::string& path) {
+                setDbusProperty(aResp, "Reset", interface, path, service,
+                                "RequestedHostTransition", command);
+            });
     }
 }
 
@@ -3098,7 +3113,10 @@ inline void
     // TODO (Gunnar): Remove IndicatorLED after enough time has passed
     getIndicatorLedState(asyncResp);
     getComputerSystem(asyncResp);
-    getHostState(asyncResp);
+
+    getComputerSystemDBusResources(
+        asyncResp, systemName, "xyz.openbmc_project.State.Host", getHostState);
+
     getBootProperties(asyncResp);
     getBootProgress(asyncResp);
     getBootProgressLastStateTime(asyncResp);
