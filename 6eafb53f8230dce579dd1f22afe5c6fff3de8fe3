@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cc0b804_c64a76fd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-08-20T10:29:47Z",
+      "side": 1,
+      "message": "changed it so the deletion should only work for the phosphor-logging based entries.",
+      "parentUuid": "65ce45ec_06a2d85b",
+      "revId": "6eafb53f8230dce579dd1f22afe5c6fff3de8fe3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6d6fd19f_a2322c1a",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-08-14T00:14:59Z",
       "side": 1,
       "message": "Any sort of stress testing?  How many logs did you test deleting?  This isn\u0027t really enough detail.",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 51
+      },
+      "revId": "6eafb53f8230dce579dd1f22afe5c6fff3de8fe3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c508241d_c812c833",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-08-20T10:29:47Z",
+      "side": 1,
+      "message": "updated this so the deletion only works for the phosphor-logging backend. So it is as before.",
+      "parentUuid": "6d6fd19f_a2322c1a",
       "range": {
         "startLine": 25,
         "startChar": 0,
