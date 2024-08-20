@@ -369,6 +369,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c5de6634_5b9783ea",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-20T16:59:45Z",
+      "side": 1,
+      "message": "what\u0027s the additional?  I\u0027m assuming it\u0027s something like Password\\n\u003e",
+      "parentUuid": "04b765a7_d836d336",
+      "range": {
+        "startLine": 48,
+        "startChar": 12,
+        "endLine": 48,
+        "endChar": 18
+      },
+      "revId": "5a503c0fc65a0907b046bd2461f7923a6e26878b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "24e979c7_7238f9f9",
         "filename": "include/pam_authenticate.hpp",
         "patchSetId": 12
@@ -404,6 +428,30 @@
       "side": 1,
       "message": "yeah, this will asked by PAM module which supports TOTP authentication",
       "parentUuid": "24e979c7_7238f9f9",
+      "range": {
+        "startLine": 52,
+        "startChar": 12,
+        "endLine": 52,
+        "endChar": 99
+      },
+      "revId": "5a503c0fc65a0907b046bd2461f7923a6e26878b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07aabbe2_d23208b4",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-20T16:59:45Z",
+      "side": 1,
+      "message": "Right, but which one does Google authenticator ask for?  Is TOTP a different type of plugin?  If they\u0027re different, an inline comment about which each string is for would help a lot.",
+      "parentUuid": "af046dc2_c80f7408",
       "range": {
         "startLine": 52,
         "startChar": 12,
