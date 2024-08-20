@@ -88,6 +88,24 @@
       "parentUuid": "5b16b365_82a6a2c7",
       "revId": "f718d39600f95bb59101aef0ef4ce9e68b1ed7a0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6930c7d6_d053aa28",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-08-20T06:52:47Z",
+      "side": 1,
+      "message": "Yeah, the interface itself has not been implemented in our case.\n\nBut `ethData.macAddress` will automatically be initialized to an empty string (\"\") when the EthernetInterfaceData object is constructed right?\n\nSo this must be checked when constructing a redfish response was what I thought when I pushed this change.",
+      "parentUuid": "803b45f7_63c4c9c8",
+      "revId": "f718d39600f95bb59101aef0ef4ce9e68b1ed7a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
