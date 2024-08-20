@@ -21,10 +21,19 @@ limitations under the License.
 #include "generated/enums/chassis.hpp"
 #include "redfish_util.hpp"
 
+#include <boost/system/error_code.hpp>
 #include <sdbusplus/asio/property.hpp>
+#include <sdbusplus/message/types.hpp>
+
+#include <array>
+#include <functional>
+#include <memory>
+#include <string_view>
 
 namespace redfish
 {
+static constexpr std::array<std::string_view, 1> ledGroupInterface = {
+    "xyz.openbmc_project.Led.Group"};
 /**
  * @brief Retrieves identify led group properties over dbus
  *
@@ -241,4 +250,138 @@ inline void setSystemLocationIndicatorActive(
             }
         });
 }
+
+inline void afterGetLedGroupPath(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& objPath, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree,
+    const std::function<void(const std::string& ledGroupPath,
+                             const std::string& service)>&& callback)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("DBUS response error for getAssociatedSubTree: {}",
+                             ec.value());
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+
+    if (subtree.empty())
+    {
+        BMCWEB_LOG_DEBUG(
+            "No LED group associated with the specified object path: {}",
+            objPath);
+        return;
+    }
+
+    if (subtree.size() > 1)
+    {
+        BMCWEB_LOG_ERROR(
+            "More than one LED group associated with the object: {}",
+            subtree.size());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    const auto& [ledGroupPath, serviceMap] = *subtree.begin();
+    const auto& [service, interfaces] = *serviceMap.begin();
+    callback(ledGroupPath, service);
+}
+
+inline void
+    getLedGroupPath(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                    const std::string& objPath,
+                    std::function<void(const std::string& ledGroupPath,
+                                       const std::string& service)>&& callback)
+{
+    static constexpr const char* ledObjectPath =
+        "/xyz/openbmc_project/led/groups";
+    sdbusplus::message::object_path ledGroupAssociatedPath =
+        objPath + "/identifying";
+
+    dbus::utility::getAssociatedSubTree(
+        ledGroupAssociatedPath, sdbusplus::message::object_path(ledObjectPath),
+        0, ledGroupInterface,
+        [asyncResp, objPath, callback{std::move(callback)}](
+            const boost::system::error_code& ec,
+            const dbus::utility::MapperGetSubTreeResponse& subtree) {
+            afterGetLedGroupPath(asyncResp, objPath, ec, subtree,
+                                 std::move(callback));
+        });
+}
+
+inline void getLedState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const std::string& ledGroupPath,
+                        const std::string& service)
+{
+    sdbusplus::asio::getProperty<bool>(
+        *crow::connections::systemBus, service, ledGroupPath,
+        "xyz.openbmc_project.Led.Group", "Asserted",
+        [asyncResp,
+         ledGroupPath](const boost::system::error_code& ec, bool assert) {
+            if (ec)
+            {
+                if (ec.value() != EBADR)
+                {
+                    BMCWEB_LOG_ERROR("DBUS response error for get ledState {}",
+                                     ec.value());
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                return;
+            }
+
+            asyncResp->res.jsonValue["LocationIndicatorActive"] = assert;
+        });
+}
+
+/**
+ * @brief Retrieves identify led group properties over dbus
+ *
+ * @param[in] asyncResp Shared pointer for generating response
+ * message.
+ * @param[in] objPath   Object path on PIM
+ *
+ * @return None.
+ */
+inline void getLocationIndicatorActive(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& objPath)
+{
+    BMCWEB_LOG_DEBUG("Get LocationIndicatorActive");
+    getLedGroupPath(asyncResp, objPath,
+                    [asyncResp, objPath](const std::string& ledGroupPath,
+                                         const std::string& service) {
+                        getLedState(asyncResp, ledGroupPath, service);
+                    });
+}
+
+/**
+ * @brief Sets identify led group properties
+ *
+ * @param[in] asyncResp     Shared pointer for generating response
+ * message.
+ * @param[in] objPath       Object path on PIM
+ * @param[in] ledState      LED state passed from request
+ *
+ * @return None.
+ */
+inline void setLocationIndicatorActive(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& objPath, bool ledState)
+{
+    BMCWEB_LOG_DEBUG("Set LocationIndicatorActive");
+    getLedGroupPath(asyncResp, objPath,
+                    [asyncResp, ledState](const std::string& ledGroupPath,
+                                          const std::string& service) {
+                        setDbusProperty(asyncResp, "Asserted", service,
+                                        ledGroupPath,
+                                        "xyz.openbmc_project.Led.Group",
+                                        "LedGroup", ledState);
+                    });
+}
+
 } // namespace redfish
