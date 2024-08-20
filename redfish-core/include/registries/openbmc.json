@@ -1187,6 +1187,14 @@
             "Resolution": "None.",
             "Severity": "OK"
         },
+        "PowerButtonLongPressed": {
+            "Description": "Indicates that the power button was long pressed.",
+            "Message": "Power Button Long Pressed.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
         "PowerRestorePolicyApplied": {
             "Description": "Indicates that power was restored and the BMC has applied the restore policy.",
             "Message": "Power restore policy applied.",
