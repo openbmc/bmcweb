@@ -154,6 +154,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "65ea263e_068f1701",
+        "filename": "include/authentication.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-08-20T16:09:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "234dac00_1b67429e",
+      "range": {
+        "startLine": 72,
+        "startChar": 48,
+        "endLine": 72,
+        "endChar": 50
+      },
+      "revId": "5a503c0fc65a0907b046bd2461f7923a6e26878b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b9f0a4d9_4ca3bf9f",
@@ -191,6 +215,30 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "b9f0a4d9_4ca3bf9f",
+      "range": {
+        "startLine": 156,
+        "startChar": 60,
+        "endLine": 156,
+        "endChar": 62
+      },
+      "revId": "5a503c0fc65a0907b046bd2461f7923a6e26878b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43d066c7_90d52fbb",
+        "filename": "include/login_routes.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-08-20T16:09:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5fe2166_3d0d0775",
       "range": {
         "startLine": 156,
         "startChar": 60,
@@ -248,6 +296,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f2921c9_09d33889",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-08-20T16:09:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c999e2f_91812258",
+      "range": {
+        "startLine": 47,
+        "startChar": 26,
+        "endLine": 47,
+        "endChar": 35
+      },
+      "revId": "5a503c0fc65a0907b046bd2461f7923a6e26878b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e052325d_51e2b4c7",
@@ -261,6 +333,30 @@
       "writtenOn": "2024-08-19T05:13:52Z",
       "side": 1,
       "message": "Why not an exact match?",
+      "range": {
+        "startLine": 48,
+        "startChar": 12,
+        "endLine": 48,
+        "endChar": 18
+      },
+      "revId": "5a503c0fc65a0907b046bd2461f7923a6e26878b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04b765a7_d836d336",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-08-20T16:09:48Z",
+      "side": 1,
+      "message": "exact match does not work, looks like pam prompts a string more than just \"Password\" or \"verification code\" strings",
+      "parentUuid": "e052325d_51e2b4c7",
       "range": {
         "startLine": 48,
         "startChar": 12,
@@ -331,6 +427,30 @@
       "writtenOn": "2024-08-19T05:13:52Z",
       "side": 1,
       "message": "Should we make a class with this data to pass in on line 85?  That seems less error prone than an array of char pointers.",
+      "range": {
+        "startLine": 76,
+        "startChar": 3,
+        "endLine": 76,
+        "endChar": 22
+      },
+      "revId": "5a503c0fc65a0907b046bd2461f7923a6e26878b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0015ac57_f868c81d",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-08-20T16:09:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43f5fac7_baf65ed0",
       "range": {
         "startLine": 76,
         "startChar": 3,
