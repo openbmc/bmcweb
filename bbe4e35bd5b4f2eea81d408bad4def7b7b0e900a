@@ -120,6 +120,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8879b1dc_00fb5a33",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-08-20T10:29:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa5f7eaf_39d36704",
+      "range": {
+        "startLine": 9,
+        "startChar": 26,
+        "endLine": 10,
+        "endChar": 15
+      },
+      "revId": "bbe4e35bd5b4f2eea81d408bad4def7b7b0e900a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0b6ed0cf_97ce6879",
@@ -223,6 +247,24 @@
       "side": 1,
       "message": "\u003e We still need to get how you documented this on a real system.\n\nWe still need to get _documented_ how you _tested_ this on a real system.\n\nis what that sentence should\u0027ve read as.",
       "parentUuid": "d236c312_55c1b503",
+      "revId": "bbe4e35bd5b4f2eea81d408bad4def7b7b0e900a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90f8bb8b_c058c6cc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-08-20T10:29:36Z",
+      "side": 1,
+      "message": "Adjusted the commit message to better describe the changes and how i tested them.",
+      "parentUuid": "abed4538_d73d56c2",
       "revId": "bbe4e35bd5b4f2eea81d408bad4def7b7b0e900a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
