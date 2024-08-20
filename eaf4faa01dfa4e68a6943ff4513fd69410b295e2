@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3adb2a2c_fa582b19",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-08-20T10:29:41Z",
+      "side": 1,
+      "message": "\u003e usage contract\n\nIs this usage contract written down somewhere? Do you mean the redfish specification? Or are you talking about client implementations that were coded to match the specific bmcweb implementation?\n\n\u003e Property differences in result\n\nSince most of the properties are optional in redfish, the result is still redfish compliant. There is no regression for individual log entries. If an entry had a property before, it will have that property after these patches.\n\n\u003e Differences in Circular Buffering/overflow behavior\n\nThis specific patch is just about GET of an individual log entry\n\n\u003e adding an option mode where you get \"both\"\n\nI don\u0027t like this idea. I want to get all the entries without any options. There is no need for options, one implementation can cover all use-cases. It just needs to be a good implementation. No one needs to worry about details of how Event Log works. It can just work without any need for configuration. Just needs some patches.\n\n\u003e You\u0027ve changed a lot of behavior in this patch series\n\nIt would make it a lot easier for me if any concerns were directed at individual patches. We can talk about the series as a whole on discord or something, but it\u0027s difficult for me if the whole series is discussed as a comment on a single patch.\n\nThe single patch is up for debate on the specific changes done in that patch.",
+      "parentUuid": "6ba9c9a5_a2be8619",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 0
+      },
+      "revId": "eaf4faa01dfa4e68a6943ff4513fd69410b295e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84a66d27_4ce85a37",
@@ -143,6 +167,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "55d58b08_d689229a",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1662,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-08-20T10:29:41Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a2d18bb7_7bd49a12",
+      "range": {
+        "startLine": 1662,
+        "startChar": 48,
+        "endLine": 1662,
+        "endChar": 55
+      },
+      "revId": "eaf4faa01dfa4e68a6943ff4513fd69410b295e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a7a695c6_3e676941",
@@ -192,6 +240,24 @@
       "side": 1,
       "message": "\u003e The entry ids are disjoint.\n\nWhere is that documented?  There\u0027s nothing preventing a logging daemon from creating conflicting IDs compared to the rsyslog based implementation, and there\u0027s been discussions in the past about simplifying the rsyslog IDs down to the monotonic journal id that would now be not possible if we\u0027re doing an explicit merge.",
       "parentUuid": "06371745_5e12b3f1",
+      "revId": "eaf4faa01dfa4e68a6943ff4513fd69410b295e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af30a808_a0efb6da",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1753,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-08-20T10:29:41Z",
+      "side": 1,
+      "message": "\u003e Where is that documented? \n\nI did not find it documented anywhere. Same as the mysterious usage contract that seems to be going on with the redfish clients 😊\n\n\u003e there\u0027s been discussions in the past about simplifying the rsyslog IDs down to the monotonic journal id that would now be not possible if we\u0027re doing an explicit merge.\n\nif that id is monotonic and starts at some minimum value ```x``` then we can always offset it by ```n``` where ```n``` is the max amount of event logs expected to be provided by phosphor-logging backend (e.g. the desired 10000 or whatever)\n\nSo then externally the event log entries will have a unique id and be disjoint based on the backend.",
+      "parentUuid": "0f4dd727_e0ff054a",
       "revId": "eaf4faa01dfa4e68a6943ff4513fd69410b295e2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
