@@ -89,6 +89,42 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "011dacca_fb325511",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001975
+      },
+      "writtenOn": "2024-08-20T13:45:38Z",
+      "side": 1,
+      "message": "Thanks for the history that I wasn\u0027t aware of very much, and also the great suggestion. I have refactored the code and kept the empty segment check as in the original code.",
+      "parentUuid": "e7fcf209_ea1d2589",
+      "revId": "0252f115d91a203f10d076cf41ad4fe6b9c19ae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46dbeeb4_ee53be28",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001975
+      },
+      "writtenOn": "2024-08-20T13:45:38Z",
+      "side": 1,
+      "message": "What do you mean by \"CLA\"? Is it Contributor License Agreement? If so, can I just ask @benjaminfair@google.com to add me in the CLA list to get the right?",
+      "parentUuid": "56e71021_da599b90",
+      "revId": "0252f115d91a203f10d076cf41ad4fe6b9c19ae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f05e70de_dea872b4",
@@ -102,6 +138,30 @@
       "writtenOn": "2024-08-19T16:12:11Z",
       "side": 1,
       "message": "We parse the url into a proper object on line 86, which implements support for handling the query param using a proper parser (rather than using find, which can be error prone, and might not implement the URL parsing spec properly).\n\nIs there any way we can just move the line 81 to after we parse the URI, and operate on parsedUrl-\u003esegments.last() instead?  That would ensure that we\u0027re still parsing the URL properly.",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 63
+      },
+      "revId": "0252f115d91a203f10d076cf41ad4fe6b9c19ae8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ef82ec2_a1868255",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001975
+      },
+      "writtenOn": "2024-08-20T13:45:38Z",
+      "side": 1,
+      "message": "Thanks for a better solution. Have updated the code according to your suggestion.",
+      "parentUuid": "f05e70de_dea872b4",
       "range": {
         "startLine": 64,
         "startChar": 0,
