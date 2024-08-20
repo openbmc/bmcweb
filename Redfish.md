@@ -844,6 +844,7 @@ other.
 #### FabricAdapter
 
 - Location
+- LocationIndicatorActive
 - Model
 - PartNumber
 - SerialNumber
