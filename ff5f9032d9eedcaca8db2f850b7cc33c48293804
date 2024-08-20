@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c9dbd5d4_1e1fd06c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-20T17:19:37Z",
+      "side": 1,
+      "message": "I checked out S7106 in qemu to test this case, and I\u0027m seeing a totally empty collection:\n\n```\n❯ curl -k --user \"root:0penBmc\" -N \"https://192.168.7.2/redfish/v1/Systems\"\n{\n  \"@odata.id\": \"/redfish/v1/Systems\",\n  \"@odata.type\": \"#ComputerSystemCollection.ComputerSystemCollection\",\n  \"Members\": [],\n  \"Members@odata.count\": 0,\n  \"Name\": \"Computer System Collection\"\n}%\n```\n\nIs that expected?",
+      "revId": "ff5f9032d9eedcaca8db2f850b7cc33c48293804",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8cfcb9cc_e9b471da",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 15
