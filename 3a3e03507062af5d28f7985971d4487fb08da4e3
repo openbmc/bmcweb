@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e2eb00a_f28e60ce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-08-20T14:48:24Z",
+      "side": 1,
+      "message": "Hi Ed, as mentioned in patch#1, this is the continuation",
+      "revId": "3a3e03507062af5d28f7985971d4487fb08da4e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
