@@ -454,6 +454,7 @@ Fields common to all schemas
   - EfficiencyPercent
 - FirmwareVersion
 - Location
+- LocationIndicatorActive
 - Manufacturer
 - Model
 - PartNumber
