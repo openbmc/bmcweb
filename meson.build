@@ -39,7 +39,10 @@ summary('Optimization', optimization, section: 'Build Info')
 
 # remove debug information for minsize buildtype
 if (get_option('buildtype') == 'minsize')
-    add_project_arguments(['-fdata-sections', '-ffunction-sections'], language: 'cpp')
+    add_project_arguments(
+        ['-fdata-sections', '-ffunction-sections'],
+        language: 'cpp',
+    )
     add_project_arguments('-DNDEBUG', language: 'cpp')
 endif
 
@@ -55,7 +58,12 @@ endif
 
 # Include Directories
 
-incdir = include_directories('include', 'redfish-core/include', 'redfish-core/lib', 'http')
+incdir = include_directories(
+    'include',
+    'redfish-core/include',
+    'redfish-core/lib',
+    'http',
+)
 
 if (get_option('tests').allowed())
     summary('unittest', 'NA', section: 'Features')
@@ -118,7 +126,7 @@ endif
 
 if (get_option('buildtype') != 'plain')
     if (get_option('b_lto') == true and get_option('optimization') != '0')
-        # Reduce the binary size by removing unnecessary
+# Reduce the binary size by removing unnecessary
         # dynamic symbol table entries
 
         add_project_arguments(
@@ -150,11 +158,13 @@ security_flags = [
 
 ## Add security flags for builds of type 'release','debugoptimized' and 'minsize'
 
-if not (
-    get_option('buildtype') == 'plain'
-    or get_option('buildtype').startswith('debug')
+if not (get_option('buildtype') == 'plain'
+or get_option('buildtype').startswith('debug')
 )
-    add_project_arguments(cxx.get_supported_arguments([security_flags]), language: 'cpp')
+    add_project_arguments(
+        cxx.get_supported_arguments([security_flags]),
+        language: 'cpp',
+    )
 endif
 
 # Boost dependency configuration
@@ -206,10 +216,7 @@ if not nghttp2.found()
     cmake = import('cmake')
     opt_var = cmake.subproject_options()
     opt_var.add_cmake_defines(
-        {
-            'ENABLE_LIB_ONLY': true,
-            'ENABLE_STATIC_LIB': true,
-        },
+        {'ENABLE_LIB_ONLY': true, 'ENABLE_STATIC_LIB': true},
     )
     nghttp2_ex = cmake.subproject('nghttp2', options: opt_var)
     nghttp2 = nghttp2_ex.dependency('nghttp2')
@@ -243,14 +250,16 @@ add_project_arguments('-DSYSTEMD_VERSION=' + systemd.version(), language: 'cpp')
 zlib = dependency('zlib')
 bmcweb_dependencies += [systemd, zlib]
 
-nlohmann_json_dep = dependency('nlohmann_json', version: '>=3.11.2', include_type: 'system')
+nlohmann_json_dep = dependency(
+    'nlohmann_json',
+    version: '>=3.11.2',
+    include_type: 'system',
+)
 bmcweb_dependencies += nlohmann_json_dep
 
 boost = dependency(
     'boost',
-    modules: [
-        'url',
-    ],
+    modules: ['url'],
     version: '>=1.84.0',
     required: false,
     include_type: 'system',
@@ -392,9 +401,9 @@ srcfiles_unittest = files(
     'test/include/ossl_random.cpp',
     'test/include/ssl_key_handler_test.cpp',
     'test/include/str_utility_test.cpp',
-    'test/redfish-core/include/privileges_test.cpp',
     'test/redfish-core/include/filter_expr_executor_test.cpp',
     'test/redfish-core/include/filter_expr_parser_test.cpp',
+    'test/redfish-core/include/privileges_test.cpp',
     'test/redfish-core/include/redfish_aggregator_test.cpp',
     'test/redfish-core/include/registries_test.cpp',
     'test/redfish-core/include/utils/dbus_utils.cpp',
@@ -418,7 +427,7 @@ srcfiles_unittest = files(
 )
 
 if (get_option('tests').allowed())
-    # generate the test executable
+# generate the test executable
     foreach test_src : srcfiles_unittest
         test_bin = executable(
             fs.stem(test_src),
@@ -426,11 +435,7 @@ if (get_option('tests').allowed())
             link_with: bmcweblib,
             include_directories: incdir,
             install_dir: bindir,
-            dependencies: bmcweb_dependencies
-            + [
-                gtest,
-                gmock,
-            ],
+            dependencies: bmcweb_dependencies + [gtest, gmock],
         )
         test(fs.stem(test_src), test_bin)
     endforeach
