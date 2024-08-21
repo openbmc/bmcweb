@@ -82,10 +82,10 @@ void afterSetProperty(
         messages::internalError(asyncResp->res);
         return;
     }
-    // Only set success if another error hasn't already happened.
+    // Only set 204 if another error hasn't already happened.
     if (asyncResp->res.result() == boost::beast::http::status::ok)
     {
-        messages::success(asyncResp->res);
+        asyncResp->res.result(boost::beast::http::status::no_content);
     }
 };
 
