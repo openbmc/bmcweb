@@ -145,7 +145,15 @@ option(
 option(
     'bmcweb-logging',
     type: 'combo',
-    choices: ['disabled', 'enabled', 'debug', 'info', 'warning', 'error', 'critical'],
+    choices: [
+        'disabled',
+        'enabled',
+        'debug',
+        'info',
+        'warning',
+        'error',
+        'critical',
+    ],
     value: 'error',
     description: '''Enable output the extended logging level.
                     - disabled: disable bmcweb log traces.
