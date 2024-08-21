@@ -34,6 +34,24 @@
       "parentUuid": "18160bc4_946f1236",
       "revId": "d2cdd478072ab158ed28dea17e784db12517a6d8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a35a068c_e534b407",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-08-21T20:09:04Z",
+      "side": 0,
+      "message": "Sorry about that, I\u0027ve put the comment back.",
+      "parentUuid": "5f0c48cd_1a8dec70",
+      "revId": "d2cdd478072ab158ed28dea17e784db12517a6d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9713b5e5_3a2aa946",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-08-21T20:09:04Z",
+      "side": 1,
+      "message": "I agree that is simpler and easier to read. I\u0027ve altered it to use std::format()",
+      "parentUuid": "10a9f81a_da7f6e18",
+      "revId": "41bb0336e0b2048cbfa718bbbfc891ba84da4e94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c8f12f62_e4ac1594",
         "filename": "redfish-core/include/utils/sensor_utils.hpp",
         "patchSetId": 1
@@ -31,6 +49,24 @@
       "writtenOn": "2024-08-21T16:20:15Z",
       "side": 1,
       "message": "splitSensorNameAndType should also go here if we\u0027re going to break out a separate utils class for sensors (which I think is a good idea).\n\nFeel free to do that on another patch if you like.",
+      "revId": "41bb0336e0b2048cbfa718bbbfc891ba84da4e94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "915669fe_d5e64125",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-08-21T20:09:04Z",
+      "side": 1,
+      "message": "I\u0027ve moved that function to the new sensors utility class as well and updated the callers to use it.\n\nI\u0027ve also moved the existing test for that function into the test for this utility class.",
+      "parentUuid": "c8f12f62_e4ac1594",
       "revId": "41bb0336e0b2048cbfa718bbbfc891ba84da4e94",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
