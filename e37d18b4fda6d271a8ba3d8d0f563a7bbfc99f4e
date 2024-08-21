@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a2087f3_0aa66605",
+        "filename": "meson.build",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-21T21:35:24Z",
+      "side": 1,
+      "message": "Groan... this is a bug in meson:\n\nhttps://github.com/mesonbuild/meson/issues/13508\n\nGoing to master meson fixes this.",
+      "revId": "e37d18b4fda6d271a8ba3d8d0f563a7bbfc99f4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
