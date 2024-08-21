@@ -2827,35 +2827,16 @@ inline void handleComputerSystemCollectionGet(
     system["@odata.id"] = boost::urls::format("/redfish/v1/Systems/{}",
                                               BMCWEB_REDFISH_SYSTEM_URI_NAME);
     ifaceArray.emplace_back(std::move(system));
-    sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/network/hypervisor",
-        "xyz.openbmc_project.Network.SystemConfiguration", "HostName",
-        [asyncResp](const boost::system::error_code& ec2,
-                    const std::string& /*hostName*/) {
-            if (ec2)
-            {
-                return;
-            }
-            auto val = asyncResp->res.jsonValue.find("Members@odata.count");
-            if (val == asyncResp->res.jsonValue.end())
-            {
-                BMCWEB_LOG_CRITICAL("Count wasn't found??");
-                return;
-            }
-            int64_t* count = val->get_ptr<int64_t*>();
-            if (count == nullptr)
-            {
-                BMCWEB_LOG_CRITICAL("Count wasn't found??");
-                return;
-            }
-            *count = *count + 1;
-            BMCWEB_LOG_DEBUG("Hypervisor is available");
-            nlohmann::json& ifaceArray2 = asyncResp->res.jsonValue["Members"];
-            nlohmann::json::object_t hypervisor;
-            hypervisor["@odata.id"] = "/redfish/v1/Systems/hypervisor";
-            ifaceArray2.emplace_back(std::move(hypervisor));
-        });
+
+    if constexpr (BMCWEB_HYPERVISOR_COMPUTER_SYSTEM)
+    {
+        BMCWEB_LOG_DEBUG("Hypervisor is available");
+        asyncResp->res.jsonValue["Members@odata.count"] = 2;
+
+        nlohmann::json::object_t hypervisor;
+        hypervisor["@odata.id"] = "/redfish/v1/Systems/hypervisor";
+        ifaceArray.emplace_back(std::move(hypervisor));
+    }
 }
 
 /**
@@ -3043,10 +3024,13 @@ inline void
         return;
     }
 
-    if (systemName == "hypervisor")
+    if constexpr (BMCWEB_HYPERVISOR_COMPUTER_SYSTEM)
     {
-        handleHypervisorSystemGet(asyncResp);
-        return;
+        if (systemName == "hypervisor")
+        {
+            handleHypervisorSystemGet(asyncResp);
+            return;
+        }
     }
 
     if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
@@ -3424,10 +3408,13 @@ inline void handleSystemCollectionResetActionGet(
         return;
     }
 
-    if (systemName == "hypervisor")
+    if constexpr (BMCWEB_HYPERVISOR_COMPUTER_SYSTEM)
     {
-        handleHypervisorResetActionGet(asyncResp);
-        return;
+        if (systemName == "hypervisor")
+        {
+            handleHypervisorResetActionGet(asyncResp);
+            return;
+        }
     }
 
     if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)

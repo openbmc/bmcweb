@@ -220,7 +220,10 @@ RedfishService::RedfishService(App& app)
     requestRoutesFabricAdapterCollection(app);
     requestRoutesSubmitTestEvent(app);
 
-    requestRoutesHypervisorSystems(app);
+    if constexpr (BMCWEB_HYPERVISOR_COMPUTER_SYSTEM)
+    {
+        requestRoutesHypervisorSystems(app);
+    }
 
     requestRoutesTelemetryService(app);
     requestRoutesMetricReportDefinitionCollection(app);

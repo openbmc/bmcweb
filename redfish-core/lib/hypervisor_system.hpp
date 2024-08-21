@@ -709,42 +709,24 @@ inline void handleHypervisorEthernetInterfaceGet(
 inline void handleHypervisorSystemGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/network/hypervisor",
-        "xyz.openbmc_project.Network.SystemConfiguration", "HostName",
-        [asyncResp](const boost::system::error_code& ec,
-                    const std::string& /*hostName*/) {
-            if (ec)
-            {
-                messages::resourceNotFound(asyncResp->res, "System",
-                                           "hypervisor");
-                return;
-            }
-            BMCWEB_LOG_DEBUG("Hypervisor is available");
-
-            asyncResp->res.jsonValue["@odata.type"] =
-                "#ComputerSystem.v1_6_0.ComputerSystem";
-            asyncResp->res.jsonValue["@odata.id"] =
-                "/redfish/v1/Systems/hypervisor";
-            asyncResp->res.jsonValue["Description"] = "Hypervisor";
-            asyncResp->res.jsonValue["Name"] = "Hypervisor";
-            asyncResp->res.jsonValue["Id"] = "hypervisor";
-            asyncResp->res.jsonValue["SystemType"] =
-                computer_system::SystemType::OS;
-            nlohmann::json::array_t managedBy;
-            nlohmann::json::object_t manager;
-            manager["@odata.id"] = boost::urls::format(
-                "/redfish/v1/Managers/{}", BMCWEB_REDFISH_MANAGER_URI_NAME);
-            managedBy.emplace_back(std::move(manager));
-            asyncResp->res.jsonValue["Links"]["ManagedBy"] =
-                std::move(managedBy);
-            asyncResp->res.jsonValue["EthernetInterfaces"]["@odata.id"] =
-                "/redfish/v1/Systems/hypervisor/EthernetInterfaces";
-            getHypervisorState(asyncResp);
-            getHypervisorActions(asyncResp);
-            // TODO: Add "SystemType" : "hypervisor"
-        });
+    asyncResp->res.jsonValue["@odata.type"] =
+        "#ComputerSystem.v1_6_0.ComputerSystem";
+    asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Systems/hypervisor";
+    asyncResp->res.jsonValue["Description"] = "Hypervisor";
+    asyncResp->res.jsonValue["Name"] = "Hypervisor";
+    asyncResp->res.jsonValue["Id"] = "hypervisor";
+    asyncResp->res.jsonValue["SystemType"] = computer_system::SystemType::OS;
+    nlohmann::json::array_t managedBy;
+    nlohmann::json::object_t manager;
+    manager["@odata.id"] = boost::urls::format("/redfish/v1/Managers/{}",
+                                               BMCWEB_REDFISH_MANAGER_URI_NAME);
+    managedBy.emplace_back(std::move(manager));
+    asyncResp->res.jsonValue["Links"]["ManagedBy"] = std::move(managedBy);
+    asyncResp->res.jsonValue["EthernetInterfaces"]["@odata.id"] =
+        "/redfish/v1/Systems/hypervisor/EthernetInterfaces";
+    getHypervisorState(asyncResp);
+    getHypervisorActions(asyncResp);
+    // TODO: Add "SystemType" : "hypervisor"
 }
 
 inline void handleHypervisorEthernetInterfacePatch(
