@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ed260157_4fcea052",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-21T21:14:59Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "9713b5e5_3a2aa946",
+      "revId": "41bb0336e0b2048cbfa718bbbfc891ba84da4e94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c8f12f62_e4ac1594",
         "filename": "redfish-core/include/utils/sensor_utils.hpp",
         "patchSetId": 1
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "I\u0027ve moved that function to the new sensors utility class as well and updated the callers to use it.\n\nI\u0027ve also moved the existing test for that function into the test for this utility class.",
       "parentUuid": "c8f12f62_e4ac1594",
+      "revId": "41bb0336e0b2048cbfa718bbbfc891ba84da4e94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa970a9f_bd6aecd3",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-21T21:14:59Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "915669fe_d5e64125",
       "revId": "41bb0336e0b2048cbfa718bbbfc891ba84da4e94",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
