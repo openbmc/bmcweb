@@ -303,6 +303,15 @@ option(
 )
 
 option(
+    'hypervisor-computer-system',
+    type: 'feature',
+    value: 'disabled',
+    description: '''This puts a hypervisor computer system resource at
+    /redfish/v1/Systems/hypervisor. This system resource has children
+    resources such as EthernetInterfaces and ComputerSystem.Reset.''',
+)
+
+option(
     'experimental-redfish-multi-computer-system',
     type: 'feature',
     value: 'disabled',
