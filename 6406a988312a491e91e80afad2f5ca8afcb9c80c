@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "deae0bcb_0c7ce4e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-08-21T19:27:37Z",
+      "side": 1,
+      "message": "I feel this can go. \nThe motivation is for environment metrics but I feel adding this property stands on its own.",
+      "revId": "6406a988312a491e91e80afad2f5ca8afcb9c80c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
