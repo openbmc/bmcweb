@@ -20,6 +20,41 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b32b1d88_a61c3fc4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2024-08-21T14:37:00Z",
+      "side": 1,
+      "message": "Hi @Gunnar,\nFrom this https://redfish.dmtf.org/schemas/v1/PowerSupply.v1_6_0.json",
+      "parentUuid": "47ecdd60_faf312f4",
+      "revId": "adcabd0ab552f8883e4b4bbf36b9b0ea20bfaa4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99b66c8e_376c2129",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2024-08-21T14:37:00Z",
+      "side": 1,
+      "message": "Hi @Gunnar,\nI recheck the schemas, there are no ProductionDate in processor and storage. So, I have removed it.\nPlease help review.",
+      "revId": "adcabd0ab552f8883e4b4bbf36b9b0ea20bfaa4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ee5587bb_96da461f",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 6
@@ -37,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "83e41d23_b9ab2869",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 2266,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2024-08-21T14:37:00Z",
+      "side": 1,
+      "message": "Same as above, from this https://redfish.dmtf.org/schemas/v1/PowerSupply.v1_6_0.json",
+      "parentUuid": "ee5587bb_96da461f",
+      "revId": "adcabd0ab552f8883e4b4bbf36b9b0ea20bfaa4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "630de3fb_d38950ba",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 6
@@ -48,6 +101,24 @@
       "writtenOn": "2024-08-09T18:53:04Z",
       "side": 1,
       "message": "How does this work if the interface BuildDate doesn\u0027t exist? Or is empty? I think on the other ones if it is empty, you don\u0027t put this out?",
+      "revId": "adcabd0ab552f8883e4b4bbf36b9b0ea20bfaa4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f03f18bc_873c92e5",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 2277,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2024-08-21T14:37:00Z",
+      "side": 1,
+      "message": "I see on the other ones and apply the same for the BuildDate. Do you have any suggestion for this case?",
+      "parentUuid": "630de3fb_d38950ba",
       "revId": "adcabd0ab552f8883e4b4bbf36b9b0ea20bfaa4a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
