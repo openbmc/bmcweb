@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18160bc4_946f1236",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-08-21T19:26:21Z",
+      "side": 0,
+      "message": "Comment still seems valid? Oh well.",
+      "revId": "d2cdd478072ab158ed28dea17e784db12517a6d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
