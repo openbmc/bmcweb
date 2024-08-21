@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "90fe5dc4_668d1c96",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2844,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-08-21T20:27:29Z",
+      "side": 1,
+      "message": "I hardcoded to 2. Done.",
+      "parentUuid": "60bd9642_60ad10e2",
+      "range": {
+        "startLine": 2833,
+        "startChar": 0,
+        "endLine": 2844,
+        "endChar": 9
+      },
+      "revId": "bc4e1ea62e90d42f77760b3e3d33a443ca09d831",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "85e5db20_5e24aa75",
@@ -37,6 +61,24 @@
       "writtenOn": "2024-08-21T19:57:21Z",
       "side": 1,
       "message": "this can now just use ifaceArray.",
+      "revId": "bc4e1ea62e90d42f77760b3e3d33a443ca09d831",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc1011fa_34953793",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2850,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-08-21T20:27:29Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "85e5db20_5e24aa75",
       "revId": "bc4e1ea62e90d42f77760b3e3d33a443ca09d831",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
