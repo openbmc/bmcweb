@@ -239,6 +239,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "107b8fb3_a0bcb967",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-21T15:48:58Z",
+      "side": 1,
+      "message": "Regardless of how they\u0027re namespaced, we need to explicitly call out all the options here, to make it clear how the conversion works.  Otherwise if telemetry service adds an option that\u0027s not in redfish, we have the potential to cause problems.",
+      "parentUuid": "c22d59bd_ad1311b8",
+      "range": {
+        "startLine": 103,
+        "startChar": 11,
+        "endLine": 103,
+        "endChar": 35
+      },
+      "revId": "4f980a63b8e7e6fa6eae2657f0c3a927f940aabd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8a984e5c_69004f09",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 4
@@ -417,6 +441,30 @@
       "side": 1,
       "message": "Actually, there\u0027s a second type used here, which is `nlohman::json::object_t`. That\u0027s why template needs to stay. Changed parameter to std::span.",
       "parentUuid": "c6dd7ce9_a1f34779",
+      "range": {
+        "startLine": 128,
+        "startChar": 16,
+        "endLine": 128,
+        "endChar": 25
+      },
+      "revId": "4f980a63b8e7e6fa6eae2657f0c3a927f940aabd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "827c433a_02ec62c3",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-21T15:48:58Z",
+      "side": 1,
+      "message": "we\u0027re passing span\u003cstring\u003e and span\u003cobject_t\u003e ?\n\nCould we just pass this as a nlohmann::json::array_t?",
+      "parentUuid": "56e26d2a_e9e24cc0",
       "range": {
         "startLine": 128,
         "startChar": 16,

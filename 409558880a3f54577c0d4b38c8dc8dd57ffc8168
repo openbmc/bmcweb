@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b72a6e9_7c8055d6",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-21T15:48:58Z",
+      "side": 1,
+      "message": "This code is really hard to read and understand.  Please fix it.",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 132,
+        "endChar": 25
+      },
+      "revId": "409558880a3f54577c0d4b38c8dc8dd57ffc8168",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eccd1a9c_62bf6883",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-21T15:48:58Z",
+      "side": 1,
+      "message": "This looks really odd, propertyValueIncorrect takes a nlohmann::json\u0026, so you\u0027re taking the array, converting it to a string, then converting the string back to a nlohmann object?\n\narray -\u003e string -\u003e nlohmann\n\nwhy not just go\n\narray -\u003e nlohmann?",
+      "range": {
+        "startLine": 141,
+        "startChar": 16,
+        "endLine": 142,
+        "endChar": 72
+      },
+      "revId": "409558880a3f54577c0d4b38c8dc8dd57ffc8168",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78258059_c62090c1",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 861,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-21T15:48:58Z",
+      "side": 1,
+      "message": "Why are we converting this into a json array just to handle error messages?  \n\nJust make a new function similar to verifyParameterArray that handles the type of args.metrics",
+      "range": {
+        "startLine": 856,
+        "startChar": 0,
+        "endLine": 861,
+        "endChar": 17
+      },
+      "revId": "409558880a3f54577c0d4b38c8dc8dd57ffc8168",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b18b8dd7_8628fbff",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 871,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-21T15:48:58Z",
+      "side": 1,
+      "message": "This lambda is far longer than what we allow for new code anymore.",
+      "range": {
+        "startLine": 812,
+        "startChar": 0,
+        "endLine": 871,
+        "endChar": 17
+      },
+      "revId": "409558880a3f54577c0d4b38c8dc8dd57ffc8168",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
