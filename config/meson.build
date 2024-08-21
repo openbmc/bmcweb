@@ -47,9 +47,7 @@ string_options = [
     'redfish-system-uri-name',
 ]
 
-int_options = [
-    'http-body-limit',
-]
+int_options = ['http-body-limit']
 
 feature_options_string = '\n//Feature options\n'
 string_options_string = '\n// String options\n'
@@ -105,9 +103,9 @@ configure_file(
     output: 'bmcweb.socket',
     install_dir: systemd_system_unit_dir,
     install: true,
-    configuration: configuration_data({
-        'BMCWEB_HTTPS_PORT': get_option('https_port'),
-    }),
+    configuration: configuration_data(
+        {'BMCWEB_HTTPS_PORT': get_option('https_port')},
+    ),
 )
 
 configure_file(
@@ -115,14 +113,10 @@ configure_file(
     output: 'bmcweb.service',
     install_dir: systemd_system_unit_dir,
     install: true,
-    configuration: configuration_data({
-        'MESON_INSTALL_PREFIX': get_option('prefix'),
-    }),
+    configuration: configuration_data(
+        {'MESON_INSTALL_PREFIX': get_option('prefix')},
+    ),
 )
 
 # Copy pam-webserver to etc/pam.d
-install_data(
-    'pam-webserver',
-    install_dir: '/etc/pam.d/',
-    rename: 'webserver',
-)
+install_data('pam-webserver', install_dir: '/etc/pam.d/', rename: 'webserver')
