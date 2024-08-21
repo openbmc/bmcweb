@@ -29,6 +29,19 @@ TEST(DbusUtils, AfterPropertySetSuccess)
     afterSetProperty(asyncResp, "MyRedfishProperty",
                      nlohmann::json("MyRedfishValue"), ec, msg);
 
+    EXPECT_EQ(asyncResp->res.result(), boost::beast::http::status::no_content);
+}
+
+TEST(DbusUtils, AfterActionPropertySetSuccess)
+{
+    std::shared_ptr<bmcweb::AsyncResp> asyncResp =
+        std::make_shared<bmcweb::AsyncResp>();
+
+    boost::system::error_code ec;
+    sdbusplus::message_t msg;
+    afterSetPropertyAction(asyncResp, "MyRedfishProperty",
+                           nlohmann::json("MyRedfishValue"), ec, msg);
+
     EXPECT_EQ(asyncResp->res.result(), boost::beast::http::status::ok);
     EXPECT_EQ(asyncResp->res.jsonValue,
               R"({
