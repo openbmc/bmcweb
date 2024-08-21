@@ -69,6 +69,24 @@
       "parentUuid": "a910e8b9_d5fa5468",
       "revId": "d32ee477982109accc36a3cff4d776d73faa8e2c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48e8141f_f251fc22",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2874,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-08-21T19:36:33Z",
+      "side": 1,
+      "message": "I implemented the option in the commit below. I changed this commit to use the new option. Done.",
+      "parentUuid": "f8af07d5_713b2788",
+      "revId": "d32ee477982109accc36a3cff4d776d73faa8e2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
