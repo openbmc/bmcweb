@@ -65,6 +65,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "692def5d_298d6e39",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-08-22T17:48:15Z",
+      "side": 1,
+      "message": "You are right. Changed accordingly and removed the splitting part.",
+      "parentUuid": "459b0997_4f8db38e",
+      "range": {
+        "startLine": 313,
+        "startChar": 0,
+        "endLine": 313,
+        "endChar": 8
+      },
+      "revId": "7e4db2c39326fb04859be7c5a45a571c4b97234a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ae269863_fb45af61",
@@ -78,6 +102,24 @@
       "writtenOn": "2024-08-21T21:47:30Z",
       "side": 1,
       "message": "Why is this wrapper needed? I.e. why not just call getValidSystemPaths() directly from the callers?",
+      "revId": "7e4db2c39326fb04859be7c5a45a571c4b97234a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "790f2e69_c83c9dcf",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-08-22T17:48:15Z",
+      "side": 1,
+      "message": "This function should be called in various header files in redfish-core, not only systems.hpp. The wrapper serves solely the reason to provide a clear name that indicates what is going to happen.\nI could rename getValidSystemPaths to getComputerSystemDBusResources, but I felt doing it this way we end up having a  well named entry point to be used in other header files, and every subsequent call in the flow has a clear functionname-\u003efunctionality mapping.",
+      "parentUuid": "ae269863_fb45af61",
       "revId": "7e4db2c39326fb04859be7c5a45a571c4b97234a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -99,6 +141,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef510c22_8cde6e80",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-08-22T17:48:15Z",
+      "side": 1,
+      "message": "Done. Added missing param description.",
+      "parentUuid": "5f39871a_f9c3f0b5",
+      "revId": "7e4db2c39326fb04859be7c5a45a571c4b97234a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c6b6676c_dd9290a5",
@@ -112,6 +172,24 @@
       "writtenOn": "2024-08-22T14:55:12Z",
       "side": 1,
       "message": "This function doesn\u0027t look used anywhere.   I\u0027m not really clear on why it\u0027s so complex.\n\nGor examples:\nWhat is reqParams, and why is it passed all the way through?\nWhy are we calling the mapper 3 times?  (GetSubTreePaths, GetSubTree, and GetObject).  This should be 1, but it\u0027s not clear what we\u0027re attempting enough to give you a way to solve it.\nWhy are we writing a function for a one line call?\n\nNo need to answer these questions, lets just get an example of this being used, and we can burn it down.",
+      "revId": "7e4db2c39326fb04859be7c5a45a571c4b97234a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48d9eec8_698417d0",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-08-22T17:48:15Z",
+      "side": 1,
+      "message": "I provided some uses in systems.hpp. Also you are right the reqParams don\u0027t need to be passed to the callback, removed it.",
+      "parentUuid": "c6b6676c_dd9290a5",
       "revId": "7e4db2c39326fb04859be7c5a45a571c4b97234a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
