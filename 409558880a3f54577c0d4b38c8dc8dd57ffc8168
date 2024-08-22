@@ -154,6 +154,29 @@
       },
       "revId": "409558880a3f54577c0d4b38c8dc8dd57ffc8168",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "332f9524_5befdb8e",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1410,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-22T23:17:01Z",
+      "side": 1,
+      "message": "?  Delete shouldn\u0027t fail on an ID param.  No id was provided to the function.  This should be something like not found, right?",
+      "range": {
+        "startLine": 1410,
+        "startChar": 71,
+        "endLine": 1410,
+        "endChar": 73
+      },
+      "revId": "409558880a3f54577c0d4b38c8dc8dd57ffc8168",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
