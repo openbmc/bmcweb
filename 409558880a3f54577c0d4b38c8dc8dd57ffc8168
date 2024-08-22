@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a5796ef4_7e4a65d8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-22T23:13:28Z",
+      "side": 1,
+      "message": "Since this patch was last updated, there\u0027s a whole new host of generic error handling in the form of the setDbusProperty helper functions:\n\nhttps://github.com/openbmc/bmcweb/blob/4ed30a8b4c93bbae2362ceffba41abb60a11ab6b/redfish-core/include/utils/dbus_utils.hpp#L50\n\nIt would help quite a bit with the review if this code change were able to use those.",
+      "revId": "409558880a3f54577c0d4b38c8dc8dd57ffc8168",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7b72a6e9_7c8055d6",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 9
@@ -111,6 +128,29 @@
         "startChar": 70,
         "endLine": 1048,
         "endChar": 74
+      },
+      "revId": "409558880a3f54577c0d4b38c8dc8dd57ffc8168",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfac470c_7e7c7cc4",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1134,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-22T23:13:28Z",
+      "side": 1,
+      "message": "Suspect this is incorrect.",
+      "range": {
+        "startLine": 1133,
+        "startChar": 12,
+        "endLine": 1134,
+        "endChar": 79
       },
       "revId": "409558880a3f54577c0d4b38c8dc8dd57ffc8168",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
