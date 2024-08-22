@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fd43dc0_a79f1ffa",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-22T22:56:48Z",
+      "side": 1,
+      "message": "FYI, I changed these to string view, and the next line to starts_with.  Please review and test if it still works for you.",
+      "range": {
+        "startLine": 60,
+        "startChar": 31,
+        "endLine": 60,
+        "endChar": 42
+      },
+      "revId": "36a46b88f53b2a9319f3b21bfd95a7003f8c5d7d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
