@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9922218e_7cc2304f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-22T15:32:39Z",
+      "side": 1,
+      "message": "SpeedRPM would imply this is an RPM units sensor.  FanSpeedsPercent requires it to be a Percent units sensor, so I\u0027m not understanding why these are related.\n\nCan you update your commit message with a better explanation of this?",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 0
+      },
+      "revId": "6406a988312a491e91e80afad2f5ca8afcb9c80c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "deae0bcb_0c7ce4e2",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 4
@@ -32,6 +55,41 @@
       "side": 1,
       "message": "Ed and I talked with Redfish. \nThere are still questions about what the excerpt looks like until that is resolved, I am fine waiting here.\n\nI think there is some usefulness to SpeedRPM regardless of if it is in the excerpt. It is the fan speed in RPM, regardless of what the unit is for the Reading. E.g. If you only cared about RPM, look for SpeedRPM first.",
       "parentUuid": "deae0bcb_0c7ce4e2",
+      "revId": "6406a988312a491e91e80afad2f5ca8afcb9c80c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c82ec39_09f1cc2d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-22T15:32:39Z",
+      "side": 1,
+      "message": "My worry is that now we have two \"reading\" params that expose the exact same data, and I can\u0027t think of a way to write a correct reader that\u0027s simpler than just looking for Reading and units.  At the very least it\u0027s duplicating information, which makes EnvironmentalMetrics harder to implement (because it needs both parameters).\n\nWhat I expect is that Sensors are supposed to have Reading OR SpeedRPM, not both in the intent of the standard.\n\nIf we want to add this under an experimental option flag, I\u0027m fine with it and we can get it on as we get more information, but given how much the sensor subsystem is used (by basically everyone) I\u0027m worried about making API changes for all platforms without a full understanding of why.",
+      "parentUuid": "1fe28ea6_c11aaeb1",
+      "revId": "6406a988312a491e91e80afad2f5ca8afcb9c80c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "791260a9_2d9fa314",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 890,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-22T15:32:39Z",
+      "side": 1,
+      "message": "This call is so broken anymore we should probably just remove and let the vector grow normally",
       "revId": "6406a988312a491e91e80afad2f5ca8afcb9c80c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
