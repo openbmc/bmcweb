@@ -37,10 +37,10 @@
         <Annotation Term="OData.Description" String="The set of allowable values for an action parameter or read-write property."/>
       </Term>
       <Term Name="AllowableNumbers" Type="Collection(Edm.String)" Nullable="false">
-        <Annotation Term="OData.Description" String="The term specifies the numeric values or duration values, inclusive ranges of values, and incremental step values for a read-write property that are supported by the service, as defined in the 'Allowable values for numbers and durations' clause of the Redfish Specification."/>
+        <Annotation Term="OData.Description" String="The term specifies the numeric values or duration values, inclusive ranges of values, and incremental step values for an action parameter or a read-write property that are supported by the service, as defined in the 'Allowable values for numbers and durations' clause of the Redfish Specification."/>
       </Term>
       <Term Name="AllowablePattern" Type="Edm.String" Nullable="false">
-        <Annotation Term="OData.Description" String="The term specifies a regular expression that describes the allowable values for a read-write property as supported by the service."/>
+        <Annotation Term="OData.Description" String="The term specifies a regular expression that describes the allowable values for an action parameter or a read-write property as supported by the service."/>
       </Term>
       <Term Name="WriteableProperties" Type="Collection(Edm.String)" Nullable="false">
         <Annotation Term="OData.Description" String="The term specifies the properties supported as read-write.  The values contained are the names of the writable properties as defined in the Redfish schema that are available as read-write given the implementation, current configuration, and state of the resource.  This term might appear at the root level of a resource, or within an object.  For arrays of objects, the term might only appear in the first element of the array to indicate identical capabilities for every element in the array."/>

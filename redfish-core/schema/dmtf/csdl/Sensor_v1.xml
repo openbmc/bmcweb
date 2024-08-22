@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Sensor v1.9.0                                                       -->
+<!--# Redfish Schema:  Sensor v1.10.0                                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -211,7 +211,7 @@
         <Property Name="Reading" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The sensor value."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the sensor value."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the sensor value.  This property shall not be returned if the `Enabled` property is supported and contains `false`."/>
           <Annotation Term="Redfish.Excerpt"/>
         </Property>
         <Property Name="ReadingUnits" Type="Edm.String">
@@ -1239,6 +1239,19 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The date and time when the sensor started accumulating readings for the `LifetimeReading` property."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the date and time when the sensor started accumulating readings for the `LifetimeReading` property.  This might contain the same value as the production date of the device that contains this sensor."/>
+        </Property>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_10_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2024.2"/>
+
+      <EntityType Name="Sensor" BaseType="Sensor.v1_9_0.Sensor">
+        <Property Name="Enabled" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates whether the sensor is enabled and provides a reading."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the sensor is enabled and provides a `Reading`.  The value `true` shall indicate the sensor is enabled and returns the `Reading` property with a valid value.  The value `false` shall indicate the sensor is disabled, and shall not return the `Reading` property."/>
         </Property>
       </EntityType>
     </Schema>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Processor v1.20.0                                                   -->
+<!--# Redfish Schema:  Processor v1.20.1                                                   -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -208,7 +208,7 @@
         </Property>
         <Property Name="ProcessorId" Type="Processor.v1_0_0.ProcessorId"  Nullable="false">
           <Annotation Term="OData.Description" String="The identification information for this processor."/>
-          <Annotation Term="OData.LongDescription" String="This object shall contain identification information for this processor."/>
+          <Annotation Term="OData.LongDescription" String="This object shall contain identification information for this processor.  For additional property requirements, see the corresponding definition in the Redfish Data Model Specification."/>
         </Property>
         <Property Name="Status" Type="Resource.Status" Nullable="false">
           <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
@@ -249,33 +249,33 @@
         <Property Name="VendorId" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The vendor identification for this processor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the vendor identification information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the `ProcessorArchitecture` property, the service shall encode the value as a hex-encoded string following the regular expression pattern `^0x[0-9A-Fa-f]+$` or a decimal-encoded string following the regular expression pattern `^\d+$`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the vendor identification information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the `ProcessorArchitecture` property, the service shall encode the value as a hex-encoded string following the regular expression pattern `^0x[0-9A-Fa-f]+$` or a decimal-encoded string following the regular expression pattern `^\d+$`.  For additional property requirements, see the corresponding definition in the Redfish Data Model Specification."/>
         </Property>
         <Property Name="IdentificationRegisters" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The raw manufacturer-provided processor identification registers for this processor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the raw manufacturer-provided processor-specific identification registers of this processor's features."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the raw manufacturer-provided processor-specific identification registers of this processor's features.  For additional property requirements, see the corresponding definition in the Redfish Data Model Specification."/>
           <Annotation Term="Validation.Pattern" String="^0x[0-9A-Fa-f]+$"/>
         </Property>
         <Property Name="EffectiveFamily" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The effective family for this processor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the effective family information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the `ProcessorArchitecture` property, the service shall encode the value as a hex-encoded string following the regular expression pattern `^0x[0-9A-Fa-f]+$` or a decimal-encoded string following the regular expression pattern `^\d+$`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the effective family information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the `ProcessorArchitecture` property, the service shall encode the value as a hex-encoded string following the regular expression pattern `^0x[0-9A-Fa-f]+$` or a decimal-encoded string following the regular expression pattern `^\d+$`.  For additional property requirements, see the corresponding definition in the Redfish Data Model Specification."/>
         </Property>
         <Property Name="EffectiveModel" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The effective model for this processor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the effective model information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the `ProcessorArchitecture` property, the service shall encode the value as a hex-encoded string following the regular expression pattern `^0x[0-9A-Fa-f]+$` or a decimal-encoded string following the regular expression pattern `^\d+$`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the effective model information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the `ProcessorArchitecture` property, the service shall encode the value as a hex-encoded string following the regular expression pattern `^0x[0-9A-Fa-f]+$` or a decimal-encoded string following the regular expression pattern `^\d+$`.  For additional property requirements, see the corresponding definition in the Redfish Data Model Specification."/>
         </Property>
         <Property Name="Step" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The step value for this processor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the step or revision information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the `ProcessorArchitecture` property, the service shall encode the value as a hex-encoded string following the regular expression pattern `^0x[0-9A-Fa-f]+$` or a decimal-encoded string following the regular expression pattern `^\d+$`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the step or revision information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the `ProcessorArchitecture` property, the service shall encode the value as a hex-encoded string following the regular expression pattern `^0x[0-9A-Fa-f]+$` or a decimal-encoded string following the regular expression pattern `^\d+$`.  For additional property requirements, see the corresponding definition in the Redfish Data Model Specification."/>
         </Property>
         <Property Name="MicrocodeInfo" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The microcode information for this processor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the microcode information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the `ProcessorArchitecture` property, the service shall encode the value as a hex-encoded string following the regular expression pattern `^0x[0-9A-Fa-f]+$` or a decimal-encoded string following the regular expression pattern `^\d+$`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the microcode information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the `ProcessorArchitecture` property, the service shall encode the value as a hex-encoded string following the regular expression pattern `^0x[0-9A-Fa-f]+$` or a decimal-encoded string following the regular expression pattern `^\d+$`.  For additional property requirements, see the corresponding definition in the Redfish Data Model Specification."/>
         </Property>
       </ComplexType>
 
@@ -545,6 +545,12 @@
       <EntityType Name="Processor" BaseType="Processor.v1_0_14.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_0_16">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_0_15.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
@@ -654,6 +660,12 @@
       <EntityType Name="Processor" BaseType="Processor.v1_1_10.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_1_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_1_11.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.3"/>
@@ -736,6 +748,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="Processor" BaseType="Processor.v1_2_10.Processor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_2_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_2_11.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_3_0">
@@ -822,6 +840,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="Processor" BaseType="Processor.v1_3_11.Processor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_3_13">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_3_12.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_4_0">
@@ -1302,6 +1326,12 @@
       <EntityType Name="Processor" BaseType="Processor.v1_4_11.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_4_13">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_4_12.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -1382,6 +1412,12 @@
       <EntityType Name="Processor" BaseType="Processor.v1_5_10.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_5_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_5_11.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.3"/>
@@ -1442,6 +1478,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="Processor" BaseType="Processor.v1_6_8.Processor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_6_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_6_9.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_7_0">
@@ -1520,6 +1562,12 @@
       <EntityType Name="Processor" BaseType="Processor.v1_7_7.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_7_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_7_8.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
@@ -1585,6 +1633,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="Processor" BaseType="Processor.v1_8_6.Processor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_8_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_8_7.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_9_0">
@@ -1677,6 +1731,12 @@
       <EntityType Name="Processor" BaseType="Processor.v1_9_5.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_9_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_9_6.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.3"/>
@@ -1751,6 +1811,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="Processor" BaseType="Processor.v1_10_5.Processor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_10_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_10_6.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_11_0">
@@ -1864,6 +1930,12 @@
       <EntityType Name="Processor" BaseType="Processor.v1_11_5.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_11_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_11_6.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_12_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.1"/>
@@ -1914,6 +1986,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="Processor" BaseType="Processor.v1_12_4.Processor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_12_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_12_5.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_13_0">
@@ -1989,6 +2067,12 @@
       <EntityType Name="Processor" BaseType="Processor.v1_13_5.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_13_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_13_6.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_14_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
@@ -2027,6 +2111,12 @@
       <EntityType Name="Processor" BaseType="Processor.v1_14_4.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_14_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_14_5.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_15_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.1"/>
@@ -2061,6 +2151,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="Processor" BaseType="Processor.v1_15_3.Processor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_15_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_15_4.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_16_0">
@@ -2150,6 +2246,12 @@
       <EntityType Name="Processor" BaseType="Processor.v1_16_3.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_16_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_16_4.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_17_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.3"/>
@@ -2191,6 +2293,12 @@
       <EntityType Name="Processor" BaseType="Processor.v1_17_2.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_17_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_17_3.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_18_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.1"/>
@@ -2211,6 +2319,12 @@
       <EntityType Name="Processor" BaseType="Processor.v1_18_1.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_18_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_18_2.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_19_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.3"/>
@@ -2225,6 +2339,12 @@
       <EntityType Name="Processor" BaseType="Processor.v1_19_0.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_19_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_19_1.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_20_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2024.1"/>
@@ -2237,6 +2357,12 @@
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_20_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_20_0.Processor"/>
     </Schema>
 
   </edmx:DataServices>

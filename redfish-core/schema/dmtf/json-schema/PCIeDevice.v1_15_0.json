@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/PCIeDevice.v1_14_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/PCIeDevice.v1_15_0.json",
     "$ref": "#/definitions/PCIeDevice",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -798,6 +798,26 @@
                 }
             },
             "properties": {
+                "BadDLLPCount": {
+                    "description": "The total number of Bad DLLPs issued on the PCIe link by the receiver.",
+                    "longDescription": "This property shall contain the total number of Bad DLLPs issued on the PCIe link by the receiver.  A Bad DLLP in the context of PCIe communication is a packet that has encountered errors at the data link layer.  When a DLLP is considered bad, it means it has been corrupted or is incorrectly formatted, potentially due to transmission errors, hardware failures, or other issues that affect its integrity.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_15_0"
+                },
+                "BadTLPCount": {
+                    "description": "The total number of Bad TLPs issued on the PCIe link by the receiver.",
+                    "longDescription": "This property shall contain the total number of Bad TLPs issued on the PCIe link by the receiver.  A Bad TLP in the context of PCIe communication is a packet that cannot be properly processed due to errors at the transaction layer.  These errors could include corrupted data, incorrect packet formatting, invalid header information, or a mismatched checksum.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_15_0"
+                },
                 "CorrectableErrorCount": {
                     "description": "The total number of PCIe correctable errors for this device.",
                     "longDescription": "This property shall contain the total number of PCIe correctable errors for this device.",
@@ -1088,6 +1108,6 @@
     },
     "language": "en",
     "owningEntity": "DMTF",
-    "release": "2024.1",
-    "title": "#PCIeDevice.v1_14_0.PCIeDevice"
+    "release": "2024.2",
+    "title": "#PCIeDevice.v1_15_0.PCIeDevice"
 }

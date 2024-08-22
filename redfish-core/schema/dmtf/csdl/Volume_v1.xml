@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
-<!-- Copyright 2015-2023 Storage Networking Industry Association (SNIA), USA. All rights reserved.-->
+<!-- Copyright 2015-2024 Storage Networking Industry Association (SNIA), USA. All rights reserved.-->
 
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
 
@@ -80,6 +80,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Connection_v1.xml">
     <edmx:Include Namespace="Connection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/StoragePool_v1.xml">
+    <edmx:Include Namespace="StoragePool"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -1037,12 +1040,22 @@
         <Property Name="IOStatistics" Type="IOStatistics.v1_0_1.IOStatistics" Nullable="false">
           <Annotation Term="OData.Description" String="Statistics for this volume."/>
           <Annotation Term="OData.LongDescription" String="The value shall represent IO statistics for this volume."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_10_0"/>
+                <PropertyValue Property="Description" String="This property is deprecated in favor of the IOStatistics property in VolumeMetrics."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Property>
         <Property Name="RemainingCapacityPercent" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The percentage of the capacity remaining in the Volume."/>
           <Annotation Term="OData.LongDescription" String="If present, this value shall return  {[(SUM(AllocatedBytes) - SUM(ConsumedBytes)]/SUM(AllocatedBytes)}*100 represented as an integer value."/>
         </Property>
+
       </EntityType>
 
       <ComplexType Name="Links" BaseType="Volume.v1_1_0.Links">
@@ -1577,12 +1590,49 @@
       </ComplexType>
     </Schema>
 
-        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Volume.v1_10_0">
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Volume.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
-      <Annotation Term="OData.Description" String="This version was created to add ChangeStripSize to the OperationType enum."/>
+      <Annotation Term="OData.Description" String="This version was created to add ChangeStripSize to the OperationType enum, add the ALUA property for Reservations, and add ProvidingStoragePool to Links. It adds SupportsMultipleNamespaceAttachments and SupportsIOPerformanceHints to NVMeNamespaceProperties. It also deprecates IOStatistics in favor of IOStatistics in VolumeMetrics."/>
       <Annotation Term="Redfish.Release" String="1.2.6"/>
       <EntityType Name="Volume" BaseType="Volume.v1_9_0.Volume">
+        <Property Name="ALUA" Type="Volume.v1_10_0.ALUA">
+          <Annotation Term="OData.Description" String="ALUA properties for this volume."/>
+          <Annotation Term="OData.LongDescription" String="This shall identify the ALUA properties for this volume."/>
+        </Property>
       </EntityType>
+
+      <ComplexType Name="ALUA">
+        <Property Name="ANAGroupId" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The ANA group id for this volume."/>
+          <Annotation Term="OData.LongDescription" String="This shall contain the ANA group id for this volume."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="NVMeNamespaceProperties" BaseType="Volume.v1_9_0.NVMeNamespaceProperties">
+        <Annotation Term="OData.Description" String="Add the SupportsMultipathandSharing, and ReservationCapabilities properties."/>
+        <Property Name="SupportsMultipleNamespaceAttachments" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates whether the namespace may be attached to two or more controllers."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the namespace may be attached to two or more controllers."/>
+        </Property>
+        <Property Name="SupportsIOPerformanceHints" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates whether the namespace supports IO performance hints."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the namespace supports IO performance hints."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="Links" BaseType="Volume.v1_9_0.Links">
+        <Annotation Term="OData.Description" String="Add the ProvidingStoragePool property."/>
+        <NavigationProperty Name="ProvidingStoragePool" Type="StoragePool.StoragePool">
+          <Annotation Term="OData.Description" String="The StoragePool resource that provides this volume resource."/>
+          <Annotation
+            Term="OData.LongDescription"
+            String="This property shall contain a pointer to the StoragePool resource that provides this volume resource."/>
+        </NavigationProperty>
+      </ComplexType>
+
     </Schema>
   </edmx:DataServices>
 </edmx:Edmx>
