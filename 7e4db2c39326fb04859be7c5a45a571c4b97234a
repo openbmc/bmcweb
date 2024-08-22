@@ -126,6 +126,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5e015e95_e672d973",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-08-22T20:56:02Z",
+      "side": 1,
+      "message": "I don\u0027t have a strong opinion on this one. I suppose the compiler will probably optimize out the additional stack anyway.",
+      "parentUuid": "790f2e69_c83c9dcf",
+      "revId": "7e4db2c39326fb04859be7c5a45a571c4b97234a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5f39871a_f9c3f0b5",
         "filename": "redfish-core/include/utils/systems_utils.hpp",
         "patchSetId": 3
