@@ -91,6 +91,29 @@
       },
       "revId": "409558880a3f54577c0d4b38c8dc8dd57ffc8168",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba9d5db3_e3d92849",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1048,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-22T23:10:05Z",
+      "side": 1,
+      "message": "Why is this \"Id\"  We\u0027re not setting anything called Id here.  Shouldn\u0027t this be Enabled?  Can\u0027t we just hardcode this as a single message instead of calling a generic helper function?",
+      "range": {
+        "startLine": 1048,
+        "startChar": 70,
+        "endLine": 1048,
+        "endChar": 74
+      },
+      "revId": "409558880a3f54577c0d4b38c8dc8dd57ffc8168",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
