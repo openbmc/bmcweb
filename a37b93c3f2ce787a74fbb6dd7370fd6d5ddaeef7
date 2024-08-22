@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "abc23d67_90951eee",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-08-22T18:26:22Z",
+      "side": 1,
+      "message": "I adapted the code to the new hypervisor option, that has been just merged. Since we also came to an agreement on relocating the hypervisor code, I close this down.",
+      "parentUuid": "643f6fef_a70780ef",
+      "revId": "a37b93c3f2ce787a74fbb6dd7370fd6d5ddaeef7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8e5daffe_99b86a62",
