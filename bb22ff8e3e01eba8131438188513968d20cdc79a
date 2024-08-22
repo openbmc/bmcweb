@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ff4bb5a_53e0534b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-22T23:05:37Z",
+      "side": 1,
+      "message": "Please read the readme next to the json file you modified.  It gives you instructions for modification.",
+      "revId": "bb22ff8e3e01eba8131438188513968d20cdc79a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d0fe23b0_b40a4ef9",
@@ -38,6 +55,30 @@
       "side": 1,
       "message": "Thanks! \n\"Power Long Button Pressed.\" is not correct; it should be \"Power Button Long Pressed\"\n\nLet me correct them all and push a new patch set.",
       "parentUuid": "d0fe23b0_b40a4ef9",
+      "range": {
+        "startLine": 1191,
+        "startChar": 28,
+        "endLine": 1191,
+        "endChar": 76
+      },
+      "revId": "bb22ff8e3e01eba8131438188513968d20cdc79a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fdce9fe3_76556b34",
+        "filename": "redfish-core/include/registries/openbmc.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 1191,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-22T23:05:37Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "150ca418_7f0c4b93",
       "range": {
         "startLine": 1191,
         "startChar": 28,
