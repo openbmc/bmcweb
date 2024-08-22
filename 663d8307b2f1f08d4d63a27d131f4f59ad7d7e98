@@ -16,6 +16,24 @@
       "message": "Do you want to update this to say you had to use the meson format from master? (or even better mention the commit you used? E.g. is the latest, from 2 days ago, https://github.com/mesonbuild/meson/commit/df706807239095ddbbfd2975b3fe067ad6b5d535 )",
       "revId": "663d8307b2f1f08d4d63a27d131f4f59ad7d7e98",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "911684c1_1477f15c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-22T19:09:13Z",
+      "side": 1,
+      "message": "Probably a good idea.",
+      "parentUuid": "73b78f2a_fd4bb626",
+      "revId": "663d8307b2f1f08d4d63a27d131f4f59ad7d7e98",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
