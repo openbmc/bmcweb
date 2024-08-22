@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d651b818_081dde99",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-08-22T04:06:02Z",
+      "side": 1,
+      "message": "why can\u0027t we move this code to PasswordData? delegating the prompt parsing to it will make is easier for any future enhancements/customisation and better encapsulation.",
+      "revId": "d3390fa7378b1271f0bbfad19e98d8a28dfafa85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f21aea27_d65dee32",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-08-22T04:06:02Z",
+      "side": 1,
+      "message": "if we do the delegation as commented above then we could use a generic conversation function.",
+      "revId": "d3390fa7378b1271f0bbfad19e98d8a28dfafa85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
