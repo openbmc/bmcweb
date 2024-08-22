@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################                   -->
-<!--# Redfish Schema:  Storage v1.16.0                                                                 -->
+<!--# Redfish Schema:  Storage v1.17.0                                                                 -->
 <!--#                                                                                                  -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,                  -->
 <!--# available at http://www.dmtf.org/standards/redfish                                               -->
@@ -161,8 +161,8 @@
           </Annotation>
         </Parameter>
         <Parameter Name="CurrentEncryptionKey" Type="Edm.String">
-          <Annotation Term="OData.Description" String="The current local encryption key on the storage subsystem."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the current local encryption key on the storage subsystem.  Services may reject the action request if this parameter is not provided."/>
+          <Annotation Term="OData.Description" String="The current local encryption key on the storage subsystem.  This parameter is not needed if the controller does not currently have an encryption key."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the current local encryption key on the storage subsystem.  Services may reject the action request if this parameter is not provided or the value supplied does not match the current encryption key."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -201,6 +201,32 @@
             <Record>
               <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
               <PropertyValue Property="Version" String="v1_16_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <Action Name="SetControllerPassword" IsBound="true">
+        <Annotation Term="OData.Description" String="This action sets the controller boot password for a host-based storage controller."/>
+        <Annotation Term="OData.LongDescription" String="This action shall set the controller boot password for a host-based storage controller."/>
+        <Parameter Name="Storage" Type="Storage.v1_0_0.Actions"/>
+        <Parameter Name="CurrentPassword" Type="Edm.String">
+          <Annotation Term="OData.Description" String="The current controller password.  This parameter is not needed if the controller does not currently have a password."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the current controller password.  Services may reject the action request if this parameter is not provided or the value supplied does not match the current password."/>
+        </Parameter>
+        <Parameter Name="NewPassword" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Description" String="The new password to set for the controller."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the new password to set for the controller."/>
+        </Parameter>
+        <Parameter Name="SecurityKey" Type="Edm.String">
+          <Annotation Term="OData.Description" String="The security key for the controller.  This parameter is not needed if the controller does not have a security key."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the controller security key.  Services may reject the action request if this parameter is not provided or the value provided does not match the security key for the controller."/>
+        </Parameter>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_17_0"/>
             </Record>
           </Collection>
         </Annotation>
@@ -1421,6 +1447,39 @@
         <Member Name="UseLocalKey">
           <Annotation Term="OData.Description" String="The storage subsystem uses a local key for encryption."/>
         </Member>
+        <Member Name="PasswordOnly">
+          <Annotation Term="OData.Description" String="The storage subsystem uses a password, but no keys for encryption."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_17_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="PasswordWithExternalKey">
+          <Annotation Term="OData.Description" String="The storage subsystem uses a password and one or more external keys for encryption."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_17_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="PasswordWithLocalKey">
+          <Annotation Term="OData.Description" String="The storage subsystem uses a password and a local key for encryption."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_17_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
       </EnumType>
 
       <EntityType Name="StorageController" BaseType="Storage.v1_13_0.StorageController"/>
@@ -1510,7 +1569,7 @@
         </Property>
         <Property Name="ConfigurationLock" Type="Storage.v1_16_0.ConfigurationLock">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="Indicates whether in-band configuration requests to the storage subsystem are locked."/>
+          <Annotation Term="OData.Description" String="Indicates whether in-band configuration requests to the storage subsystem are locked.  Other properties, such as `ConfigurationLockState`, contain additional information regarding the status of the configuration lock."/>
           <Annotation Term="OData.LongDescription" String="This property shall indicate whether configuration requests to the storage subsystem are locked.  Services shall reject modification requests that contain the value `Partial`.  Modifying the value of this property may affect the `ConfigurationLock` property in `Drive` resources referenced by the `Drives` property."/>
         </Property>
       </EntityType>
@@ -1534,8 +1593,8 @@
 
       <EnumType Name="ConfigurationLock">
         <Member Name="Enabled">
-          <Annotation Term="OData.Description" String="In-band configuration requests are locked.  Configuration requests include applying firmware, updating security keys, and other hardware settings.  It does not include managing the volumes or data within the storage subsystem."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate in-band configuration requests are locked."/>
+          <Annotation Term="OData.Description" String="In-band configuration requests are locked as specified by `TargetConfigurationLockLevel`."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate in-band configuration requests are locked as specified by `TargetConfigurationLockLevel`."/>
         </Member>
         <Member Name="Disabled">
           <Annotation Term="OData.Description" String="In-band configuration requests are not locked."/>
@@ -1546,6 +1605,88 @@
           <Annotation Term="OData.LongDescription" String="This value shall indicate some in-band configuration requests are not locked while others are locked."/>
         </Member>
       </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_16_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions for `ConfigurationLock` to align with the new `TargetConfigurationLockLevel` property."/>
+      <EntityType Name="Storage" BaseType="Storage.v1_16_0.Storage"/>
+      <EntityType Name="StorageController" BaseType="Storage.v1_16_0.StorageController"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_17_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2024.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add the `SetControllerPassword` action.  It was also created to add `PasswordOnly`, `PasswordWithExternalKey`, and `PasswordWithLocalKey` to `EncryptionMode`."/>
+
+      <EntityType Name="Storage" BaseType="Storage.v1_16_1.Storage">
+        <Property Name="TargetConfigurationLockLevel" Type="Storage.v1_17_0.TargetConfigurationLockLevel">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates the target configuration lock level for the drive based upon the state of the `ConfigurationLock` property.  Other properties, such as `ConfigurationLockState`, contain additional information regarding the status of the configuration lock."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the target configuration lock level for the drive.  For NVMe subsystems, services shall implement the locking requirements specified by SNIA's Swordfish NVMe Model Overview and Mapping Guide."/>
+        </Property>
+      </EntityType>
+
+      <EntityType Name="StorageController" BaseType="Storage.v1_16_1.StorageController"/>
+
+      <EnumType Name="TargetConfigurationLockLevel">
+        <Member Name="Baseline">
+          <Annotation Term="OData.Description" String="The standard configuration lock level, corresponding to applying firmware, updating security keys, and modifying other hardware settings.  It does not include managing the volumes or data within the storage subsystem."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="ConfigLockOptions">
+        <Member Name="Unlocked">
+          <Annotation Term="OData.Description" String="The command is supported, able to be locked, and is currently unlocked."/>
+        </Member>
+        <Member Name="Locked">
+          <Annotation Term="OData.Description" String="The command is supported and is currently locked."/>
+        </Member>
+        <Member Name="LockdownUnsupported">
+          <Annotation Term="OData.Description" String="The command is supported but is not able to be locked."/>
+        </Member>
+        <Member Name="CommandUnsupported">
+          <Annotation Term="OData.Description" String="The command is not supported, therefore lockdown does not apply."/>
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="NVMeConfigurationLockState">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The configurable features that are able to be locked on an NVMe subsystem and their current lock state."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the configurable features that are able to be locked on an NVMe subsystem and their current lock state."/>
+        <Property Name="FirmwareCommit" Type="Storage.v1_17_0.ConfigLockOptions">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The lock state of the NVMe-defined Firmware Commit command."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the lock state of the NVMe-defined Firmware Commit command."/>
+        </Property>
+        <Property Name="Lockdown" Type="Storage.v1_17_0.ConfigLockOptions">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The lock state of the NVMe-defined Lockdown command."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the lock state of the NVMe-defined Lockdown command."/>
+        </Property>
+        <Property Name="SecuritySend" Type="Storage.v1_17_0.ConfigLockOptions">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The lock state of the NVMe-defined Security Send command."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the lock state of the NVMe-defined Security Send command."/>
+        </Property>
+        <Property Name="FirmwareImageDownload" Type="Storage.v1_17_0.ConfigLockOptions">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The lock state of the NVMe-defined Firmware Image Download command."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the lock state of the NVMe-defined Firmware Image Download command."/>
+        </Property>
+        <Property Name="VPDWrite" Type="Storage.v1_17_0.ConfigLockOptions">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The lock state of the NVMe-MI-defined VPD Write command."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the lock state of the NVMe-MI-defined VPD Write command."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="NVMeSubsystemProperties" BaseType="Storage.v1_16_0.NVMeSubsystemProperties">
+        <Property Name="ConfigurationLockState" Type="Storage.v1_17_0.NVMeConfigurationLockState">
+          <Annotation Term="OData.Description" String="The configurable features that are able to be locked from in-band usage on an NVMe subsystem and their current lock state."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the configurable features that are able to be locked from in-band usage on an NVMe subsystem and their current lock state."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

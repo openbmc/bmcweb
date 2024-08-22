@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/MetricReport.v1_5_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/MetricReport.v1_5_2.json",
     "$ref": "#/definitions/MetricReport",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -188,7 +188,7 @@
                 },
                 "MetricValue": {
                     "description": "The metric value, as a string.",
-                    "longDescription": "This property shall contain the metric value, as a string.",
+                    "longDescription": "This property shall contain the metric value, as a string.  For numeric metrics, the service shall convert the number to a string representation of the number.  For array metrics, the service shall convert the array to an RFC8259-defined JSON string.  For boolean metrics, this property shall contain the strings `true` or `false`.  If the metric value is `null`, this property shall contain `null`.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -239,5 +239,5 @@
     "language": "en",
     "owningEntity": "DMTF",
     "release": "2022.2",
-    "title": "#MetricReport.v1_5_1.MetricReport"
+    "title": "#MetricReport.v1_5_2.MetricReport"
 }

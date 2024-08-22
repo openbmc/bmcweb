@@ -9,7 +9,7 @@ import generate_schema_enums
 import requests
 from generate_schema_collections import generate_top_collections
 
-VERSION = "DSP8010_2024.1"
+VERSION = "DSP8010_2024.2"
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 
@@ -72,19 +72,18 @@ os.makedirs(json_schema_path)
 csdl_filenames = []
 json_schema_files = defaultdict(list)
 
-
 for zip_file in zip_ref.infolist():
     if zip_file.is_dir():
         continue
-    if zip_file.filename.startswith("csdl/"):
+    if zip_file.filename.startswith(VERSION + "/csdl/"):
         csdl_filenames.append(os.path.basename(zip_file.filename))
-    elif zip_file.filename.startswith("json-schema/"):
+    elif zip_file.filename.startswith(VERSION + "/json-schema/"):
         filename = os.path.basename(zip_file.filename)
         filenamesplit = filename.split(".")
         json_schema_files[filenamesplit[0]].append(filename)
-    elif zip_file.filename.startswith("openapi/"):
+    elif zip_file.filename.startswith(VERSION + "/openapi/"):
         pass
-    elif zip_file.filename.startswith("dictionaries/"):
+    elif zip_file.filename.startswith(VERSION + "/dictionaries/"):
         pass
 
 # sort the json files by version
@@ -99,12 +98,12 @@ json_schema_files = OrderedDict(
 
 for csdl_file in csdl_filenames:
     with open(os.path.join(schema_path, csdl_file), "wb") as schema_out:
-        content = zip_ref.read(os.path.join("csdl", csdl_file))
+        content = zip_ref.read(os.path.join(VERSION + "/csdl", csdl_file))
         content = content.replace(b"\r\n", b"\n")
         schema_out.write(content)
 
 for schema_filename, versions in json_schema_files.items():
-    zip_filepath = os.path.join("json-schema", versions[0])
+    zip_filepath = os.path.join(VERSION + "/json-schema", versions[0])
 
     with open(
         os.path.join(json_schema_path, versions[0]), "wb"

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  LogEntry v1.16.1                                                    -->
+<!--# Redfish Schema:  LogEntry v1.16.2                                                    -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -1710,7 +1710,7 @@
         <NavigationProperty Name="RelatedLogEntries" Type="Collection(LogEntry.LogEntry)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to other log entries that are related to this log entry."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `LogEntry` in this or other log services that are related to this log entry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `LogEntry` in this or other log services that are related to this log entry.  This property should be used to link a log entry indicating the resolution of a condition with a log entry for the initial condition."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -1744,6 +1744,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_12_4.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_12_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `RelatedLogEntries` should be used to link log entries that describe the initial condition from the log entry that describes the resolved condition."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_12_5.LogEntry"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_13_0">
@@ -1787,6 +1793,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_13_4.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_13_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `RelatedLogEntries` should be used to link log entries that describe the initial condition from the log entry that describes the resolved condition."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_13_5.LogEntry"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_14_0">
@@ -1865,6 +1877,12 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_14_3.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_14_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `RelatedLogEntries` should be used to link log entries that describe the initial condition from the log entry that describes the resolved condition."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_14_4.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_15_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.1"/>
@@ -1920,6 +1938,12 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_15_2.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_15_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `RelatedLogEntries` should be used to link log entries that describe the initial condition from the log entry that describes the resolved condition."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_15_3.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_16_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.3"/>
@@ -1936,6 +1960,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_16_0.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_16_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `RelatedLogEntries` should be used to link log entries that describe the initial condition from the log entry that describes the resolved condition."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_16_1.LogEntry"/>
     </Schema>
 
   </edmx:DataServices>
