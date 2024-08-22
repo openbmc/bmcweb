@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Certificate.v1_8_2.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Certificate.v1_8_3.json",
     "$ref": "#/definitions/Certificate",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -75,7 +75,7 @@
                 },
                 "CertificateString": {
                     "description": "The string for the certificate.",
-                    "longDescription": "This property shall contain the certificate, and the format shall follow the requirements specified by the `CertificateType` property value.  If the certificate contains any private keys, they shall be removed from the string in responses.  If the service does not know the private key for the certificate and is needed to use the certificate, the client shall provide the private key as part of the string in the `POST` request.",
+                    "longDescription": "This property shall contain the certificate, and the format shall follow the requirements specified by the `CertificateType` property value.  If the certificate contains any private keys, they shall be removed from the string in responses.  If the service does not know the private key for the certificate and is needed to use the certificate, the client shall provide the private key as part of the string in the `POST` request.  For additional property requirements, see the corresponding definition in the Redfish Data Model Specification.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -92,7 +92,7 @@
                         }
                     ],
                     "description": "The format of the certificate.",
-                    "longDescription": "This property shall contain the format type for the certificate.",
+                    "longDescription": "This property shall contain the format type for the certificate.  For additional property requirements, see the corresponding definition in the Redfish Data Model Specification.",
                     "readonly": true
                 },
                 "CertificateUsageTypes": {
@@ -694,5 +694,5 @@
     "language": "en",
     "owningEntity": "DMTF",
     "release": "2023.2",
-    "title": "#Certificate.v1_8_2.Certificate"
+    "title": "#Certificate.v1_8_3.Certificate"
 }

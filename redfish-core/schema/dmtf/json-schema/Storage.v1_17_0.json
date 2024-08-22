@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Storage.v1_16_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Storage.v1_17_0.json",
     "$ref": "#/definitions/Storage",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -28,6 +28,9 @@
                 },
                 "#Storage.ResetToDefaults": {
                     "$ref": "#/definitions/ResetToDefaults"
+                },
+                "#Storage.SetControllerPassword": {
+                    "$ref": "#/definitions/SetControllerPassword"
                 },
                 "#Storage.SetEncryptionKey": {
                     "$ref": "#/definitions/SetEncryptionKey"
@@ -110,6 +113,21 @@
             ],
             "type": "object"
         },
+        "ConfigLockOptions": {
+            "enum": [
+                "Unlocked",
+                "Locked",
+                "LockdownUnsupported",
+                "CommandUnsupported"
+            ],
+            "enumDescriptions": {
+                "CommandUnsupported": "The command is not supported, therefore lockdown does not apply.",
+                "LockdownUnsupported": "The command is supported but is not able to be locked.",
+                "Locked": "The command is supported and is currently locked.",
+                "Unlocked": "The command is supported, able to be locked, and is currently unlocked."
+            },
+            "type": "string"
+        },
         "ConfigurationLock": {
             "enum": [
                 "Enabled",
@@ -118,12 +136,12 @@
             ],
             "enumDescriptions": {
                 "Disabled": "In-band configuration requests are not locked.",
-                "Enabled": "In-band configuration requests are locked.  Configuration requests include applying firmware, updating security keys, and other hardware settings.  It does not include managing the volumes or data within the storage subsystem.",
+                "Enabled": "In-band configuration requests are locked as specified by `TargetConfigurationLockLevel`.",
                 "Partial": "Some in-band configuration requests are not locked while others are locked.  This value is used for status reporting to indicate that the storage subsystem is partially locked and client action is recommended."
             },
             "enumLongDescriptions": {
                 "Disabled": "This value shall indicate in-band configuration requests are not locked.",
-                "Enabled": "This value shall indicate in-band configuration requests are locked.",
+                "Enabled": "This value shall indicate in-band configuration requests are locked as specified by `TargetConfigurationLockLevel`.",
                 "Partial": "This value shall indicate some in-band configuration requests are not locked while others are locked."
             },
             "type": "string"
@@ -132,12 +150,23 @@
             "enum": [
                 "Disabled",
                 "UseExternalKey",
-                "UseLocalKey"
+                "UseLocalKey",
+                "PasswordOnly",
+                "PasswordWithExternalKey",
+                "PasswordWithLocalKey"
             ],
             "enumDescriptions": {
                 "Disabled": "Encryption is disabled on the storage subsystem.",
+                "PasswordOnly": "The storage subsystem uses a password, but no keys for encryption.",
+                "PasswordWithExternalKey": "The storage subsystem uses a password and one or more external keys for encryption.",
+                "PasswordWithLocalKey": "The storage subsystem uses a password and a local key for encryption.",
                 "UseExternalKey": "The storage subsystem uses one or more external keys for encryption.",
                 "UseLocalKey": "The storage subsystem uses a local key for encryption."
+            },
+            "enumVersionAdded": {
+                "PasswordOnly": "v1_17_0",
+                "PasswordWithExternalKey": "v1_17_0",
+                "PasswordWithLocalKey": "v1_17_0"
             },
             "type": "string"
         },
@@ -239,6 +268,98 @@
             },
             "type": "object"
         },
+        "NVMeConfigurationLockState": {
+            "additionalProperties": false,
+            "description": "The configurable features that are able to be locked on an NVMe subsystem and their current lock state.",
+            "longDescription": "This type shall contain the configurable features that are able to be locked on an NVMe subsystem and their current lock state.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "FirmwareCommit": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ConfigLockOptions"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The lock state of the NVMe-defined Firmware Commit command.",
+                    "longDescription": "This property shall contain the lock state of the NVMe-defined Firmware Commit command.",
+                    "readonly": true,
+                    "versionAdded": "v1_17_0"
+                },
+                "FirmwareImageDownload": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ConfigLockOptions"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The lock state of the NVMe-defined Firmware Image Download command.",
+                    "longDescription": "This property shall contain the lock state of the NVMe-defined Firmware Image Download command.",
+                    "readonly": true,
+                    "versionAdded": "v1_17_0"
+                },
+                "Lockdown": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ConfigLockOptions"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The lock state of the NVMe-defined Lockdown command.",
+                    "longDescription": "This property shall contain the lock state of the NVMe-defined Lockdown command.",
+                    "readonly": true,
+                    "versionAdded": "v1_17_0"
+                },
+                "SecuritySend": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ConfigLockOptions"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The lock state of the NVMe-defined Security Send command.",
+                    "longDescription": "This property shall contain the lock state of the NVMe-defined Security Send command.",
+                    "readonly": true,
+                    "versionAdded": "v1_17_0"
+                },
+                "VPDWrite": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ConfigLockOptions"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The lock state of the NVMe-MI-defined VPD Write command.",
+                    "longDescription": "This property shall contain the lock state of the NVMe-MI-defined VPD Write command.",
+                    "readonly": true,
+                    "versionAdded": "v1_17_0"
+                }
+            },
+            "type": "object"
+        },
         "NVMeSubsystemProperties": {
             "additionalProperties": false,
             "description": "Information specific to NVMe Subsystems.",
@@ -258,6 +379,19 @@
                 }
             },
             "properties": {
+                "ConfigurationLockState": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/NVMeConfigurationLockState"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The configurable features that are able to be locked from in-band usage on an NVMe subsystem and their current lock state.",
+                    "longDescription": "This property shall contain the configurable features that are able to be locked from in-band usage on an NVMe subsystem and their current lock state.",
+                    "versionAdded": "v1_17_0"
+                },
                 "MaxNamespacesSupported": {
                     "description": "The maximum number of namespace attachments supported by this NVMe Subsystem.",
                     "longDescription": "This property shall contain the maximum number of namespace attachments supported by this NVMe Subsystem.  If no maximum is specified, this property should not be implemented.",
@@ -444,14 +578,64 @@
             },
             "type": "string"
         },
+        "SetControllerPassword": {
+            "additionalProperties": false,
+            "description": "This action sets the controller boot password for a host-based storage controller.",
+            "longDescription": "This action shall set the controller boot password for a host-based storage controller.",
+            "parameters": {
+                "CurrentPassword": {
+                    "description": "The current controller password.  This parameter is not needed if the controller does not currently have a password.",
+                    "longDescription": "This parameter shall contain the current controller password.  Services may reject the action request if this parameter is not provided or the value supplied does not match the current password.",
+                    "type": "string"
+                },
+                "NewPassword": {
+                    "description": "The new password to set for the controller.",
+                    "longDescription": "This parameter shall contain the new password to set for the controller.",
+                    "requiredParameter": true,
+                    "type": "string"
+                },
+                "SecurityKey": {
+                    "description": "The security key for the controller.  This parameter is not needed if the controller does not have a security key.",
+                    "longDescription": "This parameter shall contain the controller security key.  Services may reject the action request if this parameter is not provided or the value provided does not match the security key for the controller.",
+                    "type": "string"
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_17_0"
+        },
         "SetEncryptionKey": {
             "additionalProperties": false,
             "description": "This action sets the local encryption key for the storage subsystem.",
             "longDescription": "This action shall set the local encryption key for the storage subsystem.",
             "parameters": {
                 "CurrentEncryptionKey": {
-                    "description": "The current local encryption key on the storage subsystem.",
-                    "longDescription": "This parameter shall contain the current local encryption key on the storage subsystem.  Services may reject the action request if this parameter is not provided.",
+                    "description": "The current local encryption key on the storage subsystem.  This parameter is not needed if the controller does not currently have an encryption key.",
+                    "longDescription": "This parameter shall contain the current local encryption key on the storage subsystem.  Services may reject the action request if this parameter is not provided or the value supplied does not match the current encryption key.",
                     "type": "string",
                     "versionAdded": "v1_14_0"
                 },
@@ -554,7 +738,7 @@
                             "type": "null"
                         }
                     ],
-                    "description": "Indicates whether in-band configuration requests to the storage subsystem are locked.",
+                    "description": "Indicates whether in-band configuration requests to the storage subsystem are locked.  Other properties, such as `ConfigurationLockState`, contain additional information regarding the status of the configuration lock.",
                     "longDescription": "This property shall indicate whether configuration requests to the storage subsystem are locked.  Services shall reject modification requests that contain the value `Partial`.  Modifying the value of this property may affect the `ConfigurationLock` property in `Drive` resources referenced by the `Drives` property.",
                     "readonly": false,
                     "versionAdded": "v1_16_0"
@@ -742,6 +926,20 @@
                     "longDescription": "This property shall contain a link to a resource collection of type `StoragePoolCollection`.  This property shall be used when an abstraction of media, rather than references to individual media, are used as the storage data source.",
                     "readonly": true,
                     "versionAdded": "v1_8_0"
+                },
+                "TargetConfigurationLockLevel": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/TargetConfigurationLockLevel"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Indicates the target configuration lock level for the drive based upon the state of the `ConfigurationLock` property.  Other properties, such as `ConfigurationLockState`, contain additional information regarding the status of the configuration lock.",
+                    "longDescription": "This property shall contain the target configuration lock level for the drive.  For NVMe subsystems, services shall implement the locking requirements specified by SNIA's Swordfish NVMe Model Overview and Mapping Guide.",
+                    "readonly": false,
+                    "versionAdded": "v1_17_0"
                 },
                 "Volumes": {
                     "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/VolumeCollection.json#/definitions/VolumeCollection",
@@ -1111,10 +1309,19 @@
             },
             "properties": {},
             "type": "object"
+        },
+        "TargetConfigurationLockLevel": {
+            "enum": [
+                "Baseline"
+            ],
+            "enumDescriptions": {
+                "Baseline": "The standard configuration lock level, corresponding to applying firmware, updating security keys, and modifying other hardware settings.  It does not include managing the volumes or data within the storage subsystem."
+            },
+            "type": "string"
         }
     },
     "language": "en",
     "owningEntity": "DMTF",
-    "release": "2024.1",
-    "title": "#Storage.v1_16_0.Storage"
+    "release": "2024.2",
+    "title": "#Storage.v1_17_0.Storage"
 }

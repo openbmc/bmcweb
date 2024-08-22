@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  AggregationSource v1.4.1                                            -->
+<!--# Redfish Schema:  AggregationSource v1.4.2                                            -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -143,8 +143,8 @@
         <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
         <NavigationProperty Name="ConnectionMethod" Type="ConnectionMethod.ConnectionMethod" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An array of links to the connection methods used to contact this aggregation source."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `ConnectionMethod` that are used to connect to the aggregation source."/>
+          <Annotation Term="OData.Description" String="A link to the connection method used to contact this aggregation source."/>
+          <Annotation Term="OData.LongDescription" String="This property shall a link to a resource of type `ConnectionMethod` that represents the method used to connect to the aggregation source."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="ResourcesAccessed" Type="Collection(Resource.Resource)">
@@ -188,6 +188,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="AggregationSource" BaseType="AggregationSource.v1_0_2.AggregationSource"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AggregationSource.v1_0_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for `ConnectionMethod` to show it's singular."/>
+      <EntityType Name="AggregationSource" BaseType="AggregationSource.v1_0_3.AggregationSource"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AggregationSource.v1_1_0">
@@ -332,6 +338,12 @@
       <EntityType Name="AggregationSource" BaseType="AggregationSource.v1_1_2.AggregationSource"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AggregationSource.v1_1_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for `ConnectionMethod` to show it's singular."/>
+      <EntityType Name="AggregationSource" BaseType="AggregationSource.v1_1_3.AggregationSource"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AggregationSource.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.3"/>
@@ -380,6 +392,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="AggregationSource" BaseType="AggregationSource.v1_2_2.AggregationSource"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AggregationSource.v1_2_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for `ConnectionMethod` to show it's singular."/>
+      <EntityType Name="AggregationSource" BaseType="AggregationSource.v1_2_3.AggregationSource"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AggregationSource.v1_3_0">
@@ -458,6 +476,12 @@
       <EntityType Name="AggregationSource" BaseType="AggregationSource.v1_3_2.AggregationSource"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AggregationSource.v1_3_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for `ConnectionMethod` to show it's singular."/>
+      <EntityType Name="AggregationSource" BaseType="AggregationSource.v1_3_3.AggregationSource"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AggregationSource.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.3"/>
@@ -470,6 +494,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="AggregationSource" BaseType="AggregationSource.v1_4_0.AggregationSource"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AggregationSource.v1_4_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for `ConnectionMethod` to show it's singular."/>
+      <EntityType Name="AggregationSource" BaseType="AggregationSource.v1_4_1.AggregationSource"/>
     </Schema>
 
   </edmx:DataServices>

@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.v1_12_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.v1_12_2.json",
     "$ref": "#/definitions/EthernetInterface",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -372,7 +372,7 @@
                 },
                 "HostName": {
                     "description": "The DNS host name, without any domain information.",
-                    "longDescription": "This property shall contain the DNS host name for this interface.  Modifying this property may modify the `HostName` in one or more `EthernetInterface` resources that belong to the same system, manager, or other device.  If this interface is subordinate to a `ComputerSystem` resource, modifying this property may modify the `HostName` of the `ComputerSystem` resource that contains this interface.  If this interface is subordinate to a `Manager` resource, modifying this property may modify the `HostName` of the `ManagerNetworkProtocol` resource of the `Manager` resource that contains this interface.",
+                    "longDescription": "This property shall contain the DNS host name for this interface.  Modifying this property may modify the `HostName` in one or more `EthernetInterface` resources that belong to the same system, manager, or other device.  If this interface is subordinate to a `ComputerSystem` resource, modifying this property may modify the `HostName` of the `ComputerSystem` resource that contains this interface.  If this interface is subordinate to a `Manager` resource, modifying this property may modify the `HostName` of the `ManagerNetworkProtocol` resource of the `Manager` resource that contains this interface.  Services should ignore this property in modification requests if `FQDN` is also provided in the same request.",
                     "readonly": false,
                     "type": [
                         "string",
@@ -973,5 +973,5 @@
     "language": "en",
     "owningEntity": "DMTF",
     "release": "2023.3",
-    "title": "#EthernetInterface.v1_12_1.EthernetInterface"
+    "title": "#EthernetInterface.v1_12_2.EthernetInterface"
 }
