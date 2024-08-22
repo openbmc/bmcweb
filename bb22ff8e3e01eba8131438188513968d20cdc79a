@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0fe23b0_b40a4ef9",
+        "filename": "redfish-core/include/registries/openbmc.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 1191,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-22T03:47:12Z",
+      "side": 1,
+      "message": "Please re-read this and organize like a sentence.  Its not a long power button",
+      "range": {
+        "startLine": 1191,
+        "startChar": 28,
+        "endLine": 1191,
+        "endChar": 76
+      },
+      "revId": "bb22ff8e3e01eba8131438188513968d20cdc79a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
