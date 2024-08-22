@@ -16,6 +16,24 @@
       "message": "I feel this can go. \nThe motivation is for environment metrics but I feel adding this property stands on its own.",
       "revId": "6406a988312a491e91e80afad2f5ca8afcb9c80c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fe28ea6_c11aaeb1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-08-22T15:14:32Z",
+      "side": 1,
+      "message": "Ed and I talked with Redfish. \nThere are still questions about what the excerpt looks like until that is resolved, I am fine waiting here.\n\nI think there is some usefulness to SpeedRPM regardless of if it is in the excerpt. It is the fan speed in RPM, regardless of what the unit is for the Reading. E.g. If you only cared about RPM, look for SpeedRPM first.",
+      "parentUuid": "deae0bcb_0c7ce4e2",
+      "revId": "6406a988312a491e91e80afad2f5ca8afcb9c80c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
