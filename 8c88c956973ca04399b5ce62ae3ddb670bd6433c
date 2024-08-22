@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "99e10ef8_031366ef",
+        "filename": "meson.build",
+        "patchSetId": 1
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-22T17:34:51Z",
+      "side": 1,
+      "message": "Yeah, that\u0027s my thinking;  When we update CI/yocto, I\u0027ll update this.\n\nAlso, we don\u0027t \"require\" 1.86 yet, so I think we\u0027re good.",
+      "parentUuid": "35298ac5_335f35d5",
+      "revId": "8c88c956973ca04399b5ce62ae3ddb670bd6433c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "251255da_21e93eae",
         "filename": "meson.build",
         "patchSetId": 1
@@ -31,6 +49,24 @@
       "writtenOn": "2024-08-22T14:54:25Z",
       "side": 1,
       "message": "you want a comment or anything?\n\n// 1.86.0 doens\u0027t pass ... hopefully a future 1.86.1 does",
+      "revId": "8c88c956973ca04399b5ce62ae3ddb670bd6433c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6278dc7_fe3c0718",
+        "filename": "meson.build",
+        "patchSetId": 1
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-22T17:34:51Z",
+      "side": 1,
+      "message": "Added a comment.",
+      "parentUuid": "251255da_21e93eae",
       "revId": "8c88c956973ca04399b5ce62ae3ddb670bd6433c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
