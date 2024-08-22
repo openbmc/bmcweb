@@ -45,6 +45,30 @@
       },
       "revId": "022fb01b4a0111681e4042c291069ce0b1354f0c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6010a944_e193160b",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-22T22:56:08Z",
+      "side": 1,
+      "message": "This code is gone now.",
+      "parentUuid": "26e9ffdb_e27d9675",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 179,
+        "endChar": 54
+      },
+      "revId": "022fb01b4a0111681e4042c291069ce0b1354f0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
