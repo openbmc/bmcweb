@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "83304e90_108f8d7b",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-22T14:48:18Z",
+      "side": 1,
+      "message": "Which code specifically?\n\n\u003e make is easier for any future enhancements/customisation and better encapsulation.\n\nI\u0027m not really sure what this means.  If you could make more clear which code you think should go into the PasswordData struct, that might help, or maybe propose what you\u0027d prefer to see?",
+      "parentUuid": "d651b818_081dde99",
+      "revId": "d3390fa7378b1271f0bbfad19e98d8a28dfafa85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f21aea27_d65dee32",
         "filename": "include/pam_authenticate.hpp",
         "patchSetId": 16
@@ -31,6 +49,24 @@
       "writtenOn": "2024-08-22T04:06:02Z",
       "side": 1,
       "message": "if we do the delegation as commented above then we could use a generic conversation function.",
+      "revId": "d3390fa7378b1271f0bbfad19e98d8a28dfafa85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea91973c_32d5b5da",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-22T14:48:18Z",
+      "side": 1,
+      "message": "I have no idea what this means, and I\u0027d prefer to keep the two conversation functions separate, because they accept different arguments and process different outputs.  If there\u0027s a way to consolidate that, fine, but if the change password conversation asks for a token, it shouldn\u0027t respond.",
+      "parentUuid": "f21aea27_d65dee32",
       "revId": "d3390fa7378b1271f0bbfad19e98d8a28dfafa85",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
