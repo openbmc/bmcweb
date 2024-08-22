@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/LogEntry.v1_16_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/LogEntry.v1_16_2.json",
     "$ref": "#/definitions/LogEntry",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -160,7 +160,7 @@
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/LogEntry.json#/definitions/LogEntry"
                     },
-                    "longDescription": "This property shall contain an array of links to resources of type `LogEntry` in this or other log services that are related to this log entry.",
+                    "longDescription": "This property shall contain an array of links to resources of type `LogEntry` in this or other log services that are related to this log entry.  This property should be used to link a log entry indicating the resolution of a condition with a log entry for the initial condition.",
                     "readonly": true,
                     "type": "array",
                     "versionAdded": "v1_12_0"
@@ -884,5 +884,5 @@
     "language": "en",
     "owningEntity": "DMTF",
     "release": "2023.3",
-    "title": "#LogEntry.v1_16_1.LogEntry"
+    "title": "#LogEntry.v1_16_2.LogEntry"
 }

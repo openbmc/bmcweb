@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Processor.v1_20_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Processor.v1_20_1.json",
     "$ref": "#/definitions/Processor",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -898,7 +898,7 @@
                 "ProcessorId": {
                     "$ref": "#/definitions/ProcessorId",
                     "description": "The identification information for this processor.",
-                    "longDescription": "This object shall contain identification information for this processor."
+                    "longDescription": "This object shall contain identification information for this processor.  For additional property requirements, see the corresponding definition in the Redfish Data Model Specification."
                 },
                 "ProcessorIndex": {
                     "description": "The logical index of this processor within the system.",
@@ -1170,7 +1170,7 @@
             "properties": {
                 "EffectiveFamily": {
                     "description": "The effective family for this processor.",
-                    "longDescription": "This property shall contain the effective family information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the `ProcessorArchitecture` property, the service shall encode the value as a hex-encoded string following the regular expression pattern `^0x[0-9A-Fa-f]+$` or a decimal-encoded string following the regular expression pattern `^\\d+$`.",
+                    "longDescription": "This property shall contain the effective family information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the `ProcessorArchitecture` property, the service shall encode the value as a hex-encoded string following the regular expression pattern `^0x[0-9A-Fa-f]+$` or a decimal-encoded string following the regular expression pattern `^\\d+$`.  For additional property requirements, see the corresponding definition in the Redfish Data Model Specification.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -1179,7 +1179,7 @@
                 },
                 "EffectiveModel": {
                     "description": "The effective model for this processor.",
-                    "longDescription": "This property shall contain the effective model information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the `ProcessorArchitecture` property, the service shall encode the value as a hex-encoded string following the regular expression pattern `^0x[0-9A-Fa-f]+$` or a decimal-encoded string following the regular expression pattern `^\\d+$`.",
+                    "longDescription": "This property shall contain the effective model information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the `ProcessorArchitecture` property, the service shall encode the value as a hex-encoded string following the regular expression pattern `^0x[0-9A-Fa-f]+$` or a decimal-encoded string following the regular expression pattern `^\\d+$`.  For additional property requirements, see the corresponding definition in the Redfish Data Model Specification.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -1188,7 +1188,7 @@
                 },
                 "IdentificationRegisters": {
                     "description": "The raw manufacturer-provided processor identification registers for this processor.",
-                    "longDescription": "This property shall contain the raw manufacturer-provided processor-specific identification registers of this processor's features.",
+                    "longDescription": "This property shall contain the raw manufacturer-provided processor-specific identification registers of this processor's features.  For additional property requirements, see the corresponding definition in the Redfish Data Model Specification.",
                     "pattern": "^0x[0-9A-Fa-f]+$",
                     "readonly": true,
                     "type": [
@@ -1198,7 +1198,7 @@
                 },
                 "MicrocodeInfo": {
                     "description": "The microcode information for this processor.",
-                    "longDescription": "This property shall contain the microcode information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the `ProcessorArchitecture` property, the service shall encode the value as a hex-encoded string following the regular expression pattern `^0x[0-9A-Fa-f]+$` or a decimal-encoded string following the regular expression pattern `^\\d+$`.",
+                    "longDescription": "This property shall contain the microcode information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the `ProcessorArchitecture` property, the service shall encode the value as a hex-encoded string following the regular expression pattern `^0x[0-9A-Fa-f]+$` or a decimal-encoded string following the regular expression pattern `^\\d+$`.  For additional property requirements, see the corresponding definition in the Redfish Data Model Specification.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -1217,7 +1217,7 @@
                 },
                 "Step": {
                     "description": "The step value for this processor.",
-                    "longDescription": "This property shall contain the step or revision information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the `ProcessorArchitecture` property, the service shall encode the value as a hex-encoded string following the regular expression pattern `^0x[0-9A-Fa-f]+$` or a decimal-encoded string following the regular expression pattern `^\\d+$`.",
+                    "longDescription": "This property shall contain the step or revision information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the `ProcessorArchitecture` property, the service shall encode the value as a hex-encoded string following the regular expression pattern `^0x[0-9A-Fa-f]+$` or a decimal-encoded string following the regular expression pattern `^\\d+$`.  For additional property requirements, see the corresponding definition in the Redfish Data Model Specification.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -1226,7 +1226,7 @@
                 },
                 "VendorId": {
                     "description": "The vendor identification for this processor.",
-                    "longDescription": "This property shall contain the vendor identification information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the `ProcessorArchitecture` property, the service shall encode the value as a hex-encoded string following the regular expression pattern `^0x[0-9A-Fa-f]+$` or a decimal-encoded string following the regular expression pattern `^\\d+$`.",
+                    "longDescription": "This property shall contain the vendor identification information as provided by the manufacturer of this processor.  If this property represents raw register data, as determined by the value of the `ProcessorArchitecture` property, the service shall encode the value as a hex-encoded string following the regular expression pattern `^0x[0-9A-Fa-f]+$` or a decimal-encoded string following the regular expression pattern `^\\d+$`.  For additional property requirements, see the corresponding definition in the Redfish Data Model Specification.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -1590,5 +1590,5 @@
     "language": "en",
     "owningEntity": "DMTF",
     "release": "2024.1",
-    "title": "#Processor.v1_20_0.Processor"
+    "title": "#Processor.v1_20_1.Processor"
 }

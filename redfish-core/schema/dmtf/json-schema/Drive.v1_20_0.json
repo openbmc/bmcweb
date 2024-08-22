@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Drive.v1_19_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Drive.v1_20_0.json",
     "$ref": "#/definitions/Drive",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -40,6 +40,21 @@
             },
             "type": "object"
         },
+        "ConfigLockOptions": {
+            "enum": [
+                "Unlocked",
+                "Locked",
+                "LockdownUnsupported",
+                "CommandUnsupported"
+            ],
+            "enumDescriptions": {
+                "CommandUnsupported": "The command is not supported, therefore lockdown does not apply.",
+                "LockdownUnsupported": "The command is supported but is not able to be locked.",
+                "Locked": "The command is supported and is currently locked.",
+                "Unlocked": "The command is supported, able to be locked, and is currently unlocked."
+            },
+            "type": "string"
+        },
         "ConfigurationLock": {
             "enum": [
                 "Enabled",
@@ -48,12 +63,12 @@
             ],
             "enumDescriptions": {
                 "Disabled": "In-band configuration requests are not locked.",
-                "Enabled": "In-band configuration requests are locked.  Configuration requests include applying firmware, updating security keys, and other hardware settings.  It does not include managing the volumes or data on the drive.",
+                "Enabled": "In-band configuration requests are locked as specified by `TargetConfigurationLockLevel`.",
                 "Partial": "Some in-band configuration requests are not locked while others are locked.  This value is used for status reporting to indicate that the drive is partially locked and client action is recommended."
             },
             "enumLongDescriptions": {
                 "Disabled": "This value shall indicate in-band configuration requests are not locked.",
-                "Enabled": "This value shall indicate in-band configuration requests are locked.",
+                "Enabled": "This value shall indicate in-band configuration requests are locked as specified by `TargetConfigurationLockLevel`.",
                 "Partial": "This value shall indicate some in-band configuration requests are not locked while others are locked."
             },
             "type": "string"
@@ -128,6 +143,16 @@
                         "null"
                     ]
                 },
+                "BlockSecurityIDEnabled": {
+                    "description": "Indicates if establishment of a TCG-defined security ID (SID) on the drive is blocked.",
+                    "longDescription": "This property shall indicate if establishment of a TCG-defined security ID (SID) on the drive is blocked.  The value `true` shall indicate the TCG-defined 'Block SID' command is sent to the drive during each drive boot sequence.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_20_0"
+                },
                 "BlockSizeBytes": {
                     "description": "The size, in bytes, of the smallest addressable unit, or block.",
                     "longDescription": "This property shall contain the size of the smallest addressable unit of the associated drive.",
@@ -174,7 +199,7 @@
                             "type": "null"
                         }
                     ],
-                    "description": "Indicates whether in-band configuration requests to the drive are locked.",
+                    "description": "Indicates whether in-band configuration requests to the drive are locked.  Other properties, such as `ConfigurationLockState`, contain additional information regarding the status of the configuration lock.",
                     "longDescription": "This property shall indicate whether configuration requests to the drive are locked.  Services shall reject modification requests that contain the value `Partial`.",
                     "readonly": false,
                     "versionAdded": "v1_19_0"
@@ -401,6 +426,19 @@
                     ],
                     "versionAdded": "v1_9_0"
                 },
+                "NVMe": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/NVMe"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "NVMe properties for this drive.",
+                    "longDescription": "This property shall contain NVMe-specific properties of this drive.",
+                    "versionAdded": "v1_20_0"
+                },
                 "Name": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
                     "readonly": true
@@ -573,6 +611,20 @@
                     "description": "The state of the status indicator, which communicates status information about this drive.",
                     "longDescription": "This property shall contain the status indicator state for the status indicator associated with this drive.  The `@Redfish.AllowableValues` annotation specifies the valid values for this property.",
                     "readonly": false
+                },
+                "TargetConfigurationLockLevel": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/TargetConfigurationLockLevel"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Indicates the target configuration lock level for the drive based upon the state of the `ConfigurationLock` property.  Other properties, such as `ConfigurationLockState`, contain additional information regarding the status of the configuration lock.",
+                    "longDescription": "This property shall contain the target configuration lock level for the drive.  For NVMe drives, services shall implement the locking requirements specified by SNIA's Swordfish NVMe Model Overview and Mapping Guide.",
+                    "readonly": false,
+                    "versionAdded": "v1_20_0"
                 },
                 "WriteCacheEnabled": {
                     "description": "An indication of whether the drive write cache is enabled.",
@@ -862,6 +914,133 @@
             },
             "type": "string"
         },
+        "NVMe": {
+            "additionalProperties": false,
+            "description": "NVMe properties for a drive.",
+            "longDescription": "This type shall contain NVMe-specific properties of a drive.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "ConfigurationLockState": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/NVMeConfigurationLockState"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The configurable features that are able to be locked from in-band usage on an NVMe subsystem and their current lock state.",
+                    "longDescription": "This property shall contain the configurable features that are able to be locked from in-band usage on an NVMe subsystem and their current lock state.",
+                    "versionAdded": "v1_20_0"
+                }
+            },
+            "type": "object"
+        },
+        "NVMeConfigurationLockState": {
+            "additionalProperties": false,
+            "description": "The configurable features that are able to be locked on an NVMe subsystem and their current lock state.",
+            "longDescription": "This type shall contain the configurable features that are able to be locked on an NVMe subsystem and their current lock state.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "FirmwareCommit": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ConfigLockOptions"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The lock state of the NVMe-defined Firmware Commit command.",
+                    "longDescription": "This property shall contain the lock state of the NVMe-defined Firmware Commit command.",
+                    "readonly": true,
+                    "versionAdded": "v1_20_0"
+                },
+                "FirmwareImageDownload": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ConfigLockOptions"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The lock state of the NVMe-defined Firmware Image Download command.",
+                    "longDescription": "This property shall contain the lock state of the NVMe-defined Firmware Image Download command.",
+                    "readonly": true,
+                    "versionAdded": "v1_20_0"
+                },
+                "Lockdown": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ConfigLockOptions"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The lock state of the NVMe-defined Lockdown command.",
+                    "longDescription": "This property shall contain the lock state of the NVMe-defined Lockdown command.",
+                    "readonly": true,
+                    "versionAdded": "v1_20_0"
+                },
+                "SecuritySend": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ConfigLockOptions"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The lock state of the NVMe-defined Security Send command.",
+                    "longDescription": "This property shall contain the lock state of the NVMe-defined Security Send command.",
+                    "readonly": true,
+                    "versionAdded": "v1_20_0"
+                },
+                "VPDWrite": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ConfigLockOptions"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The lock state of the NVMe-MI-defined VPD Write command.",
+                    "longDescription": "This property shall contain the lock state of the NVMe-MI-defined VPD Write command.",
+                    "readonly": true,
+                    "versionAdded": "v1_20_0"
+                }
+            },
+            "type": "object"
+        },
         "OemActions": {
             "additionalProperties": true,
             "description": "The available OEM-specific actions for this resource.",
@@ -1094,10 +1273,19 @@
                 "Rebuild": "The drive is being rebuilt."
             },
             "type": "string"
+        },
+        "TargetConfigurationLockLevel": {
+            "enum": [
+                "Baseline"
+            ],
+            "enumDescriptions": {
+                "Baseline": "The standard configuration lock level, corresponding to applying firmware, updating security keys, and modifying other hardware settings.  It does not include managing the volumes or data on the drive."
+            },
+            "type": "string"
         }
     },
     "language": "en",
     "owningEntity": "DMTF",
-    "release": "2024.1",
-    "title": "#Drive.v1_19_0.Drive"
+    "release": "2024.2",
+    "title": "#Drive.v1_20_0.Drive"
 }

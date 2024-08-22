@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ComputerSystem v1.22.1                                              -->
+<!--# Redfish Schema:  ComputerSystem v1.22.2                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -399,7 +399,7 @@
         <Property Name="UUID" Type="Resource.UUID">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The UUID for this system."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the universally unique identifier number for this system.  RFC4122 describes methods to create this value.  The value should be considered to be opaque.  Client software should only treat the overall value as a UUID and should not interpret any subfields within the UUID.  If the system supports SMBIOS, the property value should follow the SMBIOS 2.6 and later recommendation for converting the SMBIOS 16-byte UUID structure into the Redfish canonical `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx` string format, so that the property value matches the byte order presented by current OS APIs, such as WMI and dmidecode."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the universally unique identifier number for this system.  RFC4122 describes methods to create this value.  The value should be considered to be opaque.  Client software should only treat the overall value as a UUID and should not interpret any subfields within the UUID.  If the system supports SMBIOS, the property value should follow the SMBIOS 2.6 and later recommendation for converting the SMBIOS 16-byte UUID structure into the Redfish canonical `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx` string format, so that the property value matches the byte order presented by current OS APIs, such as WMI and dmidecode.  For additional property requirements, see the corresponding definition in the Redfish Data Model Specification."/>
         </Property>
         <Property Name="HostName" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -827,6 +827,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_0_21.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_0_23">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_0_22.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.1"/>
@@ -1068,6 +1074,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_1_19.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_1_21">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_1_20.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.2"/>
@@ -1299,6 +1311,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_2_18.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_2_20">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_2_19.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.3"/>
@@ -1451,6 +1469,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_3_17.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_3_19">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_3_18.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
@@ -1577,6 +1601,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_4_16.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_4_18">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_4_17.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_5_0">
@@ -1813,6 +1843,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_5_15.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_5_17">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_5_16.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.3"/>
@@ -1946,6 +1982,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_6_13.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_6_15">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_6_14.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -2048,6 +2090,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_7_12.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_7_14">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_7_13.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
@@ -2133,6 +2181,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_8_11.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_8_13">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_8_12.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_9_0">
@@ -2223,6 +2277,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_9_11.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_9_13">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_9_12.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.4"/>
@@ -2302,6 +2362,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_10_10.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_10_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_10_11.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_11_0">
@@ -2406,6 +2472,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_11_9.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_11_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_11_10.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_12_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.2"/>
@@ -2472,6 +2544,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_12_8.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_12_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_12_9.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_13_0">
@@ -2763,6 +2841,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_13_7.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_13_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_13_8.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_14_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
@@ -2858,6 +2942,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_14_6.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_14_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_14_7.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_15_0">
@@ -3000,6 +3090,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_15_5.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_15_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_15_6.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_16_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
@@ -3140,6 +3236,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_16_6.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_16_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_16_7.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_17_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
@@ -3191,6 +3293,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_17_5.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_17_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_17_6.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_18_0">
@@ -3269,6 +3377,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_18_4.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_18_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_18_5.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_19_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.2"/>
@@ -3314,6 +3428,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_19_4.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_19_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_19_5.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_20_0">
@@ -3367,6 +3487,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_20_3.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_20_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_20_4.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_21_0">
@@ -3442,6 +3568,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_21_1.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_21_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_21_2.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_22_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.3"/>
@@ -3454,6 +3586,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_22_0.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_22_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_22_1.ComputerSystem"/>
     </Schema>
 
   </edmx:DataServices>

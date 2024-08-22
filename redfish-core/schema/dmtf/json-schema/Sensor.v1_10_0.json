@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_9_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_10_0.json",
     "$ref": "#/definitions/Sensor",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -472,6 +472,16 @@
                     "longDescription": "This property shall represent the combination of current-carrying conductors that distribute power.",
                     "readonly": true
                 },
+                "Enabled": {
+                    "description": "Indicates whether the sensor is enabled and provides a reading.",
+                    "longDescription": "This property shall indicate whether the sensor is enabled and provides a `Reading`.  The value `true` shall indicate the sensor is enabled and returns the `Reading` property with a valid value.  The value `false` shall indicate the sensor is disabled, and shall not return the `Reading` property.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_10_0"
+                },
                 "Id": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
                     "readonly": true
@@ -720,7 +730,7 @@
                 "Reading": {
                     "description": "The sensor value.",
                     "excerpt": "Sensor",
-                    "longDescription": "This property shall contain the sensor value.",
+                    "longDescription": "This property shall contain the sensor value.  This property shall not be returned if the `Enabled` property is supported and contains `false`.",
                     "readonly": true,
                     "type": [
                         "number",
@@ -1022,7 +1032,7 @@
                 "Reading": {
                     "description": "The sensor value.",
                     "excerpt": "Sensor",
-                    "longDescription": "This property shall contain the sensor value.",
+                    "longDescription": "This property shall contain the sensor value.  This property shall not be returned if the `Enabled` property is supported and contains `false`.",
                     "readonly": true,
                     "type": [
                         "number",
@@ -1077,7 +1087,7 @@
                 "Reading": {
                     "description": "The sensor value.",
                     "excerpt": "Sensor",
-                    "longDescription": "This property shall contain the sensor value.",
+                    "longDescription": "This property shall contain the sensor value.  This property shall not be returned if the `Enabled` property is supported and contains `false`.",
                     "readonly": true,
                     "type": [
                         "number",
@@ -1169,7 +1179,7 @@
                 "Reading": {
                     "description": "The sensor value.",
                     "excerpt": "Sensor",
-                    "longDescription": "This property shall contain the sensor value.",
+                    "longDescription": "This property shall contain the sensor value.  This property shall not be returned if the `Enabled` property is supported and contains `false`.",
                     "readonly": true,
                     "type": [
                         "number",
@@ -1224,7 +1234,7 @@
                 "Reading": {
                     "description": "The sensor value.",
                     "excerpt": "Sensor",
-                    "longDescription": "This property shall contain the sensor value.",
+                    "longDescription": "This property shall contain the sensor value.  This property shall not be returned if the `Enabled` property is supported and contains `false`.",
                     "readonly": true,
                     "type": [
                         "number",
@@ -1308,7 +1318,7 @@
                 "Reading": {
                     "description": "The sensor value.",
                     "excerpt": "Sensor",
-                    "longDescription": "This property shall contain the sensor value.",
+                    "longDescription": "This property shall contain the sensor value.  This property shall not be returned if the `Enabled` property is supported and contains `false`.",
                     "readonly": true,
                     "type": [
                         "number",
@@ -1364,7 +1374,7 @@
                 "Reading": {
                     "description": "The sensor value.",
                     "excerpt": "Sensor",
-                    "longDescription": "This property shall contain the sensor value.",
+                    "longDescription": "This property shall contain the sensor value.  This property shall not be returned if the `Enabled` property is supported and contains `false`.",
                     "readonly": true,
                     "type": [
                         "number",
@@ -1495,7 +1505,7 @@
                 "Reading": {
                     "description": "The sensor value.",
                     "excerpt": "Sensor",
-                    "longDescription": "This property shall contain the sensor value.",
+                    "longDescription": "This property shall contain the sensor value.  This property shall not be returned if the `Enabled` property is supported and contains `false`.",
                     "readonly": true,
                     "type": [
                         "number",
@@ -1586,7 +1596,7 @@
                 "Reading": {
                     "description": "The sensor value.",
                     "excerpt": "Sensor",
-                    "longDescription": "This property shall contain the sensor value.",
+                    "longDescription": "This property shall contain the sensor value.  This property shall not be returned if the `Enabled` property is supported and contains `false`.",
                     "readonly": true,
                     "type": [
                         "number",
@@ -1630,7 +1640,7 @@
                 "Reading": {
                     "description": "The sensor value.",
                     "excerpt": "Sensor",
-                    "longDescription": "This property shall contain the sensor value.",
+                    "longDescription": "This property shall contain the sensor value.  This property shall not be returned if the `Enabled` property is supported and contains `false`.",
                     "readonly": true,
                     "type": [
                         "number",
@@ -1697,7 +1707,7 @@
                 "Reading": {
                     "description": "The sensor value.",
                     "excerpt": "Sensor",
-                    "longDescription": "This property shall contain the sensor value.",
+                    "longDescription": "This property shall contain the sensor value.  This property shall not be returned if the `Enabled` property is supported and contains `false`.",
                     "readonly": true,
                     "type": [
                         "number",
@@ -1898,6 +1908,6 @@
     },
     "language": "en",
     "owningEntity": "DMTF",
-    "release": "2024.1",
-    "title": "#Sensor.v1_9_0.Sensor"
+    "release": "2024.2",
+    "title": "#Sensor.v1_10_0.Sensor"
 }

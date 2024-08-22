@@ -1,7 +1,7 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/redfish-payload-annotations.v1_2_2.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/redfish-payload-annotations.v1_2_3.json",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2023 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "properties": {
         "@Redfish.ActionInfo": {
             "description": "The term can be applied to an action to specify a URI to an ActionInfo resource that describes the parameters supported by this instance of the action.",
@@ -134,7 +134,7 @@
             "readonly": true
         },
         "^([a-zA-Z_][a-zA-Z0-9_]*)?@Redfish.AllowableNumbers$": {
-            "description": "The term specifies the numeric values or duration values, inclusive ranges of values, and incremental step values for a read-write property that are supported by the service, as defined in the 'Allowable values for numbers and durations' clause of the Redfish Specification.",
+            "description": "The term specifies the numeric values or duration values, inclusive ranges of values, and incremental step values for an action parameter or a read-write property that are supported by the service, as defined in the 'Allowable values for numbers and durations' clause of the Redfish Specification.",
             "type": "array",
             "items": {
                 "type": "string"
@@ -142,7 +142,7 @@
             "readonly": true
         },
         "^([a-zA-Z_][a-zA-Z0-9_]*)?@Redfish.AllowablePattern$": {
-            "description": "The term specifies a regular expression that describes the allowable values for a read-write property as supported by the service.",
+            "description": "The term specifies a regular expression that describes the allowable values for an action parameter or a read-write property as supported by the service.",
             "type": "string",
             "readonly": true
         },
