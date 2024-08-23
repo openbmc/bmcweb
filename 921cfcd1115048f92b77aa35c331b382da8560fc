@@ -34,6 +34,24 @@
       "parentUuid": "344b7f71_0750bfcc",
       "revId": "921cfcd1115048f92b77aa35c331b382da8560fc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4034fd4_0fee6fd7",
+        "filename": "redfish-core/schema/dmtf/json-schema/info.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-08-23T14:16:40Z",
+      "side": 0,
+      "message": "Weird. This was added at the 2024.1. It doesn\u0027t appear there before. Yeah, I think we should just follow the script here and have the script delete it. \nhttps://github.com/openbmc/bmcweb/commit/f2a8e57ede74a8252100b2281e3f4d170aa69391#diff-a2b3fd976f7a8d0d34535ffd7706f02048f6472fcdf6692e65a475d4c996a77c",
+      "parentUuid": "294b030f_bf82f68b",
+      "revId": "921cfcd1115048f92b77aa35c331b382da8560fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
