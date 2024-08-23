@@ -333,6 +333,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a698fdcd_8fb6ba7f",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-23T22:17:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "107b8fb3_a0bcb967",
+      "range": {
+        "startLine": 103,
+        "startChar": 11,
+        "endLine": 103,
+        "endChar": 35
+      },
+      "revId": "4f980a63b8e7e6fa6eae2657f0c3a927f940aabd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a984e5c_69004f09",
@@ -571,6 +595,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8834b812_12a9aa00",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-23T22:17:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "827c433a_02ec62c3",
+      "range": {
+        "startLine": 128,
+        "startChar": 16,
+        "endLine": 128,
+        "endChar": 25
+      },
+      "revId": "4f980a63b8e7e6fa6eae2657f0c3a927f940aabd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "05bd50b6_d9a5e8b0",
@@ -602,6 +650,24 @@
       "side": 1,
       "message": "It\u0027s actually not that trivial. If backend returns back an error, it means there\u0027s a more generalized problem with an array, not specific to any of its member (e.g. item count being too big).\n\nFrom what I saw, if problem\u0027s with an object, backend might point out which field causes failure after a dot. This however seems to be a dead code, as I\u0027ve never been able to force that behavior. I\u0027m considering removing that code, which would simplify the handler here: we would remove that `\u003e\u003d key.size()` check and simply do a strict comparison between errorMessage and key.",
       "parentUuid": "05bd50b6_d9a5e8b0",
+      "revId": "4f980a63b8e7e6fa6eae2657f0c3a927f940aabd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61ebfac7_5710827f",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-23T22:17:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7401715e_a5b5ce0f",
       "revId": "4f980a63b8e7e6fa6eae2657f0c3a927f940aabd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },

@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4dfb8f5d_ed88e377",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-23T22:17:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b72a6e9_7c8055d6",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 132,
+        "endChar": 25
+      },
+      "revId": "409558880a3f54577c0d4b38c8dc8dd57ffc8168",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eccd1a9c_62bf6883",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-08-21T15:48:58Z",
       "side": 1,
       "message": "This looks really odd, propertyValueIncorrect takes a nlohmann::json\u0026, so you\u0027re taking the array, converting it to a string, then converting the string back to a nlohmann object?\n\narray -\u003e string -\u003e nlohmann\n\nwhy not just go\n\narray -\u003e nlohmann?",
+      "range": {
+        "startLine": 141,
+        "startChar": 16,
+        "endLine": 142,
+        "endChar": 72
+      },
+      "revId": "409558880a3f54577c0d4b38c8dc8dd57ffc8168",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "585aea1c_b4285766",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-23T22:17:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eccd1a9c_62bf6883",
       "range": {
         "startLine": 141,
         "startChar": 16,
@@ -87,6 +135,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9096d29_95cfd4b9",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 861,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-23T22:17:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78258059_c62090c1",
+      "range": {
+        "startLine": 856,
+        "startChar": 0,
+        "endLine": 861,
+        "endChar": 17
+      },
+      "revId": "409558880a3f54577c0d4b38c8dc8dd57ffc8168",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b18b8dd7_8628fbff",
@@ -100,6 +172,30 @@
       "writtenOn": "2024-08-21T15:48:58Z",
       "side": 1,
       "message": "This lambda is far longer than what we allow for new code anymore.",
+      "range": {
+        "startLine": 812,
+        "startChar": 0,
+        "endLine": 871,
+        "endChar": 17
+      },
+      "revId": "409558880a3f54577c0d4b38c8dc8dd57ffc8168",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42dbc707_5a4b3eb5",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 871,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-23T22:17:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b18b8dd7_8628fbff",
       "range": {
         "startLine": 812,
         "startChar": 0,
@@ -133,6 +229,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0028ba83_a74297ab",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1048,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-23T22:17:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba9d5db3_e3d92849",
+      "range": {
+        "startLine": 1048,
+        "startChar": 70,
+        "endLine": 1048,
+        "endChar": 74
+      },
+      "revId": "409558880a3f54577c0d4b38c8dc8dd57ffc8168",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dfac470c_7e7c7cc4",
@@ -156,6 +276,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "60090f3f_41aae408",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1134,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-23T22:17:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dfac470c_7e7c7cc4",
+      "range": {
+        "startLine": 1133,
+        "startChar": 12,
+        "endLine": 1134,
+        "endChar": 79
+      },
+      "revId": "409558880a3f54577c0d4b38c8dc8dd57ffc8168",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "332f9524_5befdb8e",
@@ -169,6 +313,30 @@
       "writtenOn": "2024-08-22T23:17:01Z",
       "side": 1,
       "message": "?  Delete shouldn\u0027t fail on an ID param.  No id was provided to the function.  This should be something like not found, right?",
+      "range": {
+        "startLine": 1410,
+        "startChar": 71,
+        "endLine": 1410,
+        "endChar": 73
+      },
+      "revId": "409558880a3f54577c0d4b38c8dc8dd57ffc8168",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18cee7fd_616aff05",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1410,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-23T22:17:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "332f9524_5befdb8e",
       "range": {
         "startLine": 1410,
         "startChar": 71,
