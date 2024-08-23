@@ -16,6 +16,23 @@
       "message": "No reason to hold this up.  Merge if you so desire.",
       "revId": "519de64c39d2a3d2c58e9fc07fa50176a307acc7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3312a917_02290eb7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-08-23T15:02:22Z",
+      "side": 1,
+      "message": "It looks good to me.",
+      "revId": "519de64c39d2a3d2c58e9fc07fa50176a307acc7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
