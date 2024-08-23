@@ -104,6 +104,24 @@
       "parentUuid": "5cc3b846_5fa3f197",
       "revId": "97f60d7a79a735a616853f01edccd9a2490cd8ef",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc57bc54_60a8357f",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-08-23T16:25:47Z",
+      "side": 1,
+      "message": "From a quick search on why we should explicitly define header we use: \n\n    This makes it clear to developers who read the source exactly what the source file in question requires.\n\n\n    This avoids issues where refactored headers cause compilation issues when they no longer require particular headers themselves. \n\nhttps://softwareengineering.stackexchange.com/questions/262019/is-it-good-practice-to-rely-on-headers-being-included-transitively",
+      "parentUuid": "2d326592_910ffc7c",
+      "revId": "97f60d7a79a735a616853f01edccd9a2490cd8ef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
