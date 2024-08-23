@@ -903,8 +903,36 @@ inline void
 
 inline void setReportTypeAndInterval(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, std::string_view id,
-    const std::string& reportingType, uint64_t recurrenceInterval)
+    const std::optional<std::string>& reportingType,
+    const std::optional<std::string>& recurrenceIntervalStr)
 {
+    std::string dbusReportingType;
+    if (reportingType)
+    {
+        dbusReportingType = toDbusReportingType(*reportingType);
+        if (dbusReportingType.empty())
+        {
+            messages::propertyValueNotInList(asyncResp->res, *reportingType,
+                                             "MetricReportDefinitionType");
+            return;
+        }
+    }
+
+    uint64_t recurrenceInterval = std::numeric_limits<uint64_t>::max();
+    if (recurrenceIntervalStr)
+    {
+        std::optional<std::chrono::milliseconds> durationNum =
+            time_utils::fromDurationString(*recurrenceIntervalStr);
+        if (!durationNum || durationNum->count() < 0)
+        {
+            messages::propertyValueIncorrect(
+                asyncResp->res, "RecurrenceInterval", *recurrenceIntervalStr);
+            return;
+        }
+
+        recurrenceInterval = static_cast<uint64_t>(durationNum->count());
+    }
+
     crow::connections::systemBus->async_method_call(
         [asyncResp, id = std::string(id)](const boost::system::error_code& ec) {
             if (!verifyCommonErrors(asyncResp->res, id, ec))
@@ -914,13 +942,20 @@ inline void setReportTypeAndInterval(
         },
         "xyz.openbmc_project.Telemetry", getDbusReportPath(id),
         "xyz.openbmc_project.Telemetry.Report", "SetReportingProperties",
-        reportingType, recurrenceInterval);
+        dbusReportingType, recurrenceInterval);
 }
 
 inline void
     setReportUpdates(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                      std::string_view id, const std::string& reportUpdates)
 {
+    std::string dbusReportUpdates = toDbusReportUpdates(reportUpdates);
+    if (dbusReportUpdates.empty())
+    {
+        messages::propertyValueNotInList(asyncResp->res, reportUpdates,
+                                         "ReportUpdates");
+        return;
+    }
     crow::connections::systemBus->async_method_call(
         [asyncResp, id = std::string(id)](const boost::system::error_code& ec) {
             if (!verifyCommonErrors(asyncResp->res, id, ec))
@@ -936,8 +971,14 @@ inline void
 
 inline void setReportActions(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, std::string_view id,
-    const std::vector<std::string>& dbusReportActions)
+    const std::vector<std::string>& reportActions)
 {
+    std::vector<std::string> dbusReportActions;
+    if (!toDbusReportActions(asyncResp->res, reportActions, dbusReportActions))
+    {
+        return;
+    }
+
     crow::connections::systemBus->async_method_call(
         [asyncResp, id = std::string(id)](const boost::system::error_code& ec) {
             if (!verifyCommonErrors(asyncResp->res, id, ec))
@@ -1118,59 +1159,18 @@ inline void handleReportPatch(
 
     if (reportUpdatesStr)
     {
-        std::string dbusReportUpdates = toDbusReportUpdates(*reportUpdatesStr);
-        if (dbusReportUpdates.empty())
-        {
-            messages::propertyValueNotInList(asyncResp->res, *reportUpdatesStr,
-                                             "ReportUpdates");
-            return;
-        }
-        setReportUpdates(asyncResp, id, dbusReportUpdates);
+        setReportUpdates(asyncResp, id, *reportUpdatesStr);
     }
 
     if (reportActionsStr)
     {
-        std::vector<std::string> dbusReportActions;
-        if (!toDbusReportActions(asyncResp->res, *reportActionsStr,
-                                 dbusReportActions))
-        {
-            return;
-        }
-        setReportActions(asyncResp, id, dbusReportActions);
+        setReportActions(asyncResp, id, *reportActionsStr);
     }
 
     if (reportingTypeStr || scheduleDurationStr)
     {
-        std::string dbusReportingType;
-        if (reportingTypeStr)
-        {
-            dbusReportingType = toDbusReportingType(*reportingTypeStr);
-            if (dbusReportingType.empty())
-            {
-                messages::propertyValueNotInList(asyncResp->res,
-                                                 *reportingTypeStr,
-                                                 "MetricReportDefinitionType");
-                return;
-            }
-        }
-
-        uint64_t recurrenceInterval = std::numeric_limits<uint64_t>::max();
-        if (scheduleDurationStr)
-        {
-            std::optional<std::chrono::milliseconds> durationNum =
-                time_utils::fromDurationString(*scheduleDurationStr);
-            if (!durationNum || durationNum->count() < 0)
-            {
-                messages::propertyValueIncorrect(
-                    asyncResp->res, "RecurrenceInterval", *scheduleDurationStr);
-                return;
-            }
-
-            recurrenceInterval = static_cast<uint64_t>(durationNum->count());
-        }
-
-        setReportTypeAndInterval(asyncResp, id, dbusReportingType,
-                                 recurrenceInterval);
+        setReportTypeAndInterval(asyncResp, id, reportingTypeStr,
+                                 scheduleDurationStr);
     }
 
     if (metrics)
