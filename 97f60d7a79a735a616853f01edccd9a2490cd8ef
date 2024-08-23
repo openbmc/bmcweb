@@ -16,6 +16,24 @@
       "message": "Can be removed",
       "revId": "97f60d7a79a735a616853f01edccd9a2490cd8ef",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d683a8ae_1d376758",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-23T15:06:54Z",
+      "side": 1,
+      "message": "This file still uses std::vector.... not sure why it can be removed?",
+      "parentUuid": "6c9a4086_5ddc9947",
+      "revId": "97f60d7a79a735a616853f01edccd9a2490cd8ef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
