@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fc977f45_ce0faa79",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000994
+      },
+      "writtenOn": "2024-08-23T09:40:39Z",
+      "side": 1,
+      "message": "Thank @Ed for your instruction, I\u0027m reading the https://github.com/openbmc/bmcweb/blob/master/redfish-core/include/registries/openbmc_message_registry.readmefirst.md \n\nI\u0027m wondering about #4 for the registryVersion updating.\n\nIn my case, I\u0027m adding a new message registry, so I need to update the registryVersion from 0.4.0 to 0.5.0, Isn\u0027t that correct?",
+      "parentUuid": "2ff4bb5a_53e0534b",
+      "revId": "bb22ff8e3e01eba8131438188513968d20cdc79a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d0fe23b0_b40a4ef9",
         "filename": "redfish-core/include/registries/openbmc.json",
         "patchSetId": 2
