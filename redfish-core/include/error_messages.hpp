@@ -580,6 +580,17 @@ void propertyValueTypeError(crow::Response& res, const nlohmann::json& arg1,
                             std::string_view arg2);
 
 /**
+ * @brief Formats PropertyValueError message into JSON
+ * Message body: "The value provided for the property <arg1> is not valid."
+ *
+ * @param[in] arg1 Parameter of message that will replace %1 in its body.
+ *
+ * @returns Message PropertyValueTypeError formatted to JSON */
+nlohmann::json propertyValueError(std::string_view arg1);
+
+void propertyValueError(crow::Response& res, std::string_view arg1);
+
+/**
  * @brief Formats ResourceNotFound message into JSON
  * Message body: "The requested resource of type <arg1> named <arg2> was not
  * found."
