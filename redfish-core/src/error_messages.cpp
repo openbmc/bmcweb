@@ -1015,6 +1015,26 @@ void propertyValueTypeError(crow::Response& res, const nlohmann::json& arg1,
 
 /**
  * @internal
+ * @brief Formats PropertyValueError message into JSON for the specified
+ * property
+ *
+ * See header file for more information
+ * @endinternal
+ */
+nlohmann::json propertyValueError(std::string_view arg1)
+{
+    return getLog(redfish::registries::base::Index::propertyValueError,
+                  std::to_array<std::string_view>({arg1}));
+}
+
+void propertyValueError(crow::Response& res, std::string_view arg1)
+{
+    res.result(boost::beast::http::status::bad_request);
+    addMessageToJson(res.jsonValue, propertyValueError(arg1), arg1);
+}
+
+/**
+ * @internal
  * @brief Formats ResourceNotFound message into JSONd
  *
  * See header file for more information
