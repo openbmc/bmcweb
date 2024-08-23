@@ -122,6 +122,24 @@
       "parentUuid": "2d326592_910ffc7c",
       "revId": "97f60d7a79a735a616853f01edccd9a2490cd8ef",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f97b167_c9d68580",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-08-23T16:32:14Z",
+      "side": 1,
+      "message": "Okay, I thought line 56 of the base code already used vectors and the explicit include was unnecessary.\n\n\u003e This avoids issues where refactored headers cause compilation issues when they no longer require particular headers themselves. \n\nMakes sense.",
+      "parentUuid": "2d326592_910ffc7c",
+      "revId": "97f60d7a79a735a616853f01edccd9a2490cd8ef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
