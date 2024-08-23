@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b5b25e9_011c4edb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-08-23T13:22:11Z",
+      "side": 1,
+      "message": "Hi Ed\ncode looks good. I have tested this latest patch set, it works as expected.\n\nHere is test results\n\nBasic redfish login works\ncurl --insecure -H \"Content-Type: application/json\" -X POST -D headers.txt https://${bmc}/redfish/v1/SessionService/Sessions -d \u0027{\"UserName\" :\"root\", \"Password\": \"0penBmc\"}\u0027\n{\n  \"@odata.id\": \"/redfish/v1/SessionService/Sessions/9qPyD09C1Y\",\n  \"@odata.type\": \"#Session.v1_7_0.Session\",\n  \"ClientOriginIPAddress\": \"10.0.2.2\",\n  \"Description\": \"Manager User Session\",\n  \"Id\": \"9qPyD09C1Y\",\n  \"Name\": \"User Session\",\n  \"Roles\": [\n    \"Administrator\"\n  ],\n  \"UserName\": \"root\"\n}\n\nIn case random Token passed, Token parameter will be ignored when google-authenticator is not configured, authentication still works.\ncurl --insecure -H \"Content-Type: application/json\" -X POST -D headers.txt https://${bmc}/redfish/v1/SessionService/Sessions -d \u0027{\"UserName\" :\"root\", \"Password\": \"0penBmc\",\"Token\": \"123456\"}\u0027\n{\n  \"@odata.id\": \"/redfish/v1/SessionService/Sessions/dEp900GWc9\",\n  \"@odata.type\": \"#Session.v1_7_0.Session\",\n  \"ClientOriginIPAddress\": \"10.0.2.2\",\n  \"Description\": \"Manager User Session\",\n  \"Id\": \"dEp900GWc9\",\n  \"Name\": \"User Session\",\n  \"Roles\": [\n    \"Administrator\"\n  ],\n  \"UserName\": \"root\"\n}\n\nTested with google-authenticator configuration:\n\nAuthentication works with valid TOTP token\ncurl --insecure -H \"Content-Type: application/json\" -X POST -D headers.txt https://${bmc}/redfish/v1/SessionService/Sessions -d \u0027{\"UserName\" :\"root\", \"Password\": \"0penBmc\",\"Token\": \"831050\"}\u0027\n{\n  \"@odata.id\": \"/redfish/v1/SessionService/Sessions/JtotnXielJ\",\n  \"@odata.type\": \"#Session.v1_7_0.Session\",\n  \"ClientOriginIPAddress\": \"10.0.2.2\",\n  \"Description\": \"Manager User Session\",\n  \"Id\": \"JtotnXielJ\",\n  \"Name\": \"User Session\",\n  \"Roles\": [\n    \"Administrator\"\n  ],\n  \"UserName\": \"root\"\n}\n\nAuthentication fails with invalid TOTP token\n\ncurl --insecure -H \"Content-Type: application/json\" -X POST -D headers.txt https://${bmc}/redfish/v1/SessionService/Sessions -d \u0027{\"UserName\" :\"root\", \"Password\": \"0penBmc\",\"Token\": \"831050\"}\u0027\n{\n  \"error\": {\n    \"@Message.ExtendedInfo\": [\n      {\n        \"@odata.type\": \"#Message.v1_1_1.Message\",\n        \"Message\": \"While accessing the resource at \u0027/redfish/v1/SessionService/Sessions\u0027, the service received an authorization error \u0027Invalid username or password\u0027.\",\n        \"MessageArgs\": [\n          \"/redfish/v1/SessionService/Sessions\",\n          \"Invalid username or password\"\n        ],\n        \"MessageId\": \"Base.1.18.1.ResourceAtUriUnauthorized\",\n        \"MessageSeverity\": \"Critical\",\n        \"Resolution\": \"Ensure that the appropriate access is provided for the service in order for it to access the URI.\"\n      }\n    ],\n    \"code\": \"Base.1.18.1.ResourceAtUriUnauthorized\",\n    \"message\": \"While accessing the resource at \u0027/redfish/v1/SessionService/Sessions\u0027, the service received an authorization error \u0027Invalid username or password\u0027.\"\n  }\n}\nlets get this commit merged",
+      "parentUuid": "4e89ca75_cf11a1c4",
+      "revId": "36a46b88f53b2a9319f3b21bfd95a7003f8c5d7d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6fd43dc0_a79f1ffa",
