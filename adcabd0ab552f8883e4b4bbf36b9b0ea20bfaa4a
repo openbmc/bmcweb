@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e99668e_8d01d88d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-08-23T16:14:03Z",
+      "side": 1,
+      "message": "PowerSupply schema is different from the PowerSupply complex in https://redfish.dmtf.org/schemas/v1/Power.v1_7_3.json \n\nPower is the old schemas. PowerSupply is part of the new scheams.\n\nThe validator should flag this",
+      "parentUuid": "b32b1d88_a61c3fc4",
+      "revId": "adcabd0ab552f8883e4b4bbf36b9b0ea20bfaa4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "99b66c8e_376c2129",
@@ -49,6 +67,41 @@
       "writtenOn": "2024-08-21T14:37:00Z",
       "side": 1,
       "message": "Hi @Gunnar,\nI recheck the schemas, there are no ProductionDate in processor and storage. So, I have removed it.\nPlease help review.",
+      "revId": "adcabd0ab552f8883e4b4bbf36b9b0ea20bfaa4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b411b24_5e637b9f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-08-23T16:14:03Z",
+      "side": 1,
+      "message": "Can you remove it from redfish-core/lib/sensors.hpp, since it isn\u0027t there either ?",
+      "parentUuid": "99b66c8e_376c2129",
+      "revId": "adcabd0ab552f8883e4b4bbf36b9b0ea20bfaa4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91766d51_1caa0f1d",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-08-23T16:14:03Z",
+      "side": 1,
+      "message": "This is the Power schema. This isn\u0027t the PowerSupply schema you are adding this to but the Power schema. https://redfish.dmtf.org/schemas/v1/Power.v1_7_3.json",
       "revId": "adcabd0ab552f8883e4b4bbf36b9b0ea20bfaa4a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -84,6 +137,24 @@
       "side": 1,
       "message": "Same as above, from this https://redfish.dmtf.org/schemas/v1/PowerSupply.v1_6_0.json",
       "parentUuid": "ee5587bb_96da461f",
+      "revId": "adcabd0ab552f8883e4b4bbf36b9b0ea20bfaa4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa24dcea_fd59d79f",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 2266,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-08-23T16:14:03Z",
+      "side": 1,
+      "message": "That schema is implemented here: https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/power_supply.hpp#L477\n\nThis is the Power schema. https://redfish.dmtf.org/schemas/v1/Power.v1_7_3.json",
+      "parentUuid": "83e41d23_b9ab2869",
       "revId": "adcabd0ab552f8883e4b4bbf36b9b0ea20bfaa4a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
