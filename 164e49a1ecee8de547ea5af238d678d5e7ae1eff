@@ -16,6 +16,29 @@
       "message": "Hi @Ed and @Gunnar, I followed your instructions in Patch Set 3. Please help me review that again!\n\nI wonder if any remain that do not match with the guidelines at https://github.com/openbmc/bmcweb/blob/master/redfish-core/include/registries/openbmc_message_registry.readmefirst.md",
       "revId": "164e49a1ecee8de547ea5af238d678d5e7ae1eff",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26297043_55b9dd41",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-26T16:45:27Z",
+      "side": 1,
+      "message": "Please read and understand this.  That is why your CI is breaking.",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 35
+      },
+      "revId": "164e49a1ecee8de547ea5af238d678d5e7ae1eff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
