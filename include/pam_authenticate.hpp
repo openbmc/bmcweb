@@ -9,8 +9,11 @@
 
 struct PasswordData
 {
-    std::string password;
-    std::optional<std::string> token;
+    using KVPair = std::pair<std::string_view, std::optional<std::string_view>>;
+    // assuming 2 prompts for now based on google authenticator needs.
+    using PromptData = std::array<KVPair, 2>;
+    PromptData promptData;
+    explicit PasswordData(PromptData data) : promptData(std::move(data)) {}
 
     int makeResponse(const pam_message& msg, pam_response& response)
     {
@@ -20,34 +23,26 @@ struct PasswordData
                 break;
             case PAM_PROMPT_ECHO_OFF:
             {
-                // Assume PAM is only prompting for the password as hidden input
-                // Allocate memory only when PAM_PROMPT_ECHO_OFF is encountered
-                size_t appPassSize = password.size();
-                if ((appPassSize + 1) > PAM_MAX_RESP_SIZE)
+                std::string prompt(msg.msg);
+                if (validatePrompt(prompt) != PAM_SUCCESS)
                 {
                     return PAM_CONV_ERR;
                 }
-                std::string_view message(msg.msg);
-                constexpr std::string_view passwordPrompt = "Password: ";
-                // String used by Google authenticator to ask for one time code
-                constexpr std::string_view totpPrompt = "Verification code: ";
-                if (message.starts_with(passwordPrompt))
-                {
-                    response.resp = strdup(password.c_str()); // Password input
-                }
-                else if (message.starts_with(totpPrompt))
-                {
-                    if (!token)
-                    {
-                        return PAM_CONV_ERR;
-                    }
-                    // TOTP input
-                    response.resp = strdup(token->c_str());
-                }
-                else
+                const auto* promptDataIter = std::ranges::find_if(
+                    promptData, [&prompt](const KVPair& data) {
+                        return prompt.starts_with(data.first);
+                    });
+                if (promptDataIter == promptData.end())
                 {
                     return PAM_CONV_ERR;
                 }
+                if (promptDataIter->second.has_value())
+                {
+                    response.resp =
+                        strdup(promptDataIter->second.value_or("").data());
+                    return PAM_SUCCESS;
+                }
+                return PAM_CONV_ERR;
             }
             break;
             case PAM_ERROR_MSG:
@@ -65,7 +60,16 @@ struct PasswordData
                 return PAM_CONV_ERR;
             }
         }
+        return PAM_SUCCESS;
+    }
 
+    static int validatePrompt(std::string_view prompt)
+    {
+        if (prompt.length() + 1 > PAM_MAX_MSG_SIZE)
+        {
+            BMCWEB_LOG_ERROR("length error", prompt);
+            return PAM_CONV_ERR;
+        }
         return PAM_SUCCESS;
     }
 };
@@ -120,7 +124,9 @@ inline int pamAuthenticateUser(std::string_view username,
                                std::optional<std::string> token)
 {
     std::string userStr(username);
-    PasswordData data{std::string(password), std::move(token)};
+    PasswordData data({PasswordData::KVPair{"Password:", password},
+                       {"Verification code:", token}});
+
     const struct pam_conv localConversation = {pamFunctionConversation, &data};
     pam_handle_t* localAuthHandle = nullptr; // this gets set by pam_start
 
@@ -218,9 +224,14 @@ inline int pamUpdatePassword(const std::string& username,
                              const std::string& password)
 {
     // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
+<<<<<<< HEAD
     char* passStrNoConst = const_cast<char*>(password.c_str());
     const struct pam_conv localConversation = {
         pamUpdatePasswordFunctionConversation, passStrNoConst};
+=======
+    PasswordData data({PasswordData::KVPair{"Password:", password.c_str()}});
+    const struct pam_conv localConversation = {pamFunctionConversation, &data};
+>>>>>>> b50ce065 (MFA Token: Pam function to verify TOTP token)
     pam_handle_t* localAuthHandle = nullptr; // this gets set by pam_start
 
     int retval = pam_start("webserver", username.c_str(), &localConversation,
