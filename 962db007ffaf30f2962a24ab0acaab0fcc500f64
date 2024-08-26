@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0abf21fc_e4dc6222",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1950,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-26T18:52:00Z",
+      "side": 0,
+      "message": "Please try to put refactors into their own patchset, so it\u0027s more obvious that nothing changed.  In this code block, i don\u0027t THINK anything changed, aside from moving it to a method (which is itself a great cleanup).",
+      "range": {
+        "startLine": 1929,
+        "startChar": 0,
+        "endLine": 1950,
+        "endChar": 15
+      },
+      "revId": "962db007ffaf30f2962a24ab0acaab0fcc500f64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

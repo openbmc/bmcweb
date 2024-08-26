@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75075391_88ed56f1",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1306,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-26T18:52:00Z",
+      "side": 1,
+      "message": "?  If the remove fails, do we want all subsequent removes to fail as well?  It\u0027s not clear to me what this diff accomplishes.",
+      "revId": "13db9f448ce40eab7bca53d8706dce5313dafcd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7da12da9_ae2be705",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1925,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-26T18:52:00Z",
+      "side": 1,
+      "message": "No longer looks used in this patch?",
+      "range": {
+        "startLine": 1925,
+        "startChar": 12,
+        "endLine": 1925,
+        "endChar": 45
+      },
+      "revId": "13db9f448ce40eab7bca53d8706dce5313dafcd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
