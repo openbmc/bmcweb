@@ -7,10 +7,45 @@
 #include <span>
 #include <string_view>
 
-struct PasswordData
+struct PamData
 {
-    std::string password;
-    std::optional<std::string> token;
+    using KVPair = std::pair<std::string_view, std::optional<std::string_view>>;
+    // assuming 2 prompts for now based on google authenticator needs.
+    using PromptData = std::array<KVPair, 2>;
+    PromptData promptData;
+    explicit PamData(PromptData data) : promptData(std::move(data)) {}
+
+    int makeResponse(std::string_view prompt, pam_response& response)
+    {
+        if (validatePrompt(prompt) != PAM_SUCCESS)
+        {
+            return PAM_CONV_ERR;
+        }
+        auto* promptDataIter =
+            std::find_if(promptData.begin(), promptData.end(),
+                         [&prompt](const PromptData::value_type& data) {
+                             return prompt.starts_with(data.first.data());
+                         });
+        if (promptDataIter == promptData.end())
+        {
+            return PAM_CONV_ERR;
+        }
+        if (promptDataIter->second.has_value())
+        {
+            response.resp = strdup(promptDataIter->second.value_or("").data());
+            return PAM_SUCCESS;
+        }
+        return PAM_CONV_ERR;
+    }
+    static int validatePrompt(std::string_view prompt)
+    {
+        if (prompt.length() + 1 > PAM_MAX_MSG_SIZE)
+        {
+            BMCWEB_LOG_ERROR("length error", prompt);
+            return PAM_CONV_ERR;
+        }
+        return PAM_SUCCESS;
+    }
 };
 
 // function used to get user input
@@ -27,7 +62,7 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msgs,
         return PAM_CONV_ERR;
     }
     // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-    PasswordData* appPass = reinterpret_cast<PasswordData*>(appdataPtr);
+    PamData* appPass = reinterpret_cast<PamData*>(appdataPtr);
     auto msgCount = static_cast<size_t>(numMsg);
     // NOLINTNEXTLINE(cppcoreguidelines-avoid-c-arrays)
     auto responseArrPtr = std::make_unique<pam_response[]>(msgCount);
@@ -47,33 +82,9 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msgs,
                 break;
             case PAM_PROMPT_ECHO_OFF:
             {
-                // Assume PAM is only prompting for the password as hidden input
-                // Allocate memory only when PAM_PROMPT_ECHO_OFF is encountered
-                size_t appPassSize = appPass->password.size();
-                if ((appPassSize + 1) > PAM_MAX_RESP_SIZE)
+                if (appPass->makeResponse(msg.msg, response) != PAM_SUCCESS)
                 {
-                    return PAM_CONV_ERR;
-                }
-                std::string_view message(msg.msg);
-                constexpr std::string_view passwordPrompt = "Password: ";
-                // String used by Google authenticator to ask for one time code
-                constexpr std::string_view totpPrompt = "Verification code: ";
-                if (message.starts_with(passwordPrompt))
-                {
-                    response.resp =
-                        strdup(appPass->password.c_str()); // Password input
-                }
-                else if (message.starts_with(totpPrompt))
-                {
-                    if (!appPass->token)
-                    {
-                        return PAM_CONV_ERR;
-                    }
-                    response.resp =
-                        strdup(appPass->token->c_str()); // TOTP input
-                }
-                else
-                {
+                    BMCWEB_LOG_ERROR("Pam error {}", msg.msg);
                     return PAM_CONV_ERR;
                 }
             }
@@ -104,7 +115,9 @@ inline int pamAuthenticateUser(std::string_view username,
                                std::optional<std::string> token)
 {
     std::string userStr(username);
-    PasswordData data{std::string(password), std::move(token)};
+    PamData data({PamData::KVPair{"Password:", password},
+                  {"Verification code:", token}});
+
     const struct pam_conv localConversation = {pamFunctionConversation, &data};
     pam_handle_t* localAuthHandle = nullptr; // this gets set by pam_start
 
@@ -138,9 +151,8 @@ inline int pamUpdatePassword(const std::string& username,
                              const std::string& password)
 {
     // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
-    char* passStrNoConst = const_cast<char*>(password.c_str());
-    const struct pam_conv localConversation = {pamFunctionConversation,
-                                               passStrNoConst};
+    PamData data({PamData::KVPair{"Password:", password.c_str()}});
+    const struct pam_conv localConversation = {pamFunctionConversation, &data};
     pam_handle_t* localAuthHandle = nullptr; // this gets set by pam_start
 
     int retval = pam_start("webserver", username.c_str(), &localConversation,
@@ -160,3 +172,28 @@ inline int pamUpdatePassword(const std::string& username,
 
     return pam_end(localAuthHandle, PAM_SUCCESS);
 }
+
+struct Totp
+{
+    static bool verify(std::string_view service, std::string_view username,
+                       std::string_view t)
+    {
+        PamData::PromptData data{PamData::KVPair{"Verification code:", t}};
+        pam_handle_t* pamh{nullptr};
+        pam_conv localConversation{&pamFunctionConversation, &data};
+        int retval = pam_start(service.data(), username.data(),
+                               &localConversation, &pamh);
+        if (retval != PAM_SUCCESS)
+        {
+            BMCWEB_LOG_ERROR("Pam start failed for {}", service.data());
+            return false;
+        }
+        bool ret = (pam_authenticate(pamh, 0) == PAM_SUCCESS);
+        if (pam_end(pamh, PAM_SUCCESS) != PAM_SUCCESS)
+        {
+            BMCWEB_LOG_ERROR("Pam end failed for {}", service.data());
+            return false;
+        }
+        return ret;
+    }
+};
