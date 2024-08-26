@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1f1ab289_bc10cadc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-08-26T16:36:17Z",
+      "side": 1,
+      "message": "Looks good. Just fill this out more. Something like: \n\nTelemetry: Refactor metric_report_definition\n\nMove the logic into the functions so the decision tree is easy to read. Follows the other patch properties already. \n\nTested: Inspection only. The top patch was tested and over loop with this one.",
+      "revId": "c4c8f9331bca8c788b9d78df8bea59c98602e85d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "488b5fb5_7ffd82e1",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 1
