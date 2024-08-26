@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6b28f71a_978ab1b8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-26T18:11:13Z",
+      "side": 1,
+      "message": "You\u0027ve ignored the part about this being some new file.  If this is only for phosphor-logging entries, then the behavior belongs in phosphor-logging, and we need a dbus interface added.",
+      "parentUuid": "5cc0b804_c64a76fd",
+      "revId": "6eafb53f8230dce579dd1f22afe5c6fff3de8fe3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6d6fd19f_a2322c1a",
         "filename": "/COMMIT_MSG",
         "patchSetId": 4
@@ -73,6 +91,30 @@
       "side": 1,
       "message": "updated this so the deletion only works for the phosphor-logging backend. So it is as before.",
       "parentUuid": "6d6fd19f_a2322c1a",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 51
+      },
+      "revId": "6eafb53f8230dce579dd1f22afe5c6fff3de8fe3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82822b99_d3c249c3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-26T18:11:13Z",
+      "side": 1,
+      "message": "Your commit message is still not enough detail/testing performed.",
+      "parentUuid": "c508241d_c812c833",
       "range": {
         "startLine": 25,
         "startChar": 0,
