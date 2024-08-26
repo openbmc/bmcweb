@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ab4c8f7_818e010e",
+        "filename": "redfish-core/include/error_messages.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-08-26T14:10:35Z",
+      "side": 1,
+      "message": "This doesn\u0027t match the message I\u0027m seeing in the registry,comment needs to be updated.",
+      "range": {
+        "startLine": 584,
+        "startChar": 0,
+        "endLine": 584,
+        "endChar": 2
+      },
+      "revId": "25c648c32f7077b5db3ed3b5086305681b7b0c2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f3e4ebd_0ec54fff",
+        "filename": "redfish-core/include/error_messages.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-08-26T14:10:35Z",
+      "side": 1,
+      "message": "This message only takes arg1.",
+      "range": {
+        "startLine": 588,
+        "startChar": 0,
+        "endLine": 588,
+        "endChar": 2
+      },
+      "revId": "25c648c32f7077b5db3ed3b5086305681b7b0c2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
