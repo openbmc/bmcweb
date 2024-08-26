@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8f1e1c4a_fd2ba6fa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-26T18:09:47Z",
+      "side": 1,
+      "message": "\u003e Is this usage contract written down somewhere?\n\nIn the code behavior of the user facing interface is the best resource to look at.  Look for things like property changes (entries that show up missing properties), full-behavior changes, or performance changes.\n\n\u003e  the result is still redfish compliant\n\n\"Redfish compliant\" doesn\u0027t mean anything.  This has for sure broken the rules on how circular collections are handled, so it\u0027s not compliant.  I\u0027m also fairly sure it breaks interop profiles.\n\n\u003e This specific patch is just about GET of an individual log entry\n\nThat doesn\u0027t change the point.\n\n\n\u003e I want to get all the entries without any options. \n\nWhy?\n\n\n\u003e one implementation can cover all use-cases.\n\nYou and I disagree on this point, which I\u0027m happy to chat about if you\u0027d rather.  I was trying to unblock you by letting you add an option key that you can go communicate the benefits of to other system owners/clients.  But if you\u0027d rather have all the patches wait on that, that\u0027s fine too.\n\n\n\u003e No one needs to worry about details of how Event Log works\n\nThis is an idealized statement, but the reality is that the two logging mechanisms support different features.",
+      "parentUuid": "3adb2a2c_fa582b19",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 0
+      },
+      "revId": "eaf4faa01dfa4e68a6943ff4513fd69410b295e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "84a66d27_4ce85a37",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
@@ -258,6 +282,24 @@
       "side": 1,
       "message": "\u003e Where is that documented? \n\nI did not find it documented anywhere. Same as the mysterious usage contract that seems to be going on with the redfish clients 😊\n\n\u003e there\u0027s been discussions in the past about simplifying the rsyslog IDs down to the monotonic journal id that would now be not possible if we\u0027re doing an explicit merge.\n\nif that id is monotonic and starts at some minimum value ```x``` then we can always offset it by ```n``` where ```n``` is the max amount of event logs expected to be provided by phosphor-logging backend (e.g. the desired 10000 or whatever)\n\nSo then externally the event log entries will have a unique id and be disjoint based on the backend.",
       "parentUuid": "0f4dd727_e0ff054a",
+      "revId": "eaf4faa01dfa4e68a6943ff4513fd69410b295e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b9f3dc2_fed2c80a",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1753,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-26T18:09:47Z",
+      "side": 1,
+      "message": "\u003e \u003e Where is that documented? \n\u003e \n\u003e I did not find it documented anywhere. Same as the mysterious usage contract that seems to be going on with the redfish clients 😊\n\nSo then lets keep them separate.  I\u0027m not aware of any requirement here that keeps the dbus IDs monotonic.  We treat the dbus ids as unique.\n\n\u003e \n\u003e \u003e there\u0027s been discussions in the past about simplifying the rsyslog IDs down to the monotonic journal id that would now be not possible if we\u0027re doing an explicit merge.\n\u003e \n\u003e if that id is monotonic and starts at some minimum value ```x``` then we can always offset it by ```n``` where ```n``` is the max amount of event logs expected to be provided by phosphor-logging backend (e.g. the desired 10000 or whatever)\n\u003e \n\u003e So then externally the event log entries will have a unique id and be disjoint based on the backend.\n\nYep, that\u0027s fair, if you assume that Redfish log collection behavior doesn\u0027t require circular buffer behavior.",
+      "parentUuid": "af30a808_a0efb6da",
       "revId": "eaf4faa01dfa4e68a6943ff4513fd69410b295e2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
