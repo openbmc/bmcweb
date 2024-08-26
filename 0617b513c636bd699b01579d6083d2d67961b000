@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9354ba9_7fa5bcb5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-26T17:40:42Z",
+      "side": 1,
+      "message": "Just to uplevel the one remaining comment.  The code here now looks correct and as-expected.  Waiting on changes to backing daemons to make this new inventory interface available for all single-host systems.",
+      "revId": "0617b513c636bd699b01579d6083d2d67961b000",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
