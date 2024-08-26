@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4ac660df_e73b4a89",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-26T16:36:16Z",
+      "side": 1,
+      "message": "\u003e but we are assuming that only password and totp are valid prompts.\n\nNot really.  the token key is set to nullopt, so if we ever got it on the password prompt (which seems unlikely) we\u0027d stil return the same error.\n\n\u003e In general multifactor auth can have more than that. So I don\u0027t see any harm being a bit futuristic here.\n\nI do.  Lets make things complicated when we need things to be complicated.  I really suspect there\u0027s less than 10 prompts we could potentially answer assuming we imlemented the whole world of PAM.  That\u0027s not enough to justify trying to create a bunch of dynamic structures.\n\n\u003e This will support for all possible prompts required by any pam modules other than google authenticator.\n\nHow do you know this?  Have you tried all possible prompts?  Is there a reason the prior if/else if tree couldn\u0027t handle all possible prompts?\n\n\u003e Are you worried about the performance ? Even if you prefer hardcoding password and totp, I would prefer delegating the parsing logic to  PamData or PasswordData.\n\nNo, I\u0027m worried about complexity, and strings being built at runtime (which is harder to audit).  Lets write simple code until we prove that we need something.",
+      "parentUuid": "f42080b7_ee1268c7",
+      "revId": "4f9ff478c58638efcddf675874b328c124954e33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "79df6a2a_25e673b6",
         "filename": "include/pam_authenticate.hpp",
         "patchSetId": 4
