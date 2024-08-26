@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79df6a2a_25e673b6",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-26T16:06:14Z",
+      "side": 1,
+      "message": "We only have 2 fixed sets of keys, the second of which the key is shared.  Why do we need to convert the underlying data structure to this?  It seems like overkill.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 26
+      },
+      "revId": "4f9ff478c58638efcddf675874b328c124954e33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
