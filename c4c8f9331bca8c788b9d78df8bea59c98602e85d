@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "488b5fb5_7ffd82e1",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 979,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-08-26T14:37:39Z",
+      "side": 1,
+      "message": "Should this be reporting an error?\n\nI see original code didn\u0027t either, but was that correct?",
+      "revId": "c4c8f9331bca8c788b9d78df8bea59c98602e85d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
