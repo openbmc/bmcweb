@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a473d753_d869ebf6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-26T16:40:35Z",
+      "side": 1,
+      "message": "Yeah, I\u0027ll write a better commit message.  I was just having trouble reviewing https://gerrit.openbmc.org/c/openbmc/bmcweb/+/72319, so it was easier to break out the stuff that was obviously not a behavior change.",
+      "parentUuid": "1f1ab289_bc10cadc",
+      "revId": "c4c8f9331bca8c788b9d78df8bea59c98602e85d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "488b5fb5_7ffd82e1",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 1
