@@ -106,6 +106,24 @@
       "parentUuid": "803b45f7_63c4c9c8",
       "revId": "f718d39600f95bb59101aef0ef4ce9e68b1ed7a0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a028f81_632b680c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-26T16:53:15Z",
+      "side": 1,
+      "message": "\u003e Yeah, the interface itself has not been implemented in our case.\n\u003e \n\u003e But `ethData.macAddress` will automatically be initialized to an empty string (\"\") when the EthernetInterfaceData object is constructed right?\n\u003e \n\u003e So this must be checked when constructing a redfish response was what I thought when I pushed this change.\n\nhttps://github.com/openbmc/bmcweb/blob/0eebcefbc0cacc5c4e431ceec80df7fe37b6f56c/redfish-core/lib/hypervisor_system.hpp#L181\n\nWhy is it implemented then?\n\n\n\nIf it\u0027s not implemented for hypervisors, just remove the above code, and change macAddress to a std::optional\u003cstd::string\u003e so we can differentiate between empty and non-existence.",
+      "parentUuid": "6930c7d6_d053aa28",
+      "revId": "f718d39600f95bb59101aef0ef4ce9e68b1ed7a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
