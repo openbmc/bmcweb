@@ -16,6 +16,24 @@
       "message": "this not a safe cast in case of pamUpdatePassword, where we are passing const char*. The proposal I made make it type-safe as we always pass PamData pointer . Now it is working because the memory offset of password 0. But become buggy if some once changes the order of token and password.",
       "revId": "2ccce1f3a04ab72824820a6795878ce01f37a22c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab17b99b_f78df8d6",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-08-26T04:02:03Z",
+      "side": 1,
+      "message": "ok got your point, looks like you have code ready to address this right\nplease push a commit.",
+      "parentUuid": "6693460a_875c4fc0",
+      "revId": "2ccce1f3a04ab72824820a6795878ce01f37a22c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ],
   "submitRequirementResults": []
