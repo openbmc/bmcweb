@@ -146,6 +146,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cb41459c_1f109397",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-26T18:01:37Z",
+      "side": 1,
+      "message": "Not really done.  We need to answer the question of why clearing both logs (including the one they can\u0027t even see) is useful to the user.\n\nAt a higher level, we need to answer why merging the two backends is useful to a user, if we\u0027re going to go through the effort to try to implement redfish collections correctly for them.",
+      "parentUuid": "8879b1dc_00fb5a33",
+      "range": {
+        "startLine": 9,
+        "startChar": 26,
+        "endLine": 10,
+        "endChar": 15
+      },
+      "revId": "bbe4e35bd5b4f2eea81d408bad4def7b7b0e900a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0b6ed0cf_97ce6879",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -265,6 +289,24 @@
       "side": 1,
       "message": "Adjusted the commit message to better describe the changes and how i tested them.",
       "parentUuid": "abed4538_d73d56c2",
+      "revId": "bbe4e35bd5b4f2eea81d408bad4def7b7b0e900a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8cf365e_51d6162f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-26T18:01:37Z",
+      "side": 1,
+      "message": "You added \"the respective backend is cleared for either value of\nredfish-dbus-log.\"\n\n\nPut yourself in the shoes of someone trying to reproduce your results.  How (from what you wrote there) would they reproduce what you saw?  What were you looking for?",
+      "parentUuid": "90f8bb8b_c058c6cc",
       "revId": "bbe4e35bd5b4f2eea81d408bad4def7b7b0e900a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
