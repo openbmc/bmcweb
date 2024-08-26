@@ -16,6 +16,24 @@
       "message": "Should this be reporting an error?\n\nI see original code didn\u0027t either, but was that correct?",
       "revId": "c4c8f9331bca8c788b9d78df8bea59c98602e85d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b50d8c7c_0bb3fecb",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 979,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-26T16:03:27Z",
+      "side": 1,
+      "message": "Yep, probably should.  Lets treat that as a different change.  This is a refactor that aims to not change behavior.",
+      "parentUuid": "488b5fb5_7ffd82e1",
+      "revId": "c4c8f9331bca8c788b9d78df8bea59c98602e85d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
