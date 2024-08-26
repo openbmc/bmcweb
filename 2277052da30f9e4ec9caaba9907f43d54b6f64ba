@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "322256fc_f445453e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-26T18:24:18Z",
+      "side": 1,
+      "message": "That response doesn\u0027t answer the questions I asked.",
+      "parentUuid": "f2f97b75_8e2cb1de",
+      "revId": "2277052da30f9e4ec9caaba9907f43d54b6f64ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0f32e213_d1fa4bb1",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 5
@@ -210,6 +228,24 @@
       "side": 1,
       "message": "```struct TemporaryFileHandle``` creates a temporary file but i need an entire directory. Because the logic for the rsyslog backend looks for files inside a directory.\n\nMaybe there could be a ```struct TemporaryDir``` for these usecases.",
       "parentUuid": "f1a7a0ed_0bfa5c31",
+      "revId": "2277052da30f9e4ec9caaba9907f43d54b6f64ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64733466_b53b8e23",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-26T18:24:18Z",
+      "side": 1,
+      "message": "\u003e Maybe there could be a struct TemporaryDir for these usecases.\n\nYep, lets do that.",
+      "parentUuid": "db1e61eb_73aa9e0d",
       "revId": "2277052da30f9e4ec9caaba9907f43d54b6f64ba",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
