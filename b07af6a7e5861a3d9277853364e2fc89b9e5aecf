@@ -16,6 +16,24 @@
       "message": "I\u0027m still seeing some error handling that\u0027s in correct around POST.  Creating a MEtricReportDefinition with the wrong parameters, results in a ResourceNotFound error.\n\nI\u0027m not sure if that\u0027s related to the changes made in this patch, or if they were working before and I broke them.\n\nRegardless, lets just get this on master so we can iterate.",
       "revId": "b07af6a7e5861a3d9277853364e2fc89b9e5aecf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "470fbea7_4d9b2f8a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2024-08-27T09:48:33Z",
+      "side": 1,
+      "message": "At first glance it seems that dbus call simply returns EBADR. Have You confirmed that telemetry service is running? I wasn\u0027t able to replicate this problem on my side.",
+      "parentUuid": "def6a014_7abd1262",
+      "revId": "b07af6a7e5861a3d9277853364e2fc89b9e5aecf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
