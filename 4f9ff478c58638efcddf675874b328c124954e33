@@ -135,6 +135,30 @@
       },
       "revId": "4f9ff478c58638efcddf675874b328c124954e33",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc8e8bc0_181430f5",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-27T18:20:35Z",
+      "side": 1,
+      "message": "\u003e We only have 2 fixed sets of keys.\n\u003e \n\u003e This assumption is what I was trying to avoid.If you wanted to hardcode it only for two keys, then I  don\u0027t have anything else to say.\n\nToday we only have 2 sets of keys.  If we get significantly more, we can certainly talk about changing this data structure, but to my understanding, I see google OTP being added, and that\u0027s it, right?\n\nFWIW, this struct ended up a lot more complex.\n\n\u003e \n\u003e In general \n\u003e 1) I will never go for the previous solution of miss using reinterpret_cast that wrongly cast a const char* to PasswordData. \n\nYes, obviously.  I have opened https://gerrit.openbmc.org/c/openbmc/bmcweb/+/74028 to fix that.\n\n\u003e 2) Keeping the prompt parsing code inside pamFunctionConversation does not seems to be good design practice. IMO it should go inside PasswordData.\n\n\nCould you do this refactor in a different patchset?  I agree with it, so it might make this simpler to review.\n\n\u003e 3) Personally I don\u0027t see any overkill in replacing hard coded if else chain with find_if algorithm. \n\nIt\u0027s +35 lines of code.  Considering there\u0027s 2 conditions, that seems like a lot to me.  If there were 10 conditions, I\u0027m sure my feelings would be different.\n\n\u003e 4) if we use find_if and key_value pair ,it give extra benefit of supporting MFA with different keys with negligible performance cost.  \n\nLets revisit that once we have more keys that we\u0027re adding.  FWIW, when we did this same analysis for doing Redfish -\u003e Dbus conversions, the if/else ladder beat everything, including std::arrays.\n\n\u003e \n\u003e Anyway it is maintainers choice to take it or not. We can agree to disagree on the overkill statement above.\n\u003e \n\u003e One functional requirement of this patch is the addition of Totp::verify function. Which is a must for google authentication createSecretKey flow. We just need to verify the totp, without password. One extra argument is the new pam module name that does just the totp verification part.\n\n\nI don\u0027t quite understand this part.  Is it possible to extract that portion into its own patch?",
+      "parentUuid": "9626d083_5bcfaa9b",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 26
+      },
+      "revId": "4f9ff478c58638efcddf675874b328c124954e33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
