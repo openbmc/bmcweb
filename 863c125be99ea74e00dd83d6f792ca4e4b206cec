@@ -250,6 +250,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0af3b71a_6b2218a5",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-27T18:21:22Z",
+      "side": 1,
+      "message": "\u003e That is matter of preference. I thought Totp::varify() looks better than varifyTotp(). Finally it is maintainers call. I am ok with anything.\n\nLets do the later.  That\u0027s in line with what we do other places.",
+      "parentUuid": "7ac28593_a31dc979",
+      "range": {
+        "startLine": 176,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 22
+      },
+      "revId": "863c125be99ea74e00dd83d6f792ca4e4b206cec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "99fbe47e_027b204a",
         "filename": "include/pam_authenticate.hpp",
         "patchSetId": 6
