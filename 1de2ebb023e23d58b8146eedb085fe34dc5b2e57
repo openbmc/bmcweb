@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efad19f1_0947193a",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2024-08-27T09:45:54Z",
+      "side": 1,
+      "message": "As suggested, I\u0027ve extended this with all possible values we can get from backend for now. If there\u0027s no match, empty string is returned, which will lead to internal error.",
+      "range": {
+        "startLine": 655,
+        "startChar": 4,
+        "endLine": 667,
+        "endChar": 36
+      },
+      "revId": "1de2ebb023e23d58b8146eedb085fe34dc5b2e57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ee5824d_c76e6d73",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2024-08-27T09:45:54Z",
+      "side": 1,
+      "message": "This needs to go after checking for invalid argument. Otherwise we\u0027ll go straight into internal error. I\u0027ve applied that here and for the remaining cases as well.",
+      "range": {
+        "startLine": 700,
+        "startChar": 4,
+        "endLine": 703,
+        "endChar": 5
+      },
+      "revId": "1de2ebb023e23d58b8146eedb085fe34dc5b2e57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
