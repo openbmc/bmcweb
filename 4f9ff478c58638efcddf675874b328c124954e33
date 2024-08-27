@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6b803d2b_d2c4d52a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-08-27T04:30:40Z",
+      "side": 1,
+      "message": "How do you know this? Have you tried all possible prompts? Is there a reason the prior if/else if tree couldn\u0027t handle all possible prompts?\n\nyes, before deciding on google authenticator we explore other options for which the prompts were different. \n\nEven in this case, just to verify TOTP we don\u0027t need password, which is required in  secret key generation flow. \n\nI can change the container to std::array with length of 2. It is not a problem for me.",
+      "parentUuid": "2ddb5623_5f90a9cb",
+      "revId": "4f9ff478c58638efcddf675874b328c124954e33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "79df6a2a_25e673b6",
         "filename": "include/pam_authenticate.hpp",
         "patchSetId": 4
