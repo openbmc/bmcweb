@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "726825ef_651505a2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2024-08-27T12:15:58Z",
+      "side": 1,
+      "message": "I think this can be done for the PATCH handler, where update is indeed done by setting dbus properties. That won\u0027t be achievable for adding report though, as it is done through method call.\n\nDo You want to follow this trace in this patch or would You rather like to merge this first and then do the refactor in the next patch?",
+      "parentUuid": "a5796ef4_7e4a65d8",
+      "revId": "409558880a3f54577c0d4b38c8dc8dd57ffc8168",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7b72a6e9_7c8055d6",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 9
