@@ -11,6 +11,63 @@ struct PasswordData
 {
     std::string password;
     std::optional<std::string> token;
+
+    int makeResponse(const pam_message& msg, pam_response& response)
+    {
+        switch (msg.msg_style)
+        {
+            case PAM_PROMPT_ECHO_ON:
+                break;
+            case PAM_PROMPT_ECHO_OFF:
+            {
+                // Assume PAM is only prompting for the password as hidden input
+                // Allocate memory only when PAM_PROMPT_ECHO_OFF is encountered
+                size_t appPassSize = password.size();
+                if ((appPassSize + 1) > PAM_MAX_RESP_SIZE)
+                {
+                    return PAM_CONV_ERR;
+                }
+                std::string_view message(msg.msg);
+                constexpr std::string_view passwordPrompt = "Password: ";
+                // String used by Google authenticator to ask for one time code
+                constexpr std::string_view totpPrompt = "Verification code: ";
+                if (message.starts_with(passwordPrompt))
+                {
+                    response.resp = strdup(password.c_str()); // Password input
+                }
+                else if (message.starts_with(totpPrompt))
+                {
+                    if (!token)
+                    {
+                        return PAM_CONV_ERR;
+                    }
+                    // TOTP input
+                    response.resp = strdup(token->c_str());
+                }
+                else
+                {
+                    return PAM_CONV_ERR;
+                }
+            }
+            break;
+            case PAM_ERROR_MSG:
+            {
+                BMCWEB_LOG_ERROR("Pam error {}", msg.msg);
+            }
+            break;
+            case PAM_TEXT_INFO:
+            {
+                BMCWEB_LOG_ERROR("Pam info {}", msg.msg);
+            }
+            break;
+            default:
+            {
+                return PAM_CONV_ERR;
+            }
+        }
+
+        return PAM_SUCCESS;
+    }
 };
 
 // function used to get user input
@@ -41,51 +98,10 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msgs,
         response.resp_retcode = 0;
         response.resp = nullptr;
 
-        switch (msg.msg_style)
+        int r = appPass->makeResponse(msg, response);
+        if (r != PAM_SUCCESS)
         {
-            case PAM_PROMPT_ECHO_ON:
-                break;
-            case PAM_PROMPT_ECHO_OFF:
-            {
-                // Assume PAM is only prompting for the password as hidden input
-                // Allocate memory only when PAM_PROMPT_ECHO_OFF is encountered
-                size_t appPassSize = appPass->password.size();
-                if ((appPassSize + 1) > PAM_MAX_RESP_SIZE)
-                {
-                    return PAM_CONV_ERR;
-                }
-                std::string_view message(msg.msg);
-                constexpr std::string_view passwordPrompt = "Password: ";
-                // String used by Google authenticator to ask for one time code
-                constexpr std::string_view totpPrompt = "Verification code: ";
-                if (message.starts_with(passwordPrompt))
-                {
-                    response.resp =
-                        strdup(appPass->password.c_str()); // Password input
-                }
-                else if (message.starts_with(totpPrompt))
-                {
-                    if (!appPass->token)
-                    {
-                        return PAM_CONV_ERR;
-                    }
-                    response.resp =
-                        strdup(appPass->token->c_str()); // TOTP input
-                }
-                else
-                {
-                    return PAM_CONV_ERR;
-                }
-            }
-            break;
-            case PAM_ERROR_MSG:
-                BMCWEB_LOG_ERROR("Pam error {}", msg.msg);
-                break;
-            case PAM_TEXT_INFO:
-                BMCWEB_LOG_ERROR("Pam info {}", msg.msg);
-                break;
-            default:
-                return PAM_CONV_ERR;
+            return r;
         }
     }
 
