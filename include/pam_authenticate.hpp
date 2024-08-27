@@ -181,3 +181,29 @@ inline int pamUpdatePassword(const std::string& username,
 
     return pam_end(localAuthHandle, PAM_SUCCESS);
 }
+
+struct Totp
+{
+    static bool verify(std::string_view service, std::string_view username,
+                       std::string_view t)
+    {
+        PasswordData::PromptData data{
+            PasswordData::KVPair{"Verification code:", t}};
+        pam_handle_t* pamh{nullptr};
+        pam_conv localConversation{&pamFunctionConversation, &data};
+        int retval = pam_start(service.data(), username.data(),
+                               &localConversation, &pamh);
+        if (retval != PAM_SUCCESS)
+        {
+            BMCWEB_LOG_ERROR("Pam start failed for {}", service.data());
+            return false;
+        }
+        bool ret = (pam_authenticate(pamh, 0) == PAM_SUCCESS);
+        if (pam_end(pamh, PAM_SUCCESS) != PAM_SUCCESS)
+        {
+            BMCWEB_LOG_ERROR("Pam end failed for {}", service.data());
+            return false;
+        }
+        return ret;
+    }
+};
