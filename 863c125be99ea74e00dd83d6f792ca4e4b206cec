@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7021dd3d_7e2f8318",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-08-27T16:33:23Z",
+      "side": 1,
+      "message": "Why is the token optional in PasswordData? Same reason here.",
+      "parentUuid": "4b2b2db8_2d4f1f2a",
+      "range": {
+        "startLine": 12,
+        "startChar": 47,
+        "endLine": 12,
+        "endChar": 78
+      },
+      "revId": "863c125be99ea74e00dd83d6f792ca4e4b206cec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e1bfb02e_ca01fa4d",
         "filename": "include/pam_authenticate.hpp",
         "patchSetId": 6
@@ -54,6 +78,30 @@
       "writtenOn": "2024-08-27T15:22:23Z",
       "side": 1,
       "message": "Any reason we\u0027re checking this?",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 5
+      },
+      "revId": "863c125be99ea74e00dd83d6f792ca4e4b206cec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1c94407_0bc62e89",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-08-27T16:33:23Z",
+      "side": 1,
+      "message": "this is already there in previous patch as well. look at line 52 of removed code",
+      "parentUuid": "e1bfb02e_ca01fa4d",
       "range": {
         "startLine": 40,
         "startChar": 0,
@@ -89,6 +137,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "154684d8_2ff08e81",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-08-27T16:33:23Z",
+      "side": 1,
+      "message": "Does it matter ? are we not just checking if it starts with \"Password\"? Is it mandatory to check for space?",
+      "parentUuid": "0f89bca0_7f40c41c",
+      "range": {
+        "startLine": 118,
+        "startChar": 35,
+        "endLine": 118,
+        "endChar": 44
+      },
+      "revId": "863c125be99ea74e00dd83d6f792ca4e4b206cec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dd35e127_42084fbe",
         "filename": "include/pam_authenticate.hpp",
         "patchSetId": 6
@@ -100,6 +172,30 @@
       "writtenOn": "2024-08-27T15:22:23Z",
       "side": 1,
       "message": "Why do we declare a struct with a single static member?  Just make a method.",
+      "range": {
+        "startLine": 176,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 22
+      },
+      "revId": "863c125be99ea74e00dd83d6f792ca4e4b206cec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ac28593_a31dc979",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-08-27T16:33:23Z",
+      "side": 1,
+      "message": "That is matter of preference. I thought Totp::varify() looks better than varifyTotp(). Finally it is maintainers call. I am ok with anything.",
+      "parentUuid": "dd35e127_42084fbe",
       "range": {
         "startLine": 176,
         "startChar": 0,
