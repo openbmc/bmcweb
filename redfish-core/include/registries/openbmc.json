@@ -2,7 +2,7 @@
     "@Redfish.Copyright": "Copyright 2022 OpenBMC. All rights reserved.",
     "@odata.type": "#MessageRegistry.v1_4_0.MessageRegistry",
     "Description": "This registry defines the base messages for OpenBMC.",
-    "Id": "OpenBMC.0.4.0",
+    "Id": "OpenBMC.0.5.0",
     "Language": "en",
     "Messages": {
         "ADDDCCorrectable": {
@@ -1187,6 +1187,14 @@
             "Resolution": "None.",
             "Severity": "OK"
         },
+        "PowerButtonLongPressed": {
+            "Description": "Indicates that the power button was long pressed.",
+            "Message": "Power Button Long Pressed.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
         "PowerRestorePolicyApplied": {
             "Description": "Indicates that power was restored and the BMC has applied the restore policy.",
             "Message": "Power restore policy applied.",
@@ -1667,5 +1675,5 @@
     "Name": "OpenBMC Message Registry",
     "OwningEntity": "OpenBMC",
     "RegistryPrefix": "OpenBMC",
-    "RegistryVersion": "0.4.0"
+    "RegistryVersion": "0.5.0"
 }
