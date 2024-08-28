@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4795090a_ae2706a7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-08-28T12:47:00Z",
+      "side": 1,
+      "message": "I\u0027m satisfied in general with the direction this is going.  Some suggestions attached.",
+      "revId": "e759a74dcb21626e2b11d139242dbb470c2ad1cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21780364_5c9aab90",
+        "filename": "meson.options",
+        "patchSetId": 4
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-08-28T12:47:00Z",
+      "side": 1,
+      "message": "Is there any need for a new option?  Can\u0027t we just extend the postcode if the secondary postcode is filled in?",
+      "revId": "e759a74dcb21626e2b11d139242dbb470c2ad1cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4f7a7cd_f4e1abf7",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 3694,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-08-28T12:47:00Z",
+      "side": 1,
+      "message": "How about:\n\n```\nif (auto\u0026 secondary \u003d std::get\u003c1\u003e(code.second); !secondary.empty())\n{\n    hexCode \u003c\u003c bytesToHexString(secondary);\n}\n```",
+      "range": {
+        "startLine": 3691,
+        "startChar": 0,
+        "endLine": 3694,
+        "endChar": 9
+      },
+      "revId": "e759a74dcb21626e2b11d139242dbb470c2ad1cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
