@@ -34,6 +34,24 @@
       "parentUuid": "711237e5_3a0b49a8",
       "revId": "02e68dc761dfd9e9309b8cf1b3ef1b41c16d046f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ed8004b_34620f24",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-08-28T07:42:00Z",
+      "side": 1,
+      "message": "Hi Ed\n\nWith this commit password change fails, looks like null is passed to password irrespective of given input password \n\ncurl -k -H \"Content-Type: application/json\" -H \"X-Auth-Token: $bmc_token\" -X PATCH https://${bmc}/redfish/v1/AccountService/Accounts/root -d \u0027{\"Password\":\"0penBmc0\"}\u0027\n{\n  \"Password@Message.ExtendedInfo\": [\n    {\n      \"@odata.type\": \"#Message.v1_1_1.Message\",\n      \"Message\": \"The value \u0027null\u0027 for the property Password is not a format that the property can accept.\",\n      \"MessageArgs\": [\n        \"null\",\n        \"Password\"\n      ],\n      \"MessageId\": \"Base.1.18.1.PropertyValueFormatError\",\n      \"MessageSeverity\": \"Warning\",\n      \"Resolution\": \"Correct the value for the property in the request body and resubmit the request if the operation failed.\"\n    }\n  ]\n}\n\njournal:\n\nbmcweb[210]: pam_pwquality(webserver:chauthtok): conversation failed\nAug 28 07:34:37 romulus bmcweb[210]: [ERROR pam_authenticate.hpp:82] Pam error Password change has been aborted.\nAug 28 07:34:37 romulus bmcweb[210]: pam_pwquality(webserver:chauthtok): user aborted password change\nAug 28 07:34:37 romulus bmcweb[210]: [ERROR account_service.hpp:1109] pamUpdatePassword Failed",
+      "parentUuid": "138b3093_4f30e698",
+      "revId": "02e68dc761dfd9e9309b8cf1b3ef1b41c16d046f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
