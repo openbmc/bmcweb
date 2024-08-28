@@ -118,5 +118,28 @@ TEST(getPreferredContentType, NegativeTest)
         getPreferredContentType("text/html, application/json", contentType),
         ContentType::NoMatch);
 }
+
+TEST(getPreferredEncoding, PositiveTest)
+{
+    std::array<Encoding, 1> encodingsGzip{Encoding::GZIP};
+    EXPECT_EQ(getPreferredEncoding("gzip", encodingsGzip), Encoding::GZIP);
+
+    std::array<Encoding, 2> encodingsGzipZstd{Encoding::GZIP, Encoding::ZSTD};
+    EXPECT_EQ(getPreferredEncoding("gzip", encodingsGzipZstd), Encoding::GZIP);
+    EXPECT_EQ(getPreferredEncoding("zstd", encodingsGzipZstd), Encoding::ZSTD);
+
+    EXPECT_EQ(getPreferredEncoding("*", encodingsGzipZstd), Encoding::GZIP);
+
+    EXPECT_EQ(getPreferredEncoding("zstd, gzip;q=1.0", encodingsGzipZstd),
+              Encoding::ZSTD);
+}
+
+TEST(getPreferredEncoding, NegativeTest)
+{
+    std::array<Encoding, 1> contentType{Encoding::GZIP};
+    EXPECT_EQ(getPreferredEncoding("noexist", contentType),
+              Encoding::UnencodedBytes);
+}
+
 } // namespace
 } // namespace http_helpers
