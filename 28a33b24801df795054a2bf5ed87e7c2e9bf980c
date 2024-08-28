@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4d923bcd_1e5c8a13",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-08-28T20:48:21Z",
+      "side": 1,
+      "message": "The sensors here collides with the namespace sensors below.\n\nSince power, sensors, and thermal seem common names I\u0027ve changed these variable names to include \"Node\" to avoid the collision.",
+      "parentUuid": "b723262b_c318419e",
+      "revId": "28a33b24801df795054a2bf5ed87e7c2e9bf980c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3f6ca68b_f47844c9",
         "filename": "redfish-core/include/utils/sensor_utils.hpp",
         "patchSetId": 1
@@ -54,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b345e5e7_bd54ebc6",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-08-28T20:48:21Z",
+      "side": 1,
+      "message": "Yes, I also thought about that but did want to keep this commit to just a refactor.",
+      "parentUuid": "3f6ca68b_f47844c9",
+      "revId": "28a33b24801df795054a2bf5ed87e7c2e9bf980c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d6131fe0_c190b4be",
         "filename": "redfish-core/lib/power.hpp",
         "patchSetId": 1
@@ -65,6 +101,30 @@
       "writtenOn": "2024-08-28T19:57:13Z",
       "side": 1,
       "message": "what happened here?  different ascii code - ?",
+      "range": {
+        "startLine": 186,
+        "startChar": 24,
+        "endLine": 186,
+        "endChar": 25
+      },
+      "revId": "28a33b24801df795054a2bf5ed87e7c2e9bf980c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47a629a9_ed7f3769",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-08-28T20:48:21Z",
+      "side": 1,
+      "message": "Yes I think so. I saw the diff and tried to put it back to the original. My editor(?) (vim) kept changing it back to the \u0027?\u0027 character when I would save the file. I finally just edited it to change it to the single \u0027-\u0027.",
+      "parentUuid": "d6131fe0_c190b4be",
       "range": {
         "startLine": 186,
         "startChar": 24,
