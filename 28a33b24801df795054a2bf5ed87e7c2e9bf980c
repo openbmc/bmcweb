@@ -53,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb8f6f87_c6223cb7",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-28T22:37:17Z",
+      "side": 1,
+      "message": "lets plan on getting these moved to a single enum.  What you did tracks with that goal.\n\nClosing.",
+      "parentUuid": "4d923bcd_1e5c8a13",
+      "revId": "28a33b24801df795054a2bf5ed87e7c2e9bf980c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3f6ca68b_f47844c9",
@@ -84,6 +102,24 @@
       "side": 1,
       "message": "Yes, I also thought about that but did want to keep this commit to just a refactor.",
       "parentUuid": "3f6ca68b_f47844c9",
+      "revId": "28a33b24801df795054a2bf5ed87e7c2e9bf980c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a679253_387ce0c5",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-28T22:37:17Z",
+      "side": 1,
+      "message": "Yep, just wanted to make you aware.",
+      "parentUuid": "b345e5e7_bd54ebc6",
       "revId": "28a33b24801df795054a2bf5ed87e7c2e9bf980c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -125,6 +161,30 @@
       "side": 1,
       "message": "Yes I think so. I saw the diff and tried to put it back to the original. My editor(?) (vim) kept changing it back to the \u0027?\u0027 character when I would save the file. I finally just edited it to change it to the single \u0027-\u0027.",
       "parentUuid": "d6131fe0_c190b4be",
+      "range": {
+        "startLine": 186,
+        "startChar": 24,
+        "endLine": 186,
+        "endChar": 25
+      },
+      "revId": "28a33b24801df795054a2bf5ed87e7c2e9bf980c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecd8f011_fa3de3cc",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-28T22:37:17Z",
+      "side": 1,
+      "message": "If it\u0027s a problem we could just remove the - altogether.  I\u0027m assuming this got copy/pasted from a PDF somewhere with a weird ascii character.  Oh well, don\u0027t need to fix this time around.",
+      "parentUuid": "47a629a9_ed7f3769",
       "range": {
         "startLine": 186,
         "startChar": 24,
