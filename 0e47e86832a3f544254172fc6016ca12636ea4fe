@@ -34,6 +34,24 @@
       "parentUuid": "f131f029_1507ea36",
       "revId": "0e47e86832a3f544254172fc6016ca12636ea4fe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6267171b_e24affb7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-08-28T20:40:35Z",
+      "side": 1,
+      "message": "I dont remember any commit related to this D-bus path changes in networkd for IPv6DefaultGateway.\nI think it was missed in\nhttps://github.com/openbmc/bmcweb/commit/ce73d5c8517e0b85d85de345f10c82c24cbb067b",
+      "parentUuid": "0eb619ac_3df80495",
+      "revId": "0e47e86832a3f544254172fc6016ca12636ea4fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
