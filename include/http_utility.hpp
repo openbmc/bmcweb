@@ -88,4 +88,72 @@ inline bool isContentTypeAllowed(std::string_view header, ContentType type,
     return type == allowed;
 }
 
+enum class Encoding
+{
+    ParseError,
+    NoMatch,
+    UnencodedBytes,
+    GZIP,
+    ZSTD,
+    ANY, // represents *. Never returned.  Only used for string matching
+};
+
+inline Encoding
+    getPreferredEncoding(std::string_view acceptEncoding,
+                         const std::span<const Encoding> preferedOrder)
+{
+    if (acceptEncoding.empty())
+    {
+        return Encoding::UnencodedBytes;
+    }
+
+    using boost::spirit::x3::char_;
+    using boost::spirit::x3::lit;
+    using boost::spirit::x3::omit;
+    using boost::spirit::x3::parse;
+    using boost::spirit::x3::space;
+    using boost::spirit::x3::symbols;
+    using boost::spirit::x3::uint_;
+
+    const symbols<Encoding> knownAcceptEncoding{{"gzip", Encoding::GZIP},
+                                                {"zstd", Encoding::ZSTD},
+                                                {"*", Encoding::ANY}};
+
+    std::vector<Encoding> ct;
+
+    auto parameters = *(lit(';') >> lit("q=") >> uint_ >> -(lit('.') >> uint_));
+    auto typeCharset = char_("a-zA-Z.+-");
+    auto mimeType = knownAcceptEncoding | omit[+typeCharset];
+    auto parser = +(mimeType >> omit[parameters >> -char_(',') >> *space]);
+    if (!parse(acceptEncoding.begin(), acceptEncoding.end(), parser, ct))
+    {
+        return Encoding::ParseError;
+    }
+
+    for (const Encoding parsedType : ct)
+    {
+        if (parsedType == Encoding::ANY)
+        {
+            if (!preferedOrder.empty())
+            {
+                return *preferedOrder.begin();
+            }
+        }
+        auto it = std::ranges::find(preferedOrder, parsedType);
+        if (it != preferedOrder.end())
+        {
+            return *it;
+        }
+    }
+
+    // Fall back to raw bytes if it was allowed
+    auto it = std::ranges::find(preferedOrder, Encoding::UnencodedBytes);
+    if (it != preferedOrder.end())
+    {
+        return *it;
+    }
+
+    return Encoding::NoMatch;
+}
+
 } // namespace http_helpers
