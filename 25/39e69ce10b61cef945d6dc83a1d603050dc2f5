@@ -1,0 +1,9 @@
+Code-Review+2: Ed Tanous <ed@tanous.net>
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Submitted-by: Chanh Nguyen <chanh@os.amperecomputing.com>
+Submitted-at: Wed, 28 Aug 2024 02:35:21 +0000
+Reviewed-on: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/73874
+Comments-Total: 9
+Comments-Unresolved: 3
+Project: openbmc/bmcweb
+Branch: refs/heads/master
