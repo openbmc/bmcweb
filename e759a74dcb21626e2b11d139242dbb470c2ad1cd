@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0394c0f7_35a53c0b",
+        "filename": "meson.options",
+        "patchSetId": 4
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1001264
+      },
+      "writtenOn": "2024-08-28T16:20:05Z",
+      "side": 1,
+      "message": "Hi Patrick,\n\nIn the commit Cosmo mentioned before, IBM system has 72 bytes postcode, and I am not sure is IBM OK with showing all 72 bytes postcode?\n\nhttps://github.com/openbmc/phosphor-dbus-interfaces/commit/71eaf8b1db7d903c5a62da3bae178116e69892e1",
+      "parentUuid": "21780364_5c9aab90",
+      "revId": "e759a74dcb21626e2b11d139242dbb470c2ad1cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f4f7a7cd_f4e1abf7",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 4
