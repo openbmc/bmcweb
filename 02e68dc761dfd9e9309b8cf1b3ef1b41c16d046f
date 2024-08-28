@@ -163,6 +163,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b00516ac_bae8bad0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-28T19:26:08Z",
+      "side": 1,
+      "message": "\u003e this is not breaking any existing functionality right?\n\nThis breaks password update.\n\n\n\u003e like we discussed earlier, having separate function for password update works fine\n\nLong term, I would like to see if we can avoid the duplication of code and casts, but temporarily, this works fine.",
+      "parentUuid": "d0f8d892_ae08c050",
+      "revId": "02e68dc761dfd9e9309b8cf1b3ef1b41c16d046f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7dd5594a_88c2fe5d",
         "filename": "include/pam_authenticate.hpp",
         "patchSetId": 4
@@ -192,6 +210,24 @@
       "side": 1,
       "message": "Yep.  Basically identical except we set a nullopt token (because password changes can\u0027t require an otp).",
       "parentUuid": "7dd5594a_88c2fe5d",
+      "revId": "02e68dc761dfd9e9309b8cf1b3ef1b41c16d046f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "626d846a_1e6efd9a",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-28T19:26:08Z",
+      "side": 1,
+      "message": "nvm, I didn\u0027t realize we had pushed a new patch.  This is essentially identical to what we did before the PasswordData class existed.",
+      "parentUuid": "a0fae121_3180d00d",
       "revId": "02e68dc761dfd9e9309b8cf1b3ef1b41c16d046f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
