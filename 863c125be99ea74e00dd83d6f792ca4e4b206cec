@@ -143,6 +143,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d375774_f0464f3f",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-28T15:42:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "495ba2c0_3eae5f64",
+      "range": {
+        "startLine": 12,
+        "startChar": 47,
+        "endLine": 12,
+        "endChar": 78
+      },
+      "revId": "863c125be99ea74e00dd83d6f792ca4e4b206cec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e1bfb02e_ca01fa4d",
@@ -180,6 +204,30 @@
       "side": 1,
       "message": "this is already there in previous patch as well. look at line 52 of removed code",
       "parentUuid": "e1bfb02e_ca01fa4d",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 5
+      },
+      "revId": "863c125be99ea74e00dd83d6f792ca4e4b206cec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbf0e772_350c444c",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-28T15:42:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1c94407_0bc62e89",
       "range": {
         "startLine": 40,
         "startChar": 0,
