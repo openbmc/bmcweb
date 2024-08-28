@@ -106,6 +106,24 @@
       "parentUuid": "c754af1d_782ab6e3",
       "revId": "02e68dc761dfd9e9309b8cf1b3ef1b41c16d046f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0f8d892_ae08c050",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-08-28T17:33:03Z",
+      "side": 1,
+      "message": "like we discussed earlier, having separate function for password update works fine",
+      "parentUuid": "dde93aef_015e3a96",
+      "revId": "02e68dc761dfd9e9309b8cf1b3ef1b41c16d046f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
