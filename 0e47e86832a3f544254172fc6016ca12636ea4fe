@@ -16,6 +16,24 @@
       "message": "This was something missed by https://github.com/openbmc/bmcweb/commit/ce73d5c8517e0b85d85de345f10c82c24cbb067b ?\n\nMight be good to quote the Redish spec here.",
       "revId": "0e47e86832a3f544254172fc6016ca12636ea4fe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0eb619ac_3df80495",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-28T19:01:14Z",
+      "side": 1,
+      "message": "I think there was a dbus change that this feature collided with.  In theory nothing on the Redfish side is changing, only the dbus side.\n\nso long as we point to that phosphor-networkd commit (pretty sure it\u0027s waks change that broke other stuff) I\u0027m happy and this can merge.",
+      "parentUuid": "f131f029_1507ea36",
+      "revId": "0e47e86832a3f544254172fc6016ca12636ea4fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
