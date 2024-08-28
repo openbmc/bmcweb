@@ -922,10 +922,11 @@ inline void createIPv6(const std::string& ifaceId, uint8_t prefixLength,
  * @return None
  */
 inline void
-    deleteIPv6Gateway(std::string_view gatewayId,
+    deleteIPv6Gateway(std::string_view ifaceId, std::string_view gatewayId,
                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     sdbusplus::message::object_path path("/xyz/openbmc_project/network");
+    path /= ifaceId;
     path /= gatewayId;
     crow::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code& ec) {
@@ -984,6 +985,7 @@ inline void deleteAndCreateIPv6DefaultGateway(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     sdbusplus::message::object_path path("/xyz/openbmc_project/network");
+    path /= ifaceId;
     path /= gatewayId;
     crow::connections::systemBus->async_method_call(
         [asyncResp, ifaceId, gateway,
@@ -1044,7 +1046,7 @@ inline void handleIPv6DefaultGateway(
                 messages::resourceCannotBeDeleted(asyncResp->res);
                 return;
             }
-            deleteIPv6Gateway(staticGatewayEntry->id, asyncResp);
+            deleteIPv6Gateway(ifaceId, staticGatewayEntry->id, asyncResp);
             return;
         }
         if (obj->empty())
