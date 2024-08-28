@@ -24,6 +24,7 @@
 #include "sensors.hpp"
 #include "utils/chassis_utils.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/sensor_utils.hpp"
 
 #include <sdbusplus/asio/property.hpp>
 
@@ -182,7 +183,7 @@ inline void afterPowerCapSettingGet(
     }
 
     // LimitException is Mandatory attribute as per OCP
-    // Baseline Profile – v1.0.0, so currently making it
+    // Baseline Profile - v1.0.0, so currently making it
     // "NoAction" as default value to make it OCP Compliant.
     sensorJson["PowerLimit"]["LimitException"] =
         power::PowerLimitException::NoAction;
@@ -268,7 +269,7 @@ inline void
 
     auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
         asyncResp, chassisName, sensors::dbus::powerPaths,
-        sensors::node::power);
+        sensor_utils::node::power);
 
     getChassisData(sensorAsyncResp);
 
@@ -297,7 +298,7 @@ inline void
     }
     auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
         asyncResp, chassisName, sensors::dbus::powerPaths,
-        sensors::node::power);
+        sensor_utils::node::power);
 
     std::optional<std::vector<nlohmann::json::object_t>> voltageCollections;
     std::optional<std::vector<nlohmann::json::object_t>> powerCtlCollections;

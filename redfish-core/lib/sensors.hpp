@@ -20,8 +20,6 @@
 #include "dbus_utility.hpp"
 #include "generated/enums/redundancy.hpp"
 #include "generated/enums/resource.hpp"
-#include "generated/enums/sensor.hpp"
-#include "generated/enums/thermal.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "str_utility.hpp"
@@ -52,12 +50,6 @@ namespace redfish
 
 namespace sensors
 {
-namespace node
-{
-static constexpr std::string_view power = "Power";
-static constexpr std::string_view sensors = "Sensors";
-static constexpr std::string_view thermal = "Thermal";
-} // namespace node
 
 // clang-format off
 namespace dbus
@@ -104,96 +96,10 @@ constexpr auto thermalPaths = std::to_array<std::string_view>({
 using sensorPair =
     std::pair<std::string_view, std::span<const std::string_view>>;
 static constexpr std::array<sensorPair, 3> paths = {
-    {{node::power, dbus::powerPaths},
-     {node::sensors, dbus::sensorPaths},
-     {node::thermal, dbus::thermalPaths}}};
+    {{sensor_utils::node::power, dbus::powerPaths},
+     {sensor_utils::node::sensors, dbus::sensorPaths},
+     {sensor_utils::node::thermal, dbus::thermalPaths}}};
 
-inline sensor::ReadingType toReadingType(std::string_view sensorType)
-{
-    if (sensorType == "voltage")
-    {
-        return sensor::ReadingType::Voltage;
-    }
-    if (sensorType == "power")
-    {
-        return sensor::ReadingType::Power;
-    }
-    if (sensorType == "current")
-    {
-        return sensor::ReadingType::Current;
-    }
-    if (sensorType == "fan_tach")
-    {
-        return sensor::ReadingType::Rotational;
-    }
-    if (sensorType == "temperature")
-    {
-        return sensor::ReadingType::Temperature;
-    }
-    if (sensorType == "fan_pwm" || sensorType == "utilization")
-    {
-        return sensor::ReadingType::Percent;
-    }
-    if (sensorType == "humidity")
-    {
-        return sensor::ReadingType::Humidity;
-    }
-    if (sensorType == "altitude")
-    {
-        return sensor::ReadingType::Altitude;
-    }
-    if (sensorType == "airflow")
-    {
-        return sensor::ReadingType::AirFlow;
-    }
-    if (sensorType == "energy")
-    {
-        return sensor::ReadingType::EnergyJoules;
-    }
-    return sensor::ReadingType::Invalid;
-}
-
-inline std::string_view toReadingUnits(std::string_view sensorType)
-{
-    if (sensorType == "voltage")
-    {
-        return "V";
-    }
-    if (sensorType == "power")
-    {
-        return "W";
-    }
-    if (sensorType == "current")
-    {
-        return "A";
-    }
-    if (sensorType == "fan_tach")
-    {
-        return "RPM";
-    }
-    if (sensorType == "temperature")
-    {
-        return "Cel";
-    }
-    if (sensorType == "fan_pwm" || sensorType == "utilization" ||
-        sensorType == "humidity")
-    {
-        return "%";
-    }
-    if (sensorType == "altitude")
-    {
-        return "m";
-    }
-    if (sensorType == "airflow")
-    {
-        return "cft_i/min";
-    }
-    if (sensorType == "energy")
-    {
-        return "J";
-    }
-    return "";
-}
 } // namespace sensors
 
 /**
@@ -308,48 +214,7 @@ class SensorsAsyncResp
     DataCompleteCb dataComplete;
 };
 
-/**
- * Possible states for physical inventory leds
- */
-enum class LedState
-{
-    OFF,
-    ON,
-    BLINK,
-    UNKNOWN
-};
-
-/**
- * D-Bus inventory item associated with one or more sensors.
- */
-class InventoryItem
-{
-  public:
-    explicit InventoryItem(const std::string& objPath) : objectPath(objPath)
-    {
-        // Set inventory item name to last node of object path
-        sdbusplus::message::object_path path(objectPath);
-        name = path.filename();
-        if (name.empty())
-        {
-            BMCWEB_LOG_ERROR("Failed to find '/' in {}", objectPath);
-        }
-    }
-
-    std::string objectPath;
-    std::string name;
-    bool isPresent = true;
-    bool isFunctional = true;
-    bool isPowerSupply = false;
-    int powerSupplyEfficiencyPercent = -1;
-    std::string manufacturer;
-    std::string model;
-    std::string partNumber;
-    std::string serialNumber;
-    std::set<std::string> sensors;
-    std::string ledObjectPath;
-    LedState ledState = LedState::UNKNOWN;
-};
+using InventoryItem = sensor_utils::InventoryItem;
 
 /**
  * @brief Get objects with connection necessary for sensors
@@ -460,7 +325,7 @@ inline void reduceSensorList(
     if ((allSensors == nullptr) || (activeSensors == nullptr))
     {
         messages::resourceNotFound(res, chassisSubNode,
-                                   chassisSubNode == sensors::node::thermal
+                                   chassisSubNode == sensor_utils::node::thermal
                                        ? "Temperatures"
                                        : "Voltages");
 
@@ -492,17 +357,17 @@ inline void reduceSensorList(
 inline void populateChassisNode(nlohmann::json& jsonValue,
                                 std::string_view chassisSubNode)
 {
-    if (chassisSubNode == sensors::node::power)
+    if (chassisSubNode == sensor_utils::node::power)
     {
         jsonValue["@odata.type"] = "#Power.v1_5_2.Power";
     }
-    else if (chassisSubNode == sensors::node::thermal)
+    else if (chassisSubNode == sensor_utils::node::thermal)
     {
         jsonValue["@odata.type"] = "#Thermal.v1_4_0.Thermal";
         jsonValue["Fans"] = nlohmann::json::array();
         jsonValue["Temperatures"] = nlohmann::json::array();
     }
-    else if (chassisSubNode == sensors::node::sensors)
+    else if (chassisSubNode == sensor_utils::node::sensors)
     {
         jsonValue["@odata.type"] = "#SensorCollection.SensorCollection";
         jsonValue["Description"] = "Collection of Sensors for this Chassis";
@@ -510,7 +375,7 @@ inline void populateChassisNode(nlohmann::json& jsonValue,
         jsonValue["Members@odata.count"] = 0;
     }
 
-    if (chassisSubNode != sensors::node::sensors)
+    if (chassisSubNode != sensor_utils::node::sensors)
     {
         jsonValue["Id"] = chassisSubNode;
     }
@@ -606,391 +471,6 @@ void getChassis(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 }
 
 /**
- * @brief Returns the Redfish State value for the specified inventory item.
- * @param inventoryItem D-Bus inventory item associated with a sensor.
- * @param sensorAvailable Boolean representing if D-Bus sensor is marked as
- * available.
- * @return State value for inventory item.
- */
-inline resource::State getState(const InventoryItem* inventoryItem,
-                                const bool sensorAvailable)
-{
-    if ((inventoryItem != nullptr) && !(inventoryItem->isPresent))
-    {
-        return resource::State::Absent;
-    }
-
-    if (!sensorAvailable)
-    {
-        return resource::State::UnavailableOffline;
-    }
-
-    return resource::State::Enabled;
-}
-
-/**
- * @brief Returns the Redfish Health value for the specified sensor.
- * @param sensorJson Sensor JSON object.
- * @param valuesDict Map of all sensor DBus values.
- * @param inventoryItem D-Bus inventory item associated with the sensor.  Will
- * be nullptr if no associated inventory item was found.
- * @return Health value for sensor.
- */
-inline std::string getHealth(nlohmann::json& sensorJson,
-                             const dbus::utility::DBusPropertiesMap& valuesDict,
-                             const InventoryItem* inventoryItem)
-{
-    // Get current health value (if any) in the sensor JSON object.  Some JSON
-    // objects contain multiple sensors (such as PowerSupplies).  We want to set
-    // the overall health to be the most severe of any of the sensors.
-    std::string currentHealth;
-    auto statusIt = sensorJson.find("Status");
-    if (statusIt != sensorJson.end())
-    {
-        auto healthIt = statusIt->find("Health");
-        if (healthIt != statusIt->end())
-        {
-            std::string* health = healthIt->get_ptr<std::string*>();
-            if (health != nullptr)
-            {
-                currentHealth = *health;
-            }
-        }
-    }
-
-    // If current health in JSON object is already Critical, return that.  This
-    // should override the sensor health, which might be less severe.
-    if (currentHealth == "Critical")
-    {
-        return "Critical";
-    }
-
-    const bool* criticalAlarmHigh = nullptr;
-    const bool* criticalAlarmLow = nullptr;
-    const bool* warningAlarmHigh = nullptr;
-    const bool* warningAlarmLow = nullptr;
-
-    const bool success = sdbusplus::unpackPropertiesNoThrow(
-        dbus_utils::UnpackErrorPrinter(), valuesDict, "CriticalAlarmHigh",
-        criticalAlarmHigh, "CriticalAlarmLow", criticalAlarmLow,
-        "WarningAlarmHigh", warningAlarmHigh, "WarningAlarmLow",
-        warningAlarmLow);
-
-    if (success)
-    {
-        // Check if sensor has critical threshold alarm
-        if ((criticalAlarmHigh != nullptr && *criticalAlarmHigh) ||
-            (criticalAlarmLow != nullptr && *criticalAlarmLow))
-        {
-            return "Critical";
-        }
-    }
-
-    // Check if associated inventory item is not functional
-    if ((inventoryItem != nullptr) && !(inventoryItem->isFunctional))
-    {
-        return "Critical";
-    }
-
-    // If current health in JSON object is already Warning, return that. This
-    // should override the sensor status, which might be less severe.
-    if (currentHealth == "Warning")
-    {
-        return "Warning";
-    }
-
-    if (success)
-    {
-        // Check if sensor has warning threshold alarm
-        if ((warningAlarmHigh != nullptr && *warningAlarmHigh) ||
-            (warningAlarmLow != nullptr && *warningAlarmLow))
-        {
-            return "Warning";
-        }
-    }
-
-    return "OK";
-}
-
-inline void setLedState(nlohmann::json& sensorJson,
-                        const InventoryItem* inventoryItem)
-{
-    if (inventoryItem != nullptr && !inventoryItem->ledObjectPath.empty())
-    {
-        switch (inventoryItem->ledState)
-        {
-            case LedState::OFF:
-                sensorJson["IndicatorLED"] = resource::IndicatorLED::Off;
-                break;
-            case LedState::ON:
-                sensorJson["IndicatorLED"] = resource::IndicatorLED::Lit;
-                break;
-            case LedState::BLINK:
-                sensorJson["IndicatorLED"] = resource::IndicatorLED::Blinking;
-                break;
-            default:
-                break;
-        }
-    }
-}
-
-/**
- * @brief Builds a json sensor representation of a sensor.
- * @param sensorName  The name of the sensor to be built
- * @param sensorType  The type (temperature, fan_tach, etc) of the sensor to
- * build
- * @param chassisSubNode The subnode (thermal, sensor, etc) of the sensor
- * @param propertiesDict A dictionary of the properties to build the sensor
- * from.
- * @param sensorJson  The json object to fill
- * @param inventoryItem D-Bus inventory item associated with the sensor.  Will
- * be nullptr if no associated inventory item was found.
- */
-inline void objectPropertiesToJson(
-    std::string_view sensorName, std::string_view sensorType,
-    std::string_view chassisSubNode,
-    const dbus::utility::DBusPropertiesMap& propertiesDict,
-    nlohmann::json& sensorJson, InventoryItem* inventoryItem)
-{
-    if (chassisSubNode == sensors::node::sensors)
-    {
-        std::string subNodeEscaped =
-            redfish::sensor_utils::getSensorId(sensorName, sensorType);
-        // For sensors in SensorCollection we set Id instead of MemberId,
-        // including power sensors.
-        sensorJson["Id"] = std::move(subNodeEscaped);
-
-        std::string sensorNameEs(sensorName);
-        std::replace(sensorNameEs.begin(), sensorNameEs.end(), '_', ' ');
-        sensorJson["Name"] = std::move(sensorNameEs);
-    }
-    else if (sensorType != "power")
-    {
-        // Set MemberId and Name for non-power sensors.  For PowerSupplies and
-        // PowerControl, those properties have more general values because
-        // multiple sensors can be stored in the same JSON object.
-        std::string sensorNameEs(sensorName);
-        std::replace(sensorNameEs.begin(), sensorNameEs.end(), '_', ' ');
-        sensorJson["Name"] = std::move(sensorNameEs);
-    }
-
-    const bool* checkAvailable = nullptr;
-    bool available = true;
-    const bool success = sdbusplus::unpackPropertiesNoThrow(
-        dbus_utils::UnpackErrorPrinter(), propertiesDict, "Available",
-        checkAvailable);
-    if (!success)
-    {
-        messages::internalError();
-    }
-    if (checkAvailable != nullptr)
-    {
-        available = *checkAvailable;
-    }
-
-    sensorJson["Status"]["State"] = getState(inventoryItem, available);
-    sensorJson["Status"]["Health"] =
-        getHealth(sensorJson, propertiesDict, inventoryItem);
-
-    // Parameter to set to override the type we get from dbus, and force it to
-    // int, regardless of what is available.  This is used for schemas like fan,
-    // that require integers, not floats.
-    bool forceToInt = false;
-
-    nlohmann::json::json_pointer unit("/Reading");
-    if (chassisSubNode == sensors::node::sensors)
-    {
-        sensorJson["@odata.type"] = "#Sensor.v1_2_0.Sensor";
-
-        sensor::ReadingType readingType = sensors::toReadingType(sensorType);
-        if (readingType == sensor::ReadingType::Invalid)
-        {
-            BMCWEB_LOG_ERROR("Redfish cannot map reading type for {}",
-                             sensorType);
-        }
-        else
-        {
-            sensorJson["ReadingType"] = readingType;
-        }
-
-        std::string_view readingUnits = sensors::toReadingUnits(sensorType);
-        if (readingUnits.empty())
-        {
-            BMCWEB_LOG_ERROR("Redfish cannot map reading unit for {}",
-                             sensorType);
-        }
-        else
-        {
-            sensorJson["ReadingUnits"] = readingUnits;
-        }
-    }
-    else if (sensorType == "temperature")
-    {
-        unit = "/ReadingCelsius"_json_pointer;
-        sensorJson["@odata.type"] = "#Thermal.v1_3_0.Temperature";
-        // TODO(ed) Documentation says that path should be type fan_tach,
-        // implementation seems to implement fan
-    }
-    else if (sensorType == "fan" || sensorType == "fan_tach")
-    {
-        unit = "/Reading"_json_pointer;
-        sensorJson["ReadingUnits"] = thermal::ReadingUnits::RPM;
-        sensorJson["@odata.type"] = "#Thermal.v1_3_0.Fan";
-        setLedState(sensorJson, inventoryItem);
-        forceToInt = true;
-    }
-    else if (sensorType == "fan_pwm")
-    {
-        unit = "/Reading"_json_pointer;
-        sensorJson["ReadingUnits"] = thermal::ReadingUnits::Percent;
-        sensorJson["@odata.type"] = "#Thermal.v1_3_0.Fan";
-        setLedState(sensorJson, inventoryItem);
-        forceToInt = true;
-    }
-    else if (sensorType == "voltage")
-    {
-        unit = "/ReadingVolts"_json_pointer;
-        sensorJson["@odata.type"] = "#Power.v1_0_0.Voltage";
-    }
-    else if (sensorType == "power")
-    {
-        std::string lower;
-        std::ranges::transform(sensorName, std::back_inserter(lower),
-                               bmcweb::asciiToLower);
-        if (lower == "total_power")
-        {
-            sensorJson["@odata.type"] = "#Power.v1_0_0.PowerControl";
-            // Put multiple "sensors" into a single PowerControl, so have
-            // generic names for MemberId and Name. Follows Redfish mockup.
-            sensorJson["MemberId"] = "0";
-            sensorJson["Name"] = "Chassis Power Control";
-            unit = "/PowerConsumedWatts"_json_pointer;
-        }
-        else if (lower.find("input") != std::string::npos)
-        {
-            unit = "/PowerInputWatts"_json_pointer;
-        }
-        else
-        {
-            unit = "/PowerOutputWatts"_json_pointer;
-        }
-    }
-    else
-    {
-        BMCWEB_LOG_ERROR("Redfish cannot map object type for {}", sensorName);
-        return;
-    }
-    // Map of dbus interface name, dbus property name and redfish property_name
-    std::vector<
-        std::tuple<const char*, const char*, nlohmann::json::json_pointer>>
-        properties;
-    properties.reserve(7);
-
-    properties.emplace_back("xyz.openbmc_project.Sensor.Value", "Value", unit);
-
-    if (chassisSubNode == sensors::node::sensors)
-    {
-        properties.emplace_back(
-            "xyz.openbmc_project.Sensor.Threshold.Warning", "WarningHigh",
-            "/Thresholds/UpperCaution/Reading"_json_pointer);
-        properties.emplace_back(
-            "xyz.openbmc_project.Sensor.Threshold.Warning", "WarningLow",
-            "/Thresholds/LowerCaution/Reading"_json_pointer);
-        properties.emplace_back(
-            "xyz.openbmc_project.Sensor.Threshold.Critical", "CriticalHigh",
-            "/Thresholds/UpperCritical/Reading"_json_pointer);
-        properties.emplace_back(
-            "xyz.openbmc_project.Sensor.Threshold.Critical", "CriticalLow",
-            "/Thresholds/LowerCritical/Reading"_json_pointer);
-    }
-    else if (sensorType != "power")
-    {
-        properties.emplace_back("xyz.openbmc_project.Sensor.Threshold.Warning",
-                                "WarningHigh",
-                                "/UpperThresholdNonCritical"_json_pointer);
-        properties.emplace_back("xyz.openbmc_project.Sensor.Threshold.Warning",
-                                "WarningLow",
-                                "/LowerThresholdNonCritical"_json_pointer);
-        properties.emplace_back("xyz.openbmc_project.Sensor.Threshold.Critical",
-                                "CriticalHigh",
-                                "/UpperThresholdCritical"_json_pointer);
-        properties.emplace_back("xyz.openbmc_project.Sensor.Threshold.Critical",
-                                "CriticalLow",
-                                "/LowerThresholdCritical"_json_pointer);
-    }
-
-    // TODO Need to get UpperThresholdFatal and LowerThresholdFatal
-
-    if (chassisSubNode == sensors::node::sensors)
-    {
-        properties.emplace_back("xyz.openbmc_project.Sensor.Value", "MinValue",
-                                "/ReadingRangeMin"_json_pointer);
-        properties.emplace_back("xyz.openbmc_project.Sensor.Value", "MaxValue",
-                                "/ReadingRangeMax"_json_pointer);
-        properties.emplace_back("xyz.openbmc_project.Sensor.Accuracy",
-                                "Accuracy", "/Accuracy"_json_pointer);
-    }
-    else if (sensorType == "temperature")
-    {
-        properties.emplace_back("xyz.openbmc_project.Sensor.Value", "MinValue",
-                                "/MinReadingRangeTemp"_json_pointer);
-        properties.emplace_back("xyz.openbmc_project.Sensor.Value", "MaxValue",
-                                "/MaxReadingRangeTemp"_json_pointer);
-    }
-    else if (sensorType != "power")
-    {
-        properties.emplace_back("xyz.openbmc_project.Sensor.Value", "MinValue",
-                                "/MinReadingRange"_json_pointer);
-        properties.emplace_back("xyz.openbmc_project.Sensor.Value", "MaxValue",
-                                "/MaxReadingRange"_json_pointer);
-    }
-
-    for (const std::tuple<const char*, const char*,
-                          nlohmann::json::json_pointer>& p : properties)
-    {
-        for (const auto& [valueName, valueVariant] : propertiesDict)
-        {
-            if (valueName != std::get<1>(p))
-            {
-                continue;
-            }
-
-            // The property we want to set may be nested json, so use
-            // a json_pointer for easy indexing into the json structure.
-            const nlohmann::json::json_pointer& key = std::get<2>(p);
-
-            const double* doubleValue = std::get_if<double>(&valueVariant);
-            if (doubleValue == nullptr)
-            {
-                BMCWEB_LOG_ERROR("Got value interface that wasn't double");
-                continue;
-            }
-            if (!std::isfinite(*doubleValue))
-            {
-                if (valueName == "Value")
-                {
-                    // Readings are allowed to be NAN for unavailable;  coerce
-                    // them to null in the json response.
-                    sensorJson[key] = nullptr;
-                    continue;
-                }
-                BMCWEB_LOG_WARNING("Sensor value for {} was unexpectedly {}",
-                                   valueName, *doubleValue);
-                continue;
-            }
-            if (forceToInt)
-            {
-                sensorJson[key] = static_cast<int64_t>(*doubleValue);
-            }
-            else
-            {
-                sensorJson[key] = *doubleValue;
-            }
-        }
-    }
-}
-
-/**
  * @brief Builds a json sensor representation of a sensor.
  * @param sensorName  The name of the sensor to be built
  * @param sensorType  The type (temperature, fan_tach, etc) of the sensor to
@@ -1010,8 +490,9 @@ inline void objectInterfacesToJson(
 {
     for (const auto& [interface, valuesDict] : interfacesDict)
     {
-        objectPropertiesToJson(sensorName, sensorType, chassisSubNode,
-                               valuesDict, sensorJson, inventoryItem);
+        sensor_utils::objectPropertiesToJson(
+            sensorName, sensorType, chassisSubNode, valuesDict, sensorJson,
+            inventoryItem);
     }
     BMCWEB_LOG_DEBUG("Added sensor {}", sensorName);
 }
@@ -1211,7 +692,7 @@ inline void
 {
     nlohmann::json& response = sensorsAsyncResp->asyncResp->res.jsonValue;
     std::array<std::string, 2> sensorHeaders{"Temperatures", "Fans"};
-    if (sensorsAsyncResp->chassisSubNode == sensors::node::power)
+    if (sensorsAsyncResp->chassisSubNode == sensor_utils::node::power)
     {
         sensorHeaders = {"Voltages", "PowerSupplies"};
     }
@@ -1853,19 +1334,20 @@ void getInventoryLedData(
                     // Store LED state in InventoryItem
                     if (state.ends_with("On"))
                     {
-                        inventoryItem->ledState = LedState::ON;
+                        inventoryItem->ledState = sensor_utils::LedState::ON;
                     }
                     else if (state.ends_with("Blink"))
                     {
-                        inventoryItem->ledState = LedState::BLINK;
+                        inventoryItem->ledState = sensor_utils::LedState::BLINK;
                     }
                     else if (state.ends_with("Off"))
                     {
-                        inventoryItem->ledState = LedState::OFF;
+                        inventoryItem->ledState = sensor_utils::LedState::OFF;
                     }
                     else
                     {
-                        inventoryItem->ledState = LedState::UNKNOWN;
+                        inventoryItem->ledState =
+                            sensor_utils::LedState::UNKNOWN;
                     }
                 }
 
@@ -2087,7 +1569,7 @@ void getPowerSupplyAttributes(
     BMCWEB_LOG_DEBUG("getPowerSupplyAttributes enter");
 
     // Only need the power supply attributes when the Power Schema
-    if (sensorsAsyncResp->chassisSubNode != sensors::node::power)
+    if (sensorsAsyncResp->chassisSubNode != sensor_utils::node::power)
     {
         BMCWEB_LOG_DEBUG("getPowerSupplyAttributes exit since not Power");
         callback(inventoryItems);
@@ -2293,7 +1775,7 @@ inline nlohmann::json& getPowerSupply(nlohmann::json& powerSupplyArray,
     powerSupply["Model"] = inventoryItem.model;
     powerSupply["PartNumber"] = inventoryItem.partNumber;
     powerSupply["SerialNumber"] = inventoryItem.serialNumber;
-    setLedState(powerSupply, &inventoryItem);
+    sensor_utils::setLedState(powerSupply, &inventoryItem);
 
     if (inventoryItem.powerSupplyEfficiencyPercent >= 0)
     {
@@ -2301,7 +1783,8 @@ inline nlohmann::json& getPowerSupply(nlohmann::json& powerSupplyArray,
             inventoryItem.powerSupplyEfficiencyPercent;
     }
 
-    powerSupply["Status"]["State"] = getState(&inventoryItem, true);
+    powerSupply["Status"]["State"] =
+        sensor_utils::getState(&inventoryItem, true);
     const char* health = inventoryItem.isFunctional ? "OK" : "Critical";
     powerSupply["Status"]["Health"] = health;
 
@@ -2398,7 +1881,7 @@ inline void getSensorData(
 
                     nlohmann::json* sensorJson = nullptr;
 
-                    if (sensorSchema == sensors::node::sensors &&
+                    if (sensorSchema == sensor_utils::node::sensors &&
                         !sensorsAsyncResp->efficientExpand)
                     {
                         std::string sensorId =
@@ -2538,7 +2021,7 @@ inline void getSensorData(
                 {
                     sortJSONResponse(sensorsAsyncResp);
                     if (sensorsAsyncResp->chassisSubNode ==
-                            sensors::node::sensors &&
+                            sensor_utils::node::sensors &&
                         sensorsAsyncResp->efficientExpand)
                     {
                         sensorsAsyncResp->asyncResp->res
@@ -2548,7 +2031,7 @@ inline void getSensorData(
                                 .size();
                     }
                     else if (sensorsAsyncResp->chassisSubNode ==
-                             sensors::node::thermal)
+                             sensor_utils::node::thermal)
                     {
                         populateFanRedundancy(sensorsAsyncResp);
                     }
@@ -2605,7 +2088,7 @@ inline void
             BMCWEB_LOG_DEBUG("getChassisCb exit");
         };
     // SensorCollection doesn't contain the Redundancy property
-    if (sensorsAsyncResp->chassisSubNode != sensors::node::sensors)
+    if (sensorsAsyncResp->chassisSubNode != sensor_utils::node::sensors)
     {
         sensorsAsyncResp->asyncResp->res.jsonValue["Redundancy"] =
             nlohmann::json::array();
@@ -2731,7 +2214,8 @@ inline void setSensorsOverride(
                     objectsWithConnection.size(), overrideMap.size());
                 messages::resourceNotFound(
                     sensorAsyncResp->asyncResp->res,
-                    sensorAsyncResp->chassisSubNode == sensors::node::thermal
+                    sensorAsyncResp->chassisSubNode ==
+                            sensor_utils::node::thermal
                         ? "Temperatures"
                         : "Voltages",
                     "Count");
@@ -2782,7 +2266,8 @@ inline void setSensorsOverride(
  * it to caller in a callback.
  *
  * @param chassis   Chassis for which retrieval should be performed
- * @param node  Node (group) of sensors. See sensors::node for supported values
+ * @param node  Node (group) of sensors. See sensor_utils::node for supported
+ * values
  * @param mapComplete   Callback to be called with retrieval result
  */
 template <typename Callback>
@@ -2870,7 +2355,7 @@ inline void handleSensorCollectionGet(
         // we perform efficient expand.
         auto sensorsAsyncResp = std::make_shared<SensorsAsyncResp>(
             asyncResp, chassisId, sensors::dbus::sensorPaths,
-            sensors::node::sensors,
+            sensor_utils::node::sensors,
             /*efficientExpand=*/true);
         getChassisData(sensorsAsyncResp);
 
@@ -2881,9 +2366,10 @@ inline void handleSensorCollectionGet(
 
     // We get all sensors as hyperlinkes in the chassis (this
     // implies we reply on the default query parameters handler)
-    getChassis(asyncResp, chassisId, sensors::node::sensors, dbus::sensorPaths,
+    getChassis(asyncResp, chassisId, sensor_utils::node::sensors,
+               dbus::sensorPaths,
                std::bind_front(sensors::getChassisCallback, asyncResp,
-                               chassisId, sensors::node::sensors));
+                               chassisId, sensor_utils::node::sensors));
 }
 
 inline void
@@ -2915,9 +2401,9 @@ inline void
             std::string name = path.filename();
             path = path.parent_path();
             std::string type = path.filename();
-            objectPropertiesToJson(name, type, sensors::node::sensors,
-                                   valuesDict, asyncResp->res.jsonValue,
-                                   nullptr);
+            sensor_utils::objectPropertiesToJson(
+                name, type, sensor_utils::node::sensors, valuesDict,
+                asyncResp->res.jsonValue, nullptr);
         });
 }
 
