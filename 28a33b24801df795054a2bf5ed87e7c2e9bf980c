@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b723262b_c318419e",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-28T19:58:19Z",
+      "side": 1,
+      "message": "If we\u0027re changing the namespace of these anyway, lets just put them under sensor_utils.  \"node\" adds no value as a name.",
+      "revId": "28a33b24801df795054a2bf5ed87e7c2e9bf980c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3f6ca68b_f47844c9",
         "filename": "redfish-core/include/utils/sensor_utils.hpp",
         "patchSetId": 1
