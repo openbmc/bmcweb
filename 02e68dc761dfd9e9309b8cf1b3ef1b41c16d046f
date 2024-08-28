@@ -52,6 +52,24 @@
       "parentUuid": "138b3093_4f30e698",
       "revId": "02e68dc761dfd9e9309b8cf1b3ef1b41c16d046f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9e96e08_a165c498",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-28T15:42:13Z",
+      "side": 1,
+      "message": "I guess we should just revert, https://github.com/openbmc/bmcweb/commit/2ccce1f3a04ab72824820a6795878ce01f37a22c\n\nThen until you can get this solved?",
+      "parentUuid": "7ed8004b_34620f24",
+      "revId": "02e68dc761dfd9e9309b8cf1b3ef1b41c16d046f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
