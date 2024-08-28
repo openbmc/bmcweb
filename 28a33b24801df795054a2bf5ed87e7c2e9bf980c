@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf37da4c_20b61a4b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-28T19:57:13Z",
+      "side": 1,
+      "message": "I have lots of thoughts on this code itself, but they\u0027re unrelated to the actual change, which is just moving it.  Lets get the minor whitespace stuff fixed, then this should be good to go.",
+      "revId": "28a33b24801df795054a2bf5ed87e7c2e9bf980c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f6ca68b_f47844c9",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-28T19:57:13Z",
+      "side": 1,
+      "message": "I realize you only copied these, which is fine for this commit, but really the interface to these helper functions should be an enum, not a string, then a method to convert the enum to a schema name if we really need it.\n\nLeave the current commit as-is please;  Just giving ideas for future stuff.",
+      "revId": "28a33b24801df795054a2bf5ed87e7c2e9bf980c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6131fe0_c190b4be",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-28T19:57:13Z",
+      "side": 1,
+      "message": "what happened here?  different ascii code - ?",
+      "range": {
+        "startLine": 186,
+        "startChar": 24,
+        "endLine": 186,
+        "endChar": 25
+      },
+      "revId": "28a33b24801df795054a2bf5ed87e7c2e9bf980c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
