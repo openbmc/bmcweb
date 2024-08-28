@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "919149d2_7b98e62e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-08-28T18:39:52Z",
+      "side": 1,
+      "message": "tested: Visual inspection. Top commit was tested.",
+      "revId": "2757314f30b179cba7de98885a53d39fec2df2c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01719888_0f91963b",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-08-28T18:39:52Z",
+      "side": 1,
+      "message": "nitpick:\nreturnCode \nreturn \nretCode\nrc \nerror \nec \nerrorCode \n\n\nI think are all better than r (signal char variable name). Oh well.",
+      "range": {
+        "startLine": 101,
+        "startChar": 12,
+        "endLine": 101,
+        "endChar": 14
+      },
+      "revId": "2757314f30b179cba7de98885a53d39fec2df2c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
