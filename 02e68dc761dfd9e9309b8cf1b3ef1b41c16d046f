@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6c9a700_72a8fcff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-08-28T18:49:11Z",
+      "side": 1,
+      "message": "Get rid of NOLINTNEXTLINE by using PasswordData struct.",
+      "revId": "02e68dc761dfd9e9309b8cf1b3ef1b41c16d046f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "711237e5_3a0b49a8",
@@ -122,6 +139,23 @@
       "side": 1,
       "message": "like we discussed earlier, having separate function for password update works fine",
       "parentUuid": "dde93aef_015e3a96",
+      "revId": "02e68dc761dfd9e9309b8cf1b3ef1b41c16d046f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7dd5594a_88c2fe5d",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-08-28T18:49:11Z",
+      "side": 1,
+      "message": "This is what we already do on line 107/108",
       "revId": "02e68dc761dfd9e9309b8cf1b3ef1b41c16d046f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
