@@ -24,6 +24,7 @@
 #include "sensors.hpp"
 #include "utils/chassis_utils.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/sensor_utils.hpp"
 
 #include <sdbusplus/asio/property.hpp>
 
@@ -135,7 +136,7 @@ inline void requestRoutesPower(App& app)
 
         auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
             asyncResp, chassisName, sensors::dbus::powerPaths,
-            sensors::node::power);
+            sensor_utils::powerNode);
 
         getChassisData(sensorAsyncResp);
 
@@ -316,7 +317,7 @@ inline void requestRoutesPower(App& app)
         }
         auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
             asyncResp, chassisName, sensors::dbus::powerPaths,
-            sensors::node::power);
+            sensor_utils::powerNode);
 
         std::optional<std::vector<nlohmann::json>> voltageCollections;
         std::optional<std::vector<nlohmann::json>> powerCtlCollections;
