@@ -926,6 +926,7 @@ inline void
                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     sdbusplus::message::object_path path("/xyz/openbmc_project/network");
+    path /= ifaceId;
     path /= gatewayId;
     crow::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code& ec) {
