@@ -1380,19 +1380,6 @@ inline void setDHCPConfig(const std::string& propertyName, const bool& value,
         "xyz.openbmc_project.Network.DHCPConfiguration", propertyName, value);
 }
 
-inline void handleSLAACAutoConfigPatch(
-    const std::string& ifaceId, bool ipv6AutoConfigEnabled,
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
-{
-    sdbusplus::message::object_path path("/xyz/openbmc_project/network");
-    path /= ifaceId;
-    setDbusProperty(asyncResp,
-                    "StatelessAddressAutoConfig/IPv6AutoConfigEnabled",
-                    "xyz.openbmc_project.Network", path,
-                    "xyz.openbmc_project.Network.EthernetInterface",
-                    "IPv6AcceptRA", ipv6AutoConfigEnabled);
-}
-
 inline void handleDHCPPatch(
     const std::string& ifaceId, const EthernetInterfaceData& ethData,
     const DHCPParameters& v4dhcpParms, const DHCPParameters& v6dhcpParms,
@@ -2299,7 +2286,6 @@ inline void requestEthernetInterfacesRoutes(App& app)
                     std::variant<nlohmann::json::object_t, std::nullptr_t>>>
                     ipv6StaticDefaultGateways;
                 std::optional<std::vector<std::string>> staticNameServers;
-                std::optional<bool> ipv6AutoConfigEnabled;
                 std::optional<bool> interfaceEnabled;
                 std::optional<size_t> mtuSize;
                 DHCPParameters v4dhcpParms;
@@ -2323,7 +2309,6 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 "InterfaceEnabled", interfaceEnabled,
                 "MACAddress", macAddress,
                 "MTUSize", mtuSize,
-                "StatelessAddressAutoConfig/IPv6AutoConfigEnabled", ipv6AutoConfigEnabled,
                 "StaticNameServers", staticNameServers
                 )
             )
@@ -2344,7 +2329,6 @@ inline void requestEthernetInterfacesRoutes(App& app)
                      ipv6StaticDefaultGateway =
                          std::move(ipv6StaticDefaultGateways),
                      staticNameServers = std::move(staticNameServers), mtuSize,
-                     ipv6AutoConfigEnabled,
                      v4dhcpParms = std::move(v4dhcpParms),
                      v6dhcpParms = std::move(v6dhcpParms), interfaceEnabled](
                         const bool success,
@@ -2369,12 +2353,6 @@ inline void requestEthernetInterfacesRoutes(App& app)
                         if (hostname)
                         {
                             handleHostnamePatch(*hostname, asyncResp);
-                        }
-
-                        if (ipv6AutoConfigEnabled)
-                        {
-                            handleSLAACAutoConfigPatch(
-                                ifaceId, *ipv6AutoConfigEnabled, asyncResp);
                         }
 
                         if (fqdn)
