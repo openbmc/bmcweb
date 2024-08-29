@@ -136,7 +136,8 @@ inline void requestRoutesPower(App& app)
 
         auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
             asyncResp, chassisName, sensors::dbus::powerPaths,
-            sensor_utils::powerNode);
+            sensor_utils::chassisSubNodeToString(
+                sensor_utils::ChassisSubNode::powerNode));
 
         getChassisData(sensorAsyncResp);
 
@@ -317,7 +318,8 @@ inline void requestRoutesPower(App& app)
         }
         auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
             asyncResp, chassisName, sensors::dbus::powerPaths,
-            sensor_utils::powerNode);
+            sensor_utils::chassisSubNodeToString(
+                sensor_utils::ChassisSubNode::powerNode));
 
         std::optional<std::vector<nlohmann::json>> voltageCollections;
         std::optional<std::vector<nlohmann::json>> powerCtlCollections;

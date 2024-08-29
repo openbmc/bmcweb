@@ -24,9 +24,50 @@ namespace redfish
 namespace sensor_utils
 {
 
-static constexpr std::string_view powerNode = "Power";
-static constexpr std::string_view sensorsNode = "Sensors";
-static constexpr std::string_view thermalNode = "Thermal";
+enum class ChassisSubNode
+{
+    powerNode,
+    sensorsNode,
+    thermalNode,
+    unknownNode,
+};
+
+constexpr std::string_view chassisSubNodeToString(ChassisSubNode subNode)
+{
+    switch (subNode)
+    {
+        case ChassisSubNode::powerNode:
+            return "Power";
+        case ChassisSubNode::sensorsNode:
+            return "Sensors";
+        case ChassisSubNode::thermalNode:
+            return "Thermal";
+        case ChassisSubNode::unknownNode:
+        default:
+            return "";
+    }
+}
+
+inline ChassisSubNode chassisSubNodeFromString(const std::string& subNodeStr)
+{
+    // If none match unknownNode is returned
+    ChassisSubNode subNode = ChassisSubNode::unknownNode;
+
+    if (subNodeStr == "Power")
+    {
+        subNode = ChassisSubNode::powerNode;
+    }
+    else if (subNodeStr == "Sensors")
+    {
+        subNode = ChassisSubNode::sensorsNode;
+    }
+    else if (subNodeStr == "Thermal")
+    {
+        subNode = ChassisSubNode::thermalNode;
+    }
+
+    return subNode;
+}
 
 /**
  * Possible states for physical inventory leds
@@ -333,11 +374,11 @@ inline void setLedState(nlohmann::json& sensorJson,
  */
 inline void objectPropertiesToJson(
     std::string_view sensorName, std::string_view sensorType,
-    std::string_view chassisSubNode,
+    ChassisSubNode chassisSubNode,
     const dbus::utility::DBusPropertiesMap& propertiesDict,
     nlohmann::json& sensorJson, InventoryItem* inventoryItem)
 {
-    if (chassisSubNode == sensorsNode)
+    if (chassisSubNode == ChassisSubNode::sensorsNode)
     {
         std::string subNodeEscaped = getSensorId(sensorName, sensorType);
         // For sensors in SensorCollection we set Id instead of MemberId,
@@ -382,7 +423,7 @@ inline void objectPropertiesToJson(
     bool forceToInt = false;
 
     nlohmann::json::json_pointer unit("/Reading");
-    if (chassisSubNode == sensorsNode)
+    if (chassisSubNode == ChassisSubNode::sensorsNode)
     {
         sensorJson["@odata.type"] = "#Sensor.v1_2_0.Sensor";
 
@@ -472,7 +513,7 @@ inline void objectPropertiesToJson(
 
     properties.emplace_back("xyz.openbmc_project.Sensor.Value", "Value", unit);
 
-    if (chassisSubNode == sensorsNode)
+    if (chassisSubNode == ChassisSubNode::sensorsNode)
     {
         properties.emplace_back(
             "xyz.openbmc_project.Sensor.Threshold.Warning", "WarningHigh",
@@ -505,7 +546,7 @@ inline void objectPropertiesToJson(
 
     // TODO Need to get UpperThresholdFatal and LowerThresholdFatal
 
-    if (chassisSubNode == sensorsNode)
+    if (chassisSubNode == ChassisSubNode::sensorsNode)
     {
         properties.emplace_back("xyz.openbmc_project.Sensor.Value", "MinValue",
                                 "/ReadingRangeMin"_json_pointer);
