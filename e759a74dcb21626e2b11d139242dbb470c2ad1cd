@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "42c22085_99df93ee",
+        "filename": "meson.options",
+        "patchSetId": 4
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-29T00:27:28Z",
+      "side": 1,
+      "message": "\u003e Can\u0027t we just extend the postcode if the secondary postcode is filled in?\n\nPresumably we\u0027d just make a change in the post code daemon to fill this in as the \"primary\" and change the type to support more bits like we\u0027ve done with secondary?",
+      "parentUuid": "f8b024e8_9635af64",
+      "revId": "e759a74dcb21626e2b11d139242dbb470c2ad1cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f4f7a7cd_f4e1abf7",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 4
