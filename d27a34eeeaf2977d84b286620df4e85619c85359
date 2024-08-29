@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dcb7059e_7db9f928",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-29T17:47:50Z",
+      "side": 1,
+      "message": "I still think it\u0027s an improvement regardless of having to add that check during creation.",
+      "parentUuid": "8a3bee71_234089b0",
+      "range": {
+        "startLine": 12,
+        "startChar": 47,
+        "endLine": 12,
+        "endChar": 78
+      },
+      "revId": "d27a34eeeaf2977d84b286620df4e85619c85359",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8e19f5a9_1398c8e3",
         "filename": "include/pam_authenticate.hpp",
         "patchSetId": 12
@@ -144,6 +168,54 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cf06fa79_72b6fa24",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-29T17:47:50Z",
+      "side": 1,
+      "message": "Use operator\u003cbool\u003e instead of has_value().",
+      "parentUuid": "4883d97c_455bb892",
+      "range": {
+        "startLine": 42,
+        "startChar": 54,
+        "endLine": 42,
+        "endChar": 66
+      },
+      "revId": "d27a34eeeaf2977d84b286620df4e85619c85359",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf2a3109_49432923",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-29T17:47:50Z",
+      "side": 1,
+      "message": "std::string_view::data() is not null terminated.  You\u0027ve passed it into an API that expects null terminated.\n\nNot sure about the tidy error, but lets get this written in a simple way, and we can figure out the tidy issue.",
+      "parentUuid": "9af42b9e_31d97ac1",
+      "range": {
+        "startLine": 42,
+        "startChar": 67,
+        "endLine": 42,
+        "endChar": 71
+      },
+      "revId": "d27a34eeeaf2977d84b286620df4e85619c85359",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2f98498b_1d40aaf2",
         "filename": "include/pam_authenticate.hpp",
         "patchSetId": 12
@@ -191,6 +263,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8084ec10_222cee87",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-29T17:47:50Z",
+      "side": 1,
+      "message": "keep it inline please.  breaking out one branch doesn\u0027t improve readability IMO",
+      "parentUuid": "879d85ff_00325a22",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 9
+      },
+      "revId": "d27a34eeeaf2977d84b286620df4e85619c85359",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7da5a7f4_60a9d520",
         "filename": "include/pam_authenticate.hpp",
         "patchSetId": 12
@@ -226,6 +322,30 @@
       "side": 1,
       "message": "std::string(password) would have done the trick. I will change it back. \nCompiler just need a hint to deduce the type of pair.",
       "parentUuid": "7da5a7f4_60a9d520",
+      "range": {
+        "startLine": 127,
+        "startChar": 23,
+        "endLine": 127,
+        "endChar": 43
+      },
+      "revId": "d27a34eeeaf2977d84b286620df4e85619c85359",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "894237cc_512467cf",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-29T17:47:50Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "895c54ff_a7a536d3",
       "range": {
         "startLine": 127,
         "startChar": 23,
