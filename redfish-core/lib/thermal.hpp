@@ -40,7 +40,7 @@ inline void requestRoutesThermal(App& app)
 
                 auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
                     asyncResp, chassisName, sensors::dbus::thermalPaths,
-                    sensor_utils::thermalNode);
+                    sensor_utils::thermalNodeStr);
 
                 // TODO Need to get Chassis Redundancy information.
                 getChassisData(sensorAsyncResp);
@@ -67,7 +67,7 @@ inline void requestRoutesThermal(App& app)
 
                 auto sensorsAsyncResp = std::make_shared<SensorsAsyncResp>(
                     asyncResp, chassisName, sensors::dbus::thermalPaths,
-                    sensor_utils::thermalNode);
+                    sensor_utils::thermalNodeStr);
 
                 if (!json_util::readJsonPatch(
                         req, sensorsAsyncResp->asyncResp->res, "Temperatures",
