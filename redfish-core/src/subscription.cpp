@@ -166,7 +166,8 @@ void Subscription::filterAndSendEventLogs(
         nlohmann::json::object_t bmcLogEntry;
         if (event_log::formatEventLogEntry(
                 logEntry.id, logEntry.messageId, messageArgsView,
-                logEntry.timestamp, userSub->customText, bmcLogEntry) != 0)
+                logEntry.timestamp, userSub->customText, true, bmcLogEntry) !=
+            0)
         {
             BMCWEB_LOG_DEBUG("Read eventLog entry failed");
             continue;
