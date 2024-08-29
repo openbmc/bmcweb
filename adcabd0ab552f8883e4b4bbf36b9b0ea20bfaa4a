@@ -72,6 +72,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "18e19d6d_5d682e54",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2024-08-29T07:30:39Z",
+      "side": 1,
+      "message": "I already run the Redfish Service Validator and don\u0027t see the issue. The reason why is that the `Board Manufacturer Date` doesn\u0027t exist in FRU on the PowerSupply of our system. \n```\nFRU Device Description : DPS-2700AB-1 B (ID 12)\n Product Manufacturer  : DELTA\n Product Name          : DPS-2700AB-1 B\n Product Part Number   : 25EP0-227000-D0S\n Product Version       : S0F\n Product Serial        : LCCD38W01T9\n Product Area Checksum : OK\n```\nThat why Redfish Service Validator does not flag this.",
+      "parentUuid": "65a00f3b_76d0c5ac",
+      "revId": "adcabd0ab552f8883e4b4bbf36b9b0ea20bfaa4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "99b66c8e_376c2129",
@@ -127,6 +145,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2c5c0607_297827c9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2024-08-29T07:30:39Z",
+      "side": 1,
+      "message": "\u003e Can you remove it from redfish-core/lib/sensors.hpp, since it isn\u0027t there either ?\n\nHi @Gunnar,\nGot it, I will remove it.\n\n\u003e @Hieu, before you\u0027re writing code, are you checking the schemas for the code you\u0027re making changes to to ensure that the property exists? Once you\u0027ve added the property, are you testing with Redfish service validator? I would expect either of these two things to make it so that Gunnar doesn\u0027t have to catch issues like this in code review.\n\nHi @Ed,\nI always check the schemas on https://www.dmtf.org/dsp/DSP0268 but not on https://redfish.dmtf.org/schemas that why I miss information and adding redundant properties.\nNow, I will check the schemas before I adding codes. Sorry for any inconvenience.",
+      "parentUuid": "073b70d7_d32fa060",
+      "revId": "adcabd0ab552f8883e4b4bbf36b9b0ea20bfaa4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "91766d51_1caa0f1d",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 6
@@ -138,6 +174,24 @@
       "writtenOn": "2024-08-23T16:14:03Z",
       "side": 1,
       "message": "This is the Power schema. This isn\u0027t the PowerSupply schema you are adding this to but the Power schema. https://redfish.dmtf.org/schemas/v1/Power.v1_7_3.json",
+      "revId": "adcabd0ab552f8883e4b4bbf36b9b0ea20bfaa4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db9d7521_09ac7ade",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2024-08-29T07:30:39Z",
+      "side": 1,
+      "message": "I got it. This is Power but not PowerSupply. I will remove it.",
+      "parentUuid": "91766d51_1caa0f1d",
       "revId": "adcabd0ab552f8883e4b4bbf36b9b0ea20bfaa4a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -191,6 +245,24 @@
       "side": 1,
       "message": "That schema is implemented here: https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/power_supply.hpp#L477\n\nThis is the Power schema. https://redfish.dmtf.org/schemas/v1/Power.v1_7_3.json",
       "parentUuid": "83e41d23_b9ab2869",
+      "revId": "adcabd0ab552f8883e4b4bbf36b9b0ea20bfaa4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "968ea788_84546cb3",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 2266,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2024-08-29T07:30:39Z",
+      "side": 1,
+      "message": "I got it.",
+      "parentUuid": "fa24dcea_fd59d79f",
       "revId": "adcabd0ab552f8883e4b4bbf36b9b0ea20bfaa4a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
