@@ -16,6 +16,24 @@
       "message": "Need details on what this does, how this works, etc.  This code isn\u0027t called anywhere, so I marked this WIP for the moment.",
       "revId": "4efdeab7c255a608e8bf5d09f2f5a5603cbf6fc0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e1f106b_21b85fec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-08-29T04:40:15Z",
+      "side": 1,
+      "message": "Google authenticator needs a shared secret key to generate and verify TOTP token.  A GoogleAuth enabled BMC system will have utility app to generate secret key. The secret key is per user basis. After the creation it will be stored in users home directory( where google authenticator pam module expect it to be). \n\nSecret key is created and owned by the user. It will not be created by default when a user is created by Admin. So the User has to go through a secret key creation flow during the first time login process. \nFirst time login Steps are as below\n1) user submits redfish post on session creation url with username and password.\n2) BMC authenticate the user with correct password (This works because user’s home directory does not have secret key file generated(.google_authenticator)\n3) On success BMC checks if MFA with google authenticator enabled in system level.\n4) If enabled it will check for if a valid secret key generated for the user.\n5) If valid secret key is not generated then session creation will respond with secret key required message with a lesser privileged session handle.\n6) After seeing the response client will call create Secret key redfish API.\n7) BMC will create and return the secrete key.\n8) After receiving the secret key the user enters it in his google authenticator mobile app.\n\nNow both the redfish user and the BMC will possess a shared secret key. The User can use his mobile app to create TOTP and BMC can verify the TOTP using the share secret. \n\nOnce a secrete key file generated in home directory, the pam module always expects TOTP token for authentication. \n\nIn order to avoid lock out scenarios, where BMC creates secret key in User’s home directory but client failed to capture it in his mobile app, we need a first time TOTP confirmation flow. \n\nBy using the confirmation flow the secrete key file will be committed ( saved in users home directory) only after the first time verification of TOTP. (Client uses verifySecretKey redfish API for confirmation)\n\nTo achieve this first time verification we need a special pam service that just verifies TOTP by using custom file path ( a google_authenticator.tmp file in user’s home)\n\nThis implementation makes use of the special pam  service  for TOTP verification. \n\nOnce successfully  verified the tmp secrete key file will be renamed to it’s actual file name",
+      "parentUuid": "6498fca9_f501fc00",
+      "revId": "4efdeab7c255a608e8bf5d09f2f5a5603cbf6fc0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
