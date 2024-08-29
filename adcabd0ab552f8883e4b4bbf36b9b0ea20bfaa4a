@@ -90,6 +90,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "de9ec83b_43976bb4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-29T17:52:36Z",
+      "side": 1,
+      "message": "\u003e Board Manufacturer Date doesn\u0027t exist in FRU on the PowerSupply of our system.\n\nThen why did you add it here?",
+      "parentUuid": "18e19d6d_5d682e54",
+      "revId": "adcabd0ab552f8883e4b4bbf36b9b0ea20bfaa4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "99b66c8e_376c2129",
@@ -157,6 +175,24 @@
       "side": 1,
       "message": "\u003e Can you remove it from redfish-core/lib/sensors.hpp, since it isn\u0027t there either ?\n\nHi @Gunnar,\nGot it, I will remove it.\n\n\u003e @Hieu, before you\u0027re writing code, are you checking the schemas for the code you\u0027re making changes to to ensure that the property exists? Once you\u0027ve added the property, are you testing with Redfish service validator? I would expect either of these two things to make it so that Gunnar doesn\u0027t have to catch issues like this in code review.\n\nHi @Ed,\nI always check the schemas on https://www.dmtf.org/dsp/DSP0268 but not on https://redfish.dmtf.org/schemas that why I miss information and adding redundant properties.\nNow, I will check the schemas before I adding codes. Sorry for any inconvenience.",
       "parentUuid": "073b70d7_d32fa060",
+      "revId": "adcabd0ab552f8883e4b4bbf36b9b0ea20bfaa4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d097a94_66156bb4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-29T17:52:36Z",
+      "side": 1,
+      "message": "Those two documents match expectations, so I\u0027m not sure I understand how you came to be here, but it\u0027s expected you test the code you add.  This means that at MINIMUM, you\u0027ve executed the golden path.  Do not add code to your patchsets that you haven\u0027t tested;  If you can\u0027t test the code paths, please discuss with maintainers.",
+      "parentUuid": "2c5c0607_297827c9",
       "revId": "adcabd0ab552f8883e4b4bbf36b9b0ea20bfaa4a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
