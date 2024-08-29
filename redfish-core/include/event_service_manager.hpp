@@ -28,6 +28,7 @@ limitations under the License.
 #include "registries_selector.hpp"
 #include "str_utility.hpp"
 #include "utility.hpp"
+#include "utils/dbus_event_log_entry.hpp"
 #include "utils/json_utils.hpp"
 #include "utils/time_utils.hpp"
 
@@ -38,6 +39,7 @@ limitations under the License.
 #include <boost/container/flat_map.hpp>
 #include <boost/url/format.hpp>
 #include <boost/url/url_view_base.hpp>
+#include <sdbusplus/bus.hpp>
 #include <sdbusplus/bus/match.hpp>
 
 #include <algorithm>
@@ -49,6 +51,7 @@ limitations under the License.
 #include <ranges>
 #include <span>
 #include <string>
+#include <variant>
 
 namespace redfish
 {
@@ -62,6 +65,11 @@ static constexpr const char* eventServiceFile =
 
 static constexpr const uint8_t maxNoOfSubscriptions = 20;
 static constexpr const uint8_t maxNoOfSSESubscriptions = 10;
+
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
+static std::unique_ptr<sdbusplus::bus::match_t>
+    // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
+    dbusEventLogMonitor;
 
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static std::optional<boost::asio::posix::stream_descriptor> inotifyConn;
@@ -112,6 +120,8 @@ static const Message* formatMessage(std::string_view messageID)
     bmcweb::split(fields, messageID, '.');
     if (fields.size() != 4)
     {
+        BMCWEB_LOG_WARNING("malformed messageId \"{}\" (does not have 4 parts)",
+                           messageID);
         return nullptr;
     }
     const std::string& registryName = fields[0];
@@ -226,21 +236,29 @@ inline void getRegistryAndMessageKey(const std::string& messageID,
 inline int formatEventLogEntry(
     const std::string& logEntryID, const std::string& messageID,
     const std::span<std::string_view> messageArgs, std::string timestamp,
-    const std::string& customText, nlohmann::json::object_t& logEntryJson)
+    const std::string& customText, const bool handleMessageArgs,
+    nlohmann::json::object_t& logEntryJson)
 {
     // Get the Message from the MessageRegistry
     const registries::Message* message = registries::formatMessage(messageID);
 
     if (message == nullptr)
     {
+        BMCWEB_LOG_WARNING("did not find messageId {} in message registries",
+                           messageID);
         return -1;
     }
 
-    std::string msg =
-        redfish::registries::fillMessageArgs(messageArgs, message->message);
-    if (msg.empty())
+    std::string msg = message->message;
+    if (handleMessageArgs)
     {
-        return -1;
+        msg =
+            redfish::registries::fillMessageArgs(messageArgs, message->message);
+        if (msg.empty())
+        {
+            BMCWEB_LOG_WARNING("could not fill message args");
+            return -1;
+        }
     }
 
     // Get the Created time from the timestamp. The log timestamp is in
@@ -259,7 +277,10 @@ inline int formatEventLogEntry(
     logEntryJson["Severity"] = message->messageSeverity;
     logEntryJson["Message"] = std::move(msg);
     logEntryJson["MessageId"] = messageID;
-    logEntryJson["MessageArgs"] = messageArgs;
+    if (handleMessageArgs)
+    {
+        logEntryJson["MessageArgs"] = messageArgs;
+    }
     logEntryJson["EventTimestamp"] = std::move(timestamp);
     logEntryJson["Context"] = customText;
     return 0;
@@ -470,7 +491,8 @@ class Subscription : public persistent_data::UserSubscription
     }
 
     void filterAndSendEventLogs(
-        const std::vector<EventLogObjectsType>& eventRecords)
+        const std::vector<EventLogObjectsType>& eventRecords,
+        const bool handleMessageArgs)
     {
         nlohmann::json::array_t logEntryArray;
         for (const EventLogObjectsType& logEntry : eventRecords)
@@ -481,7 +503,8 @@ class Subscription : public persistent_data::UserSubscription
             nlohmann::json::object_t bmcLogEntry;
             if (event_log::formatEventLogEntry(
                     logEntry.id, logEntry.messageId, messageArgsView,
-                    logEntry.timestamp, customText, bmcLogEntry) != 0)
+                    logEntry.timestamp, customText, handleMessageArgs,
+                    bmcLogEntry) != 0)
             {
                 BMCWEB_LOG_DEBUG("Read eventLog entry failed");
                 continue;
@@ -1256,7 +1279,7 @@ class EventServiceManager
             std::shared_ptr<Subscription> entry = it.second;
             if (entry->eventFormatType == "Event")
             {
-                entry->filterAndSendEventLogs(eventRecords);
+                entry->filterAndSendEventLogs(eventRecords, true);
             }
         }
     }
@@ -1365,9 +1388,100 @@ class EventServiceManager
             });
     }
 
+    static bool eventLogObjectFromDBus(
+        const dbus::utility::DBusPropertiesMap& map, EventLogObjectsType& event)
+    {
+        std::optional<DbusEventLogEntry> optEntry =
+            fillDbusEventLogEntryFromPropertyMap(map);
+
+        if (!optEntry.has_value())
+        {
+            return false;
+        }
+        DbusEventLogEntry entry = optEntry.value();
+        event.id = std::to_string(entry.Id);
+        event.timestamp = std::to_string(entry.Timestamp);
+        event.messageId = entry.Message;
+
+        // The order of 'AdditionalData' is not what's specified in an e.g.
+        // busctl call to create the Event Log Entry. So it cannot be used
+        // to map to the message args. Leaving this branch here for it to be
+        // implemented when the mapping is available
+
+        return true;
+    }
+
+    static void dbusEventLogMatchHandlerSingleEntry(
+        const dbus::utility::DBusPropertiesMap& map)
+    {
+        EventLogObjectsType event;
+        bool success = eventLogObjectFromDBus(map, event);
+        if (!success)
+        {
+            BMCWEB_LOG_ERROR("could not parse event log entry from dbus");
+            return;
+        }
+
+        BMCWEB_LOG_DEBUG(
+            "found Event Log Entry Id={}, Timestamp={}, Message={}", event.id,
+            event.timestamp, event.messageId);
+
+        const std::vector<EventLogObjectsType> eventRecords = {event};
+        for (const auto& it :
+             EventServiceManager::getInstance().subscriptionsMap)
+        {
+            std::shared_ptr<Subscription> entry = it.second;
+            if (entry->eventFormatType == "Event")
+            {
+                entry->filterAndSendEventLogs(eventRecords, false);
+            }
+        }
+    }
+
+    static void dbusEventLogMatchHandler(sdbusplus::message_t& msg)
+    {
+        BMCWEB_LOG_DEBUG("Handling new DBus Event Log Entry");
+
+        sdbusplus::message::object_path objectPath;
+        dbus::utility::DBusInterfacesMap interfaces;
+
+        msg.read(objectPath, interfaces);
+
+        for (auto& pair : interfaces)
+        {
+            BMCWEB_LOG_DEBUG("found dbus interface {}", pair.first);
+            if (pair.first == "xyz.openbmc_project.Logging.Entry")
+            {
+                const dbus::utility::DBusPropertiesMap& map = pair.second;
+                dbusEventLogMatchHandlerSingleEntry(map);
+            }
+        }
+    }
+
+    static void registerDbusEventLogMatch()
+    {
+        BMCWEB_LOG_DEBUG("Registering Dbus Event Log Added Signal");
+        std::string propertiesMatchString =
+            ("type='signal',"
+             "sender='xyz.openbmc_project.Logging',"
+             "interface='org.freedesktop.DBus.ObjectManager',"
+             "path='/xyz/openbmc_project/logging',"
+             "member='InterfacesAdded'");
+
+        dbusEventLogMonitor = std::make_unique<sdbusplus::bus::match_t>(
+            *crow::connections::systemBus, propertiesMatchString,
+            dbusEventLogMatchHandler);
+    }
+
     static int startEventLogMonitor(boost::asio::io_context& ioc)
     {
         BMCWEB_LOG_DEBUG("starting Event Log Monitor");
+
+        if constexpr (BMCWEB_REDFISH_DBUS_LOG)
+        {
+            registerDbusEventLogMatch();
+            return 0;
+        }
 
         inotifyConn.emplace(ioc);
         inotifyFd = inotify_init1(IN_NONBLOCK);
