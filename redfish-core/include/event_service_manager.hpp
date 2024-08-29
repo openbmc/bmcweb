@@ -23,6 +23,9 @@ limitations under the License.
 #include "ossl_random.hpp"
 #include "persistent_data.hpp"
 #include "subscription.hpp"
+#include "utility.hpp"
+#include "utils/dbus_event_log_entry.hpp"
+#include "utils/json_utils.hpp"
 #include "utils/time_utils.hpp"
 
 #include <sys/inotify.h>
@@ -32,6 +35,7 @@ limitations under the License.
 #include <boost/container/flat_map.hpp>
 #include <boost/url/format.hpp>
 #include <boost/url/url_view_base.hpp>
+#include <sdbusplus/bus.hpp>
 #include <sdbusplus/bus/match.hpp>
 
 #include <algorithm>
@@ -43,6 +47,7 @@ limitations under the License.
 #include <string>
 #include <string_view>
 #include <utility>
+#include <variant>
 
 namespace redfish
 {
@@ -92,6 +97,8 @@ class EventServiceManager
     boost::circular_buffer<Event> messages{maxMessages};
 
     boost::asio::io_context& ioc;
+
+    std::unique_ptr<sdbusplus::bus::match_t> dbusEventLogMonitor;
 
   public:
     EventServiceManager(const EventServiceManager&) = delete;
@@ -801,9 +808,102 @@ class EventServiceManager
             });
     }
 
-    static int startEventLogMonitor(boost::asio::io_context& ioc)
+    static bool eventLogObjectFromDBus(
+        const dbus::utility::DBusPropertiesMap& map, EventLogObjectsType& event)
+    {
+        std::optional<DbusEventLogEntry> optEntry =
+            fillDbusEventLogEntryFromPropertyMap(map);
+
+        if (!optEntry.has_value())
+        {
+            BMCWEB_LOG_ERROR(
+                "Could not construct event log entry from dbus properties");
+            return false;
+        }
+        DbusEventLogEntry& entry = optEntry.value();
+        event.id = std::to_string(entry.Id);
+        event.timestamp = std::to_string(entry.Timestamp);
+        event.messageId = entry.Message;
+
+        // The order of 'AdditionalData' is not what's specified in an e.g.
+        // busctl call to create the Event Log Entry. So it cannot be used
+        // to map to the message args. Leaving this branch here for it to be
+        // implemented when the mapping is available
+
+        return true;
+    }
+
+    static void dbusEventLogMatchHandlerSingleEntry(
+        const dbus::utility::DBusPropertiesMap& map)
+    {
+        EventLogObjectsType event;
+        bool success = eventLogObjectFromDBus(map, event);
+        if (!success)
+        {
+            BMCWEB_LOG_ERROR("Could not parse event log entry from dbus");
+            return;
+        }
+
+        BMCWEB_LOG_DEBUG(
+            "Found Event Log Entry Id={}, Timestamp={}, Message={}", event.id,
+            event.timestamp, event.messageId);
+
+        const std::vector<EventLogObjectsType> eventRecords = {event};
+        for (const auto& it :
+             EventServiceManager::getInstance().subscriptionsMap)
+        {
+            std::shared_ptr<Subscription> entry = it.second;
+            entry->filterAndSendEventLogs(eventRecords);
+        }
+    }
+
+    static void onDbusEventLogCreated(sdbusplus::message_t& msg)
+    {
+        BMCWEB_LOG_DEBUG("Handling new DBus Event Log Entry");
+
+        sdbusplus::message::object_path objectPath;
+        dbus::utility::DBusInterfacesMap interfaces;
+
+        msg.read(objectPath, interfaces);
+
+        for (auto& pair : interfaces)
+        {
+            BMCWEB_LOG_DEBUG("Found dbus interface {}", pair.first);
+            if (pair.first == "xyz.openbmc_project.Logging.Entry")
+            {
+                const dbus::utility::DBusPropertiesMap& map = pair.second;
+                dbusEventLogMatchHandlerSingleEntry(map);
+            }
+        }
+    }
+
+    void registerDbusEventLogMatch()
+    {
+        BMCWEB_LOG_DEBUG("Registering Dbus Event Log Added Signal");
+
+        std::string propertiesMatchString =
+            sdbusplus::bus::match::rules::type::signal() +
+            sdbusplus::bus::match::rules::sender(
+                "xyz.openbmc_project.Logging") +
+            sdbusplus::bus::match::rules::interface(
+                "org.freedesktop.DBus.ObjectManager") +
+            sdbusplus::bus::match::rules::path("/xyz/openbmc_project/logging") +
+            sdbusplus::bus::match::rules::member("InterfacesAdded");
+
+        dbusEventLogMonitor = std::make_unique<sdbusplus::bus::match_t>(
+            *crow::connections::systemBus, propertiesMatchString,
+            onDbusEventLogCreated);
+    }
+
+    int startEventLogMonitor()
     {
         BMCWEB_LOG_DEBUG("starting Event Log Monitor");
+
+        if constexpr (BMCWEB_REDFISH_DBUS_LOG)
+        {
+            registerDbusEventLogMatch();
+            return 0;
+        }
 
         inotifyConn.emplace(ioc);
         inotifyFd = inotify_init1(IN_NONBLOCK);
