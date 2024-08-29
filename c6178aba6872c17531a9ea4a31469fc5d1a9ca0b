@@ -69,6 +69,24 @@
       "parentUuid": "4e182db3_f249fd18",
       "revId": "c6178aba6872c17531a9ea4a31469fc5d1a9ca0b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f2990cb_acd13f53",
+        "filename": "redfish-core/schema/dmtf/json-schema-installed/Certificate.v1_8_2.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-08-29T20:49:20Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/bmcweb/+/74162 makes this even better",
+      "parentUuid": "89d2539a_05f12386",
+      "revId": "c6178aba6872c17531a9ea4a31469fc5d1a9ca0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ],
   "submitRequirementResults": []
