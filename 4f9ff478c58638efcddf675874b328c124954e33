@@ -159,6 +159,30 @@
       },
       "revId": "4f9ff478c58638efcddf675874b328c124954e33",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5d9a61b_d0927b15",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-29T15:31:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc8e8bc0_181430f5",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 26
+      },
+      "revId": "4f9ff478c58638efcddf675874b328c124954e33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
