@@ -51,6 +51,24 @@
       "message": "Shouldn\u0027t the link name (Certificate.v1_8_2.json) to be (Certificate.v1_8_3.json)?\n\n```\n ./redfish-core/schema/dmtf/json-schema/Certificate.v1_8_3.json\n ./redfish-core/schema/dmtf/json-schema-installed/Certificate.v1_8_2.json -\u003e ../json-schema/Certificate.v1_8_3.json\n\n```",
       "revId": "c6178aba6872c17531a9ea4a31469fc5d1a9ca0b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89d2539a_05f12386",
+        "filename": "redfish-core/schema/dmtf/json-schema-installed/Certificate.v1_8_2.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-08-29T20:28:44Z",
+      "side": 1,
+      "message": "Yeah.. You are correct, this just fixes the link. It should also update the name..",
+      "parentUuid": "4e182db3_f249fd18",
+      "revId": "c6178aba6872c17531a9ea4a31469fc5d1a9ca0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ],
   "submitRequirementResults": []
