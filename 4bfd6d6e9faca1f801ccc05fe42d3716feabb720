@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3f8733fa_fe92d5ae",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-08-29T16:08:20Z",
+      "side": 1,
+      "message": "I was advised not to pass tokens over DBUS. Is it so?",
+      "parentUuid": "7ab51f91_842025bc",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 26
+      },
+      "revId": "4bfd6d6e9faca1f801ccc05fe42d3716feabb720",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a9dabda8_b302b586",
         "filename": "include/pam_authenticate.hpp",
         "patchSetId": 7
@@ -37,6 +61,24 @@
       "writtenOn": "2024-08-29T15:40:52Z",
       "side": 1,
       "message": "Just make a single member method here.  No need for a struct at this point.",
+      "revId": "4bfd6d6e9faca1f801ccc05fe42d3716feabb720",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3df1164_031a92e6",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-08-29T16:08:20Z",
+      "side": 1,
+      "message": "if the Totp verify method goes to user-manager then we don\u0027t need this function in bmcweb.",
+      "parentUuid": "a9dabda8_b302b586",
       "revId": "4bfd6d6e9faca1f801ccc05fe42d3716feabb720",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
