@@ -27,11 +27,13 @@ int main(int argc, char** argv) noexcept(false)
     std::string method = "SetLogLevel";
 
     std::string loglevel;
-    app.add_option("-l,--loglevel", loglevel, "Set bmcweb log level");
+    app.require_subcommand(1);
+    CLI::App* sub = app.add_subcommand("loglevel", "logging functionality");
+    sub->add_option("level", loglevel, "Set bmcweb log level")->required();
 
     CLI11_PARSE(app, argc, argv)
 
-    BMCWEB_LOG_INFO("Working on log-level: {}", loglevel);
+    BMCWEB_LOG_INFO("Attempting to change logging level to: {}", loglevel);
 
     // Set up dbus connection:
     boost::asio::io_context io;
@@ -45,7 +47,6 @@ int main(int argc, char** argv) noexcept(false)
                 BMCWEB_LOG_ERROR("SetLogLevel returned error with {}", ec);
                 return;
             }
-            BMCWEB_LOG_INFO("Successfully changed log-level ");
             io.stop();
         },
         service, path, iface, method, loglevel);
