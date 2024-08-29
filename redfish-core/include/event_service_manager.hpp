@@ -14,6 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 #pragma once
+#include "dbus_event_log_entry.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "event_service_store.hpp"
@@ -38,6 +39,7 @@ limitations under the License.
 #include <boost/container/flat_map.hpp>
 #include <boost/url/format.hpp>
 #include <boost/url/url_view_base.hpp>
+#include <sdbusplus/bus.hpp>
 #include <sdbusplus/bus/match.hpp>
 
 #include <algorithm>
@@ -47,6 +49,7 @@ limitations under the License.
 #include <memory>
 #include <ranges>
 #include <span>
+#include <variant>
 
 namespace redfish
 {
@@ -60,6 +63,11 @@ static constexpr const char* eventServiceFile =
 
 static constexpr const uint8_t maxNoOfSubscriptions = 20;
 static constexpr const uint8_t maxNoOfSSESubscriptions = 10;
+
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
+static std::optional<std::unique_ptr<sdbusplus::bus::match_t>>
+    // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
+    dbusEventLogMonitor;
 
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static std::optional<boost::asio::posix::stream_descriptor> inotifyConn;
@@ -110,6 +118,8 @@ static const Message* formatMessage(std::string_view messageID)
     bmcweb::split(fields, messageID, '.');
     if (fields.size() != 4)
     {
+        BMCWEB_LOG_WARNING("malformed messageId \"{}\" (does not have 4 parts)",
+                           messageID);
         return nullptr;
     }
     const std::string& registryName = fields[0];
@@ -231,6 +241,8 @@ inline int formatEventLogEntry(
 
     if (message == nullptr)
     {
+        BMCWEB_LOG_WARNING("did not find messageId {} in message registries",
+                           messageID);
         return -1;
     }
 
@@ -238,6 +250,7 @@ inline int formatEventLogEntry(
         redfish::registries::fillMessageArgs(messageArgs, message->message);
     if (msg.empty())
     {
+        BMCWEB_LOG_WARNING("could not fill message args");
         return -1;
     }
 
@@ -1305,9 +1318,93 @@ class EventServiceManager
             });
     }
 
+    static void eventLogObjectFromDBus(
+        const dbus::utility::DBusPropertiesMap& map, EventLogObjectsType& event)
+    {
+        DbusEventLogEntry entry;
+        fillDbusEventLogEntryFromPropertyMap(map, entry);
+        event.id = std::to_string(entry.Id);
+        event.timestamp = std::to_string(entry.Timestamp);
+        event.messageId = entry.Message;
+
+        // The order of 'AdditionalData' is not what's specified in an e.g.
+        // busctl call to create the Event Log Entry. So it cannot be used
+        // to map to the message args. Leaving this branch here for it to be
+        // implemented when the mapping is available
+
+        event.messageArgs = {"?", "?", "?", "?", "?", "?", "?"};
+    }
+
+    static void dbusEventLogMatchHandlerSingleEntry(
+        const dbus::utility::DBusPropertiesMap& map)
+    {
+        EventLogObjectsType event;
+        eventLogObjectFromDBus(map, event);
+
+        BMCWEB_LOG_DEBUG(
+            "found Event Log Entry Id={}, Timestamp={}, Message={}", event.id,
+            event.timestamp, event.messageId);
+
+        const std::vector<EventLogObjectsType> eventRecords = {event};
+        for (const auto& it :
+             EventServiceManager::getInstance().subscriptionsMap)
+        {
+            std::shared_ptr<Subscription> entry = it.second;
+            if (entry->eventFormatType == "Event")
+            {
+                entry->filterAndSendEventLogs(eventRecords);
+            }
+        }
+    }
+
+    static void dbusEventLogMatchHandler(sdbusplus::message_t& msg)
+    {
+        BMCWEB_LOG_DEBUG("Handling new DBus Event Log Entry");
+
+        sdbusplus::message::object_path objectPath;
+        dbus::utility::DBusInterfacesMap interfaces;
+
+        msg.read(objectPath, interfaces);
+
+        for (auto& pair : interfaces)
+        {
+            BMCWEB_LOG_DEBUG("{}", pair.first);
+            const std::string logEntryInterface =
+                "xyz.openbmc_project.Logging.Entry";
+            if (pair.first == logEntryInterface)
+            {
+                const dbus::utility::DBusPropertiesMap& map = pair.second;
+                dbusEventLogMatchHandlerSingleEntry(map);
+            }
+        }
+    }
+
+    static void registerDbusEventLogMatch()
+    {
+        BMCWEB_LOG_DEBUG("Registering Dbus Event Log Added Signal");
+        std::string propertiesMatchString =
+            ("type='signal',"
+             "sender='xyz.openbmc_project.Logging',"
+             "interface='org.freedesktop.DBus.ObjectManager',"
+             "path='/xyz/openbmc_project/logging',"
+             "member='InterfacesAdded'");
+
+        std::function<void(sdbusplus::message_t&)> callback =
+            dbusEventLogMatchHandler;
+
+        dbusEventLogMonitor = std::make_unique<sdbusplus::bus::match_t>(
+            *crow::connections::systemBus, propertiesMatchString, callback);
+    }
+
     static int startEventLogMonitor(boost::asio::io_context& ioc)
     {
         BMCWEB_LOG_DEBUG("starting Event Log Monitor");
+
+        if constexpr (BMCWEB_REDFISH_DBUS_LOG)
+        {
+            registerDbusEventLogMatch();
+            return 0;
+        }
 
         inotifyConn.emplace(ioc);
         inotifyFd = inotify_init1(IN_NONBLOCK);
