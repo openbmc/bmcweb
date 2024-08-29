@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ab51f91_842025bc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-29T15:40:52Z",
+      "side": 1,
+      "message": "In the design proposed I would expect this to go in phosphor-user-manager and be accessed over dbus, not in bmcweb.",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 26
+      },
+      "revId": "4bfd6d6e9faca1f801ccc05fe42d3716feabb720",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9dabda8_b302b586",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-29T15:40:52Z",
+      "side": 1,
+      "message": "Just make a single member method here.  No need for a struct at this point.",
+      "revId": "4bfd6d6e9faca1f801ccc05fe42d3716feabb720",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
