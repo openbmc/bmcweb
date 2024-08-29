@@ -123,21 +123,29 @@ int getEventLogParams(const std::string& logEntry, std::string& timestamp,
 int formatEventLogEntry(
     const std::string& logEntryID, const std::string& messageID,
     const std::span<std::string_view> messageArgs, std::string timestamp,
-    const std::string& customText, nlohmann::json::object_t& logEntryJson)
+    const std::string& customText, const bool handleMessageArgs,
+    nlohmann::json::object_t& logEntryJson)
 {
     // Get the Message from the MessageRegistry
     const registries::Message* message = registries::getMessage(messageID);
 
     if (message == nullptr)
     {
+        BMCWEB_LOG_WARNING("Did not find messageId {} in message registries",
+                           messageID);
         return -1;
     }
 
-    std::string msg =
-        redfish::registries::fillMessageArgs(messageArgs, message->message);
-    if (msg.empty())
+    std::string msg = message->message;
+    if (handleMessageArgs)
     {
-        return -1;
+        msg =
+            redfish::registries::fillMessageArgs(messageArgs, message->message);
+        if (msg.empty())
+        {
+            BMCWEB_LOG_WARNING("Could not fill message args");
+            return -1;
+        }
     }
 
     // Get the Created time from the timestamp. The log timestamp is in
@@ -156,7 +164,10 @@ int formatEventLogEntry(
     logEntryJson["Severity"] = message->messageSeverity;
     logEntryJson["Message"] = std::move(msg);
     logEntryJson["MessageId"] = messageID;
-    logEntryJson["MessageArgs"] = messageArgs;
+    if (handleMessageArgs)
+    {
+        logEntryJson["MessageArgs"] = messageArgs;
+    }
     logEntryJson["EventTimestamp"] = std::move(timestamp);
     logEntryJson["Context"] = customText;
     return 0;
