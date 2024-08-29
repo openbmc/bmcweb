@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62284b1d_8f83d539",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-29T15:38:10Z",
+      "side": 1,
+      "message": "now that all keys are optional in this struct, should we just omit the ones that aren\u0027t provided, rather than track a std::optional here?\n\n\nstd::pair\u003cstd::string_view, std::string_view\u003e;\n\nWhere if a token is provided, you get\n\n\"Password: \", \"\u003cuser password\u003e\",\n\"Verification code: \", \"\u003ctoken\u003e\"\n\nor if a token isn\u0027t provided, we just have \n\n\"Password: \", \"\u003cuser password\u003e\",\n\n\nThat seems a lot simpler of a struct?",
+      "range": {
+        "startLine": 12,
+        "startChar": 47,
+        "endLine": 12,
+        "endChar": 78
+      },
+      "revId": "d27a34eeeaf2977d84b286620df4e85619c85359",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e19f5a9_1398c8e3",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-29T15:38:10Z",
+      "side": 1,
+      "message": "why value_or here?  We checked this has a value on the line 2 lines up.",
+      "range": {
+        "startLine": 42,
+        "startChar": 54,
+        "endLine": 42,
+        "endChar": 66
+      },
+      "revId": "d27a34eeeaf2977d84b286620df4e85619c85359",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45ce9fae_e2b98aef",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-29T15:38:10Z",
+      "side": 1,
+      "message": "can\u0027t call data() on a string view without size().  The string isn\u0027t necessarily null terminated.",
+      "range": {
+        "startLine": 42,
+        "startChar": 67,
+        "endLine": 42,
+        "endChar": 71
+      },
+      "revId": "d27a34eeeaf2977d84b286620df4e85619c85359",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f98498b_1d40aaf2",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-29T15:38:10Z",
+      "side": 1,
+      "message": "Why was this broken out?  It\u0027s essentially one branch that we\u0027ve just duplicated",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 9
+      },
+      "revId": "d27a34eeeaf2977d84b286620df4e85619c85359",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7da5a7f4_60a9d520",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-29T15:38:10Z",
+      "side": 1,
+      "message": "Why do we need PasswordData::KVPair on one constructor and not the other?",
+      "range": {
+        "startLine": 127,
+        "startChar": 23,
+        "endLine": 127,
+        "endChar": 43
+      },
+      "revId": "d27a34eeeaf2977d84b286620df4e85619c85359",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
