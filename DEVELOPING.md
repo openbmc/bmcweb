@@ -252,5 +252,5 @@ application can be used to set the daemon's logging level on target. For
 example, to set logging level to INFO:
 
 ```bash
-bmcweb -l INFO
+bmcweb loglevel info
 ```
