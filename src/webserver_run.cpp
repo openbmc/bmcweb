@@ -115,14 +115,11 @@ int run()
 
     crow::login_routes::requestRoutes(app);
 
-    if constexpr (!BMCWEB_REDFISH_DBUS_LOG)
+    int rc = redfish::EventServiceManager::startEventLogMonitor(*io);
+    if (rc != 0)
     {
-        int rc = redfish::EventServiceManager::startEventLogMonitor(*io);
-        if (rc != 0)
-        {
-            BMCWEB_LOG_ERROR("Redfish event handler setup failed...");
-            return rc;
-        }
+        BMCWEB_LOG_ERROR("Redfish event handler setup failed...");
+        return rc;
     }
 
     if constexpr (!BMCWEB_INSECURE_DISABLE_SSL)
